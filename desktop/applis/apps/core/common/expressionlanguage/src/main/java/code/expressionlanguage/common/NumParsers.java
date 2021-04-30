@@ -273,98 +273,42 @@ public final class NumParsers {
         StringBuilder exp_ = new StringBuilder(_nb.getExponentialPart());
         removeNbSep(exp_);
         boolean positive_ = _nb.isPositive();
-        LongInfo expNb_;
-        if (exp_.length() == 0) {
-            expNb_ = new LongInfo(0);
-        } else {
-            String str_ = exp_.toString();
-            if (str_.startsWith("+")) {
-                str_ = str_.substring(1);
-            }
-            expNb_ = parseLong(str_, 10);
-        }
+        LongInfo expNb_ = exponent(exp_);
         if (!expNb_.isValid()) {
             if (positive_) {
-                if (exp_.charAt(0) == '-') {
+                if (StringExpUtil.startsWith(exp_,'-')) {
                     return new DoubleInfo(0.0);
                 }
                 return new DoubleInfo(Double.POSITIVE_INFINITY);
             }
-            if (exp_.charAt(0) == '-') {
+            if (StringExpUtil.startsWith(exp_,'-')) {
                 return new DoubleInfo(-0.0);
             }
             return new DoubleInfo(Double.NEGATIVE_INFINITY);
         }
         long expNbLong_ = expNb_.getValue();
+        StringBuilder nb_ = new StringBuilder(int_);
+        nb_.append(dec_);
         if (_nb.getBase() == 16) {
-            StringBuilder merged_ = new StringBuilder(int_.length()+dec_.length());
-            merged_.append(int_);
-            merged_.append(dec_);
-            long longValue_ = parseLongSixteen(merged_.toString());
-            double parsed_ = (double) longValue_;
-            long delta_ = expNbLong_;
-            delta_ -= 4L * dec_.length();
-            double p_ = 1.0;
-            long absExpNbLong_ = Math.abs(delta_);
-            for (int i = 0; i < absExpNbLong_; i++) {
-                p_ *= 2.0;
-            }
-            boolean zero_ = longValue_ == 0;
-            if (delta_ > 0) {
-                return new DoubleInfo(parsed_ * p_,zero_);
-            }
-            return new DoubleInfo(parsed_ / p_,zero_);
+            long longValue_ = parseLongSixteen(nb_.toString());
+            return buildNb(dec_, expNbLong_, longValue_, 4L);
         }
         if (_nb.getBase() == 2) {
-            StringBuilder merged_ = new StringBuilder(int_.length()+dec_.length());
-            merged_.append(int_);
-            merged_.append(dec_);
-            long longValue_ = parseLongBase(merged_.toString(), 2);
-            double parsed_ = (double) longValue_;
-            long delta_ = expNbLong_;
-            delta_ -= dec_.length();
-            double p_ = 1.0;
-            long absExpNbLong_ = Math.abs(delta_);
-            for (int i = 0; i < absExpNbLong_; i++) {
-                p_ *= 2.0;
-            }
-            boolean zero_ = longValue_ == 0;
-            if (delta_ > 0) {
-                return new DoubleInfo(parsed_ * p_,zero_);
-            }
-            return new DoubleInfo(parsed_ / p_,zero_);
+            long longValue_ = parseLongBase(nb_.toString(), 2);
+            return buildNb(dec_, expNbLong_, longValue_, 1L);
         }
         if (_nb.getBase() == 8) {
-            StringBuilder merged_ = new StringBuilder(int_.length()+dec_.length());
-            merged_.append(int_);
-            merged_.append(dec_);
-            long longValue_ = parseLongBase(merged_.toString(), 8);
-            double parsed_ = (double) longValue_;
-            long delta_ = expNbLong_;
-            delta_ -= 3L*dec_.length();
-            double p_ = 1.0;
-            long absExpNbLong_ = Math.abs(delta_);
-            for (int i = 0; i < absExpNbLong_; i++) {
-                p_ *= 2.0;
-            }
-            boolean zero_ = longValue_ == 0;
-            if (delta_ > 0) {
-                return new DoubleInfo(parsed_ * p_,zero_);
-            }
-            return new DoubleInfo(parsed_ / p_,zero_);
+            long longValue_ = parseLongBase(nb_.toString(), 8);
+            return buildNb(dec_, expNbLong_, longValue_, 3L);
         }
         if (dec_.length() == 0) {
             if (expNbLong_ == 0) {
                 if (int_.length() > MAX_DIGITS_DOUBLE) {
-                    return new DoubleInfo(processBigNumbers(int_, positive_));
+                    return bigNb(positive_, int_);
                 }
                 long longValue_ = parseQuickLongTen(int_.toString());
                 double value_ = (double) longValue_;
-                boolean zero_ = longValue_ == 0;
-                if (!positive_) {
-                    return new DoubleInfo(-value_,zero_);
-                }
-                return new DoubleInfo(value_,zero_);
+                return buildNbSimple(positive_, longValue_, value_);
             }
             double value_;
             long longValue_;
@@ -376,56 +320,29 @@ public final class NumParsers {
                 longValue_ = parseQuickLongTen(int_.toString());
                 value_ = (double)longValue_;
             }
-            double power_ = 1.0;
-            long absExp_ = Math.abs(expNbLong_);
-            for (long i = 0; i < absExp_; i++) {
-                power_ *= 10.0;
-            }
-            boolean zero_ = longValue_ == 0;
+            double power_ = pow(expNbLong_,10.0);
             if (!positive_) {
-                if (expNbLong_ > 0) {
-                    return new DoubleInfo(-value_ * power_,zero_);
-                }
-                return new DoubleInfo(-value_ / power_,zero_);
+                return buildNb(-value_, expNbLong_, power_, longValue_);
             }
-            if (expNbLong_ > 0) {
-                return new DoubleInfo(value_ * power_,zero_);
-            }
-            return new DoubleInfo(value_ / power_,zero_);
+            return buildNb(value_, expNbLong_, power_, longValue_);
         }
         if (expNbLong_ >= dec_.length()) {
             //try to get "double" as int
-            StringBuilder number_ = new StringBuilder(int_.length()+dec_.length());
-            number_.append(int_);
-            number_.append(dec_);
+            StringBuilder number_ = new StringBuilder(nb_);
             int diff_ = (int)expNbLong_-dec_.length();
             for (long i = 0; i < diff_; i++) {
                 number_.append("0");
             }
             if (number_.length() > MAX_DIGITS_DOUBLE) {
-                return new DoubleInfo(processBigNumbers(number_, positive_));
+                return bigNb(positive_, number_);
             }
             long longValue_ = parseQuickLongTen(number_.toString());
             double value_ = (double) longValue_;
-            boolean zero_ = longValue_ == 0;
-            if (!positive_) {
-                return new DoubleInfo(-value_,zero_);
-            }
-            return new DoubleInfo(value_,zero_);
+            return buildNbSimple(positive_, longValue_, value_);
         }
         if (-expNbLong_ >= int_.length()) {
-            StringBuilder number_ = new StringBuilder(int_);
-            number_.append(dec_);
-            StringBuilder decCopy_ = new StringBuilder();
-            int index_ = 0;
-            while (index_ < number_.length()) {
-                if (number_.charAt(index_) != '0') {
-                    break;
-                }
-                index_++;
-            }
-            int nbLeadingZeros_ = index_;
-            decCopy_.append(number_.substring(nbLeadingZeros_));
+            int index_ = indexNotZero(nb_);
+            StringBuilder decCopy_ = new StringBuilder(nb_.substring(index_));
             if (decCopy_.length() == 0) {
                 if (!positive_) {
                     return new DoubleInfo(-0.0,true);
@@ -436,15 +353,16 @@ public final class NumParsers {
             int diff_;
             if (decCopy_.length() > MAX_DIGITS_DOUBLE) {
                 value_ = (double) parseQuickLongTen(decCopy_.substring(0, MAX_DIGITS_DOUBLE + 1));
-                diff_ = (int) (-expNbLong_ - int_.length() + MAX_DIGITS_DOUBLE + 1 + nbLeadingZeros_);
+                diff_ = (int) (-expNbLong_ - int_.length() + MAX_DIGITS_DOUBLE + 1 + index_);
+                //-expNbLong_ >= int_.length() => -expNbLong_ - int_.length() >= 0
+                //-expNbLong_ >= int_.length() => -expNbLong_ - int_.length() + 1 > 0
+                //-expNbLong_ >= int_.length() => -expNbLong_ - int_.length() + MAX_DIGITS_DOUBLE + 1 > MAX_DIGITS_DOUBLE > 0
             } else {
+                //expNbLong_ < dec_.length() => 0 < dec_.length() - expNbLong_
                 value_ = (double) parseQuickLongTen(decCopy_.toString());
                 diff_ = (int) (-expNbLong_ + dec_.length());
             }
-            double power_ = 1.0;
-            for (int i = 0; i < diff_; i++) {
-                power_ *= 10.0;
-            }
+            double power_ = pow(diff_,10.0);
             if (!positive_) {
                 return new DoubleInfo(-value_ / power_);
             }
@@ -473,28 +391,15 @@ public final class NumParsers {
             numberDec_.append(dec_);
         }
         if (numberInt_.length() > MAX_DIGITS_DOUBLE) {
-            return new DoubleInfo(processBigNumbers(numberInt_, positive_));
+            return bigNb(positive_, numberInt_);
         }
         long longValue_ = parseQuickLongTen(numberInt_.toString());
         double value_ = (double) longValue_;
-        StringBuilder decCopy_ = new StringBuilder();
-        int nbLeadingZeros_;
-        int index_ = 0;
-        while (index_ < numberDec_.length()) {
-            if (numberDec_.charAt(index_) != '0') {
-                break;
-            }
-            index_++;
-        }
-        nbLeadingZeros_ = index_;
-        decCopy_.append(numberDec_.substring(nbLeadingZeros_));
+        int index_ = indexNotZero(numberDec_);
+        StringBuilder decCopy_ = new StringBuilder(numberDec_.substring(index_));
         decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
         if (decCopy_.length() == 0) {
-            boolean zero_ = longValue_ == 0;
-            if (!positive_) {
-                return new DoubleInfo(-value_,zero_);
-            }
-            return new DoubleInfo(value_,zero_);
+            return buildNbSimple(positive_, longValue_, value_);
         }
         long decLongValue_ = parseQuickLongTen(decCopy_.toString());
         double decValue_ = (double) decLongValue_;
@@ -507,6 +412,72 @@ public final class NumParsers {
             return new DoubleInfo(-value_ - decValue_ / power_);
         }
         return new DoubleInfo(value_ + decValue_ / power_);
+    }
+
+    private static LongInfo exponent(StringBuilder _exp) {
+        LongInfo expNb_;
+        if (StringExpUtil.startsWith(_exp,'+')) {
+            expNb_ = parseLong(_exp.substring(1), 10);
+        } else if (_exp.length() == 0) {
+            expNb_ = new LongInfo(0);
+        } else {
+            expNb_ = parseLong(_exp.toString(), 10);
+        }
+        return expNb_;
+    }
+
+    private static DoubleInfo bigNb(boolean _positive, StringBuilder _number) {
+        return new DoubleInfo(processBigNumbers(_number, _positive));
+    }
+
+    private static DoubleInfo buildNbSimple(boolean _positive, long _longValue, double _value) {
+        boolean zero_ = _longValue == 0;
+        if (!_positive) {
+            return new DoubleInfo(-_value, zero_);
+        }
+        return new DoubleInfo(_value, zero_);
+    }
+
+    private static DoubleInfo buildNb(StringBuilder _dec, long _expNbLong, long _longValue, long _ra) {
+        double parsed_ = (double) _longValue;
+        long delta_ = delta(_dec, _expNbLong, _ra);
+        double p_ = pow(delta_, 2.0);
+        return buildNb(parsed_, delta_, p_, _longValue);
+    }
+
+    private static long delta(StringBuilder _dec, long _expNbLong, long _ra) {
+        return _expNbLong - _ra * _dec.length();
+    }
+
+    private static double pow(long _delta, double _exp) {
+        double p_ = 1.0;
+        long absExpNbLong_ = Math.abs(_delta);
+        for (int i = 0; i < absExpNbLong_; i++) {
+            p_ *= _exp;
+        }
+        return p_;
+    }
+
+    private static DoubleInfo buildNb(double _parsed, long _delta, double _p, long _longValue) {
+        return buildNb(_parsed, _delta, _p, _longValue == 0);
+    }
+
+    private static DoubleInfo buildNb(double _parsed, long _delta, double _p, boolean _zero) {
+        if (_delta > 0) {
+            return new DoubleInfo(_parsed * _p,_zero);
+        }
+        return new DoubleInfo(_parsed / _p,_zero);
+    }
+
+    private static int indexNotZero(StringBuilder _number) {
+        int index_ = 0;
+        while (index_ < _number.length()) {
+            if (_number.charAt(index_) != '0') {
+                break;
+            }
+            index_++;
+        }
+        return index_;
     }
 
     private static void removeNbSep(StringBuilder _part) {
@@ -831,65 +802,64 @@ public final class NumParsers {
         long multmin_;
         int digit_;
 
-        if (max_ > 0) {
-            if (_string.charAt(0) == '-') {
-                negative_ = true;
-                limit_ = Long.MIN_VALUE;
-                i_++;
+        if (max_ <= 0) {
+            return new LongInfo();
+        }
+        if (_string.charAt(0) == '-') {
+            negative_ = true;
+            limit_ = Long.MIN_VALUE;
+            i_++;
+        } else {
+            limit_ = -Long.MAX_VALUE;
+        }
+        if (_radix == DEFAULT_RADIX) {
+            if (negative_) {
+                multmin_ = MULTMIN_RADIX_TEN;
             } else {
-                limit_ = -Long.MAX_VALUE;
-            }
-            if (_radix == DEFAULT_RADIX) {
-                if (negative_) {
-                    multmin_ = MULTMIN_RADIX_TEN;
-                } else {
-                    multmin_ = N_MULTMAX_RADIX_TEN;
-                }
-            } else {
-                multmin_ = limit_ / _radix;
-            }
-            if (i_ < max_) {
-                int ch_ = _string.charAt(i_);
-                if (nonParsableChar(ch_)) {
-                    return new LongInfo();
-                }
-                if (ch_ >= 'A' && ch_ <= 'Z') {
-                    ch_ = ch_ - 'A' + 'a';
-                }
-                i_++;
-                int dig_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
-                if (dig_ >= _radix) {
-                    return new LongInfo();
-                }
-                digit_ = dig_;
-                result_ = -digit_;
-            }
-            while (i_ < max_) {
-                // Accumulating negatively avoids surprises near MAX_VALUE
-                int ch_ = _string.charAt(i_);
-                if (nonParsableChar(ch_)) {
-                    return new LongInfo();
-                }
-                if (ch_ >= 'A' && ch_ <= 'Z') {
-                    ch_ = ch_ - 'A' + 'a';
-                }
-                i_++;
-                int dig_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
-                if (dig_ >= _radix) {
-                    return new LongInfo();
-                }
-                digit_ = dig_;
-                if (result_ < multmin_) {
-                    return new LongInfo();
-                }
-                result_ *= _radix;
-                if (result_ < limit_ + digit_) {
-                    return new LongInfo();
-                }
-                result_ -= digit_;
+                multmin_ = N_MULTMAX_RADIX_TEN;
             }
         } else {
-            return new LongInfo();
+            multmin_ = limit_ / _radix;
+        }
+        if (i_ < max_) {
+            int ch_ = _string.charAt(i_);
+            if (nonParsableChar(ch_)) {
+                return new LongInfo();
+            }
+            if (ch_ >= 'A' && ch_ <= 'Z') {
+                ch_ = ch_ - 'A' + 'a';
+            }
+            i_++;
+            int dig_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
+            if (dig_ >= _radix) {
+                return new LongInfo();
+            }
+            digit_ = dig_;
+            result_ = -digit_;
+        }
+        while (i_ < max_) {
+            // Accumulating negatively avoids surprises near MAX_VALUE
+            int ch_ = _string.charAt(i_);
+            if (nonParsableChar(ch_)) {
+                return new LongInfo();
+            }
+            if (ch_ >= 'A' && ch_ <= 'Z') {
+                ch_ = ch_ - 'A' + 'a';
+            }
+            i_++;
+            int dig_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
+            if (dig_ >= _radix) {
+                return new LongInfo();
+            }
+            digit_ = dig_;
+            if (result_ < multmin_) {
+                return new LongInfo();
+            }
+            result_ *= _radix;
+            if (result_ < limit_ + digit_) {
+                return new LongInfo();
+            }
+            result_ -= digit_;
         }
         if (negative_) {
             if (i_ > 1) {

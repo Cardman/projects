@@ -200,6 +200,9 @@ public final class StringExpUtil {
         return j_;
     }
 
+    public static boolean startsWith(CharSequence _string,char _char) {
+        return _string.length()>0&&_string.charAt(0)==_char;
+    }
     public static boolean isDigit(char _char) {
         return _char >= '0' && _char <= '9';
     }
