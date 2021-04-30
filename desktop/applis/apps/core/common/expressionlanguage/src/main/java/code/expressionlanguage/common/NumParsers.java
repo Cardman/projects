@@ -267,17 +267,11 @@ public final class NumParsers {
 
     public static DoubleInfo parseDouble(NumberInfos _nb) {
         StringBuilder int_ = new StringBuilder(_nb.getIntPart());
-        while(int_.indexOf("_") >= 0) {
-            int_.deleteCharAt(int_.indexOf("_"));
-        }
+        removeNbSep(int_);
         StringBuilder dec_ = new StringBuilder(_nb.getDecimalPart());
-        while(dec_.indexOf("_") >= 0) {
-            dec_.deleteCharAt(dec_.indexOf("_"));
-        }
+        removeNbSep(dec_);
         StringBuilder exp_ = new StringBuilder(_nb.getExponentialPart());
-        while(exp_.indexOf("_") >= 0) {
-            exp_.deleteCharAt(exp_.indexOf("_"));
-        }
+        removeNbSep(exp_);
         boolean positive_ = _nb.isPositive();
         LongInfo expNb_;
         if (exp_.length() == 0) {
@@ -513,6 +507,12 @@ public final class NumParsers {
             return new DoubleInfo(-value_ - decValue_ / power_);
         }
         return new DoubleInfo(value_ + decValue_ / power_);
+    }
+
+    private static void removeNbSep(StringBuilder _part) {
+        while (_part.indexOf("_") >= 0) {
+            _part.deleteCharAt(_part.indexOf("_"));
+        }
     }
 
     private static double processBigNumbers(StringBuilder _nb, boolean _positive) {
