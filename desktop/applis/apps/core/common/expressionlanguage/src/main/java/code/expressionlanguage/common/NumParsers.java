@@ -1472,47 +1472,51 @@ public final class NumParsers {
     }
 
     public static BooleanStruct compareNb(String _op, Struct _one, Struct _two) {
-        boolean complement_ = false;
-        String useOp_ = _op;
-        if (StringUtil.quickEq(_op, LOWER_EQ)) {
-            complement_ = true;
-            useOp_ = GREATER;
-        } else if (StringUtil.quickEq(_op, GREATER_EQ)) {
-            complement_ = true;
-            useOp_ = LOWER;
-        }
+        String useOp_ = usedOp(_op);
         BooleanStruct arg_;
         if (StringUtil.quickEq(useOp_, LOWER)) {
             arg_ = quickCalculateLowerNb(_one, _two);
         } else {
             arg_ = quickCalculateGreaterNb(_one, _two);
         }
-        if (complement_) {
+        if (complement(_op)) {
             arg_ = arg_.neg();
         }
         return arg_;
     }
 
     public static BooleanStruct compareStr(String _op, Struct _one, Struct _two) {
-        boolean complement_ = false;
-        String useOp_ = _op;
-        if (StringUtil.quickEq(_op, LOWER_EQ)) {
-            complement_ = true;
-            useOp_ = GREATER;
-        } else if (StringUtil.quickEq(_op, GREATER_EQ)) {
-            complement_ = true;
-            useOp_ = LOWER;
-        }
+        String useOp_ = usedOp(_op);
         BooleanStruct arg_;
         if (StringUtil.quickEq(useOp_, LOWER)) {
             arg_ = quickCalculateLowerStr(_one, _two);
         } else {
             arg_ = quickCalculateGreaterStr(_one, _two);
         }
-        if (complement_) {
+        if (complement(_op)) {
             arg_ = arg_.neg();
         }
         return arg_;
+    }
+
+    private static String usedOp(String _op) {
+        String useOp_ = _op;
+        if (StringUtil.quickEq(_op, LOWER_EQ)) {
+            useOp_ = GREATER;
+        } else if (StringUtil.quickEq(_op, GREATER_EQ)) {
+            useOp_ = LOWER;
+        }
+        return useOp_;
+    }
+
+    private static boolean complement(String _op) {
+        boolean complement_ = false;
+        if (StringUtil.quickEq(_op, LOWER_EQ)) {
+            complement_ = true;
+        } else if (StringUtil.quickEq(_op, GREATER_EQ)) {
+            complement_ = true;
+        }
+        return complement_;
     }
 
     public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {
