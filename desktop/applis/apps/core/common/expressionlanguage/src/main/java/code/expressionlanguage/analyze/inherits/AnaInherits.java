@@ -294,39 +294,20 @@ public final class AnaInherits {
     }
 
     static MappingPairs getCommentMappingPairs(String _arg, String _param, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
-        StringList typesArg_ = StringExpUtil.getAllTypes(_arg);
-        StringList typesParam_ = StringExpUtil.getAllTypes(_param);
-        DimComp dArg_ = StringExpUtil.getQuickComponentBaseType(_arg);
-        DimComp dParam_ = StringExpUtil.getQuickComponentBaseType(_param);
-        String baseArrayParam_ = dParam_.getComponent();
-        String baseArrayArg_ = dArg_.getComponent();
+        String idBaseArrayArg_ = StringExpUtil.getId(_arg);
+        String idBaseArrayParam_ = StringExpUtil.getId(_param);
+        String fct_ = _page.getAliasFct();
+        if (StringUtil.quickEq(idBaseArrayArg_, fct_) || StringUtil.quickEq(idBaseArrayParam_, fct_)) {
+            String obj_ = _page.getAliasObject();
+            return FeedMappingTypePair.getMappingFctPairs(_arg,_param,fct_,obj_);
+        }
         Mapping map_ = new Mapping();
         map_.setMapping(_inherit);
-        String fct_ = _page.getAliasFct();
-        String obj_ = _page.getAliasObject();
-        String idBaseArrayArg_ = StringExpUtil.getIdFromAllTypes(baseArrayArg_);
-        String idBaseArrayParam_ = StringExpUtil.getIdFromAllTypes(baseArrayParam_);
-        if (StringUtil.quickEq(idBaseArrayArg_, fct_)) {
-            if (StringUtil.quickEq(idBaseArrayParam_, fct_)) {
-                int dim_ = dArg_.getDim();
-                if (dim_ != dParam_.getDim()) {
-                    return null;
-                }
-                if (StringUtil.quickEq(baseArrayParam_, fct_)) {
-                    return new MappingPairs();
-                }
-                return FeedMappingTypePair.newMappingPairsFct(typesArg_, typesParam_, obj_);
-            }
-            return FeedMappingTypePair.getMappingFctPairs(dArg_, dParam_, baseArrayParam_, obj_);
-        }
-        if (StringUtil.quickEq(idBaseArrayParam_, fct_)) {
-            return null;
-        }
         String generic_ = getGeneric(_arg, _param, map_, _page);
         if (generic_.isEmpty()) {
             return null;
         }
-        return FeedMappingTypePair.newMappingPairs(generic_, typesParam_);
+        return FeedMappingTypePair.newMappingPairs(generic_, _param);
     }
 
     public static String getFullTypeByBases(AnaGeneType _typeSub, String _subType, String _superType, AnalyzedPageEl _page) {

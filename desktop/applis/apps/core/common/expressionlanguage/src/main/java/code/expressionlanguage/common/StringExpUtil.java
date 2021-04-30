@@ -66,6 +66,9 @@ public final class StringExpUtil {
         }
         return list_;
     }
+    public static String getId(String _type) {
+        return getIdFromAllTypes(getQuickComponentBase(_type));
+    }
     /** Returns the id of a type<br/>
      Sample 1: "int" => ["int"]<br/>
      Sample 2: "Pair&lt;int,long&gt;" => ["Pair"]<br/>

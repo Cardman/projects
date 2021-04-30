@@ -9,7 +9,31 @@ public final class FeedMappingTypePair {
     private FeedMappingTypePair() {
     }
 
-    public static MappingPairs getMappingFctPairs(DimComp _dArg, DimComp _dParam, String _baseArrayParam, String _aliasObject) {
+    public static MappingPairs getMappingFctPairs(String _arg, String _param, String _fct, String _obj) {
+        StringList typesArg_ = StringExpUtil.getAllTypes(_arg);
+        StringList typesParam_ = StringExpUtil.getAllTypes(_param);
+        DimComp dArg_ = StringExpUtil.getQuickComponentBaseType(_arg);
+        DimComp dParam_ = StringExpUtil.getQuickComponentBaseType(_param);
+        String baseArrayParam_ = dParam_.getComponent();
+        String baseArrayArg_ = dArg_.getComponent();
+        String idBaseArrayArg_ = StringExpUtil.getIdFromAllTypes(baseArrayArg_);
+        String idBaseArrayParam_ = StringExpUtil.getIdFromAllTypes(baseArrayParam_);
+        if (StringUtil.quickEq(idBaseArrayArg_, _fct)) {
+            if (StringUtil.quickEq(idBaseArrayParam_, _fct)) {
+                int dim_ = dArg_.getDim();
+                if (dim_ != dParam_.getDim()) {
+                    return null;
+                }
+                if (StringUtil.quickEq(baseArrayParam_, _fct)) {
+                    return new MappingPairs();
+                }
+                return newMappingPairsFct(typesArg_, typesParam_, _obj);
+            }
+            return getMappingFctPairs(dArg_, dParam_, baseArrayParam_, _obj);
+        }
+        return null;
+    }
+    private static MappingPairs getMappingFctPairs(DimComp _dArg, DimComp _dParam, String _baseArrayParam, String _aliasObject) {
         if (StringUtil.quickEq(_baseArrayParam, _aliasObject)) {
             int dim_ = _dArg.getDim();
             if (dim_ >= _dParam.getDim()) {
@@ -19,7 +43,7 @@ public final class FeedMappingTypePair {
         return null;
     }
     /**arg - param*/
-    public static MappingPairs newMappingPairsFct(StringList _args, StringList _params, String _objectType) {
+    private static MappingPairs newMappingPairsFct(StringList _args, StringList _params, String _objectType) {
         int len_ = _params.size();
         if (_args.size() != len_) {
             return null;
@@ -39,16 +63,17 @@ public final class FeedMappingTypePair {
     }
 
     /**arg - param*/
-    public static MappingPairs newMappingPairs(String _generic, StringList _params) {
+    public static MappingPairs newMappingPairs(String _generic, String _param) {
         StringList foundSuperClass_ = StringExpUtil.getAllTypes(_generic);
+        StringList typesParam_ = StringExpUtil.getAllTypes(_param);
         int len_ = foundSuperClass_.size();
-        if (_params.size() != len_) {
+        if (typesParam_.size() != len_) {
             return null;
         }
         CustList<Matching> pairsArgParam_ = new CustList<Matching>();
         for (int i = IndexConstants.SECOND_INDEX; i < len_; i++) {
             String arg_ = foundSuperClass_.get(i);
-            String param_ = _params.get(i);
+            String param_ = typesParam_.get(i);
             if (stopFct(arg_,param_,pairsArgParam_)) {
                 return null;
             }

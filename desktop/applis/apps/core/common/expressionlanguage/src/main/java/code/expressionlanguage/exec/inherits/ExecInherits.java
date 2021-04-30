@@ -76,37 +76,18 @@ public final class ExecInherits {
     }
 
     private static MappingPairs getExecutingCorrect(String _arg, String _param, ContextEl _context) {
-        StringList typesArg_ = StringExpUtil.getAllTypes(_arg);
-        StringList typesParam_ = StringExpUtil.getAllTypes(_param);
-        DimComp dArg_ = StringExpUtil.getQuickComponentBaseType(_arg);
-        DimComp dParam_ = StringExpUtil.getQuickComponentBaseType(_param);
-        String baseArrayArg_ = dArg_.getComponent();
-        String baseArrayParam_ = dParam_.getComponent();
+        String idBaseArrayArg_ = StringExpUtil.getId(_arg);
+        String idBaseArrayParam_ = StringExpUtil.getId(_param);
         String fct_ = _context.getStandards().getContent().getReflect().getAliasFct();
-        String obj_ = _context.getStandards().getContent().getCoreNames().getAliasObject();
-        String idBaseArrayArg_ = StringExpUtil.getIdFromAllTypes(baseArrayArg_);
-        String idBaseArrayParam_ = StringExpUtil.getIdFromAllTypes(baseArrayParam_);
-        if (StringUtil.quickEq(idBaseArrayArg_, fct_)) {
-            if (StringUtil.quickEq(idBaseArrayParam_, fct_)) {
-                int dim_ = dArg_.getDim();
-                if (dim_ != dParam_.getDim()) {
-                    return null;
-                }
-                if (StringUtil.quickEq(baseArrayParam_, fct_)) {
-                    return new MappingPairs();
-                }
-                return FeedMappingTypePair.newMappingPairsFct(typesArg_, typesParam_, obj_);
-            }
-            return FeedMappingTypePair.getMappingFctPairs(dArg_, dParam_, baseArrayParam_, obj_);
-        }
-        if (StringUtil.quickEq(idBaseArrayParam_, fct_)) {
-            return null;
+        if (StringUtil.quickEq(idBaseArrayArg_, fct_) || StringUtil.quickEq(idBaseArrayParam_, fct_)) {
+            String obj_ = _context.getStandards().getContent().getCoreNames().getAliasObject();
+            return FeedMappingTypePair.getMappingFctPairs(_arg,_param,fct_,obj_);
         }
         String generic_ = getFullTypeByBases(_arg, _param, _context);
         if (generic_.isEmpty()) {
             return null;
         }
-        return FeedMappingTypePair.newMappingPairs(generic_, typesParam_);
+        return FeedMappingTypePair.newMappingPairs(generic_, _param);
     }
 
     public static ErrorType safeObject(String _param, String _arg, ContextEl _context) {
