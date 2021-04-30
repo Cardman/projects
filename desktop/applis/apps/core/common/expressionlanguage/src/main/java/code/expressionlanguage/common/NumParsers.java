@@ -160,10 +160,8 @@ public final class NumParsers {
         if (_nb.length() > 3) {
             return NullStruct.NULL_VALUE;
         }
-        if (_nb.length() == 3) {
-            if (notFourFirst(_nb)) {
-                return NullStruct.NULL_VALUE;
-            }
+        if (_nb.length() == 3 && notFourFirst(_nb)) {
+            return NullStruct.NULL_VALUE;
         }
         long value_ = _value;
         if (value_ >= Byte.MAX_VALUE + 1L) {
@@ -179,10 +177,8 @@ public final class NumParsers {
         if (_nb.length() > 6) {
             return NullStruct.NULL_VALUE;
         }
-        if (_nb.length() == 6) {
-            if (notFourFirst(_nb)) {
-                return NullStruct.NULL_VALUE;
-            }
+        if (_nb.length() == 6 && notFourFirst(_nb)) {
+            return NullStruct.NULL_VALUE;
         }
         long value_ = _value;
         if (value_ >= Short.MAX_VALUE + 1L) {
@@ -198,10 +194,8 @@ public final class NumParsers {
         if (_nb.length() > 11) {
             return NullStruct.NULL_VALUE;
         }
-        if (_nb.length() == 11) {
-            if (notFourFirst(_nb)) {
-                return NullStruct.NULL_VALUE;
-            }
+        if (_nb.length() == 11 && notFourFirst(_nb)) {
+            return NullStruct.NULL_VALUE;
         }
         long value_ = _value;
         if (value_ >= Integer.MAX_VALUE + 1L) {
@@ -217,10 +211,8 @@ public final class NumParsers {
         if (_nb.length() > 6) {
             return NullStruct.NULL_VALUE;
         }
-        if (_nb.length() == 6) {
-            if (notTwoFirst(_nb)) {
-                return NullStruct.NULL_VALUE;
-            }
+        if (_nb.length() == 6 && notTwoFirst(_nb)) {
+            return NullStruct.NULL_VALUE;
         }
         LongInfo lg_ = NumParsers.parseLong(_nb, 8);
         if (!lg_.isValid()) {
@@ -283,36 +275,52 @@ public final class NumParsers {
             return new LongStruct(value_);
         }
         if (isIntSuffix(_suffix)) {
-            if (value_ > Integer.MAX_VALUE) {
-                if (value_ == Integer.MAX_VALUE + 1L) {
-                    return new IntStruct(Integer.MIN_VALUE);
-                }
-                return NullStruct.NULL_VALUE;
-            }
-            return new IntStruct((int) value_);
+            return processTenInt(value_);
         }
         if (isShortSuffix(_suffix)) {
-            if (value_ > Short.MAX_VALUE) {
-                if (value_ == Short.MAX_VALUE + 1L) {
-                    return new ShortStruct(Short.MIN_VALUE);
-                }
-                return NullStruct.NULL_VALUE;
-            }
-            return new ShortStruct((short) value_);
+            return processTenShort(value_);
         }
         if (isByteSuffix(_suffix)) {
-            if (value_ > Byte.MAX_VALUE) {
-                if (value_ == Byte.MAX_VALUE + 1L) {
-                    return new ByteStruct(Byte.MIN_VALUE);
-                }
-                return NullStruct.NULL_VALUE;
-            }
-            return new ByteStruct((byte) value_);
+            return processTenByte(value_);
         }
-        if (value_ > Character.MAX_VALUE) {
+        return processTenChar(value_);
+    }
+
+    private static WithoutParentStruct processTenInt(long _value) {
+        if (_value > Integer.MAX_VALUE) {
+            if (_value == Integer.MAX_VALUE + 1L) {
+                return new IntStruct(Integer.MIN_VALUE);
+            }
             return NullStruct.NULL_VALUE;
         }
-        return new CharStruct((char) value_);
+        return new IntStruct((int) _value);
+    }
+
+    private static WithoutParentStruct processTenShort(long _value) {
+        if (_value > Short.MAX_VALUE) {
+            if (_value == Short.MAX_VALUE + 1L) {
+                return new ShortStruct(Short.MIN_VALUE);
+            }
+            return NullStruct.NULL_VALUE;
+        }
+        return new ShortStruct((short) _value);
+    }
+
+    private static WithoutParentStruct processTenByte(long _value) {
+        if (_value > Byte.MAX_VALUE) {
+            if (_value == Byte.MAX_VALUE + 1L) {
+                return new ByteStruct(Byte.MIN_VALUE);
+            }
+            return NullStruct.NULL_VALUE;
+        }
+        return new ByteStruct((byte) _value);
+    }
+
+    private static WithoutParentStruct processTenChar(long _value) {
+        if (_value > Character.MAX_VALUE) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new CharStruct((char) _value);
     }
 
     private static boolean isCharSuffix(char _suffix) {
