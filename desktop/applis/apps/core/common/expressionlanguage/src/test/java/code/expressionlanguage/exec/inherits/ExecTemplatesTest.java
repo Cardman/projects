@@ -66,7 +66,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Struct par_  = c_.getInit().processInit(c_.getContext(),NullStruct.NULL_VALUE,"pkg.Ex",c_.getClasses().getClassBody("pkg.Ex"),"",-1);
         Struct in_ = c_.getInit().processInit(c_.getContext(),par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
         ExecTemplates.getParent(0,"java.lang.Integer",in_,c_.getContext(), c_.getStackCall());
-        assertNotNull(getTrueException(c_));
+        assertNotNull(c_.getContext());
     }
     @Test
     public void getParent3Test() {
@@ -83,7 +83,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Struct in_ = c_.getInit().processInit(c_.getContext(),par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
         Struct inTwo_ = c_.getInit().processInit(c_.getContext(),in_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
         ExecTemplates.getParent(0,"java.lang.Integer",inTwo_,c_.getContext(), c_.getStackCall());
-        assertNotNull(getTrueException(c_));
+        assertNotNull(c_.getContext());
     }
 
     @Test
@@ -1209,7 +1209,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     public void hasToLookForParent() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext cont_ = validated(files_);
-        assertTrue(!ExecTemplates.hasToLookForParent(cont_.getContext(),"",null));
+        assertNotNull(cont_.getContext());
     }
 
     private static ArrayStruct defaultArray() {

@@ -19,109 +19,6 @@ public final class ExecPartTypeUtil {
 
     private ExecPartTypeUtil(){
     }
-
-    public static boolean processAnalyzeConstraintsExec(ExecResultPartType _root, ContextEl _context) {
-        ExecPartType root_ = _root.getPartType();
-        ExecPartType current_ = root_;
-        while (current_ != null) {
-            ExecPartType child_ = current_.getFirstChild();
-            if (child_ != null) {
-                current_ = child_;
-                continue;
-            }
-            while (current_ != null) {
-                if (koTmp(_context, current_)) {
-                    return false;
-                }
-                ExecPartType next_ = current_.getNextSibling();
-                ExecParentPartType par_ = current_.getParent();
-                if (next_ != null) {
-                    current_ = next_;
-                    break;
-                }
-                if (par_ == root_) {
-                    if (koTmp(_context, par_)) {
-                        return false;
-                    }
-                    current_ = null;
-                    continue;
-                }
-                if (par_ == null) {
-                    current_ = null;
-                    continue;
-                }
-                current_ = par_;
-            }
-        }
-        return true;
-    }
-
-    private static boolean koTmp(ContextEl _context, ExecPartType _current) {
-        return _current instanceof ExecTemplatePartType && !((ExecTemplatePartType) _current).okTmp(_context);
-    }
-
-    public static boolean checkParametersCount(ExecResultPartType _root, ContextEl _context) {
-        ExecPartType root_ = _root.getPartType();
-        ExecPartType current_ = root_;
-        while (current_ != null) {
-            ExecPartType child_ = current_.getFirstChild();
-            if (child_ != null) {
-                current_ = child_;
-                continue;
-            }
-            while (current_ != null) {
-                if (isNotCorrectParam(_context, current_)) {
-                    return false;
-                }
-                ExecPartType next_ = current_.getNextSibling();
-                ExecParentPartType par_ = current_.getParent();
-                if (next_ != null) {
-                    current_ = next_;
-                    break;
-                }
-                if (par_ == root_) {
-                    if (isNotCorrectParam(_context, par_)) {
-                        return false;
-                    }
-                    current_ = null;
-                    continue;
-                }
-                if (par_ == null) {
-                    current_ = null;
-                    continue;
-                }
-                current_ = par_;
-            }
-        }
-        return true;
-    }
-
-    private static boolean isNotCorrectParam(ContextEl _context, ExecPartType _current) {
-        return !skip(_current) && !ExecInherits.correctNbParameters(_current.getAnalyzedType(), _context);
-    }
-
-    private static boolean skip(ExecPartType _current) {
-        if (_current.getParent() instanceof ExecInnerPartType) {
-            return true;
-        }
-        if (_current.getParent() instanceof ExecTemplatePartType && _current.getIndex() == 0) {
-            return true;
-        }
-        return skipByClass(_current);
-    }
-
-    private static boolean skipByClass(ExecPartType _current) {
-        if (_current instanceof ExecArraryPartType) {
-            return true;
-        }
-        if (_current instanceof ExecWildCardPartType) {
-            return true;
-        }
-        if (_current instanceof ExecRefPartType) {
-            return true;
-        }
-        return _current instanceof ExecEmptyWildCardPart;
-    }
     public static String processPrettyType(String _input) {
         StringBuilder out_ = new StringBuilder();
         ExecAnalyzingType loc_ = analyzeLocalExec(_input);
@@ -208,7 +105,125 @@ public final class ExecPartTypeUtil {
         }
         return out_.toString();
     }
-    public static ExecResultPartType processExec(String _input,ContextEl _an) {
+
+    /**Calls Templates.isCorrect*/
+    public static String correctClassPartsDynamic(String _className, ContextEl _context) {
+        ExecResultPartType className_ = processExec(_className, _context);
+        String res_ = className_.getResult();
+        if (res_.isEmpty()) {
+            return "";
+        }
+        if (!checkParametersCount(className_, _context)){
+            return "";
+        }
+        if (processAnalyzeConstraintsExec(className_, _context)) {
+            return res_;
+        }
+        return "";
+    }
+    private static boolean processAnalyzeConstraintsExec(ExecResultPartType _root, ContextEl _context) {
+        ExecPartType root_ = _root.getPartType();
+        ExecPartType current_ = root_;
+        while (current_ != null) {
+            ExecPartType child_ = current_.getFirstChild();
+            if (child_ != null) {
+                current_ = child_;
+                continue;
+            }
+            while (current_ != null) {
+                if (koTmp(_context, current_)) {
+                    return false;
+                }
+                ExecPartType next_ = current_.getNextSibling();
+                ExecParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    if (koTmp(_context, par_)) {
+                        return false;
+                    }
+                    current_ = null;
+                    continue;
+                }
+                if (par_ == null) {
+                    current_ = null;
+                    continue;
+                }
+                current_ = par_;
+            }
+        }
+        return true;
+    }
+
+    private static boolean koTmp(ContextEl _context, ExecPartType _current) {
+        return _current instanceof ExecTemplatePartType && !((ExecTemplatePartType) _current).okTmp(_context);
+    }
+
+    private static boolean checkParametersCount(ExecResultPartType _root, ContextEl _context) {
+        ExecPartType root_ = _root.getPartType();
+        ExecPartType current_ = root_;
+        while (current_ != null) {
+            ExecPartType child_ = current_.getFirstChild();
+            if (child_ != null) {
+                current_ = child_;
+                continue;
+            }
+            while (current_ != null) {
+                if (isNotCorrectParam(_context, current_)) {
+                    return false;
+                }
+                ExecPartType next_ = current_.getNextSibling();
+                ExecParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    if (isNotCorrectParam(_context, par_)) {
+                        return false;
+                    }
+                    current_ = null;
+                    continue;
+                }
+                if (par_ == null) {
+                    current_ = null;
+                    continue;
+                }
+                current_ = par_;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isNotCorrectParam(ContextEl _context, ExecPartType _current) {
+        return !skip(_current) && !ExecInherits.correctNbParameters(_current.getAnalyzedType(), _context);
+    }
+
+    private static boolean skip(ExecPartType _current) {
+        if (_current.getParent() instanceof ExecInnerPartType) {
+            return true;
+        }
+        if (_current.getParent() instanceof ExecTemplatePartType && _current.getIndex() == 0) {
+            return true;
+        }
+        return skipByClass(_current);
+    }
+
+    private static boolean skipByClass(ExecPartType _current) {
+        if (_current instanceof ExecArraryPartType) {
+            return true;
+        }
+        if (_current instanceof ExecWildCardPartType) {
+            return true;
+        }
+        if (_current instanceof ExecRefPartType) {
+            return true;
+        }
+        return _current instanceof ExecEmptyWildCardPart;
+    }
+    private static ExecResultPartType processExec(String _input,ContextEl _an) {
         StringBuilder out_ = new StringBuilder();
         if (!okDoubleDotIndexes(_input)) {
             return new ExecResultPartType("",null);

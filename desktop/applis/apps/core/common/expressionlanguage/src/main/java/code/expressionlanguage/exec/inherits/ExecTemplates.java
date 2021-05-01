@@ -120,69 +120,49 @@ public final class ExecTemplates {
      use class parent of object
      */
     public static Struct getParent(int _nbAncestors, String _required, Struct _current, ContextEl _an, StackCall _stackCall) {
-        String id_ = StringExpUtil.getIdFromAllTypes(_required);
         LgNames lgNames_ = _an.getStandards();
+        if (_current == NullStruct.NULL_VALUE) {
+            String npe_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, npe_, _stackCall)));
+            return _current;
+        }
         Struct arg_ = _current;
         String cast_ = lgNames_.getContent().getCoreNames().getAliasCastType();
-        if (_current != NullStruct.NULL_VALUE) {
-            String className_ = _current.getClassName(_an);
-            String cl_ = StringExpUtil.getIdFromAllTypes(className_);
-            DimComp dimReq_ = StringExpUtil.getQuickComponentBaseType(id_);
-            DimComp dimCurrent_ = StringExpUtil.getQuickComponentBaseType(cl_);
-            int dCurrent_ = dimCurrent_.getDim();
-            int dReq_ = dimReq_.getDim();
-            String componentDim_ = dimReq_.getComponent();
-            if (StringUtil.quickEq(componentDim_, _an.getStandards().getContent().getCoreNames().getAliasObject())) {
-                if (dReq_ > dCurrent_) {
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
-                    return NullStruct.NULL_VALUE;
-                }
-                return _current;
-            }
-            if (dReq_ != dCurrent_) {
+        String className_ = _current.getClassName(_an);
+        String cl_ = StringExpUtil.getIdFromAllTypes(className_);
+        String id_ = StringExpUtil.getIdFromAllTypes(_required);
+        DimComp dimReq_ = StringExpUtil.getQuickComponentBaseType(id_);
+        DimComp dimCurrent_ = StringExpUtil.getQuickComponentBaseType(cl_);
+        int dCurrent_ = dimCurrent_.getDim();
+        int dReq_ = dimReq_.getDim();
+        String componentDim_ = dimReq_.getComponent();
+        if (StringUtil.quickEq(componentDim_, _an.getStandards().getContent().getCoreNames().getAliasObject())) {
+            if (dReq_ > dCurrent_) {
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
                 return NullStruct.NULL_VALUE;
             }
-            String dComp_ = dimCurrent_.getComponent();
-            InheritedType in_ = getInheritedType(_an, cl_, dComp_);
-            if (in_ != null) {
-                if (!in_.isSubTypeOf(componentDim_,_an)) {
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
-                    return NullStruct.NULL_VALUE;
-                }
-                return _current;
-            }
-            for (int i = 0; i < _nbAncestors; i++) {
-                Struct enc_ = arg_;
-                Struct par_ = enc_.getParent();
-                _stackCall.getInitializingTypeInfos().addSensibleField(enc_, par_);
-                arg_=par_;
-            }
+            return _current;
         }
-        String npe_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
-        if (arg_ == NullStruct.NULL_VALUE) {
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, npe_, _stackCall)));
-            return arg_;
+        if (dReq_ != dCurrent_) {
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
+            return NullStruct.NULL_VALUE;
         }
-        Struct current_ = arg_;
-        String className_ = current_.getClassName(_an);
-        String cl_ = StringExpUtil.getIdFromAllTypes(className_);
-        StringList list_ = new StringList();
-        GeneType g_ = _an.getClassBody(cl_);
-        while (hasToLookForParent(_an, id_, g_)) {
-            if (StringUtil.contains(list_, cl_) || !(current_ instanceof WithParentStruct)) {
+        String dComp_ = dimCurrent_.getComponent();
+        InheritedType in_ = getInheritedType(_an, cl_, dComp_);
+        if (in_ != null) {
+            if (!in_.isSubTypeOf(componentDim_,_an)) {
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
-                break;
+                return NullStruct.NULL_VALUE;
             }
-            list_.add(cl_);
-            Struct par_ = current_.getParent();
-            _stackCall.getInitializingTypeInfos().addSensibleField(current_, par_);
-            className_ = ((WithParentStruct)current_).getParentClassName();
-            current_ = par_;
-            cl_ = StringExpUtil.getIdFromAllTypes(className_);
-            g_ = _an.getClassBody(cl_);
+            return _current;
         }
-        return Argument.getNull(current_);
+        for (int i = 0; i < _nbAncestors; i++) {
+            Struct enc_ = arg_;
+            Struct par_ = enc_.getParent();
+            _stackCall.getInitializingTypeInfos().addSensibleField(enc_, par_);
+            arg_=par_;
+        }
+        return Argument.getNull(arg_);
     }
 
     private static InheritedType getInheritedType(ContextEl _an, String _cl, String _dComp) {
@@ -212,25 +192,6 @@ public final class ExecTemplates {
         return _g != null && _g.withoutInstance();
     }
 
-    static boolean hasToLookForParent(ContextEl _an, String _id, GeneType _g) {
-        return _g!= null && !_g.isSubTypeOf(_id,_an);
-    }
-
-    /**Calls Templates.isCorrect*/
-    public static String correctClassPartsDynamic(String _className, ContextEl _context) {
-        ExecResultPartType className_ = ExecPartTypeUtil.processExec(_className, _context);
-        String res_ = className_.getResult();
-        if (res_.isEmpty()) {
-            return "";
-        }
-        if (!ExecPartTypeUtil.checkParametersCount(className_, _context)){
-            return "";
-        }
-        if (ExecPartTypeUtil.processAnalyzeConstraintsExec(className_, _context)) {
-            return res_;
-        }
-        return "";
-    }
     public static String correctClassPartsDynamicWildCard(String _className, ContextEl _context) {
         if (StringExpUtil.isWildCard(_className)) {
             return "";

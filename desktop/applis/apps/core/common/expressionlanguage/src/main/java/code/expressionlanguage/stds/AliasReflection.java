@@ -1191,7 +1191,7 @@ public final class AliasReflection {
                 result_.setResult(MetaInfoUtil.getClassMetaInfo(_cont,clDyn_));
                 return result_;
             }
-            String res_ = ExecTemplates.correctClassPartsDynamic(clDyn_, _cont);
+            String res_ = ExecPartTypeUtil.correctClassPartsDynamic(clDyn_, _cont);
             if (res_.isEmpty()) {
                 _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, clDyn_, lgNames_.getContent().getReflect().getAliasClassNotFoundError(), _stackCall)));
                 return result_;
