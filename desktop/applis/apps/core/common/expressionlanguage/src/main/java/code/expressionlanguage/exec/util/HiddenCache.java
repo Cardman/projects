@@ -4,40 +4,42 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.exec.variables.NamedLoopVariable;
 import code.expressionlanguage.exec.variables.NamedWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.util.EntryCust;
+import code.util.StringMap;
 
 public final class HiddenCache extends Cache {
-    public HiddenCache() {
-    }
     public HiddenCache(AbstractPageEl _cont) {
-        for (EntryCust<String, AbstractWrapper> v: _cont.getRefParams().entryList()) {
+        this(_cont.getRefParams(),_cont.getVars(),_cont.getCache());
+    }
+    public HiddenCache(StringMap<AbstractWrapper> _refPar, StringMap<LoopVariable> _loop, Cache _cache) {
+        for (EntryCust<String, AbstractWrapper> v: _refPar.entryList()) {
             AbstractWrapper value_ = v.getValue();
-            addLocalWrapper(v.getKey(),value_);
+            locWrappers().add(new NamedWrapper(v.getKey(),ExecTemplates.getWrap(value_),""));
         }
-        for (EntryCust<String, LoopVariable> v: _cont.getVars().entryList()) {
+        for (EntryCust<String, LoopVariable> v: _loop.entryList()) {
             LoopVariable value_ = v.getValue();
             LoopVariable l_ = new LoopVariable();
             l_.setIndexClassName(value_.getIndexClassName());
             l_.setIndex(value_.getIndex());
-            addLoop(v.getKey(),l_);
+            loopVars().add(new NamedLoopVariable(v.getKey(), l_));
         }
-        Cache cache_ = _cont.getCache();
-        if (cache_ != null) {
-            for (NamedWrapper v: cache_.locWrappers()) {
+        if (_cache != null) {
+            for (NamedWrapper v: _cache.locWrappers()) {
                 AbstractWrapper value_ = v.getWrapper();
-                addLocalWrapper(v.getName(),value_);
+                locWrappers().add(new NamedWrapper(v.getName(), ExecTemplates.getWrap(value_),""));
             }
-            for (NamedLoopVariable v: cache_.loopVars()) {
+            for (NamedLoopVariable v: _cache.loopVars()) {
                 LoopVariable value_ = v.getLocalVariable();
                 LoopVariable l_ = new LoopVariable();
                 l_.setIndexClassName(value_.getIndexClassName());
                 l_.setIndex(value_.getIndex());
-                addLoop(v.getName(),l_);
+                loopVars().add(new NamedLoopVariable(v.getName(), l_));
             }
         }
     }

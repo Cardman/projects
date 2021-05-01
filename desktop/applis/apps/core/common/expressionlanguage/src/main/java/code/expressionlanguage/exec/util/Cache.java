@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -25,10 +24,10 @@ public abstract class Cache {
         }
         return list_;
     }
-    public CustList<NamedWrapper> locWrappers() {
+    protected CustList<NamedWrapper> locWrappers() {
         return localWrappers;
     }
-    public CustList<NamedLoopVariable> loopVars() {
+    protected CustList<NamedLoopVariable> loopVars() {
         return loopVariables;
     }
     public LongStruct getLocalWrapperCount(String _key) {
@@ -85,18 +84,6 @@ public abstract class Cache {
             }
         }
     }
-    public void addLocalWrapper(String _key, AbstractWrapper _var) {
-        localWrappers.add(new NamedWrapper(_key,ExecTemplates.getWrap(_var),""));
-    }
-
-    public void setClassLocalValueWrapper(int _index, String _var, ContextEl _context, StackCall _stackCall) {
-        if (localWrappers.isValidIndex(_index)) {
-            NamedWrapper namedWrapper_ = localWrappers.get(_index);
-            AbstractWrapper wrapper_ = namedWrapper_.getWrapper();
-            NamedWrapper named_ = new NamedWrapper(namedWrapper_.getName(),new VariableWrapper(LocalVariable.newLocalVariable(wrapper_.getValue(_stackCall, _context),_var)),_var);
-            localWrappers.set(_index,named_);
-        }
-    }
     public StringList getLoopVars() {
         StringList list_ = new StringList();
         for (NamedLoopVariable n: loopVariables) {
@@ -142,13 +129,5 @@ public abstract class Cache {
                 break;
             }
         }
-    }
-    public void setClassLoopValue(int _index, String _var) {
-        if (loopVariables.isValidIndex(_index)) {
-            loopVariables.get(_index).getLocalVariable().setIndexClassName(_var);
-        }
-    }
-    public void addLoop(String _key, LoopVariable _var) {
-        loopVariables.add(new NamedLoopVariable(_key,_var));
     }
 }

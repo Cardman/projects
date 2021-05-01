@@ -15,14 +15,14 @@ public final class ShownCache extends Cache {
     private final CacheInfo cacheInfo = new CacheInfo();
     public ShownCache(WithCache _fct, String _aliasObject) {
         for (NameAndType v: _fct.getCacheInfo().getCacheLocalNames()) {
-            addLocalWrapper(v.getName(),new VariableWrapper(LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,_aliasObject)));
+            locWrappers().add(new NamedWrapper(v.getName(),ExecTemplates.getWrap(new VariableWrapper(LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,_aliasObject))),""));
             cacheInfo.getCacheLocalNames().add(new NameAndType(v.getName(),v.getType()));
         }
         for (NameAndType v: _fct.getCacheInfo().getCacheLoopNames()) {
             LoopVariable l_ = new LoopVariable();
             l_.setIndexClassName(_aliasObject);
             l_.setIndex(-1);
-            addLoop(v.getName(),l_);
+            loopVars().add(new NamedLoopVariable(v.getName(), l_));
             cacheInfo.getCacheLoopNames().add(new NameAndType(v.getName(),v.getType()));
         }
     }
@@ -31,13 +31,16 @@ public final class ShownCache extends Cache {
         int i_ = 0;
         for (NameAndType v: cacheInfo.getCacheLocalNames()) {
             String cl_ = ExecInherits.quickFormat(_rootBlock, _globalClass, v.getType());
-            setClassLocalValueWrapper(i_,cl_,_context, _stackCall);
+            NamedWrapper namedWrapper_ = locWrappers().get(i_);
+            AbstractWrapper wrapper_ = namedWrapper_.getWrapper();
+            NamedWrapper named_ = new NamedWrapper(namedWrapper_.getName(),new VariableWrapper(LocalVariable.newLocalVariable(wrapper_.getValue(_stackCall, _context),cl_)),cl_);
+            locWrappers().set(i_,named_);
             i_++;
         }
         i_ = 0;
         for (NameAndType v: cacheInfo.getCacheLoopNames()) {
             String cl_ = ExecInherits.quickFormat(_rootBlock, _globalClass, v.getType());
-            setClassLoopValue(i_,cl_);
+            loopVars().get(i_).getLocalVariable().setIndexClassName(cl_);
             i_++;
         }
     }
