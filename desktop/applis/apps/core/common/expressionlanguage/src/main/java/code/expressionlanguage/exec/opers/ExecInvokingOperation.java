@@ -44,9 +44,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return fectchArgs(_nodes, lastType_, _naturalVararg);
     }
 
-    protected ArgumentListCall fetchFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr, String _className, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
+    protected ArgumentListCall fetchFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
         String cl_ = _pr.getClassName(_conf);
-        String base_ = StringExpUtil.getIdFromAllTypes(_className);
+        String base_ = _rootBlock.getFullName();
         String clGen_ = ExecInherits.getSuperGeneric(cl_, base_, _conf);
         String lastType_ = ExecInherits.quickFormat(_rootBlock,clGen_, _lastType);
         return fectchArgs(_nodes,lastType_, _naturalVararg);

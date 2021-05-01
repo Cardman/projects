@@ -32,15 +32,14 @@ public class DefaultInitializer implements Initializer {
         ExecFormattedRootBlock base_ = new ExecFormattedRootBlock(_rootBlock,_rootBlock.getGenericString());
         CustList<ExecFormattedRootBlock> allClasses_ = new CustList<ExecFormattedRootBlock>(base_);
         allClasses_.addAllElts(_rootBlock.getAllGenericSuperTypes());
-        CustList<ClassFieldStruct> fields_;
-        fields_ = new CustList<ClassFieldStruct>();
+        CustList<ClassFieldStruct> fields_ = new CustList<ClassFieldStruct>();
         for (ExecFormattedRootBlock c: allClasses_) {
             String preFormatted_ = c.getFormatted();
             String id_ = StringExpUtil.getIdFromAllTypes(preFormatted_);
             String formatted_ = ExecInherits.quickFormat(_rootBlock,_className, preFormatted_);
-            for (ExecFieldBlock b: c.getRootBlock().getInstanceFields()) {
-                String fieldDeclClass_ = b.getImportedClassName();
-                fieldDeclClass_ = ExecInherits.quickFormat(c.getRootBlock(),formatted_,fieldDeclClass_);
+            ExecRootBlock rootBlock_ = c.getRootBlock();
+            for (ExecFieldBlock b: rootBlock_.getInstanceFields()) {
+                String fieldDeclClass_ = ExecInherits.quickFormat(rootBlock_, formatted_, b.getImportedClassName());
                 for (String f: b.getFieldName()) {
                     ClassField key_ = new ClassField(id_, f);
                     fields_.add(new ClassFieldStruct(key_, ExecClassArgumentMatching.defaultValue(fieldDeclClass_, _context)));
@@ -54,8 +53,7 @@ public class DefaultInitializer implements Initializer {
     public final Struct processInitAnnot(ContextEl _context,
             String _className,ExecRootBlock _rootBlock) {
         String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        CustList<ClassFieldStruct> fields_;
-        fields_ = new CustList<ClassFieldStruct>();
+        CustList<ClassFieldStruct> fields_ = new CustList<ClassFieldStruct>();
         for (ExecAnnotationMethodBlock b: _rootBlock.getAnnotationsFields()) {
             Struct str_ = b.getDefaultArgument();
             String fieldName_ = b.getName();

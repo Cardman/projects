@@ -1269,7 +1269,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public final CustList<AnaFormattedRootBlock> fetchAllGenericSuperTypes() {
-        CustList<AnaFormattedRootBlock> current_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(this,getGenericString()));
+        CustList<AnaFormattedRootBlock> current_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(this));
         StringList allSeen_ = new StringList();
         CustList<AnaFormattedRootBlock> all_ = new CustList<AnaFormattedRootBlock>();
         while (true) {
@@ -1278,8 +1278,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 RootBlock rootBlock_ = c.getRootBlock();
                 CustList<AnaFormattedRootBlock> superTypes_ = rootBlock_.getImportedDirectSuperTypesInfo();
                 for (AnaFormattedRootBlock t: superTypes_) {
-                    String format_ = AnaInherits.quickFormat(rootBlock_,c.getFormatted(), t.getFormatted());
-                    AnaFormattedRootBlock a_ = new AnaFormattedRootBlock(t.getRootBlock(), format_);
+                    AnaFormattedRootBlock a_ = AnaFormattedRootBlock.format(c,t);
+                    String format_ = a_.getFormatted();
                     if (!added(format_,allSeen_,a_,next_)) {
                         continue;
                     }
@@ -1296,7 +1296,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public final CustList<AnaFormattedRootBlock> fetchAllGenericClasses() {
-        CustList<AnaFormattedRootBlock> current_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(this,getGenericString()));
+        CustList<AnaFormattedRootBlock> current_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(this));
         StringList allSeen_ = new StringList();
         CustList<AnaFormattedRootBlock> all_ = new CustList<AnaFormattedRootBlock>();
         while (true) {
@@ -1310,8 +1310,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 allSeen_.add(c.getFormatted());
                 CustList<AnaFormattedRootBlock> superTypes_ = curType_.getImportedDirectSuperTypesInfo();
                 for (AnaFormattedRootBlock t: superTypes_) {
-                    String format_ = AnaInherits.quickFormat(curType_,c.getFormatted(), t.getFormatted());
-                    AnaFormattedRootBlock a_ = new AnaFormattedRootBlock(t.getRootBlock(), format_);
+                    AnaFormattedRootBlock a_ = AnaFormattedRootBlock.format(c,t);
+                    String format_ = a_.getFormatted();
                     added(format_,allSeen_, a_, next_);
                 }
             }

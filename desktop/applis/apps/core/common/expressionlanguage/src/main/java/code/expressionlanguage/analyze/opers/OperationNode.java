@@ -2069,7 +2069,7 @@ public abstract class OperationNode {
             String di_ = StringExpUtil.getIdFromAllTypes(_first);
             RootBlock r_ = _page.getAnaClassBody(di_);
             if (r_ != null) {
-                CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_,r_.getGenericString()));
+                CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_));
                 allClasses_.addAllElts(r_.getAllGenericSuperTypesInfo());
                 for (AnaFormattedRootBlock s: allClasses_) {
                     String formatted_ = AnaInherits.quickFormat(r_,_first,s.getFormatted());
@@ -2085,7 +2085,7 @@ public abstract class OperationNode {
             String di_ = StringExpUtil.getIdFromAllTypes(_second);
             RootBlock r_ = _page.getAnaClassBody(di_);
             if (r_ != null) {
-                CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_,r_.getGenericString()));
+                CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_));
                 allClasses_.addAllElts(r_.getAllGenericSuperTypesInfo());
                 for (AnaFormattedRootBlock s: allClasses_) {
                     String formatted_ = AnaInherits.quickFormat(r_,_second,s.getFormatted());
@@ -2107,7 +2107,7 @@ public abstract class OperationNode {
         if (r_ == null) {
             return;
         }
-        CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_,r_.getGenericString()));
+        CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_));
         allClasses_.addAllElts(r_.getAllGenericSuperTypesInfo());
         for (AnaFormattedRootBlock s: allClasses_) {
             String formatted_ = AnaInherits.quickFormat(r_,_id,s.getFormatted());

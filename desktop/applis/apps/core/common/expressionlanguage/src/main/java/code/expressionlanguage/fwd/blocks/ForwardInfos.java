@@ -145,7 +145,7 @@ public final class ForwardInfos {
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock root_ = e.getKey();
             if (!root_.mustImplement()) {
-                CustList<AnaFormattedRootBlock> allSuperClass_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(root_,root_.getGenericString()));
+                CustList<AnaFormattedRootBlock> allSuperClass_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(root_));
                 allSuperClass_.addAllElts(root_.getAllGenericSuperTypesInfo());
                 boolean instEltCount_ = false;
                 for (AnaFormattedRootBlock s: allSuperClass_) {
@@ -529,25 +529,23 @@ public final class ForwardInfos {
 
     private static void buildFctInfos(ExecRootBlock _current, RootBlock _k, Members _mem) {
         for (NamedCalledFunctionBlock b: _k.getOverridableBlocks()) {
-            NamedCalledFunctionBlock ov_ = b;
-            MethodKind kind_ = ov_.getKind();
-            ExecOverridableBlock val_ = new ExecOverridableBlock(ov_.isRetRef(), ov_.getName(), ov_.isVarargs(), ov_.getAccess(), ov_.getParametersNames(), ov_.getModifier(), toExecMethodKind(kind_), b.getOffset(), ov_.getImportedParametersTypes(), ov_.getParametersRef());
+            MethodKind kind_ = b.getKind();
+            ExecOverridableBlock val_ = new ExecOverridableBlock(b.isRetRef(), b.getName(), b.isVarargs(), b.getAccess(), b.getParametersNames(), b.getModifier(), toExecMethodKind(kind_), b.getOffset(), b.getImportedParametersTypes(), b.getParametersRef());
             val_.setFile(_current.getFile());
-            _mem.addOvNamed(ov_,val_);
-            val_.setImportedReturnType(ov_.getImportedReturnType());
-            String returnTypeGet_ = ov_.getReturnTypeGet();
+            _mem.addOvNamed(b,val_);
+            val_.setImportedReturnType(b.getImportedReturnType());
+            String returnTypeGet_ = b.getReturnTypeGet();
             if (!returnTypeGet_.isEmpty()) {
                 val_.setImportedReturnType(returnTypeGet_);
             }
         }
         for (NamedCalledFunctionBlock b: _k.getAnnotationsMethodsBlocks()) {
-            NamedCalledFunctionBlock annot_ = b;
-            ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock((annot_).getName(), (annot_).isVarargs(), (annot_).getAccess(), (annot_).getParametersNames(), (annot_).getDefaultValueOffset(), b.getOffset());
+            ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock(b.getName(), b.isVarargs(), b.getAccess(), b.getParametersNames(), b.getDefaultValueOffset(), b.getOffset());
             val_.setFile(_current.getFile());
-            _mem.addAnnotMethod(annot_,val_);
-            _mem.addNamed(annot_,val_);
-            val_.setImportedReturnType(annot_.getImportedReturnType());
-            val_.getImportedParametersTypes().addAllElts(annot_.getImportedParametersTypes());
+            _mem.addAnnotMethod(b,val_);
+            _mem.addNamed(b,val_);
+            val_.setImportedReturnType(b.getImportedReturnType());
+            val_.getImportedParametersTypes().addAllElts(b.getImportedParametersTypes());
         }
         for (ConstructorBlock b: _k.getConstructorBlocks()) {
             ExecConstructorBlock val_ = new ExecConstructorBlock(b.getName(), b.isVarargs(), b.getAccess(), b.getParametersNames(), b.getOffset(), b.getImportedParametersTypes(), b.getParametersRef());
