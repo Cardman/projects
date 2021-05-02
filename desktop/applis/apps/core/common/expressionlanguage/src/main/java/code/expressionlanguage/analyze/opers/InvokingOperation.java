@@ -15,6 +15,7 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.common.Matching;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
@@ -833,6 +834,39 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             return null;
         }
         return ((IdFctOperation)first_).getMethod();
+    }
+
+    protected static void buildErrNotFoundStd(OperationNode _op, MethodAccessKind _staticContext, String _name, NameParametersFilter _filter, AnalyzedPageEl _page) {
+        StringList classesNames_ = new StringList();
+        for (OperationNode c: _filter.getPositional()) {
+            classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
+        }
+        for (NamedArgumentOperation c: _filter.getParameterFilter()) {
+            classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
+        }
+        FoundErrorInterpret undefined_ = new FoundErrorInterpret();
+        undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        //_name len
+        undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
+                new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
+        _page.getLocalizer().addError(undefined_);
+        _op.addErr(undefined_.getBuiltError());
+    }
+
+    protected static void buildErrNotFoundTrueFalse(OperationNode _op, MethodAccessKind _staticContext, String _name, AnalyzedPageEl _page, AnaClassArgumentMatching[] _argsClass) {
+        StringList classesNames_ = new StringList();
+        for (AnaClassArgumentMatching c: _argsClass) {
+            classesNames_.add(StringUtil.join(c.getNames(), ExportCst.JOIN_TYPES));
+        }
+        FoundErrorInterpret undefined_ = new FoundErrorInterpret();
+        undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        //_name len
+        undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
+                new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
+        _page.getLocalizer().addError(undefined_);
+        _op.addErr(undefined_.getBuiltError());
     }
     @Override
     public final void setIntermediateDotted() {

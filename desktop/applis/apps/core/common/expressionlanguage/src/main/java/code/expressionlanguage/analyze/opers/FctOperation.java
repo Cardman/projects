@@ -226,9 +226,10 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
             AnaClassArgumentMatching[] argsClass_ = OperationNode.getResultsFromArgs(name_.getPositional());
-            clMeth_ = getDeclaredCustTrueFalse(this, staticAccess_,bounds_,trimMeth_,f_, _page, argsClass_);
+            clMeth_ = tryGetDeclaredCustTrueFalse(staticAccess_, bounds_, trimMeth_, f_, argsClass_, _page);
             if (!clMeth_.isFoundMethod()) {
-                setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
+                buildErrNotFoundTrueFalse(this,staticAccess_,trimMeth_,_page,argsClass_);
+                setResultClass(voidToObject(new AnaClassArgumentMatching(_page.getAliasObject()), _page));
                 return;
             }
             callFctContent.update(clMeth_);
@@ -242,10 +243,11 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         ClassMethodIdReturn clMeth_;
-        clMeth_ = getDeclaredCustMethod(this, varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, accessFromSuper_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()));
+        clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, accessFromSuper_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
-            setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()), _page));
+            buildErrNotFoundStd(this, isStaticAccess(), trimMeth_, name_, _page);
+            setResultClass(voidToObject(new AnaClassArgumentMatching(_page.getAliasObject()), _page));
             return;
         }
         if (StringUtil.quickEq(trimMeth_,_page.getKeyWords().getKeyWordNull())) {
