@@ -1940,8 +1940,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             boolean aff_ = i_ < _len;
             AnaClassArgumentMatching fromCl_ = new AnaClassArgumentMatching(str_);
-            FieldResult r_ = getDeclaredCustFieldLambda(sum_,partOffsets, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, aff_, _page);
+            FieldResult r_ = resolveDeclaredCustField(false,
+                    fromCl_, !accessFromSuper_, accessSuper_, fieldName_, false, aff_, _page);
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
+                buildErrLambda(sum_,fromCl_,fieldName_,_page);
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -2002,8 +2004,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             boolean aff_ = i_ < _len;
             AnaClassArgumentMatching fromCl_ = new AnaClassArgumentMatching(str_);
             sum_ += StringExpUtil.getOffset(_args.get(2));
-            FieldResult r_ = getDeclaredCustFieldLambda(sum_,partOffsets, fromCl_, true, true, fieldName_, aff_, _page);
+            FieldResult r_ = resolveDeclaredCustField(false,
+                    fromCl_, true, true, fieldName_, false, aff_, _page);
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
+                buildErrLambda(sum_,fromCl_,fieldName_,_page);
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -2175,8 +2179,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         boolean aff_ = i_ < _len;
         AnaClassArgumentMatching fromCl_ = new AnaClassArgumentMatching(str_);
-        FieldResult r_ = getDeclaredCustFieldLambda(sum_,partOffsets, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, aff_, _page);
+        FieldResult r_ = resolveDeclaredCustField(false,
+                fromCl_, !accessFromSuper_, accessSuper_, fieldName_, false, aff_, _page);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
+            buildErrLambda(sum_,fromCl_,fieldName_,_page);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2225,6 +2231,24 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         String fct_ = formatFieldReturn(static_, params_, out_, false, _page);
         setResultClass(new AnaClassArgumentMatching(fct_));
+    }
+
+    private void buildErrLambda(int _offset,AnaClassArgumentMatching _class, String _name, AnalyzedPageEl _page) {
+        int i_ = _page.getLocalizer().getCurrentLocationIndex() + _offset;
+        FoundErrorInterpret access_ = new FoundErrorInterpret();
+        access_.setFileName(_page.getLocalizer().getCurrentFileName());
+        access_.setIndexFile(i_);
+        //_name len
+        access_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
+                _name,
+                StringUtil.join(_class.getNames(),ExportCst.JOIN_TYPES));
+        _page.getLocalizer().addError(access_);
+        addBuiltErr(access_,i_,_name);
+    }
+
+    private void addBuiltErr(FoundErrorInterpret _err, int _i, String _name) {
+        partOffsets.add(new PartOffset(ExportCst.anchorErr(_err.getBuiltError()),_i));
+        partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,_i+Math.max(1, _name.length())));
     }
 
     private static String getParentType(String _converted, AnalyzedPageEl _page) {

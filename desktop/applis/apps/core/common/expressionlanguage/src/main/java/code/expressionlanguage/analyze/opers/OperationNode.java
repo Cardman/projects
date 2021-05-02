@@ -22,7 +22,6 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
@@ -636,45 +635,6 @@ public abstract class OperationNode {
         nextSibling = _nextSibling;
     }
 
-    static FieldResult getDeclaredCustField(OperationNode _op, MethodAccessKind _staticContext, AnaClassArgumentMatching _class,
-                                            boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff, AnalyzedPageEl _page) {
-        FieldResult fr_ = resolveDeclaredCustField(_staticContext != MethodAccessKind.INSTANCE,
-                _class, _baseClass, _superClass, _name, _import, _aff, _page);
-        if (fr_.getStatus() == SearchingMemberStatus.UNIQ) {
-            return fr_;
-        }
-        FoundErrorInterpret access_ = new FoundErrorInterpret();
-        access_.setFileName(_page.getLocalizer().getCurrentFileName());
-        access_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-        //_name len
-        access_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
-                _name,
-                StringUtil.join(_class.getNames(),ExportCst.JOIN_TYPES));
-        _page.getLocalizer().addError(access_);
-        _op.addErr(access_.getBuiltError());
-        return fr_;
-    }
-
-    static FieldResult getDeclaredCustFieldLambda(int _offset, CustList<PartOffset> _parts, AnaClassArgumentMatching _class,
-                                                  boolean _baseClass, boolean _superClass, String _name, boolean _aff, AnalyzedPageEl _page) {
-        FieldResult fr_ = resolveDeclaredCustField(false,
-                _class, _baseClass, _superClass, _name, false, _aff, _page);
-        if (fr_.getStatus() == SearchingMemberStatus.UNIQ) {
-            return fr_;
-        }
-        FoundErrorInterpret access_ = new FoundErrorInterpret();
-        access_.setFileName(_page.getLocalizer().getCurrentFileName());
-        int i_ = _page.getLocalizer().getCurrentLocationIndex()+_offset;
-        access_.setIndexFile(i_);
-        //_name len
-        access_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
-                _name,
-                StringUtil.join(_class.getNames(),ExportCst.JOIN_TYPES));
-        _page.getLocalizer().addError(access_);
-        _parts.add(new PartOffset(ExportCst.anchorErr(access_.getBuiltError()),i_));
-        _parts.add(new PartOffset(ExportCst.END_ANCHOR,i_+Math.max(1, _name.length())));
-        return fr_;
-    }
     public static FieldResult resolveDeclaredCustField(boolean _staticContext, AnaClassArgumentMatching _class,
                                                        boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff, AnalyzedPageEl _page) {
         ScopeFilter scope_ = new ScopeFilter(null, !_baseClass, _superClass, false, _page.getGlobalClass());

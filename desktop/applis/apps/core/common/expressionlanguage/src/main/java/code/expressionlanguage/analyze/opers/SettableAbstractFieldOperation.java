@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
@@ -13,7 +14,9 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
+import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
+import code.util.core.StringUtil;
 
 public abstract class SettableAbstractFieldOperation extends
         AbstractFieldOperation implements SettableElResult {
@@ -73,9 +76,19 @@ public abstract class SettableAbstractFieldOperation extends
         } else if (getParent() instanceof SemiAffectationOperation) {
             affect_ = true;
         }
-        FieldResult r_ = getDeclaredCustField(this, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_, affect_, _page);
+        FieldResult r_ = resolveDeclaredCustField(isStaticAccess() != MethodAccessKind.INSTANCE,
+                cl_, baseAccess_, superAccess_, fieldName_, import_, affect_, _page);
         settableFieldContent.setAnc(r_.getAnc());
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
+            FoundErrorInterpret access_ = new FoundErrorInterpret();
+            access_.setFileName(_page.getLocalizer().getCurrentFileName());
+            access_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //_name len
+            access_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
+                    fieldName_,
+                    StringUtil.join(cl_.getNames(), ExportCst.JOIN_TYPES));
+            _page.getLocalizer().addError(access_);
+            addErr(access_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
