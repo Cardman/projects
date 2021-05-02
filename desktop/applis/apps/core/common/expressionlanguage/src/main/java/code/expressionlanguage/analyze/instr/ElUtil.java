@@ -191,12 +191,6 @@ public final class ElUtil {
         }
     }
 
-    private static void setFieldName(OperationNode _op, Calculation _calc) {
-        if (_op instanceof StandardInstancingOperation) {
-            ((StandardInstancingOperation) _op).fieldName(_calc);
-        }
-    }
-
 
     private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, Calculation _calc, AnalyzedPageEl _page) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
@@ -369,8 +363,8 @@ public final class ElUtil {
     }
 
     private static void setFieldName(Calculation _calc, MethodOperation _p, OperationNode _c) {
-        if (_p instanceof AffectationOperation && _p.getParent() == null) {
-            setFieldName(_c,_calc);
+        if (_c instanceof StandardInstancingOperation && _p instanceof AffectationOperation && ((AffectationOperation)_p).isSynthetic()) {
+            ((StandardInstancingOperation) _c).fieldName(_calc);
         }
     }
 

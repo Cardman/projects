@@ -33,6 +33,10 @@ public final class AffectationOperation extends MethodOperation {
         super(_index, _indexChild, _m, _op);
     }
 
+    public boolean isSynthetic() {
+        return synthetic;
+    }
+
     public void setSynthetic(boolean _synthetic) {
         this.synthetic = _synthetic;
     }
