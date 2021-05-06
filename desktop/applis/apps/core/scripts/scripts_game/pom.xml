@@ -20,5 +20,8 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
     </dependencies>
+    <properties>
+        <sonar.exclusions>src/main/java/aiki/sml/imgs/**/*,src/main/java/aiki/sml/init/**/*,src/main/java/aiki/sml/trs/**/*</sonar.exclusions>
+    </properties>
 
 </project>
