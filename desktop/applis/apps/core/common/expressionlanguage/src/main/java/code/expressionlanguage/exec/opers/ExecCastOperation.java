@@ -55,13 +55,13 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                     if ((!r_.isWithInstanceElements() || _full)&& functional_.size() == 1) {
                         ExecFunctionalInfo clRealId_ = functional_.first();
                         ExecOverridableBlock overridableBlock_ = clRealId_.getOverridableBlock();
+                        ExecRootBlock overridableBlockParent_ = clRealId_.getOverridableBlockParent();
                         MethodId realId_ = overridableBlock_.getId();
-                        String geneStr_ = r_.getGenericString();
-                        MethodId idMeth_ = realId_.quickFormat(r_,geneStr_);
                         String gene_ = clRealId_.getClassName();
+                        MethodId idMeth_ = realId_.quickFormat(overridableBlockParent_,gene_);
                         String geneFor_ = ExecInherits.quickFormat(r_,_className,gene_);
                         String ret_ = overridableBlock_.getImportedReturnType();
-                        ret_ = ExecInherits.quickFormat(r_,geneStr_,ret_);
+                        ret_ = ExecInherits.quickFormat(overridableBlockParent_,gene_,ret_);
                         String fctParam_ = formatReturn(_conf, ret_, idMeth_);
                         fctParam_ = ExecInherits.quickFormat(r_,geneFor_,fctParam_);
                         String argCl_ = str_.getClassName(_conf);

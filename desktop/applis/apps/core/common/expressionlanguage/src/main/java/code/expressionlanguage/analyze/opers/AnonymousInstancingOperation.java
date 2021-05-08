@@ -234,7 +234,8 @@ public final class AnonymousInstancingOperation extends
         CustList<OperationNode> filter_ = getChildrenNodes();
         int varargOnly_ = lookOnlyForVarArg();
         String varargParam_ = getVarargParam(filter_);
-        AnaClassArgumentMatching aClass_ = new AnaClassArgumentMatching(StringExpUtil.getQuickFormattedType(instancingAnonContent.getBlock().getGenericString(), anonTypeVars));
+        String formatted_ = StringExpUtil.getQuickFormattedType(instancingAnonContent.getBlock().getGenericString(), anonTypeVars);
+        AnaClassArgumentMatching aClass_ = new AnaClassArgumentMatching(formatted_);
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -247,7 +248,7 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.setMemberId(ctorRes_.getMemberId());
         setConstructor(ctorRes_.getPair());
         setConstId(ctorRes_.getRealId());
-        setClassName(ctorRes_.getConstId().getName());
+        setClassName(formatted_);
         if (ctorRes_.isVarArgToCall()) {
             setNaturalVararg(getConstId().getParametersTypes().size() - 1);
             setLastType(getConstId().getParametersTypes().last());
