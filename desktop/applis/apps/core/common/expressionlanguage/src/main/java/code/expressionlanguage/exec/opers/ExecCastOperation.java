@@ -63,7 +63,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         String ret_ = overridableBlock_.getImportedReturnType();
                         ret_ = ExecInherits.quickFormat(overridableBlockParent_,gene_,ret_);
                         String fctParam_ = formatReturn(_conf, ret_, idMeth_);
-                        fctParam_ = ExecInherits.quickFormat(r_,geneFor_,fctParam_);
+                        fctParam_ = ExecInherits.quickFormat(overridableBlockParent_,geneFor_,fctParam_);
                         String argCl_ = str_.getClassName(_conf);
                         if (ExecInherits.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             AbstractFunctionalInstance struct_;
