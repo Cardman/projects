@@ -3,16 +3,10 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.FormattedParameters;
-import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -90,8 +84,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
         }
         if (!calledAfter) {
             setWrapException(false);
-            MethodId mid_ = getMetaInfo().getRealId();
-            Argument arg_ = prepare(_context, getClassName(), mid_, getInstance(), args, rightArg, _stack);
+            Argument arg_ = prepare(_context, args, rightArg, _stack);
             if (_stack.getCallingState() instanceof NotInitializedClass) {
                 setWrapException(true);
                 return false;
@@ -106,7 +99,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
         return true;
     }
 
-    abstract Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack);
+    abstract Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack);
 
     Argument getArray() {
         return array;

@@ -29,8 +29,8 @@ public final class LambdaPolymorphRefectMethodPageEl extends AbstractRefectLambd
         return method_.isInstanceMethod();
     }
 
-    Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack) {
-        return ExecInvokingOperation.callPrepare(_context, _className, getPair(), _instance, getMetaInfo().getCache(), _list, getAccessKind(), _stack);
+    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
+        return ExecInvokingOperation.callPrepare(_context, getClassName(), getPair(), getInstance(), getMetaInfo().getCache(), _list, getAccessKind(), _stack);
     }
 
 }

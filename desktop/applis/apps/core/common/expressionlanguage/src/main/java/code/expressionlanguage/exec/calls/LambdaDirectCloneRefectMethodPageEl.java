@@ -29,7 +29,7 @@ public final class LambdaDirectCloneRefectMethodPageEl extends AbstractRefectLam
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack) {
-        return ExecCloneOperation.cloneArray(_instance,_context, _stack);
+    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
+        return ExecCloneOperation.cloneArray(getInstance(),_context, _stack);
     }
 }

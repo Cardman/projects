@@ -32,7 +32,7 @@ public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambd
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack) {
-        return ExecInvokingOperation.callStd(_context.getExiting(), _context, _className, methodId, _instance, _list, _stack);
+    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
+        return ExecInvokingOperation.callStd(_context.getExiting(), _context, getClassName(), methodId, getInstance(), _list, _stack);
     }
 }

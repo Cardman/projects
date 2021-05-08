@@ -28,7 +28,7 @@ public final class LambdaDirectEnumMethods extends AbstractRefectLambdaMethodPag
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack) {
+    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
         MethodMetaInfo method_ = getMetaInfo();
         return ExecInvokingOperation.processEnums(_context.getExiting(), _context, _list, _stack, method_.getPairType());
     }

@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -40,37 +39,32 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack) {
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_className, _context);
+    Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
+        String className_ = getClassName();
+        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(className_, _context);
         if (res_.isEmpty()) {
             String null_;
             null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _className, null_, _stack)));
+            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stack)));
             return Argument.createVoid();
         }
         MethodMetaInfo method_ = getMetaInfo();
-        return prepareStaticCall(getCallee(),getPair(),method_.getCache(),_args,_className, _context, _stack);
-    }
-    private static Argument prepareStaticCall(ExecMemberCallingsBlock _callee,ExecTypeFunction _pair, Cache _cache, CustList<Argument> _arguments, String _className,
-                                              ContextEl _conf, StackCall _stackCall) {
-        if (!StringExpUtil.customCast(_className)) {
-            LgNames stds_ = _conf.getStandards();
+        if (!StringExpUtil.customCast(className_)) {
+            LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getContent().getCoreNames().getAliasIllegalType();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, _className, null_, _stackCall)));
+            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stack)));
             return Argument.createVoid();
         }
-        return checkStaticCall(_callee,_pair,_cache, _arguments, _className, _conf, _stackCall);
-    }
-
-    private static Argument checkStaticCall(ExecMemberCallingsBlock _callee,ExecTypeFunction _pair, Cache _cache, CustList<Argument> _arguments,
-                                            String _className, ContextEl _conf, StackCall _stackCall) {
-        String paramName_ = _stackCall.formatVarType(_className);
-        if (_callee instanceof ExecAbstractSwitchMethod) {
-            return checkStaticCallSw(_pair.getType(), (ExecAbstractSwitchMethod)_callee,_cache, _conf, paramName_, _stackCall, _arguments);
+        String paramName_ = _stack.formatVarType(className_);
+        ExecMemberCallingsBlock callee_ = getCallee();
+        ExecTypeFunction pair_ = getPair();
+        Cache cache_ = method_.getCache();
+        if (callee_ instanceof ExecAbstractSwitchMethod) {
+            return checkStaticCallSw(pair_.getType(), (ExecAbstractSwitchMethod) callee_, cache_, _context, paramName_, _stack, _args);
         }
-        ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(_pair,paramName_,Argument.createVoid(),_arguments,_conf, MethodAccessKind.STATIC_CALL);
-        return checkStaticCall(_pair, _cache, _conf, paramName_, l_, _stackCall);
+        ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(pair_,paramName_,Argument.createVoid(), _args, _context, MethodAccessKind.STATIC_CALL);
+        return checkStaticCall(pair_, cache_, _context, paramName_, l_, _stack);
     }
 
     @Override

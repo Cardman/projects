@@ -31,7 +31,7 @@ public final class LambdaAnnotationRefectMethodPageEl extends AbstractRefectLamb
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack) {
-        return ExecAnnotationMethodOperation.getAnnotation(_instance,name,_context, _stack);
+    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
+        return ExecAnnotationMethodOperation.getAnnotation(getInstance(),name,_context, _stack);
     }
 }

@@ -31,7 +31,7 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
         }
         if (!calledAfter) {
             setWrapException(false);
-            Argument arg_ = prepare(_context, getClassName(), getInstance(), array, _stack);
+            Argument arg_ = prepare(_context, array, _stack);
             if (_stack.getCallingState() instanceof NotInitializedClass) {
                 setWrapException(true);
                 return false;
@@ -46,5 +46,5 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
         return true;
     }
 
-    abstract Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack);
+    abstract Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack);
 }

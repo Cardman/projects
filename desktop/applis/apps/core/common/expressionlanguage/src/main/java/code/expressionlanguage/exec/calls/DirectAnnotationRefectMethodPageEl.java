@@ -31,10 +31,11 @@ public final class DirectAnnotationRefectMethodPageEl extends AbstractRefectMeth
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack) {
-        if (ExecTemplates.checkParams(_context,_className,_mid,_instance,_args, _stack).isEmpty()) {
+    Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
+        MethodId mid_ = getMetaInfo().getRealId();
+        if (ExecTemplates.checkParams(_context,getClassName(),mid_,getInstance(),_args, _stack).isEmpty()) {
             return Argument.createVoid();
         }
-        return ExecAnnotationMethodOperation.getAnnotation(_instance,_mid.getName(),_context, _stack);
+        return ExecAnnotationMethodOperation.getAnnotation(getInstance(),mid_.getName(),_context, _stack);
     }
 }

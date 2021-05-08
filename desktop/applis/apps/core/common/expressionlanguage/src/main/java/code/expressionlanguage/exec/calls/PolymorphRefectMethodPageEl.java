@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
 
@@ -32,10 +31,10 @@ public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageE
         return method_.isInstanceMethod();
     }
 
-    Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack) {
-        ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),_className,_instance,_args,_context, getAccessKind());
+    Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
+        ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),getClassName(),getInstance(),_args,_context, getAccessKind());
         l_.setRight(_right);
-        return ExecInvokingOperation.callPrepare(_context, _className, getPair(), _instance, getMetaInfo().getCache(), l_, getAccessKind(), _stack);
+        return ExecInvokingOperation.callPrepare(_context, getClassName(), getPair(), getInstance(), getMetaInfo().getCache(), l_, getAccessKind(), _stack);
     }
 
 }
