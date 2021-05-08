@@ -88,7 +88,7 @@ public final class CustContextFactory {
         argList_.addArg(argMethod_);
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
                 _definedLgNames.getCustAliases().getAliasExecute(),
-                rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_, null);
+                rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
         showUpdates_.stop();
         if (_options.isCovering()) {
             String exp_ = _exec.getOutput()+_exec.getCoverFolder();

@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableStruct;
-import code.gui.AbsGraphicListDef;
 import code.gui.AbsGraphicListDefBase;
 import code.gui.Interval;
 import code.util.CustList;
@@ -130,7 +129,7 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
         LgNamesGui stds_ = (LgNamesGui) _r.getStandards();
         ArgumentListCall argList_ = new ArgumentListCall();
         argList_.addAllArgs(_args);
-        RunnableStruct.invoke(arg_, stds_.getGuiAliases().getAliasPaint(), _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r), argList_, null);
+        RunnableStruct.invoke(arg_, stds_.getGuiAliases().getAliasPaint(), _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r), argList_);
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, getExecutionInfos());

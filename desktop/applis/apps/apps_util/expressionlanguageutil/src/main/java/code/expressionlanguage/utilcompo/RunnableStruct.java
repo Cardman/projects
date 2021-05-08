@@ -95,10 +95,10 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     public void run() {
         RunnableContextEl r_ = new RunnableContextEl(InitPhase.NOTHING, executionInfos);
         setupThread(r_);
-        invoke(this,r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunMethod(), new ArgumentListCall(), null);
+        invoke(this,r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunMethod(), new ArgumentListCall());
     }
 
-    public static void invoke(Struct _instance, RunnableContextEl _r, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, ArgumentListCall _argList, Argument _right) {
+    public static void invoke(Struct _instance, RunnableContextEl _r, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, ArgumentListCall _argList) {
         String base_ = StringExpUtil.getIdFromAllTypes(_instance.getClassName(_r));
         ExecOverrideInfo mId_ = _rootBlock.getRedirections().getVal(_method,base_);
         if (mId_ == null) {
@@ -106,10 +106,10 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
             return;
         }
         Argument arg_ = new Argument(_instance);
-        RunnableStruct.invoke(arg_, mId_.getClassName(), _r, mId_.getPair(), StackCall.newInstance(InitPhase.NOTHING,_r), _argList, _right);
+        RunnableStruct.invoke(arg_, mId_.getClassName(), _r, mId_.getPair(), StackCall.newInstance(InitPhase.NOTHING,_r), _argList);
     }
-    public static Argument invoke(Argument _global, String _class, RunnableContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList, Argument _right) {
-        Parameters parameters_ = ExecTemplates.wrapAndCall(_pair, _class, _global, _cont, _stackCall, _argList, _right);
+    public static Argument invoke(Argument _global, String _class, RunnableContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
+        Parameters parameters_ = ExecTemplates.wrapAndCall(_pair, _class, _global, _cont, _stackCall, _argList);
         Argument arg_ = ProcessMethod.calculateArgument(_global, _class, _pair, parameters_, _cont, _stackCall).getValue();
         _cont.getCustInit().prExc(_cont, _stackCall);
         return arg_;

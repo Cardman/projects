@@ -144,7 +144,7 @@ public final class GuiProcess implements Runnable {
             CustList<Argument> args_ = new CustList<Argument>();
             Argument arg_ = new Argument();
             ExecNamedFunctionBlock fct_ = methods_.first();
-            RunnableStruct.invoke(arg_, clName, context, new ExecTypeFunction(classBody_, fct_), st_, new ArgumentListCall(), null);
+            RunnableStruct.invoke(arg_, clName, context, new ExecTypeFunction(classBody_, fct_), st_, new ArgumentListCall());
         } else {
             context.getCustInit().removeThreadFromList(context);
         }

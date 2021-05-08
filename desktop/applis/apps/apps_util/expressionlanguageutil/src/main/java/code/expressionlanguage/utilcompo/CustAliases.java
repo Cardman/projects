@@ -2942,7 +2942,7 @@ public final class CustAliases {
                 Argument arg_ = new Argument(_args[0]);
                 ArgumentListCall argList_ = new ArgumentListCall();
                 argList_.addAllArgs(new CustList<Argument>(arg_));
-                ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectPair(), className_,Argument.createVoid(), _cont, _stackCall, argList_, null);
+                ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectPair(), className_,Argument.createVoid(), _cont, _stackCall, argList_);
                 return;
             }
         }
@@ -2952,7 +2952,7 @@ public final class CustAliases {
             Argument argArr_ = new Argument(_args[1]);
             ArgumentListCall argList_ = new ArgumentListCall();
             argList_.addAllArgs(new CustList<Argument>(arg_,argArr_));
-            ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectTwoPair(), className_,Argument.createVoid(), _cont, _stackCall, argList_, null);
+            ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectTwoPair(), className_,Argument.createVoid(), _cont, _stackCall, argList_);
             return;
         }
         String stringAppFile_ = buildLog(_cont, _args);

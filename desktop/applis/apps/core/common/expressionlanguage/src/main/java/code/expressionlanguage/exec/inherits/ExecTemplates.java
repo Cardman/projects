@@ -581,19 +581,11 @@ public final class ExecTemplates {
         return out_;
     }
 
-    public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList, Argument _right) {
+    public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList) {
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         ExecRootBlock type_ = _pair.getType();
-        Parameters p_ = new Parameters();
-        CustList<ArgumentWrapper> argumentWrappers_ = _argList.getArgumentWrappers();
-        ParametersTypes params_ = fetchParamTypes(type_, fct_, _formatted);
-        checkNb(_conf, _stackCall, p_, argumentWrappers_, params_);
-        CustList<Struct> values_ = checkArgs(_conf, _stackCall, p_, argumentWrappers_, params_);
-        checkArrVararg(_conf, _stackCall, p_, params_, values_);
-        procRight(type_, fct_, _formatted, _conf, _right, _stackCall, p_);
-        if (p_.getError() != null) {
-            _stackCall.setCallingState(new CustomFoundExc(p_.getError()));
-        } else {
+        Parameters p_ = okArgsSet(type_,fct_,_formatted,null,_argList,_conf,_stackCall);
+        if (p_.getError() == null) {
             _stackCall.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, p_));
         }
         return p_;

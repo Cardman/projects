@@ -23,7 +23,6 @@ import code.expressionlanguage.utilcompo.ExecutingBlocks;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.*;
 import code.gui.initialize.AbstractGraphicComboBoxGenerator;
-import code.scripts.messages.gui.MessCdmBaseGr;
 import code.scripts.messages.gui.MessCdmGuiGr;
 import code.util.CustList;
 import code.util.StringList;
@@ -5319,7 +5318,7 @@ public final class GuiAliases {
     private void wrapAndCall(ContextEl _cont, CustList<Argument> _args, ExecTypeFunction _pair, StackCall _stackCall) {
         ArgumentListCall argList_ = new ArgumentListCall();
         argList_.addAllArgs(_args);
-        ExecTemplates.wrapAndCall(_pair, aliasPaint,Argument.createVoid(), _cont, _stackCall, argList_, null);
+        ExecTemplates.wrapAndCall(_pair, aliasPaint,Argument.createVoid(), _cont, _stackCall, argList_);
     }
 
     public void otherAliasGui(StringMap<String> _util, StringMap<String> _cust) {

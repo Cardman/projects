@@ -693,7 +693,7 @@ public final class AliasMath {
             }
             ArgumentListCall argList_ = new ArgumentListCall();
             argList_.addAllArgs(argsToPass_);
-            ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, argList_, null);
+            ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, argList_);
             return _result;
         }
         argsToPass_.clear();
@@ -718,7 +718,7 @@ public final class AliasMath {
             }
             ArgumentListCall argList_ = new ArgumentListCall();
             argList_.addAllArgs(argsToPass_);
-            ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, argList_, null);
+            ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, argList_);
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

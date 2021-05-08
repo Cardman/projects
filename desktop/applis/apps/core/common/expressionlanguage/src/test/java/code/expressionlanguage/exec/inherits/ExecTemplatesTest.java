@@ -1269,7 +1269,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         argList_.addArg(new Argument());
         ArgumentWrapper.helpArg(null);
         ExecHelper.getArgumentWrapper(new CustList<ArgumentWrapper>(),0);
-        ExecTemplates.wrapAndCall(new ExecTypeFunction(_classBody, _first), "pkg.Ex",Argument.createVoid(), _cont.getContext(), _cont.getStackCall(), argList_, null);
+        ExecTemplates.wrapAndCall(new ExecTypeFunction(_classBody, _first), "pkg.Ex",Argument.createVoid(), _cont.getContext(), _cont.getStackCall(), argList_);
         new ReflectGetFieldPageEl(null,null).receive(null,null,_cont.getContext(), _cont.getStackCall());
         new ReflectSetFieldPageEl(null,null,null).receive(null,null,_cont.getContext(), _cont.getStackCall());
     }
