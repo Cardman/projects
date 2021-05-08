@@ -295,7 +295,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                                                       InstancingStep _kindCall, MethodAccessKind _kind, StackCall _stackCall) {
         ExecRootBlock type_ = _methodId.getType();
         ExecNamedFunctionBlock fct_ = _methodId.getFct();
-        FormattedParameters classFormat_ = ExecTemplates.checkParams(_conf,_classNameFound,type_,fct_,_previous,_cache,_firstArgs, _kind, _stackCall);
+
+        AbstractParamChecker def_ = new DefaultParamChecker(fct_, _firstArgs);
+        FormattedParameters classFormat_ = def_.checkParams(type_, _classNameFound, _previous, _cache, _conf, _kind, _stackCall);
         if (_conf.callsOrException(_stackCall)) {
             return classFormat_;
         }

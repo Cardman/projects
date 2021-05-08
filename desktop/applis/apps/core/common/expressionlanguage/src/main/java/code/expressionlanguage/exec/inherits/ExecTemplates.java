@@ -276,54 +276,6 @@ public final class ExecTemplates {
         return StringUtil.concat(_className, RETURN_LINE, _classNameFound, RETURN_LINE);
     }
 
-    public static FormattedParameters checkParams(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _methodId,
-                                                  Argument _previous, Cache _cache, ArgumentListCall _firstArgs,
-                                                  MethodAccessKind _kind, StackCall _stackCall) {
-        LgNames stds_ = _conf.getStandards();
-        String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-        String classFormat_ = _classNameFound;
-        FormattedParameters f_ = new FormattedParameters();
-        if (_kind == MethodAccessKind.INSTANCE) {
-            String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
-            classFormat_ = ExecInherits.getQuickFullTypeByBases(className_, classFormat_, _conf);
-            if (classFormat_.isEmpty()) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_, _stackCall)));
-                return f_;
-            }
-        }
-        Parameters parameters_ = okArgsSet(_rootBlock, _methodId, classFormat_, _cache, _firstArgs, _conf, _stackCall);
-        if (parameters_.getError() != null) {
-            return f_;
-        }
-        f_.setParameters(parameters_);
-        f_.setFormattedClass(classFormat_);
-        return f_;
-    }
-
-    public static FormattedParameters checkParamsSw(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _methodId,
-                                                    Argument _previous, Cache _cache,
-                                                    MethodAccessKind _kind, StackCall _stackCall, CustList<Argument> _arguments) {
-        LgNames stds_ = _conf.getStandards();
-        String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-        String classFormat_ = _classNameFound;
-        FormattedParameters f_ = new FormattedParameters();
-        if (_kind == MethodAccessKind.INSTANCE) {
-            String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
-            classFormat_ = ExecInherits.getQuickFullTypeByBases(className_, classFormat_, _conf);
-            if (classFormat_.isEmpty()) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_, _stackCall)));
-                return f_;
-            }
-        }
-        Parameters parameters_ = okArgsSetSw(_rootBlock, _methodId, classFormat_, _cache, _conf, _stackCall, _arguments);
-        if (parameters_.getError() != null) {
-            return f_;
-        }
-        f_.setParameters(parameters_);
-        f_.setFormattedClass(classFormat_);
-        return f_;
-    }
-
     public static Struct okArgsSet(Identifiable _id, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
         Struct ex_ = okArgsEx(_id, _firstArgs, _conf, _stackCall);
         if (ex_ != null) {
@@ -633,20 +585,18 @@ public final class ExecTemplates {
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         ExecRootBlock type_ = _pair.getType();
         Parameters p_ = new Parameters();
-        possibleCheck(type_, _formatted, null, _conf, _stackCall, p_);
         CustList<ArgumentWrapper> argumentWrappers_ = _argList.getArgumentWrappers();
         ParametersTypes params_ = fetchParamTypes(type_, fct_, _formatted);
         checkNb(_conf, _stackCall, p_, argumentWrappers_, params_);
         CustList<Struct> values_ = checkArgs(_conf, _stackCall, p_, argumentWrappers_, params_);
         checkArrVararg(_conf, _stackCall, p_, params_, values_);
         procRight(type_, fct_, _formatted, _conf, _right, _stackCall, p_);
-        Parameters ex_ = p_;
-        if (ex_.getError() != null) {
-            _stackCall.setCallingState(new CustomFoundExc(ex_.getError()));
+        if (p_.getError() != null) {
+            _stackCall.setCallingState(new CustomFoundExc(p_.getError()));
         } else {
-            _stackCall.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, ex_));
+            _stackCall.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, p_));
         }
-        return ex_;
+        return p_;
     }
 
     private static Struct processError(ContextEl _conf, ArrayStruct _arr, Struct _s, ErrorType _state, StackCall _stackCall) {

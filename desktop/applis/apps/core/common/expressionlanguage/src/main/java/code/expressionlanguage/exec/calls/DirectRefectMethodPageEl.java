@@ -6,9 +6,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.FormattedParameters;
-import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.MethodId;
@@ -40,7 +38,8 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right, StackCall _stack) {
         ExecMemberCallingsBlock callee_ = getCallee();
         if (callee_ instanceof ExecAbstractSwitchMethod) {
-            FormattedParameters formatted_ = ExecTemplates.checkParamsSw(_context, _className, getPair().getType(), (ExecAbstractSwitchMethod) callee_, _instance, getMetaInfo().getCache(), getAccessKind(), _stack, _args);
+            AbstractParamChecker sw_ = new SwitchParamChecker((ExecAbstractSwitchMethod) callee_, _args);
+            FormattedParameters formatted_ = sw_.checkParams(getPair().getType(), _className, _instance, getMetaInfo().getCache(), _context, getAccessKind(), _stack);
             if (_context.callsOrException(_stack)) {
                 return Argument.createVoid();
             }
