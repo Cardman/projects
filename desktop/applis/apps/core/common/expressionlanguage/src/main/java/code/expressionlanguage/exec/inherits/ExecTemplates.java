@@ -360,7 +360,11 @@ public final class ExecTemplates {
             }
             i_++;
         }
-        if (!_firstArgs.isEmpty()&&_id.isVararg()) {
+        return lastCheck(_id, _firstArgs, _conf, _stackCall);
+    }
+
+    private static Struct lastCheck(Identifiable _id, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
+        if (!_firstArgs.isEmpty()&& _id.isVararg()) {
             Struct str_ = _firstArgs.last().getStruct();
             if (str_ instanceof ArrayStruct) {
                 ArrayStruct arr_ = (ArrayStruct) str_;
@@ -825,32 +829,13 @@ public final class ExecTemplates {
         String type_ = StringExpUtil.getIdFromAllTypes(_className);
         String fct_ = _context.getStandards().getContent().getReflect().getAliasFct();
         if (StringUtil.quickEq(type_, fct_)) {
-            if (_classNames.isEmpty()) {
-                return null;
-            }
-            StringList parts_ = new StringList();
-            for (String s: _classNames) {
-                if (StringUtil.quickEq(s, StringExpUtil.SUB_TYPE)) {
-                    parts_.add(s);
-                    continue;
-                }
-                if (s.startsWith(StringExpUtil.SUB_TYPE)) {
-                    parts_.add(s.substring(StringExpUtil.SUB_TYPE.length()));
-                    continue;
-                }
-                if (s.startsWith(StringExpUtil.SUP_TYPE)) {
-                    parts_.add(s.substring(StringExpUtil.SUP_TYPE.length()));
-                    continue;
-                }
-                parts_.add(s);
-            }
-            StringBuilder str_ = new StringBuilder(fct_);
-            str_.append(StringExpUtil.TEMPLATE_BEGIN);
-            str_.append(StringUtil.join(parts_, StringExpUtil.TEMPLATE_SEP));
-            str_.append(StringExpUtil.TEMPLATE_END);
-            return str_.toString();
+            return fctMadeVarTypes(_classNames, fct_);
         }
-        GeneType root_ = _context.getClassBody(type_);
+        return defMadeVarTypes(_classNames, _context, type_);
+    }
+
+    private static String defMadeVarTypes(StringList _classNames, ContextEl _context, String _type) {
+        GeneType root_ = _context.getClassBody(_type);
         if (root_ == null) {
             return null;
         }
@@ -867,9 +852,7 @@ public final class ExecTemplates {
             if (arg_.contains(PREFIX_VAR_TYPE)) {
                 return null;
             }
-            if (arg_.startsWith("~")) {
-                arg_ = arg_.substring(1);
-            }
+            arg_ = extractRef(arg_);
 
             varTypes_.addEntry(t.getName(), arg_);
             i_++;
@@ -879,15 +862,10 @@ public final class ExecTemplates {
             ExecTypeVar t = typeVar_.get(i);
             for (String b:t.getConstraints()) {
                 String arg_ = _classNames.get(i);
-                if (arg_.startsWith("?")) {
+                if (arg_.startsWith("?") || arg_.startsWith("!")) {
                     continue;
                 }
-                if (arg_.startsWith("!")) {
-                    continue;
-                }
-                if (arg_.startsWith("~")) {
-                    arg_ = arg_.substring(1);
-                }
+                arg_ = extractRef(arg_);
                 String param_ = ExecInherits.format(root_,formatted_, b);
                 if (!ExecInherits.isCorrectExecute(arg_,param_,_context)) {
                     return null;
@@ -897,6 +875,39 @@ public final class ExecTemplates {
         return formatted_;
     }
 
+    private static String extractRef(String _part) {
+        if (_part.startsWith("~")) {
+            return _part.substring(1);
+        }
+        return _part;
+    }
+    private static String fctMadeVarTypes(StringList _classNames, String _fct) {
+        if (_classNames.isEmpty()) {
+            return null;
+        }
+        StringList parts_ = new StringList();
+        for (String s: _classNames) {
+            parts_.add(extractWc(s));
+        }
+        StringBuilder str_ = new StringBuilder(_fct);
+        str_.append(StringExpUtil.TEMPLATE_BEGIN);
+        str_.append(StringUtil.join(parts_, StringExpUtil.TEMPLATE_SEP));
+        str_.append(StringExpUtil.TEMPLATE_END);
+        return str_.toString();
+    }
+
+    private static String extractWc(String _part) {
+        if (StringUtil.quickEq(_part, StringExpUtil.SUB_TYPE)) {
+            return _part;
+        }
+        if (_part.startsWith(StringExpUtil.SUB_TYPE)) {
+            return _part.substring(StringExpUtil.SUB_TYPE.length());
+        }
+        if (_part.startsWith(StringExpUtil.SUP_TYPE)) {
+            return _part.substring(StringExpUtil.SUP_TYPE.length());
+        }
+        return _part;
+    }
 
     public static Argument getIndexLoop(ContextEl _context, ExecVariableContent _varCont, StackCall _stackCall) {
         return getIndexLoop(_context, _varCont, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
