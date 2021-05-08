@@ -443,9 +443,6 @@ public final class ExecTemplates {
     private static CustList<Struct> checkArgs(ContextEl _conf, StackCall _stackCall, Parameters _p, CustList<ArgumentWrapper> _argumentWrappers, ParametersTypes _params) {
         int i_ = IndexConstants.FIRST_INDEX;
         CustList<Struct> values_ = new CustList<Struct>();
-        if (_p.getError() != null) {
-            return values_;
-        }
         for (ArgumentWrapper a: _argumentWrappers) {
             checkArg(_conf, _stackCall, _params,i_, _p,values_,a);
             i_++;
