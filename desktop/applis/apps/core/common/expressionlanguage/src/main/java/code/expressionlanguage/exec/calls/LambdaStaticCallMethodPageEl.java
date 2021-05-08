@@ -10,8 +10,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaStaticCallMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
-    public LambdaStaticCallMethodPageEl(Argument _instance, ArgumentListCall _array, Argument _right, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _right, _metaInfo);
+    public LambdaStaticCallMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
     }
 
     @Override
@@ -30,7 +30,7 @@ public final class LambdaStaticCallMethodPageEl extends AbstractRefectLambdaMeth
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack) {
+    Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack) {
         MethodMetaInfo method_ = getMetaInfo();
         return prepareStaticCall(getPair(),method_.getCache(), _className, _context,_list, _stack);
     }

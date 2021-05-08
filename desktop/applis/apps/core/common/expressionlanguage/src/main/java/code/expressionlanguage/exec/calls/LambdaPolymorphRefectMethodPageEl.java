@@ -9,8 +9,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaPolymorphRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
-    public LambdaPolymorphRefectMethodPageEl(Argument _instance, ArgumentListCall _array, Argument _right, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _right, _metaInfo);
+    public LambdaPolymorphRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
     }
 
     @Override
@@ -29,8 +29,8 @@ public final class LambdaPolymorphRefectMethodPageEl extends AbstractRefectLambd
         return method_.isInstanceMethod();
     }
 
-    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack) {
-        return ExecInvokingOperation.callPrepare(_context, _className, getPair(), _instance, getMetaInfo().getCache(), _list, _right, getAccessKind(), _stack);
+    Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack) {
+        return ExecInvokingOperation.callPrepare(_context, _className, getPair(), _instance, getMetaInfo().getCache(), _list, getAccessKind(), _stack);
     }
 
 }

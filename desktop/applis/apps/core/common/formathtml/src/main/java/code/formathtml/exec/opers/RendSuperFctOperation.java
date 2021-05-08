@@ -47,7 +47,7 @@ public final class RendSuperFctOperation extends RendSettableCallFctOperation im
             String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
             String fullClassNameFound_ = ExecInherits.getSuperGeneric(argClassName_, base_, _context);
             lastType_ = ExecInherits.quickFormat(pair.getType(), fullClassNameFound_, lastType_);
-            result_ = ExecInvokingOperation.callPrepare(_context, classNameFound_, pair, prev_, null, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack), null, MethodAccessKind.INSTANCE, _stack);
+            result_ = ExecInvokingOperation.callPrepare(_context, classNameFound_, pair, prev_, null, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack,null), MethodAccessKind.INSTANCE, _stack);
         }
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);

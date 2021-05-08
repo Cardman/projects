@@ -67,7 +67,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         }
         ExecNamedFunctionBlock fct_ = _rootBlock.getFct();
         ExecRootBlock type_ = _rootBlock.getType();
-        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _paramNameOwner, null, _list, _conf, null, true, _stackCall);
+        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _paramNameOwner, null, _list, _conf, _stackCall);
         if (parameters_.getError() != null) {
             return true;
         }

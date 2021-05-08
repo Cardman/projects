@@ -25,7 +25,7 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
 
         String superClass_ = _stack.formatVarType(getClassFromName());
         String lastType_ = ExecInherits.quickFormat(getPair().getType(), superClass_, getLastType());
-        checkParametersCtors(_conf, superClass_, getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg()), InstancingStep.USING_SUPER, _stack);
+        checkParametersCtors(_conf, superClass_, getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), InstancingStep.USING_SUPER, _stack);
         Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

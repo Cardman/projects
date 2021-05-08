@@ -278,7 +278,7 @@ public final class ExecTemplates {
 
     public static FormattedParameters checkParams(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _methodId,
                                                   Argument _previous, Cache _cache, ArgumentListCall _firstArgs,
-                                                  Argument _right, MethodAccessKind _kind, StackCall _stackCall) {
+                                                  MethodAccessKind _kind, StackCall _stackCall) {
         LgNames stds_ = _conf.getStandards();
         String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
         String classFormat_ = _classNameFound;
@@ -291,7 +291,7 @@ public final class ExecTemplates {
                 return f_;
             }
         }
-        Parameters parameters_ = okArgsSet(_rootBlock, _methodId, classFormat_, _cache, _firstArgs, _conf, _right, _kind != MethodAccessKind.STATIC, _stackCall);
+        Parameters parameters_ = okArgsSet(_rootBlock, _methodId, classFormat_, _cache, _firstArgs, _conf, _stackCall);
         if (parameters_.getError() != null) {
             return f_;
         }
@@ -332,12 +332,19 @@ public final class ExecTemplates {
         return ex_;
     }
 
-    public static Parameters okArgsSet(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat, StackCall _stackCall) {
-        Parameters ex_ = okArgsEx(_rootBlock,_id, _classNameFound,_cache, _firstArgs, _conf, _right, _hasFormat, _stackCall);
-        if (ex_.getError() != null) {
-            _stackCall.setCallingState(new CustomFoundExc(ex_.getError()));
+    public static Parameters okArgsSet(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, StackCall _stackCall) {
+        Parameters p_ = new Parameters();
+        possibleCheck(_rootBlock, _classNameFound, _cache, _conf, _stackCall, p_);
+        CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
+        ParametersTypes params_ = fetchParamTypes(_rootBlock, _id, _classNameFound);
+        checkNb(_conf, _stackCall, p_, argumentWrappers_, params_);
+        CustList<Struct> values_ = checkArgs(_conf, _stackCall, p_, argumentWrappers_, params_);
+        checkArrVararg(_conf, _stackCall, p_, params_, values_);
+        procRight(_rootBlock, _id, _classNameFound, _conf, _firstArgs.getRight(), _stackCall, p_);
+        if (p_.getError() != null) {
+            _stackCall.setCallingState(new CustomFoundExc(p_.getError()));
         }
-        return ex_;
+        return p_;
     }
 
     public static void okArgsSetSwCall(ExecAbstractSwitchMethod _id, ContextEl _conf, StackCall _stackCall, Argument _value) {
@@ -415,139 +422,104 @@ public final class ExecTemplates {
         }
         return null;
     }
-    private static Parameters okArgsEx(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, Argument _right, boolean _hasFormat, StackCall _stackCall) {
-        Parameters p_ = new Parameters();
-        possibleCheck(_rootBlock, _classNameFound, _cache, _conf, _stackCall, p_);
-        if (p_.getError() != null) {
-            return p_;
+
+    private static void checkNb(ContextEl _conf, StackCall _stackCall, Parameters _p, CustList<ArgumentWrapper> _argumentWrappers, ParametersTypes _params) {
+        if (_p.getError() != null) {
+            return;
         }
-        CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-//        CustList<Argument> args_ = _firstArgs.getArguments();
-//        CustList<AbstractWrapper> wrappers_ = _firstArgs.getWrappers();
-        if (_id == null) {
-            if (argumentWrappers_.size() != 0) {
-                LgNames stds_ = _conf.getStandards();
-                String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                StringBuilder mess_ = countDiff(argumentWrappers_.size(), 0);
-                p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall));
-                return p_;
-            }
-            return p_;
-        }
-        ParametersTypes params_ = fetchParamTypes(_rootBlock, _id, _classNameFound, _hasFormat);
-//        for (Sizes s: new CustList<Sizes>(
-//                new Sizes(args_.size(), params_.getTypes().size()),
-//                new Sizes(wrappers_.size(), params_.getTypesRef().size())
-//                )) {
-//            if (s.getArg() != s.getParam()) {
-//                LgNames stds_ = _conf.getStandards();
-//                String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-//                StringBuilder mess_ = countDiff(s.getArg(), s.getParam());
-//                p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall));
-//                return p_;
-//            }
-//
-//        }
         for (Sizes s: new CustList<Sizes>(
-                new Sizes(argumentWrappers_.size(), params_.getTypesAll().size())
+                new Sizes(_argumentWrappers.size(), _params.getTypesAll().size())
         )) {
             if (s.getArg() != s.getParam()) {
                 LgNames stds_ = _conf.getStandards();
                 String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
                 StringBuilder mess_ = countDiff(s.getArg(), s.getParam());
-                p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall));
-                return p_;
+                _p.setError(new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall));
+                break;
             }
-
         }
+    }
+
+    private static CustList<Struct> checkArgs(ContextEl _conf, StackCall _stackCall, Parameters _p, CustList<ArgumentWrapper> _argumentWrappers, ParametersTypes _params) {
         int i_ = IndexConstants.FIRST_INDEX;
         CustList<Struct> values_ = new CustList<Struct>();
-        for (ArgumentWrapper a:argumentWrappers_) {
-            String param_ = params_.getTypesAll().get(i_);
-            Argument a_ = a.getValue();
-            if (a_ != null) {
-                Struct ex_ = checkObjectEx(param_, a_.getStruct().getClassName(_conf), _conf, _stackCall);
-                if (ex_ != null) {
-                    p_.setError(ex_);
-                    return p_;
-                }
-                Struct struct_ = a_.getStruct();
-                values_.add(struct_);
-                LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,param_);
-                p_.getRefParameters().addEntry(params_.getNamesAll().get(i_),new VariableWrapper(lv_));
-            } else {
-                AbstractWrapper w_ = a.getWrapper();
-                Struct value_ = getValue(w_, _conf, _stackCall);
-                values_.add(value_);
-                Struct ex_ = checkObjectEx(param_, value_.getClassName(_conf), _conf, _stackCall);
-                if (ex_ != null) {
-                    p_.setError(ex_);
-                    return p_;
-                }
-                p_.getRefParameters().addEntry(params_.getNamesAll().get(i_),getWrap(w_));
-            }
+        if (_p.getError() != null) {
+            return values_;
+        }
+        for (ArgumentWrapper a: _argumentWrappers) {
+            checkArg(_conf, _stackCall, _params,i_, _p,values_,a);
             i_++;
         }
-//        i_ = IndexConstants.FIRST_INDEX;
-//        for (Argument a: args_) {
-//            String param_ = params_.getTypes().get(i_);
-//            Struct ex_ = checkObjectEx(param_, a, _conf, _stackCall);
-//            if (ex_ != null) {
-//                p_.setError(ex_);
-//                return p_;
-//            }
-//            Struct struct_ = a.getStruct();
-//            LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,param_);
-//            p_.getRefParameters().addEntry(params_.getNames().get(i_),new VariableWrapper(lv_));
-//            i_++;
-//        }
-//        i_ = IndexConstants.FIRST_INDEX;
-//        for (AbstractWrapper w: wrappers_) {
-//            String param_ = params_.getTypesRef().get(i_);
-//            Struct value_ = getValue(w, _conf, _stackCall);
-//            Struct ex_ = checkObjectEx(param_, new Argument(value_), _conf, _stackCall);
-//            if (ex_ != null) {
-//                p_.setError(ex_);
-//                return p_;
-//            }
-//            p_.getRefParameters().addEntry(params_.getNamesRef().get(i_),getWrap(w));
-//            i_++;
-//        }
-        Struct str_ = null;
-        if (!values_.isEmpty()&&params_.isVarargAll()) {
-            str_ = values_.last();
+        return values_;
+    }
+
+    private static void checkArg(ContextEl _conf, StackCall _stackCall, ParametersTypes _params, int _i, Parameters _p,  CustList<Struct> _values, ArgumentWrapper _a) {
+        if (_p.getError() != null) {
+            return;
         }
-//        if (!args_.isEmpty()&&params_.isVararg()) {
-//            str_ = args_.last().getStruct();
-//        }
-//        if (!wrappers_.isEmpty()&&params_.isVarargRef()) {
-//            str_ = getValue(wrappers_.last(), _conf, _stackCall);
-//        }
+        String param_ = _params.getTypesAll().get(_i);
+        Argument a_ = _a.getValue();
+        if (a_ != null) {
+            Struct ex_ = checkObjectEx(param_, a_.getStruct().getClassName(_conf), _conf, _stackCall);
+            if (ex_ != null) {
+                _p.setError(ex_);
+                return;
+            }
+            Struct struct_ = a_.getStruct();
+            _values.add(struct_);
+            LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,param_);
+            _p.getRefParameters().addEntry(_params.getNamesAll().get(_i),new VariableWrapper(lv_));
+        } else {
+            AbstractWrapper w_ = _a.getWrapper();
+            Struct value_ = getValue(w_, _conf, _stackCall);
+            _values.add(value_);
+            Struct ex_ = checkObjectEx(param_, value_.getClassName(_conf), _conf, _stackCall);
+            if (ex_ != null) {
+                _p.setError(ex_);
+                return;
+            }
+            _p.getRefParameters().addEntry(_params.getNamesAll().get(_i),getWrap(w_));
+        }
+    }
+    private static void checkArrVararg(ContextEl _conf, StackCall _stackCall, Parameters _p, ParametersTypes _params, CustList<Struct> _values) {
+        if (_p.getError() != null) {
+            return;
+        }
+        Struct str_ = null;
+        if (!_values.isEmpty()&&_params.isVarargAll()) {
+            str_ = _values.last();
+        }
         if (str_ instanceof ArrayStruct) {
             ArrayStruct arr_ = (ArrayStruct) str_;
             for (Struct s: arr_.list()) {
                 ErrorType state_ = safeObjectArr(s.getClassName(_conf), _conf, arr_);
                 if (state_ != ErrorType.NOTHING) {
                     Struct struct_ = processError(_conf, arr_, s, state_, _stackCall);
-                    p_.setError(struct_);
-                    return p_;
+                    _p.setError(struct_);
+                    return;
                 }
             }
         }
-        if (_right != null) {
+    }
+
+    private static void procRight(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, ContextEl _conf, Argument _right, StackCall _stackCall, Parameters _p) {
+        if (_p.getError() != null) {
+            return;
+        }
+        if (_id != null&&_right != null) {
             String type_ = _id.getImportedReturnType();
             type_ = ExecInherits.quickFormat(_rootBlock,_classNameFound, type_);
             Struct ex_ = checkObjectEx(type_, _right.getStruct().getClassName(_conf), _conf, _stackCall);
             if (ex_ != null) {
-                p_.setError(ex_);
-                return p_;
+                _p.setError(ex_);
+            } else {
+                _p.setRight(_right);
+                LocalVariable lv_ = LocalVariable.newLocalVariable(_right.getStruct(),type_);
+                _p.getRefParameters().addEntry(_conf.getClasses().getKeyWordValue(),new VariableWrapper(lv_));
             }
-            p_.setRight(_right);
-            LocalVariable lv_ = LocalVariable.newLocalVariable(_right.getStruct(),type_);
-            p_.getRefParameters().addEntry(_conf.getClasses().getKeyWordValue(),new VariableWrapper(lv_));
         }
-        return p_;
     }
+
     private static Parameters okArgsExSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Argument _value) {
         Parameters p_ = new Parameters();
         possibleCheck(_rootBlock, _classNameFound, _cache, _conf, _stackCall, p_);
@@ -599,32 +571,25 @@ public final class ExecTemplates {
         return mess_;
     }
 
-    private static ParametersTypes fetchParamTypes(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, boolean _hasFormat) {
+    private static ParametersTypes fetchParamTypes(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound) {
         ParametersTypes parametersTypes_ = new ParametersTypes();
         StringList paramsAll_ = new StringList();
         StringList namesAll_ = new StringList();
+        if (_id == null) {
+            parametersTypes_.setNamesAll(namesAll_);
+            parametersTypes_.setTypesAll(paramsAll_);
+            return parametersTypes_;
+        }
         int i_ = 0;
-        if (_hasFormat) {
-            for (String c: _id.getImportedParametersTypes()) {
-                String c_ = c;
-                c_ = ExecInherits.quickFormat(_rootBlock,_classNameFound, c_);
-                if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
-                    c_ = StringExpUtil.getPrettyArrayType(c_);
-                }
-                paramsAll_.add(c_);
-                namesAll_.add(_id.getParametersName(i_));
-                i_++;
+        for (String c: _id.getImportedParametersTypes()) {
+            String c_ = c;
+            c_ = ExecInherits.quickFormat(_rootBlock,_classNameFound, c_);
+            if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
+                c_ = StringExpUtil.getPrettyArrayType(c_);
             }
-        } else {
-            for (String c: _id.getImportedParametersTypes()) {
-                String c_ = c;
-                if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
-                    c_ = StringExpUtil.getPrettyArrayType(c_);
-                }
-                paramsAll_.add(c_);
-                namesAll_.add(_id.getParametersName(i_));
-                i_++;
-            }
+            paramsAll_.add(c_);
+            namesAll_.add(_id.getParametersName(i_));
+            i_++;
         }
         parametersTypes_.setNamesAll(namesAll_);
         parametersTypes_.setTypesAll(paramsAll_);
@@ -670,7 +635,15 @@ public final class ExecTemplates {
     public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList, Argument _right) {
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         ExecRootBlock type_ = _pair.getType();
-        Parameters ex_ = okArgsEx(type_, fct_, _formatted, null, _argList, _conf, _right, true, _stackCall);
+        Parameters p_ = new Parameters();
+        possibleCheck(type_, _formatted, null, _conf, _stackCall, p_);
+        CustList<ArgumentWrapper> argumentWrappers_ = _argList.getArgumentWrappers();
+        ParametersTypes params_ = fetchParamTypes(type_, fct_, _formatted);
+        checkNb(_conf, _stackCall, p_, argumentWrappers_, params_);
+        CustList<Struct> values_ = checkArgs(_conf, _stackCall, p_, argumentWrappers_, params_);
+        checkArrVararg(_conf, _stackCall, p_, params_, values_);
+        procRight(type_, fct_, _formatted, _conf, _right, _stackCall, p_);
+        Parameters ex_ = p_;
         if (ex_.getError() != null) {
             _stackCall.setCallingState(new CustomFoundExc(ex_.getError()));
         } else {

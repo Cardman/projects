@@ -40,7 +40,7 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
             prev_ = new Argument();
         }
         if (res_ == null) {
-            res_ = callStd(_conf.getExiting(), _conf, classNameFound_, methodId_, prev_, fectchArgs(_nodes, stdFctContent.getLastType(), stdFctContent.getNaturalVararg()), _stack);
+            res_ = callStd(_conf.getExiting(), _conf, classNameFound_, methodId_, prev_, fectchArgs(_nodes, stdFctContent.getLastType(), stdFctContent.getNaturalVararg(),null), _stack);
         }
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

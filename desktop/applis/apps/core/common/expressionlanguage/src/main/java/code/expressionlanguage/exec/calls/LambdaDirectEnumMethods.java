@@ -8,8 +8,8 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaDirectEnumMethods extends AbstractRefectLambdaMethodPageEl {
-    public LambdaDirectEnumMethods(Argument _instance, ArgumentListCall _array, Argument _right, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _right, _metaInfo);
+    public LambdaDirectEnumMethods(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
     }
 
     @Override
@@ -28,7 +28,7 @@ public final class LambdaDirectEnumMethods extends AbstractRefectLambdaMethodPag
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack) {
+    Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack) {
         MethodMetaInfo method_ = getMetaInfo();
         return ExecInvokingOperation.processEnums(_context.getExiting(), _context, _list, _stack, method_.getPairType());
     }

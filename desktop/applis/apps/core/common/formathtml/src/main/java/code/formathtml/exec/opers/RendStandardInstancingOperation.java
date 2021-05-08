@@ -49,7 +49,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
             _stack.setCallingState(new CustomFoundRecordConstructor(className_, pair,instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
             result_ = Argument.createVoid();
         } else {
-            result_ = ExecInvokingOperation.instancePrepareCust(_context, className_, pair, previous_, fectchArgs(_nodes, lastType_, instancingCommonContent.getNaturalVararg(), _rendStack), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), _stack);
+            result_ = ExecInvokingOperation.instancePrepareCust(_context, className_, pair, previous_, fectchArgs(_nodes, lastType_, instancingCommonContent.getNaturalVararg(), _rendStack,null), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), _stack);
         }
         Argument argres_ = RendDynOperationNode.processCall(result_, _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);

@@ -310,25 +310,24 @@ public final class ExecutingUtil {
             AbstractRefectLambdaMethodPageEl refMet_;
             Argument instance_ = c_.getInstance();
             ArgumentListCall array_ = c_.getArray();
-            Argument right_ = c_.getRight();
             if (reflect_ == ReflectingType.METHOD) {
-                refMet_ = new LambdaPolymorphRefectMethodPageEl(instance_,array_,right_, metaInfo_);
+                refMet_ = new LambdaPolymorphRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.DIRECT) {
-                refMet_ = new LambdaDirectRefectMethodPageEl(instance_,array_,right_, metaInfo_);
+                refMet_ = new LambdaDirectRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.STATIC_CALL) {
-                refMet_ = new LambdaStaticCallMethodPageEl(instance_,array_,right_, metaInfo_);
+                refMet_ = new LambdaStaticCallMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.CAST) {
-                refMet_ = new LambdaCastRefectMethodPageEl(false, instance_,array_,right_, metaInfo_);
+                refMet_ = new LambdaCastRefectMethodPageEl(false, instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.CAST_DIRECT) {
-                refMet_ = new LambdaCastRefectMethodPageEl(true, instance_,array_,right_, metaInfo_);
+                refMet_ = new LambdaCastRefectMethodPageEl(true, instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.STD_FCT) {
-                refMet_ = new LambdaDirectStdRefectMethodPageEl(instance_,array_,right_, metaInfo_);
+                refMet_ = new LambdaDirectStdRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.CLONE_FCT) {
-                refMet_ = new LambdaDirectCloneRefectMethodPageEl(instance_,array_,right_, metaInfo_);
+                refMet_ = new LambdaDirectCloneRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.ENUM_METHODS) {
-                refMet_ = new LambdaDirectEnumMethods(instance_,array_,right_, metaInfo_);
+                refMet_ = new LambdaDirectEnumMethods(instance_,array_, metaInfo_);
             } else {
-                refMet_ = new LambdaAnnotationRefectMethodPageEl(instance_,array_,right_, metaInfo_);
+                refMet_ = new LambdaAnnotationRefectMethodPageEl(instance_,array_, metaInfo_);
             }
             pageLoc_ = refMet_;
         } else if (_ref instanceof CustomReflectMethod) {

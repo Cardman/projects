@@ -124,7 +124,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     static Argument checkStaticCall(ExecTypeFunction _pair, Cache _cache, ContextEl _conf, String _paramName, ArgumentListCall _list, StackCall _stackCall) {
         ExecRootBlock type_ = _pair.getType();
         ExecNamedFunctionBlock fct_ = _pair.getFct();
-        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _paramName, _cache, _list, _conf, null, true, _stackCall);
+        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _paramName, _cache, _list, _conf, _stackCall);
         if (parameters_.getError() != null) {
             return Argument.createVoid();
         }

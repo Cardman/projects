@@ -620,7 +620,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addAllArgs(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, l_, cont_.getContext(), null, true, cont_.getStackCall());
+        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, l_, cont_.getContext(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -636,7 +636,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addAllArgs(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, l_, cont_.getContext(), null, true, cont_.getStackCall());
+        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), "pkg.Ex<$int>", null, l_, cont_.getContext(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -651,7 +651,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         args_.add(Argument.createVoid());
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addAllArgs(args_);
-        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex<$int>", null, l_, cont_.getContext(), null, true, cont_.getStackCall());
+        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex<$int>", null, l_, cont_.getContext(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -666,7 +666,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addAllArgs(args_);
         StackCall stackCall_ = cont_.getStackCall();
-        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex", null, l_, cont_.getContext(), null,true, stackCall_);
+        ExecTemplates.okArgsSet(cont_.getClasses().getClassBody("pkg.Ex"), null, "pkg.Ex", null, l_, cont_.getContext(), stackCall_);
         assertNull(stackCall_.getCallingState());
     }
     @Test

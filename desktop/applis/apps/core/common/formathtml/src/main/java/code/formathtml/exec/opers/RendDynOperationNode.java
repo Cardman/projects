@@ -14,7 +14,6 @@ import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 
-import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
@@ -338,7 +337,7 @@ public abstract class RendDynOperationNode {
         if (!_context.callsOrException(_stackCall)) {
             ArgumentListCall l_ = new ArgumentListCall();
             l_.addAllArgs(args_);
-            parameters_ = ExecTemplates.okArgsSet(_c.getType(), _c.getFct(), _owner,null, l_, _context, null, true, _stackCall);
+            parameters_ = ExecTemplates.okArgsSet(_c.getType(), _c.getFct(), _owner,null, l_, _context, _stackCall);
         }
         if (_context.callsOrException(_stackCall)) {
             return null;

@@ -9,8 +9,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaDirectCloneRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
-    public LambdaDirectCloneRefectMethodPageEl(Argument _instance, ArgumentListCall _array, Argument _right, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _right, _metaInfo);
+    public LambdaDirectCloneRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
     }
 
     @Override
@@ -29,7 +29,7 @@ public final class LambdaDirectCloneRefectMethodPageEl extends AbstractRefectLam
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack) {
+    Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack) {
         return ExecCloneOperation.cloneArray(_instance,_context, _stack);
     }
 }

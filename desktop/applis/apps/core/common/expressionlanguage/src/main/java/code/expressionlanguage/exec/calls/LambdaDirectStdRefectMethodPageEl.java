@@ -11,8 +11,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
     private final MethodId methodId;
-    public LambdaDirectStdRefectMethodPageEl(Argument _instance, ArgumentListCall _array,Argument _right,  MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _right, _metaInfo);
+    public LambdaDirectStdRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
         methodId = _metaInfo.getRealId();
     }
 
@@ -32,7 +32,7 @@ public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambd
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack) {
+    Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack) {
         return ExecInvokingOperation.callStd(_context.getExiting(), _context, _className, methodId, _instance, _list, _stack);
     }
 }

@@ -7,6 +7,8 @@ import code.util.CustList;
 public final class ArgumentListCall {
     private final CustList<ArgumentWrapper> argumentWrappers = new CustList<ArgumentWrapper>();
 
+    private Argument right;
+
     public CustList<ArgumentWrapper> getArgumentWrappers() {
         return argumentWrappers;
     }
@@ -30,5 +32,13 @@ public final class ArgumentListCall {
             }
         }
         return args_;
+    }
+
+    public Argument getRight() {
+        return right;
+    }
+
+    public void setRight(Argument _right) {
+        this.right = _right;
     }
 }

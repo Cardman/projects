@@ -34,10 +34,11 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         l_.addAllArgs(arguments_);
         ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, l_, _className, _kind, _stackCall);
     }
-    public ArgumentListCall fectchArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg, RendStackCall _rendStackCall) {
+    public ArgumentListCall fectchArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg, RendStackCall _rendStackCall,Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         RendArgumentList argumentList_ = listNamedArguments(_nodes, chidren_,_naturalVararg);
         ArgumentListCall fetchArgs_ = argumentList_.getArguments();
+        fetchArgs_.setRight(_right);
         CustList<ArgumentWrapper> first_ = fetchArgs_.getArgumentWrappers();
         ExecInvokingOperation.listArguments(argumentList_.getNaturalVararg(), _lastType, first_);
         ArgumentListCall list_ = _rendStackCall.getLastPage().getList();

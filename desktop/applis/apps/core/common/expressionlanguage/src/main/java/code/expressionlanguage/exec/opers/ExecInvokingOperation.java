@@ -41,22 +41,23 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
 
     protected ArgumentListCall fectchInstFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
         String lastType_ = ExecInherits.quickFormat(_rootBlock,_className, _lastType);
-        return fectchArgs(_nodes, lastType_, _naturalVararg);
+        return fectchArgs(_nodes, lastType_, _naturalVararg, null);
     }
 
-    protected ArgumentListCall fetchFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
+    protected ArgumentListCall fetchFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg,Argument _right) {
         String cl_ = _pr.getClassName(_conf);
         String base_ = _rootBlock.getFullName();
         String clGen_ = ExecInherits.getSuperGeneric(cl_, base_, _conf);
         String lastType_ = ExecInherits.quickFormat(_rootBlock,clGen_, _lastType);
-        return fectchArgs(_nodes,lastType_, _naturalVararg);
+        return fectchArgs(_nodes,lastType_, _naturalVararg,_right);
     }
 
-    protected ArgumentListCall fectchArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg) {
+    protected ArgumentListCall fectchArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg,Argument _right) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_,_naturalVararg);
         CustList<ArgumentWrapper> first_ = argumentList_.getArguments().getArgumentWrappers();
         listArguments(argumentList_.getNaturalVararg(), _lastType, first_);
+        argumentList_.getArguments().setRight(_right);
         return argumentList_.getArguments();
     }
     private static ArgumentList listNamedArguments(IdMap<ExecOperationNode, ArgumentsPair> _all, CustList<ExecOperationNode> _children, int _naturalVararg) {
@@ -143,7 +144,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return new Argument();
         }
         ExecNamedFunctionBlock fct_ = _pair.getFct();
-        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _className, null, _arguments, _conf, null, true, _stackCall);
+        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _className, null, _arguments, _conf, _stackCall);
         if (parameters_.getError() != null) {
             return new Argument();
         }
@@ -225,8 +226,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
 
-    public static Argument callPrepare(ContextEl _cont, String _classNameFound, ExecTypeFunction _rootBlock, Argument _previous, Cache _cache, ArgumentListCall _firstArgs, Argument _right, MethodAccessKind _kind, StackCall _stackCall) {
-        FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock, _previous, _cache,_firstArgs, CallPrepareState.METHOD,null, _right, _kind, _stackCall);
+    public static Argument callPrepare(ContextEl _cont, String _classNameFound, ExecTypeFunction _rootBlock, Argument _previous, Cache _cache, ArgumentListCall _firstArgs, MethodAccessKind _kind, StackCall _stackCall) {
+        FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock, _previous, _cache,_firstArgs, CallPrepareState.METHOD,null, _kind, _stackCall);
         if (_cont.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
@@ -277,7 +278,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_exit.hasToExit(_stackCall, _classNameFound)) {
             return;
         }
-        checkParameters(_conf, _classNameFound, _named, Argument.createVoid(),null, _firstArgs, CallPrepareState.OPERATOR,null, null, _kind, _stackCall);
+        checkParameters(_conf, _classNameFound, _named, Argument.createVoid(),null, _firstArgs, CallPrepareState.OPERATOR,null, _kind, _stackCall);
     }
 
     public static void checkParametersCtors(ContextEl _conf, String _classNameFound,
@@ -285,16 +286,16 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                                             ArgumentListCall _firstArgs,
                                             InstancingStep _kindCall, StackCall _stackCall) {
         Argument arg_ = _stackCall.getLastPage().getGlobalArgument();
-        checkParameters(_conf, _classNameFound, _named, arg_,null, _firstArgs,CallPrepareState.CTOR, _kindCall,null, MethodAccessKind.INSTANCE, _stackCall);
+        checkParameters(_conf, _classNameFound, _named, arg_,null, _firstArgs,CallPrepareState.CTOR, _kindCall, MethodAccessKind.INSTANCE, _stackCall);
     }
 
     public static FormattedParameters checkParameters(ContextEl _conf, String _classNameFound, ExecTypeFunction _methodId,
                                                       Argument _previous, Cache _cache, ArgumentListCall _firstArgs,
                                                       CallPrepareState _state,
-                                                      InstancingStep _kindCall, Argument _right, MethodAccessKind _kind, StackCall _stackCall) {
+                                                      InstancingStep _kindCall, MethodAccessKind _kind, StackCall _stackCall) {
         ExecRootBlock type_ = _methodId.getType();
         ExecNamedFunctionBlock fct_ = _methodId.getFct();
-        FormattedParameters classFormat_ = ExecTemplates.checkParams(_conf,_classNameFound,type_,fct_,_previous,_cache,_firstArgs,_right, _kind, _stackCall);
+        FormattedParameters classFormat_ = ExecTemplates.checkParams(_conf,_classNameFound,type_,fct_,_previous,_cache,_firstArgs, _kind, _stackCall);
         if (_conf.callsOrException(_stackCall)) {
             return classFormat_;
         }
@@ -629,12 +630,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     instance_ = new Argument(instanceStruct_);
                 }
                 call_.getArgumentWrappers().addAllElts(formal_);
-                return redirect(_conf, l_,instance_, call_, right_, method_, _stackCall);
+                call_.setRight(right_);
+                return redirect(_conf, l_,instance_, call_, method_, _stackCall);
             }
             if (FunctionIdUtil.isOperatorName(l_.getMethodName())) {
                 formal_.add(0,new ArgumentWrapper(new Argument(instanceStruct_),null));
                 call_.getArgumentWrappers().addAllElts(formal_);
-                return redirect(_conf, l_, Argument.createVoid(), call_, right_, method_, _stackCall);
+                call_.setRight(right_);
+                return redirect(_conf, l_, Argument.createVoid(), call_, method_, _stackCall);
             }
             int len_ = Math.max(0, formal_.size() - 1);
             CustList<ArgumentWrapper> arr_ = formal_.leftMinusOne(len_);
@@ -644,7 +647,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument();
             }
             call_.getArgumentWrappers().addAllElts(arr_);
-            return redirect(_conf, l_, firstValue_, call_, right_, method_, _stackCall);
+            call_.setRight(right_);
+            return redirect(_conf, l_, firstValue_, call_, method_, _stackCall);
         }
         String null_;
         null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
@@ -652,7 +656,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
-    private static Argument redirect(ContextEl _conf, LambdaMethodStruct _l, Argument _instance, ArgumentListCall _call, Argument _right, MethodMetaInfo _method, StackCall _stackCall) {
+    private static Argument redirect(ContextEl _conf, LambdaMethodStruct _l, Argument _instance, ArgumentListCall _call, MethodMetaInfo _method, StackCall _stackCall) {
         String name_ = _l.getMethodName();
         if (StringUtil.nullToEmpty(_l.getFormClassName()).startsWith(StringExpUtil.ARR_CLASS) && (name_.startsWith("[]")||StringUtil.quickEq(name_,"[:]"))) {
             CustList<Argument> arguments_ = _call.getArguments();
@@ -692,11 +696,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     }
                 }
                 Struct ind_ = arguments_.get(lastIndex_).getStruct();
-                ExecTemplates.setElement(arr_,ind_, Argument.getNullableValue(_right).getStruct(),_conf, _stackCall);
+                ExecTemplates.setElement(arr_,ind_, Argument.getNullableValue(_call.getRight()).getStruct(),_conf, _stackCall);
                 if (_conf.callsOrException(_stackCall)) {
                     return new Argument();
                 }
-                return _right;
+                return _call.getRight();
             }
             for (int i = 0; i < lastIndex_; i++) {
                 Struct ind_ = arguments_.get(i).getStruct();
@@ -709,47 +713,47 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return new Argument(ExecTemplates.getElement(arr_,ind_,_conf, _stackCall));
         }
         if (_method.getStdCallee() != null) {
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STD_FCT, _method, _instance,_call,_right, true));
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STD_FCT, _method, _instance,_call, true));
             return new Argument();
         }
         if (_method.getPairFct() instanceof ExecAnonymousFunctionBlock) {
             if (_method.isStaticCall()) {
-                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STATIC_CALL, _method, _instance,_call,_right, true));
+                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STATIC_CALL, _method, _instance,_call, true));
                 return new Argument();
             }
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.DIRECT, _method, _instance,_call,_right, true));
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.DIRECT, _method, _instance,_call, true));
             return new Argument();
         }
         ExecRootBlock e_ = _method.getPairType();
         if (e_ instanceof ExecAnnotationBlock) {
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.ANNOT_FCT, _method, _instance,_call,_right, true));
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.ANNOT_FCT, _method, _instance,_call, true));
             return new Argument();
         }
         if (_method.getPairFct() != null) {
             if (_method.isExpCast()) {
-                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CAST, _method, _instance,_call,_right, true));
+                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CAST, _method, _instance,_call, true));
                 return new Argument();
             }
             if (_method.isStaticCall()) {
-                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STATIC_CALL, _method, _instance,_call,_right, true));
+                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STATIC_CALL, _method, _instance,_call, true));
                 return new Argument();
             }
             if (!_l.isPolymorph()) {
-                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.DIRECT, _method, _instance,_call,_right, true));
+                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.DIRECT, _method, _instance,_call, true));
                 return new Argument();
             }
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.METHOD, _method, _instance,_call,_right, true));
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.METHOD, _method, _instance,_call, true));
             return new Argument();
         }
         if (e_ != null) {
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.ENUM_METHODS, _method, _instance,_call,_right, true));
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.ENUM_METHODS, _method, _instance,_call, true));
             return new Argument();
         }
         if (_method.isDirectCast()) {
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CAST_DIRECT, _method, _instance,_call,_right, true));
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CAST_DIRECT, _method, _instance,_call, true));
             return new Argument();
         }
-        _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CLONE_FCT, _method, _instance,_call,_right, true));
+        _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CLONE_FCT, _method, _instance,_call, true));
         return new Argument();
     }
     private static Argument getEnumValues(AbstractExiting _exit, String _class, ExecRootBlock _root, ContextEl _conf, StackCall _stackCall) {

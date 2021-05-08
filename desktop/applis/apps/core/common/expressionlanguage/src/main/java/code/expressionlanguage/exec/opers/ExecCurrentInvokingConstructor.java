@@ -24,7 +24,7 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         setRelOffsetPossibleLastPage(off_, _stack);
 
         String lastType_ = _stack.formatVarType(getLastType());
-        checkParametersCtors(_conf, _stack.getLastPage().getGlobalClass(), getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg()), InstancingStep.USING_THIS, _stack);
+        checkParametersCtors(_conf, _stack.getLastPage().getGlobalClass(), getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), InstancingStep.USING_THIS, _stack);
         Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

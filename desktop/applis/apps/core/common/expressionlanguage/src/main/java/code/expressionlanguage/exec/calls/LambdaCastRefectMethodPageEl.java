@@ -9,8 +9,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 public final class LambdaCastRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
     private final boolean direct;
-    public LambdaCastRefectMethodPageEl(boolean _direct, Argument _instance, ArgumentListCall _array, Argument _right, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _right, _metaInfo);
+    public LambdaCastRefectMethodPageEl(boolean _direct, Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
+        super(_instance,_array, _metaInfo);
         direct = _direct;
     }
 
@@ -30,7 +30,7 @@ public final class LambdaCastRefectMethodPageEl extends AbstractRefectLambdaMeth
     }
 
     @Override
-    Argument prepare(ContextEl _context, String _className, Argument _instance, Argument _right, ArgumentListCall _list, StackCall _stack) {
+    Argument prepare(ContextEl _context, String _className, Argument _instance, ArgumentListCall _list, StackCall _stack) {
         return prepareCast(_context, _className, direct, _stack, _list);
     }
 
