@@ -505,10 +505,16 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void okArgsSetSwCall() {
         StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        xml_.append("$public $annotation pkg.ExAnnot {}\n");
+        files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = validated(files_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, cont_.getContext());
-        ExecSwitchInstanceMethod ex_ = new ExecSwitchInstanceMethod(false,"",null,"",0,"",new ExecAnonFctContent(new AnaAnonFctContent()));
-        ExecTemplates.okArgsSetSwCall(null,null, ex_, "",null, cont_.getContext(), stackCall_, Argument.createVoid());
+        ExecSwitchInstanceMethod ex_ = new ExecSwitchInstanceMethod(false,"",null,"$int",0,"",new ExecAnonFctContent(new AnaAnonFctContent()));
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null, cont_.getStackCall());
+        stackCall_.addInternPage(instancingClass_);
+        ExecTemplates.okArgsSetSwCall( ex_, cont_.getContext(), stackCall_, Argument.createVoid());
         assertNotNull(getTrueException(stackCall_));
     }
     @Test

@@ -39,10 +39,10 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stackCall)));
             return false;
         }
-        resolved = res_;
+        resolved = className_;
         if (!initClass) {
             initClass = true;
-            if (static_ && _context.getExiting().hasToExit(_stackCall, res_)) {
+            if (static_ && _context.getExiting().hasToExit(_stackCall, className_)) {
                 setWrapException(true);
                 return false;
             }

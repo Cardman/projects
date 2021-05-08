@@ -118,7 +118,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _className, null_, _stackCall)));
             return Argument.createVoid();
         }
-        return ExecExplicitOperation.prepare(_context.getExiting(),getPair(), _direct, res_,res_,_context, _stackCall, _list);
+        return ExecExplicitOperation.prepare(_context.getExiting(),getPair(), _direct, _className,_className,_context, _stackCall, _list);
     }
 
     static Argument checkStaticCall(ExecTypeFunction _pair, Cache _cache, ContextEl _conf, String _paramName, ArgumentListCall _list, StackCall _stackCall) {
@@ -145,17 +145,18 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         if (_direct) {
             return false;
         }
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(method_.getClassName(), _cont);
+        String className_ = method_.getClassName();
+        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(className_, _cont);
         if (res_.isEmpty()) {
             String null_;
             null_ = _cont.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, method_.getClassName(), null_, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, className_, null_, _stackCall)));
             return true;
         }
-        if (!StringExpUtil.customCast(res_)) {
+        if (!StringExpUtil.customCast(className_)) {
             return false;
         }
-        String paramNameOwner_ = _stackCall.formatVarType(res_);
+        String paramNameOwner_ = _stackCall.formatVarType(className_);
         return _cont.getExiting().hasToExit(_stackCall, paramNameOwner_);
     }
     abstract boolean initType(ContextEl _context, StackCall _stack);

@@ -1227,8 +1227,7 @@ public final class ForwardInfos {
             SwitchOperation s_ = (SwitchOperation) _anaNode;
             SwitchMethodBlock switchMethod_ = s_.getSwitchMethod();
             ExecAbstractSwitchMethod r_ = _forwards.getSwitchMethod(switchMethod_);
-            ExecRootBlock type_ = FetchMemberUtil.fetchType(s_.getRootNumber(), _forwards);
-            return new ExecSwitchOperation(new ExecOperationContent(s_.getContent()),type_,r_, new ExecArrContent(s_.getArrContent()));
+             return new ExecSwitchOperation(new ExecOperationContent(s_.getContent()), r_, new ExecArrContent(s_.getArrContent()));
         }
         if (_anaNode instanceof IdOperation) {
             IdOperation d_ = (IdOperation) _anaNode;

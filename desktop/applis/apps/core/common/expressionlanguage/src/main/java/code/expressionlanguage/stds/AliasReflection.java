@@ -1231,7 +1231,6 @@ public final class AliasReflection {
                 _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, className_, null_, _stackCall)));
                 return result_;
             }
-            className_ = res_;
             if (!(type_ instanceof ExecRootBlock)) {
                 result_.setResult(ApplyCoreMethodUtil.defaultInstance(_cont,id_,_args, _stackCall));
                 return result_;
