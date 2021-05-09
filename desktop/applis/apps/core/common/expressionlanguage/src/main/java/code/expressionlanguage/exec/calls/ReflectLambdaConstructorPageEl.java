@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.inherits.InstanceParamChecker;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -45,7 +46,7 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
             ExecTypeFunction pair_ = metaInfo.getPair();
             ExecRootBlock execSuperClass_ = pair_.getType();
             if (execSuperClass_ != null) {
-                arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, pair_, argument, array, "", -1, _stack);
+                arg_ = new InstanceParamChecker(pair_, array, "", -1).checkParams(res_, argument, null, _context, _stack);
             }
             if (metaInfo.getStandardType() != null) {
                 arg_ = ExecInvokingOperation.instancePrepareStd(_context, mid_, array, _stack);

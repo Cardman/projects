@@ -31,7 +31,7 @@ public final class LambdaPolymorphRefectMethodPageEl extends AbstractRefectLambd
     }
 
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        return new DefaultParamChecker(getPair(), _list, CallPrepareState.METHOD, null).checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, getAccessKind(), _stack);
+        return new DefaultParamChecker(getPair(), _list, getAccessKind(), CallPrepareState.METHOD, null).checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
     }
 
 }

@@ -3,31 +3,21 @@ package code.expressionlanguage.exec.inherits;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.Cache;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.util.core.StringUtil;
 
 public abstract class AbstractParamChecker {
+    protected static final String RETURN_LINE = "\n";
 
-    private static final String RETURN_LINE = "\n";
-    public Argument checkParams(String _classNameFound, Argument _previous, Cache _cache, ContextEl _conf, MethodAccessKind _kind, StackCall _stackCall) {
-        LgNames stds_ = _conf.getStandards();
-        String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-        String classFormat_ = _classNameFound;
+    public Argument checkParams(String _classNameFound, Argument _previous, Cache _cache, ContextEl _conf, StackCall _stackCall) {
         FormattedParameters f_ = new FormattedParameters();
-        if (_kind == MethodAccessKind.INSTANCE) {
-            String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
-            classFormat_ = ExecInherits.getQuickFullTypeByBases(className_, classFormat_, _conf);
-            if (classFormat_.isEmpty()) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_, _stackCall)));
-                return Argument.createVoid();
-            }
+        String classFormat_ = checkFormmattedParams(_classNameFound, _previous, _conf, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
+            return Argument.createVoid();
         }
         Parameters parameters_ = check(classFormat_, _cache, _conf, _stackCall);
-
+        if (_conf.callsOrException(_stackCall)) {
+            return Argument.createVoid();
+        }
         //SwitchParamChecker
         /*Parameters parameters_ = f_.getParameters();
             _stack.setCallingState(new CustomFoundSwitch(_instance,f_.getFormattedClass(),getPair().getType(),(ExecAbstractSwitchMethod) callee_,parameters_.getCache(),new Argument(parameters_.getRefParameters().firstValue().getValue(_stack,_context))));*/
@@ -48,9 +38,8 @@ public abstract class AbstractParamChecker {
         return redirect(_conf,_classNameFound,_previous,_stackCall,f_);
     }
 
+    public abstract String checkFormmattedParams(String _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall);
     public abstract Argument redirect(ContextEl _conf, String _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat);
-    private static String getBadCastMessage(String _classNameFound, String _className) {
-        return StringUtil.concat(_className, RETURN_LINE, _classNameFound, RETURN_LINE);
-    }
+
     public abstract Parameters check(String _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall);
 }

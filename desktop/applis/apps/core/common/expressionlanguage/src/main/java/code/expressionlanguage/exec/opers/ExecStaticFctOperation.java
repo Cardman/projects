@@ -37,7 +37,7 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
         } else {
             Argument prev_ = new Argument();
             String lastType_ = ClassMethodId.formatType(pair.getType(), classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
-            res_ = new DefaultParamChecker(pair, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg(), null), CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _conf, staticFctContent.getKind(), _stack);
+            res_ = new DefaultParamChecker(pair, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg(), null), staticFctContent.getKind(), CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _conf, _stack);
         }
         setResult(res_, _conf, _nodes, _stack);
     }

@@ -134,51 +134,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return new Argument(res_.getResult());
     }
 
-    public static Argument instancePrepareCust(ContextEl _conf, String _className, ExecTypeFunction _pair,
-                                               Argument _previous, ArgumentListCall _arguments, String _fieldName,
-                                               int _blockIndex, StackCall _stackCall) {
-        LgNames stds_ = _conf.getStandards();
-        ExecRootBlock type_ = _pair.getType();
-        checkNeeded(_conf, _className, _previous, stds_, type_, _stackCall);
-        if (_conf.callsOrException(_stackCall)) {
-            return new Argument();
-        }
-        ExecNamedFunctionBlock fct_ = _pair.getFct();
-        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _className, null, _arguments, _conf, _stackCall);
-        if (parameters_.getError() != null) {
-            return new Argument();
-        }
-        Argument needed_;
-        if (type_.withoutInstance()) {
-            needed_ = new Argument();
-        } else {
-            needed_ = new Argument(Argument.getNullableValue(_previous).getStruct());
-        }
-        _stackCall.setCallingState(new CustomFoundConstructor(_className, _pair, _fieldName, _blockIndex, needed_, parameters_, InstancingStep.NEWING));
-        return Argument.createVoid();
-    }
-
-    private static void checkNeeded(ContextEl _conf, String _className, Argument _previous, LgNames _stds, ExecRootBlock _g, StackCall _stackCall) {
-        if (_g.withoutInstance()) {
-            return;
-        }
-        //From analyze
-        StringList parts_ = StringExpUtil.getAllPartInnerTypes(_className);
-        String param_ = StringUtil.join(parts_.left(parts_.size()-2), "");
-        if (_previous.isNull()) {
-            String npe_;
-            npe_ = _stds.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-            return;
-        }
-        String arg_ = _previous.getStruct().getClassName(_conf);
-        if (!ExecInherits.isCorrectExecute(arg_, param_, _conf)) {
-            String cast_;
-            cast_ = _stds.getContent().getCoreNames().getAliasCastType();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, StringUtil.concat(arg_, RETURN_LINE, param_, RETURN_LINE), cast_, _stackCall)));
-        }
-    }
-
     public static ExecOverrideInfo polymorphOrSuper(boolean _super,ContextEl _conf, Struct _previous, String _className, ExecTypeFunction _named) {
         if (_super) {
             return new ExecOverrideInfo(_className,_named);
@@ -264,7 +219,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_exit.hasToExit(_stackCall, _classNameFound)) {
             return;
         }
-        new DefaultParamChecker(_named, _firstArgs, CallPrepareState.OPERATOR, null).checkParams(_classNameFound, Argument.createVoid(), null, _conf, _kind, _stackCall);
+        new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR, null).checkParams(_classNameFound, Argument.createVoid(), null, _conf, _stackCall);
     }
 
     public static void checkParametersCtors(ContextEl _conf, String _classNameFound,
@@ -272,7 +227,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                                             ArgumentListCall _firstArgs,
                                             InstancingStep _kindCall, StackCall _stackCall) {
         Argument arg_ = _stackCall.getLastPage().getGlobalArgument();
-        new DefaultParamChecker(_named, _firstArgs, CallPrepareState.CTOR, _kindCall).checkParams(_classNameFound, arg_, null, _conf, MethodAccessKind.INSTANCE, _stackCall);
+        new DefaultParamChecker(_named, _firstArgs,MethodAccessKind.INSTANCE,  CallPrepareState.CTOR, _kindCall).checkParams(_classNameFound, arg_, null, _conf, _stackCall);
     }
 
     public static Argument getInstanceCall(Argument _previous, ContextEl _conf, StackCall _stackCall) {

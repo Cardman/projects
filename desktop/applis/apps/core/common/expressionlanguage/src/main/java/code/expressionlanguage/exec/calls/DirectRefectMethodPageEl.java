@@ -39,13 +39,13 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
         AbstractParamChecker ab_;
         if (callee_ instanceof ExecAbstractSwitchMethod) {
             ExecRootBlock type_ = getPair().getType();
-            ab_ = new SwitchParamChecker(type_,(ExecAbstractSwitchMethod) callee_, _args);
+            ab_ = new SwitchParamChecker(type_,(ExecAbstractSwitchMethod) callee_, _args,getAccessKind());
         } else {
             ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),getClassName(),getInstance(),_args,_context, getAccessKind());
             l_.setRight(_right);
-            ab_ = new DefaultParamChecker(getPair(), l_, CallPrepareState.METHOD, null);
+            ab_ = new DefaultParamChecker(getPair(), l_,getAccessKind(), CallPrepareState.METHOD, null);
         }
-        return ab_.checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, getAccessKind(), _stack);
+        return ab_.checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
     }
 
 }

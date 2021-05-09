@@ -48,7 +48,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
             setRelOffsetPossibleLastPage(off_, _stack);
             String superClass_ = _stack.formatVarType(getClassFromName());
             String lastType_ = ExecInherits.quickFormat(getPair().getType(), superClass_, getLastType());
-            new DefaultParamChecker(getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, ref_, null, _conf, MethodAccessKind.INSTANCE, _stack);
+            new DefaultParamChecker(getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), MethodAccessKind.INSTANCE, CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, ref_, null, _conf, _stack);
             Argument res_ = Argument.createVoid();
             setSimpleArgument(res_, _conf, _nodes, _stack);
             return;
@@ -57,7 +57,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         setRelOffsetPossibleLastPage(off_, _stack);
         String superClass_ = _stack.formatVarType(getClassFromName());
         String lastType_ = ExecInherits.quickFormat(getPair().getType(), superClass_, getLastType());
-        new DefaultParamChecker(getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, mainArgument_, null, _conf, MethodAccessKind.INSTANCE, _stack);
+        new DefaultParamChecker(getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), MethodAccessKind.INSTANCE, CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, mainArgument_, null, _conf, _stack);
         Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

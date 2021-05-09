@@ -52,7 +52,7 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
             ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _conf, pr_, classNameFound_, pair);
             ExecTypeFunction pair_ = polymorph_.getPair();
             classNameFound_ = polymorph_.getClassName();
-            res_ = new DefaultParamChecker(pair_, fetchFormattedArgs(_nodes, _conf, pr_, pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg(), null), CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _conf, MethodAccessKind.INSTANCE, _stack);
+            res_ = new DefaultParamChecker(pair_, fetchFormattedArgs(_nodes, _conf, pr_, pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg(), null), MethodAccessKind.INSTANCE, CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _conf, _stack);
         }
         setResult(res_, _conf, _nodes, _stack);
     }

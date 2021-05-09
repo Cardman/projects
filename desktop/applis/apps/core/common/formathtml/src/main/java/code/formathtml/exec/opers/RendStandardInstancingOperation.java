@@ -6,8 +6,8 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRecordBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.inherits.InstanceParamChecker;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.Configuration;
@@ -49,7 +49,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
             _stack.setCallingState(new CustomFoundRecordConstructor(className_, pair,instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
             result_ = Argument.createVoid();
         } else {
-            result_ = ExecInvokingOperation.instancePrepareCust(_context, className_, pair, previous_, fectchArgs(_nodes, lastType_, instancingCommonContent.getNaturalVararg(), _rendStack,null), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), _stack);
+            result_ = new InstanceParamChecker(pair, fectchArgs(_nodes, lastType_, instancingCommonContent.getNaturalVararg(), _rendStack, null), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex()).checkParams(className_, previous_, null, _context, _stack);
         }
         Argument argres_ = RendDynOperationNode.processCall(result_, _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);

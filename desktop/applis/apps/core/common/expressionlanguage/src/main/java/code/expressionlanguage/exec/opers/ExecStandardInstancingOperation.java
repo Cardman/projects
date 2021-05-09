@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRecordBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
+import code.expressionlanguage.exec.inherits.InstanceParamChecker;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
@@ -52,7 +53,7 @@ public final class ExecStandardInstancingOperation extends
                 _stack.setCallingState(new CustomFoundRecordConstructor(className_, getPair(),instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
                 res_ = Argument.createVoid();
             } else {
-                res_ = instancePrepareCust(_conf, className_, getPair(), previous_, fectchInstFormattedArgs(_nodes, className_, rootBlock, getInstancingCommonContent().getLastType(), getInstancingCommonContent().getNaturalVararg()), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), _stack);
+                res_ = new InstanceParamChecker(getPair(), fectchInstFormattedArgs(_nodes, className_, rootBlock, getInstancingCommonContent().getLastType(), getInstancingCommonContent().getNaturalVararg()), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex()).checkParams(className_, previous_, null, _conf, _stack);
             }
         }
         setSimpleArgument(res_, _conf, _nodes, _stack);

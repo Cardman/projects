@@ -35,7 +35,7 @@ public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageE
     Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
         ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),getClassName(),getInstance(),_args,_context, getAccessKind());
         l_.setRight(_right);
-        return new DefaultParamChecker(getPair(), l_, CallPrepareState.METHOD, null).checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, getAccessKind(), _stack);
+        return new DefaultParamChecker(getPair(), l_, getAccessKind(), CallPrepareState.METHOD, null).checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
     }
 
 }

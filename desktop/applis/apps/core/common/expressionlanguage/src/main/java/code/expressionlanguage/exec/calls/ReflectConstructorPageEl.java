@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.InstanceParamChecker;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -83,7 +84,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
             ExecRootBlock execSuperClass_ = pair_.getType();
             if (execSuperClass_ != null) {
                 ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(pair_,res_,previous_,args_,_context, null);
-                arg_ = ExecInvokingOperation.instancePrepareCust(_context, res_, pair_, previous_, l_, "", -1, _stack);
+                arg_ = new InstanceParamChecker(pair_, l_, "", -1).checkParams(res_, previous_, null, _context, _stack);
             }
             if (metaInfo.getStandardType() != null) {
                 ArgumentListCall l_ = new ArgumentListCall();

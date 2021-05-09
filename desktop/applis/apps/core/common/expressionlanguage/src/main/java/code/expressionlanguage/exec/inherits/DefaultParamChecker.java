@@ -12,11 +12,12 @@ import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.Struct;
 
-public final class DefaultParamChecker extends AbstractParamChecker {
+public final class DefaultParamChecker extends AbstractFormatParamChecker {
     private final ExecTypeFunction pair;
     private final ExecNamedFunctionBlock method;
     private final ArgumentListCall args;
@@ -25,8 +26,10 @@ public final class DefaultParamChecker extends AbstractParamChecker {
     private final ExecRootBlock type;
 
     public DefaultParamChecker(ExecTypeFunction _pair, ArgumentListCall _args,
+                               MethodAccessKind _kind,
                                CallPrepareState _state,
                                InstancingStep _kindCall) {
+        super(_kind);
         this.pair = _pair;
         this.method = _pair.getFct();
         this.type = _pair.getType();
@@ -37,9 +40,6 @@ public final class DefaultParamChecker extends AbstractParamChecker {
 
     @Override
     public Argument redirect(ContextEl _conf, String _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
-        if (_conf.callsOrException(_stackCall)) {
-            return Argument.createVoid();
-        }
         if (state == CallPrepareState.METHOD) {
             Struct prev_ = _previous.getStruct();
             if (prev_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance) prev_).getNamed() == method) {
