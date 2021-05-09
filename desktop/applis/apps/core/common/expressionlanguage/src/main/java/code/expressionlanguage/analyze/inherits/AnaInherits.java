@@ -167,68 +167,15 @@ public final class AnaInherits {
         AnaClassArgumentMatching arg_ = _m.getArg();
         AnaClassArgumentMatching param_ = _m.getParam();
         StringMap<StringList> generalMapping_ = _m.getMapping();
-        Mapping map_ = new Mapping();
-        map_.setParam(param_);
-        map_.setArg(arg_);
-        map_.setMapping(generalMapping_);
         for (String p: param_.getNames()) {
             boolean ok_ = false;
             StringList names_ = arg_.getNames();
             for (String a: names_) {
-                CustList<Matching> matchs_ = new CustList<Matching>();
-                Matching match_ = new Matching();
-                match_.setArg(a);
-                match_.setParam(p);
-                matchs_.add(match_);
-                boolean okTree_ = true;
-                while (true) {
-                    CustList<Matching> new_ = new CustList<Matching>();
-                    for (Matching m: matchs_) {
-                        String a_ = m.getArg();
-                        String p_ = m.getParam();
-                        MappingPairs m_ = getSimpleMapping(a_,p_,generalMapping_, _page);
-                        if (m_ == null) {
-                            okTree_ = false;
-                            break;
-                        }
-                        for (Matching n: m_.getPairsArgParam()) {
-                            if (n.getMatchEq() == MatchingEnum.EQ) {
-                                if (!StringUtil.quickEq(n.getParam(), n.getArg())) {
-                                    okTree_ = false;
-                                    break;
-                                }
-                                continue;
-                            }
-                            if (StringUtil.quickEq(n.getParam(), n.getArg())) {
-                                continue;
-                            }
-                            Matching n_ = new Matching();
-                            if (n.getMatchEq() == MatchingEnum.SUB) {
-                                n_.setArg(n.getArg());
-                                n_.setParam(n.getParam());
-                            } else {
-                                n_.setArg(n.getParam());
-                                n_.setParam(n.getArg());
-                            }
-                            new_.add(n_);
-                        }
-                        if (!okTree_) {
-                            break;
-                        }
-                    }
-                    if (new_.isEmpty()) {
-                        break;
-                    }
-                    matchs_ = new_;
-                    if (!okTree_) {
-                        break;
-                    }
+                AbstractInheritProcess inh_ = new AnaInheritProcess(_page,generalMapping_);
+                if (inh_.isCorrectExecute(a, p)) {
+                    ok_ = true;
+                    break;
                 }
-                if (!okTree_) {
-                    continue;
-                }
-                ok_ = true;
-                break;
             }
             if (!ok_) {
                 return false;
@@ -263,7 +210,7 @@ public final class AnaInherits {
         return generic_;
     }
 
-    private static MappingPairs getSimpleMapping(String _arg, String _param, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
+    static MappingPairs getSimpleMapping(String _arg, String _param, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
         DimComp dArg_ = StringExpUtil.getQuickComponentBaseType(_arg);
         DimComp dParam_ = StringExpUtil.getQuickComponentBaseType(_param);
         String baseArrayParam_ = dParam_.getComponent();
