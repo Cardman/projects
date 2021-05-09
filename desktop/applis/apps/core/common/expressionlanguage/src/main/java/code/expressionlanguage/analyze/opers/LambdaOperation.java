@@ -1552,17 +1552,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
             AnaGeneType h_ = _page.getAnaGeneType(id_);
             if (h_ instanceof RecordBlock) {
-                for (String p:StringExpUtil.getWildCards(clFrom_)){
-                    FoundErrorInterpret call_ = new FoundErrorInterpret();
-                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //_fromType len
-                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                            p,
-                            clFrom_);
-                    _page.getLocalizer().addError(call_);
-                    addErr(call_.getBuiltError());
-                }
+                checkWildCards(clFrom_, _page);
                 StringList names_ = new StringList();
                 StringList types_ = new StringList();
                 int offsetArg_ = className.indexOf('(')+1+_args.first().length()+1+_args.get(1).length()+1-getClassNameOffset();
@@ -1667,8 +1657,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
-            ConstrustorIdVarArg ctorRes_;
-            ctorRes_ = getCheckedDeclaredCustConstructorLambda(vararg_, clFrom_,id_, h_,feed_, _page, methodTypes_);
+            checkWildCards(clFrom_, _page);
+            ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructorLambda(vararg_, clFrom_,
+                    id_, h_,
+                    feed_, _page, methodTypes_);
             realId = ctorRes_.getRealId();
             if (realId == null) {
                 buildLambdaCtorErr(_page,clFrom_,methodTypes_);
@@ -1795,8 +1787,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             addErr(call_.getBuiltError());
             return;
         }
-        ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getCheckedDeclaredCustConstructorLambda(_vararg, _cl,id_,h_, _feed, _page, _methodTypes);
+        checkWildCards(_cl, _page);
+        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructorLambda(_vararg, _cl,
+                id_, h_,
+                _feed, _page, _methodTypes);
         realId = ctorRes_.getRealId();
         if (realId == null) {
             buildLambdaCtorErr(_page,_cl,_methodTypes);
@@ -1818,10 +1812,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         fct_.append(StringExpUtil.TEMPLATE_END);
         setResultClass(new AnaClassArgumentMatching(fct_.toString()));
     }
-    ConstrustorIdVarArg getCheckedDeclaredCustConstructorLambda(int _varargOnly, String _class,
-                                                                String _id, AnaGeneType _type,
-                                                                ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args) {
-        for (String p:StringExpUtil.getWildCards(_class)){
+
+    private void checkWildCards(String _class, AnalyzedPageEl _page) {
+        for (String p : StringExpUtil.getWildCards(_class)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -1832,9 +1825,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             _page.getLocalizer().addError(call_);
             addErr(call_.getBuiltError());
         }
-        return getDeclaredCustConstructorLambda(_varargOnly, _class,
-                _id, _type,
-                _uniqueId, _page, _args);
     }
 
     private void buildLambdaCtorErr(AnalyzedPageEl _page, String _clCurName, StringList _args) {
