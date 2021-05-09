@@ -599,27 +599,6 @@ public abstract class OperationNode {
         }
         return _str;
     }
-    static void checkClassAccess(OperationNode _op, String _glClass, String _classStr, AnalyzedPageEl _page) {
-        RootBlock r_ = _page.getAnaClassBody(_classStr);
-        String curClassBase_ = StringExpUtil.getIdFromAllTypes(_glClass);
-        Accessed a_;
-        if (r_ != null) {
-            a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_);
-        } else {
-            a_ = new Accessed(AccessEnum.PUBLIC,"", null);
-        }
-        if (!ContextUtil.canAccessType(curClassBase_, a_, _page)) {
-            FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
-            //className len
-            badAccess_.buildError(_page.getAnalysisMessages().getInaccessibleType(),
-                    _classStr,
-                    curClassBase_);
-            _page.getLocalizer().addError(badAccess_);
-            _op.addErr(badAccess_.getBuiltError());
-        }
-    }
 
     final boolean isFirstChildInParent() {
         return getIndexChild() == 0;
