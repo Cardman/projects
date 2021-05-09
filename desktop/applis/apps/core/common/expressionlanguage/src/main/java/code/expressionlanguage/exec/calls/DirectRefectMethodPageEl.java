@@ -36,15 +36,16 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
         ExecMemberCallingsBlock callee_ = getCallee();
+        AbstractParamChecker ab_;
         if (callee_ instanceof ExecAbstractSwitchMethod) {
             ExecRootBlock type_ = getPair().getType();
-            AbstractParamChecker sw_ = new SwitchParamChecker(type_,(ExecAbstractSwitchMethod) callee_, _args);
-            Argument instance_ = getInstance();
-            return sw_.checkParams(getClassName(), instance_, getMetaInfo().getCache(), _context, getAccessKind(), _stack);
+            ab_ = new SwitchParamChecker(type_,(ExecAbstractSwitchMethod) callee_, _args);
+        } else {
+            ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),getClassName(),getInstance(),_args,_context, getAccessKind());
+            l_.setRight(_right);
+            ab_ = new DefaultParamChecker(getPair(), l_, CallPrepareState.METHOD, null);
         }
-        ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),getClassName(),getInstance(),_args,_context, getAccessKind());
-        l_.setRight(_right);
-        return new DefaultParamChecker(getPair(), l_, CallPrepareState.METHOD, null).checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, getAccessKind(), _stack);
+        return ab_.checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, getAccessKind(), _stack);
     }
 
 }
