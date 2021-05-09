@@ -4,12 +4,15 @@ import code.util.CustList;
 import code.util.core.StringUtil;
 
 public abstract class AbstractInheritProcess {
+
     public boolean isCorrectExecute(String _a, String _p){
+        CustList<Matching> all_ = new CustList<Matching>();
         CustList<Matching> matchs_ = new CustList<Matching>();
         Matching match_ = new Matching();
         match_.setArg(_a);
         match_.setParam(_p);
         matchs_.add(match_);
+        all_.add(match_);
         boolean okTree_ = true;
         while (true) {
             CustList<Matching> new_ = new CustList<Matching>();
@@ -17,7 +20,7 @@ public abstract class AbstractInheritProcess {
                 String a_ = m.getArg();
                 String p_ = m.getParam();
                 MappingPairs m_ = getExecutingCorrect(a_,p_);
-                if (ko(m_,new_)) {
+                if (ko(m_,all_,new_)) {
                     okTree_ = false;
                     break;
                 }
@@ -32,7 +35,7 @@ public abstract class AbstractInheritProcess {
 
     protected abstract MappingPairs getExecutingCorrect(String _a, String _p);
 
-    private static boolean ko(MappingPairs _m,CustList<Matching> _new) {
+    private static boolean ko(MappingPairs _m, CustList<Matching> _all,CustList<Matching> _new) {
         if (_m == null) {
             return true;
         }
@@ -46,11 +49,27 @@ public abstract class AbstractInheritProcess {
                     break;
                 }
                 Matching n_ = buildMatch(n);
-                _new.add(n_);
+                if (notExist(_all,n_)) {
+                    _all.add(n_);
+                    _new.add(n_);
+                }
             }
         }
         return koTree_;
     }
+    private static boolean notExist(CustList<Matching> _all, Matching _n) {
+        for (Matching m: _all) {
+            if (areTypePairs(m,_n)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean areTypePairs(Matching _m, Matching _n) {
+        return StringUtil.quickEq(_m.getArg(), _n.getArg())
+                &&StringUtil.quickEq(_m.getParam(), _n.getParam());
+    }
+
     private static Matching buildMatch(Matching _n) {
         String param_ = _n.getParam();
         String arg_ = _n.getArg();

@@ -886,7 +886,7 @@ public final class AnaTemplates {
                     continue;
                 }
                 if (areCompl(matching_, other_)) {
-                    if (areTypePairs(matching_,other_)) {
+                    if (AbstractInheritProcess.areTypePairs(matching_,other_)) {
                         matching_.setMatchEq(MatchingEnum.EQ);
                         other_.setMatchEq(null);
                         break;
@@ -959,7 +959,7 @@ public final class AnaTemplates {
             for (Matching n: l_) {
                 if (m.getMatchEq() == MatchingEnum.EQ
                  &&n.getMatchEq() == MatchingEnum.EQ) {
-                    if (areTypePairs(m, n)
+                    if (AbstractInheritProcess.areTypePairs(m, n)
                     || areTypeCross(m, n)) {
                         add_ = false;
                         break;
@@ -974,7 +974,7 @@ public final class AnaTemplates {
                     continue;
                 }
                 if (m.getMatchEq() == n.getMatchEq()) {
-                    if (areTypePairs(m, n)) {
+                    if (AbstractInheritProcess.areTypePairs(m, n)) {
                         add_ = false;
                         break;
                     }
@@ -1019,11 +1019,6 @@ public final class AnaTemplates {
     private static boolean areTypeCross(Matching _m, Matching _n) {
         return StringUtil.quickEq(_m.getArg(), _n.getParam())
                 &&StringUtil.quickEq(_m.getParam(), _n.getArg());
-    }
-
-    private static boolean areTypePairs(Matching _m, Matching _n) {
-        return StringUtil.quickEq(_m.getArg(), _n.getArg())
-                &&StringUtil.quickEq(_m.getParam(), _n.getParam());
     }
 
     public static CustList<Matching> inferOrImplicit(AnaClassArgumentMatching _arg,String _param, MatchingEnum _base, StringMap<StringList> _vars, AnalyzedPageEl _page) {
