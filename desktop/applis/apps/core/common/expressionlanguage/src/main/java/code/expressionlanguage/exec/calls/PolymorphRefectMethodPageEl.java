@@ -2,9 +2,10 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
@@ -34,7 +35,7 @@ public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageE
     Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
         ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),getClassName(),getInstance(),_args,_context, getAccessKind());
         l_.setRight(_right);
-        return ExecInvokingOperation.callPrepare(_context, getClassName(), getPair(), getInstance(), getMetaInfo().getCache(), l_, getAccessKind(), _stack);
+        return new DefaultParamChecker(getPair(), l_, CallPrepareState.METHOD, null).checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, getAccessKind(), _stack);
     }
 
 }

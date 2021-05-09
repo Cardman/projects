@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
+import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -47,7 +48,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
             setRelOffsetPossibleLastPage(off_, _stack);
             String superClass_ = _stack.formatVarType(getClassFromName());
             String lastType_ = ExecInherits.quickFormat(getPair().getType(), superClass_, getLastType());
-            checkParameters(_conf, superClass_, getPair(), ref_,null, fectchArgs(_nodes, lastType_, getNaturalVararg(),null),CallPrepareState.CTOR, InstancingStep.USING_SUPER, MethodAccessKind.INSTANCE, _stack);
+            new DefaultParamChecker(getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, ref_, null, _conf, MethodAccessKind.INSTANCE, _stack);
             Argument res_ = Argument.createVoid();
             setSimpleArgument(res_, _conf, _nodes, _stack);
             return;
@@ -56,7 +57,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         setRelOffsetPossibleLastPage(off_, _stack);
         String superClass_ = _stack.formatVarType(getClassFromName());
         String lastType_ = ExecInherits.quickFormat(getPair().getType(), superClass_, getLastType());
-        checkParameters(_conf, superClass_, getPair(), mainArgument_,null, fectchArgs(_nodes, lastType_, getNaturalVararg(),null),CallPrepareState.CTOR, InstancingStep.USING_SUPER, MethodAccessKind.INSTANCE, _stack);
+        new DefaultParamChecker(getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, mainArgument_, null, _conf, MethodAccessKind.INSTANCE, _stack);
         Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

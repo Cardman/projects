@@ -4,11 +4,12 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
@@ -47,7 +48,7 @@ public final class RendSuperFctOperation extends RendSettableCallFctOperation im
             String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
             String fullClassNameFound_ = ExecInherits.getSuperGeneric(argClassName_, base_, _context);
             lastType_ = ExecInherits.quickFormat(pair.getType(), fullClassNameFound_, lastType_);
-            result_ = ExecInvokingOperation.callPrepare(_context, classNameFound_, pair, prev_, null, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack,null), MethodAccessKind.INSTANCE, _stack);
+            result_ = new DefaultParamChecker(pair, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null), CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _context, MethodAccessKind.INSTANCE, _stack);
         }
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);

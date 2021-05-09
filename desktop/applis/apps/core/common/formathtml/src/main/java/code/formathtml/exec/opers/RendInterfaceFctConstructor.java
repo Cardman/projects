@@ -5,11 +5,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
+import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
@@ -67,7 +67,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         String lastType_ = getLastType();
         lastType_ = ExecInherits.quickFormat(pair.getType(),superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
-        ExecInvokingOperation.checkParameters(_context, superClass_, pair, _arguments,null, fectchArgs(_all,lastType_,natvararg_, _rendStackCall,null),CallPrepareState.CTOR, InstancingStep.USING_SUPER, MethodAccessKind.INSTANCE, _stackCall);
+        new DefaultParamChecker(pair, fectchArgs(_all,lastType_,natvararg_, _rendStackCall,null), CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, _arguments, null, _context, MethodAccessKind.INSTANCE, _stackCall);
     }
 
     public String getLastType() {

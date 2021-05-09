@@ -706,7 +706,6 @@ public final class AliasReflection {
         CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
         String declaringClass_ = _annot.getDeclaringClass();
         for (ExecAbstractSwitchMethod f: _annot.getSwitchMethods()) {
-            MethodId id_ = f.getId();
             ExecRootBlock type_ = f.getParentType();
             if (type_ != null) {
                 MethodMetaInfo met_ = buildSwitch(_cont, declaringClass_, f, type_);

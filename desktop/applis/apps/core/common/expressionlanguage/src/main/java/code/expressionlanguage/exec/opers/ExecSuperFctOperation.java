@@ -2,7 +2,9 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -37,7 +39,7 @@ public final class ExecSuperFctOperation extends ExecSettableCallFctOperation {
             res_ = new Argument();
         } else {
             Struct pr_ = prev_.getStruct();
-            res_ = callPrepare(_conf, classNameFound_, pair, prev_, null, fetchFormattedArgs(_nodes, _conf, pr_, pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg(),null), MethodAccessKind.INSTANCE, _stack);
+            res_ = new DefaultParamChecker(pair, fetchFormattedArgs(_nodes, _conf, pr_, pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg(), null), CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _conf, MethodAccessKind.INSTANCE, _stack);
         }
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

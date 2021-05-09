@@ -3,7 +3,9 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
@@ -112,7 +114,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _context, pr_, classNameFound_, fct_);
             fct_ = polymorph_.getPair();
             classNameFound_ = polymorph_.getClassName();
-            result_ = ExecInvokingOperation.callPrepare(_context, classNameFound_, fct_, prev_, null, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStackCall,_right), MethodAccessKind.INSTANCE, _stackCall);
+            result_ = new DefaultParamChecker(fct_, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStackCall, _right), CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _context, MethodAccessKind.INSTANCE, _stackCall);
         }
         Argument argres_ = RendDynOperationNode.processCall(result_, _context, _stackCall).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stackCall, _rendStackCall);

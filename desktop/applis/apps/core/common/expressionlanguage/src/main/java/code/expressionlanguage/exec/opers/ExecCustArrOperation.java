@@ -2,8 +2,10 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -104,7 +106,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _conf,pr_, instFctContent.getClassName(),fct_);
         fct_ = polymorph_.getPair();
         String classNameFound_ = polymorph_.getClassName();
-        return callPrepare(_conf, classNameFound_, fct_, prev_,null, fetchFormattedArgs(_nodes, _conf, pr_, type_, instFctContent.getLastType(), instFctContent.getNaturalVararg(),_right), MethodAccessKind.INSTANCE, _stackCall);
+        return new DefaultParamChecker(fct_, fetchFormattedArgs(_nodes, _conf, pr_, type_, instFctContent.getLastType(), instFctContent.getNaturalVararg(),_right), CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _conf, MethodAccessKind.INSTANCE, _stackCall);
     }
 
 }
