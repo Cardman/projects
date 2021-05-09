@@ -37,12 +37,13 @@ public final class InstanceParamChecker extends AbstractParamChecker {
     }
     @Override
     public String checkFormmattedParams(String _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
-        return checkNeeded(_conf,_classNameFound,_previous,type,_stackCall);
+        checkNeeded(_conf,_classNameFound,_previous,type,_stackCall);
+        return _classNameFound;
     }
 
-    private static String checkNeeded(ContextEl _conf, String _className, Argument _previous, ExecRootBlock _g, StackCall _stackCall) {
+    private static void checkNeeded(ContextEl _conf, String _className, Argument _previous, ExecRootBlock _g, StackCall _stackCall) {
         if (_g.withoutInstance()) {
-            return _className;
+            return;
         }
         //From analyze
         LgNames stds_ = _conf.getStandards();
@@ -52,7 +53,7 @@ public final class InstanceParamChecker extends AbstractParamChecker {
             String npe_;
             npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-            return _className;
+            return;
         }
         String arg_ = _previous.getStruct().getClassName(_conf);
         if (!ExecInherits.isCorrectExecute(arg_, param_, _conf)) {
@@ -60,7 +61,6 @@ public final class InstanceParamChecker extends AbstractParamChecker {
             cast_ = stds_.getContent().getCoreNames().getAliasCastType();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, StringUtil.concat(arg_, RETURN_LINE, param_, RETURN_LINE), cast_, _stackCall)));
         }
-        return _className;
     }
 
     @Override
