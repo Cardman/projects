@@ -215,7 +215,7 @@ public final class ForwardInfos {
             CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = e.getKey().getAllGenericSuperTypesInfo();
             CustList<ExecFormattedRootBlock> l_ = new CustList<ExecFormattedRootBlock>();
             for (AnaFormattedRootBlock s: allGenericSuperTypes_) {
-                l_.add(new ExecFormattedRootBlock(_forwards.getMember(s.getRootBlock()).getRootBlock(),s.getFormatted()));
+                l_.add(FetchMemberUtil.fwdFormatType(s,_forwards));
             }
             e.getValue().getRootBlock().getAllGenericSuperTypes().addAllElts(l_);
         }

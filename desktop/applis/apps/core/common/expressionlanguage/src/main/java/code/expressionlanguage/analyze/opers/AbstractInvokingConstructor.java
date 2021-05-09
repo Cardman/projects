@@ -86,8 +86,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             return;
         }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(this, varargOnly_, from,id_,type, feed_, varargParam_, name_, _page);
+        ctorRes_ = getDeclaredCustConstructor(varargOnly_, from,id_,type, feed_, varargParam_, name_, _page);
         if (ctorRes_.getRealId() == null) {
+            buildCtorError(name_,_page,from.getName());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             checkPositionBasis(_page);
             return;

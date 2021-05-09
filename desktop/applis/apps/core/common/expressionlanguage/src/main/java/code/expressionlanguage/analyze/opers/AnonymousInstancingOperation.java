@@ -241,8 +241,9 @@ public final class AnonymousInstancingOperation extends
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this, varargOnly_, aClass_,instancingAnonContent.getBlock().getFullName(),instancingAnonContent.getBlock(), null, varargParam_, name_, _page);
+        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(varargOnly_, aClass_,instancingAnonContent.getBlock().getFullName(),instancingAnonContent.getBlock(), null, varargParam_, name_, _page);
         if (ctorRes_.getRealId() == null) {
+            buildCtorError(name_,_page,formatted_);
             return;
         }
         instancingAnonContent.setMemberId(ctorRes_.getMemberId());

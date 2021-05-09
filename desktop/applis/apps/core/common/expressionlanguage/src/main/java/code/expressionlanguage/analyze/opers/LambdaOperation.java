@@ -1671,6 +1671,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             ctorRes_ = getCheckedDeclaredCustConstructorLambda(vararg_, clFrom_,id_, h_,feed_, _page, methodTypes_);
             realId = ctorRes_.getRealId();
             if (realId == null) {
+                buildLambdaCtorErr(_page,clFrom_,methodTypes_);
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -1798,6 +1799,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         ctorRes_ = getCheckedDeclaredCustConstructorLambda(_vararg, _cl,id_,h_, _feed, _page, _methodTypes);
         realId = ctorRes_.getRealId();
         if (realId == null) {
+            buildLambdaCtorErr(_page,_cl,_methodTypes);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -1830,9 +1832,20 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             _page.getLocalizer().addError(call_);
             addErr(call_.getBuiltError());
         }
-        return getDeclaredCustConstructorLambda(this, _varargOnly, new AnaClassArgumentMatching(_class),
+        return getDeclaredCustConstructorLambda(_varargOnly, _class,
                 _id, _type,
                 _uniqueId, _page, _args);
+    }
+
+    private void buildLambdaCtorErr(AnalyzedPageEl _page, String _clCurName, StringList _args) {
+        FoundErrorInterpret undefined_ = new FoundErrorInterpret();
+        undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        //key word len
+        undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
+                new ConstructorId(_clCurName, _args, false).getSignature(_page));
+        _page.getLocalizer().addError(undefined_);
+        addErr(undefined_.getBuiltError());
     }
     private static boolean noDefCtor(AnaGeneType _h) {
         return ContextUtil.isAbstractType(_h) || _h instanceof RecordBlock;

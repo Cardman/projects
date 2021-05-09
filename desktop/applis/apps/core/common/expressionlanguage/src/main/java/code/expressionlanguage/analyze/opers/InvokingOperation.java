@@ -836,7 +836,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return ((IdFctOperation)first_).getMethod();
     }
 
-    protected static void buildErrNotFoundStd(OperationNode _op, MethodAccessKind _staticContext, String _name, NameParametersFilter _filter, AnalyzedPageEl _page) {
+    protected void buildErrNotFoundStd(MethodAccessKind _staticContext, String _name, NameParametersFilter _filter, AnalyzedPageEl _page) {
         StringList classesNames_ = new StringList();
         for (OperationNode c: _filter.getPositional()) {
             classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
@@ -851,10 +851,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
         _page.getLocalizer().addError(undefined_);
-        _op.addErr(undefined_.getBuiltError());
+        addErr(undefined_.getBuiltError());
     }
 
-    protected static void buildErrNotFoundTrueFalse(OperationNode _op, MethodAccessKind _staticContext, String _name, AnalyzedPageEl _page, AnaClassArgumentMatching[] _argsClass) {
+    protected void buildErrNotFoundTrueFalse(MethodAccessKind _staticContext, String _name, AnalyzedPageEl _page, AnaClassArgumentMatching[] _argsClass) {
         StringList classesNames_ = new StringList();
         for (AnaClassArgumentMatching c: _argsClass) {
             classesNames_.add(StringUtil.join(c.getNames(), ExportCst.JOIN_TYPES));
@@ -866,7 +866,25 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
         _page.getLocalizer().addError(undefined_);
-        _op.addErr(undefined_.getBuiltError());
+        addErr(undefined_.getBuiltError());
+    }
+
+    protected void buildCtorError(NameParametersFilter _filter, AnalyzedPageEl _page, String _clCurName) {
+        StringList classesNames_ = new StringList();
+        for (OperationNode c: _filter.getPositional()) {
+            classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
+        }
+        for (NamedArgumentOperation c: _filter.getParameterFilter()) {
+            classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
+        }
+        FoundErrorInterpret undefined_ = new FoundErrorInterpret();
+        undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        //key word len
+        undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
+                new ConstructorId(_clCurName, classesNames_, false).getSignature(_page));
+        _page.getLocalizer().addError(undefined_);
+        addErr(undefined_.getBuiltError());
     }
     @Override
     public final void setIntermediateDotted() {

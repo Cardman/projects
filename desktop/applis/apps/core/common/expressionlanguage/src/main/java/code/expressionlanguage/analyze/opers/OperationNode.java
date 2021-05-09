@@ -23,7 +23,6 @@ import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
-import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -809,7 +808,7 @@ public abstract class OperationNode {
         }
         _ancestors.addEntry(_cl,_res);
     }
-    static ConstrustorIdVarArg getDeclaredCustConstructor(OperationNode _oper, int _varargOnly, AnaClassArgumentMatching _class,
+    static ConstrustorIdVarArg getDeclaredCustConstructor(int _varargOnly, AnaClassArgumentMatching _class,
                                                           String _id, AnaGeneType _type,
                                                           ConstructorId _uniqueId, String _param, NameParametersFilter _filter, AnalyzedPageEl _page) {
         String clCurName_ = _class.getName();
@@ -856,7 +855,7 @@ public abstract class OperationNode {
                 signatures_.add(mloc_);
             }
         }
-        return getConstrustorId(_oper, _filter, _page, clCurName_, signatures_);
+        return getConstrustorId(_filter, _page, signatures_);
     }
 
     protected static void initCtorInfo(StandardType _type, String _clCurName, StandardConstructor _s, ConstructorId _ctor, ConstructorInfo _mloc) {
@@ -900,26 +899,11 @@ public abstract class OperationNode {
         return varargOnly_;
     }
 
-    private static ConstrustorIdVarArg getConstrustorId(OperationNode _oper, NameParametersFilter _filter, AnalyzedPageEl _page, String _clCurName, CustList<ConstructorInfo> _signatures) {
+    private static ConstrustorIdVarArg getConstrustorId(NameParametersFilter _filter, AnalyzedPageEl _page, CustList<ConstructorInfo> _signatures) {
         StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
         ConstructorInfo cInfo_ = sortCtors(_signatures, gr_);
         if (cInfo_ == null) {
-            StringList classesNames_ = new StringList();
-            for (OperationNode c: _filter.getPositional()) {
-                classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
-            }
-            for (NamedArgumentOperation c: _filter.getParameterFilter()) {
-                classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
-            }
-            FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-            undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
-            undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //key word len
-            undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
-                    new ConstructorId(_clCurName, classesNames_, false).getSignature(_page));
-            _page.getLocalizer().addError(undefined_);
-            _oper.addErr(undefined_.getBuiltError());
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
             return out_;
@@ -967,16 +951,15 @@ public abstract class OperationNode {
         }
     }
 
-    static ConstrustorIdVarArg getDeclaredCustConstructorLambda(OperationNode _op, int _varargOnly, AnaClassArgumentMatching _class,
+    static ConstrustorIdVarArg getDeclaredCustConstructorLambda(int _varargOnly, String _class,
                                                                 String _id, AnaGeneType _type,
                                                                 ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args) {
-        String clCurName_ = _class.getName();
         int varargOnly_ = ctorVarArgOnly(_varargOnly, _uniqueId);
         if (noCtor(_type)) {
             if (_args.isEmpty()) {
                 ConstrustorIdVarArg out_;
                 out_ = new ConstrustorIdVarArg();
-                out_.setRealId(new ConstructorId(clCurName_, new StringList(),false));
+                out_.setRealId(new ConstructorId(_class, new StringList(),false));
                 out_.setConstId(out_.getRealId());
                 setupContainer(_type, out_);
                 return out_;
@@ -990,7 +973,7 @@ public abstract class OperationNode {
                     continue;
                 }
                 ConstructorInfo mloc_ = new ConstructorInfo();
-                initCtorInfo((StandardType) _type, clCurName_, s, ctor_, mloc_);
+                initCtorInfo((StandardType) _type, _class, s, ctor_, mloc_);
                 mloc_.format(_page);
                 if (!isPossibleMethodLambda(mloc_, _page, _args)) {
                     continue;
@@ -1006,7 +989,7 @@ public abstract class OperationNode {
                     continue;
                 }
                 ConstructorInfo mloc_ = new ConstructorInfo();
-                initCtorInfo((AbsBk) _type, clCurName_, b, ctor_, mloc_);
+                initCtorInfo((AbsBk) _type, _class, b, ctor_, mloc_);
                 mloc_.format(_page);
                 if (!isPossibleMethodLambda(mloc_, _page, _args)) {
                     continue;
@@ -1014,7 +997,7 @@ public abstract class OperationNode {
                 signatures_.add(mloc_);
             }
         }
-        return getConstrustorIdLambda(_op, _page, clCurName_, signatures_, _args);
+        return getConstrustorIdLambda(_page, signatures_);
     }
 
     protected static ConstructorInfo tryGetFilterSignaturesInfer(CustList<ConstructorInfo> _list, AnaGeneType _type, AnalyzedPageEl _page, StringList _args, String _stCall, String _retType) {
@@ -1076,19 +1059,11 @@ public abstract class OperationNode {
         _signatures.add(_mloc);
     }
 
-    private static ConstrustorIdVarArg getConstrustorIdLambda(OperationNode _op, AnalyzedPageEl _page, String _clCurName, CustList<ConstructorInfo> _signatures, StringList _args) {
+    private static ConstrustorIdVarArg getConstrustorIdLambda(AnalyzedPageEl _page, CustList<ConstructorInfo> _signatures) {
         StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
         ConstructorInfo cInfo_ = sortCtors(_signatures, gr_);
         if (cInfo_ == null) {
-            FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-            undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
-            undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //key word len
-            undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
-                    new ConstructorId(_clCurName, _args, false).getSignature(_page));
-            _page.getLocalizer().addError(undefined_);
-            _op.addErr(undefined_.getBuiltError());
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
             return out_;
@@ -1288,7 +1263,6 @@ public abstract class OperationNode {
         }
         if (candidates_.size() == 1) {
             MethodInfo m_ = candidates_.first();
-            String baseClassName_ = m_.getClassName();
             MethodId id_ = m_.getFormatted();
             MethodId extract_ = new MethodId(id_.getKind(), id_.getName(), id_.shiftFirst(), id_.isVararg());
             return buildResult(m_, extract_);
