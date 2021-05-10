@@ -31,7 +31,7 @@ public final class CustomFoundSwitch implements CallingState {
 
     @Override
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
-        return ExecutingUtil.createCallingSwitch(_context,this, _stack);
+        return ExecutingUtil.createCallingSwitch(_context,this);
     }
     public Argument getGl() {
         return gl;

@@ -45,11 +45,10 @@ public final class ExecutingUtil {
     }
 
 
-    public static AbstractPageEl createInstancingClass(NotInitializedClass _e, StackCall _stackCall) {
-        return createInstancingClass(_e.getRootBlock(),_e.getClassName(),_e.getArgument(), _stackCall);
+    public static AbstractPageEl createInstancingClass(NotInitializedClass _e) {
+        return createInstancingClass(_e.getRootBlock(),_e.getClassName(),_e.getArgument());
     }
-    public static AbstractPageEl createInstancingClass(ExecRootBlock _rootBlock, String _class, Argument _fwd, StackCall _stackCall) {
-        _stackCall.setCallingState(null);
+    public static AbstractPageEl createInstancingClass(ExecRootBlock _rootBlock, String _class, Argument _fwd) {
 //        ExecBlock firstChild_ = _rootBlock.getFirstChild();
         CustList<ExecBlock> visit_ = _rootBlock.getAllStaticMembers();
         StaticInitPageEl page_ = new StaticInitPageEl(visit_);
@@ -78,17 +77,16 @@ public final class ExecutingUtil {
         return page_;
     }
 
-    public static AbstractPageEl createCallingMethod(ContextEl _context, CustomFoundMethod _e, StackCall _stackCall) {
+    public static AbstractPageEl createCallingMethod(ContextEl _context, CustomFoundMethod _e) {
         String cl_ = _e.getClassName();
         Parameters args_ = _e.getArguments();
         Argument gl_ = _e.getGl();
-        return createCallingMethod(_context,gl_, cl_,_e.getPair(), args_, _stackCall);
+        return createCallingMethod(_context,gl_, cl_,_e.getPair(), args_);
     }
 
-    public static AbstractPageEl createCallingSwitch(ContextEl _context, CustomFoundSwitch _e, StackCall _stackCall) {
+    public static AbstractPageEl createCallingSwitch(ContextEl _context, CustomFoundSwitch _e) {
         String cl_ = _e.getClassName();
         Argument gl_ = _e.getGl();
-        _stackCall.setCallingState(null);
         CommonSwitchMethodPageEl pageLoc_;
         if (_e.getSwitchMethod().getKind() == MethodAccessKind.STATIC_CALL) {
             pageLoc_ = new CommonSwitchMethodPageEl(Argument.createVoid(),cl_, _e.getValue());
@@ -98,8 +96,7 @@ public final class ExecutingUtil {
         setSwitchInfos(_context, pageLoc_, _e.getType(),_e.getSwitchMethod(),_e.getCache());
         return pageLoc_;
     }
-    public static AbstractPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecTypeFunction _method, Parameters _args, StackCall _stackCall) {
-        _stackCall.setCallingState(null);
+    public static AbstractPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecTypeFunction _method, Parameters _args) {
         CommonMethodPageEl pageLoc_ = new CommonMethodPageEl(_gl,_class);
         pageLoc_.initReturnType(_args.getRight());
         setMethodInfos(_context, pageLoc_, _method, _args);
@@ -127,11 +124,10 @@ public final class ExecutingUtil {
         rwLoc_.setBlock(_block);
         _page.setReadWrite(rwLoc_);
     }
-    public static AbstractPageEl createRecordInstancing(ContextEl _context, CustomFoundRecordConstructor _e, StackCall _stackCall) {
+    public static AbstractPageEl createRecordInstancing(ContextEl _context, CustomFoundRecordConstructor _e) {
         String cl_ = _e.getClassName();
         ExecRootBlock type_ = _e.getPair().getType();
         CustList<Argument> args_ = _e.getArguments();
-        _stackCall.setCallingState(null);
         NewRecordPageEl page_ = new NewRecordPageEl(_e.getId(),args_);
         Struct str_ = NullStruct.NULL_VALUE;
         String fieldName_ = _e.getFieldName();
@@ -147,18 +143,17 @@ public final class ExecutingUtil {
         page_.setFile(file_);
         return page_;
     }
-    public static AbstractPageEl createInstancing(ContextEl _context, CustomFoundConstructor _e, StackCall _stackCall) {
+    public static AbstractPageEl createInstancing(ContextEl _context, CustomFoundConstructor _e) {
         InstancingStep in_ = _e.getInstanceStep();
         if (in_ == InstancingStep.NEWING) {
-            return createNewInstancing(_context,_e, _stackCall);
+            return createNewInstancing(_context,_e);
         }
-        return createForwardingInstancing(_context,_e, _stackCall);
+        return createForwardingInstancing(_context,_e);
     }
-    public static CallConstructorPageEl createNewInstancing(ContextEl _context, CustomFoundConstructor _e, StackCall _stackCall) {
+    public static CallConstructorPageEl createNewInstancing(ContextEl _context, CustomFoundConstructor _e) {
         String cl_ = _e.getClassName();
         ExecRootBlock type_ = _e.getPair().getType();
         Parameters args_ = _e.getArguments();
-        _stackCall.setCallingState(null);
         Argument global_ = _e.getCurrentObject();
         CallConstructorPageEl page_ = new CallConstructorPageEl();
         Struct str_ = NullStruct.NULL_VALUE;
@@ -176,8 +171,7 @@ public final class ExecutingUtil {
 
     public static NewAnnotationPageEl createAnnotation(ContextEl _context, String _class, ExecRootBlock _type,
                                                        StringMap<AnnotationTypeInfo> _id,
-                                                       CustList<Argument> _args, StackCall _stackCall) {
-        _stackCall.setCallingState(null);
+                                                       CustList<Argument> _args) {
         NewAnnotationPageEl page_;
         ExecFileBlock file_ = _type.getFile();
         page_ = new NewAnnotationPageEl(_id,_args);
@@ -191,8 +185,7 @@ public final class ExecutingUtil {
         page_.setBlockRootTypes(_type);
         return page_;
     }
-    private static AbstractPageEl createForwardingInstancing(ContextEl _context, CustomFoundConstructor _e, StackCall _stackCall) {
-        _stackCall.setCallingState(null);
+    private static AbstractPageEl createForwardingInstancing(ContextEl _context, CustomFoundConstructor _e) {
         CallConstructorPageEl page_ = new CallConstructorPageEl();
         String cl_ = _e.getClassName();
         Parameters args_ = _e.getArguments();
@@ -219,8 +212,7 @@ public final class ExecutingUtil {
         _page.setReadWrite(rw_);
         _page.setFile(file_);
     }
-    public static FieldInitPageEl createInitFields(ExecRootBlock _type, String _class, Argument _current, StackCall _stackCall) {
-        _stackCall.setCallingState(null);
+    public static FieldInitPageEl createInitFields(ExecRootBlock _type, String _class, Argument _current) {
         CustList<ExecBlock> visit_ = _type.getAllInstanceMembers();
         FieldInitPageEl page_ = new FieldInitPageEl(visit_);
         page_.setGlobalClass(_class);
@@ -246,8 +238,7 @@ public final class ExecutingUtil {
         page_.setFile(_type.getFile());
         return page_;
     }
-    public static BlockPageEl createBlockPageEl(ContextEl _context, String _class, Argument _current, ExecRootBlock _rootBlock, ExecInitBlock _block, StackCall _stackCall) {
-        _stackCall.setCallingState(null);
+    public static BlockPageEl createBlockPageEl(ContextEl _context, String _class, Argument _current, ExecRootBlock _rootBlock, ExecInitBlock _block) {
         ExecFileBlock file_ = _block.getFile();
         BlockPageEl page_ = new BlockPageEl();
         page_.setGlobalClass(_class);
@@ -264,8 +255,7 @@ public final class ExecutingUtil {
         return page_;
     }
 
-    public static AbstractReflectPageEl createReflectMethod(AbstractReflectElement _ref, StackCall _stackCall) {
-        _stackCall.setCallingState(null);
+    public static AbstractReflectPageEl createReflectMethod(AbstractReflectElement _ref) {
         AbstractReflectPageEl pageLoc_;
         ReflectingType reflect_ = _ref.getReflect();
         if (_ref instanceof CustomReflectLambdaConstructor) {

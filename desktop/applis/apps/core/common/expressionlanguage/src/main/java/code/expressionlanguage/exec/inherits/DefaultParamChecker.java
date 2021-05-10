@@ -20,10 +20,10 @@ import code.expressionlanguage.structs.Struct;
 public final class DefaultParamChecker extends AbstractFormatParamChecker {
     private final ExecTypeFunction pair;
     private final ExecNamedFunctionBlock method;
+    private final ExecRootBlock type;
     private final ArgumentListCall args;
     private final CallPrepareState state;
     private final InstancingStep kindCall;
-    private final ExecRootBlock type;
 
     public DefaultParamChecker(ExecTypeFunction _pair, ArgumentListCall _args,
                                MethodAccessKind _kind,

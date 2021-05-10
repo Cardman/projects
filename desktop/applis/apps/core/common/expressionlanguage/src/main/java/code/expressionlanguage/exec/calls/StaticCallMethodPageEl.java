@@ -7,7 +7,10 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.inherits.AbstractParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.StaticCallParamChecker;
+import code.expressionlanguage.exec.inherits.SwitchParamChecker;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -56,19 +59,17 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
             _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stack)));
             return Argument.createVoid();
         }
-        String paramName_ = _stack.formatVarType(className_);
         ExecMemberCallingsBlock callee_ = getCallee();
         ExecTypeFunction pair_ = getPair();
         Cache cache_ = method_.getCache();
+        AbstractParamChecker ab_;
         if (callee_ instanceof ExecAbstractSwitchMethod) {
-            return checkStaticCallSw(pair_.getType(), (ExecAbstractSwitchMethod) callee_, cache_, _context, paramName_, _stack, _args);
+            ab_ = new SwitchParamChecker(pair_.getType(), (ExecAbstractSwitchMethod) callee_, _args, MethodAccessKind.STATIC_CALL);
+        } else {
+            ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(pair_, className_,Argument.createVoid(), _args, _context, MethodAccessKind.STATIC_CALL);
+            ab_ = new StaticCallParamChecker(pair_, l_);
         }
-        ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(pair_,paramName_,Argument.createVoid(), _args, _context, MethodAccessKind.STATIC_CALL);
-        return checkStaticCall(pair_, cache_, _context, paramName_, l_, _stack);
+        return ab_.checkParams(className_,Argument.createVoid(), cache_, _context, _stack);
     }
 
-    @Override
-    public String formatVarType(String _varType) {
-        return _varType;
-    }
 }

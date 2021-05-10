@@ -13,7 +13,6 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
@@ -93,7 +92,7 @@ public abstract class AbstractPageEl {
         _page.receive(wrapper, returnedArgument, _context, _stack);
     }
     public abstract void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack);
-    public String formatVarType(String _varType) {
+    public final String formatVarType(String _varType) {
 //        if (getGlobalArgument().isNull()) {
 //            return _varType;
 //        }

@@ -30,7 +30,7 @@ public final class CustomFoundMethod implements CallingState {
 
     @Override
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
-        return ExecutingUtil.createCallingMethod(_context,this, _stack);
+        return ExecutingUtil.createCallingMethod(_context,this);
     }
     public Argument getGl() {
         return gl;

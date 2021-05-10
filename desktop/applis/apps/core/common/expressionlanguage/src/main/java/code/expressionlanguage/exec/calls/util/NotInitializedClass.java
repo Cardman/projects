@@ -21,7 +21,7 @@ public final class NotInitializedClass implements CallingState {
     }
     @Override
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
-        return ExecutingUtil.createInstancingClass(this, _stack);
+        return ExecutingUtil.createInstancingClass(this);
     }
     public String getClassName() {
         return className;

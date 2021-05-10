@@ -23,30 +23,30 @@ public final class ProcessMethod {
             return;
         }
         _cont.getLocks().initClass(_class);
-        loop(_cont, _stackCall, ExecutingUtil.createInstancingClass(_rootBlock,_class,null, _stackCall));
+        loop(_cont, _stackCall, ExecutingUtil.createInstancingClass(_rootBlock,_class,null));
     }
     public static void initializeClassPre(String _class, ExecRootBlock _rootBlock, ContextEl _cont, StackCall _stackCall) {
-        loop(_cont, _stackCall, ExecutingUtil.createInstancingClass(_rootBlock,_class,null, _stackCall));
+        loop(_cont, _stackCall, ExecutingUtil.createInstancingClass(_rootBlock,_class,null));
     }
 
     public static ArgumentWrapper instanceRecordArgument(String _class, ExecTypeFunction _root, StringMap<String> _id, CustList<Argument> _args, ContextEl _cont, StackCall _stackCall) {
         CustomFoundRecordConstructor found_ = new CustomFoundRecordConstructor(_class, _root,_id, EMPTY_STRING,-1,_args);
-        AbstractPageEl page_ = ExecutingUtil.createRecordInstancing(_cont,found_, _stackCall);
+        AbstractPageEl page_ = ExecutingUtil.createRecordInstancing(_cont,found_);
         return loopAndReturn(_cont, _stackCall, page_);
     }
 
     public static ArgumentWrapper instanceArgument(String _class, ExecTypeFunction _root, Argument _global, Parameters _args, ContextEl _cont, StackCall _stackCall) {
         CustomFoundConstructor found_ = new CustomFoundConstructor(_class, _root, EMPTY_STRING,-1, _global,_args,InstancingStep.NEWING);
-        AbstractPageEl page_ = ExecutingUtil.createNewInstancing(_cont,found_, _stackCall);
+        AbstractPageEl page_ = ExecutingUtil.createNewInstancing(_cont,found_);
         return loopAndReturn(_cont, _stackCall, page_);
     }
 
     public static ArgumentWrapper calculateArgument(Argument _global, String _class, ExecTypeFunction _method, Parameters _args, ContextEl _cont, StackCall _stackCall) {
-        AbstractPageEl page_ = ExecutingUtil.createCallingMethod(_cont,_global, _class, _method, _args, _stackCall);
+        AbstractPageEl page_ = ExecutingUtil.createCallingMethod(_cont,_global, _class, _method, _args);
         return loopAndReturn(_cont, _stackCall, page_);
     }
     public static ArgumentWrapper reflectArgument(ContextEl _cont, AbstractReflectElement _ref, StackCall _stackCall) {
-        AbstractPageEl page_ = ExecutingUtil.createReflectMethod(_ref, _stackCall);
+        AbstractPageEl page_ = ExecutingUtil.createReflectMethod(_ref);
         return loopAndReturn(_cont, _stackCall, page_);
     }
 

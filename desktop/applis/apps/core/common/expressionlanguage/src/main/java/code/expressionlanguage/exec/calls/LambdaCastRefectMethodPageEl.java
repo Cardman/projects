@@ -34,8 +34,4 @@ public final class LambdaCastRefectMethodPageEl extends AbstractRefectLambdaMeth
         return prepareCast(_context, getClassName(), direct, _stack, _list);
     }
 
-    @Override
-    public String formatVarType(String _varType) {
-        return _varType;
-    }
 }

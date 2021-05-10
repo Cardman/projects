@@ -54,6 +54,7 @@ public final class StackCall {
 
     public void addInternPage(AbstractPageEl _page) {
         importing.add(_page);
+        callingState = null;
     }
 
     public String formatVarType(String _varType) {

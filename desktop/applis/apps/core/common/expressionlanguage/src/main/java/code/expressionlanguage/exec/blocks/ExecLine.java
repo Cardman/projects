@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
@@ -65,9 +64,7 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
             //initialize fields if there is no interface constructors to call
             if (!inst_.isFirstField() && initFields_) {
                 inst_.setFirstField(true);
-                Argument global_ = inst_.getGlobalArgument();
-                String curClass_ = inst_.getGlobalClass();
-                _stack.setCallingState(new NotInitializedFields(curClass_,inst_.getBlockRootType(), global_));
+                _stack.setCallingState(new NotInitializedFields(inst_));
                 return;
             }
             //fields of the current class are initialized if there is no other interface constructors to call

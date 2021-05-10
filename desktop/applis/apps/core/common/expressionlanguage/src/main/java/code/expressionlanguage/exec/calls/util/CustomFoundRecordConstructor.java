@@ -34,7 +34,7 @@ public final class CustomFoundRecordConstructor implements CallingState {
 
     @Override
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
-        return ExecutingUtil.createRecordInstancing(_context,this, _stack);
+        return ExecutingUtil.createRecordInstancing(_context,this);
     }
 
     public StringMap<String> getId() {

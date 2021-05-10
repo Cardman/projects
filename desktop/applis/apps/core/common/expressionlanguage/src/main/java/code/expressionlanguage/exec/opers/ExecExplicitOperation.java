@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.inherits.StaticCallParamChecker;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -65,13 +66,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         if (_exit.hasToExit(_stackCall, _paramNameOwner,_fwd)) {
             return true;
         }
-        ExecNamedFunctionBlock fct_ = _rootBlock.getFct();
-        ExecRootBlock type_ = _rootBlock.getType();
-        Parameters parameters_ = ExecTemplates.okArgsSet(type_, fct_, _paramNameOwner, null, _list, _conf, _stackCall);
-        if (parameters_.getError() != null) {
-            return true;
-        }
-        _stackCall.setCallingState(new CustomFoundMethod(_paramNameOwner, _rootBlock, parameters_));
+        new StaticCallParamChecker(_rootBlock,_list).checkParams(_paramNameOwner,Argument.createVoid(),null,_conf,_stackCall);
         return false;
     }
 

@@ -70,9 +70,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
             //initialize fields if there is no interface constructors to call
             if (!firstField && initFields_) {
                 firstField = true;
-                Argument global_ = getGlobalArgument();
-                String curClass_ = getGlobalClass();
-                _stack.setCallingState(new NotInitializedFields(curClass_, blockRootType_, global_));
+                _stack.setCallingState(new NotInitializedFields(this));
                 return false;
             }
             //fields of the current class are initialized if there is no interface constructors to call

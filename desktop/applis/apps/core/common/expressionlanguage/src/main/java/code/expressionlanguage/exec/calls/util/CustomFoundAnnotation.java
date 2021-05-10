@@ -28,7 +28,7 @@ public final class CustomFoundAnnotation implements CallingState {
     }
     @Override
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
-        return ExecutingUtil.createAnnotation(_context,getClassName(),getType(), getId(), getArguments(), _stack);
+        return ExecutingUtil.createAnnotation(_context,getClassName(),getType(), getId(), getArguments());
     }
     public String getClassName() {
         return className;

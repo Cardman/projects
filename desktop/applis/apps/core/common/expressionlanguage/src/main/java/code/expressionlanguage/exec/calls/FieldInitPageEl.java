@@ -37,7 +37,7 @@ public final class FieldInitPageEl extends AbstractInitPageEl {
             setGlobalOffset(en_.getOffsetTrim());
             setOffset(0);
             processedBlocks.put((ExecInitBlock) en_, BoolVal.TRUE);
-            CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(), getBlockRootType(), (ExecInitBlock) en_);
+            CustomFoundBlock cust_ = new CustomFoundBlock(this, (ExecInitBlock) en_);
             _stack.setCallingState(cust_);
             return;
         }

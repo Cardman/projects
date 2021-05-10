@@ -36,7 +36,7 @@ public final class CustomFoundConstructor implements CallingState {
 
     @Override
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
-        return ExecutingUtil.createInstancing(_context,this, _stack);
+        return ExecutingUtil.createInstancing(_context,this);
     }
 
     public int getChildIndex() {

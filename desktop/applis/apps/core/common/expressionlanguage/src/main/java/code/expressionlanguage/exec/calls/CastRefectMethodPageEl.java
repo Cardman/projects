@@ -37,8 +37,4 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
         return prepareCast(_context, getClassName(), direct, _stack, l_);
     }
 
-    @Override
-    public String formatVarType(String _varType) {
-        return _varType;
-    }
 }

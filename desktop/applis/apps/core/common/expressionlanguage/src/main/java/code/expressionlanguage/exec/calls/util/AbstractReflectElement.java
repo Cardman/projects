@@ -16,7 +16,7 @@ public abstract class AbstractReflectElement implements CallingState {
 
     @Override
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
-        return ExecutingUtil.createReflectMethod(this, _stack);
+        return ExecutingUtil.createReflectMethod(this);
     }
     public abstract ReflectingType getReflect();
 

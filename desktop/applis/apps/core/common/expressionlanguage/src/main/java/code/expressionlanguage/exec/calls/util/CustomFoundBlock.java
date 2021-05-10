@@ -5,6 +5,7 @@ import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecInitBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 
 public final class CustomFoundBlock implements CallingState {
@@ -16,17 +17,17 @@ public final class CustomFoundBlock implements CallingState {
     private final ExecRootBlock rootBlock;
     private final ExecInitBlock block;
 
-    public CustomFoundBlock(String _className,
-                            Argument _currentObject,ExecRootBlock _rootBlock, ExecInitBlock _block) {
-        className = _className;
-        currentObject = _currentObject;
-        rootBlock = _rootBlock;
+    public CustomFoundBlock(AbstractInitPageEl _init,
+                            ExecInitBlock _block) {
+        className = _init.getGlobalClass();
+        currentObject = _init.getGlobalArgument();
+        rootBlock = _init.getBlockRootType();
         block = _block;
     }
 
     @Override
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
-        return ExecutingUtil.createBlockPageEl(_context,getClassName(), getCurrentObject(),getRootBlock(), getBlock(), _stack);
+        return ExecutingUtil.createBlockPageEl(_context,getClassName(), getCurrentObject(),getRootBlock(), getBlock());
     }
     public String getClassName() {
         return className;
