@@ -1526,7 +1526,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate32Test() {
@@ -1550,7 +1550,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculate32_Test() {
@@ -1952,7 +1952,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(),arg_.getStruct().getClassName(cont_));
     }
 
     @Test
@@ -2103,7 +2103,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument arg_ = calculateError("pkg.Apply", id_, args_, cont_);
-        assertEq(cont_.getStandards().getReflect().getAliasInvokeTarget(),arg_.getStruct().getClassName(cont_));
+        assertEq(cont_.getStandards().getCoreNames().getAliasIllegalType(),arg_.getStruct().getClassName(cont_));
     }
     @Test
     public void calculateEx2Test() {

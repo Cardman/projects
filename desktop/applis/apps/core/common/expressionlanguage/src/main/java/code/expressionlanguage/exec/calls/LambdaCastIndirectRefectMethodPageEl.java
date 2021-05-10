@@ -5,19 +5,18 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
-import code.util.CustList;
 
-public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
+public final class LambdaCastIndirectRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
-    private final boolean direct;
-    public CastRefectMethodPageEl(boolean _direct, Argument _instance, Argument _array, MethodMetaInfo _metaInfo) {
+    public LambdaCastIndirectRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
         super(_instance,_array, _metaInfo);
-        direct = _direct;
     }
 
     @Override
     boolean initType(ContextEl _cont, StackCall _stack) {
-        return initType(_cont,direct, _stack);
+        MethodMetaInfo method_ = getMetaInfo();
+        String className_ = method_.getClassName();
+        return _cont.getExiting().hasToExit(_stack, className_);
     }
 
     @Override
@@ -31,10 +30,9 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
     }
 
     @Override
-    Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
-        ArgumentListCall l_ = new ArgumentListCall();
-        l_.addAllArgs(_args);
-        return prepareCast(_context, getClassName(), direct, _stack, l_);
+    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
+        return indirect(_context, _list, _stack);
     }
+
 
 }

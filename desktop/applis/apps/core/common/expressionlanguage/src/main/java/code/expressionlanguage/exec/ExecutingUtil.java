@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -306,10 +307,8 @@ public final class ExecutingUtil {
                 refMet_ = new LambdaDirectRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.STATIC_CALL) {
                 refMet_ = new LambdaStaticCallMethodPageEl(instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.CAST) {
-                refMet_ = new LambdaCastRefectMethodPageEl(false, instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.CAST_DIRECT) {
-                refMet_ = new LambdaCastRefectMethodPageEl(true, instance_,array_, metaInfo_);
+            } else if (cast(reflect_)) {
+                refMet_ = lambdaCast(reflect_, metaInfo_, instance_, array_);
             } else if (reflect_ == ReflectingType.STD_FCT) {
                 refMet_ = new LambdaDirectStdRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.CLONE_FCT) {
@@ -332,10 +331,8 @@ public final class ExecutingUtil {
                 refMet_ = new DirectRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.STATIC_CALL) {
                 refMet_ = new StaticCallMethodPageEl(instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.CAST) {
-                refMet_ = new CastRefectMethodPageEl(false, instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.CAST_DIRECT) {
-                refMet_ = new CastRefectMethodPageEl(true, instance_,array_, metaInfo_);
+            } else if (cast(reflect_)) {
+                refMet_ = reflectCast(reflect_, metaInfo_, instance_, array_);
             } else if (reflect_ == ReflectingType.STD_FCT) {
                 refMet_ = new DirectStdRefectMethodPageEl(instance_,array_, metaInfo_);
             } else if (reflect_ == ReflectingType.CLONE_FCT) {
@@ -356,6 +353,32 @@ public final class ExecutingUtil {
         ReadWrite rwLoc_ = new ReadWrite();
         pageLoc_.setReadWrite(rwLoc_);
         return pageLoc_;
+    }
+
+    private static AbstractRefectMethodPageEl reflectCast(ReflectingType _reflect, MethodMetaInfo _metaInfo, Argument _instance, Argument _array) {
+        AbstractRefectMethodPageEl refMet_;
+        String className_ = _metaInfo.getClassName();
+        if (ExecExplicitOperation.direct(_reflect == ReflectingType.CAST_DIRECT, _metaInfo.getPair(), className_)) {
+            refMet_ = new CastDirectRefectMethodPageEl(_instance, _array, _metaInfo);
+        } else {
+            refMet_ = new CastIndirectRefectMethodPageEl(_instance, _array, _metaInfo);
+        }
+        return refMet_;
+    }
+
+    private static AbstractRefectLambdaMethodPageEl lambdaCast(ReflectingType _reflect, MethodMetaInfo _metaInfo, Argument _instance, ArgumentListCall _array) {
+        AbstractRefectLambdaMethodPageEl refMet_;
+        String className_ = _metaInfo.getClassName();
+        if (ExecExplicitOperation.direct(_reflect == ReflectingType.CAST_DIRECT, _metaInfo.getPair(), className_)) {
+            refMet_ = new LambdaCastDirectRefectMethodPageEl(_instance, _array, _metaInfo);
+        } else {
+            refMet_ = new LambdaCastIndirectRefectMethodPageEl(_instance, _array, _metaInfo);
+        }
+        return refMet_;
+    }
+
+    private static boolean cast(ReflectingType _reflect) {
+        return _reflect == ReflectingType.CAST || _reflect == ReflectingType.CAST_DIRECT;
     }
 
     public static void addPage(ContextEl _cont, AbstractPageEl _page, StackCall _stackCall) {

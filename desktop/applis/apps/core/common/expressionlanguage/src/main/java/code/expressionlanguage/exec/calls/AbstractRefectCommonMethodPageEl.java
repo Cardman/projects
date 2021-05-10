@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -103,43 +102,33 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     Argument getInstance() {
         return instance;
     }
-    Argument prepareCast(ContextEl _context, String _className, boolean _direct, StackCall _stackCall, ArgumentListCall _list) {
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_className, _context);
+
+    Argument direct(ContextEl _context, StackCall _stack, ArgumentListCall _l) {
+        MethodMetaInfo method_ = getMetaInfo();
+        String className_ = method_.getClassName();
+        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(className_, _context);
         if (res_.isEmpty()) {
             String null_;
             null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, _className, null_, _stackCall)));
+            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stack)));
             return Argument.createVoid();
         }
-        return prepare(_direct, _className, _context, _stackCall, _list);
+        return ExecExplicitOperation.getArgument(getClassName(), _context, _stack, _l);
     }
-    private Argument prepare(boolean _direct, String _className,
-                             ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
-        if (ExecExplicitOperation.direct(_direct, getPair(), _className)) {
-            return ExecExplicitOperation.getArgument(_className, _conf, _stackCall, _list);
+
+    Argument indirect(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
+        String className_ = getClassName();
+        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(className_, _context);
+        if (res_.isEmpty()) {
+            String null_;
+            null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();
+            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stack)));
+            return Argument.createVoid();
         }
-        new StaticCallParamChecker(getPair(), _list).checkParams(_className,Argument.createVoid(),null, _conf, _stackCall);
+        new StaticCallParamChecker(getPair(), _list).checkParams(getClassName(), Argument.createVoid(), null, _context, _stack);
         return Argument.createVoid();
     }
 
-    boolean initType(ContextEl _cont, boolean _direct, StackCall _stackCall){
-        MethodMetaInfo method_ = getMetaInfo();
-        if (_direct) {
-            return false;
-        }
-        String className_ = method_.getClassName();
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(className_, _cont);
-        if (res_.isEmpty()) {
-            String null_;
-            null_ = _cont.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, className_, null_, _stackCall)));
-            return true;
-        }
-        if (!StringExpUtil.customCast(className_)) {
-            return false;
-        }
-        return _cont.getExiting().hasToExit(_stackCall, className_);
-    }
     abstract boolean initType(ContextEl _context, StackCall _stack);
     abstract boolean isAbstract(ContextEl _context, StackCall _stack);
     abstract boolean isPolymorph(ContextEl _context, StackCall _stack);
