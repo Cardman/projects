@@ -270,8 +270,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                     String retInt_ = supInt_.getImportedReturnType();
                     String retBase_ = supCl_.getImportedReturnType();
-                    String formattedRetDer_ = AnaInherits.quickFormat(c.getType(),nameCl_, retBase_);
-                    String formattedRetBase_ = AnaInherits.quickFormat(i.getType(),name_, retInt_);
+                    String formattedRetDer_ = AnaInherits.quickFormat(c.getFormat(), retBase_);
+                    String formattedRetBase_ = AnaInherits.quickFormat(i.getFormat(), retInt_);
                     if (supCl_.mustHaveSameRet()) {
                         if (!StringUtil.quickEq(formattedRetBase_, formattedRetDer_)) {
                             FoundErrorInterpret err_;

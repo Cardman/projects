@@ -17,7 +17,7 @@ public final class AnaFormattedRootBlock {
     }
 
     public static AnaFormattedRootBlock format(AnaFormattedRootBlock _sub, AnaFormattedRootBlock _sup) {
-        String format_ = AnaInherits.quickFormat(_sub.rootBlock,_sub.formatted, _sup.formatted);
+        String format_ = AnaInherits.quickFormat(_sub, _sup.formatted);
         return new AnaFormattedRootBlock(_sup.rootBlock, format_);
     }
     public RootBlock getRootBlock() {

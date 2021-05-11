@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.linkage.ExportCst;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -276,6 +277,9 @@ public final class ResolvingTypes {
     }
 
     public static String resolveAccessibleIdType(int _loc, String _in, AnalyzedPageEl _page) {
+        return resolveAccessibleIdTypeBlock(_loc, _in, _page).getFullName();
+    }
+    public static ResolvedIdType resolveAccessibleIdTypeBlock(int _loc, String _in, AnalyzedPageEl _page) {
         int rc_ = _page.getLocalizer().getCurrentLocationIndex();
         String tr_ = _in.trim();
         String void_ = _page.getAliasVoid();
@@ -288,8 +292,9 @@ public final class ResolvingTypes {
             firstOff_ = 0;
         }
         String res_ = StringExpUtil.removeDottedSpaces(base_);
-        if (_page.getStandardsTypes().contains(res_)) {
-            return res_;
+        StandardType std_ = _page.getStandardsTypes().getVal(res_);
+        if (std_ != null) {
+            return new ResolvedIdType(res_,std_);
         }
         CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
         partOffsets_.clear();
@@ -305,7 +310,7 @@ public final class ResolvingTypes {
             String pref_ = ExportCst.anchorErr(err_);
             partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
             partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+firstOff_+_loc+void_.length()));
-            return "";
+            return new ResolvedIdType("",null);
         }
         if (tr_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -318,14 +323,16 @@ public final class ResolvingTypes {
             String pref_ = ExportCst.anchorErr(err_);
             partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
             partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+firstOff_+_loc+1));
-            return "";
+            return new ResolvedIdType("",null);
         }
         RootBlock b_ = _page.getAnaClassBody(res_);
+        AnaGeneType resType_ = b_;
         if (b_ == null) {
             MappingLocalType resolved_ = _page.getMappingLocal().getVal(base_);
             if (resolved_ != null) {
                 ContextUtil.appendParts(firstOff_+_loc,firstOff_+_loc + base_.length(),resolved_.getFullName(),partOffsets_, _page);
                 res_ = resolved_.getFullName();
+                resType_ = resolved_.getType();
             } else {
                 String id_ = ResolvingImportTypes.lookupImportType(base_,r_, new AlwaysReadyTypes(), _page);
                 if (id_.isEmpty()) {
@@ -341,10 +348,11 @@ public final class ResolvingTypes {
                     String pref_ = ExportCst.anchorErr(err_);
                     partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
                     partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+firstOff_+_loc + base_.length()));
-                    return "";
+                    return new ResolvedIdType("",null);
                 }
                 ContextUtil.appendParts(firstOff_+_loc,firstOff_+_loc + base_.length(),id_,partOffsets_, _page);
                 res_ = id_;
+                resType_ = _page.getAnaGeneType(id_);
             }
         } else {
             ContextUtil.appendParts(firstOff_+_loc,firstOff_+_loc + base_.length(),res_,partOffsets_, _page);
@@ -377,13 +385,14 @@ public final class ResolvingTypes {
                 String pref_ = ExportCst.anchorErr(err_);
                 partOffsets_.add(new PartOffset(pref_,rc_+offset_+delta_));
                 partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+offset_+delta_ + i_.trim().length()));
-                return "";
+                return new ResolvedIdType("",null);
             }
+            resType_ = inner_;
             ContextUtil.appendParts(offset_+delta_,offset_+delta_ + i_.trim().length(),resId_,partOffsets_, _page);
             res_ = resId_;
             offset_ += i_.length() + delta_;
         }
-        return res_;
+        return new ResolvedIdType(res_,resType_);
     }
 
     public static String resolveCorrectType(String _in, AnalyzedPageEl _page) {

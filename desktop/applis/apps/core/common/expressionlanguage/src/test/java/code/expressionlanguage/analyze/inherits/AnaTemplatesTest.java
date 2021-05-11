@@ -6761,6 +6761,23 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void isCorrect110Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.ExAnn {}\n");
+        xml_.append("$public $class pkg.ExCl {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("pkg.ExAnn");
+        m_.setParam("pkg.ExCl");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!isCorrect(context_, m_));
+    }
+
+    @Test
     public void getSuperTypesSet1Test() {
         AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("$boolean"));

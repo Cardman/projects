@@ -6,7 +6,9 @@ import code.expressionlanguage.analyze.opers.IdFctOperation;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
+import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -95,15 +97,16 @@ public final class InternOverrideBlock extends Leaf {
                 String fromType_ = firstFull_.trim();
                 CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
                 int firstPar_ = extValue_.getFirst().length();
-                String cl_ = ResolvingTypes.resolveAccessibleIdType(off_+firstPar_+1,fromType_, _page);
+                ResolvedIdType resolvedIdTypeDest_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_+firstPar_+1,fromType_, _page);
+                String cl_ = resolvedIdTypeDest_.getFullName();
                 superPartOffsets_.addAllElts(_page.getCurrentParts());
-                String formatted_ = AnaInherits.getOverridingFullTypeByBases(_root, cl_, _page);
-                RootBlock formattedType_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formatted_));
-                if (formattedType_ == null) {
+                AnaFormattedRootBlock formInfoDest_ = AnaInherits.getOverridingFullTypeByBases(_root, resolvedIdTypeDest_.getGeneType());
+                if (formInfoDest_ == null) {
                     localSum_ += s.length()+1;
                     listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, null, 0, 0));
                     continue;
                 }
+                RootBlock formattedType_ = formInfoDest_.getRootBlock();
                 boolean retRef_ = false;
                 String nameLocId_ = nameLoc_;
                 if (nameLoc_.startsWith("~")) {
@@ -116,7 +119,7 @@ public final class InternOverrideBlock extends Leaf {
                     listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, null, 0, 0));
                     continue;
                 }
-                if (!formattedMethodId_.eqPartial(superMethodId_.quickOverrideFormat(formattedType_,formatted_))) {
+                if (!formattedMethodId_.eqPartial(superMethodId_.quickOverrideFormat(formInfoDest_))) {
                     localSum_ += s.length()+1;
                     listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, null, 0, 0));
                     continue;
@@ -129,7 +132,7 @@ public final class InternOverrideBlock extends Leaf {
                 for (NamedCalledFunctionBlock m: methods_) {
                     if (m.getId().eq(superMethodId_)) {
                         id_ = new ClassMethodId(cl_,m.getId());
-                        GeneStringOverridable g_ = new GeneStringOverridable(formatted_,formattedType_,m);
+                        GeneStringOverridable g_ = new GeneStringOverridable(formInfoDest_, m);
                         list_.add(g_);
                         fct_ = new AnaTypeFct();
                         fct_.setType(formattedType_);

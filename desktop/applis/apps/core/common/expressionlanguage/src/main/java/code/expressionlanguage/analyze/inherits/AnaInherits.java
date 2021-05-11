@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
@@ -304,19 +305,16 @@ public final class AnaInherits {
         return quickFormat(_typSub,_subType, generic_);
     }
 
-    public static String getOverridingFullTypeByBases(AnaGeneType _subType, String _superType, AnalyzedPageEl _page) {
-        String geneSubType_ = _subType.getGenericString();
-        return getInternOverriding(_subType,_superType, geneSubType_, _page);
-    }
-
-    private static String getInternOverriding(AnaGeneType _subType, String _superType, String _geneSubType, AnalyzedPageEl _page) {
-        String idArg_ = StringExpUtil.getIdFromAllTypes(_geneSubType);
-        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
-        if (StringUtil.quickEq(idArg_,idSuperType_)) {
-            return _geneSubType;
+    public static AnaFormattedRootBlock getOverridingFullTypeByBases(RootBlock _subType, AnaGeneType _superType) {
+        if (_subType == _superType) {
+            return new AnaFormattedRootBlock(_subType);
         }
-        String generic_ = getSuperGeneric(_subType, 0, idSuperType_, _page);
-        return quickFormat(_subType,_geneSubType, generic_);
+        for (AnaFormattedRootBlock g: _subType.getAllGenericSuperTypesInfo()) {
+            if (g.getRootBlock() == _superType) {
+                return g;
+            }
+        }
+        return null;
     }
 
     public static String getSuperGeneric(AnaGeneType _subType, int _dim, String _classParam, AnalyzedPageEl _page) {
@@ -347,6 +345,10 @@ public final class AnaInherits {
         return StringExpUtil.getFormattedType(_second, varTypes_);
     }
 
+    public static String quickFormat(AnaFormattedRootBlock _root, String _second) {
+        StringMap<String> varTypes_ = getVarTypes(_root.getRootBlock(),_root.getFormatted());
+        return StringExpUtil.getQuickFormattedType(_second, varTypes_);
+    }
     public static String quickFormat(AnaGeneType _root, String _first, String _second) {
         StringMap<String> varTypes_ = getVarTypes(_root,_first);
         return StringExpUtil.getQuickFormattedType(_second, varTypes_);

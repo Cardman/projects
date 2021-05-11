@@ -1,5 +1,6 @@
 package code.expressionlanguage.fwd.blocks;
 
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -9,6 +10,7 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.Members;
 import code.util.CustList;
@@ -61,6 +63,12 @@ public final class FetchMemberUtil {
         return null;
     }
 
+    public static String formatType(AnaFormattedRootBlock _format,String _dest) {
+        return AnaInherits.quickFormat(_format,_dest);
+    }
+    public static MethodId formatType(AnaFormattedRootBlock _format, MethodId _dest) {
+        return _dest.quickFormat(_format);
+    }
     public static ExecFormattedRootBlock fwdFormatType(AnaFormattedRootBlock _format,Forwards _forwards) {
         return new ExecFormattedRootBlock(_forwards.getMember(_format.getRootBlock()).getRootBlock(),_format.getFormatted());
     }

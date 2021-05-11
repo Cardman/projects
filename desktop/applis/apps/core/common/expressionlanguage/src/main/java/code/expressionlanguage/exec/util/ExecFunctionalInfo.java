@@ -3,8 +3,6 @@ package code.expressionlanguage.exec.util;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -15,13 +13,9 @@ public final class ExecFunctionalInfo {
     private final ExecOverridableBlock overridableBlock;
     private final String fctParam;
 
-    public ExecFunctionalInfo(String _className, ExecRootBlock _overridableBlockParent, ExecOverridableBlock _overridableBlock, ContextEl _conf) {
+    public ExecFunctionalInfo(MethodId _formatted, String _formattedRet, ExecOverridableBlock _overridableBlock, ContextEl _conf) {
         this.overridableBlock = _overridableBlock;
-        MethodId realId_ = _overridableBlock.getId();
-        MethodId idMeth_ = realId_.quickFormat(_overridableBlockParent, _className);
-        String ret_ = _overridableBlock.getImportedReturnType();
-        ret_ = ExecInherits.quickFormat(_overridableBlockParent, _className,ret_);
-        fctParam = formatReturn(_conf, ret_, idMeth_);
+        fctParam = formatReturn(_conf, _formattedRet, _formatted);
     }
 
     private static String formatReturn(ContextEl _an, String _returnType, MethodId _shortId) {

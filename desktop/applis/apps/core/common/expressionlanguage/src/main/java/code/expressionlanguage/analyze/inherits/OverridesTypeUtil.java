@@ -12,7 +12,6 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.*;
-import code.util.core.StringUtil;
 
 public final class OverridesTypeUtil {
 
@@ -21,14 +20,13 @@ public final class OverridesTypeUtil {
 
     public static StringMap<GeneStringOverridable> getConcreteMethodsToCall(RootBlock _type, MethodId _realId, AnalyzedPageEl _page) {
         StringMap<GeneStringOverridable> eq_ = new StringMap<GeneStringOverridable>();
-        String baseClassFound_ = _type.getFullName();
         for (RootBlock c: _page.getAllFoundTypes()) {
             String name_ = c.getFullName();
-            String baseCond_ = AnaInherits.getOverridingFullTypeByBases(c, baseClassFound_, _page);
-            if (baseCond_.isEmpty()) {
+            AnaFormattedRootBlock baseCond_ = AnaInherits.getOverridingFullTypeByBases(c, _type);
+            if (baseCond_ == null) {
                 continue;
             }
-            GeneStringOverridable f_ = tryGetUniqueId(baseClassFound_,_type, c, _realId, _page);
+            GeneStringOverridable f_ = tryGetUniqueId(_type, c, _realId);
             if (f_ != null) {
                 eq_.put(name_, f_);
                 continue;
@@ -43,12 +41,12 @@ public final class OverridesTypeUtil {
                     continue;
                 }
                 InterfaceBlock i_ = (InterfaceBlock) s;
-                String v_ = AnaInherits.getOverridingFullTypeByBases(i_, baseClassFound_, _page);
-                if (v_.isEmpty()) {
+                AnaFormattedRootBlock v_ = AnaInherits.getOverridingFullTypeByBases(i_, _type);
+                if (v_ == null) {
                     continue;
                 }
                 //r_, as super interface of c, is a sub type of type input
-                FormattedMethodId l_ = _realId.quickOverrideFormat(_type,v_);
+                FormattedMethodId l_ = _realId.quickOverrideFormat(v_);
                 CustList<OverridingMethodDto> ov_ = i_.getAllOverridingMethods();
                 //r_ inherit the formatted method
                 CustList<GeneStringOverridable> foundSuperClasses_ = new CustList<GeneStringOverridable>();
@@ -56,9 +54,7 @@ public final class OverridesTypeUtil {
                 //if the overridden types contain the type input, then retrieve the sub types of the input type
                 //(which are super types of r_)
                 for (GeneStringOverridable t: getList(ov_,l_)) {
-                    String t_ = t.getGeneString();
-                    String baseSuperType_ = StringExpUtil.getIdFromAllTypes(t_);
-                    if (StringUtil.quickEq(baseSuperType_, baseClassFound_)) {
+                    if (t.getType() == _type) {
                         found_ = true;
                     }
                     if (!t.getType().isSubTypeOf(_type)) {
@@ -78,7 +74,7 @@ public final class OverridesTypeUtil {
             }
             finalMethods_ = new CustList<GeneStringOverridable>();
             methods_ = new CustList<GeneStringOverridable>();
-            FormattedMethodId l_ = _realId.quickOverrideFormat(_type,baseCond_);
+            FormattedMethodId l_ = _realId.quickOverrideFormat(baseCond_);
             CustList<OverridingMethodDto> ov_ = c.getAllOverridingMethods();
             //r_ inherit the formatted method
             CustList<GeneStringOverridable> foundSuperClasses_ = new CustList<GeneStringOverridable>();
@@ -86,9 +82,7 @@ public final class OverridesTypeUtil {
             //if the overridden types contain the type input, then retrieve the sub types of the input type
             //(which are super types of r_)
             for (GeneStringOverridable t: getList(ov_,l_)) {
-                String t_ = t.getGeneString();
-                String baseSuperType_ = StringExpUtil.getIdFromAllTypes(t_);
-                if (StringUtil.quickEq(baseSuperType_, baseClassFound_)) {
+                if (t.getType() == _type) {
                     found_ = true;
                 }
                 foundSuperClasses_.add(t);
@@ -143,30 +137,29 @@ public final class OverridesTypeUtil {
         return null;
     }
 
-    private static GeneStringOverridable tryGetUniqueId(String _subTypeName, AnaGeneType _toFind, RootBlock _type, MethodId _realId, AnalyzedPageEl _page) {
+    private static GeneStringOverridable tryGetUniqueId(RootBlock _toFind, RootBlock _type, MethodId _realId) {
         //c is a concrete sub type of type input
         for (AnaFormattedRootBlock s: _type.getAllGenericClassesInfo()) {
             RootBlock r_ = s.getRootBlock();
-            String v_ = AnaInherits.getOverridingFullTypeByBases(r_, _subTypeName, _page);
-            if (v_.isEmpty()) {
+            AnaFormattedRootBlock v_ = AnaInherits.getOverridingFullTypeByBases(r_, _toFind);
+            if (v_ == null) {
                 continue;
             }
             //r_, as super class of c, is a sub type of type input
-            FormattedMethodId l_ = _realId.quickOverrideFormat(_toFind,v_);
+            FormattedMethodId l_ = _realId.quickOverrideFormat(v_);
             CustList<OverridingMethodDto> ov_ = r_.getAllOverridingMethods();
             //r_ inherit the formatted method
             boolean found_ = false;
             TreeMap<String,GeneStringOverridable> tree_ = new TreeMap<String,GeneStringOverridable>(new ComparingByTypeList(r_.getAllGenericClasses()));
             //if the overridden types contain the type input, then look for the "most sub typed" super class of r_
             for (GeneStringOverridable t: getList(ov_,l_)) {
-                String t_ = t.getGeneString();
-                String baseSuperType_ = StringExpUtil.getIdFromAllTypes(t_);
-                if (StringUtil.quickEq(baseSuperType_, _subTypeName)) {
+                if (t.getType() == _toFind) {
                     found_ = true;
                 }
                 if (t.getType() instanceof InterfaceBlock) {
                     continue;
                 }
+                String t_ = t.getGeneString();
                 tree_.put(t_,t);
             }
             if (!found_) {

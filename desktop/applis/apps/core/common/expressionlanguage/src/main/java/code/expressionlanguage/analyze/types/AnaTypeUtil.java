@@ -96,8 +96,8 @@ public final class AnaTypeUtil {
                 } else {
                     String retBase_ = supId_.getBlock().getImportedReturnType();
                     String retDerive_ = subId_.getBlock().getImportedReturnType();
-                    String formattedRetDer_ = AnaInherits.quickFormat(subId_.getType(),subId_.getGeneString(), retDerive_);
-                    String formattedRetBase_ = AnaInherits.quickFormat(supId_.getType(),supId_.getGeneString(), retBase_);
+                    String formattedRetDer_ = AnaInherits.quickFormat(subId_.getFormat(), retDerive_);
+                    String formattedRetBase_ = AnaInherits.quickFormat(supId_.getFormat(), retBase_);
                     if (supId_.getBlock().isFinalMethod()) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
@@ -197,7 +197,7 @@ public final class AnaTypeUtil {
             }
             MethodId m_ = b.getId();
             OverridingMethodDto o_ = new OverridingMethodDto(MethodId.to(m_));
-            o_.getMethodIds().add(new GeneStringOverridable(_r.getGenericString(),_r,b));
+            o_.getMethodIds().add(new GeneStringOverridable(new AnaFormattedRootBlock(_r), b));
             map_.add(o_);
         }
         for (AnaFormattedRootBlock s: _r.getAllGenericSuperTypesInfo()) {
@@ -206,24 +206,24 @@ public final class AnaTypeUtil {
                 if (b.hiddenInstance()) {
                     continue;
                 }
-                addDtoClass(map_, b.getId().quickOverrideFormat(b_,s.getFormatted()),b_, b,s.getFormatted());
+                addDtoClass(map_, b.getId().quickOverrideFormat(s),s, b);
             }
         }
         return map_;
     }
 
-    private static void addDtoClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, RootBlock _r,NamedCalledFunctionBlock _ov, String _str) {
+    private static void addDtoClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, AnaFormattedRootBlock _format, NamedCalledFunctionBlock _ov) {
         boolean found_ = false;
         for (OverridingMethodDto o: _map) {
             if (o.getFormattedMethodId().eq(_key)) {
-                o.getMethodIds().add(new GeneStringOverridable(_str,_r,_ov));
+                o.getMethodIds().add(new GeneStringOverridable(_format, _ov));
                 found_ = true;
                 break;
             }
         }
         if (!found_) {
             OverridingMethodDto o_ = new OverridingMethodDto(_key);
-            o_.getMethodIds().add(new GeneStringOverridable(_str,_r,_ov));
+            o_.getMethodIds().add(new GeneStringOverridable(_format, _ov));
             _map.add(o_);
         }
     }
