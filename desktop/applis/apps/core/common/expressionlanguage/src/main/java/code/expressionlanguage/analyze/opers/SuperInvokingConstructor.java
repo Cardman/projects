@@ -3,7 +3,6 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.blocks.UniqueRootedBlock;
-import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -19,7 +18,6 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
 
     @Override
     AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
-        String clCurName_ = _page.getGlobalClass();
         RootBlock clBody_ = _page.getGlobalType();
         if (!(clBody_ instanceof UniqueRootedBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -31,11 +29,11 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
             addErr(call_.getBuiltError());
             return null;
         }
-        UniqueRootedBlock unique_ =(UniqueRootedBlock) clBody_;
-        String superClass_ = AnaInherits.quickFormat(clBody_,clCurName_, unique_.getImportedDirectGenericSuperClass());
+        String superClass_ = "";
         CustList<AnaFormattedRootBlock> genericClasses_ = clBody_.getAllGenericClassesInfo();
         if (genericClasses_.size() > 1) {
             setType(genericClasses_.get(1).getRootBlock());
+            superClass_ = genericClasses_.get(1).getFormatted();
         }
         if (getType() == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();

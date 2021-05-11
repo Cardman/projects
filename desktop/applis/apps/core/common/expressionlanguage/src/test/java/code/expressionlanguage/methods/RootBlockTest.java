@@ -20,6 +20,19 @@ import org.junit.Test;
 public final class RootBlockTest extends ProcessMethodCommon {
 
     @Test
+    public void count() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<E> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        assertFalse(OverridesTypeUtil.onlyOneElt(new IdList<RootBlock>(cont_.getAnalyzing().getAnaClassBody("pkg.Ex"),cont_.getAnalyzing().getAnaClassBody("pkg.ExTwo"))));
+    }
+    @Test
     public void getAllGenericSuperTypes1Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

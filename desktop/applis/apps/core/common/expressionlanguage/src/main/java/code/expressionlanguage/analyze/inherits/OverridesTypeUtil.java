@@ -12,6 +12,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.*;
+import code.util.core.IndexConstants;
 
 public final class OverridesTypeUtil {
 
@@ -67,7 +68,7 @@ public final class OverridesTypeUtil {
                 }
                 feedMehodsLists(finalMethods_, methods_, foundSuperClasses_);
             }
-            GeneStringOverridable id_ = filterUniqId(finalMethods_, methods_, _page);
+            GeneStringOverridable id_ = filterUniqId(finalMethods_, methods_);
             if (id_ != null) {
                 eq_.put(name_, id_);
                 continue;
@@ -91,7 +92,7 @@ public final class OverridesTypeUtil {
                 continue;
             }
             feedMehodsLists(finalMethods_, methods_, foundSuperClasses_);
-            id_ = filterUniqId(finalMethods_, methods_, _page);
+            id_ = filterUniqId(finalMethods_, methods_);
             if (id_ != null) {
                 eq_.put(name_, id_);
             }
@@ -111,30 +112,43 @@ public final class OverridesTypeUtil {
             _methods.add(t);
         }
     }
-    private static GeneStringOverridable filterUniqId(CustList<GeneStringOverridable> _finalMethods, CustList<GeneStringOverridable> _methods, AnalyzedPageEl _page) {
-        StringMap<GeneStringOverridable> defs_ = new StringMap<GeneStringOverridable>();
-        StringList list_ = new StringList();
+    private static GeneStringOverridable filterUniqId(CustList<GeneStringOverridable> _finalMethods, CustList<GeneStringOverridable> _methods) {
+        IdMap<RootBlock,GeneStringOverridable> defs_ = new IdMap<RootBlock,GeneStringOverridable>();
+        IdList<RootBlock> list_ = new IdList<RootBlock>();
         for (GeneStringOverridable v: _finalMethods) {
-            defs_.put(v.getGeneString(), v);
-            list_.add(v.getGeneString());
+            defs_.put(v.getType(), v);
+            list_.add(v.getType());
         }
-        list_ = AnaTypeUtil.getSubclasses(list_, _page);
-        if (list_.onlyOneElt()) {
-            String class_ = list_.first();
+        list_ = AnaTypeUtil.getSubclassesCust(list_);
+        if (onlyOneElt(list_)) {
+            RootBlock class_ = list_.first();
             return defs_.getVal(class_);
         }
-        defs_ = new StringMap<GeneStringOverridable>();
-        list_ = new StringList();
+        defs_ = new IdMap<RootBlock,GeneStringOverridable>();
+        list_ = new IdList<RootBlock>();
         for (GeneStringOverridable v: _methods) {
-            defs_.put(v.getGeneString(), v);
-            list_.add(v.getGeneString());
+            defs_.put(v.getType(), v);
+            list_.add(v.getType());
         }
-        list_ = AnaTypeUtil.getSubclasses(list_, _page);
-        if (list_.onlyOneElt()) {
-            String class_ = list_.first();
+        list_ = AnaTypeUtil.getSubclassesCust(list_);
+        if (onlyOneElt(list_)) {
+            RootBlock class_ = list_.first();
             return defs_.getVal(class_);
         }
         return null;
+    }
+    public static boolean onlyOneElt(IdList<RootBlock> _list) {
+        if (_list.isEmpty()) {
+            return false;
+        }
+        RootBlock e_ = _list.first();
+        int s_ = _list.size();
+        for (int i = IndexConstants.SECOND_INDEX; i < s_; i++) {
+            if (_list.get(i) != e_) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static GeneStringOverridable tryGetUniqueId(RootBlock _toFind, RootBlock _type, MethodId _realId) {

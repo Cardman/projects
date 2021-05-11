@@ -567,6 +567,26 @@ public final class AnaTypeUtil {
         }
         return types_;
     }
+    public static IdList<RootBlock> getSubclassesCust(IdList<RootBlock> _classNames) {
+        IdList<RootBlock> types_ = new IdList<RootBlock>();
+        for (RootBlock i: _classNames) {
+            boolean sub_ = true;
+            for (RootBlock j: _classNames) {
+                if (i == j) {
+                    continue;
+                }
+                if (j.isSubTypeOf(i)) {
+                    sub_ = false;
+                    break;
+                }
+            }
+            if (!sub_) {
+                continue;
+            }
+            types_.add(i);
+        }
+        return types_;
+    }
 
     public static int cmpTypes(String _one, String _two, AnalyzedPageEl _page) {
         AnaGeneType one_ = _page.getAnaGeneType(_one);
