@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecExplicitOperation;
+import code.expressionlanguage.exec.opers.ExecImplicitOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
@@ -112,7 +112,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stack)));
             return Argument.createVoid();
         }
-        return ExecExplicitOperation.getArgument(getClassName(), _context, _stack, _l);
+        return ExecImplicitOperation.getArgument(getClassName(), _context, _stack, _l);
     }
 
     abstract boolean initType(ContextEl _context, StackCall _stack);

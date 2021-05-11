@@ -62,7 +62,7 @@ public abstract class ExecOperationNode {
         CustList<Argument> args_ = new CustList<Argument>();
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addArg(Argument.getNullableValue(_right));
-        if (ExecExplicitOperation.checkFormattedCustomOper(ex_,c, _implicits.getOwnerClass(), _conf,_right, _stackCall, l_)) {
+        if (ExecExplicitOperation.checkCustomOper(ex_, c, _stackCall.formatVarType(_implicits.getOwnerClass()), _conf, _right, _stackCall, l_)) {
             return _indexImplicit;
         }
         return _indexImplicit +1;

@@ -4674,7 +4674,13 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertEq(5, getNumber(arg_));
 
     }
+    @Test
+    public void processEl465_Test() {
+        Argument arg_ = processElNormal3("$($int,$id)5", new StringMap<String>());
 
+        assertEq(5, getNumber(arg_));
+
+    }
     @Test
     public void processEl466Test() {
         StringBuilder xml_ = new StringBuilder();

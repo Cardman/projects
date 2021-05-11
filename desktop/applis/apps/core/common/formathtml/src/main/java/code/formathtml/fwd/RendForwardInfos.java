@@ -9,6 +9,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.functionid.MethodId;
@@ -797,13 +798,22 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof ExplicitOperation) {
             ExplicitOperation m_ = (ExplicitOperation) _anaNode;
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(), _forwards);
+            if (ExecExplicitOperation.direct(pair_,m_.getExplicitContent().getClassName())) {
+                return new RendImplicitOperation(new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
+            }
             return new RendExplicitOperation(
-                    FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(), _forwards), new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
+                    pair_, new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
         }
         if (_anaNode instanceof ImplicitOperation) {
             ImplicitOperation m_ = (ImplicitOperation) _anaNode;
-            return new RendImplicitOperation(
-                    FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(), _forwards), new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(), _forwards);
+            if (ExecExplicitOperation.direct(pair_,m_.getExplicitContent().getClassName())) {
+                return new RendImplicitOperation(
+                        new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
+            }
+            return new RendExplicitOperation(
+                    pair_, new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
         }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;

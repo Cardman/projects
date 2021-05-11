@@ -358,7 +358,7 @@ public final class ExecutingUtil {
     private static AbstractRefectMethodPageEl reflectCast(ReflectingType _reflect, MethodMetaInfo _metaInfo, Argument _instance, Argument _array) {
         AbstractRefectMethodPageEl refMet_;
         String className_ = _metaInfo.getClassName();
-        if (ExecExplicitOperation.direct(_reflect == ReflectingType.CAST_DIRECT, _metaInfo.getPair(), className_)) {
+        if (direct(_reflect == ReflectingType.CAST_DIRECT, _metaInfo.getPair(), className_)) {
             refMet_ = new CastDirectRefectMethodPageEl(_instance, _array, _metaInfo);
         } else {
             refMet_ = new CastIndirectRefectMethodPageEl(_instance, _array, _metaInfo);
@@ -369,7 +369,7 @@ public final class ExecutingUtil {
     private static AbstractRefectLambdaMethodPageEl lambdaCast(ReflectingType _reflect, MethodMetaInfo _metaInfo, Argument _instance, ArgumentListCall _array) {
         AbstractRefectLambdaMethodPageEl refMet_;
         String className_ = _metaInfo.getClassName();
-        if (ExecExplicitOperation.direct(_reflect == ReflectingType.CAST_DIRECT, _metaInfo.getPair(), className_)) {
+        if (direct(_reflect == ReflectingType.CAST_DIRECT, _metaInfo.getPair(), className_)) {
             refMet_ = new LambdaCastDirectRefectMethodPageEl(_instance, _array, _metaInfo);
         } else {
             refMet_ = new LambdaCastIndirectRefectMethodPageEl(_instance, _array, _metaInfo);
@@ -391,4 +391,7 @@ public final class ExecutingUtil {
         }
     }
 
+    public static boolean direct(boolean _direct, ExecTypeFunction _castOpId, String _className) {
+        return _direct || ExecExplicitOperation.direct(_castOpId, _className);
+    }
 }

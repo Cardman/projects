@@ -3,9 +3,9 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.opers.ExecImplicitOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecExplicitContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.Configuration;
@@ -17,11 +17,10 @@ import code.util.IdMap;
 public final class RendImplicitOperation extends RendAbstractUnaryOperation {
 
     private final ExecExplicitContent explicitContent;
-    private final ExecTypeFunction pair;
-    public RendImplicitOperation(ExecTypeFunction _pair, ExecOperationContent _content, ExecExplicitContent _explicitContent) {
+
+    public RendImplicitOperation(ExecOperationContent _content, ExecExplicitContent _explicitContent) {
         super(_content);
         explicitContent = _explicitContent;
-        pair = _pair;
     }
 
     @Override
@@ -30,7 +29,7 @@ public final class RendImplicitOperation extends RendAbstractUnaryOperation {
         CustList<Argument> first_ = getArguments(_nodes, this);
         ArgumentListCall list_ = new ArgumentListCall();
         list_.addAllArgs(first_);
-        Argument argres_ = RendDynOperationNode.processCall(RendExplicitOperation.prepare(_context.getExiting(), pair, explicitContent.getClassName(), explicitContent.getClassNameOwner(), _context, _stack, list_), _context, _stack).getValue();
+        Argument argres_ = RendDynOperationNode.processCall(ExecImplicitOperation.getArgument(explicitContent.getClassName(), _context, _stack, list_), _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 

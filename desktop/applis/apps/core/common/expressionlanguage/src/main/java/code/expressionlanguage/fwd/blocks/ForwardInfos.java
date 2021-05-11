@@ -1448,14 +1448,25 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof ExplicitOperation) {
             ExplicitOperation m_ = (ExplicitOperation) _anaNode;
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(), _forwards);
+            if (ExecExplicitOperation.direct(pair_,m_.getExplicitContent().getClassName())) {
+                return new ExecImplicitOperation(
+                        new ExecOperationContent(m_.getContent()),new ExecExplicitContent(m_.getExplicitContent()));
+            }
             return new ExecExplicitOperation(
-                    FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(),_forwards),
+                    pair_,
                     new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
         }
         if (_anaNode instanceof ImplicitOperation) {
             ImplicitOperation m_ = (ImplicitOperation) _anaNode;
-            return new ExecImplicitOperation(
-                    new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()), FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(), _forwards));
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(), _forwards);
+            if (ExecExplicitOperation.direct(pair_,m_.getExplicitContent().getClassName())) {
+                return new ExecImplicitOperation(
+                        new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
+            }
+            return new ExecExplicitOperation(
+                    pair_,
+                    new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent()));
         }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;
