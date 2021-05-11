@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.CastParamChecker;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
@@ -34,7 +35,7 @@ public final class CastIndirectRefectMethodPageEl extends AbstractRefectMethodPa
     Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addAllArgs(_args);
-        return indirect(_context, l_, _stack);
+        return new CastParamChecker(getPair(), l_).checkParams(getClassName(), Argument.createVoid(), null, _context, _stack);
     }
 
 

@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.StaticCallParamChecker;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -114,19 +113,6 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             return Argument.createVoid();
         }
         return ExecExplicitOperation.getArgument(getClassName(), _context, _stack, _l);
-    }
-
-    Argument indirect(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        String className_ = getClassName();
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(className_, _context);
-        if (res_.isEmpty()) {
-            String null_;
-            null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stack)));
-            return Argument.createVoid();
-        }
-        new StaticCallParamChecker(getPair(), _list).checkParams(getClassName(), Argument.createVoid(), null, _context, _stack);
-        return Argument.createVoid();
     }
 
     abstract boolean initType(ContextEl _context, StackCall _stack);
