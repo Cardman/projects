@@ -9,19 +9,14 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
-import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecTypeCheckContent;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
-import code.util.core.StringUtil;
 
 public final class ExecCastOperation extends ExecAbstractUnaryOperation {
 
@@ -56,14 +51,8 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         ExecFunctionalInfo clRealId_ = functional_.first();
                         ExecOverridableBlock overridableBlock_ = clRealId_.getOverridableBlock();
                         ExecRootBlock overridableBlockParent_ = clRealId_.getOverridableBlockParent();
-                        MethodId realId_ = overridableBlock_.getId();
-                        String gene_ = clRealId_.getClassName();
-                        MethodId idMeth_ = realId_.quickFormat(overridableBlockParent_,gene_);
-                        String geneFor_ = ExecInherits.quickFormat(r_,_className,gene_);
-                        String ret_ = overridableBlock_.getImportedReturnType();
-                        ret_ = ExecInherits.quickFormat(overridableBlockParent_,gene_,ret_);
-                        String fctParam_ = formatReturn(_conf, ret_, idMeth_);
-                        fctParam_ = ExecInherits.quickFormat(overridableBlockParent_,geneFor_,fctParam_);
+                        String geneFor_ = ExecInherits.quickFormat(r_,_className,clRealId_.getClassName());
+                        String fctParam_ = ExecInherits.quickFormat(overridableBlockParent_, geneFor_, clRealId_.getFctParam());
                         String argCl_ = str_.getClassName(_conf);
                         if (ExecInherits.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             AbstractFunctionalInstance struct_;
@@ -78,17 +67,5 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                 }
             }
         }
-    }
-    private static String formatReturn(ContextEl _an, String _returnType, MethodId _shortId) {
-        LgNames stds_ = _an.getStandards();
-        String fctBase_ = stds_.getContent().getReflect().getAliasFct();
-        StringList paramsReturn_ = new StringList();
-        IdentifiableUtil.appendLeftPart(paramsReturn_, _shortId);
-        if (_shortId.isRetRef()) {
-            paramsReturn_.add("~"+_returnType);
-        } else {
-            paramsReturn_.add(_returnType);
-        }
-        return StringUtil.concat(fctBase_, StringExpUtil.TEMPLATE_BEGIN, StringUtil.join(paramsReturn_, StringExpUtil.TEMPLATE_SEP), StringExpUtil.TEMPLATE_END);
     }
 }

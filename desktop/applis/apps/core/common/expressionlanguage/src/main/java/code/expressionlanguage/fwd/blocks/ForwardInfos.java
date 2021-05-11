@@ -157,7 +157,7 @@ public final class ForwardInfos {
                             ExecOverrideInfo val_ = ex_.getRedirections().getVal(mem_.getOvNamed(b), root_.getFullName());
                             if (val_ == null) {
                                 ExecOverridableBlock value_ = mem_.getOvNamed(b);
-                                e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),ex_,value_));
+                                e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),ex_,value_,_context));
                             }
                         }
                     }
