@@ -30,7 +30,7 @@ public final class RendImplicitOperation extends RendAbstractUnaryOperation {
         CustList<Argument> first_ = getArguments(_nodes, this);
         ArgumentListCall list_ = new ArgumentListCall();
         list_.addAllArgs(first_);
-        Argument argres_ = RendDynOperationNode.processCall(RendExplicitOperation.prepare(_context.getExiting(), pair, false, explicitContent.getClassName(), explicitContent.getClassNameOwner(), _context, _stack, list_), _context, _stack).getValue();
+        Argument argres_ = RendDynOperationNode.processCall(RendExplicitOperation.prepare(_context.getExiting(), pair, explicitContent.getClassName(), explicitContent.getClassNameOwner(), _context, _stack, list_), _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 

@@ -7,11 +7,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.inherits.StaticCallParamChecker;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -39,12 +35,12 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
             }
             list_.addArg(getArgument(_nodes, o));
         }
-        Argument argres_ =  prepare(_conf.getExiting(),pair,false, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf,_stack, list_);
+        Argument argres_ =  prepare(_conf.getExiting(),pair, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf,_stack, list_);
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
-    public static Argument prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock, boolean _direct, String _className,
+    public static Argument prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock, String _className,
                                    String _classNameOwner, ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
-        if (direct(_direct, _rootBlock, _className)) {
+        if (direct(_rootBlock, _className)) {
             String paramName_ = _stackCall.formatVarType(_className);
             return getArgument(paramName_, _conf, _stackCall, _list);
         }
@@ -53,7 +49,11 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     }
 
     public static boolean direct(boolean _direct, ExecTypeFunction _castOpId, String _className) {
-        return _direct || !StringExpUtil.customCast(_className) || _castOpId == null;
+        return _direct || direct(_castOpId, _className);
+    }
+
+    public static boolean direct(ExecTypeFunction _castOpId, String _className) {
+        return !StringExpUtil.customCast(_className) || _castOpId == null;
     }
 
 

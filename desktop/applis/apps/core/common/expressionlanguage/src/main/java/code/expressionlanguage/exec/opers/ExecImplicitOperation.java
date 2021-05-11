@@ -26,7 +26,7 @@ public final class ExecImplicitOperation extends ExecAbstractUnaryOperation {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         ArgumentListCall list_ = new ArgumentListCall();
         list_.addAllArgs(arguments_);
-        Argument argres_ =  ExecExplicitOperation.prepare(_conf.getExiting(),pair,false, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf, _stack, list_);
+        Argument argres_ =  ExecExplicitOperation.prepare(_conf.getExiting(),pair, explicitContent.getClassName(), explicitContent.getClassNameOwner(),_conf, _stack, list_);
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
 
