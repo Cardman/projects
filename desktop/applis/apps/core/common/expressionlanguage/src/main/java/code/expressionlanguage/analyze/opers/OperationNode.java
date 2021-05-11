@@ -15,7 +15,6 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.common.ConstType;
@@ -2125,10 +2124,10 @@ public abstract class OperationNode {
             }
             if (root_ instanceof StandardType) {
                 String gene_ = root_.getGenericString();
-                addToList(typeInfos_,_staticContext,root_,s,root_,gene_,0,true, _page);
+                addToList(typeInfos_,_staticContext, (StandardType)root_,gene_, true, _page);
                 for (String m : root_.getAllGenericSuperTypes()) {
                     StandardType sup_ = _page.getStandardsTypes().getVal(m);
-                    addToList(typeInfos_,_staticContext,root_,s,sup_,m,0,false, _page);
+                    addToList(typeInfos_,_staticContext, sup_,m, false, _page);
                 }
             }
 
@@ -2190,6 +2189,12 @@ public abstract class OperationNode {
         _list.add(t_);
     }
 
+    private static void addToList(CustList<TypeInfo> _list, MethodAccessKind _k, StandardType _secondType, String _second, boolean _base, AnalyzedPageEl _page) {
+        TypeInfo t_ = newTypeInfo(_k, _secondType, _second, _page);
+        t_.setBase(_base);
+        t_.setSuperTypes(_secondType.getAllSuperTypes());
+        _list.add(t_);
+    }
     private static TypeInfo newTypeInfo(MethodAccessKind _k, AnaGeneType _firstType, String _first, AnaGeneType _secondType, String _second, int _anc, AnalyzedPageEl _page) {
         MethodAccessKind k_ = _k;
         String type_ = _second;
@@ -2207,6 +2212,15 @@ public abstract class OperationNode {
         return t_;
     }
 
+    private static TypeInfo newTypeInfo(MethodAccessKind _k, StandardType _secondType, String _second, AnalyzedPageEl _page) {
+        TypeInfo t_ = new TypeInfo();
+        t_.setType(_second);
+        t_.setTypeId(_second);
+        t_.setRoot(_secondType);
+        t_.setAncestor(0);
+        t_.setScope(_k);
+        return t_;
+    }
     private static void fetchCastMethods(ClassMethodId _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _returnType, String _cl, CustList<MethodHeaderInfo> _casts, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page, StringMap<StringList> _vars, AbstractComparer _cmp) {
         ClassMethodIdAncestor uniq_ = null;
         if (_uniqueId != null) {
