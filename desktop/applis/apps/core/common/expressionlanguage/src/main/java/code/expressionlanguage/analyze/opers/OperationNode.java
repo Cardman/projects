@@ -2124,10 +2124,10 @@ public abstract class OperationNode {
             }
             if (root_ instanceof StandardType) {
                 String gene_ = root_.getGenericString();
-                addToList(typeInfos_,_staticContext, (StandardType)root_,gene_, true, _page);
+                addToList(typeInfos_,_staticContext, (StandardType)root_,gene_, true);
                 for (String m : root_.getAllGenericSuperTypes()) {
                     StandardType sup_ = _page.getStandardsTypes().getVal(m);
-                    addToList(typeInfos_,_staticContext, sup_,m, false, _page);
+                    addToList(typeInfos_,_staticContext, sup_,m, false);
                 }
             }
 
@@ -2189,8 +2189,8 @@ public abstract class OperationNode {
         _list.add(t_);
     }
 
-    private static void addToList(CustList<TypeInfo> _list, MethodAccessKind _k, StandardType _secondType, String _second, boolean _base, AnalyzedPageEl _page) {
-        TypeInfo t_ = newTypeInfo(_k, _secondType, _second, _page);
+    private static void addToList(CustList<TypeInfo> _list, MethodAccessKind _k, StandardType _secondType, String _second, boolean _base) {
+        TypeInfo t_ = newTypeInfo(_k, _secondType, _second);
         t_.setBase(_base);
         t_.setSuperTypes(_secondType.getAllSuperTypes());
         _list.add(t_);
@@ -2212,7 +2212,7 @@ public abstract class OperationNode {
         return t_;
     }
 
-    private static TypeInfo newTypeInfo(MethodAccessKind _k, StandardType _secondType, String _second, AnalyzedPageEl _page) {
+    private static TypeInfo newTypeInfo(MethodAccessKind _k, StandardType _secondType, String _second) {
         TypeInfo t_ = new TypeInfo();
         t_.setType(_second);
         t_.setTypeId(_second);
