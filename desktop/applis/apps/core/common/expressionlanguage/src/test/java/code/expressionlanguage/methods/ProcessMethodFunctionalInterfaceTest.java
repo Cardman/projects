@@ -192,6 +192,29 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         assertEq(3, getNumber(ret_));
     }
     @Test
+    public void calculate2_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Interface2<$int> res = (Interface2<$int>) $static().$lambda($math,plus,$int,$int);\n");
+        xml_.append("  $return res.opTwo(1,2);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Interface<T> {\n");
+        xml_.append(" T opTwo(T a,T b);\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Interface2<S>:Interface<S> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(3, getNumber(ret_));
+    }
+    @Test
     public void calculate3Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

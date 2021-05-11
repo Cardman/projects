@@ -143,43 +143,6 @@ public final class ForwardInfos {
             }
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
-            RootBlock root_ = e.getKey();
-            if (!root_.mustImplement()) {
-                CustList<AnaFormattedRootBlock> allSuperClass_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(root_));
-                allSuperClass_.addAllElts(root_.getAllGenericSuperTypesInfo());
-                boolean instEltCount_ = false;
-                for (AnaFormattedRootBlock s: allSuperClass_) {
-                    RootBlock superBl_ = s.getRootBlock();
-                    for (NamedCalledFunctionBlock b: superBl_.getOverridableBlocks()) {
-                        if (b.isAbstractMethod()) {
-                            Members mem_ = _forwards.getMember(superBl_);
-                            ExecRootBlock ex_ = mem_.getRootBlock();
-                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(mem_.getOvNamed(b), root_.getFullName());
-                            if (val_ == null) {
-                                ExecOverridableBlock value_ = mem_.getOvNamed(b);
-                                e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),ex_,value_,_context));
-                            }
-                        }
-                    }
-                    for (AbsBk b: ClassesUtil.getDirectChildren(superBl_)) {
-                        if ((b instanceof FieldBlock)) {
-                            if (((FieldBlock)b).isStaticField()) {
-                                continue;
-                            }
-                            instEltCount_ = true;
-                        }
-                        if (b instanceof InstanceBlock) {
-                            instEltCount_ = true;
-                        }
-                        if (b instanceof ConstructorBlock) {
-                            instEltCount_ = true;
-                        }
-                    }
-                }
-                e.getValue().getRootBlock().setWithInstanceElements(instEltCount_);
-            }
-        }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             e.getValue().getRootBlock().getAllSuperTypes().addAllElts(e.getKey().getAllSuperTypes());
             e.getValue().getRootBlock().getStaticInitImportedInterfaces().addAllElts(e.getKey().getStaticInitImportedInterfaces());
         }
@@ -218,6 +181,43 @@ public final class ForwardInfos {
                 l_.add(FetchMemberUtil.fwdFormatType(s,_forwards));
             }
             e.getValue().getRootBlock().getAllGenericSuperTypes().addAllElts(l_);
+        }
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
+            RootBlock root_ = e.getKey();
+            if (!root_.mustImplement()) {
+                CustList<AnaFormattedRootBlock> allSuperClass_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(root_));
+                allSuperClass_.addAllElts(root_.getAllGenericSuperTypesInfo());
+                boolean instEltCount_ = false;
+                for (AnaFormattedRootBlock s: allSuperClass_) {
+                    RootBlock superBl_ = s.getRootBlock();
+                    for (NamedCalledFunctionBlock b: superBl_.getOverridableBlocks()) {
+                        if (b.isAbstractMethod()) {
+                            Members mem_ = _forwards.getMember(superBl_);
+                            ExecRootBlock ex_ = mem_.getRootBlock();
+                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(mem_.getOvNamed(b), root_.getFullName());
+                            if (val_ == null) {
+                                ExecOverridableBlock value_ = mem_.getOvNamed(b);
+                                e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),ex_,value_,_context));
+                            }
+                        }
+                    }
+                    for (AbsBk b: ClassesUtil.getDirectChildren(superBl_)) {
+                        if ((b instanceof FieldBlock)) {
+                            if (((FieldBlock)b).isStaticField()) {
+                                continue;
+                            }
+                            instEltCount_ = true;
+                        }
+                        if (b instanceof InstanceBlock) {
+                            instEltCount_ = true;
+                        }
+                        if (b instanceof ConstructorBlock) {
+                            instEltCount_ = true;
+                        }
+                    }
+                }
+                e.getValue().getRootBlock().setWithInstanceElements(instEltCount_);
+            }
         }
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock c = e.getKey();
