@@ -33,7 +33,7 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        if (!keep(_context, _stack)) {
+        if (!keep(root,_context, _stack)) {
             return false;
         }
         setWrapException(false);

@@ -41,7 +41,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        if (!keep(_context, _stack)) {
+        if (!keep(metaInfo.getDeclType(),_context, _stack)) {
             return false;
         }
         LgNames stds_ = _context.getStandards();

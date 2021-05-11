@@ -2,6 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.MetaInfoUtil;
@@ -28,6 +29,7 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
     private final String fileName;
     private final ExecTypeFunction pair;
     private final StandardType standardType;
+    private final GeneType declType;
 
     public ConstructorMetaInfo(){
         invokable = false;
@@ -40,6 +42,7 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         pair = new ExecTypeFunction(null,null);
         fileName = "";
         standardType = null;
+        declType = null;
     }
     public ConstructorMetaInfo(ExecTypeFunction _pair,ContextEl _conf, ExecLambdaCommonContent _common, String _declaringClass, ConstructorId _realId) {
         String className_ = StringExpUtil.getIdFromAllTypes(_declaringClass);
@@ -55,6 +58,7 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         setOwner(_pair.getType());
         fileName = _common.getFileName();
         standardType = null;
+        declType = _pair.getType();
     }
     public ConstructorMetaInfo(StandardType _standardType,ContextEl _conf, ExecLambdaCommonContent _common, String _declaringClass, ConstructorId _realId) {
         standardType = _standardType;
@@ -69,6 +73,7 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         formDeclaringClass = StringUtil.nullToEmpty(className_);
         pair = new ExecTypeFunction(null,null);
         fileName = _common.getFileName();
+        declType = _standardType;
     }
     public ConstructorMetaInfo(ExecRootBlock _type, ExecConstructorBlock _ctor, ContextEl _context, String _declaringClass) {
         ConstructorId id_ = new ConstructorId(_declaringClass, new StringList(), false);
@@ -94,6 +99,7 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         setOwner(_type);
         fileName = _type.getFile().getFileName();
         standardType = null;
+        declType = _type;
     }
     public ConstructorMetaInfo(ContextEl _context, StandardType _std, StandardConstructor _ctor, String _declaringClass) {
         ConstructorId id_ = new ConstructorId(_declaringClass, new StringList(), false);
@@ -113,6 +119,7 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         formDeclaringClass = StringUtil.nullToEmpty(decl_);
         pair = new ExecTypeFunction(null,null);
         fileName = "";
+        declType = _std;
     }
 
     public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
@@ -128,6 +135,10 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
             return fct_.getAnnotationsOpsParams();
         }
         return new CustList<CustList<CustList<ExecOperationNode>>>();
+    }
+
+    public GeneType getDeclType() {
+        return declType;
     }
 
     public ExecMemberCallingsBlock getCallee() {

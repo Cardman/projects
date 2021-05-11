@@ -34,7 +34,7 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        if (!keep(_context, _stack)) {
+        if (!keep(metaInfo.getDeclType(),_context, _stack)) {
             return false;
         }
         String res_ = getResolved();
