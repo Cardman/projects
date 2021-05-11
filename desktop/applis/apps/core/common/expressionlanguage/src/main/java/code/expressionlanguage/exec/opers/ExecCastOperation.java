@@ -49,10 +49,10 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                     CustList<ExecFunctionalInfo> functional_ = r_.getFunctionalBodies();
                     if ((!r_.isWithInstanceElements() || _full)&& functional_.size() == 1) {
                         ExecFunctionalInfo clRealId_ = functional_.first();
-                        ExecOverridableBlock overridableBlock_ = clRealId_.getOverridableBlock();
                         String fctParam_ = ExecInherits.quickFormat(r_, _className, clRealId_.getFctParam());
                         String argCl_ = str_.getClassName(_conf);
                         if (ExecInherits.isCorrectExecute(argCl_,fctParam_,_conf)) {
+                            ExecOverridableBlock overridableBlock_ = clRealId_.getOverridableBlock();
                             AbstractFunctionalInstance struct_;
                             if (_full) {
                                 struct_ = _conf.getStandards().newFullFunctionalInstance(_className, r_, (LambdaStruct) str_, overridableBlock_, _conf);
