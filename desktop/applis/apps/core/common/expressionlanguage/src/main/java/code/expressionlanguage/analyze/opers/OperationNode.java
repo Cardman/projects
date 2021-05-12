@@ -669,8 +669,7 @@ public abstract class OperationNode {
                 res_.setMemberId(v_.getMemberId());
                 res_.setFieldType(v_.getFieldType());
                 res_.setValOffset(v_.getValueOffset());
-                String declaringBaseClass_ = StringExpUtil.getIdFromAllTypes(formatted_);
-                ClassField classField_ = new ClassField(declaringBaseClass_, _name);
+                ClassField classField_ = new ClassField(formatted_, _name);
                 res_.setClassField(classField_);
                 res_.setDeclaringClass(formatted_);
                 res_.setStaticField(true);
