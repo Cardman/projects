@@ -2226,7 +2226,7 @@ public abstract class OperationNode {
                 if (filter(_refRet, id_.isRetRef(), k_)) {
                     continue;
                 }
-                MethodInfo stMeth_ = fetchedParamMethodCust(e, _refRet, k_ == MethodAccessKind.STATIC, _refRet.getAnc(), _refRet.getFormatted(), _page, id_, e.getImportedReturnType());
+                MethodInfo stMeth_ = fetchedParamMethodCust(e, _refRet, k_ == MethodAccessKind.STATIC, _page, id_, e.getImportedReturnType());
                 if (stMeth_ == null) {
                     continue;
                 }
@@ -2248,7 +2248,7 @@ public abstract class OperationNode {
                 if (filter(_refRet, id_.isRetRef(), k_)) {
                     continue;
                 }
-                MethodInfo stMeth_ = fetchedParamMethod(e, _refRet, genericString_,k_ == MethodAccessKind.STATIC, _refRet.getAnc(), _refRet.getFormatted(), _page, e.getId(), e.getImportedReturnType());
+                MethodInfo stMeth_ = fetchedParamMethod(e, _refRet, genericString_,k_ == MethodAccessKind.STATIC, _page, e.getId(), e.getImportedReturnType());
                 if (stMeth_ == null) {
                     continue;
                 }
@@ -2292,21 +2292,22 @@ public abstract class OperationNode {
     }
 
     private static MethodInfo fetchedParamMethod(StandardMethod _m, ScopeFilterType _scType, String _s, boolean _keepParams,
-                                                 int _anc, AnaFormattedRootBlock _f, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
+                                                 AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
         String base_ = StringExpUtil.getIdFromAllTypes(_s);
-        if (isCandidateMethod(_scType.getId(),_anc, base_, _id)) {
+        if (isCandidateMethod(_scType.getId(),_scType.getAnc(), base_, _id)) {
             return null;
         }
-        String formattedClass_ = getFormattedClass(_s, _f.getFormatted(), _page, base_);
-        return buildMethodInfo(_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
+        String formattedClass_ = getFormattedClass(_s, _scType.getFormatted().getFormatted(), _page, base_);
+        return buildMethodInfo(_m, _keepParams, _scType.getAnc(), formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
     }
 
     private static MethodInfo fetchedParamMethodCust(NamedCalledFunctionBlock _m, ScopeFilterType _scType, boolean _keepParams,
-                                                     int _anc, AnaFormattedRootBlock _f, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
-        RootBlock r_ = _f.getRootBlock();
-        String formattedClass_ = _f.getFormatted();
+                                                     AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
+        AnaFormattedRootBlock f_ = _scType.getFormatted();
+        RootBlock r_ = f_.getRootBlock();
+        String formattedClass_ = f_.getFormatted();
         String base_ = StringExpUtil.getIdFromAllTypes(formattedClass_);
-        if (isCandidateMethod(_scType.getId(),_anc, base_, _id)) {
+        if (isCandidateMethod(_scType.getId(),_scType.getAnc(), base_, _id)) {
             return null;
         }
         if (AbsBk.isOverBlock(_m)) {
@@ -2315,7 +2316,7 @@ public abstract class OperationNode {
                 return null;
             }
         }
-        return buildMethodInfoCust(r_,_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
+        return buildMethodInfoCust(r_,_m, _keepParams, _scType.getAnc(), formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
     }
 
     private static String getFormattedClass(String _s, String _f, AnalyzedPageEl _page, String _base) {
