@@ -496,20 +496,25 @@ public final class StringExpUtil {
     public static boolean commonCorrectType(String _genericClass, String _fct, Ints _rep) {
         String idCl_ = StringExpUtil.getIdFromAllTypes(_genericClass);
         String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
+        if (StringUtil.quickEq(compo_, _fct)) {
+            return true;
+        }
+        return normalCorrectType(_genericClass,_rep);
+    }
+
+    public static boolean normalCorrectType(String _genericClass, Ints _rep) {
         StringList inners_ = getAllInnerTypes(_genericClass);
         int len_ = inners_.size();
-        if (!StringUtil.quickEq(compo_, _fct)) {
-            if (len_ != _rep.size()) {
+        if (len_ != _rep.size()) {
+            return false;
+        }
+        for (int i = 0; i < len_; i++) {
+            String i_ = inners_.get(i);
+            int req_ = _rep.get(i);
+            StringList params_ = getAllTypes(i_);
+            int nbParams_ = params_.size() - 1;
+            if (req_ != nbParams_) {
                 return false;
-            }
-            for (int i = 0; i < len_; i++) {
-                String i_ = inners_.get(i);
-                int req_ = _rep.get(i);
-                StringList params_ = getAllTypes(i_);
-                int nbParams_ = params_.size() - 1;
-                if (req_ != nbParams_) {
-                    return false;
-                }
             }
         }
         return true;

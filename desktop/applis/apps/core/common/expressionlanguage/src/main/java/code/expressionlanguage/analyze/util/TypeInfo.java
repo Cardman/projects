@@ -1,71 +1,67 @@
 package code.expressionlanguage.analyze.util;
 
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.stds.StandardType;
 import code.util.StringList;
 
 public final class TypeInfo {
-    private String type;
-    private String typeId;
-    private AnaGeneType root;
-    private MethodAccessKind scope;
-    private int ancestor;
-    private boolean base;
-    private StringList superTypes = new StringList();
+    private final String typeId;
+    private final AnaGeneType root;
+    private final MethodAccessKind scope;
+    private final int ancestor;
+    private final boolean base;
+    private final StringList superTypes;
+    private final AnaFormattedRootBlock formatted;
+
+    public TypeInfo(RootBlock _type, String _formatted, MethodAccessKind _scope, boolean _base, int _anc) {
+        this.formatted = new AnaFormattedRootBlock(_type,_formatted);
+        root = _type;
+        typeId = StringExpUtil.getIdFromAllTypes(_formatted);
+        superTypes = _type.getAllSuperTypes();
+        scope = _scope;
+        base = _base;
+        ancestor = _anc;
+    }
+
+    public TypeInfo(StandardType _type, String _formatted, MethodAccessKind _scope, boolean _base) {
+        this.formatted = new AnaFormattedRootBlock(null,_formatted);
+        root = _type;
+        typeId = _formatted;
+        superTypes = _type.getAllSuperTypes();
+        scope = _scope;
+        base = _base;
+        ancestor = 0;
+    }
+
+    public AnaFormattedRootBlock getFormatted() {
+        return formatted;
+    }
 
     public AnaGeneType getRoot() {
         return root;
-    }
-
-    public void setRoot(AnaGeneType _root) {
-        root = _root;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String _type) {
-        type = _type;
     }
 
     public String getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(String _typeId) {
-        typeId = _typeId;
-    }
-
     public MethodAccessKind getScope() {
         return scope;
-    }
-
-    public void setScope(MethodAccessKind _scope) {
-        this.scope = _scope;
     }
 
     public int getAncestor() {
         return ancestor;
     }
 
-    public void setAncestor(int _ancestor) {
-        ancestor = _ancestor;
-    }
-
     public boolean isBase() {
         return base;
-    }
-
-    public void setBase(boolean _base) {
-        this.base = _base;
     }
 
     public StringList getSuperTypes() {
         return superTypes;
     }
 
-    public void setSuperTypes(StringList _superTypes) {
-        this.superTypes = _superTypes;
-    }
 }

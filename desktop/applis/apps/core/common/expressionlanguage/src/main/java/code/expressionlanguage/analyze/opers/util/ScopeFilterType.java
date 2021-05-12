@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.opers.util;
 
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
+import code.expressionlanguage.analyze.util.TypeInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.StringList;
 import code.util.StringMap;
@@ -14,28 +16,34 @@ public final class ScopeFilterType {
     private final int anc;
     private final StringList superTypesBase;
     private final StringMap<String> superTypesBaseAncBis;
-    private final String formatted;
+    private final TypeInfo typeInfo;
+    private final AnaFormattedRootBlock formatted;
     private final String fullName;
     private final String glClass;
     private final FormattedFilter formattedFilter;
 
-    public ScopeFilterType(ScopeFilter _scope, MethodAccessKind _kind, int _anc, StringList _superTypesBase, StringMap<String> _superTypesBaseAncBis, String _formatted, String _fullName, FormattedFilter _formattedFilter) {
+    public ScopeFilterType(ScopeFilter _scope, TypeInfo _typeInfo, MethodAccessKind _kind, StringList _superTypesBase, StringMap<String> _superTypesBaseAncBis, FormattedFilter _formattedFilter) {
         accessFromSuper = _scope.isAccessFromSuper();
         superClass = _scope.isSuperClass();
         retRef = _scope.isRetRef();
         id = _scope.getId();
         glClass = _scope.getGlClass();
         kind = _kind;
-        anc = _anc;
+        typeInfo = _typeInfo;
+        anc = _typeInfo.getAncestor();
         superTypesBase = _superTypesBase;
         superTypesBaseAncBis = _superTypesBaseAncBis;
-        formatted = _formatted;
-        fullName = _fullName;
+        formatted = _typeInfo.getFormatted();
+        fullName = _typeInfo.getTypeId();
         formattedFilter = _formattedFilter;
     }
 
     public ClassMethodIdAncestor getId() {
         return id;
+    }
+
+    public TypeInfo getTypeInfo() {
+        return typeInfo;
     }
 
     public int getAnc() {
@@ -66,7 +74,7 @@ public final class ScopeFilterType {
         return superTypesBaseAncBis;
     }
 
-    public String getFormatted() {
+    public AnaFormattedRootBlock getFormatted() {
         return formatted;
     }
 

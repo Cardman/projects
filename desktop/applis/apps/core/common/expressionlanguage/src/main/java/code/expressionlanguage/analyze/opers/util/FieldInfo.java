@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.StringExpUtil;
 
 public final class FieldInfo {
     private final String type;
@@ -18,10 +17,9 @@ public final class FieldInfo {
     private RootBlock fieldType;
     private final MemberId memberId = new MemberId();
 
-    private FieldInfo(String _name, String _declaringClass, String _type,
+    private FieldInfo(ClassField _id, String _type,
                       boolean _staticField, boolean _finalField, Accessed _accessed, int _valOffset) {
-        String declaringBaseClass_ = StringExpUtil.getIdFromAllTypes(_declaringClass);
-        classField = new ClassField(declaringBaseClass_, _name);
+        classField = _id;
         type = _type;
         staticField = _staticField;
         finalField = _finalField;
@@ -42,9 +40,9 @@ public final class FieldInfo {
         return formattedType_;
     }
 
-    public static FieldInfo newFieldMetaInfo(String _name, String _declaringClass, String _type,
+    public static FieldInfo newFieldMetaInfo(ClassField _id, String _type,
                                              boolean _staticField, boolean _finalField, Accessed _accessed, int _valOffset) {
-        return new FieldInfo(_name, _declaringClass, _type, _staticField, _finalField, _accessed, _valOffset);
+        return new FieldInfo(_id, _type, _staticField, _finalField, _accessed, _valOffset);
     }
 
     public ClassField getClassField() {

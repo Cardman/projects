@@ -11,7 +11,6 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.*;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -251,6 +250,7 @@ public final class ContextUtil {
         return finalField_;
     }
     public static FieldInfo getFieldInfo(AnaGeneType _anaGeneType, String _fullName, String _fieldName) {
+        ClassField id_ = new ClassField(_fullName, _fieldName);
         if (_anaGeneType instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _anaGeneType;
             for (AbsBk b: ClassesUtil.getDirectChildren(r_)) {
@@ -266,7 +266,7 @@ public final class ContextUtil {
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
                 Accessed a_ = new Accessed(i_.getAccess(), _anaGeneType.getPackageName(), r_);
-                FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(_fieldName, _fullName, type_, static_, final_, a_, valOffset_);
+                FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(id_, type_, static_, final_, a_, valOffset_);
                 fieldInfo_.setFileName(b.getFile().getFileName());
                 fieldInfo_.memberId(r_.getNumberAll(),i_.getFieldNumber());
                 fieldInfo_.setFieldType(r_);
@@ -280,7 +280,7 @@ public final class ContextUtil {
             }
             String type_ = f.getImportedClassName();
             Accessed a_ = new Accessed(AccessEnum.PUBLIC,"", null);
-            return FieldInfo.newFieldMetaInfo(_fieldName, _fullName, type_, true, true, a_,-1);
+            return FieldInfo.newFieldMetaInfo(id_, type_, true, true, a_,-1);
         }
         return null;
     }

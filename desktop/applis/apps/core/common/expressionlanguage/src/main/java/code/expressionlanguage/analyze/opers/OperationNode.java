@@ -633,11 +633,9 @@ public abstract class OperationNode {
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
             feedTypes(g, baseTypes_, superTypesBaseAncBis_);
             for (TypeInfo t: g) {
-                String f_ = t.getType();
-                AnaGeneType root_ = t.getRoot();
                 fetchFieldsType(ancestors_, _page,
-                        new ScopeFilterType(_scope, MethodId.getKind(t.getScope() == MethodAccessKind.STATIC), t.getAncestor(), baseTypes_, superTypesBaseAncBis_, f_, t.getTypeId(), new FormattedFilter()),
-                        new ScopeFilterField(_aff, _name, root_, t.getTypeId()));
+                        new ScopeFilterType(_scope,t, MethodId.getKind(t.getScope() == MethodAccessKind.STATIC), baseTypes_, superTypesBaseAncBis_, new FormattedFilter()),
+                        new ScopeFilterField(_aff, _name, t));
                 maxAnc_ = Math.max(maxAnc_, t.getAncestor());
             }
         }
@@ -723,8 +721,6 @@ public abstract class OperationNode {
 
     public static void tryAddField(FieldInfo _fi, StringMap<FieldResult> _ancestors, AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {
         String fullName_ = _scope.getFullName();
-        AnaGeneType root_ = _scopeField.getRoot();
-        String genericString_ = root_.getGenericString();
         boolean staticField_ = _fi.isStaticField();
         if (_scope.getKind() == MethodAccessKind.STATIC) {
             if (!staticField_) {
@@ -741,12 +737,7 @@ public abstract class OperationNode {
         if (filterMember(_scope.isAccessFromSuper(), _scope.isSuperClass(), _scope.getSuperTypesBase(),fullName_)) {
             return;
         }
-        String formatted_;
-        if (staticField_) {
-            formatted_ = _scope.getFormatted();
-        } else {
-            formatted_ = AnaInherits.quickFormat(root_, _scope.getFormatted(),genericString_);
-        }
+        String formatted_ = _scope.getFormatted().getFormatted();
         String realType_ = _fi.getType();
         String if_ = FieldInfo.newFieldInfo(formatted_, realType_, staticField_, _scopeField.isAff(), _page);
         if (if_.isEmpty()) {
@@ -2097,11 +2088,8 @@ public abstract class OperationNode {
             feedTypes(g, baseTypes_, superTypesBaseAncBis_);
             CustList<MethodInfo> methods_ = new CustList<MethodInfo>();
             for (TypeInfo t: g) {
-                String f_ = t.getType();
-                String cl_ =t.getTypeId();
-                AnaGeneType root_ = t.getRoot();
-                ScopeFilterType scType_ = new ScopeFilterType(_sc,t.getScope(),t.getAncestor(),baseTypes_,superTypesBaseAncBis_,f_,cl_, _formattedFilter);
-                _page.getFieldFilter().fetchParamClassMethods(scType_, methods_, root_, _page);
+                ScopeFilterType scType_ = new ScopeFilterType(_sc,t,t.getScope(), baseTypes_,superTypesBaseAncBis_, _formattedFilter);
+                _page.getFieldFilter().fetchParamClassMethods(scType_, methods_, _page);
             }
             _methods.add(methods_);
         }
@@ -2114,12 +2102,10 @@ public abstract class OperationNode {
             String baseCurName_ = StringExpUtil.getIdFromAllTypes(s);
             AnaGeneType root_ = _page.getAnaGeneType(baseCurName_);
             if (root_ instanceof RootBlock) {
-                String gene_ = root_.getGenericString();
-                addToList(typeInfos_,_staticContext,root_,s,root_,gene_,0,true, _page);
+                AnaFormattedRootBlock f_ = new AnaFormattedRootBlock((RootBlock)root_,s);
+                addToList(typeInfos_,_staticContext,f_, new AnaFormattedRootBlock((RootBlock)root_), 0,true);
                 for (AnaFormattedRootBlock m: ((RootBlock)root_).getAllGenericSuperTypesInfo()) {
-                    RootBlock rootBlock_ = m.getRootBlock();
-                    String formatted_ = m.getFormatted();
-                    addToList(typeInfos_,_staticContext,root_,s, rootBlock_, formatted_,0,false, _page);
+                    addToList(typeInfos_,_staticContext,f_, m, 0,false);
                 }
             }
             if (root_ instanceof StandardType) {
@@ -2135,38 +2121,34 @@ public abstract class OperationNode {
         typeInfosMap_.add(typeInfos_);
         int max_ = 0;
         for (TypeInfo t: typeInfos_) {
-            AnaGeneType root_ = t.getRoot();
-            if (!(root_ instanceof RootBlock)) {
+            AnaFormattedRootBlock form_ = t.getFormatted();
+            RootBlock root_ = form_.getRootBlock();
+            if (root_ == null) {
                 continue;
             }
-            RootBlock r_ = (RootBlock) root_;
-            CustList<RootBlock> pars_ = r_.getAllParentTypes();
+            CustList<RootBlock> pars_ = root_.getAllParentTypes();
             max_ = Math.max(max_,pars_.size());
         }
         for (int i = 1; i <= max_; i++) {
             typeInfosMap_.add(new CustList<TypeInfo>());
         }
         for (TypeInfo t: typeInfos_) {
-            String f_ = t.getType();
-            AnaGeneType root_ = t.getRoot();
-            if (!(root_ instanceof RootBlock)) {
+            AnaFormattedRootBlock form_ = t.getFormatted();
+            RootBlock root_ = form_.getRootBlock();
+            if (root_ == null) {
                 continue;
             }
-            RootBlock r_ = (RootBlock) root_;
-            boolean add_ = !r_.withoutInstance();
+            boolean add_ = !root_.withoutInstance();
             int anc_ = 1;
             MethodAccessKind scope_ = _staticContext;
-            for (RootBlock p: r_.getAllParentTypes()) {
+            for (RootBlock p: root_.getAllParentTypes()) {
                 CustList<TypeInfo> typeInfosInt_ = typeInfosMap_.get(anc_);
                 if (!add_) {
                     scope_ = MethodAccessKind.STATIC;
                 }
-                String gene_ = p.getGenericString();
-                addToList(typeInfosInt_,scope_,root_,f_,p,gene_,anc_,true, _page);
+                addToList(typeInfosInt_,scope_,form_, new AnaFormattedRootBlock(p), anc_,true);
                 for (AnaFormattedRootBlock m: p.getAllGenericSuperTypesInfo()) {
-                    RootBlock rootBlock_ = m.getRootBlock();
-                    String formatted_ = m.getFormatted();
-                    addToList(typeInfosInt_,scope_,root_,f_,rootBlock_,formatted_,anc_,false, _page);
+                    addToList(typeInfosInt_,scope_, form_, m, anc_,false);
                 }
                 if (p.withoutInstance()) {
                     add_ = false;
@@ -2176,51 +2158,29 @@ public abstract class OperationNode {
         }
         return typeInfosMap_;
     }
-    private static void addToList(CustList<TypeInfo> _list, MethodAccessKind _k, AnaGeneType _firstType, String _first, AnaGeneType _secondType, String _second, int _anc, boolean _base, AnalyzedPageEl _page) {
-        TypeInfo t_ = newTypeInfo(_k, _firstType,_first, _secondType, _second, _anc, _page);
-        String f_ = t_.getTypeId();
+    private static void addToList(CustList<TypeInfo> _list, MethodAccessKind _k, AnaFormattedRootBlock _f, AnaFormattedRootBlock _s, int _anc, boolean _base) {
+        MethodAccessKind k_ = _k;
+        String type_ = _s.getFormatted();
+        if (AnaInherits.correctNbParameters(_f.getRootBlock(),_f.getFormatted())) {
+            type_ = AnaInherits.format(_f, _s.getFormatted());
+        } else {
+            k_ = MethodAccessKind.STATIC;
+        }
+        TypeInfo t_ = new TypeInfo(_s.getRootBlock(),type_,k_,_base,_anc);
+        AnaGeneType r_ = t_.getRoot();
         for (TypeInfo t: _list) {
-            if (StringUtil.quickEq(t.getTypeId(), f_)) {
+            if (t.getRoot() == r_) {
                 return;
             }
         }
-        t_.setBase(_base);
-        t_.setSuperTypes(_secondType.getAllSuperTypes());
         _list.add(t_);
     }
 
     private static void addToList(CustList<TypeInfo> _list, MethodAccessKind _k, StandardType _secondType, String _second, boolean _base) {
-        TypeInfo t_ = newTypeInfo(_k, _secondType, _second);
-        t_.setBase(_base);
-        t_.setSuperTypes(_secondType.getAllSuperTypes());
+        TypeInfo t_ = new TypeInfo(_secondType, _second, _k,_base);
         _list.add(t_);
     }
-    private static TypeInfo newTypeInfo(MethodAccessKind _k, AnaGeneType _firstType, String _first, AnaGeneType _secondType, String _second, int _anc, AnalyzedPageEl _page) {
-        MethodAccessKind k_ = _k;
-        String type_ = _second;
-        if (AnaInherits.correctNbParameters(_firstType,_first, _page)) {
-            type_ = AnaInherits.format(_firstType,_first, _second);
-        } else {
-            k_ = MethodAccessKind.STATIC;
-        }
-        TypeInfo t_ = new TypeInfo();
-        t_.setType(type_);
-        t_.setTypeId(StringExpUtil.getIdFromAllTypes(type_));
-        t_.setRoot(_secondType);
-        t_.setAncestor(_anc);
-        t_.setScope(k_);
-        return t_;
-    }
 
-    private static TypeInfo newTypeInfo(MethodAccessKind _k, StandardType _secondType, String _second) {
-        TypeInfo t_ = new TypeInfo();
-        t_.setType(_second);
-        t_.setTypeId(_second);
-        t_.setRoot(_secondType);
-        t_.setAncestor(0);
-        t_.setScope(_k);
-        return t_;
-    }
     private static void fetchCastMethods(ClassMethodId _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _returnType, String _cl, CustList<MethodHeaderInfo> _casts, StringMap<String> _superTypesBaseMap, AnalyzedPageEl _page, StringMap<StringList> _vars, AbstractComparer _cmp) {
         ClassMethodIdAncestor uniq_ = null;
         if (_uniqueId != null) {
@@ -2250,14 +2210,14 @@ public abstract class OperationNode {
 
     public static void fetchParamClassMethods(ScopeFilterType _refRet,
                                               CustList<MethodInfo> _methods,
-                                              AnaGeneType _g, AnalyzedPageEl _page) {
-        String genericString_ = _g.getGenericString();
-        if (_g instanceof RootBlock) {
+                                              AnalyzedPageEl _page) {
+        AnaGeneType g_ = _refRet.getTypeInfo().getRoot();
+        if (g_ instanceof RootBlock) {
             CustList<NamedCalledFunctionBlock> methods_ = new CustList<NamedCalledFunctionBlock>();
-            for (NamedCalledFunctionBlock b: ((RootBlock) _g).getOverridableBlocks()) {
+            for (NamedCalledFunctionBlock b: ((RootBlock) g_).getOverridableBlocks()) {
                 methods_.add(b);
             }
-            for (NamedCalledFunctionBlock b: ((RootBlock) _g).getAnnotationsMethodsBlocks()) {
+            for (NamedCalledFunctionBlock b: ((RootBlock) g_).getAnnotationsMethodsBlocks()) {
                 methods_.add(b);
             }
             for (NamedCalledFunctionBlock e: methods_) {
@@ -2266,15 +2226,23 @@ public abstract class OperationNode {
                 if (filter(_refRet, id_.isRetRef(), k_)) {
                     continue;
                 }
-                MethodInfo stMeth_ = fetchedParamMethodCust((RootBlock)_g,e, _refRet, genericString_,k_ == MethodAccessKind.STATIC, _refRet.getAnc(), _refRet.getFormatted(), _page, id_, e.getImportedReturnType());
+                MethodInfo stMeth_ = fetchedParamMethodCust(e, _refRet, k_ == MethodAccessKind.STATIC, _refRet.getAnc(), _refRet.getFormatted(), _page, id_, e.getImportedReturnType());
                 if (stMeth_ == null) {
                     continue;
                 }
                 _methods.add(stMeth_);
             }
+            for (MethodInfo e: getPredefineStaticEnumMethods((RootBlock) g_, _refRet.getAnc(), _page)) {
+                MethodId id_ = e.getConstraints();
+                if (isCandidateMethod(_refRet.getId(),_refRet.getAnc(), _refRet.getFullName(), id_)) {
+                    continue;
+                }
+                _methods.add(e);
+            }
         }
-        if (_g instanceof StandardType) {
-            for (StandardMethod e: ((StandardType) _g).getMethods()) {
+        if (g_ instanceof StandardType) {
+            String genericString_ = g_.getGenericString();
+            for (StandardMethod e: ((StandardType) g_).getMethods()) {
                 MethodId id_ = e.getId();
                 MethodAccessKind k_ = id_.getKind();
                 if (filter(_refRet, id_.isRetRef(), k_)) {
@@ -2286,13 +2254,6 @@ public abstract class OperationNode {
                 }
                 _methods.add(stMeth_);
             }
-        }
-        for (MethodInfo e: getPredefineStaticEnumMethods(genericString_,_refRet.getAnc(), _page)) {
-            MethodId id_ = e.getConstraints();
-            if (isCandidateMethod(_refRet.getId(),_refRet.getAnc(), _refRet.getFullName(), id_)) {
-                continue;
-            }
-            _methods.add(e);
         }
     }
 
@@ -2331,29 +2292,30 @@ public abstract class OperationNode {
     }
 
     private static MethodInfo fetchedParamMethod(StandardMethod _m, ScopeFilterType _scType, String _s, boolean _keepParams,
-                                                 int _anc, String _f, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
+                                                 int _anc, AnaFormattedRootBlock _f, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
         String base_ = StringExpUtil.getIdFromAllTypes(_s);
         if (isCandidateMethod(_scType.getId(),_anc, base_, _id)) {
             return null;
         }
-        String formattedClass_ = getFormattedClass(_s, _f, _page, base_);
+        String formattedClass_ = getFormattedClass(_s, _f.getFormatted(), _page, base_);
         return buildMethodInfo(_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
     }
 
-    private static MethodInfo fetchedParamMethodCust(RootBlock _r, NamedCalledFunctionBlock _m, ScopeFilterType _scType, String _s, boolean _keepParams,
-                                                     int _anc, String _f, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
-        String base_ = StringExpUtil.getIdFromAllTypes(_s);
+    private static MethodInfo fetchedParamMethodCust(NamedCalledFunctionBlock _m, ScopeFilterType _scType, boolean _keepParams,
+                                                     int _anc, AnaFormattedRootBlock _f, AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
+        RootBlock r_ = _f.getRootBlock();
+        String formattedClass_ = _f.getFormatted();
+        String base_ = StringExpUtil.getIdFromAllTypes(formattedClass_);
         if (isCandidateMethod(_scType.getId(),_anc, base_, _id)) {
             return null;
         }
-        String formattedClass_ = getFormattedClass(_s, _f, _page, base_);
         if (AbsBk.isOverBlock(_m)) {
-            Accessed a_ = new Accessed(_m.getAccess(), _r.getPackageName(), _r);
+            Accessed a_ = new Accessed(_m.getAccess(), r_.getPackageName(), r_);
             if (cannotAccess(base_,a_,_scType.getGlClass(),_scType.getSuperTypesBaseAncBis(), _page)) {
                 return null;
             }
         }
-        return buildMethodInfoCust(_r,_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
+        return buildMethodInfoCust(r_,_m, _keepParams, _anc, formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
     }
 
     private static String getFormattedClass(String _s, String _f, AnalyzedPageEl _page, String _base) {
@@ -2454,39 +2416,38 @@ public abstract class OperationNode {
         return mloc_;
     }
 
-    private static CustList<MethodInfo> getPredefineStaticEnumMethods(String _className, int _ancestor, AnalyzedPageEl _page) {
+    private static CustList<MethodInfo> getPredefineStaticEnumMethods(RootBlock _r, int _ancestor, AnalyzedPageEl _page) {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
-        String idClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        RootBlock r_ = _page.getAnaClassBody(idClass_);
-        if (!(r_ instanceof EnumBlock)) {
+        if (!(_r instanceof EnumBlock)) {
             return methods_;
         }
-        String wildCardForm_ = r_.getWildCardString();
+        String idClass_ = StringExpUtil.getIdFromAllTypes(_r.getGenericString());
+        String wildCardForm_ = _r.getWildCardString();
         String string_ = _page.getAliasString();
         String returnType_ = wildCardForm_;
         String valueOf_ = _page.getAliasEnumPredValueOf();
         MethodId realId_ = new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_));
         MethodInfo mloc_ = new MethodInfo();
-        mloc_.setFileName(r_.getFile().getFileName());
+        mloc_.setFileName(_r.getFile().getFileName());
         mloc_.classMethodId(idClass_,realId_);
         mloc_.format(true, _page);
         mloc_.setReturnType(returnType_);
         mloc_.setOriginalReturnType(returnType_);
         mloc_.setAncestor(_ancestor);
-        mloc_.memberId(r_);
+        mloc_.memberId(_r);
         methods_.add(mloc_);
         String values_ = _page.getAliasEnumValues();
         realId_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
         mloc_ = new MethodInfo();
-        mloc_.setFileName(r_.getFile().getFileName());
+        mloc_.setFileName(_r.getFile().getFileName());
         mloc_.classMethodId(idClass_,realId_);
         mloc_.format(true, _page);
         returnType_ = StringExpUtil.getPrettyArrayType(returnType_);
         mloc_.setReturnType(returnType_);
         mloc_.setOriginalReturnType(returnType_);
         mloc_.setAncestor(_ancestor);
-        mloc_.memberId(r_);
+        mloc_.memberId(_r);
         methods_.add(mloc_);
         return methods_;
     }

@@ -340,6 +340,11 @@ public final class AnaInherits {
         return StringExpUtil.getPrettyArrayType(generic_,_dim);
     }
 
+    public static String format(AnaFormattedRootBlock _root, String _second) {
+        StringMap<String> varTypes_ = getVarTypes(_root.getRootBlock(),_root.getFormatted());
+        return StringExpUtil.getFormattedType(_second, varTypes_);
+    }
+
     public static String format(AnaGeneType _root, String _first, String _second) {
         StringMap<String> varTypes_ = getVarTypes(_root,_first);
         return StringExpUtil.getFormattedType(_second, varTypes_);
@@ -377,6 +382,11 @@ public final class AnaInherits {
         return StringExpUtil.commonCorrectType(_genericClass, fct_, rep_);
     }
 
+    public static boolean correctNbParameters(AnaGeneType _info, String _genericClass) {
+        //From analyze
+        Ints rep_ = _info.getTypeVarCounts();
+        return StringExpUtil.normalCorrectType(_genericClass, rep_);
+    }
     /** Splits by single dot the input string into parts regarding packages<br/>
      Let this code:<br/>
      <code><pre>public class my.pkg.MyClass{}</pre>

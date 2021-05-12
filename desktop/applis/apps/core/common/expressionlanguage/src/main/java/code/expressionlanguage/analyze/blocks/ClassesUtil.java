@@ -1528,7 +1528,7 @@ public final class ClassesUtil {
                 for (CustList<TypeInfo> g: OperationNode.typeLists(upper_,MethodAccessKind.INSTANCE, _page)) {
                     StringList all_ = new StringList();
                     for (TypeInfo i: g) {
-                        all_.add(i.getType());
+                        all_.add(i.getFormatted().getFormatted());
                     }
                     checkDupl(_page, s, all_);
 
