@@ -1,12 +1,15 @@
 package code.expressionlanguage.fwd.opers;
 
 
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
 public final class ExecInstancingCommonContent {
     private final String methodName;
 
-    private final String className;
+    private final ExecFormattedRootBlock formattedType;
 
     private final int naturalVararg;
 
@@ -14,9 +17,12 @@ public final class ExecInstancingCommonContent {
 
     private final ConstructorId constId;
 
-    public ExecInstancingCommonContent(AnaInstancingCommonContent _cont) {
+    public ExecInstancingCommonContent(AnaInstancingCommonContent _cont, Forwards _fwd) {
+        this(_cont, FetchMemberUtil.fwdFormatType(_cont.getFormattedType(),_fwd));
+    }
+    public ExecInstancingCommonContent(AnaInstancingCommonContent _cont, ExecFormattedRootBlock _formattedType) {
         methodName = _cont.getMethodName();
-        className = _cont.getClassName();
+        formattedType = _formattedType;
         naturalVararg = _cont.getNaturalVararg();
         lastType = _cont.getLastType();
         constId = _cont.getConstId();
@@ -25,8 +31,8 @@ public final class ExecInstancingCommonContent {
         return methodName;
     }
 
-    public String getClassName() {
-        return className;
+    public ExecFormattedRootBlock getFormattedType() {
+        return formattedType;
     }
 
     public int getNaturalVararg() {

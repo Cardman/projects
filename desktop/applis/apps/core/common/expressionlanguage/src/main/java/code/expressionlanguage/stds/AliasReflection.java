@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.structs.*;
 import code.util.*;
@@ -1238,6 +1239,7 @@ public final class AliasReflection {
             CustList<ExecRootBlock> needRoot_ = root_.getSelfAndParentTypes();
             ExecRootBlock firstType_ = needRoot_.first();
             String first_ = firstType_.getFullName();
+            ExecFormattedRootBlock formType_ = new ExecFormattedRootBlock(root_, className_);
             if (_args.length > 0) {
                 Struct par_ = _args[0];
                 if (root_.withoutInstance()) {
@@ -1262,7 +1264,7 @@ public final class AliasReflection {
                 }
                 Initializer in_ = _cont.getInit();
                 String genStr_ = root_.getGenericString();
-                String form_ = ExecInherits.quickFormat(type_,className_, genStr_);
+                String form_ = ExecInherits.quickFormat(formType_, genStr_);
                 par_ = in_.processInit(_cont, par_, form_,root_, "", 0);
                 result_.setResult(par_);
                 return result_;
@@ -1291,7 +1293,7 @@ public final class AliasReflection {
             Initializer in_ = _cont.getInit();
             for (ExecRootBlock r: needRoot_.mid(start_)) {
                 String genStr_ = r.getGenericString();
-                String form_ = ExecInherits.quickFormat(type_,className_, genStr_);
+                String form_ = ExecInherits.quickFormat(formType_, genStr_);
                 parent_ = in_.processInit(_cont, parent_, form_,r, "", 0);
             }
             result_.setResult(parent_);
@@ -1509,7 +1511,7 @@ public final class AliasReflection {
             Classes classesInfo_ = _cont.getClasses();
             for (ExecRootBlock c: classesInfo_.getClassBodies()) {
                 String forName_ = c.getGenericString();
-                classes_.add(MetaInfoUtil.getCustomClassMetaInfo(c, forName_, _cont));
+                classes_.add(MetaInfoUtil.getCustomClassMetaInfo(new ExecFormattedRootBlock(c,forName_), _cont));
             }
             for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {
                 String k_ = c.getKey();

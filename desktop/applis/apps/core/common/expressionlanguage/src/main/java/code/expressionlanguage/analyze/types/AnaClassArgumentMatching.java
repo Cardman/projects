@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ImplicitInfos;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -27,8 +28,8 @@ public final class AnaClassArgumentMatching {
 
     private boolean checkOnlyNullPe;
     private boolean convertToString;
-    private final CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
-    private final CustList<ClassMethodId> implicitsTest = new CustList<ClassMethodId>();
+    private final CustList<AnaFormattedRootBlock> implicits = new CustList<AnaFormattedRootBlock>();
+    private final CustList<AnaFormattedRootBlock> implicitsTest = new CustList<AnaFormattedRootBlock>();
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
     private MemberId memberIdTest = new MemberId();
@@ -186,18 +187,15 @@ public final class AnaClassArgumentMatching {
     }
 
     public void implicitInfosCore(ClassMethodIdReturn _info) {
-        ClassMethodId cl_ = new ClassMethodId(_info.getId().getClassName(),_info.getRealId());
-        getImplicits().add(cl_);
+        getImplicits().add(_info.getFormattedType());
         setMemberId(_info.getMemberId());
     }
     public void implicitInfosTest(ClassMethodIdReturn _info) {
-        ClassMethodId cl_ = new ClassMethodId(_info.getId().getClassName(),_info.getRealId());
-        getImplicitsTest().add(cl_);
+        getImplicitsTest().add(_info.getFormattedType());
         setMemberIdTest(_info.getMemberId());
     }
     public void implicitInfosTest(OperatorConverter _info) {
-        ClassMethodId cl_ = _info.getTest();
-        getImplicitsTest().add(cl_);
+        getImplicitsTest().add(_info.getFormattedTypeTest());
         setMemberIdTest(_info.getMemberIdTest());
     }
     public byte getUnwrapObjectNb() {
@@ -224,11 +222,11 @@ public final class AnaClassArgumentMatching {
         convertToString = _convertToString;
     }
 
-    public CustList<ClassMethodId> getImplicits() {
+    public CustList<AnaFormattedRootBlock> getImplicits() {
         return implicits;
     }
 
-    public CustList<ClassMethodId> getImplicitsTest() {
+    public CustList<AnaFormattedRootBlock> getImplicitsTest() {
         return implicitsTest;
     }
 

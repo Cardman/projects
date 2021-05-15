@@ -11,7 +11,7 @@ public final class ExecLambdaConstructorContent {
     private final ExecTypeFunction pair;
     public ExecLambdaConstructorContent(ConstructorId _realId, MemberId _id, Forwards _forwards) {
         realId = _realId;
-        pair = FetchMemberUtil.fetchTypeCtor(_id, _forwards);
+        pair = FetchMemberUtil.fetchPossibleTypeCtor(_id, _forwards);
     }
 
     public ExecTypeFunction getPair() {

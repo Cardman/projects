@@ -1,5 +1,7 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+
 public final class AnaLambdaCommonContent {
 
     private boolean intermediate;
@@ -8,6 +10,7 @@ public final class AnaLambdaCommonContent {
     private String fileName;
     private boolean shiftArgument;
     private int ancestor;
+    private AnaFormattedRootBlock foundFormatted;
     private String foundClass;
 
     public boolean isIntermediate() {
@@ -56,6 +59,14 @@ public final class AnaLambdaCommonContent {
 
     public void setAncestor(int _ancestor) {
         this.ancestor = _ancestor;
+    }
+
+    public AnaFormattedRootBlock getFoundFormatted() {
+        return foundFormatted;
+    }
+
+    public void setFoundFormatted(AnaFormattedRootBlock _foundFormatted) {
+        this.foundFormatted = _foundFormatted;
     }
 
     public String getFoundClass() {

@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -35,12 +36,12 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation {
             }
             list_.addArg(getArgument(_nodes, o));
         }
-        Argument argres_ = RendDynOperationNode.processCall(prepare(_context.getExiting(), pair, explicitContent.getClassNameOwner(), _context, _stack, list_), _context, _stack).getValue();
+        Argument argres_ = RendDynOperationNode.processCall(prepare(_context.getExiting(), pair, explicitContent.getFormattedType(), _context, _stack, list_), _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 
     public static Argument prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock,
-                                   String _classNameOwner, ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
+                                   ExecFormattedRootBlock _classNameOwner, ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
         ExecExplicitOperation.checkCustomOper(_exit, _rootBlock, _classNameOwner, _conf,null, _stackCall, _list);
         return Argument.createVoid();
     }

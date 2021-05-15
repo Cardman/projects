@@ -16,8 +16,13 @@ public final class AnaFormattedRootBlock {
         this.formatted = _formatted;
     }
 
-    public static AnaFormattedRootBlock format(AnaFormattedRootBlock _sub, AnaFormattedRootBlock _sup) {
+    public static AnaFormattedRootBlock quickFormat(AnaFormattedRootBlock _sub, AnaFormattedRootBlock _sup) {
         String format_ = AnaInherits.quickFormat(_sub, _sup.formatted);
+        return new AnaFormattedRootBlock(_sup.rootBlock, format_);
+    }
+
+    public static AnaFormattedRootBlock format(AnaFormattedRootBlock _sub, AnaFormattedRootBlock _sup) {
+        String format_ = AnaInherits.format(_sub, _sup.formatted);
         return new AnaFormattedRootBlock(_sup.rootBlock, format_);
     }
     public RootBlock getRootBlock() {

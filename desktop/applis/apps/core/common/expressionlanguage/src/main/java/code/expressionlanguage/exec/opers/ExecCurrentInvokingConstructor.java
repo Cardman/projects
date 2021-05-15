@@ -4,6 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
+import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
@@ -22,9 +24,9 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
                           ContextEl _conf, StackCall _stack) {
         int off_ = getOffsetOper();
         setRelOffsetPossibleLastPage(off_, _stack);
-
-        String lastType_ = _stack.formatVarType(getLastType());
-        checkParametersCtors(_conf, _stack.getLastPage().getGlobalClass(), getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), InstancingStep.USING_THIS, _stack);
+        ExecFormattedRootBlock superClass_ = _stack.formatVarType(getFormattedType());
+        String lastType_ = ExecInherits.quickFormat(superClass_, getLastType());
+        checkParametersCtors(_conf, superClass_, getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), InstancingStep.USING_THIS, _stack);
         Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

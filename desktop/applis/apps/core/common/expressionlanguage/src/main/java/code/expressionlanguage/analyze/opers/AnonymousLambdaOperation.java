@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
@@ -214,6 +215,7 @@ public final class AnonymousLambdaOperation extends
                 }
             }
         }
+        lambdaCommonContent.setFoundFormatted(new AnaFormattedRootBlock(_page.getGlobalType(),_page.getGlobalClass()));
         lambdaCommonContent.setFoundClass(_page.getGlobalClass());
         lambdaCommonContent.setFileName(_page.getLocalizer().getCurrentFileName());
         RootBlock globalType_ = block.getParentType();

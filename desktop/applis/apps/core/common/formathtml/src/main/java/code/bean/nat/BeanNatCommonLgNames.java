@@ -228,7 +228,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
             seq_.setDelimiter(new Delimiters());
             StandardInstancingOperation root_ = new StandardInstancingOperation(0,0,null,seq_);
             root_.setConstId(new ConstructorId(info_.getClassName(), new StringList(), false));
-            root_.setClassName(info_.getClassName());
             info_.setResolvedClassName(info_.getClassName());
             _anaDoc.getBeansInfos().addEntry(root_,info_);
         }

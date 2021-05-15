@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -560,6 +561,13 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     public void setClassName(String _className) {
         this.instancingCommonContent.setClassName(_className);
+    }
+    public AnaFormattedRootBlock getFormattedType() {
+        return instancingCommonContent.getFormattedType();
+    }
+
+    public void setFormattedType(AnaFormattedRootBlock _formattedType) {
+        instancingCommonContent.setFormattedType(_formattedType);
     }
 
     public int getNaturalVararg() {

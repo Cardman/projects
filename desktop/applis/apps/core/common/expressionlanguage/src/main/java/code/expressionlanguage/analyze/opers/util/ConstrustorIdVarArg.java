@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers.util;
 
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.StandardType;
 
@@ -13,6 +14,7 @@ public final class ConstrustorIdVarArg {
 
     private boolean varArgToCall;
     private String fileName;
+    private AnaFormattedRootBlock formattedType;
     private MemberId memberId = new MemberId();
 
     public ConstructorId getRealId() {
@@ -61,6 +63,14 @@ public final class ConstrustorIdVarArg {
 
     public void setFileName(String _fileName) {
         this.fileName = _fileName;
+    }
+
+    public AnaFormattedRootBlock getFormattedType() {
+        return formattedType;
+    }
+
+    public void setFormattedType(AnaFormattedRootBlock _formattedType) {
+        this.formattedType = _formattedType;
     }
 
     public MemberId getMemberId() {

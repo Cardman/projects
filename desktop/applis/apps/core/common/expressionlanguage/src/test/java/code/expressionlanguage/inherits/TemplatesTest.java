@@ -955,7 +955,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
     private static String getOverridingFullTypeByBases(AnalyzedTestContext _cont, String _sub, String _sup) {
-        return ExecInherits.getOverridingFullTypeByBases(_sub, _sup,_cont.getContext());
+        return ExecInherits.getFullObject(_sub, _sup, _cont.getContext());
     }
 
     private static AnalyzedTestContext unfullValidateOverridingMethodsStd(StringMap<String> _files) {

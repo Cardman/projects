@@ -1112,8 +1112,7 @@ public final class ExecTemplates {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(className_, argClassName_), cast_, _stackCall)));
             return Argument.createVoid();
         }
-        String classNameFound_ = ExecInherits.getSuperGeneric(argClassName_, className_, _conf);
-        String fieldType_ = ExecInherits.quickFormat(_rootBlock,classNameFound_, _returnType);
+        String fieldType_ = formatType(_conf,_rootBlock,_returnType,argClassName_);
         if (!checkQuick(fieldType_, _right.getStruct().getClassName(_conf), _conf, _stackCall)) {
             return Argument.createVoid();
         }
@@ -1140,6 +1139,12 @@ public final class ExecTemplates {
         }
         NumParsers.getStaticFieldMap(className_, classes_.getStaticFields()).set(_fieldId.getFieldName(), _right.getStruct());
         return _right;
+    }
+
+    public static String formatType(ContextEl _conf, ExecRootBlock _rootBlock, String _lastType, String _cl) {
+        String base_ = _rootBlock.getFullName();
+        String clGen_ = ExecInherits.getFullObject(_cl, base_, _conf);
+        return ExecInherits.quickFormat(_rootBlock,clGen_, _lastType);
     }
     public static Argument trySetArgument(ContextEl _conf, Argument _res, ArgumentsPair _pair, StackCall _stackCall) {
         AbstractWrapper wrapper_ = _pair.getWrapper();

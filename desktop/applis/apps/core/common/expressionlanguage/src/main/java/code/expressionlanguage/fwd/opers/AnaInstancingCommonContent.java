@@ -1,12 +1,14 @@
 package code.expressionlanguage.fwd.opers;
 
 
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 
 public final class AnaInstancingCommonContent {
     private final String methodName;
 
-    private String className;
+    private String className = "";
+    private AnaFormattedRootBlock formattedType;
 
     private int naturalVararg = -1;
 
@@ -27,6 +29,14 @@ public final class AnaInstancingCommonContent {
 
     public void setClassName(String _className) {
         this.className = _className;
+    }
+
+    public AnaFormattedRootBlock getFormattedType() {
+        return formattedType;
+    }
+
+    public void setFormattedType(AnaFormattedRootBlock _formattedType) {
+        this.formattedType = _formattedType;
     }
 
     public int getNaturalVararg() {

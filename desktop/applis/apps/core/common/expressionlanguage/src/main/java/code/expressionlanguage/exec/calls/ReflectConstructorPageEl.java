@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -45,11 +44,9 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
             return false;
         }
         LgNames stds_ = _context.getStandards();
-        String className_ = metaInfo.getDeclaringClass();
-        String id_ = StringExpUtil.getIdFromAllTypes(className_);
-        GeneType type_ = _context.getClassBody(id_);
+        GeneType type_ = metaInfo.getDeclType();
         boolean static_ = type_.withoutInstance();
-        String res_ = getResolved();
+        String res_ = metaInfo.getFormatted().getFormatted();
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;

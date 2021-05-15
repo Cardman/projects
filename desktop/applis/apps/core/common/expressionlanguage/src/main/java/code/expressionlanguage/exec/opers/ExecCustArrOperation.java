@@ -91,7 +91,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         Argument previous_ = getPreviousArg(this, _nodes, _stackCall);
         setRelativeOffsetPossibleLastPage(_stackCall);
         Struct argPrev_ = previous_.getStruct();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), instFctContent.getClassName(), argPrev_, _conf, _stackCall));
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), instFctContent.getFormattedType().getFormatted(), argPrev_, _conf, _stackCall));
         if (_conf.callsOrException(_stackCall)) {
             return new Argument();
         }
@@ -103,9 +103,9 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         }
         ExecRootBlock type_ = fct_.getType();
         Struct pr_ = prev_.getStruct();
-        ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _conf,pr_, instFctContent.getClassName(),fct_);
+        ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _conf,pr_, instFctContent.getFormattedType(),fct_);
         fct_ = polymorph_.getPair();
-        String classNameFound_ = polymorph_.getClassName();
+        String classNameFound_ = polymorph_.getClassName().getFormatted();
         return new DefaultParamChecker(fct_, fetchFormattedArgs(_nodes, _conf, pr_, type_, instFctContent.getLastType(), instFctContent.getNaturalVararg(),_right), MethodAccessKind.INSTANCE, CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _conf, _stackCall);
     }
 

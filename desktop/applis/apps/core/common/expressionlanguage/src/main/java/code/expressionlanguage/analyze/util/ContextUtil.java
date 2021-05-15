@@ -266,10 +266,8 @@ public final class ContextUtil {
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
                 Accessed a_ = new Accessed(i_.getAccess(), _anaGeneType.getPackageName(), r_);
-                FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(id_, type_, static_, final_, a_, valOffset_);
-                fieldInfo_.setFileName(b.getFile().getFileName());
+                FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(id_, type_, static_, final_, a_, valOffset_,b.getFile().getFileName());
                 fieldInfo_.memberId(r_.getNumberAll(),i_.getFieldNumber());
-                fieldInfo_.setFieldType(r_);
                 return fieldInfo_;
             }
             return null;
@@ -280,7 +278,7 @@ public final class ContextUtil {
             }
             String type_ = f.getImportedClassName();
             Accessed a_ = new Accessed(AccessEnum.PUBLIC,"", null);
-            return FieldInfo.newFieldMetaInfo(id_, type_, true, true, a_,-1);
+            return FieldInfo.newFieldMetaInfo(id_, type_, true, true, a_,-1,"");
         }
         return null;
     }

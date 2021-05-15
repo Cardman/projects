@@ -25,6 +25,7 @@ public final class ClassMethodIdReturn {
     private MemberId memberId = new MemberId();
     private StandardMethod standardMethod;
     private AnaTypeFct pair;
+    private AnaFormattedRootBlock formattedType;
 
     public ClassMethodIdReturn(boolean _foundMethod) {
         foundMethod = _foundMethod;
@@ -130,4 +131,11 @@ public final class ClassMethodIdReturn {
         this.pair = _pair;
     }
 
+    public AnaFormattedRootBlock getFormattedType() {
+        return formattedType;
+    }
+
+    public void setFormattedType(AnaFormattedRootBlock _formattedType) {
+        this.formattedType = _formattedType;
+    }
 }

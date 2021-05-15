@@ -7,6 +7,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.StaticCallParamChecker;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecExplicitContent;
@@ -32,11 +33,11 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
             }
             list_.addArg(getArgument(_nodes, o));
         }
-        Argument argres_ =  prepare(_conf.getExiting(),pair, explicitContent.getClassNameOwner(),_conf,_stack, list_);
+        Argument argres_ =  prepare(_conf.getExiting(),pair, explicitContent.getFormattedType(),_conf,_stack, list_);
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
     public static Argument prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock,
-                                   String _classNameOwner, ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
+                                   ExecFormattedRootBlock _classNameOwner, ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
         checkCustomOper(_exit, _rootBlock, _stackCall.formatVarType(_classNameOwner), _conf, null, _stackCall, _list);
         return Argument.createVoid();
     }
@@ -46,11 +47,11 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     }
 
 
-    public static boolean checkCustomOper(AbstractExiting _exit, ExecTypeFunction _rootBlock, String _paramNameOwner, ContextEl _conf, Argument _fwd, StackCall _stackCall, ArgumentListCall _list) {
-        if (_exit.hasToExit(_stackCall, _paramNameOwner,_fwd)) {
+    public static boolean checkCustomOper(AbstractExiting _exit, ExecTypeFunction _rootBlock, ExecFormattedRootBlock _paramNameOwner, ContextEl _conf, Argument _fwd, StackCall _stackCall, ArgumentListCall _list) {
+        if (_exit.hasToExit(_stackCall, _paramNameOwner.getFormatted(),_fwd)) {
             return true;
         }
-        new StaticCallParamChecker(_rootBlock,_list).checkParams(_paramNameOwner,Argument.createVoid(),null,_conf,_stackCall);
+        new StaticCallParamChecker(_rootBlock,_list).checkParams(_paramNameOwner.getFormatted(),Argument.createVoid(),null,_conf,_stackCall);
         return false;
     }
 

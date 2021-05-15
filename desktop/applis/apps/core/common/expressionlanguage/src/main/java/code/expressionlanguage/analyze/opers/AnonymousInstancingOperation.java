@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AnaGeneType;
@@ -56,7 +57,6 @@ public final class AnonymousInstancingOperation extends
         tryAnalyze(_page);
         index = _page.getLocalizer().getCurrentLocationIndex();
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
-        setClassName(_page.getAliasObject());
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
         if (j_ > -1) {
             realClassName_ = realClassName_.substring(j_+1);
@@ -215,7 +215,6 @@ public final class AnonymousInstancingOperation extends
     }
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        setClassName(_page.getAliasObject());
         if (!isIntermediateDottedOperation()) {
             analyzeCtor(_page);
         }
@@ -249,7 +248,7 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.setMemberId(ctorRes_.getMemberId());
         setConstructor(ctorRes_.getPair());
         setConstId(ctorRes_.getRealId());
-        setClassName(formatted_);
+        setFormattedType(new AnaFormattedRootBlock(instancingAnonContent.getBlock(),formatted_));
         if (ctorRes_.isVarArgToCall()) {
             setNaturalVararg(getConstId().getParametersTypes().size() - 1);
             setLastType(getConstId().getParametersTypes().last());

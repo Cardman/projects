@@ -3,8 +3,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -20,6 +19,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
     private final ImplicitMethods converter;
     private final int opOffset;
     private final ExecTypeFunction pair;
+    private final ExecFormattedRootBlock formattedType;
 
     protected ExecQuickOperation(ExecOperationContent _opCont, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, int _opOffset) {
         super(_opCont);
@@ -27,6 +27,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         pair = _pair;
         converter = _converter;
         opOffset = _opOffset;
+        formattedType = _staticEltContent.getFormattedType();
     }
     @Override
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
@@ -40,7 +41,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
                 return;
             }
             setRelativeOffsetPossibleLastPage(_stack);
-            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, this, staticEltContent.getClassName(), staticEltContent.getKind(), _stack);
+            checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, formattedType, staticEltContent.getKind(), _stack);
             return;
         }
         Argument f_ = getArgument(_nodes,first_);

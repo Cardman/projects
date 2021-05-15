@@ -1,7 +1,10 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+
 public final class AnaExplicitContent {
     private String className;
+    private AnaFormattedRootBlock formattedTypeOwner;
     private String classNameOwner = "";
     private int offset;
 
@@ -21,8 +24,12 @@ public final class AnaExplicitContent {
         this.offset = _offset;
     }
 
-    public String getClassNameOwner() {
-        return classNameOwner;
+    public AnaFormattedRootBlock getFormattedTypeOwner() {
+        return formattedTypeOwner;
+    }
+
+    public void setFormattedTypeOwner(AnaFormattedRootBlock _formattedTypeOwner) {
+        this.formattedTypeOwner = _formattedTypeOwner;
     }
 
     public void setClassNameOwner(String _classNameOwner) {

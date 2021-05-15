@@ -383,7 +383,7 @@ public abstract class ExecOperationNode {
         if (valBody_ != null) {
             ExecOverrideInfo polymorphMethod_ = ExecInvokingOperation.polymorph(_conf, struct_, valBody_);
             p_ = polymorphMethod_.getPair();
-            clCall_ = ExecInherits.getOverridingFullTypeByBases(argClassName_,polymorphMethod_.getClassName(), _conf);
+            clCall_ = ExecInherits.getFullObject(argClassName_, polymorphMethod_.getClassName().getFormatted(), _conf);
         }
         if (p_.getFct() == null) {
             return new Argument(_nat.compute(_argument, _conf));

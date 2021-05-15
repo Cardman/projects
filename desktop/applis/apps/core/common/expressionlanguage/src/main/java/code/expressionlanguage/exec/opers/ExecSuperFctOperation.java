@@ -45,7 +45,7 @@ public final class ExecSuperFctOperation extends ExecSettableCallFctOperation {
     }
 
     public String getClassName() {
-        return instFctContent.getClassName();
+        return instFctContent.getFormattedType().getFormatted();
     }
 
 

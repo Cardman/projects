@@ -1,22 +1,14 @@
 package code.expressionlanguage.analyze.opers.util;
 
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 
 public final class OperatorConverter {
-    private ClassMethodId symbol;
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
-    private ClassMethodId test;
+    private AnaFormattedRootBlock formattedTypeTest;
     private MemberId memberIdTest = new MemberId();
     private AnaTypeFct functionTest;
-
-    public ClassMethodId getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(ClassMethodId _symbol) {
-        symbol = _symbol;
-    }
+    private AnaFormattedRootBlock formattedType;
 
     public MemberId getMemberId() {
         return memberId;
@@ -34,14 +26,6 @@ public final class OperatorConverter {
         this.function = _function;
     }
 
-    public ClassMethodId getTest() {
-        return test;
-    }
-
-    public void setTest(ClassMethodId _test) {
-        test = _test;
-    }
-
     public MemberId getMemberIdTest() {
         return memberIdTest;
     }
@@ -56,5 +40,21 @@ public final class OperatorConverter {
 
     public void setFunctionTest(AnaTypeFct _functionTest) {
         this.functionTest = _functionTest;
+    }
+
+    public AnaFormattedRootBlock getFormattedTypeTest() {
+        return formattedTypeTest;
+    }
+
+    public void setFormattedTypeTest(AnaFormattedRootBlock _formattedTypeTest) {
+        this.formattedTypeTest = _formattedTypeTest;
+    }
+
+    public AnaFormattedRootBlock getFormattedType() {
+        return formattedType;
+    }
+
+    public void setFormattedType(AnaFormattedRootBlock _formattedType) {
+        this.formattedType = _formattedType;
     }
 }

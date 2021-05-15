@@ -21,7 +21,7 @@ public final class ClassMethodIdOverride {
         return redirections.getVal(_cl);
     }
 
-    public void put(String _cl, String _geneString, ExecTypeFunction _pair) {
+    public void put(String _cl, ExecFormattedRootBlock _geneString, ExecTypeFunction _pair) {
         redirections.put(_cl, new ExecOverrideInfo(_geneString, _pair));
     }
 }

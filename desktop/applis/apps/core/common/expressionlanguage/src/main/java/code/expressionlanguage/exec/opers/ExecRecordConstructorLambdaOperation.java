@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -27,17 +28,17 @@ public final class ExecRecordConstructorLambdaOperation extends ExecAbstractLamb
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        String ownerType_ = getFoundClass();
+        ExecFormattedRootBlock ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
         Argument res_ = new Argument(newLambda(ownerType_, clArg_, pair, id));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(String _ownerType,
+    public static Struct newLambda(ExecFormattedRootBlock _ownerType,
                                    String _clArg,
                                    ExecRootBlock _root, StringMap<String> _id) {
-        return new LambdaRecordConstructorStruct(_root, _clArg, _ownerType, _id);
+        return new LambdaRecordConstructorStruct(_root, _clArg, _ownerType.getFormatted(), _id);
     }
 
 }

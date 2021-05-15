@@ -1,17 +1,18 @@
 package code.expressionlanguage.analyze.opers.util;
 
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 
 public final class ReversibleConversion {
-    private final ClassMethodId from;
+    private final AnaFormattedRootBlock from;
     private final MemberId memberIdFrom;
     private final AnaTypeFct functionFrom;
-    private final ClassMethodId to;
+    private final AnaFormattedRootBlock to;
     private final MemberId memberIdTo;
     private final AnaTypeFct functionTo;
 
-    public ReversibleConversion(ClassMethodId _from, MemberId _memberIdFrom,AnaTypeFct _functionFrom,
-                                ClassMethodId _to, MemberId _memberIdTo,AnaTypeFct _functionTo) {
+    public ReversibleConversion(AnaFormattedRootBlock _from, MemberId _memberIdFrom,AnaTypeFct _functionFrom,
+                                AnaFormattedRootBlock _to, MemberId _memberIdTo,AnaTypeFct _functionTo) {
         from = _from;
         memberIdFrom = _memberIdFrom;
         functionFrom = _functionFrom;
@@ -20,7 +21,7 @@ public final class ReversibleConversion {
         functionTo = _functionTo;
     }
 
-    public ClassMethodId getFrom() {
+    public AnaFormattedRootBlock getFrom() {
         return from;
     }
 
@@ -32,7 +33,7 @@ public final class ReversibleConversion {
         return functionFrom;
     }
 
-    public ClassMethodId getTo() {
+    public AnaFormattedRootBlock getTo() {
         return to;
     }
 

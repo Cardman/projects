@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -29,7 +30,7 @@ public final class RendRecordConstructorLambdaOperation extends RendAbstractLamb
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        String ownerType_ = getFoundClass();
+        ExecFormattedRootBlock ownerType_ = getFoundClass();
         Argument res_ = new Argument(ExecRecordConstructorLambdaOperation.newLambda(ownerType_, clArg_, pair, id));
         setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }

@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -65,7 +66,6 @@ public final class StandardInstancingOperation extends
     @Override
     public void analyze(AnalyzedPageEl _page) {
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
-        setClassName(_page.getAliasObject());
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
@@ -285,7 +285,7 @@ public final class StandardInstancingOperation extends
             AnaTypeFct constructor_ = new AnaTypeFct();
             constructor_.setType((RecordBlock)g_);
             setConstructor(constructor_);
-            setClassName(_realClassName);
+            setFormattedType(new AnaFormattedRootBlock((RootBlock) g_,_realClassName));
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
@@ -302,7 +302,11 @@ public final class StandardInstancingOperation extends
         }
         setConstId(ctorRes_.getRealId());
         setConstructor(ctorRes_.getPair());
-        setClassName(_realClassName);
+        if (g_ instanceof RootBlock) {
+            setFormattedType(new AnaFormattedRootBlock((RootBlock) g_, _realClassName));
+        } else {
+            setClassName(_realClassName);
+        }
         memberId = ctorRes_.getMemberId();
         if (ctorRes_.isVarArgToCall()) {
             setNaturalVararg(getConstId().getParametersTypes().size() - 1);

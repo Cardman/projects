@@ -13,7 +13,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 
 public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPageEl {
     private boolean initClass;
-    private String resolved = "";
+
     @Override
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
         setWrapper(_wrap);
@@ -23,7 +23,6 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
     protected boolean keep(GeneType _gene,ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
         String className_ = getDeclaringClass();
-        resolved = className_;
         if (!initClass) {
             initClass = true;
             boolean static_ = !MetaInfoUtil.isAbstractType(_gene) && _gene.withoutInstance();
@@ -47,10 +46,6 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
             return false;
         }
         return true;
-    }
-
-    protected String getResolved() {
-        return resolved;
     }
 
     protected abstract String getDeclaringClass();

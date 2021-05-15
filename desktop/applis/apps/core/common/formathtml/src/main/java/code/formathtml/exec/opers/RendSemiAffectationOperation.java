@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -20,6 +21,7 @@ import code.util.IdMap;
 
 public final class RendSemiAffectationOperation extends RendAbstractUnaryOperation {
     private final ExecTypeFunction pair;
+    private final ExecFormattedRootBlock formattedType;
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
     private final ExecStaticPostEltContent staticPostEltContent;
@@ -34,6 +36,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         pair = _pair;
         converterFrom = _converterFrom;
         converterTo = _converterTo;
+        formattedType = _staticPostEltContent.getFormattedType();
     }
 
     public void setup() {
@@ -55,7 +58,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         if (pair.getFct() != null) {
             RendDynOperationNode left_ = getFirstNode(this);
             Argument stored_ = getArgument(_nodes,left_);
-            RendInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, this, staticPostEltContent.getClassName(), staticPostEltContent.getKind(), _stack);
+            checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, staticPostEltContent.getKind(), _stack);
             Argument res_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack).getValue();
             res_ = endCalculate(_nodes, _conf, stored_, res_, settable, staticPostEltContent, _advStandards, _context, _stack, _rendStack);
             setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);

@@ -80,7 +80,7 @@ public final class CommonExecution {
                 Struct result_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairSecond_)).getStruct();
                 resultsTable.setValueAt(Long.toString(i),i,0);
                 results.append(Long.toString(i)+"\n");
-                String methodInfo_ = ((MethodMetaInfo) method_).getClassName() + "." + ((MethodMetaInfo) method_).getSignature(_ctx) + "\n";
+                String methodInfo_ = ((MethodMetaInfo) method_).getFormatted().getFormatted() + "." + ((MethodMetaInfo) method_).getSignature(_ctx) + "\n";
                 resultsTable.setValueAt(methodInfo_,i,1);
                 results.append(methodInfo_);
                 Struct params_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasParams_)).getStruct();

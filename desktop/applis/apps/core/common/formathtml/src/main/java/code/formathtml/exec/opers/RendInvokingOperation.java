@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -27,13 +28,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         super(_content);
         intermediate = _intermediateDottedOperation;
     }
-    public static void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
-                                                         IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendMethodOperation _meth, String _className, MethodAccessKind _kind, StackCall _stackCall) {
-        CustList<Argument> arguments_ = getArguments(_nodes, _meth);
-        ArgumentListCall l_ = new ArgumentListCall();
-        l_.addAllArgs(arguments_);
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, l_, _className, _kind, _stackCall);
-    }
+
     public ArgumentListCall fectchArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg, RendStackCall _rendStackCall,Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         RendArgumentList argumentList_ = listNamedArguments(_nodes, chidren_,_naturalVararg);

@@ -1,17 +1,17 @@
 package code.expressionlanguage.analyze.opers.util;
 
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 
 public final class ImplicitInfos {
-    private ClassMethodId idMethod;
+    private AnaFormattedRootBlock idMethod;
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
 
-    public ClassMethodId getIdMethod() {
+    public AnaFormattedRootBlock getIdMethod() {
         return idMethod;
     }
 
-    public void setIdMethod(ClassMethodId _idMethod) {
+    public void setIdMethod(AnaFormattedRootBlock _idMethod) {
         this.idMethod = _idMethod;
     }
 

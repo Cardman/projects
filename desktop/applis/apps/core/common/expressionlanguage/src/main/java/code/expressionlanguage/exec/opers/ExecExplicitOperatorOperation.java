@@ -2,8 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -18,21 +17,23 @@ public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOper
     private final ExecStaticFctContent staticFctContent;
 
     private final int offsetOper;
+    private final ExecFormattedRootBlock formattedType;
 
     public ExecExplicitOperatorOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, int _offsetOper, ExecTypeFunction _pair, ExecArrContent _exArr) {
         super(_opCont, _intermediateDottedOperation,_exArr);
         staticFctContent = _staticFctContent;
         offsetOper = _offsetOper;
         pair = _pair;
+        formattedType = _staticFctContent.getFormattedType();
     }
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         int off_ = getOffsetOper();
         setRelOffsetPossibleLastPage(off_, _stack);
-        String classNameFound_ = ClassMethodId.formatType(staticFctContent.getClassName(), staticFctContent.getKind(), _stack);
-        String lastType_ = ClassMethodId.formatType(pair.getType(),classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
-        checkParametersOperators(_conf.getExiting(),_conf, pair, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg(),null), staticFctContent.getClassName(), staticFctContent.getKind(), _stack);
+        ExecFormattedRootBlock classNameFound_ = ClassMethodId.formatType(formattedType, staticFctContent.getKind(), _stack);
+        String lastType_ = ClassMethodId.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
+        checkParametersOperatorsFormatted(_conf.getExiting(), _conf, pair, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg(),null), classNameFound_, staticFctContent.getKind(), _stack);
     }
 
     public int getOffsetOper() {

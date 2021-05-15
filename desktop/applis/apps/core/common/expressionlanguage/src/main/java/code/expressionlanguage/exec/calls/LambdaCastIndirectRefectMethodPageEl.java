@@ -16,7 +16,7 @@ public final class LambdaCastIndirectRefectMethodPageEl extends AbstractRefectLa
     @Override
     boolean initType(ContextEl _cont, StackCall _stack) {
         MethodMetaInfo method_ = getMetaInfo();
-        String className_ = method_.getClassName();
+        String className_ = method_.getFormatted().getFormatted();
         return _cont.getExiting().hasToExit(_stack, className_);
     }
 

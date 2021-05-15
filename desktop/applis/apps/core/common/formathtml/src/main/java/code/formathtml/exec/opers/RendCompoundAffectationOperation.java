@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -22,6 +23,7 @@ import code.util.core.StringUtil;
 public final class RendCompoundAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private final ExecTypeFunction pair;
+    private final ExecFormattedRootBlock formattedType;
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
@@ -34,6 +36,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         staticEltContent = _staticEltContent;
         pair = _pair;
         converter = _converter;
+        formattedType = _staticEltContent.getFormattedType();
     }
 
     public void setup() {
@@ -67,7 +70,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             return;
         }
         if (pair.getFct() != null) {
-            RendInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, this, staticEltContent.getClassName(), staticEltContent.getKind(), _stack);
+            checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, staticEltContent.getKind(), _stack);
             Argument res_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack).getValue();
             if (converter != null) {
                 Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _context, _stack);

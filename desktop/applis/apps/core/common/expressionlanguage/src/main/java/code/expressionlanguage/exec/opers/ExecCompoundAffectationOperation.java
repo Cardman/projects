@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -20,6 +21,7 @@ import code.util.core.StringUtil;
 
 public final class ExecCompoundAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, CallExecSimpleOperation {
 
+    private final ExecFormattedRootBlock formattedType;
     private ExecOperationNode settable;
     private ExecMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
@@ -34,6 +36,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         staticEltContent = _staticEltContent;
         pair = _pair;
         converter = _converter;
+        formattedType = _staticEltContent.getFormattedType();
     }
 
     public void setup() {
@@ -74,7 +77,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             return;
         }
         if (pair.getFct() != null) {
-            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes,this, staticEltContent.getClassName(), staticEltContent.getKind(), _stack);
+            checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, formattedType, staticEltContent.getKind(), _stack);
             return;
         }
         if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.NULL_EQ_SHORT)) {

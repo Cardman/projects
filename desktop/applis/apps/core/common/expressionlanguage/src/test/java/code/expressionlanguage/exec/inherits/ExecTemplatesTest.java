@@ -1292,11 +1292,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     }
 
     private static String getSuperGeneric(AnalyzedTestContext _context, String _first, String _second) {
-        return ExecInherits.getSuperGeneric(_first, _second, _context.getContext());
+        return ExecInherits.getFullObject(_first, _second, _context.getContext());
     }
 
     private static String getSuperGeneric(ContextEl _context, String _first, String _second) {
-        return ExecInherits.getSuperGeneric(_first, _second, _context);
+        return ExecInherits.getFullObject(_first, _second, _context);
     }
 
 }

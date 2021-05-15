@@ -4638,7 +4638,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static ConstructorIdVarArg getConstId(StandardInstancingOperation _fct) {
-        return new ConstructorIdVarArg(_fct.getClassName(),_fct.getInstancingCommonContent().getConstId(),_fct.getNaturalVararg());
+        return new ConstructorIdVarArg(_fct.getFormattedType().getFormatted(),_fct.getInstancingCommonContent().getConstId(),_fct.getNaturalVararg());
     }
 
     private static FctOperation getFctAna(CustList<OperationNode> _f) {

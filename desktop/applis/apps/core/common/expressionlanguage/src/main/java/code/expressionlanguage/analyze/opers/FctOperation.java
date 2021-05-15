@@ -211,7 +211,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, trimMeth_, new StringList());
             callFctContent.setClassMethodId(new ClassMethodId(foundClass_, id_));
-            callFctContent.setClassName(foundClass_);
             setResultClass(new AnaClassArgumentMatching(arrayBounds_));
             return;
         }

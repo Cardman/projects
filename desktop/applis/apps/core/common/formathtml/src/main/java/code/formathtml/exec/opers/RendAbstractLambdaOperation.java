@@ -1,5 +1,6 @@
 package code.formathtml.exec.opers;
 
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
@@ -21,8 +22,8 @@ public abstract class RendAbstractLambdaOperation extends RendLeafOperation impl
         return lambdaCommonContent;
     }
 
-    public String getFoundClass() {
-        return lambdaCommonContent.getFoundClass();
+    public ExecFormattedRootBlock getFoundClass() {
+        return lambdaCommonContent.getFormattedType();
     }
 
 }

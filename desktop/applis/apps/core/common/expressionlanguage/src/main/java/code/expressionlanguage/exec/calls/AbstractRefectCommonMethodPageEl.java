@@ -40,7 +40,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     }
 
     protected boolean initDefault(ContextEl _cont, StackCall _stackCall) {
-        return metaInfo.isWideStatic()&&_cont.getExiting().hasToExit(_stackCall, metaInfo.getClassName());
+        return metaInfo.isWideStatic()&&_cont.getExiting().hasToExit(_stackCall, metaInfo.getFormatted().getFormatted());
 //        return method_.isWideStatic()&&ExecutingUtil.hasToExit(_cont,method_.getClassName());
     }
 
@@ -67,11 +67,11 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, metaInfo.getDisplayedString(_context).getInstance(), null_, _stackCall)));
                 return false;
             }
-            String className_ = metaInfo.getClassName();
+            String className_ = metaInfo.getFormatted().getFormatted();
             if (isPolymorph(_context, _stackCall)) {
                 Struct instance_ = instance.getStruct();
                 ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(_context, instance_, metaInfo.getPair());
-                className = polymorph_.getClassName();
+                className = polymorph_.getClassName().getFormatted();
                 pair = polymorph_.getPair();
             } else {
                 className = className_;
@@ -104,7 +104,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
 
     Argument direct(ContextEl _context, StackCall _stack, ArgumentListCall _l) {
         MethodMetaInfo method_ = getMetaInfo();
-        String className_ = method_.getClassName();
+        String className_ = method_.getFormatted().getFormatted();
         String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(className_, _context);
         if (res_.isEmpty()) {
             String null_;

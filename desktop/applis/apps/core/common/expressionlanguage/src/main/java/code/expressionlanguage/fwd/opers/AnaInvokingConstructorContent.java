@@ -1,7 +1,9 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+
 public final class AnaInvokingConstructorContent {
-    private String classFromName = "";
+    private AnaFormattedRootBlock formattedType;
 
     private String lastType = "";
 
@@ -24,12 +26,12 @@ public final class AnaInvokingConstructorContent {
         this.naturalVararg = _naturalVararg;
     }
 
-    public String getClassFromName() {
-        return classFromName;
+    public AnaFormattedRootBlock getFormattedType() {
+        return formattedType;
     }
 
-    public void setClassFromName(String _classFromName) {
-        this.classFromName = _classFromName;
+    public void setFormattedType(AnaFormattedRootBlock _formattedType) {
+        this.formattedType = _formattedType;
     }
 
     public int getOffsetOper() {

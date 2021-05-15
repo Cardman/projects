@@ -2,8 +2,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -21,11 +20,14 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
     private final ExecTypeFunction pair;
     private final ExecStaticEltContent staticEltContent;
     private final ImplicitMethods converter;
+    private final ExecFormattedRootBlock formattedType;
+
     public RendQuickOperation(ExecOperationContent _content, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter) {
         super(_content);
         staticEltContent = _staticEltContent;
         pair = _pair;
         converter = _converter;
+        formattedType = _staticEltContent.getFormattedType();
     }
 
     @Override
@@ -39,7 +41,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
                 return;
             }
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStack);
-            RendInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, this, staticEltContent.getClassName(), staticEltContent.getKind(), _stack);
+            checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, staticEltContent.getKind(), _stack);
             Argument argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack).getValue();
             if (converter != null) {
                 Argument res_ = tryConvert(converter.get(0),converter.getOwnerClass(), argres_, _context, _stack);

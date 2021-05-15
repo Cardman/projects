@@ -1,5 +1,10 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
+
 public final class ExecLambdaCommonContent {
 
     private final boolean intermediate;
@@ -8,15 +13,21 @@ public final class ExecLambdaCommonContent {
     private final String fileName;
     private final boolean shiftArgument;
     private final int ancestor;
-    private final String foundClass;
-    public ExecLambdaCommonContent(AnaLambdaCommonContent _cont) {
+    private final ExecFormattedRootBlock formattedType;
+
+    public ExecLambdaCommonContent(AnaLambdaCommonContent _cont, Forwards _fwd) {
         intermediate = _cont.isIntermediate();
         safeInstance = _cont.isSafeInstance();
         returnFieldType = _cont.getReturnFieldType();
         fileName = _cont.getFileName();
         shiftArgument = _cont.isShiftArgument();
         ancestor = _cont.getAncestor();
-        foundClass = _cont.getFoundClass();
+        AnaFormattedRootBlock foundFormatted_ = _cont.getFoundFormatted();
+        if (foundFormatted_.getRootBlock() == null) {
+            formattedType = new ExecFormattedRootBlock(null, foundFormatted_.getFormatted());
+            return;
+        }
+        formattedType = FetchMemberUtil.fwdFormatType(foundFormatted_, _fwd);
     }
 
     public boolean isIntermediate() {
@@ -39,8 +50,8 @@ public final class ExecLambdaCommonContent {
         return fileName;
     }
 
-    public String getFoundClass() {
-        return foundClass;
+    public ExecFormattedRootBlock getFormattedType() {
+        return formattedType;
     }
 
     public int getAncestor() {

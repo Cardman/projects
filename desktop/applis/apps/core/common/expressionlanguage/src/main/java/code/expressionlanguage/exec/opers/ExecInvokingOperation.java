@@ -39,16 +39,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         intermediate = _intermediate;
     }
 
-    protected ArgumentListCall fectchInstFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _className, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg) {
-        String lastType_ = ExecInherits.quickFormat(_rootBlock,_className, _lastType);
+    protected ArgumentListCall fectchInstFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecFormattedRootBlock _formatted, String _lastType, int _naturalVararg) {
+        String lastType_ = ExecInherits.quickFormat(_formatted, _lastType);
         return fectchArgs(_nodes, lastType_, _naturalVararg, null);
     }
 
     protected ArgumentListCall fetchFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg,Argument _right) {
         String cl_ = _pr.getClassName(_conf);
-        String base_ = _rootBlock.getFullName();
-        String clGen_ = ExecInherits.getSuperGeneric(cl_, base_, _conf);
-        String lastType_ = ExecInherits.quickFormat(_rootBlock,clGen_, _lastType);
+        String lastType_ = ExecTemplates.formatType(_conf, _rootBlock, _lastType, cl_);
         return fectchArgs(_nodes,lastType_, _naturalVararg,_right);
     }
 
@@ -134,7 +132,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return new Argument(res_.getResult());
     }
 
-    public static ExecOverrideInfo polymorphOrSuper(boolean _super,ContextEl _conf, Struct _previous, String _className, ExecTypeFunction _named) {
+    public static ExecOverrideInfo polymorphOrSuper(boolean _super,ContextEl _conf, Struct _previous, ExecFormattedRootBlock _className, ExecTypeFunction _named) {
         if (_super) {
             return new ExecOverrideInfo(_className,_named);
         }
@@ -149,7 +147,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (res_ != null) {
             return res_;
         }
-        return new ExecOverrideInfo(type_.getGenericString(),_named);
+        return new ExecOverrideInfo(new ExecFormattedRootBlock(type_,type_.getGenericString()),_named);
     }
     public static Argument callStd(AbstractExiting _exit, ContextEl _cont, String _classNameFound, MethodId _methodId, Argument _previous, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<Argument> args_ = _firstArgs.getArguments();
@@ -201,33 +199,19 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return _r == null || _category != ClassCategory.ENUM;
     }
 
-    public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
-                                                IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecMethodOperation _meth, String _className, MethodAccessKind _kind, StackCall _stackCall) {
-        CustList<Argument> arguments_ = getArguments(_nodes, _meth);
-        ArgumentListCall l_ = new ArgumentListCall();
-        l_.addAllArgs(arguments_);
-        checkParametersOperators(_exit, _conf, _named, l_, _className, _kind, _stackCall);
-    }
-    public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
-                                                ArgumentListCall _firstArgs, String _className, MethodAccessKind _kind, StackCall _stackCall) {
-        String classNameFound_ = _className;
-        classNameFound_ = ClassMethodId.formatType(classNameFound_, _kind, _stackCall);
-        checkParametersOperatorsFormatted(_exit, _conf, _named, _firstArgs, classNameFound_, _kind, _stackCall);
-    }
-
-    public static void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named, ArgumentListCall _firstArgs, String _classNameFound, MethodAccessKind _kind, StackCall _stackCall) {
-        if (_exit.hasToExit(_stackCall, _classNameFound)) {
+    public static void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named, ArgumentListCall _firstArgs, ExecFormattedRootBlock _classNameFound, MethodAccessKind _kind, StackCall _stackCall) {
+        if (_exit.hasToExit(_stackCall, _classNameFound.getFormatted())) {
             return;
         }
-        new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR, null).checkParams(_classNameFound, Argument.createVoid(), null, _conf, _stackCall);
+        new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR, null).checkParams(_classNameFound.getFormatted(), Argument.createVoid(), null, _conf, _stackCall);
     }
 
-    public static void checkParametersCtors(ContextEl _conf, String _classNameFound,
+    public static void checkParametersCtors(ContextEl _conf, ExecFormattedRootBlock _classNameFound,
                                             ExecTypeFunction _named,
                                             ArgumentListCall _firstArgs,
                                             InstancingStep _kindCall, StackCall _stackCall) {
         Argument arg_ = _stackCall.getLastPage().getGlobalArgument();
-        new DefaultParamChecker(_named, _firstArgs,MethodAccessKind.INSTANCE,  CallPrepareState.CTOR, _kindCall).checkParams(_classNameFound, arg_, null, _conf, _stackCall);
+        new DefaultParamChecker(_named, _firstArgs,MethodAccessKind.INSTANCE,  CallPrepareState.CTOR, _kindCall).checkParams(_classNameFound.getFormatted(), arg_, null, _conf, _stackCall);
     }
 
     public static Argument getInstanceCall(Argument _previous, ContextEl _conf, StackCall _stackCall) {

@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -25,12 +26,14 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
     private final ExecInvokingConstructorContent invokingConstructorContent;
 
     private final ExecTypeFunction pair;
+    private final ExecFormattedRootBlock formattedType;
+
     public RendInterfaceFctConstructor(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, String _className, ExecTypeFunction _pair) {
         super(_content, _intermediateDottedOperation);
         invokingConstructorContent = _invokingConstructorContent;
         className = _className;
         pair = _pair;
-
+        formattedType = _invokingConstructorContent.getFormattedType();
     }
 
     @Override
@@ -63,9 +66,9 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
     }
     private void prepareArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ invokingConstructorContent.getOffsetOper(), _rendStackCall);
-        String superClass_ = invokingConstructorContent.getClassFromName();
+        String superClass_ = invokingConstructorContent.getFormattedType().getFormatted();
         String lastType_ = getLastType();
-        lastType_ = ExecInherits.quickFormat(pair.getType(),superClass_, lastType_);
+        lastType_ = ExecInherits.quickFormat(formattedType, lastType_);
         int natvararg_ = getNaturalVararg();
         new DefaultParamChecker(pair, fectchArgs(_all,lastType_,natvararg_, _rendStackCall,null), MethodAccessKind.INSTANCE, CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, _arguments, null, _context, _stackCall);
     }

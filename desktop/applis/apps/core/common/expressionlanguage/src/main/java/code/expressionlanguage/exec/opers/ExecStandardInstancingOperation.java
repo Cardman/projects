@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecRecordBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
 import code.expressionlanguage.exec.inherits.InstanceParamChecker;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
@@ -39,10 +40,10 @@ public final class ExecStandardInstancingOperation extends
             off_--;
         }
         setRelOffsetPossibleLastPage(off_, _stack);
-        String className_ = _stack.formatVarType(getClassName());
+        ExecFormattedRootBlock className_ = _stack.formatVarType(getFormattedType());
         Argument res_ = null;
         if (instancingStdContent.getFieldName().isEmpty()) {
-            String base_ = StringExpUtil.getIdFromAllTypes(className_);
+            String base_ = StringExpUtil.getIdFromAllTypes(className_.getFormatted());
             if (_conf.getExiting().hasToExit(_stack, base_)) {
                 res_ = Argument.createVoid();
             }
@@ -50,17 +51,13 @@ public final class ExecStandardInstancingOperation extends
         if (res_ == null) {
             if (rootBlock instanceof ExecRecordBlock) {
                 CustList<Argument> arguments_ = getArguments(_nodes, this);
-                _stack.setCallingState(new CustomFoundRecordConstructor(className_, getPair(),instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
+                _stack.setCallingState(new CustomFoundRecordConstructor(className_.getFormatted(), getPair(),instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
                 res_ = Argument.createVoid();
             } else {
-                res_ = new InstanceParamChecker(getPair(), fectchInstFormattedArgs(_nodes, className_, rootBlock, getInstancingCommonContent().getLastType(), getInstancingCommonContent().getNaturalVararg()), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex()).checkParams(className_, previous_, null, _conf, _stack);
+                res_ = new InstanceParamChecker(getPair(), fectchInstFormattedArgs(_nodes, className_, getInstancingCommonContent().getLastType(), getInstancingCommonContent().getNaturalVararg()), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex()).checkParams(className_.getFormatted(), previous_, null, _conf, _stack);
             }
         }
         setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    public String getClassName() {
-        return getInstancingCommonContent().getClassName();
     }
 
 }

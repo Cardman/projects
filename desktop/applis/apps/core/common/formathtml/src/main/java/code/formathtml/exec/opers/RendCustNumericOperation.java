@@ -3,8 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -18,16 +17,19 @@ public final class RendCustNumericOperation extends RendNumericOperation {
 
     private final ExecTypeFunction pair;
     private final ExecStaticEltContent staticEltContent;
+    private final ExecFormattedRootBlock formattedType;
+
     public RendCustNumericOperation(ExecTypeFunction _pair, ExecOperationContent _content, int _opOffset, ExecStaticEltContent _staticEltContent) {
         super(_content, _opOffset);
         staticEltContent = _staticEltContent;
         pair = _pair;
+        formattedType = _staticEltContent.getFormattedType();
     }
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _rendStack);
-        RendInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, this, staticEltContent.getClassName(), staticEltContent.getKind(), _stack);
+        checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, staticEltContent.getKind(), _stack);
         Argument argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }

@@ -1,14 +1,16 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.Forwards;
 
 public final class ExecStaticPostEltContent {
     private final ExecStaticEltContent staticEltContent;
     private final boolean post;
 
-    public ExecStaticPostEltContent(AnaTypeFct _pair, String _className, boolean _post) {
-        staticEltContent = new ExecStaticEltContent(_pair,_className);
+    public ExecStaticPostEltContent(ClassMethodIdMemberIdTypeFct _id, boolean _post, Forwards _fwd) {
+        staticEltContent = new ExecStaticEltContent(_id,_fwd);
         post = _post;
     }
 
@@ -16,8 +18,8 @@ public final class ExecStaticPostEltContent {
         return post;
     }
 
-    public String getClassName() {
-        return staticEltContent.getClassName();
+    public ExecFormattedRootBlock getFormattedType() {
+        return staticEltContent.getFormattedType();
     }
 
     public MethodAccessKind getKind() {

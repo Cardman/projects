@@ -1278,7 +1278,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 RootBlock rootBlock_ = c.getRootBlock();
                 CustList<AnaFormattedRootBlock> superTypes_ = rootBlock_.getImportedDirectSuperTypesInfo();
                 for (AnaFormattedRootBlock t: superTypes_) {
-                    AnaFormattedRootBlock a_ = AnaFormattedRootBlock.format(c,t);
+                    AnaFormattedRootBlock a_ = AnaFormattedRootBlock.quickFormat(c,t);
                     String format_ = a_.getFormatted();
                     if (!added(format_,allSeen_,a_,next_)) {
                         continue;
@@ -1310,7 +1310,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 allSeen_.add(c.getFormatted());
                 CustList<AnaFormattedRootBlock> superTypes_ = curType_.getImportedDirectSuperTypesInfo();
                 for (AnaFormattedRootBlock t: superTypes_) {
-                    AnaFormattedRootBlock a_ = AnaFormattedRootBlock.format(c,t);
+                    AnaFormattedRootBlock a_ = AnaFormattedRootBlock.quickFormat(c,t);
                     String format_ = a_.getFormatted();
                     added(format_,allSeen_, a_, next_);
                 }

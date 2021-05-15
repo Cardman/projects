@@ -2,23 +2,28 @@ package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.MemberId;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 
 public final class ImportedField {
     private int imported;
     private String type;
     private boolean finalField;
     private int valueOffset;
-    private String fileName;
+    private final String fileName;
     private RootBlock fieldType;
     private MemberId memberId = new MemberId();
 
-    public ImportedField(int _imported, String _type, boolean _finalField, int _valueOffset) {
+    public ImportedField(int _imported, String _type, boolean _finalField, int _valueOffset, String _fileName) {
         this.imported = _imported;
         this.type = _type;
         this.finalField = _finalField;
         valueOffset = _valueOffset;
+        fileName = _fileName;
     }
 
+    public AnaFormattedRootBlock buildFormatted(String _formatted) {
+        return new AnaFormattedRootBlock(fieldType,_formatted);
+    }
     public int getImported() {
         return imported;
     }
@@ -37,10 +42,6 @@ public final class ImportedField {
 
     public String getFileName() {
         return fileName;
-    }
-
-    public void setFileName(String _fileName) {
-        this.fileName = _fileName;
     }
 
     public MemberId getMemberId() {

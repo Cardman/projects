@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -49,6 +50,9 @@ public final class MethodInfo implements Parametrable {
         return constraints;
     }
 
+    public AnaFormattedRootBlock buildFormatted() {
+        return new AnaFormattedRootBlock(pair.getType(),className);
+    }
     public AnaTypeFct getPair() {
         return pair;
     }

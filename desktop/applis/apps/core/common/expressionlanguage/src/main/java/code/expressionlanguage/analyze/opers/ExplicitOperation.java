@@ -58,7 +58,6 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         int leftPar_ = explicitContent.getClassName().indexOf(PAR_LEFT);
         res_ = ResolvingTypes.resolveCorrectType(leftPar_ +1+StringExpUtil.getOffset(types_.first()),types_.first(), _page);
         explicitContent.setClassName(res_);
-        explicitContent.setClassNameOwner(res_);
         partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
         setResultClass(new AnaClassArgumentMatching(explicitContent.getClassName(), _page.getPrimitiveTypes()));
         if (!StringExpUtil.customCast(res_)) {
@@ -98,7 +97,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
             ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
             if (resMethod_.isFoundMethod()) {
-                explicitContent.setClassNameOwner(resMethod_.getRealClass());
+                explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
                 memberId = resMethod_.getMemberId();
                 function = resMethod_.getPair();
             }
@@ -133,7 +132,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
             ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
             if (resMethod_.isFoundMethod()) {
-                explicitContent.setClassNameOwner(resMethod_.getRealClass());
+                explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
                 memberId = resMethod_.getMemberId();
                 function = resMethod_.getPair();
                 setResultClass(virtual_);
@@ -151,8 +150,8 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             return;
         }
         memberId = resMethod_.getMemberId();
+        explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
         function = resMethod_.getPair();
-        explicitContent.setClassNameOwner(resMethod_.getRealClass());
     }
     private void buildError(AnaClassArgumentMatching[] _argsClass, AnalyzedPageEl _page) {
         StringList classesNames_ = new StringList();

@@ -5,17 +5,17 @@ import code.util.CustList;
 
 public final class ImplicitMethods {
     private final CustList<ExecTypeFunction> converter = new CustList<ExecTypeFunction>();
-    private String ownerClass="";
+    private ExecFormattedRootBlock ownerClass;
 
     public CustList<ExecTypeFunction> getConverter() {
         return converter;
     }
 
-    public String getOwnerClass() {
+    public ExecFormattedRootBlock getOwnerClass() {
         return ownerClass;
     }
 
-    public void setOwnerClass(String _ownerClass) {
+    public void setOwnerClass(ExecFormattedRootBlock _ownerClass) {
         this.ownerClass = _ownerClass;
     }
 

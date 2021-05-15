@@ -34,6 +34,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType 
     private final CustList<ExecAnnotationMethodBlock> annotationsFields = new CustList<ExecAnnotationMethodBlock>();
     private final CustList<ExecInnerTypeOrElement> enumElements = new CustList<ExecInnerTypeOrElement>();
     private ExecTypeFunction emptyCtorPair;
+    private ExecFormattedRootBlock formattedSuperClass;
     private final CustList<ExecRootBlock> anonymousRoot = new CustList<ExecRootBlock>();
     private final CustList<ExecAnonymousFunctionBlock> anonymousRootLambda = new CustList<ExecAnonymousFunctionBlock>();
     private final CustList<ExecAbstractSwitchMethod> switchMethodsRoot = new CustList<ExecAbstractSwitchMethod>();
@@ -187,6 +188,14 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType 
 
     public void emptyCtorPair(ExecNamedFunctionBlock _emptyCtor) {
         this.emptyCtorPair = new ExecTypeFunction(this,_emptyCtor);
+    }
+
+    public ExecFormattedRootBlock getFormattedSuperClass() {
+        return formattedSuperClass;
+    }
+
+    public void setFormattedSuperClass(ExecFormattedRootBlock _formattedSuperClass) {
+        this.formattedSuperClass = _formattedSuperClass;
     }
 
     public CustList<ExecRootBlock> getAnonymousRoot() {

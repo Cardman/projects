@@ -2,13 +2,11 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -36,18 +34,15 @@ public final class RendSuperFctOperation extends RendSettableCallFctOperation im
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
-        String lastType_ = instFctContent.getLastType();
         int naturalVararg_ = instFctContent.getNaturalVararg();
-        String classNameFound_ = instFctContent.getClassName();
+        String classNameFound_ = instFctContent.getFormattedType().getFormatted();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, previous_.getStruct(), _context, _stack));
         Argument result_;
         if (_context.callsOrException(_stack)) {
             result_ = new Argument();
         } else {
             String argClassName_ = prev_.getStruct().getClassName(_context);
-            String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
-            String fullClassNameFound_ = ExecInherits.getSuperGeneric(argClassName_, base_, _context);
-            lastType_ = ExecInherits.quickFormat(pair.getType(), fullClassNameFound_, lastType_);
+            String lastType_ = ExecTemplates.formatType(_context, pair.getType(), instFctContent.getLastType(), argClassName_);
             result_ = new DefaultParamChecker(pair, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null), MethodAccessKind.INSTANCE, CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _context, _stack);
         }
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);

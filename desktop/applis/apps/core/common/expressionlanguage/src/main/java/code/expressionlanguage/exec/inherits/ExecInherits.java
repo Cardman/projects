@@ -170,15 +170,6 @@ public final class ExecInherits {
         return StringExpUtil.getReflectFormattedType(_second, varTypes_);
     }
 
-    public static String getOverridingFullTypeByBases(String _subType, String _superType, ContextEl _context) {
-        String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
-        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
-        if (StringUtil.quickEq(idArg_,idSuperType_)) {
-            return _subType;
-        }
-        return getSuperGeneric(_subType,new DimComp(0,idSuperType_), _context);
-    }
-
     /**Returns a formatted string (variables present in second type are defined in the scope of the first type id)<br/>
      Let this code:<br/>
      <code><pre>public class my.pkg.MyClass&lt;K,V&gt;{}</pre>
@@ -213,6 +204,11 @@ public final class ExecInherits {
      */
     public static String quickFormat(String _first, String _second, ContextEl _context) {
         return quickFormat(_context.getClassBody(StringExpUtil.getIdFromAllTypes(_first)),_first,_second);
+    }
+
+    public static String quickFormat(ExecFormattedRootBlock _type, String _second) {
+        StringMap<String> varTypes_ = getVarTypes(_type.getFormatted(),_type.getRootBlock());
+        return StringExpUtil.getQuickFormattedType(_second, varTypes_);
     }
 
     public static String quickFormat(GeneType _type, String _first, String _second) {
@@ -278,15 +274,6 @@ public final class ExecInherits {
         String fct_ = _context.getStandards().getContent().getReflect().getAliasFct();
         Ints rep_ = info_.getTypeVarCounts();
         return StringExpUtil.commonCorrectType(_genericClass, fct_,rep_);
-    }
-
-    public static String getSuperGeneric(String _arg, String _classParam, ContextEl _context) {
-        String idArg_ = StringExpUtil.getIdFromAllTypes(_arg);
-        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_classParam);
-        if (StringUtil.quickEq(idArg_,idSuperType_)) {
-            return _arg;
-        }
-        return getSuperGeneric(_arg,new DimComp(0,idSuperType_), _context);
     }
 
     private static String getSuperGeneric(String _subType, DimComp _dimParam, ContextEl _context) {

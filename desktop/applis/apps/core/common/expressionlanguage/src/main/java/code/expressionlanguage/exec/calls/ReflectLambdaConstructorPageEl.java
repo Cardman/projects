@@ -37,7 +37,7 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
         if (!keep(metaInfo.getDeclType(),_context, _stack)) {
             return false;
         }
-        String res_ = getResolved();
+        String res_ = metaInfo.getFormatted().getFormatted();
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;

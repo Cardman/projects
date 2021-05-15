@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -18,6 +19,7 @@ import code.util.IdMap;
 
 public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperation implements CallExecSimpleOperation {
     private final ExecTypeFunction pair;
+    private final ExecFormattedRootBlock formattedType;
     private ExecOperationNode settable;
     private ExecMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
@@ -32,6 +34,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         pair = _pair;
         converterFrom = _converterFrom;
         converterTo = _converterTo;
+        formattedType = _staticPostEltContent.getFormattedType();
     }
 
     public void setup() {
@@ -59,7 +62,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             }
         }
         if (pair.getFct() != null) {
-            ExecInvokingOperation.checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes,this, staticPostEltContent.getClassName(), staticPostEltContent.getKind(), _stack);
+            checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, formattedType, staticPostEltContent.getKind(), _stack);
             return;
         }
         ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);

@@ -16,11 +16,11 @@ public final class TypeInfo {
     private final StringList superTypes;
     private final AnaFormattedRootBlock formatted;
 
-    public TypeInfo(RootBlock _type, String _formatted, MethodAccessKind _scope, boolean _base, int _anc) {
-        this.formatted = new AnaFormattedRootBlock(_type,_formatted);
-        root = _type;
-        typeId = StringExpUtil.getIdFromAllTypes(_formatted);
-        superTypes = _type.getAllSuperTypes();
+    public TypeInfo(AnaFormattedRootBlock _formatted, MethodAccessKind _scope, boolean _base, int _anc) {
+        this.formatted = _formatted;
+        root = _formatted.getRootBlock();
+        typeId = StringExpUtil.getIdFromAllTypes(_formatted.getFormatted());
+        superTypes = _formatted.getRootBlock().getAllSuperTypes();
         scope = _scope;
         base = _base;
         ancestor = _anc;

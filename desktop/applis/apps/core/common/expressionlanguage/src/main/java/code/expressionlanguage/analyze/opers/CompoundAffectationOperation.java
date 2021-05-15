@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -102,7 +103,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this, left_,right_, op_, _page);
         if (cl_ != null) {
-            ClassMethodId test_ = cl_.getTest();
+            AnaFormattedRootBlock test_ = cl_.getFormattedTypeTest();
             if (test_ != null) {
                 clMatchLeft_.implicitInfosTest(cl_);
                 functionTest = cl_.getFunctionTest();

@@ -1,14 +1,13 @@
 package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -39,23 +38,21 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
-        String lastType_ = getLastType();
         int naturalVararg_ = getNaturalVararg();
         String classNameFound_;
-        classNameFound_ = instFctContent.getClassName();
+        ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
+        classNameFound_ = formattedType_.getFormatted();
         Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), classNameFound_, previous_.getStruct(), _context, _stack));
         Argument result_;
         if (_context.callsOrException(_stack)) {
             result_ = new Argument();
         } else {
-            String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
             Struct pr_ = prev_.getStruct();
             String cl_ = pr_.getClassName(_context);
-            String clGen_ = ExecInherits.getSuperGeneric(cl_, base_, _context);
-            lastType_ = ExecInherits.quickFormat(pair.getType(), clGen_, lastType_);
-            ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context, pr_, classNameFound_, pair);
+            String lastType_ = ExecTemplates.formatType(_context, pair.getType(), instFctContent.getLastType(), cl_);
+            ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context, pr_, formattedType_, pair);
             ExecTypeFunction pair_ = polymorph_.getPair();
-            classNameFound_ = polymorph_.getClassName();
+            classNameFound_ = polymorph_.getClassName().getFormatted();
             result_ = new DefaultParamChecker(pair_, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null), MethodAccessKind.INSTANCE, CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _context, _stack);
         }
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);
@@ -68,10 +65,6 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
 
     public int getAnc() {
         return instFctContent.getAnc();
-    }
-
-    public String getLastType() {
-        return instFctContent.getLastType();
     }
 
     public String getMethodName() {

@@ -5,9 +5,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.NotInitializedFields;
-import code.expressionlanguage.exec.opers.ExecInterfaceInvokingConstructor;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.opers.ExecSuperInvokingConstructor;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.util.CustList;
 import code.util.core.IndexConstants;
@@ -17,19 +15,22 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
     private final int expressionOffset;
 
     private final CustList<ExecOperationNode> opExp;
-    public ExecLine(int _expressionOffset, CustList<ExecOperationNode> _opExp, int _offsetTrim) {
+    private final boolean callSuper;
+    private final boolean callInts;
+    public ExecLine(int _expressionOffset, CustList<ExecOperationNode> _opExp, int _offsetTrim, boolean _callSuper, boolean _callInts) {
         super(_offsetTrim);
         expressionOffset = _expressionOffset;
         opExp = _opExp;
+        callSuper = _callSuper;
+        callInts = _callInts;
     }
 
     private boolean isCallSuper() {
-        return opExp.last() instanceof ExecSuperInvokingConstructor;
+        return callSuper;
     }
 
     public boolean isCallInts() {
-        ExecOperationNode last_ = opExp.last();
-        return last_ instanceof ExecInterfaceInvokingConstructor;
+        return callInts;
     }
 
     @Override

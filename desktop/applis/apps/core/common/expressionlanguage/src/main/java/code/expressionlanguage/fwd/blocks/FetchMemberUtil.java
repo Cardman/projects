@@ -20,44 +20,44 @@ public final class FetchMemberUtil {
     }
 
     public static void setImplicits(AnaClassArgumentMatching _ana, ImplicitMethods _implicitsOp, ImplicitMethods _implicitsTestOp, Forwards _forwards) {
-        CustList<ClassMethodId> implicits_ = _ana.getImplicits();
-        String owner_ = "";
+        CustList<AnaFormattedRootBlock> implicits_ = _ana.getImplicits();
         ExecTypeFunction conv_ = null;
+        ExecFormattedRootBlock formattedType_ = null;
         if (!implicits_.isEmpty()) {
-            owner_ = implicits_.first().getClassName();
+            formattedType_ = fwdFormatType(implicits_.first(), _forwards);
             conv_ = fetchOvTypeFunction(_ana.getMemberId(), _forwards);
         }
         if (conv_ != null) {
             _implicitsOp.getConverter().add(conv_);
-            _implicitsOp.setOwnerClass(owner_);
+            _implicitsOp.setOwnerClass(formattedType_);
         }
-        CustList<ClassMethodId> implicitsTest_ = _ana.getImplicitsTest();
-        String ownerTest_ = "";
+        CustList<AnaFormattedRootBlock> implicitsTest_ = _ana.getImplicitsTest();
         ExecTypeFunction convTest_ = null;
+        ExecFormattedRootBlock formattedTypeTest_ = null;
         if (!implicitsTest_.isEmpty()) {
-            ownerTest_ = implicitsTest_.first().getClassName();
+            formattedTypeTest_ = fwdFormatType(implicitsTest_.first(), _forwards);
             convTest_ = fetchOvTypeFunction(_ana.getMemberIdTest(), _forwards);
         }
         if (convTest_ != null) {
             _implicitsTestOp.getConverter().add(convTest_);
-            _implicitsTestOp.setOwnerClass(ownerTest_);
+            _implicitsTestOp.setOwnerClass(formattedTypeTest_);
         }
     }
 
     public static ImplicitMethods fetchImplicits(ClassMethodIdMemberIdTypeFct _id, Forwards _forwards) {
         return fetchImplicits(_id.getImplicit(),_id.getMemberId(),_forwards);
     }
-    public static ImplicitMethods fetchImplicits(ClassMethodId _clMet, MemberId _id, Forwards _forwards) {
+    public static ImplicitMethods fetchImplicits(AnaFormattedRootBlock _clMet, MemberId _id, Forwards _forwards) {
         ExecTypeFunction conv_ = null;
-        String converterClass_ = "";
+        ExecFormattedRootBlock formattedType_ = null;
         if (_clMet != null) {
-            converterClass_ = _clMet.getClassName();
+            formattedType_ = fwdFormatType(_clMet, _forwards);
             conv_ = fetchOvTypeFunction(_id, _forwards);
         }
         if (conv_ != null) {
             ImplicitMethods converter_ = new ImplicitMethods();
             converter_.getConverter().add(conv_);
-            converter_.setOwnerClass(converterClass_);
+            converter_.setOwnerClass(formattedType_);
             return converter_;
         }
         return null;
@@ -150,16 +150,22 @@ public final class FetchMemberUtil {
         return null;
     }
 
-    public static ExecTypeFunction fetchTypeCtor(MemberId _id, Forwards _forwards) {
+    public static ExecTypeFunction fetchPossibleTypeCtor(MemberId _id, Forwards _forwards) {
         int rootNumber_ = _id.getRootNumber();
-        int memberNumber_ = _id.getMemberNumber();
         if (_forwards.isMember(rootNumber_)) {
             Members mem_ = _forwards.getMember(rootNumber_);
+            int memberNumber_ = _id.getMemberNumber();
             return new ExecTypeFunction(mem_.getRootBlock(),fetchCtorFunction(mem_,memberNumber_));
         }
         return null;
     }
 
+    public static ExecTypeFunction fetchTypeCtor(MemberId _id, Forwards _forwards) {
+        int rootNumber_ = _id.getRootNumber();
+        Members mem_ = _forwards.getMember(rootNumber_);
+        int memberNumber_ = _id.getMemberNumber();
+        return new ExecTypeFunction(mem_.getRootBlock(),fetchCtorFunction(mem_,memberNumber_));
+    }
     public static ExecClassArgumentMatching toExec(AnaClassArgumentMatching _cl) {
         return new ExecClassArgumentMatching(_cl.getNames(),_cl.getUnwrapObjectNb(),
                 _cl.isCheckOnlyNullPe(),_cl.isConvertToString());

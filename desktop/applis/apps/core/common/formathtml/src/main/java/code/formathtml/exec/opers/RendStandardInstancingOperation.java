@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecRecordBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.InstanceParamChecker;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.*;
@@ -23,11 +24,14 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     private final ExecInstancingStdContent instancingStdContent;
 
     private final ExecTypeFunction pair;
+    private final ExecFormattedRootBlock formattedType;
+
     public RendStandardInstancingOperation(ExecTypeFunction _pair, ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
         super(_content, _intermediateDottedOperation);
         pair = _pair;
         instancingCommonContent = _instancingCommonContent;
         instancingStdContent = _instancingStdContent;
+        formattedType = _instancingCommonContent.getFormattedType();
     }
 
     public RendStandardInstancingOperation(ExecOperationContent _content, ExecInstancingCommonContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent, ExecTypeFunction _pair) {
@@ -35,14 +39,15 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         pair = _pair;
         instancingCommonContent = _instancingCommonContent;
         instancingStdContent = _instancingStdContent;
+        formattedType = _instancingCommonContent.getFormattedType();
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
-        String className_ = instancingCommonContent.getClassName();
-        String lastType_ = ExecInherits.quickFormat(pair.getType(),className_, instancingCommonContent.getLastType());
+        String className_ = formattedType.getFormatted();
+        String lastType_ = ExecInherits.quickFormat(formattedType, instancingCommonContent.getLastType());
         Argument result_;
         if (pair.getType() instanceof ExecRecordBlock) {
             CustList<Argument> arguments_ = getArguments(_nodes, this);

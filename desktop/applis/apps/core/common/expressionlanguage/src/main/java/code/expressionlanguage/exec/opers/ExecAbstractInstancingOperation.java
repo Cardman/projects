@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.opers;
 
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -10,6 +11,7 @@ public abstract class ExecAbstractInstancingOperation extends
     private final boolean initBefore;
     private final ExecTypeFunction pair;
     private final ExecInstancingCommonContent instancingCommonContent;
+    private final ExecFormattedRootBlock formattedType;
 
     protected ExecAbstractInstancingOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation,
                                               boolean _initBefore, ExecTypeFunction _pair, ExecInstancingCommonContent _instancingCommonContent) {
@@ -17,6 +19,7 @@ public abstract class ExecAbstractInstancingOperation extends
         initBefore = _initBefore;
         pair = _pair;
         instancingCommonContent = _instancingCommonContent;
+        formattedType = _instancingCommonContent.getFormattedType();
     }
 
     public boolean isInitBefore() {
@@ -25,6 +28,10 @@ public abstract class ExecAbstractInstancingOperation extends
 
     public ExecTypeFunction getPair() {
         return pair;
+    }
+
+    public ExecFormattedRootBlock getFormattedType() {
+        return formattedType;
     }
 
     public ExecInstancingCommonContent getInstancingCommonContent() {

@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -30,12 +31,14 @@ public final class MetaInfoUtil {
             if (!StringUtil.quickEq(k_, base_)) {
                 continue;
             }
-            return getCustomClassMetaInfo(c, _name, _context);
+            return getCustomClassMetaInfo(new ExecFormattedRootBlock(c,_name), _context);
         }
         return new ClassMetaInfo(_context.getStandards().getContent().getCoreNames().getAliasVoid(),_context, ClassCategory.VOID,"");
     }
 
-    public static ClassMetaInfo getCustomClassMetaInfo(ExecRootBlock _type, String _name, ContextEl _context) {
+    public static ClassMetaInfo getCustomClassMetaInfo(ExecFormattedRootBlock _formatted, ContextEl _context) {
+        ExecRootBlock type_ = _formatted.getRootBlock();
+        String name_ = _formatted.getFormatted();
         CustList<MethodMetaInfo> infos_;
         infos_ = new CustList<MethodMetaInfo>();
         CustList<MethodMetaInfo> infosBlock_;
@@ -52,131 +55,131 @@ public final class MetaInfoUtil {
         infosFields_ = new CustList<FieldMetaInfo>();
         CustList<ConstructorMetaInfo> infosConst_;
         infosConst_ = new CustList<ConstructorMetaInfo>();
-        String fileName_ = _type.getFile().getFileName();
+        String fileName_ = type_.getFile().getFileName();
         StringList inners_ = new StringList();
         boolean existCtor_ = false;
-        for (ExecRootBlock b: _type.getChildrenTypes()) {
+        for (ExecRootBlock b: type_.getChildrenTypes()) {
             inners_.add(b.getFullName());
         }
-        for (ExecInfoBlock b: _type.getAllFields()) {
+        for (ExecInfoBlock b: type_.getAllFields()) {
 
             for (String f: b.getFieldName()) {
-                FieldMetaInfo met_ = new FieldMetaInfo(_context,_type,b,_name, f);
+                FieldMetaInfo met_ = new FieldMetaInfo(_context,type_,b,name_, f);
                 infosFields_.add(met_);
             }
         }
-        for (ExecBlock b: _type.getAllFct()) {
+        for (ExecBlock b: type_.getAllFct()) {
             if (b instanceof ExecOverridableBlock) {
                 ExecOverridableBlock method_ = (ExecOverridableBlock) b;
-                MethodMetaInfo met_ = new MethodMetaInfo(_context,_type,method_,_name,method_.getKind() == ExecMethodKind.EXPLICIT_CAST || method_.getKind() == ExecMethodKind.IMPLICIT_CAST
+                MethodMetaInfo met_ = new MethodMetaInfo(_formatted,_context, method_, method_.getKind() == ExecMethodKind.EXPLICIT_CAST || method_.getKind() == ExecMethodKind.IMPLICIT_CAST
                         || method_.getKind() == ExecMethodKind.TRUE_OPERATOR  || method_.getKind() == ExecMethodKind.FALSE_OPERATOR);
                 infos_.add(met_);
                 if (method_.getKind() == ExecMethodKind.EXPLICIT_CAST) {
-                    met_ = new MethodMetaInfo(_context,_type,method_,_name,true);
+                    met_ = new MethodMetaInfo(_formatted,_context, method_, true);
                     infosExplicits_.add(met_);
                 }
                 if (method_.getKind() == ExecMethodKind.IMPLICIT_CAST) {
-                    met_ = new MethodMetaInfo(_context,_type,method_,_name,true);
+                    met_ = new MethodMetaInfo(_formatted,_context, method_, true);
                     infosImplicits_.add(met_);
                 }
                 if (method_.getKind() == ExecMethodKind.TRUE_OPERATOR) {
-                    met_ = new MethodMetaInfo(_context,_type,method_,_name,true);
+                    met_ = new MethodMetaInfo(_formatted,_context, method_, true);
                     infosTrues_.add(met_);
                 }
                 if (method_.getKind() == ExecMethodKind.FALSE_OPERATOR) {
-                    met_ = new MethodMetaInfo(_context,_type,method_,_name,true);
+                    met_ = new MethodMetaInfo(_formatted,_context, method_, true);
                     infosFalses_.add(met_);
                 }
             }
             if (b instanceof ExecInitBlock) {
                 ExecInitBlock method_ = (ExecInitBlock) b;
-                MethodMetaInfo met_ = new MethodMetaInfo(_context,_type,method_,_name);
+                MethodMetaInfo met_ = new MethodMetaInfo(_formatted,_context,method_);
                 infos_.add(met_);
-                met_ = new MethodMetaInfo(_context,_type,method_,_name);
+                met_ = new MethodMetaInfo(_formatted,_context,method_);
                 infosBlock_.add(met_);
             }
             if (b instanceof ExecAnnotationMethodBlock) {
                 ExecAnnotationMethodBlock method_ = (ExecAnnotationMethodBlock) b;
-                MethodMetaInfo met_ = new MethodMetaInfo(_type,method_,_name);
+                MethodMetaInfo met_ = new MethodMetaInfo(_formatted, method_);
                 infos_.add(met_);
             }
             if (b instanceof ExecConstructorBlock) {
                 existCtor_ = true;
                 ExecConstructorBlock method_ = (ExecConstructorBlock) b;
-                ConstructorMetaInfo met_ = new ConstructorMetaInfo(_type,method_,_context,_name);
+                ConstructorMetaInfo met_ = new ConstructorMetaInfo(_formatted, method_,_context);
                 infosConst_.add(met_);
             }
         }
         if (!existCtor_) {
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_type,null,_context,_name);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_formatted, null,_context);
             infosConst_.add(met_);
         }
-        if (_type instanceof ExecEnumBlock) {
+        if (type_ instanceof ExecEnumBlock) {
             String valueOf_ = _context.getStandards().getContent().getPredefTypes().getAliasEnumPredValueOf();
             String values_ = _context.getStandards().getContent().getPredefTypes().getAliasEnumValues();
             String string_ = _context.getStandards().getContent().getCharSeq().getAliasString();
             MethodId id_ = new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_));
-            String ret_ = _type.getWildCardString();
-            MethodMetaInfo met_ = new MethodMetaInfo(_type,_name, id_, ret_);
+            String ret_ = type_.getWildCardString();
+            MethodMetaInfo met_ = new MethodMetaInfo(_formatted, id_, ret_);
             infos_.add(met_);
             id_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
             ret_ = StringExpUtil.getPrettyArrayType(ret_);
-            met_ = new MethodMetaInfo(_type,_name, id_, ret_);
+            met_ = new MethodMetaInfo(_formatted, id_, ret_);
             infos_.add(met_);
         }
-        ExecRootBlock par_ = _type.getParentType();
+        ExecRootBlock par_ = type_.getParentType();
         String format_;
         if (par_ != null) {
             String gene_ = par_.getGenericString();
-            if (ExecInherits.correctNbParameters(_name, _context)) {
-                format_ = ExecInherits.quickFormat(_type,_name, gene_);
+            if (ExecInherits.correctNbParameters(name_, _context)) {
+                format_ = ExecInherits.quickFormat(_formatted, gene_);
             } else {
                 format_ = par_.getFullName();
             }
         } else {
             format_ = "";
         }
-        AccessEnum acc_ = _type.getAccess();
-        boolean st_ = _type.withoutInstance();
-        if (_type instanceof ExecInterfaceBlock) {
-            ClassMetaInfo cl_ = new ClassMetaInfo(_name, _type.getImportedDirectGenericSuperInterfaces(), format_, inners_,
+        AccessEnum acc_ = type_.getAccess();
+        boolean st_ = type_.withoutInstance();
+        if (type_ instanceof ExecInterfaceBlock) {
+            ClassMetaInfo cl_ = new ClassMetaInfo(name_, type_.getImportedDirectGenericSuperInterfaces(), format_, inners_,
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
             cl_.setFileName(fileName_);
-            cl_.setRootBlock(_type);
+            cl_.setRootBlock(type_);
             cl_.getBlocsInfos().addAllElts(infosBlock_);
             return cl_;
         }
-        if (_type instanceof ExecAnnotationBlock) {
-            ClassMetaInfo cl_ = new ClassMetaInfo(_name, new StringList(), format_, inners_,
+        if (type_ instanceof ExecAnnotationBlock) {
+            ClassMetaInfo cl_ = new ClassMetaInfo(name_, new StringList(), format_, inners_,
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
             cl_.setFileName(fileName_);
-            cl_.setRootBlock(_type);
+            cl_.setRootBlock(type_);
             cl_.getBlocsInfos().addAllElts(infosBlock_);
             return cl_;
         }
         ClassCategory cat_ = ClassCategory.CLASS;
-        if (_type instanceof ExecEnumBlock) {
+        if (type_ instanceof ExecEnumBlock) {
             cat_ = ClassCategory.ENUM;
         }
         boolean abs_ = true;
         boolean final_ = true;
-        if (_type instanceof ExecClassBlock) {
-            abs_ = ((ExecClassBlock)_type).isAbstractType();
-            final_ = ((ExecClassBlock)_type).isFinalType();
-        } else if (_type instanceof ExecRecordBlock) {
+        if (type_ instanceof ExecClassBlock) {
+            abs_ = ((ExecClassBlock)type_).isAbstractType();
+            final_ = ((ExecClassBlock)type_).isFinalType();
+        } else if (type_ instanceof ExecRecordBlock) {
             abs_ = false;
-            if (((ExecRecordBlock)_type).isMutable()) {
+            if (((ExecRecordBlock)type_).isMutable()) {
                 cat_ = ClassCategory.SPE_MU_CLASS;
             } else {
                 cat_ = ClassCategory.SPE_CLASS;
             }
         }
-        String superClass_ = _type.getImportedDirectGenericSuperClass();
-        StringList superInterfaces_ = _type.getImportedDirectGenericSuperInterfaces();
-        ClassMetaInfo cl_ = new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
+        String superClass_ = type_.getImportedDirectGenericSuperClass();
+        StringList superInterfaces_ = type_.getImportedDirectGenericSuperInterfaces();
+        ClassMetaInfo cl_ = new ClassMetaInfo(name_, superClass_, superInterfaces_, format_, inners_,
                 infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, cat_, abs_, st_, final_, acc_);
         cl_.setFileName(fileName_);
-        cl_.setRootBlock(_type);
+        cl_.setRootBlock(type_);
         cl_.getBlocsInfos().addAllElts(infosBlock_);
         return cl_;
     }

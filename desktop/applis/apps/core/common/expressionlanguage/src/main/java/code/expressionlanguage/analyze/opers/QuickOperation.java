@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -58,7 +59,7 @@ public abstract class QuickOperation extends MethodOperation {
         if (opConv_ != null) {
             fct.infos(opConv_,_page);
             okNum = true;
-            ClassMethodId test_ = opConv_.getTest();
+            AnaFormattedRootBlock test_ = opConv_.getFormattedTypeTest();
             if (test_ == null) {
                 return;
             }

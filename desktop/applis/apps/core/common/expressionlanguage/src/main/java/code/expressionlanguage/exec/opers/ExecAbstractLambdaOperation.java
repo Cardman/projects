@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.opers;
 
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
@@ -21,7 +22,7 @@ public abstract class ExecAbstractLambdaOperation extends ExecLeafOperation impl
         return lambdaCommonContent;
     }
 
-    public String getFoundClass() {
-        return lambdaCommonContent.getFoundClass();
+    public ExecFormattedRootBlock getFoundClass() {
+        return lambdaCommonContent.getFormattedType();
     }
 }

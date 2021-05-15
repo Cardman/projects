@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -78,7 +79,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             feed_ = MethodId.to(idClass_, id_.getConstraints());
         }
         String clCurName_ = from.getName();
-        invokingConstructorContent.setClassFromName(clCurName_);
+        invokingConstructorContent.setFormattedType(new AnaFormattedRootBlock(type,clCurName_));
         String id_ = StringExpUtil.getIdFromAllTypes(clCurName_);
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {

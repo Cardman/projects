@@ -6,6 +6,7 @@ import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -57,6 +58,9 @@ public final class StackCall {
         callingState = null;
     }
 
+    public ExecFormattedRootBlock formatVarType(ExecFormattedRootBlock _varType) {
+        return new ExecFormattedRootBlock(_varType.getRootBlock(), formatVarType(_varType.getFormatted()));
+    }
     public String formatVarType(String _varType) {
         return getLastPage().formatVarType(_varType);
     }

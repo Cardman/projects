@@ -398,7 +398,7 @@ public final class ResolvingImportTypes {
                     if (!StringUtil.quickEq(m.getFieldName(), _method.trim())) {
                         continue;
                     }
-                    addImport(_methods,s, new ImportedField(_import, m.getImportedClassName(),true,-1));
+                    addImport(_methods,s, new ImportedField(_import, m.getImportedClassName(),true,-1,""));
                 }
             }
             if (super_ instanceof RootBlock){
@@ -419,8 +419,7 @@ public final class ResolvingImportTypes {
                     if (!ContextUtil.canAccess(_glClass, a_, _page)) {
                         continue;
                     }
-                    ImportedField value_ = new ImportedField(_import, e.getImportedClassName(), e.isFinalField(), v_);
-                    value_.setFileName(e.getFile().getFileName());
+                    ImportedField value_ = new ImportedField(_import, e.getImportedClassName(), e.isFinalField(), v_,e.getFile().getFileName());
                     value_.memberId(cust_.getNumberAll(),e.getFieldNumber());
                     value_.setFieldType(cust_);
                     addImport(_methods,s, value_);
