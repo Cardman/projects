@@ -23,15 +23,15 @@ public class DefaultInitializer implements Initializer {
 
     @Override
     public final Struct processInit(ContextEl _context, Struct _parent,
-                                    ExecFormattedRootBlock _className, ExecRootBlock _rootBlock,String _fieldName, int _ordinal) {
-        CustList<ClassFieldStruct> fields_ = feedFields(_context, _className,_rootBlock);
+                                    ExecFormattedRootBlock _className, String _fieldName, int _ordinal) {
+        CustList<ClassFieldStruct> fields_ = feedFields(_context, _className);
         return init(_context, _parent, _className, _fieldName, _ordinal, fields_);
     }
 
-    public final CustList<ClassFieldStruct> feedFields(ContextEl _context, ExecFormattedRootBlock _className,ExecRootBlock _rootBlock) {
-        ExecFormattedRootBlock base_ = new ExecFormattedRootBlock(_rootBlock);
+    public final CustList<ClassFieldStruct> feedFields(ContextEl _context, ExecFormattedRootBlock _className) {
+        ExecFormattedRootBlock base_ = new ExecFormattedRootBlock(_className.getRootBlock());
         CustList<ExecFormattedRootBlock> allClasses_ = new CustList<ExecFormattedRootBlock>(base_);
-        allClasses_.addAllElts(_rootBlock.getAllGenericSuperTypes());
+        allClasses_.addAllElts(_className.getRootBlock().getAllGenericSuperTypes());
         CustList<ClassFieldStruct> fields_ = new CustList<ClassFieldStruct>();
         for (ExecFormattedRootBlock c: allClasses_) {
             String preFormatted_ = c.getFormatted();

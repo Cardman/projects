@@ -337,7 +337,7 @@ public abstract class RendDynOperationNode {
         if (!_context.callsOrException(_stackCall)) {
             ArgumentListCall l_ = new ArgumentListCall();
             l_.addAllArgs(args_);
-            parameters_ = ExecTemplates.okArgsSet(_c.getType(), _c.getFct(), _owner,null, l_, _context, _stackCall);
+            parameters_ = ExecTemplates.okArgsSet(_c.getFct(), _owner,null, l_, _context, _stackCall);
         }
         if (_context.callsOrException(_stackCall)) {
             return null;

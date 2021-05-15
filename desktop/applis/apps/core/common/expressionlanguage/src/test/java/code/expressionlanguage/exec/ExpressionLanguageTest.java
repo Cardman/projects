@@ -6539,7 +6539,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody(_className);
-        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), classBody_, "", -1);
+        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), "", -1);
         ExecFieldBlock f_ = fetchField(classBody_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         addImportingPage(cont_, stackCall_);
@@ -6560,7 +6560,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody(_className);
-        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), classBody_, "", -1);
+        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), "", -1);
         ExecFieldBlock f_ = fetchField(classBody_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         addImportingPage(cont_, stackCall_);
@@ -6582,7 +6582,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody(_className);
-        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), classBody_, "", -1);
+        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), "", -1);
         ExecFieldBlock f_ = fetchField(classBody_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         addImportingPage(cont_, stackCall_);

@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.blocks.WithCache;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -27,7 +26,7 @@ public final class ShownCache extends Cache {
         }
     }
 
-    private void setCache(ExecRootBlock _rootBlock, ExecFormattedRootBlock _globalClass, ContextEl _context, StackCall _stackCall) {
+    private void setCache(ExecFormattedRootBlock _globalClass, ContextEl _context, StackCall _stackCall) {
         int i_ = 0;
         for (NameAndType v: cacheInfo.getCacheLocalNames()) {
             String cl_ = ExecInherits.quickFormat(_globalClass, v.getType());
@@ -44,8 +43,8 @@ public final class ShownCache extends Cache {
             i_++;
         }
     }
-    public Struct checkCache(ExecRootBlock _rootBlock, ExecFormattedRootBlock _classNameFound, ContextEl _context, StackCall _stackCall) {
-        setCache(_rootBlock, _classNameFound, _context, _stackCall);
+    public Struct checkCache(ExecFormattedRootBlock _classNameFound, ContextEl _context, StackCall _stackCall) {
+        setCache(_classNameFound, _context, _stackCall);
         for (NamedWrapper v: locWrappers()) {
             AbstractWrapper localVariable_ = v.getWrapper();
             Struct struct_ = ExecTemplates.checkObjectEx(v.getClassName(), Argument.getNull(localVariable_.getValue(_stackCall, _context)).getClassName(_context), _context, _stackCall);

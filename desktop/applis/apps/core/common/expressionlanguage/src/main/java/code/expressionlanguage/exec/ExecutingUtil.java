@@ -134,7 +134,7 @@ public final class ExecutingUtil {
         Struct str_ = NullStruct.NULL_VALUE;
         String fieldName_ = _e.getFieldName();
         int ordinal_ = _e.getChildIndex();
-        Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_,type_, fieldName_, ordinal_));
+        Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_, fieldName_, ordinal_));
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
         ExecFileBlock file_ = type_.getFile();
@@ -154,7 +154,6 @@ public final class ExecutingUtil {
     }
     public static CallConstructorPageEl createNewInstancing(ContextEl _context, CustomFoundConstructor _e) {
         ExecFormattedRootBlock cl_ = _e.getClassName();
-        ExecRootBlock type_ = _e.getPair().getType();
         Parameters args_ = _e.getArguments();
         Argument global_ = _e.getCurrentObject();
         CallConstructorPageEl page_ = new CallConstructorPageEl();
@@ -164,7 +163,7 @@ public final class ExecutingUtil {
         }
         String fieldName_ = _e.getFieldName();
         int ordinal_ = _e.getChildIndex();
-        Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_,type_, fieldName_, ordinal_));
+        Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_, fieldName_, ordinal_));
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
         setInstanciationInfos(_context,page_,cl_, args_, _e.getPair());

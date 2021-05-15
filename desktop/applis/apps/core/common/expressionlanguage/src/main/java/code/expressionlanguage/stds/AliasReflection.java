@@ -1265,7 +1265,7 @@ public final class AliasReflection {
                 Initializer in_ = _cont.getInit();
                 String genStr_ = root_.getGenericString();
                 String form_ = ExecInherits.quickFormat(formType_, genStr_);
-                par_ = in_.processInit(_cont, par_, new ExecFormattedRootBlock(root_, form_),root_, "", 0);
+                par_ = in_.processInit(_cont, par_, new ExecFormattedRootBlock(root_, form_), "", 0);
                 result_.setResult(par_);
                 return result_;
             }
@@ -1294,7 +1294,7 @@ public final class AliasReflection {
             for (ExecRootBlock r: needRoot_.mid(start_)) {
                 String genStr_ = r.getGenericString();
                 String form_ = ExecInherits.quickFormat(formType_, genStr_);
-                parent_ = in_.processInit(_cont, parent_, new ExecFormattedRootBlock(r,form_),r, "", 0);
+                parent_ = in_.processInit(_cont, parent_, new ExecFormattedRootBlock(r,form_), "", 0);
             }
             result_.setResult(parent_);
             return result_;

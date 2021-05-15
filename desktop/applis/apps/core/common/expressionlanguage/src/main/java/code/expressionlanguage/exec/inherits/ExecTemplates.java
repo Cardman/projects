@@ -281,15 +281,15 @@ public final class ExecTemplates {
         return ex_;
     }
 
-    public static Parameters okArgsSet(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, StackCall _stackCall) {
+    public static Parameters okArgsSet(ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, StackCall _stackCall) {
         Parameters p_ = new Parameters();
-        possibleCheck(_rootBlock, _classNameFound, _cache, _conf, _stackCall, p_);
+        possibleCheck(_classNameFound, _cache, _conf, _stackCall, p_);
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        ParametersTypes params_ = fetchParamTypes(_rootBlock, _id, _classNameFound);
+        ParametersTypes params_ = fetchParamTypes(_id, _classNameFound);
         checkNb(_conf, _stackCall, p_, argumentWrappers_, params_);
         CustList<Struct> values_ = checkArgs(_conf, _stackCall, p_, argumentWrappers_, params_);
         checkArrVararg(_conf, _stackCall, p_, params_, values_);
-        procRight(_rootBlock, _id, _classNameFound, _conf, _firstArgs.getRight(), _stackCall, p_);
+        procRight(_id, _classNameFound, _conf, _firstArgs.getRight(), _stackCall, p_);
         if (p_.getError() != null) {
             _stackCall.setCallingState(new CustomFoundExc(p_.getError()));
         }
@@ -302,7 +302,7 @@ public final class ExecTemplates {
         ExecFormattedRootBlock glClass_ = last_.getGlobalClass();
         ExecRootBlock type_ = last_.getBlockRootType();
         if (_id instanceof ExecSwitchInstanceMethod) {
-            Parameters out_ = okArgsExSw(type_, _id, glClass_, new HiddenCache(last_), _conf, _stackCall, _value);
+            Parameters out_ = okArgsExSw(_id, glClass_, new HiddenCache(last_), _conf, _stackCall, _value);
             if (out_.getError() == null) {
                 _stackCall.setCallingState(new CustomFoundSwitch(instance_, glClass_, type_, _id, out_.getCache(), _value));
             } else {
@@ -313,7 +313,7 @@ public final class ExecTemplates {
         _stackCall.setCallingState(new CustomFoundSwitch(instance_,glClass_,type_,_id, new HiddenCache(last_),_value));
     }
 
-    public static Parameters okArgsSetSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments) {
+    public static Parameters okArgsSetSw(ExecAbstractSwitchMethod _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments) {
         if (_arguments.isEmpty()) {
             Parameters p_ = new Parameters();
             LgNames stds_ = _conf.getStandards();
@@ -324,7 +324,7 @@ public final class ExecTemplates {
             p_.setError(error_);
             return p_;
         }
-        Parameters ex_ = okArgsExSw(_rootBlock,_id, _classNameFound,_cache, _conf, _stackCall, _arguments.first());
+        Parameters ex_ = okArgsExSw(_id, _classNameFound,_cache, _conf, _stackCall, _arguments.first());
         if (ex_.getError() != null) {
             _stackCall.setCallingState(new CustomFoundExc(ex_.getError()));
         }
@@ -452,7 +452,7 @@ public final class ExecTemplates {
         }
     }
 
-    private static void procRight(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound, ContextEl _conf, Argument _right, StackCall _stackCall, Parameters _p) {
+    private static void procRight(ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound, ContextEl _conf, Argument _right, StackCall _stackCall, Parameters _p) {
         if (_p.getError() != null) {
             return;
         }
@@ -470,9 +470,9 @@ public final class ExecTemplates {
         }
     }
 
-    private static Parameters okArgsExSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Argument _value) {
+    private static Parameters okArgsExSw(ExecAbstractSwitchMethod _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Argument _value) {
         Parameters p_ = new Parameters();
-        possibleCheck(_rootBlock, _classNameFound, _cache, _conf, _stackCall, p_);
+        possibleCheck(_classNameFound, _cache, _conf, _stackCall, p_);
         if (p_.getError() != null) {
             return p_;
         }
@@ -488,10 +488,10 @@ public final class ExecTemplates {
         return p_;
     }
 
-    private static void possibleCheck(ExecRootBlock _rootBlock, ExecFormattedRootBlock _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Parameters _p) {
+    private static void possibleCheck(ExecFormattedRootBlock _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Parameters _p) {
         if (_cache != null) {
             _p.setCache(_cache);
-            Struct err_ = _cache.checkCache(_rootBlock, _classNameFound, _conf, _stackCall);
+            Struct err_ = _cache.checkCache(_classNameFound, _conf, _stackCall);
             if (err_ != null) {
                 _p.setError(err_);
             }
@@ -521,7 +521,7 @@ public final class ExecTemplates {
         return mess_;
     }
 
-    private static ParametersTypes fetchParamTypes(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound) {
+    private static ParametersTypes fetchParamTypes(ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound) {
         ParametersTypes parametersTypes_ = new ParametersTypes();
         StringList paramsAll_ = new StringList();
         StringList namesAll_ = new StringList();
@@ -583,8 +583,7 @@ public final class ExecTemplates {
 
     public static Parameters wrapAndCall(ExecTypeFunction _pair, ExecFormattedRootBlock _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList) {
         ExecNamedFunctionBlock fct_ = _pair.getFct();
-        ExecRootBlock type_ = _pair.getType();
-        Parameters p_ = okArgsSet(type_,fct_,_formatted,null,_argList,_conf,_stackCall);
+        Parameters p_ = okArgsSet(fct_,_formatted,null,_argList,_conf,_stackCall);
         if (p_.getError() == null) {
             _stackCall.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, p_));
         }

@@ -90,7 +90,7 @@ public abstract class LgNames implements BuildableLgNames {
         return new FunctionalInstance(_className.getFormatted(),_functional, _named);
     }
     public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
-        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBock);
+        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
         return new FullFunctionalInstance(_className.getFormatted(),_functional,fs_, _named);
     }
     public StringMap<StandardType> getStandards() {

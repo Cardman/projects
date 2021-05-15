@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -16,7 +15,7 @@ public abstract class Cache {
     private final CustList<NamedWrapper> localWrappers = new CustList<NamedWrapper>();
     private final CustList<NamedLoopVariable> loopVariables = new CustList<NamedLoopVariable>();
 
-    public abstract Struct checkCache(ExecRootBlock _rootBlock, ExecFormattedRootBlock _classNameFound, ContextEl _context, StackCall _stackCall);
+    public abstract Struct checkCache(ExecFormattedRootBlock _classNameFound, ContextEl _context, StackCall _stackCall);
     public StringList getLocalWrappers() {
         StringList list_ = new StringList();
         for (NamedWrapper n: localWrappers) {

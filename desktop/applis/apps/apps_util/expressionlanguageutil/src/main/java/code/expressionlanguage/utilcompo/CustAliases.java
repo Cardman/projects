@@ -446,7 +446,7 @@ public final class CustAliases {
     }
 
     public static AbstractFunctionalInstance newFunctional(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
-        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBlock);
+        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
         return new RunnableFunctionalInstance(_className.getFormatted(),_functional,fs_,_contextEl, _named);
     }
 

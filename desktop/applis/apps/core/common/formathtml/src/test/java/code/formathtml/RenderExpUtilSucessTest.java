@@ -5882,7 +5882,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Struct init(AnalyzedTestConfiguration _context, String _className) {
         ExecRootBlock classBody_ = _context.getContext().getClasses().getClassBody(_className);
-        return _context.getContext().getInit().processInit(_context.getContext(), NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), classBody_, "", -1);
+        return _context.getContext().getInit().processInit(_context.getContext(), NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), "", -1);
     }
 
     private static Argument processElNormal3(String _el, StringMap<String> _files, String... _types) {

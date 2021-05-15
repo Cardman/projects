@@ -81,7 +81,7 @@ public final class CustContextFactory {
         String infoTest_ = _definedLgNames.getCustAliases().getAliasInfoTest();
         ExecRootBlock classBody_ = rCont_.getClasses().getClassBody(infoTest_);
         Struct infoStruct_ = rCont_.getInit().processInit(rCont_,
-                NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,infoTest_), classBody_, "", -1);
+                NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,infoTest_), "", -1);
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
         ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,rCont_,_progressingTests,_definedLgNames);

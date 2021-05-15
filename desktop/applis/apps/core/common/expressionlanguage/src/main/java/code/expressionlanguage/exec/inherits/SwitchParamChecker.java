@@ -32,6 +32,6 @@ public final class SwitchParamChecker extends AbstractFormatParamChecker {
 
     @Override
     public Parameters check(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall) {
-        return ExecTemplates.okArgsSetSw(type, method, _classFormat, _cache, _conf, _stackCall, args);
+        return ExecTemplates.okArgsSetSw(method, _classFormat, _cache, _conf, _stackCall, args);
     }
 }

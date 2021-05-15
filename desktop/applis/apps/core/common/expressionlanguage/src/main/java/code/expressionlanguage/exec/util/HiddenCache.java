@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.util;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
@@ -43,7 +42,7 @@ public final class HiddenCache extends Cache {
             }
         }
     }
-    public Struct checkCache(ExecRootBlock _rootBlock, ExecFormattedRootBlock _classNameFound, ContextEl _context, StackCall _stackCall) {
+    public Struct checkCache(ExecFormattedRootBlock _classNameFound, ContextEl _context, StackCall _stackCall) {
         return null;
     }
 }

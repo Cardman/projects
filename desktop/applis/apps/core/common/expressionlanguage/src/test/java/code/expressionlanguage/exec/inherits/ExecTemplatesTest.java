@@ -62,9 +62,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext c_ = validated(files_);
         ExecRootBlock classBody_ = c_.getClasses().getClassBody("pkg.Ex");
-        Struct par_  = c_.getInit().processInit(c_.getContext(),NullStruct.NULL_VALUE,new ExecFormattedRootBlock(classBody_,"pkg.Ex"), classBody_,"",-1);
+        Struct par_  = c_.getInit().processInit(c_.getContext(),NullStruct.NULL_VALUE,new ExecFormattedRootBlock(classBody_,"pkg.Ex"), "",-1);
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Ex..Inner");
-        Struct in_ = c_.getInit().processInit(c_.getContext(),par_,new ExecFormattedRootBlock(root_,"pkg.Ex..Inner"), root_,"",-1);
+        Struct in_ = c_.getInit().processInit(c_.getContext(),par_,new ExecFormattedRootBlock(root_,"pkg.Ex..Inner"), "",-1);
         ExecTemplates.getParent(0,"java.lang.Integer",in_,c_.getContext(), c_.getStackCall());
         assertNotNull(c_.getContext());
     }
@@ -80,10 +80,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext c_ = validated(files_);
         ExecRootBlock classBody_ = c_.getClasses().getClassBody("pkg.Ex");
-        Struct par_  = c_.getInit().processInit(c_.getContext(),NullStruct.NULL_VALUE,new ExecFormattedRootBlock(classBody_,"pkg.Ex"), classBody_,"",-1);
+        Struct par_  = c_.getInit().processInit(c_.getContext(),NullStruct.NULL_VALUE,new ExecFormattedRootBlock(classBody_,"pkg.Ex"), "",-1);
         ExecRootBlock classBody2_ = c_.getClasses().getClassBody("pkg.Ex..Inner");
-        Struct in_ = c_.getInit().processInit(c_.getContext(),par_,new ExecFormattedRootBlock(classBody2_,"pkg.Ex..Inner"), classBody2_,"",-1);
-        Struct inTwo_ = c_.getInit().processInit(c_.getContext(),in_,new ExecFormattedRootBlock(classBody2_,"pkg.Ex..Inner"), classBody2_,"",-1);
+        Struct in_ = c_.getInit().processInit(c_.getContext(),par_,new ExecFormattedRootBlock(classBody2_,"pkg.Ex..Inner"), "",-1);
+        Struct inTwo_ = c_.getInit().processInit(c_.getContext(),in_,new ExecFormattedRootBlock(classBody2_,"pkg.Ex..Inner"), "",-1);
         ExecTemplates.getParent(0,"java.lang.Integer",inTwo_,c_.getContext(), c_.getStackCall());
         assertNotNull(c_.getContext());
     }
@@ -504,7 +504,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext cont_ = validated(files_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, cont_.getContext());
-        assertNotNull(ExecTemplates.okArgsSetSw(null,null, new ExecFormattedRootBlock(null,""), null, cont_.getContext(), stackCall_, new CustList<Argument>()).getError());
+        assertNotNull(ExecTemplates.okArgsSetSw(null, new ExecFormattedRootBlock(null,""), null, cont_.getContext(), stackCall_, new CustList<Argument>()).getError());
         assertNotNull(getTrueException(stackCall_));
     }
     @Test
@@ -581,7 +581,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList(""),false);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        Struct atr_ = cont_.getInit().processInit(cont_.getContext(), NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), classBody_, "", -1);
+        Struct atr_ = cont_.getInit().processInit(cont_.getContext(), NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
         assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_.getContext(), cont_.getStackCall()));
@@ -597,7 +597,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList("pkg.Ex"),false);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        Struct atr_ = cont_.getInit().processInit(cont_.getContext(), NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), classBody_, "", -1);
+        Struct atr_ = cont_.getInit().processInit(cont_.getContext(), NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
         assertNotNull(ExecTemplates.okArgsSet(id_, args_, cont_.getContext(), cont_.getStackCall()));
@@ -628,7 +628,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addAllArgs(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_.getContext(), cont_.getStackCall());
+        ExecTemplates.okArgsSet(ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_.getContext(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -644,7 +644,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addAllArgs(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_.getContext(), cont_.getStackCall());
+        ExecTemplates.okArgsSet(ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_.getContext(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -660,7 +660,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addAllArgs(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, null, new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_.getContext(), cont_.getStackCall());
+        ExecTemplates.okArgsSet(null, new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_.getContext(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
     }
     @Test
@@ -676,7 +676,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         l_.addAllArgs(args_);
         StackCall stackCall_ = cont_.getStackCall();
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(classBody_, null, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null, l_, cont_.getContext(), stackCall_);
+        ExecTemplates.okArgsSet(null, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null, l_, cont_.getContext(), stackCall_);
         assertNull(stackCall_.getCallingState());
     }
     @Test
