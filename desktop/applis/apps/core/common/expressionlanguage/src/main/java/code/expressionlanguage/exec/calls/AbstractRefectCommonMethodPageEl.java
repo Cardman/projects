@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecImplicitOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -20,7 +21,7 @@ import code.expressionlanguage.structs.Struct;
 public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPageEl {
 
     private boolean initClass;
-    private String className = "";
+    private ExecFormattedRootBlock className;
     private ExecTypeFunction pair;
 
     private final Argument instance;
@@ -67,11 +68,11 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, metaInfo.getDisplayedString(_context).getInstance(), null_, _stackCall)));
                 return false;
             }
-            String className_ = metaInfo.getFormatted().getFormatted();
+            ExecFormattedRootBlock className_ = metaInfo.getFormatted();
             if (isPolymorph(_context, _stackCall)) {
                 Struct instance_ = instance.getStruct();
                 ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(_context, instance_, metaInfo.getPair());
-                className = polymorph_.getClassName().getFormatted();
+                className = polymorph_.getClassName();
                 pair = polymorph_.getPair();
             } else {
                 className = className_;
@@ -82,7 +83,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         return true;
     }
 
-    String getClassName() {
+    ExecFormattedRootBlock getClassName() {
         return className;
     }
 
@@ -112,7 +113,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stack)));
             return Argument.createVoid();
         }
-        return ExecImplicitOperation.getArgument(getClassName(), _context, _stack, _l);
+        return ExecImplicitOperation.getArgument(getClassName().getFormatted(), _context, _stack, _l);
     }
 
     abstract boolean initType(ContextEl _context, StackCall _stack);

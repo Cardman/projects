@@ -30,13 +30,13 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
         ExecFormattedRootBlock ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, _conf, ownerType_, clArg_));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, ownerType_, clArg_));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, ContextEl _conf, ExecFormattedRootBlock _ownerType,
+    public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, ExecFormattedRootBlock _ownerType,
                                    String _clArg) {
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_conf, null, _common, _meth, _ownerType, _meth.getMethod().getConstraints(), _meth.getPair());
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(null, _common, _meth, _ownerType, _meth.getMethod().getConstraints(), _meth.getPair());
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg, _ownerType.getFormatted());
     }
 

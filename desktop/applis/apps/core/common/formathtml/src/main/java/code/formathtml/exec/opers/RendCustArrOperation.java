@@ -92,9 +92,9 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStackCall);
         int naturalVararg_ = instFctContent.getNaturalVararg();
         ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
-        String classNameFound_ = formattedType_.getFormatted();
+        ExecFormattedRootBlock classNameFound_ = formattedType_;
         Struct argPrev_ = previous_.getStruct();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, argPrev_, _context, _stackCall));
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), formattedType_.getFormatted(), argPrev_, _context, _stackCall));
         Argument result_;
         if (_context.callsOrException(_stackCall)) {
             result_ = new Argument();
@@ -110,7 +110,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             String lastType_ = ExecTemplates.formatType(_context, fct_.getType(), instFctContent.getLastType(), cl_);
             ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _context, pr_, formattedType_, fct_);
             fct_ = polymorph_.getPair();
-            classNameFound_ = polymorph_.getClassName().getFormatted();
+            classNameFound_ = polymorph_.getClassName();
             result_ = new DefaultParamChecker(fct_, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStackCall, _right), MethodAccessKind.INSTANCE, CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _context, _stackCall);
         }
         Argument argres_ = RendDynOperationNode.processCall(result_, _context, _stackCall).getValue();

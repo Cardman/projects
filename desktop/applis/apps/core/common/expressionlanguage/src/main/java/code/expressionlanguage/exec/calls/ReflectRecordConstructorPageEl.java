@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.CustList;
 import code.util.StringMap;
@@ -14,11 +15,11 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
     private boolean calledMethod;
     private final ExecRootBlock root;
     private final StringMap<String> id;
-    private final String className;
+    private final ExecFormattedRootBlock className;
 
     private final CustList<Argument> arguments;
 
-    public ReflectRecordConstructorPageEl(CustList<Argument> _arguments,ExecRootBlock _root,StringMap<String> _id,String _className) {
+    public ReflectRecordConstructorPageEl(CustList<Argument> _arguments, ExecRootBlock _root, StringMap<String> _id, ExecFormattedRootBlock _className) {
         arguments = _arguments;
         root = _root;
         id = _id;
@@ -47,6 +48,6 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
 
     @Override
     protected String getDeclaringClass() {
-        return className;
+        return className.getFormatted();
     }
 }

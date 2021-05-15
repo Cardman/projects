@@ -4,11 +4,12 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 public final class CommonMethodPageEl extends AbstractCommonMethodPageEl {
 
-    public CommonMethodPageEl(Argument _gl, String _glClass) {
+    public CommonMethodPageEl(Argument _gl, ExecFormattedRootBlock _glClass) {
         super(_gl, _glClass);
     }
 

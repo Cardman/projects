@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -111,6 +112,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             }
             rootNumber = g_.getNumberAll();
             instancingAnnotContent.setClassName(realClassName_);
+            instancingAnnotContent.setFormattedType(new AnaFormattedRootBlock(g_,realClassName_));
         }
     }
     public boolean isArray() {

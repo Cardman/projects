@@ -46,15 +46,14 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
-        String className_ = formattedType.getFormatted();
         String lastType_ = ExecInherits.quickFormat(formattedType, instancingCommonContent.getLastType());
         Argument result_;
         if (pair.getType() instanceof ExecRecordBlock) {
             CustList<Argument> arguments_ = getArguments(_nodes, this);
-            _stack.setCallingState(new CustomFoundRecordConstructor(className_, pair,instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
+            _stack.setCallingState(new CustomFoundRecordConstructor(formattedType, pair,instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
             result_ = Argument.createVoid();
         } else {
-            result_ = new InstanceParamChecker(pair, fectchArgs(_nodes, lastType_, instancingCommonContent.getNaturalVararg(), _rendStack, null), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex()).checkParams(className_, previous_, null, _context, _stack);
+            result_ = new InstanceParamChecker(pair, fectchArgs(_nodes, lastType_, instancingCommonContent.getNaturalVararg(), _rendStack, null), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex()).checkParams(formattedType, previous_, null, _context, _stack);
         }
         Argument argres_ = RendDynOperationNode.processCall(result_, _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);

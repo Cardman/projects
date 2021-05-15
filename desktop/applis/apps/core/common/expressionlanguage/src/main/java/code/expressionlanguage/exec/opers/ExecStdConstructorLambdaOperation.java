@@ -33,13 +33,13 @@ public final class ExecStdConstructorLambdaOperation extends ExecAbstractLambdaO
         ExecFormattedRootBlock ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, _conf, ownerType_, realId, clArg_, standardType));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, ownerType_, realId, clArg_, standardType));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(ExecLambdaCommonContent _common, Argument _previous, ContextEl _conf, ExecFormattedRootBlock _ownerType, ConstructorId _realId,
+    public static Struct newLambda(ExecLambdaCommonContent _common, Argument _previous, ExecFormattedRootBlock _ownerType, ConstructorId _realId,
                                    String _clArg, StandardType _standardType) {
-        ConstructorMetaInfo met_ = new ConstructorMetaInfo(_standardType,_conf,_common,_ownerType, _realId);
+        ConstructorMetaInfo met_ = new ConstructorMetaInfo(_standardType, _common,_ownerType, _realId);
         return new LambdaConstructorStruct(met_,_previous,_common,_clArg, _ownerType.getFormatted());
     }
 

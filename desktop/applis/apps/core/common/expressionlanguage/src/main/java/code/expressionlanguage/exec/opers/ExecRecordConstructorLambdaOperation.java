@@ -38,7 +38,7 @@ public final class ExecRecordConstructorLambdaOperation extends ExecAbstractLamb
     public static Struct newLambda(ExecFormattedRootBlock _ownerType,
                                    String _clArg,
                                    ExecRootBlock _root, StringMap<String> _id) {
-        return new LambdaRecordConstructorStruct(_root, _clArg, _ownerType.getFormatted(), _id);
+        return new LambdaRecordConstructorStruct(_root, _clArg, _ownerType, _id);
     }
 
 }

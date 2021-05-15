@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -26,24 +27,24 @@ public final class CastParamChecker extends AbstractParamChecker {
     }
 
     @Override
-    public String checkFormmattedParams(String _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_classNameFound, _conf);
+    public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
+        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_classNameFound.getFormatted(), _conf);
         if (res_.isEmpty()) {
             String null_;
             null_ = _conf.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, _classNameFound, null_, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, _classNameFound.getFormatted(), null_, _stackCall)));
         }
         return _classNameFound;
     }
 
     @Override
-    public Argument redirect(ContextEl _conf, String _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
+    public Argument redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
         _stackCall.setCallingState(new CustomFoundMethod(_classNameFound, pair, _classFormat.getParameters()));
         return Argument.createVoid();
     }
 
     @Override
-    public Parameters check(String _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall) {
+    public Parameters check(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall) {
         return ExecTemplates.okArgsSet(type, method, _classFormat, _cache, args, _conf, _stackCall);
     }
 }

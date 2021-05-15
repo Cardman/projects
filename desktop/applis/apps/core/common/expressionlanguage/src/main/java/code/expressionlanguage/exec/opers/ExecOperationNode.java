@@ -390,7 +390,7 @@ public abstract class ExecOperationNode {
         }
         Parameters parameters_ = new Parameters();
         Argument out_ = new Argument(struct_);
-        _stackCall.setCallingState(new CustomFoundMethod(out_,clCall_, p_, parameters_));
+        _stackCall.setCallingState(new CustomFoundMethod(out_,new ExecFormattedRootBlock(p_.getType(),clCall_), p_, parameters_));
         return out_;
     }
 

@@ -6,10 +6,11 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
 public final class CommonSwitchMethodPageEl extends AbstractCommonMethodPageEl {
     private final Argument value;
-    public CommonSwitchMethodPageEl(Argument _gl, String _glClass, Argument _value) {
+    public CommonSwitchMethodPageEl(Argument _gl, ExecFormattedRootBlock _glClass, Argument _value) {
         super(_gl, _glClass);
         value = _value;
     }

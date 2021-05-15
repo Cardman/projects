@@ -337,12 +337,12 @@ public abstract class RendDynOperationNode {
         if (!_context.callsOrException(_stackCall)) {
             ArgumentListCall l_ = new ArgumentListCall();
             l_.addAllArgs(args_);
-            parameters_ = ExecTemplates.okArgsSet(_c.getType(), _c.getFct(), _owner.getFormatted(),null, l_, _context, _stackCall);
+            parameters_ = ExecTemplates.okArgsSet(_c.getType(), _c.getFct(), _owner,null, l_, _context, _stackCall);
         }
         if (_context.callsOrException(_stackCall)) {
             return null;
         }
-        Argument out_ = ProcessMethod.calculateArgument(Argument.createVoid(),_owner.getFormatted(),_c, parameters_, _context, _stackCall).getValue();
+        Argument out_ = ProcessMethod.calculateArgument(Argument.createVoid(),_owner,_c, parameters_, _context, _stackCall).getValue();
         if (_context.callsOrException(_stackCall)) {
             return null;
         }

@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.structs.*;
@@ -85,12 +86,12 @@ public abstract class LgNames implements BuildableLgNames {
         return calculator.getInnerSimpleResult(_classField);
     }
 
-    public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
-        return new FunctionalInstance(_className,_functional, _named);
+    public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+        return new FunctionalInstance(_className.getFormatted(),_functional, _named);
     }
-    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, ExecRootBlock _rootBock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+    public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBock);
-        return new FullFunctionalInstance(_className,_functional,fs_, _named);
+        return new FullFunctionalInstance(_className.getFormatted(),_functional,fs_, _named);
     }
     public StringMap<StandardType> getStandards() {
         return content.getStandards();

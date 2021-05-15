@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.threads.ThreadUtil;
@@ -26,9 +27,9 @@ public class CustInitializer extends DefaultInitializer {
 	private final AtomicLong countThreads = new AtomicLong();
     @Override
     protected Struct init(ContextEl _context, Struct _parent,
-                          String _className, String _fieldName, int _ordinal,
+                          ExecFormattedRootBlock _className, String _fieldName, int _ordinal,
                           CustList<ClassFieldStruct> _fields) {
-        return new RunnableStruct(_context, _className, _fieldName, _ordinal, _fields, _parent, _parent.getClassName(_context));
+        return new RunnableStruct(_context, _className.getFormatted(), _fieldName, _ordinal, _fields, _parent, _parent.getClassName(_context));
     }
 
     @Override

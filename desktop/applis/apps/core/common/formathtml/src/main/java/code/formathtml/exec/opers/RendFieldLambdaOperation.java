@@ -29,7 +29,7 @@ public final class RendFieldLambdaOperation extends RendAbstractLambdaOperation 
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         ExecFormattedRootBlock ownerType_ = getFoundClass();
-        Argument res_ = new Argument(ExecFieldLambdaOperation.newLambda(getLambdaCommonContent(),lambdaFieldContent,previous_, ownerType_, clArg_,_context));
+        Argument res_ = new Argument(ExecFieldLambdaOperation.newLambda(getLambdaCommonContent(),lambdaFieldContent,previous_, ownerType_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
 }

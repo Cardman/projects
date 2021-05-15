@@ -7,11 +7,12 @@ import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.WithEl;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 
 public abstract class AbstractCommonMethodPageEl extends AbstractPageEl implements ForwardPageEl {
 
-    protected AbstractCommonMethodPageEl(Argument _gl, String _glClass) {
+    protected AbstractCommonMethodPageEl(Argument _gl, ExecFormattedRootBlock _glClass) {
         setGlobalArgument(_gl);
         setGlobalClass(_glClass);
     }

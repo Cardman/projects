@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -32,19 +31,17 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
         ExecFormattedRootBlock ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaFieldContent,previous_, ownerType_, clArg_,_conf));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaFieldContent,previous_, ownerType_, clArg_));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaFieldContent _field, Argument _previous, ExecFormattedRootBlock _ownerType,
-                                   String _clArg,
-                                   ContextEl _conf) {
+                                   String _clArg) {
         ClassField classField_ = _field.getClassField();
         if (classField_ == null) {
             return new LambdaFieldStruct(NullStruct.NULL_VALUE,_previous,_common,_field,_clArg,_ownerType.getFormatted());
         }
-        String idCl_ = StringExpUtil.getIdFromAllTypes(_ownerType.getFormatted());
-        String formCl_ = MetaInfoUtil.tryFormatType(idCl_, _ownerType.getFormatted(), _conf);
+        String formCl_ = MetaInfoUtil.tryFormatType(_ownerType);
         FieldMetaInfo f_ = new FieldMetaInfo(_common,_field,classField_, formCl_);
         return new LambdaFieldStruct(f_,_previous,_common,_field,_clArg,_ownerType.getFormatted());
     }

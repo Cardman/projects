@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
@@ -23,7 +24,7 @@ public abstract class AbstractPageEl {
 
     protected static final String EMPTY_STRING = "";
 
-    private String globalClass = "";
+    private ExecFormattedRootBlock globalClass = new ExecFormattedRootBlock(null,"");
 
     private ExecRootBlock blockRootType;
 
@@ -96,7 +97,7 @@ public abstract class AbstractPageEl {
 //        if (getGlobalArgument().isNull()) {
 //            return _varType;
 //        }
-        return ExecInherits.quickFormat(blockRootType, globalClass, _varType);
+        return ExecInherits.quickFormat(globalClass, _varType);
     }
 
     protected void basicReceive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stackCall) {
@@ -354,12 +355,12 @@ public abstract class AbstractPageEl {
         this.lastTry = _lastTry;
     }
 
-    public String getGlobalClass() {
+    public ExecFormattedRootBlock getGlobalClass() {
         return globalClass;
     }
 
-    public void setGlobalClass(String _globalClass) {
-        globalClass = StringUtil.nullToEmpty(_globalClass);
+    public void setGlobalClass(ExecFormattedRootBlock _globalClass) {
+        globalClass = _globalClass;
     }
     public ExecRootBlock getBlockRootType() {
         return blockRootType;

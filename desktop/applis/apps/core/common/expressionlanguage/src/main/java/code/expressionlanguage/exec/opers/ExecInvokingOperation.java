@@ -147,7 +147,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (res_ != null) {
             return res_;
         }
-        return new ExecOverrideInfo(new ExecFormattedRootBlock(type_,type_.getGenericString()),_named);
+        return new ExecOverrideInfo(new ExecFormattedRootBlock(type_),_named);
     }
     public static Argument callStd(AbstractExiting _exit, ContextEl _cont, String _classNameFound, MethodId _methodId, Argument _previous, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<Argument> args_ = _firstArgs.getArguments();
@@ -203,7 +203,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_exit.hasToExit(_stackCall, _classNameFound.getFormatted())) {
             return;
         }
-        new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR, null).checkParams(_classNameFound.getFormatted(), Argument.createVoid(), null, _conf, _stackCall);
+        new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR, null).checkParams(_classNameFound, Argument.createVoid(), null, _conf, _stackCall);
     }
 
     public static void checkParametersCtors(ContextEl _conf, ExecFormattedRootBlock _classNameFound,
@@ -211,7 +211,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                                             ArgumentListCall _firstArgs,
                                             InstancingStep _kindCall, StackCall _stackCall) {
         Argument arg_ = _stackCall.getLastPage().getGlobalArgument();
-        new DefaultParamChecker(_named, _firstArgs,MethodAccessKind.INSTANCE,  CallPrepareState.CTOR, _kindCall).checkParams(_classNameFound.getFormatted(), arg_, null, _conf, _stackCall);
+        new DefaultParamChecker(_named, _firstArgs,MethodAccessKind.INSTANCE,  CallPrepareState.CTOR, _kindCall).checkParams(_classNameFound, arg_, null, _conf, _stackCall);
     }
 
     public static Argument getInstanceCall(Argument _previous, ContextEl _conf, StackCall _stackCall) {
@@ -384,7 +384,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         LgNames lgNames_ = _conf.getStandards();
         if (ls_ instanceof LambdaRecordConstructorStruct) {
             LambdaRecordConstructorStruct l_ = (LambdaRecordConstructorStruct) ls_;
-            String clName_ = StringUtil.nullToEmpty(l_.getFormClassName());
+            ExecFormattedRootBlock clName_ = l_.getFormClassName();
             _stackCall.setCallingState(new CustomReflectRecordConstructor(l_.getRoot(),l_.getId(),clName_,values_,true));
             return new Argument();
         }

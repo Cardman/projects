@@ -7,14 +7,15 @@ import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
 public final class NotInitializedClass implements CallingState {
 
-    private final String className;
+    private final ExecFormattedRootBlock className;
     private final ExecRootBlock rootBlock;
     private final Argument argument;
 
-    public NotInitializedClass(String _className, ExecRootBlock _rootBlock, Argument _argument) {
+    public NotInitializedClass(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, Argument _argument) {
         className = _className;
         rootBlock = _rootBlock;
         argument = _argument;
@@ -23,7 +24,7 @@ public final class NotInitializedClass implements CallingState {
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
         return ExecutingUtil.createInstancingClass(this);
     }
-    public String getClassName() {
+    public ExecFormattedRootBlock getClassName() {
         return className;
     }
 

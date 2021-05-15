@@ -60,7 +60,7 @@ public final class DefaultLockingClass {
             }
             return _cause;
         }
-        String curClass_ = _lastPage.getGlobalClass();
+        String curClass_ = _lastPage.getGlobalClass().getFormatted();
         errorClass(curClass_, _stackCall);
         return new CausingErrorStruct(_cause,_context, _stackCall);
     }

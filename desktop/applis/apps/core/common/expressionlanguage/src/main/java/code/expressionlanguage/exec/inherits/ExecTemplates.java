@@ -13,10 +13,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.Cache;
-import code.expressionlanguage.exec.util.ExecTypeVar;
-import code.expressionlanguage.exec.util.HiddenCache;
+import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -284,7 +281,7 @@ public final class ExecTemplates {
         return ex_;
     }
 
-    public static Parameters okArgsSet(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, StackCall _stackCall) {
+    public static Parameters okArgsSet(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ArgumentListCall _firstArgs, ContextEl _conf, StackCall _stackCall) {
         Parameters p_ = new Parameters();
         possibleCheck(_rootBlock, _classNameFound, _cache, _conf, _stackCall, p_);
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
@@ -302,7 +299,7 @@ public final class ExecTemplates {
     public static void okArgsSetSwCall(ExecAbstractSwitchMethod _id, ContextEl _conf, StackCall _stackCall, Argument _value) {
         AbstractPageEl last_ = _stackCall.getLastPage();
         Argument instance_ = last_.getGlobalArgument();
-        String glClass_ = last_.getGlobalClass();
+        ExecFormattedRootBlock glClass_ = last_.getGlobalClass();
         ExecRootBlock type_ = last_.getBlockRootType();
         if (_id instanceof ExecSwitchInstanceMethod) {
             Parameters out_ = okArgsExSw(type_, _id, glClass_, new HiddenCache(last_), _conf, _stackCall, _value);
@@ -316,7 +313,7 @@ public final class ExecTemplates {
         _stackCall.setCallingState(new CustomFoundSwitch(instance_,glClass_,type_,_id, new HiddenCache(last_),_value));
     }
 
-    public static Parameters okArgsSetSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments) {
+    public static Parameters okArgsSetSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments) {
         if (_arguments.isEmpty()) {
             Parameters p_ = new Parameters();
             LgNames stds_ = _conf.getStandards();
@@ -455,13 +452,13 @@ public final class ExecTemplates {
         }
     }
 
-    private static void procRight(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, ContextEl _conf, Argument _right, StackCall _stackCall, Parameters _p) {
+    private static void procRight(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound, ContextEl _conf, Argument _right, StackCall _stackCall, Parameters _p) {
         if (_p.getError() != null) {
             return;
         }
         if (_id != null&&_right != null) {
             String type_ = _id.getImportedReturnType();
-            type_ = ExecInherits.quickFormat(_rootBlock,_classNameFound, type_);
+            type_ = ExecInherits.quickFormat(_classNameFound, type_);
             Struct ex_ = checkObjectEx(type_, _right.getStruct().getClassName(_conf), _conf, _stackCall);
             if (ex_ != null) {
                 _p.setError(ex_);
@@ -473,14 +470,14 @@ public final class ExecTemplates {
         }
     }
 
-    private static Parameters okArgsExSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Argument _value) {
+    private static Parameters okArgsExSw(ExecRootBlock _rootBlock, ExecAbstractSwitchMethod _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Argument _value) {
         Parameters p_ = new Parameters();
         possibleCheck(_rootBlock, _classNameFound, _cache, _conf, _stackCall, p_);
         if (p_.getError() != null) {
             return p_;
         }
         String c_ = _id.getImportedParamType();
-        c_ = ExecInherits.quickFormat(_rootBlock,_classNameFound, c_);
+        c_ = ExecInherits.quickFormat(_classNameFound, c_);
         Struct ex_ = checkObjectEx(c_, _value.getStruct().getClassName(_conf), _conf, _stackCall);
         if (ex_ != null) {
             p_.setError(ex_);
@@ -491,7 +488,7 @@ public final class ExecTemplates {
         return p_;
     }
 
-    private static void possibleCheck(ExecRootBlock _rootBlock, String _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Parameters _p) {
+    private static void possibleCheck(ExecRootBlock _rootBlock, ExecFormattedRootBlock _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, Parameters _p) {
         if (_cache != null) {
             _p.setCache(_cache);
             Struct err_ = _cache.checkCache(_rootBlock, _classNameFound, _conf, _stackCall);
@@ -524,7 +521,7 @@ public final class ExecTemplates {
         return mess_;
     }
 
-    private static ParametersTypes fetchParamTypes(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound) {
+    private static ParametersTypes fetchParamTypes(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, ExecFormattedRootBlock _classNameFound) {
         ParametersTypes parametersTypes_ = new ParametersTypes();
         StringList paramsAll_ = new StringList();
         StringList namesAll_ = new StringList();
@@ -536,7 +533,7 @@ public final class ExecTemplates {
         int i_ = 0;
         for (String c: _id.getImportedParametersTypes()) {
             String c_ = c;
-            c_ = ExecInherits.quickFormat(_rootBlock,_classNameFound, c_);
+            c_ = ExecInherits.quickFormat(_classNameFound, c_);
             if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
                 c_ = StringExpUtil.getPrettyArrayType(c_);
             }
@@ -552,13 +549,12 @@ public final class ExecTemplates {
         return parametersTypes_;
     }
 
-    public static ArgumentListCall wrapAndCallDirect(ExecTypeFunction _pair, String _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf, MethodAccessKind _kind) {
+    public static ArgumentListCall wrapAndCallDirect(ExecTypeFunction _pair, ExecFormattedRootBlock _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf, MethodAccessKind _kind) {
         ArgumentListCall out_ = new ArgumentListCall();
-        String classFormat_ = _formatted;
+        ExecFormattedRootBlock classFormat_ = _formatted;
         if (_kind != null && !_previous.isNull()) {
-            classFormat_ = ExecInherits.getQuickFullTypeByBases(_previous.getStruct().getClassName(_conf), classFormat_, _conf);
+            classFormat_ = ExecTemplates.getQuickFullTypeByBases(_conf, _previous.getStruct().getClassName(_conf), classFormat_);
         }
-        ExecRootBlock type_ = _pair.getType();
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         if (fct_ == null) {
             return out_;
@@ -566,7 +562,7 @@ public final class ExecTemplates {
         int i_ = 0;
         for (String c: fct_.getImportedParametersTypes()) {
             String c_ = c;
-            c_ = ExecInherits.quickFormat(type_,classFormat_, c_);
+            c_ = ExecInherits.quickFormat(classFormat_, c_);
             if (i_ + 1 == fct_.getImportedParametersTypes().size() && fct_.isVarargs()) {
                 c_ = StringExpUtil.getPrettyArrayType(c_);
             }
@@ -585,7 +581,7 @@ public final class ExecTemplates {
         return out_;
     }
 
-    public static Parameters wrapAndCall(ExecTypeFunction _pair, String _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList) {
+    public static Parameters wrapAndCall(ExecTypeFunction _pair, ExecFormattedRootBlock _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList) {
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         ExecRootBlock type_ = _pair.getType();
         Parameters p_ = okArgsSet(type_,fct_,_formatted,null,_argList,_conf,_stackCall);
@@ -1141,6 +1137,9 @@ public final class ExecTemplates {
         return _right;
     }
 
+    public static ExecFormattedRootBlock getQuickFullTypeByBases(ContextEl _conf, String _sub, ExecFormattedRootBlock _formatted) {
+        return new ExecFormattedRootBlock(_formatted.getRootBlock(), ExecInherits.getQuickFullTypeByBases(_sub, _formatted.getFormatted(), _conf));
+    }
     public static String formatType(ContextEl _conf, ExecRootBlock _rootBlock, String _lastType, String _cl) {
         String base_ = _rootBlock.getFullName();
         String clGen_ = ExecInherits.getFullObject(_cl, base_, _conf);

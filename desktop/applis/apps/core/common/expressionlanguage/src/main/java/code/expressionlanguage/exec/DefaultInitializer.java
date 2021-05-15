@@ -23,23 +23,23 @@ public class DefaultInitializer implements Initializer {
 
     @Override
     public final Struct processInit(ContextEl _context, Struct _parent,
-                                    String _className, ExecRootBlock _rootBlock,String _fieldName, int _ordinal) {
+                                    ExecFormattedRootBlock _className, ExecRootBlock _rootBlock,String _fieldName, int _ordinal) {
         CustList<ClassFieldStruct> fields_ = feedFields(_context, _className,_rootBlock);
         return init(_context, _parent, _className, _fieldName, _ordinal, fields_);
     }
 
-    public final CustList<ClassFieldStruct> feedFields(ContextEl _context, String _className,ExecRootBlock _rootBlock) {
-        ExecFormattedRootBlock base_ = new ExecFormattedRootBlock(_rootBlock,_rootBlock.getGenericString());
+    public final CustList<ClassFieldStruct> feedFields(ContextEl _context, ExecFormattedRootBlock _className,ExecRootBlock _rootBlock) {
+        ExecFormattedRootBlock base_ = new ExecFormattedRootBlock(_rootBlock);
         CustList<ExecFormattedRootBlock> allClasses_ = new CustList<ExecFormattedRootBlock>(base_);
         allClasses_.addAllElts(_rootBlock.getAllGenericSuperTypes());
         CustList<ClassFieldStruct> fields_ = new CustList<ClassFieldStruct>();
         for (ExecFormattedRootBlock c: allClasses_) {
             String preFormatted_ = c.getFormatted();
             String id_ = StringExpUtil.getIdFromAllTypes(preFormatted_);
-            String formatted_ = ExecInherits.quickFormat(_rootBlock,_className, preFormatted_);
+            ExecFormattedRootBlock formatted_ = ExecInherits.quickFormat(_className, c);
             ExecRootBlock rootBlock_ = c.getRootBlock();
             for (ExecFieldBlock b: rootBlock_.getInstanceFields()) {
-                String fieldDeclClass_ = ExecInherits.quickFormat(rootBlock_, formatted_, b.getImportedClassName());
+                String fieldDeclClass_ = ExecInherits.quickFormat(formatted_, b.getImportedClassName());
                 for (String f: b.getFieldName()) {
                     ClassField key_ = new ClassField(id_, f);
                     fields_.add(new ClassFieldStruct(key_, ExecClassArgumentMatching.defaultValue(fieldDeclClass_, _context)));
@@ -51,8 +51,8 @@ public class DefaultInitializer implements Initializer {
 
     @Override
     public final Struct processInitAnnot(ContextEl _context,
-            String _className,ExecRootBlock _rootBlock) {
-        String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
+                                         ExecFormattedRootBlock _className,ExecRootBlock _rootBlock) {
+        String baseClass_ = StringExpUtil.getIdFromAllTypes(_className.getFormatted());
         CustList<ClassFieldStruct> fields_ = new CustList<ClassFieldStruct>();
         for (ExecAnnotationMethodBlock b: _rootBlock.getAnnotationsFields()) {
             Struct str_ = b.getDefaultArgument();
@@ -65,7 +65,7 @@ public class DefaultInitializer implements Initializer {
                 fields_.add(new ClassFieldStruct(key_, ExecClassArgumentMatching.defaultValue(fieldDeclClass_, _context)));
             }
         }
-        return new AnnotationStruct(_className, fields_);
+        return new AnnotationStruct(_className.getFormatted(), fields_);
     }
     @Override
     public final void loopCalling(ContextEl _owner, StackCall _stackCall) {
@@ -118,13 +118,13 @@ public class DefaultInitializer implements Initializer {
     }
 
     protected Struct init(ContextEl _context, Struct _parent,
-            String _className, String _fieldName, int _ordinal, CustList<ClassFieldStruct> _fields) {
+                          ExecFormattedRootBlock _className, String _fieldName, int _ordinal, CustList<ClassFieldStruct> _fields) {
         if (_fieldName.isEmpty()) {
             if (_parent != NullStruct.NULL_VALUE) {
-                return new InnerCustStruct(_className, _fields, _parent, _parent.getClassName(_context));
+                return new InnerCustStruct(_className.getFormatted(), _fields, _parent, _parent.getClassName(_context));
             }
-            return new CustStruct(_className, _fields);
+            return new CustStruct(_className.getFormatted(), _fields);
         }
-        return new EnumStruct(_className, _fields, _ordinal, _fieldName);
+        return new EnumStruct(_className.getFormatted(), _fields, _ordinal, _fieldName);
     }
 }

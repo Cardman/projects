@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -638,7 +639,7 @@ public final class AliasMath {
                 _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
                 return _result;
             }
-            _stackCall.setCallingState(new CustomFoundMethod(argSeedSpec_,cl_, p_, new Parameters()));
+            _stackCall.setCallingState(new CustomFoundMethod(argSeedSpec_,new ExecFormattedRootBlock(p_.getType(),cl_), p_, new Parameters()));
             return _result;
         }
         Struct seed_ = _stackCall.getSeed();
@@ -659,7 +660,7 @@ public final class AliasMath {
                 _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
                 return _result;
             }
-            _stackCall.setCallingState(new CustomFoundMethod(argSeed_,cl_, p_, new Parameters()));
+            _stackCall.setCallingState(new CustomFoundMethod(argSeed_,new ExecFormattedRootBlock(p_.getType(),cl_), p_, new Parameters()));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
@@ -693,7 +694,7 @@ public final class AliasMath {
             }
             ArgumentListCall argList_ = new ArgumentListCall();
             argList_.addAllArgs(argsToPass_);
-            ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, argList_);
+            ExecTemplates.wrapAndCall(p_, new ExecFormattedRootBlock(p_.getType(),cl_),argSeedSpec_, _cont, _stackCall, argList_);
             return _result;
         }
         argsToPass_.clear();
@@ -718,7 +719,7 @@ public final class AliasMath {
             }
             ArgumentListCall argList_ = new ArgumentListCall();
             argList_.addAllArgs(argsToPass_);
-            ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, argList_);
+            ExecTemplates.wrapAndCall(p_, new ExecFormattedRootBlock(p_.getType(),cl_),argSeed_, _cont, _stackCall, argList_);
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

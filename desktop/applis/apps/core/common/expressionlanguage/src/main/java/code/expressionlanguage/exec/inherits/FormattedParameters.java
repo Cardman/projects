@@ -1,14 +1,16 @@
 package code.expressionlanguage.exec.inherits;
 
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+
 public final class FormattedParameters {
-    private String formattedClass = "";
+    private ExecFormattedRootBlock formattedClass;
     private Parameters parameters = new Parameters();
 
-    public String getFormattedClass() {
+    public ExecFormattedRootBlock getFormattedClass() {
         return formattedClass;
     }
 
-    public void setFormattedClass(String _formattedClass) {
+    public void setFormattedClass(ExecFormattedRootBlock _formattedClass) {
         formattedClass = _formattedClass;
     }
 

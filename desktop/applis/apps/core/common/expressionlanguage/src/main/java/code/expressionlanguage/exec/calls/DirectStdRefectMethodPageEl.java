@@ -35,6 +35,6 @@ public final class DirectStdRefectMethodPageEl extends AbstractRefectMethodPageE
         MethodId mid_ = getMetaInfo().getRealId();
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addAllArgs(_args);
-        return ExecInvokingOperation.callStd(_context.getExiting(), _context, getClassName(), mid_, getInstance(), l_, _stack);
+        return ExecInvokingOperation.callStd(_context.getExiting(), _context, getClassName().getFormatted(), mid_, getInstance(), l_, _stack);
     }
 }

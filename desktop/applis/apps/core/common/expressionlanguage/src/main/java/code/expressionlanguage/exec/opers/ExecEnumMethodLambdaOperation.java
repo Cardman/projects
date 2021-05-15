@@ -31,14 +31,14 @@ public final class ExecEnumMethodLambdaOperation extends ExecAbstractLambdaOpera
                           ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_,_conf, clArg_, declaring));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_, declaring));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous,
-                                   ContextEl _conf, String _clArg, ExecRootBlock _type) {
+                                   String _clArg, ExecRootBlock _type) {
         String idCl_ = StringExpUtil.getIdFromAllTypes(_common.getFormattedType().getFormatted());
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_conf,_common,_common.getFormattedType(),idCl_, _meth.getMethod().getConstraints(), new ExecTypeFunction(_type,null));
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_common.getFormattedType(),idCl_, _meth.getMethod().getConstraints(), new ExecTypeFunction(_type,null));
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg, _common.getFormattedType().getFormatted());
     }
 

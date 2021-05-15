@@ -7,10 +7,11 @@ import code.expressionlanguage.exec.blocks.ExecInitBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
 public final class CustomFoundBlock implements CallingState {
 
-    private final String className;
+    private final ExecFormattedRootBlock className;
 
     private final Argument currentObject;
 
@@ -29,7 +30,7 @@ public final class CustomFoundBlock implements CallingState {
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
         return ExecutingUtil.createBlockPageEl(_context,getClassName(), getCurrentObject(),getRootBlock(), getBlock());
     }
-    public String getClassName() {
+    public ExecFormattedRootBlock getClassName() {
         return className;
     }
 

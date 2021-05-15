@@ -7,6 +7,8 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -819,7 +821,8 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         StringMap<String> id_ = new StringMap<String>();
         id_.addEntry("field","$int");
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
-        ArgumentWrapper argumentWrapper_ = ProcessMethod.instanceRecordArgument("pkg.Rec", new ExecTypeFunction(cont_.getClasses().getClassBody("pkg.Rec"),null), id_,args_,cont_, stackCall_);
+        ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Rec");
+        ArgumentWrapper argumentWrapper_ = ProcessMethod.instanceRecordArgument(new ExecFormattedRootBlock(classBody_,"pkg.Rec"), new ExecTypeFunction(classBody_,null), id_,args_,cont_, stackCall_);
         Argument out_ = argumentWrapper_.getValue();
         assertNull(stackCall_.getCallingState());
         assertNull(argumentWrapper_.getWrapper());

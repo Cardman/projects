@@ -165,6 +165,11 @@ public final class ExecInherits {
         return getSuperGeneric(_subType,dBaseParam_, _context);
     }
 
+    public static String reflectFormat(ExecFormattedRootBlock _first, String _second) {
+        StringMap<String> varTypes_ = getVarTypes(_first.getFormatted(), _first.getRootBlock());
+        return StringExpUtil.getReflectFormattedType(_second, varTypes_);
+    }
+
     public static String reflectFormat(String _first, String _second, ContextEl _context) {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
         return StringExpUtil.getReflectFormattedType(_second, varTypes_);
@@ -206,6 +211,9 @@ public final class ExecInherits {
         return quickFormat(_context.getClassBody(StringExpUtil.getIdFromAllTypes(_first)),_first,_second);
     }
 
+    public static ExecFormattedRootBlock quickFormat(ExecFormattedRootBlock _type, ExecFormattedRootBlock _second) {
+        return new ExecFormattedRootBlock(_second.getRootBlock(),quickFormat(_type,_second.getFormatted()));
+    }
     public static String quickFormat(ExecFormattedRootBlock _type, String _second) {
         StringMap<String> varTypes_ = getVarTypes(_type.getFormatted(),_type.getRootBlock());
         return StringExpUtil.getQuickFormattedType(_second, varTypes_);

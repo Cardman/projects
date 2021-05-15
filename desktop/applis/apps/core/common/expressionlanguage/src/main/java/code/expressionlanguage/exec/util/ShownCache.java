@@ -27,10 +27,10 @@ public final class ShownCache extends Cache {
         }
     }
 
-    private void setCache(ExecRootBlock _rootBlock, String _globalClass, ContextEl _context, StackCall _stackCall) {
+    private void setCache(ExecRootBlock _rootBlock, ExecFormattedRootBlock _globalClass, ContextEl _context, StackCall _stackCall) {
         int i_ = 0;
         for (NameAndType v: cacheInfo.getCacheLocalNames()) {
-            String cl_ = ExecInherits.quickFormat(_rootBlock, _globalClass, v.getType());
+            String cl_ = ExecInherits.quickFormat(_globalClass, v.getType());
             NamedWrapper namedWrapper_ = locWrappers().get(i_);
             AbstractWrapper wrapper_ = namedWrapper_.getWrapper();
             NamedWrapper named_ = new NamedWrapper(namedWrapper_.getName(),new VariableWrapper(LocalVariable.newLocalVariable(wrapper_.getValue(_stackCall, _context),cl_)),cl_);
@@ -39,12 +39,12 @@ public final class ShownCache extends Cache {
         }
         i_ = 0;
         for (NameAndType v: cacheInfo.getCacheLoopNames()) {
-            String cl_ = ExecInherits.quickFormat(_rootBlock, _globalClass, v.getType());
+            String cl_ = ExecInherits.quickFormat(_globalClass, v.getType());
             loopVars().get(i_).getLocalVariable().setIndexClassName(cl_);
             i_++;
         }
     }
-    public Struct checkCache(ExecRootBlock _rootBlock, String _classNameFound, ContextEl _context, StackCall _stackCall) {
+    public Struct checkCache(ExecRootBlock _rootBlock, ExecFormattedRootBlock _classNameFound, ContextEl _context, StackCall _stackCall) {
         setCache(_rootBlock, _classNameFound, _context, _stackCall);
         for (NamedWrapper v: locWrappers()) {
             AbstractWrapper localVariable_ = v.getWrapper();

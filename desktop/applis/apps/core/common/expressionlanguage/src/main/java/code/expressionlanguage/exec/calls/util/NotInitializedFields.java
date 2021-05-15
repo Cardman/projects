@@ -7,10 +7,11 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
 public final class NotInitializedFields implements CallingState {
 
-    private final String className;
+    private final ExecFormattedRootBlock className;
     private final ExecRootBlock rootBlock;
 
     private final Argument currentObject;
@@ -25,7 +26,7 @@ public final class NotInitializedFields implements CallingState {
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
         return ExecutingUtil.createInitFields(getRootBlock(),getClassName(), getCurrentObject());
     }
-    public String getClassName() {
+    public ExecFormattedRootBlock getClassName() {
         return className;
     }
 

@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -15,15 +16,15 @@ public abstract class AbstractFormatParamChecker extends AbstractParamChecker {
     protected AbstractFormatParamChecker(MethodAccessKind _kind) {
         this.kind = _kind;
     }
-    public String checkFormmattedParams(String _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
-        String classFormat_ = _classNameFound;
+    public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
+        ExecFormattedRootBlock classFormat_ = _classNameFound;
         if (kind == MethodAccessKind.INSTANCE) {
             String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
-            classFormat_ = ExecInherits.getQuickFullTypeByBases(className_, classFormat_, _conf);
-            if (classFormat_.isEmpty()) {
+            classFormat_ = ExecTemplates.getQuickFullTypeByBases(_conf,className_, classFormat_);
+            if (classFormat_.getFormatted().isEmpty()) {
                 LgNames stds_ = _conf.getStandards();
                 String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound, className_), cast_, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound.getFormatted(), className_), cast_, _stackCall)));
             }
         }
         return classFormat_;

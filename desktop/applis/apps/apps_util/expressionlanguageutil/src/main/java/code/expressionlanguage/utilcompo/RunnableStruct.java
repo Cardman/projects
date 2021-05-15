@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.EnumerableStruct;
@@ -106,9 +107,9 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
             return;
         }
         Argument arg_ = new Argument(_instance);
-        RunnableStruct.invoke(arg_, mId_.getClassName().getFormatted(), _r, mId_.getPair(), StackCall.newInstance(InitPhase.NOTHING,_r), _argList);
+        RunnableStruct.invoke(arg_, mId_.getClassName(), _r, mId_.getPair(), StackCall.newInstance(InitPhase.NOTHING,_r), _argList);
     }
-    public static Argument invoke(Argument _global, String _class, RunnableContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
+    public static Argument invoke(Argument _global, ExecFormattedRootBlock _class, RunnableContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
         Parameters parameters_ = ExecTemplates.wrapAndCall(_pair, _class, _global, _cont, _stackCall, _argList);
         Argument arg_ = ProcessMethod.calculateArgument(_global, _class, _pair, parameters_, _cont, _stackCall).getValue();
         _cont.getCustInit().prExc(_cont, _stackCall);

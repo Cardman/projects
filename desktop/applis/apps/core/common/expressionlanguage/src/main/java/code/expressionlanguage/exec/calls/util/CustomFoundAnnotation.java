@@ -6,19 +6,20 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.util.CustList;
 import code.util.StringMap;
 
 public final class CustomFoundAnnotation implements CallingState {
 
-    private final String className;
+    private final ExecFormattedRootBlock className;
     private final ExecRootBlock type;
 
     private final StringMap<AnnotationTypeInfo> id;
 
     private final CustList<Argument> arguments;
 
-    public CustomFoundAnnotation(String _className,ExecRootBlock _type,
+    public CustomFoundAnnotation(ExecFormattedRootBlock _className,ExecRootBlock _type,
                                  StringMap<AnnotationTypeInfo> _id,
                                  CustList<Argument> _arguments) {
         className = _className;
@@ -30,7 +31,7 @@ public final class CustomFoundAnnotation implements CallingState {
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
         return ExecutingUtil.createAnnotation(_context,getClassName(),getType(), getId(), getArguments());
     }
-    public String getClassName() {
+    public ExecFormattedRootBlock getClassName() {
         return className;
     }
 

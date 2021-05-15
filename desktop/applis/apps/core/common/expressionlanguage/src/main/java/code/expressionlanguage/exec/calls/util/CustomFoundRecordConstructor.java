@@ -4,13 +4,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.CustList;
 import code.util.StringMap;
 
 public final class CustomFoundRecordConstructor implements CallingState {
 
-    private final String className;
+    private final ExecFormattedRootBlock className;
     private final ExecTypeFunction pair;
 
     private final StringMap<String> id;
@@ -19,7 +20,7 @@ public final class CustomFoundRecordConstructor implements CallingState {
 
     private final CustList<Argument> arguments;
 
-    public CustomFoundRecordConstructor(String _className,
+    public CustomFoundRecordConstructor(ExecFormattedRootBlock _className,
                                         ExecTypeFunction _pair,
                                         StringMap<String> _id,
                                         String _fieldName, int _childIndex,
@@ -53,7 +54,7 @@ public final class CustomFoundRecordConstructor implements CallingState {
         return pair;
     }
 
-    public String getClassName() {
+    public ExecFormattedRootBlock getClassName() {
         return className;
     }
 

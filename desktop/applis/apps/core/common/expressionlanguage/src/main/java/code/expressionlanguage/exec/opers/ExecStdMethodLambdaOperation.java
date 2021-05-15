@@ -36,17 +36,17 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
         ExecFormattedRootBlock ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, _conf, ownerType_, clArg_, function, method.getConstraints()));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, ownerType_, clArg_, function, method.getConstraints()));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(ExecLambdaCommonContent _common, Argument _previous, ContextEl _conf, ExecFormattedRootBlock _ownerType,
+    public static Struct newLambda(ExecLambdaCommonContent _common, Argument _previous, ExecFormattedRootBlock _ownerType,
                                    String _clArg, StandardMethod _function, MethodId _constraints) {
         String className_;
         className_ = StringExpUtil.getIdFromAllTypes(_ownerType.getFormatted());
         String from_ = className_;
         MethodModifier met_ = _function.getModifier();
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_conf,_common,_ownerType,from_, _constraints, met_,_function);
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_ownerType,from_, _constraints, met_,_function);
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_constraints,_clArg, _ownerType.getFormatted());
     }
 

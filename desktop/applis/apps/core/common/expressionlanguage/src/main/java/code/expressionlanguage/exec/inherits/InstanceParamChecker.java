@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -36,18 +37,18 @@ public final class InstanceParamChecker extends AbstractParamChecker {
         blockIndex = _blockIndex;
     }
     @Override
-    public String checkFormmattedParams(String _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
+    public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
         checkNeeded(_conf,_classNameFound,_previous,type,_stackCall);
         return _classNameFound;
     }
 
-    private static void checkNeeded(ContextEl _conf, String _className, Argument _previous, ExecRootBlock _g, StackCall _stackCall) {
+    private static void checkNeeded(ContextEl _conf, ExecFormattedRootBlock _className, Argument _previous, ExecRootBlock _g, StackCall _stackCall) {
         if (_g.withoutInstance()) {
             return;
         }
         //From analyze
         LgNames stds_ = _conf.getStandards();
-        StringList parts_ = StringExpUtil.getAllPartInnerTypes(_className);
+        StringList parts_ = StringExpUtil.getAllPartInnerTypes(_className.getFormatted());
         String param_ = StringUtil.join(parts_.left(parts_.size()-2), "");
         if (_previous.isNull()) {
             String npe_;
@@ -64,7 +65,7 @@ public final class InstanceParamChecker extends AbstractParamChecker {
     }
 
     @Override
-    public Argument redirect(ContextEl _conf, String _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
+    public Argument redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
         Argument needed_;
         if (type.withoutInstance()) {
             needed_ = new Argument();
@@ -76,7 +77,7 @@ public final class InstanceParamChecker extends AbstractParamChecker {
     }
 
     @Override
-    public Parameters check(String _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall) {
+    public Parameters check(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall) {
         return ExecTemplates.okArgsSet(type,method,_classFormat,_cache,arguments,_conf,_stackCall);
     }
 }

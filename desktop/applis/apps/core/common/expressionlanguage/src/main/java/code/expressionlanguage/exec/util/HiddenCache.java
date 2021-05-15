@@ -43,7 +43,7 @@ public final class HiddenCache extends Cache {
             }
         }
     }
-    public Struct checkCache(ExecRootBlock _rootBlock, String _classNameFound, ContextEl _context, StackCall _stackCall) {
+    public Struct checkCache(ExecRootBlock _rootBlock, ExecFormattedRootBlock _classNameFound, ContextEl _context, StackCall _stackCall) {
         return null;
     }
 }

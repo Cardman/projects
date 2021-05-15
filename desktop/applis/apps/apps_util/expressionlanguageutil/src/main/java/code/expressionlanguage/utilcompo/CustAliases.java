@@ -18,10 +18,12 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
@@ -443,9 +445,9 @@ public final class CustAliases {
         return ApplyCoreMethodUtil.getStringOfObjectBase(_cont, _arg);
     }
 
-    public static AbstractFunctionalInstance newFunctional(String _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+    public static AbstractFunctionalInstance newFunctional(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBlock);
-        return new RunnableFunctionalInstance(_className,_functional,fs_,_contextEl, _named);
+        return new RunnableFunctionalInstance(_className.getFormatted(),_functional,fs_,_contextEl, _named);
     }
 
     public void buildOther(LgNamesContent _content) {
@@ -2942,7 +2944,8 @@ public final class CustAliases {
                 Argument arg_ = new Argument(_args[0]);
                 ArgumentListCall argList_ = new ArgumentListCall();
                 argList_.addAllArgs(new CustList<Argument>(arg_));
-                ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectPair(), className_,Argument.createVoid(), _cont, _stackCall, argList_);
+                ExecTypeFunction formatObjectPair_ = _execBlocks.getFormatObjectPair();
+                ExecTemplates.wrapAndCall(formatObjectPair_, new ExecFormattedRootBlock(formatObjectPair_.getType(), className_),Argument.createVoid(), _cont, _stackCall, argList_);
                 return;
             }
         }
@@ -2952,7 +2955,8 @@ public final class CustAliases {
             Argument argArr_ = new Argument(_args[1]);
             ArgumentListCall argList_ = new ArgumentListCall();
             argList_.addAllArgs(new CustList<Argument>(arg_,argArr_));
-            ExecTemplates.wrapAndCall(_execBlocks.getFormatObjectTwoPair(), className_,Argument.createVoid(), _cont, _stackCall, argList_);
+            ExecTypeFunction formatObjectTwoPair_ = _execBlocks.getFormatObjectTwoPair();
+            ExecTemplates.wrapAndCall(formatObjectTwoPair_, new ExecFormattedRootBlock(formatObjectTwoPair_.getType(),className_),Argument.createVoid(), _cont, _stackCall, argList_);
             return;
         }
         String stringAppFile_ = buildLog(_cont, _args);

@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
@@ -39,7 +40,7 @@ public final class DefaultParamChecker extends AbstractFormatParamChecker {
     }
 
     @Override
-    public Argument redirect(ContextEl _conf, String _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
+    public Argument redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
         if (state == CallPrepareState.METHOD) {
             Struct prev_ = _previous.getStruct();
             if (prev_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance) prev_).getNamed() == method) {
@@ -59,7 +60,7 @@ public final class DefaultParamChecker extends AbstractFormatParamChecker {
     }
 
     @Override
-    public Parameters check(String _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall) {
+    public Parameters check(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall) {
         return ExecTemplates.okArgsSet(type, method, _classFormat, _cache, args, _conf, _stackCall);
     }
 }

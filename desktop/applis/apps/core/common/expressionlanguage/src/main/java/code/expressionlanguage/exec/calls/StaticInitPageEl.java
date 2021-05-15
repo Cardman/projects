@@ -76,7 +76,7 @@ public final class StaticInitPageEl extends AbstractInitPageEl {
     }
 
     public void sucessClass(ContextEl _context) {
-        String curClass_ = getGlobalClass();
+        String curClass_ = getGlobalClass().getFormatted();
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(curClass_);
         _context.getLocks().successClass(curClassBase_);
     }

@@ -7,8 +7,10 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -77,8 +79,9 @@ public final class CustContextFactory {
             issuer_.log("OK");
         }
         String infoTest_ = _definedLgNames.getCustAliases().getAliasInfoTest();
+        ExecRootBlock classBody_ = rCont_.getClasses().getClassBody(infoTest_);
         Struct infoStruct_ = rCont_.getInit().processInit(rCont_,
-                NullStruct.NULL_VALUE, infoTest_,rCont_.getClasses().getClassBody(infoTest_), "", -1);
+                NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,infoTest_), classBody_, "", -1);
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
         ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,rCont_,_progressingTests,_definedLgNames);
@@ -86,8 +89,9 @@ public final class CustContextFactory {
         ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethodPair();
         ArgumentListCall argList_ = new ArgumentListCall();
         argList_.addArg(argMethod_);
+        ExecRootBlock classBodyExecute_ = rCont_.getClasses().getClassBody(_definedLgNames.getCustAliases().getAliasExecute());
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
-                _definedLgNames.getCustAliases().getAliasExecute(),
+                new ExecFormattedRootBlock(classBodyExecute_,_definedLgNames.getCustAliases().getAliasExecute()),
                 rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
         showUpdates_.stop();
         if (_options.isCovering()) {

@@ -28,7 +28,7 @@ public final class RendTypeConstructorLambdaOperation extends RendAbstractLambda
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         ExecFormattedRootBlock ownerType_ = getFoundClass();
-        Argument res_ = new Argument(ExecTypeConstructorLambdaOperation.newLambda(getLambdaCommonContent(),lambdaConstructorContent,previous_, _context, ownerType_, clArg_));
+        Argument res_ = new Argument(ExecTypeConstructorLambdaOperation.newLambda(getLambdaCommonContent(),lambdaConstructorContent,previous_, ownerType_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
 }

@@ -66,7 +66,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
     }
     private void prepareArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ invokingConstructorContent.getOffsetOper(), _rendStackCall);
-        String superClass_ = invokingConstructorContent.getFormattedType().getFormatted();
+        ExecFormattedRootBlock superClass_ = invokingConstructorContent.getFormattedType();
         String lastType_ = getLastType();
         lastType_ = ExecInherits.quickFormat(formattedType, lastType_);
         int natvararg_ = getNaturalVararg();

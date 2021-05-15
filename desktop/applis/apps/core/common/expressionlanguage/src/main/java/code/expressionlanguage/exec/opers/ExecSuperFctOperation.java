@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -32,20 +33,17 @@ public final class ExecSuperFctOperation extends ExecSettableCallFctOperation {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
-        String classNameFound_ = getClassName();
+        ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
+        String classNameFound_ = formattedType_.getFormatted();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, previous_.getStruct(), _conf, _stack));
         Argument res_;
         if (_conf.callsOrException(_stack)) {
             res_ = new Argument();
         } else {
             Struct pr_ = prev_.getStruct();
-            res_ = new DefaultParamChecker(pair, fetchFormattedArgs(_nodes, _conf, pr_, pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg(), null), MethodAccessKind.INSTANCE, CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _conf, _stack);
+            res_ = new DefaultParamChecker(pair, fetchFormattedArgs(_nodes, _conf, pr_, pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg(), null), MethodAccessKind.INSTANCE, CallPrepareState.METHOD, null).checkParams(formattedType_, prev_, null, _conf, _stack);
         }
         setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    public String getClassName() {
-        return instFctContent.getFormattedType().getFormatted();
     }
 
 

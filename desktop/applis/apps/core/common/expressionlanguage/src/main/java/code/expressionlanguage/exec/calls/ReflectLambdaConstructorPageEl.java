@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.InstanceParamChecker;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
@@ -37,7 +38,7 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
         if (!keep(metaInfo.getDeclType(),_context, _stack)) {
             return false;
         }
-        String res_ = metaInfo.getFormatted().getFormatted();
+        ExecFormattedRootBlock res_ = metaInfo.getFormatted();
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;

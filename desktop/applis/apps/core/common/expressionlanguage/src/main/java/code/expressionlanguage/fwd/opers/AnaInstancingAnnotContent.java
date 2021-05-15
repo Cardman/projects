@@ -1,11 +1,13 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.util.StringMap;
 
 public final class AnaInstancingAnnotContent {
     private String methodName;
 
+    private AnaFormattedRootBlock formattedType;
     private String className;
     private final StringMap<AnnotationTypeInfo> fieldNames = new StringMap<AnnotationTypeInfo>();
     private boolean array;
@@ -16,6 +18,14 @@ public final class AnaInstancingAnnotContent {
 
     public void setArray(boolean _array) {
         this.array = _array;
+    }
+
+    public AnaFormattedRootBlock getFormattedType() {
+        return formattedType;
+    }
+
+    public void setFormattedType(AnaFormattedRootBlock _formattedType) {
+        this.formattedType = _formattedType;
     }
 
     public String getClassName() {

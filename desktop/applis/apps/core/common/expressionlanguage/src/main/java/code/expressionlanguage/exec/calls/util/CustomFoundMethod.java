@@ -5,23 +5,24 @@ import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 public final class CustomFoundMethod implements CallingState {
 
     private final Argument gl;
 
-    private final String className;
+    private final ExecFormattedRootBlock className;
 
     private final ExecTypeFunction pair;
 
     private final Parameters arguments;
 
-    public CustomFoundMethod(String _className, ExecTypeFunction _pair, Parameters _arguments) {
+    public CustomFoundMethod(ExecFormattedRootBlock _className, ExecTypeFunction _pair, Parameters _arguments) {
         this(Argument.createVoid(),_className,_pair,_arguments);
     }
 
-    public CustomFoundMethod(Argument _gl, String _className, ExecTypeFunction _pair, Parameters _arguments) {
+    public CustomFoundMethod(Argument _gl, ExecFormattedRootBlock _className, ExecTypeFunction _pair, Parameters _arguments) {
         gl = _gl;
         className = _className;
         pair = _pair;
@@ -36,7 +37,7 @@ public final class CustomFoundMethod implements CallingState {
         return gl;
     }
 
-    public String getClassName() {
+    public ExecFormattedRootBlock getClassName() {
         return className;
     }
 

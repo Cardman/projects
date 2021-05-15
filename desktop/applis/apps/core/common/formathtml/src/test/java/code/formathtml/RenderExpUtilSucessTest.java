@@ -13,6 +13,8 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -5879,7 +5881,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static Struct init(AnalyzedTestConfiguration _context, String _className) {
-        return _context.getContext().getInit().processInit(_context.getContext(), NullStruct.NULL_VALUE, _className,_context.getContext().getClasses().getClassBody(_className), "", -1);
+        ExecRootBlock classBody_ = _context.getContext().getClasses().getClassBody(_className);
+        return _context.getContext().getInit().processInit(_context.getContext(), NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), classBody_, "", -1);
     }
 
     private static Argument processElNormal3(String _el, StringMap<String> _files, String... _types) {

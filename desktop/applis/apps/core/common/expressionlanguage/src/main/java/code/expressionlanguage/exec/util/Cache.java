@@ -16,7 +16,7 @@ public abstract class Cache {
     private final CustList<NamedWrapper> localWrappers = new CustList<NamedWrapper>();
     private final CustList<NamedLoopVariable> loopVariables = new CustList<NamedLoopVariable>();
 
-    public abstract Struct checkCache(ExecRootBlock _rootBlock, String _classNameFound, ContextEl _context, StackCall _stackCall);
+    public abstract Struct checkCache(ExecRootBlock _rootBlock, ExecFormattedRootBlock _classNameFound, ContextEl _context, StackCall _stackCall);
     public StringList getLocalWrappers() {
         StringList list_ = new StringList();
         for (NamedWrapper n: localWrappers) {

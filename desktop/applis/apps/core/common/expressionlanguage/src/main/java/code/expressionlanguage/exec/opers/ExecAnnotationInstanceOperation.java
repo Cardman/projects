@@ -46,7 +46,7 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
         } else {
             String base_ = StringExpUtil.getIdFromAllTypes(instancingAnnotContent.getClassName());
             if (!_conf.getExiting().hasToExit(_stack, base_)) {
-                _stack.setCallingState(new CustomFoundAnnotation(instancingAnnotContent.getClassName(), rootBlock, instancingAnnotContent.getFieldNames(), arguments_));
+                _stack.setCallingState(new CustomFoundAnnotation(instancingAnnotContent.getFormattedType(), rootBlock, instancingAnnotContent.getFieldNames(), arguments_));
             }
             res_ = Argument.createVoid();
         }

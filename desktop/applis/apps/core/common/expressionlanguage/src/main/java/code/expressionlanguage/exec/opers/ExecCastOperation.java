@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecTypeCheckContent;
@@ -52,12 +53,13 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         String fctParam_ = ExecInherits.quickFormat(r_, _className, clRealId_.getFctParam());
                         String argCl_ = str_.getClassName(_conf);
                         if (ExecInherits.isCorrectExecute(argCl_,fctParam_,_conf)) {
+                            ExecFormattedRootBlock className_ = new ExecFormattedRootBlock(r_, _className);
                             ExecOverridableBlock overridableBlock_ = clRealId_.getOverridableBlock();
                             AbstractFunctionalInstance struct_;
                             if (_full) {
-                                struct_ = _conf.getStandards().newFullFunctionalInstance(_className, r_, (LambdaStruct) str_, overridableBlock_, _conf);
+                                struct_ = _conf.getStandards().newFullFunctionalInstance(className_, r_, (LambdaStruct) str_, overridableBlock_, _conf);
                             } else {
-                                struct_ = _conf.getStandards().newFunctionalInstance(_className, r_, (LambdaStruct) str_, overridableBlock_, _conf);
+                                struct_ = _conf.getStandards().newFunctionalInstance(className_, r_, (LambdaStruct) str_, overridableBlock_, _conf);
                             }
                             _objArg.setStruct(struct_);
                         }

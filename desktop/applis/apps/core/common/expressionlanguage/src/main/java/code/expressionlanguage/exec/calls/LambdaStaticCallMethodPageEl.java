@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.StaticCallParamChecker;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaStaticCallMethodPageEl extends AbstractRefectLambdaMethodPageEl {
@@ -31,7 +32,7 @@ public final class LambdaStaticCallMethodPageEl extends AbstractRefectLambdaMeth
     @Override
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
         MethodMetaInfo method_ = getMetaInfo();
-        String paramName_ = getClassName();
+        ExecFormattedRootBlock paramName_ = getClassName();
         return new StaticCallParamChecker(getPair(), _list).checkParams(paramName_,Argument.createVoid(), method_.getCache(), _context, _stack);
     }
 

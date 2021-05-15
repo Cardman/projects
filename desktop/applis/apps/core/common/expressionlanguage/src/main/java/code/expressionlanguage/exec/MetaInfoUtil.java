@@ -212,6 +212,18 @@ public final class MetaInfoUtil {
         return fid_;
     }
 
+    public static ConstructorId tryFormatId(ExecFormattedRootBlock _name, ConstructorId _id) {
+        return _id.reflectFormat(_name);
+    }
+
+    public static String tryFormatType(ExecFormattedRootBlock _name) {
+        return _name.getFormatted();
+    }
+
+    public static MethodId tryFormatId(ExecFormattedRootBlock _name, MethodId _id) {
+        return _id.reflectFormat(_name);
+    }
+
     public static boolean isAbstractType(GeneType _type) {
         if (_type instanceof StandardClass) {
             return ((StandardClass)_type).isAbstractStdType();
@@ -372,7 +384,7 @@ public final class MetaInfoUtil {
             row_ = 0;
             col_ = 0;
         }
-        String currentClassName_ = call_.getGlobalClass();
+        String currentClassName_ = call_.getGlobalClass().getFormatted();
         ExecBlock bl_ = call_.getBlockRoot();
         if (bl_ instanceof ExecReturnableWithSignature) {
             String signature_ =((ExecReturnableWithSignature)bl_).getSignature(_cont);
@@ -385,7 +397,7 @@ public final class MetaInfoUtil {
     public static boolean hasToExit(ContextEl _cont, String _className, Argument _arg, StackCall _stackCall) {
         Classes classes_ = _cont.getClasses();
         String idClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        String curClass_ = _stackCall.getLastPage().getGlobalClass();
+        String curClass_ = _stackCall.getLastPage().getGlobalClass().getFormatted();
         curClass_ = StringExpUtil.getIdFromAllTypes(curClass_);
         if (StringUtil.quickEq(curClass_, idClass_)) {
             return false;
@@ -403,7 +415,7 @@ public final class MetaInfoUtil {
             }
             InitClassState res_ = locks_.getProgressingState(idClass_);
             if (res_ == InitClassState.NOT_YET) {
-                _stackCall.setCallingState(new NotInitializedClass(idClass_,c_, _arg));
+                _stackCall.setCallingState(new NotInitializedClass(new ExecFormattedRootBlock(c_,idClass_),c_, _arg));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {

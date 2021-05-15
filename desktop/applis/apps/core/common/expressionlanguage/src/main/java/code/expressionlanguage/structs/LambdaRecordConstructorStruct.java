@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -12,14 +13,14 @@ public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct i
 
     private final ExecRootBlock root;
     private final String className;
-    private final String formClassName;
+    private final ExecFormattedRootBlock formClassName;
 
     private final StringMap<String> id;
 
-    public LambdaRecordConstructorStruct(ExecRootBlock _root,String _className, String _formClassName,StringMap<String> _id) {
+    public LambdaRecordConstructorStruct(ExecRootBlock _root, String _className, ExecFormattedRootBlock _formClassName, StringMap<String> _id) {
         root = _root;
         className = StringUtil.nullToEmpty(_className);
-        formClassName = StringUtil.nullToEmpty(_formClassName);
+        formClassName = _formClassName;
         id = _id;
     }
 
@@ -27,7 +28,7 @@ public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct i
         return root;
     }
 
-    public String getFormClassName() {
+    public ExecFormattedRootBlock getFormClassName() {
         return formClassName;
     }
     public Argument getInstanceCall() {

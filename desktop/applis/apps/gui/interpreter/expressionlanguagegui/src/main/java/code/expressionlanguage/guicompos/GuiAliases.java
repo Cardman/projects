@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -5318,7 +5319,7 @@ public final class GuiAliases {
     private void wrapAndCall(ContextEl _cont, CustList<Argument> _args, ExecTypeFunction _pair, StackCall _stackCall) {
         ArgumentListCall argList_ = new ArgumentListCall();
         argList_.addAllArgs(_args);
-        ExecTemplates.wrapAndCall(_pair, aliasPaint,Argument.createVoid(), _cont, _stackCall, argList_);
+        ExecTemplates.wrapAndCall(_pair, new ExecFormattedRootBlock(_pair.getType(),aliasPaint),Argument.createVoid(), _cont, _stackCall, argList_);
     }
 
     public void otherAliasGui(StringMap<String> _util, StringMap<String> _cust) {

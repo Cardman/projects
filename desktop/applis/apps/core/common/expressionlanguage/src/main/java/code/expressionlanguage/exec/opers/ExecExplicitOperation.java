@@ -51,7 +51,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         if (_exit.hasToExit(_stackCall, _paramNameOwner.getFormatted(),_fwd)) {
             return true;
         }
-        new StaticCallParamChecker(_rootBlock,_list).checkParams(_paramNameOwner.getFormatted(),Argument.createVoid(),null,_conf,_stackCall);
+        new StaticCallParamChecker(_rootBlock,_list).checkParams(_paramNameOwner,Argument.createVoid(),null,_conf,_stackCall);
         return false;
     }
 

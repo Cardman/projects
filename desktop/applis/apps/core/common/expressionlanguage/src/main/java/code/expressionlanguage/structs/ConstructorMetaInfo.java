@@ -47,9 +47,9 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         standardType = null;
         declType = null;
     }
-    public ConstructorMetaInfo(ExecTypeFunction _pair,ContextEl _conf, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ConstructorId _realId) {
+    public ConstructorMetaInfo(ExecTypeFunction _pair, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ConstructorId _realId) {
         String className_ = StringExpUtil.getIdFromAllTypes(_declaringClass.getFormatted());
-        ConstructorId fid_ = MetaInfoUtil.tryFormatId(_declaringClass.getFormatted(), _conf, _realId);
+        ConstructorId fid_ = MetaInfoUtil.tryFormatId(_declaringClass, _realId);
         invokable = true;
         declaringClass = StringUtil.nullToEmpty(_declaringClass.getFormatted());
         access = AccessEnum.PUBLIC;
@@ -64,10 +64,10 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         standardType = null;
         declType = _pair.getType();
     }
-    public ConstructorMetaInfo(StandardType _standardType,ContextEl _conf, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ConstructorId _realId) {
+    public ConstructorMetaInfo(StandardType _standardType, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ConstructorId _realId) {
         standardType = _standardType;
         String className_ = StringExpUtil.getIdFromAllTypes(_declaringClass.getFormatted());
-        ConstructorId fid_ = MetaInfoUtil.tryFormatId(_declaringClass.getFormatted(), _conf, _realId);
+        ConstructorId fid_ = MetaInfoUtil.tryFormatId(_declaringClass, _realId);
         invokable = true;
         declaringClass = StringUtil.nullToEmpty(_declaringClass.getFormatted());
         access = AccessEnum.PUBLIC;

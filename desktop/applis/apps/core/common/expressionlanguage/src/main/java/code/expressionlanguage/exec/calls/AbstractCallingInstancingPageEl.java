@@ -51,7 +51,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
                 if (!calledImplicitConstructor && formattedSuperClass_ != null) {
                     calledImplicitConstructor = true;
                     Argument global_ = getGlobalArgument();
-                    _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(formattedSuperClass_).getFormatted(), emptyCtorPair, EMPTY_STRING, -1, global_, new Parameters(), InstancingStep.USING_SUPER_IMPL));
+                    _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(formattedSuperClass_), emptyCtorPair, EMPTY_STRING, -1, global_, new Parameters(), InstancingStep.USING_SUPER_IMPL));
                     return false;
                 }
                 //the super constructor is called here

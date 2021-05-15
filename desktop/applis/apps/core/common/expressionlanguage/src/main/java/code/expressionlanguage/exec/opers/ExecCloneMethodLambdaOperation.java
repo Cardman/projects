@@ -40,7 +40,7 @@ public final class ExecCloneMethodLambdaOperation extends ExecAbstractLambdaOper
                                    String _clArg) {
         String from_ = StringExpUtil.getPrettyArrayType(_conf.getStandards().getContent().getCoreNames().getAliasObject());
         MethodModifier met_ = MethodModifier.NORMAL;
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_conf,_common,_ownerType,from_, _meth.getMethod().getConstraints(), met_,false);
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_ownerType,from_, _meth.getMethod().getConstraints(), met_,false);
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg, _ownerType.getFormatted());
     }
 

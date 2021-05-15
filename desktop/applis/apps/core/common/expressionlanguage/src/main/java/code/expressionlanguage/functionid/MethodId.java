@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.BooleanList;
 import code.util.StringList;
@@ -196,6 +197,18 @@ public final class MethodId implements Identifiable {
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = classNames.get(i);
             String formatted_ = ExecInherits.reflectFormat(_genericClass, n_, _context);
+            pTypes_.add(formatted_);
+        }
+        return new MethodId(retRef, kind, name_, pTypes_, refParams,isVararg());
+    }
+
+    public MethodId reflectFormat(ExecFormattedRootBlock _genericClass) {
+        String name_ = getName();
+        int len_ = classNames.size();
+        StringList pTypes_ = new StringList();
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
+            String n_ = classNames.get(i);
+            String formatted_ = ExecInherits.reflectFormat(_genericClass, n_);
             pTypes_.add(formatted_);
         }
         return new MethodId(retRef, kind, name_, pTypes_, refParams,isVararg());

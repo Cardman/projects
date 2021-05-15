@@ -26,7 +26,7 @@ public final class RendOperatorMethodLambdaOperation extends RendAbstractLambdaO
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
-        Argument res_ = new Argument(ExecOperatorMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_,_context, clArg_));
+        Argument res_ = new Argument(ExecOperatorMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
 }

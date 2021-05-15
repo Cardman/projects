@@ -2,6 +2,7 @@ package code.expressionlanguage.functionid;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.BooleanList;
 import code.util.StringList;
@@ -63,6 +64,17 @@ public final class ConstructorId implements Identifiable {
             pTypes_.add(formatted_);
         }
         return new ConstructorId(_genericClass, pTypes_,refParams, isVararg());
+    }
+    public ConstructorId reflectFormat(ExecFormattedRootBlock _genericClass) {
+        StringList types_ = getParametersTypes();
+        int len_ = types_.size();
+        StringList pTypes_ = new StringList();
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
+            String n_ = types_.get(i);
+            String formatted_ = ExecInherits.reflectFormat(_genericClass, n_);
+            pTypes_.add(formatted_);
+        }
+        return new ConstructorId(_genericClass.getFormatted(), pTypes_,refParams, isVararg());
     }
 
     public ConstructorId copy(String _class) {

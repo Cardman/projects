@@ -28,7 +28,7 @@ public final class RendCastMethodLambdaOperation extends RendAbstractLambdaOpera
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         ExecFormattedRootBlock ownerType_ = getFoundClass();
-        Argument res_ = new Argument(ExecCastMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, _context, ownerType_, clArg_));
+        Argument res_ = new Argument(ExecCastMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, ownerType_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
     }
 }

@@ -5,11 +5,12 @@ import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 public final class CustomFoundConstructor implements CallingState {
 
-    private final String className;
+    private final ExecFormattedRootBlock className;
     private final ExecTypeFunction pair;
 
     private final String fieldName;
@@ -21,7 +22,7 @@ public final class CustomFoundConstructor implements CallingState {
 
     private final InstancingStep instanceStep;
 
-    public CustomFoundConstructor(String _className,
+    public CustomFoundConstructor(ExecFormattedRootBlock _className,
                                   ExecTypeFunction _pair,
                                   String _fieldName, int _childIndex,
                                   Argument _currentObject, Parameters _arguments, InstancingStep _instance) {
@@ -51,7 +52,7 @@ public final class CustomFoundConstructor implements CallingState {
         return pair;
     }
 
-    public String getClassName() {
+    public ExecFormattedRootBlock getClassName() {
         return className;
     }
 

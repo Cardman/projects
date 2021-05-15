@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.inherits.StaticCallParamChecker;
 import code.expressionlanguage.exec.inherits.SwitchParamChecker;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
@@ -43,20 +44,20 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
 
     @Override
     Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
-        String className_ = getClassName();
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(className_, _context);
+        ExecFormattedRootBlock className_ = getClassName();
+        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(className_.getFormatted(), _context);
         if (res_.isEmpty()) {
             String null_;
             null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();
-            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stack)));
+            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_.getFormatted(), null_, _stack)));
             return Argument.createVoid();
         }
         MethodMetaInfo method_ = getMetaInfo();
-        if (!StringExpUtil.customCast(className_)) {
+        if (!StringExpUtil.customCast(className_.getFormatted())) {
             LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getContent().getCoreNames().getAliasIllegalType();
-            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stack)));
+            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_.getFormatted(), null_, _stack)));
             return Argument.createVoid();
         }
         ExecMemberCallingsBlock callee_ = getCallee();

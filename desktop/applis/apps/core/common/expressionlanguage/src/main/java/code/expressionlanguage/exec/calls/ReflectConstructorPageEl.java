@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.InstanceParamChecker;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
@@ -46,7 +47,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         LgNames stds_ = _context.getStandards();
         GeneType type_ = metaInfo.getDeclType();
         boolean static_ = type_.withoutInstance();
-        String res_ = metaInfo.getFormatted().getFormatted();
+        ExecFormattedRootBlock res_ = metaInfo.getFormatted();
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;

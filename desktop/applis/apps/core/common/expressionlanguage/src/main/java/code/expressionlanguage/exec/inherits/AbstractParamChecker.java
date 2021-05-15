@@ -4,13 +4,14 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
 public abstract class AbstractParamChecker {
     protected static final String RETURN_LINE = "\n";
 
-    public Argument checkParams(String _classNameFound, Argument _previous, Cache _cache, ContextEl _conf, StackCall _stackCall) {
+    public Argument checkParams(ExecFormattedRootBlock _classNameFound, Argument _previous, Cache _cache, ContextEl _conf, StackCall _stackCall) {
         FormattedParameters f_ = new FormattedParameters();
-        String classFormat_ = checkFormmattedParams(_classNameFound, _previous, _conf, _stackCall);
+        ExecFormattedRootBlock classFormat_ = checkFormmattedParams(_classNameFound, _previous, _conf, _stackCall);
         if (_conf.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
@@ -38,8 +39,8 @@ public abstract class AbstractParamChecker {
         return redirect(_conf,_classNameFound,_previous,_stackCall,f_);
     }
 
-    public abstract String checkFormmattedParams(String _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall);
-    public abstract Argument redirect(ContextEl _conf, String _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat);
+    public abstract ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall);
+    public abstract Argument redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat);
 
-    public abstract Parameters check(String _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall);
+    public abstract Parameters check(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall);
 }
