@@ -16,7 +16,6 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.Identifiable;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
 import code.expressionlanguage.stds.LgNames;
@@ -549,20 +548,15 @@ public final class ExecTemplates {
         return parametersTypes_;
     }
 
-    public static ArgumentListCall wrapAndCallDirect(ExecTypeFunction _pair, ExecFormattedRootBlock _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf, MethodAccessKind _kind) {
-        ArgumentListCall out_ = new ArgumentListCall();
-        ExecFormattedRootBlock classFormat_ = _formatted;
-        if (_kind != null && !_previous.isNull()) {
-            classFormat_ = ExecTemplates.getQuickFullTypeByBases(_conf, _previous.getStruct().getClassName(_conf), classFormat_);
-        }
+    public static void wrapAndCallDirect(ArgumentListCall _in,ExecTypeFunction _pair, CustList<Argument> _firstArgs, Argument _right,ExecFormattedRootBlock _classFormat) {
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         if (fct_ == null) {
-            return out_;
+            return;
         }
         int i_ = 0;
         for (String c: fct_.getImportedParametersTypes()) {
             String c_ = c;
-            c_ = ExecInherits.quickFormat(classFormat_, c_);
+            c_ = ExecInherits.quickFormat(_classFormat, c_);
             if (i_ + 1 == fct_.getImportedParametersTypes().size() && fct_.isVarargs()) {
                 c_ = StringExpUtil.getPrettyArrayType(c_);
             }
@@ -571,14 +565,14 @@ public final class ExecTemplates {
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c_);
                 VariableWrapper v_ = new VariableWrapper(local_);
 //                out_.getWrappers().add(v_);
-                out_.getArgumentWrappers().add(new ArgumentWrapper(null,v_));
+                _in.getArgumentWrappers().add(new ArgumentWrapper(null,v_));
             } else {
 //                out_.getArguments().add(_firstArgs.get(i_));
-                out_.getArgumentWrappers().add(new ArgumentWrapper(_firstArgs.get(i_),null));
+                _in.getArgumentWrappers().add(new ArgumentWrapper(_firstArgs.get(i_),null));
             }
             i_++;
         }
-        return out_;
+        _in.setRight(_right);
     }
 
     public static Parameters wrapAndCall(ExecTypeFunction _pair, ExecFormattedRootBlock _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList) {
@@ -1136,9 +1130,6 @@ public final class ExecTemplates {
         return _right;
     }
 
-    public static ExecFormattedRootBlock getQuickFullTypeByBases(ContextEl _conf, String _sub, ExecFormattedRootBlock _formatted) {
-        return new ExecFormattedRootBlock(_formatted.getRootBlock(), ExecInherits.getQuickFullTypeByBases(_sub, _formatted.getFormatted(), _conf));
-    }
     public static String formatType(ContextEl _conf, ExecRootBlock _rootBlock, String _lastType, String _cl) {
         String base_ = _rootBlock.getFullName();
         String clGen_ = ExecInherits.getFullObject(_cl, base_, _conf);

@@ -17,17 +17,18 @@ public abstract class AbstractFormatParamChecker extends AbstractParamChecker {
         this.kind = _kind;
     }
     public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
-        ExecFormattedRootBlock classFormat_ = _classNameFound;
-        if (kind == MethodAccessKind.INSTANCE) {
-            String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
-            classFormat_ = ExecTemplates.getQuickFullTypeByBases(_conf,className_, classFormat_);
-            if (classFormat_.getFormatted().isEmpty()) {
-                LgNames stds_ = _conf.getStandards();
-                String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound.getFormatted(), className_), cast_, _stackCall)));
-            }
+        if (kind != MethodAccessKind.INSTANCE) {
+            return _classNameFound;
         }
-        return classFormat_;
+        String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
+        String sup_ = ExecInherits.getQuickFullTypeByBases(className_, _classNameFound.getFormatted(), _conf);
+        if (sup_.isEmpty()) {
+            LgNames stds_ = _conf.getStandards();
+            String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound.getFormatted(), className_), cast_, _stackCall)));
+            return _classNameFound;
+        }
+        return new ExecFormattedRootBlock(_classNameFound.getRootBlock(), sup_);
     }
     private static String getBadCastMessage(String _classNameFound, String _className) {
         return StringUtil.concat(_className, RETURN_LINE, _classNameFound, RETURN_LINE);

@@ -2,9 +2,8 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.DefaultParamChecker;
+import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -41,7 +40,7 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
         } else {
             Argument prev_ = new Argument();
             String lastType_ = ClassMethodId.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
-            res_ = new DefaultParamChecker(pair, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg(), null), staticFctContent.getKind(), CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _conf, _stack);
+            res_ = new MethodParamChecker(pair, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg(), null), staticFctContent.getKind()).checkParams(classNameFound_, prev_, null, _conf, _stack);
         }
         setResult(res_, _conf, _nodes, _stack);
     }

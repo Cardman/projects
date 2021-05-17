@@ -2,9 +2,8 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.DefaultParamChecker;
+import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
@@ -31,7 +30,7 @@ public final class LambdaPolymorphRefectMethodPageEl extends AbstractRefectLambd
     }
 
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        return new DefaultParamChecker(getPair(), _list, getAccessKind(), CallPrepareState.METHOD, null).checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
+        return new MethodParamChecker(getPair(), _list, getAccessKind()).checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
     }
 
 }

@@ -12,19 +12,21 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
-public final class StaticCallParamChecker extends AbstractStaticCallParamChecker {
-    private final ExecNamedFunctionBlock method;
-    private final ExecRootBlock type;
-    private final ArgumentListCall args;
-    public StaticCallParamChecker(ExecTypeFunction _pair, ArgumentListCall _args) {
-        super(_pair);
-        this.method = _pair.getFct();
-        this.type = _pair.getType();
-        this.args = _args;
+public abstract class AbstractStaticCallParamChecker extends AbstractFormatParamChecker {
+    private final ExecTypeFunction pair;
+
+    public AbstractStaticCallParamChecker(ExecTypeFunction _pair) {
+        super(MethodAccessKind.STATIC_CALL);
+        this.pair = _pair;
     }
 
     @Override
-    public Parameters check(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall) {
-        return ExecTemplates.okArgsSet(method, _classFormat, _cache, args, _conf, _stackCall);
+    public Argument redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
+        _stackCall.setCallingState(new CustomFoundMethod(_classNameFound, pair, _classFormat.getParameters()));
+        return Argument.createVoid();
+    }
+
+    protected ExecTypeFunction getPair() {
+        return pair;
     }
 }

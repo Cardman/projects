@@ -3,10 +3,9 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -44,7 +43,7 @@ public final class RendSuperFctOperation extends RendSettableCallFctOperation im
         } else {
             String argClassName_ = prev_.getStruct().getClassName(_context);
             String lastType_ = ExecTemplates.formatType(_context, pair.getType(), instFctContent.getLastType(), argClassName_);
-            result_ = new DefaultParamChecker(pair, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null), MethodAccessKind.INSTANCE, CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _context, _stack);
+            result_ = new MethodParamChecker(pair, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _context, _stack);
         }
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);

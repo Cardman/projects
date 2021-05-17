@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
@@ -41,9 +40,7 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
             ExecRootBlock type_ = getPair().getType();
             ab_ = new SwitchParamChecker(type_,(ExecAbstractSwitchMethod) callee_, _args,getAccessKind());
         } else {
-            ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(getPair(),getClassName(),getInstance(),_args,_context, getAccessKind());
-            l_.setRight(_right);
-            ab_ = new DefaultParamChecker(getPair(), l_,getAccessKind(), CallPrepareState.METHOD, null);
+            ab_ = new ReflectMethodParamChecker(getPair(), _args,_right,getAccessKind());
         }
         return ab_.checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
     }

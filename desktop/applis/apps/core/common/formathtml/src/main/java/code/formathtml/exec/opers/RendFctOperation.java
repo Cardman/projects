@@ -2,10 +2,9 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
@@ -53,7 +52,7 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
             ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context, pr_, formattedType_, pair);
             ExecTypeFunction pair_ = polymorph_.getPair();
             classNameFound_ = polymorph_.getClassName();
-            result_ = new DefaultParamChecker(pair_, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null), MethodAccessKind.INSTANCE, CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _context, _stack);
+            result_ = new MethodParamChecker(pair_, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _context, _stack);
         }
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);

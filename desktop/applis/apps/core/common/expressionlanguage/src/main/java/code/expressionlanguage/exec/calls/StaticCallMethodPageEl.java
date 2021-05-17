@@ -7,10 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.AbstractParamChecker;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.StaticCallParamChecker;
-import code.expressionlanguage.exec.inherits.SwitchParamChecker;
+import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -67,8 +64,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
         if (callee_ instanceof ExecAbstractSwitchMethod) {
             ab_ = new SwitchParamChecker(pair_.getType(), (ExecAbstractSwitchMethod) callee_, _args, MethodAccessKind.STATIC_CALL);
         } else {
-            ArgumentListCall l_ = ExecTemplates.wrapAndCallDirect(pair_, className_,Argument.createVoid(), _args, _context, MethodAccessKind.STATIC_CALL);
-            ab_ = new StaticCallParamChecker(pair_, l_);
+            ab_ = new ReflectStaticCallParamChecker(pair_, _args);
         }
         return ab_.checkParams(className_,Argument.createVoid(), cache_, _context, _stack);
     }

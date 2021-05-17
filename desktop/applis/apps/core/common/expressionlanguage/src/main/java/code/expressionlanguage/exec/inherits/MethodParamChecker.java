@@ -2,32 +2,31 @@ package code.expressionlanguage.exec.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.util.StringList;
-import code.util.core.StringUtil;
+import code.expressionlanguage.structs.AbstractFunctionalInstance;
+import code.expressionlanguage.structs.Struct;
 
-public final class InstanceParamChecker extends AbstractInstanceParamChecker {
+public final class MethodParamChecker extends AbstractMethodParamChecker {
 
-
-    public InstanceParamChecker(ExecTypeFunction _pair, ArgumentListCall _arguments, String _fieldName,
-                                int _blockIndex) {
-        super(_pair, _arguments, _fieldName, _blockIndex);
+    public MethodParamChecker(ExecTypeFunction _pair, ArgumentListCall _args,
+                              MethodAccessKind _kind) {
+        super(_pair, _args, _kind);
     }
 
     @Override
     public Parameters check(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall) {
-        return ExecTemplates.okArgsSet(getMethod(),_classFormat,_cache,getArguments(),_conf,_stackCall);
+        return ExecTemplates.okArgsSet(getMethod(), _classFormat, _cache, getArgs(), _conf, _stackCall);
     }
 }

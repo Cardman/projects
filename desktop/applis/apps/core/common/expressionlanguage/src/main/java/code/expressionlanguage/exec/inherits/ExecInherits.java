@@ -161,8 +161,7 @@ public final class ExecInherits {
         if (StringUtil.quickEq(idArg_,idSuperType_)) {
             return _subType;
         }
-        DimComp dBaseParam_ = StringExpUtil.getQuickComponentBaseType(idSuperType_);
-        return getSuperGeneric(_subType,dBaseParam_, _context);
+        return getSuperGeneric(_subType,idSuperType_, _context);
     }
 
     public static String reflectFormat(ExecFormattedRootBlock _first, String _second) {
@@ -284,11 +283,12 @@ public final class ExecInherits {
         return StringExpUtil.commonCorrectType(_genericClass, fct_,rep_);
     }
 
-    private static String getSuperGeneric(String _subType, DimComp _dimParam, ContextEl _context) {
+    private static String getSuperGeneric(String _subType, String _supType, ContextEl _context) {
+        DimComp dBaseParam_ = StringExpUtil.getQuickComponentBaseType(_supType);
         String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
         DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
         String baseArr_ = dBaseArg_.getComponent();
-        String generic_ = getSuperGenericIn(baseArr_,_dimParam, _context);
+        String generic_ = getSuperGenericIn(baseArr_,dBaseParam_, _context);
         GeneType classBody_ = _context.getClassBody(baseArr_);
         return quickFormat(classBody_, _subType, generic_);
     }

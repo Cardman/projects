@@ -3,9 +3,8 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.DefaultParamChecker;
+import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -37,7 +36,7 @@ public final class RendStaticFctOperation extends RendSettableCallFctOperation i
         int naturalVararg_ = staticFctContent.getNaturalVararg();
         Argument prev_ = new Argument();
         ExecFormattedRootBlock classNameFound_ = staticFctContent.getFormattedType();
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(new DefaultParamChecker(pair, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null), staticFctContent.getKind(), CallPrepareState.METHOD, null).checkParams(classNameFound_, prev_, null, _context, _stack), _context, _stack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(new MethodParamChecker(pair, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null), staticFctContent.getKind()).checkParams(classNameFound_, prev_, null, _context, _stack), _context, _stack);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 
