@@ -8,10 +8,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.util.*;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.VariableWrapper;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
@@ -273,7 +270,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (c.startsWith("~")) {
                 Struct struct_ = values_.get(i_).getStruct();
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c.substring(1));
-                VariableWrapper v_ = new VariableWrapper(local_);
+                ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_);
 //                argumentListCall_.getWrappers().add(v_);
                 argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(null,v_));
             } else {

@@ -540,7 +540,7 @@ public final class ExecTemplates {
             if (fct_.getParametersRef(i_)) {
                 Struct struct_ = _firstArgs.get(i_).getStruct();
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c_);
-                VariableWrapper v_ = new VariableWrapper(local_);
+                ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_);
 //                out_.getWrappers().add(v_);
                 _in.getArgumentWrappers().add(new ArgumentWrapper(null,v_));
             } else {

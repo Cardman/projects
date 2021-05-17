@@ -14,7 +14,7 @@ public final class ShownCache extends Cache {
     private final CacheInfo cacheInfo = new CacheInfo();
     public ShownCache(WithCache _fct, String _aliasObject) {
         for (NameAndType v: _fct.getCacheInfo().getCacheLocalNames()) {
-            locWrappers().add(new NamedWrapper(v.getName(),ExecTemplates.getWrap(new VariableWrapper(LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,_aliasObject))),""));
+            locWrappers().add(new NamedWrapper(v.getName(),ExecTemplates.getWrap(new ReflectVariableWrapper(LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,_aliasObject))),""));
             cacheInfo.getCacheLocalNames().add(new NameAndType(v.getName(),v.getType()));
         }
         for (NameAndType v: _fct.getCacheInfo().getCacheLoopNames()) {
@@ -32,7 +32,7 @@ public final class ShownCache extends Cache {
             String cl_ = ExecInherits.quickFormat(_globalClass, v.getType());
             NamedWrapper namedWrapper_ = locWrappers().get(i_);
             AbstractWrapper wrapper_ = namedWrapper_.getWrapper();
-            NamedWrapper named_ = new NamedWrapper(namedWrapper_.getName(),new VariableWrapper(LocalVariable.newLocalVariable(wrapper_.getValue(_stackCall, _context),cl_)),cl_);
+            NamedWrapper named_ = new NamedWrapper(namedWrapper_.getName(),new ReflectVariableWrapper(LocalVariable.newLocalVariable(wrapper_.getValue(_stackCall, _context),cl_)),cl_);
             locWrappers().set(i_,named_);
             i_++;
         }
