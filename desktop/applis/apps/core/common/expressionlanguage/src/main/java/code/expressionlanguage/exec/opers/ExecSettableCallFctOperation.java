@@ -38,7 +38,7 @@ public abstract class ExecSettableCallFctOperation extends ExecInvokingOperation
     @Override
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        Argument left_ = ExecTemplates.getArgValue(pair_.getWrapper(), _conf, _stack);
+        Argument left_ = pair_.getArgument();
         Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast, _stack);
         return trySetArgument(_nodes, _conf, res_, _stack);
     }
@@ -46,7 +46,7 @@ public abstract class ExecSettableCallFctOperation extends ExecInvokingOperation
     @Override
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast, StackCall _stack) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        Argument left_ = ExecTemplates.getArgValue(pair_.getWrapper(), _conf, _stack);
+        Argument left_ = pair_.getArgument();
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         trySetArgument(_nodes, _conf, res_, _stack);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);

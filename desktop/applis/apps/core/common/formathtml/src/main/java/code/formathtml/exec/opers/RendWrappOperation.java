@@ -42,7 +42,7 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
             }
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             pair_.setWrapper(f_);
-            setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context, _stack);
+            setQuickNoConvertSimpleArgument(getArgumentPair(_nodes,ch_).getArgument(),_nodes,_context, _stack);
             return;
         }
         if (chFirst_ instanceof RendArrOperation) {
@@ -52,12 +52,12 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             ArrayWrapper a_ = new ArrayWrapper(previousArgument_.getStruct(),pairIndex_.getArgument().getStruct());
             pair_.setWrapper(a_);
-            setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context, _stack);
+            setQuickNoConvertSimpleArgument(getArgumentPair(_nodes,ch_).getArgument(),_nodes,_context, _stack);
             return;
         }
         ArgumentsPair pairCh_ = getArgumentPair(_nodes, getFirstChild());
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         ExecHelper.fwdWrapper(pair_,pairCh_);
-        setQuickNoConvertSimpleArgument(Argument.createVoid(),_nodes,_context, _stack);
+        setQuickNoConvertSimpleArgument(getArgumentPair(_nodes,getFirstChild()).getArgument(),_nodes,_context, _stack);
     }
 }

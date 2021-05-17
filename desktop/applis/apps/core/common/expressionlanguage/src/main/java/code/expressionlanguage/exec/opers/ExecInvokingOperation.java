@@ -307,12 +307,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             CustList<AbstractWrapper> wrappers_ = new CustList<AbstractWrapper>();
             for (ArgumentsPair a: _values) {
                 Argument arg_ = a.getArgument();
-                if (arg_ != null) {
+                AbstractWrapper wrapper_ = a.getWrapper();
+                if (wrapper_ == null) {
                     values_.add(arg_);
                     pairs_.add(new ArgumentWrapper(arg_,null));
                 } else {
-                    wrappers_.add(a.getWrapper());
-                    pairs_.add(new ArgumentWrapper(null,a.getWrapper()));
+                    wrappers_.add(wrapper_);
+                    pairs_.add(new ArgumentWrapper(null, wrapper_));
                 }
             }
             if (_values.size() != parNb_) {
@@ -339,7 +340,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             for (ArgumentsPair a: _values) {
                 String param_ = paramsFct_.get(i_);
                 if (param_.startsWith("~")) {
-                    if (a.getArgument() != null) {
+                    if (a.getWrapper() == null) {
                         LgNames stds_ = _conf.getStandards();
                         String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
                         _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(param_, a.getArgument().getStruct().getClassName(_conf)),cast_, _stackCall)));

@@ -148,19 +148,10 @@ public final class ExpressionLanguage {
     }
 
     public void setArgument(AbstractWrapper _wrapp, Argument _arg, ContextEl _cont, StackCall _stackCall) {
-        Argument arg_ = tryUnwrapp(_wrapp, _arg, _cont, _stackCall);
         if (_wrapp != null) {
             ExecHelper.getArgumentPair(arguments,currentOper).setWrapper(_wrapp);
         }
-        setArgument(arg_,_cont, _stackCall);
-    }
-
-    public static Argument tryUnwrapp(AbstractWrapper _wrapp, Argument _arg, ContextEl _cont, StackCall _stackCall) {
-        Argument arg_ = _arg;
-        if (_wrapp != null) {
-            arg_ = new Argument(_wrapp.getValue(_stackCall, _cont));
-        }
-        return arg_;
+        setArgument(_arg,_cont, _stackCall);
     }
 
     public void setArgument(Argument _arg, ContextEl _cont, StackCall _stackCall) {

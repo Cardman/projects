@@ -31,8 +31,7 @@ public final class ExecRefTernaryOperation extends ExecSettableCallFctOperation 
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         if (res_ != null) {
             ExecHelper.fwdWrapper(pair_,ch_);
-            Argument arg_ = ExecTemplates.getArgValue(res_, _conf, _stack);
-            setResult(arg_, _conf, _nodes, _stack);
+            setResult(ch_.getArgument(), _conf, _nodes, _stack);
         } else {
             setSimpleArgument(ch_.getArgument(), _conf, _nodes, _stack);
         }

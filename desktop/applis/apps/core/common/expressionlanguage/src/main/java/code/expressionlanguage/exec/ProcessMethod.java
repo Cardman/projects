@@ -53,7 +53,7 @@ public final class ProcessMethod {
 
     private static ArgumentWrapper loopAndReturn(ContextEl _cont, StackCall _stackCall, AbstractPageEl _page) {
         loop(_cont, _stackCall, _page);
-        return new ArgumentWrapper(ExpressionLanguage.tryUnwrapp(_page.getWrapper(), _page.getReturnedArgument(), _cont, _stackCall), _page.getWrapper());
+        return new ArgumentWrapper(_page.getReturnedArgument(), _page.getWrapper());
     }
 
     private static void loop(ContextEl _cont, StackCall _stackCall, AbstractPageEl _page) {

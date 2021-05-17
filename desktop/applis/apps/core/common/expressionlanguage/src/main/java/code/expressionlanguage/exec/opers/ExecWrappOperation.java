@@ -39,7 +39,7 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
             }
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
             pair_.setWrapper(f_);
-            setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes, _stack);
+            setQuickNoConvertSimpleArgument(ExecHelper.getArgumentPair(_nodes, ch_).getArgument(),_conf,_nodes, _stack);
             return;
         }
         if (chFirst_ instanceof ExecArrOperation) {
@@ -49,12 +49,12 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
             ArrayWrapper a_ = new ArrayWrapper(previousArgument_.getStruct(),pairIndex_.getArgument().getStruct());
             pair_.setWrapper(a_);
-            setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes, _stack);
+            setQuickNoConvertSimpleArgument(ExecHelper.getArgumentPair(_nodes, ch_).getArgument(),_conf,_nodes, _stack);
             return;
         }
         ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         ExecHelper.fwdWrapper(pair_,pairCh_);
-        setQuickNoConvertSimpleArgument(Argument.createVoid(),_conf,_nodes, _stack);
+        setQuickNoConvertSimpleArgument(ExecHelper.getArgumentPair(_nodes, getFirstChild()).getArgument(),_conf,_nodes, _stack);
     }
 }

@@ -58,6 +58,7 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
                 }
                 ip_.clearCurrentEls();
                 ip_.setWrapper(argumentsPair_.getWrapper());
+                ip_.setReturnedArgument(argumentsPair_.getArgument());
             } else {
                 Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
                 if (_cont.callsOrException(_stack)) {

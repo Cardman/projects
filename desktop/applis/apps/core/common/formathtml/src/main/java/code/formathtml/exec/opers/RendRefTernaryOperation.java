@@ -34,7 +34,7 @@ public final class RendRefTernaryOperation extends RendSettableCallFctOperation 
         if (res_ != null) {
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             ExecHelper.fwdWrapper(pair_,ch_);
-            Argument arg_ = ExecTemplates.getArgValue(res_, _context, _stack);
+            Argument arg_ = ch_.getArgument();
             if (resultCanBeSet()) {
                 setQuickNoConvertSimpleArgument(arg_, _nodes,_context, _stack);
                 return;
