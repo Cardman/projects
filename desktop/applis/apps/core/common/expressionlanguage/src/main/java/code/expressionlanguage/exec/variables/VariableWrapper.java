@@ -20,4 +20,8 @@ public final class VariableWrapper implements AbstractWrapper {
         return local.getStruct();
     }
 
+    @Override
+    public String getClassName(StackCall _stack, ContextEl _conf) {
+        return local.getStruct().getClassName(_conf);
+    }
 }

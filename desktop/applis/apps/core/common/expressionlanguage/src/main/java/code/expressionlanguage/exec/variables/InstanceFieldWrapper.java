@@ -20,4 +20,10 @@ public final class InstanceFieldWrapper extends FieldWrapper {
 
         return ExecTemplates.getInstanceField(new Argument(getContainer()),  _conf, _stack, getId()).getStruct();
     }
+
+    @Override
+    public String getClassName(StackCall _stack, ContextEl _conf) {
+        String argClassName_ = getContainer().getClassName(_conf);
+        return ExecTemplates.formatType(_conf,getRootBlock(),getFieldType(),argClassName_);
+    }
 }

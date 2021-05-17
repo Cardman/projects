@@ -416,8 +416,7 @@ public final class ExecTemplates {
             _p.getRefParameters().addEntry(_params.getNamesAll().get(_i),new VariableWrapper(lv_));
         } else {
             AbstractWrapper w_ = _a.getWrapper();
-            Struct value_ = getValue(w_, _conf, _stackCall);
-            Struct ex_ = checkObjectEx(param_, value_.getClassName(_conf), _conf, _stackCall);
+            Struct ex_ = checkObjectEx(param_, getClassName(w_, _conf, _stackCall), _conf, _stackCall);
             if (ex_ != null) {
                 _p.setError(ex_);
                 return;
@@ -486,6 +485,12 @@ public final class ExecTemplates {
             return NullStruct.NULL_VALUE;
         }
         return Argument.getNull(_w.getValue(_stackCall, _context));
+    }
+    public static String getClassName(AbstractWrapper _w, ContextEl _context, StackCall _stackCall) {
+        if (_w == null) {
+            return "";
+        }
+        return _w.getClassName(_stackCall, _context);
     }
     public static StringBuilder countDiff(int _argsCount, int _paramsCount) {
         StringBuilder mess_ = new StringBuilder();

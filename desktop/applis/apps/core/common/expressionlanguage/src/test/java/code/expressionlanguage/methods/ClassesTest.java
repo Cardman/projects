@@ -43,6 +43,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         ClassesUtil.getDirectChildren(null);
         ContextUtil.getParamTypesMapValues(null);
         ExecTemplates.getValue(null, cont_.getContext(), null);
+        ExecTemplates.getClassName(null, cont_.getContext(), null);
         ExecTemplates.trySetArgument(cont_.getContext(),new Argument(),new ArgumentsPair(), null);
     }
 

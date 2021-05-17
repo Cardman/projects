@@ -353,7 +353,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     if (a.getArgument() == null) {
                         LgNames stds_ = _conf.getStandards();
                         String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-                        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(param_, ExecTemplates.getValue(a.getWrapper(),_conf, _stackCall).getClassName(_conf)),cast_, _stackCall)));
+                        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(param_, ExecTemplates.getClassName(a.getWrapper(),_conf, _stackCall)),cast_, _stackCall)));
                         return new Argument();
                     }
                 }
@@ -368,8 +368,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                         return new Argument();
                     }
                 } else {
-                    Struct value_ = ExecTemplates.getValue(a.getWrapper(), _conf, _stackCall);
-                    if (!ExecTemplates.checkQuick(param_, Argument.getNull(value_).getClassName(_conf), _conf, _stackCall)) {
+                    if (!ExecTemplates.checkQuick(param_, ExecTemplates.getClassName(a.getWrapper(), _conf, _stackCall), _conf, _stackCall)) {
                         return new Argument();
                     }
                 }

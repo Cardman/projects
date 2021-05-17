@@ -8,4 +8,5 @@ import code.expressionlanguage.structs.Struct;
 public interface AbstractWrapper {
     void setValue(StackCall _stack, ContextEl _conf, Argument _right);
     Struct getValue(StackCall _stack, ContextEl _conf);
+    String getClassName(StackCall _stack, ContextEl _conf);
 }

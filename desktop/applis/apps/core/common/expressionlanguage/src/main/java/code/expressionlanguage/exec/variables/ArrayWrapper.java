@@ -2,9 +2,14 @@ package code.expressionlanguage.exec.variables;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.core.StringUtil;
 
 public final class ArrayWrapper implements AbstractWrapper {
     private final Struct container;
@@ -21,4 +26,9 @@ public final class ArrayWrapper implements AbstractWrapper {
         return ExecTemplates.getElement(container,index,_conf, _stack);
     }
 
+    @Override
+    public String getClassName(StackCall _stack, ContextEl _conf) {
+        ArrayStruct arr_ = ExecArrayFieldOperation.getArray(container, _conf);
+        return StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(arr_.getClassName()));
+    }
 }
