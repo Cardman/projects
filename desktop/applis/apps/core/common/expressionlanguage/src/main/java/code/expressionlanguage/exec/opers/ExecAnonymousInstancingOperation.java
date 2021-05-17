@@ -31,7 +31,7 @@ public final class ExecAnonymousInstancingOperation extends
         if (_conf.getExiting().hasToExit(_stack, base_)) {
             res_ = Argument.createVoid();
         } else {
-            res_ = new InstanceParamChecker(getPair(), fectchInstFormattedArgs(_nodes,className_, getInstancingCommonContent().getLastType(), getInstancingCommonContent().getNaturalVararg()), "", -1).checkParams(className_, previous_, null, _conf, _stack);
+            res_ = new InstanceParamChecker(getPair(), fectchInstFormattedArgs(_nodes,className_, getInstancingCommonContent(),_conf,_stack), "", -1).checkParams(className_, previous_, null, _conf, _stack);
         }
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

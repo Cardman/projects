@@ -40,7 +40,7 @@ public final class ExecSuperFctOperation extends ExecSettableCallFctOperation {
             res_ = new Argument();
         } else {
             Struct pr_ = prev_.getStruct();
-            res_ = new MethodParamChecker(pair, fetchFormattedArgs(_nodes, _conf, pr_, pair.getType(), instFctContent.getLastType(), instFctContent.getNaturalVararg(), null), MethodAccessKind.INSTANCE).checkParams(formattedType_, prev_, null, _conf, _stack);
+            res_ = new MethodParamChecker(pair, fetchFormattedArgs(_nodes, _conf,_stack, pr_, pair.getType(), instFctContent, null), MethodAccessKind.INSTANCE).checkParams(formattedType_, prev_, null, _conf, _stack);
         }
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

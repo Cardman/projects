@@ -106,7 +106,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _conf,pr_, instFctContent.getFormattedType(),fct_);
         fct_ = polymorph_.getPair();
         ExecFormattedRootBlock classNameFound_ = polymorph_.getClassName();
-        return new MethodParamChecker(fct_, fetchFormattedArgs(_nodes, _conf, pr_, type_, instFctContent.getLastType(), instFctContent.getNaturalVararg(),_right), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _conf, _stackCall);
+        return new MethodParamChecker(fct_, fetchFormattedArgs(_nodes, _conf,_stackCall, pr_, type_, instFctContent, _right), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _conf, _stackCall);
     }
 
 }

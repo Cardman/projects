@@ -14,6 +14,8 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecInstFctContent;
+import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
@@ -39,22 +41,22 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         intermediate = _intermediate;
     }
 
-    protected ArgumentListCall fectchInstFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecFormattedRootBlock _formatted, String _lastType, int _naturalVararg) {
-        String lastType_ = ExecInherits.quickFormat(_formatted, _lastType);
-        return fectchArgs(_nodes, lastType_, _naturalVararg, null);
+    protected ArgumentListCall fectchInstFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecFormattedRootBlock _formatted, ExecInstancingCommonContent _lastType, ContextEl _conf, StackCall _stack) {
+        String lastType_ = ExecInherits.quickFormat(_formatted, _lastType.getLastType());
+        return fectchArgs(_nodes, lastType_, _lastType.getNaturalVararg(), null,_conf,_stack);
     }
 
-    protected ArgumentListCall fetchFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Struct _pr, ExecRootBlock _rootBlock, String _lastType, int _naturalVararg,Argument _right) {
+    protected ArgumentListCall fetchFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack, Struct _pr, ExecRootBlock _rootBlock, ExecInstFctContent _lastType, Argument _right) {
         String cl_ = _pr.getClassName(_conf);
-        String lastType_ = ExecTemplates.formatType(_conf, _rootBlock, _lastType, cl_);
-        return fectchArgs(_nodes,lastType_, _naturalVararg,_right);
+        String lastType_ = ExecTemplates.formatType(_conf, _rootBlock, _lastType.getLastType(), cl_);
+        return fectchArgs(_nodes,lastType_, _lastType.getNaturalVararg(),_right,_conf,_stack);
     }
 
-    protected ArgumentListCall fectchArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg,Argument _right) {
+    protected ArgumentListCall fectchArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg,Argument _right, ContextEl _conf, StackCall _stack) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_,_naturalVararg);
         CustList<ArgumentWrapper> first_ = argumentList_.getArguments().getArgumentWrappers();
-        listArguments(argumentList_.getNaturalVararg(), _lastType, first_);
+        listArguments(argumentList_.getNaturalVararg(), _lastType, first_,_conf,_stack);
         argumentList_.getArguments().setRight(_right);
         return argumentList_.getArguments();
     }
@@ -91,11 +93,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _wrappers.add(new ArgumentWrapper(null,_pair.getWrapper()));
         }
     }
-    public static void listArguments(int _natVararg, String _lastType, CustList<ArgumentWrapper> _nodes) {
+    public static void listArguments(int _natVararg, String _lastType, CustList<ArgumentWrapper> _nodes, ContextEl _conf, StackCall _stack) {
         if (_natVararg <= -1) {
             return;
         }
-        CustList<Struct> optArgs_ = new CustList<Struct>();
+        CustList<Argument> optArgs_ = new CustList<Argument>();
         CustList<ArgumentWrapper> reord_ = new CustList<ArgumentWrapper>();
         int lenCh_ = _nodes.size();
         for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
@@ -106,13 +108,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 continue;
             }
             if (i >= _natVararg) {
-                optArgs_.add(a_.getStruct());
+                optArgs_.add(a_);
             } else {
                 reord_.add(aw_);
             }
         }
         String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
-        ArrayStruct str_ = NumParsers.setElements(optArgs_,clArr_);
+        ArrayStruct str_ = new ArrayStruct(optArgs_.size(),clArr_);
+        ExecTemplates.setCheckedElements(optArgs_,str_,_conf,_stack);
         reord_.add(new ArgumentWrapper(new Argument(str_),null));
         _nodes.clear();
         _nodes.addAllElts(reord_);

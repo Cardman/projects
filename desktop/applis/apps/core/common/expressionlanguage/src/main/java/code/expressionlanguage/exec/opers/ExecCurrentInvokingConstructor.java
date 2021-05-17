@@ -26,7 +26,7 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecFormattedRootBlock superClass_ = _stack.formatVarType(getFormattedType());
         String lastType_ = ExecInherits.quickFormat(superClass_, getLastType());
-        checkParametersCtors(_conf, superClass_, getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), InstancingStep.USING_THIS, _stack);
+        checkParametersCtors(_conf, superClass_, getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null,_conf,_stack), InstancingStep.USING_THIS, _stack);
         Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

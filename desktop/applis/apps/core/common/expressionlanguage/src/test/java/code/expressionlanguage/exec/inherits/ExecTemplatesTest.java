@@ -628,8 +628,13 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addAllArgs(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
-        ExecTemplates.okArgsSet(ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_.getContext(), cont_.getStackCall());
+        addPage(cont_.getContext(), ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), cont_.getStackCall());
+        SampleParamChecker sample_ = new SampleParamChecker();
+        ExecTemplates.checkQuick("","pkg.Ex<$int>",cont_.getContext(), cont_.getStackCall());
+        sample_.checkParams(new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"),Argument.createVoid(),null, cont_.getContext(), cont_.getStackCall());
         assertNotNull(getTrueException(cont_));
+        cont_.getStackCall().setCallingState(null);
+        ExecTemplates.okArgsSet(ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_.getContext(), cont_.getStackCall());
     }
     @Test
     public void okArgs9Test() {

@@ -31,7 +31,7 @@ public final class ExecEnumMethOperation extends ExecSettableCallFctOperation {
         setRelOffsetPossibleLastPage(off_, _stack);
         Argument prev_ = new Argument();
         String lastType_ = staticFctContent.getLastType();
-        Argument res_ = processEnums(_conf.getExiting(), _conf, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg(),null), _stack, type);
+        Argument res_ = processEnums(_conf.getExiting(), _conf, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg(),null,_conf,_stack), _stack, type);
         setResult(res_, _conf, _nodes, _stack);
     }
 }

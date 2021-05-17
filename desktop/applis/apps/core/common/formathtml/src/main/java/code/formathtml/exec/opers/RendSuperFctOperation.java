@@ -43,7 +43,7 @@ public final class RendSuperFctOperation extends RendSettableCallFctOperation im
         } else {
             String argClassName_ = prev_.getStruct().getClassName(_context);
             String lastType_ = ExecTemplates.formatType(_context, pair.getType(), instFctContent.getLastType(), argClassName_);
-            result_ = new MethodParamChecker(pair, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _context, _stack);
+            result_ = new MethodParamChecker(pair, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null,_context,_stack), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _context, _stack);
         }
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);

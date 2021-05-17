@@ -10,7 +10,9 @@ public abstract class AbstractParamChecker {
     protected static final String RETURN_LINE = "\n";
 
     public Argument checkParams(ExecFormattedRootBlock _classNameFound, Argument _previous, Cache _cache, ContextEl _conf, StackCall _stackCall) {
-        FormattedParameters f_ = new FormattedParameters();
+        if (_conf.callsOrException(_stackCall)) {
+            return Argument.createVoid();
+        }
         ExecFormattedRootBlock classFormat_ = checkFormmattedParams(_classNameFound, _previous, _conf, _stackCall);
         if (_conf.callsOrException(_stackCall)) {
             return Argument.createVoid();
@@ -34,6 +36,7 @@ public abstract class AbstractParamChecker {
         }
         _stackCall.setCallingState(new CustomFoundMethod(_classNameFound, _methodId, parameters_));
         return f_;*/
+        FormattedParameters f_ = new FormattedParameters();
         f_.setParameters(parameters_);
         f_.setFormattedClass(classFormat_);
         return redirect(_conf,_classNameFound,_previous,_stackCall,f_);

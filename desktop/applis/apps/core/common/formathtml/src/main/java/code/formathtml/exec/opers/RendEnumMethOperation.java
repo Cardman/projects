@@ -36,7 +36,7 @@ public final class RendEnumMethOperation extends RendSettableCallFctOperation im
         int naturalVararg_ = staticFctContent.getNaturalVararg();
         Argument prev_ = new Argument();
         String classNameFound_ = staticFctContent.getFormattedType().getFormatted();
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecInvokingOperation.processEnums(_context.getExiting(), _context, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack,null), _stack, type), _context, _stack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecInvokingOperation.processEnums(_context.getExiting(), _context, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack,null,_context,_stack), _stack, type), _context, _stack);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 }

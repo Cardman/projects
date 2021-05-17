@@ -26,7 +26,7 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
 
         ExecFormattedRootBlock superClass_ = _stack.formatVarType(getFormattedType());
         String lastType_ = ExecInherits.quickFormat(superClass_, getLastType());
-        checkParametersCtors(_conf, superClass_, getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null), InstancingStep.USING_SUPER, _stack);
+        checkParametersCtors(_conf, superClass_, getPair(), fectchArgs(_nodes, lastType_, getNaturalVararg(),null,_conf,_stack), InstancingStep.USING_SUPER, _stack);
         Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
