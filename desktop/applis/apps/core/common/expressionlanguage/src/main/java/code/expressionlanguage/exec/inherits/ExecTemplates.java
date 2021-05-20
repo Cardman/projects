@@ -545,17 +545,6 @@ public final class ExecTemplates {
         return p_;
     }
 
-    private static Struct processError(ContextEl _conf, ArrayStruct _arr, Struct _s, ErrorType _state, StackCall _stackCall) {
-        LgNames stds_ = _conf.getStandards();
-        if (_state == ErrorType.NPE) {
-            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            return new ErrorStruct(_conf,npe_, _stackCall);
-        }
-        String cast_ = stds_.getContent().getCoreNames().getAliasStore();
-        StringBuilder mess_ = buildStoreError(_s, _conf, _arr);
-        return new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall);
-    }
-
     public static ErrorType safeObject(String _param, String _arg, ContextEl _context) {
         return ExecInherits.safeObject(_param,_arg,_context);
     }
