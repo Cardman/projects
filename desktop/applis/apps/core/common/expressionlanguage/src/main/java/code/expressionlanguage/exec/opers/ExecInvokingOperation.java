@@ -430,8 +430,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         if (ls_ instanceof LambdaFieldStruct) {
             LambdaFieldStruct l_ =  (LambdaFieldStruct) ls_;
-            ClassField idField_ = l_.getFid();
-            if (idField_ == null) {
+            Struct metaInfo_ = l_.getMetaInfo();
+            if (!(metaInfo_ instanceof FieldMetaInfo)) {
                 Argument instance_ = l_.getInstanceCall();
                 Argument realInstance_;
                 if (!l_.isShiftInstance()) {
@@ -456,10 +456,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 return new Argument(struct_.getParent());
             }
+            FieldMetaInfo method_ = (FieldMetaInfo)metaInfo_;
             boolean static_ = l_.isStaticField();
             int nbAncestors_ = l_.getAncestor();
-            String clName_ = StringUtil.nullToEmpty(idField_.getClassName());
-            Struct metaInfo_ = l_.getMetaInfo();
             Argument instance_ = l_.getInstanceCall();
             if (l_.isSafeInstance()&&instance_.isNull()) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
@@ -474,7 +473,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
                     value_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_)).getStruct();
                 }
-                realInstance_ = new Argument(ExecTemplates.getParent(nbAncestors_, clName_, value_, _conf, _stackCall));
+                realInstance_ = new Argument(ExecTemplates.getParent(nbAncestors_, value_, _conf, _stackCall));
                 if (_conf.callsOrException(_stackCall)) {
                     return new Argument();
                 }
@@ -483,7 +482,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             ReflectingType type_;
             boolean aff_ = l_.isAffect();
-            FieldMetaInfo method_ = NumParsers.getField(metaInfo_);
             if (aff_) {
                 type_ = ReflectingType.SET_FIELD;
                 CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
@@ -497,12 +495,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (ls_ instanceof LambdaMethodStruct) {
             LambdaMethodStruct l_ =  (LambdaMethodStruct) ls_;
             int nbAncestors_ = l_.getAncestor();
-            String id_;
-            if (l_.isStaticCall()) {
-                id_ = StringUtil.nullToEmpty(l_.getFormClassName());
-            } else {
-                id_ = StringExpUtil.getIdFromAllTypes(StringUtil.nullToEmpty(l_.getFormClassName()));
-            }
             boolean static_ = l_.getKind() != MethodAccessKind.INSTANCE;
             Struct metaInfo_ = l_.getMetaInfo();
             Struct instanceStruct_ = l_.getInstanceCall().getStruct();
@@ -525,7 +517,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (!l_.isShiftInstance()) {
                 Argument instance_;
                 if (!static_) {
-                    instance_ = new Argument(ExecTemplates.getParent(nbAncestors_, id_, instanceStruct_, _conf, _stackCall));
+                    instance_ = new Argument(ExecTemplates.getParent(nbAncestors_, instanceStruct_, _conf, _stackCall));
                     if (_conf.callsOrException(_stackCall)) {
                         return new Argument();
                     }
@@ -545,7 +537,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             int len_ = Math.max(0, formal_.size() - 1);
             CustList<ArgumentWrapper> arr_ = formal_.leftMinusOne(len_);
             Struct value_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(formal_)).getStruct();
-            Argument firstValue_ = new Argument(ExecTemplates.getParent(nbAncestors_, id_, value_, _conf, _stackCall));
+            Argument firstValue_ = new Argument(ExecTemplates.getParent(nbAncestors_, value_, _conf, _stackCall));
             if (_conf.callsOrException(_stackCall)) {
                 return new Argument();
             }

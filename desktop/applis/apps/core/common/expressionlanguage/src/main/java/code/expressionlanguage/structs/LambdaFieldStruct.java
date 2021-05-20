@@ -2,7 +2,6 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaFieldContent;
 import code.util.core.StringUtil;
@@ -13,8 +12,6 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
 
     private final String className;
     private final String ownerType;
-
-    private final ClassField fid;
 
     private final boolean shiftInstance;
 
@@ -32,7 +29,6 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
         instanceCall =  Argument.getNullableValue(_previous);
         className = StringUtil.nullToEmpty(_className);
         ownerType = StringUtil.nullToEmpty(_ownerType);
-        fid = _field.getClassField();
         shiftInstance = _common.isShiftArgument();
         ancestor = _common.getAncestor();
         affect = _field.isAffField();
@@ -57,10 +53,6 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
 
     public Struct getMetaInfo() {
         return metaInfo;
-    }
-
-    public ClassField getFid() {
-        return fid;
     }
 
     public boolean isToStrField() {

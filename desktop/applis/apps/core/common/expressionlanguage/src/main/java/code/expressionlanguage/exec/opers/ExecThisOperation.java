@@ -26,8 +26,7 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
         AbstractPageEl ip_ = _stack.getLastPage();
         Argument a_;
         if (isIntermediateDottedOperation()) {
-            String c_ = getResultClass().getSingleNameOrEmpty();
-            a_ = new Argument(ExecTemplates.getParent(thisContent.getNbAncestors(), c_, ip_.getGlobalStruct(), _conf, _stack));
+            a_ = new Argument(ExecTemplates.getParent(thisContent.getNbAncestors(), ip_.getGlobalStruct(), _conf, _stack));
         } else {
             a_ = new Argument(ip_.getGlobalStruct());
         }

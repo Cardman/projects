@@ -19,7 +19,6 @@ import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -115,7 +114,7 @@ public final class ExecTemplates {
     /** nb calls of getParent - super type - arg object
      use class parent of object
      */
-    public static Struct getParent(int _nbAncestors, String _required, Struct _current, ContextEl _an, StackCall _stackCall) {
+    public static Struct getParent(int _nbAncestors, Struct _current, ContextEl _an, StackCall _stackCall) {
         LgNames lgNames_ = _an.getStandards();
         if (_current == NullStruct.NULL_VALUE) {
             String npe_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
@@ -123,35 +122,6 @@ public final class ExecTemplates {
             return _current;
         }
         Struct arg_ = _current;
-        String cast_ = lgNames_.getContent().getCoreNames().getAliasCastType();
-        String className_ = _current.getClassName(_an);
-        String cl_ = StringExpUtil.getIdFromAllTypes(className_);
-        String id_ = StringExpUtil.getIdFromAllTypes(_required);
-        DimComp dimReq_ = StringExpUtil.getQuickComponentBaseType(id_);
-        DimComp dimCurrent_ = StringExpUtil.getQuickComponentBaseType(cl_);
-        int dCurrent_ = dimCurrent_.getDim();
-        int dReq_ = dimReq_.getDim();
-        String componentDim_ = dimReq_.getComponent();
-        if (StringUtil.quickEq(componentDim_, _an.getStandards().getContent().getCoreNames().getAliasObject())) {
-            if (dReq_ > dCurrent_) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
-                return NullStruct.NULL_VALUE;
-            }
-            return _current;
-        }
-        if (dReq_ != dCurrent_) {
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
-            return NullStruct.NULL_VALUE;
-        }
-        String dComp_ = dimCurrent_.getComponent();
-        InheritedType in_ = getInheritedType(_an, cl_, dComp_);
-        if (in_ != null) {
-            if (!in_.isSubTypeOf(componentDim_,_an)) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, getBadCastMessage(_required, className_), cast_, _stackCall)));
-                return NullStruct.NULL_VALUE;
-            }
-            return _current;
-        }
         for (int i = 0; i < _nbAncestors; i++) {
             Struct enc_ = arg_;
             Struct par_ = enc_.getParent();
@@ -159,33 +129,6 @@ public final class ExecTemplates {
             arg_=par_;
         }
         return Argument.getNull(arg_);
-    }
-
-    private static InheritedType getInheritedType(ContextEl _an, String _cl, String _dComp) {
-        PrimitiveType pr_ = _an.getStandards().getPrimitiveTypes().getVal(_dComp);
-        GeneType g_ = _an.getClassBody(_dComp);
-        return getInheritedType(_cl, pr_, g_);
-    }
-
-    private static InheritedType getInheritedType(String _cl, PrimitiveType _pr, GeneType _g) {
-        boolean without_ = withoutInstance(_g);
-        return getInheritedType(_cl, _pr, _g, without_);
-    }
-
-    private static InheritedType getInheritedType(String _cl, PrimitiveType _pr, GeneType _g, boolean _without) {
-        InheritedType in_ = null;
-        if (_pr != null) {
-            in_ = _pr;
-        } else {
-            if (_cl.startsWith(AbstractReplacingType.ARR_BEG_STRING) || _without) {
-                in_ = _g;
-            }
-        }
-        return in_;
-    }
-
-    private static boolean withoutInstance(GeneType _g) {
-        return _g != null && _g.withoutInstance();
     }
 
     public static String correctClassPartsDynamicWildCard(String _className, ContextEl _context) {

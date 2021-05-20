@@ -36,7 +36,7 @@ public final class RendSuperFctOperation extends RendSettableCallFctOperation im
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         int naturalVararg_ = instFctContent.getNaturalVararg();
         ExecFormattedRootBlock classNameFound_ = instFctContent.getFormattedType();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), instFctContent.getFormattedType().getFormatted(), previous_.getStruct(), _context, _stack));
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), previous_.getStruct(), _context, _stack));
         Argument result_;
         if (_context.callsOrException(_stack)) {
             result_ = new Argument();

@@ -214,8 +214,7 @@ public final class ExecInherits {
         return new ExecFormattedRootBlock(_second.getRootBlock(),quickFormat(_type,_second.getFormatted()));
     }
     public static String quickFormat(ExecFormattedRootBlock _type, String _second) {
-        StringMap<String> varTypes_ = getVarTypes(_type.getFormatted(),_type.getRootBlock());
-        return StringExpUtil.getQuickFormattedType(_second, varTypes_);
+        return quickFormat(_type.getRootBlock(),_type.getFormatted(),_second);
     }
 
     public static String quickFormat(GeneType _type, String _first, String _second) {

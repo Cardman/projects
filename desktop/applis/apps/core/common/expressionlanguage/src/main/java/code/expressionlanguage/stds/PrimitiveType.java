@@ -3,12 +3,11 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AnaInheritedType;
-import code.expressionlanguage.common.InheritedType;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class PrimitiveType implements InheritedType,AnaInheritedType {
+public final class PrimitiveType implements AnaInheritedType {
 
     private final String name;
 
@@ -59,11 +58,6 @@ public final class PrimitiveType implements InheritedType,AnaInheritedType {
         }
         _all.add(_aliasObject);
         return _all;
-    }
-
-    @Override
-    public boolean isSubTypeOf(String _fullName, ContextEl _an) {
-        return StringUtil.contains(getAllSuperType(_an),_fullName);
     }
 
     @Override

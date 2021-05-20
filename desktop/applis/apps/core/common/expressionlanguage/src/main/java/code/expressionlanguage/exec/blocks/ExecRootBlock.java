@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -11,7 +10,6 @@ import code.expressionlanguage.exec.util.ClassMethodIdOverrides;
 import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.*;
-import code.util.core.StringUtil;
 
 public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType {
     private final ExecRootBlockContent rootBlockContent;
@@ -128,13 +126,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType 
 
     public CustList<ExecFunctionalInfo> getFunctionalBodies() {
         return functionalBodies;
-    }
-
-    public boolean isSubTypeOf(String _fullName, ContextEl _an) {
-        if (StringUtil.quickEq(getFullName(),_fullName)) {
-            return true;
-        }
-        return StringUtil.contains(getAllSuperTypes(),_fullName);
     }
 
 

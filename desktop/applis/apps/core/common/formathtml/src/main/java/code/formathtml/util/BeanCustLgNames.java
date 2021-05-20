@@ -2,7 +2,6 @@ package code.formathtml.util;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
@@ -741,11 +740,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
         int off_ =_rend.getOff();
         ClassField fieldId_ = _rend.getClassField();
-        String className_ = fieldId_.getClassName();
         boolean staticField_ = _rend.isStaticField();
         Argument previous_;
         if (!staticField_) {
-            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), className_, _previous.getStruct(), _context, _stack));
+            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), _previous.getStruct(), _context, _stack));
         } else {
             previous_ = new Argument();
         }
@@ -770,10 +768,9 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String fieldType_ = _rend.getRealType();
         boolean isStatic_ = _rend.isStaticField();
         ClassField fieldId_ = _rend.getClassField();
-        String className_ = fieldId_.getClassName();
         Argument previous_;
         if (!isStatic_) {
-            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), className_, _previous.getStruct(), _context, _stack));
+            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), _previous.getStruct(), _context, _stack));
         } else {
             previous_ = new Argument();
         }
@@ -798,19 +795,17 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _rendStack);
         MethodId methodId_ = _rend.getClassMethodId().getConstraints();
         String lastType_ = _rend.getLastType();
-        String classNameFound_;
         Argument prev_;
         if (!_rend.isStaticMethod()) {
-            classNameFound_ = _rend.getClassMethodId().getClassName();
             Struct argPrev_ = _previous.getStruct();
-            prev_ = new Argument(ExecTemplates.getParent(0, classNameFound_, argPrev_, _context, _stack));
+            prev_ = new Argument(ExecTemplates.getParent(0, argPrev_, _context, _stack));
             if (_context.callsOrException(_stack)) {
                 return new Argument();
             }
         } else {
             prev_ = new Argument();
         }
-        classNameFound_ = _rend.getClassMethodId().getClassName();
+        String classNameFound_ = _rend.getClassMethodId().getClassName();
         int naturalVararg_ = _rend.getNaturalVararg();
         return ExecInvokingOperation.callStd(_context.getExiting(), _context, classNameFound_, methodId_, prev_, _rend.fectchArgs(_all,lastType_,naturalVararg_, _rendStack,null,_context,_stack), _stack);
     }

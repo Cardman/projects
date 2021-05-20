@@ -1,6 +1,5 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.AnaInheritedType;
@@ -99,10 +98,6 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
 
     public CustList<StandardMethod> getMethods() {
         return methods;
-    }
-
-    public boolean isSubTypeOf(String _fullName, ContextEl _an) {
-        return isSubTypeOf(_fullName);
     }
 
     public boolean isSubTypeOf(String _fullName, AnalyzedPageEl _an) {

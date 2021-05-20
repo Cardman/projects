@@ -38,10 +38,8 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         int naturalVararg_ = getNaturalVararg();
-        ExecFormattedRootBlock classNameFound_;
         ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
-        classNameFound_ = formattedType_;
-        Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), formattedType_.getFormatted(), previous_.getStruct(), _context, _stack));
+        Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), previous_.getStruct(), _context, _stack));
         Argument result_;
         if (_context.callsOrException(_stack)) {
             result_ = new Argument();
@@ -51,7 +49,7 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
             String lastType_ = ExecTemplates.formatType(_context, pair.getType(), instFctContent.getLastType(), cl_);
             ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context, pr_, formattedType_, pair);
             ExecTypeFunction pair_ = polymorph_.getPair();
-            classNameFound_ = polymorph_.getClassName();
+            ExecFormattedRootBlock classNameFound_ = polymorph_.getClassName();
             result_ = new MethodParamChecker(pair_, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null,_context,_stack), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _context, _stack);
         }
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);

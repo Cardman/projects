@@ -42,9 +42,8 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
         int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
-        ExecFormattedRootBlock classNameFound_ = formattedType_;
         Struct argPrev_ = previous_.getStruct();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_.getFormatted(), argPrev_, _conf, _stack));
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), argPrev_, _conf, _stack));
         Argument res_;
         if (_conf.callsOrException(_stack)) {
             res_ = new Argument();
@@ -52,7 +51,7 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
             Struct pr_ = prev_.getStruct();
             ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _conf, pr_, formattedType_, pair);
             ExecTypeFunction pair_ = polymorph_.getPair();
-            classNameFound_ = polymorph_.getClassName();
+            ExecFormattedRootBlock classNameFound_ = polymorph_.getClassName();
             res_ = new MethodParamChecker(pair_, fetchFormattedArgs(_nodes, _conf,_stack, pr_, pair.getType(), instFctContent, null), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _conf, _stack);
         }
         setResult(res_, _conf, _nodes, _stack);

@@ -37,8 +37,7 @@ public final class RendChoiceFctOperation extends RendSettableCallFctOperation i
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         int naturalVararg_ = instFctContent.getNaturalVararg();
         ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
-        String classNameFound_ = formattedType_.getFormatted();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, previous_.getStruct(), _context, _stack));
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), previous_.getStruct(), _context, _stack));
         Argument result_;
         if (_context.callsOrException(_stack)) {
             result_ = new Argument();

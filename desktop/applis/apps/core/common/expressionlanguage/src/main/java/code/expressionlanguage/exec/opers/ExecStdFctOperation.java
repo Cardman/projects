@@ -32,7 +32,7 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         Argument res_ = null;
         if (!stdFctContent.isStaticMethod()) {
             Struct argPrev_ = previous_.getStruct();
-            prev_ = new Argument(ExecTemplates.getParent(0, classNameFound_, argPrev_, _conf, _stack));
+            prev_ = new Argument(ExecTemplates.getParent(0, argPrev_, _conf, _stack));
             if (_conf.callsOrException(_stack)) {
                 res_ = new Argument();
             }

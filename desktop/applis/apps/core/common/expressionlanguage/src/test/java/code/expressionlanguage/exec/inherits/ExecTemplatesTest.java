@@ -46,8 +46,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext c_ = validated(files_);
-        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"pkg.Ex",new IntStruct(1),c_.getContext(), c_.getStackCall()));
-        assertNotNull(getTrueException(c_));
+        assertNotNull(ExecTemplates.getParent(0, new IntStruct(1),c_.getContext(), c_.getStackCall()));
     }
 
     @Test
@@ -65,7 +64,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Struct par_  = c_.getInit().processInit(c_.getContext(),NullStruct.NULL_VALUE,new ExecFormattedRootBlock(classBody_,"pkg.Ex"), "",-1);
         ExecRootBlock root_ = c_.getClasses().getClassBody("pkg.Ex..Inner");
         Struct in_ = c_.getInit().processInit(c_.getContext(),par_,new ExecFormattedRootBlock(root_,"pkg.Ex..Inner"), "",-1);
-        ExecTemplates.getParent(0,"java.lang.Integer",in_,c_.getContext(), c_.getStackCall());
+        ExecTemplates.getParent(0, in_,c_.getContext(), c_.getStackCall());
         assertNotNull(c_.getContext());
     }
     @Test
@@ -84,7 +83,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody2_ = c_.getClasses().getClassBody("pkg.Ex..Inner");
         Struct in_ = c_.getInit().processInit(c_.getContext(),par_,new ExecFormattedRootBlock(classBody2_,"pkg.Ex..Inner"), "",-1);
         Struct inTwo_ = c_.getInit().processInit(c_.getContext(),in_,new ExecFormattedRootBlock(classBody2_,"pkg.Ex..Inner"), "",-1);
-        ExecTemplates.getParent(0,"java.lang.Integer",inTwo_,c_.getContext(), c_.getStackCall());
+        ExecTemplates.getParent(0, inTwo_,c_.getContext(), c_.getStackCall());
         assertNotNull(c_.getContext());
     }
 
@@ -98,8 +97,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_.getContext());
-        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[pkg.Ex",arr_,c_.getContext(), c_.getStackCall()));
-        assertNotNull(getTrueException(c_));
+        assertNotNull(ExecTemplates.getParent(0, arr_,c_.getContext(), c_.getStackCall()));
     }
 
     @Test
@@ -112,8 +110,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_.getContext());
-        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"pkg.Ex",arr_,c_.getContext(), c_.getStackCall()));
-        assertNotNull(getTrueException(c_));
+        assertNotNull(ExecTemplates.getParent(0, arr_,c_.getContext(), c_.getStackCall()));
     }
 
     @Test
@@ -126,8 +123,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_.getContext());
-        assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[["+ c_.getStandards().getContent().getCoreNames().getAliasObject(),arr_,c_.getContext(), c_.getStackCall()));
-        assertNotNull(getTrueException(c_));
+        assertNotNull(ExecTemplates.getParent(0, arr_,c_.getContext(), c_.getStackCall()));
     }
 
     @Test
@@ -140,7 +136,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),new Ints(0),c_.getContext());
-        assertSame(arr_, ExecTemplates.getParent(0,"["+ c_.getStandards().getContent().getCoreNames().getAliasObject(),arr_,c_.getContext(), c_.getStackCall()));
+        assertSame(arr_, ExecTemplates.getParent(0, arr_,c_.getContext(), c_.getStackCall()));
         assertNull(c_.getStackCall().getCallingState());
     }
 

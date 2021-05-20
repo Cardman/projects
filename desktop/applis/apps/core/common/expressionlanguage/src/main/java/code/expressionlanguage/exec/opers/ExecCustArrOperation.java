@@ -91,7 +91,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         Argument previous_ = getPreviousArg(this, _nodes, _stackCall);
         setRelativeOffsetPossibleLastPage(_stackCall);
         Struct argPrev_ = previous_.getStruct();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), instFctContent.getFormattedType().getFormatted(), argPrev_, _conf, _stackCall));
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), argPrev_, _conf, _stackCall));
         if (_conf.callsOrException(_stackCall)) {
             return new Argument();
         }

@@ -31,8 +31,7 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
             FieldWrapper f_;
             if (!settableFieldContent_.isStaticField()) {
                 Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _rendStack);
-                String className_ = settableFieldContent_.getClassField().getClassName();
-                previous_ = new Argument(ExecTemplates.getParent(settableFieldContent_.getAnc(), className_, previousArgument_.getStruct(), _context, _stack));
+                previous_ = new Argument(ExecTemplates.getParent(settableFieldContent_.getAnc(), previousArgument_.getStruct(), _context, _stack));
                 f_ = new InstanceFieldWrapper(previous_.getStruct(),settableFieldContent_.getRealType(),ch_.getRootBlock(),
                         settableFieldContent_.getClassField());
             } else {

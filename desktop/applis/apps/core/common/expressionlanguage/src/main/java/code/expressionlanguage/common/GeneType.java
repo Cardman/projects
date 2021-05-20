@@ -3,7 +3,7 @@ package code.expressionlanguage.common;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.util.*;
 
-public interface GeneType extends InheritedType {
+public interface GeneType {
 
 
 

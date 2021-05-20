@@ -22,9 +22,7 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
 
     private final int ancestor;
 
-    private final boolean directCast;
     private final boolean safeInstance;
-    private final boolean expCast;
     private final MethodAccessKind kind;
     private final String methodName;
     private final Struct metaInfo;
@@ -40,8 +38,6 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
         safeInstance = _common.isSafeInstance();
         methodName = StringUtil.nullToEmpty(_meth.getMethod().getConstraints().getName());
         kind = _meth.getMethod().getConstraints().getKind();
-        directCast = _meth.isDirectCast();
-        expCast = _meth.isExpCast();
     }
 
     public LambdaMethodStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, ExecLambdaAnoContent _meth, String _className, String _formClassName) {
@@ -55,8 +51,6 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
         safeInstance = _common.isSafeInstance();
         methodName = StringUtil.nullToEmpty(_meth.getMethod().getConstraints().getName());
         kind = _meth.getMethod().getConstraints().getKind();
-        directCast = false;
-        expCast = false;
     }
 
     public LambdaMethodStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, MethodId _meth, String _className, String _formClassName) {
@@ -70,8 +64,6 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
         safeInstance = _common.isSafeInstance();
         methodName = StringUtil.nullToEmpty(_meth.getName());
         kind = _meth.getKind();
-        directCast = false;
-        expCast = false;
     }
     public Argument getInstanceCall() {
         return instanceCall;
@@ -107,10 +99,6 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
 
     public int getAncestor() {
         return ancestor;
-    }
-
-    public boolean isStaticCall() {
-        return kind == MethodAccessKind.STATIC_CALL || directCast || expCast;
     }
 
     @Override

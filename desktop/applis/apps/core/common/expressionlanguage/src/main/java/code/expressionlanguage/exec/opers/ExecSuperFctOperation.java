@@ -33,8 +33,7 @@ public final class ExecSuperFctOperation extends ExecSettableCallFctOperation {
         int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
-        String classNameFound_ = formattedType_.getFormatted();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), classNameFound_, previous_.getStruct(), _conf, _stack));
+        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), previous_.getStruct(), _conf, _stack));
         Argument res_;
         if (_conf.callsOrException(_stack)) {
             res_ = new Argument();
