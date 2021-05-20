@@ -438,10 +438,7 @@ public final class ExecTemplates {
         Struct ex_ = checkObjectEx(c_, _value.getStruct().getClassName(_conf), _conf, _stackCall);
         if (ex_ != null) {
             p_.setError(ex_);
-            return p_;
         }
-        LocalVariable lv_ = LocalVariable.newLocalVariable(_value.getStruct(),_conf.getStandards().getCoreNames().getAliasObject());
-        p_.getRefParameters().addEntry("",new VariableWrapper(lv_));
         return p_;
     }
 
@@ -495,12 +492,7 @@ public final class ExecTemplates {
         }
         int i_ = 0;
         for (String c: _id.getImportedParametersTypes()) {
-            String c_ = c;
-            c_ = ExecInherits.quickFormat(_classNameFound, c_);
-            if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
-                c_ = StringExpUtil.getPrettyArrayType(c_);
-            }
-            paramsAll_.add(c_);
+            paramsAll_.add(varType(c,_classNameFound,_id,i_));
             namesAll_.add(_id.getParametersName(i_));
             i_++;
         }
@@ -516,14 +508,9 @@ public final class ExecTemplates {
         }
         int i_ = 0;
         for (String c: fct_.getImportedParametersTypes()) {
-            String c_ = c;
-            c_ = ExecInherits.quickFormat(_classFormat, c_);
-            if (i_ + 1 == fct_.getImportedParametersTypes().size() && fct_.isVarargs()) {
-                c_ = StringExpUtil.getPrettyArrayType(c_);
-            }
             if (fct_.getParametersRef(i_)) {
                 Struct struct_ = _firstArgs.get(i_).getStruct();
-                LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c_);
+                LocalVariable local_ = LocalVariable.newLocalVariable(struct_, varType(c,_classFormat,fct_,i_));
                 ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_);
 //                out_.getWrappers().add(v_);
                 _in.getArgumentWrappers().add(new ArgumentWrapper(null,v_));
@@ -536,6 +523,13 @@ public final class ExecTemplates {
         _in.setRight(_right);
     }
 
+    private static String varType(String _c,ExecFormattedRootBlock _classFormat, ExecNamedFunctionBlock _fct, int _i) {
+        String c_ = ExecInherits.quickFormat(_classFormat, _c);
+        if (_i + 1 == _fct.getImportedParametersTypes().size() && _fct.isVarargs()) {
+            return StringExpUtil.getPrettyArrayType(c_);
+        }
+        return c_;
+    }
     public static Parameters wrapAndCall(ExecTypeFunction _pair, ExecFormattedRootBlock _formatted, Argument _previous, ContextEl _conf, StackCall _stackCall, ArgumentListCall _argList) {
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         Parameters p_ = okArgsSet(fct_,_formatted,null,_argList,_conf,_stackCall);
