@@ -69,14 +69,14 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         setDelta(_page);
         String trimMeth_ = callFctContent.getMethodName().trim();
         boolean accessSuperTypes_ = true;
-        boolean accessFromSuper_ = false;
+        boolean baseAccess_ = true;
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
         if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
             trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
-            accessFromSuper_ = true;
+            baseAccess_ = false;
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
             trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
@@ -106,7 +106,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, accessFromSuper_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, baseAccess_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
         filterByNameReturnType(_page, trimMeth_, methodInfos);
     }
 
@@ -133,7 +133,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
 
         boolean staticChoiceMethod_ = false;
         boolean accessSuperTypes_ = true;
-        boolean accessFromSuper_ = false;
+        boolean baseAccess_ = true;
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
@@ -142,7 +142,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
             trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
             staticChoiceMethod_ = true;
-            accessFromSuper_ = true;
+            baseAccess_ = false;
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
             trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
             staticChoiceMethod_ = true;
@@ -242,7 +242,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         ClassMethodIdReturn clMeth_;
-        clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, accessFromSuper_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()));
+        clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             buildErrNotFoundStd(isStaticAccess(), trimMeth_, name_, _page);

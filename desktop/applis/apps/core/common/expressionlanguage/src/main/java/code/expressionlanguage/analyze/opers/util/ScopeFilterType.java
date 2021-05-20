@@ -9,7 +9,7 @@ import code.util.StringMap;
 
 public final class ScopeFilterType {
     private final ClassMethodIdAncestor id;
-    private final boolean accessFromSuper;
+    private final boolean baseClass;
     private final boolean superClass;
     private final boolean retRef;
     private final MethodAccessKind kind;
@@ -23,7 +23,7 @@ public final class ScopeFilterType {
     private final FormattedFilter formattedFilter;
 
     public ScopeFilterType(ScopeFilter _scope, TypeInfo _typeInfo, MethodAccessKind _kind, StringList _superTypesBase, StringMap<String> _superTypesBaseAncBis, FormattedFilter _formattedFilter) {
-        accessFromSuper = _scope.isAccessFromSuper();
+        baseClass = _scope.isBaseClass();
         superClass = _scope.isSuperClass();
         retRef = _scope.isRetRef();
         id = _scope.getId();
@@ -58,8 +58,8 @@ public final class ScopeFilterType {
         return retRef;
     }
 
-    public boolean isAccessFromSuper() {
-        return accessFromSuper;
+    public boolean isBaseClass() {
+        return baseClass;
     }
 
     public boolean isSuperClass() {

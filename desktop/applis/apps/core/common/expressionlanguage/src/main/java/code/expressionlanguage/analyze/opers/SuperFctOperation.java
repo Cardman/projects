@@ -75,7 +75,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             return;
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, false, true, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, true, true, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
         filterByNameReturnType(_page, trimMeth_, methodInfos);
     }
 
@@ -169,7 +169,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
-        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, false, true, isLvalue(), _page.getGlobalClass()));
+        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, true, true, isLvalue(), _page.getGlobalClass()));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             buildErrNotFoundStd(isStaticAccess(), trimMeth_, name_, _page);

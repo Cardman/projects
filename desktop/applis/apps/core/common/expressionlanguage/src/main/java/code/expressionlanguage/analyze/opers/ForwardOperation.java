@@ -25,7 +25,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
     private String classType = EMPTY_STRING;
     private boolean staticChoiceMethod;
     private boolean accessSuperTypes = true;
-    private boolean accessFromSuper;
+    private boolean baseAccess = true;
 
     private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private int length;
@@ -56,7 +56,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             length = keyWordSuper_.length();
             kw_ = keyWordSuper_;
             staticChoiceMethod = true;
-            accessFromSuper = true;
+            baseAccess = false;
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
             length = keyWordThat_.length();
             kw_ = keyWordThat_;
@@ -164,8 +164,8 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
         return staticChoiceMethod;
     }
 
-    public boolean isAccessFromSuper() {
-        return accessFromSuper;
+    public boolean isBaseAccess() {
+        return baseAccess;
     }
 
     public boolean isAccessSuperTypes() {

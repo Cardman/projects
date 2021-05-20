@@ -74,7 +74,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _page);
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, true, false, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
         filterByNameReturnType(_page, trimMeth_, methodInfos);
     }
 
@@ -146,7 +146,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
-        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, false, false, isLvalue(), _page.getGlobalClass()));
+        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, true, false, isLvalue(), _page.getGlobalClass()));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             buildErrNotFoundStd(isStaticAccess(), trimMeth_, name_, _page);

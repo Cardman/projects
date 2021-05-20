@@ -614,7 +614,7 @@ public abstract class OperationNode {
 
     public static FieldResult resolveDeclaredCustField(boolean _staticContext, AnaClassArgumentMatching _class,
                                                        boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff, AnalyzedPageEl _page) {
-        ScopeFilter scope_ = new ScopeFilter(null, !_baseClass, _superClass, false, _page.getGlobalClass());
+        ScopeFilter scope_ = new ScopeFilter(null, _baseClass, _superClass, false, _page.getGlobalClass());
         if (!_staticContext) {
             FieldResult resIns_ = getDeclaredCustFieldByContext(MethodAccessKind.INSTANCE, _class, _name, _import, _aff, _page, scope_);
             if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
@@ -734,7 +734,7 @@ public abstract class OperationNode {
         if (cannotAccess(fullName_, _fi.getAccessed(), _scope.getGlClass(), _scope.getSuperTypesBaseAncBis(), _page)) {
             return;
         }
-        if (filterMember(_scope.isAccessFromSuper(), _scope.isSuperClass(), _scope.getSuperTypesBase(),fullName_)) {
+        if (filterMember(_scope.isBaseClass(), _scope.isSuperClass(), _scope.getSuperTypesBase(),fullName_)) {
             return;
         }
         String formatted_ = _scope.getFormatted().getFormatted();
@@ -1136,7 +1136,7 @@ public abstract class OperationNode {
     protected static ClassMethodIdReturn tryGetDeclaredCustMethod(StringList _classes, String _name,
                                                                   CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, _classes, _name, false, _page, new ScopeFilter(null, false, false, false, _page.getGlobalClass()), new FormattedFilter());
+        methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, _classes, _name, false, _page, new ScopeFilter(null, true, false, false, _page.getGlobalClass()), new FormattedFilter());
         boolean uniq_ = uniq((ClassMethodIdAncestor) null, -1);
         int varargOnly_ = fetchVarargOnly(-1, null);
         return getCustResult(uniq_, varargOnly_, methods_, _name, "",_argsClass, _page);
@@ -1170,7 +1170,7 @@ public abstract class OperationNode {
     protected static ClassMethodIdReturn tryGetDeclaredCustIncrDecrMethod(StringList _classes, String _name,
                                                                           AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, _classes, _name, false, _page, new ScopeFilter(null, false, false, false, _page.getGlobalClass()), new FormattedFilter());
+        methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, _classes, _name, false, _page, new ScopeFilter(null, true, false, false, _page.getGlobalClass()), new FormattedFilter());
         return getCustIncrDecrResult(methods_, _name, _argsClass, _page);
     }
     protected static ReversibleConversion tryGetPair(AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
@@ -1198,11 +1198,11 @@ public abstract class OperationNode {
     protected static ClassMethodIdReturn tryGetDeclaredCustMethodLambda(int _varargOnly,
                                                                         MethodAccessKind _staticContext,
                                                                         StringList _classes, String _name,
-                                                                        boolean _superClass, boolean _accessFromSuper,
-                                                                        boolean _import, ClassMethodIdAncestor _uniqueId,
+                                                                        boolean _superClass, boolean _baseClass,
+                                                                        ClassMethodIdAncestor _uniqueId,
                                                                         StringList _argsClass, AnalyzedPageEl _page) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()), new FormattedFilter());
+        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, false, _page, new ScopeFilter(_uniqueId, _baseClass, _superClass, false, _page.getGlobalClass()), new FormattedFilter());
         int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
         return getCustResultLambda(varargOnly_, methods_, _name, _page, _argsClass);
     }
@@ -2065,7 +2065,7 @@ public abstract class OperationNode {
 
 
     public static void fetchParamClassAncMethods(StringList _fromClasses, CustList<CustList<MethodInfo>> _methods, AnalyzedPageEl _page) {
-        fetchParamClassAncMethods(_fromClasses,MethodAccessKind.INSTANCE, _methods, _page, new ScopeFilter(null, false, true, false, _page.getGlobalClass()), new FormattedFilter());
+        fetchParamClassAncMethods(_fromClasses,MethodAccessKind.INSTANCE, _methods, _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()), new FormattedFilter());
     }
     private static void fetchParamClassAncMethods(StringList _fromClasses, MethodAccessKind _staticContext,
                                                   CustList<CustList<MethodInfo>> _methods, AnalyzedPageEl _page, ScopeFilter _sc, FormattedFilter _formattedFilter) {
@@ -2265,11 +2265,11 @@ public abstract class OperationNode {
                 }
             }
         }
-        return filterMember(_sc.isAccessFromSuper(), _sc.isSuperClass(), _sc.getSuperTypesBase(), _sc.getFullName());
+        return filterMember(_sc.isBaseClass(), _sc.isSuperClass(), _sc.getSuperTypesBase(), _sc.getFullName());
     }
 
-    private static boolean filterMember(boolean _accessFromSuper, boolean _superClass,StringList _superTypesBase, String _fullName) {
-        if (_accessFromSuper) {
+    private static boolean filterMember(boolean _baseClass, boolean _superClass,StringList _superTypesBase, String _fullName) {
+        if (!_baseClass) {
             if (StringUtil.contains(_superTypesBase, _fullName)) {
                 return true;
             }

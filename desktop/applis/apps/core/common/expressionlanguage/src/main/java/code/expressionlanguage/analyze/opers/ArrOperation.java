@@ -50,10 +50,10 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     public void preAnalyze(AnalyzedPageEl _page) {
         ForwardOperation fwd_ = tryGetForward(this);
         boolean accessSuperTypes_ = true;
-        boolean accessFromSuper_ = false;
+        boolean baseAccess_ = true;
         if (fwd_ != null) {
             accessSuperTypes_ = fwd_.isAccessSuperTypes();
-            accessFromSuper_ = fwd_.isAccessFromSuper();
+            baseAccess_ = fwd_.isBaseAccess();
         }
         String trimMeth_ = "[]";
         AnaClassArgumentMatching class_ = getPreviousResultClass();
@@ -72,7 +72,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             bounds_.addAllElts(getBounds(c, _page));
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, _page, new ScopeFilter(null, accessFromSuper_, accessSuperTypes_, false, _page.getGlobalClass()), getFormattedFilter(_page, this));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, _page, new ScopeFilter(null, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()), getFormattedFilter(_page, this));
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
             int gr_ = methodInfos.get(i).size();
@@ -106,11 +106,11 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         ForwardOperation fwd_ = tryGetForward(this);
         boolean staticChoiceMethod_ = false;
         boolean accessSuperTypes_ = true;
-        boolean accessFromSuper_ = false;
+        boolean baseAccess_ = true;
         if (fwd_ != null) {
             staticChoiceMethod_ = fwd_.isStaticChoiceMethod();
             accessSuperTypes_ = fwd_.isAccessSuperTypes();
-            accessFromSuper_ = fwd_.isAccessFromSuper();
+            baseAccess_ = fwd_.isBaseAccess();
         }
         ClassMethodIdAncestor feed_ = null;
         ClassMethodIdAncestor feedSet_ = null;
@@ -145,10 +145,10 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
                 bounds_, trimMeth_, false,
-                varargParam_, name_, _page, new ScopeFilter(feed_, accessFromSuper_, accessSuperTypes_, false, _page.getGlobalClass()));
+                varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
         ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
                 bounds_, trimMethSet_, false,
-                varargParam_, name_, _page, new ScopeFilter(feedSet_, accessFromSuper_, accessSuperTypes_, false, _page.getGlobalClass()));
+                varargParam_, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
         boolean found_ = clMeth_.isFoundMethod();
         if (!clMethSet_.isFoundMethod()) {
             found_ = false;

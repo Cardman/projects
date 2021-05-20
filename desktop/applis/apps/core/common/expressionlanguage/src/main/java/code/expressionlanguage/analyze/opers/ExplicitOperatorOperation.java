@@ -58,7 +58,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             methodInfos.add(ops_);
         } else {
             methodFound = op_;
-            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), op_, false, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
+            methodInfos = getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), op_, false, _page, new ScopeFilter(null, true, false, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
         }
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
@@ -134,7 +134,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         } else {
             cust_ = tryGetDeclaredCustMethod(-1, MethodAccessKind.STATIC_CALL,
                     new StringList(from), op_, false,
-                    varargParam_, name_, _page, new ScopeFilter(null, false, false, isLvalue(), _page.getGlobalClass()));
+                    varargParam_, name_, _page, new ScopeFilter(null, true, false, isLvalue(), _page.getGlobalClass()));
         }
         if (!cust_.isFoundMethod()) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
