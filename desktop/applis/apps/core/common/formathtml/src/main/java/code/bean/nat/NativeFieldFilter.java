@@ -44,7 +44,7 @@ public final class NativeFieldFilter implements AbstractFieldFilter {
     @Override
     public void fetchParamClassMethods(ScopeFilterType _retRef, CustList<MethodInfo> _methods, AnalyzedPageEl _page) {
         for (StandardMethod e: ((StandardType) _retRef.getTypeInfo().getRoot()).getMethods()) {
-            _methods.add(OperationNode.getMethodInfo(e,false,0, _retRef.getFormatted().getFormatted(), _page, e.getId(), e.getImportedReturnType(), new FormattedFilter()));
+            _methods.add(OperationNode.getMethodInfo(e, 0, _retRef.getFormatted().getFormatted(), _page, e.getId(), e.getImportedReturnType(), new FormattedFilter()));
         }
     }
 

@@ -2219,7 +2219,7 @@ public abstract class OperationNode {
                 if (filter(_refRet, id_.isRetRef(), k_)) {
                     continue;
                 }
-                MethodInfo stMeth_ = fetchedParamMethodCust(e, _refRet, k_ == MethodAccessKind.STATIC, _page, id_, e.getImportedReturnType());
+                MethodInfo stMeth_ = fetchedParamMethodCust(e, _refRet, _page, id_, e.getImportedReturnType());
                 if (stMeth_ == null) {
                     continue;
                 }
@@ -2241,7 +2241,7 @@ public abstract class OperationNode {
                 if (filter(_refRet, id_.isRetRef(), k_)) {
                     continue;
                 }
-                MethodInfo stMeth_ = fetchedParamMethod(e, _refRet, genericString_,k_ == MethodAccessKind.STATIC, _page, e.getId(), e.getImportedReturnType());
+                MethodInfo stMeth_ = fetchedParamMethod(e, _refRet, genericString_, _page, e.getId(), e.getImportedReturnType());
                 if (stMeth_ == null) {
                     continue;
                 }
@@ -2284,17 +2284,17 @@ public abstract class OperationNode {
         return false;
     }
 
-    private static MethodInfo fetchedParamMethod(StandardMethod _m, ScopeFilterType _scType, String _s, boolean _keepParams,
+    private static MethodInfo fetchedParamMethod(StandardMethod _m, ScopeFilterType _scType, String _s,
                                                  AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
         String base_ = StringExpUtil.getIdFromAllTypes(_s);
         if (isCandidateMethod(_scType.getId(),_scType.getAnc(), base_, _id)) {
             return null;
         }
         String formattedClass_ = getFormattedClass(_s, _scType.getFormatted().getFormatted(), _page, base_);
-        return buildMethodInfo(_m, _keepParams, _scType.getAnc(), formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
+        return getMethodInfo(_m, _scType.getAnc(), formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
     }
 
-    private static MethodInfo fetchedParamMethodCust(NamedCalledFunctionBlock _m, ScopeFilterType _scType, boolean _keepParams,
+    private static MethodInfo fetchedParamMethodCust(NamedCalledFunctionBlock _m, ScopeFilterType _scType,
                                                      AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
         AnaFormattedRootBlock f_ = _scType.getFormatted();
         RootBlock r_ = f_.getRootBlock();
@@ -2309,7 +2309,7 @@ public abstract class OperationNode {
                 return null;
             }
         }
-        return buildMethodInfoCust(r_,_m, _keepParams, _scType.getAnc(), formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
+        return buildMethodInfoCust(r_,_m, _scType.getAnc(), formattedClass_, _page, _id, _importedReturnType, _scType.getFormattedFilter());
     }
 
     private static String getFormattedClass(String _s, String _f, AnalyzedPageEl _page, String _base) {
@@ -2351,7 +2351,7 @@ public abstract class OperationNode {
         return !ContextUtil.canAccess(_glClass,_acc, _page);
     }
 
-    private static MethodInfo buildMethodInfoCust(RootBlock _r, NamedCalledFunctionBlock _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
+    private static MethodInfo buildMethodInfoCust(RootBlock _r, NamedCalledFunctionBlock _m, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
         MethodInfo mloc_ = new MethodInfo();
         mloc_.types(_formattedClass,_page,_importedReturnType);
         mloc_.setFileName(_m.getFile().getFileName());
@@ -2364,15 +2364,11 @@ public abstract class OperationNode {
         mloc_.memberId(_r,_m);
         mloc_.setAncestor(_anc);
         mloc_.setFormattedFilter(_formatted);
-        mloc_.format(_keepParams, _page);
+        mloc_.format(_id.getKind() == MethodAccessKind.STATIC, _page);
         return mloc_;
     }
 
-    private static MethodInfo buildMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
-        return getMethodInfo(_m, _keepParams, _anc, _formattedClass, _page, _id, _importedReturnType, _formatted);
-    }
-
-    public static MethodInfo getMethodInfo(StandardMethod _m, boolean _keepParams, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
+    public static MethodInfo getMethodInfo(StandardMethod _m, int _anc, String _formattedClass, AnalyzedPageEl _page, MethodId _id, String _importedReturnType, FormattedFilter _formatted) {
         MethodInfo mloc_ = new MethodInfo();
         mloc_.types(_formattedClass,_page,_importedReturnType);
         mloc_.setStandardMethod(_m);
@@ -2380,7 +2376,7 @@ public abstract class OperationNode {
         mloc_.classMethodId(_formattedClass,_id);
         mloc_.setAncestor(_anc);
         mloc_.setFormattedFilter(_formatted);
-        mloc_.format(_keepParams, _page);
+        mloc_.format(_id.getKind() == MethodAccessKind.STATIC, _page);
         return mloc_;
     }
 
