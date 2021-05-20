@@ -1133,17 +1133,13 @@ public abstract class OperationNode {
         return getCustResult(uniq_, false, varargOnly_, methods_, _name, _param,_filter, _page);
     }
 
-    protected static ClassMethodIdReturn tryGetDeclaredCustMethod(int _varargOnly,
-                                                                  MethodAccessKind _staticContext,
-                                                                  StringList _classes, String _name,
-                                                                  boolean _superClass, boolean _accessFromSuper,
-                                                                  boolean _import, ClassMethodIdAncestor _uniqueId,
-                                                                  String _param, CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {
+    protected static ClassMethodIdReturn tryGetDeclaredCustMethod(StringList _classes, String _name,
+                                                                  CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, _import, _page, new ScopeFilter(_uniqueId, _accessFromSuper, _superClass, false, _page.getGlobalClass()), new FormattedFilter());
-        boolean uniq_ = uniq(_uniqueId,_varargOnly);
-        int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
-        return getCustResult(uniq_, varargOnly_, methods_, _name, _param,_argsClass, _page);
+        methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, _classes, _name, false, _page, new ScopeFilter(null, false, false, false, _page.getGlobalClass()), new FormattedFilter());
+        boolean uniq_ = uniq((ClassMethodIdAncestor) null, -1);
+        int varargOnly_ = fetchVarargOnly(-1, null);
+        return getCustResult(uniq_, varargOnly_, methods_, _name, "",_argsClass, _page);
     }
 
     private static int fetchVarargOnly(int _varargOnly, ClassMethodIdAncestor _uniqueId) {
@@ -1548,9 +1544,9 @@ public abstract class OperationNode {
     private static ClassMethodIdReturn getCustomOperatorOrMethod(MethodOperation _node, String _op, AnalyzedPageEl _page) {
         StringList bounds_ = _page.getTypesWithInnerOperators();
         CustList<OperationNode> chidren_ = _node.getChildrenNodes();
-        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(-1, MethodAccessKind.STATIC,
-                bounds_, _op, false, false, false, null,
-                "",chidren_, _page);
+        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(
+                bounds_, _op,
+                chidren_, _page);
         if (clMeth_.isFoundMethod()) {
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             MethodId realId_ = clMeth_.getRealId();
