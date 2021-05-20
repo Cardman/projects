@@ -355,22 +355,6 @@ public final class ExecTemplates {
             }
             i_++;
         }
-        return lastCheck(_id, _firstArgs, _conf, _stackCall);
-    }
-
-    private static Struct lastCheck(Identifiable _id, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
-        if (!_firstArgs.isEmpty()&& _id.isVararg()) {
-            Struct str_ = _firstArgs.last().getStruct();
-            if (str_ instanceof ArrayStruct) {
-                ArrayStruct arr_ = (ArrayStruct) str_;
-                for (Struct s: arr_.list()) {
-                    ErrorType state_ = safeObjectArr(s.getClassName(_conf), _conf, arr_);
-                    if (state_ != ErrorType.NOTHING) {
-                        return processError(_conf, arr_, s, state_, _stackCall);
-                    }
-                }
-            }
-        }
         return null;
     }
 
