@@ -1432,7 +1432,7 @@ public final class AliasReflection {
                 result_.setResult(BooleanStruct.of(false));
                 return result_;
             }
-            result_.setResult(BooleanStruct.of(ExecTemplates.safeObject(param_, Argument.getNull(_args[0]).getClassName(_cont), _cont) == ErrorType.NOTHING));
+            result_.setResult(BooleanStruct.of(ExecInherits.safeObject(param_, Argument.getNull(_args[0]).getClassName(_cont), _cont) == ErrorType.NOTHING));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasIsAssignableFrom)) {

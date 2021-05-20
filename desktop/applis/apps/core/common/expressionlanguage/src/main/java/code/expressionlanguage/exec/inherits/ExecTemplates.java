@@ -226,7 +226,7 @@ public final class ExecTemplates {
 
     public static Struct checkObjectEx(String _param, String _arg, ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
-        ErrorType err_ = safeObject(_param, _arg, _context);
+        ErrorType err_ = ExecInherits.safeObject(_param, _arg, _context);
         if (err_ == ErrorType.CAST) {
             String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
             return new ErrorStruct(_context, getBadCastMessage(_param, _arg),cast_, _stackCall);
@@ -543,10 +543,6 @@ public final class ExecTemplates {
             _stackCall.setCallingState(new CustomFoundMethod(_previous,_formatted, _pair, p_));
         }
         return p_;
-    }
-
-    public static ErrorType safeObject(String _param, String _arg, ContextEl _context) {
-        return ExecInherits.safeObject(_param,_arg,_context);
     }
 
     public static Struct getElement(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {

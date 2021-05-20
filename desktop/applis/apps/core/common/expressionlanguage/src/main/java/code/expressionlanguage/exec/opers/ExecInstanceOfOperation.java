@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecTypeCheckContent;
@@ -32,7 +32,7 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
             argres_ = new Argument(BooleanStruct.of(false));
         } else {
             String str_ = _stack.formatVarType(typeCheckContent.getClassName());
-            boolean res_ = ExecTemplates.safeObject(str_, objArg_.getStruct().getClassName(_conf), _conf) == ErrorType.NOTHING;
+            boolean res_ = ExecInherits.safeObject(str_, objArg_.getStruct().getClassName(_conf), _conf) == ErrorType.NOTHING;
             argres_ = new Argument(BooleanStruct.of(res_));
         }
         setSimpleArgument(argres_, _conf, _nodes, _stack);

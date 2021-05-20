@@ -451,7 +451,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 if (l_.isInstanceField()) {
                     String ownerType_ = StringUtil.nullToEmpty(l_.getOwnerType());
-                    boolean res_ = ExecTemplates.safeObject(ownerType_, struct_.getClassName(_conf),_conf) == ErrorType.NOTHING;
+                    boolean res_ = ExecInherits.safeObject(ownerType_, struct_.getClassName(_conf), _conf) == ErrorType.NOTHING;
                     return new Argument(BooleanStruct.of(res_));
                 }
                 return new Argument(struct_.getParent());

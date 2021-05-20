@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
@@ -182,7 +182,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendWithEl
         String type_ = _s.getImportedClassName();
         ImportingPage ip_ = _rendStackCall.getLastPage();
         Struct struct_ = _arg.getStruct();
-        if (ExecTemplates.safeObject(type_, struct_.getClassName(_ctx), _ctx) == ErrorType.NOTHING) {
+        if (ExecInherits.safeObject(type_, struct_.getClassName(_ctx), _ctx) == ErrorType.NOTHING) {
             String var_ = _s.getVariableName();
             ip_.putValueVar(var_,LocalVariable.newLocalVariable(struct_,type_));
             _if.setLastVisitedBlock(_s);

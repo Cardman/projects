@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -69,7 +69,7 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         type_ = _stackCall.formatVarType(type_);
         Struct struct_ = _arg.getStruct();
-        if (ExecTemplates.safeObject(type_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING) {
+        if (ExecInherits.safeObject(type_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING) {
             String var_ = _s.getVariableName();
             ip_.putValueVar(var_,LocalVariable.newLocalVariable(struct_,type_));
             _if.setExecLastVisitedBlock(_s);

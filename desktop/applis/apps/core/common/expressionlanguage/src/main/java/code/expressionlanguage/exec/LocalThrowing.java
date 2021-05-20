@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -37,7 +37,7 @@ public final class LocalThrowing {
                                 continue;
                             }
                             name_ = _stackCall.formatVarType(name_);
-                            if (ExecTemplates.safeObject(name_, Argument.getNull(custCause_).getClassName(_conf), _conf) == ErrorType.NOTHING) {
+                            if (ExecInherits.safeObject(name_, Argument.getNull(custCause_).getClassName(_conf), _conf) == ErrorType.NOTHING) {
                                 catchElt_ = ca_;
                                 String var_ = ca_.getVariableName();
                                 LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,name_);
