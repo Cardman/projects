@@ -271,10 +271,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 Struct struct_ = values_.get(i_).getStruct();
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c.substring(1));
                 ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_);
-//                argumentListCall_.getWrappers().add(v_);
                 argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(null,v_));
             } else {
-//                argumentListCall_.getArguments().add(values_.get(i_));
                 argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(values_.get(i_),null));
             }
             i_++;
