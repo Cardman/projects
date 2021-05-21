@@ -622,16 +622,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 || StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordTrue())
                 || StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordFalse())) {
             CustList<AnaClassArgumentMatching> methodTypes_ = new CustList<AnaClassArgumentMatching>();
-            String exp_;
-            if (StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordExplicit())){
-                exp_ = _page.getKeyWords().getKeyWordExplicit();
-            } else if (StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordCast())) {
-                exp_ = _page.getKeyWords().getKeyWordCast();
-            } else if (StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordTrue())){
-                exp_ = _page.getKeyWords().getKeyWordTrue();
-            } else {
-                exp_ = _page.getKeyWords().getKeyWordFalse();
-            }
             int i_ = 2;
             ClassMethodId feed_ = null;
             KeyWords keyWords_ = _page.getKeyWords();
@@ -700,15 +690,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 for (String s: argsRes_.getParametersTypes()) {
                     String format_ = AnaInherits.wildCardFormatParam(type_, s, _page);
                     if (format_.isEmpty()) {
-                        MethodId idCast_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
-                        lambdaCommonContent.setFoundFormatted(simpleFormatted(type_));
-                        MethodId idCt_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
-                        method = new ClassMethodId(type_, idCt_);
-                        lambdaCommonContent.setAncestor(0);
-                        lambdaMethodContent.setAbstractMethod(false);
-                        lambdaCommonContent.setShiftArgument(false);
-                        lambdaMethodContent.setDirectCast(true);
-                        String fct_ = AnonymousLambdaOperation.formatReturn(_page, type_, type_, idCast_, idCast_);
+                        String fct_ = buildCast(_page, name_, type_, new MethodId(MethodAccessKind.STATIC, name_, new StringList(_page.getAliasObject())));
                         setResultClass(new AnaClassArgumentMatching(fct_));
                         return;
                     }
@@ -752,15 +734,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 return;
             }
             if (!StringExpUtil.customCast(type_)) {
-                MethodId idCast_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
-                lambdaCommonContent.setFoundFormatted(simpleFormatted(type_));
-                MethodId idCt_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
-                method = new ClassMethodId(type_, idCt_);
-                lambdaCommonContent.setAncestor(0);
-                lambdaMethodContent.setAbstractMethod(false);
-                lambdaCommonContent.setShiftArgument(false);
-                lambdaMethodContent.setDirectCast(true);
-                String fct_ = AnonymousLambdaOperation.formatReturn(_page, type_, type_, idCast_, idCast_);
+                String fct_ = buildCast(_page, name_, type_, new MethodId(MethodAccessKind.STATIC, name_, new StringList(_page.getAliasObject())));
                 setResultClass(new AnaClassArgumentMatching(fct_));
                 return;
             }
@@ -776,18 +750,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (!id_.isFoundMethod()) {
                 MethodId idCast_;
                 if (argsRes_.getParametersTypes().isEmpty()) {
-                    idCast_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
+                    idCast_ = new MethodId(MethodAccessKind.STATIC, name_,new StringList(_page.getAliasObject()));
                 } else {
-                    idCast_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(argsRes_.getParametersTypes()));
+                    idCast_ = new MethodId(MethodAccessKind.STATIC, name_,new StringList(argsRes_.getParametersTypes()));
                 }
-                lambdaCommonContent.setFoundFormatted(simpleFormatted(type_));
-                MethodId idCt_ = new MethodId(MethodAccessKind.STATIC,exp_,new StringList(_page.getAliasObject()));
-                method = new ClassMethodId(type_, idCt_);
-                lambdaCommonContent.setAncestor(0);
-                lambdaMethodContent.setAbstractMethod(false);
-                lambdaCommonContent.setShiftArgument(false);
-                lambdaMethodContent.setDirectCast(true);
-                String fct_ = AnonymousLambdaOperation.formatReturn(_page, type_, type_, idCast_, idCast_);
+                String fct_ = buildCast(_page, name_, type_, idCast_);
                 setResultClass(new AnaClassArgumentMatching(fct_));
                 return;
             }
@@ -1196,6 +1163,17 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String fct_ = formatReturnPrevious(_page, id_);
         setResultClass(new AnaClassArgumentMatching(fct_));
         processAbstract(staticChoiceMethod_, id_, _page);
+    }
+
+    private String buildCast(AnalyzedPageEl _page, String _name, String _type, MethodId _idCast) {
+        lambdaCommonContent.setFoundFormatted(simpleFormatted(_type));
+        MethodId idCt_ = new MethodId(MethodAccessKind.STATIC, _name, new StringList(_page.getAliasObject()));
+        method = new ClassMethodId(_type, idCt_);
+        lambdaCommonContent.setAncestor(0);
+        lambdaMethodContent.setAbstractMethod(false);
+        lambdaCommonContent.setShiftArgument(false);
+        lambdaMethodContent.setDirectCast(true);
+        return appendParts(_page, _type, _type, _idCast, _idCast, "", false);
     }
 
     private void prMethArr(AnalyzedPageEl _page, String _name) {

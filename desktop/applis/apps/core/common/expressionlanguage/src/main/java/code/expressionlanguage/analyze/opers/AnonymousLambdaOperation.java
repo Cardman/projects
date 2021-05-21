@@ -324,7 +324,7 @@ public final class AnonymousLambdaOperation extends
         _page.setGlobalOffset(globalOffset_);
     }
 
-    static String formatReturn(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints) {
+    private static String formatReturn(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints) {
         return LambdaOperation.appendParts(_page, _returnType, _realClass, _realId, _constraints, "", false);
     }
     public NamedCalledFunctionBlock getBlock() {
