@@ -241,7 +241,7 @@ public final class AnonymousInstancingOperation extends
             return;
         }
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(varargOnly_, aClass_,instancingAnonContent.getBlock().getFullName(),instancingAnonContent.getBlock(), null, varargParam_, name_, _page);
-        if (ctorRes_.getRealId() == null) {
+        if (ctorRes_.noRealId()) {
             buildCtorError(name_,_page,formatted_);
             return;
         }

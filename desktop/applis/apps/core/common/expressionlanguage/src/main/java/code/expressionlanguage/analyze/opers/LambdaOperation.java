@@ -403,8 +403,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     if (okList(resList_,!polymorph_)) {
                         ClassMethodIdReturn id_ = resList_.first();
                         trySetPoly(id_,polymorph_);
-                        initId(id_);
-                        setupFct();
+                        initIdMethod(id_);
                         String foundClass_ = id_.getRealClass();
                         if (!stCall_.getStCall().isEmpty()) {
                             ContextUtil.appendTitlePartsAbs(stCall_.getLt(), stCall_.getGt(), foundClass_, stCall_.getPartOffsets(), _page);
@@ -468,8 +467,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     if (okList(resList_,!polymorph_)) {
                         ClassMethodIdReturn id_ = resList_.first();
                         trySetPoly(id_,polymorph_);
-                        initId(id_);
-                        setupFct();
+                        initIdMethod(id_);
                         String fct_ = formatReturnPrevious(_page, id_);
                         setResultClass(new AnaClassArgumentMatching(fct_));
                         return;
@@ -494,6 +492,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         tryCheck(_page);
         generalProcess(args_, _page);
+    }
+
+    private void initIdMethod(ClassMethodIdReturn _id) {
+        initId(_id);
+        setupFct();
     }
 
     private static String buildNoShiftCloned(AnalyzedPageEl _page, String _foundClass) {
@@ -636,8 +639,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     return;
                 }
                 lambdaMethodContent.setExpCast(true);
-                initId(resMethod_);
-                setupFct();
+                initIdMethod(resMethod_);
                 lambdaCommonContent.setShiftArgument(false);
                 String fct_ = formatReturnPrevious(_page, resMethod_);
                 setResultClass(new AnaClassArgumentMatching(fct_));
@@ -743,8 +745,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 return;
             }
             lambdaMethodContent.setExpCast(true);
-            initId(id_);
-            setupFct();
+            initIdMethod(id_);
             lambdaCommonContent.setShiftArgument(false);
             String fct_ = formatReturnPrevious(_page, id_);
             setResultClass(new AnaClassArgumentMatching(fct_));
@@ -898,8 +899,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
-            initId(id_);
-            setupFct();
+            initIdMethod(id_);
             lambdaCommonContent.setShiftArgument(!id_.getRealId().isStaticMethod());
             String fct_ = formatReturn(_page, id_);
             setResultClass(new AnaClassArgumentMatching(fct_));
@@ -974,8 +974,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
-            initId(id_);
-            setupFct();
+            initIdMethod(id_);
             String fct_ = formatReturnPrevious(_page, id_);
             setResultClass(new AnaClassArgumentMatching(fct_));
             return;
@@ -1142,8 +1141,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        initId(id_);
-        setupFct();
+        initIdMethod(id_);
         String fct_ = formatReturnPrevious(_page, id_);
         setResultClass(new AnaClassArgumentMatching(fct_));
         processAbstract(staticChoiceMethod_, id_, _page);
@@ -2259,8 +2257,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
-            initId(id_);
-            setupFct();
+            initIdMethod(id_);
             String fct_ = formatReturnOperator(false, id_, _page);
             setResultClass(new AnaClassArgumentMatching(fct_));
             return;
@@ -2280,8 +2277,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        initId(id_);
-        setupFct();
+        initIdMethod(id_);
         lambdaCommonContent.setShiftArgument(true);
         String fct_ = formatReturnOperator(true, id_, _page);
         setResultClass(new AnaClassArgumentMatching(fct_));

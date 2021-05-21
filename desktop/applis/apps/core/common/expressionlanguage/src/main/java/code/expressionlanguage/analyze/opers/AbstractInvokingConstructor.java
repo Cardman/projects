@@ -88,7 +88,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         }
         ConstrustorIdVarArg ctorRes_;
         ctorRes_ = getDeclaredCustConstructor(varargOnly_, from,id_,type, feed_, varargParam_, name_, _page);
-        if (ctorRes_.getRealId() == null) {
+        if (ctorRes_.noRealId()) {
             buildCtorError(name_,_page,from.getName());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             checkPositionBasis(_page);

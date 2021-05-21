@@ -294,7 +294,7 @@ public final class StandardInstancingOperation extends
             return;
         }
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(varargOnly_, new AnaClassArgumentMatching(_realClassName),base_,g_, feed_, _paramVargArg, name_, _page);
-        if (ctorRes_.getRealId() == null) {
+        if (ctorRes_.noRealId()) {
             buildCtorError(name_,_page,_realClassName);
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
