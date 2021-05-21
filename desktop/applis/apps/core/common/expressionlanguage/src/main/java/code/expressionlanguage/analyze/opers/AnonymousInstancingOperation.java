@@ -245,15 +245,7 @@ public final class AnonymousInstancingOperation extends
             buildCtorError(name_,_page,formatted_);
             return;
         }
-        instancingAnonContent.setMemberId(ctorRes_.getMemberId());
-        setConstructor(ctorRes_.getPair());
-        setConstId(ctorRes_.getRealId());
-        setFormattedType(new AnaFormattedRootBlock(instancingAnonContent.getBlock(),formatted_));
-        if (ctorRes_.isVarArgToCall()) {
-            setNaturalVararg(getConstId().getParametersTypes().size() - 1);
-            setLastType(getConstId().getParametersTypes().last());
-        }
-        unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _page);
+        result(_page,formatted_,instancingAnonContent.getBlock(),ctorRes_, name_);
     }
 
     public AnonymousTypeBlock getBlock() {
@@ -276,8 +268,5 @@ public final class AnonymousInstancingOperation extends
         return index;
     }
 
-    public MemberId getMemberId() {
-        return instancingAnonContent.getMemberId();
-    }
 
 }

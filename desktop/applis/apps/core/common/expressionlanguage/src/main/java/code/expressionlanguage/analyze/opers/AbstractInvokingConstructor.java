@@ -94,15 +94,15 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             checkPositionBasis(_page);
             return;
         }
-        constructor = ctorRes_.getPair();
-        memberId = ctorRes_.getMemberId();
-        constId = ctorRes_.getRealId();
-        checkPositionBasis(_page);
         postAnalysis(ctorRes_, name_, _page);
+        checkPositionBasis(_page);
     }
 
     abstract AnaClassArgumentMatching getFrom(AnalyzedPageEl _page);
     private void postAnalysis(ConstrustorIdVarArg _res, NameParametersFilter _args, AnalyzedPageEl _page) {
+        constructor = _res.getPair();
+        memberId = _res.getMemberId();
+        constId = _res.getRealId();
         if (_res.isVarArgToCall()) {
             invokingConstructorContent.setNaturalVararg(constId.getParametersTypes().size() - 1);
             invokingConstructorContent.setLastType(constId.getParametersTypes().last());

@@ -32,6 +32,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     private final AnaInstancingCommonContent instancingCommonContent;
     private AnaTypeFct constructor;
+    private MemberId memberId = new MemberId();
     private String typeInfer = EMPTY_STRING;
     private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private boolean newBefore = true;
@@ -39,7 +40,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
     private StringList staticInitInterfaces = new StringList();
     private Ints staticInitInterfacesOffset = new Ints();
 
-    public AbstractInstancingOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    protected AbstractInstancingOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         instancingCommonContent = new AnaInstancingCommonContent(getOperations().getFctName());
     }
@@ -531,6 +532,24 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
         return false;
     }
+
+    protected void result(AnalyzedPageEl _page,String _realClassName, AnaGeneType _g, ConstrustorIdVarArg _ctorRes, NameParametersFilter _name) {
+        setConstId(_ctorRes.getRealId());
+        setConstructor(_ctorRes.getPair());
+        if (_g instanceof RootBlock) {
+            setFormattedType(new AnaFormattedRootBlock((RootBlock) _g, _realClassName));
+        } else {
+            setClassName(_realClassName);
+        }
+        setMemberId(_ctorRes.getMemberId());
+        if (_ctorRes.isVarArgToCall()) {
+            setNaturalVararg(getConstId().getParametersTypes().size() - 1);
+            setLastType(getConstId().getParametersTypes().last());
+        }
+        unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), _name.getAll(), _page);
+    }
+
+
     public String getTypeInfer() {
         return typeInfer;
     }
@@ -608,5 +627,13 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     public Ints getStaticInitInterfacesOffset() {
         return staticInitInterfacesOffset;
+    }
+
+    public MemberId getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(MemberId _memberId) {
+        this.memberId = _memberId;
     }
 }

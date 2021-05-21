@@ -255,12 +255,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                                     if (!stCall_.getStCall().isEmpty()) {
                                         continue;
                                     }
-                                    ConstrustorIdVarArg out_;
-                                    out_ = new ConstrustorIdVarArg();
-                                    out_.setRealId(new ConstructorId(prev_, new StringList(),false));
-                                    out_.setConstId(out_.getRealId());
-                                    setupContainer(h_, prev_, out_);
-                                    ctors_.add(out_);
+                                    ctors_.add(noCtorFound(prev_,h_));
                                     continue;
                                 }
                                 tryFilterAddCtor(sgns_,_page, h_, ctors_, null,stCall_.getStCall(),"");
@@ -300,12 +295,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                                     continue;
                                 }
                                 if (argsTypes_.isEmpty()) {
-                                    ConstrustorIdVarArg out_;
-                                    out_ = new ConstrustorIdVarArg();
-                                    out_.setRealId(new ConstructorId(real_, new StringList(),false));
-                                    out_.setConstId(out_.getRealId());
-                                    setupContainer(h_,real_, out_);
-                                    ctors_.add(out_);
+                                    ctors_.add(noCtorFound(real_,h_));
                                     continue;
                                 }
                             }
@@ -314,12 +304,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         ctors_ = AnaTemplates.reduceCtors(ctors_);
                         if (ctors_.size() == 1) {
                             ConstrustorIdVarArg ctorRes_ = ctors_.first();
-                            realId = ctorRes_.getRealId();
-                            function = ctorRes_.getPair();
-                            setupFct();
-                            standardType = ctorRes_.getStandardType();
-                            lambdaCommonContent.setFileName(ctorRes_.getFileName());
-                            lambdaMemberNumberContentId = ctorRes_.getMemberId();
+                            initIdCtor(ctorRes_);
                             ConstructorId fid_ = ctorRes_.getConstId();
                             StringList parts_ = new StringList();
                             if (!h_.withoutInstance()) {
@@ -329,7 +314,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             }
 
                             appendArgsCtor(fid_, parts_);
-                            lambdaCommonContent.setFoundFormatted(ctorRes_.getFormattedType());
                             parts_.add(fid_.getName());
                             StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
                             fct_.append(StringExpUtil.TEMPLATE_BEGIN);
@@ -1510,17 +1494,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructorLambda(vararg_, clFrom_,
                     id_, h_,
                     feed_, _page, methodTypes_);
-            realId = ctorRes_.getRealId();
-            if (realId == null) {
+            if (ctorRes_.noRealId()) {
                 buildLambdaCtorErr(_page,clFrom_,methodTypes_);
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
-            function = ctorRes_.getPair();
-            setupFct();
-            standardType = ctorRes_.getStandardType();
-            lambdaCommonContent.setFileName(ctorRes_.getFileName());
-            lambdaMemberNumberContentId = ctorRes_.getMemberId();
+            initIdCtor(ctorRes_);
             ConstructorId fid_ = ctorRes_.getConstId();
             StringList parts_ = new StringList();
             if (!h_.withoutInstance()) {
@@ -1530,7 +1509,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
 
             appendArgsCtor(fid_, parts_);
-            lambdaCommonContent.setFoundFormatted(ctorRes_.getFormattedType());
             parts_.add(clFrom_);
             StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
             fct_.append(StringExpUtil.TEMPLATE_BEGIN);
@@ -1619,6 +1597,16 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         processCtor(methodTypes_, vararg_, null, cl_, _page);
     }
 
+    private void initIdCtor(ConstrustorIdVarArg _ctorRes) {
+        realId = _ctorRes.getRealId();
+        lambdaCommonContent.setFoundFormatted(_ctorRes.getFormattedType());
+        function = _ctorRes.getPair();
+        setupFct();
+        standardType = _ctorRes.getStandardType();
+        lambdaCommonContent.setFileName(_ctorRes.getFileName());
+        lambdaMemberNumberContentId = _ctorRes.getMemberId();
+    }
+
     private void processCtor(StringList _methodTypes, int _vararg, ConstructorId _feed, String _cl, AnalyzedPageEl _page) {
         lambdaCommonContent.setShiftArgument(true);
         String id_ = StringExpUtil.getIdFromAllTypes(_cl);
@@ -1639,18 +1627,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructorLambda(_vararg, _cl,
                 id_, h_,
                 _feed, _page, _methodTypes);
-        realId = ctorRes_.getRealId();
-        if (realId == null) {
+        if (ctorRes_.noRealId()) {
             buildLambdaCtorErr(_page,_cl,_methodTypes);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        lambdaCommonContent.setFoundFormatted(ctorRes_.getFormattedType());
-        function = ctorRes_.getPair();
-        setupFct();
-        standardType = ctorRes_.getStandardType();
-        lambdaCommonContent.setFileName(ctorRes_.getFileName());
-        lambdaMemberNumberContentId = ctorRes_.getMemberId();
+        initIdCtor(ctorRes_);
         ConstructorId fid_ = ctorRes_.getConstId();
         StringList parts_ = new StringList();
         appendArgsCtor(fid_, parts_);

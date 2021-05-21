@@ -35,7 +35,6 @@ public final class StandardInstancingOperation extends
     private final AnaInstancingStdContent instancingStdContent;
 
     private final CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
-    private MemberId memberId = new MemberId();
     private InnerTypeOrElement innerElt;
     private StringList errorsFields = new StringList();
 
@@ -281,7 +280,7 @@ public final class StandardInstancingOperation extends
                 setResultClass(new AnaClassArgumentMatching(_realClassName));
                 return;
             }
-            memberId.setRootNumber(((RecordBlock)g_).getNumberAll());
+            getMemberId().setRootNumber(((RecordBlock)g_).getNumberAll());
             AnaTypeFct constructor_ = new AnaTypeFct();
             constructor_.setType((RecordBlock)g_);
             setConstructor(constructor_);
@@ -300,19 +299,7 @@ public final class StandardInstancingOperation extends
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
-        setConstId(ctorRes_.getRealId());
-        setConstructor(ctorRes_.getPair());
-        if (g_ instanceof RootBlock) {
-            setFormattedType(new AnaFormattedRootBlock((RootBlock) g_, _realClassName));
-        } else {
-            setClassName(_realClassName);
-        }
-        memberId = ctorRes_.getMemberId();
-        if (ctorRes_.isVarArgToCall()) {
-            setNaturalVararg(getConstId().getParametersTypes().size() - 1);
-            setLastType(getConstId().getParametersTypes().last());
-        }
-        unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _page);
+        result(_page,_realClassName, g_, ctorRes_, name_);
         setResultClass(new AnaClassArgumentMatching(_realClassName));
     }
     private NameParametersFilter buildQuickStrictFilter(AnalyzedPageEl _page,String _real,RootBlock _root, MethodOperation _par) {
@@ -392,10 +379,6 @@ public final class StandardInstancingOperation extends
 
     public CustList<ConstructorInfo> getCtors() {
         return ctors;
-    }
-
-    public MemberId getMemberId() {
-        return memberId;
     }
 
 }

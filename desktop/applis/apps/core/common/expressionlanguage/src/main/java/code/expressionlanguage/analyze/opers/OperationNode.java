@@ -786,12 +786,7 @@ public abstract class OperationNode {
         boolean uniq_ = isUniqCtor(_uniqueId, _varargOnly);
         if (noCtor(_type)) {
             if (_filter.isEmptyArg()) {
-                ConstrustorIdVarArg out_;
-                out_ = new ConstrustorIdVarArg();
-                out_.setRealId(new ConstructorId(clCurName_, new StringList(),false));
-                out_.setConstId(out_.getRealId());
-                setupContainer(_type,clCurName_, out_);
-                return out_;
+                return noCtorFound(clCurName_, _type);
             }
         }
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
@@ -928,12 +923,7 @@ public abstract class OperationNode {
         int varargOnly_ = ctorVarArgOnly(_varargOnly, _uniqueId);
         if (noCtor(_type)) {
             if (_args.isEmpty()) {
-                ConstrustorIdVarArg out_;
-                out_ = new ConstrustorIdVarArg();
-                out_.setRealId(new ConstructorId(_class, new StringList(),false));
-                out_.setConstId(out_.getRealId());
-                setupContainer(_type,_class, out_);
-                return out_;
+                return noCtorFound(_class, _type);
             }
         }
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
@@ -969,6 +959,15 @@ public abstract class OperationNode {
             }
         }
         return getConstrustorIdLambda(_class,_type,_page, signatures_);
+    }
+
+    protected static ConstrustorIdVarArg noCtorFound(String _class, AnaGeneType _type) {
+        ConstrustorIdVarArg out_;
+        out_ = new ConstrustorIdVarArg();
+        out_.setRealId(new ConstructorId(_class, new StringList(), false));
+        out_.setConstId(out_.getRealId());
+        setupContainer(_type, _class, out_);
+        return out_;
     }
 
     protected static ConstructorInfo tryGetFilterSignaturesInfer(CustList<ConstructorInfo> _list, AnaGeneType _type, AnalyzedPageEl _page, StringList _args, String _stCall, String _retType) {
