@@ -116,11 +116,6 @@ public final class ExecTemplates {
      */
     public static Struct getParent(int _nbAncestors, Struct _current, ContextEl _an, StackCall _stackCall) {
         LgNames lgNames_ = _an.getStandards();
-        if (_current == NullStruct.NULL_VALUE) {
-            String npe_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, npe_, _stackCall)));
-            return _current;
-        }
         Struct arg_ = _current;
         for (int i = 0; i < _nbAncestors; i++) {
             Struct enc_ = arg_;
@@ -128,7 +123,13 @@ public final class ExecTemplates {
             _stackCall.getInitializingTypeInfos().addSensibleField(enc_, par_);
             arg_=par_;
         }
-        return Argument.getNull(arg_);
+        Struct out_ = Argument.getNull(arg_);
+        if (out_ == NullStruct.NULL_VALUE) {
+            String npe_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, npe_, _stackCall)));
+            return _current;
+        }
+        return out_;
     }
 
     public static String correctClassPartsDynamicWildCard(String _className, ContextEl _context) {
@@ -944,6 +945,14 @@ public final class ExecTemplates {
     }
 
     public static Argument setField(FieldMetaInfo _meta, Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall) {
+        ExecRootBlock declaring_ = _meta.getDeclaring();
+        if (declaring_ == null) {
+            LgNames stds_ = _conf.getStandards();
+            String npe_;
+            npe_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+            return Argument.createVoid();
+        }
         String baseClass_ = _meta.getDeclaringClass();
         baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
         String fieldName_ = _meta.getName();
@@ -961,7 +970,7 @@ public final class ExecTemplates {
             }
             return setStaticField(_conf.getExiting(), type_, _right, _conf, _stackCall, fieldId_);
         }
-        return setInstanceField(_meta.getDeclaring(), type_, _previous, _right, _conf, _stackCall, fieldId_);
+        return setInstanceField(declaring_, type_, _previous, _right, _conf, _stackCall, fieldId_);
     }
 
     public static Argument setInstanceField(ExecRootBlock _rootBlock, String _returnType, Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {

@@ -4,10 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldMetaInfo;
 
 public final class ReflectSetFieldPageEl extends AbstractBasicReflectPageEl {
@@ -27,7 +24,6 @@ public final class ReflectSetFieldPageEl extends AbstractBasicReflectPageEl {
 
     @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        LgNames stds_ = _context.getStandards();
         if (!initClass) {
             initClass = true;
             if (metaInfo.isStaticField()) {
@@ -40,13 +36,6 @@ public final class ReflectSetFieldPageEl extends AbstractBasicReflectPageEl {
             }
         }
         setWrapException(false);
-        String baseClass_ = metaInfo.getDeclaringClass();
-        if (stds_.getStandards().contains(baseClass_)) {
-            String ill_;
-            ill_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
-            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ill_, _stack)));
-            return false;
-        }
         Argument arg_ = ExecTemplates.setField(metaInfo, first, last, _context, _stack);
         if (_context.callsOrException(_stack)) {
             return false;
