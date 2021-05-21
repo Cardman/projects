@@ -30,7 +30,7 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
 
     public static Struct newLambda(ExecLambdaCommonContent _comm, Argument _previous, ExecFormattedRootBlock _ownerType,
                                    String _clArg) {
-        return new LambdaConstructorStruct(NullStruct.NULL_VALUE,_previous,_comm,_clArg, _ownerType.getFormatted());
+        return new LambdaConstructorStruct(_ownerType.getFormatted(),_previous,_comm,_clArg);
     }
 
 }

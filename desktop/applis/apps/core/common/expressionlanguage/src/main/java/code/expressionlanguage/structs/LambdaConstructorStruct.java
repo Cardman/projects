@@ -16,11 +16,20 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
     private final boolean safeInstance;
     private final Struct metaInfo;
 
-    public LambdaConstructorStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, String _className, String _formClassName) {
+    public LambdaConstructorStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, String _className) {
         metaInfo = _metaInfo;
+        formClassName = "";
         instanceCall = Argument.getNullableValue(_previous);
         className = StringUtil.nullToEmpty(_className);
+        shiftInstance = _common.isShiftArgument();
+        safeInstance = _common.isSafeInstance();
+    }
+
+    public LambdaConstructorStruct(String _formClassName,Argument _previous, ExecLambdaCommonContent _common, String _className) {
+        metaInfo = NullStruct.NULL_VALUE;
         formClassName = StringUtil.nullToEmpty(_formClassName);
+        instanceCall = Argument.getNullableValue(_previous);
+        className = StringUtil.nullToEmpty(_className);
         shiftInstance = _common.isShiftArgument();
         safeInstance = _common.isSafeInstance();
     }

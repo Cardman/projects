@@ -40,7 +40,7 @@ public final class ExecStdConstructorLambdaOperation extends ExecAbstractLambdaO
     public static Struct newLambda(ExecLambdaCommonContent _common, Argument _previous, ExecFormattedRootBlock _ownerType, ConstructorId _realId,
                                    String _clArg, StandardType _standardType) {
         ConstructorMetaInfo met_ = new ConstructorMetaInfo(_standardType, _common,_ownerType, _realId);
-        return new LambdaConstructorStruct(met_,_previous,_common,_clArg, _ownerType.getFormatted());
+        return new LambdaConstructorStruct(met_,_previous,_common,_clArg);
     }
 
 }
