@@ -1139,7 +1139,7 @@ public abstract class OperationNode {
         methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, _classes, _name, false, _page, new ScopeFilter(null, true, false, false, _page.getGlobalClass()), new FormattedFilter());
         boolean uniq_ = uniq((ClassMethodIdAncestor) null, -1);
         int varargOnly_ = fetchVarargOnly(-1, null);
-        return getCustResult(uniq_, varargOnly_, methods_, _name, "",_argsClass, _page);
+        return getCustResult(uniq_, varargOnly_, methods_, _name, _argsClass, _page);
     }
 
     private static int fetchVarargOnly(int _varargOnly, ClassMethodIdAncestor _uniqueId) {
@@ -1302,7 +1302,7 @@ public abstract class OperationNode {
             return null;
         }
         CustList<CustList<MethodInfo>> listsUnary_ = addUnaries(_page, operand_);
-        ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, "", single_, _page);
+        ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, single_, _page);
         if (clMethImp_.isFoundMethod()) {
             CustList<OperationNode> chidren_ = _node.getChildrenNodes();
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
@@ -1350,7 +1350,7 @@ public abstract class OperationNode {
                 addVirtual(_op, _page, list_,p, p, new StringList(p));
             }
             lists_.add(list_);
-            ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, "", single_, _page);
+            ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, single_, _page);
             if (clMeth_.isFoundMethod()) {
                 CustList<OperationNode> chidren_ = _node.getChildrenNodes();
                 _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
@@ -1394,7 +1394,7 @@ public abstract class OperationNode {
             return null;
         }
         CustList<CustList<MethodInfo>> listsUnary_ = addUnaries(_page, operand_);
-        ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, "", single_, _page);
+        ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, single_, _page);
         if (clMethImp_.isFoundMethod()) {
             CustList<OperationNode> chidren_ = _node.getChildrenNodes();
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
@@ -1445,7 +1445,7 @@ public abstract class OperationNode {
         } else {
             addBinaries(_page, left_, right_, listsBinary_);
         }
-        ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsBinary_, _op, "", pair_, _page);
+        ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsBinary_, _op, pair_, _page);
         if (clMethImp_.isFoundMethod()) {
             CustList<OperationNode> chidren_ = _node.getChildrenNodes();
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
@@ -1515,7 +1515,7 @@ public abstract class OperationNode {
                 addVirtual(_op,_page,list_,p.getParamType(),p.getReturnType(),new StringList(p.getParamType(),p.getParamType()));
             }
             lists_.add(list_);
-            ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, "", pair_, _page);
+            ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, pair_, _page);
             if (clMeth_.isFoundMethod()) {
                 CustList<OperationNode> chidren_ = _node.getChildrenNodes();
                 _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
@@ -1554,7 +1554,7 @@ public abstract class OperationNode {
             return clMeth_;
         }
         //implicit use of operator key word
-        ClassMethodIdReturn cust_ = getOperator(null, -1, _op, "", chidren_, _page);
+        ClassMethodIdReturn cust_ = getOperator(_op, chidren_, _page);
         if (cust_.isFoundMethod()) {
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getPrimitiveTypes()), _page));
             MethodId realId_ = cust_.getRealId();
@@ -1689,14 +1689,13 @@ public abstract class OperationNode {
         o_.add(ops_);
         return getCustIncrDecrResult(o_, _op, _argsClass, _page);
     }
-    static ClassMethodIdReturn getOperator(ClassMethodId _cl, int _varargOnly,
-                                           String _op, String _param, CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {
-        CustList<MethodInfo> ops_ = getOperators(false, _cl, _page);
-        boolean uniq_ = uniq(_cl,_varargOnly);
-        int varargOnly_ = fetchVarargOnlyBis(_cl, _varargOnly);
+    static ClassMethodIdReturn getOperator(String _op, CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {
+        CustList<MethodInfo> ops_ = getOperators(false, null, _page);
+        boolean uniq_ = uniq((ClassMethodId) null, -1);
+        int varargOnly_ = fetchVarargOnlyBis(null, -1);
         CustList<CustList<MethodInfo>> o_ = new CustList<CustList<MethodInfo>>();
         o_.add(ops_);
-        return getCustResult(uniq_, varargOnly_, o_, _op, _param,_argsClass, _page);
+        return getCustResult(uniq_, varargOnly_, o_, _op, _argsClass, _page);
     }
     static ClassMethodIdReturn getOperator(boolean _refRet, ClassMethodId _cl, int _varargOnly,
                                            String _op, String _param, NameParametersFilter _filter, AnalyzedPageEl _page) {
@@ -2572,12 +2571,12 @@ public abstract class OperationNode {
     }
     private static ClassMethodIdReturn getCustResult(boolean _unique, int _varargOnly,
                                                      CustList<CustList<MethodInfo>> _methods,
-                                                     String _name, String _param, CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {
+                                                     String _name, CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {
         NameParametersFilter name_ = new NameParametersFilter();
         for (OperationNode a: _argsClass) {
             name_.getPositional().add(a);
         }
-        return getCustResult(_unique, true,_varargOnly,_methods,_name,_param,name_, _page);
+        return getCustResult(_unique, true,_varargOnly,_methods,_name, "",name_, _page);
     }
     private static ClassMethodIdReturn getCustResult(boolean _unique, boolean _excludeVarargRef, int _varargOnly,
                                                      CustList<CustList<MethodInfo>> _methods,
