@@ -681,7 +681,7 @@ public final class RendForwardInfos {
             ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(f_.getLambdaMemberNumberContentId(), _forwards);
             ExecRootBlock declaring_ = pair_.getType();
             ExecNamedFunctionBlock named_ = pair_.getFct();
-            ExecLambdaMethodContent lambdaMethodContent_ = new ExecLambdaMethodContent(f_.getMethod(), f_.getLambdaMethodContent(), pair_);
+            ExecLambdaMethodContent lambdaMethodContent_ = new ExecLambdaMethodContent(f_.getMethod().getConstraints(), f_.getLambdaMethodContent(), pair_);
             if (declaring_ != null) {
                 if (named_ != null) {
                     return new RendCustMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);

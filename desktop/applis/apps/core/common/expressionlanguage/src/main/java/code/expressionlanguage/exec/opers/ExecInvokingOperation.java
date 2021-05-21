@@ -388,14 +388,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         if (ls_ instanceof LambdaConstructorStruct) {
             LambdaConstructorStruct l_ = (LambdaConstructorStruct) ls_;
-            String forId_ = StringUtil.nullToEmpty(l_.getFormClassName());
-            if (forId_.startsWith(ARR)) {
+            Struct metaInfo_ = l_.getMetaInfo();
+            if (!(metaInfo_ instanceof ConstructorMetaInfo)) {
                 Ints dims_ = new Ints();
                 for (Argument a: values_) {
                     int dim_ = NumParsers.convertToNumber(a.getStruct()).intStruct();
                     dims_.add(dim_);
                 }
-                String c_ = forId_.substring(ARR.length());
+                String c_ = StringUtil.nullToEmpty(l_.getFormClassName());
                 Struct res_ = ExecTemplates.newCustomArrayOrExc(c_, dims_, _conf, _stackCall);
                 if (res_ instanceof ErrorStruct) {
                     _stackCall.setCallingState(new CustomFoundExc(res_));
@@ -403,13 +403,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 return new Argument(res_);
             }
-            Struct metaInfo_ = l_.getMetaInfo();
             Argument instance_ = l_.getInstanceCall();
             if (l_.isSafeInstance()&&instance_.isNull()) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
                 return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
             }
-            ConstructorMetaInfo meta_ = NumParsers.getCtor(metaInfo_);
+            ConstructorMetaInfo meta_ = (ConstructorMetaInfo)metaInfo_;
             ArgumentListCall call_ = new ArgumentListCall();
             if (!l_.isShiftInstance()) {
                 ExecRootBlock type_ = meta_.getPairType();
@@ -494,13 +493,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             LambdaMethodStruct l_ =  (LambdaMethodStruct) ls_;
             int nbAncestors_ = l_.getAncestor();
             boolean static_ = l_.getKind() != MethodAccessKind.INSTANCE;
-            Struct metaInfo_ = l_.getMetaInfo();
             Struct instanceStruct_ = l_.getInstanceCall().getStruct();
             if (l_.isSafeInstance()&&instanceStruct_ == NullStruct.NULL_VALUE) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
                 return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
             }
-            MethodMetaInfo method_ = NumParsers.getMethod(metaInfo_);
             CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
             CustList<ArgumentWrapper> formal_;
             Argument right_;
@@ -524,13 +521,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 call_.getArgumentWrappers().addAllElts(formal_);
                 call_.setRight(right_);
-                return redirect(_conf, l_,instance_, call_, method_, _stackCall);
+                return redirect(_conf, l_,instance_, call_, _stackCall);
             }
             if (FunctionIdUtil.isOperatorName(l_.getMethodName())) {
                 formal_.add(0,new ArgumentWrapper(new Argument(instanceStruct_),null));
                 call_.getArgumentWrappers().addAllElts(formal_);
                 call_.setRight(right_);
-                return redirect(_conf, l_, Argument.createVoid(), call_, method_, _stackCall);
+                return redirect(_conf, l_, Argument.createVoid(), call_, _stackCall);
             }
             int len_ = Math.max(0, formal_.size() - 1);
             CustList<ArgumentWrapper> arr_ = formal_.leftMinusOne(len_);
@@ -541,7 +538,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             call_.getArgumentWrappers().addAllElts(arr_);
             call_.setRight(right_);
-            return redirect(_conf, l_, firstValue_, call_, method_, _stackCall);
+            return redirect(_conf, l_, firstValue_, call_, _stackCall);
         }
         String null_;
         null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
@@ -549,9 +546,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
-    private static Argument redirect(ContextEl _conf, LambdaMethodStruct _l, Argument _instance, ArgumentListCall _call, MethodMetaInfo _method, StackCall _stackCall) {
+    private static Argument redirect(ContextEl _conf, LambdaMethodStruct _l, Argument _instance, ArgumentListCall _call, StackCall _stackCall) {
+        Struct metaInfo_ = _l.getMetaInfo();
         String name_ = _l.getMethodName();
-        if (StringUtil.nullToEmpty(_l.getFormClassName()).startsWith(StringExpUtil.ARR_CLASS) && (name_.startsWith("[]")||StringUtil.quickEq(name_,"[:]"))) {
+        if (!(metaInfo_ instanceof MethodMetaInfo)) {
             CustList<Argument> arguments_ = _call.getArguments();
             Struct arr_ = _instance.getStruct();
             int lastIndex_ = arguments_.size() - 1;
@@ -605,48 +603,49 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Struct ind_ = arguments_.get(lastIndex_).getStruct();
             return new Argument(ExecTemplates.getElement(arr_,ind_,_conf, _stackCall));
         }
-        if (_method.getStdCallee() != null) {
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STD_FCT, _method, _instance,_call, true));
+        MethodMetaInfo method_ = (MethodMetaInfo)metaInfo_;
+        if (method_.getStdCallee() != null) {
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STD_FCT, method_, _instance,_call, true));
             return new Argument();
         }
-        if (_method.getPairFct() instanceof ExecAnonymousFunctionBlock) {
-            if (_method.isStaticCall()) {
-                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STATIC_CALL, _method, _instance,_call, true));
+        if (method_.getPairFct() instanceof ExecAnonymousFunctionBlock) {
+            if (method_.isStaticCall()) {
+                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STATIC_CALL, method_, _instance,_call, true));
                 return new Argument();
             }
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.DIRECT, _method, _instance,_call, true));
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.DIRECT, method_, _instance,_call, true));
             return new Argument();
         }
-        ExecRootBlock e_ = _method.getPairType();
+        ExecRootBlock e_ = method_.getPairType();
         if (e_ instanceof ExecAnnotationBlock) {
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.ANNOT_FCT, _method, _instance,_call, true));
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.ANNOT_FCT, method_, _instance,_call, true));
             return new Argument();
         }
-        if (_method.getPairFct() != null) {
-            if (_method.isExpCast()) {
-                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CAST, _method, _instance,_call, true));
+        if (method_.getPairFct() != null) {
+            if (method_.isExpCast()) {
+                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CAST, method_, _instance,_call, true));
                 return new Argument();
             }
-            if (_method.isStaticCall()) {
-                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STATIC_CALL, _method, _instance,_call, true));
+            if (method_.isStaticCall()) {
+                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.STATIC_CALL, method_, _instance,_call, true));
                 return new Argument();
             }
             if (!_l.isPolymorph()) {
-                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.DIRECT, _method, _instance,_call, true));
+                _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.DIRECT, method_, _instance,_call, true));
                 return new Argument();
             }
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.METHOD, _method, _instance,_call, true));
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.METHOD, method_, _instance,_call, true));
             return new Argument();
         }
         if (e_ != null) {
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.ENUM_METHODS, _method, _instance,_call, true));
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.ENUM_METHODS, method_, _instance,_call, true));
             return new Argument();
         }
-        if (_method.isDirectCast()) {
-            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CAST_DIRECT, _method, _instance,_call, true));
+        if (method_.isDirectCast()) {
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CAST_DIRECT, method_, _instance,_call, true));
             return new Argument();
         }
-        _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CLONE_FCT, _method, _instance,_call, true));
+        _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.CLONE_FCT, method_, _instance,_call, true));
         return new Argument();
     }
     private static Argument getEnumValues(AbstractExiting _exit, String _class, ExecRootBlock _root, ContextEl _conf, StackCall _stackCall) {

@@ -1,10 +1,10 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 public final class ExecLambdaMethodContent {
-    private final ClassMethodId method;
+    private final MethodId method;
     private final boolean polymorph;
     private final boolean abstractMethod;
     private final boolean directCast;
@@ -12,7 +12,7 @@ public final class ExecLambdaMethodContent {
     private final boolean clonedMethod;
     private final ExecTypeFunction pair;
 
-    public ExecLambdaMethodContent(ClassMethodId _method, AnaLambdaMethodContent _meth, ExecTypeFunction _pair) {
+    public ExecLambdaMethodContent(MethodId _method, AnaLambdaMethodContent _meth, ExecTypeFunction _pair) {
         method = _method;
         polymorph = _meth.isPolymorph();
         abstractMethod = _meth.isAbstractMethod();
@@ -22,7 +22,7 @@ public final class ExecLambdaMethodContent {
         pair = _pair;
     }
 
-    public ClassMethodId getMethod() {
+    public MethodId getMethod() {
         return method;
     }
 

@@ -13,8 +13,6 @@ import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
@@ -216,7 +214,6 @@ public final class AnonymousLambdaOperation extends
             }
         }
         lambdaCommonContent.setFoundFormatted(new AnaFormattedRootBlock(_page.getGlobalType(),_page.getGlobalClass()));
-        lambdaCommonContent.setFoundClass(_page.getGlobalClass());
         lambdaCommonContent.setFileName(_page.getLocalizer().getCurrentFileName());
         RootBlock globalType_ = block.getParentType();
         OperatorBlock operator_ = block.getOperator();
@@ -317,20 +314,19 @@ public final class AnonymousLambdaOperation extends
         String importedReturnType_ = block.getImportedReturnType();
         MethodId idC_ = block.getId();
         lambdaCommonContent.setReturnFieldType(importedReturnType_);
-        String found_ = lambdaCommonContent.getFoundClass();
+        String found_ = lambdaCommonContent.getFoundFormatted().getFormatted();
         StringList params_ = AnaInherits.wildCardFormatParams(found_, idC_.getParametersTypes(), _page);
         MethodId id_ = MethodId.to(idC_.getKind(),params_,idC_);
-        String foundClass_ = found_;
-        if (idC_.getKind() != MethodAccessKind.STATIC_CALL) {
-            foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
-        }
-        lambdaAnoContent.setMethod(new ClassMethodId(foundClass_, idC_));
-        String fct_ = LambdaOperation.formatReturn(_page, importedReturnType_, found_, idC_, id_);
+        lambdaAnoContent.setMethod(idC_);
+        String fct_ = formatReturn(_page, importedReturnType_, found_, idC_, id_);
         setResultClass(new AnaClassArgumentMatching(fct_));
         _page.setOffset(offset_);
         _page.setGlobalOffset(globalOffset_);
     }
 
+    static String formatReturn(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints) {
+        return LambdaOperation.appendParts(_page, _returnType, _realClass, _realId, _constraints, "", false);
+    }
     public NamedCalledFunctionBlock getBlock() {
         return block;
     }

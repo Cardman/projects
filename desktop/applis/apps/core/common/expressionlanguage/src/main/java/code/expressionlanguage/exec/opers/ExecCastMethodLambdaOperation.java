@@ -38,8 +38,8 @@ public final class ExecCastMethodLambdaOperation extends ExecAbstractLambdaOpera
     public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, ExecFormattedRootBlock _ownerType,
                                    String _clArg) {
         MethodModifier met_ = MethodModifier.STATIC;
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_ownerType, _meth.getMethod().getConstraints(), met_,true);
-        return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg, _ownerType.getFormatted());
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_ownerType, _meth.getMethod(), met_,true);
+        return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg);
     }
 
 

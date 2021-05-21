@@ -1,17 +1,17 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 
 public final class AnaLambdaAnoContent {
-    private ClassMethodId method;
+    private MethodId method;
     private int rootNumber = -1;
     private int operatorNumber = -1;
 
-    public ClassMethodId getMethod() {
+    public MethodId getMethod() {
         return method;
     }
 
-    public void setMethod(ClassMethodId _method) {
+    public void setMethod(MethodId _method) {
         this.method = _method;
     }
 

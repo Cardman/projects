@@ -14,7 +14,6 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     private final Argument instanceCall;
 
     private final String className;
-    private final String formClassName;
 
     private final boolean polymorph;
 
@@ -27,38 +26,19 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     private final String methodName;
     private final Struct metaInfo;
 
-    public LambdaMethodStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, String _className, String _formClassName) {
-        metaInfo = _metaInfo;
-        instanceCall = Argument.getNullableValue(_previous);
-        className = StringUtil.nullToEmpty(_className);
-        formClassName = StringUtil.nullToEmpty(_formClassName);
-        polymorph = _meth.isPolymorph();
-        shiftInstance = _common.isShiftArgument();
-        ancestor = _common.getAncestor();
-        safeInstance = _common.isSafeInstance();
-        methodName = StringUtil.nullToEmpty(_meth.getMethod().getConstraints().getName());
-        kind = _meth.getMethod().getConstraints().getKind();
+    public LambdaMethodStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, String _className) {
+        this(_metaInfo, _previous, _common, _meth.getMethod(), _className, _meth.isPolymorph());
     }
 
-    public LambdaMethodStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, ExecLambdaAnoContent _meth, String _className, String _formClassName) {
-        metaInfo = _metaInfo;
-        instanceCall = Argument.getNullableValue(_previous);
-        className = StringUtil.nullToEmpty(_className);
-        formClassName = StringUtil.nullToEmpty(_formClassName);
-        polymorph = false;
-        shiftInstance = _common.isShiftArgument();
-        ancestor = _common.getAncestor();
-        safeInstance = _common.isSafeInstance();
-        methodName = StringUtil.nullToEmpty(_meth.getMethod().getConstraints().getName());
-        kind = _meth.getMethod().getConstraints().getKind();
+    public LambdaMethodStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, ExecLambdaAnoContent _meth, String _className) {
+        this(_metaInfo,_previous,_common,_meth.getMethod(),_className, false);
     }
 
-    public LambdaMethodStruct(Struct _metaInfo,Argument _previous, ExecLambdaCommonContent _common, MethodId _meth, String _className, String _formClassName) {
+    public LambdaMethodStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, MethodId _meth, String _className, boolean _polymorph) {
         metaInfo = _metaInfo;
         instanceCall = Argument.getNullableValue(_previous);
         className = StringUtil.nullToEmpty(_className);
-        formClassName = StringUtil.nullToEmpty(_formClassName);
-        polymorph = false;
+        polymorph = _polymorph;
         shiftInstance = _common.isShiftArgument();
         ancestor = _common.getAncestor();
         safeInstance = _common.isSafeInstance();
@@ -71,10 +51,6 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
 
     public Struct getMetaInfo() {
         return metaInfo;
-    }
-
-    public String getFormClassName() {
-        return formClassName;
     }
 
     public MethodAccessKind getKind() {

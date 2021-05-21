@@ -29,8 +29,8 @@ public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperat
         ExecFormattedRootBlock ownerType_ = _common.getFormattedType();
         ownerType_ = _stackCall.formatVarType(ownerType_);
         clArg_ = _stackCall.formatVarType(clArg_);
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(new HiddenCache(_lastPage), _common, null, ownerType_, _anonCont.getMethod().getConstraints(), _anonCont.getPair());
-        return new LambdaMethodStruct(metaInfo_,_previous,_common,_anonCont,clArg_, ownerType_.getFormatted());
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(new HiddenCache(_lastPage), _common, null, ownerType_, _anonCont.getMethod(), _anonCont.getPair());
+        return new LambdaMethodStruct(metaInfo_,_previous,_common,_anonCont,clArg_);
     }
 
     @Override

@@ -47,7 +47,7 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
         String from_ = className_;
         MethodModifier met_ = _function.getModifier();
         MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_ownerType,from_, _constraints, met_,_function);
-        return new LambdaMethodStruct(metaInfo_,_previous,_common,_constraints,_clArg, _ownerType.getFormatted());
+        return new LambdaMethodStruct(metaInfo_,_previous,_common,_constraints,_clArg, false);
     }
 
 
