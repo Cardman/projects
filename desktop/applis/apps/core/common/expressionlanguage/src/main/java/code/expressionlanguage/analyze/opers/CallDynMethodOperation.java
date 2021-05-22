@@ -314,6 +314,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                         addErr(und_.getBuiltError());
                     }
                     last_ = last_.getFirstChild();
+                    //last_ is now an ArgumentListInstancing
                 }
                 if (chidren_.size() > 1){
                     FoundErrorInterpret und_ = new FoundErrorInterpret();
