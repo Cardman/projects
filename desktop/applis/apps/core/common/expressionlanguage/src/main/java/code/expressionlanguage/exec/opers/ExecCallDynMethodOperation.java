@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -33,7 +34,7 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
             setSimpleArgument(res_, _conf, _nodes, _stack);
             return;
         }
-        CustList<ArgumentsPair> out_ = new CustList<ArgumentsPair>();
+        CustList<ArgumentWrapper> out_ = new CustList<ArgumentWrapper>();
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode last_ = getLast(chidren_);
         if (last_ instanceof ExecNamedArgumentOperation) {
@@ -47,14 +48,8 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
             if (ExecConstLeafOperation.isFilter(o)) {
                 continue;
             }
-            ArgumentsPair a_ = new ArgumentsPair();
             ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, o);
-            if (o instanceof ExecWrappOperation) {
-                ExecHelper.fwdWrapper(a_,argumentPair_);
-            } else {
-                ExecHelper.fwdArg(a_,argumentPair_);
-            }
-            out_.add(a_);
+            addToWrappers(o,argumentPair_,out_);
         }
         Argument res_ = prepareCallDynNormal(previous_, out_, _conf, _stack);
         setResult(res_, _conf, _nodes, _stack);

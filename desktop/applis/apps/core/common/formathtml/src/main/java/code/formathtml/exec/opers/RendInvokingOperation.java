@@ -68,7 +68,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         }
         return out_;
     }
-    private static void addToWrappers(RendDynOperationNode _node,ArgumentsPair _pair,CustList<ArgumentWrapper> _wrappers){
+    protected static void addToWrappers(RendDynOperationNode _node,ArgumentsPair _pair,CustList<ArgumentWrapper> _wrappers){
         if (!(_node instanceof RendWrappOperation)) {
             _wrappers.add(new ArgumentWrapper(_pair.getArgument(),null));
         } else {

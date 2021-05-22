@@ -3,7 +3,6 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -41,8 +40,8 @@ public final class RendCallDynMethodOperation extends RendSettableCallFctOperati
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 
-    private CustList<ArgumentsPair> fectchPosArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
-        CustList<ArgumentsPair> out_ = new CustList<ArgumentsPair>();
+    private CustList<ArgumentWrapper> fectchPosArgs(IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
+        CustList<ArgumentWrapper> out_ = new CustList<ArgumentWrapper>();
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         RendDynOperationNode last_ = getLast(chidren_);
         if (last_ instanceof RendNamedArgumentOperation) {
@@ -56,14 +55,8 @@ public final class RendCallDynMethodOperation extends RendSettableCallFctOperati
             if (RendConstLeafOperation.isFilter(o)) {
                 continue;
             }
-            ArgumentsPair a_ = new ArgumentsPair();
             ArgumentsPair argumentPair_ = getArgumentPair(_nodes, o);
-            if (o instanceof RendWrappOperation) {
-                ExecHelper.fwdWrapper(a_,argumentPair_);
-            } else {
-                ExecHelper.fwdArg(a_,argumentPair_);
-            }
-            out_.add(a_);
+            addToWrappers(o,argumentPair_,out_);
         }
         return out_;
     }
