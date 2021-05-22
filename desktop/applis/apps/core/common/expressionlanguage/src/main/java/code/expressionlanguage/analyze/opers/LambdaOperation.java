@@ -2425,13 +2425,17 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return InvokingOperation.getBounds(type_, _page);
     }
 
-    private static String formatReturnPrevious(AnalyzedPageEl _page, ClassMethodIdReturn _id) {
-        return appendParts(_page, _id.getReturnType(), _id.getRealClass(), _id.getRealId(), _id.getId().getConstraints(), "", false);
+    private String formatReturnPrevious(AnalyzedPageEl _page, ClassMethodIdReturn _id) {
+        return formatReturn(_page, _id, false);
     }
 
     private String formatReturn(AnalyzedPageEl _page, ClassMethodIdReturn _id) {
-        lambdaCommonContent.setShiftArgument(!_id.getRealId().isStaticMethod());
-        return appendParts(_page, _id.getReturnType(), _id.getRealClass(), _id.getRealId(), _id.getId().getConstraints(), _id.getId().getClassName(), !_id.getRealId().isStaticMethod());
+        return formatReturn(_page, _id, !_id.getRealId().isStaticMethod());
+    }
+
+    private String formatReturn(AnalyzedPageEl _page, ClassMethodIdReturn _id, boolean _shift) {
+        lambdaCommonContent.setShiftArgument(_shift);
+        return appendParts(_page, _id.getReturnType(), _id.getRealClass(), _id.getRealId(), _id.getId().getConstraints(), _id.getId().getClassName(), _shift);
     }
 
     private static StringList beginReturn(String _foundClass, boolean _staticMeth) {

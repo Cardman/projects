@@ -198,7 +198,7 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         directCast = false;
         expCast = false;
     }
-    public MethodMetaInfo(StandardMethod _std, String _declaringClass, String _className) {
+    public MethodMetaInfo(StandardMethod _std, String _declaringClass, String _className, ExecFormattedRootBlock _formatted) {
         declaringClass = StringUtil.nullToEmpty(_declaringClass);
         invokable = true;
         access = AccessEnum.PUBLIC;
@@ -210,7 +210,7 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         fid = realId;
         formDeclaringClass = StringUtil.nullToEmpty(_className);
         pair = new ExecTypeFunction(null,null);
-        formatted = new ExecFormattedRootBlock(null, _declaringClass);
+        formatted = _formatted;
         fileName = "";
         callee = null;
         cache = null;

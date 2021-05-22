@@ -70,7 +70,7 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     }
 
     public boolean isSafeInstance() {
-        return safeInstance;
+        return safeInstance && instanceCall.isNull();
     }
 
     public int getAncestor() {

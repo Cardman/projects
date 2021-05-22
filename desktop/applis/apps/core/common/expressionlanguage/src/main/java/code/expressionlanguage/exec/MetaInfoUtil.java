@@ -326,18 +326,19 @@ public final class MetaInfoUtil {
             FieldMetaInfo met_ = new FieldMetaInfo(k_, f.getFieldName(), ret_, decl_);
             infosFields_.add(met_);
         }
+        ExecFormattedRootBlock formatted_ = new ExecFormattedRootBlock(null, _name);
         for (StandardMethod m: _type.getMethods()) {
             String decl_ = _type.getFullName();
-            MethodMetaInfo met_ = new MethodMetaInfo(m,_name, decl_);
+            MethodMetaInfo met_ = new MethodMetaInfo(m,_name, decl_, formatted_);
             infos_.add(met_);
         }
         for (StandardConstructor d: _type.getConstructors()) {
             existCtor_ = true;
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_context,_type,d,_name);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_context,_type,d,_name, formatted_);
             infosConst_.add(met_);
         }
         if (!existCtor_) {
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_context,_type,null,_name);
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_context,_type,null,_name, formatted_);
             infosConst_.add(met_);
         }
         boolean st_ = _type.withoutInstance();

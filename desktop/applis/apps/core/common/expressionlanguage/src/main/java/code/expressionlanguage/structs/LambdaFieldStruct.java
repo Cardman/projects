@@ -48,7 +48,7 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
     }
 
     public boolean isSafeInstance() {
-        return safeInstance;
+        return safeInstance && instanceCall.isNull();
     }
 
     public Struct getMetaInfo() {

@@ -403,25 +403,23 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 return new Argument(res_);
             }
-            Argument instance_ = l_.getInstanceCall();
-            if (l_.isSafeInstance()&&instance_.isNull()) {
-                String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
-                return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
+            if (l_.isSafeInstance()) {
+                return defaultValueLambda(_conf, l_);
             }
             ConstructorMetaInfo meta_ = (ConstructorMetaInfo)metaInfo_;
             ArgumentListCall call_ = new ArgumentListCall();
+            CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
             if (!l_.isShiftInstance()) {
                 ExecRootBlock type_ = meta_.getPairType();
-                CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
                 if (type_ != null && !type_.withoutInstance()) {
-                    instance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_));
-                    argumentWrappers_ = argumentWrappers_.mid(1);
+                    Argument instance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_));
+                    call_.getArgumentWrappers().addAllElts(argumentWrappers_.mid(1));
+                    _stackCall.setCallingState(new CustomReflectLambdaConstructor(meta_, instance_.getStruct(),call_, true));
+                    return new Argument();
                 }
-                call_.getArgumentWrappers().addAllElts(argumentWrappers_);
-                _stackCall.setCallingState(new CustomReflectLambdaConstructor(meta_, instance_.getStruct(),call_, true));
-                return new Argument();
             }
-            call_.getArgumentWrappers().addAllElts(_values.getArgumentWrappers());
+            Argument instance_ = l_.getInstanceCall();
+            call_.getArgumentWrappers().addAllElts(argumentWrappers_);
             _stackCall.setCallingState(new CustomReflectLambdaConstructor(meta_, instance_.getStruct(),call_, true));
             return new Argument();
         }
@@ -429,74 +427,51 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             LambdaFieldStruct l_ =  (LambdaFieldStruct) ls_;
             Struct metaInfo_ = l_.getMetaInfo();
             if (!(metaInfo_ instanceof FieldMetaInfo)) {
-                Argument instance_ = l_.getInstanceCall();
-                Argument realInstance_;
-                if (!l_.isShiftInstance()) {
-                    realInstance_ = instance_;
-                } else {
-                    CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
-                    realInstance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_));
-                }
-                Struct struct_ = realInstance_.getStruct();
+                Struct realInstance_ = retrInstance(_values, l_);
                 if (l_.isToStrField()) {
-                    _stackCall.setCallingState(new CustomReflectLambdaToStr(realInstance_));
+                    _stackCall.setCallingState(new CustomReflectLambdaToStr(new Argument(realInstance_)));
                     return Argument.createVoid();
                 }
                 if (l_.isRdCodField()) {
-                    _stackCall.setCallingState(new CustomReflectLambdaRdCod(realInstance_));
+                    _stackCall.setCallingState(new CustomReflectLambdaRdCod(new Argument(realInstance_)));
                     return Argument.createVoid();
                 }
                 if (l_.isInstanceField()) {
                     String ownerType_ = StringUtil.nullToEmpty(l_.getOwnerType());
-                    boolean res_ = ExecInherits.safeObject(ownerType_, struct_.getClassName(_conf), _conf) == ErrorType.NOTHING;
+                    boolean res_ = ExecInherits.safeObject(ownerType_, realInstance_.getClassName(_conf), _conf) == ErrorType.NOTHING;
                     return new Argument(BooleanStruct.of(res_));
                 }
-                return new Argument(struct_.getParent());
+                return new Argument(realInstance_.getParent());
             }
             FieldMetaInfo method_ = (FieldMetaInfo)metaInfo_;
             boolean static_ = l_.isStaticField();
             int nbAncestors_ = l_.getAncestor();
-            Argument instance_ = l_.getInstanceCall();
-            if (l_.isSafeInstance()&&instance_.isNull()) {
-                String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
-                return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
+            if (l_.isSafeInstance()) {
+                return defaultValueLambda(_conf, l_);
             }
-            Argument realInstance_;
-            if (!static_) {
-                Struct value_;
-                if (!l_.isShiftInstance()) {
-                    value_ = instance_.getStruct();
-                } else {
-                    CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
-                    value_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_)).getStruct();
-                }
-                realInstance_ = new Argument(ExecTemplates.getParent(nbAncestors_, value_, _conf, _stackCall));
-                if (_conf.callsOrException(_stackCall)) {
-                    return new Argument();
-                }
-            } else {
-                realInstance_ = new Argument();
+            Struct value_ = retrInstance(_values, l_);
+            Argument par_ = parent(static_, nbAncestors_, value_, _conf, _stackCall);
+            if (_conf.callsOrException(_stackCall)) {
+                return new Argument();
             }
             ReflectingType type_;
             boolean aff_ = l_.isAffect();
             if (aff_) {
                 type_ = ReflectingType.SET_FIELD;
                 CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
-                _stackCall.setCallingState(new CustomReflectSetField(type_, method_, realInstance_, ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)), true));
+                _stackCall.setCallingState(new CustomReflectSetField(type_, method_, par_, ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_)), true));
                 return new Argument();
             }
             type_ = ReflectingType.GET_FIELD;
-            _stackCall.setCallingState(new CustomReflectGetField(type_, method_, realInstance_, true));
+            _stackCall.setCallingState(new CustomReflectGetField(type_, method_, par_, true));
             return new Argument();
         }
         if (ls_ instanceof LambdaMethodStruct) {
             LambdaMethodStruct l_ =  (LambdaMethodStruct) ls_;
             int nbAncestors_ = l_.getAncestor();
             boolean static_ = l_.getKind() != MethodAccessKind.INSTANCE;
-            Struct instanceStruct_ = l_.getInstanceCall().getStruct();
-            if (l_.isSafeInstance()&&instanceStruct_ == NullStruct.NULL_VALUE) {
-                String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
-                return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
+            if (l_.isSafeInstance()) {
+                return defaultValueLambda(_conf, l_);
             }
             CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
             CustList<ArgumentWrapper> formal_;
@@ -508,42 +483,66 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 formal_ = argumentWrappers_;
                 right_ = null;
             }
+            Struct instanceStruct_ = l_.getInstanceCall().getStruct();
             ArgumentListCall call_ = new ArgumentListCall();
             if (!l_.isShiftInstance()) {
-                Argument instance_;
-                if (!static_) {
-                    instance_ = new Argument(ExecTemplates.getParent(nbAncestors_, instanceStruct_, _conf, _stackCall));
-                    if (_conf.callsOrException(_stackCall)) {
-                        return new Argument();
-                    }
-                } else {
-                    instance_ = new Argument(instanceStruct_);
+                Argument par_ = parent(static_, nbAncestors_, instanceStruct_, _conf, _stackCall);
+                if (_conf.callsOrException(_stackCall)) {
+                    return new Argument();
                 }
                 call_.getArgumentWrappers().addAllElts(formal_);
                 call_.setRight(right_);
-                return redirect(_conf, l_,instance_, call_, _stackCall);
+                return redirect(_conf, l_,par_, call_, _stackCall);
             }
-            if (FunctionIdUtil.isOperatorName(l_.getMethodName())) {
+            if (StringExpUtil.isOper(l_.getMethodName())) {
                 formal_.add(0,new ArgumentWrapper(new Argument(instanceStruct_),null));
                 call_.getArgumentWrappers().addAllElts(formal_);
                 call_.setRight(right_);
                 return redirect(_conf, l_, Argument.createVoid(), call_, _stackCall);
             }
-            int len_ = Math.max(0, formal_.size() - 1);
-            CustList<ArgumentWrapper> arr_ = formal_.leftMinusOne(len_);
+            CustList<ArgumentWrapper> arr_ = formal_.mid(1);
             Struct value_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(formal_)).getStruct();
-            Argument firstValue_ = new Argument(ExecTemplates.getParent(nbAncestors_, value_, _conf, _stackCall));
+            Argument par_ = parent(static_, nbAncestors_, value_, _conf, _stackCall);
             if (_conf.callsOrException(_stackCall)) {
                 return new Argument();
             }
             call_.getArgumentWrappers().addAllElts(arr_);
             call_.setRight(right_);
-            return redirect(_conf, l_, firstValue_, call_, _stackCall);
+            return redirect(_conf, l_, par_, call_, _stackCall);
         }
         String null_;
         null_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
         _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_, _stackCall)));
         return Argument.createVoid();
+    }
+
+    private static Argument parent(boolean _static, int _nbAnc, Struct _instanceStruct,ContextEl _conf, StackCall _stackCall) {
+        Argument instance_;
+        if (!_static) {
+            instance_ = new Argument(ExecTemplates.getParent(_nbAnc, _instanceStruct, _conf, _stackCall));
+            if (_conf.callsOrException(_stackCall)) {
+                return new Argument();
+            }
+        } else {
+            instance_ = new Argument();
+        }
+        return instance_;
+    }
+    private static Struct retrInstance(ArgumentListCall _values, LambdaFieldStruct _ldaField) {
+        Argument instance_ = _ldaField.getInstanceCall();
+        Struct realInstance_;
+        if (!_ldaField.isShiftInstance()) {
+            realInstance_ = instance_.getStruct();
+        } else {
+            CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
+            realInstance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_)).getStruct();
+        }
+        return realInstance_;
+    }
+
+    private static Argument defaultValueLambda(ContextEl _conf, LambdaStruct _l) {
+        String last_ = StringExpUtil.getAllTypes(_l.getClassName(_conf)).last();
+        return new Argument(ExecClassArgumentMatching.defaultValue(last_, _conf));
     }
 
     private static Argument redirect(ContextEl _conf, LambdaMethodStruct _l, Argument _instance, ArgumentListCall _call, StackCall _stackCall) {

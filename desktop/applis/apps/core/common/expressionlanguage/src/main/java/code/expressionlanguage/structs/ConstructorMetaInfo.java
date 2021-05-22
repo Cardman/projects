@@ -109,7 +109,7 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         standardType = null;
         declType = type_;
     }
-    public ConstructorMetaInfo(ContextEl _context, StandardType _std, StandardConstructor _ctor, String _declaringClass) {
+    public ConstructorMetaInfo(ContextEl _context, StandardType _std, StandardConstructor _ctor, String _declaringClass, ExecFormattedRootBlock _formatted) {
         ConstructorId id_ = new ConstructorId(_declaringClass, new StringList(), false);
         String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
         if (_ctor != null) {
@@ -126,7 +126,7 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         fid = id_;
         formDeclaringClass = StringUtil.nullToEmpty(decl_);
         pair = new ExecTypeFunction(null,null);
-        formatted = new ExecFormattedRootBlock(null,_declaringClass);
+        formatted = _formatted;
         fileName = "";
         declType = _std;
     }

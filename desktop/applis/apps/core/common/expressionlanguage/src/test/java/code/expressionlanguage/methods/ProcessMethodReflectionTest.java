@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardMethod;
@@ -6640,7 +6641,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(new StringMap<String>());
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
         StandardMethod stdMeth_ = std(cont_.getStandards().getStandards().getVal("java.lang.$math"), id_);
-        MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_,"java.lang.$math", "java.lang.$math");
+        MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_,"java.lang.$math", "java.lang.$math", new ExecFormattedRootBlock(null, "java.lang.$math"));
         ArrayStruct s_ = args();
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_),false);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
@@ -6655,7 +6656,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = ctxOk(new StringMap<String>());
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
         StandardMethod stdMeth_ = std(cont_.getStandards().getStandards().getVal("java.lang.$math"), id_);
-        MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_,"java.lang.$math", "java.lang.$math");
+        MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_,"java.lang.$math", "java.lang.$math", new ExecFormattedRootBlock(null, "java.lang.$math"));
         ArrayStruct s_ = args();
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_),false);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);

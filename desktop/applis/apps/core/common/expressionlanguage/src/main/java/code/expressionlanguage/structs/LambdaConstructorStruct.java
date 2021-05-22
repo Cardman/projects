@@ -50,7 +50,7 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
     }
 
     public boolean isSafeInstance() {
-        return safeInstance;
+        return safeInstance && instanceCall.isNull();
     }
 
     @Override
