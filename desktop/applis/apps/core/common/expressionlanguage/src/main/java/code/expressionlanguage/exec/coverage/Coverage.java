@@ -556,11 +556,8 @@ public final class Coverage {
             return v_;
         }
         ExecMethodOperation par_ = _oper.getParent();
-        if (par_ instanceof ExecAndOperation){
-            return BooleanStruct.of(!_v.isArgumentTest());
-        }
-        if (par_ instanceof ExecOrOperation){
-            return BooleanStruct.of(_v.isArgumentTest());
+        if (par_ instanceof ExecQuickOperation){
+            return BooleanStruct.of(((ExecQuickOperation)par_).match(BooleanStruct.of(_v.isArgumentTest())));
         }
         if (par_ instanceof ExecCompoundAffectationOperation){
             ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;

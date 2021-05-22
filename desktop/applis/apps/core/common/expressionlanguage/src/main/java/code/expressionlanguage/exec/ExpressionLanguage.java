@@ -114,8 +114,8 @@ public final class ExpressionLanguage {
                     a_.setImplicitsCompound(conv_);
                 }
             }
-            if (o instanceof ExecQuickOperation) {
-                ImplicitMethods conv_ = ((ExecQuickOperation) o).getConverter();
+            if (o instanceof ExecQuickCustOperation) {
+                ImplicitMethods conv_ = ((ExecQuickCustOperation) o).getConverter();
                 if (conv_ != null) {
                     a_.setImplicitsCompound(conv_);
                 }
@@ -185,11 +185,8 @@ public final class ExpressionLanguage {
         Struct v_ = res_.getStruct();
         if (_oper.getNextSibling() != null&&value_.isArgumentTest()){
             ExecMethodOperation par_ = _oper.getParent();
-            if (par_ instanceof ExecAndOperation){
-                v_ = BooleanStruct.of(false);
-            }
-            if (par_ instanceof ExecOrOperation){
-                v_ = BooleanStruct.of(true);
+            if (par_ instanceof ExecQuickOperation){
+                v_ = ((ExecQuickOperation) par_).getAbsorbingValue();
             }
             if (par_ instanceof ExecCompoundAffectationOperation){
                 ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;

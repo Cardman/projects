@@ -76,11 +76,8 @@ public final class RenderExpUtil {
         Struct st_ = res_.getStruct();
         if (_o.getNextSibling() != null&&_pair.isArgumentTest()){
             RendMethodOperation par_ = _o.getParent();
-            if (par_ instanceof RendAndOperation){
-                st_ = BooleanStruct.of(false);
-            }
-            if (par_ instanceof RendOrOperation){
-                st_ = BooleanStruct.of(true);
+            if (par_ instanceof RendQuickOperation){
+                st_ = ((RendQuickOperation)par_).getAbsorbingValue();
             }
             if (par_ instanceof RendCompoundAffectationOperation){
                 RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation) par_;

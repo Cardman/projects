@@ -322,14 +322,9 @@ public abstract class ExecOperationNode {
                             pair_.setCalcArgumentTest(true);
                         }
                     }
-                } else if (parent_ instanceof ExecAndOperation) {
+                } else if (parent_ instanceof ExecQuickOperation) {
                     if (!pair_.isCalcArgumentTest()) {
-                        pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
-                        pair_.setCalcArgumentTest(true);
-                    }
-                } else if (parent_ instanceof ExecOrOperation) {
-                    if (!pair_.isCalcArgumentTest()) {
-                        pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+                        pair_.setArgumentTest(((ExecQuickOperation)parent_).match(Argument.getNull(_argument.getStruct())));
                         pair_.setCalcArgumentTest(true);
                     }
                 }

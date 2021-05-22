@@ -294,10 +294,8 @@ public abstract class RendDynOperationNode {
                     if (StringUtil.quickEq(par_.getOper(), "|||=")){
                         pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
                     }
-                } else if (parent_ instanceof RendAndOperation) {
-                    pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
-                } else if (parent_ instanceof RendOrOperation) {
-                    pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+                } else if (parent_ instanceof RendQuickOperation) {
+                    pair_.setArgumentTest(((RendQuickOperation)parent_).match(Argument.getNull(_argument.getStruct())));
                 }
             }
         }

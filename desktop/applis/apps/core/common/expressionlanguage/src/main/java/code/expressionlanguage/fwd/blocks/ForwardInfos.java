@@ -1542,12 +1542,20 @@ public final class ForwardInfos {
         if (_anaNode instanceof AndOperation) {
             AndOperation c_ = (AndOperation) _anaNode;
             ClassMethodIdMemberIdTypeFct fct_ = c_.getFct();
-            return new ExecAndOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(fct_,_forwards), FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards),c_.getOpOffset());
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards);
+            if (pair_.getFct() != null) {
+                return new ExecQuickCustOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards), false);
+            }
+            return new ExecQuickNatOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset(), false);
         }
         if (_anaNode instanceof OrOperation) {
             OrOperation c_ = (OrOperation) _anaNode;
             ClassMethodIdMemberIdTypeFct fct_ = c_.getFct();
-            return new ExecOrOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(fct_,_forwards), FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards),c_.getOpOffset());
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards);
+            if (pair_.getFct() != null) {
+                return new ExecQuickCustOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards), true);
+            }
+            return new ExecQuickNatOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset(), true);
         }
         if (_anaNode instanceof NullSafeOperation) {
             NullSafeOperation c_ = (NullSafeOperation) _anaNode;

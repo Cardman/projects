@@ -890,12 +890,20 @@ public final class RendForwardInfos {
         if (_anaNode instanceof AndOperation) {
             AndOperation c_ = (AndOperation) _anaNode;
             ClassMethodIdMemberIdTypeFct fct_ = c_.getFct();
-            return new RendAndOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(fct_,_forwards), FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards);
+            if (pair_.getFct() != null) {
+                return new RendQuickCustOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards), false);
+            }
+            return new RendQuickNatOperation(new ExecOperationContent(c_.getContent()), false);
         }
         if (_anaNode instanceof OrOperation) {
             OrOperation c_ = (OrOperation) _anaNode;
             ClassMethodIdMemberIdTypeFct fct_ = c_.getFct();
-            return new RendOrOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(fct_,_forwards), FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards);
+            if (pair_.getFct() != null) {
+                return new RendQuickCustOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards), true);
+            }
+            return new RendQuickNatOperation(new ExecOperationContent(c_.getContent()), true);
         }
         if (_anaNode instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
