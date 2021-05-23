@@ -59,7 +59,6 @@ public abstract class ExecOperationNode {
     static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods _implicits, int _indexImplicit, StackCall _stackCall) {
         ExecTypeFunction c = _implicits.get(_indexImplicit);
         AbstractExiting ex_ = _conf.getExiting();
-        CustList<Argument> args_ = new CustList<Argument>();
         ArgumentListCall l_ = new ArgumentListCall();
         l_.addArg(Argument.getNullableValue(_right));
         if (ExecExplicitOperation.checkCustomOper(ex_, c, _stackCall.formatVarType(_implicits.getOwnerClass()), _conf, _right, _stackCall, l_)) {
@@ -274,7 +273,7 @@ public abstract class ExecOperationNode {
             return;
         }
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        ImplicitMethods implicitsTest_ = pair_.getImplicitsTest();
+        ImplicitMethods implicitsTest_ = implicitsTest;
         int indexImplicitTest_ = pair_.getIndexImplicitTest();
         Argument before_ = _argument;
         if (!implicitsTest_.isEmpty()) {
@@ -334,7 +333,7 @@ public abstract class ExecOperationNode {
             calcArg(_possiblePartial, _conf, _nodes, before_, _stackCall);
             return;
         }
-        ImplicitMethods implicits_ = pair_.getImplicits();
+        ImplicitMethods implicits_ = implicits;
         int indexImplicit_ = pair_.getIndexImplicit();
         if (implicits_.isValidIndex(indexImplicit_)) {
             pair_.setIndexImplicit(processConverter(_conf,before_,implicits_,indexImplicit_, _stackCall));

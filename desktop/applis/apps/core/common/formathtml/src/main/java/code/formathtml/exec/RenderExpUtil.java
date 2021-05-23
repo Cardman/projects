@@ -41,8 +41,6 @@ public final class RenderExpUtil {
             if (o instanceof RendPossibleIntermediateDotted&&!((RendPossibleIntermediateDotted)o).isIntermediateDottedOperation()) {
                 a_.setPreviousArgument(_rendStackCall.getLastPage().getGlobalArgument());
             }
-            a_.setImplicits(o.getImplicits());
-            a_.setImplicitsTest(o.getImplicitsTest());
             arguments_.addEntry(o, a_);
         }
         int fr_ = 0;

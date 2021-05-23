@@ -262,9 +262,9 @@ public abstract class RendDynOperationNode {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
-        ImplicitMethods implicits_ = pair_.getImplicits();
+        ImplicitMethods implicits_ = implicits;
         Argument out_ = _argument;
-        ImplicitMethods implicitsTest_ = pair_.getImplicitsTest();
+        ImplicitMethods implicitsTest_ = implicitsTest;
         if (!implicitsTest_.isEmpty()) {
             Argument res_ = tryConvert(implicitsTest_.get(0),implicitsTest_.getOwnerClass(), out_, _context, _stackCall);
             if (res_ == null) {

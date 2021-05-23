@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.variables;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.exec.util.ImplicitMethods;
 
 public final class ArgumentsPair {
 
@@ -10,8 +9,6 @@ public final class ArgumentsPair {
     private boolean argumentTest;
     private boolean calcArgumentTest;
     private Argument previousArgument;
-    private ImplicitMethods implicits = new ImplicitMethods();
-    private ImplicitMethods implicitsTest = new ImplicitMethods();
     private int indexImplicit;
     private int indexImplicitTest;
     private int indexImplicitCompound;
@@ -71,22 +68,6 @@ public final class ArgumentsPair {
 
     public void setEndCalculate(boolean _endCalculate) {
         this.endCalculate = _endCalculate;
-    }
-
-    public ImplicitMethods getImplicits() {
-        return implicits;
-    }
-
-    public void setImplicits(ImplicitMethods _implicits) {
-        this.implicits = _implicits;
-    }
-
-    public ImplicitMethods getImplicitsTest() {
-        return implicitsTest;
-    }
-
-    public void setImplicitsTest(ImplicitMethods _implicitsTest) {
-        this.implicitsTest = _implicitsTest;
     }
 
     public int getIndexImplicit() {

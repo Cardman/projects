@@ -106,8 +106,6 @@ public final class ExpressionLanguage {
         arguments_ = new IdMap<ExecOperationNode,ArgumentsPair>();
         for (ExecOperationNode o: operations) {
             ArgumentsPair a_ = new ArgumentsPair();
-            a_.setImplicits(o.getImplicits());
-            a_.setImplicitsTest(o.getImplicitsTest());
             a_.setArgument(o.getArgument());
             arguments_.addEntry(o, a_);
         }
