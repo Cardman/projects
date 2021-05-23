@@ -54,6 +54,16 @@ public final class RendWrappOperation extends RendAbstractUnaryOperation {
             setQuickNoConvertSimpleArgument(getArgumentPair(_nodes,ch_).getArgument(),_nodes,_context, _stack);
             return;
         }
+        if (chFirst_ instanceof RendCustArrOperation) {
+            RendCustArrOperation ch_ = (RendCustArrOperation)chFirst_;
+            Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _rendStack);
+            Argument previous_ = new Argument(ExecTemplates.getParent(ch_.getInstFctContent().getAnc(), previousArgument_.getStruct(), _context, _stack));
+            ArgumentsPair pair_ = getArgumentPair(_nodes, this);
+            ArrayCustWrapper a_ = new ArrayCustWrapper(previous_,ch_.buildInfos(_nodes),ch_.getInstFctContent(),ch_.getReadWrite());
+            pair_.setWrapper(a_);
+            setQuickNoConvertSimpleArgument(getArgumentPair(_nodes,ch_).getArgument(),_nodes,_context, _stack);
+            return;
+        }
         ArgumentsPair pairCh_ = getArgumentPair(_nodes, getFirstChild());
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         ExecHelper.fwdWrapper(pair_,pairCh_);

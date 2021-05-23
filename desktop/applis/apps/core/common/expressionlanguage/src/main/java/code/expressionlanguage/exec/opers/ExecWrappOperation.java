@@ -51,6 +51,16 @@ public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
             setQuickNoConvertSimpleArgument(ExecHelper.getArgumentPair(_nodes, ch_).getArgument(),_conf,_nodes, _stack);
             return;
         }
+        if (chFirst_ instanceof ExecCustArrOperation) {
+            ExecCustArrOperation ch_ = (ExecCustArrOperation)chFirst_;
+            Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _stack);
+            Argument previous_ = new Argument(ExecTemplates.getParent(ch_.getInstFctContent().getAnc(), previousArgument_.getStruct(), _conf, _stack));
+            ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
+            ArrayCustWrapper a_ = new ArrayCustWrapper(previous_,ch_.buildInfos(_nodes),ch_.getInstFctContent(),ch_.getReadWrite());
+            pair_.setWrapper(a_);
+            setQuickNoConvertSimpleArgument(ExecHelper.getArgumentPair(_nodes, ch_).getArgument(),_conf,_nodes, _stack);
+            return;
+        }
         ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         ExecHelper.fwdWrapper(pair_,pairCh_);

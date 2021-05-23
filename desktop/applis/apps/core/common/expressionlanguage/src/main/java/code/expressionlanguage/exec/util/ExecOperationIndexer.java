@@ -4,8 +4,8 @@ import code.expressionlanguage.exec.opers.ExecNamedArgumentOperation;
 import code.util.CustList;
 
 public final class ExecOperationIndexer extends AbstractOperationIndexer {
-    private final CustList<ExecNamedArgumentOperation> named;
-    public ExecOperationIndexer(CustList<ExecNamedArgumentOperation> _named) {
+    private final CustList<ExecOperationInfo> named;
+    public ExecOperationIndexer(CustList<ExecOperationInfo> _named) {
         named = _named;
     }
     public int size(){

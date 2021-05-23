@@ -36,7 +36,7 @@ public final class RendStaticFctOperation extends RendSettableCallFctOperation i
         int naturalVararg_ = staticFctContent.getNaturalVararg();
         Argument prev_ = new Argument();
         ExecFormattedRootBlock classNameFound_ = staticFctContent.getFormattedType();
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(new MethodParamChecker(pair, fectchArgs(_nodes, lastType_, naturalVararg_, _rendStack, null,_context,_stack), staticFctContent.getKind()).checkParams(classNameFound_, prev_, null, _context, _stack), _context, _stack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(new MethodParamChecker(pair, fectchArgs(lastType_, naturalVararg_, _rendStack, null,_context,_stack, buildInfos(_nodes)), staticFctContent.getKind()).checkParams(classNameFound_, prev_, null, _context, _stack), _context, _stack);
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
     }
 

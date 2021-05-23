@@ -335,6 +335,7 @@ public abstract class RendBlock {
 //            for (AbstractWrapper a: _rendStackCall.getLastPage().getList().getWrappers()) {
 //                wrap_.add(a);
 //            }
+            RendInvokingOperation.fectchArgs(((RendCustArrOperation)settable_).getInstFctContent().getLastType(),((RendCustArrOperation)settable_).getInstFctContent().getNaturalVararg(),_rendStackCall,null,_ctx,_stackCall,((RendCustArrOperation)settable_).buildInfos(args_));
             CustList<Argument> argsVal_ = new CustList<Argument>();
             for (ArgumentWrapper a: _rendStackCall.getLastPage().getList().getArgumentWrappers()) {
                 if (a.getValue() != null) {
@@ -348,7 +349,7 @@ public abstract class RendBlock {
             int wrapIndex_ = 0;
             for (boolean p: _f.getVarNames().getRefs()) {
                 if (p) {
-                    allObj_.add(ExecTemplates.getValue(wrap_.get(wrapIndex_),_ctx, _stackCall));
+                    allObj_.add(RendDynOperationNode.processCall(new Argument(ExecTemplates.getValue(wrap_.get(wrapIndex_),_ctx, _stackCall)),_ctx,_stackCall).getValue().getStruct());
                     wrapIndex_++;
                 } else {
                     allObj_.add(argsVal_.get(argIndex_).getStruct());

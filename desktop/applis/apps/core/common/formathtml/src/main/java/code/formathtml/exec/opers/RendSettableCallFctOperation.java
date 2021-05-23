@@ -62,6 +62,6 @@ public abstract class RendSettableCallFctOperation extends RendInvokingOperation
 
     private Argument trySetArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, StackCall _stackCall) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        return ExecTemplates.trySetArgument(_conf, _res, pair_, _stackCall);
+        return processCall(ExecTemplates.trySetArgument(_conf, _res, pair_, _stackCall),_conf,_stackCall).getValue();
     }
 }

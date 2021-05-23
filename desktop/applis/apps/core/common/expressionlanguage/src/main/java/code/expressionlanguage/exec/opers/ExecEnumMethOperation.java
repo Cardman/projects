@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
@@ -31,7 +30,7 @@ public final class ExecEnumMethOperation extends ExecSettableCallFctOperation {
         setRelOffsetPossibleLastPage(off_, _stack);
         Argument prev_ = new Argument();
         String lastType_ = staticFctContent.getLastType();
-        Argument res_ = processEnums(_conf.getExiting(), _conf, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg(),null,_conf,_stack), _stack, type);
+        Argument res_ = processEnums(_conf.getExiting(), _conf, fectchArgs(lastType_, staticFctContent.getNaturalVararg(),null,_conf,_stack, buildInfos(_nodes)), _stack, type);
         setResult(res_, _conf, _nodes, _stack);
     }
 }

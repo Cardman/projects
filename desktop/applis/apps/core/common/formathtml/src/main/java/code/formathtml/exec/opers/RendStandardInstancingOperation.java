@@ -53,7 +53,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
             _stack.setCallingState(new CustomFoundRecordConstructor(formattedType, pair,instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
             result_ = Argument.createVoid();
         } else {
-            result_ = new InstanceParamChecker(pair, fectchArgs(_nodes, lastType_, instancingCommonContent.getNaturalVararg(), _rendStack, null,_context,_stack), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex()).checkParams(formattedType, previous_, null, _context, _stack);
+            result_ = new InstanceParamChecker(pair, fectchArgs(lastType_, instancingCommonContent.getNaturalVararg(), _rendStack, null,_context,_stack, buildInfos(_nodes)), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex()).checkParams(formattedType, previous_, null, _context, _stack);
         }
         Argument argres_ = RendDynOperationNode.processCall(result_, _context, _stack).getValue();
         setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);

@@ -38,53 +38,58 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         intermediate = _intermediate;
     }
 
-    protected ArgumentListCall fectchInstFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecFormattedRootBlock _formatted, ExecInstancingCommonContent _lastType, ContextEl _conf, StackCall _stack) {
+    protected static ArgumentListCall fectchInstFormattedArgs(ExecFormattedRootBlock _formatted, ExecInstancingCommonContent _lastType, ContextEl _conf, StackCall _stack, CustList<ExecOperationInfo> _infos) {
         String lastType_ = ExecInherits.quickFormat(_formatted, _lastType.getLastType());
-        return fectchArgs(_nodes, lastType_, _lastType.getNaturalVararg(), null,_conf,_stack);
+        return fectchArgs(lastType_, _lastType.getNaturalVararg(), null,_conf,_stack, _infos);
     }
 
-    protected ArgumentListCall fetchFormattedArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack, Struct _pr, ExecRootBlock _rootBlock, ExecInstFctContent _lastType, Argument _right) {
+    protected static ArgumentListCall fetchFormattedArgs(ContextEl _conf, StackCall _stack, Struct _pr, ExecRootBlock _rootBlock, ExecInstFctContent _lastType, Argument _right, CustList<ExecOperationInfo> _infos) {
         String cl_ = _pr.getClassName(_conf);
         String lastType_ = ExecTemplates.formatType(_conf, _rootBlock, _lastType.getLastType(), cl_);
-        return fectchArgs(_nodes,lastType_, _lastType.getNaturalVararg(),_right,_conf,_stack);
+        return fectchArgs(lastType_, _lastType.getNaturalVararg(),_right,_conf,_stack, _infos);
     }
 
-    protected ArgumentListCall fectchArgs(IdMap<ExecOperationNode, ArgumentsPair> _nodes, String _lastType, int _naturalVararg,Argument _right, ContextEl _conf, StackCall _stack) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_,_naturalVararg);
+    public static ArgumentListCall fectchArgs(String _lastType, int _naturalVararg, Argument _right, ContextEl _conf, StackCall _stack, CustList<ExecOperationInfo> _infos) {
+        ArgumentList argumentList_ = listNamedArguments(_naturalVararg, _infos);
         CustList<ArgumentWrapper> first_ = argumentList_.getArguments().getArgumentWrappers();
         listArguments(argumentList_.getNaturalVararg(), _lastType, first_,_conf,_stack);
         argumentList_.getArguments().setRight(_right);
         return argumentList_.getArguments();
     }
-    private static ArgumentList listNamedArguments(IdMap<ExecOperationNode, ArgumentsPair> _all, CustList<ExecOperationNode> _children, int _naturalVararg) {
-        ArgumentList out_ = new ArgumentList();
+    public static ArgumentList listNamedArguments(int _naturalVararg, CustList<ExecOperationInfo> _infos) {
+        ArgumentList out_ = listNamedArguments(_infos);
         out_.setNaturalVararg(_naturalVararg);
+        return out_;
+    }
+
+    public static ArgumentList listNamedArguments(CustList<ExecOperationInfo> _infos) {
+        ArgumentList out_ = new ArgumentList();
         CustList<ArgumentWrapper> wrappers_ = out_.getArguments().getArgumentWrappers();
-        CustList<ExecNamedArgumentOperation> named_ = new CustList<ExecNamedArgumentOperation>();
-        for (ExecOperationNode c: _children) {
-            if (ExecConstLeafOperation.isFilter(c)) {
+        CustList<ExecOperationInfo> infosNamed_ = new CustList<ExecOperationInfo>();
+        for (ExecOperationInfo c: _infos) {
+            if (c.isFilter()) {
                 continue;
             }
-            ArgumentsPair calc_ = ExecHelper.getArgumentPair(_all,c);
-            if (c instanceof ExecNamedArgumentOperation) {
-                named_.add((ExecNamedArgumentOperation)c);
+            int index_ = c.getIndex();
+            if (index_ > -1) {
+                infosNamed_.add(c);
             } else {
-                addToWrappers(c,calc_,wrappers_);
+                addToWrappers(c.isWrapper(),c.getPair(),wrappers_);
             }
         }
-        while (!named_.isEmpty()) {
-            ExecOperationIndexer indexer_ = new ExecOperationIndexer(named_);
+        while (!infosNamed_.isEmpty()) {
+            ExecOperationIndexer indexer_ = new ExecOperationIndexer(infosNamed_);
             int i_ = indexer_.getIndex();
-            ExecNamedArgumentOperation n_ = named_.get(i_);
-            ArgumentsPair calc_ = ExecHelper.getArgumentPair(_all,n_);
-            addToWrappers(n_.getFirstChild(),calc_,wrappers_);
-            named_.remove(i_);
+            ExecOperationInfo n_ = infosNamed_.get(i_);
+            ArgumentsPair calc_ = n_.getPair();
+            addToWrappers(n_.isWrapper(),calc_,wrappers_);
+            infosNamed_.remove(i_);
         }
         return out_;
     }
-    protected static void addToWrappers(ExecOperationNode _node, ArgumentsPair _pair,CustList<ArgumentWrapper> _wrappers) {
-        if (!(_node instanceof ExecWrappOperation)) {
+
+    private static void addToWrappers(boolean _wrapper, ArgumentsPair _pair,CustList<ArgumentWrapper> _wrappers) {
+        if (!_wrapper) {
             _wrappers.add(new ArgumentWrapper(_pair.getArgument(),null));
         } else {
             _wrappers.add(new ArgumentWrapper(null,_pair.getWrapper()));

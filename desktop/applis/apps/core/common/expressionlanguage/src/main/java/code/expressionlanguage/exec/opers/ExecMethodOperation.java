@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -25,6 +26,27 @@ public abstract class ExecMethodOperation extends ExecOperationNode {
 
     protected ExecMethodOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
+    }
+
+    protected CustList<ExecOperationInfo> buildInfos(IdMap<ExecOperationNode, ArgumentsPair> _all) {
+        return buildInfos(_all,getChildrenNodes());
+    }
+    protected static CustList<ExecOperationInfo> buildInfos(IdMap<ExecOperationNode, ArgumentsPair> _all, CustList<ExecOperationNode> _children) {
+        CustList<ExecOperationInfo> infos_ = new CustList<ExecOperationInfo>();
+        for (ExecOperationNode c: _children) {
+            int index_ = -1;
+            boolean wr_ = false;
+            if (c instanceof ExecNamedArgumentOperation) {
+                ExecOperationNode ch_ = c.getFirstChild();
+                index_ = ((ExecNamedArgumentOperation)c).getIndex();
+                wr_ = ch_ instanceof ExecWrappOperation;
+            } else if (c instanceof ExecWrappOperation){
+                wr_ = true;
+            }
+            ArgumentsPair calc_ = ExecHelper.getArgumentPair(_all,c);
+            infos_.add(new ExecOperationInfo(ExecConstLeafOperation.isFilter(c), wr_,index_,calc_));
+        }
+        return infos_;
     }
 
     public void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,

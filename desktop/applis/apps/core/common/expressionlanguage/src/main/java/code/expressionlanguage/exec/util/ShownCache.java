@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.util;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.WithCache;
@@ -14,7 +13,7 @@ public final class ShownCache extends Cache {
     private final CacheInfo cacheInfo = new CacheInfo();
     public ShownCache(WithCache _fct, String _aliasObject) {
         for (NameAndType v: _fct.getCacheInfo().getCacheLocalNames()) {
-            locWrappers().add(new NamedWrapper(v.getName(),ExecTemplates.getWrap(new ReflectVariableWrapper(LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,_aliasObject))),""));
+            locWrappers().add(new NamedWrapper(v.getName(),new ReflectVariableWrapper(LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,_aliasObject)),""));
             cacheInfo.getCacheLocalNames().add(new NameAndType(v.getName(),v.getType()));
         }
         for (NameAndType v: _fct.getCacheInfo().getCacheLoopNames()) {
@@ -26,10 +25,10 @@ public final class ShownCache extends Cache {
         }
     }
 
-    private void setCache(ExecFormattedRootBlock _globalClass, ContextEl _context, StackCall _stackCall) {
+    public Struct checkCache(ExecFormattedRootBlock _classNameFound, ContextEl _context, StackCall _stackCall) {
         int i_ = 0;
         for (NameAndType v: cacheInfo.getCacheLocalNames()) {
-            String cl_ = ExecInherits.quickFormat(_globalClass, v.getType());
+            String cl_ = ExecInherits.quickFormat(_classNameFound, v.getType());
             NamedWrapper namedWrapper_ = locWrappers().get(i_);
             AbstractWrapper wrapper_ = namedWrapper_.getWrapper();
             NamedWrapper named_ = new NamedWrapper(namedWrapper_.getName(),new ReflectVariableWrapper(LocalVariable.newLocalVariable(wrapper_.getValue(_stackCall, _context),cl_)),cl_);
@@ -38,16 +37,13 @@ public final class ShownCache extends Cache {
         }
         i_ = 0;
         for (NameAndType v: cacheInfo.getCacheLoopNames()) {
-            String cl_ = ExecInherits.quickFormat(_globalClass, v.getType());
+            String cl_ = ExecInherits.quickFormat(_classNameFound, v.getType());
             loopVars().get(i_).getLocalVariable().setIndexClassName(cl_);
             i_++;
         }
-    }
-    public Struct checkCache(ExecFormattedRootBlock _classNameFound, ContextEl _context, StackCall _stackCall) {
-        setCache(_classNameFound, _context, _stackCall);
         for (NamedWrapper v: locWrappers()) {
             AbstractWrapper localVariable_ = v.getWrapper();
-            Struct struct_ = ExecTemplates.checkObjectEx(v.getClassName(), Argument.getNull(localVariable_.getValue(_stackCall, _context)).getClassName(_context), _context, _stackCall);
+            Struct struct_ = ExecTemplates.checkObjectEx(v.getClassName(), localVariable_.getClassName(_stackCall, _context), _context, _stackCall);
             if (struct_ != null) {
                 return struct_;
             }

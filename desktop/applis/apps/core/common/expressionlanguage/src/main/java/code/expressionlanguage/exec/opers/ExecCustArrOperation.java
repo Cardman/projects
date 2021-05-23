@@ -7,15 +7,18 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunctionPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecCustArrOperation extends ExecInvokingOperation implements ExecSettableElResult {
@@ -24,15 +27,13 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
 
     private final ExecInstFctContent instFctContent;
 
-    private final ExecTypeFunction get;
-    private final ExecTypeFunction set;
+    private final ExecTypeFunctionPair readWrite;
 
     public ExecCustArrOperation(ExecTypeFunction _get, ExecTypeFunction _set, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecArrContent _arrContent, ExecInstFctContent _instFctContent) {
         super(_opCont, _intermediateDottedOperation);
         arrContent = _arrContent;
         instFctContent = _instFctContent;
-        get = _get;
-        set = _set;
+        readWrite = new ExecTypeFunctionPair(_get,_set);
     }
 
     @Override
@@ -90,23 +91,35 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         }
         Argument previous_ = getPreviousArg(this, _nodes, _stackCall);
         setRelativeOffsetPossibleLastPage(_stackCall);
+        CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
         Struct argPrev_ = previous_.getStruct();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), argPrev_, _conf, _stackCall));
+        return redirect(_conf, _right, _stackCall, prev_, infos_, instFctContent, readWrite);
+    }
+
+    public static Argument redirect(ContextEl _conf, Argument _right, StackCall _stackCall, Argument _previous, CustList<ExecOperationInfo> _infos, ExecInstFctContent _instFctContent, ExecTypeFunctionPair _readWrite) {
         if (_conf.callsOrException(_stackCall)) {
             return new Argument();
         }
         ExecTypeFunction fct_;
         if (_right != null) {
-            fct_ = set;
+            fct_ = _readWrite.getWrite();
         } else {
-            fct_ = get;
+            fct_ = _readWrite.getRead();
         }
         ExecRootBlock type_ = fct_.getType();
-        Struct pr_ = prev_.getStruct();
-        ExecOverrideInfo polymorph_ = polymorphOrSuper(instFctContent.isStaticChoiceMethod(), _conf,pr_, instFctContent.getFormattedType(),fct_);
+        Struct pr_ = _previous.getStruct();
+        ExecOverrideInfo polymorph_ = polymorphOrSuper(_instFctContent.isStaticChoiceMethod(), _conf,pr_, _instFctContent.getFormattedType(),fct_);
         fct_ = polymorph_.getPair();
         ExecFormattedRootBlock classNameFound_ = polymorph_.getClassName();
-        return new MethodParamChecker(fct_, fetchFormattedArgs(_nodes, _conf,_stackCall, pr_, type_, instFctContent, _right), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _conf, _stackCall);
+        return new MethodParamChecker(fct_, fetchFormattedArgs(_conf, _stackCall, pr_, type_, _instFctContent, _right, _infos), MethodAccessKind.INSTANCE).checkParams(classNameFound_, _previous, null, _conf, _stackCall);
     }
 
+    public ExecInstFctContent getInstFctContent() {
+        return instFctContent;
+    }
+
+    public ExecTypeFunctionPair getReadWrite() {
+        return readWrite;
+    }
 }

@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.exec.variables.ArrayCustWrapper;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
@@ -54,6 +55,7 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractUnaryOper
 
     protected void end(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
+        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes,settable);
         Argument stored_ = getNullArgument(_nodes, settable);
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
@@ -61,7 +63,7 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractUnaryOper
             setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
         }
-        if (settable instanceof ExecCustArrOperation) {
+        if (settable instanceof ExecCustArrOperation || pairSet_.getWrapper() instanceof ArrayCustWrapper) {
             Argument out_;
             if (!pair_.isCalledIndexer()) {
                 pair_.setCalledIndexer(true);

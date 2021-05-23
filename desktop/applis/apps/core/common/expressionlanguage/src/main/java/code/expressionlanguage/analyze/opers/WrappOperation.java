@@ -138,7 +138,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             }
             if (last_ instanceof ArrOperation) {
                 ArrOperation v_ = (ArrOperation) last_;
-                if (!v_.getPreviousResultClass().isArray() || v_.isErrLeftValue()) {
+                if (v_.isErrLeftValue()) {
                     FoundErrorInterpret varg_ = new FoundErrorInterpret();
                     varg_.setFileName(_page.getLocalizer().getCurrentFileName());
                     varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

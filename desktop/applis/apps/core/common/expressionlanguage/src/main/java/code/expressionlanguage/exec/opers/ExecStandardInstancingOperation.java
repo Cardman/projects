@@ -54,7 +54,7 @@ public final class ExecStandardInstancingOperation extends
                 _stack.setCallingState(new CustomFoundRecordConstructor(className_, getPair(),instancingStdContent.getInfos(), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex(), arguments_));
                 res_ = Argument.createVoid();
             } else {
-                res_ = new InstanceParamChecker(getPair(), fectchInstFormattedArgs(_nodes, className_, getInstancingCommonContent(),_conf,_stack), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex()).checkParams(className_, previous_, null, _conf, _stack);
+                res_ = new InstanceParamChecker(getPair(), fectchInstFormattedArgs(className_, getInstancingCommonContent(),_conf,_stack, buildInfos(_nodes)), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex()).checkParams(className_, previous_, null, _conf, _stack);
             }
         }
         setSimpleArgument(res_, _conf, _nodes, _stack);

@@ -53,7 +53,7 @@ public abstract class RendDynOperationNode {
         parent = _parent;
     }
 
-    protected static ArgumentWrapper processCall(Argument _res, ContextEl _context, StackCall _stackCall) {
+    public static ArgumentWrapper processCall(Argument _res, ContextEl _context, StackCall _stackCall) {
         CallingState callingState_ = _stackCall.getCallingState();
         ArgumentWrapper res_;
         if (callingState_ instanceof CustomFoundConstructor) {

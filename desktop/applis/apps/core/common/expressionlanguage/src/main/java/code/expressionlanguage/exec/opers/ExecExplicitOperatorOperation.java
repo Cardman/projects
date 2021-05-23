@@ -33,7 +33,7 @@ public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOper
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecFormattedRootBlock classNameFound_ = ClassMethodId.formatType(formattedType, staticFctContent.getKind(), _stack);
         String lastType_ = ClassMethodId.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
-        checkParametersOperatorsFormatted(_conf.getExiting(), _conf, pair, fectchArgs(_nodes, lastType_, staticFctContent.getNaturalVararg(),null,_conf,_stack), classNameFound_, staticFctContent.getKind(), _stack);
+        checkParametersOperatorsFormatted(_conf.getExiting(), _conf, pair, fectchArgs(lastType_, staticFctContent.getNaturalVararg(),null,_conf,_stack, buildInfos(_nodes)), classNameFound_, staticFctContent.getKind(), _stack);
     }
 
     public int getOffsetOper() {

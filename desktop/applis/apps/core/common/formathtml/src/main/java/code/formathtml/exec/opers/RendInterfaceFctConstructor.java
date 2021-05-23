@@ -70,7 +70,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         String lastType_ = getLastType();
         lastType_ = ExecInherits.quickFormat(formattedType, lastType_);
         int natvararg_ = getNaturalVararg();
-        new DefaultParamChecker(pair, fectchArgs(_all,lastType_,natvararg_, _rendStackCall,null,_context,_stackCall), MethodAccessKind.INSTANCE, CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, _arguments, null, _context, _stackCall);
+        new DefaultParamChecker(pair, fectchArgs(lastType_,natvararg_, _rendStackCall,null,_context,_stackCall, buildInfos(_all)), MethodAccessKind.INSTANCE, CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, _arguments, null, _context, _stackCall);
     }
 
     public String getLastType() {

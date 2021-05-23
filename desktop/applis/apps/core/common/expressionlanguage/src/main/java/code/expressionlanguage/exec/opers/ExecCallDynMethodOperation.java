@@ -2,9 +2,8 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -34,7 +33,6 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
             setSimpleArgument(res_, _conf, _nodes, _stack);
             return;
         }
-        CustList<ArgumentWrapper> out_ = new CustList<ArgumentWrapper>();
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode last_ = getLast(chidren_);
         if (last_ instanceof ExecNamedArgumentOperation) {
@@ -44,14 +42,8 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
         if (last_ instanceof ExecArgumentListInstancing) {
             chidren_ = ((ExecArgumentListInstancing)last_).getChildrenNodes();
         }
-        for (ExecOperationNode o: chidren_) {
-            if (ExecConstLeafOperation.isFilter(o)) {
-                continue;
-            }
-            ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, o);
-            addToWrappers(o,argumentPair_,out_);
-        }
-        Argument res_ = prepareCallDynNormal(previous_, out_, _conf, _stack);
+        ArgumentList argumentList_ = listNamedArguments(buildInfos(_nodes, chidren_));
+        Argument res_ = prepareCallDynNormal(previous_, argumentList_.getArguments().getArgumentWrappers(), _conf, _stack);
         setResult(res_, _conf, _nodes, _stack);
     }
 

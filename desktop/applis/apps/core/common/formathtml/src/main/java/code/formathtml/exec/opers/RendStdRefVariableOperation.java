@@ -39,7 +39,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
         AbstractWrapper val_ = ip_.getRefParams().getVal(getVariableName());
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
-        Argument arg_ = ExecTemplates.getArgValue(val_, _context, _stack);
+        Argument arg_ = processCall(ExecTemplates.getArgValue(val_, _context, _stack),_context,_stack).getValue();
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(arg_, _nodes, _context, _stack);
         } else {
@@ -92,7 +92,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     }
 
     private Argument trySetArgument(ContextEl _conf, Argument _res, StackCall _stackCall, RendStackCall _rendStackCall) {
-        return ExecTemplates.setWrapValue(_conf,variableContent, _res, _rendStackCall.getLastPage().getPageEl().getCache(), _rendStackCall.getLastPage().getPageEl().getRefParams(), _stackCall);
+        return processCall(ExecTemplates.setWrapValue(_conf,variableContent, _res, _rendStackCall.getLastPage().getPageEl().getCache(), _rendStackCall.getLastPage().getPageEl().getRefParams(), _stackCall),_conf,_stackCall).getValue();
     }
 
     public boolean isDeclare() {
