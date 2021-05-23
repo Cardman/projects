@@ -5,36 +5,23 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
-import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
-public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperation implements CallExecSimpleOperation {
-    private final ExecTypeFunction pair;
-    private final ExecFormattedRootBlock formattedType;
+public abstract class ExecSemiAffectationOperation extends ExecAbstractUnaryOperation implements CallExecSimpleOperation {
     private ExecOperationNode settable;
     private ExecMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
     private final ExecStaticPostEltContent staticPostEltContent;
-    private final ImplicitMethods converterFrom;
-    private final ImplicitMethods converterTo;
 
-    public ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ExecTypeFunction _pair, ImplicitMethods _converterFrom, ImplicitMethods _converterTo) {
+    protected ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent) {
         super(_opCont);
         staticPostEltContent = _staticPostEltContent;
         operatorContent = _operatorContent;
-        pair = _pair;
-        converterFrom = _converterFrom;
-        converterTo = _converterTo;
-        formattedType = _staticPostEltContent.getFormattedType();
     }
 
     public void setup() {
@@ -53,81 +40,20 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                 pairBefore_.setEndCalculate(true);
                 pairBefore_.setIndexImplicitSemiFrom(-1);
                 pairBefore_.setIndexImplicitSemiTo(-1);
-                if (settable instanceof ExecCustArrOperation) {
-                    pairBefore_.setCalledIndexer(true);
-                }
+                pairBefore_.setCalledIndexer(true);
                 leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, getResultClass().getNames(), _stack));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes, _stack);
                 return;
             }
         }
-        if (pair.getFct() != null) {
-            checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, formattedType, staticPostEltContent.getKind(), _stack);
-            return;
-        }
-        ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
-        ImplicitMethods implicits_ = pairBefore_.getImplicitsSemiFrom();
-        int indexImplicit_ = pairBefore_.getIndexImplicitSemiFrom();
-        if (implicits_.isValidIndex(indexImplicit_)) {
-            ExecOperationNode left_ = getFirstChild();
-            Argument leftArg_ = getArgument(_nodes,left_);
-            Struct store_ = leftArg_.getStruct();
-            Argument l_ = new Argument(store_);
-            pairBefore_.setIndexImplicitSemiFrom(ExecOperationNode.processConverter(_conf,l_, implicits_,indexImplicit_, _stack));
-            return;
-        }
-        setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
-        Argument arg_ = calculateSemiChSetting(_nodes, _conf, _stack);
-        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        pair_.setEndCalculate(true);
-        setSimpleArgument(arg_, _conf, _nodes, _stack);
+        calculateSpec(_nodes, _conf, _stack);
     }
 
-    private Argument calculateSemiChSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {
-        Argument arg_ = null;
-        if (settable instanceof ExecStdRefVariableOperation) {
-            arg_ = ((ExecStdRefVariableOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable instanceof ExecSettableCallFctOperation) {
-            arg_ = ((ExecSettableCallFctOperation)settable).calculateSemiSetting(_nodes, _conf, operatorContent.getOper(), staticPostEltContent.isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        return Argument.getNullableValue(arg_);
-    }
+    protected abstract void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                                          ContextEl _conf, StackCall _stack);
 
-    @Override
-    public void endCalculate(ContextEl _conf,
-                             IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
+    protected void end(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
-        ImplicitMethods implicits_ = pair_.getImplicitsSemiFrom();
-        int indexImplicit_ = pair_.getIndexImplicitSemiFrom();
-        if (implicits_.isValidIndex(indexImplicit_)) {
-            ExecOperationNode left_ = getFirstChild();
-            Argument leftArg_ = getArgument(_nodes,left_);
-            Struct store_ = leftArg_.getStruct();
-            Argument l_ = new Argument(store_);
-            pair_.setIndexImplicitSemiFrom(ExecOperationNode.processConverter(_conf,l_, implicits_,indexImplicit_, _stack));
-            return;
-        }
-        implicits_ = pair_.getImplicitsSemiTo();
-        indexImplicit_ = pair_.getIndexImplicitSemiTo();
-        if (implicits_.isValidIndex(indexImplicit_)) {
-            String tres_ = implicits_.get(indexImplicit_).getFct().getImportedParametersTypes().first();
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
-            Argument res_;
-            res_ = ExecNumericOperation.calculateIncrDecr(_right, operatorContent.getOper(), cast_);
-            pair_.setIndexImplicitSemiTo(ExecOperationNode.processConverter(_conf,res_, implicits_,indexImplicit_, _stack));
-            return;
-        }
         Argument stored_ = getNullArgument(_nodes, settable);
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
@@ -139,7 +65,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             Argument out_;
             if (!pair_.isCalledIndexer()) {
                 pair_.setCalledIndexer(true);
-                out_ = ExecSemiAffectationOperation.getPrePost(staticPostEltContent.isPost(), stored_, _right);
+                out_ = getPrePost(staticPostEltContent.isPost(), stored_, _right);
             } else {
                 out_ = _right;
             }
@@ -149,7 +75,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         setSimpleArgument(_right, _conf, _nodes, _stack);
     }
 
-    private static Argument getNullArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecOperationNode _settable) {
+    protected static Argument getNullArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecOperationNode _settable) {
         return getArgument(_nodes, _settable);
     }
 
@@ -181,11 +107,16 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         return a_;
     }
 
-    public ImplicitMethods getConverterFrom() {
-        return converterFrom;
+    protected ExecOperatorContent getOperatorContent() {
+        return operatorContent;
     }
 
-    public ImplicitMethods getConverterTo() {
-        return converterTo;
+    protected ExecStaticPostEltContent getStaticPostEltContent() {
+        return staticPostEltContent;
     }
+
+    protected ExecOperationNode getSettable() {
+        return settable;
+    }
+
 }

@@ -19,6 +19,10 @@ public final class ImplicitMethods {
         this.ownerClass = _ownerClass;
     }
 
+    public static boolean isValidIndex(ImplicitMethods _impl,int _indexImplicit) {
+        return _impl!=null&&_impl.isValidIndex(_indexImplicit);
+    }
+
     public boolean isValidIndex(int _indexImplicit) {
         return converter.isValidIndex(_indexImplicit);
     }

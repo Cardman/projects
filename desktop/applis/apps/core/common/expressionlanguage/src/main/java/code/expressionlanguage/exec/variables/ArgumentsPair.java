@@ -12,9 +12,6 @@ public final class ArgumentsPair {
     private Argument previousArgument;
     private ImplicitMethods implicits = new ImplicitMethods();
     private ImplicitMethods implicitsTest = new ImplicitMethods();
-    private ImplicitMethods implicitsCompound = new ImplicitMethods();
-    private ImplicitMethods implicitsSemiFrom = new ImplicitMethods();
-    private ImplicitMethods implicitsSemiTo = new ImplicitMethods();
     private int indexImplicit;
     private int indexImplicitTest;
     private int indexImplicitCompound;
@@ -90,30 +87,6 @@ public final class ArgumentsPair {
 
     public void setImplicitsTest(ImplicitMethods _implicitsTest) {
         this.implicitsTest = _implicitsTest;
-    }
-
-    public ImplicitMethods getImplicitsCompound() {
-        return implicitsCompound;
-    }
-
-    public void setImplicitsCompound(ImplicitMethods _implicitsCompound) {
-        this.implicitsCompound = _implicitsCompound;
-    }
-
-    public ImplicitMethods getImplicitsSemiFrom() {
-        return implicitsSemiFrom;
-    }
-
-    public void setImplicitsSemiFrom(ImplicitMethods _implicitsSemiFrom) {
-        this.implicitsSemiFrom = _implicitsSemiFrom;
-    }
-
-    public ImplicitMethods getImplicitsSemiTo() {
-        return implicitsSemiTo;
-    }
-
-    public void setImplicitsSemiTo(ImplicitMethods _implicitsSemiTo) {
-        this.implicitsSemiTo = _implicitsSemiTo;
     }
 
     public int getIndexImplicit() {

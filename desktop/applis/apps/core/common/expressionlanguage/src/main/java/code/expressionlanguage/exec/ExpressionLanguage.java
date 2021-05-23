@@ -108,28 +108,6 @@ public final class ExpressionLanguage {
             ArgumentsPair a_ = new ArgumentsPair();
             a_.setImplicits(o.getImplicits());
             a_.setImplicitsTest(o.getImplicitsTest());
-            if (o instanceof ExecCompoundAffectationOperation) {
-                ImplicitMethods conv_ = ((ExecCompoundAffectationOperation) o).getConverter();
-                if (conv_ != null) {
-                    a_.setImplicitsCompound(conv_);
-                }
-            }
-            if (o instanceof ExecQuickCustOperation) {
-                ImplicitMethods conv_ = ((ExecQuickCustOperation) o).getConverter();
-                if (conv_ != null) {
-                    a_.setImplicitsCompound(conv_);
-                }
-            }
-            if (o instanceof ExecSemiAffectationOperation) {
-                ImplicitMethods conv_ = ((ExecSemiAffectationOperation) o).getConverterFrom();
-                if (conv_ != null) {
-                    a_.setImplicitsSemiFrom(conv_);
-                }
-                conv_ = ((ExecSemiAffectationOperation) o).getConverterTo();
-                if (conv_ != null) {
-                    a_.setImplicitsSemiTo(conv_);
-                }
-            }
             a_.setArgument(o.getArgument());
             arguments_.addEntry(o, a_);
         }

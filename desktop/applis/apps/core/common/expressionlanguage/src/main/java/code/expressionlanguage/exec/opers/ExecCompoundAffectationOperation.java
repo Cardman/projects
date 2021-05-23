@@ -6,37 +6,29 @@ import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
-import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
-import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ExecCompoundAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, CallExecSimpleOperation {
+public abstract class ExecCompoundAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, CallExecSimpleOperation {
 
-    private final ExecFormattedRootBlock formattedType;
     private ExecOperationNode settable;
     private ExecMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
     private final ExecStaticEltContent staticEltContent;
-    private final ExecTypeFunction pair;
     private final ImplicitMethods converter;
 
 
-    public ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter) {
+    protected ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ImplicitMethods _converter) {
         super(_opCont);
         operatorContent = _operatorContent;
         staticEltContent = _staticEltContent;
-        pair = _pair;
         converter = _converter;
-        formattedType = _staticEltContent.getFormattedType();
     }
 
     public void setup() {
@@ -60,7 +52,6 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             }
         }
         Argument leftArg_ = getFirstArgument(_nodes,this);
-        Argument rightArg_ = getLastArgument(_nodes,this);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
         if (argumentPair_.isArgumentTest()){
@@ -76,63 +67,21 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
         }
-        if (pair.getFct() != null) {
-            checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, formattedType, staticEltContent.getKind(), _stack);
-            return;
-        }
-        if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.NULL_EQ_SHORT)) {
-            if (!leftArg_.isNull()) {
-                pair_.setIndexImplicitCompound(-1);
-                pair_.setEndCalculate(true);
-                setSimpleArgument(leftArg_, _conf, _nodes, _stack);
-                return;
-            }
-        }
-        ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
-        ImplicitMethods implicits_ = pairBefore_.getImplicitsCompound();
-        int indexImplicit_ = pairBefore_.getIndexImplicitCompound();
-        if (implicits_.isValidIndex(indexImplicit_)) {
-            String tres_ = implicits_.get(indexImplicit_).getFct().getImportedParametersTypes().first();
-            StringList arg_ = new StringList(tres_);
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
-            Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, operatorContent.getOper(), false, arg_, cast_, _stack);
-            pairBefore_.setIndexImplicitCompound(processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
-            return;
-        }
-        setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
-        Argument arg_ = calculateCompoundSetting(_nodes, _conf, rightArg_, _stack);
-        pair_.setEndCalculate(true);
-        setSimpleArgument(arg_, _conf, _nodes, _stack);
+        calculateSpec(_nodes, _conf, _stack);
     }
 
-    private Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _rightArg, StackCall _stackCall) {
-        Argument arg_ = null;
-        if (settable instanceof ExecStdRefVariableOperation) {
-            arg_ = ((ExecStdRefVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable instanceof ExecSettableCallFctOperation) {
-            arg_ = ((ExecSettableCallFctOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        return Argument.getNullableValue(arg_);
-    }
+
+
+    protected abstract void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                                          ContextEl _conf, StackCall _stack);
 
     @Override
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
-        ImplicitMethods implicits_ = pair_.getImplicitsCompound();
         int indexImplicit_ = pair_.getIndexImplicitCompound();
-        if (implicits_.isValidIndex(indexImplicit_)) {
-            pair_.setIndexImplicitCompound(processConverter(_conf, _right, implicits_, indexImplicit_, _stack));
+        if (ImplicitMethods.isValidIndex(converter,indexImplicit_)) {
+            pair_.setIndexImplicitCompound(processConverter(_conf, _right, converter, indexImplicit_, _stack));
             return;
         }
         if (!pair_.isEndCalculate()) {
@@ -163,6 +112,15 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         }
         return Argument.getNullableValue(arg_);
     }
+
+    protected ExecStaticEltContent getStaticEltContent() {
+        return staticEltContent;
+    }
+
+    protected ExecOperatorContent getOperatorContent() {
+        return operatorContent;
+    }
+
     public ExecOperationNode getSettable() {
         return settable;
     }

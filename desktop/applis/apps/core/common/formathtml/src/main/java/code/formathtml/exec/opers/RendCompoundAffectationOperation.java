@@ -4,39 +4,31 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
-import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
-import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class RendCompoundAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
+public abstract class RendCompoundAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
 
-    private final ExecTypeFunction pair;
-    private final ExecFormattedRootBlock formattedType;
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
     private final ExecStaticEltContent staticEltContent;
     private final ImplicitMethods converter;
 
-    public RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter) {
+    protected RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ImplicitMethods _converter) {
         super(_content);
         operatorContent = _operatorContent;
         staticEltContent = _staticEltContent;
-        pair = _pair;
         converter = _converter;
-        formattedType = _staticEltContent.getFormattedType();
     }
 
     public void setup() {
@@ -56,9 +48,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             }
         }
         RendDynOperationNode left_ = getFirstNode(this);
-        RendDynOperationNode right_ = getLastNode(this);
         Argument leftArg_ = getArgument(_nodes,left_);
-        Argument rightArg_ = getArgument(_nodes,right_);
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, left_);
         if (argumentPair_.isArgumentTest()){
             if (StringUtil.quickEq(operatorContent.getOper(), "&&&=") || StringUtil.quickEq(operatorContent.getOper(), "|||=")) {
@@ -69,45 +59,10 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             setSimpleArgument(arg_, _nodes, _context, _stack, _rendStack);
             return;
         }
-        if (pair.getFct() != null) {
-            checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, staticEltContent.getKind(), _stack);
-            Argument res_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack).getValue();
-            if (converter != null) {
-                Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _context, _stack);
-                if (conv_ == null) {
-                    return;
-                }
-                res_ = conv_;
-            }
-            Argument arg_ = endCalculateCh(_nodes, _conf, res_, settable, _advStandards, _context, _stack, _rendStack);
-            setSimpleArgument(arg_, _nodes, _context, _stack, _rendStack);
-            return;
-        }
-        if (StringUtil.quickEq(operatorContent.getOper(), "???=")) {
-            if (!leftArg_.isNull()) {
-                setSimpleArgument(leftArg_, _nodes, _context, _stack, _rendStack);
-                return;
-            }
-        }
-        if (converter != null) {
-            String tres_ = converter.get(0).getFct().getImportedParametersTypes().get(0);
-            StringList argType_ = new StringList(tres_);
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
-            Argument res_ = RendNumericOperation.calculateAffect(leftArg_, rightArg_, operatorContent.getOper(), false, argType_, cast_, _context, _stack);
-            Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _context, _stack);
-            if (conv_ == null) {
-                return;
-            }
-            res_ = conv_;
-            Argument arg_ = endCalculateCh(_nodes, _conf, res_, settable, _advStandards, _context, _stack, _rendStack);
-            setSimpleArgument(arg_, _nodes, _context, _stack, _rendStack);
-            return;
-        }
-        Argument arg_ = calculateCompoundChSetting(_nodes, _conf, rightArg_, _advStandards, _context, _stack, _rendStack);
-        setSimpleArgument(arg_, _nodes, _context, _stack, _rendStack);
+        calculateSpec(_nodes, _conf, _advStandards, _context, _stack, _rendStack);
     }
 
-    private static Argument endCalculateCh(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _res, RendDynOperationNode _settable, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+    protected static Argument endCalculateCh(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _res, RendDynOperationNode _settable, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
         Argument arg_ = null;
         if (_settable instanceof RendStdRefVariableOperation) {
             arg_ = ((RendStdRefVariableOperation)_settable).endCalculate(_nodes, _conf, _res, _advStandards, _context, _stackCall, _rendStackCall);
@@ -126,25 +81,18 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         }
         return Argument.getNullableValue(arg_);
     }
+    protected abstract void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack);
 
-    private Argument calculateCompoundChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _rightArg, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        Argument arg_ = null;
-        if (settable instanceof RendStdRefVariableOperation) {
-            arg_ = ((RendStdRefVariableOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _stackCall, _rendStackCall);
-        }
-        if (settable instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _stackCall, _rendStackCall);
-        }
-        if (settable instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _stackCall, _rendStackCall);
-        }
-        if (settable instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _stackCall, _rendStackCall);
-        }
-        if (settable instanceof RendSettableCallFctOperation) {
-            arg_ = ((RendSettableCallFctOperation)settable).calculateCompoundSetting(_nodes, _conf, operatorContent.getOper(), _rightArg, getResultClass(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _stackCall, _rendStackCall);
-        }
-        return Argument.getNullableValue(arg_);
+    protected ExecOperatorContent getOperatorContent() {
+        return operatorContent;
+    }
+
+    protected ExecStaticEltContent getStaticEltContent() {
+        return staticEltContent;
+    }
+
+    protected ImplicitMethods getConverter() {
+        return converter;
     }
 
     public String getOper() {

@@ -1421,7 +1421,11 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof SemiAffectationOperation) {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
-            return new ExecSemiAffectationOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getFct(), m_.isPost(),_forwards), new ExecOperatorContent(m_.getOperatorContent()), FetchMemberUtil.fetchFunctionOpPair(m_.getFct(), _forwards), FetchMemberUtil.fetchImplicits(m_.getConvFrom(), _forwards), FetchMemberUtil.fetchImplicits(m_.getConvTo(), _forwards));
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(m_.getFct(), _forwards);
+            if (pair_.getFct() == null) {
+                return new ExecSemiAffectationNatOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getFct(), m_.isPost(),_forwards), new ExecOperatorContent(m_.getOperatorContent()), FetchMemberUtil.fetchImplicits(m_.getConvFrom(), _forwards), FetchMemberUtil.fetchImplicits(m_.getConvTo(), _forwards));
+            }
+            return new ExecSemiAffectationCustOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getFct(), m_.isPost(),_forwards), new ExecOperatorContent(m_.getOperatorContent()), pair_);
         }
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
@@ -1546,7 +1550,7 @@ public final class ForwardInfos {
             if (pair_.getFct() != null) {
                 return new ExecQuickCustOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards), false);
             }
-            return new ExecQuickNatOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset(), false);
+            return new ExecQuickNatOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset(), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards), false);
         }
         if (_anaNode instanceof OrOperation) {
             OrOperation c_ = (OrOperation) _anaNode;
@@ -1555,7 +1559,7 @@ public final class ForwardInfos {
             if (pair_.getFct() != null) {
                 return new ExecQuickCustOperation(new ExecOperationContent(c_.getContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards), true);
             }
-            return new ExecQuickNatOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset(), true);
+            return new ExecQuickNatOperation(new ExecOperationContent(c_.getContent()), c_.getOpOffset(), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards), true);
         }
         if (_anaNode instanceof NullSafeOperation) {
             NullSafeOperation c_ = (NullSafeOperation) _anaNode;
@@ -1568,7 +1572,11 @@ public final class ForwardInfos {
         if (_anaNode instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
             ClassMethodIdMemberIdTypeFct fct_ = c_.getFct();
-            return new ExecCompoundAffectationOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards), FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards);
+            if (pair_.getFct() != null) {
+                return new ExecCompoundAffectationCustOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
+            }
+            return new ExecCompoundAffectationNatOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
         }
         if (_anaNode instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _anaNode;

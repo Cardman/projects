@@ -3,18 +3,19 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 
-public final class ExecQuickNatOperation extends ExecQuickOperation implements AtomicExecCalculableOperation {
+public final class ExecQuickNatOperation extends ExecQuickOperation {
 
     private final int opOffset;
 
-    public ExecQuickNatOperation(ExecOperationContent _opCont, int _opOffset, boolean _absorbingValue) {
-        super(_opCont, _absorbingValue);
+    public ExecQuickNatOperation(ExecOperationContent _opCont, int _opOffset, ImplicitMethods _converter, boolean _absorbingValue) {
+        super(_opCont,_converter, _absorbingValue);
         opOffset = _opOffset;
     }
     @Override
