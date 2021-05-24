@@ -1,7 +1,6 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
@@ -19,9 +18,9 @@ public final class RendImg extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-        String pageName_ = RenderingText.render(textPart,_cont, _stds, _ctx, _stack, _rendStack);
-        if (_ctx.callsOrException(_stack)) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+        String pageName_ = RenderingText.render(textPart, _stds, _ctx, _rendStack);
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
         String lg_ = _cont.getCurrentLanguage();

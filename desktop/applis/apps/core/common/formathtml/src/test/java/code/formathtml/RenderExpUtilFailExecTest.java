@@ -32,7 +32,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processEl182Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(false));
@@ -56,7 +55,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processEl183Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(true));
@@ -80,7 +78,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processEl184Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
@@ -104,7 +101,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processEl185Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
@@ -127,7 +123,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processEl202Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         processElLow("$(java.lang.Byte)\"not cast\"", context_);
         assertEq(getAliasCastType(context_), exClass(context_));
     }
@@ -135,7 +130,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processEl204Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(context_.getAliasBoolean());
@@ -150,7 +144,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processEl205Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(context_.getAliasByte());
@@ -164,7 +157,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processEl206Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(context_.getAliasInteger());
@@ -186,7 +178,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processEl207Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(context_.getAliasInteger());
@@ -208,7 +199,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processEl208Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         setValue(lv_);
@@ -231,7 +221,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processEl209Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         setValue(lv_);
@@ -1216,7 +1205,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         processElLow("$static(pkg.ExTwo).exmeth()", cont_);
         
         Struct exc_ = getException(cont_);
@@ -1261,7 +1249,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         processElLow("$static(pkg.ExTwo).exmeth()", cont_);
         
         Struct exc_ = getException(cont_);
@@ -1305,7 +1292,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         processElLow("$static(pkg.ExTwo).exmeth()", cont_);
         
         Struct exc_ = getException(cont_);
@@ -1347,7 +1333,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         processElLow("$static(pkg.ExTwo).exmeth()", cont_);
         
         Struct exc_ = getException(cont_);
@@ -1375,7 +1360,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         processElLow("$static(pkg.ExTwo).exmeth()", cont_);
 
         assertEq(getAliasClassNotFoundError(cont_), exClass(cont_));
@@ -1403,7 +1387,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         processElLow("$static(pkg.ExTwo).exmeth()", cont_);
 
         assertEq(getAliasNullPe(cont_), exClass(cont_));
@@ -1438,7 +1421,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         processQuickEl("pkg.ExTwo.exmeth()+pkg.Ex.inst+1/0", cont_);
         assertNotNull(getException(cont_));
         assertTrue(!isSuccessfulInitialized(cont_));
@@ -1470,7 +1452,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_);
-        addImportingPage(conf_);
         processElLow("$new{} pkg.Ex(5).inst+1/0", conf_);
         assertNotNull(getException(conf_));
     }
@@ -1500,7 +1481,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_);
-        addImportingPage(conf_);
         processElLow("$new pkg.Ex(5).inst+1/0", conf_);
         assertNotNull(getException(conf_));
     }
@@ -1517,7 +1497,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setClassName(context_.getAliasPrimInteger());
         lv_.setStruct(new IntStruct(0));
         localVars_.put("arg2", lv_);
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         processElLow("($int)arg", context_);
         assertNotNull(getException(context_));
@@ -1534,7 +1513,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setClassName(context_.getAliasPrimInteger());
         lv_.setStruct(new IntStruct(0));
         localVars_.put("arg2", lv_);
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         processElLow("($boolean)arg2", context_);
         assertNotNull(getException(context_));
@@ -1547,7 +1525,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasString()));
         lv_.setStruct(NullStruct.NULL_VALUE);
         localVars_.put("arg", lv_);
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         processElLow("arg.length", context_);
         assertNotNull(getException(context_));
@@ -2023,7 +2000,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_);
-        addImportingPage(conf_);
         processElLow("$new pkg.Ex(5)[0]/=0", conf_);
         assertNotNull(getException(conf_));
     }
@@ -2060,7 +2036,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_);
-        addImportingPage(conf_);
         processQuickEl("pkg.Ex.st[0].myval", conf_);
         assertNotNull(getException(conf_));
     }
@@ -2108,7 +2083,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processAffect8FailTest() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(1));
@@ -2136,7 +2110,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
@@ -2151,7 +2124,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     public void processAffect12FailTest() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
         String stringType_ = context_.getAliasString();
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct array_ = new ArrayStruct(1, StringExpUtil.getPrettyArrayType(stringType_));
@@ -2172,7 +2144,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     public void processAffect16FailTest() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
         String primIntType_ = context_.getAliasPrimInteger();
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct array_ = new ArrayStruct(1, StringExpUtil.getPrettyArrayType(primIntType_));
@@ -2187,12 +2158,12 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     private static void processElLow(String _el, AnalyzedTestConfiguration _cont) {
-        String gl_ = _cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext());
+        String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
         _cont.getAnalyzing().setGlobalClass(gl_);
         _cont.getAnalyzing().setGlobalType(_cont.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_)));
         _cont.getAnalyzingDoc().setup(_cont.getConfiguration(), _cont.getDual());
-        setupAnalyzing(_cont, _cont.getLastPage(), _cont.getAnalyzingDoc());
-        Argument argGl_ = _cont.getRendStackCall().getPageEl().getGlobalArgument();
+        setupAnalyzing(_cont, _cont.getAnalyzingDoc());
+        Argument argGl_ = _cont.getArgument();
         boolean static_ = argGl_.isNull();
         _cont.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(_cont, _el, 0);
@@ -2212,7 +2183,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     private static void processQuickEl(String _el, AnalyzedTestConfiguration _cont) {
-        String gl_ = _cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext());
+        String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
         _cont.getAnalyzing().setGlobalClass(gl_);
         _cont.getAnalyzing().setGlobalType(_cont.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_)));
         CustList<OperationNode> all_ = getQuickAnalyzed(_el, 0, _cont, _cont.getAnalyzingDoc());
@@ -2262,7 +2233,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
 
     private static void setupAnalyzing(AnalyzedTestConfiguration _context) {
         _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
-        setupAnalyzing(_context, _context.getLastPage(), _context.getAnalyzingDoc());
+        setupAnalyzing(_context, _context.getAnalyzingDoc());
     }
 
     private static void setValue(LocalVariable _lv) {
@@ -2290,8 +2261,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     private static Struct checkEx3(AnalyzedTestConfiguration _cont, String _s) {
-        addImportingPage(_cont);
-        String gl_ = _cont.getLastPage().getGlobalArgument().getStruct().getClassName(_cont.getContext());
+//        addInnerPage(_cont);
+        String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
         _cont.getAnalyzing().setGlobalClass(gl_);
         _cont.getAnalyzing().setGlobalType(_cont.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_)));
         CustList<OperationNode> all_ = getQuickAnalyzed(_s, 0, _cont, _cont.getAnalyzingDoc());

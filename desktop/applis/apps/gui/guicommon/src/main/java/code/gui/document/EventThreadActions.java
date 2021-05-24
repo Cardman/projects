@@ -2,7 +2,6 @@ package code.gui.document;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.exec.RendStackCall;
 
 public final class EventThreadActions extends AbstractThreadActions {
@@ -28,13 +27,13 @@ public final class EventThreadActions extends AbstractThreadActions {
     public void run() {
         AbstractContextCreator creator_ = getPage().getContextCreator();
         ContextEl ctx_ = creator_.newContext(getPage().getContext());
-        StackCall stack_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING,ctx_);
         if (form) {
-            getPage().getNavigation().processRendFormRequest(getPage().getStandards(), ctx_, stack_);
-            afterAction(ctx_,stack_);
+            getPage().getNavigation().processRendFormRequest(getPage().getStandards(), ctx_, rendStackCall_);
+            afterAction(ctx_,rendStackCall_.getStackCall());
             return;
         }
-        getPage().getNavigation().processRendAnchorRequest(anchor, getPage().getStandards(), ctx_, stack_, new RendStackCall());
-        afterAction(ctx_,stack_);
+        getPage().getNavigation().processRendAnchorRequest(anchor, getPage().getStandards(), ctx_, rendStackCall_);
+        afterAction(ctx_,rendStackCall_.getStackCall());
     }
 }

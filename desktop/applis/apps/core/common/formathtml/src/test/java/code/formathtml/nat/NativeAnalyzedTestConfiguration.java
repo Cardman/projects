@@ -5,6 +5,7 @@ import code.bean.nat.NativeConverterCheck;
 import code.bean.nat.NativeReducingOperations;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
@@ -24,8 +25,7 @@ class NativeAnalyzedTestConfiguration {
     private final ContextEl context;
     private final DualConfigurationContext dual;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
-    private StackCall stackCall;
-    private final RendStackCall rendStackCall = new RendStackCall();
+    private RendStackCall stackCall;
 
     NativeAnalyzedTestConfiguration(Configuration _configuration, NativeAnalyzedTestContext _analyzing, Forwards _forwards, BeanNatLgNames _standards) {
         this.configuration = _configuration;
@@ -88,15 +88,13 @@ class NativeAnalyzedTestConfiguration {
         return dual;
     }
 
-    public StackCall getStackCall() {
+    public RendStackCall getStackCall() {
         return stackCall;
     }
 
-    public void setStackCall(StackCall _stackCall) {
-        this.stackCall = _stackCall;
-    }
-
-    public RendStackCall getRendStackCall() {
-        return rendStackCall;
+    public RendStackCall build(InitPhase _readOnlyOthers, ContextEl _ctx) {
+        RendStackCall rendStackCall_ = new RendStackCall(_readOnlyOthers, _ctx);
+        stackCall = rendStackCall_;
+        return rendStackCall_;
     }
 }

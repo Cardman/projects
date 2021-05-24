@@ -830,10 +830,10 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         getStandards().addEntry(TYPE_SIMPLE_DATA_BASE, cl_);
     }
     @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         ((BeanStruct)_arg).getBean().beforeDisplaying();
     }
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
         StringMapObject forms_ = new StringMapObject();
@@ -848,7 +848,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
                 forms_ = ((BeanFive) ((BeanStruct) _bean).getBean()).getForms();
             }
         }
-        _rendStack.setCurrentUrl(_dest);
         String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
@@ -865,11 +864,11 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             }
         }
         _rendStack.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _stack, _rendStack);
+        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
     }
 
     @Override
-    public boolean setBeanForms(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public boolean setBeanForms(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
         Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
         StringMapObject forms_ = new StringMapObject();
         StringMapObject formsMap_ = new StringMapObject();
@@ -892,7 +891,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             formsMap_ = ((BeanFive) ((BeanStruct) _mainBean).getBean()).getForms();
         }
         forms_.putAllMap(formsMap_);
-        return super.setBeanForms(_conf, _mainBean, _node, _keepField, _beanName, _ctx, _stack, _rendStack);
+        return super.setBeanForms(_conf, _mainBean, _node, _keepField, _beanName, _ctx, _rendStack);
     }
 
     @Override
@@ -2020,7 +2019,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
 
     @Override
     public ResultErrorStd getStructToBeValidated(StringList _values,
-                                                 String _className, Configuration _context, ContextEl _ctx, StackCall _stack) {
+                                                 String _className, Configuration _context, ContextEl _ctx, RendStackCall _stack) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_className, TYPE_RATE)) {
             if (!Rate.matchesRate(_values.first())) {

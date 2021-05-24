@@ -8,9 +8,6 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -122,7 +119,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
         lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
-        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), StackCall.newInstance(InitPhase.NOTHING,du_.getContext().getContext()));
+        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), new RendStackCall(InitPhase.NOTHING,du_.getContext().getContext()));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_one.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
     @Test
@@ -171,7 +168,8 @@ public final class NativeSecondTest extends EquallableExUtil {
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
         lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
-        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), StackCall.newInstance(InitPhase.NOTHING,du_.getContext().getContext()));
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, du_.getContext().getContext());
+        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), rendStackCall_);
         HtmlPage htmlPage_ = n_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -186,7 +184,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         values_.add("ONE_TWO");
         ni_.setValue(values_);
         n_.getHtmlPage().setUrl(0);
-        n_.processRendFormRequest(lgNames_, du_.getContext().getContext(), StackCall.newInstance(InitPhase.NOTHING,du_.getContext().getContext()));
+        n_.processRendFormRequest(lgNames_, du_.getContext().getContext(), rendStackCall_);
         assertEq("page1.html", n_.getCurrentUrl());
         assertEq("bean_one", n_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"page1.html\" n-f=\"0\"><input type=\"text\" name=\"bean_one.typedString\" n-i=\"0\" value=\"ONE_TWO\"/></form></body></html>", n_.getHtmlText());
@@ -241,7 +239,8 @@ public final class NativeSecondTest extends EquallableExUtil {
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
         lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
-        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), StackCall.newInstance(InitPhase.NOTHING,du_.getContext().getContext()));
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, du_.getContext().getContext());
+        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), rendStackCall_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"page1.html\" n-f=\"0\"><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"0\" value=\"ONE\"/><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"1\" value=\"TWO\"/></form></body></html>", n_.getHtmlText());
         HtmlPage htmlPage_ = n_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -263,7 +262,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         values_.add("TWO_");
         ni_.setValue(values_);
         n_.getHtmlPage().setUrl(0);
-        n_.processRendFormRequest(lgNames_, du_.getContext().getContext(), StackCall.newInstance(InitPhase.NOTHING,du_.getContext().getContext()));
+        n_.processRendFormRequest(lgNames_, du_.getContext().getContext(), rendStackCall_);
         assertEq("page1.html", n_.getCurrentUrl());
         assertEq("bean_one", n_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"page1.html\" n-f=\"0\"><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"0\" value=\"ONE_\"/><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"1\" value=\"TWO_\"/></form></body></html>", n_.getHtmlText());
@@ -286,18 +285,8 @@ public final class NativeSecondTest extends EquallableExUtil {
         RendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), new Forwards(), conf_.getConfiguration());
         setFirst(conf_);
         assertTrue(conf_.isEmptyErrors());
-        conf_.setStackCall(StackCall.newInstance(InitPhase.NOTHING, conf_.getContext()));
-        String res_ = getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), conf_.getContext(), conf_.getStackCall(), conf_.getRendStackCall());
-        assertNull(getException(conf_));
-        return res_;
-    }
-
-    private static Struct getException(NativeOtherAnalyzedTestConfiguration _cont) {
-        CallingState str_ = _cont.getStackCall().getCallingState();
-        if (str_ instanceof CustomFoundExc) {
-            return ((CustomFoundExc) str_).getStruct();
-        }
-        return null;
+        RendStackCall built_ = conf_.build(InitPhase.NOTHING, conf_.getContext());
+        return getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), conf_.getContext(), built_);
     }
 
     private NativeOtherAnalyzedTestConfiguration contextElSec() {
@@ -341,7 +330,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, standards_, analyzingDoc_, _conf.getDual());
         _conf.setAnalyzed(d_);
         RendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getForwards(), _conf.getConfiguration());
-        _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), StackCall.newInstance(InitPhase.NOTHING,_conf.getContext()));
+        _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), new RendStackCall(InitPhase.NOTHING,_conf.getContext()));
     }
 
     private static RendDocumentBlock buildRendWithTwoNativeBean(String _html, String _htmlTwo, BeanOne _bean, BeanTwo _beanTwo, NativeOtherAnalyzedTestConfiguration _conf) {
@@ -376,7 +365,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, _a.getAnalyzing().getPrimTypes(), _a.getRendStackCall().getCurrentUrl(), _conf.getRendKeyWords());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, _a.getAnalyzing().getPrimTypes(), "page1.html", _conf.getRendKeyWords());
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
@@ -455,20 +444,20 @@ public final class NativeSecondTest extends EquallableExUtil {
         putBean(_beanTwo, _key, _conf.getAdv());
     }
 
-    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanLgNames _stds, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
-        return getRes(_conf,_rendDocumentBlock, _stds, _ctx, _stackCall, _rendStackCall);
+    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
+        return getRes(_conf,_rendDocumentBlock, _stds, _ctx, _rendStackCall);
     }
 
     private static String getSampleRes(NativeOtherAnalyzedTestConfiguration _conf, RendDocumentBlock _rendDocumentBlock) {
-        return getSampleRes(_conf.getConfiguration(), _rendDocumentBlock, _conf.getAdv(), _conf.getContext(), _conf.getStackCall(), _conf.getRendStackCall());
+        return getSampleRes(_conf.getConfiguration(), _rendDocumentBlock, _conf.getAdv(), _conf.getContext(), null);
     }
 
     private static void preinit(NativeOtherAnalyzedTestConfiguration _conf) {
         _conf.getAdv().preInitBeans(_conf.getConfiguration());
     }
 
-    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanLgNames _stds, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        return RendBlock.getRes(_doc, _conf, _stds, _context, _stackCall, _rendStackCall);
+    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanLgNames _stds, ContextEl _context, RendStackCall _rendStackCall) {
+        return RendBlock.getRes(_doc, _conf, _stds, _context, _rendStackCall, "page1.html");
     }
 
     private static Navigation newNavigation(NativeOtherAnalyzedTestConfiguration _conf) {

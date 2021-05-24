@@ -1,7 +1,6 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -23,14 +22,14 @@ public final class RendLine extends RendLeaf implements RendWithEl {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
-        RenderExpUtil.calculateReuse(opExp, _cont, _stds, _ctx, _stack, _rendStack);
-        if (_ctx.callsOrException(_stack)) {
+        RenderExpUtil.calculateReuse(opExp, _stds, _ctx, _rendStack);
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        processBlock(_cont, _stds, _ctx, _stack, _rendStack);
+        processBlock(_cont, _stds, _ctx, _rendStack);
     }
 }

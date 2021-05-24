@@ -22,6 +22,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StringStruct;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultConfigurationLoader;
 import code.formathtml.util.DualAnalyzedContext;
@@ -85,60 +86,61 @@ public final class CustThreadActions extends AbstractThreadActions {
         }
         ContextEl ctx_ = dualCtx_.getContext();
         getPage().setContext(ctx_);
-        StackCall stack_ = null;
-        if (ctx_ != null) {
-            getPage().getNavigation().setFiles(fileNames);
-            ReportedMessages reportedMessages_ = stds.setupAll(getPage().getNavigation(), getPage().getNavigation().getSession(), getPage().getNavigation().getFiles(), du_);
-            if (!reportedMessages_.isAllEmptyErrors()) {
-                if (getPage().getArea() != null) {
-                    getPage().getArea().append(reportedMessages_.displayErrors());
-                }
-                finish();
-                return;
-            }
-            stack_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
-            if (fileNames != null) {
-                LgNames stds_ = ctx_.getStandards();
-                String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getContent().getCharSeq().getAliasString());
-                MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
-                ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(classDbName);
-                if (classBody_ != null) {
-                    CustList<ExecOverridableBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
-                    if (!methods_.isEmpty()) {
-                        ProcessMethod.initializeClass(classDbName, classBody_,ctx_, stack_);
-                        if (ctx_.callsOrException(stack_)) {
-                            afterActionWithoutRemove(ctx_, stack_);
-                            return;
-                        }
-                        Argument arg_ = new Argument();
-                        CustList<Argument> args_ = new CustList<Argument>();
-                        int len_ = fileNames.size();
-                        ArrayStruct arrNames_ = new ArrayStruct(len_,arrStr_);
-                        for (int i = 0; i < len_; i++) {
-                            arrNames_.set(i, new StringStruct(fileNames.getKey(i)));
-                        }
-                        ArrayStruct arrContents_ = new ArrayStruct(len_,arrStr_);
-                        for (int i = 0; i < len_; i++) {
-                            arrContents_.set(i, new StringStruct(fileNames.getValue(i)));
-                        }
-                        args_.add(new Argument(arrNames_));
-                        args_.add(new Argument(arrContents_));
-                        ExecNamedFunctionBlock method_ = methods_.first();
-                        ExecTypeFunction pair_ = new ExecTypeFunction(classBody_, method_);
-                        ArgumentListCall argList_ = new ArgumentListCall();
-                        argList_.addAllArgs(args_);
-                        Parameters parameters_ = ExecTemplates.wrapAndCall(pair_, new ExecFormattedRootBlock(classBody_, classDbName),arg_, ctx_, stack_, argList_);
-                        Argument out_ = ProcessMethod.calculateArgument(arg_, new ExecFormattedRootBlock(classBody_, classDbName), pair_, parameters_, ctx_, stack_).getValue();
-                        if (ctx_.callsOrException(stack_)) {
-                            afterActionWithoutRemove(ctx_, stack_);
-                            return;
-                        }
-                        getPage().getNavigation().setDataBaseStruct(out_.getStruct());
-                    }
-                }
-            }
-            getPage().getNavigation().initializeRendSession(ctx_, du_.getStds(), stack_);
+        if (ctx_ == null) {
+            afterActionWithoutRemove(null, null);
+            return;
         }
-        afterActionWithoutRemove(ctx_, stack_);
+        getPage().getNavigation().setFiles(fileNames);
+        ReportedMessages reportedMessages_ = stds.setupAll(getPage().getNavigation(), getPage().getNavigation().getSession(), getPage().getNavigation().getFiles(), du_);
+        if (!reportedMessages_.isAllEmptyErrors()) {
+            if (getPage().getArea() != null) {
+                getPage().getArea().append(reportedMessages_.displayErrors());
+            }
+            finish();
+            return;
+        }
+        if (fileNames != null) {
+            StackCall stack_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
+            LgNames stds_ = ctx_.getStandards();
+            String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getContent().getCharSeq().getAliasString());
+            MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
+            ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(classDbName);
+            if (classBody_ != null) {
+                CustList<ExecOverridableBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
+                if (!methods_.isEmpty()) {
+                    ProcessMethod.initializeClass(classDbName, classBody_,ctx_, stack_);
+                    if (ctx_.callsOrException(stack_)) {
+                        afterActionWithoutRemove(ctx_, stack_);
+                        return;
+                    }
+                    Argument arg_ = new Argument();
+                    CustList<Argument> args_ = new CustList<Argument>();
+                    int len_ = fileNames.size();
+                    ArrayStruct arrNames_ = new ArrayStruct(len_,arrStr_);
+                    for (int i = 0; i < len_; i++) {
+                        arrNames_.set(i, new StringStruct(fileNames.getKey(i)));
+                    }
+                    ArrayStruct arrContents_ = new ArrayStruct(len_,arrStr_);
+                    for (int i = 0; i < len_; i++) {
+                        arrContents_.set(i, new StringStruct(fileNames.getValue(i)));
+                    }
+                    args_.add(new Argument(arrNames_));
+                    args_.add(new Argument(arrContents_));
+                    ExecNamedFunctionBlock method_ = methods_.first();
+                    ExecTypeFunction pair_ = new ExecTypeFunction(classBody_, method_);
+                    ArgumentListCall argList_ = new ArgumentListCall(args_);
+                    Parameters parameters_ = ExecTemplates.wrapAndCall(pair_, new ExecFormattedRootBlock(classBody_, classDbName),arg_, ctx_, stack_, argList_);
+                    Argument out_ = ProcessMethod.calculateArgument(arg_, new ExecFormattedRootBlock(classBody_, classDbName), pair_, parameters_, ctx_, stack_).getValue();
+                    if (ctx_.callsOrException(stack_)) {
+                        afterActionWithoutRemove(ctx_, stack_);
+                        return;
+                    }
+                    getPage().getNavigation().setDataBaseStruct(out_.getStruct());
+                }
+            }
+        }
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
+        getPage().getNavigation().initializeRendSession(ctx_, du_.getStds(), rendStackCall_);
+        afterActionWithoutRemove(ctx_, rendStackCall_.getStackCall());
     }
 }

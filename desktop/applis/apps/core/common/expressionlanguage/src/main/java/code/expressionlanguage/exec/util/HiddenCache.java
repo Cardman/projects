@@ -19,7 +19,7 @@ public final class HiddenCache extends Cache {
     public HiddenCache(StringMap<AbstractWrapper> _refPar, StringMap<LoopVariable> _loop, Cache _cache) {
         for (EntryCust<String, AbstractWrapper> v: _refPar.entryList()) {
             AbstractWrapper value_ = v.getValue();
-            locWrappers().add(new NamedWrapper(v.getKey(),ExecTemplates.getWrap(value_),""));
+            locWrappers().add(new NamedWrapper(v.getKey(),ExecTemplates.getWrap(value_)));
         }
         for (EntryCust<String, LoopVariable> v: _loop.entryList()) {
             LoopVariable value_ = v.getValue();
@@ -31,7 +31,7 @@ public final class HiddenCache extends Cache {
         if (_cache != null) {
             for (NamedWrapper v: _cache.locWrappers()) {
                 AbstractWrapper value_ = v.getWrapper();
-                locWrappers().add(new NamedWrapper(v.getName(), ExecTemplates.getWrap(value_),""));
+                locWrappers().add(new NamedWrapper(v.getName(), ExecTemplates.getWrap(value_)));
             }
             for (NamedLoopVariable v: _cache.loopVars()) {
                 LoopVariable value_ = v.getLocalVariable();

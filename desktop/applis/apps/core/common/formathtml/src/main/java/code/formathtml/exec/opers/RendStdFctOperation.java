@@ -3,15 +3,14 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStdFctContent;
-import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
+import code.util.core.StringUtil;
 
 public final class RendStdFctOperation extends RendInvokingOperation implements RendCalculableOperation {
 
@@ -23,10 +22,12 @@ public final class RendStdFctOperation extends RendInvokingOperation implements 
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(_advStandards.getCommonFctArgument(this, previous_, _nodes, _conf, _context, _stack, _rendStack), _context, _stack);
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
+        int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(_advStandards.getCommonFctArgument(this, previous_, _nodes, _context, _rendStack), _context, _rendStack);
+        setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 
     public ClassMethodId getClassMethodId() {

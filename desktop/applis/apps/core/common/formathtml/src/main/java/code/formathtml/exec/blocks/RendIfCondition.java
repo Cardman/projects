@@ -2,7 +2,6 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -22,14 +21,14 @@ public final class RendIfCondition extends RendCondition implements RendWithEl {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont, _stds, _ctx, _stack, _rendStack);
+            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
-        ConditionReturn assert_ = evaluateCondition(_cont, _stds, _ctx, _stack, _rendStack);
+        ConditionReturn assert_ = evaluateCondition(_cont, _stds, _ctx, _rendStack);
         if (assert_ == ConditionReturn.CALL_EX) {
             return;
         }

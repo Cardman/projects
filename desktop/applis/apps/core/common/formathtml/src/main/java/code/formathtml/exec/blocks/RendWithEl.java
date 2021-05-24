@@ -9,7 +9,7 @@ import code.formathtml.util.BeanLgNames;
 
 public interface RendWithEl {
 
-    void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack);
 
     int getOffsetTrim();
 }

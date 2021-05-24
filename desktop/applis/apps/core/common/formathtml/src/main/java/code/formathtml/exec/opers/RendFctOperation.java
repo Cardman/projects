@@ -2,7 +2,6 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -15,7 +14,6 @@ import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
@@ -33,15 +31,15 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         int naturalVararg_ = getNaturalVararg();
         ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
-        Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), previous_.getStruct(), _context, _stack));
+        Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), previous_.getStruct(), _context, _rendStack.getStackCall()));
         Argument result_;
-        if (_context.callsOrException(_stack)) {
+        if (_context.callsOrException(_rendStack.getStackCall())) {
             result_ = new Argument();
         } else {
             Struct pr_ = prev_.getStruct();
@@ -50,10 +48,10 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
             ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorphOrSuper(isStaticChoiceMethod(), _context, pr_, formattedType_, pair);
             ExecTypeFunction pair_ = polymorph_.getPair();
             ExecFormattedRootBlock classNameFound_ = polymorph_.getClassName();
-            result_ = new MethodParamChecker(pair_, fectchArgs(lastType_, naturalVararg_, _rendStack, null,_context,_stack, buildInfos(_nodes)), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _context, _stack);
+            result_ = new MethodParamChecker(pair_, ExecInvokingOperation.fectchArgs(lastType_, naturalVararg_, null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _context, _rendStack.getStackCall());
         }
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _stack);
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _rendStack);
+        setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 
     public int getNaturalVararg() {

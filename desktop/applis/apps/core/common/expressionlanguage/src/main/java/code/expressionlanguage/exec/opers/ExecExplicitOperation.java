@@ -26,13 +26,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(explicitContent.getOffset(), _stack);
-        ArgumentListCall list_ = new ArgumentListCall();
-        for (ExecOperationNode o: getChildrenNodes()) {
-            if (ExecConstLeafOperation.isFilter(o)) {
-                continue;
-            }
-            list_.addArg(getArgument(_nodes, o));
-        }
+        ArgumentListCall list_ = listNamedArguments(buildInfos(_nodes)).getArguments();
         Argument argres_ =  prepare(_conf.getExiting(),pair, explicitContent.getFormattedType(),_conf,_stack, list_);
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }

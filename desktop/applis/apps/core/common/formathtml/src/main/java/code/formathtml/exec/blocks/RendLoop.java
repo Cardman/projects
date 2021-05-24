@@ -9,5 +9,5 @@ import code.formathtml.util.BeanLgNames;
 
 public interface RendLoop extends RendWithEl {
 
-    void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, StackCall _stack, RendStackCall _rendStack);
+    void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, RendStackCall _rendStack);
 }

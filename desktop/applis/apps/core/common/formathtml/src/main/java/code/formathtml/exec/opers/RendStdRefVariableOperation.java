@@ -2,7 +2,6 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -11,7 +10,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
@@ -33,17 +31,17 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ variableContent.getOff(), _rendStack);
         ImportingPage ip_ = _rendStack.getLastPage();
         AbstractWrapper val_ = ip_.getRefParams().getVal(getVariableName());
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
-        Argument arg_ = processCall(ExecTemplates.getArgValue(val_, _context, _stack),_context,_stack).getValue();
+        Argument arg_ = processCall(ExecTemplates.getArgValue(val_, _context, _rendStack.getStackCall()),_context,_rendStack).getValue();
         if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(arg_, _nodes, _context, _stack);
+            setQuickNoConvertSimpleArgument(arg_, _nodes, _context, _rendStack);
         } else {
-            setSimpleArgument(arg_, _nodes, _context, _stack,_rendStack);
+            setSimpleArgument(arg_, _nodes, _context, _rendStack);
         }
     }
     public String getVariableName() {
@@ -57,42 +55,42 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     }
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        return trySetArgument(_context, _right, _stack, _rendStack);
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        return trySetArgument(_context, _right, _rendStack);
     }
 
     @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, ExecClassArgumentMatching _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _cl.getNames(), _cast, _context, _stack);
-        return trySetArgument(_context, res_, _stack, _rendStack);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _cl.getNames(), _cl.getUnwrapObjectNb(), _context, _rendStack);
+        return trySetArgument(_context, res_, _rendStack);
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, boolean _post, byte _cast, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_context, res_, _stack, _rendStack);
+        trySetArgument(_context, res_, _rendStack);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
     @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        return trySetArgument(_context, _right, _stack, _rendStack);
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        return trySetArgument(_context, _right, _rendStack);
     }
 
     @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        trySetArgument(_context, _right, _stack, _rendStack);
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        trySetArgument(_context, _right, _rendStack);
         return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
-    private Argument trySetArgument(ContextEl _conf, Argument _res, StackCall _stackCall, RendStackCall _rendStackCall) {
-        return processCall(ExecTemplates.setWrapValue(_conf,variableContent, _res, _rendStackCall.getLastPage().getPageEl().getCache(), _rendStackCall.getLastPage().getPageEl().getRefParams(), _stackCall),_conf,_stackCall).getValue();
+    private Argument trySetArgument(ContextEl _conf, Argument _res, RendStackCall _rendStackCall) {
+        return processCall(ExecTemplates.setWrapValue(_conf,variableContent, _res, _rendStackCall.getLastPage().getPageEl().getCache(), _rendStackCall.getLastPage().getPageEl().getRefParams(), _rendStackCall.getStackCall()),_conf,_rendStackCall).getValue();
     }
 
     public boolean isDeclare() {

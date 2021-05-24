@@ -5317,8 +5317,7 @@ public final class GuiAliases {
         _custAliases.processFailInit(_cont, _stackCall);
     }
     private void wrapAndCall(ContextEl _cont, CustList<Argument> _args, ExecTypeFunction _pair, StackCall _stackCall) {
-        ArgumentListCall argList_ = new ArgumentListCall();
-        argList_.addAllArgs(_args);
+        ArgumentListCall argList_ = new ArgumentListCall(_args);
         ExecTemplates.wrapAndCall(_pair, new ExecFormattedRootBlock(_pair.getType(),aliasPaint),Argument.createVoid(), _cont, _stackCall, argList_);
     }
 

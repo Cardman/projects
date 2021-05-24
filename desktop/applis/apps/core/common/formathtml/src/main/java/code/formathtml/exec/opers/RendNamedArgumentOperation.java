@@ -3,11 +3,9 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecNamedContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -22,18 +20,18 @@ public final class RendNamedArgumentOperation extends RendAbstractUnaryOperation
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         if (getFirstChild() instanceof RendWrappOperation) {
             ArgumentsPair pairCh_ = getArgumentPair(_nodes, getFirstChild());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             ExecHelper.fwdWrapper(pair_,pairCh_);
-            setQuickNoConvertSimpleArgument(Argument.createVoid(), _nodes,_context, _stack);
+            setQuickNoConvertSimpleArgument(Argument.createVoid(), _nodes,_context, _rendStack);
             return;
         }
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ namedContent.getOffset(), _rendStack);
         Argument argres_ = ExecHelper.getFirstArgument(arguments_);
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
+        setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 
     public int getIndex() {

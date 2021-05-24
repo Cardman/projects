@@ -50,7 +50,7 @@ public final class ExecForEachArray extends ExecAbstractForEachLoop {
         l_.setContainer(_its);
         return l_;
     }
-    private static int getLength(Struct _str, ContextEl _cont, StackCall _stackCall) {
+    public static int getLength(Struct _str, ContextEl _cont, StackCall _stackCall) {
         if (_str instanceof ArrayStruct) {
             return ((ArrayStruct)_str).getLength();
         }

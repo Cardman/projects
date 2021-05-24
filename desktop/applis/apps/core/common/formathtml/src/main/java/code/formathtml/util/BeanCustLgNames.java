@@ -469,13 +469,13 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, RendStackCall _rendStack) {
         int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
             _rendStack.addPage(new ImportingPage());
-            Argument arg_ = RenderExpUtil.calculateReuse(info_.getExps(), _conf, this, _ctx, _stack, _rendStack);
-            if (_ctx.callsOrException(_stack)) {
+            Argument arg_ = RenderExpUtil.calculateReuse(info_.getExps(), this, _ctx, _rendStack);
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 _rendStack.removeLastPage();
                 return;
             }
@@ -487,16 +487,16 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 index_++;
                 continue;
             }
-            Argument mapArg_ = RenderExpUtil.calculateReuse(opsMap, _conf, this, _ctx, _stack, _rendStack);
+            Argument mapArg_ = RenderExpUtil.calculateReuse(opsMap, this, _ctx, _rendStack);
             ExecRootBlock rootBlock_ = _ctx.getClasses().getClassBody(beanAliases.getAliasBean());
             ExecTemplates.setInstanceField(rootBlock_, beanAliases.getAliasStringMapObject(),
-                    new Argument(strBean_),mapArg_, _ctx, _stack, new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasForms()));
+                    new Argument(strBean_),mapArg_, _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasForms()));
             ExecTemplates.setInstanceField(rootBlock_, getAliasObject(),
-                    new Argument(strBean_),new Argument(_db), _ctx, _stack, new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasDataBaseField()));
+                    new Argument(strBean_),new Argument(_db), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasDataBaseField()));
             ExecTemplates.setInstanceField(rootBlock_, getAliasString(),
-                    new Argument(strBean_),new Argument(new StringStruct(_language)), _ctx, _stack, new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasLanguage()));
+                    new Argument(strBean_),new Argument(new StringStruct(_language)), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasLanguage()));
             ExecTemplates.setInstanceField(rootBlock_, getAliasString(),
-                    new Argument(strBean_),new Argument(new StringStruct(info_.getScope())), _ctx, _stack, new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasScope()));
+                    new Argument(strBean_),new Argument(new StringStruct(info_.getScope())), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasScope()));
             _rendStack.removeLastPage();
             _conf.getBuiltBeans().setValue(index_,strBean_);
             index_++;
@@ -505,9 +505,9 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         for (EntryCust<String, ValidatorInfo> e: _conf.getLateValidators().entryList()) {
             ValidatorInfo info_ = e.getValue();
             _rendStack.addPage(new ImportingPage());
-            Argument arg_ = RenderExpUtil.calculateReuse(info_.getExps(), _conf, this, _ctx, _stack, _rendStack);
+            Argument arg_ = RenderExpUtil.calculateReuse(info_.getExps(), this, _ctx, _rendStack);
             _rendStack.removeLastPage();
-            if (_ctx.callsOrException(_stack)) {
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
             Struct strBean_ = arg_.getStruct();
@@ -523,21 +523,20 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
         Struct forms_ = NullStruct.NULL_VALUE;
         if (!_beanName.isEmpty()) {
-            forms_ = storeForms(_bean, _conf, _ctx, _stack, _rendStack);
+            forms_ = storeForms(_bean, _ctx, _rendStack);
         }
-        if (_ctx.callsOrException(_stack)) {
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return "";
         }
-        processInitBeans(_conf,_dest,_beanName, _currentUrl, _language, _ctx, _stack, _rendStack);
-        if (_ctx.callsOrException(_stack)) {
+        processInitBeans(_conf,_dest,_beanName, _currentUrl, _language, _ctx, _rendStack);
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return "";
         }
-        _rendStack.setCurrentUrl(_dest);
         String dest_ = StringUtil.getFirstToken(_dest, REF_TAG);
         String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(dest_);
@@ -547,20 +546,20 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         currentBeanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = getBeanOrNull(_conf,currentBeanName_);
         if (!_beanName.isEmpty()) {
-            setStoredForms(bean_, _conf, forms_, _ctx, _stack, _rendStack);
+            setStoredForms(bean_, forms_, _ctx, _rendStack);
         }
-        if (_ctx.callsOrException(_stack)) {
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return "";
         }
         _rendStack.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _stack, _rendStack);
+        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
     }
-    private void processInitBeans(Configuration _conf, String _dest, String _beanName, String _currentUrl, String _language, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private void processInitBeans(Configuration _conf, String _dest, String _beanName, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStackCall) {
         int s_ = _conf.getBuiltBeans().size();
         for (int i = 0; i < s_; i++) {
             String key_ = _conf.getBuiltBeans().getKey(i);
-            boolean reinit_ = reinitRendBean(_conf,_dest, _beanName, key_, _currentUrl, _ctx, _stackCall, _rendStackCall);
-            if (_ctx.callsOrException(_stackCall)) {
+            boolean reinit_ = reinitRendBean(_conf,_dest, _beanName, key_, _currentUrl, _ctx, _rendStackCall);
+            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 break;
             }
             if (!reinit_) {
@@ -568,20 +567,20 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
             Struct bean_ = _conf.getBuiltBeans().getValue(i);
             BeanInfo info_ = _conf.getBeansInfos().getValue(i);
-            bean_ = newBean(_conf,_language, bean_,info_, _ctx, _stackCall, _rendStackCall);
-            if (_ctx.callsOrException(_stackCall)) {
+            bean_ = newBean(_language, bean_,info_, _ctx, _rendStackCall);
+            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 break;
             }
             _conf.getBuiltBeans().setValue(i,bean_);
         }
     }
-    private boolean reinitRendBean(Configuration _conf, String _dest, String _beanName, String _currentBean, String _currentUrl, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private boolean reinitRendBean(Configuration _conf, String _dest, String _beanName, String _currentBean, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (!StringUtil.quickEq(_currentBean,_beanName)) {
             return false;
         }
         Struct bean_ = getBeanOrNull(_conf,_currentBean);
-        String scope_ = getScope(bean_,_conf, _ctx, _stackCall, _rendStackCall);
-        if (_ctx.callsOrException(_stackCall)) {
+        String scope_ = getScope(bean_, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return false;
         }
         if (StringUtil.quickEq(scope_,SESSION)) {
@@ -593,21 +592,21 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return true;
     }
 
-    private Struct newBean(Configuration _conf, String _language, Struct _bean, BeanInfo _info, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
-        Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), _conf, this, _ctx, _stackCall, _rendStackCall);
+    private Struct newBean(String _language, Struct _bean, BeanInfo _info, ContextEl _ctx, RendStackCall _rendStackCall) {
+        Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), this, _ctx, _rendStackCall);
         Struct strBean_ = arg_.getStruct();
-        forwardDataBase(_bean,strBean_,_conf, _ctx, _stackCall, _rendStackCall);
-        setStoredForms(strBean_, _conf, NullStruct.NULL_VALUE, _ctx, _stackCall, _rendStackCall);
-        setLanguage(strBean_, _language,_conf, _ctx, _stackCall, _rendStackCall);
-        if (_ctx.callsOrException(_stackCall)) {
+        forwardDataBase(_bean,strBean_, _ctx, _rendStackCall);
+        setStoredForms(strBean_, NullStruct.NULL_VALUE, _ctx, _rendStackCall);
+        setLanguage(strBean_, _language, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return NullStruct.NULL_VALUE;
         }
-        String str_ = getScope(_bean,_conf, _ctx, _stackCall, _rendStackCall);
-        if (_ctx.callsOrException(_stackCall)) {
+        String str_ = getScope(_bean, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return NullStruct.NULL_VALUE;
         }
-        setScope(strBean_, str_,_conf, _ctx, _stackCall, _rendStackCall);
-        if (_ctx.callsOrException(_stackCall)) {
+        setScope(strBean_, str_, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return NullStruct.NULL_VALUE;
         }
         return strBean_;
@@ -625,68 +624,68 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return _conf.getBuiltBeans().getVal(_beanName);
     }
 
-    private void forwardDataBase(Struct _bean, Struct _to, Configuration _conf, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
-        if (_ctx.callsOrException(_stackCall)) {
+    private void forwardDataBase(Struct _bean, Struct _to, ContextEl _ctx, RendStackCall _rendStackCall) {
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
         _rendStackCall.getLastPage().putInternVars(getDataBaseVar, _bean, _ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
-        Argument argument_ = RenderExpUtil.calculateReuse(expsGetDataBase, _conf, this, _ctx, _stackCall, _rendStackCall);
+        Argument argument_ = RenderExpUtil.calculateReuse(expsGetDataBase, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
-        if (_ctx.callsOrException(_stackCall)) {
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             _rendStackCall.getLastPage().setEnabledOp(true);
             return;
         }
         _rendStackCall.getLastPage().putInternVars(setDataBaseVar, _to, _ctx);
         _rendStackCall.getLastPage().putInternVars(setDataBaseVarArg, argument_.getStruct(), _ctx);
-        RenderExpUtil.calculateReuse(expsSetDataBase, _conf, this, _ctx, _stackCall, _rendStackCall);
+        RenderExpUtil.calculateReuse(expsSetDataBase, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
     }
 
 
-    private Struct storeForms(Struct _bean, Configuration _conf, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
-        Argument forms_ = getForms(_bean, _conf, _ctx, _stackCall, _rendStackCall);
+    private Struct storeForms(Struct _bean, ContextEl _ctx, RendStackCall _rendStackCall) {
+        Argument forms_ = getForms(_bean, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
-        if (_ctx.callsOrException(_stackCall)) {
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return NullStruct.NULL_VALUE;
         }
         return forms_.getStruct();
     }
 
-    private Argument getForms(Struct _bean, Configuration _conf, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private Argument getForms(Struct _bean, ContextEl _ctx, RendStackCall _rendStackCall) {
         String clName_ = _bean.getClassName(_ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
         if (!ExecInherits.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
-            return RenderExpUtil.calculateReuse(opsMap, _conf, this, _ctx, _stackCall, _rendStackCall);
+            return RenderExpUtil.calculateReuse(opsMap, this, _ctx, _rendStackCall);
         }
         _rendStackCall.getLastPage().putInternVars(getFormsVar, _bean, _ctx);
-        Argument argument_ = RenderExpUtil.calculateReuse(expsGetForms, _conf, this, _ctx, _stackCall, _rendStackCall);
+        Argument argument_ = RenderExpUtil.calculateReuse(expsGetForms, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
-        if (_ctx.callsOrException(_stackCall)) {
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return argument_;
         }
         if (argument_.isNull()) {
-            return RenderExpUtil.calculateReuse(opsMap, _conf, this, _ctx, _stackCall, _rendStackCall);
+            return RenderExpUtil.calculateReuse(opsMap, this, _ctx, _rendStackCall);
         }
         return argument_;
     }
 
 
-    private void setStoredForms(Struct _bean, Configuration _conf, Struct _storedForms, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
-        if (_ctx.callsOrException(_stackCall)) {
+    private void setStoredForms(Struct _bean, Struct _storedForms, ContextEl _ctx, RendStackCall _rendStackCall) {
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
         _rendStackCall.getLastPage().setEnabledOp(false);
         _rendStackCall.getLastPage().putInternVars(setFormsVar, _bean, _ctx);
         _rendStackCall.getLastPage().putInternVars(setFormsVarArg, _storedForms, _ctx);
-        RenderExpUtil.calculateReuse(expsSetForms, _conf, this, _ctx, _stackCall, _rendStackCall);
+        RenderExpUtil.calculateReuse(expsSetForms, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
         _rendStackCall.getLastPage().setEnabledOp(true);
     }
 
     public boolean setBeanForms(Configuration _conf, Struct _mainBean,
-                             RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+                                RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
         if (_mainBean == null) {
             return true;
         }
@@ -694,21 +693,21 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (bean_ == null) {
             return true;
         }
-        boolean ok_ = gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx, _stack, _rendStack);
-        if (_ctx.callsOrException(_stack)) {
+        boolean ok_ = gearFw(_mainBean, _node, _keepField, bean_, _ctx, _rendStack);
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             ok_ = false;
         }
         return ok_;
     }
 
-    protected boolean gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-        Argument forms_ = getForms(_bean, _conf, _ctx, _stack, _rendStack);
-        if (_ctx.callsOrException(_stack)) {
+    protected boolean gearFw(Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
+        Argument forms_ = getForms(_bean, _ctx, _rendStack);
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             _rendStack.getLastPage().setEnabledOp(true);
             return false;
         }
-        Argument formsMap_ = getForms(_mainBean,_conf, _ctx, _stack, _rendStack);
-        if (_ctx.callsOrException(_stack)) {
+        Argument formsMap_ = getForms(_mainBean, _ctx, _rendStack);
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             _rendStack.getLastPage().setEnabledOp(true);
             return false;
         }
@@ -718,15 +717,15 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                     continue;
                 }
                 String name_ = ((RendImportForm)f_).getName();
-                forwardMap(formsMap_.getStruct(),forms_.getStruct(),new StringStruct(name_),_conf, _ctx, _stack, _rendStack);
-                if (_ctx.callsOrException(_stack)) {
+                forwardMap(formsMap_.getStruct(),forms_.getStruct(),new StringStruct(name_), _ctx, _rendStack);
+                if (_ctx.callsOrException(_rendStack.getStackCall())) {
                     _rendStack.getLastPage().setEnabledOp(true);
                     return false;
                 }
             }
         } else {
             //add option for copying forms (default copy)
-            putAllMap(forms_.getStruct(),formsMap_.getStruct(),_conf, _ctx, _stack, _rendStack);
+            putAllMap(forms_.getStruct(),formsMap_.getStruct(), _ctx, _rendStack);
         }
         _rendStack.getLastPage().setEnabledOp(true);
         return true;
@@ -737,69 +736,55 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        int off_ =_rend.getOff();
+    public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, ContextEl _context, RendStackCall _stack) {
         ClassField fieldId_ = _rend.getClassField();
         boolean staticField_ = _rend.isStaticField();
         Argument previous_;
         if (!staticField_) {
-            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), _previous.getStruct(), _context, _stack));
+            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), _previous.getStruct(), _context, _stack.getStackCall()));
         } else {
             previous_ = new Argument();
         }
         String fieldType_ = _rend.getRealType();
-        return getField(off_, staticField_, previous_, fieldType_, _context, _stack, _rendStack, fieldId_);
-    }
-
-    private static Argument getField(int _off, boolean _staticField, Argument _previous, String _fieldType, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall, ClassField _fieldId) {
-        if (_context.callsOrException(_stackCall)) {
+        if (_context.callsOrException(_stack.getStackCall())) {
             return Argument.createVoid();
         }
-        _rendStackCall.setOffset(_off);
-        if (_staticField) {
-            return ExecTemplates.getStaticField(_context.getExiting(), _fieldType, _context, _stackCall, _fieldId);
+        if (staticField_) {
+            return ExecTemplates.getStaticField(_context.getExiting(), fieldType_, _context, _stack.getStackCall(), fieldId_);
         }
-        return ExecTemplates.getInstanceField(_previous, _context, _stackCall, _fieldId);
+        return ExecTemplates.getInstanceField(previous_, _context, _stack.getStackCall(), fieldId_);
     }
 
     @Override
-    public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        int off_ = _rend.getOff();
+    public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Argument _right, ContextEl _context, RendStackCall _stack) {
         String fieldType_ = _rend.getRealType();
         boolean isStatic_ = _rend.isStaticField();
         ClassField fieldId_ = _rend.getClassField();
         Argument previous_;
         if (!isStatic_) {
-            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), _previous.getStruct(), _context, _stack));
+            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), _previous.getStruct(), _context, _stack.getStackCall()));
         } else {
             previous_ = new Argument();
         }
         //Come from code directly so constant static fields can be initialized here
-        return setField(_right, off_, fieldType_, isStatic_, _rend.getRootBlock(), previous_, _context, _stack, _rendStack, fieldId_);
-    }
-
-    private static Argument setField(Argument _right, int _off, String _fieldType, boolean _isStatic, ExecRootBlock _root, Argument _previous, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall, ClassField _fieldId) {
-        if (_context.callsOrException(_stackCall)) {
+        if (_context.callsOrException(_stack.getStackCall())) {
             return Argument.createVoid();
         }
-        _rendStackCall.setOffset(_off);
-        if (_isStatic) {
-            return ExecTemplates.setStaticField(_context.getExiting(), _fieldType, _right, _context, _stackCall, _fieldId);
+        if (isStatic_) {
+            return ExecTemplates.setStaticField(_context.getExiting(), fieldType_, _right, _context, _stack.getStackCall(), fieldId_);
         }
-        return ExecTemplates.setInstanceField(_root, _fieldType, _previous, _right, _context, _stackCall, _fieldId);
+        return ExecTemplates.setInstanceField(_rend.getRootBlock(), fieldType_, previous_, _right, _context, _stack.getStackCall(), fieldId_);
     }
 
     @Override
-    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        int off_ = StringUtil.getFirstPrintableCharIndex(_rend.getMethodName());
-        _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _rendStack);
+    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, RendStackCall _stack) {
         MethodId methodId_ = _rend.getClassMethodId().getConstraints();
         String lastType_ = _rend.getLastType();
         Argument prev_;
         if (!_rend.isStaticMethod()) {
             Struct argPrev_ = _previous.getStruct();
-            prev_ = new Argument(ExecTemplates.getParent(0, argPrev_, _context, _stack));
-            if (_context.callsOrException(_stack)) {
+            prev_ = new Argument(ExecTemplates.getParent(0, argPrev_, _context, _stack.getStackCall()));
+            if (_context.callsOrException(_stack.getStackCall())) {
                 return new Argument();
             }
         } else {
@@ -807,28 +792,28 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         String classNameFound_ = _rend.getClassMethodId().getClassName();
         int naturalVararg_ = _rend.getNaturalVararg();
-        return ExecInvokingOperation.callStd(_context.getExiting(), _context, classNameFound_, methodId_, prev_, RendInvokingOperation.fectchArgs(lastType_,naturalVararg_, _rendStack,null,_context,_stack, _rend.buildInfos(_all)), _stack);
+        return ExecInvokingOperation.callStd(_context.getExiting(), _context, classNameFound_, methodId_, prev_, ExecInvokingOperation.fectchArgs(lastType_, naturalVararg_, null, _context, _stack.getStackCall(), _rend.buildInfos(_all)), _stack.getStackCall());
     }
 
-    private void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private void forwardMap(Struct _map, Struct _to, Struct _key, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getLastPage().putInternVars(getValVar, _map, _ctx);
         _rendStackCall.getLastPage().putInternVars(getValVarArg, _key, _ctx);
-        Argument argument_ = RenderExpUtil.calculateReuse(expsGetVal, _conf, this, _ctx, _stackCall, _rendStackCall);
+        Argument argument_ = RenderExpUtil.calculateReuse(expsGetVal, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
-        if (_ctx.callsOrException(_stackCall)) {
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
         _rendStackCall.getLastPage().putInternVars(putVarCust, _to, _ctx);
         _rendStackCall.getLastPage().putInternVars(putVarCustKey, _key, _ctx);
         _rendStackCall.getLastPage().putInternVars(putVarCustValue, argument_.getStruct(), _ctx);
-        RenderExpUtil.calculateReuse(expsPut, _conf, this, _ctx, _stackCall, _rendStackCall);
+        RenderExpUtil.calculateReuse(expsPut, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
     }
 
-    public void putAllMap(Struct _map, Struct _other, Configuration _conf, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    public void putAllMap(Struct _map, Struct _other, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getLastPage().putInternVars(putAllVarCust, _map, _ctx);
         _rendStackCall.getLastPage().putInternVars(putAllVarCustArg, _other, _ctx);
-        RenderExpUtil.calculateReuse(expsPutAll, _conf, this, _ctx, _stackCall, _rendStackCall);
+        RenderExpUtil.calculateReuse(expsPutAll, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().clearInternVars();
     }
 
@@ -901,15 +886,15 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx, RendStackCall _rendStack) {
         Struct validator_ = _conf.getBuiltValidators().getVal(_validatorId);
         if (validator_ == null) {
             return null;
         }
-        return validate(_conf,_cont,validator_, _ctx, _stack, _rendStack);
+        return validate(_cont,validator_, _ctx, _rendStack);
     }
 
-    private Message validate(Configuration _conf, NodeContainer _cont, Struct _validator, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private Message validate(NodeContainer _cont, Struct _validator, ContextEl _ctx, RendStackCall _rendStackCall) {
         LocalVariable locVar_;
         _rendStackCall.getLastPage().putInternVars(validateVar, _validator, _ctx);
         locVar_ = newLocVar(_cont);
@@ -930,10 +915,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _rendStackCall.getLastPage().putInternVars(validateVarArgClassField, new StringStruct(_cont.getIdFieldClass()), _ctx);
         _rendStackCall.getLastPage().putInternVars(vlidateVarArgNameField, new StringStruct(_cont.getIdFieldName()), _ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(expsValidate, _conf, this, _ctx, _stackCall, _rendStackCall);
+        Argument arg_ = RenderExpUtil.calculateReuse(expsValidate, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
-        if (_ctx.callsOrException(_stackCall)) {
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return null;
         }
         if (arg_.isNull()) {
@@ -942,7 +927,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return DefaultBeanAliases.getMessageStruct(arg_.getStruct(), beanAliases.getAliasMessage()).getInstance();
     }
     @Override
-    public String getStringKey(Struct _instance, ContextEl _ctx, StackCall _stack) {
+    public String getStringKey(Struct _instance, ContextEl _ctx, RendStackCall _stack) {
         if (_instance instanceof EnumerableStruct) {
             return ((EnumerableStruct) _instance).getName();
         }
@@ -950,7 +935,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         String clName_ = _arg.getClassName(_ctx);
         if (!ExecInherits.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
             return;
@@ -958,134 +943,134 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String locName_ = getBeforeDisplayingVar();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
-        RenderExpUtil.calculateReuse(expsBeforeDisplaying,_cont, this, _ctx, _stack, _rendStack);
+        RenderExpUtil.calculateReuse(expsBeforeDisplaying, this, _ctx, _rendStack);
         _rendStack.getLastPage().setEnabledOp(true);
         _rendStack.getLastPage().clearInternVars();
     }
 
-    private String getScope(Struct _bean, Configuration _cont, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private String getScope(Struct _bean, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getLastPage().putInternVars(getScopeVar, _bean, _ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
-        Argument argument_ = RenderExpUtil.calculateReuse(expsGetScope, _cont, this, _ctx, _stackCall, _rendStackCall);
+        Argument argument_ = RenderExpUtil.calculateReuse(expsGetScope, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
-        if (_ctx.callsOrException(_stackCall) || argument_.isNull()) {
+        if (_ctx.callsOrException(_rendStackCall.getStackCall()) || argument_.isNull()) {
             return "";
         }
         return NumParsers.getString(argument_.getStruct()).getInstance();
     }
-    private void setScope(Struct _bean, String _scope, Configuration _cont, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private void setScope(Struct _bean, String _scope, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getLastPage().putInternVars(setScopeVar, _bean, _ctx);
         _rendStackCall.getLastPage().putInternVars(setScopeVarArg, new StringStruct(_scope), _ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
-        RenderExpUtil.calculateReuse(expsSetScope, _cont, this, _ctx, _stackCall, _rendStackCall);
+        RenderExpUtil.calculateReuse(expsSetScope, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
     }
-    private void setLanguage(Struct _bean, String _scope, Configuration _cont, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
-        if (_ctx.callsOrException(_stackCall)) {
+    private void setLanguage(Struct _bean, String _scope, ContextEl _ctx, RendStackCall _rendStackCall) {
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
         _rendStackCall.getLastPage().putInternVars(setLanguageVar, _bean, _ctx);
         _rendStackCall.getLastPage().putInternVars(setLanguageVarArg, new StringStruct(_scope), _ctx);
         _rendStackCall.getLastPage().setEnabledOp(false);
-        RenderExpUtil.calculateReuse(expsSetLanguage, _cont, this, _ctx, _stackCall, _rendStackCall);
+        RenderExpUtil.calculateReuse(expsSetLanguage, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
     }
 
     @Override
-    public Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         String locName_ = getIteratorTableVarCust();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsIteratorTableCust(), _cont, this, _ctx, _stack, _rendStack);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsIteratorTableCust(), this, _ctx, _rendStack);
         _rendStack.getLastPage().clearInternVars();
         _rendStack.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
     @Override
-    public Argument hasNextPair(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument hasNextPair(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
         String locName_ = getHasNextPairVarCust();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsHasNextPairCust(),_conf, this, _ctx, _stack, _rendStack);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsHasNextPairCust(), this, _ctx, _rendStack);
         _rendStack.getLastPage().clearInternVars();
         _rendStack.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
     @Override
-    public Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
         String locName_ = getNextPairVarCust();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsNextPairCust(), _conf, this, _ctx, _stack, _rendStack);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsNextPairCust(), this, _ctx, _rendStack);
         _rendStack.getLastPage().clearInternVars();
         _rendStack.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
     @Override
-    public Argument first(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument first(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
         String locName_ = getFirstVarCust();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsFirstCust(), _conf, this, _ctx, _stack, _rendStack);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsFirstCust(), this, _ctx, _rendStack);
         _rendStack.getLastPage().clearInternVars();
         _rendStack.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
     @Override
-    public Argument second(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument second(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
         String locName_ = getSecondVarCust();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsSecondCust(), _conf, this, _ctx, _stack, _rendStack);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsSecondCust(), this, _ctx, _rendStack);
         _rendStack.getLastPage().clearInternVars();
         _rendStack.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
     @Override
-    public Argument iteratorList(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument iteratorList(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         String locName_ = getIteratorVar();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsIterator(), _cont, this, _ctx, _stack, _rendStack);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsIterator(), this, _ctx, _rendStack);
         _rendStack.getLastPage().clearInternVars();
         _rendStack.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
     @Override
-    public Argument nextList(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument nextList(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         String locName_ = getNextVar();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsNext(), _cont, this, _ctx, _stack, _rendStack);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsNext(), this, _ctx, _rendStack);
         _rendStack.getLastPage().clearInternVars();
         _rendStack.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
     @Override
-    public Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         String locName_ = getHasNextVar();
         _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
         _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsHasNext(), _cont, this, _ctx, _stack, _rendStack);
+        Argument arg_ = RenderExpUtil.calculateReuse(getExpsHasNext(), this, _ctx, _rendStack);
         _rendStack.getLastPage().clearInternVars();
         _rendStack.getLastPage().setEnabledOp(true);
         return arg_;
     }
 
     @Override
-    public String processString(Argument _arg, ContextEl _ctx, StackCall _stack) {
+    public String processString(Argument _arg, ContextEl _ctx, RendStackCall _stack) {
         Argument arg_ = RendDynOperationNode.processString(_arg, _ctx, _stack);
-        if (_ctx.callsOrException(_stack)) {
+        if (_ctx.callsOrException(_stack.getStackCall())) {
             return "";
         }
         return NumParsers.getString(arg_.getStruct()).getInstance();

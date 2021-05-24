@@ -2,13 +2,11 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -24,7 +22,7 @@ public final class RendArrayElementOperation extends
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         String me_ = getMethodName();
         int off_ = StringUtil.getFirstPrintableCharIndex(me_);
@@ -36,9 +34,9 @@ public final class RendArrayElementOperation extends
         Ints dims_ = new Ints();
         dims_.add(nbCh_);
         Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _context);
-        ExecTemplates.setCheckedElements(arguments_,str_, _context, _stack);
+        ExecTemplates.setCheckedElements(arguments_,str_, _context, _rendStack.getStackCall());
         Argument res_ = new Argument(str_);
-        setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
+        setSimpleArgument(res_, _nodes, _context, _rendStack);
     }
 
 }

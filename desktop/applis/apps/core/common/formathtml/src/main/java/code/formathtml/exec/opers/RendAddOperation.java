@@ -5,6 +5,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.formathtml.exec.RendStackCall;
 import code.util.core.StringUtil;
 
 
@@ -18,7 +19,7 @@ public final class RendAddOperation extends RendStdNumericOperation {
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont, StackCall _stack) {
+    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont, RendStackCall _stack) {
         if (StringUtil.quickEq(_op.trim(), PLUS)) {
             if (catString) {
                 return ExecCatOperation.localSumDiff(_a, _b, _cont);

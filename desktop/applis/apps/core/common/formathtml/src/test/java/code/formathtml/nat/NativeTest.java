@@ -7,9 +7,6 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -52,7 +49,6 @@ public final class NativeTest extends EquallableExUtil {
         RendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), new Forwards(), conf_.getConfiguration());
         setFirst(conf_);
         assertTrue(conf_.isEmptyErrors());
-        conf_.setStackCall(StackCall.newInstance(InitPhase.NOTHING,conf_.getContext()));
         assertNotNull(BeanNatCommonLgNames.getPairStruct(null,conf_.getContext()));
         assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(null,conf_.getContext()));
         assertNotNull(((BeanNatLgNames)conf_.getContext().getStandards()).getLongsArray(new CustList<Longs>(new Longs(0L))));
@@ -275,7 +271,7 @@ public final class NativeTest extends EquallableExUtil {
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), n_.getFiles(), du_);
-        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), StackCall.newInstance(InitPhase.NOTHING,du_.getContext().getContext()));
+        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), new RendStackCall(InitPhase.NOTHING, du_.getContext().getContext()));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
 
@@ -347,7 +343,7 @@ public final class NativeTest extends EquallableExUtil {
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), n_.getFiles(), du_);
-        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), StackCall.newInstance(InitPhase.NOTHING,du_.getContext().getContext()));
+        n_.initializeRendSession(du_.getContext().getContext(), du_.getStds(), new RendStackCall(InitPhase.NOTHING, du_.getContext().getContext()));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
     @Test
@@ -384,8 +380,8 @@ public final class NativeTest extends EquallableExUtil {
         setSess(conf_, n_);
         n_.setFiles(files_);
         a_.getAdv().setupAll(docs_,n_, n_.getSession(), n_.getFiles(), new DualAnalyzedContext(a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
-        a_.setStackCall(StackCall.newInstance(InitPhase.NOTHING,a_.getContext()));
-        n_.initializeRendSession(a_.getContext(), a_.getAdv(), a_.getStackCall());
+        RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
+        n_.initializeRendSession(a_.getContext(), a_.getAdv(), build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
         assertEq("page2.html", n_.getCurrentUrl());
     }
@@ -423,8 +419,8 @@ public final class NativeTest extends EquallableExUtil {
         setSess(conf_, n_);
         n_.setFiles(files_);
         a_.getAdv().setupAll(docs_,n_, n_.getSession(), n_.getFiles(), new DualAnalyzedContext(a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
-        a_.setStackCall(StackCall.newInstance(InitPhase.NOTHING,a_.getContext()));
-        n_.initializeRendSession(a_.getContext(), a_.getAdv(), a_.getStackCall());
+        RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
+        n_.initializeRendSession(a_.getContext(), a_.getAdv(), build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
         assertEq("page2.html", n_.getCurrentUrl());
     }
@@ -472,7 +468,7 @@ public final class NativeTest extends EquallableExUtil {
         initSessionNat(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -522,7 +518,7 @@ public final class NativeTest extends EquallableExUtil {
         initSessionDoc(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -565,7 +561,6 @@ public final class NativeTest extends EquallableExUtil {
         RendDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean(html_, htmlTwo_, bean_, beanTwo_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a></body></html>", getSampleRes(conf_, rendDocumentBlock_));
-        assertNull(getException(conf_));
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
         assertEq("sample_value", (String)beanTwo_.getForms().getVal("key"));
@@ -646,7 +641,7 @@ public final class NativeTest extends EquallableExUtil {
         values_.add("ONE_TWO");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
@@ -700,7 +695,7 @@ public final class NativeTest extends EquallableExUtil {
         values_.add("ONE_TWO");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
@@ -760,7 +755,7 @@ public final class NativeTest extends EquallableExUtil {
         values_.add("TYPED_STRING");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
@@ -826,7 +821,7 @@ public final class NativeTest extends EquallableExUtil {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
@@ -1008,7 +1003,7 @@ public final class NativeTest extends EquallableExUtil {
         values_.add("10");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
@@ -1062,7 +1057,7 @@ public final class NativeTest extends EquallableExUtil {
         values_.add("");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
@@ -1116,7 +1111,7 @@ public final class NativeTest extends EquallableExUtil {
         values_.add("on");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
@@ -1170,7 +1165,7 @@ public final class NativeTest extends EquallableExUtil {
         values_.add("1/2");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
@@ -1224,7 +1219,7 @@ public final class NativeTest extends EquallableExUtil {
         values_.add("12");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
@@ -1337,7 +1332,7 @@ public final class NativeTest extends EquallableExUtil {
         initSessionNat(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         ((BeanNatLgNames)conf_.getContext().getStandards()).rendRefresh(nav_, conf_.getContext(), conf_.getStackCall());
         assertEq("page1.html", nav_.getCurrentUrl());
@@ -1386,7 +1381,7 @@ public final class NativeTest extends EquallableExUtil {
         initSessionNat(conf_,nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
         nav_.getHtmlPage().setUrl(0);
-        nav_.processRendFormRequest((BeanNatLgNames)conf_.getContext().getStandards(), conf_.getContext(), conf_.getStackCall());
+        form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -1428,8 +1423,8 @@ public final class NativeTest extends EquallableExUtil {
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, standards_, analyzingDoc_, _conf.getDual());
         _conf.setAnalyzed(d_);
         RendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getForwards(), _conf.getConfiguration());
-        _conf.setStackCall(StackCall.newInstance(InitPhase.NOTHING,_conf.getContext()));
-        _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), _conf.getStackCall());
+        RendStackCall build_ = _conf.build(InitPhase.NOTHING, _conf.getContext());
+        _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), build_);
     }
 
     private static void initSessionDoc(NativeAnalyzedTestConfiguration _conf,Navigation _nav) {
@@ -1459,8 +1454,8 @@ public final class NativeTest extends EquallableExUtil {
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(docs_,page_, standards_, analyzingDoc_, _conf.getDual());
         _conf.setAnalyzed(d_);
         RendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getForwards(), _conf.getConfiguration());
-        _conf.setStackCall(StackCall.newInstance(InitPhase.NOTHING,_conf.getContext()));
-        _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), _conf.getStackCall());
+        RendStackCall build_ = _conf.build(InitPhase.NOTHING, _conf.getContext());
+        _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), build_);
     }
 
     private boolean hasNatErr(String _folder, String _relative, String _html, BeanOne _bean) {
@@ -1487,10 +1482,8 @@ public final class NativeTest extends EquallableExUtil {
         RendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), new Forwards(), conf_.getConfiguration());
         setFirst(conf_);
         assertTrue(conf_.isEmptyErrors());
-        conf_.setStackCall(StackCall.newInstance(InitPhase.NOTHING,conf_.getContext()));
-        String res_ = getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), conf_.getContext(), conf_.getStackCall(), conf_.getRendStackCall());
-        assertNull(getException(conf_));
-        return res_;
+        RendStackCall build_ = conf_.build(InitPhase.NOTHING, conf_.getContext());
+        return getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), conf_.getContext(), build_);
     }
 
     private NativeAnalyzedTestConfiguration contextElSec() {
@@ -1506,7 +1499,6 @@ public final class NativeTest extends EquallableExUtil {
         analyzeInner(c_,_conf, _html,_htmlTwo);
         RendForwardInfos.buildExec(_conf.getAnalyzingDoc(), _conf.getAnalyzed(), new Forwards(), _conf.getConfiguration());
         setFirst(_conf);
-        _conf.setStackCall(StackCall.newInstance(InitPhase.NOTHING,_conf.getContext()));
         return _conf.getConfiguration().getRenders().getVal("page1.html");
     }
 
@@ -1532,7 +1524,7 @@ public final class NativeTest extends EquallableExUtil {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, _a.getAnalyzing().getPrimTypes(), _a.getRendStackCall().getCurrentUrl(), _conf.getRendKeyWords());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, _a.getAnalyzing().getPrimTypes(), "page1.html", _conf.getRendKeyWords());
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
@@ -1618,20 +1610,21 @@ public final class NativeTest extends EquallableExUtil {
         putBean(_beanTwo, _key, _conf.getAdv());
     }
 
-    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanLgNames _stds, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
-        return getRes(_conf,_rendDocumentBlock, _stds, _ctx, _stackCall, _rendStackCall);
+    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
+        return getRes(_conf,_rendDocumentBlock, _stds, _ctx, _rendStackCall);
     }
 
     private static String getSampleRes(NativeAnalyzedTestConfiguration _conf, RendDocumentBlock _rendDocumentBlock) {
-        return getSampleRes(_conf.getConfiguration(), _rendDocumentBlock, _conf.getAdv(), _conf.getContext(), _conf.getStackCall(), _conf.getRendStackCall());
+        RendStackCall build_ = _conf.build(InitPhase.NOTHING, _conf.getContext());
+        return getSampleRes(_conf.getConfiguration(), _rendDocumentBlock, _conf.getAdv(), _conf.getContext(), build_);
     }
 
     private static void preinit(NativeAnalyzedTestConfiguration _conf) {
         _conf.getAdv().preInitBeans(_conf.getConfiguration());
     }
 
-    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanLgNames _stds, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        return RendBlock.getRes(_doc, _conf, _stds, _context, _stackCall, _rendStackCall);
+    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanLgNames _stds, ContextEl _context, RendStackCall _rendStackCall) {
+        return RendBlock.getRes(_doc, _conf, _stds, _context, _rendStackCall, "page1.html");
     }
 
     private static Navigation newNavigation(NativeAnalyzedTestConfiguration _conf) {
@@ -1643,14 +1636,6 @@ public final class NativeTest extends EquallableExUtil {
 
     private static void setFiles(StringMap<String> _files, NativeAnalyzedTestConfiguration _conf) {
         _conf.getConfiguration().setFiles(_files);
-    }
-
-    private static Struct getException(NativeAnalyzedTestConfiguration _cont) {
-        CallingState str_ = _cont.getStackCall().getCallingState();
-        if (str_ instanceof CustomFoundExc) {
-            return ((CustomFoundExc) str_).getStruct();
-        }
-        return null;
     }
 
     private static void setup(String _folder, String _relative, DualConfigurationContext _conf) {
@@ -1665,6 +1650,10 @@ public final class NativeTest extends EquallableExUtil {
 
     private static void setupAna(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
         AnalyzingDoc.setupInts(_page, _analyzingDoc);
+    }
+
+    private static void form(NativeAnalyzedTestConfiguration _conf, Navigation _nav) {
+        _nav.processRendFormRequest((BeanNatLgNames) _conf.getContext().getStandards(), _conf.getContext(), _conf.getStackCall());
     }
 
 }

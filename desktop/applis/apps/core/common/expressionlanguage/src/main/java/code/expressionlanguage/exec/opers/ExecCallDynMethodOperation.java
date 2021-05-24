@@ -43,7 +43,7 @@ public final class ExecCallDynMethodOperation extends ExecSettableCallFctOperati
             chidren_ = ((ExecArgumentListInstancing)last_).getChildrenNodes();
         }
         ArgumentList argumentList_ = listNamedArguments(buildInfos(_nodes, chidren_));
-        Argument res_ = prepareCallDynNormal(previous_, argumentList_.getArguments().getArgumentWrappers(), _conf, _stack);
+        Argument res_ = prepareCallDynNormal(previous_, argumentList_.getArguments(), _conf, _stack);
         setResult(res_, _conf, _nodes, _stack);
     }
 

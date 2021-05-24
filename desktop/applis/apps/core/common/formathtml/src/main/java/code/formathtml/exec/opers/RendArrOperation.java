@@ -10,7 +10,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.RangeStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -27,7 +26,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         setRelativeOffsetPossibleLastPage(_rendStack);
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int max_ = chidren_.size();
@@ -41,11 +40,11 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _rendStack);
             if (o_ instanceof RangeStruct) {
-                array_ = ExecTemplates.getRange(array_, o_, _context, _stack);
+                array_ = ExecTemplates.getRange(array_, o_, _context, _rendStack.getStackCall());
             } else {
-                array_ = ExecTemplates.getElement(array_, o_, _context, _stack);
+                array_ = ExecTemplates.getElement(array_, o_, _context, _rendStack.getStackCall());
             }
-            if (_context.callsOrException(_stack)) {
+            if (_context.callsOrException(_rendStack.getStackCall())) {
                 a_ = new Argument();
                 break;
             }
@@ -54,9 +53,9 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
             a_ = new Argument(array_);
         }
         if (resultCanBeSet()) {
-            setQuickNoConvertSimpleArgument(a_, _nodes, _context, _stack);
+            setQuickNoConvertSimpleArgument(a_, _nodes, _context, _rendStack);
         } else {
-            setSimpleArgument(a_, _nodes, _context, _stack, _rendStack);
+            setSimpleArgument(a_, _nodes, _context, _rendStack);
         }
     }
 
@@ -66,49 +65,50 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     }
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        return processArray(_nodes,_right,_context,_stack,_rendStack);
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        return processArray(_nodes,_right,_context,_rendStack);
     }
 
     @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, ExecClassArgumentMatching _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast, _context, _stack);
-        return processArray(_nodes,res_,_context,_stack,_rendStack);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, arrContent.isCatString(), _cl.getNames(), _cl.getUnwrapObjectNb(), _context, _rendStack);
+        return processArray(_nodes,res_,_context,_rendStack);
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store, byte _cast, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        Struct store_ = _store.getStruct();
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, boolean _post, byte _cast, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        Argument a_ = getArgument(_nodes,this);
+        Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        processArray(_nodes,res_,_context,_stack,_rendStack);
+        processArray(_nodes,res_,_context,_rendStack);
         Argument out_ = RendSemiAffectationOperation.getPrePost(_post, left_, res_);
         return new Argument(out_.getStruct());
     }
 
     @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        processArray(_nodes, _right, _context, _stack,_rendStack);
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        processArray(_nodes, _right, _context, _rendStack);
         return _right;
     }
 
     @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        processArray(_nodes, _right, _context, _stack,_rendStack);
+    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        processArray(_nodes, _right, _context, _rendStack);
         return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
-    private Argument processArray(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, StackCall _stackCall, RendStackCall _rendStack) {
-        if (_context.callsOrException(_stackCall)) {
+    private Argument processArray(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _stackCall) {
+        if (_context.callsOrException(_stackCall.getStackCall())) {
             return _right;
         }
         Struct array_ = getPreviousArgument(_nodes,this).getStruct();
         RendDynOperationNode lastElement_ = getLastNode(this);
         Argument index_ = getArgument(_nodes,lastElement_);
-        ExecTemplates.setElement(array_, index_.getStruct(), _right.getStruct(), _context, _stackCall);
+        ExecTemplates.setElement(array_, index_.getStruct(), _right.getStruct(), _context, _stackCall.getStackCall());
         return _right;
     }
 

@@ -188,38 +188,25 @@ import aiki.map.util.PlaceLevel;
 import aiki.util.Point;
 import code.bean.Bean;
 import code.bean.nat.*;
-import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
-import code.formathtml.Navigation;
-import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendImport;
-import code.formathtml.fwd.DefaultInputBuilder;
-import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
-import code.formathtml.util.DualAnalyzedContext;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.sml.Document;
-import code.sml.Element;
 import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
 import code.util.core.StringUtil;
@@ -991,18 +978,17 @@ public final class PokemonStandards extends BeanNatLgNames {
     }
 
     @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         ((PokemonBeanStruct) _arg).getBean().beforeDisplaying();
     }
 
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
         StringMapObject stringMapObject_ = new StringMapObject();
         if (_bean instanceof PokemonBeanStruct&&((PokemonBeanStruct) _bean).getBean() instanceof WithForms) {
             stringMapObject_ = ((WithForms)((PokemonBeanStruct) _bean).getBean()).getForms();
         }
-        _rendStack.setCurrentUrl(_dest);
         String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
@@ -1011,16 +997,16 @@ public final class PokemonStandards extends BeanNatLgNames {
             ((WithForms) ((PokemonBeanStruct) bean_).getBean()).setForms(stringMapObject_);
         }
         _rendStack.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _stack, _rendStack);
+        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
     }
 
     public boolean setBeanForms(Configuration _conf, Struct _mainBean,
-                                RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-        beanForms(_conf, _mainBean, _node, _keepField, _beanName, _ctx, _stack, _rendStack);
+                                RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
+        beanForms(_conf, _mainBean, _node, _keepField, _beanName, _ctx, _rendStack);
         return true;
     }
     private void beanForms(Configuration _conf, Struct _mainBean,
-                                RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+                           RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
         if (_mainBean == null) {
             return;
         }
@@ -1028,10 +1014,10 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (bean_ == null) {
             return;
         }
-        gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx, _stack, _rendStack);
+        gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx, _rendStack);
     }
 
-    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
         StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct)_bean).getBean()).getForms();
         StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct)_mainBean).getBean()).getForms();
         forms_.putAllMap(formsMap_);
@@ -2546,12 +2532,12 @@ public final class PokemonStandards extends BeanNatLgNames {
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        Struct arg_ = new StringStruct(StringUtil.nullToEmpty(processString(new Argument(_instance),_cont, StackCall.newInstance(InitPhase.NOTHING,_cont))));
+        Struct arg_ = new StringStruct(StringUtil.nullToEmpty(processString(new Argument(_instance),_cont)));
         res_.setResult(arg_);
         return res_;
     }
     @Override
-    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context, ContextEl _ctx, StackCall _stack) {
+    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context, ContextEl _ctx, RendStackCall _stack) {
         if (StringUtil.quickEq(_className,TYPE_RATE)) {
             ResultErrorStd res_ = new ResultErrorStd();
             String value_;

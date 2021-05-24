@@ -692,8 +692,7 @@ public final class AliasMath {
                 _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
                 return _result;
             }
-            ArgumentListCall argList_ = new ArgumentListCall();
-            argList_.addAllArgs(argsToPass_);
+            ArgumentListCall argList_ = new ArgumentListCall(argsToPass_);
             ExecTemplates.wrapAndCall(p_, new ExecFormattedRootBlock(p_.getType(),cl_),argSeedSpec_, _cont, _stackCall, argList_);
             return _result;
         }
@@ -717,8 +716,7 @@ public final class AliasMath {
                 _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
                 return _result;
             }
-            ArgumentListCall argList_ = new ArgumentListCall();
-            argList_.addAllArgs(argsToPass_);
+            ArgumentListCall argList_ = new ArgumentListCall(argsToPass_);
             ExecTemplates.wrapAndCall(p_, new ExecFormattedRootBlock(p_.getType(),cl_),argSeed_, _cont, _stackCall, argList_);
             return _result;
         }

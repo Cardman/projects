@@ -7,5 +7,5 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 
 public interface RendMethodCallingFinally {
-    void removeBlockFinally(Configuration _conf, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack);
+    void removeBlockFinally(Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack);
 }

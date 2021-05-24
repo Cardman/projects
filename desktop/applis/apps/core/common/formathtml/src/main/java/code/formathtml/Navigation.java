@@ -3,7 +3,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
@@ -105,25 +104,23 @@ public final class Navigation {
         return referenceScroll;
     }
 
-    public void initializeRendSession(ContextEl _context, BeanLgNames _stds, StackCall _stackCall) {
+    public void initializeRendSession(ContextEl _context, BeanLgNames _stds, RendStackCall _rendStackCall) {
         RendDocumentBlock rendDocumentBlock_ = session.getRendDocumentBlock();
-        initializeRendSessionDoc(_context, rendDocumentBlock_, _stds, _stackCall);
+        initializeRendSessionDoc(_context, rendDocumentBlock_, _stds, _rendStackCall);
     }
-    public void initializeRendSessionDoc(ContextEl _ctx, RendDocumentBlock _doc, BeanLgNames _stds, StackCall _stackCall) {
+    public void initializeRendSessionDoc(ContextEl _ctx, RendDocumentBlock _doc, BeanLgNames _stds, RendStackCall _rendStackCall) {
         if (_doc == null) {
             return;
         }
-        RendStackCall rendStackCall_ = new RendStackCall();
-        rendStackCall_.init(session.getFirstUrl());
-        _stds.initBeans(session,language,dataBaseStruct, _ctx, _stackCall, rendStackCall_);
-        if (_ctx.callsOrException(_stackCall)) {
+        _rendStackCall.init();
+        _stds.initBeans(session,language,dataBaseStruct, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
         String currentUrl_ = session.getFirstUrl();
-        rendStackCall_.setCurrentUrl(currentUrl_);
         Struct bean_ = getBeanOrNull(currentBeanName);
-        rendStackCall_.clearPages();
-        processAfterInvoke(currentUrl_,currentBeanName,bean_, _stds, _ctx, _stackCall, rendStackCall_);
+        _rendStackCall.clearPages();
+        processAfterInvoke(currentUrl_,currentBeanName,bean_, _stds, _ctx, _rendStackCall);
     }
 
     public StringMap<AnaRendDocumentBlock> analyzedRenders(AnalyzedPageEl _page, BeanLgNames _stds, AnalyzingDoc _analyzingDoc, DualConfigurationContext _dual) {
@@ -161,7 +158,7 @@ public final class Navigation {
         }
     }
 
-    public void processRendAnchorRequest(String _anchorRef, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStack) {
+    public void processRendAnchorRequest(String _anchorRef, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack) {
         if (_anchorRef.contains(CALL_METHOD)) {
             _rendStack.clearPages();
             HtmlPage htmlPage_ = htmlPage;
@@ -194,18 +191,18 @@ public final class Navigation {
             ip_.setGlobalArgumentStruct(bean_);
             Struct return_;
             if (htmlPage_.isForm()) {
-                return_ = RendRequestUtil.redirectForm(session,new Argument(bean_),(int)htmlPage_.getUrl(), _advStandards, _ctx, _stackCall, _rendStack, htmlPage_);
+                return_ = RendRequestUtil.redirectForm(new Argument(bean_),(int)htmlPage_.getUrl(), _advStandards, _ctx, _rendStack, htmlPage_);
             } else {
-                return_=RendRequestUtil.redirect(session,new Argument(bean_),(int)htmlPage_.getUrl(), _advStandards, _ctx, _stackCall, _rendStack, htmlPage_);
+                return_=RendRequestUtil.redirect(new Argument(bean_),(int)htmlPage_.getUrl(), _advStandards, _ctx, _rendStack, htmlPage_);
             }
-            if (_ctx.callsOrException(_stackCall)) {
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
             String urlDest_ = currentUrl;
             if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(_anchorRef.length());
-                urlDest_ = getRendUrlDest(StringUtil.concat(beanName_, DOT, methodName_,suffix_), return_, _advStandards, _ctx, _stackCall);
-                if (_ctx.callsOrException(_stackCall)) {
+                urlDest_ = getRendUrlDest(StringUtil.concat(beanName_, DOT, methodName_,suffix_), return_, _advStandards, _ctx, _rendStack);
+                if (_ctx.callsOrException(_rendStack.getStackCall())) {
                     return;
                 }
                 if (urlDest_ == null) {
@@ -213,7 +210,7 @@ public final class Navigation {
                 }
             }
             _rendStack.clearPages();
-            processAfterInvoke(urlDest_,beanName_,bean_, _advStandards, _ctx, _stackCall, _rendStack);
+            processAfterInvoke(urlDest_,beanName_,bean_, _advStandards, _ctx, _rendStack);
             return;
         }
         if (_anchorRef.isEmpty()) {
@@ -221,7 +218,7 @@ public final class Navigation {
         }
         Struct bean_ = getBeanOrNull(currentBeanName);
         _rendStack.clearPages();
-        processAfterInvoke(_anchorRef,currentBeanName,bean_, _advStandards, _ctx, _stackCall, _rendStack);
+        processAfterInvoke(_anchorRef,currentBeanName,bean_, _advStandards, _ctx, _rendStack);
     }
 
     private Struct getBeanOrNull(String _currentBeanName) {
@@ -232,8 +229,8 @@ public final class Navigation {
         return bean_;
     }
 
-    private void processAfterInvoke(String _dest, String _beanName, Struct _bean, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall){
-        String textToBeChanged_ = _advStandards.processAfterInvoke(session,_dest,_beanName,_bean,currentUrl,language, _context, _stackCall, _rendStackCall);
+    private void processAfterInvoke(String _dest, String _beanName, Struct _bean, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall){
+        String textToBeChanged_ = _advStandards.processAfterInvoke(session,_dest,_beanName,_bean,currentUrl,language, _context, _rendStackCall);
         if (textToBeChanged_.isEmpty()) {
             return;
         }
@@ -252,13 +249,12 @@ public final class Navigation {
         return _char != END_ARGS;
     }
 
-    public void processRendFormRequest(BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall) {
-        RendStackCall rendStackCall_ = new RendStackCall();
-        rendStackCall_.clearPages();
-        rendStackCall_.setDocument(document);
+    public void processRendFormRequest(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+        _rendStackCall.clearPages();
+        _rendStackCall.setDocument(document);
         HtmlPage htmlPage_ = htmlPage;
         ImportingPage ip_ = new ImportingPage();
-        rendStackCall_.addPage(ip_);
+        _rendStackCall.addPage(ip_);
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
         long lg_ = htmlPage_.getUrl();
@@ -267,7 +263,7 @@ public final class Navigation {
         //retrieving form that is submitted
         Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, session.getRendKeyWords().getAttrNf(), Long.toString(lg_));
         if (formElement_ == null) {
-            _stackCall.setCallingState(new CustomFoundExc(NullStruct.NULL_VALUE));
+            _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(NullStruct.NULL_VALUE));
             return;
         }
         htmlPage_.setForm(true);
@@ -284,8 +280,8 @@ public final class Navigation {
             NodeInformations nInfos_ = nCont_.getNodeInformation();
             String valId_ = nInfos_.getValidator();
             String id_ = nInfos_.getId();
-            Message messageTr_ = _advStandards.validate(session,nCont_,valId_, _ctx, _stackCall, rendStackCall_);
-            if (_ctx.callsOrException(_stackCall)) {
+            Message messageTr_ = _advStandards.validate(session,nCont_,valId_, _ctx, _rendStackCall);
+            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
             if (messageTr_ != null) {
@@ -311,38 +307,38 @@ public final class Navigation {
         }
         //end deleting previous errors
         if (!errors_.isEmpty()) {
-            processRendFormErrors(doc_, formElement_, lg_, errors_, errorsArgs_, rendStackCall_);
-            rendStackCall_.clearPages();
+            processRendFormErrors(doc_, formElement_, lg_, errors_, errorsArgs_, _rendStackCall);
+            _rendStackCall.clearPages();
             return;
         }
         LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(lg_);
         //Setting values for bean
-        updateRendBean(containers_, _advStandards, _ctx, _stackCall, rendStackCall_);
-        rendStackCall_.clearPages();
-        if (_ctx.callsOrException(_stackCall)) {
+        updateRendBean(containers_, _advStandards, _ctx, _rendStackCall);
+        _rendStackCall.clearPages();
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
 
         //invoke application
-        processRendAnchorRequest(actionCommand_, _advStandards, _ctx, _stackCall, rendStackCall_);
+        processRendAnchorRequest(actionCommand_, _advStandards, _ctx, _rendStackCall);
     }
 
-    private void updateRendBean(LongTreeMap<NodeContainer> _containers, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private void updateRendBean(LongTreeMap<NodeContainer> _containers, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
             NodeContainer nCont_ = e.getValue();
             if (!nCont_.isEnabled()) {
                 continue;
             }
             Struct newObj_;
-            ResultErrorStd res_ = _advStandards.convert(nCont_, session, _ctx, _stackCall, _rendStackCall);
-            if (_ctx.callsOrException(_stackCall)) {
+            ResultErrorStd res_ = _advStandards.convert(nCont_, session, _ctx, _rendStackCall);
+            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
             newObj_ = res_.getResult();
             Struct procObj_ = e.getValue().getUpdated();
             _rendStackCall.getLastPage().setGlobalArgumentStruct(procObj_);
-            RendRequestUtil.setRendObject(session, e.getValue(), newObj_, _advStandards, _ctx, _stackCall, _rendStackCall);
-            if (_ctx.callsOrException(_stackCall)) {
+            RendRequestUtil.setRendObject(e.getValue(), newObj_, _advStandards, _ctx, _rendStackCall);
+            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
         }
@@ -486,13 +482,13 @@ public final class Navigation {
         }
     }
 
-    private String getRendUrlDest(String _method, Struct _return, BeanLgNames _advStandards, ContextEl _context, StackCall _stackCall) {
+    private String getRendUrlDest(String _method, Struct _return, BeanLgNames _advStandards, ContextEl _context, RendStackCall _stackCall) {
         StringMap<String> cases_ = session.getNavigation().getVal(_method);
         if (cases_ == null) {
             return null;
         }
         String case_ = _advStandards.processString(new Argument(_return), _context, _stackCall);
-        if (_context.callsOrException(_stackCall)) {
+        if (_context.callsOrException(_stackCall.getStackCall())) {
             return null;
         }
         return cases_.getVal(case_);

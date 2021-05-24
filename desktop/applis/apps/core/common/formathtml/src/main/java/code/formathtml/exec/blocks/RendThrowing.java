@@ -2,7 +2,6 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
@@ -26,16 +25,16 @@ public final class RendThrowing extends RendLeaf implements RendWithEl {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         ip_.setOffset(expressionOffset);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
-        Argument argument_ = RenderExpUtil.calculateReuse(opThrow, _cont, _stds, _ctx, _stack, _rendStack);
-        if (_ctx.callsOrException(_stack)) {
+        Argument argument_ = RenderExpUtil.calculateReuse(opThrow, _stds, _ctx, _rendStack);
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
         Struct o_ = argument_.getStruct();
-        _stack.setCallingState(new CustomFoundExc(o_));
+        _rendStack.getStackCall().setCallingState(new CustomFoundExc(o_));
     }
 
 }

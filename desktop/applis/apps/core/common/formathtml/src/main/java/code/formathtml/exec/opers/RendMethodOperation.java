@@ -1,9 +1,9 @@
 package code.formathtml.exec.opers;
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.formathtml.exec.RendStackCall;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -44,11 +45,9 @@ public abstract class RendMethodOperation extends RendDynOperationNode {
     }
 
     public void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
-                                                  IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ExecFormattedRootBlock _formattedType, MethodAccessKind _kind, StackCall _stackCall) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        ArgumentListCall l_ = new ArgumentListCall();
-        l_.addAllArgs(arguments_);
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, l_ , _formattedType, _kind, _stackCall);
+                                                  IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ExecFormattedRootBlock _formattedType, MethodAccessKind _kind, RendStackCall _stackCall) {
+        ArgumentListCall l_ = ExecMethodOperation.listNamedArguments(buildInfos(_nodes)).getArguments();
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, l_ , _formattedType, _kind, _stackCall.getStackCall());
     }
 
     public final void appendChild(RendDynOperationNode _child) {

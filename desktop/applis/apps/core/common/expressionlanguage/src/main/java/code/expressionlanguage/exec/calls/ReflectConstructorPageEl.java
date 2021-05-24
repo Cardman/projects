@@ -85,8 +85,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
                 arg_ = new ReflectInstanceParamChecker(pair_, args_, "", -1).checkParams(res_, previous_, null, _context, _stack);
             }
             if (metaInfo.getStandardType() != null) {
-                ArgumentListCall l_ = new ArgumentListCall();
-                l_.addAllArgs(args_);
+                ArgumentListCall l_ = new ArgumentListCall(args_);
                 arg_ = ExecInvokingOperation.instancePrepareStd(_context, mid_, l_, _stack);
             }
             if (_context.callsOrException(_stack)) {

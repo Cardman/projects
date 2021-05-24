@@ -366,7 +366,7 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
 
     private static void setGlobalArgumentStruct(AnalyzedTestConfiguration _conf, Struct _build) {
-        _conf.getLastPage().setGlobalArgumentStruct(_build);
+        _conf.setArgument(new Argument(_build));
     }
 
 
@@ -524,12 +524,12 @@ public final class RenderRequestUtilTest extends CommonRender {
     }
 
     private static void setRendObject(AnalyzedTestConfiguration _conf, NodeContainer _nCont, IntStruct _attribute) {
-        RendRequestUtil.setRendObject(_conf.getConfiguration(),_nCont, _attribute, _conf.getAdvStandards(), _conf.getContext(), _conf.getStackCall(), _conf.getRendStackCall());
+        RendRequestUtil.setRendObject(_nCont, _attribute, _conf.getAdvStandards(), _conf.getContext(), _conf.getRendStackCall());
     }
 
 
     private static Struct redirect(AnalyzedTestConfiguration _conf, Argument _bean, int _url) {
-        return RendRequestUtil.redirect(_conf.getConfiguration(), _bean, _url, _conf.getAdvStandards(), _conf.getContext(), _conf.getStackCall(), _conf.getRendStackCall(), _conf.getRendStackCall().getHtmlPage());
+        return RendRequestUtil.redirect(_bean, _url, _conf.getAdvStandards(), _conf.getContext(), _conf.getRendStackCall(), _conf.getRendStackCall().getHtmlPage());
     }
 
 }

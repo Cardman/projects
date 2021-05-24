@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecExplicitContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecImplicitOperation extends ExecAbstractUnaryOperation {
@@ -24,9 +23,7 @@ public final class ExecImplicitOperation extends ExecAbstractUnaryOperation {
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(explicitContent.getOffset(), _stack);
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        ArgumentListCall list_ = new ArgumentListCall();
-        list_.addAllArgs(arguments_);
+        ArgumentListCall list_ = listNamedArguments(buildInfos(_nodes)).getArguments();
         Argument argres_ = getArgument(_stack.formatVarType(explicitContent.getClassName()), _conf, _stack, list_);
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }

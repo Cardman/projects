@@ -87,8 +87,7 @@ public final class CustContextFactory {
         ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,rCont_,_progressingTests,_definedLgNames);
         new Thread(showUpdates_).start();
         ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethodPair();
-        ArgumentListCall argList_ = new ArgumentListCall();
-        argList_.addArg(argMethod_);
+        ArgumentListCall argList_ = new ArgumentListCall(argMethod_);
         ExecRootBlock classBodyExecute_ = rCont_.getClasses().getClassBody(_definedLgNames.getCustAliases().getAliasExecute());
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
                 new ExecFormattedRootBlock(classBodyExecute_,_definedLgNames.getCustAliases().getAliasExecute()),

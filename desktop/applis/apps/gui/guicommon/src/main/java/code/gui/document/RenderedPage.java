@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
@@ -15,7 +16,6 @@ import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
-import code.gui.initialize.AbstractGraphicStringListGenerator;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.Document;
 import code.util.CustList;
@@ -97,7 +97,7 @@ public final class RenderedPage implements ProcessingSession {
         contextCreator = new NativeContextCreator();
         ContextEl ctx_ = _stds.getContext();
         setContext(ctx_);
-        navigation.initializeRendSession(ctx_, standards, StackCall.newInstance(InitPhase.NOTHING,ctx_));
+        navigation.initializeRendSession(ctx_, standards, new RendStackCall(InitPhase.NOTHING,ctx_));
         setupText();
     }
 

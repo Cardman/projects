@@ -2942,8 +2942,7 @@ public final class CustAliases {
             if (StringUtil.quickEq(type_, aliasObject_)) {
                 String className_ = aliasFormatType;
                 Argument arg_ = new Argument(_args[0]);
-                ArgumentListCall argList_ = new ArgumentListCall();
-                argList_.addAllArgs(new CustList<Argument>(arg_));
+                ArgumentListCall argList_ = new ArgumentListCall(new CustList<Argument>(arg_));
                 ExecTypeFunction formatObjectPair_ = _execBlocks.getFormatObjectPair();
                 ExecTemplates.wrapAndCall(formatObjectPair_, new ExecFormattedRootBlock(formatObjectPair_.getType(), className_),Argument.createVoid(), _cont, _stackCall, argList_);
                 return;
@@ -2953,8 +2952,7 @@ public final class CustAliases {
             String className_ = aliasFormatType;
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);
-            ArgumentListCall argList_ = new ArgumentListCall();
-            argList_.addAllArgs(new CustList<Argument>(arg_,argArr_));
+            ArgumentListCall argList_ = new ArgumentListCall(new CustList<Argument>(arg_,argArr_));
             ExecTypeFunction formatObjectTwoPair_ = _execBlocks.getFormatObjectTwoPair();
             ExecTemplates.wrapAndCall(formatObjectTwoPair_, new ExecFormattedRootBlock(formatObjectTwoPair_.getType(),className_),Argument.createVoid(), _cont, _stackCall, argList_);
             return;

@@ -2,12 +2,16 @@ package code.gui.document;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErroneousStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.RendStrNativeFct;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.render.MetaDocument;
 import code.gui.CustComponent;
 import code.sml.Document;
@@ -51,7 +55,7 @@ public abstract class AbstractThreadActions implements Runnable {
                     page.getArea().append(((ErroneousStruct) exception_).getStringRep(_ctx, fullStack_));
                 } else {
                     _stackCall.setCallingState(null);
-                    String str_ = page.getStandards().processString(new Argument(exception_),_ctx, _stackCall);
+                    String str_ = NumParsers.getString(RendDynOperationNode.processString(new Argument(exception_),_ctx, new RendStrNativeFct(_stackCall)).getStruct()).getInstance();
                     page.getArea().append(str_);
                 }
             }

@@ -4,13 +4,11 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecHelper;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecTypeCheckContent;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -25,7 +23,7 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ typeCheckContent.getOffset(), _rendStack);
         Argument objArg_ = ExecHelper.getFirstArgument(arguments_);
@@ -37,7 +35,7 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
             boolean res_ = ExecInherits.safeObject(str_, objArg_.getStruct().getClassName(_context), _context) == ErrorType.NOTHING;
             argres_ = new Argument(BooleanStruct.of(res_));
         }
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
+        setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 
 }

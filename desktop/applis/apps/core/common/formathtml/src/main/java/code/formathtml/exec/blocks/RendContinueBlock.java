@@ -1,7 +1,6 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -19,14 +18,14 @@ public final class RendContinueBlock extends RendLeaf implements RendWithEl,Rend
 
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-        removeBlockFinally(_cont, _stds, _ctx, _stack, _rendStack);
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+        removeBlockFinally(_cont, _stds, _ctx, _rendStack);
     }
 
     @Override
-    public void removeBlockFinally(Configuration _conf, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void removeBlockFinally(Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        while (hasBlockContinue(_conf,_stds,_ctx,ip_,label, _stack, _rendStack)) {
+        while (hasBlockContinue(_conf,_stds,_ctx,ip_,label, _rendStack)) {
             RendRemovableVars bl_ = ip_.getRendLastStack();
             if (ImportingPage.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
                 return;

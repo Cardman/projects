@@ -12,10 +12,8 @@ import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.structs.*;
@@ -129,9 +127,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
-        addImportingPage(context_);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
-        context_.getLastPage().getPageEl().getRefParams().addEntry("v",new VariableWrapper(LocalVariable.newLocalVariable(str_,"pkg.Ex")));
+        context_.getLocalVariables().addEntry("v",LocalVariable.newLocalVariable(str_,"pkg.Ex"));
         Argument arg_ = buildAndCalculate(context_, all_);
         assertEq(2, getNumber(arg_));
     }
@@ -223,7 +220,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl58Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         String stringType_ = context_.getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -245,7 +241,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl59Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         String stringType_ = context_.getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -259,7 +254,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl60Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         String stringType_ = context_.getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -281,7 +275,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl61Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         String stringType_ = context_.getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -334,7 +327,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         setValues(lv_, 0, 0, ARR_INT);
         localVars_.put("arrays", lv_);
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("arrays[0i]", context_);
         assertEq(0, getNumber(arg_));
@@ -346,7 +338,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         setPairs(lv_);
         localVars_.put("arrays", lv_);
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         Argument arg_ = calcLow("arrays[0i].length", context_);
         assertEq(2, getNumber(arg_));
@@ -384,7 +375,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl81Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         String stringType_ = context_.getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -406,7 +396,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl82Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         setVal(lv_, 8, ARR_INT);
@@ -418,7 +407,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl83Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         setVal(lv_, 8, ARR_INT);
@@ -542,7 +530,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         Argument arg_ = processElNormalLow("$new pkg.Ex()", cont_, "pkg.Ex");
         assertEq("pkg.Ex",arg_.getStruct().getClassName(cont_.getContext()));
     }
@@ -588,7 +575,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
@@ -596,7 +582,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
         for (EntryCust<String, LocalVariable> e: localVars_.entryList()) {
-            context_.getLastPage().getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
+            context_.getLocalVariables().addEntry(e.getKey(),e.getValue());
         }
         Argument arg_ = buildAndCalculate(context_, all_);
         assertEq(2, getNumber(arg_));
@@ -930,7 +916,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasPrimInteger()));
         localVars_.put("arg", lv_);
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         calcLow("arg={2}", context_);
         ArrayStruct struct_ = (ArrayStruct)lv_.getStruct();
@@ -1085,7 +1070,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
-        addImportingPage(context_);
         setGlobalType(context_, "pkg.Ex");
         context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
         String globalClass_ = context_.getAnalyzing().getGlobalClass();
@@ -1469,7 +1453,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.ExTwo");
-        addImportingPage(cont_);
         CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.ExTwo).exmeth()", 0, cont_, cont_.getAnalyzingDoc());
         Argument arg_ = buildAndCalculateFwd(cont_, all_);
         assertEq(14, ((NumberStruct) getStaticField(cont_)).intStruct());
@@ -1563,7 +1546,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         Argument arg_ = calcLow("$static(pkg.ExTwo).exmeth()", cont_);
         assertEq(14, ((NumberStruct) getStaticField(cont_)).intStruct());
         assertEq(15, getNumber(arg_));
@@ -1939,7 +1921,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         Argument arg_ = calcLow("$static(pkg.ExTwo).exmeth()", cont_);
         assertEq(10, ((NumberStruct) getStaticField(cont_)).intStruct());
         assertTrue(arg_.isNull());
@@ -2990,8 +2971,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setIndexClassName(context_.getAliasPrimLong());
         lv_.setIndex(5);
         localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        context_.getLastPage().getVars().addAllEntries(localVars_);
+        context_.getVars().addAllEntries(localVars_);
         Argument argument_ = calcLow("([arg])", context_);
         assertEq(5,getNumber(argument_));
     }
@@ -3027,7 +3007,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAliasString());
         lv_.setStruct(new StringStruct("str"));
         localVars_.put("arg", lv_);
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         Argument argument_ = calcLow("(String)arg", context_);
         assertEq("str",getString(argument_));
@@ -3082,7 +3061,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl376Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         setVal(lv_, 8, ARR_INT);
@@ -3137,7 +3115,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("(v)=$this.inst", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v", false);
-        addImportingPage(context_);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
         setGlobalArgumentStruct(context_, str_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -3160,7 +3137,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("$this.inst=(v)", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v",false);
-        addImportingPage(context_);
         Struct str_ = init(context_, "pkg.Ex");
         setGlobalArgumentStruct(context_, str_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -4219,7 +4195,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
-        addImportingPage(conf_);
         CommonRender.setLocalVars(conf_, localVars_);
         Argument argument_ = buildAndCalculate(conf_, all_);
         assertEq(14,getNumber(argument_));
@@ -4257,7 +4232,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
-        addImportingPage(conf_);
         CommonRender.setLocalVars(conf_, localVars_);
         Argument argument_ = buildAndCalculate(conf_, all_);
         assertEq(6,getNumber(argument_));
@@ -4294,7 +4268,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
-        addImportingPage(conf_);
         CommonRender.setLocalVars(conf_, localVars_);
         Argument argument_ = buildAndCalculate(conf_, all_);
         assertEq(7,getNumber(argument_));
@@ -4863,7 +4836,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processAffect3Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         setVal(lv_, 0, ARR_INT);
@@ -4875,7 +4847,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processAffect4Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         setArrays(lv_);
@@ -4899,7 +4870,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.integer-=12i", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
-        addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -4915,7 +4885,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processAffect7Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setVal(lv_, 0, ARR_INT);
@@ -4928,7 +4897,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processAffect8Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
@@ -4941,7 +4909,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processAffect9Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
@@ -4955,7 +4922,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processAffect10Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
@@ -4968,7 +4934,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processAffect11Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
@@ -4981,7 +4946,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processAffect12Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
@@ -5005,7 +4969,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         calcLow("$classchoice(pkg.Ex)inst=2i", cont_);
         Struct fieldValue_ = getStaticField(cont_);
         assertEq(2, ((NumberStruct) fieldValue_).intStruct());
@@ -5026,7 +4989,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("$classchoice(pkg.Ex)inst=v", 0, cont_, cont_.getAnalyzingDoc(),cont_.getAliasInteger(),"v",true);
-        addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
@@ -5040,7 +5002,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processAffect23Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("add "));
@@ -5053,7 +5014,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processAffect24Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         String arrayType_ = StringExpUtil.getPrettyArrayType(context_.getAliasString());
@@ -5078,7 +5038,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        addImportingPage(cont_);
         setGlobalType(cont_, "pkg.Ex");
         CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.Ex).exmeth()[0i]=2i", 0, cont_, cont_.getAnalyzingDoc());
         buildAndCalculateFwd(cont_, all_);
@@ -5109,7 +5068,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Composite");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.integer++", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
-        addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -5132,7 +5090,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Composite");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("++v.integer", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
-        addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -5156,7 +5113,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Composite");
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("(v.integer-=12i)", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
-        addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -5171,7 +5127,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processAffect31Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setArrays(lv_);
@@ -5184,7 +5139,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl179Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
@@ -5218,7 +5172,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl186Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
@@ -5240,7 +5193,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl187Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
@@ -5263,7 +5215,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl188Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
@@ -5286,7 +5237,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl189Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
@@ -5308,7 +5258,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl190Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
@@ -5330,7 +5279,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl191Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
@@ -5353,7 +5301,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl192Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
@@ -5375,7 +5322,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl193Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
@@ -5404,7 +5350,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl194Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
@@ -5432,7 +5377,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl195Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
@@ -5460,7 +5404,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl196Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
@@ -5488,7 +5431,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl197Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
         setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
         String elr_ = "+1y";
@@ -5506,7 +5448,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     @Test
     public void processEl305Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(3));
@@ -5539,7 +5480,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAliasString());
         lv_.setStruct(new StringStruct("8"));
         localVars_.put("arg", lv_);
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
@@ -5555,7 +5495,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAliasBoolean());
         lv_.setStruct(BooleanStruct.of(false));
         localVars_.put("arg2", lv_);
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
@@ -5571,7 +5510,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAliasPrimInteger());
         lv_.setStruct(_sec);
         localVars_.put("arg2", lv_);
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
@@ -5583,7 +5521,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(_b));
         localVars_.put("arg", lv_);
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
@@ -5595,16 +5532,15 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAliasPrimInteger());
         lv_.setStruct(new IntStruct(_i));
         localVars_.put(_varName, lv_);
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
 
     private static Argument calcLow(String _s, AnalyzedTestConfiguration _context) {
-        setGlobalType(_context, _context.getLastPage().getGlobalArgument().getStruct().getClassName(_context.getContext()));
+        setGlobalType(_context, _context.getArgument().getStruct().getClassName(_context.getContext()));
         _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
-        setupAnalyzing(_context, _context.getLastPage(), _context.getAnalyzingDoc());
-        Argument argGl_ = _context.getRendStackCall().getPageEl().getGlobalArgument();
+        setupAnalyzing(_context, _context.getAnalyzingDoc());
+        Argument argGl_ = _context.getArgument();
         boolean static_ = argGl_.isNull();
         _context.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(_context, _s, 0);
@@ -5654,24 +5590,21 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(_b2));
         localVars_.put("arg2", lv_);
-        addImportingPage(context_);
         CommonRender.setLocalVars(context_, localVars_);
         return calcLow(_s, context_);
     }
 
     private static Argument processElNormalVar2(StringMap<String> _files, String _s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(_files);
-        addImportingPage(conf_);
         return calcLow(_s, conf_);
     }
 
     private static Argument processElNormalVar2Low(StringMap<String> _files, String _s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(_files);
         ContextEl cont_ = conf_.getContext();
-        addImportingPage(conf_);
         conf_.getAnalyzingDoc().setup(conf_.getConfiguration(), conf_.getDual());
-        setupAnalyzing(conf_, conf_.getLastPage(), conf_.getAnalyzingDoc());
-        Argument argGl_ = conf_.getRendStackCall().getPageEl().getGlobalArgument();
+        setupAnalyzing(conf_, conf_.getAnalyzingDoc());
+        Argument argGl_ = conf_.getArgument();
         boolean static_ = argGl_.isNull();
         conf_.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(conf_, _s, 0);
@@ -5690,7 +5623,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static LocalVariable processElNormal1Bool1(boolean _b, String _s) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(_b));
@@ -5703,7 +5635,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static LocalVariable processElNormal1Int2(int _i, String _s) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(_i));
@@ -5730,13 +5661,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument processElNormal2(StringMap<String> _files, String _s, String _expClass) {
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(_files);
-        addImportingPage(conf_);
         return processElNormalLow(_s, conf_, _expClass);
     }
 
     private static Argument processElNormalNotInit(StringMap<String> _files, String _s,String... _types) {
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(_files,_types);
-        addImportingPage(cont_);
         return calcLow(_s, cont_);
     }
 
@@ -5746,7 +5675,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument processElNormalInit(StringMap<String> _files, String _s, String... _types) {
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(_files,_types);
-        addImportingPage(conf_);
         Argument arg_ = calcLow(_s, conf_);
         assertTrue(isInitialized(conf_));
         assertSame(conf_.getContext().getLocks().getState("pkg.Ex"), InitClassState.SUCCESS);
@@ -5763,7 +5691,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static LocalVariable getModBoolVar(boolean _b, String _s) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(_b));
@@ -5838,7 +5765,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument processDoubleDelimiters(String _s, int _i, int _i2) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         AnalyzingDoc analyzingDoc_ = context_.getAnalyzingDoc();
         setupAnalyzing(context_);
         Delimiters d1_ = checkDel(_s, 2, context_);
@@ -5887,17 +5813,15 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument processElNormal3(String _el, StringMap<String> _files, String... _types) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(_files,_types);
-        addImportingPage(context_);
         return calcLow(_el, context_);
     }
 
     private static Argument processElNormal3Low(String _el, StringMap<String> _files, String... _types) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(_files,_types);
-        addImportingPage(context_);
-        setGlobalType(context_, context_.getLastPage().getGlobalArgument().getStruct().getClassName(context_.getContext()));
+        setGlobalType(context_, context_.getArgument().getStruct().getClassName(context_.getContext()));
         context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
-        setupAnalyzing(context_, context_.getLastPage(), context_.getAnalyzingDoc());
-        Argument argGl_ = context_.getRendStackCall().getPageEl().getGlobalArgument();
+        setupAnalyzing(context_, context_.getAnalyzingDoc());
+        Argument argGl_ = context_.getArgument();
         boolean static_ = argGl_.isNull();
         context_.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(context_, _el, 0);
@@ -5926,7 +5850,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument processDelimiters(String _s, int _i) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        addImportingPage(context_);
         AnalyzingDoc analyzingDoc_ = context_.getAnalyzingDoc();
         setupAnalyzing(context_);
         Delimiters d_ = checkDel(_s, 2, context_);
@@ -5960,7 +5883,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(_files);
         setGlobalType(context_, _clasName);
         CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),_clasName,_varName,false);
-        addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct str_ = initAndSet(context_, _keyField, _value, _init);
@@ -5986,7 +5908,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static void setupAnalyzing(AnalyzedTestConfiguration _context) {
         _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
-        setupAnalyzing(_context, _context.getLastPage(), _context.getAnalyzingDoc());
+        setupAnalyzing(_context, _context.getAnalyzingDoc());
     }
 
     private static Struct getStaticField(AnalyzedTestConfiguration _cont) {
@@ -5995,7 +5917,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static void setGlobalArgumentStruct(AnalyzedTestConfiguration _context, Struct _str) {
-        _context.getLastPage().setGlobalArgumentStruct(_str);
+        _context.setArgument(new Argument(_str));
     }
 
     private static void setupAnalyzingOneVar(AnalyzedPageEl _analyzing, AnalyzingDoc _analyzingDoc, String _type, String _varName) {
@@ -6027,11 +5949,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static void checkNullEx(AnalyzedTestConfiguration _context) {
-        assertNull(getStackCall(_context).getCallingState());
-    }
-
-    private static StackCall getStackCall(AnalyzedTestConfiguration _context) {
-        return _context.getStackCall();
+        assertNull(_context.getRendStackCall().getStackCall().getCallingState());
     }
 
 

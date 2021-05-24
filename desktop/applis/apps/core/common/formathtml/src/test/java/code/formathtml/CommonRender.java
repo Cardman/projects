@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -49,10 +48,6 @@ import code.util.core.IndexConstants;
 
 public abstract class CommonRender extends EquallableExUtil {
 
-    protected static void addImportingPage(AnalyzedTestConfiguration _conf) {
-        addInnerPage(_conf);
-    }
-
     protected static void addInnerPage(AnalyzedTestConfiguration _conf) {
         _conf.getRendStackCall().addPage(new ImportingPage());
     }
@@ -64,7 +59,7 @@ public abstract class CommonRender extends EquallableExUtil {
         return nav_;
     }
 
-    protected static void setupAnalyzing(AnalyzedTestConfiguration _analyzing, ImportingPage _lastPage, AnalyzingDoc _analyzingDoc) {
+    protected static void setupAnalyzing(AnalyzedTestConfiguration _analyzing, AnalyzingDoc _analyzingDoc) {
 
         String globalClass_ = _analyzing.getAnalyzing().getGlobalClass();
         setupAna(_analyzingDoc, _analyzing.getAnalyzing());
@@ -75,17 +70,26 @@ public abstract class CommonRender extends EquallableExUtil {
             a_.setConstType(ConstType.LOC_VAR);
             _analyzing.getAnalyzing().getInfosVars().put(e.getKey(), a_);
         }
-        for (EntryCust<String,LoopVariable> e: _lastPage.getVars().entryList()) {
+        for (EntryCust<String,LoopVariable> e: _analyzing.getVars().entryList()) {
             AnaLoopVariable a_ = new AnaLoopVariable();
             a_.setIndexClassName(e.getValue().getIndexClassName());
             _analyzing.getAnalyzing().getLoopsVars().put(e.getKey(), a_);
         }
     }
 
-    protected static void setLocalVars(AnalyzedTestConfiguration _importingPage, StringMap<LocalVariable> _localVars) {
-        for (EntryCust<String, LocalVariable> e: _localVars.entryList()) {
-            _importingPage.getLastPage().getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
+    protected static void setupValues(AnalyzedTestConfiguration _analyzing, ImportingPage _lastPage) {
+        for (EntryCust<String, LocalVariable> e: _analyzing.getLocalVariables().entryList()) {
+            _lastPage.getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
         }
+        for (EntryCust<String,LoopVariable> e: _analyzing.getVars().entryList()) {
+            _lastPage.getPageEl().getVars().addEntry(e.getKey(),e.getValue());
+        }
+        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct());
+    }
+    protected static void setLocalVars(AnalyzedTestConfiguration _importingPage, StringMap<LocalVariable> _localVars) {
+//        for (EntryCust<String, LocalVariable> e: _localVars.entryList()) {
+//            _importingPage.getLastPage().getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
+//        }
         _importingPage.getLocalVariables().addAllEntries(_localVars);
     }
 
@@ -121,7 +125,7 @@ public abstract class CommonRender extends EquallableExUtil {
     protected static void tryInitStaticlyTypes(AnalyzedTestConfiguration _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(), page_.getOptions());
-        addInnerPage(_context);
+//        addInnerPage(_context);
     }
 
     protected static void tryForward(AnalyzedTestConfiguration _context) {
@@ -138,7 +142,7 @@ public abstract class CommonRender extends EquallableExUtil {
     }
 
     protected static Struct getException(AnalyzedTestConfiguration _cont) {
-        CallingState str_ = _cont.getStackCall().getCallingState();
+        CallingState str_ = _cont.getRendStackCall().getStackCall().getCallingState();
         return ((CustomFoundExc) str_).getStruct();
     }
 
@@ -148,8 +152,8 @@ public abstract class CommonRender extends EquallableExUtil {
 
     protected static CustList<OperationNode> getQuickAnalyzed(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
         _analyzingDoc.setup(_conf.getConfiguration(), _conf.getDual());
-        setupAnalyzing(_conf, _conf.getLastPage(), _conf.getAnalyzingDoc());
-        Argument argGl_ = _conf.getRendStackCall().getPageEl().getGlobalArgument();
+        setupAnalyzing(_conf, _conf.getAnalyzingDoc());
+        Argument argGl_ = _conf.getArgument();
         boolean static_ = argGl_.isNull();
         _conf.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(_conf, _el, _index);
@@ -223,14 +227,6 @@ public abstract class CommonRender extends EquallableExUtil {
         return a_;
     }
 
-    protected static String getRes(AnalyzedTestConfiguration _a, StackCall _stackCall, RendStackCall _rendStackCall) {
-        Configuration conf_ = _a.getConfiguration();
-        BeanCustLgNames stds_ = _a.getAdvStandards();
-        ContextEl ctx_ = _a.getContext();
-        _rendStackCall.clearPages();
-        return RendBlock.getRes(conf_.getRendDocumentBlock(), conf_, stds_, ctx_, _stackCall, _rendStackCall);
-    }
-
     protected static String getCommRes(String _folder, String _relative, String _html, StringMap<String> _filesThree, StringMap<String> _files) {
         AnalyzedTestConfiguration a_ = validateBase(_files);
 
@@ -271,7 +267,6 @@ public abstract class CommonRender extends EquallableExUtil {
     protected static void setFirst(AnalyzedTestConfiguration _cont) {
         RendDocumentBlock doc_ = _cont.getConfiguration().getRenders().getVal("page1.html");
         _cont.getConfiguration().setRendDocumentBlock(doc_);
-        _cont.getRendStackCall().setCurrentUrl("page1.html");
     }
 
     protected static Struct getCommEx(String _html, StringMap<String> _files) {
@@ -708,8 +703,8 @@ public abstract class CommonRender extends EquallableExUtil {
     }
 
     private static void initializeRendSession(Navigation _nav, AnalyzedTestConfiguration _a) {
-        _a.setStackCall(StackCall.newInstance(InitPhase.NOTHING, _a.getContext()));
-        _nav.initializeRendSession(_a.getContext(), _a.getAdvStandards(), _a.getStackCall());
+        RendStackCall build_ = _a.build(InitPhase.NOTHING, _a.getContext());
+        _nav.initializeRendSession(_a.getContext(), _a.getAdvStandards(), build_);
     }
 
     protected static AnalyzedTestNavigation initSession5(String _locale, String _folder, String _relative, String _content, String _html, String _htmlTwo, String _htmlThree, StringMap<String> _filesSec, String _scope, String _className) {
@@ -1035,7 +1030,7 @@ public abstract class CommonRender extends EquallableExUtil {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, _a.getAnalyzing().getPrimTypes(), _a.getRendStackCall().getCurrentUrl(), conf_.getRendKeyWords());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, _a.getAnalyzing().getPrimTypes(), "page"+c_+".html", conf_.getRendKeyWords());
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
@@ -1115,8 +1110,10 @@ public abstract class CommonRender extends EquallableExUtil {
     }
 
     protected static Struct calculateReuse(AnalyzedTestConfiguration _a, CustList<RendDynOperationNode> _ops) {
-        _a.setStackCall(StackCall.newInstance(InitPhase.NOTHING, _a.getContext()));
-        return RenderExpUtil.calculateReuse(_ops, _a.getConfiguration(), _a.getAdvStandards(), _a.getContext(), _a.getStackCall(), _a.getRendStackCall()).getStruct();
+        RendStackCall build_ = _a.build(InitPhase.NOTHING, _a.getContext());
+        build_.addPage(new ImportingPage());
+        setupValues(_a,build_.getLastPage());
+        return RenderExpUtil.calculateReuse(_ops, _a.getAdvStandards(), _a.getContext(), build_).getStruct();
     }
 
     private static void setNavigation(AnalyzedTestConfiguration _conf) {
@@ -1134,22 +1131,26 @@ public abstract class CommonRender extends EquallableExUtil {
     }
 
     private static String successRes(AnalyzedTestConfiguration _a) {
-        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_a.getContext());
-        String res_ = res(_a, stackCall_, _a.getRendStackCall());
-        assertNull(stackCall_.getCallingState());
+        RendStackCall build_ = _a.build(InitPhase.NOTHING, _a.getContext());
+        String res_ = res(_a, build_);
+        assertNull(build_.getStackCall().getCallingState());
         return res_;
     }
 
     private static Struct failRes(AnalyzedTestConfiguration _a) {
-        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_a.getContext());
-        res(_a, stackCall_, _a.getRendStackCall());
-        CallingState str_ = stackCall_.getCallingState();
+        RendStackCall build_ = _a.build(InitPhase.NOTHING, _a.getContext());
+        res(_a, build_);
+        CallingState str_ = build_.getStackCall().getCallingState();
         return ((CustomFoundExc) str_).getStruct();
     }
 
-    private static String res(AnalyzedTestConfiguration _a, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private static String res(AnalyzedTestConfiguration _a, RendStackCall _rendStackCall) {
         setFirst(_a);
-        return getRes(_a, _stackCall, _rendStackCall);
+        Configuration conf_ = _a.getConfiguration();
+        BeanCustLgNames stds_ = _a.getAdvStandards();
+        ContextEl ctx_ = _a.getContext();
+        _rendStackCall.clearPages();
+        return RendBlock.getRes(conf_.getRendDocumentBlock(), conf_, stds_, ctx_, _rendStackCall, "page1.html");
     }
 
     protected static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {

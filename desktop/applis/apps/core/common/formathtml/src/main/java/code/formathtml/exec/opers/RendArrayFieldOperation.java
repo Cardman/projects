@@ -2,7 +2,6 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
@@ -11,7 +10,6 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
@@ -23,7 +21,7 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOff(), _rendStack);
         Struct inst_ = previous_.getStruct();
@@ -34,13 +32,13 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
         } else {
             String npe_ = _context.getStandards().getContent().getCoreNames().getAliasNullPe();
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStack);
-            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _stack)));
+            _rendStack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _rendStack.getStackCall())));
             arg_ = new Argument();
         }
-        if (_context.callsOrException(_stack)) {
+        if (_context.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        setSimpleArgument(arg_, _nodes, _context, _stack, _rendStack);
+        setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 
 }

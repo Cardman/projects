@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.formathtml.exec.opers.*;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -19,20 +18,20 @@ public final class RenderExpUtil {
     private RenderExpUtil() {
     }
 
-    public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context, Argument _arg, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Argument _arg, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         Argument globalArgument_ = _rendStackCall.getLastPage().getGlobalArgument();
         _rendStackCall.getLastPage().setGlobalArgumentStruct(_arg.getStruct());
-        Argument argument_ = calculateReuse(_nodes, _context, _advStandards, _ctx, _stackCall, _rendStackCall);
+        Argument argument_ = calculateReuse(_nodes, _advStandards, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setGlobalArgumentStruct(globalArgument_.getStruct());
         return argument_;
     }
-    public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
-        arguments_ = getAllArgs(_nodes,_context, _advStandards, _ctx, _stackCall, _rendStackCall);
+        arguments_ = getAllArgs(_nodes, _advStandards, _ctx, _rendStackCall);
         return Argument.getNullableValue(arguments_.lastValue().getArgument());
     }
 
-    public static IdMap<RendDynOperationNode,ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, Configuration _context, BeanLgNames _advStandards, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    public static IdMap<RendDynOperationNode,ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
         arguments_ = new IdMap<RendDynOperationNode,ArgumentsPair>();
         for (RendDynOperationNode o: _nodes) {
@@ -47,27 +46,28 @@ public final class RenderExpUtil {
         int len_ = _nodes.size();
         while (fr_ < len_) {
             RendDynOperationNode o = arguments_.getKey(fr_);
+            o.setRelativeOffsetPossibleLastPage(o.getIndexInEl(), _rendStackCall);
             ArgumentsPair pair_ = arguments_.getValue(fr_);
             if (!(o instanceof RendCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
-                o.setSimpleArgument(a_, arguments_, _ctx, _stackCall, _rendStackCall);
-                fr_ = getNextIndex(len_,o, pair_, _ctx, _stackCall);
+                o.setSimpleArgument(a_, arguments_, _ctx, _rendStackCall);
+                fr_ = getNextIndex(len_,o, pair_, _ctx, _rendStackCall);
                 continue;
             }
             if (pair_.getArgument() != null) {
-                o.setSimpleArgument(pair_.getArgument(), arguments_, _ctx, _stackCall, _rendStackCall);
-                fr_ = getNextIndex(len_,o, pair_, _ctx, _stackCall);
+                o.setSimpleArgument(pair_.getArgument(), arguments_, _ctx, _rendStackCall);
+                fr_ = getNextIndex(len_,o, pair_, _ctx, _rendStackCall);
                 continue;
             }
             RendCalculableOperation a_ = (RendCalculableOperation)o;
-            a_.calculate(arguments_, _context, _advStandards, _ctx, _stackCall, _rendStackCall);
-            fr_ = getNextIndex(len_,o, pair_, _ctx, _stackCall);
+            a_.calculate(arguments_, _advStandards, _ctx, _rendStackCall);
+            fr_ = getNextIndex(len_,o, pair_, _ctx, _rendStackCall);
         }
         return arguments_;
     }
 
-    private static int getNextIndex(int _max, RendDynOperationNode _o, ArgumentsPair _pair, ContextEl _context, StackCall _stackCall) {
-        if (_context.callsOrException(_stackCall)) {
+    private static int getNextIndex(int _max, RendDynOperationNode _o, ArgumentsPair _pair, ContextEl _context, RendStackCall _stackCall) {
+        if (_context.callsOrException(_stackCall.getStackCall())) {
             return _max;
         }
         Argument res_ = Argument.getNullableValue(_pair.getArgument());

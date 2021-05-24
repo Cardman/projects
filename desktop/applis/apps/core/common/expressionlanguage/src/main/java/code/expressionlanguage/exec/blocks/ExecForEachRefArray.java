@@ -32,7 +32,7 @@ public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
     @Override
     protected LoopBlockStack newLoopBlockStack(ContextEl _cont, String _label, Struct _its, StackCall _stack) {
         boolean finished_ = false;
-        int length_ = getLength(_its, _cont, _stack);
+        int length_ = ExecForEachArray.getLength(_its, _cont, _stack);
         if (length_ == IndexConstants.SIZE_EMPTY) {
             finished_ = true;
         }
@@ -49,14 +49,7 @@ public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
         l_.setContainer(_its);
         return l_;
     }
-    private static int getLength(Struct _str, ContextEl _cont, StackCall _stackCall) {
-        if (_str instanceof ArrayStruct) {
-            return ((ArrayStruct)_str).getLength();
-        }
-        String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, npe_, _stackCall)));
-        return -1;
-    }
+
     @Override
     protected Argument retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
         Struct container_ = _l.getContainer();

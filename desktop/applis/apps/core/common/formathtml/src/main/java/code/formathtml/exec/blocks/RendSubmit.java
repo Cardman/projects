@@ -1,7 +1,6 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
@@ -26,7 +25,7 @@ public final class RendSubmit extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
 //        ImportingPage ip_ = _cont.getLastPage();
@@ -38,8 +37,8 @@ public final class RendSubmit extends RendElement {
         StringList objects_ = new StringList();
         for (EntryCust<String,ExecTextPart> e:opExp.entryList()) {
             ExecTextPart r_ = e.getValue();
-            objects_.add(RenderingText.render(r_,_cont, _stds, _ctx, _stack, _rendStack));
-            if (_ctx.callsOrException(_stack)) {
+            objects_.add(RenderingText.render(r_, _stds, _ctx, _rendStack));
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
             curWr_.removeAttribute(e.getKey());

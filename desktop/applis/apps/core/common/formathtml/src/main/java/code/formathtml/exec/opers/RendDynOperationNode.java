@@ -18,8 +18,9 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.formathtml.exec.IdNativeFct;
+import code.formathtml.exec.RendNativeFct;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.RendStrNativeFct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
@@ -53,21 +54,22 @@ public abstract class RendDynOperationNode {
         parent = _parent;
     }
 
-    public static ArgumentWrapper processCall(Argument _res, ContextEl _context, StackCall _stackCall) {
-        CallingState callingState_ = _stackCall.getCallingState();
+    public static ArgumentWrapper processCall(Argument _res, ContextEl _context, RendStackCall _stackCall) {
+        StackCall stackCall_ = _stackCall.getStackCall();
+        CallingState callingState_ = stackCall_.getCallingState();
         ArgumentWrapper res_;
         if (callingState_ instanceof CustomFoundConstructor) {
             CustomFoundConstructor ctor_ = (CustomFoundConstructor)callingState_;
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(),ctor_.getPair(), ctor_.getCurrentObject(), ctor_.getArguments(), _context, _stackCall);
+            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(),ctor_.getPair(), ctor_.getCurrentObject(), ctor_.getArguments(), _context, stackCall_);
         } else if (callingState_ instanceof CustomFoundRecordConstructor) {
             CustomFoundRecordConstructor ctor_ = (CustomFoundRecordConstructor)callingState_;
-            res_ = ProcessMethod.instanceRecordArgument(ctor_.getClassName(),ctor_.getPair(), ctor_.getId(), ctor_.getArguments(), _context, _stackCall);
+            res_ = ProcessMethod.instanceRecordArgument(ctor_.getClassName(),ctor_.getPair(), ctor_.getId(), ctor_.getArguments(), _context, stackCall_);
         } else if (callingState_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) callingState_;
-            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _context, _stackCall);
+            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _context, stackCall_);
         } else if (callingState_ instanceof AbstractReflectElement) {
             AbstractReflectElement ref_ = (AbstractReflectElement) callingState_;
-            res_ = ProcessMethod.reflectArgument(_context,ref_, _stackCall);
+            res_ = ProcessMethod.reflectArgument(_context,ref_, stackCall_);
         } else {
             res_ = new ArgumentWrapper(_res,null);
         }
@@ -86,8 +88,8 @@ public abstract class RendDynOperationNode {
         return getNextNode(this);
     }
 
-    private void setNextSiblingsArg(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        if (_context.callsOrException(_stackCall)) {
+    private void setNextSiblingsArg(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStackCall) {
+        if (_context.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
@@ -98,7 +100,7 @@ public abstract class RendDynOperationNode {
                 LgNames stds_ = _context.getStandards();
                 String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStackCall);
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _stackCall)));
+                _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _rendStackCall.getStackCall())));
                 return;
             }
         }
@@ -237,28 +239,28 @@ public abstract class RendDynOperationNode {
     }
 
 
-    public final void setSimpleArgument(ArgumentWrapper _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+    public final void setSimpleArgument(ArgumentWrapper _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStackCall) {
         AbstractWrapper wrapper_ = _argument.getWrapper();
         if (wrapper_ != null) {
             getArgumentPair(_nodes,this).setWrapper(wrapper_);
         }
-        setQuickConvertSimpleArgument(_argument.getValue(), _nodes, _context, _stackCall);
-        setNextSiblingsArg(_nodes, _context, _stackCall, _rendStackCall);
+        setQuickConvertSimpleArgument(_argument.getValue(), _nodes, _context, _rendStackCall);
+        setNextSiblingsArg(_nodes, _context, _rendStackCall);
     }
 
-    public final void setSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
-        setQuickConvertSimpleArgument(_argument, _nodes, _context, _stackCall);
-        setNextSiblingsArg(_nodes, _context, _stackCall, _rendStackCall);
+    public final void setSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStackCall) {
+        setQuickConvertSimpleArgument(_argument, _nodes, _context, _rendStackCall);
+        setNextSiblingsArg(_nodes, _context, _rendStackCall);
     }
 
-    protected final void setQuickNoConvertSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, StackCall _stackCall) {
-        setQuickSimpleArgument(_argument, _nodes, _context, _stackCall);
+    protected final void setQuickNoConvertSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
+        setQuickSimpleArgument(_argument, _nodes, _context, _rendStack);
     }
-    protected final void setQuickConvertSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, StackCall _stackCall) {
-        setQuickSimpleArgument(_argument, _nodes, _context, _stackCall);
+    protected final void setQuickConvertSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
+        setQuickSimpleArgument(_argument, _nodes, _context, _rendStack);
     }
-    private void setQuickSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, StackCall _stackCall) {
-        if (_context.callsOrException(_stackCall)) {
+    private void setQuickSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
+        if (_context.callsOrException(_rendStack.getStackCall())) {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
@@ -266,7 +268,7 @@ public abstract class RendDynOperationNode {
         Argument out_ = _argument;
         ImplicitMethods implicitsTest_ = implicitsTest;
         if (!implicitsTest_.isEmpty()) {
-            Argument res_ = tryConvert(implicitsTest_.get(0),implicitsTest_.getOwnerClass(), out_, _context, _stackCall);
+            Argument res_ = tryConvert(implicitsTest_.get(0),implicitsTest_.getOwnerClass(), out_, _context, _rendStack);
             if (res_ == null) {
                 return;
             }
@@ -306,15 +308,15 @@ public abstract class RendDynOperationNode {
         int s_ = implicits_.size();
         for (int i = 0; i < s_; i++) {
             ExecTypeFunction c = implicits_.get(i);
-            Argument res_ = tryConvert(c, implicits_.getOwnerClass(), out_, _context, _stackCall);
+            Argument res_ = tryConvert(c, implicits_.getOwnerClass(), out_, _context, _rendStack);
             if (res_ == null) {
                 return;
             }
             out_ = res_;
         }
         if (content.getResultClass().isConvertToString()){
-            out_ = processString(_argument, _context, _stackCall);
-            if (_context.callsOrException(_stackCall)) {
+            out_ = processString(_argument, _context, _rendStack);
+            if (_context.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
         }
@@ -329,44 +331,44 @@ public abstract class RendDynOperationNode {
         _nodes.getValue(getOrder()).setArgument(_out);
     }
 
-    static Argument tryConvert(ExecTypeFunction _c, ExecFormattedRootBlock _owner, Argument _argument, ContextEl _context, StackCall _stackCall) {
+    static Argument tryConvert(ExecTypeFunction _c, ExecFormattedRootBlock _owner, Argument _argument, ContextEl _context, RendStackCall _rend) {
         CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_argument));
         Parameters parameters_ = new Parameters();
-        if (!_context.callsOrException(_stackCall)) {
-            ArgumentListCall l_ = new ArgumentListCall();
-            l_.addAllArgs(args_);
-            parameters_ = ExecTemplates.okArgsSet(_c.getFct(), _owner,null, l_, _context, _stackCall);
+        if (!_context.callsOrException(_rend.getStackCall())) {
+            ArgumentListCall l_ = new ArgumentListCall(args_);
+            parameters_ = ExecTemplates.okArgsSet(_c.getFct(), _owner,null, l_, _context, _rend.getStackCall());
         }
-        if (_context.callsOrException(_stackCall)) {
+        if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }
-        Argument out_ = ProcessMethod.calculateArgument(Argument.createVoid(),_owner,_c, parameters_, _context, _stackCall).getValue();
-        if (_context.callsOrException(_stackCall)) {
+        Argument out_ = ProcessMethod.calculateArgument(Argument.createVoid(),_owner,_c, parameters_, _context, _rend.getStackCall()).getValue();
+        if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }
         return out_;
     }
-    public static Argument processString(Argument _argument, ContextEl _context, StackCall _stackCall) {
-        Argument out_ = new Argument(_argument.getStruct());
-        out_ = ExecOperationNode.processString(out_, _context, _stackCall);
-        return result(new StrNativeFct(),_context, _stackCall, out_);
-    }
-    public static Argument processRandCode(Argument _argument, ContextEl _context, StackCall _stackCall) {
-        Argument out_ = new Argument(_argument.getStruct());
-        out_ = ExecOperationNode.processRandCode(out_, _context, _stackCall);
-        return result(new IdNativeFct(),_context, _stackCall, out_);
+    public static Argument processString(Argument _argument, ContextEl _context, RendStackCall _stackCall) {
+        RendStrNativeFct nat_ = new RendStrNativeFct(_stackCall.getStackCall());
+        return processString(_argument, _context, nat_);
     }
 
-    private static Argument result(NativeFct _nat, ContextEl _context, StackCall _stackCall, Argument _out) {
-        CallingState state_ = _stackCall.getCallingState();
-        boolean convert_ = false;
-        Argument out_ = _out;
-        if (state_ instanceof CustomFoundMethod) {
-            CustomFoundMethod method_ = (CustomFoundMethod) state_;
-            out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _context, _stackCall).getValue();
-            convert_ = true;
-        }
-        if (_context.callsOrException(_stackCall)) {
+    public static Argument processString(Argument _argument, ContextEl _context, RendStrNativeFct _nat) {
+        Argument out_ = new Argument(_argument.getStruct());
+        out_ = ExecOperationNode.processString(out_, _context, _nat.stack());
+        return result(_nat, _context, out_);
+    }
+
+    public static Argument processRandCode(Argument _argument, ContextEl _context, RendStackCall _stackCall) {
+        RendStrNativeFct nat_ = new RendStrNativeFct(_stackCall.getStackCall());
+        Argument out_ = new Argument(_argument.getStruct());
+        out_ = ExecOperationNode.processRandCode(out_, _context, nat_.stack());
+        return result(nat_,_context, out_);
+    }
+
+    private static Argument result(RendNativeFct _nat, ContextEl _context, Argument _out) {
+        boolean convert_ = _nat.convert();
+        Argument out_ = _nat.calculateArgument(_out,_context);
+        if (_nat.stop(_context)) {
             return Argument.createVoid();
         }
         if (convert_) {

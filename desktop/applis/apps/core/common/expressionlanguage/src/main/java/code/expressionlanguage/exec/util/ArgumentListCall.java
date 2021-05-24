@@ -9,18 +9,22 @@ public final class ArgumentListCall {
 
     private Argument right;
 
+    public ArgumentListCall() {
+    }
+    public ArgumentListCall(Argument _arg) {
+        addArg(_arg);
+    }
+    public ArgumentListCall(CustList<Argument> _args) {
+        for (Argument a: _args) {
+            addArg(a);
+        }
+    }
     public CustList<ArgumentWrapper> getArgumentWrappers() {
         return argumentWrappers;
     }
 
 
-    public void addAllArgs(CustList<Argument> _args) {
-        for (Argument a: _args) {
-            addArg(a);
-        }
-    }
-
-    public void addArg(Argument _arg) {
+    private void addArg(Argument _arg) {
         argumentWrappers.add(new ArgumentWrapper(_arg,null));
     }
     public CustList<Argument> getArguments() {

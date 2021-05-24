@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.DualAnalyzedContext;
 import code.sml.Document;
@@ -27,7 +28,7 @@ public final class PreparedRenderPagesCards extends AbstractPreparedPagesCards {
     @Override
     public void run() {
         BeanNatLgNames prepared_ = prepare();
-        getNavigation().initializeRendSession(getContext(), prepared_, StackCall.newInstance(InitPhase.NOTHING,getContext()));
+        getNavigation().initializeRendSession(getContext(), prepared_, new RendStackCall(InitPhase.NOTHING,getContext()));
         Document doc_ = getNavigation().getDocument();
         metaDocument = MetaDocument.newInstance(doc_, getNavigation().getSession().getRendKeyWords());
     }

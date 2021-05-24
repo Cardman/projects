@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ErrorType;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.Struct;
@@ -40,17 +39,17 @@ public final class RendSwitchBlock extends RendParentBlock implements RendWithEl
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont, _stds, _ctx, _stack, _rendStack);
+            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
         ip_.setOffset(valueOffset);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
-        Argument arg_ =  RenderExpUtil.calculateReuse(opValue,_cont, _stds, _ctx, _stack, _rendStack);
-        if (_ctx.callsOrException(_stack)) {
+        Argument arg_ =  RenderExpUtil.calculateReuse(opValue, _stds, _ctx, _rendStack);
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
         if (!instanceTest.isEmpty()) {

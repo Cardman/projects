@@ -33,8 +33,7 @@ public final class CastIndirectRefectMethodPageEl extends AbstractRefectMethodPa
 
     @Override
     Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
-        ArgumentListCall l_ = new ArgumentListCall();
-        l_.addAllArgs(_args);
+        ArgumentListCall l_ = new ArgumentListCall(_args);
         return new CastParamChecker(getPair(), l_).checkParams(getClassName(), Argument.createVoid(), null, _context, _stack);
     }
 

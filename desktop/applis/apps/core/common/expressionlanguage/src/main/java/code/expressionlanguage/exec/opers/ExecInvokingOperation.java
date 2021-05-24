@@ -62,39 +62,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return out_;
     }
 
-    public static ArgumentList listNamedArguments(CustList<ExecOperationInfo> _infos) {
-        ArgumentList out_ = new ArgumentList();
-        CustList<ArgumentWrapper> wrappers_ = out_.getArguments().getArgumentWrappers();
-        CustList<ExecOperationInfo> infosNamed_ = new CustList<ExecOperationInfo>();
-        for (ExecOperationInfo c: _infos) {
-            if (c.isFilter()) {
-                continue;
-            }
-            int index_ = c.getIndex();
-            if (index_ > -1) {
-                infosNamed_.add(c);
-            } else {
-                addToWrappers(c.isWrapper(),c.getPair(),wrappers_);
-            }
-        }
-        while (!infosNamed_.isEmpty()) {
-            ExecOperationIndexer indexer_ = new ExecOperationIndexer(infosNamed_);
-            int i_ = indexer_.getIndex();
-            ExecOperationInfo n_ = infosNamed_.get(i_);
-            ArgumentsPair calc_ = n_.getPair();
-            addToWrappers(n_.isWrapper(),calc_,wrappers_);
-            infosNamed_.remove(i_);
-        }
-        return out_;
-    }
-
-    private static void addToWrappers(boolean _wrapper, ArgumentsPair _pair,CustList<ArgumentWrapper> _wrappers) {
-        if (!_wrapper) {
-            _wrappers.add(new ArgumentWrapper(_pair.getArgument(),null));
-        } else {
-            _wrappers.add(new ArgumentWrapper(null,_pair.getWrapper()));
-        }
-    }
     public static void listArguments(int _natVararg, String _lastType, CustList<ArgumentWrapper> _nodes, ContextEl _conf, StackCall _stack) {
         if (_natVararg <= -1) {
             return;
@@ -284,13 +251,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return prepareCallDyn(_previous,argumentListCall_,_conf, _stackCall);
     }
-    public static Argument prepareCallDynNormal(Argument _previous, CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {
+    public static Argument prepareCallDynNormal(Argument _previous, ArgumentListCall _values, ContextEl _conf, StackCall _stackCall) {
         Struct ls_ = Argument.getNullableValue(_previous).getStruct();
         ArgumentListCall call_ = new ArgumentListCall();
         if (!(ls_ instanceof LambdaStruct)) {
             return prepareCallDyn(_previous,call_,_conf, _stackCall);
         }
-        return prepareCallDynNormalDefault(_previous, _values, _conf, _stackCall);
+        return prepareCallDynNormalDefault(_previous, _values.getArgumentWrappers(), _conf, _stackCall);
     }
 
     private static Argument prepareCallDynNormalDefault(Argument _previous, CustList<ArgumentWrapper> _values, ContextEl _conf, StackCall _stackCall) {

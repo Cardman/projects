@@ -2,12 +2,10 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecAnnotationMethodOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecCallFctAnnotContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
@@ -23,15 +21,15 @@ public final class RendAnnotationMethodOperation extends RendInvokingOperation  
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
-        Argument res_ = getArgument(previous_, _context, _stack, _rendStack);
-        setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
+        Argument res_ = getArgument(previous_, _context, _rendStack);
+        setSimpleArgument(res_, _nodes, _context, _rendStack);
     }
 
-    Argument getArgument(Argument _previous, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+    Argument getArgument(Argument _previous, ContextEl _context, RendStackCall _rendStackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(callFctAnnotContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStackCall);
-        return ExecAnnotationMethodOperation.getAnnotation(_previous, callFctAnnotContent.getClassMethodId(), _context, _stackCall);
+        return ExecAnnotationMethodOperation.getAnnotation(_previous, callFctAnnotContent.getClassMethodId(), _context, _rendStackCall.getStackCall());
     }
 }

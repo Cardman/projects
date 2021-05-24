@@ -62,10 +62,10 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     }
 
     @Override
-    public void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, RendStackCall _rendStack) {
         int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, e.getValue(), _ctx, _stack));
+            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, e.getValue(), _ctx, _rendStack.getStackCall()));
             index_++;
         }
     }
@@ -73,12 +73,12 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     protected abstract Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall);
 
     public boolean setBeanForms(Configuration _conf, Struct _mainBean,
-                             RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+                                RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
         return true;
     }
 
     @Override
-    public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, ContextEl _context, RendStackCall _stack) {
         ClassField fieldId_ = _rend.getClassField();
         Struct default_ = _previous.getStruct();
         ResultErrorStd res_ = getOtherResult(_context, fieldId_, default_);
@@ -86,12 +86,10 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
-        int off_ = StringUtil.getFirstPrintableCharIndex(_rend.getMethodName());
-        _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _rendStack);
+    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, RendStackCall _stack) {
         CustList<Argument> firstArgs_ = RendDynOperationNode.getArguments(_all,_rend);
         ClassMethodId classMethodId_ = _rend.getClassMethodId();
-        ResultErrorStd res_ = LgNames.invokeMethod(_context, classMethodId_, _previous.getStruct(), null, _stack, Argument.toArgArray(firstArgs_));
+        ResultErrorStd res_ = LgNames.invokeMethod(_context, classMethodId_, _previous.getStruct(), null, _stack.getStackCall(), Argument.toArgArray(firstArgs_));
         return new Argument(res_.getResult());
     }
 
@@ -103,7 +101,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return _conf.getBuiltBeans().getVal(_beanName);
     }
     @Override
-    public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx, RendStackCall _rendStack) {
         Validator validator_ = validators.getVal(_validatorId);
         if (validator_ == null) {
             return null;
@@ -111,8 +109,8 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         StringList v_ = _cont.getValue();
         NodeInformations nInfos_ = _cont.getNodeInformation();
         String className_ = nInfos_.getInputClass();
-        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf, _ctx, _stack);
-        if (_ctx.callsOrException(_stack)) {
+        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf, _ctx, _rendStack);
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return null;
         }
         Struct obj_ = resError_.getResult();
@@ -171,7 +169,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
 
 
     @Override
-    public String getStringKey(Struct _instance, ContextEl _ctx, StackCall _stack) {
+    public String getStringKey(Struct _instance, ContextEl _ctx, RendStackCall _stack) {
         ResultErrorStd res_ = getName(_ctx, _instance);
         Struct str_ = res_.getResult();
         return processString(new Argument(str_), _ctx, _stack);
@@ -242,12 +240,12 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return new NativeContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),new DefaultInitializer()));
     }
 
-    public void rendRefresh(Navigation _navigation, ContextEl _context, StackCall _stackCall) {
+    public void rendRefresh(Navigation _navigation, ContextEl _context, RendStackCall _rendStack) {
         for (Bean b: beans.values()) {
             b.setLanguage(_navigation.getLanguage());
         }
         _navigation.getSession().setCurrentLanguage(_navigation.getLanguage());
-        _navigation.processRendAnchorRequest(_navigation.getCurrentUrl(), this, _context, _stackCall, new RendStackCall());
+        _navigation.processRendAnchorRequest(_navigation.getCurrentUrl(), this, _context, _rendStack);
     }
 
     public StringMap<Bean> getBeans() {

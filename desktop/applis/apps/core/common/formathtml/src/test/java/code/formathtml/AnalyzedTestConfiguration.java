@@ -1,10 +1,13 @@
 package code.formathtml;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -27,8 +30,9 @@ public final class AnalyzedTestConfiguration {
     private final DualConfigurationContext dual;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
     private final StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-    private StackCall stackCall;
-    private final RendStackCall rendStackCall=new RendStackCall();
+    private final StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+    private Argument argument = Argument.createVoid();
+    private RendStackCall rendStackCall;
 
     public AnalyzedTestConfiguration(Configuration _configuration, AnalyzedTestContext _analyzing, Forwards _forwards, BeanCustLgNames _standards) {
         this.configuration = _configuration;
@@ -46,6 +50,10 @@ public final class AnalyzedTestConfiguration {
 
     public StringMap<LocalVariable> getLocalVariables() {
         return localVariables;
+    }
+
+    public StringMap<LoopVariable> getVars() {
+        return vars;
     }
 
     public Configuration getConfiguration() {
@@ -100,10 +108,6 @@ public final class AnalyzedTestConfiguration {
         return context;
     }
 
-    public ImportingPage getLastPage() {
-        return rendStackCall.getLastPage();
-    }
-
     public boolean isEmptyErrors() {
         return analyzing.isEmptyErrors();
     }
@@ -139,16 +143,21 @@ public final class AnalyzedTestConfiguration {
         return dual;
     }
 
-    public StackCall getStackCall() {
-        return stackCall;
-    }
-
-    public void setStackCall(StackCall _stackCall) {
-        this.stackCall = _stackCall;
+    public RendStackCall build(InitPhase _readOnlyOthers, ContextEl _ctx) {
+        rendStackCall = new RendStackCall(_readOnlyOthers,_ctx);
+        return rendStackCall;
     }
 
     public RendStackCall getRendStackCall() {
         return rendStackCall;
+    }
+
+    public Argument getArgument() {
+        return argument;
+    }
+
+    public void setArgument(Argument _argument) {
+        this.argument = _argument;
     }
 
 }

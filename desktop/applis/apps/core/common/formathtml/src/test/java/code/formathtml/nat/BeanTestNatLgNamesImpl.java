@@ -34,7 +34,7 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
 
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
-        String str_ = processString(new Argument(_instance), _cont, StackCall.newInstance(InitPhase.NOTHING,_cont));
+        String str_ = processString(new Argument(_instance), _cont, null);
         ResultErrorStd res_ = new ResultErrorStd();
         res_.setResult(new StringStruct(str_));
         return res_;
@@ -106,7 +106,7 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         return res_;
     }
     @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         ((BeanStruct)_arg).getBean().beforeDisplaying();
     }
 

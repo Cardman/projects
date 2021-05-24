@@ -2,11 +2,9 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecCloneOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
@@ -22,12 +20,12 @@ public final class RendCloneOperation extends RendInvokingOperation implements R
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
-        Argument argres_ = ExecCloneOperation.cloneArray(previous_, _context, _stack);
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
+        Argument argres_ = ExecCloneOperation.cloneArray(previous_, _context, _rendStack.getStackCall());
+        setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 
     public String getMethodName() {

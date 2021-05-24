@@ -3,7 +3,6 @@ package code.formathtml;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.*;
 
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.*;
 import code.util.*;
 import org.junit.Test;
@@ -113,7 +112,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
 
     private static void processRendAnchorRequest(AnalyzedTestNavigation _nav, String _s) {
-        _nav.getNav().processRendAnchorRequest(_s, _nav.getAdvStandards(), _nav.getContext(), _nav.getGl().getStackCall(), new RendStackCall());
+        _nav.getNav().processRendAnchorRequest(_s, _nav.getAdvStandards(), _nav.getContext(), _nav.getGl().getRendStackCall());
     }
 
     @Test
@@ -5667,7 +5666,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
 
     private static void processRendFormRequest(AnalyzedTestNavigation _nav) {
-        _nav.getNav().processRendFormRequest(_nav.getAdvStandards(), _nav.getContext(), _nav.getGl().getStackCall());
+        _nav.getNav().processRendFormRequest(_nav.getAdvStandards(), _nav.getContext(), _nav.getGl().getRendStackCall());
     }
 
     @Test
@@ -5762,7 +5761,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
 
     private static void checkNoExc(AnalyzedTestNavigation _session) {
-        assertNull(_session.getGl().getStackCall().getCallingState());
+        assertNull(_session.getGl().getRendStackCall().getStackCall().getCallingState());
     }
 
     private static String getCustomPair() {

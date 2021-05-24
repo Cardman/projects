@@ -17,10 +17,10 @@ public final class RendLocalThrowing {
 
     private RendLocalThrowing() {
     }
-    public static void removeBlockFinally(ContextEl _ctx, Struct _str, StackCall _stackCall, RendStackCall _rendStackCall) {
+    public static void removeBlockFinally(ContextEl _ctx, Struct _str, RendStackCall _rendStackCall) {
         RendAbstractCatchEval catchElt_ = null;
         while (_rendStackCall.hasPages()) {
-            _stackCall.setCallingState(null);
+            _rendStackCall.getStackCall().setCallingState(null);
             ImportingPage bkIp_ = _rendStackCall.getLastPage();
             while (bkIp_.hasBlock()) {
                 RendRemovableVars bl_ = bkIp_.getRendLastStack();
@@ -70,7 +70,7 @@ public final class RendLocalThrowing {
             }
             _rendStackCall.removeLastPage();
         }
-        _stackCall.setCallingState(new CustomFoundExc(_str));
+        _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(_str));
     }
 
 }

@@ -26,12 +26,12 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         opCondition = _op;
     }
 
-    final ConditionReturn evaluateCondition(Configuration _context, BeanLgNames _stds, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    final ConditionReturn evaluateCondition(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
         ImportingPage last_ = _rendStackCall.getLastPage();
         last_.setOffset(conditionOffset);
         last_.setProcessingAttribute(_context.getRendKeyWords().getAttrCondition());
-        Argument arg_ = RenderExpUtil.calculateReuse(opCondition,_context, _stds, _ctx, _stackCall, _rendStackCall);
-        if (_ctx.callsOrException(_stackCall)) {
+        Argument arg_ = RenderExpUtil.calculateReuse(opCondition, _stds, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return ConditionReturn.CALL_EX;
         }
         if (BooleanStruct.isTrue(arg_.getStruct())) {

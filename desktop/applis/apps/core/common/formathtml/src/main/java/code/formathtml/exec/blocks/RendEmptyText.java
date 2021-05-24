@@ -1,7 +1,6 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -22,9 +21,9 @@ public final class RendEmptyText extends RendPossibleEmpty {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         if (!add) {
-            processBlock(_cont, _stds, _ctx, _stack, _rendStack);
+            processBlock(_cont, _stds, _ctx, _rendStack);
             return;
         }
         ImportingPage lastPage_ = _rendStack.getLastPage();
@@ -33,6 +32,6 @@ public final class RendEmptyText extends RendPossibleEmpty {
         Text t_ = doc_.createTextNode(EMPTY_STRING);
         simpleAppendChild(doc_,rend_,t_);
         t_.appendData(expression);
-        processBlock(_cont, _stds, _ctx, _stack, _rendStack);
+        processBlock(_cont, _stds, _ctx, _rendStack);
     }
 }

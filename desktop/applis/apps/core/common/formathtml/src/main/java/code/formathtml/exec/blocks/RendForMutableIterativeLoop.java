@@ -3,7 +3,6 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -64,12 +63,12 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            processBlockAndRemove(_cont, _stds, _ctx, _stack, _rendStack);
+            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
         ip_.setOffset(initOffset);
@@ -82,12 +81,12 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,importedClassName));
         }
         if (!opInit.isEmpty()) {
-            RenderExpUtil.calculateReuse(opInit,_cont, _stds, _ctx, _stack, _rendStack);
-            if (_ctx.callsOrException(_stack)) {
+            RenderExpUtil.calculateReuse(opInit, _stds, _ctx, _rendStack);
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
         }
-        ConditionReturn res_ = evaluateCondition(_cont, _stds, _ctx, _stack, _rendStack);
+        ConditionReturn res_ = evaluateCondition(_cont, _stds, _ctx, _rendStack);
         if (res_ == ConditionReturn.CALL_EX) {
             return;
         }
@@ -100,7 +99,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         ip_.addBlock(l_);
         c_ = (RendLoopBlockStack) ip_.getRendLastStack();
         if (c_.isFinished()) {
-            processBlockAndRemove(_cont, _stds, _ctx, _stack, _rendStack);
+            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
         rw_.setRead(getFirstChild());
@@ -117,15 +116,15 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
     }
 
-    private ConditionReturn evaluateCondition(Configuration _context, BeanLgNames _stds, ContextEl _ctx, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private ConditionReturn evaluateCondition(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
         ImportingPage last_ = _rendStackCall.getLastPage();
         if (opExp.isEmpty()) {
             return ConditionReturn.YES;
         }
         last_.setOffset(expressionOffset);
         last_.setProcessingAttribute(_context.getRendKeyWords().getAttrCondition());
-        Argument arg_ = RenderExpUtil.calculateReuse(opExp,_context, _stds, _ctx, _stackCall, _rendStackCall);
-        if (_ctx.callsOrException(_stackCall)) {
+        Argument arg_ = RenderExpUtil.calculateReuse(opExp, _stds, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return ConditionReturn.CALL_EX;
         }
         if (BooleanStruct.isTrue(arg_.getStruct())) {
@@ -135,7 +134,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
     }
 
     @Override
-    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, StackCall _stack, RendStackCall _rendStack) {
+    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
@@ -143,8 +142,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         ip_.setOffset(stepOffset);
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrStep());
         if (!opStep.isEmpty()) {
-            RenderExpUtil.calculateReuse(opStep,_conf, _advStandards, _ctx, _stack, _rendStack);
-            if (_ctx.callsOrException(_stack)) {
+            RenderExpUtil.calculateReuse(opStep, _advStandards, _ctx, _rendStack);
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
         }
@@ -152,7 +151,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             LoopVariable lv_ = ip_.getVars().getVal(v);
             lv_.setIndex(lv_.getIndex()+1);
         }
-        ConditionReturn keep_ = evaluateCondition(_conf, _advStandards, _ctx, _stack, _rendStack);
+        ConditionReturn keep_ = evaluateCondition(_conf, _advStandards, _ctx, _rendStack);
         if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }

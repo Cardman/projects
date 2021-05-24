@@ -2,9 +2,9 @@ package code.formathtml.render;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.common.ClassField;
@@ -823,7 +823,7 @@ public final class SubmitFormTest extends CommonRender {
     }
 
     private static void processRendFormRequest(AnalyzedTestNavigation _nav) {
-        _nav.getNav().processRendFormRequest(_nav.getAdvStandards(), _nav.getContext(), _nav.getGl().getStackCall());
+        _nav.getNav().processRendFormRequest(_nav.getAdvStandards(), _nav.getContext(), _nav.getGl().getRendStackCall());
     }
 
     private static String getCustomPair() {
@@ -993,8 +993,8 @@ public final class SubmitFormTest extends CommonRender {
         a_.setAnalyzed(d_);
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        a_.setStackCall(StackCall.newInstance(InitPhase.NOTHING,a_.getContext()));
-        nav_.initializeRendSession(a_.getContext(), a_.getAdvStandards(), a_.getStackCall());
+        RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
+        nav_.initializeRendSession(a_.getContext(), a_.getAdvStandards(), build_);
         return new AnalyzedTestNavigation(nav_,a_);
     }
     private AnalyzedTestNavigation initWithValidator(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec) {
@@ -1023,8 +1023,8 @@ public final class SubmitFormTest extends CommonRender {
         a_.setAnalyzed(d_);
         tryForward(a_);
         tryInitStaticlyTypes(a_);
-        a_.setStackCall(StackCall.newInstance(InitPhase.NOTHING,a_.getContext()));
-        nav_.initializeRendSession(a_.getContext(), a_.getAdvStandards(), a_.getStackCall());
+        RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
+        nav_.initializeRendSession(a_.getContext(), a_.getAdvStandards(), build_);
         return new AnalyzedTestNavigation(nav_,a_);
     }
 

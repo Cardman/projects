@@ -1,7 +1,6 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -14,7 +13,7 @@ public final class RendDoWhileCondition extends RendCondition {
         super(_offsetTrim,_op,_offset);
     }
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
-        processDo(_cont,_stds,_ctx,this, _stack, _rendStack);
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+        processDo(_cont,_stds,_ctx,this, _rendStack);
     }
 }

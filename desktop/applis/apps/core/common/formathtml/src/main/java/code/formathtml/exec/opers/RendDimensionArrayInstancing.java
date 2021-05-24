@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -14,7 +13,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -33,7 +31,7 @@ public final class RendDimensionArrayInstancing extends
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument res_;
         CustList<RendDynOperationNode> filter_ = getChildrenNodes();
@@ -61,23 +59,23 @@ public final class RendDimensionArrayInstancing extends
         for (int d: args_) {
             dims_.add(d);
         }
-        Struct newArr_ = newCustomArrayOrExc(offs_,className_, dims_, _context, _stack, _rendStack);
+        Struct newArr_ = newCustomArrayOrExc(offs_,className_, dims_, _context, _rendStack);
         if (newArr_ instanceof ErrorStruct) {
-            _stack.setCallingState(new CustomFoundExc(newArr_));
+            _rendStack.getStackCall().setCallingState(new CustomFoundExc(newArr_));
             res_ = new Argument();
         } else {
             res_ = new Argument(newArr_);
         }
-        setSimpleArgument(res_, _nodes, _context, _stack, _rendStack);
+        setSimpleArgument(res_, _nodes, _context, _rendStack);
     }
 
-    public static Struct newCustomArrayOrExc(Ints _filter, String _className, Ints _dims, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+    public static Struct newCustomArrayOrExc(Ints _filter, String _className, Ints _dims, ContextEl _context, RendStackCall _rendStackCall) {
         Ints dims_ = new Ints();
         String size_;
         LgNames lgNames_ = _context.getStandards();
         size_ = lgNames_.getContent().getCoreNames().getAliasBadSize();
         if (_dims.isEmpty()) {
-            return new ErrorStruct(_context,size_, _stackCall);
+            return new ErrorStruct(_context,size_, _rendStackCall.getStackCall());
         }
         int j_ = 0;
         for (int s: _dims) {
@@ -86,7 +84,7 @@ public final class RendDimensionArrayInstancing extends
                     int off_ = _filter.get(j_);
                     _rendStackCall.setOpOffset(off_);
                 }
-                return new ErrorStruct(_context, StringUtil.concat(Long.toString(s),"<0"),size_, _stackCall);
+                return new ErrorStruct(_context, StringUtil.concat(Long.toString(s),"<0"),size_, _rendStackCall.getStackCall());
             }
             dims_.add(s);
             j_++;

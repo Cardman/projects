@@ -20,12 +20,12 @@ public final class AdvancedFullStack implements AbstractFullStack {
 
     @Override
     public ArrayStruct newStackTraceElementArray(StackCall _stack) {
-        return newStackTraceElementArray(cont, _stack, rendStackCall);
+        return newStackTraceElementArray(cont, rendStackCall);
     }
 
-    private static ArrayStruct newStackTraceElementArray(ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+    private static ArrayStruct newStackTraceElementArray(ContextEl _context, RendStackCall _rendStackCall) {
         int count_ = _rendStackCall.getImporting().size();
-        int lenArrCtx_ = _stackCall.nbPages();
+        int lenArrCtx_ = _rendStackCall.getStackCall().nbPages();
         String cl_ = _context.getStandards().getContent().getStackElt().getAliasStackTraceElement();
         cl_ = StringExpUtil.getPrettyArrayType(cl_);
         ArrayStruct array_ = new ArrayStruct(count_+ lenArrCtx_, cl_);
@@ -33,7 +33,7 @@ public final class AdvancedFullStack implements AbstractFullStack {
             array_.set(i, newStackTraceElement(_rendStackCall.getImporting().get(i), _context));
         }
         for (int i = 0; i < lenArrCtx_; i++) {
-            array_.set(i+count_, MetaInfoUtil.newStackTraceElement(_context,i, _stackCall));
+            array_.set(i+count_, MetaInfoUtil.newStackTraceElement(_context,i, _rendStackCall.getStackCall()));
         }
         return array_;
     }

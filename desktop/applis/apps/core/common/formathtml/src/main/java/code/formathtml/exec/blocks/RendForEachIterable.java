@@ -3,7 +3,6 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -26,15 +25,15 @@ public final class RendForEachIterable extends RendAbstractForEachLoop {
     }
 
     @Override
-    protected RendLoopBlockStack newLoopBlockStack(Configuration _conf, BeanLgNames _stds, ContextEl _cont, String _label, Struct _its, StackCall _stack, RendStackCall _rendStack) {
+    protected RendLoopBlockStack newLoopBlockStack(Configuration _conf, BeanLgNames _stds, ContextEl _cont, String _label, Struct _its, RendStackCall _rendStack) {
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         if (_its == NullStruct.NULL_VALUE) {
             String npe_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, npe_, _stack)));
+            _rendStack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_cont, npe_, _rendStack.getStackCall())));
             return null;
         }
-        Argument arg_ = iterator(_its,_conf, _stds, _cont, _stack, _rendStack);
-        if (_cont.callsOrException(_stack)) {
+        Argument arg_ = iterator(_its,_conf, _stds, _cont, _rendStack);
+        if (_cont.callsOrException(_rendStack.getStackCall())) {
             return null;
         }
         Struct iterStr_ = arg_.getStruct();
@@ -58,19 +57,19 @@ public final class RendForEachIterable extends RendAbstractForEachLoop {
     }
 
     @Override
-    protected Argument retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, StackCall _stack, RendStackCall _rendStack) {
-        return next(_l.getStructIterator(),_conf, _advStandards, _ctx, _stack, _rendStack);
+    protected Argument retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack) {
+        return next(_l.getStructIterator(),_conf, _advStandards, _ctx, _rendStack);
     }
 
     @Override
-    protected ConditionReturn hasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, StackCall _stack, RendStackCall _rendStack) {
-        return iteratorHasNext(_conf,_advStandards,_ctx,_l, _stack, _rendStack);
+    protected ConditionReturn hasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack) {
+        return iteratorHasNext(_conf,_advStandards,_ctx,_l, _rendStack);
     }
 
-    private static ConditionReturn iteratorHasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _rendLastStack, StackCall _stack, RendStackCall _rendStackCall) {
+    private static ConditionReturn iteratorHasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _rendLastStack, RendStackCall _rendStackCall) {
         Struct strIter_ = _rendLastStack.getStructIterator();
-        Argument arg_ = hasNext(strIter_,_conf, _advStandards, _ctx, _stack, _rendStackCall);
-        if (_ctx.callsOrException(_stack)) {
+        Argument arg_ = hasNext(strIter_,_conf, _advStandards, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return ConditionReturn.CALL_EX;
         }
         if (BooleanStruct.isTrue(arg_.getStruct())) {

@@ -1,7 +1,6 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -60,7 +59,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
         Element docElementSelect_ = appendChild(doc_,rw_,_cont.getRendKeyWords().getKeyWordTextarea());
@@ -77,8 +76,8 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         f_.setOpsConverter(opsConverter);
         for (EntryCust<String, ExecTextPart> e: execAttributesText.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx, _stack, _rendStack);
-            if (_ctx.callsOrException(_stack)) {
+            String txt_ = RenderingText.render(res_, _stds, _ctx, _rendStack);
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
@@ -87,19 +86,19 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
             docElementSelect_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator()),
                     elt.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
         }
-        fetchName(_cont, elt, docElementSelect_, f_, _stds, _ctx, _stack, _rendStack);
-        fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField, _stds, _ctx, _stack, _rendStack);
-        if (_ctx.callsOrException(_stack)) {
+        fetchName(_cont, elt, docElementSelect_, f_, _stds, _ctx, _rendStack);
+        fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField, _stds, _ctx, _rendStack);
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
         for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _cont, _stds, _ctx, _stack, _rendStack);
-            if (_ctx.callsOrException(_stack)) {
+            String txt_ = RenderingText.render(res_, _stds, _ctx, _rendStack);
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
         }
-        processBlock(_cont, _stds, _ctx, _stack, _rendStack);
+        processBlock(_cont, _stds, _ctx, _rendStack);
     }
 }

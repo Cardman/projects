@@ -1,14 +1,15 @@
 package code.formathtml.exec;
 
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.FormParts;
 import code.formathtml.HtmlPage;
 import code.formathtml.ImportingPage;
 import code.formathtml.SimplePageEl;
-import code.formathtml.util.DualConfigurationContext;
 import code.sml.Document;
 import code.util.CustList;
-import code.util.core.StringUtil;
 
 public final class RendStackCall {
 
@@ -19,15 +20,22 @@ public final class RendStackCall {
     private String beanName;
     private final CustList<ImportingPage> importing = new CustList<ImportingPage>();
 
-    private String currentUrl = "";
     private final FormParts formParts = new FormParts();
 
     private Struct mainBean;
 
-    public void init(String _firstUrl) {
+    private final StackCall stackCall;
+
+    public RendStackCall(InitPhase _readOnlyOthers, ContextEl _ctx) {
+        this(StackCall.newInstance(_readOnlyOthers, _ctx));
+    }
+
+    private RendStackCall(StackCall _stack) {
+        stackCall = _stack;
+    }
+    public void init() {
         htmlPage = new HtmlPage();
         document = null;
-        currentUrl = _firstUrl;
     }
 
     public HtmlPage getHtmlPage() {
@@ -57,14 +65,6 @@ public final class RendStackCall {
     }
     public CustList<ImportingPage> getImporting() {
         return importing;
-    }
-
-    public String getCurrentUrl() {
-        return currentUrl;
-    }
-
-    public void setCurrentUrl(String _currentUrl) {
-        currentUrl = _currentUrl;
     }
 
     public void setOffset(int _offset) {
@@ -106,4 +106,7 @@ public final class RendStackCall {
         beanName = _beanName;
     }
 
+    public StackCall getStackCall() {
+        return stackCall;
+    }
 }

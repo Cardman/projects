@@ -1,7 +1,6 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -26,7 +25,7 @@ public final class RendForm extends RendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         long currentForm_ = _rendStack.getFormParts().getCurrentForm();
         _rendStack.getFormParts().getContainersMapStack().add(new LongTreeMap< NodeContainer>());
         _rendStack.getFormParts().getFormatIdMapStack().add(new StringList());
@@ -48,14 +47,14 @@ public final class RendForm extends RendElement {
             elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
             return;
         }
-        StringList alt_ = RenderingText.renderAltList(textPart, _cont, _stds, _ctx, _stack, _rendStack);
+        StringList alt_ = RenderingText.renderAltList(textPart, _stds, _ctx, _rendStack);
         StringList arg_ = new StringList();
         int len_ = alt_.size();
         for (int i = 1; i < len_; i += 2) {
             arg_.add(alt_.get(i));
         }
         String render_ = StringUtil.join(alt_,"");
-        if (_ctx.callsOrException(_stack)) {
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             _rendStack.getFormParts().getFormsArgs().add(new StringList());
             _rendStack.getFormParts().getFormsNames().add(EMPTY_STRING);
             currentForm_ = _rendStack.getFormParts().getCurrentForm();

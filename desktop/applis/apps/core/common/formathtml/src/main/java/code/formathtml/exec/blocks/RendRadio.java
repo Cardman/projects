@@ -2,7 +2,6 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -34,19 +33,19 @@ public final class RendRadio extends RendInput {
 
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Element elt_ = (Element) _nextWrite;
-        Argument arg_ = processIndexes(_cont, _read, elt_, _stds, _ctx, _stack, _rendStack);
-        if (_ctx.callsOrException(_stack)) {
+        Argument arg_ = processIndexes(_cont, _read, elt_, _stds, _ctx, _rendStack);
+        if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
         Struct res_ = arg_.getStruct();
         if (!opsConverterFieldValue.isEmpty()) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
             _rendStack.getLastPage().putValueVar(varNameConverterFieldValue, locVar_);
-            Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _cont, _stds, _ctx, _stack, _rendStack);
+            Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _stds, _ctx, _rendStack);
             _rendStack.getLastPage().removeRefVar(varNameConverterFieldValue);
-            if (_ctx.callsOrException(_stack)) {
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
             res_ = argConv_.getStruct();
@@ -54,8 +53,8 @@ public final class RendRadio extends RendInput {
         if (res_ == NullStruct.NULL_VALUE) {
             elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
         } else {
-            String strObj_ = getStringKey(res_, _stds, _ctx, _stack, _rendStack);
-            if (_ctx.callsOrException(_stack)) {
+            String strObj_ = getStringKey(res_, _stds, _ctx, _rendStack);
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
             if (StringUtil.quickEq(elt_.getAttribute(_cont.getRendKeyWords().getAttrValue()),strObj_)) {

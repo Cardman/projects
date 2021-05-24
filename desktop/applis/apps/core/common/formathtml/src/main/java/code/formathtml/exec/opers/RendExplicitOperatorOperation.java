@@ -3,7 +3,6 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -11,7 +10,6 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
-import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
@@ -32,11 +30,11 @@ public final class RendExplicitOperatorOperation extends RendSettableCallFctOper
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, BeanLgNames _advStandards, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetOper, _rendStack);
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, fectchArgs(staticFctContent.getLastType(),staticFctContent.getNaturalVararg(), _rendStack,null,_context,_stack, buildInfos(_nodes)), formattedType, staticFctContent.getKind(), _stack);
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _stack);
-        setSimpleArgument(argres_, _nodes, _context, _stack, _rendStack);
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, ExecInvokingOperation.fectchArgs(staticFctContent.getLastType(), staticFctContent.getNaturalVararg(), null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), formattedType, staticFctContent.getKind(), _rendStack.getStackCall());
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack);
+        setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 
 }

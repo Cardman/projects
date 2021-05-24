@@ -21,13 +21,12 @@ public final class GeneralHelpLgNames extends BeanNatLgNames {
     public GeneralHelpLgNames() {
         DefaultInitialization.basicStandards(this);
     }
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
-        _rendStack.setCurrentUrl(_dest);
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
         _rendStack.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _stack, _rendStack);
+        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
     }
 
     public ResultErrorStd getOtherResultBean(ContextEl _cont,
@@ -55,7 +54,7 @@ public final class GeneralHelpLgNames extends BeanNatLgNames {
     }
 
     @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         //impl
     }
 

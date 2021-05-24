@@ -31,60 +31,60 @@ import code.util.core.StringUtil;
 public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
 
     @Override
-    public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right, ContextEl _context, StackCall _stack, RendStackCall _rendStack) {
+    public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Argument _right, ContextEl _context, RendStackCall _stack) {
         ClassField fieldId_ = _rend.getClassField();
         setOtherResult(_context, fieldId_, _previous.getStruct(), _right.getStruct());
         return _right;
     }
 
     @Override
-    public Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
         return new Argument(new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,StringExpUtil.TEMPLATE_BEGIN, TYPE_ENTRY,StringExpUtil.TEMPLATE_BEGIN, "?,?",StringExpUtil.TEMPLATE_END,StringExpUtil.TEMPLATE_END),array_));
     }
 
     @Override
-    public Argument hasNextPair(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument hasNextPair(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
         SimpleItrStruct simpleItrStruct_ = getSimpleItrStruct(_arg, _ctx);
         return new Argument(BooleanStruct.of(simpleItrStruct_.hasNext()));
     }
 
     @Override
-    public Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
         SimpleItrStruct simpleItrStruct_ = getSimpleItrStruct(_arg, _ctx);
         Struct resObj_ = simpleItrStruct_.next();
         return new Argument(resObj_);
     }
 
     @Override
-    public Argument first(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument first(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
         PairStruct pairStruct_ = getPairStruct(_arg, _ctx);
         Struct resObj_ = pairStruct_.getFirst();
         return new Argument(resObj_);
     }
 
     @Override
-    public Argument second(Struct _arg, Configuration _conf, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument second(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
         PairStruct pairStruct_ = getPairStruct(_arg, _ctx);
         Struct resObj_ = pairStruct_.getSecond();
         return new Argument(resObj_);
     }
 
     @Override
-    public Argument iteratorList(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument iteratorList(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
         return new Argument(new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR, StringExpUtil.TEMPLATE_BEGIN,"?",StringExpUtil.TEMPLATE_END),array_));
     }
 
     @Override
-    public Argument nextList(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument nextList(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         SimpleItrStruct simpleItrStruct_ = getSimpleItrStruct(_arg, _ctx);
         Struct resObj_ = simpleItrStruct_.next();
         return new Argument(resObj_);
     }
 
     @Override
-    public Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
+    public Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         SimpleItrStruct simpleItrStruct_ = getSimpleItrStruct(_arg, _ctx);
         return new Argument(BooleanStruct.of(simpleItrStruct_.hasNext()));
     }
@@ -102,7 +102,11 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
         RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
     }
     @Override
-    public String processString(Argument _arg, ContextEl _ctx, StackCall _stack) {
+    public String processString(Argument _arg, ContextEl _ctx, RendStackCall _stack) {
+        return processString(_arg, _ctx);
+    }
+
+    public String processString(Argument _arg, ContextEl _ctx) {
         Struct struct_ = _arg.getStruct();
         if (struct_ instanceof DisplayableStruct) {
             return ((DisplayableStruct)struct_).getDisplayedString(_ctx).getInstance();

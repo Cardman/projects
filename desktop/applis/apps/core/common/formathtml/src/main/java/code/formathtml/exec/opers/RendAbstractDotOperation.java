@@ -2,7 +2,6 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
@@ -13,7 +12,7 @@ public abstract class RendAbstractDotOperation extends RendMethodOperation imple
         super(_content);
     }
 
-    public void calculateDot(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, StackCall _stackCall, RendStackCall _rendStackCall) {
+    public void calculateDot(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStackCall) {
         RendDynOperationNode last_ = getLastNode(this);
         boolean simple_;
         if (getParent() instanceof RendAffectationOperation) {
@@ -26,9 +25,9 @@ public abstract class RendAbstractDotOperation extends RendMethodOperation imple
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         ExecHelper.fwdWrapper(pair_,pairCh_);
         if (simple_) {
-            setQuickNoConvertSimpleArgument(getArgument(_nodes,last_), _nodes, _context, _stackCall);
+            setQuickNoConvertSimpleArgument(getArgument(_nodes,last_), _nodes, _context, _rendStackCall);
         } else {
-            setSimpleArgument(getArgument(_nodes,last_), _nodes, _context, _stackCall, _rendStackCall);
+            setSimpleArgument(getArgument(_nodes,last_), _nodes, _context, _rendStackCall);
         }
     }
 }

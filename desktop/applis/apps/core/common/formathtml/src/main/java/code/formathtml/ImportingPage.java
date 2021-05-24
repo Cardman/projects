@@ -1,7 +1,6 @@
 package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -43,7 +42,6 @@ public final class ImportingPage {
     private RendLoopBlockStack lastLoop;
     private RendIfStack lastIf;
     private RendTryBlockStack lastTry;
-    private final ArgumentListCall list = new ArgumentListCall();
 
     public int getRowFile(int _sum) {
         int i_ = 0;
@@ -309,7 +307,4 @@ public final class ImportingPage {
         this.lastLoop = _lastLoop;
     }
 
-    public ArgumentListCall getList() {
-        return list;
-    }
 }
