@@ -6,18 +6,19 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStdFctContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class ExecStdFctOperation extends ExecInvokingOperation {
+public final class ExecStdFctOperation extends ExecSettableCallFctOperation {
 
     private final ExecStdFctContent stdFctContent;
 
-    public ExecStdFctOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStdFctContent _stdFctContent) {
-        super(_opCont, _intermediateDottedOperation);
+    public ExecStdFctOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStdFctContent _stdFctContent, ExecArrContent _arrContent) {
+        super(_opCont, _intermediateDottedOperation,_arrContent);
         stdFctContent = _stdFctContent;
     }
 
@@ -42,7 +43,7 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         if (res_ == null) {
             res_ = callStd(_conf.getExiting(), _conf, classNameFound_, methodId_, prev_, fectchArgs(stdFctContent.getLastType(), stdFctContent.getNaturalVararg(),null,_conf,_stack, buildInfos(_nodes)), _stack);
         }
-        setSimpleArgument(res_, _conf, _nodes, _stack);
+        setResult(res_, _conf, _nodes, _stack);
     }
 
 }

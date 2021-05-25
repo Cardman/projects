@@ -1147,7 +1147,7 @@ public final class ForwardInfos {
             InvokingOperation i_ = (InvokingOperation) _anaNode;
             AbstractCallFctOperation a_ = (AbstractCallFctOperation) _anaNode;
             if (a_.getStandardMethod() != null) {
-                return new ExecStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStdFctContent(a_.getCallFctContent(), a_.isStaticMethod()));
+                return new ExecStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStdFctContent(a_.getCallFctContent(), a_.isStaticMethod()), new ExecArrContent(a_.getArrContent()));
             }
             ExecRootBlock ex_ = FetchMemberUtil.fetchType(a_.getMemberId(), _forwards);
             if (ex_ instanceof ExecAnnotationBlock) {

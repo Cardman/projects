@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStdFctContent;
 import code.formathtml.exec.RendStackCall;
@@ -12,12 +13,12 @@ import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class RendStdFctOperation extends RendInvokingOperation implements RendCalculableOperation {
+public final class RendStdFctOperation extends RendSettableCallFctOperation implements RendCalculableOperation {
 
     private final ExecStdFctContent stdFctContent;
 
-    public RendStdFctOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStdFctContent _stdFctContent) {
-        super(_content, _intermediateDottedOperation);
+    public RendStdFctOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStdFctContent _stdFctContent, ExecArrContent _arrContent) {
+        super(_content, _intermediateDottedOperation,_arrContent);
         stdFctContent = _stdFctContent;
     }
 

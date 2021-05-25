@@ -516,7 +516,7 @@ public final class RendForwardInfos {
             AnaTypeFct classMethodId_ = a_.getFunction();
             if (classMethodId_ != null) {
                 if (a_.getStandardMethod() != null) {
-                    return new RendStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStdFctContent(a_.getCallFctContent(), a_.isStaticMethod()));
+                    return new RendStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStdFctContent(a_.getCallFctContent(), a_.isStaticMethod()), new ExecArrContent(a_.getArrContent()));
                 }
                 ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(a_.getMemberId(), _forwards);
                 if (rootBlock_ instanceof ExecAnnotationBlock) {
