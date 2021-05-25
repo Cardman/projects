@@ -33,6 +33,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
     private AnaTypeFct functionTest;
 
     private boolean rightBool;
+    private boolean concat;
 
     public CompoundAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -155,7 +156,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     getPartOffsetsChildren().add(err_);
                     return;
                 }
-                settable.setCatenizeStrings();
+                concat = true;
                 clMatchRight_.setConvertToString(true);
                 return;
             }
@@ -328,6 +329,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
     }
     public boolean isRightBool() {
         return rightBool;
+    }
+
+    public boolean isConcat() {
+        return concat;
     }
 
     public AnaOperatorContent getOperatorContent() {

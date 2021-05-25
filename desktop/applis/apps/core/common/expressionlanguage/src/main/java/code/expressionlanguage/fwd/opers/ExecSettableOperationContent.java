@@ -5,8 +5,6 @@ import code.expressionlanguage.common.ClassField;
 public final class ExecSettableOperationContent {
     private final boolean variable;
 
-    private final boolean catString;
-
     private final int anc;
     private final ClassField classField;
     private final boolean staticField;
@@ -14,7 +12,6 @@ public final class ExecSettableOperationContent {
 
     public ExecSettableOperationContent(AnaSettableOperationContent _cont) {
         this.variable = _cont.isVariable();
-        this.catString = _cont.isCatString();
         this.anc = _cont.getAnc();
         this.classField = _cont.getClassField();
         this.staticField = _cont.isStaticField();
@@ -23,10 +20,6 @@ public final class ExecSettableOperationContent {
 
     public boolean isStaticField() {
         return staticField;
-    }
-
-    public boolean isCatString() {
-        return catString;
     }
 
     public boolean isVariable() {

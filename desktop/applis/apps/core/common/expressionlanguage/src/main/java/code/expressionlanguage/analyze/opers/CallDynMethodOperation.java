@@ -507,11 +507,6 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
     }
 
     @Override
-    public void setCatenizeStrings() {
-        arrContent.setCatString(true);
-    }
-
-    @Override
     public String getMethodFound() {
         return methodFound;
     }

@@ -36,7 +36,7 @@ public final class RendCompoundAffectationNatOperation extends RendCompoundAffec
             String tres_ = getConverter().get(0).getFct().getImportedParametersTypes().get(0);
             StringList argType_ = new StringList(tres_);
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
-            Argument res_ = RendNumericOperation.calculateAffect(leftArg_, rightArg_, getOperatorContent().getOper(), false, argType_, cast_, _context, _rendStack);
+            Argument res_ = RendNumericOperation.calculateAffect(leftArg_, rightArg_, getOperatorContent().getOper(), argType_, cast_, _context, _rendStack);
             Argument conv_ = tryConvert(getConverter().get(0),getConverter().getOwnerClass(), res_, _context, _rendStack);
             if (conv_ == null) {
                 return;

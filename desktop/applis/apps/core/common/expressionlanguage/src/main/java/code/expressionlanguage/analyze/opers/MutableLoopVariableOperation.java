@@ -104,11 +104,6 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         variableContent.setVariable(_variable);
     }
 
-    @Override
-    public void setCatenizeStrings() {
-        variableContent.setCatString(true);
-    }
-
     public String getVariableName() {
         return variableContent.getVariableName();
     }

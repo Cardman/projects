@@ -3455,6 +3455,28 @@ public final class RenderTextTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         assertEq("<html><body>3</body></html>", getRes2(folder_, relative_, html_, files_));
     }
+    @Test
+    public void process151Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className=\"pkg.ExCont&lt;java.lang.String&gt;\" value=\"inst=$new(0,&quot;2&quot;)\"/><c:set value=\"inst[0]+=3\"/>{inst[0]}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont<T> {\n");
+        xml_.append(" T[] field = $new T[1];\n");
+        xml_.append(" $public ExCont($int i, T j){\n");
+        xml_.append("  field[i]=j;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public T $this($int i){\n");
+        xml_.append("  $return field[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int i){\n");
+        xml_.append("  field[i]=$value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("<html><body>23</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommExOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }

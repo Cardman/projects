@@ -386,11 +386,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         arrContent.setVariable(_variable);
     }
 
-    @Override
-    public void setCatenizeStrings() {
-        arrContent.setCatString(true);
-    }
-
     public boolean isErrLeftValue() {
         return errLeftValue;
     }

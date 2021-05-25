@@ -1250,7 +1250,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof AbstractTernaryOperation) {
             AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;
-            return new ExecRefTernaryOperation(new ExecOperationContent(t_.getContent()), t_.getOffsetLocal(),new ExecArrContent(false,false));
+            return new ExecRefTernaryOperation(new ExecOperationContent(t_.getContent()), t_.getOffsetLocal(),new ExecArrContent(false));
         }
         if (_anaNode instanceof AbstractRefTernaryOperation) {
             AbstractRefTernaryOperation t_ = (AbstractRefTernaryOperation) _anaNode;
@@ -1572,6 +1572,9 @@ public final class ForwardInfos {
         if (_anaNode instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
             ClassMethodIdMemberIdTypeFct fct_ = c_.getFct();
+            if (c_.isConcat()) {
+                return new ExecCompoundAffectationStringOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards));
+            }
             ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards);
             if (pair_.getFct() != null) {
                 return new ExecCompoundAffectationCustOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));

@@ -4,8 +4,6 @@ public final class ExecVariableContent {
 
     private final boolean variable;
 
-    private final boolean catString;
-
     private final String variableName;
 
     private final int off;
@@ -14,7 +12,6 @@ public final class ExecVariableContent {
 
     public ExecVariableContent(AnaVariableContent _cont) {
         variable = _cont.isVariable();
-        catString = _cont.isCatString();
         variableName = _cont.getVariableName();
         off = _cont.getOff();
         deep = _cont.getDeep();
@@ -22,10 +19,6 @@ public final class ExecVariableContent {
 
     public boolean isVariable() {
         return variable;
-    }
-
-    public boolean isCatString() {
-        return catString;
     }
 
     public int getOff() {

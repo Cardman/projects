@@ -7,10 +7,8 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -42,11 +40,6 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
     @Override
     public void setVariable(boolean _variable) {
         arrContent.setVariable(_variable);
-    }
-
-    @Override
-    public void setCatenizeStrings() {
-        arrContent.setCatString(true);
     }
 
     @Override

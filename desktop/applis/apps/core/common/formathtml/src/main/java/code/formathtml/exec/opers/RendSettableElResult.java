@@ -16,6 +16,9 @@ public interface RendSettableElResult {
     Argument calculateSetting(
             IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
 
+    Argument calculateCompoundString(
+            IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
+
     Argument calculateCompoundSetting(
             IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, ExecClassArgumentMatching _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
 

@@ -374,7 +374,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ExecRootBlock classBody_ = _classes.getClassBody(id_);
         ExecNamedFunctionBlock fct_ = ExecClassesUtil.getMethodBodiesById(classBody_, _id.getConstraints()).first();
         ExecTypeFunction p_ = new ExecTypeFunction(classBody_,fct_);
-        RendFctOperation f_ = new RendFctOperation(p_, new ExecOperationContent(1, clMatch_, _args.size()+1), new ExecInstFctContent(_id,classBody_), true, new ExecArrContent(false,false));
+        RendFctOperation f_ = new RendFctOperation(p_, new ExecOperationContent(1, clMatch_, _args.size()+1), new ExecInstFctContent(_id,classBody_), true, new ExecArrContent(false));
         int i_ = 1;
         for (EntryCust<String,String> e: _args.entryList()) {
             RendInternVariableOperation a_ = new RendInternVariableOperation(i_-1,new ExecClassArgumentMatching(e.getValue()),i_,e.getKey());

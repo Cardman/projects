@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 public final class RefParamOperation extends LeafOperation implements
         SettableElResult{
@@ -43,11 +42,6 @@ public final class RefParamOperation extends LeafOperation implements
     @Override
     public void setVariable(boolean _variable) {
         variableContent.setVariable(_variable);
-    }
-
-    @Override
-    public void setCatenizeStrings() {
-        variableContent.setCatString(true);
     }
 
     public int getRef() {

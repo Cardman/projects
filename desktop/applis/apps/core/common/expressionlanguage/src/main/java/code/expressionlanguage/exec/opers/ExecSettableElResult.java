@@ -12,6 +12,10 @@ public interface ExecSettableElResult {
     Argument calculateSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack);
 
+    Argument calculateCompoundString(
+            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
+            Argument _right, StackCall _stack);
+
     Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack);

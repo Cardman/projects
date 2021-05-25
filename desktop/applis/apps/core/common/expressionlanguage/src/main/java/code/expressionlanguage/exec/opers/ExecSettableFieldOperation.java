@@ -70,13 +70,21 @@ public final class ExecSettableFieldOperation extends
         return getCommonSetting(_conf,_nodes,_right,_stack);
     }
     @Override
+    public Argument calculateCompoundString(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
+        Argument current_ = getArgument(_nodes,this);
+        Struct store_ = current_.getStruct();
+        Argument left_ = new Argument(store_);
+        Argument res_ = ExecCatOperation.localSumDiff(left_, _right, _conf);
+        return getCommonSetting(_conf,_nodes,res_,_stack);
+    }
+    @Override
     public Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, settableFieldContent.isCatString(), _cl.getNames(), _cast, _stack);
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, _cl.getNames(), _cast, _stack);
         return getCommonSetting(_conf,_nodes,res_,_stack);
     }
     @Override

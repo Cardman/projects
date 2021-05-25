@@ -21,7 +21,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         opOffset = _opOffset;
     }
 
-    static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast, StackCall _stackCall) {
+    static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, StringList _cls, byte _cast, StackCall _stackCall) {
         ResultErrorStd res_= new ResultErrorStd();
         String op_ = _op.substring(0, _op.length() - 1);
         if (StringUtil.quickEq(op_, "??") || StringUtil.quickEq(op_, "???")) {
@@ -33,7 +33,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
             }
             return new Argument(res_.getResult());
         }
-        calculateOperator(_conf, res_, _op, _catString, _left.getStruct(), _right.getStruct(), _cast, _stackCall);
+        calculateOperator(_conf, res_, _op, _left.getStruct(), _right.getStruct(), _cast, _stackCall);
         return new Argument(res_.getResult());
     }
     public static Argument calculateIncrDecr(Argument _left, String _op, byte _cast) {
@@ -47,12 +47,8 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
     }
 
     public static void calculateOperator(ContextEl _cont, ResultErrorStd _res,
-                                         String _op, boolean _catString,
+                                         String _op,
                                          Struct _first, Struct _second, byte _cast, StackCall _stackCall) {
-        if (_catString) {
-            catenize(_cont, _res, _first, _second);
-            return;
-        }
         String op_ = _op.substring(0, _op.length() - 1);
         if (StringUtil.quickEq(op_, "+")) {
             _res.setResult(NumParsers.calculateSum(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
@@ -124,11 +120,6 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         }
         _res.setResult(NumParsers.convertToBoolean(_second));
     }
-
-    private static void catenize(ContextEl _cont, ResultErrorStd _res, Struct _first, Struct _second) {
-      Argument arg_ = ExecCatOperation.localSumDiff(new Argument(_first), new Argument(_second), _cont);
-      _res.setResult(arg_.getStruct());
-  }
 
     public static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast, StackCall _stackCall) {
         LgNames stds_ = _an.getStandards();

@@ -4,8 +4,6 @@ public final class AnaArrContent {
 
     private boolean variable;
 
-    private boolean catString;
-
     public boolean isVariable() {
         return variable;
     }
@@ -14,11 +12,4 @@ public final class AnaArrContent {
         this.variable = _variable;
     }
 
-    public boolean isCatString() {
-        return catString;
-    }
-
-    public void setCatString(boolean _catString) {
-        this.catString = _catString;
-    }
 }

@@ -41,7 +41,7 @@ public final class ExecCompoundAffectationNatOperation extends ExecCompoundAffec
             String tres_ = implicits_.get(indexImplicit_).getFct().getImportedParametersTypes().first();
             StringList arg_ = new StringList(tres_);
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
-            Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, getOperatorContent().getOper(), false, arg_, cast_, _stack);
+            Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, getOperatorContent().getOper(), arg_, cast_, _stack);
             pairBefore_.setIndexImplicitCompound(processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
             return;
         }

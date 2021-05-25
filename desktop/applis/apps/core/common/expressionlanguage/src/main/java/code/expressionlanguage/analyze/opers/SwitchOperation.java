@@ -320,11 +320,6 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         arrContent.setVariable(_variable);
     }
 
-    @Override
-    public void setCatenizeStrings() {
-        arrContent.setCatString(true);
-    }
-
     public AnaArrContent getArrContent() {
         return arrContent;
     }

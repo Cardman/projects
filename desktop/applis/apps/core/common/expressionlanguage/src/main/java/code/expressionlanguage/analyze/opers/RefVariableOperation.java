@@ -50,11 +50,6 @@ public final class RefVariableOperation extends LeafOperation implements
         variableContent.setVariable(_variable);
     }
 
-    @Override
-    public void setCatenizeStrings() {
-        variableContent.setCatString(true);
-    }
-
 
     @Override
     public void analyze(AnalyzedPageEl _page) {

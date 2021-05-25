@@ -4,8 +4,6 @@ public final class AnaVariableContent {
 
     private boolean variable;
 
-    private boolean catString;
-
     private String variableName = "";
 
     private final int off;
@@ -21,14 +19,6 @@ public final class AnaVariableContent {
 
     public void setVariable(boolean _variable) {
         this.variable = _variable;
-    }
-
-    public boolean isCatString() {
-        return catString;
-    }
-
-    public void setCatString(boolean _catString) {
-        this.catString = _catString;
     }
 
     public String getVariableName() {

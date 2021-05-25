@@ -54,11 +54,6 @@ public final class VariableOperation extends LeafOperation implements
     }
 
     @Override
-    public void setCatenizeStrings() {
-        variableContent.setCatString(true);
-    }
-
-    @Override
     public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();

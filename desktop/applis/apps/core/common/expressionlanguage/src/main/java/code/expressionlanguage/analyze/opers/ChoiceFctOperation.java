@@ -243,8 +243,4 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         arrContent.setVariable(_variable);
     }
 
-    @Override
-    public void setCatenizeStrings() {
-        arrContent.setCatString(true);
-    }
 }

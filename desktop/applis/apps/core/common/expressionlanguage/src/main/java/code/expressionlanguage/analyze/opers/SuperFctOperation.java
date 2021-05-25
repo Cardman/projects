@@ -268,8 +268,4 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         arrContent.setVariable(_variable);
     }
 
-    @Override
-    public void setCatenizeStrings() {
-        arrContent.setCatString(true);
-    }
 }

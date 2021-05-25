@@ -111,11 +111,6 @@ public abstract class SettableAbstractFieldOperation extends
     public abstract int getDelta();
 
     @Override
-    public final void setCatenizeStrings() {
-        settableFieldContent.setCatString(true);
-    }
-
-    @Override
     public final void setVariable(boolean _variable) {
         settableFieldContent.setVariable(_variable);
     }

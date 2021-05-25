@@ -205,8 +205,4 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         arrContent.setVariable(_variable);
     }
 
-    @Override
-    public void setCatenizeStrings() {
-        arrContent.setCatString(true);
-    }
 }

@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -13,7 +12,6 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -311,11 +309,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     public void setVariable(boolean _variable) {
         getAndSet = true;
         arrContent.setVariable(_variable);
-    }
-
-    @Override
-    public void setCatenizeStrings() {
-        arrContent.setCatString(true);
     }
 
     @Override

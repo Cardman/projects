@@ -71,13 +71,22 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
     }
 
     @Override
+    public Argument calculateCompoundString(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
+        Argument a_ = getArgument(_nodes,this);
+        Struct store_ = a_.getStruct();
+        Argument left_ = new Argument(store_);
+        Argument res_ = ExecCatOperation.localSumDiff(left_, _right, _conf);
+        return commonSetting(_nodes, _conf, res_, _stack);
+    }
+
+    @Override
     public Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, arrContent.isCatString(), _cl.getNames(), _cast, _stack);
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, _cl.getNames(), _cast, _stack);
         return commonSetting(_nodes, _conf, res_, _stack);
     }
 

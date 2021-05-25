@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
@@ -65,12 +66,20 @@ public final class RendSettableFieldOperation extends
     }
 
     @Override
+    public Argument calculateCompoundString(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        Argument current_ = getArgument(_nodes,this);
+        Struct store_ = current_.getStruct();
+        Argument left_ = new Argument(store_);
+        Argument res_ = ExecCatOperation.localSumDiff(left_, _right, _context);
+        return processField(_nodes, res_,_advStandards,_context, _rendStack);
+    }
+    @Override
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, ExecClassArgumentMatching _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
         Argument left_ = new Argument(store_);
 
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, settableFieldContent.isCatString(), _cl.getNames(), _cl.getUnwrapObjectNb(), _context, _rendStack);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, _cl.getNames(), _cl.getUnwrapObjectNb(), _context, _rendStack);
         return processField(_nodes, res_,_advStandards,_context, _rendStack);
     }
 

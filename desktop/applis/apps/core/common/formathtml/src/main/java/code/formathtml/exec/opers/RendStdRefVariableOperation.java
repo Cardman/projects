@@ -3,6 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
@@ -60,11 +61,19 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     }
 
     @Override
+    public Argument calculateCompoundString(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        Argument a_ = getArgument(_nodes,this);
+        Struct store_ = a_.getStruct();
+        Argument left_ = new Argument(store_);
+        Argument res_ = ExecCatOperation.localSumDiff(left_, _right, _context);
+        return trySetArgument(_context, res_, _rendStack);
+    }
+    @Override
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, ExecClassArgumentMatching _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, variableContent.isCatString(), _cl.getNames(), _cl.getUnwrapObjectNb(), _context, _rendStack);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, _cl.getNames(), _cl.getUnwrapObjectNb(), _context, _rendStack);
         return trySetArgument(_context, res_, _rendStack);
     }
 
