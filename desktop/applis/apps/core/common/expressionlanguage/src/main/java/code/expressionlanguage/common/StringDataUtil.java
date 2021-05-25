@@ -1165,6 +1165,9 @@ public final class StringDataUtil {
         if (_ch >= 64326 && _ch < 64434) {
             return true;
         }
+        return isGreatLetter3(_ch);
+    }
+    private static boolean isGreatLetter3(char _ch){
         if (_ch >= 65142 && _ch < 65277) {
             return true;
         }
@@ -1183,6 +1186,9 @@ public final class StringDataUtil {
         if (_ch >= 65345 && _ch < 65371) {
             return true;
         }
+        return isGreatLetter2(_ch);
+    }
+    private static boolean isGreatLetter2(char _ch){
         if (_ch >= 64287 && _ch < 64297) {
             return true;
         }
@@ -1204,6 +1210,9 @@ public final class StringDataUtil {
         if (_ch >= 65136 && _ch < 65141) {
             return true;
         }
+        return isGreatLetter1(_ch);
+    }
+    private static boolean isGreatLetter1(char _ch){
         if (_ch >= 65474 && _ch < 65480) {
             return true;
         }
@@ -1251,6 +1260,9 @@ public final class StringDataUtil {
                 return true;
             }
         }
+        return isLowerCase7(_string);
+    }
+    private static boolean isLowerCase7(char _string){
         for (int i: NumberUtil.wrapIntArray(620,8162,43000)) {
             if (_string >= i && _string <= i + 2) {
                 return true;
@@ -1266,6 +1278,9 @@ public final class StringDataUtil {
                 return true;
             }
         }
+        return isLowerCase6(_string);
+    }
+    private static boolean isLowerCase6(char _string){
         for (int i: NumberUtil.wrapIntArray(42864)) {
             if (_string >= i && _string <= i + 8) {
                 return true;
@@ -1281,6 +1296,9 @@ public final class StringDataUtil {
                 return true;
             }
         }
+        return isLowerCase5(_string);
+    }
+    private static boolean isLowerCase5(char _string){
         for (int i: NumberUtil.wrapIntArray(8336)) {
             if (_string >= i && _string <= i + 12) {
                 return true;
@@ -1295,6 +1313,9 @@ public final class StringDataUtil {
         if (_string == 170 || _string == 186 || _string == 8305) {
             return true;
         }
+        return isLowerCase4(_string);
+    }
+    private static boolean isLowerCase4(char _string){
         if (_string == 8500 || _string == 8505 || _string == 8495) {
             return true;
         }
@@ -1307,6 +1328,9 @@ public final class StringDataUtil {
         if (_string == 8114 || _string == 8116 || _string == 8130) {
             return true;
         }
+        return isLowerCase3(_string);
+    }
+    private static boolean isLowerCase3(char _string){
         if (_string == 8022 || _string == 8020 || _string == 8018) {
             return true;
         }
@@ -1316,6 +1340,9 @@ public final class StringDataUtil {
         if (_string == 223 || _string == 312) {
             return true;
         }
+        return isLowerCase2(_string);
+    }
+    private static boolean isLowerCase2(char _string){
         if (_string == 329 || _string == 397) {
             return true;
         }
@@ -1337,6 +1364,9 @@ public final class StringDataUtil {
         if (_string >= 612 && _string <= 624) {
             return true;
         }
+        return isLowerCase1(_string);
+    }
+    private static boolean isLowerCase1(char _string){
         if (_string == 660) {
             return false;
         }
@@ -1356,16 +1386,7 @@ public final class StringDataUtil {
     }
 
     public static boolean isUpperCase(char _string) {
-        if (isUnassigned(_string)) {
-            return false;
-        }
-        if (isOtherSpace(_string)) {
-            return false;
-        }
-        if (MathExpUtil.isDigit(_string)) {
-            return false;
-        }
-        if (isOtherDigit(_string)) {
+        if (isUnassigned(_string)||isOtherSpace(_string)||MathExpUtil.isDigit(_string)||isOtherDigit(_string)) {
             return false;
         }
         for (int i: NumberUtil.wrapIntArray(8072,8088,8104)) {
@@ -1383,6 +1404,9 @@ public final class StringDataUtil {
                 return true;
             }
         }
+        return isUpperCase1(_string);
+    }
+    private static boolean isUpperCase1(char _string) {
         if (_string == 8124) {
             return false;
         }
@@ -1427,61 +1451,7 @@ public final class StringDataUtil {
 
     public static int getCustomType(char _ch) {
         if (isLetter(_ch)) {
-            if (isLowerCase(_ch)) {
-                if (toUpperCase(_ch) != _ch) {
-                    return LETTER_SENS_LOWER_CASE;
-                }
-                return LETTER_INSENS_LOWER_CASE;
-            }
-            if (isUpperCase(_ch)) {
-                if (toLowerCase(_ch) != _ch) {
-                    return LETTER_SENS_UPPER_CASE;
-                }
-                return LETTER_INSENS_UPPER_CASE;
-            }
-            if (_ch == 453 || _ch == 456 || _ch == 459 || _ch == 498) {
-                return LETTER_SENS_NO_CASE;
-            }
-            if (_ch >= 8072 && _ch <= 8079) {
-                return LETTER_SEMI_SENS_NO_CASE;
-            }
-            if (_ch >= 8088 && _ch <= 8095) {
-                return LETTER_SEMI_SENS_NO_CASE;
-            }
-            if (_ch >= 8104 && _ch <= 8111) {
-                return LETTER_SEMI_SENS_NO_CASE;
-            }
-            if (_ch == 8124 || _ch == 8140 || _ch == 8188) {
-                return LETTER_SEMI_SENS_NO_CASE;
-            }
-            if (_ch == 6103) {
-                return LETTER_INSENS_NO_CASE_DEF_DIR;
-            }
-            if (_ch == 43259) {
-                return LETTER_INSENS_NO_CASE_DEF_DIR;
-            }
-            if (_ch >= 1488 && _ch<=2220) {
-                return LETTER_INSENS_NO_CASE_RIGHT_TO_LEFT;
-            }
-            if (_ch >= 64285 && _ch<=65276) {
-                return LETTER_INSENS_NO_CASE_RIGHT_TO_LEFT;
-            }
-            if (_ch >= 699 && _ch<=703) {
-                return LETTER_INSENS_NO_CASE_DEF_DIR;
-            }
-            if (_ch >= 697 && _ch<=719) {
-                return LETTER_INSENS_NO_CASE_DIR_OTHER_NEUTRALS;
-            }
-            if (_ch == 11823 || _ch == 884|| _ch == 748) {
-                return LETTER_INSENS_NO_CASE_DIR_OTHER_NEUTRALS;
-            }
-            if (_ch >= 42656 && _ch<=42725) {
-                return LETTER_INSENS_NO_CASE_DEF_DIR;
-            }
-            if (_ch >= 42623 && _ch<=42888) {
-                return LETTER_INSENS_NO_CASE_DIR_OTHER_NEUTRALS;
-            }
-            return LETTER_INSENS_NO_CASE_DEF_DIR;
+            return getCustomType6(_ch);
         }
         if (MathExpUtil.isDigit(_ch)) {
             return DIGIT_BASE;
@@ -1489,6 +1459,75 @@ public final class StringDataUtil {
         if (isOtherDigit(_ch)) {
             return DIGIT_OTHER;
         }
+        return getCustomType5(_ch);
+    }
+    private static int getCustomType6(char _ch){
+        if (isLowerCase(_ch)) {
+            if (toUpperCase(_ch) != _ch) {
+                return LETTER_SENS_LOWER_CASE;
+            }
+            return LETTER_INSENS_LOWER_CASE;
+        }
+        if (isUpperCase(_ch)) {
+            if (toLowerCase(_ch) != _ch) {
+                return LETTER_SENS_UPPER_CASE;
+            }
+            return LETTER_INSENS_UPPER_CASE;
+        }
+        return getCustomType9(_ch);
+    }
+    private static int getCustomType9(char _ch){
+        if (_ch == 453 || _ch == 456 || _ch == 459 || _ch == 498) {
+            return LETTER_SENS_NO_CASE;
+        }
+        if (_ch >= 8072 && _ch <= 8079) {
+            return LETTER_SEMI_SENS_NO_CASE;
+        }
+        if (_ch >= 8088 && _ch <= 8095) {
+            return LETTER_SEMI_SENS_NO_CASE;
+        }
+        return getCustomType8(_ch);
+    }
+    private static int getCustomType8(char _ch){
+        if (_ch >= 8104 && _ch <= 8111) {
+            return LETTER_SEMI_SENS_NO_CASE;
+        }
+        if (_ch == 8124 || _ch == 8140 || _ch == 8188) {
+            return LETTER_SEMI_SENS_NO_CASE;
+        }
+        if (_ch == 6103) {
+            return LETTER_INSENS_NO_CASE_DEF_DIR;
+        }
+        if (_ch == 43259) {
+            return LETTER_INSENS_NO_CASE_DEF_DIR;
+        }
+        if (_ch >= 1488 && _ch<=2220) {
+            return LETTER_INSENS_NO_CASE_RIGHT_TO_LEFT;
+        }
+        if (_ch >= 64285 && _ch<=65276) {
+            return LETTER_INSENS_NO_CASE_RIGHT_TO_LEFT;
+        }
+        return getCustomType7(_ch);
+    }
+    private static int getCustomType7(char _ch){
+        if (_ch >= 699 && _ch<=703) {
+            return LETTER_INSENS_NO_CASE_DEF_DIR;
+        }
+        if (_ch >= 697 && _ch<=719) {
+            return LETTER_INSENS_NO_CASE_DIR_OTHER_NEUTRALS;
+        }
+        if (_ch == 11823 || _ch == 884|| _ch == 748) {
+            return LETTER_INSENS_NO_CASE_DIR_OTHER_NEUTRALS;
+        }
+        if (_ch >= 42656 && _ch<=42725) {
+            return LETTER_INSENS_NO_CASE_DEF_DIR;
+        }
+        if (_ch >= 42623 && _ch<=42888) {
+            return LETTER_INSENS_NO_CASE_DIR_OTHER_NEUTRALS;
+        }
+        return LETTER_INSENS_NO_CASE_DEF_DIR;
+    }
+    private static int getCustomType5(char _ch){
         if (_ch == '_' || _ch == 160) {
             return ID_SEP;
         }
@@ -1507,14 +1546,20 @@ public final class StringDataUtil {
         if (_ch == ')' || _ch == ']' || _ch == '}') {
             return DEL_RIGHT;
         }
-        if (_ch == '!' || _ch == '+' || _ch == '-' ||
+        if (isPunc1(_ch)) {
+            return OPERATOR_LANGUAGE;
+        }
+        return getCustomType4(_ch);
+    }
+    private static boolean isPunc1(char _ch){
+        return _ch == '!' || _ch == '+' || _ch == '-' ||
                 _ch == '*' || _ch == '%' || _ch == '/'||
                 _ch == '#' || _ch == '&' || _ch == '|'||
                 _ch == '^' || _ch == '?' || _ch == ':'||
                 _ch == '<' || _ch == '=' || _ch == '>'||
-                _ch == '~' || _ch == '@') {
-            return OPERATOR_LANGUAGE;
-        }
+                _ch == '~' || _ch == '@';
+    }
+    private static int getCustomType4(char _ch){
         if (_ch == ',' || _ch == '.') {
             return OPERATOR_SPEC;
         }
@@ -1533,6 +1578,9 @@ public final class StringDataUtil {
         if (_ch == 166) {
             return MODIFIER;
         }
+        return getCustomType3(_ch);
+    }
+    private static int getCustomType3(char _ch){
         for (int i: NumberUtil.wrapIntArray(168,184)) {
             if (_ch >= i && _ch <= i + 1) {
                 return MODIFIER;
@@ -1548,6 +1596,9 @@ public final class StringDataUtil {
                 return MODIFIER;
             }
         }
+        return getCustomType2(_ch);
+    }
+    private static int getCustomType2(char _ch){
         if (isOtherSymbol(_ch)) {
             if (isModifierSymbol(_ch)) {
                 return SYMBOL_MODIFIER;
@@ -1566,6 +1617,9 @@ public final class StringDataUtil {
             }
             return PUNCTUATION_OTHER;
         }
+        return getCustomType1(_ch);
+    }
+    private static int getCustomType1(char _ch){
         if (isOtherLettersDigits(_ch)) {
             return LETTERS_DIGITS_OTHER;
         }
