@@ -4505,7 +4505,7 @@ public final class StringDataUtil {
             return 30;
         }
         if (_ch <= 8217) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 30;
             }
             return 29;
@@ -4514,24 +4514,24 @@ public final class StringDataUtil {
             return 29;
         }
         if (_ch <= 11777) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 29;
             }
             return 30;
         }
         if (_ch <= 11781) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 30;
             }
             return 29;
         }
         if (_ch <= 11786) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 29;
             }
             return 30;
         }
-        if (_ch % 2 == 1) {
+        if (_ch % 2 != 0) {
             return 30;
         }
         return 29;
@@ -4539,13 +4539,13 @@ public final class StringDataUtil {
 
     private static int processPunctTwo(char _ch) {
         if (_ch <= 4000) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 22;
             }
             return 21;
         }
         if (_ch <= 6000) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 21;
             }
             return 22;
@@ -4554,43 +4554,43 @@ public final class StringDataUtil {
             return 21;
         }
         if (_ch <= 10000) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 21;
             }
             return 22;
         }
         if (_ch <= 10180) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 22;
             }
             return 21;
         }
         if (_ch <= 10182) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 21;
             }
             return 22;
         }
         if (_ch <= 10223) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 22;
             }
             return 21;
         }
         if (_ch <= 10711) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 21;
             }
             return 22;
         }
         if (_ch <= 12315) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 22;
             }
             return 21;
         }
         if (_ch <= 12318) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 21;
             }
             return 22;
@@ -4599,19 +4599,19 @@ public final class StringDataUtil {
             return 22;
         }
         if (_ch <= 64831) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 22;
             }
             return 21;
         }
         if (_ch <= 65118) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 21;
             }
             return 22;
         }
         if (_ch <= 65289) {
-            if (_ch % 2 == 1) {
+            if (_ch % 2 != 0) {
                 return 22;
             }
             return 21;
@@ -6554,79 +6554,79 @@ public final class StringDataUtil {
             if (_ch >= 42874 && _ch <= 42876) {
                 return _ch -1;
             }
-        } else {
-            if (_ch >= 257 && _ch <= 303) {
-                return _ch -1;
-            }
-            if (_ch >= 307 && _ch <= 311) {
-                return _ch -1;
-            }
-            if (_ch >= 331 && _ch <= 375) {
-                return _ch -1;
-            }
-            if (_ch >= 387 && _ch <= 389) {
-                return _ch -1;
-            }
-            if (_ch >= 417 && _ch <= 421) {
-                return _ch -1;
-            }
-            if (_ch >= 479 && _ch <= 495) {
-                return _ch -1;
-            }
-            if (_ch >= 505 && _ch <= 543) {
-                return _ch -1;
-            }
-            if (_ch >= 547 && _ch <= 563) {
-                return _ch -1;
-            }
-            if (_ch >= 583 && _ch <= 591) {
-                return _ch -1;
-            }
-            if (_ch >= 881 && _ch <= 883) {
-                return _ch -1;
-            }
-            if (_ch >= 985 && _ch <= 1007) {
-                return _ch -1;
-            }
-            if (_ch >= 1121 && _ch <= 1153) {
-                return _ch -1;
-            }
-            if (_ch >= 1163 && _ch <= 1215) {
-                return _ch -1;
-            }
-            if (_ch >= 1233 && _ch <= 1319) {
-                return _ch -1;
-            }
-            if (_ch >= 7681 && _ch <= 7829) {
-                return _ch -1;
-            }
-            if (_ch >= 7841 && _ch <= 7935) {
-                return _ch -1;
-            }
-            if (_ch >= 11393 && _ch <= 11491) {
-                return _ch -1;
-            }
-            if (_ch >= 42561 && _ch <= 42605) {
-                return _ch -1;
-            }
-            if (_ch >= 42625 && _ch <= 42647) {
-                return _ch -1;
-            }
-            if (_ch >= 42787 && _ch <= 42799) {
-                return _ch -1;
-            }
-            if (_ch >= 42803 && _ch <= 42863) {
-                return _ch -1;
-            }
-            if (_ch >= 42879 && _ch <= 42887) {
-                return _ch -1;
-            }
-            if (_ch >= 42897 && _ch <= 42899) {
-                return _ch -1;
-            }
-            if (_ch >= 42913 && _ch <= 42921) {
-                return _ch -1;
-            }
+            return toUpperCaseDef(_ch);
+        }
+        if (_ch >= 257 && _ch <= 303) {
+            return _ch -1;
+        }
+        if (_ch >= 307 && _ch <= 311) {
+            return _ch -1;
+        }
+        if (_ch >= 331 && _ch <= 375) {
+            return _ch -1;
+        }
+        if (_ch >= 387 && _ch <= 389) {
+            return _ch -1;
+        }
+        if (_ch >= 417 && _ch <= 421) {
+            return _ch -1;
+        }
+        if (_ch >= 479 && _ch <= 495) {
+            return _ch -1;
+        }
+        if (_ch >= 505 && _ch <= 543) {
+            return _ch -1;
+        }
+        if (_ch >= 547 && _ch <= 563) {
+            return _ch -1;
+        }
+        if (_ch >= 583 && _ch <= 591) {
+            return _ch -1;
+        }
+        if (_ch >= 881 && _ch <= 883) {
+            return _ch -1;
+        }
+        if (_ch >= 985 && _ch <= 1007) {
+            return _ch -1;
+        }
+        if (_ch >= 1121 && _ch <= 1153) {
+            return _ch -1;
+        }
+        if (_ch >= 1163 && _ch <= 1215) {
+            return _ch -1;
+        }
+        if (_ch >= 1233 && _ch <= 1319) {
+            return _ch -1;
+        }
+        if (_ch >= 7681 && _ch <= 7829) {
+            return _ch -1;
+        }
+        if (_ch >= 7841 && _ch <= 7935) {
+            return _ch -1;
+        }
+        if (_ch >= 11393 && _ch <= 11491) {
+            return _ch -1;
+        }
+        if (_ch >= 42561 && _ch <= 42605) {
+            return _ch -1;
+        }
+        if (_ch >= 42625 && _ch <= 42647) {
+            return _ch -1;
+        }
+        if (_ch >= 42787 && _ch <= 42799) {
+            return _ch -1;
+        }
+        if (_ch >= 42803 && _ch <= 42863) {
+            return _ch -1;
+        }
+        if (_ch >= 42879 && _ch <= 42887) {
+            return _ch -1;
+        }
+        if (_ch >= 42897 && _ch <= 42899) {
+            return _ch -1;
+        }
+        if (_ch >= 42913 && _ch <= 42921) {
+            return _ch -1;
         }
         return toUpperCaseDef(_ch);
     }
@@ -6659,6 +6659,10 @@ public final class StringDataUtil {
         if (_ch == 477) {
             return 398;
         }
+        return toUpperCaseIntCheckLow1(_ch);
+    }
+
+    private static int toUpperCaseIntCheckLow1(char _ch) {
         if (_ch == 499) {
             return 497;
         }
@@ -6703,7 +6707,6 @@ public final class StringDataUtil {
         }
         return toUpperCaseDefFour(_ch);
     }
-
     private static int toUpperCaseDefFour(char _ch) {
         if (_ch == 501) {
             return _ch -1;
@@ -6723,6 +6726,9 @@ public final class StringDataUtil {
         if (_ch == 1019) {
             return _ch -1;
         }
+        return toUpperCaseDefFour4(_ch);
+    }
+    private static int toUpperCaseDefFour4(char _ch) {
         if (_ch == 8580) {
             return _ch -1;
         }
@@ -6765,6 +6771,9 @@ public final class StringDataUtil {
         if (_ch == 593) {
             return _ch + 10780;
         }
+        return toUpperCaseDefFour3(_ch);
+    }
+    private static int toUpperCaseDefFour3(char _ch) {
         if (_ch == 594) {
             return _ch + 10782;
         }
@@ -6807,6 +6816,9 @@ public final class StringDataUtil {
         if (_ch == 649) {
             return _ch -69;
         }
+        return toUpperCaseDefFour2(_ch);
+    }
+    private static int toUpperCaseDefFour2(char _ch) {
         if (_ch == 652) {
             return _ch -71;
         }
@@ -6849,6 +6861,9 @@ public final class StringDataUtil {
         if (_ch == 7835) {
             return _ch -59;
         }
+        return toUpperCaseDefFour1(_ch);
+    }
+    private static int toUpperCaseDefFour1(char _ch) {
         if (_ch == 8017) {
             return _ch + 8;
         }
@@ -6893,7 +6908,6 @@ public final class StringDataUtil {
         }
         return toUpperCaseDefTwo(_ch);
     }
-
     private static int toUpperCaseDef(char _ch) {
         if (_ch >= 97 && _ch <= 122) {
             return _ch -32;
@@ -6916,6 +6930,9 @@ public final class StringDataUtil {
         if (_ch >= 891 && _ch <= 893) {
             return _ch + 130;
         }
+        return toUpperCaseDef4(_ch);
+    }
+    private static int toUpperCaseDef4(char _ch){
         if (_ch >= 941 && _ch <= 943) {
             return _ch -37;
         }
@@ -6937,6 +6954,9 @@ public final class StringDataUtil {
         if (_ch >= 1377 && _ch <= 1414) {
             return _ch -48;
         }
+        return toUpperCaseDef3(_ch);
+    }
+    private static int toUpperCaseDef3(char _ch){
         if (_ch >= 7937 && _ch <= 7943) {
             return _ch + 8;
         }
@@ -6958,6 +6978,9 @@ public final class StringDataUtil {
         if (_ch >= 8048 && _ch <= 8049) {
             return _ch + 74;
         }
+        return toUpperCaseDef2(_ch);
+    }
+    private static int toUpperCaseDef2(char _ch){
         if (_ch >= 8050 && _ch <= 8053) {
             return _ch + 86;
         }
@@ -6979,6 +7002,9 @@ public final class StringDataUtil {
         if (_ch >= 8080 && _ch <= 8087) {
             return _ch + 8;
         }
+        return toUpperCaseDef1(_ch);
+    }
+    private static int toUpperCaseDef1(char _ch){
         if (_ch >= 8096 && _ch <= 8103) {
             return _ch + 8;
         }
