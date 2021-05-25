@@ -180,6 +180,9 @@ public final class StringDataUtil {
         if (_ch >= 5121 && _ch < 5741) {
             return true;
         }
+        return isOtherLett38(_ch);
+    }
+    private static boolean isOtherLett38(char _ch){
         if (_ch >= 63744) {
             return isGreatLetter(_ch);
         }
@@ -201,6 +204,9 @@ public final class StringDataUtil {
         if (_ch >= 7424 && _ch < 7616) {
             return true;
         }
+        return isOtherLett37(_ch);
+    }
+    private static boolean isOtherLett37(char _ch){
         if (_ch >= 11360 && _ch < 11493) {
             return true;
         }
@@ -222,6 +228,9 @@ public final class StringDataUtil {
         if (_ch >= 42656 && _ch < 42726) {
             return true;
         }
+        return isOtherLett36(_ch);
+    }
+    private static boolean isOtherLett36(char _ch){
         if (_ch >= 43072 && _ch < 43124) {
             return true;
         }
@@ -243,6 +252,9 @@ public final class StringDataUtil {
         if (_ch >= 4824 && _ch < 4881) {
             return true;
         }
+        return isOtherLett35(_ch);
+    }
+    private static boolean isOtherLett35(char _ch){
         if (_ch >= 4888 && _ch < 4955) {
             return true;
         }
@@ -264,6 +276,9 @@ public final class StringDataUtil {
         if (_ch >= 6688 && _ch < 6741) {
             return true;
         }
+        return isOtherLett34(_ch);
+    }
+    private static boolean isOtherLett34(char _ch){
         if (_ch >= 8064 && _ch < 8117) {
             return true;
         }
@@ -285,6 +300,9 @@ public final class StringDataUtil {
         if (_ch >= 43020 && _ch < 43043) {
             return true;
         }
+        return isOtherLett33(_ch);
+    }
+    private static boolean isOtherLett33(char _ch){
         if (_ch >= 43274 && _ch < 43302) {
             return true;
         }
@@ -306,6 +324,9 @@ public final class StringDataUtil {
         if (_ch >= 43648 && _ch < 43696) {
             return true;
         }
+        return isOtherLett32(_ch);
+    }
+    private static boolean isOtherLett32(char _ch){
         if (_ch >= 43968 && _ch < 44003) {
             return true;
         }
@@ -327,6 +348,9 @@ public final class StringDataUtil {
         if (_ch >= 904 && _ch < 907) {
             return true;
         }
+        return isOtherLett31(_ch);
+    }
+    private static boolean isOtherLett31(char _ch){
         if (_ch >= 1520 && _ch < 1523) {
             return true;
         }
@@ -348,6 +372,9 @@ public final class StringDataUtil {
         if (_ch >= 2210 && _ch < 2221) {
             return true;
         }
+        return isOtherLett30(_ch);
+    }
+    private static boolean isOtherLett30(char _ch){
         if (_ch >= 2392 && _ch < 2402) {
             return true;
         }
@@ -369,6 +396,9 @@ public final class StringDataUtil {
         if (_ch >= 2486 && _ch < 2490) {
             return true;
         }
+        return isOtherLett29(_ch);
+    }
+    private static boolean isOtherLett29(char _ch){
         if (_ch >= 2524 && _ch < 2526) {
             return true;
         }
@@ -390,6 +420,9 @@ public final class StringDataUtil {
         if (_ch >= 2610 && _ch < 2612) {
             return true;
         }
+        return isOtherLett28(_ch);
+    }
+    private static boolean isOtherLett28(char _ch){
         if (_ch >= 2613 && _ch < 2615) {
             return true;
         }
@@ -411,6 +444,9 @@ public final class StringDataUtil {
         if (_ch >= 2730 && _ch < 2737) {
             return true;
         }
+        return isOtherLett27(_ch);
+    }
+    private static boolean isOtherLett27(char _ch){
         if (_ch >= 2738 && _ch < 2740) {
             return true;
         }
@@ -432,6 +468,9 @@ public final class StringDataUtil {
         if (_ch >= 2866 && _ch < 2868) {
             return true;
         }
+        return isOtherLett26(_ch);
+    }
+    private static boolean isOtherLett26(char _ch){
         if (_ch >= 2869 && _ch < 2874) {
             return true;
         }
@@ -453,6 +492,9 @@ public final class StringDataUtil {
         if (_ch >= 2969 && _ch < 2971) {
             return true;
         }
+        return isOtherLett25(_ch);
+    }
+    private static boolean isOtherLett25(char _ch){
         if (_ch >= 2974 && _ch < 2976) {
             return true;
         }
@@ -474,6 +516,9 @@ public final class StringDataUtil {
         if (_ch >= 3114 && _ch < 3124) {
             return true;
         }
+        return isOtherLett24(_ch);
+    }
+    private static boolean isOtherLett24(char _ch){
         if (_ch >= 3125 && _ch < 3130) {
             return true;
         }
@@ -495,6 +540,9 @@ public final class StringDataUtil {
         if (_ch >= 3253 && _ch < 3258) {
             return true;
         }
+        return isOtherLett23(_ch);
+    }
+    private static boolean isOtherLett23(char _ch){
         if (_ch >= 3296 && _ch < 3298) {
             return true;
         }
@@ -516,6 +564,9 @@ public final class StringDataUtil {
         if (_ch >= 3461 && _ch < 3479) {
             return true;
         }
+        return isOtherLett22(_ch);
+    }
+    private static boolean isOtherLett22(char _ch){
         if (_ch >= 3507 && _ch < 3516) {
             return true;
         }
@@ -537,6 +588,9 @@ public final class StringDataUtil {
         if (_ch >= 3732 && _ch < 3736) {
             return true;
         }
+        return isOtherLett21(_ch);
+    }
+    private static boolean isOtherLett21(char _ch){
         if (_ch >= 3737 && _ch < 3744) {
             return true;
         }
@@ -558,6 +612,9 @@ public final class StringDataUtil {
         if (_ch >= 3804 && _ch < 3808) {
             return true;
         }
+        return isOtherLett20(_ch);
+    }
+    private static boolean isOtherLett20(char _ch){
         if (_ch >= 3904 && _ch < 3912) {
             return true;
         }
@@ -579,6 +636,9 @@ public final class StringDataUtil {
         if (_ch >= 4213 && _ch < 4226) {
             return true;
         }
+        return isOtherLett19(_ch);
+    }
+    private static boolean isOtherLett19(char _ch){
         if (_ch >= 4682 && _ch < 4686) {
             return true;
         }
@@ -600,6 +660,9 @@ public final class StringDataUtil {
         if (_ch >= 4802 && _ch < 4806) {
             return true;
         }
+        return isOtherLett18(_ch);
+    }
+    private static boolean isOtherLett18(char _ch){
         if (_ch >= 4808 && _ch < 4823) {
             return true;
         }
@@ -621,6 +684,9 @@ public final class StringDataUtil {
         if (_ch >= 5920 && _ch < 5938) {
             return true;
         }
+        return isOtherLett17(_ch);
+    }
+    private static boolean isOtherLett17(char _ch){
         if (_ch >= 5952 && _ch < 5970) {
             return true;
         }
@@ -642,6 +708,9 @@ public final class StringDataUtil {
         if (_ch >= 7086 && _ch < 7088) {
             return true;
         }
+        return isOtherLett16(_ch);
+    }
+    private static boolean isOtherLett16(char _ch){
         if (_ch >= 7245 && _ch < 7248) {
             return true;
         }
@@ -663,6 +732,9 @@ public final class StringDataUtil {
         if (_ch >= 8016 && _ch < 8024) {
             return true;
         }
+        return isOtherLett15(_ch);
+    }
+    private static boolean isOtherLett15(char _ch){
         if (_ch >= 8118 && _ch < 8125) {
             return true;
         }
@@ -684,6 +756,9 @@ public final class StringDataUtil {
         if (_ch >= 8178 && _ch < 8181) {
             return true;
         }
+        return isOtherLett14(_ch);
+    }
+    private static boolean isOtherLett14(char _ch){
         if (_ch >= 8182 && _ch < 8189) {
             return true;
         }
@@ -705,6 +780,9 @@ public final class StringDataUtil {
         if (_ch >= 8508 && _ch < 8512) {
             return true;
         }
+        return isOtherLett13(_ch);
+    }
+    private static boolean isOtherLett13(char _ch){
         if (_ch >= 8517 && _ch < 8522) {
             return true;
         }
@@ -726,6 +804,9 @@ public final class StringDataUtil {
         if (_ch >= 11696 && _ch < 11703) {
             return true;
         }
+        return isOtherLett12(_ch);
+    }
+    private static boolean isOtherLett12(char _ch){
         if (_ch >= 11704 && _ch < 11711) {
             return true;
         }
@@ -747,6 +828,9 @@ public final class StringDataUtil {
         if (_ch >= 12337 && _ch < 12342) {
             return true;
         }
+        return isOtherLett11(_ch);
+    }
+    private static boolean isOtherLett11(char _ch){
         if (_ch >= 12347 && _ch < 12349) {
             return true;
         }
@@ -768,6 +852,9 @@ public final class StringDataUtil {
         if (_ch >= 1377 && _ch < 1416) {
             return true;
         }
+        return isOtherLett10(_ch);
+    }
+    private static boolean isOtherLett10(char _ch){
         if (_ch >= 1488 && _ch < 1515) {
             return true;
         }
@@ -789,6 +876,9 @@ public final class StringDataUtil {
         if (_ch >= 2451 && _ch < 2473) {
             return true;
         }
+        return isOtherLett9(_ch);
+    }
+    private static boolean isOtherLett9(char _ch){
         if (_ch >= 2579 && _ch < 2601) {
             return true;
         }
@@ -810,6 +900,9 @@ public final class StringDataUtil {
         if (_ch >= 3482 && _ch < 3506) {
             return true;
         }
+        return isOtherLett8(_ch);
+    }
+    private static boolean isOtherLett8(char _ch){
         if (_ch >= 3585 && _ch < 3633) {
             return true;
         }
@@ -831,6 +924,9 @@ public final class StringDataUtil {
         if (_ch >= 4752 && _ch < 4785) {
             return true;
         }
+        return isOtherLett7(_ch);
+    }
+    private static boolean isOtherLett7(char _ch){
         if (_ch >= 5761 && _ch < 5787) {
             return true;
         }
@@ -852,6 +948,9 @@ public final class StringDataUtil {
         if (_ch >= 6917 && _ch < 6964) {
             return true;
         }
+        return isOtherLett6(_ch);
+    }
+    private static boolean isOtherLett6(char _ch){
         if (_ch >= 7043 && _ch < 7073) {
             return true;
         }
@@ -873,6 +972,9 @@ public final class StringDataUtil {
         if (_ch >= 11264 && _ch < 11311) {
             return true;
         }
+        return isOtherLett5(_ch);
+    }
+    private static boolean isOtherLett5(char _ch){
         if (_ch >= 11312 && _ch < 11359) {
             return true;
         }
@@ -891,6 +993,9 @@ public final class StringDataUtil {
         if (_ch >= 42512 && _ch < 42528) {
             return true;
         }
+        return isOtherLett4(_ch);
+    }
+    private static boolean isOtherLett4(char _ch){
         if (_ch >= 42538 && _ch < 42540) {
             return true;
         }
@@ -912,6 +1017,9 @@ public final class StringDataUtil {
         if (_ch >= 43011 && _ch < 43014) {
             return true;
         }
+        return isOtherLett3(_ch);
+    }
+    private static boolean isOtherLett3(char _ch){
         if (_ch >= 43015 && _ch < 43019) {
             return true;
         }
@@ -933,6 +1041,9 @@ public final class StringDataUtil {
         if (_ch >= 43739 && _ch < 43742) {
             return true;
         }
+        return isOtherLett2(_ch);
+    }
+    private static boolean isOtherLett2(char _ch){
         if (_ch >= 43744 && _ch < 43755) {
             return true;
         }
@@ -954,6 +1065,9 @@ public final class StringDataUtil {
         if (_ch >= 43816 && _ch < 43823) {
             return true;
         }
+        return isOtherLett1(_ch);
+    }
+    private static boolean isOtherLett1(char _ch){
         for (int v: NumberUtil.wrapIntArray(
                 748,
                 750,
