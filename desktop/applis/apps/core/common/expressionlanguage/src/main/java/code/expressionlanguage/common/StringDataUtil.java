@@ -3461,6 +3461,9 @@ public final class StringDataUtil {
         if (_ch == 1416) {
             return true;
         }
+        return isUnassigned47(_ch);
+    }
+    private static boolean isUnassigned47(char _ch) {
         if (_ch >= 1419 && _ch <= 1422) {
             return true;
         }
@@ -3482,6 +3485,9 @@ public final class StringDataUtil {
         if (_ch >= 1564 && _ch <= 1565) {
             return true;
         }
+        return isUnassigned46(_ch);
+    }
+    private static boolean isUnassigned46(char _ch) {
         if (_ch == 1806) {
             return true;
         }
@@ -3503,6 +3509,9 @@ public final class StringDataUtil {
         if (_ch >= 2140 && _ch <= 2141) {
             return true;
         }
+        return isUnassigned45(_ch);
+    }
+    private static boolean isUnassigned45(char _ch) {
         if (_ch >= 2143 && _ch <= 2207) {
             return true;
         }
@@ -3536,6 +3545,9 @@ public final class StringDataUtil {
         if (_ch == 2481) {
             return true;
         }
+        return isUnassigned44(_ch);
+    }
+    private static boolean isUnassigned44(char _ch) {
         if (_ch >= 2483 && _ch <= 2485) {
             return true;
         }
@@ -3557,6 +3569,9 @@ public final class StringDataUtil {
         if (_ch == 2526) {
             return true;
         }
+        return isUnassigned43(_ch);
+    }
+    private static boolean isUnassigned43(char _ch) {
         if (_ch >= 2532 && _ch <= 2533) {
             return true;
         }
@@ -3581,6 +3596,9 @@ public final class StringDataUtil {
         if (_ch == 2612) {
             return true;
         }
+        return isUnassigned42(_ch);
+    }
+    private static boolean isUnassigned42(char _ch) {
         if (_ch == 2615) {
             return true;
         }
@@ -3602,6 +3620,9 @@ public final class StringDataUtil {
         if (_ch >= 2642 && _ch <= 2648) {
             return true;
         }
+        return isUnassigned41(_ch);
+    }
+    private static boolean isUnassigned41(char _ch) {
         if (_ch == 2653) {
             return true;
         }
@@ -3629,6 +3650,9 @@ public final class StringDataUtil {
         if (_ch == 2740) {
             return true;
         }
+        return isUnassigned40(_ch);
+    }
+    private static boolean isUnassigned40(char _ch) {
         if (_ch >= 2746 && _ch <= 2747) {
             return true;
         }
@@ -3650,6 +3674,9 @@ public final class StringDataUtil {
         if (_ch >= 2802 && _ch <= 2816) {
             return true;
         }
+        return isUnassigned39(_ch);
+    }
+    private static boolean isUnassigned39(char _ch) {
         if (_ch == 2820) {
             return true;
         }
@@ -3674,6 +3701,9 @@ public final class StringDataUtil {
         if (_ch >= 2885 && _ch <= 2886) {
             return true;
         }
+        return isUnassigned38(_ch);
+    }
+    private static boolean isUnassigned38(char _ch) {
         if (_ch >= 2889 && _ch <= 2890) {
             return true;
         }
@@ -3695,6 +3725,9 @@ public final class StringDataUtil {
         if (_ch == 2948) {
             return true;
         }
+        return isUnassigned37(_ch);
+    }
+    private static boolean isUnassigned37(char _ch) {
         if (_ch >= 2955 && _ch <= 2957) {
             return true;
         }
@@ -3719,6 +3752,9 @@ public final class StringDataUtil {
         if (_ch >= 2987 && _ch <= 2989) {
             return true;
         }
+        return isUnassigned36(_ch);
+    }
+    private static boolean isUnassigned36(char _ch) {
         if (_ch >= 3002 && _ch <= 3005) {
             return true;
         }
@@ -3740,6 +3776,9 @@ public final class StringDataUtil {
         if (_ch >= 3067 && _ch <= 3072) {
             return true;
         }
+        return isUnassigned35(_ch);
+    }
+    private static boolean isUnassigned35(char _ch) {
         if (_ch == 3076) {
             return true;
         }
@@ -3770,6 +3809,9 @@ public final class StringDataUtil {
         if (_ch == 3159) {
             return true;
         }
+        return isUnassigned34(_ch);
+    }
+    private static boolean isUnassigned34(char _ch) {
         if (_ch >= 3162 && _ch <= 3167) {
             return true;
         }
@@ -3791,6 +3833,9 @@ public final class StringDataUtil {
         if (_ch == 3217) {
             return true;
         }
+        return isUnassigned33(_ch);
+    }
+    private static boolean isUnassigned33(char _ch) {
         if (_ch == 3241) {
             return true;
         }
@@ -3818,6 +3863,9 @@ public final class StringDataUtil {
         if (_ch >= 3300 && _ch <= 3301) {
             return true;
         }
+        return isUnassigned32(_ch);
+    }
+    private static boolean isUnassigned32(char _ch) {
         if (_ch == 3312) {
             return true;
         }
@@ -3848,6 +3896,9 @@ public final class StringDataUtil {
         if (_ch >= 3416 && _ch <= 3423) {
             return true;
         }
+        return isUnassigned31(_ch);
+    }
+    private static boolean isUnassigned31(char _ch) {
         if (_ch >= 3428 && _ch <= 3429) {
             return true;
         }
@@ -3869,6 +3920,9 @@ public final class StringDataUtil {
         if (_ch == 3516) {
             return true;
         }
+        return isUnassigned30(_ch);
+    }
+    private static boolean isUnassigned30(char _ch) {
         if (_ch >= 3518 && _ch <= 3519) {
             return true;
         }
@@ -3890,6 +3944,9 @@ public final class StringDataUtil {
         if (_ch >= 3573 && _ch <= 3584) {
             return true;
         }
+        return isUnassigned29(_ch);
+    }
+    private static boolean isUnassigned29(char _ch) {
         if (_ch >= 3643 && _ch <= 3646) {
             return true;
         }
@@ -3911,6 +3968,9 @@ public final class StringDataUtil {
         if (_ch >= 3726 && _ch <= 3731) {
             return true;
         }
+        return isUnassigned28(_ch);
+    }
+    private static boolean isUnassigned28(char _ch) {
         if (_ch == 3736) {
             return true;
         }
@@ -3941,6 +4001,9 @@ public final class StringDataUtil {
         if (_ch == 3783) {
             return true;
         }
+        return isUnassigned27(_ch);
+    }
+    private static boolean isUnassigned27(char _ch) {
         if (_ch >= 3790 && _ch <= 3791) {
             return true;
         }
@@ -3962,6 +4025,9 @@ public final class StringDataUtil {
         if (_ch == 4029) {
             return true;
         }
+        return isUnassigned26(_ch);
+    }
+    private static boolean isUnassigned26(char _ch) {
         if (_ch == 4045) {
             return true;
         }
@@ -3983,6 +4049,9 @@ public final class StringDataUtil {
         if (_ch >= 4686 && _ch <= 4687) {
             return true;
         }
+        return isUnassigned25(_ch);
+    }
+    private static boolean isUnassigned25(char _ch) {
         if (_ch == 4695) {
             return true;
         }
@@ -4010,6 +4079,9 @@ public final class StringDataUtil {
         if (_ch == 4801) {
             return true;
         }
+        return isUnassigned24(_ch);
+    }
+    private static boolean isUnassigned24(char _ch) {
         if (_ch >= 4806 && _ch <= 4807) {
             return true;
         }
@@ -4031,6 +4103,9 @@ public final class StringDataUtil {
         if (_ch >= 5018 && _ch <= 5023) {
             return true;
         }
+        return isUnassigned23(_ch);
+    }
+    private static boolean isUnassigned23(char _ch) {
         if (_ch >= 5109 && _ch <= 5119) {
             return true;
         }
@@ -4052,6 +4127,9 @@ public final class StringDataUtil {
         if (_ch >= 5972 && _ch <= 5983) {
             return true;
         }
+        return isUnassigned22(_ch);
+    }
+    private static boolean isUnassigned22(char _ch) {
         if (_ch == 5997) {
             return true;
         }
@@ -4073,6 +4151,9 @@ public final class StringDataUtil {
         if (_ch == 6159) {
             return true;
         }
+        return isUnassigned21(_ch);
+    }
+    private static boolean isUnassigned21(char _ch) {
         if (_ch >= 6170 && _ch <= 6175) {
             return true;
         }
@@ -4094,6 +4175,9 @@ public final class StringDataUtil {
         if (_ch >= 6460 && _ch <= 6463) {
             return true;
         }
+        return isUnassigned20(_ch);
+    }
+    private static boolean isUnassigned20(char _ch) {
         if (_ch >= 6465 && _ch <= 6467) {
             return true;
         }
@@ -4115,6 +4199,9 @@ public final class StringDataUtil {
         if (_ch >= 6684 && _ch <= 6685) {
             return true;
         }
+        return isUnassigned19(_ch);
+    }
+    private static boolean isUnassigned19(char _ch) {
         if (_ch == 6751) {
             return true;
         }
@@ -4136,6 +4223,9 @@ public final class StringDataUtil {
         if (_ch >= 7037 && _ch <= 7039) {
             return true;
         }
+        return isUnassigned18(_ch);
+    }
+    private static boolean isUnassigned18(char _ch) {
         if (_ch >= 7156 && _ch <= 7163) {
             return true;
         }
@@ -4157,6 +4247,9 @@ public final class StringDataUtil {
         if (_ch >= 7655 && _ch <= 7675) {
             return true;
         }
+        return isUnassigned17(_ch);
+    }
+    private static boolean isUnassigned17(char _ch) {
         if (_ch >= 7958 && _ch <= 7959) {
             return true;
         }
@@ -4181,6 +4274,9 @@ public final class StringDataUtil {
         if (_ch == 8030) {
             return true;
         }
+        return isUnassigned16(_ch);
+    }
+    private static boolean isUnassigned16(char _ch) {
         if (_ch >= 8062 && _ch <= 8063) {
             return true;
         }
@@ -4208,6 +4304,9 @@ public final class StringDataUtil {
         if (_ch >= 8293 && _ch <= 8297) {
             return true;
         }
+        return isUnassigned15(_ch);
+    }
+    private static boolean isUnassigned15(char _ch) {
         if (_ch >= 8306 && _ch <= 8307) {
             return true;
         }
@@ -4229,6 +4328,9 @@ public final class StringDataUtil {
         if (_ch >= 9204 && _ch <= 9215) {
             return true;
         }
+        return isUnassigned14(_ch);
+    }
+    private static boolean isUnassigned14(char _ch) {
         if (_ch >= 9255 && _ch <= 9279) {
             return true;
         }
@@ -4250,6 +4352,9 @@ public final class StringDataUtil {
         if (_ch == 11359) {
             return true;
         }
+        return isUnassigned13(_ch);
+    }
+    private static boolean isUnassigned13(char _ch) {
         if (_ch >= 11508 && _ch <= 11512) {
             return true;
         }
@@ -4271,6 +4376,9 @@ public final class StringDataUtil {
         if (_ch >= 11671 && _ch <= 11679) {
             return true;
         }
+        return isUnassigned12(_ch);
+    }
+    private static boolean isUnassigned12(char _ch) {
         if (_ch == 11687) {
             return true;
         }
@@ -4304,6 +4412,9 @@ public final class StringDataUtil {
         if (_ch >= 12020 && _ch <= 12031) {
             return true;
         }
+        return isUnassigned11(_ch);
+    }
+    private static boolean isUnassigned11(char _ch) {
         if (_ch >= 12246 && _ch <= 12271) {
             return true;
         }
@@ -4325,6 +4436,9 @@ public final class StringDataUtil {
         if (_ch == 12687) {
             return true;
         }
+        return isUnassigned10(_ch);
+    }
+    private static boolean isUnassigned10(char _ch) {
         if (_ch >= 12731 && _ch <= 12735) {
             return true;
         }
@@ -4346,6 +4460,9 @@ public final class StringDataUtil {
         if (_ch >= 42125 && _ch <= 42127) {
             return true;
         }
+        return isUnassigned9(_ch);
+    }
+    private static boolean isUnassigned9(char _ch) {
         if (_ch >= 42183 && _ch <= 42191) {
             return true;
         }
@@ -4367,6 +4484,9 @@ public final class StringDataUtil {
         if (_ch >= 42923 && _ch <= 42999) {
             return true;
         }
+        return isUnassigned8(_ch);
+    }
+    private static boolean isUnassigned8(char _ch) {
         if (_ch >= 43052 && _ch <= 43055) {
             return true;
         }
@@ -4388,6 +4508,9 @@ public final class StringDataUtil {
         if (_ch >= 43348 && _ch <= 43358) {
             return true;
         }
+        return isUnassigned7(_ch);
+    }
+    private static boolean isUnassigned7(char _ch) {
         if (_ch >= 43389 && _ch <= 43391) {
             return true;
         }
@@ -4409,6 +4532,9 @@ public final class StringDataUtil {
         if (_ch >= 43610 && _ch <= 43611) {
             return true;
         }
+        return isUnassigned6(_ch);
+    }
+    private static boolean isUnassigned6(char _ch) {
         if (_ch >= 43644 && _ch <= 43647) {
             return true;
         }
@@ -4430,6 +4556,9 @@ public final class StringDataUtil {
         if (_ch == 43815) {
             return true;
         }
+        return isUnassigned5(_ch);
+    }
+    private static boolean isUnassigned5(char _ch) {
         if (_ch >= 43823 && _ch <= 43967) {
             return true;
         }
@@ -4451,6 +4580,9 @@ public final class StringDataUtil {
         if (_ch >= 64110 && _ch <= 64111) {
             return true;
         }
+        return isUnassigned4(_ch);
+    }
+    private static boolean isUnassigned4(char _ch) {
         if (_ch >= 64218 && _ch <= 64255) {
             return true;
         }
@@ -4472,6 +4604,9 @@ public final class StringDataUtil {
         if (_ch == 64322) {
             return true;
         }
+        return isUnassigned3(_ch);
+    }
+    private static boolean isUnassigned3(char _ch) {
         if (_ch == 64325) {
             return true;
         }
@@ -4493,6 +4628,9 @@ public final class StringDataUtil {
         if (_ch >= 65050 && _ch <= 65055) {
             return true;
         }
+        return isUnassigned2(_ch);
+    }
+    private static boolean isUnassigned2(char _ch) {
         if (_ch >= 65063 && _ch <= 65071) {
             return true;
         }
@@ -4514,6 +4652,9 @@ public final class StringDataUtil {
         if (_ch == 65280) {
             return true;
         }
+        return isUnassigned1(_ch);
+    }
+    private static boolean isUnassigned1(char _ch) {
         if (_ch >= 65471 && _ch <= 65473) {
             return true;
         }
