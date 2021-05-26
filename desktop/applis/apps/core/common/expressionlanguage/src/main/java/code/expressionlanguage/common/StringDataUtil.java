@@ -1425,15 +1425,12 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 6979, 43765)) {
             return 8;
         }
-        if (inRangeBounds(_ch, 6757, 6764) || inRangeBounds(_ch, 6966, 6970) || inRangeBounds(_ch, 4141, 4144) || inRangeBounds(_ch, 4146, 4151)) {
+        if (inRangeBounds(_ch, 6757, 6764) || inRangeBounds(_ch, 6966, 6970) || inRangeBounds(_ch, 4141, 4144) || inRangeBounds(_ch, 4146, 4151) || inRangeBounds(_ch, 4153, 4154) || inRangeBounds(_ch, 4157, 4158) || inRangeBounds(_ch, 4184, 4192) || inRangeBounds(_ch, 4209, 4226) || inRangeBounds(_ch, 4229, 4230) || inRangeBounds(_ch, 4237, 6086) || inRangeBounds(_ch, 6439, 6440) || _ch == 6450 || inRangeBounds(_ch, 6457, 6459)) {
             return 6;
         }
         return processOther3(_ch);
     }
     private static int processOther3(char _ch) {
-        if (inRangeBounds(_ch, 4153, 4154) || inRangeBounds(_ch, 4157, 4158) || inRangeBounds(_ch, 4184, 4192) || inRangeBounds(_ch, 4209, 4226) || inRangeBounds(_ch, 4229, 4230) || inRangeBounds(_ch, 4237, 6086) || inRangeBounds(_ch, 6439, 6440) || _ch == 6450 || inRangeBounds(_ch, 6457, 6459)) {
-            return 6;
-        }
         if (inRangeBounds(_ch, 3544, 6601)) {
             return 8;
         }
@@ -1485,10 +1482,7 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 3276, 3427)) {
             return 6;
         }
-        if (inRangeBounds(_ch, 3271, 3459)) {
-            return 8;
-        }
-        if (inRangeBounds(_ch, 2887, 2892)) {
+        if (inRangeBounds(_ch, 3271, 3459) || inRangeBounds(_ch, 2887, 2892)) {
             return 8;
         }
         if (inRangeBounds(_ch, 2881, 2902)) {

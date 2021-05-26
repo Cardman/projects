@@ -172,6 +172,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 376) {
             return _ch -121;
         }
+        return toLowerCaseIntCheckUpp13(_ch);
+    }
+
+    private static int toLowerCaseIntCheckUpp13(char _ch) {
         if (_ch == 385) {
             return _ch + 210;
         }
@@ -184,6 +188,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 399) {
             return _ch + 202;
         }
+        return toLowerCaseIntCheckUpp12(_ch);
+    }
+
+    private static int toLowerCaseIntCheckUpp12(char _ch) {
         if (_ch == 400) {
             return _ch + 203;
         }
@@ -196,6 +204,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 406) {
             return _ch + 211;
         }
+        return toLowerCaseIntCheckUpp11(_ch);
+    }
+
+    private static int toLowerCaseIntCheckUpp11(char _ch) {
         if (_ch == 407) {
             return _ch + 209;
         }
@@ -221,6 +233,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 430) {
             return _ch + 218;
         }
+        return toLowerCaseIntCheckUpp10(_ch);
+    }
+
+    private static int toLowerCaseIntCheckUpp10(char _ch) {
         if (_ch == 439) {
             return _ch + 219;
         }
@@ -233,6 +249,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 458) {
             return _ch + 2;
         }
+        return toLowerCaseIntCheckUpp9(_ch);
+    }
+
+    private static int toLowerCaseIntCheckUpp9(char _ch) {
         if (_ch == 497) {
             return _ch + 2;
         }
@@ -245,6 +265,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 544) {
             return _ch -130;
         }
+        return toLowerCaseIntCheckUpp8(_ch);
+    }
+
+    private static int toLowerCaseIntCheckUpp8(char _ch) {
         if (_ch == 570) {
             return _ch + 10795;
         }
@@ -273,6 +297,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 908) {
             return _ch + 64;
         }
+        return toLowerCaseIntCheckUpp7(_ch);
+    }
+
+    private static int toLowerCaseIntCheckUpp7(char _ch) {
         if (_ch == 975) {
             return _ch + 8;
         }
@@ -285,6 +313,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 1216) {
             return _ch + 15;
         }
+        return toLowerCaseIntCheckUpp6(_ch);
+    }
+
+    private static int toLowerCaseIntCheckUpp6(char _ch) {
         if (_ch == 4295) {
             return _ch + 7264;
         }
@@ -310,6 +342,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 8490) {
             return _ch -8383;
         }
+        return toLowerCaseDefaultSeven6(_ch);
+    }
+
+    private static int toLowerCaseDefaultSeven6(char _ch) {
         if (_ch == 8491) {
             return _ch -8262;
         }
@@ -322,6 +358,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 11363) {
             return _ch -3814;
         }
+        return toLowerCaseDefaultSeven5(_ch);
+    }
+
+    private static int toLowerCaseDefaultSeven5(char _ch) {
         if (_ch == 11364) {
             return _ch -10727;
         }
@@ -334,6 +374,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 11375) {
             return _ch -10783;
         }
+        return toLowerCaseDefaultSeven4(_ch);
+    }
+
+    private static int toLowerCaseDefaultSeven4(char _ch) {
         if (_ch == 11376) {
             return _ch -10782;
         }
@@ -388,6 +432,10 @@ final class StringDataDirLetterUtil {
         if (rgBounds3(_ch, 433, 434)) {
             return _ch + 217;
         }
+        return toLowerCaseDefaultSix5(_ch);
+    }
+
+    private static int toLowerCaseDefaultSix5(char _ch) {
         if (rgBounds3(_ch, 904, 906)) {
             return _ch + 37;
         }
@@ -400,6 +448,10 @@ final class StringDataDirLetterUtil {
         if (rgBounds3(_ch, 931, 939)) {
             return _ch + 32;
         }
+        return toLowerCaseDefaultSix4(_ch);
+    }
+
+    private static int toLowerCaseDefaultSix4(char _ch) {
         if (rgBounds3(_ch, 1021, 1023)) {
             return _ch -130;
         }
@@ -422,6 +474,10 @@ final class StringDataDirLetterUtil {
         if (rgBounds3(_ch, 7944, 7951) || rgBounds3(_ch, 7960, 7965) || rgBounds3(_ch, 7976, 7983) || rgBounds3(_ch, 7992, 7999) || rgBounds3(_ch, 8008, 8013) || rgBounds3(_ch, 8040, 8047) || rgBounds3(_ch, 8120, 8121)) {
             return _ch - 8;
         }
+        return toLowerCaseDefaultSix3(_ch);
+    }
+
+    private static int toLowerCaseDefaultSix3(char _ch) {
         if (rgBounds3(_ch, 8122, 8123)) {
             return _ch -74;
         }
@@ -438,28 +494,7 @@ final class StringDataDirLetterUtil {
     }
 
     private static int toLowerCaseDefaultSix1(char _ch) {
-        if (rgBounds3(_ch, 8168, 8169)) {
-            return _ch -8;
-        }
-        if (rgBounds3(_ch, 8170, 8171)) {
-            return _ch -112;
-        }
-        if (rgBounds3(_ch, 8184, 8185)) {
-            return _ch -128;
-        }
-        if (rgBounds3(_ch, 8186, 8187)) {
-            return _ch -126;
-        }
-        if (rgBounds3(_ch, 11264, 11310)) {
-            return _ch + 48;
-        }
-        if (rgBounds3(_ch, 11390, 11391)) {
-            return _ch -10815;
-        }
-        if (rgBounds3(_ch, 65313, 65338)) {
-            return _ch + 32;
-        }
-        return _ch;
+        return toLowerCheckDef4(_ch);
     }
 
     static int toLowerCaseIntCheck(char _ch) {
@@ -467,16 +502,13 @@ final class StringDataDirLetterUtil {
     }
 
     private static int toLowerCheckDefThree(char _ch) {
-        if (_ch == 571 || _ch == 577 || _ch == 886 || _ch == 1015 || _ch == 1018 || _ch == 8579 || _ch == 11360) {
+        if (_ch == 571 || _ch == 577 || _ch == 886 || _ch == 1015 || _ch == 1018 || _ch == 8579 || _ch == 11360 || _ch == 11378 || _ch == 11381 || _ch == 11506 || _ch == 42891) {
             return _ch + 1;
         }
         return toLowerCheckDefThree5(_ch);
     }
 
     private static int toLowerCheckDefThree5(char _ch) {
-        if (_ch == 11378 || _ch == 11381 || _ch == 11506 || _ch == 42891) {
-            return _ch + 1;
-        }
         if (_ch == 304) {
             return _ch -199;
         }
@@ -486,6 +518,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 385) {
             return _ch + 210;
         }
+        return toLowerCheckDefThree17(_ch);
+    }
+
+    private static int toLowerCheckDefThree17(char _ch) {
         if (_ch == 390) {
             return _ch + 206;
         }
@@ -511,6 +547,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 406) {
             return _ch + 211;
         }
+        return toLowerCheckDefThree16(_ch);
+    }
+
+    private static int toLowerCheckDefThree16(char _ch) {
         if (_ch == 407) {
             return _ch + 209;
         }
@@ -523,6 +563,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 415) {
             return _ch + 214;
         }
+        return toLowerCheckDefThree15(_ch);
+    }
+
+    private static int toLowerCheckDefThree15(char _ch) {
         if (_ch == 422) {
             return _ch + 218;
         }
@@ -535,6 +579,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 439) {
             return _ch + 219;
         }
+        return toLowerCheckDefThree14(_ch);
+    }
+
+    private static int toLowerCheckDefThree14(char _ch) {
         if (_ch == 452) {
             return _ch + 2;
         }
@@ -557,6 +605,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 503) {
             return _ch -56;
         }
+        return toLowerCheckDefThree13(_ch);
+    }
+
+    private static int toLowerCheckDefThree13(char _ch) {
         if (_ch == 544) {
             return _ch -130;
         }
@@ -569,6 +621,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 574) {
             return _ch + 10792;
         }
+        return toLowerCheckDefThree12(_ch);
+    }
+
+    private static int toLowerCheckDefThree12(char _ch) {
         if (_ch == 579) {
             return _ch -195;
         }
@@ -581,6 +637,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 902) {
             return _ch + 38;
         }
+        return toLowerCheckDefThree11(_ch);
+    }
+
+    private static int toLowerCheckDefThree11(char _ch) {
         if (_ch == 908) {
             return _ch + 64;
         }
@@ -609,6 +669,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 7838) {
             return _ch -7615;
         }
+        return toLowerCheckDefThree10(_ch);
+    }
+
+    private static int toLowerCheckDefThree10(char _ch) {
         if (_ch == 8025) {
             return _ch -8;
         }
@@ -621,6 +685,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 8031) {
             return _ch -8;
         }
+        return toLowerCheckDefThree9(_ch);
+    }
+
+    private static int toLowerCheckDefThree9(char _ch) {
         if (_ch == 8124) {
             return _ch -9;
         }
@@ -643,6 +711,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 8490) {
             return _ch -8383;
         }
+        return toLowerCheckDefThree8(_ch);
+    }
+
+    private static int toLowerCheckDefThree8(char _ch) {
         if (_ch == 8491) {
             return _ch -8262;
         }
@@ -655,6 +727,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 11363) {
             return _ch -3814;
         }
+        return toLowerCheckDefThree7(_ch);
+    }
+
+    private static int toLowerCheckDefThree7(char _ch) {
         if (_ch == 11364) {
             return _ch -10727;
         }
@@ -667,6 +743,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 11375) {
             return _ch -10783;
         }
+        return toLowerCheckDefThree6(_ch);
+    }
+
+    private static int toLowerCheckDefThree6(char _ch) {
         if (_ch == 11376) {
             return _ch -10782;
         }
@@ -695,6 +775,10 @@ final class StringDataDirLetterUtil {
         if (rgBounds3(_ch, 904, 906)) {
             return _ch + 37;
         }
+        return toLowerCheckDef5(_ch);
+    }
+
+    private static int toLowerCheckDef5(char _ch) {
         if (rgBounds3(_ch, 910, 911)) {
             return _ch + 63;
         }
@@ -745,23 +829,31 @@ final class StringDataDirLetterUtil {
         if (rgBounds3(_ch, 8154, 8155)) {
             return _ch -100;
         }
+        return toLowerCheckDef4(_ch);
+    }
+
+    private static int toLowerCheckDef4(char _ch) {
         if (rgBounds3(_ch, 8168, 8169)) {
-            return _ch -8;
+            return _ch - 8;
         }
         if (rgBounds3(_ch, 8170, 8171)) {
-            return _ch -112;
+            return _ch - 112;
         }
         if (rgBounds3(_ch, 8184, 8185)) {
-            return _ch -128;
+            return _ch - 128;
         }
+        return toLowerCheckDef3(_ch);
+    }
+
+    private static int toLowerCheckDef3(char _ch) {
         if (rgBounds3(_ch, 8186, 8187)) {
-            return _ch -126;
+            return _ch - 126;
         }
         if (rgBounds3(_ch, 11264, 11310)) {
             return _ch + 48;
         }
         if (rgBounds3(_ch, 11390, 11391)) {
-            return _ch -10815;
+            return _ch - 10815;
         }
         if (rgBounds3(_ch, 65313, 65338)) {
             return _ch + 32;
@@ -783,16 +875,10 @@ final class StringDataDirLetterUtil {
             return _ch;
         }
         if (isRomanDigits(_ch)) {
-            if (_ch >= 8544 + 16) {
-                return _ch-16;
-            }
-            return _ch;
+            return off(_ch, 8544, 16);
         }
         if (isSensibleOtherLetter(_ch)) {
-            if (_ch >= 9398 + 26) {
-                return _ch-26;
-            }
-            return _ch;
+            return off(_ch, 9398, 26);
         }
         if (isOtherMathSymbol(_ch)) {
             return _ch;
@@ -810,6 +896,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 457) {
             return 455;
         }
+        return toUpperCaseInt4(_ch);
+    }
+
+    private static int toUpperCaseInt4(char _ch) {
         if (_ch == 454) {
             return 452;
         }
@@ -822,6 +912,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 499) {
             return 497;
         }
+        return toUpperCaseInt3(_ch);
+    }
+
+    private static int toUpperCaseInt3(char _ch) {
         if (_ch == 592) {
             return 11375;
         }
@@ -854,6 +948,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 616) {
             return _ch -209;
         }
+        return toUpperCaseDefThree2(_ch);
+    }
+
+    private static int toUpperCaseDefThree2(char _ch) {
         if (_ch == 617) {
             return _ch -211;
         }
@@ -866,6 +964,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 643) {
             return _ch -218;
         }
+        return toUpperCaseDefThree1(_ch);
+    }
+
+    private static int toUpperCaseDefThree1(char _ch) {
         if (_ch == 658) {
             return _ch -219;
         }
@@ -875,28 +977,30 @@ final class StringDataDirLetterUtil {
         if (_ch == 7549) {
             return _ch + 3814;
         }
-        if (_ch == 459) {
-            return _ch -1;
-        }
-        if (_ch == 498) {
-            return _ch -1;
+        if (_ch == 459 || _ch == 498) {
+            return _ch - 1;
         }
         return toUpperCaseDefFour(_ch);
     }
 
     static int toUpperCaseIntCheck(char _ch) {
         if (isRomanDigits(_ch)) {
-            if (_ch >= 8544 + 16) {
-                return _ch-16;
-            }
-            return _ch;
+            return off(_ch, 8544, 16);
         }
         if (isSensibleOtherLetter(_ch)) {
-            if (_ch >= 9398 + 26) {
-                return _ch-26;
-            }
-            return _ch;
+            return off(_ch, 9398, 26);
         }
+        return toUpperCaseIntCheck3(_ch);
+    }
+
+    private static int off(char _ch, int _rel, int _add) {
+        if (_ch >= _rel + _add) {
+            return _ch - _add;
+        }
+        return _ch;
+    }
+
+    private static int toUpperCaseIntCheck3(char _ch) {
         if (isOtherMathSymbol(_ch)) {
             return _ch;
         }
@@ -909,6 +1013,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 457) {
             return 455;
         }
+        return toUpperCaseIntCheck2(_ch);
+    }
+
+    private static int toUpperCaseIntCheck2(char _ch) {
         if (_ch == 454) {
             return 452;
         }
@@ -987,6 +1095,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 410) {
             return 573;
         }
+        return toUpperCaseIntCheckLow2(_ch);
+    }
+
+    private static int toUpperCaseIntCheckLow2(char _ch) {
         if (_ch == 457) {
             return 455;
         }
@@ -1009,6 +1121,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 592) {
             return 11375;
         }
+        return toUpperCaseDefFour18(_ch);
+    }
+
+    private static int toUpperCaseDefFour18(char _ch) {
         if (_ch == 1008) {
             return 922;
         }
@@ -1021,6 +1137,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 392) {
             return _ch -1;
         }
+        return toUpperCaseDefFour17(_ch);
+    }
+
+    private static int toUpperCaseDefFour17(char _ch) {
         if (_ch == 396) {
             return _ch -1;
         }
@@ -1033,6 +1153,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 424) {
             return _ch -1;
         }
+        return toUpperCaseDefFour16(_ch);
+    }
+
+    private static int toUpperCaseDefFour16(char _ch) {
         if (_ch == 429) {
             return _ch -1;
         }
@@ -1055,6 +1179,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 572) {
             return _ch -1;
         }
+        return toUpperCaseDefFour15(_ch);
+    }
+
+    private static int toUpperCaseDefFour15(char _ch) {
         if (_ch == 578) {
             return _ch -1;
         }
@@ -1077,6 +1205,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 11361) {
             return _ch -1;
         }
+        return toUpperCaseDefFour14(_ch);
+    }
+
+    private static int toUpperCaseDefFour14(char _ch) {
         if (_ch == 11379) {
             return _ch -1;
         }
@@ -1089,6 +1221,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 42892) {
             return _ch -1;
         }
+        return toUpperCaseDefFour12(_ch);
+    }
+
+    private static int toUpperCaseDefFour12(char _ch) {
         if (_ch == 181) {
             return _ch + 743;
         }
@@ -1101,6 +1237,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 384) {
             return _ch + 195;
         }
+        return toUpperCaseDefFour11(_ch);
+    }
+
+    private static int toUpperCaseDefFour11(char _ch) {
         if (_ch == 405) {
             return _ch + 97;
         }
@@ -1123,6 +1263,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 595) {
             return _ch -210;
         }
+        return toUpperCaseDefFour10(_ch);
+    }
+
+    private static int toUpperCaseDefFour10(char _ch) {
         if (_ch == 596) {
             return _ch -206;
         }
@@ -1135,6 +1279,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 608) {
             return _ch -205;
         }
+        return toUpperCaseDefFour9(_ch);
+    }
+
+    private static int toUpperCaseDefFour9(char _ch) {
         if (_ch == 611) {
             return _ch -207;
         }
@@ -1147,6 +1295,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 629) {
             return _ch -214;
         }
+        return toUpperCaseDefFour8(_ch);
+    }
+
+    private static int toUpperCaseDefFour8(char _ch) {
         if (_ch == 637) {
             return _ch + 10727;
         }
@@ -1169,6 +1321,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 837) {
             return _ch + 84;
         }
+        return toUpperCaseDefFour7(_ch);
+    }
+
+    private static int toUpperCaseDefFour7(char _ch) {
         if (_ch == 940) {
             return _ch -38;
         }
@@ -1181,6 +1337,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 976) {
             return _ch -62;
         }
+        return toUpperCaseDefFour6(_ch);
+    }
+
+    private static int toUpperCaseDefFour6(char _ch) {
         if (_ch == 977) {
             return _ch -57;
         }
@@ -1193,6 +1353,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 983) {
             return _ch -8;
         }
+        return toUpperCaseDefFour5(_ch);
+    }
+
+    private static int toUpperCaseDefFour5(char _ch) {
         if (_ch == 1009) {
             return _ch -80;
         }
@@ -1218,6 +1382,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 8126) {
             return _ch -7205;
         }
+        return toUpperCaseDef9(_ch);
+    }
+
+    private static int toUpperCaseDef9(char _ch) {
         if (_ch == 8131) {
             return _ch + 9;
         }
@@ -1230,6 +1398,10 @@ final class StringDataDirLetterUtil {
         if (_ch == 8526) {
             return _ch -28;
         }
+        return toUpperCaseDef8(_ch);
+    }
+
+    private static int toUpperCaseDef8(char _ch) {
         if (_ch == 11365) {
             return _ch -10795;
         }
@@ -1252,6 +1424,10 @@ final class StringDataDirLetterUtil {
         if (rgBounds3(_ch, 575, 576)) {
             return _ch + 10815;
         }
+        return toUpperCaseDef7(_ch);
+    }
+
+    private static int toUpperCaseDef7(char _ch) {
         if (rgBounds3(_ch, 598, 599)) {
             return _ch -205;
         }
@@ -1277,6 +1453,10 @@ final class StringDataDirLetterUtil {
         if (rgBounds3(_ch, 973, 974)) {
             return _ch -63;
         }
+        return toUpperCaseDef6(_ch);
+    }
+
+    private static int toUpperCaseDef6(char _ch) {
         if (rgBounds3(_ch, 1072, 1103)) {
             return _ch -32;
         }
@@ -1309,6 +1489,10 @@ final class StringDataDirLetterUtil {
         if (rgBounds3(_ch, 8056, 8057)) {
             return _ch + 128;
         }
+        return toUpperCaseDef5(_ch);
+    }
+
+    private static int toUpperCaseDef5(char _ch) {
         if (rgBounds3(_ch, 8058, 8059)) {
             return _ch + 112;
         }
