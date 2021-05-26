@@ -3311,6 +3311,9 @@ public final class StringDataUtil {
         if (_ch >= 43056 && _ch <= 43061) {
             return true;
         }
+        return isOtherLettersDigits3(_ch);
+    }
+    private static boolean isOtherLettersDigits3(char _ch) {
         if (_ch == 8585) {
             return true;
         }
@@ -3332,6 +3335,9 @@ public final class StringDataUtil {
         if (_ch >= 3192 && _ch <= 3198) {
             return true;
         }
+        return isOtherLettersDigits2(_ch);
+    }
+    private static boolean isOtherLettersDigits2(char _ch) {
         if (_ch >= 3440 && _ch <= 3445) {
             return true;
         }
@@ -3353,6 +3359,9 @@ public final class StringDataUtil {
         if (_ch >= 8308 && _ch <= 8329) {
             return true;
         }
+        return isOtherLettersDigits1(_ch);
+    }
+    private static boolean isOtherLettersDigits1(char _ch) {
         if (_ch >= 6128 && _ch <= 6137) {
             return true;
         }
