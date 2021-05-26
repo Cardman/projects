@@ -3065,6 +3065,9 @@ public final class StringDataUtil {
         if (_ch >= 3841&& _ch <= 3843) {
             return true;
         }
+        return isOtherSymbol9(_ch);
+    }
+    private static boolean isOtherSymbol9(char _ch) {
         if (_ch >= 3861&& _ch <= 3863) {
             return true;
         }
@@ -3086,6 +3089,9 @@ public final class StringDataUtil {
         if (_ch >= 6622&& _ch <= 6655) {
             return true;
         }
+        return isOtherSymbol8(_ch);
+    }
+    private static boolean isOtherSymbol8(char _ch) {
         if (_ch >= 7009&& _ch <= 7018) {
             return true;
         }
@@ -3107,6 +3113,9 @@ public final class StringDataUtil {
         if (_ch >= 8451&& _ch <= 8454) {
             return true;
         }
+        return isOtherSymbol7(_ch);
+    }
+    private static boolean isOtherSymbol7(char _ch) {
         if (_ch >= 8478&& _ch <= 8483) {
             return true;
         }
@@ -3128,6 +3137,9 @@ public final class StringDataUtil {
         if (_ch >= 8604&& _ch <= 8607) {
             return true;
         }
+        return isOtherSymbol6(_ch);
+    }
+    private static boolean isOtherSymbol6(char _ch) {
         if (_ch >= 8615&& _ch <= 8621) {
             return true;
         }
@@ -3149,6 +3161,9 @@ public final class StringDataUtil {
         if (_ch >= 9003&& _ch <= 9083) {
             return true;
         }
+        return isOtherSymbol5(_ch);
+    }
+    private static boolean isOtherSymbol5(char _ch) {
         if (_ch >= 9085&& _ch <= 9114) {
             return true;
         }
@@ -3169,6 +3184,9 @@ public final class StringDataUtil {
         if (_ch >= 10132&& _ch <= 10175) {
             return true;
         }
+        return isOtherSymbol4(_ch);
+    }
+    private static boolean isOtherSymbol4(char _ch) {
         if (_ch >= 10240&& _ch <= 10495) {
             return true;
         }
@@ -3190,6 +3208,9 @@ public final class StringDataUtil {
         if (_ch >= 12032&& _ch <= 12283) {
             return true;
         }
+        return isOtherSymbol3(_ch);
+    }
+    private static boolean isOtherSymbol3(char _ch) {
         if (_ch >= 12694&& _ch <= 12703) {
             return true;
         }
@@ -3211,6 +3232,9 @@ public final class StringDataUtil {
         if (_ch >= 12992&& _ch <= 13054) {
             return true;
         }
+        return isOtherSymbol2(_ch);
+    }
+    private static boolean isOtherSymbol2(char _ch) {
         if (_ch >= 13056&& _ch <= 13311) {
             return true;
         }
@@ -3232,6 +3256,9 @@ public final class StringDataUtil {
         if (_ch >= 64434&& _ch <= 64449) {
             return true;
         }
+        return isOtherSymbol1(_ch);
+    }
+    private static boolean isOtherSymbol1(char _ch) {
         for (int i: NumberUtil.wrapIntArray(900,1550,1789,
                 4046,4254,8189,8448,8470,8456,8506,8597,8524,8609,8612,8656,
                 11077,12306,12342,12350,12443,12688,42784,42889,43062,
