@@ -1666,6 +1666,9 @@ public final class StringDataUtil {
             }
             return 2;
         }
+        return generalDir2(_ch,_type);
+    }
+    private static int generalDir2(char _ch, int _type) {
         if (_type == DIGIT_BASE) {
             return 3;
         }
@@ -1684,6 +1687,9 @@ public final class StringDataUtil {
             }
             return 0;
         }
+        return generalDir1(_ch,_type);
+    }
+    private static int generalDir1(char _ch, int _type) {
         if (_type == ID_SEP) {
             if (_ch == 160) {
                 return 7;
@@ -1739,6 +1745,9 @@ public final class StringDataUtil {
         if (_type == PUNCTUATION) {
             return 13;
         }
+        return generalDirOther1(_ch,_type);
+    }
+    private static int generalDirOther1(char _ch, int _type) {
         if (_type == QUOTES) {
             return 13;
         }
@@ -1850,6 +1859,9 @@ public final class StringDataUtil {
         if (_ch == 8722) {
             return 4;
         }
+        return dirOtherPrintSix1(_ch);
+    }
+    private static int dirOtherPrintSix1(char _ch) {
         if (_ch == 8723) {
             return 5;
         }
@@ -1944,6 +1956,9 @@ public final class StringDataUtil {
         if (_ch <= 1790) {
             return 2;
         }
+        return dirOtherPrintTwo4(_ch);
+    }
+    private static int dirOtherPrintTwo4(char _ch) {
         if (_ch >= 2554 && _ch <= 2928) {
             return 0;
         }
@@ -1962,6 +1977,9 @@ public final class StringDataUtil {
         if (_ch >= 8448 && _ch <= 9013) {
             return 13;
         }
+        return dirOtherPrintTwo3(_ch);
+    }
+    private static int dirOtherPrintTwo3(char _ch) {
         if (_ch >= 9014 && _ch <= 9082) {
             return 0;
         }
@@ -1983,6 +2001,9 @@ public final class StringDataUtil {
         if (_ch >= 12688 && _ch <= 12703) {
             return 0;
         }
+        return dirOtherPrintTwo2(_ch);
+    }
+    private static int dirOtherPrintTwo2(char _ch) {
         if (_ch >= 12736 && _ch <= 12771) {
             return 13;
         }
@@ -2004,6 +2025,9 @@ public final class StringDataUtil {
         if (_ch >= 13004 && _ch <= 13007) {
             return 13;
         }
+        return dirOtherPrintTwo1(_ch);
+    }
+    private static int dirOtherPrintTwo1(char _ch) {
         if (_ch >= 13008 && _ch <= 13174) {
             return 0;
         }
@@ -2059,6 +2083,10 @@ public final class StringDataUtil {
         if (_ch == 65109) {
             return 7;
         }
+        return dirOtherPrint3(_ch);
+    }
+
+    private static int dirOtherPrint3(char _ch) {
         if (_ch == 65119) {
             return 5;
         }
@@ -2086,6 +2114,9 @@ public final class StringDataUtil {
         if (_ch <= 1805) {
             return 2;
         }
+        return dirOtherPrint2(_ch);
+    }
+    private static int dirOtherPrint2(char _ch) {
         if (_ch <= 2041) {
             return 13;
         }
@@ -2110,6 +2141,9 @@ public final class StringDataUtil {
         if (_ch <= 12539) {
             return 13;
         }
+        return dirOtherPrint1(_ch);
+    }
+    private static int dirOtherPrint1(char _ch) {
         if (_ch <= 42239) {
             return 0;
         }
@@ -2159,6 +2193,9 @@ public final class StringDataUtil {
         if (_ch == 8235){
             return 16;
         }
+        return dirSeparator1(_ch);
+    }
+    private static int dirSeparator1(char _ch) {
         if (_ch == 8236){
             return 18;
         }
@@ -3208,7 +3245,7 @@ public final class StringDataUtil {
         if (_ch >= 4969 && _ch <= 4988) {
             return true;
         }
-        if (_ch >= 11517 && _ch <= 11517) {
+        if (_ch == 11517) {
             return true;
         }
         if (_ch >= 8528 && _ch <= 8543) {
@@ -3223,7 +3260,7 @@ public final class StringDataUtil {
         if (_ch >= 6128 && _ch <= 6137) {
             return true;
         }
-        if (_ch >= 6618 && _ch <= 6618) {
+        if (_ch == 6618) {
             return true;
         }
         if (_ch >= 8576 && _ch <= 8584) {
@@ -3263,7 +3300,7 @@ public final class StringDataUtil {
         if (_ch >= 65529&&_ch<=65531) {
             return true;
         }
-        return _ch >= 65279 && _ch <= 65279;
+        return _ch == 65279;
     }
 
     private static boolean isOtherSpace(char _ch) {
@@ -4502,7 +4539,7 @@ public final class StringDataUtil {
         if (_ch >= 8255 && _ch <= 8256) {
             return true;
         }
-        if (_ch >= 11799 && _ch <= 11799) {
+        if (_ch == 11799) {
             return true;
         }
         if (_ch >= 11834 && _ch <= 11835) {
@@ -5062,7 +5099,7 @@ public final class StringDataUtil {
         if (_ch <= 4988) {
             return 11;
         }
-        if (_ch >= 11517 && _ch <= 11517) {
+        if (_ch == 11517) {
             return 11;
         }
         if (_ch >= 8528 && _ch <= 8543) {
@@ -5074,7 +5111,7 @@ public final class StringDataUtil {
         if (_ch >= 6128 && _ch <= 6137) {
             return 11;
         }
-        if (_ch >= 6618 && _ch <= 6618) {
+        if (_ch == 6618) {
             return 11;
         }
         return 10;
@@ -5264,7 +5301,7 @@ public final class StringDataUtil {
         if (_ch >= 6439 && _ch <= 6440) {
             return 6;
         }
-        if (_ch >= 6450 && _ch <= 6450) {
+        if (_ch == 6450) {
             return 6;
         }
         if (_ch >= 6457 && _ch <= 6459) {
