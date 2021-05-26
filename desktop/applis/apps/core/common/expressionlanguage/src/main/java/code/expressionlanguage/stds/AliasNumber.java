@@ -487,7 +487,7 @@ public final class AliasNumber {
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetter())) {
                 char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringDataUtil.isLetter(one_)));
+                _res.setResult(BooleanStruct.of(StringDataLetterUtil.isLetter(one_)));
                 return;
             }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetterOrDigit())) {

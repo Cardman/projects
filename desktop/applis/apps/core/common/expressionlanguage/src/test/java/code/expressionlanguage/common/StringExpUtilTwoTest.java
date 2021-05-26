@@ -20445,46 +20445,46 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
 
     @Test
     public void isLetter1() {
-        assertTrue(StringDataUtil.isLetter('a'));
+        assertTrue(StringDataLetterUtil.isLetter('a'));
     }
 
     @Test
     public void isLetter2() {
-        assertTrue(!StringDataUtil.isLetter('1'));
+        assertTrue(!StringDataLetterUtil.isLetter('1'));
     }
     @Test
     public void isLetter3() {
-        assertTrue(StringDataUtil.isLetter((char)65500));
+        assertTrue(StringDataLetterUtil.isLetter((char)65500));
     }
 
     @Test
     public void isLetter4() {
-        assertTrue(!StringDataUtil.isLetter((char)65501));
+        assertTrue(!StringDataLetterUtil.isLetter((char)65501));
     }
 
     @Test
     public void isLetter5() {
-        assertTrue(!StringDataUtil.isLetter((char)215));
+        assertTrue(!StringDataLetterUtil.isLetter((char)215));
     }
 
     @Test
     public void isLetter6() {
-        assertTrue(!StringDataUtil.isLetter((char)191));
+        assertTrue(!StringDataLetterUtil.isLetter((char)191));
     }
 
     @Test
     public void isLetter7() {
-        assertTrue(!StringDataUtil.isLetter((char)128));
+        assertTrue(!StringDataLetterUtil.isLetter((char)128));
     }
 
     @Test
     public void isLetter8() {
-        assertTrue(!StringDataUtil.isLetter('_'));
+        assertTrue(!StringDataLetterUtil.isLetter('_'));
     }
 
     @Test
     public void isLetter9() {
-        assertTrue(StringDataUtil.isLetter('A'));
+        assertTrue(StringDataLetterUtil.isLetter('A'));
     }
     @Test
     public void isLetterOrDigit1() {
@@ -20542,7 +20542,7 @@ public final class StringExpUtilTwoTest extends ProcessMethodCommon {
             min_ = Math.min(dir_,min_);
             maxType_ = Math.max(type_,maxType_);
             minType_ = Math.min(type_,minType_);
-            if (StringDataUtil.isLetter((char) i)) {
+            if (StringDataLetterUtil.isLetter((char) i)) {
                 if (minLetter_ == -1) {
                     minLetter_ = i;
                 }

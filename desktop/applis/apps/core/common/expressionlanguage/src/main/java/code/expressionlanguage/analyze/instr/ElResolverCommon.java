@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.options.KeyWords;
-import code.util.IntTreeMap;
 import code.util.core.StringUtil;
 
 public final class ElResolverCommon {
@@ -399,7 +398,7 @@ public final class ElResolverCommon {
             _output.setNextIndex(n_);
             return;
         }
-        if (j_ < _max && StringDataUtil.isLetter(_string.charAt(j_))) {
+        if (j_ < _max && StringDataLetterUtil.isLetter(_string.charAt(j_))) {
             String keyWord_ = _key.getNbKeyWord(_string, j_);
             if (keyWord_ != null) {
                 char suf_ = _key.getSuffixes().getVal(keyWord_);

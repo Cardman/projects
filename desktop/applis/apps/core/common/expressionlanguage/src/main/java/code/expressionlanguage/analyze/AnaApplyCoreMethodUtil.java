@@ -504,7 +504,7 @@ public final class AnaApplyCoreMethodUtil {
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsLetter())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringDataUtil.isLetter(one_)));
+                    return(BooleanStruct.of(StringDataLetterUtil.isLetter(one_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsLetterOrDigit())) {
                     char one_ = NumParsers.convertToChar(_args[0]).getChar();
