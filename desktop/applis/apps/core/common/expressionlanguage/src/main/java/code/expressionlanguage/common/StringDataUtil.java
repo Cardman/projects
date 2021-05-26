@@ -500,22 +500,7 @@ public final class StringDataUtil {
 
     private static int generalDirOther(char _ch, int _type) {
         if (_type == OPERATOR_LANGUAGE) {
-            if (_ch == 33) {
-                return 13;
-            }
-            if (_ch <= 37) {
-                return 5;
-            }
-            if (_ch <= 42) {
-                return 13;
-            }
-            if (_ch <= 45) {
-                return 4;
-            }
-            if (_ch <= 58) {
-                return 7;
-            }
-            return 13;
+            return generalDirOther2(_ch);
         }
         if (_type == OPERATOR_SPEC) {
             return 7;
@@ -525,6 +510,26 @@ public final class StringDataUtil {
         }
         return generalDirOther1(_ch,_type);
     }
+
+    private static int generalDirOther2(char _ch) {
+        if (_ch == 33) {
+            return 13;
+        }
+        if (_ch <= 37) {
+            return 5;
+        }
+        if (_ch <= 42) {
+            return 13;
+        }
+        if (_ch <= 45) {
+            return 4;
+        }
+        if (_ch <= 58) {
+            return 7;
+        }
+        return 13;
+    }
+
     private static int generalDirOther1(char _ch, int _type) {
         if (_type == QUOTES) {
             return 13;
@@ -547,10 +552,7 @@ public final class StringDataUtil {
         if (_type == PUNCTUATION_CONNECTOR) {
             return dirOtherPrintThree(_ch);
         }
-        if (_type == PUNCTUATION_BOUND) {
-            return 13;
-        }
-        if (_type == PUNCTUATION_QUOTE) {
+        if (_type == PUNCTUATION_BOUND || _type == PUNCTUATION_QUOTE) {
             return 13;
         }
         if (_type == PUNCTUATION_OTHER) {
@@ -597,6 +599,10 @@ public final class StringDataUtil {
         if (_ch == 31) {
             return 11;
         }
+        return dirOtherSpace1(_ch);
+    }
+
+    private static int dirOtherSpace1(char _ch) {
         if (_ch == 133) {
             return 10;
         }
@@ -606,6 +612,10 @@ public final class StringDataUtil {
         if (_ch <= 27) {
             return 9;
         }
+        return dirOtherSpace2(_ch);
+    }
+
+    private static int dirOtherSpace2(char _ch) {
         if (_ch <= 30) {
             return 10;
         }
@@ -622,6 +632,10 @@ public final class StringDataUtil {
         if (_ch == 177) {
             return 5;
         }
+        return dirOtherPrintSix2(_ch);
+    }
+
+    private static int dirOtherPrintSix2(char _ch) {
         if (_ch == 1544) {
             return 2;
         }
@@ -639,6 +653,7 @@ public final class StringDataUtil {
         }
         return dirOtherPrintSix1(_ch);
     }
+
     private static int dirOtherPrintSix1(char _ch) {
         if (_ch == 8723) {
             return 5;
@@ -691,9 +706,6 @@ public final class StringDataUtil {
     }
 
     private static int dirOtherPrintThree(char _ch) {
-        if (_ch == 1418) {
-            return 13;
-        }
         if (_ch == 1470) {
             return 1;
         }
@@ -707,25 +719,13 @@ public final class StringDataUtil {
     }
 
     private static int dirOtherPrintTwo(char _ch) {
-        if (_ch == 1154) {
-            return 0;
-        }
-        if (_ch == 8527) {
-            return 0;
-        }
-        if (_ch == 9900) {
-            return 0;
-        }
-        if (_ch == 9109) {
+        if (_ch == 1154 || _ch == 8527 || _ch == 9900 || _ch == 9109) {
             return 0;
         }
         if (_ch == 12880) {
             return 13;
         }
-        if (_ch == 8494) {
-            return 5;
-        }
-        if (_ch == 43065) {
+        if (_ch == 8494 || _ch == 43065) {
             return 5;
         }
         if (_ch <= 1769) {
@@ -831,44 +831,30 @@ public final class StringDataUtil {
     }
 
     private static int dirOtherPrint(char _ch) {
-        if (_ch == 1548) {
-            return 7;
-        }
         if (_ch == 1642) {
             return 5;
         }
-        if (_ch == 1645) {
-            return 2;
-        }
-        if (_ch == 1748) {
+        if (_ch == 1645 || _ch == 1748) {
             return 2;
         }
         if (_ch == 11632) {
             return 0;
         }
-        if (_ch == 65104) {
+        return dirOtherPrint4(_ch);
+    }
+
+    private static int dirOtherPrint4(char _ch) {
+        if (_ch == 1548 || _ch == 65104 || _ch == 65106 || _ch == 65109) {
             return 7;
         }
-        if (_ch == 65105) {
+        if (_ch == 65105 || _ch == 65108) {
             return 13;
-        }
-        if (_ch == 65106) {
-            return 7;
-        }
-        if (_ch == 65108) {
-            return 13;
-        }
-        if (_ch == 65109) {
-            return 7;
         }
         return dirOtherPrint3(_ch);
     }
 
     private static int dirOtherPrint3(char _ch) {
-        if (_ch == 65119) {
-            return 5;
-        }
-        if (_ch == 65130) {
+        if (_ch == 65119 || _ch == 65130) {
             return 5;
         }
         if (_ch <= 903) {
@@ -880,6 +866,10 @@ public final class StringDataUtil {
         if (_ch <= 1524) {
             return 1;
         }
+        return dirOtherPrint5(_ch);
+    }
+
+    private static int dirOtherPrint5(char _ch) {
         if (_ch <= 1546) {
             return 5;
         }
@@ -894,6 +884,7 @@ public final class StringDataUtil {
         }
         return dirOtherPrint2(_ch);
     }
+
     private static int dirOtherPrint2(char _ch) {
         if (_ch <= 2041) {
             return 13;
@@ -907,6 +898,10 @@ public final class StringDataUtil {
         if (_ch <= 6469) {
             return 13;
         }
+        return dirOtherPrint6(_ch);
+    }
+
+    private static int dirOtherPrint6(char _ch) {
         if (_ch <= 7379) {
             return 0;
         }
@@ -921,6 +916,7 @@ public final class StringDataUtil {
         }
         return dirOtherPrint1(_ch);
     }
+
     private static int dirOtherPrint1(char _ch) {
         if (_ch <= 42239) {
             return 0;
@@ -937,6 +933,10 @@ public final class StringDataUtil {
         if (_ch <= 44011) {
             return 0;
         }
+        return dirOtherPrint7(_ch);
+    }
+
+    private static int dirOtherPrint7(char _ch) {
         if (_ch <= 65282) {
             return 13;
         }
@@ -983,6 +983,10 @@ public final class StringDataUtil {
         if (_ch == 8238){
             return 17;
         }
+        return dirSeparator2(_ch);
+    }
+
+    private static int dirSeparator2(char _ch) {
         if (_ch == 65279){
             return 9;
         }
@@ -1052,570 +1056,120 @@ public final class StringDataUtil {
     }
 
     private static int dirOther(char _ch) {
-        if (_ch == 2307){
+        if (_ch == 2307 || _ch == 2363 || _ch == 2519 || _ch == 2563 || _ch == 2691 || _ch == 2878 || _ch == 2880 || _ch == 2903 || _ch == 3415 || _ch == 3967 || _ch == 4145 || _ch == 4152 || _ch == 6070 || _ch == 6743 || _ch == 6753 || _ch == 6916 || _ch == 6965 || _ch == 6971 || _ch == 7082 || _ch == 7143 || _ch == 7150 || _ch == 7393 || _ch == 43395 || _ch == 43755) {
             return 0;
-        }
-        if (_ch == 2363){
-            return 0;
-        }
-        if (_ch == 2519){
-            return 0;
-        }
-        if (_ch == 2563){
-            return 0;
-        }
-        if (_ch == 2691){
-            return 0;
-        }
-        if (_ch == 2878){
-            return 0;
-        }
-        if (_ch == 2880){
-            return 0;
-        }
-        if (_ch == 2903){
-            return 0;
-        }
-        return dirOther15(_ch);
-    }
-    private static int dirOther15(char _ch) {
-        if (_ch == 3415){
-            return 0;
-        }
-        if (_ch == 3967){
-            return 0;
-        }
-        if (_ch == 4145){
-            return 0;
-        }
-        if (_ch == 4152){
-            return 0;
-        }
-        if (_ch == 6070){
-            return 0;
-        }
-        if (_ch == 6743){
-            return 0;
-        }
-        if (_ch == 6753){
-            return 0;
-        }
-        if (_ch == 6916){
-            return 0;
-        }
-        if (_ch == 6965){
-            return 0;
-        }
-        if (_ch == 6971){
-            return 0;
-        }
-        if (_ch == 7082){
-            return 0;
-        }
-        return dirOther14(_ch);
-    }
-    private static int dirOther14(char _ch) {
-        if (_ch == 7143){
-            return 0;
-        }
-        if (_ch == 7150){
-            return 0;
-        }
-        if (_ch == 7393){
-            return 0;
-        }
-        if (_ch == 43395){
-            return 0;
-        }
-        if (_ch == 43755){
-            return 0;
-        }
-        if (_ch == 2362){
-            return 8;
-        }
-        if (_ch == 2364){
-            return 8;
-        }
-        if (_ch == 2381){
-            return 8;
-        }
-        if (_ch == 2492){
-            return 8;
-        }
-        if (_ch == 2509){
-            return 8;
-        }
-        if (_ch == 2620){
-            return 8;
-        }
-        return dirOther13(_ch);
-    }
-    private static int dirOther13(char _ch) {
-        if (_ch == 2748){
-            return 8;
-        }
-        if (_ch == 2876){
-            return 8;
-        }
-        if (_ch == 2879){
-            return 8;
-        }
-        if (_ch == 2946){
-            return 8;
-        }
-        if (_ch == 3008){
-            return 8;
-        }
-        if (_ch == 3021){
-            return 8;
-        }
-        if (_ch == 3260){
-            return 8;
-        }
-        if (_ch == 3405){
-            return 8;
-        }
-        if (_ch == 3530){
-            return 8;
-        }
-        if (_ch == 4237){
-            return 8;
         }
         return dirOther12(_ch);
     }
     private static int dirOther12(char _ch) {
-        if (_ch == 6086){
-            return 8;
-        }
-        if (_ch == 6450){
-            return 8;
-        }
-        if (_ch == 6742){
-            return 8;
-        }
-        if (_ch == 6754){
-            return 8;
-        }
-        if (_ch == 6964){
-            return 8;
-        }
-        if (_ch == 6972){
-            return 8;
-        }
-        if (_ch == 6978){
-            return 8;
-        }
-        if (_ch == 7083){
-            return 8;
-        }
-        if (_ch == 7142){
-            return 8;
-        }
-        if (_ch == 7149){
+        if (_ch == 2362 || _ch == 2364 || _ch == 2381 || _ch == 2492 || _ch == 2509 || _ch == 2620 || _ch == 2748 || _ch == 2876 || _ch == 2879 || _ch == 2946 || _ch == 3008 || _ch == 3021 || _ch == 3260 || _ch == 3405 || _ch == 3530 || _ch == 4237 || _ch == 6086 || _ch == 6450 || _ch == 6742 || _ch == 6754 || _ch == 6964 || _ch == 6972 || _ch == 6978 || _ch == 7083 || _ch == 7142 || _ch == 7149 || _ch == 43443 || _ch == 43452 || _ch == 43766 || _ch == 44005 || _ch == 44008 || _ch == 44013) {
             return 8;
         }
         return dirOther11(_ch);
     }
     private static int dirOther11(char _ch) {
-        if (_ch == 43443){
-            return 8;
-        }
-        if (_ch == 43452){
-            return 8;
-        }
-        if (_ch == 43766){
-            return 8;
-        }
-        if (_ch == 44005){
-            return 8;
-        }
-        if (_ch == 44008){
-            return 8;
-        }
-        if (_ch == 44013){
-            return 8;
-        }
         if (_ch == 8232){
             return 12;
         }
         if (_ch == 8233){
             return 10;
         }
-        if (_ch <= 1756) {
+        if (dirBool(_ch)) {
             return 8;
         }
-        if (_ch <= 1773) {
-            return 8;
-        }
-        if (_ch <= 2306) {
-            return 8;
-        }
-        return dirOther10(_ch);
-    }
-    private static int dirOther10(char _ch) {
-        if (_ch <= 2368) {
-            return 0;
-        }
-        if (_ch <= 2376) {
-            return 8;
-        }
-        if (_ch <= 2380) {
-            return 0;
-        }
-        if (_ch <= 2383) {
-            return 0;
-        }
-        if (_ch <= 2433) {
-            return 8;
-        }
-        if (_ch <= 2435) {
-            return 0;
-        }
-        if (_ch <= 2496) {
-            return 0;
-        }
-        if (_ch <= 2500) {
-            return 8;
-        }
-        if (_ch <= 2508) {
-            return 0;
-        }
-        if (_ch <= 2562) {
-            return 8;
-        }
-        if (_ch <= 2624) {
-            return 0;
-        }
-        return dirOther9(_ch);
-    }
-    private static int dirOther9(char _ch) {
-        if (_ch <= 2690) {
-            return 8;
-        }
-        if (_ch <= 2752) {
-            return 0;
-        }
-        if (_ch <= 2760) {
-            return 8;
-        }
-        if (_ch <= 2764) {
-            return 0;
-        }
-        if (_ch <= 2817) {
-            return 8;
-        }
-        if (_ch <= 2819) {
-            return 0;
-        }
-        if (_ch <= 2884) {
-            return 8;
-        }
-        if (_ch <= 2892) {
-            return 0;
-        }
-        if (_ch <= 2902) {
-            return 8;
-        }
-        if (_ch <= 2915) {
-            return 8;
-        }
-        if (_ch <= 3075) {
-            return 0;
-        }
-        return dirOther8(_ch);
-    }
-    private static int dirOther8(char _ch) {
-        if (_ch <= 3136) {
-            return 8;
-        }
-        if (_ch <= 3140) {
-            return 0;
-        }
-        if (_ch <= 3171) {
-            return 8;
-        }
-        if (_ch <= 3203) {
-            return 0;
-        }
-        if (_ch <= 3275) {
-            return 0;
-        }
-        if (_ch <= 3277) {
-            return 8;
-        }
-        if (_ch <= 3286) {
-            return 0;
-        }
-        if (_ch <= 3299) {
-            return 8;
-        }
-        if (_ch <= 3392) {
-            return 0;
-        }
-        if (_ch <= 3396) {
-            return 8;
-        }
-        if (_ch <= 3404) {
-            return 0;
-        }
-        return dirOther7(_ch);
-    }
-    private static int dirOther7(char _ch) {
-        if (_ch <= 3427) {
-            return 8;
-        }
-        if (_ch <= 3459) {
-            return 0;
-        }
-        if (_ch <= 3537) {
-            return 0;
-        }
-        if (_ch <= 3542) {
-            return 8;
-        }
-        if (_ch <= 3571) {
-            return 0;
-        }
-        if (_ch <= 3897) {
-            return 8;
-        }
-        if (_ch <= 3903) {
-            return 0;
-        }
-        if (_ch <= 3966) {
-            return 8;
-        }
-        if (_ch <= 4038) {
-            return 8;
-        }
-        if (_ch <= 4140) {
-            return 0;
-        }
-        if (_ch <= 4154) {
-            return 8;
-        }
-        if (_ch <= 4156) {
-            return 0;
-        }
-        return dirOther6(_ch);
-    }
-    private static int dirOther6(char _ch) {
-        if (_ch <= 4158) {
-            return 8;
-        }
-        if (_ch <= 4183) {
-            return 0;
-        }
-        if (_ch <= 4192) {
-            return 8;
-        }
-        if (_ch <= 4205) {
-            return 0;
-        }
-        if (_ch <= 4226) {
-            return 8;
-        }
-        if (_ch <= 4228) {
-            return 0;
-        }
-        if (_ch <= 4230) {
-            return 8;
-        }
-        if (_ch <= 4252) {
-            return 0;
-        }
-        if (_ch <= 6069) {
-            return 8;
-        }
-        if (_ch <= 6077) {
-            return 8;
-        }
-        if (_ch <= 6085) {
-            return 0;
-        }
-        return dirOther5(_ch);
-    }
-    private static int dirOther5(char _ch) {
-        if (_ch <= 6088) {
-            return 0;
-        }
-        if (_ch <= 6434) {
-            return 8;
-        }
-        if (_ch <= 6438) {
-            return 0;
-        }
-        if (_ch <= 6440) {
-            return 8;
-        }
-        if (_ch <= 6449) {
-            return 0;
-        }
-        if (_ch <= 6456) {
-            return 0;
-        }
-        if (_ch <= 6459) {
-            return 8;
-        }
-        if (_ch <= 6618) {
-            return 0;
-        }
-        if (_ch <= 6680) {
-            return 8;
-        }
-        if (_ch <= 6741) {
-            return 0;
-        }
-        if (_ch <= 6752) {
-            return 8;
-        }
-        return dirOther4(_ch);
-    }
-    private static int dirOther4(char _ch) {
-        if (_ch <= 6756) {
-            return 0;
-        }
-        if (_ch <= 6764) {
-            return 8;
-        }
-        if (_ch <= 6770) {
-            return 0;
-        }
-        if (_ch <= 6915) {
-            return 8;
-        }
-        if (_ch <= 6970) {
-            return 8;
-        }
-        if (_ch <= 6977) {
-            return 0;
-        }
-        if (_ch <= 6980) {
-            return 0;
-        }
-        if (_ch <= 7041) {
-            return 8;
-        }
-        if (_ch <= 7073) {
-            return 0;
-        }
-        if (_ch <= 7077) {
-            return 8;
-        }
-        return dirOther3(_ch);
-    }
-    private static int dirOther3(char _ch) {
-        if (_ch <= 7079) {
-            return 0;
-        }
-        if (_ch <= 7081) {
-            return 8;
-        }
-        if (_ch <= 7085) {
-            return 0;
-        }
-        if (_ch <= 7145) {
-            return 8;
-        }
-        if (_ch <= 7148) {
-            return 0;
-        }
-        if (_ch <= 7153) {
-            return 8;
-        }
-        if (_ch <= 7211) {
-            return 0;
-        }
-        if (_ch <= 7219) {
-            return 8;
-        }
-        if (_ch <= 7221) {
-            return 0;
-        }
-        if (_ch <= 7392) {
-            return 8;
-        }
-        if (_ch <= 7405) {
-            return 8;
-        }
-        if (_ch <= 7411) {
-            return 0;
-        }
-        return dirOther2(_ch);
-    }
-    private static int dirOther2(char _ch) {
-        if (_ch <= 12333) {
-            return 8;
-        }
-        if (_ch <= 12346) {
-            return 0;
-        }
-        if (_ch <= 43019) {
-            return 8;
-        }
-        if (_ch <= 43044) {
-            return 0;
-        }
-        if (_ch <= 43046) {
-            return 8;
-        }
-        if (_ch <= 43203) {
-            return 0;
-        }
-        if (_ch <= 43345) {
-            return 8;
-        }
-        if (_ch <= 43347) {
-            return 0;
-        }
-        if (_ch <= 43394) {
-            return 8;
-        }
-        if (_ch <= 43445) {
-            return 0;
-        }
-        if (_ch <= 43449) {
-            return 8;
-        }
-        return dirOther1(_ch);
-    }
-    private static int dirOther1(char _ch) {
-        if (_ch <= 43451) {
-            return 0;
-        }
-        if (_ch <= 43456) {
-            return 0;
-        }
-        if (_ch <= 43566) {
-            return 8;
-        }
-        if (_ch <= 43568) {
-            return 0;
-        }
-        if (_ch <= 43570) {
-            return 8;
-        }
-        if (_ch <= 43572) {
-            return 0;
-        }
-        if (_ch <= 43596) {
-            return 8;
-        }
-        if (_ch <= 43643) {
-            return 0;
-        }
-        if (_ch <= 43713) {
-            return 8;
-        }
-        if (_ch <= 43757) {
-            return 8;
-        }
-        if (_ch <= 63743) {
-            return 0;
-        }
-        return 8;
+        return 0;
     }
 
+    private static boolean dirBool(char _ch) {
+        return _ch <= 2306 || dirOther10(_ch);
+    }
+    private static boolean dirOther10(char _ch) {
+        return _ch > 2368 && (_ch <= 2376 || _ch > 2383 && (_ch <= 2433 || dirOther13(_ch)));
+    }
+
+    private static boolean dirOther13(char _ch) {
+        return _ch > 2496 && (_ch <= 2500 || _ch > 2508 && (_ch <= 2562 || _ch > 2624 && dirOther9(_ch)));
+    }
+
+    private static boolean dirOther9(char _ch) {
+        return _ch <= 2690 || _ch > 2752 && (_ch <= 2760 || _ch > 2764 && dirOther14(_ch));
+    }
+
+    private static boolean dirOther14(char _ch) {
+        return _ch <= 2817 || _ch > 2819 && (_ch <= 2884 || _ch > 2892 && dirOther17(_ch));
+    }
+
+    private static boolean dirOther17(char _ch) {
+        return _ch <= 2915 || _ch > 3075 && dirOther8(_ch);
+    }
+
+    private static boolean dirOther8(char _ch) {
+        return _ch <= 3136 || _ch > 3140 && (_ch <= 3171 || _ch > 3275 && dirOther15(_ch));
+    }
+
+    private static boolean dirOther15(char _ch) {
+        return _ch <= 3277 || _ch > 3286 && (_ch <= 3299 || dirOther16(_ch));
+    }
+
+    private static boolean dirOther16(char _ch) {
+        return _ch > 3392 && (_ch <= 3396 || _ch > 3404 && dirOther7(_ch));
+    }
+
+    private static boolean dirOther7(char _ch) {
+        return _ch <= 3427 || _ch > 3537 && (_ch <= 3542 || _ch > 3571 && (_ch <= 3897 || _ch > 3903 && (_ch <= 4038 || dirOther18(_ch))));
+    }
+
+    private static boolean dirOther18(char _ch) {
+        return _ch > 4140 && (_ch <= 4154 || _ch > 4156 && dirOther6(_ch));
+    }
+
+    private static boolean dirOther6(char _ch) {
+        return _ch <= 4158 || _ch > 4183 && (_ch <= 4192 || _ch > 4205 && dirOther19(_ch));
+    }
+
+    private static boolean dirOther19(char _ch) {
+        return _ch <= 4226 || _ch > 4228 && (_ch <= 4230 || _ch > 4252 && (_ch <= 6077 || _ch > 6085 && dirOther5(_ch)));
+    }
+
+    private static boolean dirOther5(char _ch) {
+        return _ch > 6088 && (_ch <= 6434 || _ch > 6438 && (_ch <= 6440 || _ch > 6456 && dirOther20(_ch)));
+    }
+
+    private static boolean dirOther20(char _ch) {
+        return _ch <= 6459 || _ch > 6618 && (_ch <= 6680 || _ch > 6741 && (_ch <= 6752 || dirOther4(_ch)));
+    }
+
+    private static boolean dirOther4(char _ch) {
+        return _ch > 6756 && (_ch <= 6764 || _ch > 6770 && (_ch <= 6970 || dirOther21(_ch)));
+    }
+
+    private static boolean dirOther21(char _ch) {
+        return _ch > 6980 && (_ch <= 7041 || _ch > 7073 && (_ch <= 7077 || dirOther3(_ch)));
+    }
+
+    private static boolean dirOther3(char _ch) {
+        return _ch > 7079 && (_ch <= 7081 || _ch > 7085 && (_ch <= 7145 || _ch > 7148 && dirOther22(_ch)));
+    }
+
+    private static boolean dirOther22(char _ch) {
+        return _ch <= 7153 || _ch > 7211 && (_ch <= 7219 || _ch > 7221 && (_ch <= 7405 || _ch > 7411 && dirOther2(_ch)));
+    }
+
+    private static boolean dirOther2(char _ch) {
+        return _ch <= 12333 || _ch > 12346 && (_ch <= 43019 || _ch > 43044 && (_ch <= 43046 || _ch > 43203 && (_ch <= 43345 || dirOther23(_ch))));
+    }
+
+    private static boolean dirOther23(char _ch) {
+        return _ch > 43347 && (_ch <= 43394 || _ch > 43445 && (_ch <= 43449 || dirOther1(_ch)));
+    }
+
+    private static boolean dirOther1(char _ch) {
+        return _ch > 43456 && (_ch <= 43566 || _ch > 43568 && (_ch <= 43570 || _ch > 43572 && dirOther24(_ch)));
+    }
+
+    private static boolean dirOther24(char _ch) {
+        return _ch <= 43596 || _ch > 43643 && (_ch <= 43757 || _ch > 63743);
+    }
     private static boolean isOtherDigit(char _ch) {
         for (int i: NumberUtil.wrapIntArray(1632,1776,1984,2406,2534,2662,
                 2790,2918,3046,3174,3302,3430,3664,3792,3872,4160,4240,6112,6160,
@@ -2172,25 +1726,7 @@ public final class StringDataUtil {
         if (_ch <= 65289) {
             return pair(_ch);
         }
-        if (_ch == 65339) {
-            return 21;
-        }
-        if (_ch == 65341) {
-            return 22;
-        }
-        if (_ch == 65371) {
-            return 21;
-        }
-        if (_ch == 65373) {
-            return 22;
-        }
-        if (_ch == 65375) {
-            return 21;
-        }
-        if (_ch == 65376) {
-            return 22;
-        }
-        if (_ch == 65378) {
+        if (_ch == 65339 || _ch == 65371 || _ch == 65375 || _ch == 65378) {
             return 21;
         }
         return 22;
@@ -2229,16 +1765,7 @@ public final class StringDataUtil {
         if (_ch == 166) {
             return 28;
         }
-        if (_ch == 168) {
-            return 27;
-        }
-        if (_ch == 175) {
-            return 27;
-        }
-        if (_ch == 180) {
-            return 27;
-        }
-        if (_ch == 184) {
+        if (_ch == 168 || _ch == 175 || _ch == 180 || _ch == 184) {
             return 27;
         }
         if (_ch <= 176) {
