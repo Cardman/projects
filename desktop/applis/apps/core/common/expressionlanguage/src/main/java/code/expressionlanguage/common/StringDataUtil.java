@@ -4703,6 +4703,9 @@ public final class StringDataUtil {
         if (_ch >= 8249 && _ch <= 8250) {
             return true;
         }
+        return isQuotePunct1(_ch);
+    }
+    private static boolean isQuotePunct1(char _ch) {
         if (_ch >= 11778 && _ch <= 11781) {
             return true;
         }
@@ -4728,6 +4731,9 @@ public final class StringDataUtil {
         if (_ch == 8218 || _ch == 8222) {
             return true;
         }
+        return isBoundPunct2(_ch);
+    }
+    private static boolean isBoundPunct2(char _ch) {
         if (_ch >= 8261 && _ch <= 8262) {
             return true;
         }
@@ -4746,6 +4752,9 @@ public final class StringDataUtil {
         if (_ch >= 64830 && _ch <= 65039) {
             return true;
         }
+        return isBoundPunct1(_ch);
+    }
+    private static boolean isBoundPunct1(char _ch) {
         if (_ch >= 65047 && _ch <= 65048) {
             return true;
         }
@@ -4779,6 +4788,9 @@ public final class StringDataUtil {
                 || _ch == 65123 || _ch == 65112 ||_ch==65293 || _ch==65343) {
             return true;
         }
+        return isConnector1(_ch);
+    }
+    private static boolean isConnector1(char _ch) {
         if (_ch >= 8208 && _ch <= 8213) {
             return true;
         }
@@ -4890,6 +4902,9 @@ public final class StringDataUtil {
         if (_type == ESCAPE) {
             return 24;
         }
+        return processGeneralSymbol1(_ch,_type);
+    }
+    private static int processGeneralSymbol1(char _ch, int _type) {
         if (_type == MATH) {
             return 25;
         }
@@ -4964,6 +4979,9 @@ public final class StringDataUtil {
         if (_ch <= 8220) {
             return 29;
         }
+        return processPunctThree1(_ch);
+    }
+    private static int processPunctThree1(char _ch) {
         if (_ch <= 11777) {
             if (_ch % 2 != 0) {
                 return 29;
@@ -4990,82 +5008,63 @@ public final class StringDataUtil {
 
     private static int processPunctTwo(char _ch) {
         if (_ch <= 4000) {
-            if (_ch % 2 != 0) {
-                return 22;
-            }
-            return 21;
+            return pair(_ch);
         }
         if (_ch <= 6000) {
-            if (_ch % 2 != 0) {
-                return 21;
-            }
-            return 22;
+            return impair(_ch);
         }
         if (_ch <= 8261) {
             return 21;
         }
         if (_ch <= 10000) {
-            if (_ch % 2 != 0) {
-                return 21;
-            }
-            return 22;
+            return impair(_ch);
         }
+        return processPunctTwo3(_ch);
+    }
+    private static int processPunctTwo3(char _ch) {
         if (_ch <= 10180) {
-            if (_ch % 2 != 0) {
-                return 22;
-            }
-            return 21;
+            return pair(_ch);
         }
         if (_ch <= 10182) {
-            if (_ch % 2 != 0) {
-                return 21;
-            }
-            return 22;
+            return impair(_ch);
         }
         if (_ch <= 10223) {
-            if (_ch % 2 != 0) {
-                return 22;
-            }
-            return 21;
+            return pair(_ch);
         }
         if (_ch <= 10711) {
-            if (_ch % 2 != 0) {
-                return 21;
-            }
-            return 22;
+            return impair(_ch);
         }
+        return processPunctTwo2(_ch);
+    }
+    private static int processPunctTwo2(char _ch) {
         if (_ch <= 12315) {
-            if (_ch % 2 != 0) {
-                return 22;
-            }
-            return 21;
+            return pair(_ch);
         }
         if (_ch <= 12318) {
-            if (_ch % 2 != 0) {
-                return 21;
-            }
-            return 22;
+            return impair(_ch);
         }
         if (_ch <= 12319) {
             return 22;
         }
         if (_ch <= 64831) {
-            if (_ch % 2 != 0) {
-                return 22;
-            }
+            return pair(_ch);
+        }
+        return processPunctTwo1(_ch);
+    }
+
+    private static int impair(char _ch) {
+        if (_ch % 2 != 0) {
             return 21;
         }
+        return 22;
+    }
+
+    private static int processPunctTwo1(char _ch) {
         if (_ch <= 65118) {
-            if (_ch % 2 != 0) {
-                return 21;
-            }
-            return 22;
+            return impair(_ch);
         }
         if (_ch <= 65289) {
-            if (_ch % 2 != 0) {
-                return 22;
-            }
-            return 21;
+            return pair(_ch);
         }
         if (_ch == 65339) {
             return 21;
@@ -5089,6 +5088,13 @@ public final class StringDataUtil {
             return 21;
         }
         return 22;
+    }
+
+    private static int pair(char _ch) {
+        if (_ch % 2 != 0) {
+            return 22;
+        }
+        return 21;
     }
 
     private static int processPunct(char _ch) {
