@@ -5232,6 +5232,9 @@ public final class StringDataUtil {
         if (_ch == 12293) {
             return 4;
         }
+        return processOtherLetter2(_ch);
+    }
+    private static int processOtherLetter2(char _ch) {
         if (_ch == 40981) {
             return 4;
         }
@@ -5256,6 +5259,9 @@ public final class StringDataUtil {
         if (_ch == 65392) {
             return 4;
         }
+        return processOtherLetter1(_ch);
+    }
+    private static int processOtherLetter1(char _ch) {
         if (_ch == 65438) {
             return 4;
         }
@@ -5308,6 +5314,9 @@ public final class StringDataUtil {
         if (_ch <= 7578) {
             return 2;
         }
+        return processLetter1(_ch);
+    }
+    private static int processLetter1(char _ch) {
         if (_ch <= 7615) {
             return 4;
         }
