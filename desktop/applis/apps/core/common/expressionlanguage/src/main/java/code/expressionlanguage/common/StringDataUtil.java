@@ -4454,31 +4454,7 @@ public final class StringDataUtil {
         return processOther3(_ch);
     }
     private static int processOther3(char _ch) {
-        if (inRangeBounds(_ch, 4153, 4154)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 4157, 4158)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 4184, 4192)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 4209, 4226)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 4229, 4230)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 4237, 6086)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 6439, 6440)) {
-            return 6;
-        }
-        if (_ch == 6450) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 6457, 6459)) {
+        if (inRangeBounds(_ch, 4153, 4154) || inRangeBounds(_ch, 4157, 4158) || inRangeBounds(_ch, 4184, 4192) || inRangeBounds(_ch, 4209, 4226) || inRangeBounds(_ch, 4229, 4230) || inRangeBounds(_ch, 4237, 6086) || inRangeBounds(_ch, 6439, 6440) || _ch == 6450 || inRangeBounds(_ch, 6457, 6459)) {
             return 6;
         }
         if (inRangeBounds(_ch, 3544, 6601)) {
@@ -4553,40 +4529,19 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 6755, 6916)) {
             return 8;
         }
-        if (inRangeBounds(_ch, 6754, 6964)) {
-            return 6;
-        }
-        if (_ch == 2362) {
-            return 6;
-        }
-        if (_ch == 2492) {
-            return 6;
-        }
-        if (_ch == 3008) {
-            return 6;
-        }
-        if (_ch == 3021) {
+        if (inRangeBounds(_ch, 6754, 6964) || _ch == 2362 || _ch == 2492 || _ch == 3008 || _ch == 3021) {
             return 6;
         }
         if (inRangeBounds(_ch, 2382, 3075)) {
             return 8;
         }
-        if (inRangeBounds(_ch, 2364, 3136)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 3270, 6742)) {
+        if (inRangeBounds(_ch, 2364, 3136) || inRangeBounds(_ch, 3270, 6742)) {
             return 6;
         }
         if (inRangeBounds(_ch, 3264, 6971)) {
             return 8;
         }
-        if (_ch == 3260) {
-            return 6;
-        }
-        if (_ch == 44008) {
-            return 6;
-        }
-        if (_ch == 44005) {
+        if (_ch == 3260 || _ch == 44008 || _ch == 44005) {
             return 6;
         }
         if (inRangeBounds(_ch, 6973, 6977)) {
@@ -4623,61 +4578,19 @@ public final class StringDataUtil {
         return isOtherMathSymbol3(_string);
     }
     private static boolean isOtherMathSymbol3(char _string) {
-        if (_string == 177) {
-            return true;
-        }
-        if (_string == 215) {
-            return true;
-        }
-        if (_string == 247) {
-            return true;
-        }
-        if (_string == 1014 || _string == 8611) {
-            return true;
-        }
-        if (_string == 8260 || _string == 8614) {
-            return true;
-        }
-        if (_string == 8274 || _string == 8622) {
-            return true;
-        }
-        if (_string == 8472 || _string == 8660 || _string == 8658) {
-            return true;
-        }
-        if (_string == 8523 ||_string ==9655 ||_string ==9665) {
-            return true;
-        }
-        return isOtherMathSymbol2(_string);
+        return _string == 177 || _string == 215 || _string == 247 || _string == 1014 || _string == 8611 || _string == 8260 || _string == 8614 || _string == 8274 || _string == 8622 || _string == 8472 || _string == 8660 || _string == 8658 || _string == 8523 || _string == 9655 || _string == 9665 || isOtherMathSymbol2(_string);
     }
     private static boolean isOtherMathSymbol2(char _string) {
         if (_string == 8608 || _string == 9839 || _string == 9084) {
             return true;
         }
-        if (inRangeBounds(_string, 9115, 9139)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 9180, 9185)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 9720, 9727)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 8968, 8971)) {
+        if (inRangeBounds(_string, 9115, 9139) || inRangeBounds(_string, 9180, 9185) || inRangeBounds(_string, 9720, 9727) || inRangeBounds(_string, 8968, 8971)) {
             return true;
         }
         if (inRangeBounds(_string, 8960, 8991)) {
             return false;
         }
-        if (inRangeBounds(_string, 8692, 8993)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 10176, 10180)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 10183, 10213)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 10224, 10239)) {
+        if (inRangeBounds(_string, 8692, 8993) || inRangeBounds(_string, 10176, 10180) || inRangeBounds(_string, 10183, 10213) || inRangeBounds(_string, 10224, 10239)) {
             return true;
         }
         if (inRangeBounds(_string, 10627, 10648)) {
@@ -4698,34 +4611,7 @@ public final class StringDataUtil {
         if (inRangeBounds(_string, 11008, 11078)) {
             return false;
         }
-        if (inRangeBounds(_string, 10496, 11084)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 65513, 65516)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 65308, 65310)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 65124, 65126)) {
-            return true;
-        }
-        if (_string == 64297) {
-            return true;
-        }
-        if (_string == 65122) {
-            return true;
-        }
-        if (_string == 65291) {
-            return true;
-        }
-        if (_string == 65372) {
-            return true;
-        }
-        if (_string == 65374) {
-            return true;
-        }
-        return _string == 65506;
+        return inRangeBounds(_string, 10496, 11084) || inRangeBounds(_string, 65513, 65516) || inRangeBounds(_string, 65308, 65310) || inRangeBounds(_string, 65124, 65126) || _string == 64297 || _string == 65122 || _string == 65291 || _string == 65372 || _string == 65374 || _string == 65506;
     }
 
     private static int toLowerCaseInt(char _ch) {
@@ -4770,31 +4656,7 @@ public final class StringDataUtil {
     }
 
     private static int toLowerCheckDefFour(char _ch) {
-        if (_ch == 391) {
-            return _ch + 1;
-        }
-        if (_ch == 395) {
-            return _ch + 1;
-        }
-        if (_ch == 401) {
-            return _ch + 1;
-        }
-        if (_ch == 408) {
-            return _ch + 1;
-        }
-        if (_ch == 423) {
-            return _ch + 1;
-        }
-        if (_ch == 428) {
-            return _ch + 1;
-        }
-        if (_ch == 431) {
-            return _ch + 1;
-        }
-        if (_ch == 440) {
-            return _ch + 1;
-        }
-        if (_ch == 444) {
+        if (_ch == 391 || _ch == 395 || _ch == 401 || _ch == 408 || _ch == 423 || _ch == 428 || _ch == 431 || _ch == 440 || _ch == 444) {
             return _ch + 1;
         }
         return toLowerCheckDefThree(_ch);
@@ -4808,107 +4670,20 @@ public final class StringDataUtil {
     }
 
     private static int toLowerCheckDefTwo2(char _ch) {
-        if (inRangeBounds(_ch, 256, 302)) {
+        if (inRangeBounds(_ch, 256, 302) || inRangeBounds(_ch, 306, 310) || inRangeBounds(_ch, 330, 374) || inRangeBounds(_ch, 386, 388) || inRangeBounds(_ch, 416, 420) || inRangeBounds(_ch, 478, 494) || inRangeBounds(_ch, 498, 500) || inRangeBounds(_ch, 504, 542) || inRangeBounds(_ch, 546, 562) || inRangeBounds(_ch, 582, 590)) {
             return _ch + 1;
         }
-        if (inRangeBounds(_ch, 306, 310)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 330, 374)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 386, 388)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 416, 420)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 478, 494)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 498, 500)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 504, 542)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 546, 562)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 582, 590)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 880, 882)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 984, 1006)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 1120, 1152)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 1162, 1214)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 1232, 1318)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 7680, 7828)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 7840, 7934)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 11392, 11490)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42560, 42604)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42624, 42646)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42786, 42798)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42802, 42862)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42878, 42886)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42896, 42898)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42912, 42920)) {
+        return toLowerCheckDefTwo3(_ch);
+    }
+    private static int toLowerCheckDefTwo3(char _ch) {
+        if (inRangeBounds(_ch, 880, 882) || inRangeBounds(_ch, 984, 1006) || inRangeBounds(_ch, 1120, 1152) || inRangeBounds(_ch, 1162, 1214) || inRangeBounds(_ch, 1232, 1318) || inRangeBounds(_ch, 7680, 7828) || inRangeBounds(_ch, 7840, 7934) || inRangeBounds(_ch, 11392, 11490) || inRangeBounds(_ch, 42560, 42604) || inRangeBounds(_ch, 42624, 42646) || inRangeBounds(_ch, 42786, 42798) || inRangeBounds(_ch, 42802, 42862) || inRangeBounds(_ch, 42878, 42886) || inRangeBounds(_ch, 42896, 42898) || inRangeBounds(_ch, 42912, 42920)) {
             return _ch + 1;
         }
         return toLowerCheckDef(_ch);
     }
 
     private static int toLowerCheckDefTwo1(char _ch) {
-        if (inRangeBounds(_ch, 313, 327)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 377, 381)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 435, 437)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 459, 475)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 1217, 1229)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 11367, 11371)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 11499, 11501)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42873, 42875)) {
+        if (inRangeBounds(_ch, 313, 327) || inRangeBounds(_ch, 377, 381) || inRangeBounds(_ch, 435, 437) || inRangeBounds(_ch, 459, 475) || inRangeBounds(_ch, 1217, 1229) || inRangeBounds(_ch, 11367, 11371) || inRangeBounds(_ch, 11499, 11501) || inRangeBounds(_ch, 42873, 42875)) {
             return _ch + 1;
         }
 
@@ -4952,6 +4727,9 @@ public final class StringDataUtil {
         if (_ch == 444) {
             return _ch + 1;
         }
+        return toLowerCaseIntCheckUpp5(_ch);
+    }
+    private static int toLowerCaseIntCheckUpp5(char _ch) {
         if (_ch == 571) {
             return _ch + 1;
         }
@@ -4982,6 +4760,9 @@ public final class StringDataUtil {
         if (_ch == 11506) {
             return _ch + 1;
         }
+        return toLowerCaseIntCheckUpp4(_ch);
+    }
+    private static int toLowerCaseIntCheckUpp4(char _ch) {
         if (_ch == 42891) {
             return _ch + 1;
         }
@@ -5027,6 +4808,9 @@ public final class StringDataUtil {
         if (_ch == 415) {
             return _ch + 214;
         }
+        return toLowerCaseIntCheckUpp3(_ch);
+    }
+    private static int toLowerCaseIntCheckUpp3(char _ch) {
         if (_ch == 422) {
             return _ch + 218;
         }
@@ -5072,6 +4856,9 @@ public final class StringDataUtil {
         if (_ch == 579) {
             return _ch -195;
         }
+        return toLowerCaseIntCheckUpp2(_ch);
+    }
+    private static int toLowerCaseIntCheckUpp2(char _ch) {
         if (_ch == 580) {
             return _ch + 69;
         }
@@ -5117,6 +4904,9 @@ public final class StringDataUtil {
         if (_ch == 8031) {
             return _ch -8;
         }
+        return toLowerCaseIntCheckUpp1(_ch);
+    }
+    private static int toLowerCaseIntCheckUpp1(char _ch) {
         if (_ch == 8172) {
             return _ch -7;
         }
@@ -5173,107 +4963,20 @@ public final class StringDataUtil {
     }
 
     private static int toLowerCaseDefaultSeven2(char _ch) {
-        if (inRangeBounds(_ch, 256, 302)) {
+        if (inRangeBounds(_ch, 256, 302) || inRangeBounds(_ch, 306, 310) || inRangeBounds(_ch, 330, 374) || inRangeBounds(_ch, 386, 388) || inRangeBounds(_ch, 416, 420) || inRangeBounds(_ch, 478, 494) || inRangeBounds(_ch, 498, 500) || inRangeBounds(_ch, 504, 542) || inRangeBounds(_ch, 546, 562) || inRangeBounds(_ch, 582, 590) || inRangeBounds(_ch, 880, 882) || inRangeBounds(_ch, 984, 1006) || inRangeBounds(_ch, 1120, 1152) || inRangeBounds(_ch, 1162, 1214) || inRangeBounds(_ch, 1232, 1318)) {
             return _ch + 1;
         }
-        if (inRangeBounds(_ch, 306, 310)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 330, 374)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 386, 388)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 416, 420)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 478, 494)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 498, 500)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 504, 542)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 546, 562)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 582, 590)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 880, 882)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 984, 1006)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 1120, 1152)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 1162, 1214)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 1232, 1318)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 7680, 7828)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 7840, 7934)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 11392, 11490)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42560, 42604)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42624, 42646)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42786, 42798)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42802, 42862)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42878, 42886)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42896, 42898)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42912, 42920)) {
+        return toLowerCaseDefaultSeven3(_ch);
+    }
+    private static int toLowerCaseDefaultSeven3(char _ch) {
+        if (inRangeBounds(_ch, 7680, 7828) || inRangeBounds(_ch, 7840, 7934) || inRangeBounds(_ch, 11392, 11490) || inRangeBounds(_ch, 42560, 42604) || inRangeBounds(_ch, 42624, 42646) || inRangeBounds(_ch, 42786, 42798) || inRangeBounds(_ch, 42802, 42862) || inRangeBounds(_ch, 42878, 42886) || inRangeBounds(_ch, 42896, 42898) || inRangeBounds(_ch, 42912, 42920)) {
             return _ch + 1;
         }
         return toLowerCaseDefaultSix(_ch);
     }
 
     private static int toLowerCaseDefaultSeven1(char _ch) {
-        if (inRangeBounds(_ch, 313, 327)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 377, 381)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 435, 437)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 459, 475)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 1217, 1229)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 11367, 11371)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 11499, 11501)) {
-            return _ch + 1;
-        }
-        if (inRangeBounds(_ch, 42873, 42875)) {
+        if (inRangeBounds(_ch, 313, 327) || inRangeBounds(_ch, 377, 381) || inRangeBounds(_ch, 435, 437) || inRangeBounds(_ch, 459, 475) || inRangeBounds(_ch, 1217, 1229) || inRangeBounds(_ch, 11367, 11371) || inRangeBounds(_ch, 11499, 11501) || inRangeBounds(_ch, 42873, 42875)) {
             return _ch + 1;
         }
 
@@ -5320,6 +5023,9 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 1329, 1366)) {
             return _ch + 48;
         }
+        return toLowerCaseDefaultSix2(_ch);
+    }
+    private static int toLowerCaseDefaultSix2(char _ch) {
         if (inRangeBounds(_ch, 4256, 4293)) {
             return _ch + 7264;
         }
@@ -5356,6 +5062,9 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 8154, 8155)) {
             return _ch -100;
         }
+        return toLowerCaseDefaultSix1(_ch);
+    }
+    private static int toLowerCaseDefaultSix1(char _ch) {
         if (inRangeBounds(_ch, 8168, 8169)) {
             return _ch -8;
         }
@@ -5406,6 +5115,9 @@ public final class StringDataUtil {
         if (_ch == 11360) {
             return _ch + 1;
         }
+        return toLowerCheckDefThree5(_ch);
+    }
+    private static int toLowerCheckDefThree5(char _ch) {
         if (_ch == 11378) {
             return _ch + 1;
         }
@@ -5439,6 +5151,9 @@ public final class StringDataUtil {
         if (_ch == 400) {
             return _ch + 203;
         }
+        return toLowerCheckDefThree4(_ch);
+    }
+    private static int toLowerCheckDefThree4(char _ch) {
         if (_ch == 403) {
             return _ch + 205;
         }
@@ -5484,6 +5199,9 @@ public final class StringDataUtil {
         if (_ch == 497) {
             return _ch + 2;
         }
+        return toLowerCheckDefThree3(_ch);
+    }
+    private static int toLowerCheckDefThree3(char _ch) {
         if (_ch == 502) {
             return _ch -97;
         }
@@ -5526,6 +5244,9 @@ public final class StringDataUtil {
         if (_ch == 1017) {
             return _ch -7;
         }
+        return toLowerCheckDefThree2(_ch);
+    }
+    private static int toLowerCheckDefThree2(char _ch) {
         if (_ch == 1216) {
             return _ch + 15;
         }
@@ -5562,6 +5283,9 @@ public final class StringDataUtil {
         if (_ch == 8188) {
             return _ch -9;
         }
+        return toLowerCheckDefThree1(_ch);
+    }
+    private static int toLowerCheckDefThree1(char _ch) {
         if (_ch == 8486) {
             return _ch -7517;
         }
@@ -5638,6 +5362,9 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 1021, 1023)) {
             return _ch -130;
         }
+        return toLowerCheckDef2(_ch);
+    }
+    private static int toLowerCheckDef2(char _ch) {
         if (inRangeBounds(_ch, 1024, 1039)) {
             return _ch + 80;
         }
@@ -5668,6 +5395,9 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 8040, 8047)) {
             return _ch -8;
         }
+        return toLowerCheckDef1(_ch);
+    }
+    private static int toLowerCheckDef1(char _ch) {
         if (inRangeBounds(_ch, 8072, 8079)) {
             return _ch -8;
         }
@@ -5744,6 +5474,9 @@ public final class StringDataUtil {
         if (isOtherMathSymbol(_ch)) {
             return _ch;
         }
+        return toUpperCaseInt2(_ch);
+    }
+    private static int toUpperCaseInt2(char _ch) {
         if (_ch == 383) {
             return 83;
         }
@@ -5777,6 +5510,9 @@ public final class StringDataUtil {
         if (_ch == 7936) {
             return 7944;
         }
+        return toUpperCaseInt1(_ch);
+    }
+    private static int toUpperCaseInt1(char _ch) {
         if (_ch == 392) {
             return _ch -1;
         }
@@ -5890,6 +5626,9 @@ public final class StringDataUtil {
         if (_ch == 499) {
             return 497;
         }
+        return toUpperCaseIntCheck1(_ch);
+    }
+    private static int toUpperCaseIntCheck1(char _ch) {
         if (_ch == 592) {
             return 11375;
         }
@@ -6013,6 +5752,9 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 1163, 1215)) {
             return _ch -1;
         }
+        return toUpperCaseDefTwo3(_ch);
+    }
+    private static int toUpperCaseDefTwo3(char _ch) {
         if (inRangeBounds(_ch, 1233, 1319)) {
             return _ch -1;
         }

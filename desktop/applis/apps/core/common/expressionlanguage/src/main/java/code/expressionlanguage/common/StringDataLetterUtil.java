@@ -32,13 +32,7 @@ public final class StringDataLetterUtil {
     }
 
     static boolean isOtherLett(char _ch) {
-        if (inRange(_ch, 19968, 40909)) {
-            return true;
-        }
-        if (inRange(_ch, 44032, 55204)) {
-            return true;
-        }
-        if (inRange(_ch, 13312, 19894)) {
+        if (inRange(_ch, 19968, 40909) || inRange(_ch, 44032, 55204) || inRange(_ch, 13312, 19894)) {
             return true;
         }
         if (inRange(_ch, 40960, 42125)) {
@@ -57,10 +51,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 1015, 1154)) {
             return true;
         }
-        if (inRange(_ch, 1162, 1320)) {
-            return true;
-        }
-        if (inRange(_ch, 1649, 1748)) {
+        if (inRange(_ch, 1162, 1320) || inRange(_ch, 1649, 1748)) {
             return true;
         }
         if (inRange(_ch, 4348, 4681)) {
@@ -88,10 +79,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 12593, 12687)) {
             return true;
         }
-        if (inRange(_ch, 42240, 42509)) {
-            return true;
-        }
-        if (inRange(_ch, 42786, 42889)) {
+        if (inRange(_ch, 42240, 42509) || inRange(_ch, 42786, 42889)) {
             return true;
         }
         if (inRange(_ch, 42656, 42726)) {
@@ -113,10 +101,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 931, 1014)) {
             return true;
         }
-        if (inRange(_ch, 1869, 1958)) {
-            return true;
-        }
-        if (inRange(_ch, 2308, 2362)) {
+        if (inRange(_ch, 1869, 1958) || inRange(_ch, 2308, 2362)) {
             return true;
         }
         if (inRange(_ch, 4824, 4881)) {
@@ -141,10 +126,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 6320, 6390)) {
             return true;
         }
-        if (inRange(_ch, 6016, 6068)) {
-            return true;
-        }
-        if (inRange(_ch, 6688, 6741)) {
+        if (inRange(_ch, 6016, 6068) || inRange(_ch, 6688, 6741)) {
             return true;
         }
         return isOtherLett34(_ch);
@@ -166,13 +148,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 42560, 42607)) {
             return true;
         }
-        if (inRange(_ch, 42623, 42648)) {
-            return true;
-        }
-        if (inRange(_ch, 43020, 43043)) {
-            return true;
-        }
-        return isOtherLett33(_ch);
+        return inRange(_ch, 42623, 42648) || inRange(_ch, 43020, 43043) || isOtherLett33(_ch);
     }
 
     private static boolean isOtherLett33(char _ch){
@@ -185,10 +161,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 43360, 43389)) {
             return true;
         }
-        if (inRange(_ch, 43396, 43443)) {
-            return true;
-        }
-        if (inRange(_ch, 43520, 43561)) {
+        if (inRange(_ch, 43396, 43443) || inRange(_ch, 43520, 43561)) {
             return true;
         }
         if (inRange(_ch, 43616, 43639)) {
@@ -207,10 +180,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 710, 722)) {
             return true;
         }
-        if (inRange(_ch, 736, 741)) {
-            return true;
-        }
-        if (inRange(_ch, 880, 885)) {
+        if (inRange(_ch, 736, 741) || inRange(_ch, 880, 885)) {
             return true;
         }
         if (inRange(_ch, 886, 888)) {
@@ -229,10 +199,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 1520, 1523)) {
             return true;
         }
-        if (inRange(_ch, 1646, 1648)) {
-            return true;
-        }
-        if (inRange(_ch, 1765, 1767)) {
+        if (inRange(_ch, 1646, 1648) || inRange(_ch, 1765, 1767)) {
             return true;
         }
         if (inRange(_ch, 1774, 1776)) {
@@ -266,10 +233,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 2447, 2449)) {
             return true;
         }
-        if (inRange(_ch, 2474, 2481)) {
-            return true;
-        }
-        if (inRange(_ch, 2486, 2490)) {
+        if (inRange(_ch, 2474, 2481) || inRange(_ch, 2486, 2490)) {
             return true;
         }
         return isOtherLett29(_ch);
@@ -291,10 +255,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 2575, 2577)) {
             return true;
         }
-        if (inRange(_ch, 2602, 2609)) {
-            return true;
-        }
-        if (inRange(_ch, 2610, 2612)) {
+        if (inRange(_ch, 2602, 2609) || inRange(_ch, 2610, 2612)) {
             return true;
         }
         return isOtherLett28(_ch);
@@ -313,10 +274,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 2674, 2677)) {
             return true;
         }
-        if (inRange(_ch, 2693, 2702)) {
-            return true;
-        }
-        if (inRange(_ch, 2703, 2706)) {
+        if (inRange(_ch, 2693, 2702) || inRange(_ch, 2703, 2706)) {
             return true;
         }
         if (inRange(_ch, 2730, 2737)) {
@@ -338,10 +296,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 2821, 2829)) {
             return true;
         }
-        if (inRange(_ch, 2831, 2833)) {
-            return true;
-        }
-        if (inRange(_ch, 2858, 2865)) {
+        if (inRange(_ch, 2831, 2833) || inRange(_ch, 2858, 2865)) {
             return true;
         }
         if (inRange(_ch, 2866, 2868)) {
@@ -369,10 +324,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 2962, 2966)) {
             return true;
         }
-        if (inRange(_ch, 2969, 2971)) {
-            return true;
-        }
-        return isOtherLett25(_ch);
+        return inRange(_ch, 2969, 2971) || isOtherLett25(_ch);
     }
 
     private static boolean isOtherLett25(char _ch){
@@ -385,10 +337,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 2984, 2987)) {
             return true;
         }
-        if (inRange(_ch, 2990, 3002)) {
-            return true;
-        }
-        if (inRange(_ch, 3077, 3085)) {
+        if (inRange(_ch, 2990, 3002) || inRange(_ch, 3077, 3085)) {
             return true;
         }
         if (inRange(_ch, 3086, 3089)) {
@@ -410,10 +359,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 3168, 3170)) {
             return true;
         }
-        if (inRange(_ch, 3205, 3213)) {
-            return true;
-        }
-        if (inRange(_ch, 3214, 3217)) {
+        if (inRange(_ch, 3205, 3213) || inRange(_ch, 3214, 3217)) {
             return true;
         }
         if (inRange(_ch, 3242, 3252)) {
@@ -429,10 +375,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 3296, 3298)) {
             return true;
         }
-        if (inRange(_ch, 3313, 3315)) {
-            return true;
-        }
-        if (inRange(_ch, 3333, 3341)) {
+        if (inRange(_ch, 3313, 3315) || inRange(_ch, 3333, 3341)) {
             return true;
         }
         if (inRange(_ch, 3342, 3345)) {
@@ -454,10 +397,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 3507, 3516)) {
             return true;
         }
-        if (inRange(_ch, 3520, 3527)) {
-            return true;
-        }
-        if (inRange(_ch, 3634, 3636)) {
+        if (inRange(_ch, 3520, 3527) || inRange(_ch, 3634, 3636)) {
             return true;
         }
         if (inRange(_ch, 3648, 3655)) {
@@ -482,10 +422,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 3745, 3748)) {
             return true;
         }
-        if (inRange(_ch, 3754, 3756)) {
-            return true;
-        }
-        if (inRange(_ch, 3757, 3761)) {
+        if (inRange(_ch, 3754, 3756) || inRange(_ch, 3757, 3761)) {
             return true;
         }
         if (inRange(_ch, 3762, 3764)) {
@@ -516,10 +453,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 4197, 4199)) {
             return true;
         }
-        if (inRange(_ch, 4206, 4209)) {
-            return true;
-        }
-        if (inRange(_ch, 4213, 4226)) {
+        if (inRange(_ch, 4206, 4209) || inRange(_ch, 4213, 4226)) {
             return true;
         }
         return isOtherLett19(_ch);
@@ -544,10 +478,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 4792, 4799)) {
             return true;
         }
-        if (inRange(_ch, 4802, 4806)) {
-            return true;
-        }
-        return isOtherLett18(_ch);
+        return inRange(_ch, 4802, 4806) || isOtherLett18(_ch);
     }
 
     private static boolean isOtherLett18(char _ch){
@@ -566,10 +497,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 5888, 5901)) {
             return true;
         }
-        if (inRange(_ch, 5902, 5906)) {
-            return true;
-        }
-        if (inRange(_ch, 5920, 5938)) {
+        if (inRange(_ch, 5902, 5906) || inRange(_ch, 5920, 5938)) {
             return true;
         }
         return isOtherLett17(_ch);
@@ -585,10 +513,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 5998, 6001)) {
             return true;
         }
-        if (inRange(_ch, 6512, 6517)) {
-            return true;
-        }
-        if (inRange(_ch, 6593, 6600)) {
+        if (inRange(_ch, 6512, 6517) || inRange(_ch, 6593, 6600)) {
             return true;
         }
         if (inRange(_ch, 6981, 6988)) {
@@ -607,10 +532,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 7401, 7405)) {
             return true;
         }
-        if (inRange(_ch, 7406, 7410)) {
-            return true;
-        }
-        if (inRange(_ch, 7413, 7415)) {
+        if (inRange(_ch, 7406, 7410) || inRange(_ch, 7413, 7415)) {
             return true;
         }
         if (inRange(_ch, 7960, 7966)) {
@@ -651,10 +573,7 @@ public final class StringDataLetterUtil {
     }
 
     private static boolean isOtherLett14(char _ch){
-        if (inRange(_ch, 8182, 8189)) {
-            return true;
-        }
-        if (inRange(_ch, 8336, 8349)) {
+        if (inRange(_ch, 8182, 8189) || inRange(_ch, 8336, 8349)) {
             return true;
         }
         if (inRange(_ch, 8458, 8468)) {
@@ -679,10 +598,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 8517, 8522)) {
             return true;
         }
-        if (inRange(_ch, 8579, 8581)) {
-            return true;
-        }
-        if (inRange(_ch, 11499, 11503)) {
+        if (inRange(_ch, 8579, 8581) || inRange(_ch, 11499, 11503)) {
             return true;
         }
         if (inRange(_ch, 11506, 11508)) {
@@ -713,10 +629,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 11728, 11735)) {
             return true;
         }
-        if (inRange(_ch, 11736, 11743)) {
-            return true;
-        }
-        if (inRange(_ch, 12293, 12295)) {
+        if (inRange(_ch, 11736, 11743) || inRange(_ch, 12293, 12295)) {
             return true;
         }
         if (inRange(_ch, 12337, 12342)) {
@@ -729,10 +642,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 12347, 12349)) {
             return true;
         }
-        if (inRange(_ch, 12445, 12448)) {
-            return true;
-        }
-        if (inRange(_ch, 12540, 12544)) {
+        if (inRange(_ch, 12445, 12448) || inRange(_ch, 12540, 12544)) {
             return true;
         }
         if (inRange(_ch, 12784, 12800)) {
@@ -754,10 +664,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 1488, 1515)) {
             return true;
         }
-        if (inRange(_ch, 1568, 1611)) {
-            return true;
-        }
-        if (inRange(_ch, 1810, 1840)) {
+        if (inRange(_ch, 1568, 1611) || inRange(_ch, 1810, 1840)) {
             return true;
         }
         if (inRange(_ch, 1994, 2027)) {
@@ -785,10 +692,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 2835, 2857)) {
             return true;
         }
-        if (inRange(_ch, 3090, 3113)) {
-            return true;
-        }
-        if (inRange(_ch, 3218, 3241)) {
+        if (inRange(_ch, 3090, 3113) || inRange(_ch, 3218, 3241)) {
             return true;
         }
         if (inRange(_ch, 3346, 3387)) {
@@ -810,10 +714,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 4096, 4139)) {
             return true;
         }
-        if (inRange(_ch, 4256, 4294)) {
-            return true;
-        }
-        if (inRange(_ch, 4304, 4347)) {
+        if (inRange(_ch, 4256, 4294) || inRange(_ch, 4304, 4347)) {
             return true;
         }
         if (inRange(_ch, 4704, 4745)) {
@@ -838,10 +739,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 6480, 6510)) {
             return true;
         }
-        if (inRange(_ch, 6528, 6572)) {
-            return true;
-        }
-        if (inRange(_ch, 6656, 6679)) {
+        if (inRange(_ch, 6528, 6572) || inRange(_ch, 6656, 6679)) {
             return true;
         }
         if (inRange(_ch, 6917, 6964)) {
@@ -851,10 +749,7 @@ public final class StringDataLetterUtil {
     }
 
     private static boolean isOtherLett6(char _ch){
-        if (inRange(_ch, 7043, 7073)) {
-            return true;
-        }
-        if (inRange(_ch, 7098, 7142)) {
+        if (inRange(_ch, 7043, 7073) || inRange(_ch, 7098, 7142)) {
             return true;
         }
         if (inRange(_ch, 7168, 7204)) {
@@ -879,10 +774,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 11312, 11359)) {
             return true;
         }
-        if (inRange(_ch, 11520, 11558)) {
-            return true;
-        }
-        if (inRange(_ch, 11648, 11671)) {
+        if (inRange(_ch, 11520, 11558) || inRange(_ch, 11648, 11671)) {
             return true;
         }
         if (inRange(_ch, 12549, 12590)) {
@@ -910,10 +802,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 42896, 42900)) {
             return true;
         }
-        if (inRange(_ch, 42912, 42923)) {
-            return true;
-        }
-        if (inRange(_ch, 43000, 43010)) {
+        if (inRange(_ch, 42912, 42923) || inRange(_ch, 43000, 43010)) {
             return true;
         }
         if (inRange(_ch, 43011, 43014)) {
@@ -929,10 +818,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 43250, 43256)) {
             return true;
         }
-        if (inRange(_ch, 43584, 43587)) {
-            return true;
-        }
-        if (inRange(_ch, 43588, 43596)) {
+        if (inRange(_ch, 43584, 43587) || inRange(_ch, 43588, 43596)) {
             return true;
         }
         if (inRange(_ch, 43701, 43703)) {
@@ -963,10 +849,7 @@ public final class StringDataLetterUtil {
         if (inRange(_ch, 43793, 43799)) {
             return true;
         }
-        if (inRange(_ch, 43808, 43815)) {
-            return true;
-        }
-        if (inRange(_ch, 43816, 43823)) {
+        if (inRange(_ch, 43808, 43815) || inRange(_ch, 43816, 43823)) {
             return true;
         }
         return isOtherLett1(_ch);
