@@ -112,31 +112,7 @@ public final class StringDataUtil {
         if (_ch <= '9') {
             return true;
         }
-        if (_ch < 'A') {
-            return false;
-        }
-        if (_ch <= 'Z') {
-            return true;
-        }
-        if (_ch < 'a') {
-            return false;
-        }
-        if (_ch <= 'z') {
-            return true;
-        }
-        if (_ch < 170) {
-            return false;
-        }
-        if (_ch < 192) {
-            return _ch == 170 || _ch == 181 || _ch == 186;
-        }
-        if (_ch < 706) {
-            return StringDataLetterUtil.isSupplLetter(_ch);
-        }
-        if (StringDataLetterUtil.isOtherLett(_ch)) {
-            return true;
-        }
-        return isOtherDigit(_ch);
+        return StringDataLetterUtil.isLetter(_ch)||isOtherDigit(_ch);
     }
 
     public static boolean isLowerCase(char _string) {
