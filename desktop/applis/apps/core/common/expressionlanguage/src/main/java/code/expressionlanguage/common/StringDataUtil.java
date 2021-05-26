@@ -2240,6 +2240,9 @@ public final class StringDataUtil {
         if (_ch <= 8329) {
             return 3;
         }
+        return dirLettersDigitsOther1(_ch);
+    }
+    private static int dirLettersDigitsOther1(char _ch) {
         if (_ch <= 8543) {
             return 13;
         }
@@ -2295,6 +2298,9 @@ public final class StringDataUtil {
         if (_ch == 2903){
             return 0;
         }
+        return dirOther15(_ch);
+    }
+    private static int dirOther15(char _ch) {
         if (_ch == 3415){
             return 0;
         }
@@ -2328,6 +2334,9 @@ public final class StringDataUtil {
         if (_ch == 7082){
             return 0;
         }
+        return dirOther14(_ch);
+    }
+    private static int dirOther14(char _ch) {
         if (_ch == 7143){
             return 0;
         }
@@ -2361,6 +2370,9 @@ public final class StringDataUtil {
         if (_ch == 2620){
             return 8;
         }
+        return dirOther13(_ch);
+    }
+    private static int dirOther13(char _ch) {
         if (_ch == 2748){
             return 8;
         }
@@ -2391,6 +2403,9 @@ public final class StringDataUtil {
         if (_ch == 4237){
             return 8;
         }
+        return dirOther12(_ch);
+    }
+    private static int dirOther12(char _ch) {
         if (_ch == 6086){
             return 8;
         }
@@ -2421,6 +2436,9 @@ public final class StringDataUtil {
         if (_ch == 7149){
             return 8;
         }
+        return dirOther11(_ch);
+    }
+    private static int dirOther11(char _ch) {
         if (_ch == 43443){
             return 8;
         }
@@ -2454,6 +2472,9 @@ public final class StringDataUtil {
         if (_ch <= 2306) {
             return 8;
         }
+        return dirOther10(_ch);
+    }
+    private static int dirOther10(char _ch) {
         if (_ch <= 2368) {
             return 0;
         }
@@ -2487,6 +2508,9 @@ public final class StringDataUtil {
         if (_ch <= 2624) {
             return 0;
         }
+        return dirOther9(_ch);
+    }
+    private static int dirOther9(char _ch) {
         if (_ch <= 2690) {
             return 8;
         }
@@ -2520,6 +2544,9 @@ public final class StringDataUtil {
         if (_ch <= 3075) {
             return 0;
         }
+        return dirOther8(_ch);
+    }
+    private static int dirOther8(char _ch) {
         if (_ch <= 3136) {
             return 8;
         }
@@ -2553,6 +2580,9 @@ public final class StringDataUtil {
         if (_ch <= 3404) {
             return 0;
         }
+        return dirOther7(_ch);
+    }
+    private static int dirOther7(char _ch) {
         if (_ch <= 3427) {
             return 8;
         }
@@ -2589,6 +2619,9 @@ public final class StringDataUtil {
         if (_ch <= 4156) {
             return 0;
         }
+        return dirOther6(_ch);
+    }
+    private static int dirOther6(char _ch) {
         if (_ch <= 4158) {
             return 8;
         }
@@ -2622,6 +2655,9 @@ public final class StringDataUtil {
         if (_ch <= 6085) {
             return 0;
         }
+        return dirOther5(_ch);
+    }
+    private static int dirOther5(char _ch) {
         if (_ch <= 6088) {
             return 0;
         }
@@ -2655,6 +2691,9 @@ public final class StringDataUtil {
         if (_ch <= 6752) {
             return 8;
         }
+        return dirOther4(_ch);
+    }
+    private static int dirOther4(char _ch) {
         if (_ch <= 6756) {
             return 0;
         }
@@ -2685,6 +2724,9 @@ public final class StringDataUtil {
         if (_ch <= 7077) {
             return 8;
         }
+        return dirOther3(_ch);
+    }
+    private static int dirOther3(char _ch) {
         if (_ch <= 7079) {
             return 0;
         }
@@ -2721,6 +2763,9 @@ public final class StringDataUtil {
         if (_ch <= 7411) {
             return 0;
         }
+        return dirOther2(_ch);
+    }
+    private static int dirOther2(char _ch) {
         if (_ch <= 12333) {
             return 8;
         }
@@ -2754,6 +2799,9 @@ public final class StringDataUtil {
         if (_ch <= 43449) {
             return 8;
         }
+        return dirOther1(_ch);
+    }
+    private static int dirOther1(char _ch) {
         if (_ch <= 43451) {
             return 0;
         }
@@ -2833,6 +2881,9 @@ public final class StringDataUtil {
         if (_ch >= 1792&& _ch <= 1805) {
             return true;
         }
+        return isOtherPonctuation7(_ch);
+    }
+    private static boolean isOtherPonctuation7(char _ch) {
         if (_ch >= 2039&& _ch <= 2041) {
             return true;
         }
@@ -2854,6 +2905,9 @@ public final class StringDataUtil {
         if (_ch >= 4960&& _ch <= 4968) {
             return true;
         }
+        return isOtherPonctuation6(_ch);
+    }
+    private static boolean isOtherPonctuation6(char _ch) {
         if (_ch >= 5867&& _ch <= 5869) {
             return true;
         }
@@ -2875,6 +2929,9 @@ public final class StringDataUtil {
         if (_ch >= 7164&& _ch <= 7167) {
             return true;
         }
+        return isOtherPonctuation5(_ch);
+    }
+    private static boolean isOtherPonctuation5(char _ch) {
         if (_ch >= 7227&& _ch <= 7231) {
             return true;
         }
@@ -2896,6 +2953,9 @@ public final class StringDataUtil {
         if (_ch >= 10088&& _ch <= 10101) {
             return true;
         }
+        return isOtherPonctuation4(_ch);
+    }
+    private static boolean isOtherPonctuation4(char _ch) {
         if (_ch >= 10214&& _ch <= 10223) {
             return true;
         }
@@ -2917,6 +2977,9 @@ public final class StringDataUtil {
         if (_ch >= 12289&& _ch <= 12291) {
             return true;
         }
+        return isOtherPonctuation3(_ch);
+    }
+    private static boolean isOtherPonctuation3(char _ch) {
         if (_ch >= 12296&& _ch <= 12305) {
             return true;
         }
@@ -2938,6 +3001,9 @@ public final class StringDataUtil {
         if (_ch >= 65040&& _ch <= 65049) {
             return true;
         }
+        return isOtherPonctuation2(_ch);
+    }
+    private static boolean isOtherPonctuation2(char _ch) {
         if (_ch >= 65072&& _ch <= 65106) {
             return true;
         }
@@ -2959,6 +3025,9 @@ public final class StringDataUtil {
         if (_ch >= 65375&& _ch <= 65381) {
             return true;
         }
+        return isOtherPonctuation1(_ch);
+    }
+    private static boolean isOtherPonctuation1(char _ch) {
         for (int i: NumberUtil.wrapIntArray(182,1417,1523,1545,
                 1548,1566,2404,3674,4057,5741,5787,5941,6468,6686,6816,7294,8317,8333,9001,10181,
                 10748,11518,42238,42510,43214,43256,43310,43486,43258,43742,43760,64830,65130,65306,65311)) {
