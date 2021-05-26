@@ -116,19 +116,7 @@ public final class StringDataUtil {
     }
 
     public static boolean isLowerCase(char _string) {
-        if (isUnassigned(_string)) {
-            return false;
-        }
-        if (isOtherSpace(_string)) {
-            return false;
-        }
-        if (MathExpUtil.isDigit(_string)) {
-            return false;
-        }
-        if (isOtherDigit(_string)) {
-            return false;
-        }
-        if (_string == 453 || _string == 456 || _string == 459 || _string == 498) {
+        if (isUnassigned(_string) || isOtherSpace(_string) || MathExpUtil.isDigit(_string) || isOtherDigit(_string) || _string == 453 || _string == 456 || _string == 459 || _string == 498) {
             return false;
         }
         for (int i: NumberUtil.wrapIntArray(426,627,609,638,704,42800,8150,8166,
@@ -181,85 +169,19 @@ public final class StringDataUtil {
                 return true;
             }
         }
-        if (_string == 42894 || _string == 11492) {
-            return true;
-        }
-        if (_string == 11377 || _string == 11380) {
-            return true;
-        }
-        if (_string == 170 || _string == 186 || _string == 8305) {
-            return true;
-        }
-        return isLowerCase4(_string);
+        return _string == 42894 || _string == 11492 || _string == 11377 || _string == 11380 || _string == 170 || _string == 186 || _string == 8305 || isLowerCase4(_string);
     }
     private static boolean isLowerCase4(char _string){
-        if (_string == 8500 || _string == 8505 || _string == 8495) {
-            return true;
-        }
-        if (_string == 8467 || _string == 8458 || _string == 8319) {
-            return true;
-        }
-        if (_string == 8180 || _string == 8178 || _string == 8132) {
-            return true;
-        }
-        if (_string == 8114 || _string == 8116 || _string == 8130) {
-            return true;
-        }
-        return isLowerCase3(_string);
+        return _string == 8500 || _string == 8505 || _string == 8495 || _string == 8467 || _string == 8458 || _string == 8319 || _string == 8180 || _string == 8178 || _string == 8132 || _string == 8114 || _string == 8116 || _string == 8130 || isLowerCase3(_string);
     }
     private static boolean isLowerCase3(char _string){
-        if (_string == 8022 || _string == 8020 || _string == 8018) {
-            return true;
-        }
-        if (_string == 8016 || _string == 7839) {
-            return true;
-        }
-        if (_string == 223 || _string == 312) {
-            return true;
-        }
-        return isLowerCase2(_string);
+        return _string == 8022 || _string == 8020 || _string == 8018 || _string == 8016 || _string == 7839 || _string == 223 || _string == 312 || isLowerCase2(_string);
     }
     private static boolean isLowerCase2(char _string){
-        if (_string == 329 || _string == 397) {
-            return true;
-        }
-        if (inRangeBounds(_string, 7424, 7615)) {
-            return true;
-        }
-        if (_string == 411 || _string == 442) {
-            return true;
-        }
-        if (_string == 446 || _string == 496) {
-            return true;
-        }
-        if (_string == 545 || _string == 597) {
-            return true;
-        }
-        if (_string == 600 || _string == 602) {
-            return true;
-        }
-        if (inRangeBounds(_string, 612, 624)) {
-            return true;
-        }
-        return isLowerCase1(_string);
+        return _string == 329 || _string == 397 || inRangeBounds(_string, 7424, 7615) || _string == 411 || _string == 442 || _string == 446 || _string == 496 || _string == 545 || _string == 597 || _string == 600 || _string == 602 || inRangeBounds(_string, 612, 624) || isLowerCase1(_string);
     }
     private static boolean isLowerCase1(char _string){
-        if (_string == 660) {
-            return false;
-        }
-        if (inRangeBounds(_string, 653, 696)) {
-            return true;
-        }
-        if (_string == 890 || _string == 912 || _string == 944) {
-            return true;
-        }
-        if (_string == 1011 || _string == 1020 || _string == 1415) {
-            return true;
-        }
-        if (toLowerCaseIntCheck(_string) == _string) {
-            return toUpperCaseIntCheckLow(_string)!=_string;
-        }
-        return false;
+        return _string != 660 && (inRangeBounds(_string, 653, 696) || _string == 890 || _string == 912 || _string == 944 || _string == 1011 || _string == 1020 || _string == 1415 || toLowerCaseIntCheck(_string) == _string && toUpperCaseIntCheckLow(_string) != _string);
     }
 
     public static boolean isUpperCase(char _string) {
@@ -284,28 +206,7 @@ public final class StringDataUtil {
         return isUpperCase1(_string);
     }
     private static boolean isUpperCase1(char _string) {
-        if (_string == 8124) {
-            return false;
-        }
-        if (_string == 8140) {
-            return false;
-        }
-        if (_string == 8188) {
-            return false;
-        }
-        if (_string == 8450 || _string == 8484) {
-            return true;
-        }
-        if (_string == 8455 || _string == 8488) {
-            return true;
-        }
-        if (_string == 8469 || _string == 8499 || _string == 8517) {
-            return true;
-        }
-        if (inRangeBounds(_string, 8473, 8477)) {
-            return true;
-        }
-        return toUpperCaseIntCheck(_string)==_string&&toLowerCaseIntCheckUpp(_string)!=_string;
+        return _string != 8124 && _string != 8140 && _string != 8188 && (_string == 8450 || _string == 8484 || _string == 8455 || _string == 8488 || _string == 8469 || _string == 8499 || _string == 8517 || inRangeBounds(_string, 8473, 8477) || toUpperCaseIntCheck(_string) == _string && toLowerCaseIntCheckUpp(_string) != _string);
     }
 
     public static char toLowerCase(char _string) {
@@ -1728,181 +1629,25 @@ public final class StringDataUtil {
     }
 
     private static boolean isOtherPonctuation(char _ch) {
-        if (_ch == 161) {
-            return true;
-        }
-        if (_ch == 167) {
-            return true;
-        }
-        if (_ch == 171) {
-            return true;
-        }
-        if (_ch == 187) {
-            return true;
-        }
-        if (_ch == 191) {
-            return true;
-        }
-        if (_ch == 894) {
-            return true;
-        }
-        if (_ch == 903) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1370, 1375)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1642, 1645)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1792, 1805)) {
-            return true;
-        }
-        return isOtherPonctuation7(_ch);
+        return _ch == 161 || _ch == 167 || _ch == 171 || _ch == 187 || _ch == 191 || _ch == 894 || _ch == 903 || inRangeBounds(_ch, 1370, 1375) || inRangeBounds(_ch, 1642, 1645) || inRangeBounds(_ch, 1792, 1805) || isOtherPonctuation7(_ch);
     }
     private static boolean isOtherPonctuation7(char _ch) {
-        if (inRangeBounds(_ch, 2039, 2041)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2096, 2110)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3844, 3858)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3898, 3901)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4048, 4052)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4170, 4175)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4960, 4968)) {
-            return true;
-        }
-        return isOtherPonctuation6(_ch);
+        return inRangeBounds(_ch, 2039, 2041) || inRangeBounds(_ch, 2096, 2110) || inRangeBounds(_ch, 3844, 3858) || inRangeBounds(_ch, 3898, 3901) || inRangeBounds(_ch, 4048, 4052) || inRangeBounds(_ch, 4170, 4175) || inRangeBounds(_ch, 4960, 4968) || isOtherPonctuation6(_ch);
     }
     private static boolean isOtherPonctuation6(char _ch) {
-        if (inRangeBounds(_ch, 5867, 5869)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6100, 6106)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6144, 6154)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6818, 6822)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6824, 6829)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7002, 7008)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7164, 7167)) {
-            return true;
-        }
-        return isOtherPonctuation5(_ch);
+        return inRangeBounds(_ch, 5867, 5869) || inRangeBounds(_ch, 6100, 6106) || inRangeBounds(_ch, 6144, 6154) || inRangeBounds(_ch, 6818, 6822) || inRangeBounds(_ch, 6824, 6829) || inRangeBounds(_ch, 7002, 7008) || inRangeBounds(_ch, 7164, 7167) || isOtherPonctuation5(_ch);
     }
     private static boolean isOtherPonctuation5(char _ch) {
-        if (inRangeBounds(_ch, 7227, 7231)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7360, 7367)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8208, 8231)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8240, 8259)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8261, 8273)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8275, 8286)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 10088, 10101)) {
-            return true;
-        }
-        return isOtherPonctuation4(_ch);
+        return inRangeBounds(_ch, 7227, 7231) || inRangeBounds(_ch, 7360, 7367) || inRangeBounds(_ch, 8208, 8231) || inRangeBounds(_ch, 8240, 8259) || inRangeBounds(_ch, 8261, 8273) || inRangeBounds(_ch, 8275, 8286) || inRangeBounds(_ch, 10088, 10101) || isOtherPonctuation4(_ch);
     }
     private static boolean isOtherPonctuation4(char _ch) {
-        if (inRangeBounds(_ch, 10214, 10223)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 10627, 10648)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 10712, 10715)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11513, 11516)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11776, 11822)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11824, 11835)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12289, 12291)) {
-            return true;
-        }
-        return isOtherPonctuation3(_ch);
+        return inRangeBounds(_ch, 10214, 10223) || inRangeBounds(_ch, 10627, 10648) || inRangeBounds(_ch, 10712, 10715) || inRangeBounds(_ch, 11513, 11516) || inRangeBounds(_ch, 11776, 11822) || inRangeBounds(_ch, 11824, 11835) || inRangeBounds(_ch, 12289, 12291) || isOtherPonctuation3(_ch);
     }
     private static boolean isOtherPonctuation3(char _ch) {
-        if (inRangeBounds(_ch, 12296, 12305)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12308, 12319)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 42738, 42743)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43124, 43127)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43457, 43469)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43612, 43615)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65040, 65049)) {
-            return true;
-        }
-        return isOtherPonctuation2(_ch);
+        return inRangeBounds(_ch, 12296, 12305) || inRangeBounds(_ch, 12308, 12319) || inRangeBounds(_ch, 42738, 42743) || inRangeBounds(_ch, 43124, 43127) || inRangeBounds(_ch, 43457, 43469) || inRangeBounds(_ch, 43612, 43615) || inRangeBounds(_ch, 65040, 65049) || isOtherPonctuation2(_ch);
     }
     private static boolean isOtherPonctuation2(char _ch) {
-        if (inRangeBounds(_ch, 65072, 65106)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65108, 65123)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65281, 65283)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65285, 65290)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65292, 65295)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65339, 65341)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65375, 65381)) {
-            return true;
-        }
-        return isOtherPonctuation1(_ch);
+        return inRangeBounds(_ch, 65072, 65106) || inRangeBounds(_ch, 65108, 65123) || inRangeBounds(_ch, 65281, 65283) || inRangeBounds(_ch, 65285, 65290) || inRangeBounds(_ch, 65292, 65295) || inRangeBounds(_ch, 65339, 65341) || inRangeBounds(_ch, 65375, 65381) || isOtherPonctuation1(_ch);
     }
     private static boolean isOtherPonctuation1(char _ch) {
         for (int i: NumberUtil.wrapIntArray(182,1417,1523,1545,
@@ -1924,127 +1669,22 @@ public final class StringDataUtil {
     }
 
     private static boolean isOtherSymbol(char _ch) {
-        if (inRangeBounds(_ch, 706, 709)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 722, 735)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 741, 747)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 751, 767)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3059, 3064)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3841, 3843)) {
-            return true;
-        }
-        return isOtherSymbol9(_ch);
+        return inRangeBounds(_ch, 706, 709) || inRangeBounds(_ch, 722, 735) || inRangeBounds(_ch, 741, 747) || inRangeBounds(_ch, 751, 767) || inRangeBounds(_ch, 3059, 3064) || inRangeBounds(_ch, 3841, 3843) || isOtherSymbol9(_ch);
     }
     private static boolean isOtherSymbol9(char _ch) {
-        if (inRangeBounds(_ch, 3861, 3863)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3866, 3871)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4030, 4037)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4039, 4044)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4053, 4056)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 5008, 5017)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6622, 6655)) {
-            return true;
-        }
-        return isOtherSymbol8(_ch);
+        return inRangeBounds(_ch, 3861, 3863) || inRangeBounds(_ch, 3866, 3871) || inRangeBounds(_ch, 4030, 4037) || inRangeBounds(_ch, 4039, 4044) || inRangeBounds(_ch, 4053, 4056) || inRangeBounds(_ch, 5008, 5017) || inRangeBounds(_ch, 6622, 6655) || isOtherSymbol8(_ch);
     }
     private static boolean isOtherSymbol8(char _ch) {
-        if (inRangeBounds(_ch, 7009, 7018)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7028, 7036)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8127, 8129)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8141, 8143)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8157, 8159)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8173, 8175)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8451, 8454)) {
-            return true;
-        }
-        return isOtherSymbol7(_ch);
+        return inRangeBounds(_ch, 7009, 7018) || inRangeBounds(_ch, 7028, 7036) || inRangeBounds(_ch, 8127, 8129) || inRangeBounds(_ch, 8141, 8143) || inRangeBounds(_ch, 8157, 8159) || inRangeBounds(_ch, 8173, 8175) || inRangeBounds(_ch, 8451, 8454) || isOtherSymbol7(_ch);
     }
     private static boolean isOtherSymbol7(char _ch) {
-        if (inRangeBounds(_ch, 8478, 8483)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8598, 8601)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 9140, 9179)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 9186, 9203)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 9216, 9254)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 9280, 9290)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8604, 8607)) {
-            return true;
-        }
-        return isOtherSymbol6(_ch);
+        return inRangeBounds(_ch, 8478, 8483) || inRangeBounds(_ch, 8598, 8601) || inRangeBounds(_ch, 9140, 9179) || inRangeBounds(_ch, 9186, 9203) || inRangeBounds(_ch, 9216, 9254) || inRangeBounds(_ch, 9280, 9290) || inRangeBounds(_ch, 8604, 8607) || isOtherSymbol6(_ch);
     }
     private static boolean isOtherSymbol6(char _ch) {
-        if (inRangeBounds(_ch, 8615, 8621)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8623, 8653)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8661, 8691)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8960, 8967)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8972, 8991)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8994, 9000)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 9003, 9083)) {
-            return true;
-        }
-        return isOtherSymbol5(_ch);
+        return inRangeBounds(_ch, 8615, 8621) || inRangeBounds(_ch, 8623, 8653) || inRangeBounds(_ch, 8661, 8691) || inRangeBounds(_ch, 8960, 8967) || inRangeBounds(_ch, 8972, 8991) || inRangeBounds(_ch, 8994, 9000) || inRangeBounds(_ch, 9003, 9083) || isOtherSymbol5(_ch);
     }
     private static boolean isOtherSymbol5(char _ch) {
-        if (inRangeBounds(_ch, 9085, 9114)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 9372, 9449)) {
+        if (inRangeBounds(_ch, 9085, 9114) || inRangeBounds(_ch, 9372, 9449)) {
             return true;
         }
         for (int i: NumberUtil.wrapIntArray(9655,9665,9839,9984)) {
@@ -2055,85 +1695,16 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 12246, 12271)) {
             return false;
         }
-        if (inRangeBounds(_ch, 9472, 10087)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 10132, 10175)) {
-            return true;
-        }
-        return isOtherSymbol4(_ch);
+        return inRangeBounds(_ch, 9472, 10087) || inRangeBounds(_ch, 10132, 10175) || isOtherSymbol4(_ch);
     }
     private static boolean isOtherSymbol4(char _ch) {
-        if (inRangeBounds(_ch, 10240, 10495)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11008, 11055)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11088, 11097)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11493, 11498)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11904, 11929)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11931, 12019)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12032, 12283)) {
-            return true;
-        }
-        return isOtherSymbol3(_ch);
+        return inRangeBounds(_ch, 10240, 10495) || inRangeBounds(_ch, 11008, 11055) || inRangeBounds(_ch, 11088, 11097) || inRangeBounds(_ch, 11493, 11498) || inRangeBounds(_ch, 11904, 11929) || inRangeBounds(_ch, 11931, 12019) || inRangeBounds(_ch, 12032, 12283) || isOtherSymbol3(_ch);
     }
     private static boolean isOtherSymbol3(char _ch) {
-        if (inRangeBounds(_ch, 12694, 12703)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12736, 12771)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12800, 12830)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12842, 12871)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12896, 12927)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12938, 12976)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12992, 13054)) {
-            return true;
-        }
-        return isOtherSymbol2(_ch);
+        return inRangeBounds(_ch, 12694, 12703) || inRangeBounds(_ch, 12736, 12771) || inRangeBounds(_ch, 12800, 12830) || inRangeBounds(_ch, 12842, 12871) || inRangeBounds(_ch, 12896, 12927) || inRangeBounds(_ch, 12938, 12976) || inRangeBounds(_ch, 12992, 13054) || isOtherSymbol2(_ch);
     }
     private static boolean isOtherSymbol2(char _ch) {
-        if (inRangeBounds(_ch, 13056, 13311)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 19904, 19967)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 42128, 42182)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 42752, 42774)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43048, 43051)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43639, 43641)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 64434, 64449)) {
-            return true;
-        }
-        return isOtherSymbol1(_ch);
+        return inRangeBounds(_ch, 13056, 13311) || inRangeBounds(_ch, 19904, 19967) || inRangeBounds(_ch, 42128, 42182) || inRangeBounds(_ch, 42752, 42774) || inRangeBounds(_ch, 43048, 43051) || inRangeBounds(_ch, 43639, 43641) || inRangeBounds(_ch, 64434, 64449) || isOtherSymbol1(_ch);
     }
     private static boolean isOtherSymbol1(char _ch) {
         for (int i: NumberUtil.wrapIntArray(900,1550,1789,
@@ -2157,10 +1728,7 @@ public final class StringDataUtil {
     }
 
     private static boolean isCurrencyChar(char _ch) {
-        if (inRangeBounds(_ch, 162, 165)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8352, 8378)) {
+        if (inRangeBounds(_ch, 162, 165) || inRangeBounds(_ch, 8352, 8378)) {
             return true;
         }
         for (int i: NumberUtil.wrapIntArray(2546,65504,65509)) {
@@ -2179,1381 +1747,169 @@ public final class StringDataUtil {
     }
 
     private static boolean isOtherLettersDigits(char _ch) {
-        if (inRangeBounds(_ch, 12690, 12730)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12832, 12991)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43056, 43061)) {
-            return true;
-        }
-        return isOtherLettersDigits3(_ch);
+        return inRangeBounds(_ch, 12690, 12730) || inRangeBounds(_ch, 12832, 12991) || inRangeBounds(_ch, 43056, 43061) || isOtherLettersDigits3(_ch);
     }
     private static boolean isOtherLettersDigits3(char _ch) {
-        if (_ch == 8585) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 9312, 9983)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 9985, 10131)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2548, 2553)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2930, 2935)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3056, 3058)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3192, 3198)) {
-            return true;
-        }
-        return isOtherLettersDigits2(_ch);
+        return _ch == 8585 || inRangeBounds(_ch, 9312, 9983) || inRangeBounds(_ch, 9985, 10131) || inRangeBounds(_ch, 2548, 2553) || inRangeBounds(_ch, 2930, 2935) || inRangeBounds(_ch, 3056, 3058) || inRangeBounds(_ch, 3192, 3198) || isOtherLettersDigits2(_ch);
     }
     private static boolean isOtherLettersDigits2(char _ch) {
-        if (inRangeBounds(_ch, 3440, 3445)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3882, 3891)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4969, 4988)) {
-            return true;
-        }
-        if (_ch == 11517) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8528, 8543)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8304, 8305)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8308, 8329)) {
-            return true;
-        }
-        return isOtherLettersDigits1(_ch);
+        return inRangeBounds(_ch, 3440, 3445) || inRangeBounds(_ch, 3882, 3891) || inRangeBounds(_ch, 4969, 4988) || _ch == 11517 || inRangeBounds(_ch, 8528, 8543) || inRangeBounds(_ch, 8304, 8305) || inRangeBounds(_ch, 8308, 8329) || isOtherLettersDigits1(_ch);
     }
     private static boolean isOtherLettersDigits1(char _ch) {
-        if (inRangeBounds(_ch, 6128, 6137)) {
-            return true;
-        }
-        if (_ch == 6618) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8576, 8584)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12295, 12329)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 42726, 42735)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12344, 12346)) {
-            return true;
-        }
-        return inRangeBounds(_ch, 5870, 5872);
+        return inRangeBounds(_ch, 6128, 6137) || _ch == 6618 || inRangeBounds(_ch, 8576, 8584) || inRangeBounds(_ch, 12295, 12329) || inRangeBounds(_ch, 42726, 42735) || inRangeBounds(_ch, 12344, 12346) || inRangeBounds(_ch, 5870, 5872);
     }
 
     private static boolean isOtherModifier(char _ch) {
-        if (_ch == 1757 || _ch == 1807) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1536, 1540)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8203, 8207)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8234, 8238)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8288, 8292)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8298, 8303)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65529, 65531)) {
-            return true;
-        }
-        return _ch == 65279;
+        return _ch == 1757 || _ch == 1807 || inRangeBounds(_ch, 1536, 1540) || inRangeBounds(_ch, 8203, 8207) || inRangeBounds(_ch, 8234, 8238) || inRangeBounds(_ch, 8288, 8292) || inRangeBounds(_ch, 8298, 8303) || inRangeBounds(_ch, 65529, 65531) || _ch == 65279;
     }
 
     private static boolean isOtherSpace(char _ch) {
-        if (_ch == 160) {
-            return true;
-        }
-        if (_ch == 5760) {
-            return true;
-        }
-        if (_ch == 6158) {
-            return true;
-        }
-        if (_ch == 12288) {
-            return true;
-        }
-        if (_ch == 8239) {
-            return true;
-        }
-        if (_ch == 8287) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 127, 159)) {
-            return true;
-        }
-        return inRangeBounds(_ch, 8192, 8202);
+        return _ch == 160 || _ch == 5760 || _ch == 6158 || _ch == 12288 || _ch == 8239 || _ch == 8287 || inRangeBounds(_ch, 127, 159) || inRangeBounds(_ch, 8192, 8202);
     }
 
     private static boolean isUnassigned(char _ch) {
-        if (inRangeBounds(_ch, 888, 889)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 895, 899)) {
-            return true;
-        }
-        if (_ch == 907) {
-            return true;
-        }
-        if (_ch == 909) {
-            return true;
-        }
-        if (_ch == 930) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1320, 1328)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1367, 1368)) {
-            return true;
-        }
-        if (_ch == 1376) {
-            return true;
-        }
-        if (_ch == 1416) {
-            return true;
-        }
-        return isUnassigned47(_ch);
+        return inRangeBounds(_ch, 888, 889) || inRangeBounds(_ch, 895, 899) || _ch == 907 || _ch == 909 || _ch == 930 || inRangeBounds(_ch, 1320, 1328) || inRangeBounds(_ch, 1367, 1368) || _ch == 1376 || _ch == 1416 || isUnassigned47(_ch);
     }
     private static boolean isUnassigned47(char _ch) {
-        if (inRangeBounds(_ch, 1419, 1422)) {
-            return true;
-        }
-        if (_ch == 1424) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1480, 1487)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1515, 1519)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1525, 1535)) {
-            return true;
-        }
-        if (_ch == 1541) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1564, 1565)) {
-            return true;
-        }
-        return isUnassigned46(_ch);
+        return inRangeBounds(_ch, 1419, 1422) || _ch == 1424 || inRangeBounds(_ch, 1480, 1487) || inRangeBounds(_ch, 1515, 1519) || inRangeBounds(_ch, 1525, 1535) || _ch == 1541 || inRangeBounds(_ch, 1564, 1565) || isUnassigned46(_ch);
     }
     private static boolean isUnassigned46(char _ch) {
-        if (_ch == 1806) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1867, 1868)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 1970, 1983)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2043, 2047)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2094, 2095)) {
-            return true;
-        }
-        if (_ch == 2111) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2140, 2141)) {
-            return true;
-        }
-        return isUnassigned45(_ch);
+        return _ch == 1806 || inRangeBounds(_ch, 1867, 1868) || inRangeBounds(_ch, 1970, 1983) || inRangeBounds(_ch, 2043, 2047) || inRangeBounds(_ch, 2094, 2095) || _ch == 2111 || inRangeBounds(_ch, 2140, 2141) || isUnassigned45(_ch);
     }
     private static boolean isUnassigned45(char _ch) {
-        if (inRangeBounds(_ch, 2143, 2207)) {
-            return true;
-        }
-        if (_ch == 2209) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2221, 2275)) {
-            return true;
-        }
-        if (_ch == 2303) {
-            return true;
-        }
-        if (_ch == 2424) {
-            return true;
-        }
-        if (_ch == 2432) {
-            return true;
-        }
-        if (_ch == 2436) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2445, 2446)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2449, 2450)) {
-            return true;
-        }
-        if (_ch == 2473) {
-            return true;
-        }
-        if (_ch == 2481) {
-            return true;
-        }
-        return isUnassigned44(_ch);
+        return inRangeBounds(_ch, 2143, 2207) || _ch == 2209 || inRangeBounds(_ch, 2221, 2275) || _ch == 2303 || _ch == 2424 || _ch == 2432 || _ch == 2436 || inRangeBounds(_ch, 2445, 2446) || inRangeBounds(_ch, 2449, 2450) || _ch == 2473 || _ch == 2481 || isUnassigned44(_ch);
     }
     private static boolean isUnassigned44(char _ch) {
-        if (inRangeBounds(_ch, 2483, 2485)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2490, 2491)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2501, 2502)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2505, 2506)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2511, 2518)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2520, 2523)) {
-            return true;
-        }
-        if (_ch == 2526) {
-            return true;
-        }
-        return isUnassigned43(_ch);
+        return inRangeBounds(_ch, 2483, 2485) || inRangeBounds(_ch, 2490, 2491) || inRangeBounds(_ch, 2501, 2502) || inRangeBounds(_ch, 2505, 2506) || inRangeBounds(_ch, 2511, 2518) || inRangeBounds(_ch, 2520, 2523) || _ch == 2526 || isUnassigned43(_ch);
     }
     private static boolean isUnassigned43(char _ch) {
-        if (inRangeBounds(_ch, 2532, 2533)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2556, 2560)) {
-            return true;
-        }
-        if (_ch == 2564) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2571, 2574)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2577, 2578)) {
-            return true;
-        }
-        if (_ch == 2601) {
-            return true;
-        }
-        if (_ch == 2609) {
-            return true;
-        }
-        if (_ch == 2612) {
-            return true;
-        }
-        return isUnassigned42(_ch);
+        return inRangeBounds(_ch, 2532, 2533) || inRangeBounds(_ch, 2556, 2560) || _ch == 2564 || inRangeBounds(_ch, 2571, 2574) || inRangeBounds(_ch, 2577, 2578) || _ch == 2601 || _ch == 2609 || _ch == 2612 || isUnassigned42(_ch);
     }
     private static boolean isUnassigned42(char _ch) {
-        if (_ch == 2615) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2618, 2619)) {
-            return true;
-        }
-        if (_ch == 2621) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2627, 2630)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2633, 2634)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2638, 2640)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2642, 2648)) {
-            return true;
-        }
-        return isUnassigned41(_ch);
+        return _ch == 2615 || inRangeBounds(_ch, 2618, 2619) || _ch == 2621 || inRangeBounds(_ch, 2627, 2630) || inRangeBounds(_ch, 2633, 2634) || inRangeBounds(_ch, 2638, 2640) || inRangeBounds(_ch, 2642, 2648) || isUnassigned41(_ch);
     }
     private static boolean isUnassigned41(char _ch) {
-        if (_ch == 2653) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2655, 2661)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2678, 2688)) {
-            return true;
-        }
-        if (_ch == 2692) {
-            return true;
-        }
-        if (_ch == 2702) {
-            return true;
-        }
-        if (_ch == 2706) {
-            return true;
-        }
-        if (_ch == 2729) {
-            return true;
-        }
-        if (_ch == 2737) {
-            return true;
-        }
-        if (_ch == 2740) {
-            return true;
-        }
-        return isUnassigned40(_ch);
+        return _ch == 2653 || inRangeBounds(_ch, 2655, 2661) || inRangeBounds(_ch, 2678, 2688) || _ch == 2692 || _ch == 2702 || _ch == 2706 || _ch == 2729 || _ch == 2737 || _ch == 2740 || isUnassigned40(_ch);
     }
     private static boolean isUnassigned40(char _ch) {
-        if (inRangeBounds(_ch, 2746, 2747)) {
-            return true;
-        }
-        if (_ch == 2758) {
-            return true;
-        }
-        if (_ch == 2762) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2766, 2767)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2769, 2783)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2788, 2789)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2802, 2816)) {
-            return true;
-        }
-        return isUnassigned39(_ch);
+        return inRangeBounds(_ch, 2746, 2747) || _ch == 2758 || _ch == 2762 || inRangeBounds(_ch, 2766, 2767) || inRangeBounds(_ch, 2769, 2783) || inRangeBounds(_ch, 2788, 2789) || inRangeBounds(_ch, 2802, 2816) || isUnassigned39(_ch);
     }
     private static boolean isUnassigned39(char _ch) {
-        if (_ch == 2820) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2829, 2830)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2833, 2834)) {
-            return true;
-        }
-        if (_ch == 2857) {
-            return true;
-        }
-        if (_ch == 2865) {
-            return true;
-        }
-        if (_ch == 2868) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2874, 2875)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2885, 2886)) {
-            return true;
-        }
-        return isUnassigned38(_ch);
+        return _ch == 2820 || inRangeBounds(_ch, 2829, 2830) || inRangeBounds(_ch, 2833, 2834) || _ch == 2857 || _ch == 2865 || _ch == 2868 || inRangeBounds(_ch, 2874, 2875) || inRangeBounds(_ch, 2885, 2886) || isUnassigned38(_ch);
     }
     private static boolean isUnassigned38(char _ch) {
-        if (inRangeBounds(_ch, 2889, 2890)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2894, 2901)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2904, 2907)) {
-            return true;
-        }
-        if (_ch == 2910) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2916, 2917)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2936, 2945)) {
-            return true;
-        }
-        if (_ch == 2948) {
-            return true;
-        }
-        return isUnassigned37(_ch);
+        return inRangeBounds(_ch, 2889, 2890) || inRangeBounds(_ch, 2894, 2901) || inRangeBounds(_ch, 2904, 2907) || _ch == 2910 || inRangeBounds(_ch, 2916, 2917) || inRangeBounds(_ch, 2936, 2945) || _ch == 2948 || isUnassigned37(_ch);
     }
     private static boolean isUnassigned37(char _ch) {
-        if (inRangeBounds(_ch, 2955, 2957)) {
-            return true;
-        }
-        if (_ch == 2961) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2966, 2968)) {
-            return true;
-        }
-        if (_ch == 2971) {
-            return true;
-        }
-        if (_ch == 2973) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2976, 2978)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2981, 2983)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 2987, 2989)) {
-            return true;
-        }
-        return isUnassigned36(_ch);
+        return inRangeBounds(_ch, 2955, 2957) || _ch == 2961 || inRangeBounds(_ch, 2966, 2968) || _ch == 2971 || _ch == 2973 || inRangeBounds(_ch, 2976, 2978) || inRangeBounds(_ch, 2981, 2983) || inRangeBounds(_ch, 2987, 2989) || isUnassigned36(_ch);
     }
     private static boolean isUnassigned36(char _ch) {
-        if (inRangeBounds(_ch, 3002, 3005)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3011, 3013)) {
-            return true;
-        }
-        if (_ch == 3017) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3022, 3023)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3025, 3030)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3032, 3045)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3067, 3072)) {
-            return true;
-        }
-        return isUnassigned35(_ch);
+        return inRangeBounds(_ch, 3002, 3005) || inRangeBounds(_ch, 3011, 3013) || _ch == 3017 || inRangeBounds(_ch, 3022, 3023) || inRangeBounds(_ch, 3025, 3030) || inRangeBounds(_ch, 3032, 3045) || inRangeBounds(_ch, 3067, 3072) || isUnassigned35(_ch);
     }
     private static boolean isUnassigned35(char _ch) {
-        if (_ch == 3076) {
-            return true;
-        }
-        if (_ch == 3085) {
-            return true;
-        }
-        if (_ch == 3089) {
-            return true;
-        }
-        if (_ch == 3113) {
-            return true;
-        }
-        if (_ch == 3124) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3130, 3132)) {
-            return true;
-        }
-        if (_ch == 3141) {
-            return true;
-        }
-        if (_ch == 3145) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3150, 3156)) {
-            return true;
-        }
-        if (_ch == 3159) {
-            return true;
-        }
-        return isUnassigned34(_ch);
+        return _ch == 3076 || _ch == 3085 || _ch == 3089 || _ch == 3113 || _ch == 3124 || inRangeBounds(_ch, 3130, 3132) || _ch == 3141 || _ch == 3145 || inRangeBounds(_ch, 3150, 3156) || _ch == 3159 || isUnassigned34(_ch);
     }
     private static boolean isUnassigned34(char _ch) {
-        if (inRangeBounds(_ch, 3162, 3167)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3172, 3173)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3184, 3191)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3200, 3201)) {
-            return true;
-        }
-        if (_ch == 3204) {
-            return true;
-        }
-        if (_ch == 3213) {
-            return true;
-        }
-        if (_ch == 3217) {
-            return true;
-        }
-        return isUnassigned33(_ch);
+        return inRangeBounds(_ch, 3162, 3167) || inRangeBounds(_ch, 3172, 3173) || inRangeBounds(_ch, 3184, 3191) || inRangeBounds(_ch, 3200, 3201) || _ch == 3204 || _ch == 3213 || _ch == 3217 || isUnassigned33(_ch);
     }
     private static boolean isUnassigned33(char _ch) {
-        if (_ch == 3241) {
-            return true;
-        }
-        if (_ch == 3252) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3258, 3259)) {
-            return true;
-        }
-        if (_ch == 3269) {
-            return true;
-        }
-        if (_ch == 3273) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3278, 3284)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3287, 3293)) {
-            return true;
-        }
-        if (_ch == 3295) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3300, 3301)) {
-            return true;
-        }
-        return isUnassigned32(_ch);
+        return _ch == 3241 || _ch == 3252 || inRangeBounds(_ch, 3258, 3259) || _ch == 3269 || _ch == 3273 || inRangeBounds(_ch, 3278, 3284) || inRangeBounds(_ch, 3287, 3293) || _ch == 3295 || inRangeBounds(_ch, 3300, 3301) || isUnassigned32(_ch);
     }
     private static boolean isUnassigned32(char _ch) {
-        if (_ch == 3312) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3315, 3329)) {
-            return true;
-        }
-        if (_ch == 3332) {
-            return true;
-        }
-        if (_ch == 3341) {
-            return true;
-        }
-        if (_ch == 3345) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3387, 3388)) {
-            return true;
-        }
-        if (_ch == 3397) {
-            return true;
-        }
-        if (_ch == 3401) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3407, 3414)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3416, 3423)) {
-            return true;
-        }
-        return isUnassigned31(_ch);
+        return _ch == 3312 || inRangeBounds(_ch, 3315, 3329) || _ch == 3332 || _ch == 3341 || _ch == 3345 || inRangeBounds(_ch, 3387, 3388) || _ch == 3397 || _ch == 3401 || inRangeBounds(_ch, 3407, 3414) || inRangeBounds(_ch, 3416, 3423) || isUnassigned31(_ch);
     }
     private static boolean isUnassigned31(char _ch) {
-        if (inRangeBounds(_ch, 3428, 3429)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3446, 3448)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3456, 3457)) {
-            return true;
-        }
-        if (_ch == 3460) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3479, 3481)) {
-            return true;
-        }
-        if (_ch == 3506) {
-            return true;
-        }
-        if (_ch == 3516) {
-            return true;
-        }
-        return isUnassigned30(_ch);
+        return inRangeBounds(_ch, 3428, 3429) || inRangeBounds(_ch, 3446, 3448) || inRangeBounds(_ch, 3456, 3457) || _ch == 3460 || inRangeBounds(_ch, 3479, 3481) || _ch == 3506 || _ch == 3516 || isUnassigned30(_ch);
     }
     private static boolean isUnassigned30(char _ch) {
-        if (inRangeBounds(_ch, 3518, 3519)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3527, 3529)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3531, 3534)) {
-            return true;
-        }
-        if (_ch == 3541) {
-            return true;
-        }
-        if (_ch == 3543) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3552, 3569)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3573, 3584)) {
-            return true;
-        }
-        return isUnassigned29(_ch);
+        return inRangeBounds(_ch, 3518, 3519) || inRangeBounds(_ch, 3527, 3529) || inRangeBounds(_ch, 3531, 3534) || _ch == 3541 || _ch == 3543 || inRangeBounds(_ch, 3552, 3569) || inRangeBounds(_ch, 3573, 3584) || isUnassigned29(_ch);
     }
     private static boolean isUnassigned29(char _ch) {
-        if (inRangeBounds(_ch, 3643, 3646)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3676, 3712)) {
-            return true;
-        }
-        if (_ch == 3715) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3717, 3718)) {
-            return true;
-        }
-        if (_ch == 3721) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3723, 3724)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3726, 3731)) {
-            return true;
-        }
-        return isUnassigned28(_ch);
+        return inRangeBounds(_ch, 3643, 3646) || inRangeBounds(_ch, 3676, 3712) || _ch == 3715 || inRangeBounds(_ch, 3717, 3718) || _ch == 3721 || inRangeBounds(_ch, 3723, 3724) || inRangeBounds(_ch, 3726, 3731) || isUnassigned28(_ch);
     }
     private static boolean isUnassigned28(char _ch) {
-        if (_ch == 3736) {
-            return true;
-        }
-        if (_ch == 3744) {
-            return true;
-        }
-        if (_ch == 3748) {
-            return true;
-        }
-        if (_ch == 3750) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3752, 3753)) {
-            return true;
-        }
-        if (_ch == 3756) {
-            return true;
-        }
-        if (_ch == 3770) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3774, 3775)) {
-            return true;
-        }
-        if (_ch == 3781) {
-            return true;
-        }
-        if (_ch == 3783) {
-            return true;
-        }
-        return isUnassigned27(_ch);
+        return _ch == 3736 || _ch == 3744 || _ch == 3748 || _ch == 3750 || inRangeBounds(_ch, 3752, 3753) || _ch == 3756 || _ch == 3770 || inRangeBounds(_ch, 3774, 3775) || _ch == 3781 || _ch == 3783 || isUnassigned27(_ch);
     }
     private static boolean isUnassigned27(char _ch) {
-        if (inRangeBounds(_ch, 3790, 3791)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3802, 3803)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3808, 3839)) {
-            return true;
-        }
-        if (_ch == 3912) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 3949, 3952)) {
-            return true;
-        }
-        if (_ch == 3992) {
-            return true;
-        }
-        if (_ch == 4029) {
-            return true;
-        }
-        return isUnassigned26(_ch);
+        return inRangeBounds(_ch, 3790, 3791) || inRangeBounds(_ch, 3802, 3803) || inRangeBounds(_ch, 3808, 3839) || _ch == 3912 || inRangeBounds(_ch, 3949, 3952) || _ch == 3992 || _ch == 4029 || isUnassigned26(_ch);
     }
     private static boolean isUnassigned26(char _ch) {
-        if (_ch == 4045) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4059, 4095)) {
-            return true;
-        }
-        if (_ch == 4294) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4296, 4300)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4302, 4303)) {
-            return true;
-        }
-        if (_ch == 4681) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4686, 4687)) {
-            return true;
-        }
-        return isUnassigned25(_ch);
+        return _ch == 4045 || inRangeBounds(_ch, 4059, 4095) || _ch == 4294 || inRangeBounds(_ch, 4296, 4300) || inRangeBounds(_ch, 4302, 4303) || _ch == 4681 || inRangeBounds(_ch, 4686, 4687) || isUnassigned25(_ch);
     }
     private static boolean isUnassigned25(char _ch) {
-        if (_ch == 4695) {
-            return true;
-        }
-        if (_ch == 4697) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4702, 4703)) {
-            return true;
-        }
-        if (_ch == 4745) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4750, 4751)) {
-            return true;
-        }
-        if (_ch == 4785) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4790, 4791)) {
-            return true;
-        }
-        if (_ch == 4799) {
-            return true;
-        }
-        if (_ch == 4801) {
-            return true;
-        }
-        return isUnassigned24(_ch);
+        return _ch == 4695 || _ch == 4697 || inRangeBounds(_ch, 4702, 4703) || _ch == 4745 || inRangeBounds(_ch, 4750, 4751) || _ch == 4785 || inRangeBounds(_ch, 4790, 4791) || _ch == 4799 || _ch == 4801 || isUnassigned24(_ch);
     }
     private static boolean isUnassigned24(char _ch) {
-        if (inRangeBounds(_ch, 4806, 4807)) {
-            return true;
-        }
-        if (_ch == 4823) {
-            return true;
-        }
-        if (_ch == 4881) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4886, 4887)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4955, 4956)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 4989, 4991)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 5018, 5023)) {
-            return true;
-        }
-        return isUnassigned23(_ch);
+        return inRangeBounds(_ch, 4806, 4807) || _ch == 4823 || _ch == 4881 || inRangeBounds(_ch, 4886, 4887) || inRangeBounds(_ch, 4955, 4956) || inRangeBounds(_ch, 4989, 4991) || inRangeBounds(_ch, 5018, 5023) || isUnassigned23(_ch);
     }
     private static boolean isUnassigned23(char _ch) {
-        if (inRangeBounds(_ch, 5109, 5119)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 5789, 5791)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 5873, 5887)) {
-            return true;
-        }
-        if (_ch == 5901) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 5909, 5919)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 5943, 5951)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 5972, 5983)) {
-            return true;
-        }
-        return isUnassigned22(_ch);
+        return inRangeBounds(_ch, 5109, 5119) || inRangeBounds(_ch, 5789, 5791) || inRangeBounds(_ch, 5873, 5887) || _ch == 5901 || inRangeBounds(_ch, 5909, 5919) || inRangeBounds(_ch, 5943, 5951) || inRangeBounds(_ch, 5972, 5983) || isUnassigned22(_ch);
     }
     private static boolean isUnassigned22(char _ch) {
-        if (_ch == 5997) {
-            return true;
-        }
-        if (_ch == 6001) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6004, 6015)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6110, 6111)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6122, 6127)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6138, 6143)) {
-            return true;
-        }
-        if (_ch == 6159) {
-            return true;
-        }
-        return isUnassigned21(_ch);
+        return _ch == 5997 || _ch == 6001 || inRangeBounds(_ch, 6004, 6015) || inRangeBounds(_ch, 6110, 6111) || inRangeBounds(_ch, 6122, 6127) || inRangeBounds(_ch, 6138, 6143) || _ch == 6159 || isUnassigned21(_ch);
     }
     private static boolean isUnassigned21(char _ch) {
-        if (inRangeBounds(_ch, 6170, 6175)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6264, 6271)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6315, 6319)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6390, 6399)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6429, 6431)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6444, 6447)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6460, 6463)) {
-            return true;
-        }
-        return isUnassigned20(_ch);
+        return inRangeBounds(_ch, 6170, 6175) || inRangeBounds(_ch, 6264, 6271) || inRangeBounds(_ch, 6315, 6319) || inRangeBounds(_ch, 6390, 6399) || inRangeBounds(_ch, 6429, 6431) || inRangeBounds(_ch, 6444, 6447) || inRangeBounds(_ch, 6460, 6463) || isUnassigned20(_ch);
     }
     private static boolean isUnassigned20(char _ch) {
-        if (inRangeBounds(_ch, 6465, 6467)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6510, 6511)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6517, 6527)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6572, 6575)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6602, 6607)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6619, 6621)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6684, 6685)) {
-            return true;
-        }
-        return isUnassigned19(_ch);
+        return inRangeBounds(_ch, 6465, 6467) || inRangeBounds(_ch, 6510, 6511) || inRangeBounds(_ch, 6517, 6527) || inRangeBounds(_ch, 6572, 6575) || inRangeBounds(_ch, 6602, 6607) || inRangeBounds(_ch, 6619, 6621) || inRangeBounds(_ch, 6684, 6685) || isUnassigned19(_ch);
     }
     private static boolean isUnassigned19(char _ch) {
-        if (_ch == 6751) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6781, 6782)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6794, 6799)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6810, 6815)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6830, 6911)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 6988, 6991)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7037, 7039)) {
-            return true;
-        }
-        return isUnassigned18(_ch);
+        return _ch == 6751 || inRangeBounds(_ch, 6781, 6782) || inRangeBounds(_ch, 6794, 6799) || inRangeBounds(_ch, 6810, 6815) || inRangeBounds(_ch, 6830, 6911) || inRangeBounds(_ch, 6988, 6991) || inRangeBounds(_ch, 7037, 7039) || isUnassigned18(_ch);
     }
     private static boolean isUnassigned18(char _ch) {
-        if (inRangeBounds(_ch, 7156, 7163)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7224, 7226)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7242, 7244)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7296, 7359)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7368, 7375)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7415, 7423)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7655, 7675)) {
-            return true;
-        }
-        return isUnassigned17(_ch);
+        return inRangeBounds(_ch, 7156, 7163) || inRangeBounds(_ch, 7224, 7226) || inRangeBounds(_ch, 7242, 7244) || inRangeBounds(_ch, 7296, 7359) || inRangeBounds(_ch, 7368, 7375) || inRangeBounds(_ch, 7415, 7423) || inRangeBounds(_ch, 7655, 7675) || isUnassigned17(_ch);
     }
     private static boolean isUnassigned17(char _ch) {
-        if (inRangeBounds(_ch, 7958, 7959)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 7966, 7967)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8006, 8007)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8014, 8015)) {
-            return true;
-        }
-        if (_ch == 8024) {
-            return true;
-        }
-        if (_ch == 8026) {
-            return true;
-        }
-        if (_ch == 8028) {
-            return true;
-        }
-        if (_ch == 8030) {
-            return true;
-        }
-        return isUnassigned16(_ch);
+        return inRangeBounds(_ch, 7958, 7959) || inRangeBounds(_ch, 7966, 7967) || inRangeBounds(_ch, 8006, 8007) || inRangeBounds(_ch, 8014, 8015) || _ch == 8024 || _ch == 8026 || _ch == 8028 || _ch == 8030 || isUnassigned16(_ch);
     }
     private static boolean isUnassigned16(char _ch) {
-        if (inRangeBounds(_ch, 8062, 8063)) {
-            return true;
-        }
-        if (_ch == 8117) {
-            return true;
-        }
-        if (_ch == 8133) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8148, 8149)) {
-            return true;
-        }
-        if (_ch == 8156) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8176, 8177)) {
-            return true;
-        }
-        if (_ch == 8181) {
-            return true;
-        }
-        if (_ch == 8191) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8293, 8297)) {
-            return true;
-        }
-        return isUnassigned15(_ch);
+        return inRangeBounds(_ch, 8062, 8063) || _ch == 8117 || _ch == 8133 || inRangeBounds(_ch, 8148, 8149) || _ch == 8156 || inRangeBounds(_ch, 8176, 8177) || _ch == 8181 || _ch == 8191 || inRangeBounds(_ch, 8293, 8297) || isUnassigned15(_ch);
     }
     private static boolean isUnassigned15(char _ch) {
-        if (inRangeBounds(_ch, 8306, 8307)) {
-            return true;
-        }
-        if (_ch == 8335) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8349, 8351)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8379, 8399)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8433, 8447)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8586, 8591)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 9204, 9215)) {
-            return true;
-        }
-        return isUnassigned14(_ch);
+        return inRangeBounds(_ch, 8306, 8307) || _ch == 8335 || inRangeBounds(_ch, 8349, 8351) || inRangeBounds(_ch, 8379, 8399) || inRangeBounds(_ch, 8433, 8447) || inRangeBounds(_ch, 8586, 8591) || inRangeBounds(_ch, 9204, 9215) || isUnassigned14(_ch);
     }
     private static boolean isUnassigned14(char _ch) {
-        if (inRangeBounds(_ch, 9255, 9279)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 9291, 9311)) {
-            return true;
-        }
-        if (_ch == 9984) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11085, 11087)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11098, 11263)) {
-            return true;
-        }
-        if (_ch == 11311) {
-            return true;
-        }
-        if (_ch == 11359) {
-            return true;
-        }
-        return isUnassigned13(_ch);
+        return inRangeBounds(_ch, 9255, 9279) || inRangeBounds(_ch, 9291, 9311) || _ch == 9984 || inRangeBounds(_ch, 11085, 11087) || inRangeBounds(_ch, 11098, 11263) || _ch == 11311 || _ch == 11359 || isUnassigned13(_ch);
     }
     private static boolean isUnassigned13(char _ch) {
-        if (inRangeBounds(_ch, 11508, 11512)) {
-            return true;
-        }
-        if (_ch == 11558) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11560, 11564)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11566, 11567)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11624, 11630)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11633, 11646)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11671, 11679)) {
-            return true;
-        }
-        return isUnassigned12(_ch);
+        return inRangeBounds(_ch, 11508, 11512) || _ch == 11558 || inRangeBounds(_ch, 11560, 11564) || inRangeBounds(_ch, 11566, 11567) || inRangeBounds(_ch, 11624, 11630) || inRangeBounds(_ch, 11633, 11646) || inRangeBounds(_ch, 11671, 11679) || isUnassigned12(_ch);
     }
     private static boolean isUnassigned12(char _ch) {
-        if (_ch == 11687) {
-            return true;
-        }
-        if (_ch == 11695) {
-            return true;
-        }
-        if (_ch == 11703) {
-            return true;
-        }
-        if (_ch == 11711) {
-            return true;
-        }
-        if (_ch == 11719) {
-            return true;
-        }
-        if (_ch == 11727) {
-            return true;
-        }
-        if (_ch == 11735) {
-            return true;
-        }
-        if (_ch == 11743) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11836, 11903)) {
-            return true;
-        }
-        if (_ch == 11930) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12020, 12031)) {
-            return true;
-        }
-        return isUnassigned11(_ch);
+        return _ch == 11687 || _ch == 11695 || _ch == 11703 || _ch == 11711 || _ch == 11719 || _ch == 11727 || _ch == 11735 || _ch == 11743 || inRangeBounds(_ch, 11836, 11903) || _ch == 11930 || inRangeBounds(_ch, 12020, 12031) || isUnassigned11(_ch);
     }
     private static boolean isUnassigned11(char _ch) {
-        if (inRangeBounds(_ch, 12246, 12271)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12284, 12287)) {
-            return true;
-        }
-        if (_ch == 12352) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12439, 12440)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12544, 12548)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12590, 12592)) {
-            return true;
-        }
-        if (_ch == 12687) {
-            return true;
-        }
-        return isUnassigned10(_ch);
+        return inRangeBounds(_ch, 12246, 12271) || inRangeBounds(_ch, 12284, 12287) || _ch == 12352 || inRangeBounds(_ch, 12439, 12440) || inRangeBounds(_ch, 12544, 12548) || inRangeBounds(_ch, 12590, 12592) || _ch == 12687 || isUnassigned10(_ch);
     }
     private static boolean isUnassigned10(char _ch) {
-        if (inRangeBounds(_ch, 12731, 12735)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12772, 12783)) {
-            return true;
-        }
-        if (_ch == 12831) {
-            return true;
-        }
-        if (_ch == 13055) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 19894, 19903)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 40909, 40959)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 42125, 42127)) {
-            return true;
-        }
-        return isUnassigned9(_ch);
+        return inRangeBounds(_ch, 12731, 12735) || inRangeBounds(_ch, 12772, 12783) || _ch == 12831 || _ch == 13055 || inRangeBounds(_ch, 19894, 19903) || inRangeBounds(_ch, 40909, 40959) || inRangeBounds(_ch, 42125, 42127) || isUnassigned9(_ch);
     }
     private static boolean isUnassigned9(char _ch) {
-        if (inRangeBounds(_ch, 42183, 42191)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 42540, 42559)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 42648, 42654)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 42744, 42751)) {
-            return true;
-        }
-        if (_ch == 42895) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 42900, 42911)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 42923, 42999)) {
-            return true;
-        }
-        return isUnassigned8(_ch);
+        return inRangeBounds(_ch, 42183, 42191) || inRangeBounds(_ch, 42540, 42559) || inRangeBounds(_ch, 42648, 42654) || inRangeBounds(_ch, 42744, 42751) || _ch == 42895 || inRangeBounds(_ch, 42900, 42911) || inRangeBounds(_ch, 42923, 42999) || isUnassigned8(_ch);
     }
     private static boolean isUnassigned8(char _ch) {
-        if (inRangeBounds(_ch, 43052, 43055)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43066, 43071)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43128, 43135)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43205, 43213)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43226, 43231)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43260, 43263)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43348, 43358)) {
-            return true;
-        }
-        return isUnassigned7(_ch);
+        return inRangeBounds(_ch, 43052, 43055) || inRangeBounds(_ch, 43066, 43071) || inRangeBounds(_ch, 43128, 43135) || inRangeBounds(_ch, 43205, 43213) || inRangeBounds(_ch, 43226, 43231) || inRangeBounds(_ch, 43260, 43263) || inRangeBounds(_ch, 43348, 43358) || isUnassigned7(_ch);
     }
     private static boolean isUnassigned7(char _ch) {
-        if (inRangeBounds(_ch, 43389, 43391)) {
-            return true;
-        }
-        if (_ch == 43470) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43482, 43485)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43488, 43519)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43575, 43583)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43598, 43599)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43610, 43611)) {
-            return true;
-        }
-        return isUnassigned6(_ch);
+        return inRangeBounds(_ch, 43389, 43391) || _ch == 43470 || inRangeBounds(_ch, 43482, 43485) || inRangeBounds(_ch, 43488, 43519) || inRangeBounds(_ch, 43575, 43583) || inRangeBounds(_ch, 43598, 43599) || inRangeBounds(_ch, 43610, 43611) || isUnassigned6(_ch);
     }
     private static boolean isUnassigned6(char _ch) {
-        if (inRangeBounds(_ch, 43644, 43647)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43715, 43738)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43767, 43776)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43783, 43784)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43791, 43792)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 43799, 43807)) {
-            return true;
-        }
-        if (_ch == 43815) {
-            return true;
-        }
-        return isUnassigned5(_ch);
+        return inRangeBounds(_ch, 43644, 43647) || inRangeBounds(_ch, 43715, 43738) || inRangeBounds(_ch, 43767, 43776) || inRangeBounds(_ch, 43783, 43784) || inRangeBounds(_ch, 43791, 43792) || inRangeBounds(_ch, 43799, 43807) || _ch == 43815 || isUnassigned5(_ch);
     }
     private static boolean isUnassigned5(char _ch) {
-        if (inRangeBounds(_ch, 43823, 43967)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 44014, 44015)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 44026, 44031)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 55204, 55215)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 55239, 55242)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 55292, 55295)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 64110, 64111)) {
-            return true;
-        }
-        return isUnassigned4(_ch);
+        return inRangeBounds(_ch, 43823, 43967) || inRangeBounds(_ch, 44014, 44015) || inRangeBounds(_ch, 44026, 44031) || inRangeBounds(_ch, 55204, 55215) || inRangeBounds(_ch, 55239, 55242) || inRangeBounds(_ch, 55292, 55295) || inRangeBounds(_ch, 64110, 64111) || isUnassigned4(_ch);
     }
     private static boolean isUnassigned4(char _ch) {
-        if (inRangeBounds(_ch, 64218, 64255)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 64263, 64274)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 64280, 64284)) {
-            return true;
-        }
-        if (_ch == 64311) {
-            return true;
-        }
-        if (_ch == 64317) {
-            return true;
-        }
-        if (_ch == 64319) {
-            return true;
-        }
-        if (_ch == 64322) {
-            return true;
-        }
-        return isUnassigned3(_ch);
+        return inRangeBounds(_ch, 64218, 64255) || inRangeBounds(_ch, 64263, 64274) || inRangeBounds(_ch, 64280, 64284) || _ch == 64311 || _ch == 64317 || _ch == 64319 || _ch == 64322 || isUnassigned3(_ch);
     }
     private static boolean isUnassigned3(char _ch) {
-        if (_ch == 64325) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 64450, 64466)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 64832, 64847)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 64912, 64913)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 64968, 65007)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65022, 65023)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65050, 65055)) {
-            return true;
-        }
-        return isUnassigned2(_ch);
+        return _ch == 64325 || inRangeBounds(_ch, 64450, 64466) || inRangeBounds(_ch, 64832, 64847) || inRangeBounds(_ch, 64912, 64913) || inRangeBounds(_ch, 64968, 65007) || inRangeBounds(_ch, 65022, 65023) || inRangeBounds(_ch, 65050, 65055) || isUnassigned2(_ch);
     }
     private static boolean isUnassigned2(char _ch) {
-        if (inRangeBounds(_ch, 65063, 65071)) {
-            return true;
-        }
-        if (_ch == 65107) {
-            return true;
-        }
-        if (_ch == 65127) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65132, 65135)) {
-            return true;
-        }
-        if (_ch == 65141) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65277, 65278)) {
-            return true;
-        }
-        if (_ch == 65280) {
-            return true;
-        }
-        return isUnassigned1(_ch);
+        return inRangeBounds(_ch, 65063, 65071) || _ch == 65107 || _ch == 65127 || inRangeBounds(_ch, 65132, 65135) || _ch == 65141 || inRangeBounds(_ch, 65277, 65278) || _ch == 65280 || isUnassigned1(_ch);
     }
     private static boolean isUnassigned1(char _ch) {
-        if (inRangeBounds(_ch, 65471, 65473)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65480, 65481)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65488, 65489)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65496, 65497)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65501, 65503)) {
-            return true;
-        }
-        if (_ch == 65511) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65519, 65528)) {
-            return true;
-        }
-        return _ch >= 65534;
+        return inRangeBounds(_ch, 65471, 65473) || inRangeBounds(_ch, 65480, 65481) || inRangeBounds(_ch, 65488, 65489) || inRangeBounds(_ch, 65496, 65497) || inRangeBounds(_ch, 65501, 65503) || _ch == 65511 || inRangeBounds(_ch, 65519, 65528) || _ch >= 65534;
     }
 
     private static boolean isRomanDigits(char _ch) {
@@ -3565,144 +1921,33 @@ public final class StringDataUtil {
     }
 
     private static boolean isQuotePunct(char _ch) {
-        if (inRangeBounds(_ch, 8216, 8217)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8219, 8221)) {
-            return true;
-        }
-        if (_ch == 8223) {
-            return true;
-        }
-        if (_ch == 171 || _ch == 187) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8249, 8250)) {
-            return true;
-        }
-        return isQuotePunct1(_ch);
+        return inRangeBounds(_ch, 8216, 8217) || inRangeBounds(_ch, 8219, 8221) || _ch == 8223 || _ch == 171 || _ch == 187 || inRangeBounds(_ch, 8249, 8250) || isQuotePunct1(_ch);
     }
     private static boolean isQuotePunct1(char _ch) {
-        if (inRangeBounds(_ch, 11778, 11781)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11785, 11786)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11788, 11789)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11804, 11805)) {
-            return true;
-        }
-        return inRangeBounds(_ch, 11808, 11809);
+        return inRangeBounds(_ch, 11778, 11781) || inRangeBounds(_ch, 11785, 11786) || inRangeBounds(_ch, 11788, 11789) || inRangeBounds(_ch, 11804, 11805) || inRangeBounds(_ch, 11808, 11809);
     }
 
     private static boolean isBoundPunct(char _ch) {
-        if (inRangeBounds(_ch, 3898, 3901)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 5787, 5788)) {
-            return true;
-        }
-        if (_ch == 8218 || _ch == 8222) {
-            return true;
-        }
-        return isBoundPunct2(_ch);
+        return inRangeBounds(_ch, 3898, 3901) || inRangeBounds(_ch, 5787, 5788) || _ch == 8218 || _ch == 8222 || isBoundPunct2(_ch);
     }
     private static boolean isBoundPunct2(char _ch) {
-        if (inRangeBounds(_ch, 8261, 8262)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8287, 9002)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 10088, 10749)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11810, 11817)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12296, 12319)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 64830, 65039)) {
-            return true;
-        }
-        return isBoundPunct1(_ch);
+        return inRangeBounds(_ch, 8261, 8262) || inRangeBounds(_ch, 8287, 9002) || inRangeBounds(_ch, 10088, 10749) || inRangeBounds(_ch, 11810, 11817) || inRangeBounds(_ch, 12296, 12319) || inRangeBounds(_ch, 64830, 65039) || isBoundPunct1(_ch);
     }
     private static boolean isBoundPunct1(char _ch) {
-        if (inRangeBounds(_ch, 65047, 65048)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65073, 65092)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65095, 65096)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65113, 65118)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65288, 65289)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65313, 65339)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65341, 65376)) {
-            return true;
-        }
-        return inRangeBounds(_ch, 65378, 65379);
+        return inRangeBounds(_ch, 65047, 65048) || inRangeBounds(_ch, 65073, 65092) || inRangeBounds(_ch, 65095, 65096) || inRangeBounds(_ch, 65113, 65118) || inRangeBounds(_ch, 65288, 65289) || inRangeBounds(_ch, 65313, 65339) || inRangeBounds(_ch, 65341, 65376) || inRangeBounds(_ch, 65378, 65379);
     }
 
     private static boolean isConnector(char _ch) {
-        if (inRangeBounds(_ch, 1418, 1471)) {
-            return true;
-        }
-        if (_ch == 5120 || _ch == 6150 || _ch == 8276
-                || _ch == 11802|| _ch == 12316|| _ch == 12448 || _ch == 12336
-                || _ch == 65123 || _ch == 65112 ||_ch==65293 || _ch==65343) {
-            return true;
-        }
-        return isConnector1(_ch);
+        return inRangeBounds(_ch, 1418, 1471) || _ch == 5120 || _ch == 6150 || _ch == 8276
+                || _ch == 11802 || _ch == 12316 || _ch == 12448 || _ch == 12336
+                || _ch == 65123 || _ch == 65112 || _ch == 65293 || _ch == 65343 || isConnector1(_ch);
     }
     private static boolean isConnector1(char _ch) {
-        if (inRangeBounds(_ch, 8208, 8213)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8255, 8256)) {
-            return true;
-        }
-        if (_ch == 11799) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 11834, 11835)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 65073, 65076)) {
-            return true;
-        }
-        return inRangeBounds(_ch, 65101, 65103);
+        return inRangeBounds(_ch, 8208, 8213) || inRangeBounds(_ch, 8255, 8256) || _ch == 11799 || inRangeBounds(_ch, 11834, 11835) || inRangeBounds(_ch, 65073, 65076) || inRangeBounds(_ch, 65101, 65103);
     }
 
     private static boolean isModifierSymbol(char _ch) {
-        if (_ch <= 901) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 8125, 8190)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 12443, 12444)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 42752, 42890)) {
-            return true;
-        }
-        if (inRangeBounds(_ch, 64434, 65020)) {
-            return true;
-        }
-        return inRangeBounds(_ch, 65022, 65507);
+        return _ch <= 901 || inRangeBounds(_ch, 8125, 8190) || inRangeBounds(_ch, 12443, 12444) || inRangeBounds(_ch, 42752, 42890) || inRangeBounds(_ch, 64434, 65020) || inRangeBounds(_ch, 65022, 65507);
     }
 
     private static int procGene(char _ch, int _type) {
@@ -3718,10 +1963,7 @@ public final class StringDataUtil {
         if (_type == LETTER_INSENS_UPPER_CASE) {
             return 1;
         }
-        if (_type == LETTER_SENS_NO_CASE) {
-            return 3;
-        }
-        if (_type == LETTER_SEMI_SENS_NO_CASE) {
+        if (_type == LETTER_SENS_NO_CASE || _type == LETTER_SEMI_SENS_NO_CASE) {
             return 3;
         }
         if (_type == LETTER_INSENS_NO_CASE_DEF_DIR) {
@@ -3733,10 +1975,7 @@ public final class StringDataUtil {
         if (_type == LETTER_INSENS_NO_CASE_RIGHT_TO_LEFT) {
             return processOtherLetterTwo(_ch);
         }
-        if (_type == DIGIT_BASE) {
-            return 9;
-        }
-        if (_type == DIGIT_OTHER) {
+        if (_type == DIGIT_BASE || _type == DIGIT_OTHER) {
             return 9;
         }
         if (_type == ID_SEP) {
@@ -3767,10 +2006,7 @@ public final class StringDataUtil {
         if (_type == OPERATOR_LANGUAGE) {
             return processOperators(_ch);
         }
-        if (_type == OPERATOR_SPEC) {
-            return 24;
-        }
-        if (_type == PUNCTUATION) {
+        if (_type == OPERATOR_SPEC || _type == PUNCTUATION) {
             return 24;
         }
         if (_type == QUOTES) {
@@ -3835,23 +2071,14 @@ public final class StringDataUtil {
     }
 
     private static int processPunctThree(char _ch) {
-        if (_ch == 171) {
+        if (_ch == 171 || _ch == 8223) {
             return 29;
         }
-        if (_ch == 8223) {
-            return 29;
-        }
-        if (_ch == 187) {
-            return 30;
-        }
-        if (_ch == 8221) {
+        if (_ch == 187 || _ch == 8221) {
             return 30;
         }
         if (_ch <= 8217) {
-            if (_ch % 2 != 0) {
-                return 30;
-            }
-            return 29;
+            return processPunctPair(_ch);
         }
         if (_ch <= 8220) {
             return 29;
@@ -3860,27 +2087,29 @@ public final class StringDataUtil {
     }
     private static int processPunctThree1(char _ch) {
         if (_ch <= 11777) {
-            if (_ch % 2 != 0) {
-                return 29;
-            }
-            return 30;
+            return processPunctImpair(_ch);
         }
         if (_ch <= 11781) {
-            if (_ch % 2 != 0) {
-                return 30;
-            }
-            return 29;
+            return processPunctPair(_ch);
         }
         if (_ch <= 11786) {
-            if (_ch % 2 != 0) {
-                return 29;
-            }
-            return 30;
+            return processPunctImpair(_ch);
         }
+        return processPunctPair(_ch);
+    }
+
+    private static int processPunctPair(char _ch) {
         if (_ch % 2 != 0) {
             return 30;
         }
         return 29;
+    }
+
+    private static int processPunctImpair(char _ch) {
+        if (_ch % 2 != 0) {
+            return 29;
+        }
+        return 30;
     }
 
     private static int processPunctTwo(char _ch) {
@@ -4048,119 +2277,14 @@ public final class StringDataUtil {
     }
 
     private static int processOtherLetterTwo(char _ch) {
-        if (_ch == 1600) {
-            return 4;
-        }
-        if (_ch == 1765) {
-            return 4;
-        }
-        if (_ch == 1766) {
-            return 4;
-        }
-        if (_ch == 2036) {
-            return 4;
-        }
-        if (_ch == 2037) {
-            return 4;
-        }
-        if (_ch == 2042) {
-            return 4;
-        }
-        if (_ch == 2074) {
-            return 4;
-        }
-        if (_ch == 2084) {
-            return 4;
-        }
-        if (_ch == 2088) {
+        if (_ch == 1600 || _ch == 1765 || _ch == 1766 || _ch == 2036 || _ch == 2037 || _ch == 2042 || _ch == 2074 || _ch == 2084 || _ch == 2088) {
             return 4;
         }
         return 5;
     }
 
     private static int processOtherLetter(char _ch) {
-        if (_ch == 1369) {
-            return 4;
-        }
-        if (_ch == 2417) {
-            return 4;
-        }
-        if (_ch == 3654) {
-            return 4;
-        }
-        if (_ch == 3782) {
-            return 4;
-        }
-        if (_ch == 4348) {
-            return 4;
-        }
-        if (_ch == 6103) {
-            return 4;
-        }
-        if (_ch == 6211) {
-            return 4;
-        }
-        if (_ch == 6823) {
-            return 4;
-        }
-        if (_ch == 11631) {
-            return 4;
-        }
-        if (_ch == 12293) {
-            return 4;
-        }
-        return processOtherLetter2(_ch);
-    }
-    private static int processOtherLetter2(char _ch) {
-        if (_ch == 40981) {
-            return 4;
-        }
-        if (_ch == 42508) {
-            return 4;
-        }
-        if (_ch == 43741) {
-            return 4;
-        }
-        if (_ch == 43471) {
-            return 4;
-        }
-        if (_ch == 43632) {
-            return 4;
-        }
-        if (_ch == 43763) {
-            return 4;
-        }
-        if (_ch == 43764) {
-            return 4;
-        }
-        if (_ch == 65392) {
-            return 4;
-        }
-        return processOtherLetter1(_ch);
-    }
-    private static int processOtherLetter1(char _ch) {
-        if (_ch == 65438) {
-            return 4;
-        }
-        if (_ch == 65439) {
-            return 4;
-        }
-        if (inRangeBounds(_ch, 7288, 7293)) {
-            return 4;
-        }
-        if (inRangeBounds(_ch, 12337, 12347)) {
-            return 4;
-        }
-        if (inRangeBounds(_ch, 12445, 12446)) {
-            return 4;
-        }
-        if (inRangeBounds(_ch, 12539, 12542)) {
-            return 4;
-        }
-        if (inRangeBounds(_ch, 42232, 42239)) {
-            return 4;
-        }
-        if (inRangeBounds(_ch, 699, 750)) {
+        if (_ch == 1369 || _ch == 2417 || _ch == 3654 || _ch == 3782 || _ch == 4348 || _ch == 6103 || _ch == 6211 || _ch == 6823 || _ch == 11631 || _ch == 12293 || _ch == 40981 || _ch == 42508 || _ch == 43741 || _ch == 43471 || _ch == 43632 || _ch == 43763 || _ch == 43764 || _ch == 65392 || _ch == 65438 || _ch == 65439 || inRangeBounds(_ch, 7288, 7293) || inRangeBounds(_ch, 12337, 12347) || inRangeBounds(_ch, 12445, 12446) || inRangeBounds(_ch, 12539, 12542) || inRangeBounds(_ch, 42232, 42239) || inRangeBounds(_ch, 699, 750)) {
             return 4;
         }
         return 5;
@@ -4225,31 +2349,7 @@ public final class StringDataUtil {
     }
 
     private static int processLettersDigitsOther(char _ch) {
-        if (inRangeBounds(_ch, 12690, 12991)) {
-            return 11;
-        }
-        if (_ch >= 43056) {
-            return 11;
-        }
-        if (inRangeBounds(_ch, 8585, 10131)) {
-            return 11;
-        }
-        if (_ch <= 4988) {
-            return 11;
-        }
-        if (_ch == 11517) {
-            return 11;
-        }
-        if (inRangeBounds(_ch, 8528, 8543)) {
-            return 11;
-        }
-        if (inRangeBounds(_ch, 8304, 8329)) {
-            return 11;
-        }
-        if (inRangeBounds(_ch, 6128, 6137)) {
-            return 11;
-        }
-        if (_ch == 6618) {
+        if (inRangeBounds(_ch, 12690, 12991) || _ch >= 43056 || inRangeBounds(_ch, 8585, 10131) || _ch <= 4988 || _ch == 11517 || inRangeBounds(_ch, 8528, 8543) || inRangeBounds(_ch, 8304, 8329) || inRangeBounds(_ch, 6128, 6137) || _ch == 6618) {
             return 11;
         }
         return 10;
@@ -4271,13 +2371,7 @@ public final class StringDataUtil {
         if (_ch >= 44013) {
             return 6;
         }
-        if (inRangeBounds(_ch, 8413, 8416)) {
-            return 7;
-        }
-        if (inRangeBounds(_ch, 8418, 8420)) {
-            return 7;
-        }
-        if (inRangeBounds(_ch, 42608, 42610)) {
+        if (inRangeBounds(_ch, 8413, 8416) || inRangeBounds(_ch, 8418, 8420) || inRangeBounds(_ch, 42608, 42610)) {
             return 7;
         }
         if (_ch <= 1159) {
@@ -4289,73 +2383,16 @@ public final class StringDataUtil {
         if (_ch <= 1161) {
             return 7;
         }
-        if (_ch <= 2306) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 3633, 3897)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 3953, 3966)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 43204, 43345)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 7412, 12333)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 12441, 43019)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 7222, 7392)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 7394, 7405)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 3968, 4038)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 4253, 6069)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 6071, 6077)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 6089, 6434)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 2369, 2376)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 2385, 2433)) {
+        if (_ch <= 2306 || inRangeBounds(_ch, 3633, 3897) || inRangeBounds(_ch, 3953, 3966) || inRangeBounds(_ch, 43204, 43345) || inRangeBounds(_ch, 7412, 12333) || inRangeBounds(_ch, 12441, 43019) || inRangeBounds(_ch, 7222, 7392) || inRangeBounds(_ch, 7394, 7405) || inRangeBounds(_ch, 3968, 4038) || inRangeBounds(_ch, 4253, 6069) || inRangeBounds(_ch, 6071, 6077) || inRangeBounds(_ch, 6089, 6434) || inRangeBounds(_ch, 2369, 2376) || inRangeBounds(_ch, 2385, 2433)) {
             return 6;
         }
         return processOther5(_ch);
     }
     private static int processOther5(char _ch) {
-        if (inRangeBounds(_ch, 2625, 2690)) {
+        if (inRangeBounds(_ch, 2625, 2690) || inRangeBounds(_ch, 3142, 3171) || inRangeBounds(_ch, 6744, 6752) || inRangeBounds(_ch, 6771, 6915)) {
             return 6;
         }
-        if (inRangeBounds(_ch, 3142, 3171)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 6744, 6752)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 6771, 6915)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 43047, 43347)) {
-            return 8;
-        }
-        if (inRangeBounds(_ch, 4239, 6085)) {
-            return 8;
-        }
-        if (inRangeBounds(_ch, 2366, 2380)) {
-            return 8;
-        }
-        if (inRangeBounds(_ch, 7220, 43044)) {
+        if (inRangeBounds(_ch, 43047, 43347) || inRangeBounds(_ch, 4239, 6085) || inRangeBounds(_ch, 2366, 2380) || inRangeBounds(_ch, 7220, 43044)) {
             return 8;
         }
         if (inRangeBounds(_ch, 7212, 43394)) {
@@ -4415,16 +2452,7 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 6979, 43765)) {
             return 8;
         }
-        if (inRangeBounds(_ch, 6757, 6764)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 6966, 6970)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 4141, 4144)) {
-            return 6;
-        }
-        if (inRangeBounds(_ch, 4146, 4151)) {
+        if (inRangeBounds(_ch, 6757, 6764) || inRangeBounds(_ch, 6966, 6970) || inRangeBounds(_ch, 4141, 4144) || inRangeBounds(_ch, 4146, 4151)) {
             return 6;
         }
         return processOther3(_ch);
@@ -4548,53 +2576,20 @@ public final class StringDataUtil {
                 return true;
             }
         }
-        if (_string == 172) {
-            return true;
-        }
-        return isOtherMathSymbol3(_string);
+        return _string == 172 || isOtherMathSymbol3(_string);
     }
     private static boolean isOtherMathSymbol3(char _string) {
         return _string == 177 || _string == 215 || _string == 247 || _string == 1014 || _string == 8611 || _string == 8260 || _string == 8614 || _string == 8274 || _string == 8622 || _string == 8472 || _string == 8660 || _string == 8658 || _string == 8523 || _string == 9655 || _string == 9665 || isOtherMathSymbol2(_string);
     }
     private static boolean isOtherMathSymbol2(char _string) {
-        if (_string == 8608 || _string == 9839 || _string == 9084) {
-            return true;
-        }
-        if (inRangeBounds(_string, 9115, 9139) || inRangeBounds(_string, 9180, 9185) || inRangeBounds(_string, 9720, 9727) || inRangeBounds(_string, 8968, 8971)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 8960, 8991)) {
-            return false;
-        }
-        if (inRangeBounds(_string, 8692, 8993) || inRangeBounds(_string, 10176, 10180) || inRangeBounds(_string, 10183, 10213) || inRangeBounds(_string, 10224, 10239)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 10627, 10648)) {
-            return false;
-        }
-        return isOtherMathSymbol1(_string);
+        return _string == 8608 || _string == 9839 || _string == 9084 || inRangeBounds(_string, 9115, 9139) || inRangeBounds(_string, 9180, 9185) || inRangeBounds(_string, 9720, 9727) || inRangeBounds(_string, 8968, 8971) || !inRangeBounds(_string, 8960, 8991) && (inRangeBounds(_string, 8692, 8993) || inRangeBounds(_string, 10176, 10180) || inRangeBounds(_string, 10183, 10213) || inRangeBounds(_string, 10224, 10239) || !inRangeBounds(_string, 10627, 10648) && isOtherMathSymbol1(_string));
     }
     private static boolean isOtherMathSymbol1(char _string) {
-        if (inRangeBounds(_string, 10716, 10747)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 10712, 10749)) {
-            return false;
-        }
-        if (inRangeBounds(_string, 11056, 11076)) {
-            return true;
-        }
-        if (inRangeBounds(_string, 11008, 11078)) {
-            return false;
-        }
-        return inRangeBounds(_string, 10496, 11084) || inRangeBounds(_string, 65513, 65516) || inRangeBounds(_string, 65308, 65310) || inRangeBounds(_string, 65124, 65126) || _string == 64297 || _string == 65122 || _string == 65291 || _string == 65372 || _string == 65374 || _string == 65506;
+        return inRangeBounds(_string, 10716, 10747) || !inRangeBounds(_string, 10712, 10749) && (inRangeBounds(_string, 11056, 11076) || !inRangeBounds(_string, 11008, 11078) && (inRangeBounds(_string, 10496, 11084) || inRangeBounds(_string, 65513, 65516) || inRangeBounds(_string, 65308, 65310) || inRangeBounds(_string, 65124, 65126) || _string == 64297 || _string == 65122 || _string == 65291 || _string == 65372 || _string == 65374 || _string == 65506));
     }
 
     private static int toLowerCaseInt(char _ch) {
-        if (_ch == 453) {
-            return _ch + 1;
-        }
-        if (_ch == 456) {
+        if (_ch == 453 || _ch == 456) {
             return _ch + 1;
         }
         if (isUnassigned(_ch)) {
@@ -4676,64 +2671,13 @@ public final class StringDataUtil {
         if (isOtherMathSymbol(_ch)) {
             return _ch;
         }
-        if (_ch == 391) {
-            return _ch + 1;
-        }
-        if (_ch == 395) {
-            return _ch + 1;
-        }
-        if (_ch == 401) {
-            return _ch + 1;
-        }
-        if (_ch == 408) {
-            return _ch + 1;
-        }
-        if (_ch == 423) {
-            return _ch + 1;
-        }
-        if (_ch == 428) {
-            return _ch + 1;
-        }
-        if (_ch == 431) {
-            return _ch + 1;
-        }
-        if (_ch == 440) {
-            return _ch + 1;
-        }
-        if (_ch == 444) {
+        if (_ch == 391 || _ch == 395 || _ch == 401 || _ch == 408 || _ch == 423 || _ch == 428 || _ch == 431 || _ch == 440 || _ch == 444) {
             return _ch + 1;
         }
         return toLowerCaseIntCheckUpp5(_ch);
     }
     private static int toLowerCaseIntCheckUpp5(char _ch) {
-        if (_ch == 571) {
-            return _ch + 1;
-        }
-        if (_ch == 577) {
-            return _ch + 1;
-        }
-        if (_ch == 886) {
-            return _ch + 1;
-        }
-        if (_ch == 1015) {
-            return _ch + 1;
-        }
-        if (_ch == 1018) {
-            return _ch + 1;
-        }
-        if (_ch == 8579) {
-            return _ch + 1;
-        }
-        if (_ch == 11360) {
-            return _ch + 1;
-        }
-        if (_ch == 11378) {
-            return _ch + 1;
-        }
-        if (_ch == 11381) {
-            return _ch + 1;
-        }
-        if (_ch == 11506) {
+        if (_ch == 571 || _ch == 577 || _ch == 886 || _ch == 1015 || _ch == 1018 || _ch == 8579 || _ch == 11360 || _ch == 11378 || _ch == 11381 || _ch == 11506) {
             return _ch + 1;
         }
         return toLowerCaseIntCheckUpp4(_ch);
@@ -4868,17 +2812,8 @@ public final class StringDataUtil {
         if (_ch == 7838) {
             return _ch -7615;
         }
-        if (_ch == 8025) {
-            return _ch -8;
-        }
-        if (_ch == 8027) {
-            return _ch -8;
-        }
-        if (_ch == 8029) {
-            return _ch -8;
-        }
-        if (_ch == 8031) {
-            return _ch -8;
+        if (_ch == 8025 || _ch == 8027 || _ch == 8029 || _ch == 8031) {
+            return _ch - 8;
         }
         return toLowerCaseIntCheckUpp1(_ch);
     }
@@ -4960,13 +2895,7 @@ public final class StringDataUtil {
     }
 
     private static int toLowerCaseDefaultSix(char _ch) {
-        if (inRangeBounds(_ch, 65, 90)) {
-            return _ch + 32;
-        }
-        if (inRangeBounds(_ch, 192, 214)) {
-            return _ch + 32;
-        }
-        if (inRangeBounds(_ch, 216, 222)) {
+        if (inRangeBounds(_ch, 65, 90) || inRangeBounds(_ch, 192, 214) || inRangeBounds(_ch, 216, 222)) {
             return _ch + 32;
         }
         if (inRangeBounds(_ch, 393, 394)) {
@@ -5005,26 +2934,8 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 4256, 4293)) {
             return _ch + 7264;
         }
-        if (inRangeBounds(_ch, 7944, 7951)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 7960, 7965)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 7976, 7983)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 7992, 7999)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 8008, 8013)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 8040, 8047)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 8120, 8121)) {
-            return _ch -8;
+        if (inRangeBounds(_ch, 7944, 7951) || inRangeBounds(_ch, 7960, 7965) || inRangeBounds(_ch, 7976, 7983) || inRangeBounds(_ch, 7992, 7999) || inRangeBounds(_ch, 8008, 8013) || inRangeBounds(_ch, 8040, 8047) || inRangeBounds(_ch, 8120, 8121)) {
+            return _ch - 8;
         }
         if (inRangeBounds(_ch, 8122, 8123)) {
             return _ch -74;
@@ -5070,40 +2981,13 @@ public final class StringDataUtil {
     }
 
     private static int toLowerCheckDefThree(char _ch) {
-        if (_ch == 571) {
-            return _ch + 1;
-        }
-        if (_ch == 577) {
-            return _ch + 1;
-        }
-        if (_ch == 886) {
-            return _ch + 1;
-        }
-        if (_ch == 1015) {
-            return _ch + 1;
-        }
-        if (_ch == 1018) {
-            return _ch + 1;
-        }
-        if (_ch == 8579) {
-            return _ch + 1;
-        }
-        if (_ch == 11360) {
+        if (_ch == 571 || _ch == 577 || _ch == 886 || _ch == 1015 || _ch == 1018 || _ch == 8579 || _ch == 11360) {
             return _ch + 1;
         }
         return toLowerCheckDefThree5(_ch);
     }
     private static int toLowerCheckDefThree5(char _ch) {
-        if (_ch == 11378) {
-            return _ch + 1;
-        }
-        if (_ch == 11381) {
-            return _ch + 1;
-        }
-        if (_ch == 11506) {
-            return _ch + 1;
-        }
-        if (_ch == 42891) {
+        if (_ch == 11378 || _ch == 11381 || _ch == 11506 || _ch == 42891) {
             return _ch + 1;
         }
         if (_ch == 304) {
@@ -5308,13 +3192,7 @@ public final class StringDataUtil {
     }
 
     private static int toLowerCheckDef(char _ch) {
-        if (inRangeBounds(_ch, 65, 90)) {
-            return _ch + 32;
-        }
-        if (inRangeBounds(_ch, 192, 214)) {
-            return _ch + 32;
-        }
-        if (inRangeBounds(_ch, 216, 222)) {
+        if (inRangeBounds(_ch, 65, 90) || inRangeBounds(_ch, 192, 214) || inRangeBounds(_ch, 216, 222)) {
             return _ch + 32;
         }
         if (inRangeBounds(_ch, 393, 394)) {
@@ -5353,38 +3231,14 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 4256, 4293)) {
             return _ch + 7264;
         }
-        if (inRangeBounds(_ch, 7944, 7951)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 7960, 7965)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 7976, 7983)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 7992, 7999)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 8008, 8013)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 8040, 8047)) {
-            return _ch -8;
+        if (inRangeBounds(_ch, 7944, 7951) || inRangeBounds(_ch, 7960, 7965) || inRangeBounds(_ch, 7976, 7983) || inRangeBounds(_ch, 7992, 7999) || inRangeBounds(_ch, 8008, 8013) || inRangeBounds(_ch, 8040, 8047)) {
+            return _ch - 8;
         }
         return toLowerCheckDef1(_ch);
     }
     private static int toLowerCheckDef1(char _ch) {
-        if (inRangeBounds(_ch, 8072, 8079)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 8088, 8095)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 8104, 8111)) {
-            return _ch -8;
-        }
-        if (inRangeBounds(_ch, 8120, 8121)) {
-            return _ch -8;
+        if (inRangeBounds(_ch, 8072, 8079) || inRangeBounds(_ch, 8088, 8095) || inRangeBounds(_ch, 8104, 8111) || inRangeBounds(_ch, 8120, 8121)) {
+            return _ch - 8;
         }
         if (inRangeBounds(_ch, 8122, 8123)) {
             return _ch -74;
@@ -5489,38 +3343,8 @@ public final class StringDataUtil {
         return toUpperCaseInt1(_ch);
     }
     private static int toUpperCaseInt1(char _ch) {
-        if (_ch == 392) {
-            return _ch -1;
-        }
-        if (_ch == 396) {
-            return _ch -1;
-        }
-        if (_ch == 402) {
-            return _ch -1;
-        }
-        if (_ch == 409) {
-            return _ch -1;
-        }
-        if (_ch == 424) {
-            return _ch -1;
-        }
-        if (_ch == 429) {
-            return _ch -1;
-        }
-        if (_ch == 432) {
-            return _ch -1;
-        }
-        if (_ch == 441) {
-            return _ch -1;
-        }
-        if (_ch == 445) {
-            return _ch -1;
-        }
-        if (_ch == 453) {
-            return _ch -1;
-        }
-        if (_ch == 456) {
-            return _ch -1;
+        if (_ch == 392 || _ch == 396 || _ch == 402 || _ch == 409 || _ch == 424 || _ch == 429 || _ch == 432 || _ch == 441 || _ch == 445 || _ch == 453 || _ch == 456) {
+            return _ch - 1;
         }
         return toUpperCaseDefThree(_ch);
     }
@@ -5617,38 +3441,8 @@ public final class StringDataUtil {
         if (_ch == 7936) {
             return 7944;
         }
-        if (_ch == 392) {
-            return _ch -1;
-        }
-        if (_ch == 396) {
-            return _ch -1;
-        }
-        if (_ch == 402) {
-            return _ch -1;
-        }
-        if (_ch == 409) {
-            return _ch -1;
-        }
-        if (_ch == 424) {
-            return _ch -1;
-        }
-        if (_ch == 429) {
-            return _ch -1;
-        }
-        if (_ch == 432) {
-            return _ch -1;
-        }
-        if (_ch == 441) {
-            return _ch -1;
-        }
-        if (_ch == 445) {
-            return _ch -1;
-        }
-        if (_ch == 453) {
-            return _ch -1;
-        }
-        if (_ch == 456) {
-            return _ch -1;
+        if (_ch == 392 || _ch == 396 || _ch == 402 || _ch == 409 || _ch == 424 || _ch == 429 || _ch == 432 || _ch == 441 || _ch == 445 || _ch == 453 || _ch == 456) {
+            return _ch - 1;
         }
         return toUpperCaseDefThree(_ch);
     }
@@ -5661,108 +3455,21 @@ public final class StringDataUtil {
     }
 
     private static int toUpperCaseDefTwo2(char _ch) {
-        if (inRangeBounds(_ch, 314, 328)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 378, 382)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 436, 438)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 462, 476)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 1218, 1230)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 11368, 11372)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 11500, 11502)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 42874, 42876)) {
-            return _ch -1;
+        if (inRangeBounds(_ch, 314, 328) || inRangeBounds(_ch, 378, 382) || inRangeBounds(_ch, 436, 438) || inRangeBounds(_ch, 462, 476) || inRangeBounds(_ch, 1218, 1230) || inRangeBounds(_ch, 11368, 11372) || inRangeBounds(_ch, 11500, 11502) || inRangeBounds(_ch, 42874, 42876)) {
+            return _ch - 1;
         }
         return toUpperCaseDef(_ch);
     }
 
     private static int toUpperCaseDefTwo1(char _ch) {
-        if (inRangeBounds(_ch, 257, 303)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 307, 311)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 331, 375)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 387, 389)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 417, 421)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 479, 495)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 505, 543)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 547, 563)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 583, 591)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 881, 883)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 985, 1007)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 1121, 1153)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 1163, 1215)) {
-            return _ch -1;
+        if (inRangeBounds(_ch, 257, 303) || inRangeBounds(_ch, 307, 311) || inRangeBounds(_ch, 331, 375) || inRangeBounds(_ch, 387, 389) || inRangeBounds(_ch, 417, 421) || inRangeBounds(_ch, 479, 495) || inRangeBounds(_ch, 505, 543) || inRangeBounds(_ch, 547, 563) || inRangeBounds(_ch, 583, 591) || inRangeBounds(_ch, 881, 883) || inRangeBounds(_ch, 985, 1007) || inRangeBounds(_ch, 1121, 1153) || inRangeBounds(_ch, 1163, 1215)) {
+            return _ch - 1;
         }
         return toUpperCaseDefTwo3(_ch);
     }
     private static int toUpperCaseDefTwo3(char _ch) {
-        if (inRangeBounds(_ch, 1233, 1319)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 7681, 7829)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 7841, 7935)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 11393, 11491)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 42561, 42605)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 42625, 42647)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 42787, 42799)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 42803, 42863)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 42879, 42887)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 42897, 42899)) {
-            return _ch -1;
-        }
-        if (inRangeBounds(_ch, 42913, 42921)) {
-            return _ch -1;
+        if (inRangeBounds(_ch, 1233, 1319) || inRangeBounds(_ch, 7681, 7829) || inRangeBounds(_ch, 7841, 7935) || inRangeBounds(_ch, 11393, 11491) || inRangeBounds(_ch, 42561, 42605) || inRangeBounds(_ch, 42625, 42647) || inRangeBounds(_ch, 42787, 42799) || inRangeBounds(_ch, 42803, 42863) || inRangeBounds(_ch, 42879, 42887) || inRangeBounds(_ch, 42897, 42899) || inRangeBounds(_ch, 42913, 42921)) {
+            return _ch - 1;
         }
         return toUpperCaseDef(_ch);
     }
@@ -6000,16 +3707,7 @@ public final class StringDataUtil {
         return toUpperCaseDefFour1(_ch);
     }
     private static int toUpperCaseDefFour1(char _ch) {
-        if (_ch == 8017) {
-            return _ch + 8;
-        }
-        if (_ch == 8019) {
-            return _ch + 8;
-        }
-        if (_ch == 8021) {
-            return _ch + 8;
-        }
-        if (_ch == 8023) {
+        if (_ch == 8017 || _ch == 8019 || _ch == 8021 || _ch == 8023) {
             return _ch + 8;
         }
         if (_ch == 8115) {
@@ -6045,14 +3743,8 @@ public final class StringDataUtil {
         return toUpperCaseDefTwo(_ch);
     }
     private static int toUpperCaseDef(char _ch) {
-        if (inRangeBounds(_ch, 97, 122)) {
-            return _ch -32;
-        }
-        if (inRangeBounds(_ch, 224, 246)) {
-            return _ch -32;
-        }
-        if (inRangeBounds(_ch, 248, 254)) {
-            return _ch -32;
+        if (inRangeBounds(_ch, 97, 122) || inRangeBounds(_ch, 224, 246) || inRangeBounds(_ch, 248, 254)) {
+            return _ch - 32;
         }
         if (inRangeBounds(_ch, 575, 576)) {
             return _ch + 10815;
@@ -6093,22 +3785,7 @@ public final class StringDataUtil {
         return toUpperCaseDef3(_ch);
     }
     private static int toUpperCaseDef3(char _ch){
-        if (inRangeBounds(_ch, 7937, 7943)) {
-            return _ch + 8;
-        }
-        if (inRangeBounds(_ch, 7952, 7957)) {
-            return _ch + 8;
-        }
-        if (inRangeBounds(_ch, 7968, 7975)) {
-            return _ch + 8;
-        }
-        if (inRangeBounds(_ch, 7984, 7991)) {
-            return _ch + 8;
-        }
-        if (inRangeBounds(_ch, 8000, 8005)) {
-            return _ch + 8;
-        }
-        if (inRangeBounds(_ch, 8032, 8039)) {
+        if (inRangeBounds(_ch, 7937, 7943) || inRangeBounds(_ch, 7952, 7957) || inRangeBounds(_ch, 7968, 7975) || inRangeBounds(_ch, 7984, 7991) || inRangeBounds(_ch, 8000, 8005) || inRangeBounds(_ch, 8032, 8039)) {
             return _ch + 8;
         }
         if (inRangeBounds(_ch, 8048, 8049)) {
@@ -6132,25 +3809,13 @@ public final class StringDataUtil {
         if (inRangeBounds(_ch, 8060, 8061)) {
             return _ch + 126;
         }
-        if (inRangeBounds(_ch, 8064, 8071)) {
-            return _ch + 8;
-        }
-        if (inRangeBounds(_ch, 8080, 8087)) {
+        if (inRangeBounds(_ch, 8064, 8071) || inRangeBounds(_ch, 8080, 8087)) {
             return _ch + 8;
         }
         return toUpperCaseDef1(_ch);
     }
     private static int toUpperCaseDef1(char _ch){
-        if (inRangeBounds(_ch, 8096, 8103)) {
-            return _ch + 8;
-        }
-        if (inRangeBounds(_ch, 8112, 8113)) {
-            return _ch + 8;
-        }
-        if (inRangeBounds(_ch, 8144, 8145)) {
-            return _ch + 8;
-        }
-        if (inRangeBounds(_ch, 8160, 8161)) {
+        if (inRangeBounds(_ch, 8096, 8103) || inRangeBounds(_ch, 8112, 8113) || inRangeBounds(_ch, 8144, 8145) || inRangeBounds(_ch, 8160, 8161)) {
             return _ch + 8;
         }
         if (inRangeBounds(_ch, 11312, 11358)) {
