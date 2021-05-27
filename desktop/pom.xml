@@ -20,5 +20,11 @@
 		<sonar.issue.ignore.multicriteria>e3</sonar.issue.ignore.multicriteria>
 		<sonar.issue.ignore.multicriteria.e3.ruleKey>java:S4973</sonar.issue.ignore.multicriteria.e3.ruleKey>
 		<sonar.issue.ignore.multicriteria.e3.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e3.resourceKey>
+		<sonar.issue.ignore.multicriteria>e4</sonar.issue.ignore.multicriteria>
+		<sonar.issue.ignore.multicriteria.e4.ruleKey>java:S5961</sonar.issue.ignore.multicriteria.e4.ruleKey>
+		<sonar.issue.ignore.multicriteria.e4.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e4.resourceKey>
+		<sonar.issue.ignore.multicriteria>e5</sonar.issue.ignore.multicriteria>
+		<sonar.issue.ignore.multicriteria.e5.ruleKey>java:S5976</sonar.issue.ignore.multicriteria.e5.ruleKey>
+		<sonar.issue.ignore.multicriteria.e5.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e5.resourceKey>
 	</properties>
 </project>
