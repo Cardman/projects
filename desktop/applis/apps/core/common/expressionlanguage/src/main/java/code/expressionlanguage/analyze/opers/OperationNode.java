@@ -2953,6 +2953,9 @@ public abstract class OperationNode {
         }
         int last_ = paramLen_ - 1;
         if (paramLen_ == allArgsLen_) {
+            //startOpt_ == paramLen_ - 1;
+            //=>startOpt_ + 1 == paramLen_
+            //=>startOpt_ + 1 == allArgsLen_
             Mapping map_ = new Mapping();
             OperationNode operationNode_ = allOps_.get(last_);
             String wc_ = _id.getGeneFormatted().getParametersType(last_);
