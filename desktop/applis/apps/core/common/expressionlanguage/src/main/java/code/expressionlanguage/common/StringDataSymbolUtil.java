@@ -20,6 +20,10 @@ final class StringDataSymbolUtil {
         if (_ch == 1544) {
             return 2;
         }
+        return dirOtherPrintSix4(_ch);
+    }
+
+    private static int dirOtherPrintSix4(char _ch) {
         if (_ch == 8260) {
             return 7;
         }
@@ -42,6 +46,10 @@ final class StringDataSymbolUtil {
         if (_ch == 65291) {
             return 4;
         }
+        return dirOtherPrintSix3(_ch);
+    }
+
+    private static int dirOtherPrintSix3(char _ch) {
         if (_ch <= 1543) {
             return 13;
         }
@@ -61,6 +69,10 @@ final class StringDataSymbolUtil {
         if (_ch == 173) {
             return 9;
         }
+        return dirOtherPrintFive1(_ch);
+    }
+
+    private static int dirOtherPrintFive1(char _ch) {
         if (_ch == 176) {
             return 5;
         }
@@ -125,6 +137,10 @@ final class StringDataSymbolUtil {
         if (rgBounds2(_ch, 3059, 3066)) {
             return 13;
         }
+        return dirOtherPrintTwo8(_ch);
+    }
+
+    private static int dirOtherPrintTwo8(char _ch) {
         if (rgBounds2(_ch, 3199, 4255)) {
             return 0;
         }
@@ -150,6 +166,10 @@ final class StringDataSymbolUtil {
         if (rgBounds2(_ch, 9372, 9397)) {
             return 0;
         }
+        return dirOtherPrintTwo7(_ch);
+    }
+
+    private static int dirOtherPrintTwo7(char _ch) {
         if (rgBounds2(_ch, 9472, 10175)) {
             return 13;
         }
@@ -175,6 +195,10 @@ final class StringDataSymbolUtil {
         if (rgBounds2(_ch, 12829, 12830)) {
             return 13;
         }
+        return dirOtherPrintTwo6(_ch);
+    }
+
+    private static int dirOtherPrintTwo6(char _ch) {
         if (rgBounds2(_ch, 12842, 12923)) {
             return 0;
         }
@@ -200,6 +224,10 @@ final class StringDataSymbolUtil {
         if (rgBounds2(_ch, 13179, 13277)) {
             return 0;
         }
+        return dirOtherPrintTwo5(_ch);
+    }
+
+    private static int dirOtherPrintTwo5(char _ch) {
         if (rgBounds2(_ch, 13278, 13279)) {
             return 13;
         }
@@ -306,6 +334,10 @@ final class StringDataSymbolUtil {
         if (_ch <= 42239) {
             return 0;
         }
+        return dirOtherPrint8(_ch);
+    }
+
+    private static int dirOtherPrint8(char _ch) {
         if (_ch <= 42622) {
             return 13;
         }
