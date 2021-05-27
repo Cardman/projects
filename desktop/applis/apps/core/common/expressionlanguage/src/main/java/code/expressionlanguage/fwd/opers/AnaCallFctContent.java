@@ -1,5 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
@@ -18,6 +19,7 @@ public final class AnaCallFctContent {
     private int naturalVararg = -1;
     private MemberId memberId = new MemberId();
     private AnaFormattedRootBlock formattedType;
+    private AnaTypeFct function;
 
     public AnaCallFctContent(String _methodName) {
         this.methodName = _methodName;
@@ -26,13 +28,14 @@ public final class AnaCallFctContent {
     public void update(ClassMethodIdReturn _res) {
         String foundClass_ = _res.getRealClass();
         MethodId realId_ = _res.getRealId();
-        setFormattedType(_res.getFormattedType());
-        setMemberId(_res.getMemberId());
+        formattedType = _res.getFormattedType();
+        memberId = _res.getMemberId();
         setClassMethodId(new ClassMethodId(foundClass_, realId_));
+        function = _res.getPair();
         if (_res.isVarArgToCall()) {
             StringList paramtTypes_ = realId_.getParametersTypes();
-            setNaturalVararg(paramtTypes_.size() - 1);
-            setLastType(paramtTypes_.last());
+            naturalVararg = paramtTypes_.size() - 1;
+            lastType = paramtTypes_.last();
         }
     }
 
@@ -52,32 +55,19 @@ public final class AnaCallFctContent {
         return formattedType;
     }
 
-    public void setFormattedType(AnaFormattedRootBlock _formattedType) {
-        this.formattedType = _formattedType;
-    }
-
     public String getLastType() {
         return lastType;
-    }
-
-    public void setLastType(String _lastType) {
-        this.lastType = _lastType;
     }
 
     public int getNaturalVararg() {
         return naturalVararg;
     }
 
-    public void setNaturalVararg(int _naturalVararg) {
-        this.naturalVararg = _naturalVararg;
-    }
-
     public MemberId getMemberId() {
         return memberId;
     }
 
-    public void setMemberId(MemberId _memberId) {
-        this.memberId = _memberId;
+    public AnaTypeFct getFunction() {
+        return function;
     }
-
 }

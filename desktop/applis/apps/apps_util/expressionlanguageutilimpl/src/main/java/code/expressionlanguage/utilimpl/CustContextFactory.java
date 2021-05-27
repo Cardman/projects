@@ -79,18 +79,18 @@ public final class CustContextFactory {
             issuer_.log("OK");
         }
         String infoTest_ = _definedLgNames.getCustAliases().getAliasInfoTest();
-        ExecRootBlock classBody_ = rCont_.getClasses().getClassBody(infoTest_);
+        ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, rCont_.getClasses());
         Struct infoStruct_ = rCont_.getInit().processInit(rCont_,
-                NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,infoTest_), "", -1);
+                NullStruct.NULL_VALUE, className_, "", -1);
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
         ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,rCont_,_progressingTests,_definedLgNames);
         new Thread(showUpdates_).start();
         ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethodPair();
         ArgumentListCall argList_ = new ArgumentListCall(argMethod_);
-        ExecRootBlock classBodyExecute_ = rCont_.getClasses().getClassBody(_definedLgNames.getCustAliases().getAliasExecute());
+        ExecFormattedRootBlock aClass_ = ExecFormattedRootBlock.build(_definedLgNames.getCustAliases().getAliasExecute(),rCont_.getClasses());
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
-                new ExecFormattedRootBlock(classBodyExecute_,_definedLgNames.getCustAliases().getAliasExecute()),
+                aClass_,
                 rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
         showUpdates_.stop();
         if (_options.isCovering()) {

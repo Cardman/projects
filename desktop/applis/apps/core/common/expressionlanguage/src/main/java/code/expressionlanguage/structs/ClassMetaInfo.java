@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.ClassCategory;
@@ -55,6 +56,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
     private AccessEnum access;
     private String fileName = EMPTY_STRING;
     private ExecRootBlock rootBlock;
+    private ExecFormattedRootBlock formatted;
     public ClassMetaInfo(String _name) {
         name = StringUtil.nullToEmpty(_name);
         variableOwner = "";
@@ -65,6 +67,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         falsesInfos = new CustList<MethodMetaInfo>();
         methodsInfos = new CustList<MethodMetaInfo>();
         constructorsInfos = new CustList<ConstructorMetaInfo>();
+        formatted = new ExecFormattedRootBlock(null,_name);
     }
     public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, String _variableOwner) {
         name = StringUtil.nullToEmpty(_name);
@@ -102,6 +105,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         constructorsInfos = new CustList<ConstructorMetaInfo>();
         category = _cat;
         finalType = true;
+        formatted = new ExecFormattedRootBlock(null,_name);
     }
     public ClassMetaInfo() {
         name = "";
@@ -120,6 +124,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         constructorsInfos = new CustList<ConstructorMetaInfo>();
         category = ClassCategory.VOID;
         finalType = true;
+        formatted = new ExecFormattedRootBlock(null,"");
     }
     public ClassMetaInfo(String _name, ClassCategory _cat, StringList _upperBounds, StringList _lowerBounds, String _variableOwner, AccessEnum _access) {
         name = StringUtil.nullToEmpty(_name);
@@ -140,6 +145,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         category = _cat;
         finalType = true;
         staticType = true;
+        formatted = new ExecFormattedRootBlock(null,_name);
     }
     public ClassMetaInfo(String _name,
             String _superClass,
@@ -175,6 +181,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         staticType = _staticType;
         finalType = _finalType;
         access = _access;
+        formatted = new ExecFormattedRootBlock(null,_name);
     }
 
     public ClassMetaInfo(String _name,
@@ -205,6 +212,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         staticType = _staticType;
         finalType = false;
         access = _access;
+        formatted = new ExecFormattedRootBlock(null,_name);
     }
     public static void forward(ClassMetaInfo _src, ClassMetaInfo _dest) {
         _dest.category = _src.category;
@@ -225,6 +233,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         _dest.explicitsInfos.addAllElts(_src.explicitsInfos);
         _dest.fileName = _src.fileName;
         _dest.rootBlock = _src.rootBlock;
+        _dest.formatted = _src.formatted;
         _dest.setOwner(_src.getOwner());
         _dest.blocsInfos.addAllElts(_src.blocsInfos);
     }
@@ -236,9 +245,10 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         return new CustList<CustList<ExecOperationNode>>();
     }
 
-    public void setRootBlock(ExecRootBlock _rootBlock) {
-        this.rootBlock = _rootBlock;
-        setOwner(_rootBlock);
+    public void formatted(ExecFormattedRootBlock _rootBlock) {
+        this.rootBlock = _rootBlock.getRootBlock();
+        formatted = _rootBlock;
+        setOwner(_rootBlock.getRootBlock());
     }
 
     @Override
@@ -390,7 +400,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
 
     @Override
     public String getDeclaringClass() {
-        return getName();
+        return formatted.getFormatted();
     }
 
     public String getName() {

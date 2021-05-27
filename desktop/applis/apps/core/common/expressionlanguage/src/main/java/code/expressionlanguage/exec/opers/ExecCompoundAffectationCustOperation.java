@@ -14,19 +14,21 @@ import code.util.IdMap;
 public final class ExecCompoundAffectationCustOperation extends ExecCompoundAffectationOperation {
 
     private final ExecFormattedRootBlock formattedType;
+    private final ExecStaticEltContent staticEltContent;
     private final ExecTypeFunction pair;
 
 
     public ExecCompoundAffectationCustOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter) {
-        super(_opCont, _operatorContent, _staticEltContent, _converter);
+        super(_opCont, _operatorContent, _converter);
         pair = _pair;
+        staticEltContent = _staticEltContent;
         formattedType = _staticEltContent.getFormattedType();
     }
 
 
     @Override
     protected void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, formattedType, getStaticEltContent().getKind(), _stack);
+        checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, formattedType, staticEltContent.getKind(), _stack);
     }
 
 }

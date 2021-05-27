@@ -226,11 +226,11 @@ public abstract class OperationNode {
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
             if (_page.getAnnotationAnalysis().isAnnotAnalysis(_m,_op)) {
-                return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
+                return new AnnotationInstanceArrOperation(_index, _indexChild, _m, _op);
             }
             String fctName_ = _op.getFctName().trim();
             if (fctName_.startsWith(AROBASE)) {
-                return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
+                return new AnnotationInstanceArobaseOperation(_index, _indexChild, _m, _op);
             }
         }
         int ternary_ = 0;
@@ -446,7 +446,7 @@ public abstract class OperationNode {
             return new NullSafeOperation(_index,_indexChild,_m,_op);
         }
         if (_op.getPriority() == ElResolver.AFF_PRIO) {
-            if (_m instanceof AnnotationInstanceOperation&&!((AnnotationInstanceOperation) _m).isArray()) {
+            if (_m instanceof AnnotationInstanceArobaseOperation) {
                 String value_ = _op.getValues().firstValue();
                 return new AssocationOperation(_index, _indexChild, _m, _op, value_);
             }
@@ -482,7 +482,7 @@ public abstract class OperationNode {
             return new ConstantOperation(_index, _indexChild, _m, _op);
         }
         if (ct_ == ConstType.SIMPLE_ANNOTATION) {
-            return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
+            return new AnnotationInstanceArobaseOperation(_index, _indexChild, _m, _op);
         }
         if (ct_ == ConstType.STATIC_ACCESS) {
             return new StaticAccessOperation(_index, _indexChild, _m, _op);
@@ -1189,8 +1189,7 @@ public abstract class OperationNode {
             if (!to_.isFoundMethod()) {
                 continue;
             }
-            return new ReversibleConversion(from_.getFormattedType(), from_.getMemberId(),from_.getPair(),
-                    to_.getFormattedType(), to_.getMemberId(),to_.getPair());
+            return new ReversibleConversion(from_,to_);
         }
         return null;
     }
@@ -1307,19 +1306,11 @@ public abstract class OperationNode {
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
             MethodId id_ = clMethImp_.getRealId();
             InvokingOperation.unwrapArgsFct(id_, -1, EMPTY_STRING, chidren_, _page);
-            OperatorConverter op_ = new OperatorConverter();
-            op_.setMemberId(clMethImp_.getMemberId());
-            op_.setFunction(clMethImp_.getPair());
-            op_.setFormattedType(clMethImp_.getFormattedType());
-            return op_;
+            return new OperatorConverter(clMethImp_);
         }
         ClassMethodIdReturn clId_ = getCustomOperatorOrMethod(_node, _op, _page);
         if (clId_ != null) {
-            OperatorConverter op_ = new OperatorConverter();
-            op_.setMemberId(clId_.getMemberId());
-            op_.setFunction(clId_.getPair());
-            op_.setFormattedType(clId_.getFormattedType());
-            return op_;
+            return new OperatorConverter(clId_);
         }
         CustList<StringList> groups_ = new CustList<StringList>();
         if (StringExpUtil.isUnNum(_op)) {
@@ -1355,11 +1346,7 @@ public abstract class OperationNode {
                 _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
                 MethodId id_ = clMeth_.getRealId();
                 InvokingOperation.unwrapArgsFct(id_, -1, EMPTY_STRING, chidren_, _page);
-                OperatorConverter op_ = new OperatorConverter();
-                op_.setFormattedType(clMeth_.getFormattedType());
-                op_.setMemberId(clMeth_.getMemberId());
-                op_.setFunction(clMeth_.getPair());
-                return op_;
+                return new OperatorConverter(clMeth_);
             }
         }
         return null;
@@ -1413,9 +1400,7 @@ public abstract class OperationNode {
             return null;
         }
         CustList<CustList<MethodInfo>> listsBinary_ = new CustList<CustList<MethodInfo>>();
-        AnaFormattedRootBlock convert_ = null;
-        AnaTypeFct convertTest_ = null;
-        MemberId idTest_ = new MemberId();
+        ClassMethodIdReturn test_ = new ClassMethodIdReturn(false);
         AbstractComparer cmp_ = new DefaultComparer();
         if (StringUtil.quickEq(_op,"&&")) {
             CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
@@ -1424,9 +1409,7 @@ public abstract class OperationNode {
             }
             ClassMethodIdReturn clMethImp_ = getCustCastResult(listTrue_,  left_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
             if (clMethImp_.isFoundMethod()) {
-                idTest_ = clMethImp_.getMemberId();
-                convertTest_ = clMethImp_.getPair();
-                convert_ = clMethImp_.getFormattedType();
+                test_ = clMethImp_;
                 addBinaries(_page, left_, right_, listsBinary_);
             }
         } else if (StringUtil.quickEq(_op,"||")) {
@@ -1436,9 +1419,7 @@ public abstract class OperationNode {
             }
             ClassMethodIdReturn clMethImp_ = getCustCastResult(listTrue_,  left_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
             if (clMethImp_.isFoundMethod()) {
-                idTest_ = clMethImp_.getMemberId();
-                convertTest_ = clMethImp_.getPair();
-                convert_ = clMethImp_.getFormattedType();
+                test_ = clMethImp_;
                 addBinaries(_page, left_, right_, listsBinary_);
             }
         } else {
@@ -1450,25 +1431,15 @@ public abstract class OperationNode {
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
             MethodId id_ = clMethImp_.getRealId();
             InvokingOperation.unwrapArgsFct(id_, -1, EMPTY_STRING, chidren_, _page);
-            OperatorConverter op_ = new OperatorConverter();
-            op_.setFormattedType(clMethImp_.getFormattedType());
-            op_.setMemberId(clMethImp_.getMemberId());
-            op_.setFunction(clMethImp_.getPair());
-            op_.setFormattedTypeTest(convert_);
-            op_.setMemberIdTest(idTest_);
-            op_.setFunctionTest(convertTest_);
+            OperatorConverter op_ = new OperatorConverter(clMethImp_);
+            op_.setTest(test_);
             return op_;
         }
         if (!listsBinary_.isEmpty()) {
             ClassMethodIdReturn clId_ = getCustomOperatorOrMethod(_node, _op, _page);
             if (clId_ != null) {
-                OperatorConverter op_ = new OperatorConverter();
-                op_.setFormattedType(clId_.getFormattedType());
-                op_.setMemberId(clId_.getMemberId());
-                op_.setFunction(clId_.getPair());
-                op_.setFormattedTypeTest(convert_);
-                op_.setMemberIdTest(idTest_);
-                op_.setFunctionTest(convertTest_);
+                OperatorConverter op_ = new OperatorConverter(clId_);
+                op_.setTest(test_);
                 return op_;
             }
         }
@@ -1520,11 +1491,7 @@ public abstract class OperationNode {
                 _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
                 MethodId id_ = clMeth_.getRealId();
                 InvokingOperation.unwrapArgsFct(id_, -1, EMPTY_STRING, chidren_, _page);
-                OperatorConverter op_ = new OperatorConverter();
-                op_.setFormattedType(clMeth_.getFormattedType());
-                op_.setMemberId(clMeth_.getMemberId());
-                op_.setFunction(clMeth_.getPair());
-                return op_;
+                return new OperatorConverter(clMeth_);
             }
         }
         return null;

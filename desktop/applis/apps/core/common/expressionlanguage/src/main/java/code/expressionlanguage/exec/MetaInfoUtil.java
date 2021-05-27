@@ -64,7 +64,7 @@ public final class MetaInfoUtil {
         for (ExecInfoBlock b: type_.getAllFields()) {
 
             for (String f: b.getFieldName()) {
-                FieldMetaInfo met_ = new FieldMetaInfo(_context,type_,b,name_, f);
+                FieldMetaInfo met_ = new FieldMetaInfo(_context,type_,b,name_, f, _formatted);
                 infosFields_.add(met_);
             }
         }
@@ -145,7 +145,7 @@ public final class MetaInfoUtil {
             ClassMetaInfo cl_ = new ClassMetaInfo(name_, type_.getImportedDirectGenericSuperInterfaces(), format_, inners_,
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
             cl_.setFileName(fileName_);
-            cl_.setRootBlock(type_);
+            cl_.formatted(_formatted);
             cl_.getBlocsInfos().addAllElts(infosBlock_);
             return cl_;
         }
@@ -153,7 +153,7 @@ public final class MetaInfoUtil {
             ClassMetaInfo cl_ = new ClassMetaInfo(name_, new StringList(), format_, inners_,
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
             cl_.setFileName(fileName_);
-            cl_.setRootBlock(type_);
+            cl_.formatted(_formatted);
             cl_.getBlocsInfos().addAllElts(infosBlock_);
             return cl_;
         }
@@ -179,7 +179,7 @@ public final class MetaInfoUtil {
         ClassMetaInfo cl_ = new ClassMetaInfo(name_, superClass_, superInterfaces_, format_, inners_,
                 infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, cat_, abs_, st_, final_, acc_);
         cl_.setFileName(fileName_);
-        cl_.setRootBlock(type_);
+        cl_.formatted(_formatted);
         cl_.getBlocsInfos().addAllElts(infosBlock_);
         return cl_;
     }
@@ -303,7 +303,6 @@ public final class MetaInfoUtil {
     }
 
     public static ClassMetaInfo getClassMetaInfo(ContextEl _context, StandardType _type, String _name) {
-        String k_ = _type.getFullName();
         CustList<MethodMetaInfo> infos_;
         infos_ = new CustList<MethodMetaInfo>();
         CustList<FieldMetaInfo> infosFields_;
@@ -320,16 +319,16 @@ public final class MetaInfoUtil {
         infosTrues_ = new CustList<MethodMetaInfo>();
         CustList<MethodMetaInfo> infosFalses_;
         infosFalses_ = new CustList<MethodMetaInfo>();
+        ExecFormattedRootBlock formatted_ = new ExecFormattedRootBlock(null, _name);
         for (StandardField f: _type.getFields()) {
             String ret_ = f.getImportedClassName();
             String decl_ = _type.getFullName();
-            FieldMetaInfo met_ = new FieldMetaInfo(k_, f.getFieldName(), ret_, decl_);
+            FieldMetaInfo met_ = new FieldMetaInfo(f.getFieldName(), ret_, decl_, formatted_);
             infosFields_.add(met_);
         }
-        ExecFormattedRootBlock formatted_ = new ExecFormattedRootBlock(null, _name);
         for (StandardMethod m: _type.getMethods()) {
             String decl_ = _type.getFullName();
-            MethodMetaInfo met_ = new MethodMetaInfo(m,_name, decl_, formatted_);
+            MethodMetaInfo met_ = new MethodMetaInfo(m, decl_, formatted_);
             infos_.add(met_);
         }
         for (StandardConstructor d: _type.getConstructors()) {

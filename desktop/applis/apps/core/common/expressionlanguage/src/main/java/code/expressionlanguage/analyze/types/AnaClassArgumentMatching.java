@@ -195,8 +195,8 @@ public final class AnaClassArgumentMatching {
         setMemberIdTest(_info.getMemberId());
     }
     public void implicitInfosTest(OperatorConverter _info) {
-        getImplicitsTest().add(_info.getFormattedTypeTest());
-        setMemberIdTest(_info.getMemberIdTest());
+        getImplicitsTest().add(_info.getTest().getFormattedType());
+        setMemberIdTest(_info.getTest().getMemberId());
     }
     public byte getUnwrapObjectNb() {
         return unwrapObjectNb;

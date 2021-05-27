@@ -37,6 +37,7 @@ public final class ReflectGetFieldPageEl extends AbstractBasicReflectPageEl {
             }
         }
         String baseClass_ = metaInfo.getDeclaringClass();
+        baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
         if (stds_.getStandards().contains(baseClass_)) {
             String name_ =metaInfo.getName();
             ClassField id_ = new ClassField(baseClass_, name_);

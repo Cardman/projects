@@ -36,7 +36,7 @@ public final class AssocationOperation extends AbstractUnaryOperation {
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         MethodOperation mOp_ = getParent();
-        AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
+        AnnotationInstanceArobaseOperation par_ = (AnnotationInstanceArobaseOperation) mOp_;
         String annotationClass_ = par_.getClassName();
         RootBlock type_ = _page.getAnaClassBody(annotationClass_);
         if (type_ != null) {

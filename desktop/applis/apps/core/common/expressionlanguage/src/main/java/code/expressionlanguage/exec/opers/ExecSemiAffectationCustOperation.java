@@ -14,10 +14,12 @@ import code.util.IdMap;
 public class ExecSemiAffectationCustOperation extends ExecSemiAffectationOperation {
     private final ExecTypeFunction pair;
     private final ExecFormattedRootBlock formattedType;
+    private final ExecStaticPostEltContent staticPostEltContent;
 
     public ExecSemiAffectationCustOperation(ExecOperationContent _opCont, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ExecTypeFunction _pair) {
-        super(_opCont, _staticPostEltContent, _operatorContent);
+        super(_opCont, _operatorContent, _staticPostEltContent.isPost());
         pair = _pair;
+        staticPostEltContent = _staticPostEltContent;
         formattedType = _staticPostEltContent.getFormattedType();
     }
 
@@ -33,4 +35,9 @@ public class ExecSemiAffectationCustOperation extends ExecSemiAffectationOperati
         setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
         end(_conf, _nodes, _right, _stack);
     }
+
+    protected ExecStaticPostEltContent getStaticPostEltContent() {
+        return staticPostEltContent;
+    }
+
 }

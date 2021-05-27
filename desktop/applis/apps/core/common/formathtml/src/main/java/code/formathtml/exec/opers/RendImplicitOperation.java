@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.opers.ExecImplicitOperation;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecExplicitCommonContent;
 import code.expressionlanguage.fwd.opers.ExecExplicitContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
@@ -14,9 +15,9 @@ import code.util.IdMap;
 
 public final class RendImplicitOperation extends RendAbstractUnaryOperation {
 
-    private final ExecExplicitContent explicitContent;
+    private final ExecExplicitCommonContent explicitContent;
 
-    public RendImplicitOperation(ExecOperationContent _content, ExecExplicitContent _explicitContent) {
+    public RendImplicitOperation(ExecOperationContent _content, ExecExplicitCommonContent _explicitContent) {
         super(_content);
         explicitContent = _explicitContent;
     }

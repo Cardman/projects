@@ -21,7 +21,6 @@ import code.util.core.StringUtil;
 public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallLeftOperation,SettableElResult {
     private final AnaCallFctContent callFctContent;
     private final AnaArrContent arrContent;
-    private AnaTypeFct function;
 
     private final int offsetOper;
     private String from;
@@ -154,13 +153,8 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         setResultClass(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getPrimitiveTypes()));
         callFctContent.update(cust_);
-        function = cust_.getPair();
         MethodId realId_ = cust_.getRealId();
         unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
-    }
-
-    public AnaTypeFct getFunction() {
-        return function;
     }
 
     public int getOffsetOper() {
@@ -181,9 +175,6 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     public CustList<CustList<MethodInfo>> getMethodInfos() {
         return methodInfos;
-    }
-    public MemberId getMemberId() {
-        return callFctContent.getMemberId();
     }
 
     public AnaCallFctContent getCallFctContent() {

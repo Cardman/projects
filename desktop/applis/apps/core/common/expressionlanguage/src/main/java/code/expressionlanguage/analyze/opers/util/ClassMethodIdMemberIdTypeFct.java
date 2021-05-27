@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.functionid.ClassMethodId;
 
 public final class ClassMethodIdMemberIdTypeFct {
     private AnaFormattedRootBlock implicit;
@@ -18,20 +17,14 @@ public final class ClassMethodIdMemberIdTypeFct {
     }
 
     public void infos(OperatorConverter _id, AnalyzedPageEl _page) {
-        String className_ = _id.getFormattedType().getFormatted();
+        ClassMethodIdReturn fct_ = _id.getFct();
+        String className_ = fct_.getFormattedType().getFormatted();
         if (AnaTypeUtil.isPrimitive(className_, _page)) {
             return;
         }
-        implicit = _id.getFormattedType();
-        memberId = _id.getMemberId();
-        function = _id.getFunction();
+        infos(fct_);
     }
 
-    public void infos(AnaFormattedRootBlock _id, MemberId _memberId, AnaTypeFct _function) {
-        implicit = _id;
-        memberId = _memberId;
-        function = _function;
-    }
     public AnaFormattedRootBlock getImplicit() {
         return implicit;
     }

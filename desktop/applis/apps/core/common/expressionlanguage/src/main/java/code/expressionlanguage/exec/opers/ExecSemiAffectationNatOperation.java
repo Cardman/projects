@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
@@ -17,8 +16,8 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
     private final ImplicitMethods converterFrom;
     private final ImplicitMethods converterTo;
 
-    public ExecSemiAffectationNatOperation(ExecOperationContent _opCont, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ImplicitMethods _converterFrom, ImplicitMethods _converterTo) {
-        super(_opCont, _staticPostEltContent, _operatorContent);
+    public ExecSemiAffectationNatOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converterFrom, ImplicitMethods _converterTo, boolean _post) {
+        super(_opCont, _operatorContent, _post);
         converterFrom = _converterFrom;
         converterTo = _converterTo;
     }
@@ -71,19 +70,19 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
         Argument arg_ = null;
         ExecOperationNode settable_ = getSettable();
         if (settable_ instanceof ExecStdRefVariableOperation) {
-            arg_ = ((ExecStdRefVariableOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), getStaticPostEltContent().isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
+            arg_ = ((ExecStdRefVariableOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
         }
         if (settable_ instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), getStaticPostEltContent().isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
+            arg_ = ((ExecSettableFieldOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
         }
         if (settable_ instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), getStaticPostEltContent().isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
+            arg_ = ((ExecCustArrOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
         }
         if (settable_ instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), getStaticPostEltContent().isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
+            arg_ = ((ExecArrOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
         }
         if (settable_ instanceof ExecSettableCallFctOperation) {
-            arg_ = ((ExecSettableCallFctOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), getStaticPostEltContent().isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
+            arg_ = ((ExecSettableCallFctOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
         }
         return Argument.getNullableValue(arg_);
     }

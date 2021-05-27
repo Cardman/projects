@@ -6,22 +6,21 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public abstract class RendSemiAffectationOperation extends RendAbstractUnaryOperation {
+    private final boolean post;
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
-    private final ExecStaticPostEltContent staticPostEltContent;
     private final ExecOperatorContent operatorContent;
 
-    protected RendSemiAffectationOperation(ExecOperationContent _content, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent) {
+    protected RendSemiAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, boolean _post) {
         super(_content);
-        staticPostEltContent = _staticPostEltContent;
         operatorContent = _operatorContent;
+        post = _post;
     }
 
     public void setup() {
@@ -45,8 +44,8 @@ public abstract class RendSemiAffectationOperation extends RendAbstractUnaryOper
 
     protected abstract void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
 
-    protected ExecStaticPostEltContent getStaticPostEltContent() {
-        return staticPostEltContent;
+    public boolean isPost() {
+        return post;
     }
 
     protected RendDynOperationNode getSettable() {

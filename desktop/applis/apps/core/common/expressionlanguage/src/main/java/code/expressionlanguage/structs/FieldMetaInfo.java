@@ -8,6 +8,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaFieldContent;
 import code.util.CustList;
@@ -17,7 +18,6 @@ import code.util.core.StringUtil;
 public final class FieldMetaInfo extends AbsAnnotatedStruct implements AnnotatedMemberStruct {
 
     private final AccessEnum access;
-    private final String declaringClass;
     private final String formDeclaringClass;
     private final String name;
 
@@ -30,9 +30,9 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
     private final String fileName;
     private final ExecInfoBlock annotableBlock;
     private final ExecRootBlock declaring;
+    private final ExecFormattedRootBlock formatted;
     public FieldMetaInfo() {
         invokable = false;
-        declaringClass = "";
         name = "";
         type = "";
         access = AccessEnum.PRIVATE;
@@ -42,12 +42,12 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         fileName = "";
         annotableBlock = null;
         declaring = null;
+        formatted = new ExecFormattedRootBlock(null,"");
     }
     public FieldMetaInfo(ExecLambdaCommonContent _common, ExecLambdaFieldContent _field,
                          ClassField _id,
-                         String _formDeclaringClass) {
+                         String _formDeclaringClass, ExecFormattedRootBlock _formatted) {
         invokable = true;
-        declaringClass = StringUtil.nullToEmpty(_id.getClassName());
         name = StringUtil.nullToEmpty(_id.getFieldName());
         type = StringUtil.nullToEmpty(_common.getReturnFieldType());
         staticField = _field.isStaticField();
@@ -58,13 +58,13 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         declaring = _field.getRootBlock();
         annotableBlock = _field.getInfoBlock();
         setOwner(_field.getRootBlock());
+        formatted = _formatted;
     }
     public FieldMetaInfo(ContextEl _context, ExecRootBlock _type, ExecInfoBlock _info, String _declaringClass,
-                         String _name) {
+                         String _name, ExecFormattedRootBlock _formatted) {
         String idType_ = _type.getFullName();
         String formCl_ = MetaInfoUtil.tryFormatType(idType_, _declaringClass, _context);
         invokable = true;
-        declaringClass = StringUtil.nullToEmpty(_declaringClass);
         name = StringUtil.nullToEmpty(_name);
         type = StringUtil.nullToEmpty(_info.getImportedClassName());
         staticField = _info.isStaticField();
@@ -75,13 +75,12 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         annotableBlock = _info;
         fileName = _type.getFile().getFileName();
         setOwner(_type);
+        formatted = _formatted;
     }
-    public FieldMetaInfo(String _declaringClass,
-                         String _name,
+    public FieldMetaInfo(String _name,
                          String _returnType,
-                         String _formDeclaringClass) {
+                         String _formDeclaringClass, ExecFormattedRootBlock _formatted) {
         invokable = true;
-        declaringClass = StringUtil.nullToEmpty(_declaringClass);
         name = StringUtil.nullToEmpty(_name);
         type = StringUtil.nullToEmpty(_returnType);
         staticField = true;
@@ -91,6 +90,7 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         fileName = "";
         annotableBlock = null;
         declaring = null;
+        formatted = _formatted;
     }
 
     public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
@@ -129,7 +129,7 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         return access == AccessEnum.PRIVATE;
     }
     public String getDeclaringClass() {
-        return declaringClass;
+        return formatted.getFormatted();
     }
 
     public String getFormDeclaringClass() {
@@ -176,7 +176,7 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
             return false;
         }
         FieldMetaInfo f_ = (FieldMetaInfo) _other;
-        if (!StringUtil.quickEq(declaringClass, f_.declaringClass)) {
+        if (!StringUtil.quickEq(formatted.getFormatted(), f_.formatted.getFormatted())) {
             return false;
         }
         return StringUtil.quickEq(name, f_.name);
@@ -184,13 +184,13 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
 
     @Override
     public long randCode() {
-        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(declaringClass));
+        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(formatted.getFormatted()));
         r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(name));
         return r_;
     }
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        return new StringStruct(StringUtil.concat(declaringClass,".",name));
+        return new StringStruct(StringUtil.concat(formatted.getFormatted(),".",name));
     }
 
     public boolean isInvokable() {

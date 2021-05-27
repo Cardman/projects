@@ -21,7 +21,6 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
 
     private final AnaCallFctContent callFctContent;
     private final AnaArrContent arrContent;
-    private AnaTypeFct function;
 
     private boolean staticMethod;
 
@@ -138,7 +137,6 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
                 return;
             }
             callFctContent.update(clMeth_);
-            function = clMeth_.getPair();
             trueFalse = true;
             MethodId id_ = clMeth_.getRealId();
             staticMethod = true;
@@ -158,7 +156,6 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         }
         callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();
-        function = clMeth_.getPair();
         if (clMeth_.isAbstractMethod()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
@@ -176,10 +173,6 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
-    }
-
-    public AnaTypeFct getFunction() {
-        return function;
     }
 
     public ClassMethodId getClassMethodId() {
@@ -228,9 +221,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
     public StandardMethod getStandardMethod() {
         return standardMethod;
     }
-    public MemberId getMemberId() {
-        return callFctContent.getMemberId();
-    }
+
     public boolean isErrLeftValue() {
         return errLeftValue;
     }

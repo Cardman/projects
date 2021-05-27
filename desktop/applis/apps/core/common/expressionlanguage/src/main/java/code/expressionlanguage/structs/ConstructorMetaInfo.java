@@ -20,7 +20,6 @@ import code.util.core.StringUtil;
 
 public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements AnnotatedParamStruct {
 
-    private final String declaringClass;
     private final String formDeclaringClass;
     private final ConstructorId realId;
     private final AccessEnum access;
@@ -35,7 +34,6 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
 
     public ConstructorMetaInfo(){
         invokable = false;
-        declaringClass = "";
         formDeclaringClass = "";
         realId = new ConstructorId("",new StringList(),false);
         fid = new ConstructorId("",new StringList(),false);
@@ -51,7 +49,6 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         String className_ = StringExpUtil.getIdFromAllTypes(_declaringClass.getFormatted());
         ConstructorId fid_ = MetaInfoUtil.tryFormatId(_declaringClass, _realId);
         invokable = true;
-        declaringClass = StringUtil.nullToEmpty(_declaringClass.getFormatted());
         access = AccessEnum.PUBLIC;
         realId = _realId;
         returnType = StringUtil.nullToEmpty(_common.getReturnFieldType());
@@ -69,7 +66,6 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         String className_ = StringExpUtil.getIdFromAllTypes(_declaringClass.getFormatted());
         ConstructorId fid_ = MetaInfoUtil.tryFormatId(_declaringClass, _realId);
         invokable = true;
-        declaringClass = StringUtil.nullToEmpty(_declaringClass.getFormatted());
         access = AccessEnum.PUBLIC;
         realId = _realId;
         returnType = StringUtil.nullToEmpty(_common.getReturnFieldType());
@@ -96,7 +92,6 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
             fid_ = MetaInfoUtil.tryFormatId(formatted_, _context, id_);
         }
         invokable = true;
-        declaringClass = StringUtil.nullToEmpty(formatted_);
         access = acc_;
         realId = id_;
         returnType = StringUtil.nullToEmpty(ret_);
@@ -119,7 +114,6 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         String decl_ = _std.getFullName();
         standardType = _std;
         invokable = true;
-        declaringClass = StringUtil.nullToEmpty(_declaringClass);
         access = AccessEnum.PUBLIC;
         realId = id_;
         returnType = StringUtil.nullToEmpty(ret_);
@@ -220,7 +214,7 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
 
     @Override
     public String getDeclaringClass() {
-        return declaringClass;
+        return formatted.getFormatted();
     }
 
     public ConstructorId getFid() {
@@ -242,7 +236,7 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
             return false;
         }
         ConstructorMetaInfo info_ = (ConstructorMetaInfo) _other;
-        if (!StringUtil.quickEq(declaringClass, info_.declaringClass)) {
+        if (!StringUtil.quickEq(formatted.getFormatted(), info_.formatted.getFormatted())) {
             return false;
         }
         return realId.eq(info_.realId);
@@ -250,11 +244,11 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
 
     @Override
     public long randCode() {
-        return NumParsers.randCode(declaringClass);
+        return NumParsers.randCode(formatted.getFormatted());
     }
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        return new StringStruct(StringUtil.concat(declaringClass,";",realId.getSignature(_an)));
+        return new StringStruct(StringUtil.concat(formatted.getFormatted(),";",realId.getSignature(_an)));
     }
 
     public StringList getParametersTypes() {

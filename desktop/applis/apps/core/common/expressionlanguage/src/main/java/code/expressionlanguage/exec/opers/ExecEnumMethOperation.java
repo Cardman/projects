@@ -7,17 +7,17 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
+import code.expressionlanguage.fwd.opers.ExecStaticFctCommonContent;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
 public final class ExecEnumMethOperation extends ExecSettableCallFctOperation {
 
-    private final ExecStaticFctContent staticFctContent;
+    private final ExecStaticFctCommonContent staticFctContent;
 
     private final ExecRootBlock type;
 
-    public ExecEnumMethOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, ExecArrContent _arrContent, ExecRootBlock _type) {
+    public ExecEnumMethOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctCommonContent _staticFctContent, ExecArrContent _arrContent, ExecRootBlock _type) {
         super(_opCont, _intermediateDottedOperation,_arrContent);
         staticFctContent = _staticFctContent;
         type = _type;
@@ -28,7 +28,6 @@ public final class ExecEnumMethOperation extends ExecSettableCallFctOperation {
                           ContextEl _conf, StackCall _stack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
-        Argument prev_ = new Argument();
         String lastType_ = staticFctContent.getLastType();
         Argument res_ = processEnums(_conf.getExiting(), _conf, fectchArgs(lastType_, staticFctContent.getNaturalVararg(),null,_conf,_stack, buildInfos(_nodes)), _stack, type);
         setResult(res_, _conf, _nodes, _stack);

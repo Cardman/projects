@@ -10,15 +10,6 @@ public final class AnaInstancingAnnotContent {
     private AnaFormattedRootBlock formattedType;
     private String className;
     private final StringMap<AnnotationTypeInfo> fieldNames = new StringMap<AnnotationTypeInfo>();
-    private boolean array;
-
-    public boolean isArray() {
-        return array;
-    }
-
-    public void setArray(boolean _array) {
-        this.array = _array;
-    }
 
     public AnaFormattedRootBlock getFormattedType() {
         return formattedType;

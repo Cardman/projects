@@ -8,14 +8,15 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.opers.ExecExplicitCommonContent;
 import code.expressionlanguage.fwd.opers.ExecExplicitContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
 public final class ExecImplicitOperation extends ExecAbstractUnaryOperation {
-    private final ExecExplicitContent explicitContent;
+    private final ExecExplicitCommonContent explicitContent;
 
-    public ExecImplicitOperation(ExecOperationContent _opCont, ExecExplicitContent _explicitContent) {
+    public ExecImplicitOperation(ExecOperationContent _opCont, ExecExplicitCommonContent _explicitContent) {
         super(_opCont);
         explicitContent = _explicitContent;
     }

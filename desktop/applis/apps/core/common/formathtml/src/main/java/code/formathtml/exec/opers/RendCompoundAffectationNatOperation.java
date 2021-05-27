@@ -17,8 +17,8 @@ import code.util.core.StringUtil;
 public final class RendCompoundAffectationNatOperation extends RendCompoundAffectationOperation {
 
 
-    public RendCompoundAffectationNatOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ImplicitMethods _converter) {
-        super(_content, _operatorContent, _staticEltContent, _converter);
+    public RendCompoundAffectationNatOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converter) {
+        super(_content, _operatorContent, _converter);
     }
 
 

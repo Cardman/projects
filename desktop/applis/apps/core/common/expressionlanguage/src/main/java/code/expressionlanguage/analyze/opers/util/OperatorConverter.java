@@ -1,60 +1,26 @@
 package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 
 public final class OperatorConverter {
-    private MemberId memberId = new MemberId();
-    private AnaTypeFct function;
-    private AnaFormattedRootBlock formattedTypeTest;
-    private MemberId memberIdTest = new MemberId();
-    private AnaTypeFct functionTest;
-    private AnaFormattedRootBlock formattedType;
+    private final ClassMethodIdReturn fct;
+    private ClassMethodIdReturn test = new ClassMethodIdReturn(false);
 
-    public MemberId getMemberId() {
-        return memberId;
+    public OperatorConverter(ClassMethodIdReturn _fct) {
+        fct = _fct;
     }
 
-    public void setMemberId(MemberId _memberId) {
-        this.memberId = _memberId;
+    public ClassMethodIdReturn getFct() {
+        return fct;
     }
 
-    public AnaTypeFct getFunction() {
-        return function;
+    public ClassMethodIdReturn getTest() {
+        return test;
     }
 
-    public void setFunction(AnaTypeFct _function) {
-        this.function = _function;
+    public void setTest(ClassMethodIdReturn _test) {
+        this.test = _test;
     }
 
-    public MemberId getMemberIdTest() {
-        return memberIdTest;
-    }
-
-    public void setMemberIdTest(MemberId _memberIdTest) {
-        this.memberIdTest = _memberIdTest;
-    }
-
-    public AnaTypeFct getFunctionTest() {
-        return functionTest;
-    }
-
-    public void setFunctionTest(AnaTypeFct _functionTest) {
-        this.functionTest = _functionTest;
-    }
-
-    public AnaFormattedRootBlock getFormattedTypeTest() {
-        return formattedTypeTest;
-    }
-
-    public void setFormattedTypeTest(AnaFormattedRootBlock _formattedTypeTest) {
-        this.formattedTypeTest = _formattedTypeTest;
-    }
-
-    public AnaFormattedRootBlock getFormattedType() {
-        return formattedType;
-    }
-
-    public void setFormattedType(AnaFormattedRootBlock _formattedType) {
-        this.formattedType = _formattedType;
-    }
 }

@@ -513,26 +513,26 @@ public final class RendForwardInfos {
         if (_anaNode instanceof InvokingOperation && _anaNode instanceof AbstractCallFctOperation) {
             InvokingOperation i_ = (InvokingOperation) _anaNode;
             AbstractCallFctOperation a_ = (AbstractCallFctOperation) _anaNode;
-            AnaTypeFct classMethodId_ = a_.getFunction();
+            AnaTypeFct classMethodId_ = a_.getCallFctContent().getFunction();
             if (classMethodId_ != null) {
                 if (a_.getStandardMethod() != null) {
                     return new RendStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStdFctContent(a_.getCallFctContent(), a_.isStaticMethod()), new ExecArrContent(a_.getArrContent()));
                 }
-                ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(a_.getMemberId(), _forwards);
+                ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(a_.getCallFctContent().getMemberId(), _forwards);
                 if (rootBlock_ instanceof ExecAnnotationBlock) {
                     return new RendAnnotationMethodOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecCallFctAnnotContent(a_.getCallFctContent()));
                 }
-                ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(a_.getMemberId(), _forwards);
+                ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(a_.getCallFctContent().getMemberId(), _forwards);
                 if (a_.isTrueFalse()) {
                     return new RendExplicitOperation(pair_,
                             new ExecOperationContent(i_.getContent()), new ExecExplicitContent(a_.getCallFctContent(),_forwards));
                 }
                 if (a_.isStaticMethod()) {
                     if (pair_ == null) {
-                        return new RendEnumMethOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getFunction(),a_.getCallFctContent(),_forwards), new ExecArrContent(a_.getArrContent()),rootBlock_);
+                        return new RendEnumMethOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctCommonContent(a_.getCallFctContent()), new ExecArrContent(a_.getArrContent()),rootBlock_);
                     }
                     return new RendStaticFctOperation(pair_,
-                            new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getFunction(),a_.getCallFctContent(),_forwards), new ExecArrContent(a_.getArrContent()));
+                            new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getCallFctContent(),_forwards), new ExecArrContent(a_.getArrContent()));
                 }
             }
         }
@@ -606,21 +606,21 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
-            ExecTypeFunction ex_ = FetchMemberUtil.fetchOvTypeFunction(c_.getMemberId(), _forwards);
+            ExecTypeFunction ex_ = FetchMemberUtil.fetchOvTypeFunction(c_.getCallFctContent().getMemberId(), _forwards);
             if (ex_ != null) {
                 return new RendChoiceFctOperation(ex_, new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), new ExecInstFctContent(c_.getCallFctContent(), c_.getAnc(), true,_forwards), new ExecArrContent(c_.getArrContent()));
             }
         }
         if (_anaNode instanceof SuperFctOperation) {
             SuperFctOperation s_ = (SuperFctOperation) _anaNode;
-            ExecTypeFunction ex_ = FetchMemberUtil.fetchOvTypeFunction(s_.getMemberId(), _forwards);
+            ExecTypeFunction ex_ = FetchMemberUtil.fetchOvTypeFunction(s_.getCallFctContent().getMemberId(), _forwards);
             if (ex_ != null) {
                 return new RendSuperFctOperation(ex_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstFctContent(s_.getCallFctContent(), s_.getAnc(), true,_forwards), new ExecArrContent(s_.getArrContent()));
             }
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
-            ExecTypeFunction p_ = FetchMemberUtil.fetchOvTypeFunction(f_.getMemberId(), _forwards);
+            ExecTypeFunction p_ = FetchMemberUtil.fetchOvTypeFunction(f_.getCallFctContent().getMemberId(), _forwards);
             if (p_ != null) {
                 return new RendFctOperation(p_, new ExecOperationContent(f_.getContent()), new ExecInstFctContent(f_.getCallFctContent(), f_.getAnc(), f_.isStaticChoiceMethod(),_forwards), f_.isIntermediateDottedOperation(), new ExecArrContent(f_.getArrContent()));
             }
@@ -759,13 +759,13 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
-            return new RendExplicitOperatorOperation(new ExecOperationContent(m_.getContent()), m_.isIntermediateDottedOperation(), new ExecStaticFctContent(m_.getFunction(),m_.getCallFctContent(),_forwards), FetchMemberUtil.fetchFunctionOpPair(m_.getMemberId(), _forwards), m_.getOffsetOper(), new ExecArrContent(m_.getArrContent()));
+            return new RendExplicitOperatorOperation(new ExecOperationContent(m_.getContent()), m_.isIntermediateDottedOperation(), new ExecStaticFctContent(m_.getCallFctContent(),_forwards), FetchMemberUtil.fetchFunctionOpPair(m_.getCallFctContent().getMemberId(), _forwards), m_.getOffsetOper(), new ExecArrContent(m_.getArrContent()));
         }
         if (_anaNode instanceof SemiAffectationOperation) {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
             ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(m_.getFct(), _forwards);
             if (pair_.getFct() == null) {
-                return new RendSemiAffectationNatOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getFct(), m_.isPost(),_forwards), new ExecOperatorContent(m_.getOperatorContent()), FetchMemberUtil.fetchImplicits(m_.getConvFrom(), _forwards), FetchMemberUtil.fetchImplicits(m_.getConvTo(), _forwards));
+                return new RendSemiAffectationNatOperation(new ExecOperationContent(m_.getContent()), new ExecOperatorContent(m_.getOperatorContent()), FetchMemberUtil.fetchImplicits(m_.getConvFrom(), _forwards), FetchMemberUtil.fetchImplicits(m_.getConvTo(), _forwards), m_.isPost());
             }
             return new RendSemiAffectationCustOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getFct(), m_.isPost(),_forwards), new ExecOperatorContent(m_.getOperatorContent()), pair_);
         }
@@ -806,7 +806,7 @@ public final class RendForwardInfos {
             ExplicitOperation m_ = (ExplicitOperation) _anaNode;
             ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(), _forwards);
             if (ExecExplicitOperation.direct(pair_,m_.getExplicitContent().getClassName())) {
-                return new RendImplicitOperation(new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent(),_forwards));
+                return new RendImplicitOperation(new ExecOperationContent(m_.getContent()), new ExecExplicitCommonContent(m_.getExplicitContent()));
             }
             return new RendExplicitOperation(
                     pair_, new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent(),_forwards));
@@ -816,7 +816,7 @@ public final class RendForwardInfos {
             ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(), _forwards);
             if (ExecExplicitOperation.direct(pair_,m_.getExplicitContent().getClassName())) {
                 return new RendImplicitOperation(
-                        new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent(),_forwards));
+                        new ExecOperationContent(m_.getContent()), new ExecExplicitCommonContent(m_.getExplicitContent()));
             }
             return new RendExplicitOperation(
                     pair_, new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent(),_forwards));
@@ -913,13 +913,13 @@ public final class RendForwardInfos {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
             ClassMethodIdMemberIdTypeFct fct_ = c_.getFct();
             if (c_.isConcat()) {
-                return new RendCompoundAffectationStringOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards));
+                return new RendCompoundAffectationStringOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()));
             }
             ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards);
             if (pair_.getFct() != null) {
                 return new RendCompoundAffectationCustOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
             }
-            return new RendCompoundAffectationNatOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
+            return new RendCompoundAffectationNatOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
         }
         if (_anaNode instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _anaNode;
@@ -978,9 +978,7 @@ public final class RendForwardInfos {
         ExecClassArgumentMatching pr_ = FetchMemberUtil.toExec(_resultInput.getPreviousResult());
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
         RendStdRefVariableOperation rendPrevVar_ = new RendStdRefVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
-        AnaCallFctContent callFctContent_ = new AnaCallFctContent("");
-        callFctContent_.setFormattedType(_settable.getCallFctContent().getFormattedType());
-        ExecInstFctContent instFctContent_ = new ExecInstFctContent(callFctContent_, _settable.getAnc(), _settable.isStaticChoiceMethod(),_forwards);
+        ExecInstFctContent instFctContent_ = new ExecInstFctContent(_settable.getAnc(), _settable.isStaticChoiceMethod(), "", "", -1, FetchMemberUtil.fwdFormatType(_settable.getCallFctContent().getFormattedType(), _forwards));
         MethodId constraints_ = _settable.getCallFctContent().getClassMethodId().getConstraints();
         int nbParam_ = constraints_.getParametersTypesLength();
         int refCount_ = 0;

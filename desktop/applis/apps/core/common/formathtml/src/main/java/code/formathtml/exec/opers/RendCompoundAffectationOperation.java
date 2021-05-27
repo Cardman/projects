@@ -19,13 +19,11 @@ public abstract class RendCompoundAffectationOperation extends RendMethodOperati
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
-    private final ExecStaticEltContent staticEltContent;
     private final ImplicitMethods converter;
 
-    protected RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ImplicitMethods _converter) {
+    protected RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converter) {
         super(_content);
         operatorContent = _operatorContent;
-        staticEltContent = _staticEltContent;
         converter = _converter;
     }
 
@@ -83,10 +81,6 @@ public abstract class RendCompoundAffectationOperation extends RendMethodOperati
 
     protected ExecOperatorContent getOperatorContent() {
         return operatorContent;
-    }
-
-    protected ExecStaticEltContent getStaticEltContent() {
-        return staticEltContent;
     }
 
     protected ImplicitMethods getConverter() {

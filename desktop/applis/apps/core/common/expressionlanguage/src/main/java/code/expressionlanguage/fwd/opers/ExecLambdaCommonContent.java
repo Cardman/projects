@@ -22,12 +22,7 @@ public final class ExecLambdaCommonContent {
         fileName = _cont.getFileName();
         shiftArgument = _cont.isShiftArgument();
         ancestor = _cont.getAncestor();
-        AnaFormattedRootBlock foundFormatted_ = _cont.getFoundFormatted();
-        if (foundFormatted_.getRootBlock() == null) {
-            formattedType = new ExecFormattedRootBlock(null, foundFormatted_.getFormatted());
-            return;
-        }
-        formattedType = FetchMemberUtil.fwdFormatType(foundFormatted_, _fwd);
+        formattedType = ExecStaticEltContent.build(_fwd,_cont.getFoundFormatted());
     }
 
     public boolean isIntermediate() {

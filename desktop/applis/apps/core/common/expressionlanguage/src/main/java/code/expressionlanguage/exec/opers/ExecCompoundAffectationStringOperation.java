@@ -7,14 +7,13 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.util.IdMap;
 
 public final class ExecCompoundAffectationStringOperation extends ExecCompoundAffectationOperation {
 
 
-    public ExecCompoundAffectationStringOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent) {
-        super(_opCont, _operatorContent, _staticEltContent, null);
+    public ExecCompoundAffectationStringOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent) {
+        super(_opCont, _operatorContent, null);
     }
 
 

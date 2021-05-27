@@ -31,9 +31,9 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
 
     public ExecFctOperation(ExecClassArgumentMatching _res,
                             ClassMethodId _classMethodId,
-                            int _child, int _order, ExecArrContent _arrContent, ExecTypeFunction _pair) {
+                            int _child, int _order, ExecArrContent _arrContent, ExecTypeFunction _pair, ExecFormattedRootBlock _formattedType) {
         super(_child,_res,_order,true,_arrContent);
-        instFctContent = new ExecInstFctContent(_classMethodId,_pair.getType());
+        instFctContent = new ExecInstFctContent(_classMethodId, _formattedType);
         pair = _pair;
     }
     @Override

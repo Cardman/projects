@@ -1,6 +1,5 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.Forwards;
@@ -19,20 +18,18 @@ public final class ExecInstFctContent {
     private final boolean staticChoiceMethod;
     private final ExecFormattedRootBlock formattedType;
     public ExecInstFctContent(AnaCallFctContent _cont, int _anc, boolean _staticChoiceMethod, Forwards _fwd) {
-        methodName = _cont.getMethodName();
-        lastType = _cont.getLastType();
-        naturalVararg = _cont.getNaturalVararg();
+        this(_anc,_staticChoiceMethod,_cont.getMethodName(), _cont.getLastType(), _cont.getNaturalVararg(), FetchMemberUtil.fwdFormatType(_cont.getFormattedType(),_fwd));
+    }
+    public ExecInstFctContent(ClassMethodId _cl, ExecFormattedRootBlock _formattedType) {
+        this(0, false, _cl.getConstraints().getName(), "", -1, _formattedType);
+    }
+    public ExecInstFctContent(int _anc, boolean _staticChoiceMethod, String _methodName, String _lastType, int _naturalVararg, ExecFormattedRootBlock _formattedType) {
+        methodName = _methodName;
+        lastType = _lastType;
+        naturalVararg = _naturalVararg;
         anc = _anc;
         staticChoiceMethod = _staticChoiceMethod;
-        formattedType = FetchMemberUtil.fwdFormatType(_cont.getFormattedType(),_fwd);
-    }
-    public ExecInstFctContent(ClassMethodId _cl, ExecRootBlock _root) {
-        methodName = _cl.getConstraints().getName();
-        lastType = "";
-        naturalVararg = -1;
-        anc = 0;
-        staticChoiceMethod = false;
-        formattedType = new ExecFormattedRootBlock(_root,_cl.getClassName());
+        formattedType = _formattedType;
     }
 
     public ExecFormattedRootBlock getFormattedType() {

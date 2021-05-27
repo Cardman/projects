@@ -17,16 +17,18 @@ public final class RendCompoundAffectationCustOperation extends RendCompoundAffe
 
     private final ExecTypeFunction pair;
     private final ExecFormattedRootBlock formattedType;
+    private final ExecStaticEltContent staticEltContent;
 
     public RendCompoundAffectationCustOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter) {
-        super(_content, _operatorContent, _staticEltContent, _converter);
+        super(_content, _operatorContent, _converter);
         pair = _pair;
         formattedType = _staticEltContent.getFormattedType();
+        staticEltContent = _staticEltContent;
     }
 
     @Override
     protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, getStaticEltContent().getKind(), _rendStack);
+        checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, staticEltContent.getKind(), _rendStack);
         Argument res_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack).getValue();
         if (getConverter() != null) {
             Argument conv_ = tryConvert(getConverter().get(0), getConverter().getOwnerClass(), res_, _context, _rendStack);

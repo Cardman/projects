@@ -18,8 +18,8 @@ import code.util.core.StringUtil;
 public final class ExecCompoundAffectationNatOperation extends ExecCompoundAffectationOperation {
 
 
-    public ExecCompoundAffectationNatOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ImplicitMethods _converter) {
-        super(_opCont, _operatorContent, _staticEltContent, _converter);
+    public ExecCompoundAffectationNatOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converter) {
+        super(_opCont, _operatorContent, _converter);
     }
 
 

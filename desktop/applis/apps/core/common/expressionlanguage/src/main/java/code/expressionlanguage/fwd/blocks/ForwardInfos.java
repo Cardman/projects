@@ -1133,9 +1133,13 @@ public final class ForwardInfos {
             ConstantOperation c_ = (ConstantOperation) _anaNode;
             return new ExecConstLeafOperation(false, new ExecOperationContent(c_.getContent()));
         }
-        if (_anaNode instanceof AnnotationInstanceOperation) {
-            AnnotationInstanceOperation n_ = (AnnotationInstanceOperation) _anaNode;
-            return new ExecAnnotationInstanceOperation(FetchMemberUtil.fetchType(n_.getRootNumber(), _forwards), new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInstancingAnnotContent(n_.getInstancingAnnotContent(),_forwards));
+        if (_anaNode instanceof AnnotationInstanceArobaseOperation) {
+            AnnotationInstanceArobaseOperation n_ = (AnnotationInstanceArobaseOperation) _anaNode;
+            return new ExecAnnotationInstanceArobaseOperation(FetchMemberUtil.fetchType(n_.getRootNumber(), _forwards), new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInstancingAnnotContent(n_.getInstancingAnnotContent(),_forwards));
+        }
+        if (_anaNode instanceof AnnotationInstanceArrOperation) {
+            AnnotationInstanceArrOperation n_ = (AnnotationInstanceArrOperation) _anaNode;
+            return new ExecAnnotationInstanceArrOperation(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), n_.getClassName());
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
@@ -1149,11 +1153,11 @@ public final class ForwardInfos {
             if (a_.getStandardMethod() != null) {
                 return new ExecStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStdFctContent(a_.getCallFctContent(), a_.isStaticMethod()), new ExecArrContent(a_.getArrContent()));
             }
-            ExecRootBlock ex_ = FetchMemberUtil.fetchType(a_.getMemberId(), _forwards);
+            ExecRootBlock ex_ = FetchMemberUtil.fetchType(a_.getCallFctContent().getMemberId(), _forwards);
             if (ex_ instanceof ExecAnnotationBlock) {
                 return new ExecAnnotationMethodOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecCallFctAnnotContent(a_.getCallFctContent()));
             }
-            ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(a_.getMemberId(), _forwards);
+            ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(a_.getCallFctContent().getMemberId(), _forwards);
             if (a_.isTrueFalse()) {
                 return new ExecExplicitOperation(
                         pair_,
@@ -1161,9 +1165,9 @@ public final class ForwardInfos {
             }
             if (a_.isStaticMethod()) {
                 if (pair_ == null) {
-                    return new ExecEnumMethOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getFunction(),a_.getCallFctContent(),_forwards), new ExecArrContent(a_.getArrContent()),ex_);
+                    return new ExecEnumMethOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctCommonContent(a_.getCallFctContent()), new ExecArrContent(a_.getArrContent()),ex_);
                 }
-                return new ExecStaticFctOperation(pair_, new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getFunction(),a_.getCallFctContent(),_forwards), new ExecArrContent(a_.getArrContent()));
+                return new ExecStaticFctOperation(pair_, new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getCallFctContent(),_forwards), new ExecArrContent(a_.getArrContent()));
             }
         }
         if (_anaNode instanceof InterfaceFctConstructor) {
@@ -1258,17 +1262,17 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
-            ExecTypeFunction p_ = FetchMemberUtil.fetchOvTypeFunction(c_.getMemberId(), _forwards);
+            ExecTypeFunction p_ = FetchMemberUtil.fetchOvTypeFunction(c_.getCallFctContent().getMemberId(), _forwards);
             return new ExecChoiceFctOperation(p_, new ExecOperationContent(c_.getContent()), c_.isIntermediateDottedOperation(), new ExecInstFctContent(c_.getCallFctContent(), c_.getAnc(), true,_forwards), new ExecArrContent(c_.getArrContent()));
         }
         if (_anaNode instanceof SuperFctOperation) {
             SuperFctOperation s_ = (SuperFctOperation) _anaNode;
-            ExecTypeFunction p_ = FetchMemberUtil.fetchOvTypeFunction(s_.getMemberId(), _forwards);
+            ExecTypeFunction p_ = FetchMemberUtil.fetchOvTypeFunction(s_.getCallFctContent().getMemberId(), _forwards);
             return new ExecSuperFctOperation(p_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstFctContent(s_.getCallFctContent(), s_.getAnc(), true,_forwards), new ExecArrContent(s_.getArrContent()));
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
-            ExecTypeFunction p_ = FetchMemberUtil.fetchOvTypeFunction(f_.getMemberId(), _forwards);
+            ExecTypeFunction p_ = FetchMemberUtil.fetchOvTypeFunction(f_.getCallFctContent().getMemberId(), _forwards);
             return new ExecFctOperation(p_, new ExecOperationContent(f_.getContent()), f_.isIntermediateDottedOperation(), new ExecInstFctContent(f_.getCallFctContent(), f_.getAnc(), f_.isStaticChoiceMethod(),_forwards), new ExecArrContent(f_.getArrContent()));
         }
         if (_anaNode instanceof NamedArgumentOperation) {
@@ -1417,13 +1421,13 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
-            return new ExecExplicitOperatorOperation(new ExecOperationContent(m_.getContent()), m_.isIntermediateDottedOperation(), new ExecStaticFctContent(m_.getFunction(),m_.getCallFctContent(),_forwards), m_.getOffsetOper(), FetchMemberUtil.fetchFunctionOpPair(m_.getMemberId(), _forwards), new ExecArrContent(m_.getArrContent()));
+            return new ExecExplicitOperatorOperation(new ExecOperationContent(m_.getContent()), m_.isIntermediateDottedOperation(), new ExecStaticFctContent(m_.getCallFctContent(),_forwards), m_.getOffsetOper(), FetchMemberUtil.fetchFunctionOpPair(m_.getCallFctContent().getMemberId(), _forwards), new ExecArrContent(m_.getArrContent()));
         }
         if (_anaNode instanceof SemiAffectationOperation) {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
             ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(m_.getFct(), _forwards);
             if (pair_.getFct() == null) {
-                return new ExecSemiAffectationNatOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getFct(), m_.isPost(),_forwards), new ExecOperatorContent(m_.getOperatorContent()), FetchMemberUtil.fetchImplicits(m_.getConvFrom(), _forwards), FetchMemberUtil.fetchImplicits(m_.getConvTo(), _forwards));
+                return new ExecSemiAffectationNatOperation(new ExecOperationContent(m_.getContent()), new ExecOperatorContent(m_.getOperatorContent()), FetchMemberUtil.fetchImplicits(m_.getConvFrom(), _forwards), FetchMemberUtil.fetchImplicits(m_.getConvTo(), _forwards), m_.isPost());
             }
             return new ExecSemiAffectationCustOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getFct(), m_.isPost(),_forwards), new ExecOperatorContent(m_.getOperatorContent()), pair_);
         }
@@ -1460,7 +1464,7 @@ public final class ForwardInfos {
             ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(), _forwards);
             if (ExecExplicitOperation.direct(pair_,m_.getExplicitContent().getClassName())) {
                 return new ExecImplicitOperation(
-                        new ExecOperationContent(m_.getContent()),new ExecExplicitContent(m_.getExplicitContent(),_forwards));
+                        new ExecOperationContent(m_.getContent()),new ExecExplicitCommonContent(m_.getExplicitContent()));
             }
             return new ExecExplicitOperation(
                     pair_,
@@ -1471,7 +1475,7 @@ public final class ForwardInfos {
             ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(m_.getMemberId(), _forwards);
             if (ExecExplicitOperation.direct(pair_,m_.getExplicitContent().getClassName())) {
                 return new ExecImplicitOperation(
-                        new ExecOperationContent(m_.getContent()), new ExecExplicitContent(m_.getExplicitContent(),_forwards));
+                        new ExecOperationContent(m_.getContent()), new ExecExplicitCommonContent(m_.getExplicitContent()));
             }
             return new ExecExplicitOperation(
                     pair_,
@@ -1573,13 +1577,13 @@ public final class ForwardInfos {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
             ClassMethodIdMemberIdTypeFct fct_ = c_.getFct();
             if (c_.isConcat()) {
-                return new ExecCompoundAffectationStringOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards));
+                return new ExecCompoundAffectationStringOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()));
             }
             ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards);
             if (pair_.getFct() != null) {
                 return new ExecCompoundAffectationCustOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
             }
-            return new ExecCompoundAffectationNatOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
+            return new ExecCompoundAffectationNatOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
         }
         if (_anaNode instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _anaNode;

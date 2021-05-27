@@ -44,13 +44,12 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
         if (StringExpUtil.customCast(_className)) {
             Struct str_ = _objArg.getStruct();
             if (str_ instanceof LambdaStruct) {
-                String id_ = StringExpUtil.getIdFromAllTypes(_className);
-                ExecRootBlock r_ = _conf.getClasses().getClassBody(id_);
+                ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(_className, _conf.getClasses());
+                ExecRootBlock r_ = className_.getRootBlock();
                 if (r_ instanceof ExecInterfaceBlock && r_.withoutInstance()) {
                     CustList<ExecFunctionalInfo> functional_ = r_.getFunctionalBodies();
                     if ((!r_.isWithInstanceElements() || _full)&& functional_.size() == 1) {
                         ExecFunctionalInfo clRealId_ = functional_.first();
-                        ExecFormattedRootBlock className_ = new ExecFormattedRootBlock(r_, _className);
                         String fctParam_ = ExecInherits.quickFormat(className_, clRealId_.getFctParam());
                         String argCl_ = str_.getClassName(_conf);
                         if (ExecInherits.isCorrectExecute(argCl_,fctParam_,_conf)) {

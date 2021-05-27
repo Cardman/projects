@@ -3009,7 +3009,7 @@ public final class LinkageUtil {
                     _vars.addPart(new PartOffset(ExportCst.HEAD_BOLD, begFct_));
                     _vars.addPart(new PartOffset(ExportCst.END_BOLD, begFct_ +l_));
                 } else {
-                    AnaTypeFct function_ = ((FctOperation) _val).getFunction();
+                    AnaTypeFct function_ = ((FctOperation) _val).getCallFctContent().getFunction();
                     addParts(_vars, function_,
                             begFct_, l_,
                             _val.getErrs(),_val.getErrs());
@@ -3019,7 +3019,7 @@ public final class LinkageUtil {
                 _vars.addParts(((ChoiceFctOperation)_val).getPartOffsets());
                 int delta_ = ((ChoiceFctOperation) _val).getDelta();
                 int l_ = ((ChoiceFctOperation) _val).getLengthMethod();
-                AnaTypeFct function_ = ((ChoiceFctOperation) _val).getFunction();
+                AnaTypeFct function_ = ((ChoiceFctOperation) _val).getCallFctContent().getFunction();
                 addParts(_vars, function_,
                         _sum +delta_+ _val.getIndexInEl(),l_,
                         _val.getErrs(),_val.getErrs());
@@ -3028,7 +3028,7 @@ public final class LinkageUtil {
                 _vars.addParts(((SuperFctOperation)_val).getPartOffsets());
                 int delta_ = ((SuperFctOperation) _val).getDelta();
                 int l_ = ((SuperFctOperation) _val).getLengthMethod();
-                AnaTypeFct function_ = ((SuperFctOperation) _val).getFunction();
+                AnaTypeFct function_ = ((SuperFctOperation) _val).getCallFctContent().getFunction();
                 addParts(_vars, function_,
                         _sum +delta_+ _val.getIndexInEl(),l_,
                         _val.getErrs(),_val.getErrs());
@@ -3367,7 +3367,7 @@ public final class LinkageUtil {
         }
         if (_val instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation par_ = (ExplicitOperatorOperation) _val;
-            addParts(_vars, par_.getFunction(),
+            addParts(_vars, par_.getCallFctContent().getFunction(),
                     _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordOperator().length(),
                     _val.getErrs(),_val.getErrs());
             _vars.addParts(par_.getPartOffsets());

@@ -37,7 +37,6 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
     private StandardMethod standardMethod;
-    private AnaTypeFct function;
 
     public SuperFctOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -161,7 +160,6 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
                 return;
             }
             callFctContent.update(clMeth_);
-            function = clMeth_.getPair();
             trueFalse = true;
             MethodId id_ = clMeth_.getRealId();
             staticMethod = true;
@@ -181,7 +179,6 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         }
         callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();
-        function = clMeth_.getPair();
         if (clMeth_.isAbstractMethod()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
@@ -199,10 +196,6 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
-    }
-
-    public AnaTypeFct getFunction() {
-        return function;
     }
 
     public ClassMethodId getClassMethodId() {
@@ -250,9 +243,6 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
     @Override
     public StandardMethod getStandardMethod() {
         return standardMethod;
-    }
-    public MemberId getMemberId() {
-        return callFctContent.getMemberId();
     }
 
     public boolean isErrLeftValue() {

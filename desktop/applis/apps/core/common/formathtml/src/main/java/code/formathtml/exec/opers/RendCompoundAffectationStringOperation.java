@@ -13,8 +13,8 @@ import code.util.IdMap;
 public final class RendCompoundAffectationStringOperation extends RendCompoundAffectationOperation {
 
 
-    public RendCompoundAffectationStringOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent) {
-        super(_content, _operatorContent, _staticEltContent, null);
+    public RendCompoundAffectationStringOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent) {
+        super(_content, _operatorContent, null);
     }
 
 

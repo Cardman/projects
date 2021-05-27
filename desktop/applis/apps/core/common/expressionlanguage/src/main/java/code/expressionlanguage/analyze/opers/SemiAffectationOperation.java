@@ -3,13 +3,11 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.ReversibleConversion;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -82,8 +80,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
             ReversibleConversion reversibleConversion_ = tryGetPair(clMatchLeft_, _page);
             if (reversibleConversion_ != null) {
-                convFrom.infos(reversibleConversion_.getFrom(),reversibleConversion_.getMemberIdFrom(),reversibleConversion_.getFunctionFrom());
-                convTo.infos(reversibleConversion_.getTo(),reversibleConversion_.getMemberIdTo(),reversibleConversion_.getFunctionTo());
+                convFrom.infos(reversibleConversion_.getFrom());
+                convTo.infos(reversibleConversion_.getTo());
             } else {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(clMatchLeft_);

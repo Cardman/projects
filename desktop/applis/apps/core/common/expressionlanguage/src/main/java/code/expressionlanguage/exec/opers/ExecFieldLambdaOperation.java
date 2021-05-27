@@ -42,7 +42,7 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
             return new LambdaFieldStruct(NullStruct.NULL_VALUE,_previous,_common,_field,_clArg,_ownerType.getFormatted());
         }
         String formCl_ = MetaInfoUtil.tryFormatType(_ownerType);
-        FieldMetaInfo f_ = new FieldMetaInfo(_common,_field,classField_, formCl_);
+        FieldMetaInfo f_ = new FieldMetaInfo(_common,_field,classField_, formCl_, _ownerType);
         return new LambdaFieldStruct(f_,_previous,_common,_field,_clArg,_ownerType.getFormatted());
     }
 

@@ -370,11 +370,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         RendInternVariableOperation r_ = new RendInternVariableOperation(0,new ExecClassArgumentMatching(_previous),0,_varPrevious);
         ops_.add(r_);
         dot_.appendChild(r_);
-        String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
-        ExecRootBlock classBody_ = _classes.getClassBody(id_);
+        ExecFormattedRootBlock formattedType_ = ExecFormattedRootBlock.build(_id.getClassName(),_classes);
+        ExecRootBlock classBody_ = formattedType_.getRootBlock();
         ExecNamedFunctionBlock fct_ = ExecClassesUtil.getMethodBodiesById(classBody_, _id.getConstraints()).first();
         ExecTypeFunction p_ = new ExecTypeFunction(classBody_,fct_);
-        RendFctOperation f_ = new RendFctOperation(p_, new ExecOperationContent(1, clMatch_, _args.size()+1), new ExecInstFctContent(_id,classBody_), true, new ExecArrContent(false));
+        RendFctOperation f_ = new RendFctOperation(p_, new ExecOperationContent(1, clMatch_, _args.size()+1), new ExecInstFctContent(_id, formattedType_), true, new ExecArrContent(false));
         int i_ = 1;
         for (EntryCust<String,String> e: _args.entryList()) {
             RendInternVariableOperation a_ = new RendInternVariableOperation(i_-1,new ExecClassArgumentMatching(e.getValue()),i_,e.getKey());
@@ -391,12 +391,13 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private void newInstance(Classes _classes) {
         opsMap = new CustList<RendDynOperationNode>();
         String aliasStringMapObject_ = beanAliases.getAliasStringMapObject();
-        ExecRootBlock ex_ = _classes.getClassBody(aliasStringMapObject_);
+        ExecFormattedRootBlock formattedType_ = ExecFormattedRootBlock.build(aliasStringMapObject_,_classes);
+        ExecRootBlock ex_ = formattedType_.getRootBlock();
         ExecClassArgumentMatching clMatch_ = new ExecClassArgumentMatching(aliasStringMapObject_);
         ConstructorId id_ = new ConstructorId(aliasStringMapObject_, new StringList(), false);
         AnaInstancingCommonContent cont_ = new AnaInstancingCommonContent(id_.getName());
         cont_.setConstId(id_);
-        opsMap.add(new RendStandardInstancingOperation(new ExecOperationContent(0, clMatch_, 0), new ExecInstancingCommonContent(cont_,new ExecFormattedRootBlock(ex_,aliasStringMapObject_)), new ExecInstancingStdContent(new AnaInstancingStdContent()), new ExecTypeFunction(ex_, null)));
+        opsMap.add(new RendStandardInstancingOperation(new ExecOperationContent(0, clMatch_, 0), new ExecInstancingCommonContent(cont_, formattedType_), new ExecInstancingStdContent(new AnaInstancingStdContent()), new ExecTypeFunction(ex_, null)));
     }
 
     private static String tr(StringList _list) {

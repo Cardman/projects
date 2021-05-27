@@ -20,14 +20,12 @@ public abstract class ExecCompoundAffectationOperation extends ExecMethodOperati
     private ExecOperationNode settable;
     private ExecMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
-    private final ExecStaticEltContent staticEltContent;
     private final ImplicitMethods converter;
 
 
-    protected ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ImplicitMethods _converter) {
+    protected ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converter) {
         super(_opCont);
         operatorContent = _operatorContent;
-        staticEltContent = _staticEltContent;
         converter = _converter;
     }
 
@@ -111,10 +109,6 @@ public abstract class ExecCompoundAffectationOperation extends ExecMethodOperati
             arg_ = ((ExecSettableCallFctOperation)_set).endCalculate(_conf, _nodes,_right, _stackCall);
         }
         return Argument.getNullableValue(arg_);
-    }
-
-    protected ExecStaticEltContent getStaticEltContent() {
-        return staticEltContent;
     }
 
     protected ExecOperatorContent getOperatorContent() {

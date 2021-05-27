@@ -59,11 +59,11 @@ public abstract class QuickOperation extends MethodOperation {
         if (opConv_ != null) {
             fct.infos(opConv_,_page);
             okNum = true;
-            AnaFormattedRootBlock test_ = opConv_.getFormattedTypeTest();
+            AnaFormattedRootBlock test_ = opConv_.getTest().getFormattedType();
             if (test_ == null) {
                 return;
             }
-            functionTest = opConv_.getFunctionTest();
+            functionTest = opConv_.getTest().getPair();
             leftRes_.implicitInfosTest(opConv_);
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());

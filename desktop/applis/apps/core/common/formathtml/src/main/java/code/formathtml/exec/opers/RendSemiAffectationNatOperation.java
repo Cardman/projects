@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
@@ -17,8 +16,8 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
     private final ImplicitMethods converterFrom;
     private final ImplicitMethods converterTo;
 
-    public RendSemiAffectationNatOperation(ExecOperationContent _content, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ImplicitMethods _converterFrom, ImplicitMethods _converterTo) {
-        super(_content, _staticPostEltContent, _operatorContent);
+    public RendSemiAffectationNatOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converterFrom, ImplicitMethods _converterTo, boolean _post) {
+        super(_content, _operatorContent, _post);
         converterFrom = _converterFrom;
         converterTo = _converterTo;
     }
@@ -43,7 +42,7 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
                 return;
             }
             conv_ = RendAffectationOperation.calculateChSetting(getSettable(),_nodes, conv_, _advStandards, _context, _rendStack);
-            stored_ = getPrePost(getStaticPostEltContent().isPost(),before_,conv_);
+            stored_ = getPrePost(isPost(),before_,conv_);
             setSimpleArgument(stored_, _nodes, _context, _rendStack);
             return;
         }
@@ -59,19 +58,19 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
         Argument arg_ = null;
         RendDynOperationNode settable_ = getSettable();
         if (settable_ instanceof RendStdRefVariableOperation) {
-            arg_ = ((RendStdRefVariableOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), getStaticPostEltContent().isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
+            arg_ = ((RendStdRefVariableOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
         }
         if (settable_ instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), getStaticPostEltContent().isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
+            arg_ = ((RendSettableFieldOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
         }
         if (settable_ instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), getStaticPostEltContent().isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
+            arg_ = ((RendCustArrOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
         }
         if (settable_ instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), getStaticPostEltContent().isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
+            arg_ = ((RendArrOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
         }
         if (settable_ instanceof RendSettableCallFctOperation) {
-            arg_ = ((RendSettableCallFctOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), getStaticPostEltContent().isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
+            arg_ = ((RendSettableCallFctOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
         }
         return Argument.getNullableValue(arg_);
     }

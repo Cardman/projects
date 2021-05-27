@@ -43,7 +43,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
 
     private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private StandardMethod standardMethod;
-    private AnaTypeFct function;
     private boolean errLeftValue;
     public FctOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -232,7 +231,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                 return;
             }
             callFctContent.update(clMeth_);
-            function = clMeth_.getPair();
             trueFalse = true;
             MethodId id_ = clMeth_.getRealId();
             staticChoiceMethod = staticChoiceMethod_;
@@ -254,7 +252,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         }
         callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();
-        function = clMeth_.getPair();
         if (staticChoiceMethod_) {
             if (clMeth_.isAbstractMethod()) {
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
@@ -317,10 +314,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         return b_;
     }
 
-    public AnaTypeFct getFunction() {
-        return function;
-    }
-
     public ClassMethodId getClassMethodId() {
         return callFctContent.getClassMethodId();
     }
@@ -372,9 +365,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
     @Override
     public StandardMethod getStandardMethod() {
         return standardMethod;
-    }
-    public MemberId getMemberId() {
-        return callFctContent.getMemberId();
     }
 
     public AnaArrContent getArrContent() {

@@ -18,11 +18,7 @@ public final class ExecInstancingAnnotContent {
         className = _cont.getClassName();
         fieldNames = _cont.getFieldNames();
         AnaFormattedRootBlock formattedType_ = _cont.getFormattedType();
-        if (formattedType_ != null) {
-            formattedType = FetchMemberUtil.fwdFormatType(formattedType_,_fwd);
-        } else {
-            formattedType = new ExecFormattedRootBlock(null,"");
-        }
+        formattedType = FetchMemberUtil.fwdFormatType(formattedType_,_fwd);
     }
 
     public StringMap<AnnotationTypeInfo> getFieldNames() {
