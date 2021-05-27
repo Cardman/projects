@@ -9,10 +9,10 @@ import code.util.core.SortConstants;
 */
 public abstract class NatTreeMap<K, V> extends AbsMap<K, V>  {
 
-    public NatTreeMap() {
+    protected NatTreeMap() {
     }
-    
-    public NatTreeMap(CollCapacity _capacity) {
+
+    protected NatTreeMap(CollCapacity _capacity) {
         super(_capacity);
     }
 

@@ -4,10 +4,10 @@ import code.util.core.IndexConstants;
 
 public abstract class NumberMap<K, V> extends AbsMap<K, V> {
 
-    public NumberMap() {
+    protected NumberMap() {
     }
-    
-    public NumberMap(CollCapacity _capacity) {
+
+    protected NumberMap(CollCapacity _capacity) {
         super(_capacity);
     }
 
