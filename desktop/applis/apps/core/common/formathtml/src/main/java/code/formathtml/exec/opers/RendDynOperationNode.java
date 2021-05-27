@@ -20,7 +20,6 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.exec.RendNativeFct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RendStrNativeFct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
@@ -348,27 +347,23 @@ public abstract class RendDynOperationNode {
         return out_;
     }
     public static Argument processString(Argument _argument, ContextEl _context, RendStackCall _stackCall) {
-        RendStrNativeFct nat_ = new RendStrNativeFct(_stackCall.getStackCall());
-        return processString(_argument, _context, nat_);
-    }
-
-    public static Argument processString(Argument _argument, ContextEl _context, RendStrNativeFct _nat) {
+        RendNativeFct nat_ = new RendNativeFct();
         Argument out_ = new Argument(_argument.getStruct());
-        out_ = ExecOperationNode.processString(out_, _context, _nat.stack());
-        return result(_nat, _context, out_);
+        out_ = ExecOperationNode.processString(out_, _context, _stackCall.getStackCall());
+        return result(nat_,_stackCall, _context, out_);
     }
 
     public static Argument processRandCode(Argument _argument, ContextEl _context, RendStackCall _stackCall) {
-        RendStrNativeFct nat_ = new RendStrNativeFct(_stackCall.getStackCall());
+        RendNativeFct nat_ = new RendNativeFct();
         Argument out_ = new Argument(_argument.getStruct());
-        out_ = ExecOperationNode.processRandCode(out_, _context, nat_.stack());
-        return result(nat_,_context, out_);
+        out_ = ExecOperationNode.processRandCode(out_, _context, _stackCall.getStackCall());
+        return result(nat_,_stackCall,_context, out_);
     }
 
-    private static Argument result(RendNativeFct _nat, ContextEl _context, Argument _out) {
-        boolean convert_ = _nat.convert();
-        Argument out_ = _nat.calculateArgument(_out,_context);
-        if (_nat.stop(_context)) {
+    private static Argument result(NativeFct _nat,RendStackCall _st, ContextEl _context, Argument _out) {
+        boolean convert_ = _st.getStackCall().getCallingState() instanceof CustomFoundMethod;
+        Argument out_ = calculateArgument(_st,_out,_context);
+        if (_context.callsOrException(_st.getStackCall())) {
             return Argument.createVoid();
         }
         if (convert_) {
@@ -376,7 +371,14 @@ public abstract class RendDynOperationNode {
         }
         return out_;
     }
-
+    public static Argument calculateArgument(RendStackCall _stackCall,Argument _def, ContextEl _ct) {
+        CallingState state_ = _stackCall.getStackCall().getCallingState();
+        if (state_ instanceof CustomFoundMethod) {
+            CustomFoundMethod method_ = (CustomFoundMethod) state_;
+            return ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _ct, _stackCall.getStackCall()).getValue();
+        }
+        return _def;
+    }
     public static RendMethodOperation getParentOrNull(RendDynOperationNode _node) {
         if (_node == null) {
             return null;

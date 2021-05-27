@@ -30,10 +30,10 @@ public final class EventThreadActions extends AbstractThreadActions {
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING,ctx_);
         if (form) {
             getPage().getNavigation().processRendFormRequest(getPage().getStandards(), ctx_, rendStackCall_);
-            afterAction(ctx_,rendStackCall_.getStackCall());
+            afterAction(ctx_,rendStackCall_);
             return;
         }
         getPage().getNavigation().processRendAnchorRequest(anchor, getPage().getStandards(), ctx_, rendStackCall_);
-        afterAction(ctx_,rendStackCall_.getStackCall());
+        afterAction(ctx_,rendStackCall_);
     }
 }

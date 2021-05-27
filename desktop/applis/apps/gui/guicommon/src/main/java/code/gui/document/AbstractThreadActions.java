@@ -3,14 +3,12 @@ package code.gui.document;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErroneousStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RendStrNativeFct;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.render.MetaDocument;
 import code.gui.CustComponent;
@@ -32,7 +30,7 @@ public abstract class AbstractThreadActions implements Runnable {
         page = _page;
         timer = _timer;
     }
-    protected void afterAction(ContextEl _ctx, StackCall _stackCall) {
+    protected void afterAction(ContextEl _ctx, RendStackCall _stackCall) {
         if (_ctx == null || _stackCall == null) {
             finish();
             return;
@@ -41,12 +39,12 @@ public abstract class AbstractThreadActions implements Runnable {
         afterActionWithoutRemove(ctx_, _stackCall);
     }
 
-    protected void afterActionWithoutRemove(ContextEl _ctx, StackCall _stackCall) {
+    protected void afterActionWithoutRemove(ContextEl _ctx, RendStackCall _stackCall) {
         if (_ctx == null || _stackCall == null) {
             finish();
             return;
         }
-        CallingState exc_ = _stackCall.getCallingState();
+        CallingState exc_ = _stackCall.getStackCall().getCallingState();
         if (exc_ instanceof CustomFoundExc) {
             if (page.getArea() != null) {
                 Struct exception_ = ((CustomFoundExc) exc_).getStruct();
@@ -54,12 +52,12 @@ public abstract class AbstractThreadActions implements Runnable {
                     ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
                     page.getArea().append(((ErroneousStruct) exception_).getStringRep(_ctx, fullStack_));
                 } else {
-                    _stackCall.setCallingState(null);
-                    String str_ = NumParsers.getString(RendDynOperationNode.processString(new Argument(exception_),_ctx, new RendStrNativeFct(_stackCall)).getStruct()).getInstance();
+                    _stackCall.getStackCall().setCallingState(null);
+                    String str_ = NumParsers.getString(RendDynOperationNode.processString(new Argument(exception_),_ctx, _stackCall).getStruct()).getInstance();
                     page.getArea().append(str_);
                 }
             }
-            _stackCall.setCallingState(null);
+            _stackCall.getStackCall().setCallingState(null);
             finish();
             return;
         }

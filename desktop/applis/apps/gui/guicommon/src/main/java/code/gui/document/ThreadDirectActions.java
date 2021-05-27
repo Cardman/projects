@@ -20,6 +20,6 @@ public final class ThreadDirectActions extends AbstractThreadActions {
         }
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING,ctx_);
         page_.getNavigation().initializeRendSession(ctx_, page_.getStandards(), rendStackCall_);
-        afterAction(ctx_,rendStackCall_.getStackCall());
+        afterAction(ctx_,rendStackCall_);
     }
 }

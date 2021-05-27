@@ -27,12 +27,9 @@ public final class RendStackCall {
     private final StackCall stackCall;
 
     public RendStackCall(InitPhase _readOnlyOthers, ContextEl _ctx) {
-        this(StackCall.newInstance(_readOnlyOthers, _ctx));
+        stackCall = StackCall.newInstance(_readOnlyOthers, _ctx);
     }
 
-    private RendStackCall(StackCall _stack) {
-        stackCall = _stack;
-    }
     public void init() {
         htmlPage = new HtmlPage();
         document = null;

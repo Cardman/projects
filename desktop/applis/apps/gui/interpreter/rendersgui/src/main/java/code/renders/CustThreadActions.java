@@ -99,8 +99,8 @@ public final class CustThreadActions extends AbstractThreadActions {
             finish();
             return;
         }
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         if (fileNames != null) {
-            StackCall stack_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
             LgNames stds_ = ctx_.getStandards();
             String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getContent().getCharSeq().getAliasString());
             MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
@@ -108,9 +108,9 @@ public final class CustThreadActions extends AbstractThreadActions {
             if (classBody_ != null) {
                 CustList<ExecOverridableBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
                 if (!methods_.isEmpty()) {
-                    ProcessMethod.initializeClass(classDbName, classBody_,ctx_, stack_);
-                    if (ctx_.callsOrException(stack_)) {
-                        afterActionWithoutRemove(ctx_, stack_);
+                    ProcessMethod.initializeClass(classDbName, classBody_,ctx_, rendStackCall_.getStackCall());
+                    if (ctx_.callsOrException(rendStackCall_.getStackCall())) {
+                        afterActionWithoutRemove(ctx_, rendStackCall_);
                         return;
                     }
                     Argument arg_ = new Argument();
@@ -129,18 +129,17 @@ public final class CustThreadActions extends AbstractThreadActions {
                     ExecNamedFunctionBlock method_ = methods_.first();
                     ExecTypeFunction pair_ = new ExecTypeFunction(classBody_, method_);
                     ArgumentListCall argList_ = new ArgumentListCall(args_);
-                    Parameters parameters_ = ExecTemplates.wrapAndCall(pair_, new ExecFormattedRootBlock(classBody_, classDbName),arg_, ctx_, stack_, argList_);
-                    Argument out_ = ProcessMethod.calculateArgument(arg_, new ExecFormattedRootBlock(classBody_, classDbName), pair_, parameters_, ctx_, stack_).getValue();
-                    if (ctx_.callsOrException(stack_)) {
-                        afterActionWithoutRemove(ctx_, stack_);
+                    Parameters parameters_ = ExecTemplates.wrapAndCall(pair_, new ExecFormattedRootBlock(classBody_, classDbName),arg_, ctx_, rendStackCall_.getStackCall(), argList_);
+                    Argument out_ = ProcessMethod.calculateArgument(arg_, new ExecFormattedRootBlock(classBody_, classDbName), pair_, parameters_, ctx_, rendStackCall_.getStackCall()).getValue();
+                    if (ctx_.callsOrException(rendStackCall_.getStackCall())) {
+                        afterActionWithoutRemove(ctx_, rendStackCall_);
                         return;
                     }
                     getPage().getNavigation().setDataBaseStruct(out_.getStruct());
                 }
             }
         }
-        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         getPage().getNavigation().initializeRendSession(ctx_, du_.getStds(), rendStackCall_);
-        afterActionWithoutRemove(ctx_, rendStackCall_.getStackCall());
+        afterActionWithoutRemove(ctx_, rendStackCall_);
     }
 }
