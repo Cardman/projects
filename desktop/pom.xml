@@ -12,10 +12,13 @@
 	</modules>
 	<properties>
 		<sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
-		<sonar.issue.ignore.multicriteria.e1.ruleKey>squid:S117</sonar.issue.ignore.multicriteria.e1.ruleKey>
+		<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S117</sonar.issue.ignore.multicriteria.e1.ruleKey>
 		<sonar.issue.ignore.multicriteria.e1.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
 		<sonar.issue.ignore.multicriteria>e2</sonar.issue.ignore.multicriteria>
-		<sonar.issue.ignore.multicriteria.e2.ruleKey>squid:CommentedOutCodeLine</sonar.issue.ignore.multicriteria.e2.ruleKey>
+		<sonar.issue.ignore.multicriteria.e2.ruleKey>java:CommentedOutCodeLine</sonar.issue.ignore.multicriteria.e2.ruleKey>
 		<sonar.issue.ignore.multicriteria.e2.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e2.resourceKey>
+		<sonar.issue.ignore.multicriteria>e3</sonar.issue.ignore.multicriteria>
+		<sonar.issue.ignore.multicriteria.e3.ruleKey>java:S4973</sonar.issue.ignore.multicriteria.e3.ruleKey>
+		<sonar.issue.ignore.multicriteria.e3.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e3.resourceKey>
 	</properties>
 </project>
