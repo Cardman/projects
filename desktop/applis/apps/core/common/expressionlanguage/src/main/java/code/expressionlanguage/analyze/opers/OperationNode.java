@@ -2944,6 +2944,8 @@ public abstract class OperationNode {
         }
         if (checkOnlyDem_) {
             if (vararg_) {
+                //paramLen_ -1 == allOps_.size()
+                //startOpt_ == allOps_.size()
                 _id.setVarArgWrap(true);
             }
             setWideInvoke(_id, vararg_, allNotBoxUnbox_, implicit_);
