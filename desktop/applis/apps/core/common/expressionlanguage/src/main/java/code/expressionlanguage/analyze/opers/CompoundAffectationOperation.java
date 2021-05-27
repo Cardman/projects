@@ -104,10 +104,11 @@ public final class CompoundAffectationOperation extends MethodOperation {
         AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this, left_,right_, op_, _page);
         if (cl_ != null) {
-            AnaFormattedRootBlock test_ = cl_.getTest().getFormattedType();
+            ClassMethodIdReturn foundTest_ = cl_.getTest();
+            AnaFormattedRootBlock test_ = foundTest_.getFormattedType();
             if (test_ != null) {
-                clMatchLeft_.implicitInfosTest(cl_);
-                functionTest = cl_.getTest().getPair();
+                clMatchLeft_.implicitInfosTest(foundTest_);
+                functionTest = foundTest_.getPair();
             }
             fct.infos(cl_,_page);
             Mapping map_ = new Mapping();

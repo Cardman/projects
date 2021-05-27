@@ -874,7 +874,7 @@ public abstract class OperationNode {
             return out_;
         }
         ConstructorId ctor_ = cInfo_.getConstraints();
-        CustList<CustList<ImplicitInfos>> implicits_ = cInfo_.getImplicits();
+        CustList<CustList<ClassMethodIdReturn>> implicits_ = cInfo_.getImplicits();
         CustList<OperationNode> allOps_ = cInfo_.getAllOps();
         feedImplicitsInfos(implicits_, allOps_);
         Ints nameParametersFilterIndexes_ = cInfo_.getNameParametersFilterIndexes();
@@ -906,12 +906,12 @@ public abstract class OperationNode {
         }
     }
 
-    private static void feedImplicitsInfos(CustList<CustList<ImplicitInfos>> _implicits, CustList<OperationNode> _allOps) {
+    private static void feedImplicitsInfos(CustList<CustList<ClassMethodIdReturn>> _implicits, CustList<OperationNode> _allOps) {
         int len_ = _implicits.size();
         for (int i = 0; i < len_; i++) {
-            CustList<ImplicitInfos> implicitInfos_ = _implicits.get(i);
+            CustList<ClassMethodIdReturn> implicitInfos_ = _implicits.get(i);
             AnaClassArgumentMatching resultClass_ = _allOps.get(i).getResultClass();
-            for (ImplicitInfos j : implicitInfos_) {
+            for (ClassMethodIdReturn j : implicitInfos_) {
                 resultClass_.implicitInfos(j);
             }
         }
@@ -2652,7 +2652,7 @@ public abstract class OperationNode {
                 ContextUtil.appendTitlePartsAbs(staticCallOp_.getLt(), staticCallOp_.getGt(), m_.getClassName(), staticCallOp_.getPartOffsets(), _page);
             }
         }
-        CustList<CustList<ImplicitInfos>> implicits_ = m_.getImplicits();
+        CustList<CustList<ClassMethodIdReturn>> implicits_ = m_.getImplicits();
         CustList<OperationNode> allOps_ = m_.getAllOps();
         feedImplicitsInfos(implicits_, allOps_);
         Ints nameParametersFilterIndexes_ = m_.getNameParametersFilterIndexes();
@@ -2891,7 +2891,7 @@ public abstract class OperationNode {
         for (int i = IndexConstants.FIRST_INDEX; i < startOpt_; i++) {
             String wc_ = _id.getGeneFormatted().getParametersType(i);
             wc_ = wrap(i,paramLen_,vararg_,wc_);
-            CustList<ImplicitInfos> l_ = new CustList<ImplicitInfos>();
+            CustList<ClassMethodIdReturn> l_ = new CustList<ClassMethodIdReturn>();
             _id.getImplicits().add(l_);
             OperationNode operationNode_ = allOps_.get(i);
             if (_id.getGeneFormatted().getParametersRef(i)) {
@@ -2924,7 +2924,7 @@ public abstract class OperationNode {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(wc_, arg_, _page);
                 if (res_.isFoundMethod()) {
                     implicit_ = true;
-                    addImplicitInfos(l_, res_);
+                    l_.add(res_);
                     continue;
                 }
                 return false;
@@ -2954,6 +2954,8 @@ public abstract class OperationNode {
             Mapping map_ = new Mapping();
             OperationNode operationNode_ = allOps_.get(last_);
             String wc_ = _id.getGeneFormatted().getParametersType(last_);
+            CustList<ClassMethodIdReturn> l_ = new CustList<ClassMethodIdReturn>();
+            _id.getImplicits().add(l_);
             if (_id.getGeneFormatted().getParametersRef(last_)) {
                 if (!isWrapp(operationNode_)) {
                     return false;
@@ -2967,8 +2969,6 @@ public abstract class OperationNode {
             AnaClassArgumentMatching arg_ = operationNode_.getResultClass();
             map_.setArg(arg_);
             map_.getMapping().putAllMap(mapCtr_);
-            CustList<ImplicitInfos> l_ = new CustList<ImplicitInfos>();
-            _id.getImplicits().add(l_);
             if (wc_.isEmpty()) {
                 if (arg_.isVariable()) {
                     setWideInvoke(_id, true, allNotBoxUnbox_, implicit_);
@@ -2999,7 +2999,7 @@ public abstract class OperationNode {
             if (res_.isFoundMethod()) {
                 _id.setInvocation(InvocationMethod.ALL);
                 _id.setVarArgWrap(true);
-                addImplicitInfos(l_, res_);
+                l_.add(res_);
                 return true;
             }
             return false;
@@ -3015,7 +3015,7 @@ public abstract class OperationNode {
         }
         map_.setParam(wc_);
         for (int i = startOpt_; i < allArgsLen_; i++) {
-            CustList<ImplicitInfos> l_ = new CustList<ImplicitInfos>();
+            CustList<ClassMethodIdReturn> l_ = new CustList<ClassMethodIdReturn>();
             _id.getImplicits().add(l_);
             OperationNode operationNode_ = allOps_.get(i);
             if (isWrapp(operationNode_)) {
@@ -3027,7 +3027,7 @@ public abstract class OperationNode {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(wc_, a_, _page);
                 if (res_.isFoundMethod()) {
                     implicit_ = true;
-                    addImplicitInfos(l_, res_);
+                    l_.add(res_);
                     continue;
                 }
                 return false;
@@ -3036,14 +3036,6 @@ public abstract class OperationNode {
         setVarargOrImplicit(_id, implicit_);
         _id.setVarArgWrap(true);
         return true;
-    }
-
-    private static void addImplicitInfos(CustList<ImplicitInfos> _list, ClassMethodIdReturn _res) {
-        ImplicitInfos imp_ = new ImplicitInfos();
-        imp_.setIdMethod(_res.getFormattedType());
-        imp_.setMemberId(_res.getMemberId());
-        imp_.setFunction(_res.getPair());
-        _list.add(imp_);
     }
 
     private static boolean isWrapp(OperationNode _op) {

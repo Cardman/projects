@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -40,7 +41,7 @@ public final class MethodInfo implements Parametrable {
     private InvocationMethod invocation;
     private StandardMethod standardMethod;
     private NamedFunctionBlock custMethod;
-    private final CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
+    private final CustList<CustList<ClassMethodIdReturn>> implicits = new CustList<CustList<ClassMethodIdReturn>>();
     private StringList parametersNames = new StringList();
     private final Ints nameParametersFilterIndexes = new Ints();
     private final CustList<OperationNode> allOps = new CustList<OperationNode>();
@@ -255,7 +256,7 @@ public final class MethodInfo implements Parametrable {
     }
 
     @Override
-    public CustList<CustList<ImplicitInfos>> getImplicits() {
+    public CustList<CustList<ClassMethodIdReturn>> getImplicits() {
         return implicits;
     }
 

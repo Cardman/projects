@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.Identifiable;
 import code.util.CustList;
 import code.util.Ints;
@@ -30,5 +31,5 @@ public interface Parametrable {
 
     void setInvocation(InvocationMethod _inv);
     InvocationMethod getInvocation();
-    CustList<CustList<ImplicitInfos>> getImplicits();
+    CustList<CustList<ClassMethodIdReturn>> getImplicits();
 }

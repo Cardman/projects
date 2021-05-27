@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -31,7 +32,7 @@ public final class ConstructorInfo implements Parametrable {
 
     private StandardType standardType;
     private String fileName = "";
-    private final CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
+    private final CustList<CustList<ClassMethodIdReturn>> implicits = new CustList<CustList<ClassMethodIdReturn>>();
     private StringList parametersNames = new StringList();
     private NamedFunctionBlock customCtor;
     private final Ints nameParametersFilterIndexes = new Ints();
@@ -142,7 +143,7 @@ public final class ConstructorInfo implements Parametrable {
     }
 
     @Override
-    public CustList<CustList<ImplicitInfos>> getImplicits() {
+    public CustList<CustList<ClassMethodIdReturn>> getImplicits() {
         return implicits;
     }
 

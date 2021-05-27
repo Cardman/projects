@@ -2,13 +2,10 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.opers.util.ImplicitInfos;
 import code.expressionlanguage.analyze.opers.util.MemberId;
-import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -176,11 +173,6 @@ public final class AnaClassArgumentMatching {
         }
     }
 
-    public void implicitInfos(ImplicitInfos _info) {
-        getImplicits().add(_info.getIdMethod());
-        setMemberId(_info.getMemberId());
-        setFunction(_info.getFunction());
-    }
     public void implicitInfos(ClassMethodIdReturn _info) {
         implicitInfosCore(_info);
         setFunction(_info.getPair());
@@ -193,10 +185,6 @@ public final class AnaClassArgumentMatching {
     public void implicitInfosTest(ClassMethodIdReturn _info) {
         getImplicitsTest().add(_info.getFormattedType());
         setMemberIdTest(_info.getMemberId());
-    }
-    public void implicitInfosTest(OperatorConverter _info) {
-        getImplicitsTest().add(_info.getTest().getFormattedType());
-        setMemberIdTest(_info.getTest().getMemberId());
     }
     public byte getUnwrapObjectNb() {
         return unwrapObjectNb;
