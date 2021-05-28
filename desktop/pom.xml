@@ -21,7 +21,7 @@
 		<sonar.issue.ignore.multicriteria.e3.ruleKey>java:S2142</sonar.issue.ignore.multicriteria.e3.ruleKey>
 		<sonar.issue.ignore.multicriteria.e3.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e3.resourceKey>
 		<sonar.issue.ignore.multicriteria>e4</sonar.issue.ignore.multicriteria>
-		<sonar.issue.ignore.multicriteria.e4.ruleKey>java:CommentedOutCodeLine</sonar.issue.ignore.multicriteria.e4.ruleKey>
+		<sonar.issue.ignore.multicriteria.e4.ruleKey>java:S125</sonar.issue.ignore.multicriteria.e4.ruleKey>
 		<sonar.issue.ignore.multicriteria.e4.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e4.resourceKey>
 		<sonar.issue.ignore.multicriteria>e5</sonar.issue.ignore.multicriteria>
 		<sonar.issue.ignore.multicriteria.e5.ruleKey>java:S117</sonar.issue.ignore.multicriteria.e5.ruleKey>
