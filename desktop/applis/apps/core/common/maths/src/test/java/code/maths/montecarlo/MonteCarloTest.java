@@ -90,7 +90,8 @@ public class MonteCarloTest extends EquallableMathUtil {
         Rate rate_ = new Rate("-1");
         MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(1,law_.events().size());
-        assertTrue(law_.getLaw().contains(false));
+        assertTrue(law_.containsEvent(false));
+        assertTrue(!law_.containsEvent(true));
     }
 
     @Test
@@ -98,7 +99,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         Rate rate_ = new Rate("0");
         MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(1,law_.events().size());
-        assertTrue(law_.getLaw().contains(false));
+        assertTrue(law_.containsEvent(false));
     }
 
     @Test
@@ -106,7 +107,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         Rate rate_ = new Rate("2");
         MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(1,law_.events().size());
-        assertTrue(law_.getLaw().contains(true));
+        assertTrue(law_.containsEvent(true));
     }
 
     @Test
@@ -114,10 +115,12 @@ public class MonteCarloTest extends EquallableMathUtil {
         Rate rate_ = new Rate("1/4");
         MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(2,law_.events().size());
-        assertTrue(law_.getLaw().contains(true));
-        assertTrue(law_.getLaw().contains(false));
+        assertTrue(law_.containsEvent(true));
+        assertTrue(law_.containsEvent(false));
         assertEq(new LgInt("1"),law_.rate(true));
         assertEq(new LgInt("3"),law_.rate(false));
+        assertEq(new Rate("1/4"),law_.normalizedRate(true));
+        assertEq(new Rate("3/4"),law_.normalizedRate(false));
     }
 
     @Test
@@ -419,6 +422,13 @@ public class MonteCarloTest extends EquallableMathUtil {
         assertEq(new Rate(2), law_.editNumber(new LgInt(8), new DefaultGenerator()));
     }
 
+    @Test
+    public void editNumber18Test() {
+        MonteCarloBoolean law_ = new MonteCarloBoolean();
+        law_.addEvent(true, new LgInt(1));
+        law_.addEvent(false, new LgInt(1));
+        assertEq(true, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+    }
     @Test
     public void normalRate1() {
         MonteCarloString law_ = new MonteCarloString();

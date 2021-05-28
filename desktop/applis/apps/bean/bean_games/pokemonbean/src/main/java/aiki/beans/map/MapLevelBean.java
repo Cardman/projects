@@ -400,14 +400,11 @@ public class MapLevelBean extends CommonBean {
         InitializedPlace i_ = (InitializedPlace) p_;
         //p_.getLevelByCoords(coords_).get
         for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
-            if (p.getDir() != dir_) {
-                continue;
-            }
-            if (Point.eq(p.getSource(), pt_)) {
+            if (p.getDir() == dir_&&Point.eq(p.getSource(), pt_)) {
                 Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
                 getForms().put(CST_LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
                 getForms().put(CST_PLACE_MAP_INDEX, c_.getNumberPlace());
-                return CST_LEVEL;
+                break;
             }
         }
         return CST_LEVEL;
@@ -451,7 +448,7 @@ public class MapLevelBean extends CommonBean {
                 Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
                 getForms().put(CST_LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
                 getForms().put(CST_PLACE_MAP_INDEX, c_.getNumberPlace());
-                return CST_LEVEL;
+                break;
             }
         }
         return CST_LEVEL;

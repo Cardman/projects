@@ -18,7 +18,7 @@ public final class ParsedFctHeader {
     private static final String ARROW = "->";
     private final Ints offestsTypes = new Ints();
     private final Ints offestsParams = new Ints();
-    private final BooleanList parametersRef = new BooleanList();
+    private final CustList<Boolean> parametersRef = new CustList<Boolean>();
     private final StringList parametersType = new StringList();
     private final StringList parametersName = new StringList();
     private final Ints annotationsIndexes = new Ints();
@@ -292,7 +292,7 @@ public final class ParsedFctHeader {
         return parametersType;
     }
 
-    public BooleanList getParametersRef() {
+    public CustList<Boolean> getParametersRef() {
         return parametersRef;
     }
 

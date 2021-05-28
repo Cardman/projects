@@ -5,10 +5,7 @@ import code.maths.Rate;
 import code.maths.geo.Polygon;
 import code.maths.geo.RatePoint;
 import code.maths.geo.Rect;
-import code.maths.montecarlo.EventFreq;
-import code.maths.montecarlo.MonteCarloBoolean;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.maths.montecarlo.MonteCarloString;
+import code.maths.montecarlo.*;
 import code.sml.Document;
 import code.sml.core.DocumentWriterCoreUtil;
 import code.sml.Element;
@@ -106,14 +103,14 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    public static Element setBooleanMapLgInt(AbsMap<Boolean,LgInt> _object, String _fieldName, Document _document) {
+    public static Element setBooleanMapLgInt(CustList<EventFreq<Boolean>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<Boolean, LgInt> s: _object.entryList()) {
-            Element sub_ = DocumentWriterCoreUtil.setBoolean(s.getKey(), EMPTY_STRING, _document);
+        for (EventFreq<Boolean> s: _object) {
+            Element sub_ = DocumentWriterCoreUtil.setBoolean(s.getEvent(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setLgInt(s.getValue(), EMPTY_STRING, _document);
+            sub_ = setLgInt(s.getFreq(), EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
@@ -122,7 +119,7 @@ public final class DocumentWriterMathUtil {
     public static Element setMonteCarloBoolean(MonteCarloBoolean _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.appendChild(setBooleanMapLgInt(_object.getLaw(), FIELD_LAW, _document));
+        elt_.appendChild(setBooleanMapLgInt(_object.getEvents(), FIELD_LAW, _document));
         return elt_;
     }
 

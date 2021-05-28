@@ -108,6 +108,6 @@ public class ThrowerDamageLawsTest extends InitializationDataBase {
         law_.addQuickEvent(new Rate("1"), new LgInt("1"));
         thrower_.setNumberHits(new ObjectMap<TeamPosition,MonteCarloNumber>());
         thrower_.getNumberHits().put(fighter_, law_);
-        assertEq(new Rate("115/16"),thrower_.var(fighter_));
+        assertEq(new Rate("115/16"),thrower_.vr(fighter_));
     }
 }

@@ -84,7 +84,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 m_.setReturnType(retBase_);
                 m_.setAncestor(0);
                 StringList cls_ = new StringList();
-                BooleanList refs_ = new BooleanList();
+                CustList<Boolean> refs_ = new CustList<Boolean>();
                 for (String c: param_) {
                     if (StringUtil.quickEq(c, StringExpUtil.SUB_TYPE)) {
                         cls_.add(_page.getAliasObject());

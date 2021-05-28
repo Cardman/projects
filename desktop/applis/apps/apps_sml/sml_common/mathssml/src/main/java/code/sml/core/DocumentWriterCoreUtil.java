@@ -73,7 +73,7 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setBooleanList(BooleanList _object, String _fieldName, Document _document) {
+    public static Element setBooleanList(CustList<Boolean> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("bl");
         setFieldName(elt_, _fieldName);
         for (boolean s: _object) {
@@ -123,10 +123,10 @@ public final class DocumentWriterCoreUtil {
         return elt_;
     }
 
-    public static Element setListBooleanList(CustList<BooleanList> _object, String _fieldName, Document _document) {
+    public static Element setListBooleanList(CustList<CustList<Boolean>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement("l");
         setFieldName(elt_, _fieldName);
-        for (BooleanList s: _object) {
+        for (CustList<Boolean> s: _object) {
             Element sub_ = setBooleanList(s, "", _document);
             elt_.appendChild(sub_);
         }

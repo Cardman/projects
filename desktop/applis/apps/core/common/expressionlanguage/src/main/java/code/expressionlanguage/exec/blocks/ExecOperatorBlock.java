@@ -5,12 +5,13 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.BooleanList;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
 public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature {
 
-    public ExecOperatorBlock(boolean _retRef, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
+    public ExecOperatorBlock(boolean _retRef, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, CustList<Boolean> _parametersRef) {
         super(_retRef, _name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
     }
 

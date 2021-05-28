@@ -10,7 +10,7 @@ public final class BooleanFieldComparator {
 
     private int priority;
 
-    public int compare(Boolean _o1, Boolean _o2) {
+    public int compare(boolean _o1, boolean _o2) {
         if (increasing == SelectedBoolean.YES) {
             return ComparatorBoolean.cmp(_o1,_o2);
         }

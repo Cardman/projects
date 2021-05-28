@@ -159,7 +159,7 @@ public final class IdFctOperation extends LeafOperation {
     }
     public static MethodId resolveArguments(int _from, boolean _retRef, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page){
         StringList out_ = new StringList();
-        BooleanList ref_ = new BooleanList();
+        CustList<Boolean> ref_ = new CustList<Boolean>();
         int len_ = _params.size();
         int vararg_ = -1;
         int off_ = _className.indexOf('(')+1;

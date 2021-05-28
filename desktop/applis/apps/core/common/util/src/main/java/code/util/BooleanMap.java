@@ -1,6 +1,7 @@
 package code.util;
 
 
+import code.util.comparators.ComparatorBoolean;
 
 public final class BooleanMap<V> extends AbsBasicMap<Boolean,V> {
 
@@ -16,6 +17,6 @@ public final class BooleanMap<V> extends AbsBasicMap<Boolean,V> {
 
     @Override
     protected boolean matchKeys(Boolean _one, Boolean _two) {
-        return _one == _two;
+        return ComparatorBoolean.eq(_one,_two);
     }
 }

@@ -40,7 +40,7 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
             return false;
         }
         if (len_ > 0) {
-            return !sum().isZero();
+            return !isZero();
         }
         return true;
     }

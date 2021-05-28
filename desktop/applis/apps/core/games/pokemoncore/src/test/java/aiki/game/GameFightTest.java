@@ -3,6 +3,7 @@ package aiki.game;
 import aiki.db.DataBase;
 import aiki.game.fight.actions.*;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -364,12 +365,17 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(POKEMON_FOE_TARGET_ZERO, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(2, game_.getFight().getChosableFoeTargets().size());
-        assertTrue(game_.getFight().getChosableFoeTargets().get(0));
-        assertTrue(game_.getFight().getChosableFoeTargets().get(1));
+        assertTrue(getBoolVal(game_.getFight().getChosableFoeTargets(), 0));
+        assertTrue(getBoolVal(game_.getFight().getChosableFoeTargets(), 1));
         assertEq(2, game_.getFight().getChosablePlayerTargets().size());
-        assertTrue(!game_.getFight().getChosablePlayerTargets().get(0));
-        assertTrue(game_.getFight().getChosablePlayerTargets().get(1));
+        assertTrue(!getBoolVal(game_.getFight().getChosablePlayerTargets(), 0));
+        assertTrue(getBoolVal(game_.getFight().getChosablePlayerTargets(), 1));
     }
+
+    private boolean getBoolVal(IdList<BoolVal> _chosablePlayerTargets, int _i) {
+        return _chosablePlayerTargets.get(_i) == BoolVal.TRUE;
+    }
+
     @Test
     public void setFirstChosenMovePlayerTarget1(){
         DataBase data_ = initDb();
@@ -400,11 +406,11 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(POKEMON_PLAYER_TARGET_ONE, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(2, game_.getFight().getChosableFoeTargets().size());
-        assertTrue(game_.getFight().getChosableFoeTargets().get(0));
-        assertTrue(game_.getFight().getChosableFoeTargets().get(1));
+        assertTrue(getBoolVal(game_.getFight().getChosableFoeTargets(), 0));
+        assertTrue(getBoolVal(game_.getFight().getChosableFoeTargets(), 1));
         assertEq(2, game_.getFight().getChosablePlayerTargets().size());
-        assertTrue(!game_.getFight().getChosablePlayerTargets().get(0));
-        assertTrue(game_.getFight().getChosablePlayerTargets().get(1));
+        assertTrue(!getBoolVal(game_.getFight().getChosablePlayerTargets(), 0));
+        assertTrue(getBoolVal(game_.getFight().getChosablePlayerTargets(), 1));
     }
     @Test
     public void changeAction1(){

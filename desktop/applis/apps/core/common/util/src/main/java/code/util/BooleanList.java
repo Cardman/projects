@@ -1,4 +1,5 @@
 package code.util;
+import code.util.comparators.ComparatorBoolean;
 import code.util.core.IndexConstants;
 import code.util.ints.Listable;
 
@@ -29,6 +30,6 @@ public final class BooleanList extends AbEqList<Boolean> {
 
     @Override
     public boolean match(Boolean _one, Boolean _two) {
-        return _one == _two;
+        return ComparatorBoolean.eq(_one,_two);
     }
 }

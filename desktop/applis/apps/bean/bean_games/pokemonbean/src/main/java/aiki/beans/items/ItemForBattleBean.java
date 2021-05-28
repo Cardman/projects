@@ -453,9 +453,6 @@ public class ItemForBattleBean extends ItemBean {
         if (lawForAttackFirst.isZero()) {
             return Rate.zero();
         }
-        if (!lawForAttackFirst.containsEvent(true)) {
-            return Rate.zero();
-        }
         return lawForAttackFirst.normalizedRate(true);
     }
     public boolean determinated() {

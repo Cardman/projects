@@ -49,7 +49,7 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
     public MethodId getId() {
         String name_ = getName();
         StringList pTypes_ = new StringList(importedParamType);
-        return new MethodId(isRetRef(), kind, name_, pTypes_,new BooleanList(false), false);
+        return new MethodId(isRetRef(), kind, name_, pTypes_,new CustList<Boolean>(false), false);
     }
 
     public String getImportedParamType() {

@@ -5,8 +5,14 @@ import code.util.CollCapacity;
 import code.util.CustList;
 
 public final class MonteCarloList<E> extends AbMonteCarlo<E> {
-    private final CustList<EventFreq<E>> events = new CustList<EventFreq<E>>();
+    private final CustList<EventFreq<E>> events;
 
+    public MonteCarloList() {
+        events = new CustList<EventFreq<E>>();
+    }
+    public MonteCarloList(CollCapacity _capacity) {
+        events = new CustList<EventFreq<E>>(_capacity);
+    }
     @Override
     public E getEvent(int _index) {
         return events.get(_index).getEvent();

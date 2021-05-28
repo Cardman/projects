@@ -49,7 +49,7 @@ public final class CheckerGameTarotWithRules {
             _loadedGame.setError(BAD_COUNT_FOR_DEAL);
             return;
         }
-        for (BooleanList b: _loadedGame.getConfidence()) {
+        for (CustList<Boolean> b: _loadedGame.getConfidence()) {
             if (b.size() != _loadedGame.getNombreDeJoueurs()) {
                 _loadedGame.setError(BAD_COUNT_FOR_DEAL);
                 return;

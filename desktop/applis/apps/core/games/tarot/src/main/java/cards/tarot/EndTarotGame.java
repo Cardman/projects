@@ -40,9 +40,9 @@ public final class EndTarotGame {
     /** Ce sont les miseres annoncees par le(s) joueur(s) */
     private final CustList<EnumList<Miseres>> declaresMiseres;
     /** Ce sont les primes annoncees par le(s) joueur(s) */
-    private final BooleanList declaresSlam;
+    private final CustList<Boolean> declaresSlam;
     /** Ce sont les petits au bout par le(s) joueur(s) */
-    private final BooleanList smallBound;
+    private final CustList<Boolean> smallBound;
     private final CustList<HandTarot> wonPlayersTeam = new CustList<HandTarot>();
     private final Ints firstTrick = new Ints();
     private final Shorts oulderPoints = new Shorts();
@@ -53,7 +53,7 @@ public final class EndTarotGame {
     public EndTarotGame(GameTarotTeamsRelation _relations, CustList<TrickTarot> _tricks,
                         CustList<EnumList<Handfuls>> _declaresHandfuls,
                         CustList<EnumList<Miseres>> _declaresMiseres,
-                        BooleanList _declaresSlam, BooleanList _smallBound) {
+                        CustList<Boolean> _declaresSlam, CustList<Boolean> _smallBound) {
         relations = _relations;
         tricks = _tricks;
         declaresHandfuls = _declaresHandfuls;
@@ -254,7 +254,7 @@ public final class EndTarotGame {
         return scorePreneurSansAnnonces(_differenceScorePreneur, _base, nombreJoueurs_, taker_, called_, smallBound);
     }
 
-    static short scorePreneurSansAnnonces(short _differenceScorePreneur, short _base, byte _nombreJoueurs, byte _taker, Bytes _called, BooleanList _smallBound) {
+    static short scorePreneurSansAnnonces(short _differenceScorePreneur, short _base, byte _nombreJoueurs, byte _taker, Bytes _called, CustList<Boolean> _smallBound) {
         short scorePreneurSansAnnonces_ = 0;
         if (_base != 0) {
             scorePreneurSansAnnonces_ = (short) (_base + _differenceScorePreneur);
@@ -341,7 +341,7 @@ public final class EndTarotGame {
         }
         return scoreSmallBound(nombreJoueurs_,smallBound,st_);
     }
-    static String scoreSmallBound(byte _nombreJoueurs, BooleanList _smallBound, CustList<Role> _status) {
+    static String scoreSmallBound(byte _nombreJoueurs, CustList<Boolean> _smallBound, CustList<Role> _status) {
         byte p_ = joueurPetitAuBout(_nombreJoueurs, _smallBound);
         if (p_ < 0) {
             return "0";
@@ -356,14 +356,14 @@ public final class EndTarotGame {
         byte nombreJoueurs_ = relations.getNombreDeJoueurs();
         return joueurPetitAuBout(nombreJoueurs_,smallBound,_nicknames);
     }
-    static String joueurPetitAuBout(byte _nombreJoueurs, BooleanList _smallBound, StringList _nicknames) {
+    static String joueurPetitAuBout(byte _nombreJoueurs, CustList<Boolean> _smallBound, StringList _nicknames) {
         byte p_ = joueurPetitAuBout(_nombreJoueurs, _smallBound);
         if (p_ < 0) {
             return "";
         }
         return _nicknames.get(p_);
     }
-    static byte joueurPetitAuBout(byte _nombreJoueurs, BooleanList _smallBound) {
+    static byte joueurPetitAuBout(byte _nombreJoueurs, CustList<Boolean> _smallBound) {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < _nombreJoueurs; joueur_++) {
             if (_smallBound.get(joueur_)) {
                 return joueur_;
@@ -428,7 +428,7 @@ public final class EndTarotGame {
         return additionnalBonusesAttack(_bid, taker_, declaresSlam, slamTaker);
     }
 
-    static short additionnalBonusesAttack(BidTarot _bid, byte _taker, BooleanList _declaresSlam, boolean _slamTaker) {
+    static short additionnalBonusesAttack(BidTarot _bid, byte _taker, CustList<Boolean> _declaresSlam, boolean _slamTaker) {
         boolean declSlam_ = _declaresSlam.get(_taker);
         short primesSupplementaires_ =0;
         if (_bid == BidTarot.SLAM || declSlam_) {
@@ -1464,7 +1464,7 @@ public final class EndTarotGame {
         return calculSmallLastTurnScorePlayer(_player, relations, smallBound);
     }
 
-    static CustList<Shorts> calculSmallLastTurnScorePlayer(byte _player, GameTarotTeamsRelation _relations, BooleanList _smallBound) {
+    static CustList<Shorts> calculSmallLastTurnScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<Boolean> _smallBound) {
         byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
         CustList<Shorts> scores1_ = new CustList<Shorts>();
         for (byte joueur2_ = IndexConstants.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
@@ -1551,7 +1551,7 @@ public final class EndTarotGame {
                                         int _sumLoc, GameTarotTeamsRelation _relations,
                                         CustList<EnumList<Handfuls>> _declaresHandfuls,
                                         CustList<EnumList<Miseres>> _declaresMiseres,
-                                        BooleanList _smallBound) {
+                                        CustList<Boolean> _smallBound) {
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         Shorts scores_ = new Shorts();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_ < nombreJoueurs_; joueur_++) {

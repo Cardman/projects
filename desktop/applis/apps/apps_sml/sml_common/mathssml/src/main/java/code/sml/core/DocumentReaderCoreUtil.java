@@ -54,10 +54,10 @@ public final class DocumentReaderCoreUtil {
         return list_;
     }
 
-    public static BooleanList getBooleanList(Element _elt) {
+    public static CustList<Boolean> getBooleanList(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        BooleanList list_ = new BooleanList(new CollCapacity(len_));
+        CustList<Boolean> list_ = new CustList<Boolean>(new CollCapacity(len_));
         for (Element c: childElements_) {
             list_.add(getBoolean(c));
         }
@@ -104,10 +104,10 @@ public final class DocumentReaderCoreUtil {
         return list_;
     }
 
-    public static CustList<BooleanList> getListBooleanList(Element _elt) {
+    public static CustList<CustList<Boolean>> getListBooleanList(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
-        CustList<BooleanList> list_ = new CustList<BooleanList>(new CollCapacity(len_));
+        CustList<CustList<Boolean>> list_ = new CustList<CustList<Boolean>>(new CollCapacity(len_));
         for (Element c: childElements_) {
             list_.add(getBooleanList(c));
         }
@@ -140,7 +140,7 @@ public final class DocumentReaderCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         StringMap<Boolean> map_ = new StringMap<Boolean>(cap_);
         StringList keys_ = new StringList(cap_);
-        BooleanList values_ = new BooleanList(cap_);
+        CustList<Boolean> values_ = new CustList<Boolean>(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getString(c));
@@ -346,7 +346,7 @@ public final class DocumentReaderCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         ShortMap<Boolean> map_ = new ShortMap<Boolean>(cap_);
         Shorts keys_ = new Shorts(cap_);
-        BooleanList values_ = new BooleanList(cap_);
+        CustList<Boolean> values_ = new CustList<Boolean>(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getShort(c));
@@ -386,7 +386,7 @@ public final class DocumentReaderCoreUtil {
         CollCapacity cap_ = new CollCapacity(len_/2);
         IntMap<Boolean> map_ = new IntMap<Boolean>(cap_);
         Ints keys_ = new Ints(cap_);
-        BooleanList values_ = new BooleanList(cap_);
+        CustList<Boolean> values_ = new CustList<Boolean>(cap_);
         for (Element c: childElements_) {
             if (hasKey(c)) {
                 keys_.add(getInteger(c));

@@ -10,11 +10,11 @@ public final class GameTarotTeamsRelation {
 
     private final byte taker;
     private final Bytes calledPlayers;
-    private final CustList<BooleanList> confidence;
+    private final CustList<CustList<Boolean>> confidence;
     private final RulesTarot rules;
 
     public GameTarotTeamsRelation(byte _taker, Bytes _calledPlayers,
-                                  CustList<BooleanList> _confidence, RulesTarot _rules) {
+                                  CustList<CustList<Boolean>> _confidence, RulesTarot _rules) {
         taker = _taker;
         calledPlayers = _calledPlayers;
         confidence = _confidence;

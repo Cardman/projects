@@ -13,7 +13,7 @@ public final class EndBeloteGame {
     private GameBeloteTeamsRelation relations;
     private CustList<DeclaresBelote> declares;
     private Shorts declaresBeloteRebelote;
-    private BooleanList wonLastTrick;
+    private CustList<Boolean> wonLastTrick;
     /**Le contrat permet de dire quel va etre le deroulement
      de la partie*/
     private BidBeloteSuit bid;
@@ -21,7 +21,7 @@ public final class EndBeloteGame {
     private CustList<TrickBelote> tricks;
 
     public EndBeloteGame(GameBeloteTeamsRelation _relations, CustList<DeclaresBelote> _declares,
-                         Shorts _declaresBeloteRebelote, BooleanList _wonLastTrick,
+                         Shorts _declaresBeloteRebelote, CustList<Boolean> _wonLastTrick,
                          BidBeloteSuit _bid, CustList<TrickBelote> _tricks) {
         relations = _relations;
         declares = _declares;

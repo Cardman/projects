@@ -19,15 +19,15 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
     private final CustList<CustList<RendDynOperationNode>> opExp;
 
     private final StringMap<String> preformatted;
-    private BooleanList quoted = new BooleanList();
-    private BooleanList escaped = new BooleanList();
+    private CustList<Boolean> quoted = new CustList<Boolean>();
+    private CustList<Boolean> escaped = new CustList<Boolean>();
     private StringMap<CustList<CustList<RendDynOperationNode>>> callsExps = new StringMap<CustList<CustList<RendDynOperationNode>>>();
     private StringList args = new StringList();
     private StringMap<Document> locDoc = new StringMap<Document>();
     private StringList varNames = new StringList();
 
 
-    public RendMessage(int _offsetTrim, Element _elt, CustList<CustList<RendDynOperationNode>> _opExp, StringMap<String> _preformatted, BooleanList _quoted, BooleanList _escaped,
+    public RendMessage(int _offsetTrim, Element _elt, CustList<CustList<RendDynOperationNode>> _opExp, StringMap<String> _preformatted, CustList<Boolean> _quoted, CustList<Boolean> _escaped,
                        StringMap<CustList<CustList<RendDynOperationNode>>> _callsExps, StringList _args, StringMap<Document> _locDoc, StringList _varNames) {
         super(_offsetTrim);
         this.elt = _elt;

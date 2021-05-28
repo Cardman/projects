@@ -1,12 +1,12 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.AbsBk;
-import code.util.BooleanList;
+import code.util.CustList;
 import code.util.IdList;
 
 public final class BlocksFlags {
     private final IdList<AbsBk> blocks = new IdList<AbsBk>();
-    private final BooleanList flags = new BooleanList();
+    private final CustList<Boolean> flags = new CustList<Boolean>();
 
     public boolean getVal(AbsBk _reach) {
         int i_ = index(_reach);

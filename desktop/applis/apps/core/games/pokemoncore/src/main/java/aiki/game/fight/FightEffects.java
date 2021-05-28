@@ -1590,7 +1590,7 @@ final class FightEffects {
             degatsUnCoup_.getVal(UsefulValueLaw.MINI).addNb(throwerDamageLaws_.min(c));
             degatsUnCoup_.getVal(UsefulValueLaw.MAXI).addNb(throwerDamageLaws_.max(c));
             degatsUnCoup_.getVal(UsefulValueLaw.MOY).addNb(throwerDamageLaws_.avg(c));
-            degatsUnCoup_.getVal(UsefulValueLaw.VAR).addNb(throwerDamageLaws_.var(c));
+            degatsUnCoup_.getVal(UsefulValueLaw.VAR).addNb(throwerDamageLaws_.vr(c));
         }
         return degatsUnCoup_;
     }

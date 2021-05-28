@@ -2293,7 +2293,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
     private MethodId resolveArguments(boolean _retRef,int _from, String _fromType, MethodAccessKind _static, StringList _params, AnalyzedPageEl _page){
         StringList out_ = new StringList();
-        BooleanList ref_ = new BooleanList();
+        CustList<Boolean> ref_ = new CustList<Boolean>();
         int len_ = _params.size();
         int vararg_ = -1;
         int off_ = className.indexOf('(')+1;
@@ -2346,7 +2346,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
     private MethodId resolveArguments(int _from, StringList _params, AnalyzedPageEl _page){
         StringList out_ = new StringList();
-        BooleanList ref_ = new BooleanList();
+        CustList<Boolean> ref_ = new CustList<Boolean>();
         int len_ = _params.size();
         int vararg_ = -1;
         int offset_ = className.indexOf('(')+1;

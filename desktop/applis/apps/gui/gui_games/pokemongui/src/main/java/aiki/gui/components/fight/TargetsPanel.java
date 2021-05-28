@@ -10,6 +10,7 @@ import code.gui.TextLabel;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public class TargetsPanel {
@@ -30,28 +31,30 @@ public class TargetsPanel {
         teamPl_.putAllMap(_facade.getUnionFrontTeam());
         int i_;
         i_ = IndexConstants.FIRST_INDEX;
-        BooleanList chosablePl_ = _facade.getFight().getChosablePlayerTargets();
+        IdList<BoolVal> chosablePl_ = _facade.getFight().getChosablePlayerTargets();
         for (byte k: teamPl_.getKeys()) {
             MiniTargetLabel target_ = new MiniTargetLabel();
             target_.set(_facade, teamPl_.getVal(k).getName(), i_);
-            if (chosablePl_.get(k)) {
+            boolean match_ = chosablePl_.get(k) == BoolVal.TRUE;
+            if (match_) {
                 target_.addMouseListener(new SelectPlayerTarget(_battle, k, i_));
             }
-            target_.setSelectable(chosablePl_.get(k));
+            target_.setSelectable(match_);
             playerTargets.add(target_);
             i_++;
         }
         //TreeMap<Byte,Fighter> teamFoe_ = _facade.getFoeFrontTeam();
         i_ = IndexConstants.FIRST_INDEX;
         ByteTreeMap<Fighter> teamFoe_ = _facade.getFoeFrontTeam();
-        BooleanList chosableFoe_ = _facade.getFight().getChosableFoeTargets();
+        IdList<BoolVal> chosableFoe_ = _facade.getFight().getChosableFoeTargets();
         for (byte k: teamFoe_.getKeys()) {
             MiniTargetLabel target_ = new MiniTargetLabel();
             target_.set(_facade, teamFoe_.getVal(k).getName(), i_);
-            if (chosableFoe_.get(k)) {
+            boolean match_ = chosableFoe_.get(k) == BoolVal.TRUE;
+            if (match_) {
                 target_.addMouseListener(new SelectFoeTarget(_battle, k, i_));
             }
-            target_.setSelectable(chosableFoe_.get(k));
+            target_.setSelectable(match_);
             foeTargets.add(target_);
             i_++;
         }

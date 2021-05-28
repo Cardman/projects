@@ -5,6 +5,7 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.BooleanList;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -20,23 +21,23 @@ public final class ConstructorId implements Identifiable {
     private final String name;
 
     private final StringList classNames;
-    private final BooleanList refParams;
+    private final CustList<Boolean> refParams;
     private final boolean vararg;
 
     public ConstructorId(String _name, StringList _classNames, boolean _vararg) {
         name = StringUtil.nullToEmpty(_name);
         vararg = _vararg;
-        refParams = new BooleanList();
+        refParams = new CustList<Boolean>();
         classNames = new StringList();
         for (String s: _classNames) {
             classNames.add(StringUtil.nullToEmpty(s));
             refParams.add(false);
         }
     }
-    public ConstructorId(String _name, StringList _classNames,BooleanList _refParams, boolean _vararg) {
+    public ConstructorId(String _name, StringList _classNames, CustList<Boolean> _refParams, boolean _vararg) {
         name = StringUtil.nullToEmpty(_name);
         vararg = _vararg;
-        refParams = new BooleanList();
+        refParams = new CustList<Boolean>();
         classNames = new StringList();
         int min_ = Math.min(_classNames.size(),_refParams.size());
         for (String s: _classNames.left(min_)) {
@@ -98,7 +99,7 @@ public final class ConstructorId implements Identifiable {
         int m_ = Math.min(classNames.size(),refParams.size());
         for (int i = 0; i < m_; i++) {
             String s_ = "";
-            if (refParams.get(i)) {
+            if (getParametersRef(i)) {
                 s_ = "~";
             }
             cls_.add(StringUtil.concat(s_,classNames.get(i)));

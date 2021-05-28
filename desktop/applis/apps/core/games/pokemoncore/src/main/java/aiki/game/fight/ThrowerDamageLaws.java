@@ -34,7 +34,7 @@ public class ThrowerDamageLaws {
         return min_;
     }
 
-    public Rate var(TeamPosition _fighter) {
+    public Rate vr(TeamPosition _fighter) {
         Rate avgRandomBase_ = randomBase.getVal(_fighter).getAvg();
         Rate varRandomBase_ = randomBase.getVal(_fighter).getVar();
         Rate avgCriticalHit_ = criticalHit.getVal(_fighter).getAvg();

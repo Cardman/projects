@@ -6,6 +6,7 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.util.BooleanList;
 import code.util.Bytes;
+import code.util.CustList;
 import code.util.EnumList;
 
 public interface SimulatingTarot {
@@ -35,7 +36,7 @@ public interface SimulatingTarot {
 
     void mergedDog(byte _taker, HandTarot _nextHand);
 
-    void declareSlam(BooleanList _slam,byte _taker,BidTarot _bid);
+    void declareSlam(CustList<Boolean> _slam, byte _taker, BidTarot _bid);
 
     void firstCardPlaying(byte _joueur);
 
@@ -53,7 +54,7 @@ public interface SimulatingTarot {
 
     void displayTrickWinner(byte _trickWinner);
 
-    void displaySmallBound(BooleanList _smallBound, byte _trickWinner);
+    void displaySmallBound(CustList<Boolean> _smallBound, byte _trickWinner);
 
     void clearCarpet(byte _nbPlayers);
 

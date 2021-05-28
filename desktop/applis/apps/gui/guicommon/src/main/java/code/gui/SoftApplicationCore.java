@@ -52,7 +52,6 @@ public abstract class SoftApplicationCore {
         String language_ = loadLanguage(_dir);
         if (language_.isEmpty()) {
             proponeLanguage(_dir, _args, _icon);
-            return language_;
         }
         return language_;
     }

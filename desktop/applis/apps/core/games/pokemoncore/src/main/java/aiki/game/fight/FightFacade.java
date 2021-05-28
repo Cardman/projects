@@ -41,7 +41,6 @@ import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -54,6 +53,7 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorBoolean;
 import code.util.comparators.NaturalComparator;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -792,8 +792,8 @@ public final class FightFacade {
                 _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());
                 _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
                 _fight.setSelectedActionCurFighter(ActionType.NOTHING);
-                _fight.setChosableFoeTargets(new BooleanList());
-                _fight.setChosablePlayerTargets(new BooleanList());
+                _fight.setChosableFoeTargets(new IdList<BoolVal>());
+                _fight.setChosablePlayerTargets(new IdList<BoolVal>());
                 _fight.setChosenIndexFront(Fighter.BACK);
                 _fight.setChosenSubstitute(Fighter.BACK);
                 _fight.setChosenFoeTarget(Fighter.BACK);
@@ -819,8 +819,8 @@ public final class FightFacade {
             _fight.setChosenSubstitute(Fighter.BACK);
             _fight.setChosenFoeTarget(Fighter.BACK);
             _fight.setChosenPlayerTarget(Fighter.BACK);
-            _fight.setChosableFoeTargets(new BooleanList());
-            _fight.setChosablePlayerTargets(new BooleanList());
+            _fight.setChosableFoeTargets(new IdList<BoolVal>());
+            _fight.setChosablePlayerTargets(new IdList<BoolVal>());
             _fight.getPossibleActionsCurFighter().clear();
             _fight.setChosenMoveFront(DataBase.EMPTY_STRING);
             _fight.setChosenHealingMove(DataBase.EMPTY_STRING);
@@ -897,8 +897,8 @@ public final class FightFacade {
             if (NumberUtil.eq(substitute_, Fighter.BACK)) {
                 _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
                 _fight.setSelectedActionCurFighter(ActionType.NOTHING);
-                _fight.setChosableFoeTargets(new BooleanList());
-                _fight.setChosablePlayerTargets(new BooleanList());
+                _fight.setChosableFoeTargets(new IdList<BoolVal>());
+                _fight.setChosablePlayerTargets(new IdList<BoolVal>());
                 _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());
                 _fight.setChosenIndexBack(Fighter.BACK);
                 _fight.setChosenSubstitute(Fighter.BACK);
@@ -943,8 +943,8 @@ public final class FightFacade {
         if (sub_ == Fighter.BACK) {
             _fight.setCurrentFighterMoves(new NatStringTreeMap<ChosenMoveInfos>());
             _fight.setSelectedActionCurFighter(ActionType.NOTHING);
-            _fight.setChosableFoeTargets(new BooleanList());
-            _fight.setChosablePlayerTargets(new BooleanList());
+            _fight.setChosableFoeTargets(new IdList<BoolVal>());
+            _fight.setChosablePlayerTargets(new IdList<BoolVal>());
             _fight.setPossibleActionsCurFighter(new EnumList<ActionType>());
             _fight.setChosenIndexBack(Fighter.BACK);
             _fight.setChosenSubstitute(Fighter.BACK);
@@ -1088,8 +1088,8 @@ public final class FightFacade {
         if (fighters_.isEmpty()) {
             return;
         }
-        BooleanList playerTargets_;
-        BooleanList foeTargets_;
+        IdList<BoolVal> playerTargets_;
+        IdList<BoolVal> foeTargets_;
         initChosableTargets(_fight, index_, _move, _diff, _import);
         playerTargets_ = _fight.getChosablePlayerTargets();
         foeTargets_ = _fight.getChosableFoeTargets();
@@ -1100,9 +1100,9 @@ public final class FightFacade {
             return;
         }
         Ints possiblePlayerChoices_;
-        possiblePlayerChoices_ = playerTargets_.indexesOfBool(true);
+        possiblePlayerChoices_ = playerTargets_.indexesOfObj(BoolVal.TRUE);
         Ints possibleFoeChoices_;
-        possibleFoeChoices_ = foeTargets_.indexesOfBool(true);
+        possibleFoeChoices_ = foeTargets_.indexesOfObj(BoolVal.TRUE);
         _fight.setChosenMoveFront(_move);
         if (possiblePlayerChoices_.isEmpty() && possibleFoeChoices_.isEmpty()) {
             setFirstChosenMove(_fight, index_, _move);
@@ -1134,10 +1134,10 @@ public final class FightFacade {
     static void initChosableTargets(Fight _fight, byte _index, String _move, Difficulty _diff, DataBase _import) {
         MoveData move_ = _import.getMove(_move);
         if (!move_.getTargetChoice().isWithChoice()) {
-            BooleanList playerTargets_;
-            playerTargets_ = new BooleanList();
-            BooleanList foeTargets_;
-            foeTargets_ = new BooleanList();
+            IdList<BoolVal> playerTargets_;
+            playerTargets_ = new IdList<BoolVal>();
+            IdList<BoolVal> foeTargets_;
+            foeTargets_ = new IdList<BoolVal>();
             _fight.setChosenMoveFront(_move);
             _fight.setChosableFoeTargets(foeTargets_);
             _fight.setChosablePlayerTargets(playerTargets_);
@@ -1147,10 +1147,10 @@ public final class FightFacade {
         Bytes fighters_ = _fight.getUserTeam().fightersAtCurrentPlaceIndex(_index, true);
         TeamPosition f_ = Fight.toUserFighter(fighters_.first());
         byte groundPlace_ = _fight.getFighter(f_).getGroundPlace();
-        BooleanList playerTargets_;
-        playerTargets_ = new BooleanList();
-        BooleanList foeTargets_;
-        foeTargets_ = new BooleanList();
+        IdList<BoolVal> playerTargets_;
+        playerTargets_ = new IdList<BoolVal>();
+        IdList<BoolVal> foeTargets_;
+        foeTargets_ = new IdList<BoolVal>();
         Bytes playerFightersTakenPlace_;
         playerFightersTakenPlace_ = new Bytes();
         ByteMap<Boolean> playerFightersPlace_;
@@ -1161,7 +1161,7 @@ public final class FightFacade {
             Bytes fightersKeys_ = _fight.getUserTeam().fightersAtCurrentPlaceIndex(b, false);
             boolean used_ = !fightersKeys_.isEmpty();
             playerFightersPlace_.put(b, used_);
-            playerTargets_.add(false);
+            playerTargets_.add(BoolVal.FALSE);
             if (used_) {
                 playerFightersTakenPlace_.add(b);
             }
@@ -1175,7 +1175,7 @@ public final class FightFacade {
             Bytes fightersKeys_ = _fight.getFoeTeam().fightersAtCurrentPlaceIndex(b, false);
             boolean used_ = !fightersKeys_.isEmpty();
             foeFightersPlace_.put(b, used_);
-            foeTargets_.add(false);
+            foeTargets_.add(BoolVal.FALSE);
             if (used_) {
                 foeFightersTakenPlace_.add(b);
             }
@@ -1184,7 +1184,7 @@ public final class FightFacade {
 //            for (byte k: playerFightersPlace_.getKeys(true))
             for (byte k: playerFightersTakenPlace_) {
 //                playerTargets_.set(k,!Numbers.eq(k, _index));
-                playerTargets_.set(k,!NumberUtil.eq(k, groundPlace_));
+                playerTargets_.set(k, wrap(!NumberUtil.eq(k, groundPlace_)));
             }
         } else if (move_.getTargetChoice() == TargetChoice.ADJ_UNIQ) {
             EqList<TeamPosition> list_;
@@ -1192,43 +1192,53 @@ public final class FightFacade {
             for (TeamPosition f: list_) {
                 Fighter partner_ = _fight.getFighter(f);
                 byte place_ = partner_.getGroundPlace();
-                playerTargets_.set(place_, true);
+                playerTargets_.set(place_, BoolVal.TRUE);
             }
             list_ = FightOrder.closestFigthersFoeTeam(_fight, f_, _diff);
             for (TeamPosition f: list_) {
                 Fighter partner_ = _fight.getFighter(f);
                 byte place_ = partner_.getGroundPlace();
-                foeTargets_.set(place_, true);
+                foeTargets_.set(place_, BoolVal.TRUE);
             }
         } else if (move_.getTargetChoice() == TargetChoice.UNIQUE_IMPORTE) {
 //            for (byte k: playerFightersPlace_.getKeys(true))
             for (byte k: playerFightersTakenPlace_) {
-                playerTargets_.set(k, true);
+                playerTargets_.set(k, BoolVal.TRUE);
             }
 //            for (byte k: foeFightersPlace_.getKeys(true))
             for (byte k: foeFightersTakenPlace_) {
-                foeTargets_.set(k, true);
+                foeTargets_.set(k, BoolVal.TRUE);
             }
         } else if (move_.getTargetChoice() == TargetChoice.AUTRE_UNIQ) {
 //            for (byte k: playerFightersPlace_.getKeys(true))
             for (byte k: playerFightersTakenPlace_) {
 //                playerTargets_.set(k,!Numbers.eq(k, _index));
-                playerTargets_.set(k,!NumberUtil.eq(k, groundPlace_));
+                playerTargets_.set(k, wrap(!NumberUtil.eq(k, groundPlace_)));
             }
 //            for (byte k: foeFightersPlace_.getKeys(true))
             for (byte k: foeFightersTakenPlace_) {
-                foeTargets_.set(k, true);
+                foeTargets_.set(k, BoolVal.TRUE);
             }
         } else {
             //ANY_FOE
 //            for (byte k: foeFightersPlace_.getKeys(true))
             for (byte k: foeFightersTakenPlace_) {
-                foeTargets_.set(k, true);
+                foeTargets_.set(k, BoolVal.TRUE);
             }
         }
         _fight.setChosenMoveFront(_move);
         _fight.setChosableFoeTargets(foeTargets_);
         _fight.setChosablePlayerTargets(playerTargets_);
+    }
+
+    private static BoolVal wrap(boolean _true) {
+        BoolVal val_;
+        if (_true) {
+            val_ = BoolVal.TRUE;
+        } else {
+            val_ = BoolVal.FALSE;
+        }
+        return val_;
     }
 
     /** After chosing a fighter among the user's team,
@@ -2568,8 +2578,8 @@ public final class FightFacade {
         _fight.setDamageKo(Rate.zero());
         _fight.setOrderedFighters(new EqList<TeamPosition>());
         _fight.setRemainingFighters(new EqList<TeamPosition>());
-        _fight.setChosablePlayerTargets(new BooleanList());
-        _fight.setChosableFoeTargets(new BooleanList());
+        _fight.setChosablePlayerTargets(new IdList<BoolVal>());
+        _fight.setChosableFoeTargets(new IdList<BoolVal>());
         _fight.setChosenFoeTarget(Fighter.BACK);
         _fight.setChosenPlayerTarget(Fighter.BACK);
         _fight.setChosenIndexBack(Fighter.BACK);

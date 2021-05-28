@@ -46,13 +46,8 @@ import code.gui.events.ClosingChildFrameEvent;
 import code.maths.Rate;
 import code.scripts.messages.aiki.MessPkGr;
 import code.sml.util.ResourcesMessagesUtil;
-import code.util.BooleanList;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -1364,9 +1359,9 @@ public class Battle extends ChildFrame {
             } else {
                 targetsPanel.removeAll();
             }
-            BooleanList chosablePlayer_ = facade.getFight().getChosablePlayerTargets();
-            BooleanList chosableFoe_ = facade.getFight().getChosableFoeTargets();
-            if (chosablePlayer_.indexesOfBool(true).size() + chosableFoe_.indexesOfBool(true).size() > DataBase.ONE_POSSIBLE_CHOICE) {
+            IdList<BoolVal> chosablePlayer_ = facade.getFight().getChosablePlayerTargets();
+            IdList<BoolVal> chosableFoe_ = facade.getFight().getChosableFoeTargets();
+            if (chosablePlayer_.indexesOfObj(BoolVal.TRUE).size() + chosableFoe_.indexesOfObj(BoolVal.TRUE).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
                 TextLabel header_ = new TextLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, BorderLayout.NORTH);
@@ -1394,9 +1389,9 @@ public class Battle extends ChildFrame {
             } else {
                 targetsPanel.removeAll();
             }
-            BooleanList foeTargets_ = facade.getFight().getChosableFoeTargets();
-            BooleanList plTargets_ = facade.getFight().getChosablePlayerTargets();
-            if (foeTargets_.indexesOfBool(true).size() + plTargets_.indexesOfBool(true).size() > DataBase.ONE_POSSIBLE_CHOICE) {
+            IdList<BoolVal> foeTargets_ = facade.getFight().getChosableFoeTargets();
+            IdList<BoolVal> plTargets_ = facade.getFight().getChosablePlayerTargets();
+            if (foeTargets_.indexesOfObj(BoolVal.TRUE).size() + plTargets_.indexesOfObj(BoolVal.TRUE).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
                 TextLabel header_ = new TextLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, BorderLayout.NORTH);

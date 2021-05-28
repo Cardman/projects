@@ -20,8 +20,8 @@ public final class AnaRendMessage extends AnaRendParentBlock {
     private CustList<OperationNode> roots;
 
     private StringMap<String> preformatted;
-    private final BooleanList quoted = new BooleanList();
-    private final BooleanList escaped = new BooleanList();
+    private final CustList<Boolean> quoted = new CustList<Boolean>();
+    private final CustList<Boolean> escaped = new CustList<Boolean>();
     private final StringMap<CustList<OperationNode>> callsRoots = new StringMap<CustList<OperationNode>>();
     private final StringList args = new StringList();
     private final StringMap<Document> locDoc = new StringMap<Document>();
@@ -134,11 +134,11 @@ public final class AnaRendMessage extends AnaRendParentBlock {
         return varNames;
     }
 
-    public BooleanList getEscaped() {
+    public CustList<Boolean> getEscaped() {
         return escaped;
     }
 
-    public BooleanList getQuoted() {
+    public CustList<Boolean> getQuoted() {
         return quoted;
     }
 

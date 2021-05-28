@@ -32,7 +32,7 @@ public final class GameBeloteTest extends CommonGameBelote {
         g_.setDeal(d_);
         g_.setDeclares(new CustList<DeclareHandBelote>());
         g_.setDeclaresBeloteRebelote(new CustList<HandBelote>());
-        g_.setWonLastTrick(new BooleanList(true));
+        g_.setWonLastTrick(new CustList<Boolean>(true));
         g_.jouer(CardBelote.WHITE);
         h_ = HandBelote.pileBase();
         assertTrue(h_.validStack());

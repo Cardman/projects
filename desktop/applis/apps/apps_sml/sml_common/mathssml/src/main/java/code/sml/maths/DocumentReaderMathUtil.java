@@ -5,10 +5,7 @@ import code.maths.Rate;
 import code.maths.geo.Polygon;
 import code.maths.geo.RatePoint;
 import code.maths.geo.Rect;
-import code.maths.montecarlo.EventFreq;
-import code.maths.montecarlo.MonteCarloBoolean;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.maths.montecarlo.MonteCarloString;
+import code.maths.montecarlo.*;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
@@ -124,12 +121,12 @@ public final class DocumentReaderMathUtil {
         return map_;
     }
 
-    public static BooleanMap<LgInt> getBooleanMapLgInt(Element _elt) {
+    public static MonteCarloBoolean getBooleanMapLgInt(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        BooleanMap<LgInt> map_ = new BooleanMap<LgInt>(cap_);
-        BooleanList keys_ = new BooleanList(cap_);
+        MonteCarloBoolean map_ = new MonteCarloBoolean(cap_);
+        CustList<Boolean> keys_ = new CustList<Boolean>(cap_);
         CustList<LgInt> values_ = new CustList<LgInt>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
@@ -140,7 +137,7 @@ public final class DocumentReaderMathUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = IndexConstants.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.addEvent(keys_.get(i), values_.get(i));
         }
         return map_;
     }
@@ -149,11 +146,10 @@ public final class DocumentReaderMathUtil {
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
         MonteCarloBoolean law_ = new MonteCarloBoolean(cap_);
-        law_.setLaw(new BooleanMap<LgInt>());
         for (Element c: childElements_) {
             String fieldName_ = c.getAttribute(ATTR_FIELD);
             if (StringUtil.quickEq(fieldName_, FIELD_LAW)) {
-                law_.setLaw(getBooleanMapLgInt(c));
+                law_ = getBooleanMapLgInt(c);
             }
         }
         return law_;

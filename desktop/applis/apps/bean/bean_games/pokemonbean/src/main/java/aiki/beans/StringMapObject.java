@@ -94,7 +94,7 @@ public final class StringMapObject {
         mapString.put(_key, _v);
     }
 
-    public void put(String _key, Boolean _v) {
+    public void put(String _key, boolean _v) {
         mapBoolean.put(_key, _v);
     }
 

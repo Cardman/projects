@@ -44,7 +44,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private final StringList parametersNames;
     private final StringMap<AnaLocalVariable> usedParameters;
 
-    private final BooleanList parametersRef;
+    private final CustList<Boolean> parametersRef;
     private Ints parametersNamesOffset;
 
     private final AccessEnum access;
@@ -81,7 +81,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         parametersTypes = new StringList();
         parametersNames = new StringList();
         usedParameters = new StringMap<AnaLocalVariable>();
-        parametersRef = new BooleanList();
+        parametersRef = new CustList<Boolean>();
         varargs = setupParam(_header.getParametersType(),_header.getParametersName(), _header.getParametersRef());
         access = _access.getInfo();
         accessOffset = _access.getOffset();
@@ -103,10 +103,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         returnType = "";
         parametersNames = new StringList();
         usedParameters = new StringMap<AnaLocalVariable>();
-        parametersRef = new BooleanList();
+        parametersRef = new CustList<Boolean>();
     }
 
-    public final boolean setupParam(StringList _paramTypes, StringList _paramNames, BooleanList _refParams) {
+    public final boolean setupParam(StringList _paramTypes, StringList _paramNames, CustList<Boolean> _refParams) {
         int i_ = IndexConstants.FIRST_INDEX;
         int len_ = _paramTypes.size();
         boolean varargs_ = false;
@@ -253,7 +253,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return res_;
     }
 
-    public BooleanList getParametersRef() {
+    public CustList<Boolean> getParametersRef() {
         return parametersRef;
     }
 

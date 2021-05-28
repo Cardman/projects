@@ -31,6 +31,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.comparators.NaturalComparator;
+import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
@@ -476,10 +477,10 @@ public final class Fight {
     private EqList<TeamPosition> remainingFighters = new EqList<TeamPosition>();
 
     /***/
-    private BooleanList chosablePlayerTargets = new BooleanList();
+    private IdList<BoolVal> chosablePlayerTargets = new IdList<BoolVal>();
 
     /***/
-    private BooleanList chosableFoeTargets = new BooleanList();
+    private IdList<BoolVal> chosableFoeTargets = new IdList<BoolVal>();
 
     /***/
     private byte chosenPlayerTarget = Fighter.BACK;
@@ -984,19 +985,19 @@ public final class Fight {
         orderedFighters = _orderedFighters;
     }
 
-    public BooleanList getChosablePlayerTargets() {
+    public IdList<BoolVal> getChosablePlayerTargets() {
         return chosablePlayerTargets;
     }
 
-    void setChosablePlayerTargets(BooleanList _chosablePlayerTargets) {
+    void setChosablePlayerTargets(IdList<BoolVal> _chosablePlayerTargets) {
         chosablePlayerTargets = _chosablePlayerTargets;
     }
 
-    public BooleanList getChosableFoeTargets() {
+    public IdList<BoolVal> getChosableFoeTargets() {
         return chosableFoeTargets;
     }
 
-    void setChosableFoeTargets(BooleanList _chosableFoeTargets) {
+    void setChosableFoeTargets(IdList<BoolVal> _chosableFoeTargets) {
         chosableFoeTargets = _chosableFoeTargets;
     }
 

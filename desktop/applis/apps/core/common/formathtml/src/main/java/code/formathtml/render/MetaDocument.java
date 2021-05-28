@@ -36,7 +36,7 @@ public final class MetaDocument {
     private CustList<MetaContainer> containers;
     private CustList<MetaTable> tables;
     private Ints lis;
-    private BooleanList ordered;
+    private CustList<Boolean> ordered;
     private CustList<MetaContainer> dynamicNewLines = new CustList<MetaContainer>();
     private Longs formIndex = new Longs();
     private StringMap<MetaAnchorLabel> anchorsRef = new StringMap<MetaAnchorLabel>();
@@ -69,7 +69,7 @@ public final class MetaDocument {
         partGroup = 0;
         rowGroup = 0;
         lis = new Ints();
-        ordered = new BooleanList();
+        ordered = new CustList<Boolean>();
         while (true) {
             MetaStyle styleLoc_ = new MetaStyle();
             Element parStyle_ = current_.getParentNode();

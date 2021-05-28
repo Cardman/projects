@@ -15,6 +15,7 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class FacadeGameFightKoFourTest extends InitializationDataBase {
@@ -58,11 +59,11 @@ public final class FacadeGameFightKoFourTest extends InitializationDataBase {
         assertEq(POKEMON_PLAYER_TARGET_ONE, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
         assertEq(2, facadeGame_.getFight().getChosableFoeTargets().size());
-        assertTrue(facadeGame_.getFight().getChosableFoeTargets().get(0));
-        assertTrue(facadeGame_.getFight().getChosableFoeTargets().get(1));
+        assertTrue(facadeGame_.getFight().getChosableFoeTargets().get(0)== BoolVal.TRUE);
+        assertTrue(facadeGame_.getFight().getChosableFoeTargets().get(1) == BoolVal.TRUE);
         assertEq(2, facadeGame_.getFight().getChosablePlayerTargets().size());
-        assertTrue(!facadeGame_.getFight().getChosablePlayerTargets().get(0));
-        assertTrue(facadeGame_.getFight().getChosablePlayerTargets().get(1));
+        assertTrue(!(facadeGame_.getFight().getChosablePlayerTargets().get(0) == BoolVal.TRUE));
+        assertTrue(facadeGame_.getFight().getChosablePlayerTargets().get(1) == BoolVal.TRUE);
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

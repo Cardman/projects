@@ -71,7 +71,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        BooleanList dSlam_ = new BooleanList();
+        CustList<Boolean> dSlam_ = new CustList<Boolean>();
         dSlam_.add(false);
         dSlam_.add(false);
         dSlam_.add(false);
@@ -197,7 +197,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        BooleanList small_ = new BooleanList();
+        CustList<Boolean> small_ = new CustList<Boolean>();
         small_.add(false);
         small_.add(false);
         small_.add(false);
@@ -433,7 +433,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        BooleanList dSlam_ = new BooleanList();
+        CustList<Boolean> dSlam_ = new CustList<Boolean>();
         dSlam_.add(false);
         dSlam_.add(false);
         dSlam_.add(false);
@@ -559,7 +559,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        BooleanList small_ = new BooleanList();
+        CustList<Boolean> small_ = new CustList<Boolean>();
         small_.add(false);
         small_.add(false);
         small_.add(false);
@@ -596,7 +596,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         dog_.ajouter(CardTarot.SPADE_KNIGHT);
         dog_.ajouter(CardTarot.SPADE_JACK);
         trs_.add(dog_);
-        BooleanList dSlam_ = new BooleanList();
+        CustList<Boolean> dSlam_ = new CustList<Boolean>();
         dSlam_.add(false);
         dSlam_.add(false);
         dSlam_.add(false);
@@ -720,7 +720,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         t_.ajouter(CardTarot.DIAMOND_3);
         t_.ajouter(CardTarot.DIAMOND_QUEEN);
         trs_.add(t_);
-        BooleanList small_ = new BooleanList();
+        CustList<Boolean> small_ = new CustList<Boolean>();
         small_.add(false);
         small_.add(false);
         small_.add(false);

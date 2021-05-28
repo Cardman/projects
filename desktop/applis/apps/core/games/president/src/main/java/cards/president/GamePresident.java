@@ -47,7 +47,7 @@ public final class GamePresident {
     private String error = "";
     private boolean reversed;
 
-    private BooleanList passOrFinish = new BooleanList();
+    private CustList<Boolean> passOrFinish = new CustList<Boolean>();
 
     private byte nextPlayer = IndexConstants.INDEX_NOT_FOUND_ELT;
 
@@ -887,8 +887,8 @@ public final class GamePresident {
         return Playing.CAN_PLAY;
     }
 
-    private BooleanList passOrFinish() {
-        BooleanList l_ = new BooleanList();
+    private CustList<Boolean> passOrFinish() {
+        CustList<Boolean> l_ = new CustList<Boolean>();
         byte nbPlayer_ = getNombreDeJoueurs();
         for (byte p = IndexConstants.FIRST_INDEX; p < nbPlayer_; p++) {
             if (getDistribution().hand(p).estVide()) {
@@ -1149,7 +1149,7 @@ public final class GamePresident {
         return progressingTrick;
     }
 
-    public BooleanList getPassOrFinish() {
+    public CustList<Boolean> getPassOrFinish() {
         return passOrFinish;
     }
 

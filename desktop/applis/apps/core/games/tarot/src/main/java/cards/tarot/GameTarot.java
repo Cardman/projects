@@ -34,16 +34,16 @@ public final class GameTarot {
     /** Ce sont les miseres annoncees par le(s) joueur(s) */
     private CustList<EnumList<Miseres>> declaresMiseres = new CustList<EnumList<Miseres>>();
     /** Ce sont les primes annoncees par le(s) joueur(s) */
-    private BooleanList declaresSlam = new BooleanList();
+    private CustList<Boolean> declaresSlam = new CustList<Boolean>();
     /** Ce sont les petits au bout par le(s) joueur(s) */
-    private BooleanList smallBound = new BooleanList();
+    private CustList<Boolean> smallBound = new CustList<Boolean>();
     /** Poignees */
     private CustList<HandTarot> handfuls = new CustList<HandTarot>();
     /**
     Au tarot lors d'un appel il faut savoir si les joueurs ont confiance ou
     non en les autres
     */
-    private CustList<BooleanList> confidence = new CustList<BooleanList>();
+    private CustList<CustList<Boolean>> confidence = new CustList<CustList<Boolean>>();
     /**
     Le contrat permet de dire quel va etre le deroulement de la partie
     */
@@ -115,7 +115,7 @@ public final class GameTarot {
         Initialise la confiance a un
         jeu non solitaire
         */
-            confidence.add(new BooleanList());
+            confidence.add(new CustList<Boolean>());
             for (int j = IndexConstants.FIRST_INDEX; j < nombreJoueurs_; j++) {
                 confidence.last().add(i == j);
             }
@@ -1452,19 +1452,19 @@ public final class GameTarot {
         declaresMiseres = _declaresMiseres;
     }
 
-    public BooleanList getDeclaresSlam() {
+    public CustList<Boolean> getDeclaresSlam() {
         return declaresSlam;
     }
 
-    public void setDeclaresSlam(BooleanList _declaresSlam) {
+    public void setDeclaresSlam(CustList<Boolean> _declaresSlam) {
         declaresSlam = _declaresSlam;
     }
 
-    public BooleanList getSmallBound() {
+    public CustList<Boolean> getSmallBound() {
         return smallBound;
     }
 
-    public void setSmallBound(BooleanList _smallBound) {
+    public void setSmallBound(CustList<Boolean> _smallBound) {
         smallBound = _smallBound;
     }
 
@@ -1476,11 +1476,11 @@ public final class GameTarot {
         handfuls = _handfuls;
     }
 
-    public CustList<BooleanList> getConfidence() {
+    public CustList<CustList<Boolean>> getConfidence() {
         return confidence;
     }
 
-    public void setConfidence(CustList<BooleanList> _confidence) {
+    public void setConfidence(CustList<CustList<Boolean>> _confidence) {
         confidence = _confidence;
     }
 

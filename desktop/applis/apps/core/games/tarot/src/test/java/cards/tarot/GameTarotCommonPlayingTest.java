@@ -4887,9 +4887,9 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         GameTarotTrickInfo gt_ = new GameTarotTrickInfo(p_,trs_,m_,h_,BidTarot.TAKE,new HandTarot(),ls_);
         RulesTarot r_ = new RulesTarot();
         r_.setDealing(DealingTarot.DEAL_1_VS_3);
-        CustList<BooleanList> confidence_ = new CustList<BooleanList>();
+        CustList<CustList<Boolean>> confidence_ = new CustList<CustList<Boolean>>();
         for (int i = 0; i < 4; i++) {
-            BooleanList b_ = new BooleanList();
+            CustList<Boolean> b_ = new CustList<Boolean>();
             for (int j = 0; j < 4; j++) {
                 b_.add(i==j);
             }

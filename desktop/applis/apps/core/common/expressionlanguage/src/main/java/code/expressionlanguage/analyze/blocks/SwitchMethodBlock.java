@@ -71,7 +71,7 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
     public MethodId getId() {
         String name_ = getName();
         StringList pTypes_ = new StringList(result.getSingleNameOrEmpty());
-        return new MethodId(retRef, kind, name_, pTypes_,new BooleanList(false), false);
+        return new MethodId(retRef, kind, name_, pTypes_,new CustList<Boolean>(false), false);
     }
 
     public String getName() {

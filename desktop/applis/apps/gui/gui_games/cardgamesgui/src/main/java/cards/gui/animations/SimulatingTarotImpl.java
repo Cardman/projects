@@ -291,7 +291,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     }
 
     @Override
-    public void declareSlam(BooleanList _slam,byte _taker,BidTarot _bid) {
+    public void declareSlam(CustList<Boolean> _slam,byte _taker,BidTarot _bid) {
         if (!_slam.get(_taker)) {
             return;
         }
@@ -376,7 +376,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     }
 
     @Override
-    public void displaySmallBound(BooleanList _smallBound, byte _trickWinner) {
+    public void displaySmallBound(CustList<Boolean> _smallBound, byte _trickWinner) {
         if (!_smallBound.get(_trickWinner)) {
             return;
         }

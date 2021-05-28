@@ -15,7 +15,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
     private String importedReturnType;
 
     private final StringList importedParametersTypes;
-    private final BooleanList parametersRef;
+    private final CustList<Boolean> parametersRef;
 
     private final StringList parametersNames;
 
@@ -25,7 +25,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
     private final boolean varargs;
     private final CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
-    ExecNamedFunctionBlock(boolean _retRef, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, BooleanList _parametersRef) {
+    ExecNamedFunctionBlock(boolean _retRef, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, CustList<Boolean> _parametersRef) {
         super(_offsetTrim);
         retRef = _retRef;
         importedParametersTypes = _importedParametersTypes;
@@ -80,7 +80,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         importedReturnType = _importedReturnType;
     }
 
-    public BooleanList getParametersRef() {
+    public CustList<Boolean> getParametersRef() {
         return parametersRef;
     }
 }

@@ -152,7 +152,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
-        BooleanList rTypes_ = new BooleanList();
+        CustList<Boolean> rTypes_ = new CustList<Boolean>();
         StringList pTypes_ = new StringList();
         if (kind == MethodKind.EXPLICIT_CAST || kind == MethodKind.IMPLICIT_CAST
                 ||kind == MethodKind.TRUE_OPERATOR || kind == MethodKind.FALSE_OPERATOR) {

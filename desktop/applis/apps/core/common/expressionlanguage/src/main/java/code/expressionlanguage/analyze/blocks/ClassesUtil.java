@@ -2615,7 +2615,7 @@ public final class ClassesUtil {
         }
     }
 
-    private static void prepareParams(AnalyzedPageEl _page, Ints _offs, CustList<StringList> _paramErrors, StringList _params, BooleanList _refParams, StringList _types, boolean _varargs) {
+    private static void prepareParams(AnalyzedPageEl _page, Ints _offs, CustList<StringList> _paramErrors, StringList _params, CustList<Boolean> _refParams, StringList _types, boolean _varargs) {
         int len_ = _params.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             if (!_paramErrors.get(i).isEmpty()) {
@@ -2630,7 +2630,7 @@ public final class ClassesUtil {
         }
     }
 
-    private static void buildParam(AnalyzedPageEl _page, Ints _offs, BooleanList _refParams, int _i, String _p, String _c) {
+    private static void buildParam(AnalyzedPageEl _page, Ints _offs, CustList<Boolean> _refParams, int _i, String _p, String _c) {
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_c);
         lv_.setRef(_offs.get(_i));

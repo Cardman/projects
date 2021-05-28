@@ -29,7 +29,7 @@ public final class GameBelote {
     private CustList<DeclaresBelote> declaresPts=new CustList<DeclaresBelote>();
     private CustList<HandBelote> declaresBeloteRebelote = new CustList<HandBelote>();
     private Shorts declaresBeloteRebelotePts = new Shorts();
-    private BooleanList wonLastTrick = new BooleanList();
+    private CustList<Boolean> wonLastTrick = new CustList<Boolean>();
     /**Le contrat permet de dire quel va etre le deroulement
     de la partie*/
     private BidBeloteSuit bid=new BidBeloteSuit();
@@ -831,11 +831,11 @@ public final class GameBelote {
         declaresBeloteRebelote = _declaresBeloteRebelote;
     }
 
-    public BooleanList getWonLastTrick() {
+    public CustList<Boolean> getWonLastTrick() {
         return wonLastTrick;
     }
 
-    public void setWonLastTrick(BooleanList _wonLastTrick) {
+    public void setWonLastTrick(CustList<Boolean> _wonLastTrick) {
         wonLastTrick = _wonLastTrick;
     }
 

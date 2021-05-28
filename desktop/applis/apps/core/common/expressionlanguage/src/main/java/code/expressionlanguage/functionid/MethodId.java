@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.BooleanList;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -26,7 +27,7 @@ public final class MethodId implements Identifiable {
 
     private final String name;
 
-    private final BooleanList refParams;
+    private final CustList<Boolean> refParams;
     private final StringList classNames;
 
     private final boolean vararg;
@@ -40,17 +41,17 @@ public final class MethodId implements Identifiable {
         kind = _staticMethod;
         vararg = _vararg;
         name = StringUtil.nullToEmpty(_name);
-        refParams = new BooleanList();
+        refParams = new CustList<Boolean>();
         classNames = new StringList();
         feedParamTypes(_classNames);
     }
 
-    public MethodId(boolean _retRef, MethodAccessKind _staticMethod, String _name, StringList _classNames, BooleanList _refParam, boolean _vararg) {
+    public MethodId(boolean _retRef, MethodAccessKind _staticMethod, String _name, StringList _classNames, CustList<Boolean> _refParam, boolean _vararg) {
         retRef = _retRef;
         kind = _staticMethod;
         vararg = _vararg;
         name = StringUtil.nullToEmpty(_name);
-        refParams = new BooleanList();
+        refParams = new CustList<Boolean>();
         classNames = new StringList();
         feedParamTypes(_classNames,_refParam);
     }
@@ -62,7 +63,7 @@ public final class MethodId implements Identifiable {
         }
     }
 
-    private void feedParamTypes(StringList _classNames, BooleanList _refParams) {
+    private void feedParamTypes(StringList _classNames, CustList<Boolean> _refParams) {
         int min_ = Math.min(_classNames.size(),_refParams.size());
         for (String s: _classNames.left(min_)) {
             classNames.add(StringUtil.nullToEmpty(s));
@@ -89,7 +90,7 @@ public final class MethodId implements Identifiable {
     }
     public MethodId prepend(String _name,String _type, boolean _ref) {
         StringList types_ = new StringList(classNames);
-        BooleanList refs_ = new BooleanList(refParams);
+        CustList<Boolean> refs_ = new CustList<Boolean>(refParams);
         types_.add(0,_type);
         refs_.add(0,_ref);
         return new MethodId(retRef, kind, _name, types_,refs_, vararg);
@@ -154,7 +155,7 @@ public final class MethodId implements Identifiable {
         int m_ = Math.min(classNames.size(),refParams.size());
         for (int i = 0; i < m_; i++) {
             String s_ = "";
-            if (refParams.get(i)) {
+            if (getParametersRef(i)) {
                 s_ = "~";
             }
             cls_.add(StringUtil.concat(s_,classNames.get(i)));
