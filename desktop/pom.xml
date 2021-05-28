@@ -11,7 +11,7 @@
 		<module>applis</module>
 	</modules>
 	<properties>
-		<sonar.issue.ignore.multicriteria>e1,e2,e3,e4,e5</sonar.issue.ignore.multicriteria>
+		<sonar.issue.ignore.multicriteria>e1,e2,e3,e4,e5,e6,e7</sonar.issue.ignore.multicriteria>
 		<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S5961</sonar.issue.ignore.multicriteria.e1.ruleKey>
 		<sonar.issue.ignore.multicriteria.e1.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
 		<sonar.issue.ignore.multicriteria.e2.ruleKey>java:S5976</sonar.issue.ignore.multicriteria.e2.ruleKey>
@@ -22,5 +22,9 @@
 		<sonar.issue.ignore.multicriteria.e4.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e4.resourceKey>
 		<sonar.issue.ignore.multicriteria.e5.ruleKey>java:S117</sonar.issue.ignore.multicriteria.e5.ruleKey>
 		<sonar.issue.ignore.multicriteria.e5.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e5.resourceKey>
+		<sonar.issue.ignore.multicriteria.e6.ruleKey>squid:CommentedOutCodeLine</sonar.issue.ignore.multicriteria.e6.ruleKey>
+		<sonar.issue.ignore.multicriteria.e6.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e6.resourceKey>
+		<sonar.issue.ignore.multicriteria.e7.ruleKey>squid:S00117</sonar.issue.ignore.multicriteria.e7.ruleKey>
+		<sonar.issue.ignore.multicriteria.e7.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e7.resourceKey>
 	</properties>
 </project>
