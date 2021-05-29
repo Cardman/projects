@@ -302,7 +302,7 @@ public final class ElResolver {
                         String word_ = _string.substring(beginWord_, j_);
                         VariableInfo info_ = new VariableInfo();
                         ConstType type_;
-                        type_ = ConstType.WORD;
+                        type_ = ConstType.CUST_FIELD;
                         info_.setKind(type_);
                         info_.setFirstChar(beginWord_);
                         info_.setLastChar(j_);

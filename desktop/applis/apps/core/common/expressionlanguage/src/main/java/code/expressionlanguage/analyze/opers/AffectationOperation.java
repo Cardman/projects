@@ -156,8 +156,10 @@ public final class AffectationOperation extends MethodOperation {
             }
         }
         if (elt_ instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)elt_;
-            settableOp = cst_;
+            settableOp = (SettableAbstractFieldOperation)elt_;
+        }
+        if (elt_ instanceof SettableFieldOperation) {
+            SettableFieldOperation cst_ = (SettableFieldOperation)elt_;
             StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
             if (!synthetic&&ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();

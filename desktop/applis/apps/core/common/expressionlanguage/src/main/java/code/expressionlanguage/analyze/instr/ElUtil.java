@@ -285,7 +285,7 @@ public final class ElUtil {
         if (currentBlock_ instanceof FieldBlock) {
             MethodOperation parent_ = _current.getParent();
             if (parent_ instanceof DeclaringOperation) {
-                if (!(_current instanceof StandardFieldOperation)
+                if (!(_current instanceof DeclaredFieldOperation)
                         &&!(_current instanceof AffectationOperation)) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
@@ -297,7 +297,7 @@ public final class ElUtil {
                 }
             } else {
                 if (parent_ instanceof AffectationOperation && parent_.getFirstChild() == _current && (parent_.getParent() == null ||parent_.getParent() instanceof DeclaringOperation)) {
-                    if (!(_current instanceof StandardFieldOperation)) {
+                    if (!(_current instanceof DeclaredFieldOperation)) {
                         FoundErrorInterpret b_;
                         b_ = new FoundErrorInterpret();
                         b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
@@ -366,21 +366,6 @@ public final class ElUtil {
         if (_c instanceof StandardInstancingOperation && _p instanceof AffectationOperation && ((AffectationOperation)_p).isSynthetic()) {
             ((StandardInstancingOperation) _c).fieldName(_calc);
         }
-    }
-
-    public static boolean isDeclaringField(OperationNode _var, AnalyzedPageEl _page) {
-        AbsBk bl_ = _page.getCurrentBlock();
-        if (!(bl_ instanceof FieldBlock)) {
-            return false;
-        }
-        return isDeclaringField(_var);
-    }
-
-    public static boolean isDeclaringField(OperationNode _var) {
-        if (!(_var instanceof StandardFieldOperation)) {
-            return false;
-        }
-        return isDeclaringVariable(_var);
     }
 
     public static boolean isDeclaringLoopVariable(MutableLoopVariableOperation _var, AnalyzedPageEl _page) {
@@ -476,13 +461,13 @@ public final class ElUtil {
         return false;
     }
 
-    public static boolean checkFinalFieldReadOnly(SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, AnalyzedPageEl _page) {
+    public static boolean checkFinalFieldReadOnly(SettableFieldOperation _cst, StringMap<Boolean> _ass, AnalyzedPageEl _page) {
         boolean fromCurClass_ = _cst.isFromCurrentClassReadOnly(_page);
         ClassField cl_ = _cst.getFieldIdReadOnly();
         String fieldName_ = cl_.getFieldName();
-        return _cst.getSettableFieldContent().isFinalField() && checkFinalReadOnly(_cst.getSettableFieldContent().isStaticField(), _cst, _ass, fromCurClass_, fieldName_, _page);
+        return _cst.getSettableFieldContent().isFinalField() && checkFinalReadOnly(_cst.getSettableFieldContent().isStaticField(), _ass, fromCurClass_, fieldName_, _page);
     }
-    private static boolean checkFinalReadOnly(boolean _staticField, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, AnalyzedPageEl _page) {
+    private static boolean checkFinalReadOnly(boolean _staticField, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, AnalyzedPageEl _page) {
         boolean checkFinal_;
         if (_page.isAssignedFields()) {
             checkFinal_ = true;
@@ -491,27 +476,6 @@ public final class ElUtil {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {
                 checkFinal_ = true;
-            } else {
-                if (isDeclaringField(_cst, _page)) {
-                    checkFinal_ = false;
-                } else {
-                    checkFinal_ = false;
-                    for (EntryCust<String, Boolean> e: _ass.entryList()) {
-                        if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
-                            continue;
-                        }
-                        if (e.getValue()) {
-                            continue;
-                        }
-                        checkFinal_ = true;
-                    }
-                }
-            }
-        } else if (!_fromCurClass) {
-            checkFinal_ = true;
-        } else {
-            if (isDeclaringField(_cst, _page)) {
-                checkFinal_ = false;
             } else {
                 checkFinal_ = false;
                 for (EntryCust<String, Boolean> e: _ass.entryList()) {
@@ -523,6 +487,19 @@ public final class ElUtil {
                     }
                     checkFinal_ = true;
                 }
+            }
+        } else if (!_fromCurClass) {
+            checkFinal_ = true;
+        } else {
+            checkFinal_ = false;
+            for (EntryCust<String, Boolean> e: _ass.entryList()) {
+                if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
+                    continue;
+                }
+                if (e.getValue()) {
+                    continue;
+                }
+                checkFinal_ = true;
             }
         }
         return checkFinal_;

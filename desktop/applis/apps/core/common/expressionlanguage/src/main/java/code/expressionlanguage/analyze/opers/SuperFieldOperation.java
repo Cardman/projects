@@ -8,19 +8,22 @@ import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class SuperFieldOperation extends
-        SettableAbstractFieldOperation {
+public final class SuperFieldOperation implements AnaSettableAbstractFieldOperation {
+    private OperationsSequence operations;
 
-    public SuperFieldOperation(int _indexInEl, int _indexChild,
-            MethodOperation _m, OperationsSequence _op) {
-        super(_indexInEl, _indexChild, _m, _op);
+    public SuperFieldOperation(OperationsSequence _op) {
+        operations = _op;
+    }
+
+    private OperationsSequence getOperations() {
+        return operations;
     }
 
     @Override
-    AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
+    public AnaClassArgumentMatching getFrom(AnalyzedPageEl _page,SettableAbstractFieldOperation _settable) {
         AnaClassArgumentMatching cl_;
-        if (isIntermediateDottedOperation()) {
-            cl_ = getPreviousResultClass();
+        if (_settable.isIntermediateDottedOperation()) {
+            cl_ = _settable.getPreviousResultClass();
         } else {
             cl_ = new AnaClassArgumentMatching(_page.getGlobalClass());
         }
@@ -28,7 +31,7 @@ public final class SuperFieldOperation extends
     }
 
     @Override
-    String getFieldName() {
+    public String getFieldName() {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         return originalStr_.trim();
@@ -43,12 +46,12 @@ public final class SuperFieldOperation extends
     }
 
     @Override
-    boolean isBaseAccess() {
+    public boolean isBaseAccess() {
         return false;
     }
 
     @Override
-    boolean isSuperAccess() {
+    public boolean isSuperAccess() {
         return true;
     }
 

@@ -530,13 +530,16 @@ public abstract class OperationNode {
             return new ConstantOperation(_index, _indexChild, _m, _op);
         }
         if (ct_ == ConstType.CLASSCHOICE_KEYWORD) {
-            return new ChoiceFieldOperation(_index, _indexChild, _m, _op);
+            return new SettableFieldOperation(_index, _indexChild, _m, _op,new ChoiceFieldOperation(_op));
         }
         if (ct_ == ConstType.SUPER_ACCESS_KEYWORD) {
-            return new SuperFromFieldOperation(_index, _indexChild, _m, _op);
+            return new SettableFieldOperation(_index, _indexChild, _m, _op,new SuperFromFieldOperation(_op));
         }
         if (ct_ == ConstType.SUPER_KEYWORD) {
-            return new SuperFieldOperation(_index, _indexChild, _m, _op);
+            return new SettableFieldOperation(_index, _indexChild, _m, _op,new SuperFieldOperation(_op));
+        }
+        if (_page.getGlobalType() != null &&ct_ == ConstType.CUST_FIELD) {
+            return new DeclaredFieldOperation(_index, _indexChild, _m, _op,_page.getGlobalType());
         }
         if (ElUtil.isDeclaringLoopVariable(_m, _page)) {
             return new MutableLoopVariableOperation(_index, _indexChild, _m, _op);
@@ -553,7 +556,7 @@ public abstract class OperationNode {
                 if (ch_.getResultClass().isArray()) {
                     return new ArrayFieldOperation(_index, _indexChild, _m, _op);
                 }
-                return new StandardFieldOperation(_index, _indexChild, _m, _op);
+                return new SettableFieldOperation(_index, _indexChild, _m, _op,new StandardFieldOperation(_op));
             }
         }
         if (ct_ == ConstType.LOOP_INDEX) {
@@ -589,7 +592,7 @@ public abstract class OperationNode {
             val_.setUsed(true);
             return new FinalVariableOperation(_index, _indexChild, _m, _op,val_.getClassName(),val_.getRef(),deep_,val_.isKeyWord());
         }
-        return new StandardFieldOperation(_index, _indexChild, _m, _op);
+        return new SettableFieldOperation(_index, _indexChild, _m, _op,new StandardFieldOperation(_op));
     }
 
     static String emptyToObject(String _str, AnalyzedPageEl _page) {
@@ -612,16 +615,14 @@ public abstract class OperationNode {
         nextSibling = _nextSibling;
     }
 
-    public static FieldResult resolveDeclaredCustField(boolean _staticContext, AnaClassArgumentMatching _class,
-                                                       boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff, AnalyzedPageEl _page) {
-        ScopeFilter scope_ = new ScopeFilter(null, _baseClass, _superClass, false, _page.getGlobalClass());
+    public static FieldResult resolveDeclaredCustField(boolean _staticContext, AnaClassArgumentMatching _class, String _name, boolean _import, boolean _aff, AnalyzedPageEl _page, ScopeFilter _scope) {
         if (!_staticContext) {
-            FieldResult resIns_ = getDeclaredCustFieldByContext(MethodAccessKind.INSTANCE, _class, _name, _import, _aff, _page, scope_);
+            FieldResult resIns_ = getDeclaredCustFieldByContext(MethodAccessKind.INSTANCE, _class, _name, _import, _aff, _page, _scope);
             if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
                 return resIns_;
             }
         }
-        return getDeclaredCustFieldByContext(MethodAccessKind.STATIC, _class, _name, _import,_aff, _page, scope_);
+        return getDeclaredCustFieldByContext(MethodAccessKind.STATIC, _class, _name, _import, _aff, _page, _scope);
     }
     private static FieldResult getDeclaredCustFieldByContext(MethodAccessKind _kind, AnaClassArgumentMatching _class,
                                                              String _name, boolean _import, boolean _aff, AnalyzedPageEl _page, ScopeFilter _scope) {
@@ -679,7 +680,7 @@ public abstract class OperationNode {
                 res_.setRealType(realType_);
                 res_.setAnc(v_.getImported() +maxAnc_);
                 res_.setStatus(SearchingMemberStatus.UNIQ);
-                addIfNotExist(ancestors_,e.getKey(),res_);
+                ancestors_.addEntry(e.getKey(),res_);
             }
             for (int i = maxLoc_; i <= max_; i++) {
                 StringList subClasses_ = new StringList();
@@ -701,6 +702,29 @@ public abstract class OperationNode {
         return r_;
     }
 
+    protected static FieldResult getDeclaringCustFieldByContext(RootBlock _root, MethodAccessKind _kind,
+                                                                String _name, AnalyzedPageEl _page) {
+        AnaFormattedRootBlock f_ = new AnaFormattedRootBlock(_root);
+        String id_ = StringExpUtil.getIdFromAllTypes(f_.getFormatted());
+        StringMap<FieldResult> ancestors_ = new StringMap<FieldResult>();
+        fetchDeclFieldsType(ancestors_,
+                f_, f_.getRootBlock(), id_, _name, id_);
+        int maxAnc_ = 0;
+        for (int i = 0; i <= maxAnc_; i++) {
+            StringList subClasses_ = new StringList();
+            for (EntryCust<String,FieldResult> e: ancestors_.entryList()) {
+                subClasses_.add(e.getKey());
+            }
+            StringList subs_ = AnaTypeUtil.getSubclasses(subClasses_, _page);
+            FieldResult res_ = getRes(ancestors_, subs_);
+            if (res_ != null) {
+                return res_;
+            }
+        }
+        FieldResult r_ = new FieldResult();
+        r_.setStatus(SearchingMemberStatus.ZERO);
+        return r_;
+    }
     private static void feedTypes(CustList<TypeInfo> _list, StringList _baseTypes, StringMap<String> _superTypesBaseAnc) {
         for (TypeInfo t: _list) {
             if (t.isBase()) {
@@ -717,6 +741,17 @@ public abstract class OperationNode {
     private static void fetchFieldsType(StringMap<FieldResult> _ancestors,
                                         AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {
         _page.getFieldFilter().tryAddField(_scope, _scopeField, _ancestors, _page);
+    }
+
+    private static void fetchDeclFieldsType(StringMap<FieldResult> _ancestors,
+                                            AnaFormattedRootBlock _formatted, AnaGeneType _root, String _rootName, String _name, String _fullName) {
+        FieldInfo fi_ = ContextUtil.getFieldInfo(_root, _rootName, _name);
+        if (fi_ == null) {
+            return;
+        }
+        String formatted_ = _formatted.getFormatted();
+        FieldResult res_ = feedFieldResult(formatted_, fi_, 0, fi_.getType());
+        _ancestors.addEntry(_fullName, res_);
     }
 
     public static void tryAddField(FieldInfo _fi, StringMap<FieldResult> _ancestors, AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {
@@ -743,10 +778,11 @@ public abstract class OperationNode {
         if (if_.isEmpty()) {
             return;
         }
-        addFieldInfo(formatted_,_fi, _scope.getAnc(), _ancestors, _scope.getFullName(), if_);
+        FieldResult res_ = feedFieldResult(formatted_, _fi, _scope.getAnc(), if_);
+        _ancestors.addEntry(_scope.getFullName(), res_);
     }
 
-    private static void addFieldInfo(String _formatted,FieldInfo _fi, int _anc, StringMap<FieldResult> _ancestors, String _fullName, String _type) {
+    private static FieldResult feedFieldResult(String _formatted, FieldInfo _fi, int _anc, String _type) {
         FieldResult res_ = new FieldResult();
         res_.setFormattedType(_fi.buildFormatted(_formatted));
         res_.setFileName(_fi.getFileName());
@@ -761,7 +797,7 @@ public abstract class OperationNode {
         res_.setRealType(_fi.getType());
         res_.setAnc(_anc);
         res_.setStatus(SearchingMemberStatus.UNIQ);
-        addIfNotExist(_ancestors, _fullName, res_);
+        return res_;
     }
 
     private static FieldResult getRes(StringMap<FieldResult> _ancestors, StringList _classes) {
@@ -770,14 +806,7 @@ public abstract class OperationNode {
         }
         return null;
     }
-    private static void addIfNotExist(StringMap<FieldResult> _ancestors, String _cl, FieldResult _res) {
-        for (EntryCust<String, FieldResult> e: _ancestors.entryList()) {
-            if (StringUtil.quickEq(e.getKey(), _cl)) {
-                return;
-            }
-        }
-        _ancestors.addEntry(_cl,_res);
-    }
+
     static ConstrustorIdVarArg getDeclaredCustConstructor(int _varargOnly, AnaClassArgumentMatching _class,
                                                           String _id, AnaGeneType _type,
                                                           ConstructorId _uniqueId, String _param, NameParametersFilter _filter, AnalyzedPageEl _page) {

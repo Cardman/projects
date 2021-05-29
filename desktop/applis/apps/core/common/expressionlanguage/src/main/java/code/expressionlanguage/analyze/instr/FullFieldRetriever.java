@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -247,7 +248,8 @@ public final class FullFieldRetriever implements FieldRetriever {
     private static boolean isField(String _fromClass, boolean _ctor, String _word, AnalyzedPageEl _page) {
         boolean stCtx_ = _page.isStaticContext() || _ctor;
         AnaClassArgumentMatching clArg_ = new AnaClassArgumentMatching(_fromClass);
-        FieldResult fr_ = OperationNode.resolveDeclaredCustField(stCtx_, clArg_, true, true, _word, true, false, _page);
+        ScopeFilter scope_ = new ScopeFilter(null, true, true, false, _page.getGlobalClass());
+        FieldResult fr_ = OperationNode.resolveDeclaredCustField(stCtx_, clArg_, _word, true, false, _page, scope_);
         return fr_.getStatus() == SearchingMemberStatus.UNIQ;
     }
 }

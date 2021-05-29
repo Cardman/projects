@@ -8,18 +8,21 @@ import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class StandardFieldOperation extends SettableAbstractFieldOperation {
+public final class StandardFieldOperation implements AnaSettableAbstractFieldOperation {
+    private OperationsSequence operations;
+    public StandardFieldOperation(OperationsSequence _op) {
+        operations = _op;
+    }
 
-    public StandardFieldOperation(int _indexInEl, int _indexChild,
-            MethodOperation _m, OperationsSequence _op) {
-        super(_indexInEl, _indexChild, _m, _op);
+    private OperationsSequence getOperations() {
+        return operations;
     }
 
     @Override
-    AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
+    public AnaClassArgumentMatching getFrom(AnalyzedPageEl _page,SettableAbstractFieldOperation _settable) {
         AnaClassArgumentMatching cl_;
-        if (isIntermediateDottedOperation()) {
-            cl_ = getPreviousResultClass();
+        if (_settable.isIntermediateDottedOperation()) {
+            cl_ = _settable.getPreviousResultClass();
         } else {
             String look_ = _page.getLookLocalClass();
             if (look_.isEmpty()) {
@@ -32,7 +35,7 @@ public final class StandardFieldOperation extends SettableAbstractFieldOperation
     }
 
     @Override
-    String getFieldName() {
+    public String getFieldName() {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         return originalStr_.trim();
@@ -45,12 +48,12 @@ public final class StandardFieldOperation extends SettableAbstractFieldOperation
         return StringUtil.getFirstPrintableCharIndex(originalStr_);
     }
     @Override
-    boolean isBaseAccess() {
+    public boolean isBaseAccess() {
         return true;
     }
 
     @Override
-    boolean isSuperAccess() {
+    public boolean isSuperAccess() {
         return true;
     }
 

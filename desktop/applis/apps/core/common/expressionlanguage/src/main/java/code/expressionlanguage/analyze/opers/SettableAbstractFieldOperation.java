@@ -29,84 +29,12 @@ public abstract class SettableAbstractFieldOperation extends
     private int indexBlock;
     private MemberId memberId = new MemberId();
     private RootBlock fieldType;
-    private boolean declare;
 
     public SettableAbstractFieldOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
         settableFieldContent = new AnaSettableOperationContent();
     }
-    @Override
-    public final void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
-        if (ElUtil.isDeclaringField(this, _page)) {
-            indexBlock = _page.getIndexBlock();
-            _page.setIndexBlock(indexBlock+1);
-            declare = true;
-        }
-        boolean import_ = false;
-        if (!isIntermediateDottedOperation()) {
-            import_ = true;
-            staticAccess = _page.getStaticContext();
-        }
-        String fieldName_ = getFieldName();
-        fieldNameLength = fieldName_.length();
-        AnaClassArgumentMatching cl_ = getFrom(_page);
-        if (cl_ == null) {
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            return;
-        }
-        boolean baseAccess_ = isBaseAccess();
-        boolean superAccess_ = isSuperAccess();
-        boolean affect_ = false;
-        if (getParent() instanceof AbstractDotOperation && isIntermediateDottedOperation()) {
-            if (getParent().getParent() instanceof AffectationOperation && getParent().getParent().getFirstChild() == getParent()) {
-                affect_ = true;
-            } else if (getParent().getParent() instanceof CompoundAffectationOperation && getParent().getParent().getFirstChild() == getParent()) {
-                affect_ = true;
-            } else if (getParent().getParent() instanceof SemiAffectationOperation) {
-                affect_ = true;
-            }
-        } else if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
-            affect_ = true;
-        } else if (getParent() instanceof CompoundAffectationOperation && getParent().getFirstChild() == this) {
-            affect_ = true;
-        } else if (getParent() instanceof SemiAffectationOperation) {
-            affect_ = true;
-        }
-        FieldResult r_ = resolveDeclaredCustField(isStaticAccess() != MethodAccessKind.INSTANCE,
-                cl_, baseAccess_, superAccess_, fieldName_, import_, affect_, _page);
-        settableFieldContent.setAnc(r_.getAnc());
-        if (r_.getStatus() == SearchingMemberStatus.ZERO) {
-            FoundErrorInterpret access_ = new FoundErrorInterpret();
-            access_.setFileName(_page.getLocalizer().getCurrentFileName());
-            access_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //_name len
-            access_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
-                    fieldName_,
-                    StringUtil.join(cl_.getNames(), ExportCst.JOIN_TYPES));
-            _page.getLocalizer().addError(access_);
-            addErr(access_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            return;
-        }
-        memberId = r_.getMemberId();
-        fieldType = r_.getFieldType();
-        valueOffset = r_.getValOffset();
-        settableFieldContent.setFinalField(r_.isFinalField());
-        settableFieldContent.setStaticField(r_.isStaticField());
-        settableFieldContent.setClassField(r_.getClassField());
-        settableFieldContent.setRealType(r_.getRealType());
-        String c_ = r_.getType();
-        setResultClass(new AnaClassArgumentMatching(c_, _page.getPrimitiveTypes()));
-    }
-
-    abstract AnaClassArgumentMatching getFrom(AnalyzedPageEl _page);
-    abstract String getFieldName();
-    abstract boolean isBaseAccess();
-    abstract boolean isSuperAccess();
     public abstract CustList<PartOffset> getPartOffsets();
     public abstract int getDelta();
 
@@ -162,8 +90,8 @@ public abstract class SettableAbstractFieldOperation extends
         return _page.getGlobalType() != fieldType;
     }
 
-    public boolean isDeclare() {
-        return declare;
+    public void setIndexBlock(int _indexBlock) {
+        this.indexBlock = _indexBlock;
     }
 
     public AnaSettableOperationContent getSettableFieldContent() {
@@ -174,8 +102,16 @@ public abstract class SettableAbstractFieldOperation extends
         return valueOffset;
     }
 
+    public void setValueOffset(int _valueOffset) {
+        this.valueOffset = _valueOffset;
+    }
+
     public int getFieldNameLength() {
         return fieldNameLength;
+    }
+
+    public void setFieldNameLength(int _fieldNameLength) {
+        this.fieldNameLength = _fieldNameLength;
     }
 
     public int getIndexBlock() {
@@ -186,7 +122,15 @@ public abstract class SettableAbstractFieldOperation extends
         return fieldType;
     }
 
+    public void setFieldType(RootBlock _fieldType) {
+        this.fieldType = _fieldType;
+    }
+
     public MemberId getMemberId() {
         return memberId;
+    }
+
+    public void setMemberId(MemberId _memberId) {
+        this.memberId = _memberId;
     }
 }

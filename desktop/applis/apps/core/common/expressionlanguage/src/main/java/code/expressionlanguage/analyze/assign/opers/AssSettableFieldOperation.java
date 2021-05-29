@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.assign.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.opers.DeclaredFieldOperation;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
@@ -22,7 +23,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation {
     AssSettableFieldOperation(SettableAbstractFieldOperation _ex) {
         super(_ex);
         fieldMetaInfo = _ex.getSettableFieldContent();
-        declare = _ex.isDeclare();
+        declare = _ex instanceof DeclaredFieldOperation;
         rootBlock = _ex.getFieldType();
     }
 

@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.CaseCondition;
-import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.opers.DeclaredFieldOperation;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -14,10 +14,13 @@ import code.util.StringMap;
 
 public final class ReachFieldOperation extends ReachMethodOperation implements ReachCalculable,ReachPossibleIntermediateDotted {
     private final AnaSettableOperationContent fieldMetaInfo;
+    private final boolean declare;
     private Argument previous;
+
     ReachFieldOperation(SettableAbstractFieldOperation _info) {
         super(_info);
         fieldMetaInfo = _info.getSettableFieldContent();
+        declare = _info instanceof DeclaredFieldOperation;
     }
 
     @Override
@@ -42,7 +45,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
             trySetDotParent(this, arg_, _page);
             return;
         }
-        if (ElUtil.isDeclaringField(getInfo(), _page)) {
+        if (declare) {
             Argument arg_ = new Argument(NumParsers.convert(getInfo().getResultClass().getUnwrapObjectNb()));
             setSimpleArgument(arg_);
             return;

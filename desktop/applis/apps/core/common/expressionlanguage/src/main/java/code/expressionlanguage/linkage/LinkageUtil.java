@@ -3047,7 +3047,7 @@ public final class LinkageUtil {
             int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
             RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
             int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
-            if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val)) {
+            if (_block instanceof FieldBlock && _val instanceof DeclaredFieldOperation) {
                 _vars.addPart(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
             } else {
@@ -3067,7 +3067,8 @@ public final class LinkageUtil {
         RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
         int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
         int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
-        if (_block instanceof FieldBlock && ElUtil.isDeclaringField(_val) && isDecl(idValueOffset_, ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_))) {
+        CustList<PartOffset> partOffsets_ = ((SettableAbstractFieldOperation) _val).getPartOffsets();
+        if (_block instanceof FieldBlock && _val instanceof DeclaredFieldOperation) {
             StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_);
             int id_ = ((FieldBlock) _block).getValuesOffset().indexOf(idValueOffset_);
             StringList errCst_ = new StringList();
@@ -3087,18 +3088,10 @@ public final class LinkageUtil {
             }
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
         } else {
-            _vars.addParts(((SettableAbstractFieldOperation) _val).getPartOffsets());
+            _vars.addParts(partOffsets_);
             ClassField c_ = ((SettableAbstractFieldOperation)_val).getFieldIdReadOnly();
             updateFieldAnchor(_vars,fieldType_, _val.getErrs(), c_, begin_,((SettableAbstractFieldOperation) _val).getFieldNameLength(), idValueOffset_);
         }
-    }
-
-    private static boolean isDecl(int _idValueOffset, StringList _errs) {
-        boolean decl_ = !_errs.isEmpty();
-        if (_idValueOffset > -1) {
-            decl_ = true;
-        }
-        return decl_;
     }
 
     private static void processVariables(VariablesOffsets _vars, int _sum, OperationNode _val) {

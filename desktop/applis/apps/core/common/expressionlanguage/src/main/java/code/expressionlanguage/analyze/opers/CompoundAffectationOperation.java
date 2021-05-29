@@ -74,8 +74,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
             return;
         }
         settable = elt_;
-        if (settable instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)settable;
+        if (settable instanceof SettableFieldOperation) {
+            SettableFieldOperation cst_ = (SettableFieldOperation)settable;
             StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
             if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                 setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);

@@ -1688,7 +1688,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 lambdaMemberNumberContentId = new MemberId();
                 lambdaMemberNumberContentId.setRootNumber(root_.getNumberAll());
             }
-            boolean accessFromSuper_ = false;
+            boolean accessBase_ = true;
             boolean accessSuper_ = true;
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordThis_ = keyWords_.getKeyWordThis();
@@ -1740,7 +1740,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 sum_ += _args.get(i_-1).length() + 1;
                 sum_ += StringExpUtil.getOffset(_args.get(i_));
                 i_++;
-                accessFromSuper_ = true;
+                accessBase_ = false;
             } else if (i_ < _len && StringUtil.quickEq(fieldName_, keyWordThat_)) {
                 fieldName_ = _args.get(i_).trim();
                 sum_ += _args.get(i_-1).length() + 1;
@@ -1762,8 +1762,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             boolean aff_ = i_ < _len;
             AnaClassArgumentMatching fromCl_ = new AnaClassArgumentMatching(str_);
-            FieldResult r_ = resolveDeclaredCustField(false,
-                    fromCl_, !accessFromSuper_, accessSuper_, fieldName_, false, aff_, _page);
+            ScopeFilter scope_ = new ScopeFilter(null, accessBase_, accessSuper_, false, _page.getGlobalClass());
+            FieldResult r_ = resolveDeclaredCustField(false, fromCl_, fieldName_, false, aff_, _page, scope_);
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
                 buildErrLambda(sum_,fromCl_,fieldName_,_page);
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -1784,8 +1784,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             boolean aff_ = i_ < _len;
             AnaClassArgumentMatching fromCl_ = new AnaClassArgumentMatching(str_);
             sum_ += StringExpUtil.getOffset(_args.get(2));
-            FieldResult r_ = resolveDeclaredCustField(false,
-                    fromCl_, true, true, fieldName_, false, aff_, _page);
+            ScopeFilter scope_ = new ScopeFilter(null, true, true, false, _page.getGlobalClass());
+            FieldResult r_ = resolveDeclaredCustField(false, fromCl_, fieldName_, false, aff_, _page, scope_);
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
                 buildErrLambda(sum_,fromCl_,fieldName_,_page);
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -1800,7 +1800,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String resolved_ = resolveSingleTypeExact(_args, _page);
         str_ = InvokingOperation.getBounds(resolved_, _page);
         int i_ = 3;
-        boolean accessFromSuper_ = false;
+        boolean accessBase_ = true;
         boolean accessSuper_ = true;
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
@@ -1875,7 +1875,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             sum_ += _args.get(i_-1).length() + 1;
             sum_ += StringExpUtil.getOffset(_args.get(i_));
             i_++;
-            accessFromSuper_ = true;
+            accessBase_ = false;
         } else if (i_ < _len && StringUtil.quickEq(fieldName_, keyWordThat_)) {
             fieldName_ = _args.get(i_).trim();
             sum_ += _args.get(i_-1).length() + 1;
@@ -1916,8 +1916,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         boolean aff_ = i_ < _len;
         AnaClassArgumentMatching fromCl_ = new AnaClassArgumentMatching(str_);
-        FieldResult r_ = resolveDeclaredCustField(false,
-                fromCl_, !accessFromSuper_, accessSuper_, fieldName_, false, aff_, _page);
+        ScopeFilter scope_ = new ScopeFilter(null, accessBase_, accessSuper_, false, _page.getGlobalClass());
+        FieldResult r_ = resolveDeclaredCustField(false, fromCl_, fieldName_, false, aff_, _page, scope_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             buildErrLambda(sum_,fromCl_,fieldName_,_page);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
