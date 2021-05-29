@@ -19,7 +19,7 @@ import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.RenderAnalysis;

@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.structs.BooleanStruct;

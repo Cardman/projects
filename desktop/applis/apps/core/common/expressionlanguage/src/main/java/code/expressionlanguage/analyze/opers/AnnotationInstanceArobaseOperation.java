@@ -11,7 +11,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.common.AnnotationFieldInfo;
+import code.expressionlanguage.analyze.opers.util.AnnotationFieldInfo;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaInstancingAnnotContent;

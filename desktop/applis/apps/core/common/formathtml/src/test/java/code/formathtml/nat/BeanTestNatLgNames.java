@@ -12,7 +12,7 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ConstructorId;

@@ -1,8 +1,5 @@
 package code.expressionlanguage.analyze.instr;
 
-import code.expressionlanguage.common.StackOperators;
-import code.util.*;
-
 public final class ResultAfterOperators {
     private ResultAfterDoubleDotted doubleDotted;
     private StackOperators parsBrackets;

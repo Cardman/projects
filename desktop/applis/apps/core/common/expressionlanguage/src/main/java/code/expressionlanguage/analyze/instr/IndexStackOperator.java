@@ -1,4 +1,4 @@
-package code.expressionlanguage.common;
+package code.expressionlanguage.analyze.instr;
 
 public final class IndexStackOperator {
     private final int index;

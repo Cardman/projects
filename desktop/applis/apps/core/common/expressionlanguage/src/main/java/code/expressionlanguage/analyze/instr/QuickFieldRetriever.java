@@ -1,8 +1,6 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.common.VariableInfo;
 
 public final class QuickFieldRetriever implements FieldRetriever {
     private final Delimiters delimiters;

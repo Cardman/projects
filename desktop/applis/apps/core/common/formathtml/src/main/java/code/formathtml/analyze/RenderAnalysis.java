@@ -10,7 +10,7 @@ import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.KeyWords;

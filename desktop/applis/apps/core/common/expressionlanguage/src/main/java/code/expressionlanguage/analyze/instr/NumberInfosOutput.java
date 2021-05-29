@@ -1,4 +1,6 @@
-package code.expressionlanguage.common;
+package code.expressionlanguage.analyze.instr;
+
+import code.expressionlanguage.common.NumberInfos;
 
 public final class NumberInfosOutput {
 

@@ -1,7 +1,7 @@
 package code.formathtml.analyze;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.analyze.instr.ResultAfterInstKeyWord;

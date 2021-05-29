@@ -1,5 +1,8 @@
-package code.expressionlanguage.common;
+package code.expressionlanguage.analyze.instr;
 
+
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.common.ConstType;
 
 public final class VariableInfo {
 
@@ -10,6 +13,8 @@ public final class VariableInfo {
     private int firstChar;
 
     private int lastChar;
+
+    private RootBlock declaring;
 
     public String getName() {
         return name;
@@ -43,4 +48,11 @@ public final class VariableInfo {
         lastChar = _lastChar;
     }
 
+    public RootBlock getDeclaring() {
+        return declaring;
+    }
+
+    public void setDeclaring(RootBlock _declaring) {
+        this.declaring = _declaring;
+    }
 }

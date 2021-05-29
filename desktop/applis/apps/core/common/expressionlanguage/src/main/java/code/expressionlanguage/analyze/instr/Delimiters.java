@@ -1,5 +1,5 @@
-package code.expressionlanguage.common;
-import code.expressionlanguage.analyze.instr.PartOffset;
+package code.expressionlanguage.analyze.instr;
+import code.expressionlanguage.common.NumberInfos;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;

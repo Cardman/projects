@@ -3,7 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;

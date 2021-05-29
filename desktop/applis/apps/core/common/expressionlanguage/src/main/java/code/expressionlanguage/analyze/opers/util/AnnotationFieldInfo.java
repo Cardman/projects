@@ -1,4 +1,4 @@
-package code.expressionlanguage.common;
+package code.expressionlanguage.analyze.opers.util;
 
 public final class AnnotationFieldInfo {
     private final String type;
