@@ -17,7 +17,7 @@ import code.util.core.StringUtil;
 public final class DeclaredFieldOperation extends
         SettableAbstractFieldOperation {
 
-    private RootBlock declaring;
+    private final RootBlock declaring;
     public DeclaredFieldOperation(int _indexInEl, int _indexChild,
                                   MethodOperation _m, OperationsSequence _op, RootBlock _declaring) {
         super(_indexInEl, _indexChild, _m, _op);

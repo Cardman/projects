@@ -16,6 +16,8 @@ public final class VariableInfo {
 
     private RootBlock declaring;
 
+    private boolean affect;
+
     public String getName() {
         return name;
     }
@@ -54,5 +56,13 @@ public final class VariableInfo {
 
     public void setDeclaring(RootBlock _declaring) {
         this.declaring = _declaring;
+    }
+
+    public boolean isAffect() {
+        return affect;
+    }
+
+    public void setAffect(boolean _affect) {
+        this.affect = _affect;
     }
 }

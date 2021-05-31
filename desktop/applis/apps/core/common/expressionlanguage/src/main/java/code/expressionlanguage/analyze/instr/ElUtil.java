@@ -9,11 +9,9 @@ import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -33,67 +31,12 @@ public final class ElUtil {
         if (d_.getBadOffset() >= 0) {
             return names_;
         }
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page);
-        if (opTwo_.getOperators().isEmpty()) {
-            for (IndexStrPart e: opTwo_.getValues().getValues()) {
-                String var_ = e.getPart();
-                String trimmed_ = var_.trim();
-                int offset_ = _valueOffset + e.getIndex();
-                addPart(names_, var_, trimmed_, offset_, false);
+        for (VariableInfo v: d_.getVariables()) {
+            if (v.getDeclaring() != null) {
+                names_.add(new PartOffsetAffect(new PartOffset(v.getName(),v.getFirstChar()+_valueOffset),v.isAffect(), new StringList()));
             }
-            return names_;
-        }
-        if (opTwo_.getPriority() == ElResolver.DECL_PRIO) {
-            for (IndexStrPart e: opTwo_.getValues().getValues()) {
-                String var_ = e.getPart();
-                String trimmed_ = var_.trim();
-                int offset_ = _valueOffset + e.getIndex();
-                if (StringExpUtil.isTypeLeafPart(trimmed_)) {
-                    addFieldName(names_, var_, offset_, false, trimmed_);
-                    continue;
-                }
-                String name_ = getFieldName(trimmed_);
-                String afterName_ = trimmed_.substring(name_.length()).trim();
-                if (isPureAffectation(afterName_,afterName_.length())) {
-                    addFieldName(names_, var_, offset_, true, name_);
-                }
-            }
-            return names_;
-        }
-        if (opTwo_.getPriority() == ElResolver.AFF_PRIO
-                && StringUtil.quickEq(opTwo_.getOperators().firstValue(),"=")) {
-            String var_ = opTwo_.getValues().firstValue();
-            int off_ = opTwo_.getValues().firstKey();
-            String trimmed_ = var_.trim();
-            addPart(names_, var_, trimmed_, _valueOffset + off_, true);
         }
         return names_;
-    }
-
-    private static void addPart(CustList<PartOffsetAffect> _names, String _var, String _trimmed, int _i, boolean _b) {
-        if (StringExpUtil.isTypeLeafPart(_trimmed)) {
-            addFieldName(_names, _var, _i, _b, _trimmed);
-        }
-    }
-
-    private static void addFieldName(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff, String _op) {
-        int delta_ = StringUtil.getFirstPrintableCharIndex(_name);
-        _list.add(new PartOffsetAffect(new PartOffset(_op,delta_+_offset),_aff, new StringList()));
-    }
-
-    private static String getFieldName(String _v) {
-        int k_ = 0;
-        int lenField_ = _v.length();
-        StringBuilder fieldName_ = new StringBuilder();
-        while (k_ < lenField_) {
-            char fieldChar_ = _v.charAt(k_);
-            if (!StringExpUtil.isTypeLeafChar(fieldChar_)) {
-                break;
-            }
-            fieldName_.append(fieldChar_);
-            k_++;
-        }
-        return fieldName_.toString();
     }
 
     private static void setupStaticContext(MethodAccessKind _hiddenVarTypes, OperationNode _op, AnalyzedPageEl _page) {
@@ -504,12 +447,4 @@ public final class ElUtil {
         return checkFinal_;
     }
 
-    static boolean isPureAffectation(String _string, int _len) {
-        int index_ = StringExpUtil.nextPrintCharIs(0, _len, _string, '=');
-        return hasCharOtherThanEq(_string, _len, index_);
-    }
-
-    private static boolean hasCharOtherThanEq(String _string, int _len, int _index) {
-        return _index > -1 && !StringExpUtil.nextCharIs(_string, _index + 1, _len, '=');
-    }
 }

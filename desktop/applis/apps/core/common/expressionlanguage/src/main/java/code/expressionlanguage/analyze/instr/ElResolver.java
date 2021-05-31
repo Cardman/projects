@@ -305,6 +305,7 @@ public final class ElResolver {
                         type_ = ConstType.CUST_FIELD;
                         info_.setKind(type_);
                         info_.setDeclaring(_page.getGlobalType());
+                        info_.setAffect(StringExpUtil.nextCharIs(_string, n_, len_, '='));
                         info_.setFirstChar(beginWord_);
                         info_.setLastChar(j_);
                         info_.setName(word_);

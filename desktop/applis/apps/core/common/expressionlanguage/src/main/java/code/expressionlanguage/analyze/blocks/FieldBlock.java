@@ -180,9 +180,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 valuesOffset.add(p_.getOffset());
                 addCstErrorsFields(new StringList());
             }
-            if (!name_.trim().isEmpty()) {
-                addNameErrorsFields(new StringList(errs_));
-            }
+            addNameErrorsFields(new StringList(errs_));
         }
     }
 
