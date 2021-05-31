@@ -18,27 +18,26 @@ public final class DeclaredFieldOperation extends
         SettableAbstractFieldOperation {
 
     private final InfoBlock infoBlock;
-    private StringList errsField = new StringList();
+    private final StringList errsField;
     private StringList errCst = new StringList();
+
     public DeclaredFieldOperation(int _indexInEl, int _indexChild,
                                   MethodOperation _m, OperationsSequence _op, InfoBlock _info) {
         super(_indexInEl, _indexChild, _m, _op);
         infoBlock = _info;
+        errsField = _op.getErrors();
     }
     @Override
     public void analyze(AnalyzedPageEl _page) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
-        setIndexBlock(_page.getIndexBlock());
-        _page.setIndexBlock(getIndexBlock() +1);
         setStaticAccess(_page.getStaticContext());
         String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String fieldName_ = originalStr_.trim();
         setFieldNameLength(fieldName_.length());
         int valOffset_ = AnaTypeUtil.getIndex(infoBlock, fieldName_);
         if (infoBlock instanceof FieldBlock) {
-            errsField = ((FieldBlock) infoBlock).getNameErrorsFields().get(getIndexBlock());
             int id_ = ((FieldBlock) infoBlock).getValuesOffset().indexOf(valOffset_);
             if (id_ > -1) {
                 errCst = (((FieldBlock) infoBlock).getCstErrorsFields().get(id_));

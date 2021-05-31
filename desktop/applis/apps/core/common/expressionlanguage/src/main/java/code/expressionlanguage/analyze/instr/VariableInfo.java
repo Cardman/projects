@@ -1,9 +1,10 @@
 package code.expressionlanguage.analyze.instr;
 
 
+import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.ConstType;
+import code.util.StringList;
 
 public final class VariableInfo {
 
@@ -16,6 +17,7 @@ public final class VariableInfo {
     private int lastChar;
 
     private InfoBlock declaringField;
+    private StringList errors = new StringList();
 
     private boolean affect;
 
@@ -55,8 +57,15 @@ public final class VariableInfo {
         return declaringField;
     }
 
-    public void setDeclaringField(InfoBlock _declaringBlock) {
+    public void declaringField(int _fieldNumber,InfoBlock _declaringBlock) {
         this.declaringField = _declaringBlock;
+        if (_declaringBlock instanceof FieldBlock && ((FieldBlock)_declaringBlock).getNameErrorsFields().isValidIndex(_fieldNumber)) {
+            errors = ((FieldBlock)_declaringBlock).getNameErrorsFields().get(_fieldNumber);
+        }
+    }
+
+    public StringList getErrors() {
+        return errors;
     }
 
     public boolean isAffect() {

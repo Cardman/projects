@@ -235,7 +235,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(fieldContent.getValueOffset());
         _page.zeroOffset();
-        _page.setIndexBlock(0);
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(fieldContent.isStaticField()), _page));
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
     }
@@ -243,7 +242,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public CustList<OperationNode> buildExpressionLanguageQuickly(AnalyzedPageEl _page) {
         _page.setGlobalOffset(fieldContent.getValueOffset());
         _page.zeroOffset();
-        _page.setIndexBlock(0);
         return ElUtil.getAnalyzedOperationsQucikly(res,value, Calculation.staticCalculation(fieldContent.isStaticField()), _page);
     }
 

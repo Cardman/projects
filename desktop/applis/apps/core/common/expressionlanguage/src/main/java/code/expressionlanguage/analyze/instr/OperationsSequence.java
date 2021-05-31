@@ -1,12 +1,12 @@
 package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.Ints;
+import code.util.StringList;
 import code.util.core.IndexConstants;
 
 public final class OperationsSequence {
@@ -15,8 +15,8 @@ public final class OperationsSequence {
     private static final char PAR = '(';
     private static final char ARR_ANNOT = '{';
     private ConstType constType = ConstType.NOTHING;
-    private RootBlock declaring;
     private InfoBlock declaringField;
+    private StringList errors = new StringList();
 
     private NumberInfos nbInfos;
     private TextBlockInfo textInfo;
@@ -263,6 +263,14 @@ public final class OperationsSequence {
 
     public void setDeclaringField(InfoBlock _declaringField) {
         this.declaringField = _declaringField;
+    }
+
+    public StringList getErrors() {
+        return errors;
+    }
+
+    public void setErrors(StringList _errors) {
+        this.errors = _errors;
     }
 
     public String getFctName() {

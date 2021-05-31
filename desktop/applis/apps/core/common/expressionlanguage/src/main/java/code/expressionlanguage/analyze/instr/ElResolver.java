@@ -166,6 +166,7 @@ public final class ElResolver {
         resWords_.setLastDoubleDot(i_);
         resWords_.setCallCtor(false);
         resOpers_.setDoubleDotted(resWords_);
+        int fieldNumber_ = 0;
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (constTextChar_) {
@@ -304,13 +305,14 @@ public final class ElResolver {
                         ConstType type_;
                         type_ = ConstType.CUST_FIELD;
                         info_.setKind(type_);
-                        info_.setDeclaringField((InfoBlock)_page.getCurrentBlock());
+                        info_.declaringField(fieldNumber_,(InfoBlock)_page.getCurrentBlock());
                         info_.setAffect(StringExpUtil.nextCharIs(_string, n_, len_, '='));
                         info_.setFirstChar(beginWord_);
                         info_.setLastChar(j_);
                         info_.setName(word_);
                         _d.getVariables().add(info_);
                         i_ = j_;
+                        fieldNumber_++;
                         continue;
                     }
                 }
@@ -2128,6 +2130,7 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(v.getKind());
             op_.setDeclaringField(v.getDeclaringField());
+            op_.setErrors(v.getErrors());
             op_.setOperators(new StrTypes());
             op_.setValue(v.getName(), firstPrintChar_);
             op_.setDelimiter(_d);

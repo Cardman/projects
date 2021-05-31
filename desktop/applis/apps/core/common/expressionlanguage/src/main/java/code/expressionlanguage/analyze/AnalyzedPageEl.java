@@ -155,7 +155,6 @@ public final class AnalyzedPageEl {
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
     private int localInType = -1;
     private FileBlock refFileName;
-    private int indexBlock;
     private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
     private final StringMap<ToStringMethodHeader> randCodeMethods = new StringMap<ToStringMethodHeader>();
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
@@ -1162,14 +1161,6 @@ public final class AnalyzedPageEl {
 
     public void setRefFileName(FileBlock _refFileName) {
         refFileName = _refFileName;
-    }
-
-    public int getIndexBlock() {
-        return indexBlock;
-    }
-
-    public void setIndexBlock(int _indexBlock) {
-        indexBlock = _indexBlock;
     }
 
     public StringMap<ToStringMethodHeader> getToStringMethods() {

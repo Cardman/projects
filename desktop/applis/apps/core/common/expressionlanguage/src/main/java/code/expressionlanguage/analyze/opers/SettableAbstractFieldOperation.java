@@ -2,21 +2,14 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.opers.util.FieldResult;
-import code.expressionlanguage.analyze.opers.util.MemberId;
-import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
-import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
-import code.util.core.StringUtil;
 
 public abstract class SettableAbstractFieldOperation extends
         AbstractFieldOperation implements SettableElResult {
@@ -26,11 +19,9 @@ public abstract class SettableAbstractFieldOperation extends
     private int valueOffset = -1;
     private int fieldNameLength;
 
-    private int indexBlock;
-    private MemberId memberId = new MemberId();
     private RootBlock fieldType;
 
-    public SettableAbstractFieldOperation(int _indexInEl, int _indexChild,
+    protected SettableAbstractFieldOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
         settableFieldContent = new AnaSettableOperationContent();
@@ -90,10 +81,6 @@ public abstract class SettableAbstractFieldOperation extends
         return _page.getGlobalType() != fieldType;
     }
 
-    public void setIndexBlock(int _indexBlock) {
-        this.indexBlock = _indexBlock;
-    }
-
     public AnaSettableOperationContent getSettableFieldContent() {
         return settableFieldContent;
     }
@@ -112,10 +99,6 @@ public abstract class SettableAbstractFieldOperation extends
 
     public void setFieldNameLength(int _fieldNameLength) {
         this.fieldNameLength = _fieldNameLength;
-    }
-
-    public int getIndexBlock() {
-        return indexBlock;
     }
 
     public RootBlock getFieldType() {
