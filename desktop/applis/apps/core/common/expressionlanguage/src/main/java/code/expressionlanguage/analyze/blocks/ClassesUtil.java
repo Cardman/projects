@@ -2292,7 +2292,7 @@ public final class ClassesUtil {
                             if (StringUtil.contains(((InfoBlock) b).getFieldName(), fieldName_)) {
                                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                                 un_.setFileName(c.getFile().getFileName());
-                                un_.setIndexFile(((InfoBlock) b).getFieldNameOffset());
+                                un_.setIndexFile(b.getOffset());
                                 un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                                         fieldName_,fullName_);
                                 _page.addLocError(un_);

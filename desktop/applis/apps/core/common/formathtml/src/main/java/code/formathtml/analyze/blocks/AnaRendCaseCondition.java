@@ -97,12 +97,8 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             AnaGeneType g_ = _page.getAnaClassBody(id_);
             if (g_ instanceof EnumBlock) {
-                for (InfoBlock f: ((EnumBlock) g_).getFieldsBlocks()) {
-                    if (!(f instanceof InnerTypeOrElement)) {
-                        continue;
-                    }
-                    InnerTypeOrElement e_ = (InnerTypeOrElement) f;
-                    if (!StringUtil.contains(e_.getFieldName(), value.trim())) {
+                for (InnerTypeOrElement f: ((EnumBlock) g_).getEnumBlocks()) {
+                    if (!StringUtil.contains(f.getFieldName(), value.trim())) {
                         continue;
                     }
                     _page.setLookLocalClass(id_);

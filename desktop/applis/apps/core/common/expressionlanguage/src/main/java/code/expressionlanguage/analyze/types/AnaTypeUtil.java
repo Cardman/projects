@@ -767,7 +767,7 @@ public final class AnaTypeUtil {
             v_ = ((FieldBlock)_i).getValuesOffset().get(ind_);
         }
         if (_i instanceof InnerTypeOrElement) {
-            v_ = _i.getFieldNameOffset();
+            v_ = ((InnerTypeOrElement)_i).getFieldNameOffset();
         }
         return v_;
     }

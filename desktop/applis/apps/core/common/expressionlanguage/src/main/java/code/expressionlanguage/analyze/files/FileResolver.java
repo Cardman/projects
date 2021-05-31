@@ -1190,6 +1190,7 @@ public final class FileResolver {
                 }
                 ((InfoBlock)br_).setFieldNumber(((RootBlock)currentParent_).getFieldsBlocks().size());
                 ((RootBlock)currentParent_).getFieldsBlocks().add((InfoBlock)br_);
+                ((EnumBlock)currentParent_).getEnumBlocks().add((InnerTypeOrElement)br_);
                 if (!ok_) {
                     br_.getBadIndexes().add(indexBeginCalling_ + 1+_offset);
                 }

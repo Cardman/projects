@@ -8,6 +8,7 @@ public interface InnerTypeOrElement extends InfoBlock {
     String getUniqueFieldName();
     OperationNode getRoot();
     void buildExpressionLanguageReadOnly(AnalyzedPageEl _page);
+    int getFieldNameOffset();
 
     CustList<OperationNode> getRoots();
 }

@@ -141,7 +141,7 @@ public final class CaseCondition extends SwitchPartBlock {
         EnumBlock e_ = getEnumType(type_, _page);
         if (e_ != null) {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            for (InfoBlock f: e_.getFieldsBlocks()) {
+            for (InnerTypeOrElement f: e_.getEnumBlocks()) {
                 if (!match(f)) {
                     continue;
                 }
@@ -183,12 +183,8 @@ public final class CaseCondition extends SwitchPartBlock {
         return null;
 
     }
-    private boolean match(InfoBlock _f) {
-        if (!(_f instanceof InnerTypeOrElement)) {
-            return false;
-        }
-        InnerTypeOrElement e_ = (InnerTypeOrElement) _f;
-        return StringUtil.contains(e_.getFieldName(), value.trim());
+    private boolean match(InnerTypeOrElement _f) {
+        return StringUtil.contains(_f.getFieldName(), value.trim());
     }
 
     @Override

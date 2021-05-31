@@ -10,7 +10,6 @@ public interface InfoBlock extends AnnotableBlock {
 
     boolean isStaticField();
     StringList getFieldName();
-    int getFieldNameOffset();
     int getFieldNumber();
     void setFieldNumber(int _nb);
     RootBlock getDeclaringType();

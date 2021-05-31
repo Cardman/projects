@@ -8033,7 +8033,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(field_.isStaticField());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
 
-        assertEq(102, field_.getFieldNameOffset());
+        assertEq(102, ((ElementBlock)field_).getFieldNameOffset());
         assertEq("", ((ElementBlock)field_).getValue());
         assertNull(child_.getNextSibling());
     }

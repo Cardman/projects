@@ -80,7 +80,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return parentType;
     }
 
-    @Override
     public int getFieldNameOffset() {
         return fieldContent.getValueOffset();
     }
