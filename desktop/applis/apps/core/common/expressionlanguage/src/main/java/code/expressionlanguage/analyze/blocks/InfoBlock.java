@@ -13,6 +13,7 @@ public interface InfoBlock extends AnnotableBlock {
     int getFieldNameOffset();
     int getFieldNumber();
     void setFieldNumber(int _nb);
+    RootBlock getDeclaringType();
     FileBlock getFile();
     String getImportedClassName();
     String getRealImportedClassName();

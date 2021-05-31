@@ -43,6 +43,11 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         setParentType(_m);
     }
 
+    @Override
+    public RootBlock getDeclaringType() {
+        return getParentEnum();
+    }
+
     public EnumBlock getParentEnum() {
         return elementContent.getParentEnum();
     }

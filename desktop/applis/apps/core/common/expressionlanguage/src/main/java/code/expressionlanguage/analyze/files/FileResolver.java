@@ -1048,7 +1048,7 @@ public final class FileResolver {
                     }
                     int fieldNameOffest_ = typeOffset_+declaringType_.length() + offAfterType_;
                     if (!meth_) {
-                        FieldBlock field_ = new FieldBlock(
+                        FieldBlock field_ = new FieldBlock((RootBlock)currentParent_,
                                 new OffsetAccessInfo(-1, AccessEnum.PUBLIC),
                                 new OffsetBooleanInfo(-1, true),
                                 new OffsetBooleanInfo(finalOff_+_offset, final_),
@@ -1867,7 +1867,7 @@ public final class FileResolver {
             String declaringType_ = getFoundType(info_);
             String afterType_ = info_.substring(declaringType_.length());
             int fieldNameOffest_ = StringUtil.getFirstPrintableCharIndex(afterType_) +declaringType_.length() + typeOffest_;
-            br_ = new FieldBlock(
+            br_ = new FieldBlock(_currentParent,
                     new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
                     new OffsetBooleanInfo(staticOffest_+_offset, static_), new OffsetBooleanInfo(finalOffest_+_offset, final_),
                     new OffsetStringInfo(typeOffest_+_offset,declaringType_.trim()),

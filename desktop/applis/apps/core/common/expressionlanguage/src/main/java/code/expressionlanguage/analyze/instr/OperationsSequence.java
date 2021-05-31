@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
@@ -15,6 +16,7 @@ public final class OperationsSequence {
     private static final char ARR_ANNOT = '{';
     private ConstType constType = ConstType.NOTHING;
     private RootBlock declaring;
+    private InfoBlock declaringField;
 
     private NumberInfos nbInfos;
     private TextBlockInfo textInfo;
@@ -255,12 +257,12 @@ public final class OperationsSequence {
         constType = _constType;
     }
 
-    public RootBlock getDeclaring() {
-        return declaring;
+    public InfoBlock getDeclaringField() {
+        return declaringField;
     }
 
-    public void setDeclaring(RootBlock _declaring) {
-        this.declaring = _declaring;
+    public void setDeclaringField(InfoBlock _declaringField) {
+        this.declaringField = _declaringField;
     }
 
     public String getFctName() {

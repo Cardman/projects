@@ -288,7 +288,7 @@ public final class ElResolver {
                 unicode_ = res_.getUnicode();
                 continue;
             }
-            if (_page.getGlobalType() != null &&_page.getCurrentBlock() instanceof InfoBlock
+            if (_page.getCurrentBlock() instanceof InfoBlock
                     && parsBrackets_.isEmpty()
                     && StringExpUtil.isTypeLeafChar(curChar_)) {
                 int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
@@ -304,7 +304,7 @@ public final class ElResolver {
                         ConstType type_;
                         type_ = ConstType.CUST_FIELD;
                         info_.setKind(type_);
-                        info_.setDeclaring(_page.getGlobalType());
+                        info_.setDeclaringField((InfoBlock)_page.getCurrentBlock());
                         info_.setAffect(StringExpUtil.nextCharIs(_string, n_, len_, '='));
                         info_.setFirstChar(beginWord_);
                         info_.setLastChar(j_);
@@ -2127,7 +2127,7 @@ public final class ElResolver {
             }
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(v.getKind());
-            op_.setDeclaring(v.getDeclaring());
+            op_.setDeclaringField(v.getDeclaringField());
             op_.setOperators(new StrTypes());
             op_.setValue(v.getName(), firstPrintChar_);
             op_.setDelimiter(_d);

@@ -538,8 +538,8 @@ public abstract class OperationNode {
         if (ct_ == ConstType.SUPER_KEYWORD) {
             return new SettableFieldOperation(_index, _indexChild, _m, _op,new SuperFieldOperation(_op));
         }
-        if (_op.getDeclaring() != null) {
-            return new DeclaredFieldOperation(_index, _indexChild, _m, _op,_op.getDeclaring());
+        if (_op.getDeclaringField() != null) {
+            return new DeclaredFieldOperation(_index, _indexChild, _m, _op, _op.getDeclaringField());
         }
         if (ElUtil.isDeclaringLoopVariable(_m, _page)) {
             return new MutableLoopVariableOperation(_index, _indexChild, _m, _op);

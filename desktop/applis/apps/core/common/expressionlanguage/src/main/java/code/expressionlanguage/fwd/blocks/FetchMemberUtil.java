@@ -1,5 +1,6 @@
 package code.expressionlanguage.fwd.blocks;
 
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
@@ -82,6 +83,14 @@ public final class FetchMemberUtil {
     public static ExecRootBlock fetchType(MemberId _id, Forwards _forwards) {
         int rootNumber_ = _id.getRootNumber();
         if (_forwards.isMember(rootNumber_)) {
+            return _forwards.getMember(rootNumber_).getRootBlock();
+        }
+        return null;
+    }
+
+    public static ExecRootBlock fetchType(RootBlock _id, Forwards _forwards) {
+        if (_id != null) {
+            int rootNumber_ = _id.getNumberAll();
             return _forwards.getMember(rootNumber_).getRootBlock();
         }
         return null;

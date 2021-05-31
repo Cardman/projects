@@ -74,7 +74,6 @@ public final class SettableFieldOperation extends
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        setMemberId(r_.getMemberId());
         setFieldType(r_.getFieldType());
         setValueOffset(r_.getValOffset());
         getSettableFieldContent().setFinalField(r_.isFinalField());

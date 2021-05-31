@@ -32,7 +32,7 @@ public final class ElUtil {
             return names_;
         }
         for (VariableInfo v: d_.getVariables()) {
-            if (v.getDeclaring() != null) {
+            if (v.getDeclaringField() != null) {
                 names_.add(new PartOffsetAffect(new PartOffset(v.getName(),v.getFirstChar()+_valueOffset),v.isAffect(), new StringList()));
             }
         }

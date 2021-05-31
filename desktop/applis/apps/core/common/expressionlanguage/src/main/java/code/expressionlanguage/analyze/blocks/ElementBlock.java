@@ -47,6 +47,10 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     @Override
+    public RootBlock getDeclaringType() {
+        return elementContent.getParentEnum();
+    }
+    @Override
     public int getFieldNameOffset() {
         return elementContent.getFieldNameOffest();
     }

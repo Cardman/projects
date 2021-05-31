@@ -2459,13 +2459,12 @@ public final class LinkageUtil {
         if (current_ == null) {
             return;
         }
-        AbsBk bl_ = _in.getBlock();
         int sum_ = _in.getBeginBlock();
         OperationNode val_ = current_;
         while (true) {
             if (!_vars.getVisited().containsObj(val_)) {
                 if (!_vars.getVisitedAnnotations().containsObj(val_)) {
-                    leftError(_vars, bl_,sum_,val_);
+                    leftError(_vars, sum_,val_);
                 }
                 OperationNode visitErr_ = visit(_vars, val_, _in);
                 if (_vars.goesToProcess()) {
@@ -2695,7 +2694,7 @@ public final class LinkageUtil {
         processVariables(_vars,sum_, _val);
         processConstants(_vars,sum_, _val);
         processAssociation(_vars, sum_, _val);
-        processFieldsReport(_vars,_in.getBlock(), sum_, _val);
+        processFieldsReport(_vars, sum_, _val);
         processInstances(_vars, sum_, _val);
         processLamba(_vars, sum_, _val);
         processLeafType(_vars, sum_,_val);
@@ -2754,7 +2753,6 @@ public final class LinkageUtil {
     }
 
     private static void leftError(VariablesOffsets _vars,
-                                  AbsBk _block,
                                   int _sum,
                                   OperationNode _val) {
         errorsBefore(_vars, _sum, _val);
@@ -2770,7 +2768,7 @@ public final class LinkageUtil {
         processVariables(_vars,_sum, _val);
         processConstants(_vars,_sum, _val);
         processAssociation(_vars, _sum, _val);
-        processFieldsError(_vars,_block, _sum, _val);
+        processFieldsError(_vars, _sum, _val);
         processInstances(_vars, _sum, _val);
         processLamba(_vars, _sum, _val);
         processLeafType(_vars, _sum,_val);
@@ -3041,13 +3039,13 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processFieldsReport(VariablesOffsets _vars, AbsBk _block, int _sum, OperationNode _val) {
+    private static void processFieldsReport(VariablesOffsets _vars, int _sum, OperationNode _val) {
         if (_val instanceof SettableAbstractFieldOperation) {
             int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
             int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
             RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
             int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
-            if (_block instanceof FieldBlock && _val instanceof DeclaredFieldOperation) {
+            if (_val instanceof DeclaredFieldOperation) {
                 _vars.addPart(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
             } else {
@@ -3058,23 +3056,18 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processFieldsError(VariablesOffsets _vars, AbsBk _block, int _sum, OperationNode _val) {
+    private static void processFieldsError(VariablesOffsets _vars, int _sum, OperationNode _val) {
         if (!(_val instanceof SettableAbstractFieldOperation)) {
             return;
         }
-        int indexBlock_ = ((SettableAbstractFieldOperation) _val).getIndexBlock();
         int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
         RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
         int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
         int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
         CustList<PartOffset> partOffsets_ = ((SettableAbstractFieldOperation) _val).getPartOffsets();
-        if (_block instanceof FieldBlock && _val instanceof DeclaredFieldOperation) {
-            StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_);
-            int id_ = ((FieldBlock) _block).getValuesOffset().indexOf(idValueOffset_);
-            StringList errCst_ = new StringList();
-            if (id_ > -1) {
-                errCst_.addAllElts(((FieldBlock) _block).getCstErrorsFields().get(id_));
-            }
+        if (_val instanceof DeclaredFieldOperation) {
+            StringList errs_ = ((DeclaredFieldOperation) _val).getErrsField();
+            StringList errCst_ = ((DeclaredFieldOperation) _val).getErrCst();
             if (errs_.isEmpty()) {
                 if (errCst_.isEmpty()) {
                     _vars.addPart(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));

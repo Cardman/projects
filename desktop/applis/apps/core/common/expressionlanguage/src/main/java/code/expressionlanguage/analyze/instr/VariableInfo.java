@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.instr;
 
 
+import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.ConstType;
 
@@ -14,7 +15,7 @@ public final class VariableInfo {
 
     private int lastChar;
 
-    private RootBlock declaring;
+    private InfoBlock declaringField;
 
     private boolean affect;
 
@@ -50,12 +51,12 @@ public final class VariableInfo {
         lastChar = _lastChar;
     }
 
-    public RootBlock getDeclaring() {
-        return declaring;
+    public InfoBlock getDeclaringField() {
+        return declaringField;
     }
 
-    public void setDeclaring(RootBlock _declaring) {
-        this.declaring = _declaring;
+    public void setDeclaringField(InfoBlock _declaringBlock) {
+        this.declaringField = _declaringBlock;
     }
 
     public boolean isAffect() {

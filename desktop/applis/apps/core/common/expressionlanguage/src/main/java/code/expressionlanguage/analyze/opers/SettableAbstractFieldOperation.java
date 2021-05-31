@@ -126,11 +126,4 @@ public abstract class SettableAbstractFieldOperation extends
         this.fieldType = _fieldType;
     }
 
-    public MemberId getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(MemberId _memberId) {
-        this.memberId = _memberId;
-    }
 }

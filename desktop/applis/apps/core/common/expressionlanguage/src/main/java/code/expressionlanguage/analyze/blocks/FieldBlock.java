@@ -56,11 +56,13 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
     private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
+    private final RootBlock parentType;
     private int fieldNumber;
-    public FieldBlock(OffsetAccessInfo _access,
+    public FieldBlock(RootBlock _parent,OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
                       OffsetStringInfo _type, OffsetStringInfo _value, int _offset) {
         super(_offset);
+        parentType = _parent;
         fieldContent.setAccess(_access.getInfo());
         accessOffset = _access.getOffset();
         fieldContent.setStaticField(_static.isInfo());
@@ -71,6 +73,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         classNameOffset = _type.getOffset();
         value = _value.getInfo();
         fieldContent.setValueOffset(_value.getOffset());
+    }
+
+    @Override
+    public RootBlock getDeclaringType() {
+        return parentType;
     }
 
     @Override

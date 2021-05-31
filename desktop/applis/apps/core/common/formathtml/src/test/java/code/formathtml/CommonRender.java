@@ -164,15 +164,6 @@ public abstract class CommonRender extends EquallableExUtil {
         return getSortedDescNodes(_conf, op_);
     }
 
-    protected static CustList<RendDynOperationNode> getSuccessList(String _el, int _index, AnalyzedTestConfiguration _conf) {
-        Delimiters d_ = checkSyntax(_conf,_el, _index);
-        String el_ = _el.substring(_index);
-        OperationsSequence opTwo_ = rendOpSeq(_index, _conf, d_, el_);
-        OperationNode op_ = rendOp(_index, _conf, opTwo_);
-        CustList<OperationNode> all_ = getSortedDescNodes(_conf, op_);
-        return getExecutableNodes(_conf, all_);
-    }
-
     protected static OperationNode rendOp(int _i, AnalyzedTestConfiguration _conf, OperationsSequence _opTwo) {
         return RenderAnalysis.createOperationNode(_i, IndexConstants.FIRST_INDEX, null, _opTwo, _conf.getAnalyzingDoc(), _conf.getAnalyzing());
     }

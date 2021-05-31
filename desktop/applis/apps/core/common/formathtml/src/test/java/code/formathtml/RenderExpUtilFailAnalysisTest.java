@@ -1,6 +1,9 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.instr.Delimiters;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -329,7 +332,11 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         page_.setAcceptCommaInstr(accept_);
         page_.setCurrentVarSetting(currentVarSetting_);
         page_.setAccessStaticContext(MethodId.getKind(true));
-        getSuccessList(_el, _index, _conf);
+        Delimiters d_ = checkSyntax(_conf, _el, _index);
+        String el_ = _el.substring(_index);
+        OperationsSequence opTwo_ = rendOpSeq(_index, _conf, d_, el_);
+        OperationNode op_ = rendOp(_index, _conf, opTwo_);
+        getSortedDescNodes(_conf, op_);
     }
 
 }
