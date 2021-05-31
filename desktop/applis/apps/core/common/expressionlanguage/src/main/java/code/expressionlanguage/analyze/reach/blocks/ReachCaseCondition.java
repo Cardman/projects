@@ -59,7 +59,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         EnumBlock e_ = getEnumType(type_, _page);
         if (e_ != null) {
             for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-                if (!match(f)) {
+                if (!StringUtil.contains(f.getFieldName(), value.trim())) {
                     continue;
                 }
                 meta.setBuiltEnum(true);
@@ -183,9 +183,6 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         }
         return null;
 
-    }
-    private boolean match(InnerTypeOrElement _f) {
-        return StringUtil.contains(_f.getFieldName(), value.trim());
     }
 
     @Override

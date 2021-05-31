@@ -142,7 +142,7 @@ public final class CaseCondition extends SwitchPartBlock {
         if (e_ != null) {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-                if (!match(f)) {
+                if (!StringUtil.contains(f.getFieldName(), value.trim())) {
                     continue;
                 }
                 enumBlock = e_;
@@ -182,9 +182,6 @@ public final class CaseCondition extends SwitchPartBlock {
         }
         return null;
 
-    }
-    private boolean match(InnerTypeOrElement _f) {
-        return StringUtil.contains(_f.getFieldName(), value.trim());
     }
 
     @Override
