@@ -702,29 +702,6 @@ public abstract class OperationNode {
         return r_;
     }
 
-    protected static FieldResult getDeclaringCustFieldByContext(RootBlock _root, MethodAccessKind _kind,
-                                                                String _name, AnalyzedPageEl _page) {
-        AnaFormattedRootBlock f_ = new AnaFormattedRootBlock(_root);
-        String id_ = StringExpUtil.getIdFromAllTypes(f_.getFormatted());
-        StringMap<FieldResult> ancestors_ = new StringMap<FieldResult>();
-        fetchDeclFieldsType(ancestors_,
-                f_, f_.getRootBlock(), id_, _name, id_);
-        int maxAnc_ = 0;
-        for (int i = 0; i <= maxAnc_; i++) {
-            StringList subClasses_ = new StringList();
-            for (EntryCust<String,FieldResult> e: ancestors_.entryList()) {
-                subClasses_.add(e.getKey());
-            }
-            StringList subs_ = AnaTypeUtil.getSubclasses(subClasses_, _page);
-            FieldResult res_ = getRes(ancestors_, subs_);
-            if (res_ != null) {
-                return res_;
-            }
-        }
-        FieldResult r_ = new FieldResult();
-        r_.setStatus(SearchingMemberStatus.ZERO);
-        return r_;
-    }
     private static void feedTypes(CustList<TypeInfo> _list, StringList _baseTypes, StringMap<String> _superTypesBaseAnc) {
         for (TypeInfo t: _list) {
             if (t.isBase()) {
@@ -741,17 +718,6 @@ public abstract class OperationNode {
     private static void fetchFieldsType(StringMap<FieldResult> _ancestors,
                                         AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {
         _page.getFieldFilter().tryAddField(_scope, _scopeField, _ancestors, _page);
-    }
-
-    private static void fetchDeclFieldsType(StringMap<FieldResult> _ancestors,
-                                            AnaFormattedRootBlock _formatted, AnaGeneType _root, String _rootName, String _name, String _fullName) {
-        FieldInfo fi_ = ContextUtil.getFieldInfo(_root, _rootName, _name);
-        if (fi_ == null) {
-            return;
-        }
-        String formatted_ = _formatted.getFormatted();
-        FieldResult res_ = feedFieldResult(formatted_, fi_, 0, fi_.getType());
-        _ancestors.addEntry(_fullName, res_);
     }
 
     public static void tryAddField(FieldInfo _fi, StringMap<FieldResult> _ancestors, AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {

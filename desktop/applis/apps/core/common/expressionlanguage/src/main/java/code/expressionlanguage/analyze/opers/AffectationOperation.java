@@ -161,7 +161,7 @@ public final class AffectationOperation extends MethodOperation {
         if (elt_ instanceof SettableFieldOperation) {
             SettableFieldOperation cst_ = (SettableFieldOperation)elt_;
             StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
-            if (!synthetic&&ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
+            if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_page.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

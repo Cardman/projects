@@ -288,7 +288,7 @@ public final class ElResolver {
                 unicode_ = res_.getUnicode();
                 continue;
             }
-            if (_page.getGlobalType() != null &&_page.getCurrentBlock() instanceof FieldBlock
+            if (_page.getGlobalType() != null &&_page.getCurrentBlock() instanceof InfoBlock
                     && parsBrackets_.isEmpty()
                     && StringExpUtil.isTypeLeafChar(curChar_)) {
                 int bk_ = StringExpUtil.getBackPrintChar(_string, i_);

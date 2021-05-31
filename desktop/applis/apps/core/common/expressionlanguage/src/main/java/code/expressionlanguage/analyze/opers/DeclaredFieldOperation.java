@@ -5,9 +5,11 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.analyze.opers.util.FieldResult;
-import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.StringExpUtil;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -32,9 +34,11 @@ public final class DeclaredFieldOperation extends
         String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String fieldName_ = originalStr_.trim();
         setFieldNameLength(fieldName_.length());
-        FieldResult r_ = getDeclaringCustFieldByContext(declaring,_page.getStaticContext(), fieldName_, _page);
-        getSettableFieldContent().setAnc(r_.getAnc());
-        if (r_.getStatus() == SearchingMemberStatus.ZERO) {
+        AnaFormattedRootBlock f_ = new AnaFormattedRootBlock(declaring);
+        String id_ = StringExpUtil.getIdFromAllTypes(f_.getFormatted());
+        FieldInfo fi_ = ContextUtil.getFieldInfo(f_.getRootBlock(), id_, fieldName_);
+        getSettableFieldContent().setAnc(0);
+        if (fi_ == null) {
             FoundErrorInterpret access_ = new FoundErrorInterpret();
             access_.setFileName(_page.getLocalizer().getCurrentFileName());
             access_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -47,14 +51,14 @@ public final class DeclaredFieldOperation extends
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        setMemberId(r_.getMemberId());
-        setFieldType(r_.getFieldType());
-        setValueOffset(r_.getValOffset());
-        getSettableFieldContent().setFinalField(r_.isFinalField());
-        getSettableFieldContent().setStaticField(r_.isStaticField());
-        getSettableFieldContent().setClassField(r_.getClassField());
-        getSettableFieldContent().setRealType(r_.getRealType());
-        String c_ = r_.getType();
+        setMemberId(fi_.getMemberId());
+        setFieldType(fi_.getFieldType());
+        setValueOffset(fi_.getValOffset());
+        getSettableFieldContent().setFinalField(fi_.isFinalField());
+        getSettableFieldContent().setStaticField(fi_.isStaticField());
+        getSettableFieldContent().setClassField(fi_.getClassField());
+        getSettableFieldContent().setRealType(fi_.getType());
+        String c_ = fi_.getType();
         setResultClass(new AnaClassArgumentMatching(c_, _page.getPrimitiveTypes()));
     }
 
