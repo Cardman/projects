@@ -481,14 +481,9 @@ public final class AnaTemplates {
             return new StringMap<StringList>();
         }
         CustList<StringList> bounds_ = ContextUtil.getBoundAllAll(_sub);
-        CustList<TypeVar> varTypes_ = ContextUtil.getParamTypesMapValues(_sub);
-        int sizeVar_ = varTypes_.size();
-        StringList args_ = new StringList();
-        for (int i = 0; i < sizeVar_; i++) {
-            args_.add("#"+ i);
-        }
+        int sizeVar_ = bounds_.size();
+        String gene_ = getGeneNb(_sub);
         StringMap<StringList> inh_ = new StringMap<StringList>();
-        String gene_ = _sub.getFullName() +"<"+StringUtil.join(args_,",")+">";
         for (int i = 0; i < sizeVar_; i++) {
             String key_ = Integer.toString(i);
             StringList vs_ = new StringList();
@@ -505,14 +500,11 @@ public final class AnaTemplates {
         }
         CustList<TypeVar> varTypes_ = ContextUtil.getParamTypesMapValues(_sub);
         int sizeVar_ = varTypes_.size();
-        StringList args_ = new StringList();
+        StringMap<String> args_ = new StringMap<String>();
         for (int i = 0; i < sizeVar_; i++) {
-            args_.add("#"+ i);
+            args_.addEntry(varTypes_.get(i).getName(),"#"+ i);
         }
-        if (args_.isEmpty()) {
-            return _sub.getFullName();
-        }
-        return _sub.getFullName() +"<"+StringUtil.join(args_,",")+">";
+        return StringExpUtil.getQuickFormattedType(_sub.getGenericString(),args_);
     }
 
     public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, AnalyzedPageEl _page) {

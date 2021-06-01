@@ -1660,9 +1660,6 @@ public final class ClassesUtil {
             checkDupl(_page, i, i.getAllGenericSuperTypes());
             i.getAllGenericSuperTypesInfo().addAllElts(genericSuperTypes_);
             CustList<AnaFormattedRootBlock> genericClasses_ = i.fetchAllGenericClasses();
-            for (AnaFormattedRootBlock a: genericClasses_) {
-                i.getAllGenericClasses().add(a.getFormatted());
-            }
             i.getAllGenericClassesInfo().addAllElts(genericClasses_);
         }
 

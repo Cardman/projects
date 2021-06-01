@@ -6,11 +6,14 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.assign.util.*;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
@@ -45,6 +48,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         ExecTemplates.getValue(null, cont_.getContext(), null);
         ExecTemplates.getClassName(null, cont_.getContext(), null);
         ExecTemplates.trySetArgument(cont_.getContext(),new Argument(),new ArgumentsPair(), null);
+        new ClassMethodId("",new MethodId(null,"",new StringList())).eq(new ClassMethodId(" ",new MethodId(null,"",new StringList())));
     }
 
     @Test
@@ -134,10 +138,6 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
         assertEq("pkg.Ex<#T>", types_.last());
-    }
-
-    private static StringList getAllGenericClasses(AnalyzedTestContext _context, String _className) {
-        return _context.getAnalyzing().getAnaClassBody(_className).getAllGenericClasses();
     }
 
     @Test
@@ -7920,4 +7920,14 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         assertTrue(hasErr(files_));
     }
+
+    private static StringList getAllGenericClasses(AnalyzedTestContext _context, String _className) {
+        RootBlock anaClassBody_ = _context.getAnalyzing().getAnaClassBody(_className);
+        StringList allGenericClasses_ = new StringList();
+        for (AnaFormattedRootBlock a: anaClassBody_.getAllGenericClassesInfo()) {
+            allGenericClasses_.add(a.getFormatted());
+        }
+        return allGenericClasses_;
+    }
+
 }

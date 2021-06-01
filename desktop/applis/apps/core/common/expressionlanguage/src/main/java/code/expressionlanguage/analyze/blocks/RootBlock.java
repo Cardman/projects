@@ -77,7 +77,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final Ints annotationsIndexes = new Ints();
     private final StringList allGenericSuperTypes = new StringList();
     private final CustList<AnaFormattedRootBlock> allGenericSuperTypesInfo = new CustList<AnaFormattedRootBlock>();
-    private final StringList allGenericClasses = new StringList();
     private final CustList<AnaFormattedRootBlock> allGenericClassesInfo = new CustList<AnaFormattedRootBlock>();
     private final CustList<OperationNode> roots = new CustList<OperationNode>();
     private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
@@ -149,10 +148,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<AnaFormattedRootBlock> getAllGenericSuperTypesInfo() {
         return allGenericSuperTypesInfo;
-    }
-
-    public StringList getAllGenericClasses() {
-        return allGenericClasses;
     }
 
     public CustList<AnaFormattedRootBlock> getAllGenericClassesInfo() {

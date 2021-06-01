@@ -164,17 +164,17 @@ public final class OverridesTypeUtil {
             CustList<OverridingMethodDto> ov_ = r_.getAllOverridingMethods();
             //r_ inherit the formatted method
             boolean found_ = false;
-            TreeMap<String,GeneStringOverridable> tree_ = new TreeMap<String,GeneStringOverridable>(new ComparingByTypeList(r_.getAllGenericClasses()));
+            TreeMap<RootBlock,GeneStringOverridable> tree_ = new TreeMap<RootBlock,GeneStringOverridable>(new ComparingByTypeList(getAllGenericClasses(r_)));
             //if the overridden types contain the type input, then look for the "most sub typed" super class of r_
             for (GeneStringOverridable t: getList(ov_,l_)) {
-                if (t.getType() == _toFind) {
+                RootBlock type_ = t.getType();
+                if (type_ == _toFind) {
                     found_ = true;
                 }
-                if (t.getType() instanceof InterfaceBlock) {
+                if (type_ instanceof InterfaceBlock) {
                     continue;
                 }
-                String t_ = t.getGeneString();
-                tree_.put(t_,t);
+                tree_.put(type_,t);
             }
             if (!found_) {
                 continue;
@@ -189,6 +189,13 @@ public final class OverridesTypeUtil {
             return gene_;
         }
         return null;
+    }
+    private static IdList<RootBlock> getAllGenericClasses(RootBlock _r) {
+        IdList<RootBlock> list_ = new IdList<RootBlock>();
+        for (AnaFormattedRootBlock a: _r.getAllGenericClassesInfo()) {
+            list_.add(a.getRootBlock());
+        }
+        return list_;
     }
     private static CustList<GeneStringOverridable> getList(CustList<OverridingMethodDto> _list, FormattedMethodId _id) {
         CustList<GeneStringOverridable> list_ = getNullList(_list, _id);

@@ -17,6 +17,9 @@ public class GeneStringOverridable {
         block = _block;
     }
 
+    public boolean eq(GeneStringOverridable _g) {
+        return block == _g.block;
+    }
     public AnaFormattedRootBlock getFormat() {
         return format;
     }

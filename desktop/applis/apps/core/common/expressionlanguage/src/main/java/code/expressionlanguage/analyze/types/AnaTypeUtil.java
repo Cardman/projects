@@ -76,9 +76,7 @@ public final class AnaTypeUtil {
                 GeneStringOverridable supId_ = l.getSupMethod();
                 Accessed subAcc_ = new Accessed(subId_.getBlock().getAccess(), l.getSub().getPackageName(), l.getSub());
                 Accessed supAcc_ = new Accessed(supId_.getBlock().getAccess(), l.getSup().getPackageName(), l.getSup());
-                ClassMethodId cSup_ = new ClassMethodId(supId_.getGeneString(),supId_.getBlock().getId());
-                ClassMethodId cSub_ = new ClassMethodId(subId_.getGeneString(),subId_.getBlock().getId());
-                if (cSup_.eq(cSub_)) {
+                if (subId_.eq(supId_)) {
                     if (ContextUtil.canAccess(_type.getFullName(), subAcc_, _page)) {
                         relations_.add(l);
                     }
@@ -89,15 +87,11 @@ public final class AnaTypeUtil {
             for (OverridingRelation l: relations_) {
                 GeneStringOverridable subId_ = l.getSubMethod();
                 GeneStringOverridable supId_ = l.getSupMethod();
-                ClassMethodId cSup_ = new ClassMethodId(supId_.getGeneString(),supId_.getBlock().getId());
-                ClassMethodId cSub_ = new ClassMethodId(subId_.getGeneString(),subId_.getBlock().getId());
-                if (cSup_.eq(cSub_)) {
-                    addClass(_type.getAllOverridingMethods(), key_, subId_);
+                if (subId_.eq(supId_)) {
+                    addDtoClass(_type.getAllOverridingMethods(), key_, subId_);
                 } else {
-                    String retBase_ = supId_.getBlock().getImportedReturnType();
-                    String retDerive_ = subId_.getBlock().getImportedReturnType();
-                    String formattedRetDer_ = AnaInherits.quickFormat(subId_.getFormat(), retDerive_);
-                    String formattedRetBase_ = AnaInherits.quickFormat(supId_.getFormat(), retBase_);
+                    String formattedRetDer_ = quickFormat(subId_);
+                    String formattedRetBase_ = quickFormat(supId_);
                     if (supId_.getBlock().isFinalMethod()) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
@@ -144,8 +138,8 @@ public final class AnaTypeUtil {
                             _page.addLocError(err_);
                             continue;
                         }
-                        addClass(_type.getAllOverridingMethods(), key_, subId_);
-                        addClass(_type.getAllOverridingMethods(), key_, supId_);
+                        addDtoClass(_type.getAllOverridingMethods(), key_, subId_);
+                        addDtoClass(_type.getAllOverridingMethods(), key_, supId_);
                         continue;
                     }
                     if (!AnaInherits.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _page)) {
@@ -165,27 +159,15 @@ public final class AnaTypeUtil {
                         _page.addLocError(err_);
                         continue;
                     }
-                    addClass(_type.getAllOverridingMethods(), key_, subId_);
-                    addClass(_type.getAllOverridingMethods(), key_, supId_);
+                    addDtoClass(_type.getAllOverridingMethods(), key_, subId_);
+                    addDtoClass(_type.getAllOverridingMethods(), key_, supId_);
                 }
             }
         }
     }
 
-    private static void addClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, GeneStringOverridable _class) {
-        boolean found_ = false;
-        for (OverridingMethodDto o: _map) {
-            if (o.getFormattedMethodId().eq(_key)) {
-                o.getMethodIds().add(_class);
-                found_ = true;
-                break;
-            }
-        }
-        if (!found_) {
-            OverridingMethodDto o_ = new OverridingMethodDto(_key);
-            o_.getMethodIds().add(_class);
-            _map.add(o_);
-        }
+    private static String quickFormat(GeneStringOverridable _id) {
+        return AnaInherits.quickFormat(_id.getFormat(), _id.getBlock().getImportedReturnType());
     }
 
     private static CustList<OverridingMethodDto> getAllInstanceSignatures(RootBlock _r) {
@@ -206,24 +188,24 @@ public final class AnaTypeUtil {
                 if (b.hiddenInstance()) {
                     continue;
                 }
-                addDtoClass(map_, b.getId().quickOverrideFormat(s),s, b);
+                addDtoClass(map_, b.getId().quickOverrideFormat(s), new GeneStringOverridable(s, b));
             }
         }
         return map_;
     }
 
-    private static void addDtoClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, AnaFormattedRootBlock _format, NamedCalledFunctionBlock _ov) {
+    private static void addDtoClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, GeneStringOverridable _gene) {
         boolean found_ = false;
         for (OverridingMethodDto o: _map) {
             if (o.getFormattedMethodId().eq(_key)) {
-                o.getMethodIds().add(new GeneStringOverridable(_format, _ov));
+                o.getMethodIds().add(_gene);
                 found_ = true;
                 break;
             }
         }
         if (!found_) {
             OverridingMethodDto o_ = new OverridingMethodDto(_key);
-            o_.getMethodIds().add(new GeneStringOverridable(_format, _ov));
+            o_.getMethodIds().add(_gene);
             _map.add(o_);
         }
     }

@@ -1,19 +1,19 @@
 package code.expressionlanguage.analyze.inherits;
 
-import code.util.StringList;
-import code.util.core.StringUtil;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.util.IdList;
 import code.util.ints.Comparing;
 
-public final class ComparingByTypeList implements Comparing<String> {
+public final class ComparingByTypeList implements Comparing<RootBlock> {
 
-    private StringList types;
-    public ComparingByTypeList(StringList _types) {
+    private final IdList<RootBlock> types;
+    public ComparingByTypeList(IdList<RootBlock> _types) {
         types = _types;
     }
 
     @Override
-    public int compare(String _o1, String _o2) {
-        return StringUtil.indexOf(types,_o1) - StringUtil.indexOf(types,_o2);
+    public int compare(RootBlock _o1, RootBlock _o2) {
+        return types.indexOfObj(_o1) - types.indexOfObj(_o2);
     }
 
 }
