@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -620,17 +621,15 @@ public final class AliasMath {
         LgNames lgNames_ = _cont.getStandards();
         Struct seedSpec_ = _stackCall.getSeedSpecDoubleGenerator();
         Argument argSeedSpec_ = new Argument(seedSpec_);
-        ExecTypeFunction p_ = new ExecTypeFunction(null,null);
+        ExecTypeFunction p_ = new ExecTypeFunction((ExecRootBlock)null,null);
         CustList<Argument> argsToPass_ = new CustList<Argument>();
-        String cl_ = "";
+        ExecFormattedRootBlock cl_ = ExecFormattedRootBlock.defValue();
         if (matchNotNull(_cont, seedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
             String argClassName_ = seedSpec_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seedSpec_,classes_.getSeedDoubleGeneratorPair());
             p_ = polymorphMeth_.getPair();
-            String className_ = polymorphMeth_.getClassName().getFormatted();
-            className_ = ExecInherits.getFullObject(argClassName_, className_, _cont);
-            cl_ = className_;
+            cl_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMeth_.getClassName(), _cont);
         }
         if (p_.getFct() instanceof ExecOverridableBlock) {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
@@ -639,7 +638,7 @@ public final class AliasMath {
                 _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
                 return _result;
             }
-            _stackCall.setCallingState(new CustomFoundMethod(argSeedSpec_,new ExecFormattedRootBlock(p_.getType(),cl_), p_, new Parameters()));
+            _stackCall.setCallingState(new CustomFoundMethod(argSeedSpec_,cl_, p_, new Parameters()));
             return _result;
         }
         Struct seed_ = _stackCall.getSeed();
@@ -649,9 +648,7 @@ public final class AliasMath {
             Classes classes_ = _cont.getClasses();
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_,classes_.getSeedDoubleGeneratorPair());
             p_ = polymorphMeth_.getPair();
-            String className_ = polymorphMeth_.getClassName().getFormatted();
-            className_ = ExecInherits.getFullObject(argClassName_, className_, _cont);
-            cl_ = className_;
+            cl_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMeth_.getClassName(), _cont);
         }
         if (p_.getFct() instanceof ExecOverridableBlock) {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
@@ -660,7 +657,7 @@ public final class AliasMath {
                 _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
                 return _result;
             }
-            _stackCall.setCallingState(new CustomFoundMethod(argSeed_,new ExecFormattedRootBlock(p_.getType(),cl_), p_, new Parameters()));
+            _stackCall.setCallingState(new CustomFoundMethod(argSeed_,cl_, p_, new Parameters()));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
@@ -672,17 +669,15 @@ public final class AliasMath {
         LgNames lgNames_ = _cont.getStandards();
         Struct seedSpec_ = _stackCall.getSeedSpecGenerator();
         Argument argSeedSpec_ = new Argument(seedSpec_);
-        ExecTypeFunction p_ = new ExecTypeFunction(null,null);
+        ExecTypeFunction p_ = new ExecTypeFunction((ExecRootBlock)null,null);
         CustList<Argument> argsToPass_ = new CustList<Argument>();
-        String cl_ = "";
+        ExecFormattedRootBlock cl_ = new ExecFormattedRootBlock((ExecRootBlock) null,"");
         if (matchNotNull(_cont, seedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedGenerator())) {
             String argClassName_ = seedSpec_.getClassName(_cont);
             Classes classes_ = _cont.getClasses();
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seedSpec_, classes_.getSeedGeneratorPair());
             p_ = polymorphMeth_.getPair();
-            String className_ = polymorphMeth_.getClassName().getFormatted();
-            className_ = ExecInherits.getFullObject(argClassName_, className_, _cont);
-            cl_ = className_;
+            cl_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMeth_.getClassName(), _cont);
             argsToPass_.add(new Argument(_args[0]));
         }
         if (p_.getFct() instanceof ExecOverridableBlock) {
@@ -693,7 +688,7 @@ public final class AliasMath {
                 return _result;
             }
             ArgumentListCall argList_ = new ArgumentListCall(argsToPass_);
-            ExecTemplates.wrapAndCall(p_, new ExecFormattedRootBlock(p_.getType(),cl_),argSeedSpec_, _cont, _stackCall, argList_);
+            ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, argList_);
             return _result;
         }
         argsToPass_.clear();
@@ -704,9 +699,7 @@ public final class AliasMath {
             Classes classes_ = _cont.getClasses();
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedGeneratorPair());
             p_ = polymorphMeth_.getPair();
-            String className_ = polymorphMeth_.getClassName().getFormatted();
-            className_ = ExecInherits.getFullObject(argClassName_, className_, _cont);
-            cl_ = className_;
+            cl_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMeth_.getClassName(), _cont);
             argsToPass_.add(new Argument(_args[0]));
         }
         if (p_.getFct() instanceof ExecOverridableBlock) {
@@ -717,7 +710,7 @@ public final class AliasMath {
                 return _result;
             }
             ArgumentListCall argList_ = new ArgumentListCall(argsToPass_);
-            ExecTemplates.wrapAndCall(p_, new ExecFormattedRootBlock(p_.getType(),cl_),argSeed_, _cont, _stackCall, argList_);
+            ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, argList_);
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

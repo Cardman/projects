@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.files.DefaultAccessType;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
@@ -64,7 +65,7 @@ public abstract class CommonRender extends EquallableExUtil {
 
         String globalClass_ = _analyzing.getAnalyzing().getGlobalClass();
         setupAna(_analyzingDoc, _analyzing.getAnalyzing());
-        _analyzing.getAnalyzing().setGlobalType(_analyzing.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));
+        _analyzing.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_analyzing.getAnalyzing(),globalClass_));
         for (EntryCust<String, LocalVariable> e: _analyzing.getLocalVariables().entryList()) {
             AnaLocalVariable a_ = new AnaLocalVariable();
             a_.setClassName(e.getValue().getClassName());

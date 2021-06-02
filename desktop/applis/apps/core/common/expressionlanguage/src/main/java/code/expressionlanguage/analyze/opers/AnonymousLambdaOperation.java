@@ -213,7 +213,7 @@ public final class AnonymousLambdaOperation extends
                 }
             }
         }
-        lambdaCommonContent.setFoundFormatted(new AnaFormattedRootBlock(_page.getGlobalType(),_page.getGlobalClass()));
+        lambdaCommonContent.setFoundFormatted(AnaFormattedRootBlock.copy(_page.getGlobalType()));
         lambdaCommonContent.setFileName(_page.getLocalizer().getCurrentFileName());
         RootBlock globalType_ = block.getParentType();
         OperatorBlock operator_ = block.getOperator();
@@ -222,7 +222,6 @@ public final class AnonymousLambdaOperation extends
             block.getAllReservedInners().addAllElts(globalType_.getAllReservedInners());
         }
         if (operator_ != null) {
-            lambdaAnoContent.setOperatorNumber(operator_.getOperatorNumber());
             block.getAllReservedInners().addAllElts(operator_.getAllReservedInners());
         }
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
@@ -333,10 +332,6 @@ public final class AnonymousLambdaOperation extends
 
     public int getRootNumber() {
         return lambdaAnoContent.getRootNumber();
-    }
-
-    public int getOperatorNumber() {
-        return lambdaAnoContent.getOperatorNumber();
     }
 
     public AnaLambdaCommonContent getLambdaCommonContent() {

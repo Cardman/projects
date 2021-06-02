@@ -516,12 +516,7 @@ public final class AnaTemplates {
         String gene_ = g_.getGenericString();
         String type_ = "";
         if (!StringUtil.quickEq(idParam_,_erased)) {
-            for (String s: g_.getAllGenericSuperTypes()) {
-                String idSuper_ = StringExpUtil.getIdFromAllTypes(s);
-                if (StringUtil.quickEq(idSuper_,idParam_)) {
-                    type_ = s;
-                }
-            }
+            type_ = AnaInherits.generic(g_,idParam_);
         } else {
             if (StringUtil.quickEq(_erased, _page.getAliasFct())) {
                 return _declaring;

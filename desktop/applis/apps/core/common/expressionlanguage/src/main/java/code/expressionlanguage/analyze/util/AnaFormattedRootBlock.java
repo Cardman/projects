@@ -1,7 +1,9 @@
 package code.expressionlanguage.analyze.util;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.common.StringExpUtil;
 
 public final class AnaFormattedRootBlock {
     private final RootBlock rootBlock;
@@ -14,6 +16,16 @@ public final class AnaFormattedRootBlock {
     public AnaFormattedRootBlock(RootBlock _rootBlock, String _formatted) {
         this.rootBlock = _rootBlock;
         this.formatted = _formatted;
+    }
+    public AnaFormattedRootBlock(AnalyzedPageEl _page, String _formatted) {
+        this.rootBlock = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_formatted));
+        this.formatted = _formatted;
+    }
+    public static AnaFormattedRootBlock defValue() {
+        return new AnaFormattedRootBlock((RootBlock)null,"");
+    }
+    public static AnaFormattedRootBlock copy(AnaFormattedRootBlock _from) {
+        return new AnaFormattedRootBlock(_from.rootBlock,_from.formatted);
     }
 
     public static AnaFormattedRootBlock quickFormat(AnaFormattedRootBlock _sub, AnaFormattedRootBlock _sup) {

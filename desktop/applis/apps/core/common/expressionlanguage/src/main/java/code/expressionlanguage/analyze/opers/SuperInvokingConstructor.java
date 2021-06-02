@@ -18,7 +18,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
 
     @Override
     AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
-        RootBlock clBody_ = _page.getGlobalType();
+        RootBlock clBody_ = _page.getGlobalType().getRootBlock();
         if (!(clBody_ instanceof UniqueRootedBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -32,7 +32,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         String superClass_ = "";
         CustList<AnaFormattedRootBlock> genericClasses_ = clBody_.getAllGenericClassesInfo();
         if (genericClasses_.size() > 1) {
-            setType(genericClasses_.get(1).getRootBlock());
+            setType(genericClasses_.get(1));
             superClass_ = genericClasses_.get(1).getFormatted();
         }
         if (getType() == null) {

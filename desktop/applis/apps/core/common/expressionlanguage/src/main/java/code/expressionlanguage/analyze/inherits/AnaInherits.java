@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.stds.PrimitiveType;
+import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -305,7 +306,17 @@ public final class AnaInherits {
         return quickFormat(_typSub,_subType, generic_);
     }
 
+    public static AnaFormattedRootBlock getFormattedOverridingFullTypeByBases(AnaFormattedRootBlock _subType, AnaGeneType _superType) {
+        AnaFormattedRootBlock res_ = getOverridingFullTypeByBases(_subType.getRootBlock(), _superType);
+        if (res_ == null) {
+            return null;
+        }
+        return AnaFormattedRootBlock.quickFormat(_subType,res_);
+    }
     public static AnaFormattedRootBlock getOverridingFullTypeByBases(RootBlock _subType, AnaGeneType _superType) {
+        if (_subType == null) {
+            return null;
+        }
         if (_subType == _superType) {
             return new AnaFormattedRootBlock(_subType);
         }
@@ -321,23 +332,28 @@ public final class AnaInherits {
         if (_subType == null) {
             return "";
         }
-        String generic_ = "";
         String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
         if (_subType instanceof AnnotationBlock) {
             if (StringUtil.quickEq(param_, _page.getAliasAnnotationType())) {
                 return StringExpUtil.getPrettyArrayType(param_,_dim);
             }
         }
-        for (String g: _subType.getAllGenericSuperTypes()) {
-            if (StringUtil.quickEq(StringExpUtil.getIdFromAllTypes(g),param_)) {
-                generic_ = g;
-                break;
-            }
-        }
+        String generic_ = generic(_subType, param_);
         if (generic_.isEmpty()) {
             return "";
         }
         return StringExpUtil.getPrettyArrayType(generic_,_dim);
+    }
+
+    static String generic(AnaGeneType _subType, String _param) {
+        String generic_ = "";
+        if (_subType instanceof RootBlock) {
+            generic_ = new AnaLookingSuperTypes(((RootBlock) _subType).getAllGenericSuperTypesInfo()).find(_param);
+        }
+        if (_subType instanceof StandardType) {
+            generic_ = new CommonLookingSuperTypes(((StandardType) _subType).getAllGenericSuperTypes()).find(_param);
+        }
+        return generic_;
     }
 
     public static String format(AnaFormattedRootBlock _root, String _second) {

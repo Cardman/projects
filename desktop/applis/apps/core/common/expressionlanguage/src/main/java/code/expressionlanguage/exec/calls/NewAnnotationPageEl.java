@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.WithEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.common.AnnotationTypeInfo;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -17,7 +18,8 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
 
     private final StringMap<AnnotationTypeInfo> names;
     private final CustList<Argument> args;
-    public NewAnnotationPageEl(StringMap<AnnotationTypeInfo> _names,CustList<Argument> _args) {
+    public NewAnnotationPageEl(StringMap<AnnotationTypeInfo> _names, CustList<Argument> _args, ExecFormattedRootBlock _global) {
+        super(_global);
         names = _names;
         args = _args;
     }

@@ -15,7 +15,6 @@ public final class FieldInfo {
     private final Accessed accessed;
     private final int valOffset;
     private final String fileName;
-    private final RootBlock fieldType;
     private final MemberId memberId = new MemberId();
 
     private FieldInfo(ClassField _id, String _type,
@@ -26,7 +25,6 @@ public final class FieldInfo {
         finalField = _finalField;
         accessed = _accessed;
         valOffset = _valOffset;
-        fieldType = _accessed.getType();
         fileName = _fileName;
     }
     public static String newFieldInfo(String _declaringClass, String _type,
@@ -48,9 +46,6 @@ public final class FieldInfo {
         return new FieldInfo(_id, _type, _staticField, _finalField, _accessed, _valOffset,_fileName);
     }
 
-    public AnaFormattedRootBlock buildFormatted(String _formatted) {
-        return new AnaFormattedRootBlock(fieldType,_formatted);
-    }
     public ClassField getClassField() {
         return classField;
     }
@@ -64,10 +59,6 @@ public final class FieldInfo {
     }
     public boolean isFinalField() {
         return finalField;
-    }
-
-    public RootBlock getFieldType() {
-        return fieldType;
     }
 
     public Accessed getAccessed() {

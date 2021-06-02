@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -40,13 +41,11 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         if (_anaDoc.getBeansInfosBefore().contains(beanName)) {
             _page.setAccessStaticContext(MethodAccessKind.INSTANCE);
             String clName_ = _anaDoc.getBeansInfosBefore().getVal(beanName).getResolvedClassName();
-            _page.setGlobalClass(clName_);
-            RootBlock bean_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(clName_));
-            _page.setGlobalType(bean_);
-            _page.setImporting(bean_);
+            AnaFormattedRootBlock globalType_ = new AnaFormattedRootBlock(_page, clName_);
+            _page.setGlobalType(globalType_);
+            _page.setImporting(globalType_.getRootBlock());
         } else {
-            _page.setGlobalClass("");
-            _page.setGlobalType(null);
+            _page.setGlobalType(AnaFormattedRootBlock.defValue());
             _page.setImporting(null);
         }
         AnaRendBlock en_ = this;

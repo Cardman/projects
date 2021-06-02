@@ -56,8 +56,7 @@ public final class AnalyzedPageEl {
     private ImportForEachLoop currentAnaBlockForEachLoop;
     private ImportForEachTable currentAnaBlockForEachTable;
 
-    private String globalClass = "";
-    private RootBlock globalType;
+    private AnaFormattedRootBlock globalType = AnaFormattedRootBlock.defValue();
     private String currentPkg = "";
     private FileBlock currentFile;
 
@@ -447,26 +446,21 @@ public final class AnalyzedPageEl {
     }
 
     public String getGlobalClass() {
-        return globalClass;
+        return globalType.getFormatted();
     }
 
-    public void setGlobalClass(String _globalClass) {
-        globalClass = _globalClass;
-    }
-
-    public RootBlock getGlobalType() {
+    public AnaFormattedRootBlock getGlobalType() {
         return globalType;
     }
 
-    public void setGlobalType(RootBlock _globalType) {
+    public void setGlobalType(AnaFormattedRootBlock _globalType) {
         globalType = _globalType;
     }
 
     public void setupFctChars(NamedCalledFunctionBlock _fct) {
         setImporting(null);
-        setGlobalType(null);
         setImportingTypes(null);
-        setGlobalClass("");
+        ClassesUtil.globalType(this);
         setCurrentPkg("");
         setCurrentFile(null);
         RootBlock c_ = _fct.getParentType();
@@ -474,8 +468,7 @@ public final class AnalyzedPageEl {
             setImporting(c_);
             setImportingAcces(new TypeAccessor(c_.getFullName()));
             setImportingTypes(c_);
-            setGlobalClass(c_.getGenericString());
-            setGlobalType(c_);
+            ClassesUtil.globalType(this,c_);
             setCurrentPkg(c_.getPackageName());
             setCurrentFile(c_.getFile());
         }
@@ -484,7 +477,6 @@ public final class AnalyzedPageEl {
             setImporting(operator_);
             setImportingAcces(new OperatorAccessor());
             setImportingTypes(operator_);
-            setGlobalClass("");
             setCurrentPkg(getDefaultPkg());
             setCurrentFile(operator_.getFile());
         }
@@ -492,9 +484,8 @@ public final class AnalyzedPageEl {
 
     public void setupFctChars(SwitchMethodBlock _fct) {
         setImporting(null);
-        setGlobalType(null);
         setImportingTypes(null);
-        setGlobalClass("");
+        ClassesUtil.globalType(this);
         setCurrentPkg("");
         setCurrentFile(null);
         RootBlock c_ = _fct.getParentType();
@@ -502,8 +493,7 @@ public final class AnalyzedPageEl {
             setImporting(c_);
             setImportingAcces(new TypeAccessor(c_.getFullName()));
             setImportingTypes(c_);
-            setGlobalClass(c_.getGenericString());
-            setGlobalType(c_);
+            ClassesUtil.globalType(this,c_);
             setCurrentPkg(c_.getPackageName());
             setCurrentFile(c_.getFile());
         }
@@ -512,7 +502,6 @@ public final class AnalyzedPageEl {
             setImporting(operator_);
             setImportingAcces(new OperatorAccessor());
             setImportingTypes(operator_);
-            setGlobalClass("");
             setCurrentPkg(getDefaultPkg());
             setCurrentFile(operator_.getFile());
         }

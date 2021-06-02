@@ -8,9 +8,9 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -371,19 +371,19 @@ public abstract class ExecOperationNode {
         String argClassName_ = struct_.getClassName(_conf);
         String idCl_ = StringExpUtil.getIdFromAllTypes(argClassName_);
         ExecTypeFunction valBody_ = _redir.getVal(idCl_);
-        String clCall_ = "";
-        ExecTypeFunction p_ = new ExecTypeFunction(null,null);
+        ExecFormattedRootBlock clCall_ = ExecFormattedRootBlock.defValue();
+        ExecTypeFunction p_ = new ExecTypeFunction((ExecRootBlock) null,null);
         if (valBody_ != null) {
             ExecOverrideInfo polymorphMethod_ = ExecInvokingOperation.polymorph(_conf, struct_, valBody_);
             p_ = polymorphMethod_.getPair();
-            clCall_ = ExecInherits.getFullObject(argClassName_, polymorphMethod_.getClassName().getFormatted(), _conf);
+            clCall_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMethod_.getClassName(), _conf);
         }
         if (p_.getFct() == null) {
             return new Argument(_nat.compute(_argument, _conf));
         }
         Parameters parameters_ = new Parameters();
         Argument out_ = new Argument(struct_);
-        _stackCall.setCallingState(new CustomFoundMethod(out_,new ExecFormattedRootBlock(p_.getType(),clCall_), p_, parameters_));
+        _stackCall.setCallingState(new CustomFoundMethod(out_,clCall_, p_, parameters_));
         return out_;
     }
 

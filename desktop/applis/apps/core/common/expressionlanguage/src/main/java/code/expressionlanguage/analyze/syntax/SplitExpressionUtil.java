@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ParsedType;
 import code.expressionlanguage.analyze.instr.ElRetrieverAnonymous;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -27,13 +28,13 @@ public final class SplitExpressionUtil {
             processType(_page, int_, c);
         }
         for (OperatorBlock o: _page.getAllOperators()) {
-            _page.setGlobalType(null);
+            _page.setGlobalType(AnaFormattedRootBlock.defValue());
             _page.setCurrentPkg(_page.getDefaultPkg());
             _page.setCurrentFile(o.getFile());
             processFunction(_page,int_,o, null);
         }
         for (OperatorBlock o: _page.getAllOperators()) {
-            _page.setGlobalType(null);
+            _page.setGlobalType(AnaFormattedRootBlock.defValue());
             _page.setCurrentPkg(_page.getDefaultPkg());
             _page.setCurrentFile(o.getFile());
             processAnnotFct(_page, int_, o, null);
@@ -182,7 +183,7 @@ public final class SplitExpressionUtil {
         return types_;
     }
     private static void processType(AnalyzedPageEl _page, IntermediaryResults _int, RootBlock _type) {
-        _page.setGlobalType(_type);
+        ClassesUtil.globalType(_page,_type);
         _page.setCurrentPkg(_type.getPackageName());
         _page.setCurrentFile(_type.getFile());
         CustList<AbsBk> bl_ = ClassesUtil.getDirectChildren(_type);

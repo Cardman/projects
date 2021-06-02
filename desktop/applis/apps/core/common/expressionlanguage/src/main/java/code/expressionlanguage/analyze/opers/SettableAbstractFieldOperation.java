@@ -78,7 +78,7 @@ public abstract class SettableAbstractFieldOperation extends
         return false;
     }
     private boolean notMatchCurrentType(AnalyzedPageEl _page) {
-        return _page.getGlobalType() != fieldType;
+        return _page.getGlobalType().getRootBlock() != fieldType;
     }
 
     public AnaSettableOperationContent getSettableFieldContent() {

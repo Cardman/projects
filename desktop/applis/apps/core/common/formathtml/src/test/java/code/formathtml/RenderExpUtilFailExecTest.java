@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.instr.Delimiters;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
@@ -2159,8 +2160,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
 
     private static void processElLow(String _el, AnalyzedTestConfiguration _cont) {
         String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
-        _cont.getAnalyzing().setGlobalClass(gl_);
-        _cont.getAnalyzing().setGlobalType(_cont.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_)));
+        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
         _cont.getAnalyzingDoc().setup(_cont.getConfiguration(), _cont.getDual());
         setupAnalyzing(_cont, _cont.getAnalyzingDoc());
         Argument argGl_ = _cont.getArgument();
@@ -2184,8 +2184,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
 
     private static void processQuickEl(String _el, AnalyzedTestConfiguration _cont) {
         String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
-        _cont.getAnalyzing().setGlobalClass(gl_);
-        _cont.getAnalyzing().setGlobalType(_cont.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_)));
+        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
         CustList<OperationNode> all_ = getQuickAnalyzed(_el, 0, _cont, _cont.getAnalyzingDoc());
         ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards(), _cont.getContext());
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
@@ -2263,8 +2262,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     private static Struct checkEx3(AnalyzedTestConfiguration _cont, String _s) {
 //        addInnerPage(_cont);
         String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
-        _cont.getAnalyzing().setGlobalClass(gl_);
-        _cont.getAnalyzing().setGlobalType(_cont.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_)));
+        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
         CustList<OperationNode> all_ = getQuickAnalyzed(_s, 0, _cont, _cont.getAnalyzingDoc());
         ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards(), _cont.getContext());
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);

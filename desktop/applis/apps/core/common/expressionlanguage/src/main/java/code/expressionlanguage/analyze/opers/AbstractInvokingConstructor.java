@@ -26,7 +26,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     private AnaClassArgumentMatching from;
     private final CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private MemberId memberId = new MemberId();
-    private RootBlock type;
+    private AnaFormattedRootBlock type;
     public AbstractInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -51,7 +51,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             return;
         }
         String clCurName_ = from.getName();
-        tryGetCtors(clCurName_,ctors, _page, type);
+        tryGetCtors(clCurName_,ctors, _page, type.getRootBlock());
     }
 
     @Override
@@ -79,7 +79,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             feed_ = MethodId.to(idClass_, id_.getConstraints());
         }
         String clCurName_ = from.getName();
-        invokingConstructorContent.setFormattedType(new AnaFormattedRootBlock(type,clCurName_));
+        invokingConstructorContent.setFormattedType(type);
         String id_ = StringExpUtil.getIdFromAllTypes(clCurName_);
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.isOk()) {
@@ -87,7 +87,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             return;
         }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(varargOnly_, from,id_,type, feed_, varargParam_, name_, _page);
+        ctorRes_ = getDeclaredCustConstructor(varargOnly_, from,id_,type.getRootBlock(), feed_, varargParam_, name_, _page);
         if (ctorRes_.noRealId()) {
             buildCtorError(name_,_page,from.getName());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -183,11 +183,11 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         return memberId;
     }
 
-    public RootBlock getType() {
+    public AnaFormattedRootBlock getType() {
         return type;
     }
 
-    public void setType(RootBlock _type) {
+    public void setType(AnaFormattedRootBlock _type) {
         type = _type;
     }
 }

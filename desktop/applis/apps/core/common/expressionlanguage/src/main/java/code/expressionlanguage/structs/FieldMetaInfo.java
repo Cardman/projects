@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -42,28 +41,29 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         fileName = "";
         annotableBlock = null;
         declaring = null;
-        formatted = new ExecFormattedRootBlock(null,"");
+        formatted = ExecFormattedRootBlock.defValue();
     }
     public FieldMetaInfo(ExecLambdaCommonContent _common, ExecLambdaFieldContent _field,
                          ClassField _id,
-                         String _formDeclaringClass, ExecFormattedRootBlock _formatted) {
+                         ExecFormattedRootBlock _formatted) {
         invokable = true;
         name = StringUtil.nullToEmpty(_id.getFieldName());
         type = StringUtil.nullToEmpty(_common.getReturnFieldType());
         staticField = _field.isStaticField();
         finalField = _field.isFinalField();
         access = AccessEnum.PUBLIC;
-        formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
+        formDeclaringClass = StringUtil.nullToEmpty(_formatted.getFormatted());
         fileName = _common.getFileName();
         declaring = _field.getRootBlock();
         annotableBlock = _field.getInfoBlock();
         setOwner(_field.getRootBlock());
         formatted = _formatted;
     }
-    public FieldMetaInfo(ContextEl _context, ExecRootBlock _type, ExecInfoBlock _info, String _declaringClass,
+    public FieldMetaInfo(ContextEl _context, ExecInfoBlock _info, String _declaringClass,
                          String _name, ExecFormattedRootBlock _formatted) {
-        String idType_ = _type.getFullName();
-        String formCl_ = MetaInfoUtil.tryFormatType(idType_, _declaringClass, _context);
+        ExecRootBlock type_ = _formatted.getRootBlock();
+        String idType_ = type_.getFullName();
+        String formCl_ = tryFormatType(idType_, _declaringClass, _context);
         invokable = true;
         name = StringUtil.nullToEmpty(_name);
         type = StringUtil.nullToEmpty(_info.getImportedClassName());
@@ -71,10 +71,10 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         finalField = _info.isFinalField();
         access = _info.getAccess();
         formDeclaringClass = StringUtil.nullToEmpty(formCl_);
-        declaring = _type;
+        declaring = type_;
         annotableBlock = _info;
-        fileName = _type.getFile().getFileName();
-        setOwner(_type);
+        fileName = type_.getFile().getFileName();
+        setOwner(type_);
         formatted = _formatted;
     }
     public FieldMetaInfo(String _name,
@@ -128,8 +128,10 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
     public boolean isPrivate() {
         return access == AccessEnum.PRIVATE;
     }
-    public String getDeclaringClass() {
-        return formatted.getFormatted();
+
+    @Override
+    public ExecFormattedRootBlock getFormatted() {
+        return formatted;
     }
 
     public String getFormDeclaringClass() {

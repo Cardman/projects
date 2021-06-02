@@ -40,7 +40,8 @@ public class AnnotationInstanceArobaseOperation extends AnnotationInstanceOperat
         String realClassName_ = instancingAnnotContent.getMethodName().trim().substring(AROBASE.length());
         realClassName_ = ResolvingTypes.resolveCorrectType(1+StringExpUtil.getOffset(realClassName_),realClassName_, _page);
         getPartOffsets().addAllElts(_page.getCurrentParts());
-        RootBlock g_ = _page.getAnaClassBody(realClassName_);
+        AnaFormattedRootBlock form_ = new AnaFormattedRootBlock(_page,realClassName_);
+        RootBlock g_ = form_.getRootBlock();
         if (!(g_ instanceof AnnotationBlock)) {
             instancingAnnotContent.setClassName(_page.getAliasObject());
             setResultClass(new AnaClassArgumentMatching(realClassName_));
@@ -48,7 +49,7 @@ public class AnnotationInstanceArobaseOperation extends AnnotationInstanceOperat
         }
         rootNumber = g_.getNumberAll();
         instancingAnnotContent.setClassName(realClassName_);
-        instancingAnnotContent.setFormattedType(new AnaFormattedRootBlock(g_,realClassName_));
+        instancingAnnotContent.setFormattedType(form_);
     }
 
     public String getClassName() {

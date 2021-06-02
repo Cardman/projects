@@ -12,9 +12,8 @@ import code.expressionlanguage.exec.variables.AbstractWrapper;
 
 public abstract class AbstractCommonMethodPageEl extends AbstractPageEl implements ForwardPageEl {
 
-    protected AbstractCommonMethodPageEl(Argument _gl, ExecFormattedRootBlock _glClass) {
-        setGlobalArgument(_gl);
-        setGlobalClass(_glClass);
+    protected AbstractCommonMethodPageEl(ExecFormattedRootBlock _glClass) {
+        super(_glClass);
     }
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
         basicReceive(_wrap, _argument,_context, _stack);

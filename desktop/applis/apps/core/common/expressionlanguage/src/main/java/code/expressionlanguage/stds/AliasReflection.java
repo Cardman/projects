@@ -675,18 +675,9 @@ public final class AliasReflection {
         LgNames standards_ = _cont.getStandards();
         String aliasMethod_ = standards_.getContent().getReflect().getAliasMethod();
         CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
-        String declaringClass_ = _annot.getDeclaringClass();
         for (ExecAnonymousFunctionBlock f: _annot.getAnonymousLambda()) {
-            ExecRootBlock type_ = f.getParentType();
-            if (type_ != null) {
-                MethodMetaInfo met_ = buildAnon(_cont, declaringClass_, f, type_);
-                methods_.add(met_);
-            }
-            ExecOperatorBlock operator_ = f.getOperator();
-            if (operator_ != null) {
-                MethodMetaInfo met_ = buildAnon(_cont, declaringClass_, f, null);
-                methods_.add(met_);
-            }
+            MethodMetaInfo met_ = new MethodMetaInfo(_cont, f, _annot.getFormatted());
+            methods_.add(met_);
         }
         if (_args.length == 0) {
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
@@ -695,28 +686,15 @@ public final class AliasReflection {
         CustList<MethodMetaInfo> candidates_ = filterMethods(_cont, methods_, _args[0], _args[1], _args[2], _args[3]);
         String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
         return getMethodsMeta(className_, candidates_);
-    }
-
-    private static MethodMetaInfo buildAnon(ContextEl _cont, String _declaringClass, ExecAnonymousFunctionBlock _f, ExecRootBlock _type) {
-        return new MethodMetaInfo(_cont,_f,_type,_declaringClass);
     }
 
     private static ArrayStruct fetchSwitchMethod(ContextEl _cont, AnnotatedStruct _annot, Struct... _args) {
         LgNames standards_ = _cont.getStandards();
         String aliasMethod_ = standards_.getContent().getReflect().getAliasMethod();
         CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
-        String declaringClass_ = _annot.getDeclaringClass();
         for (ExecAbstractSwitchMethod f: _annot.getSwitchMethods()) {
-            ExecRootBlock type_ = f.getParentType();
-            if (type_ != null) {
-                MethodMetaInfo met_ = buildSwitch(_cont, declaringClass_, f, type_);
-                methods_.add(met_);
-            }
-            ExecOperatorBlock operator_ = f.getOperator();
-            if (operator_ != null) {
-                MethodMetaInfo met_ = buildSwitch(_cont, declaringClass_, f, null);
-                methods_.add(met_);
-            }
+            MethodMetaInfo met_ = new MethodMetaInfo(_cont, f, _annot.getFormatted());
+            methods_.add(met_);
         }
         if (_args.length == 0) {
             String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
@@ -725,10 +703,6 @@ public final class AliasReflection {
         CustList<MethodMetaInfo> candidates_ = filterMethods(_cont, methods_, _args[0], _args[1], _args[2], _args[3]);
         String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
         return getMethodsMeta(className_, candidates_);
-    }
-
-    private static MethodMetaInfo buildSwitch(ContextEl _cont, String _declaringClass, ExecAbstractSwitchMethod _f, ExecRootBlock _type) {
-        return new MethodMetaInfo(_cont,_f,_type,_declaringClass);
     }
 
     public static ResultErrorStd invokeFieldInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {

@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.*;
@@ -64,7 +63,7 @@ public final class MetaInfoUtil {
         for (ExecInfoBlock b: type_.getAllFields()) {
 
             for (String f: b.getFieldName()) {
-                FieldMetaInfo met_ = new FieldMetaInfo(_context,type_,b,name_, f, _formatted);
+                FieldMetaInfo met_ = new FieldMetaInfo(_context, b,name_, f, _formatted);
                 infosFields_.add(met_);
             }
         }
@@ -184,46 +183,6 @@ public final class MetaInfoUtil {
         return cl_;
     }
 
-    public static ConstructorId tryFormatId(String _name, ContextEl _context, ConstructorId _id) {
-        ConstructorId fid_;
-        if (ExecInherits.correctNbParameters(_name, _context)) {
-            fid_ = _id.reflectFormat(_name, _context);
-        } else {
-            fid_ = _id;
-        }
-        return fid_;
-    }
-
-    public static String tryFormatType(String _idType, String _name, ContextEl _context) {
-        String formCl_ = _idType;
-        if (ExecInherits.correctNbParameters(_name, _context)) {
-            formCl_ = _name;
-        }
-        return formCl_;
-    }
-
-    public static MethodId tryFormatId(String _name, ContextEl _context, MethodId _id) {
-        MethodId fid_;
-        if (ExecInherits.correctNbParameters(_name, _context)) {
-            fid_ = _id.reflectFormat(_name, _context);
-        } else {
-            fid_ = _id;
-        }
-        return fid_;
-    }
-
-    public static ConstructorId tryFormatId(ExecFormattedRootBlock _name, ConstructorId _id) {
-        return _id.reflectFormat(_name);
-    }
-
-    public static String tryFormatType(ExecFormattedRootBlock _name) {
-        return _name.getFormatted();
-    }
-
-    public static MethodId tryFormatId(ExecFormattedRootBlock _name, MethodId _id) {
-        return _id.reflectFormat(_name);
-    }
-
     public static boolean isAbstractType(GeneType _type) {
         if (_type instanceof StandardClass) {
             return ((StandardClass)_type).isAbstractStdType();
@@ -319,7 +278,7 @@ public final class MetaInfoUtil {
         infosTrues_ = new CustList<MethodMetaInfo>();
         CustList<MethodMetaInfo> infosFalses_;
         infosFalses_ = new CustList<MethodMetaInfo>();
-        ExecFormattedRootBlock formatted_ = new ExecFormattedRootBlock(null, _name);
+        ExecFormattedRootBlock formatted_ = new ExecFormattedRootBlock((ExecRootBlock) null, _name);
         for (StandardField f: _type.getFields()) {
             String ret_ = f.getImportedClassName();
             String decl_ = _type.getFullName();

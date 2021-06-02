@@ -700,13 +700,10 @@ public final class ForwardInfos {
     }
 
     private static ExecAnonymousFunctionBlock buildExecAnonymousLambdaOperation(AnonymousLambdaOperation _s, Forwards _forwards) {
-        ExecRootBlock declaring_ = FetchMemberUtil.fetchType(_s.getRootNumber(),_forwards);
 //        ExecRootBlock declaring_ = _forwards.getMapMembers().getValue(_s.getRootNumber()).getRootBlock();
         NamedCalledFunctionBlock block_ = _s.getBlock();
         block_.setNumberLambda(_forwards.countAnonLambda());
         ExecAnonymousFunctionBlock fct_ = new ExecAnonymousFunctionBlock(block_.isRetRef(),block_.getName(), block_.isVarargs(), block_.getAccess(), block_.getParametersNames(), block_.getModifier(), block_.getOffset(), new ExecAnonFctContent(block_.getAnaAnonFctContent()), block_.getImportedParametersTypes(), block_.getParametersRef());
-        fct_.setParentType(declaring_);
-        fct_.setOperator(FetchMemberUtil.fetchOperator(_s.getOperatorNumber(),_forwards));
         _forwards.addAnonLambda(block_,fct_);
         fct_.setImportedReturnType(block_.getImportedReturnType());
         return fct_;
@@ -729,9 +726,6 @@ public final class ForwardInfos {
         } else {
             fct_ = new ExecSwitchValueMethod(retRef_, name_, kind_, parType_, block_.getOffset(),retType_, anonFctContent_);
         }
-        ExecRootBlock declaring_ = FetchMemberUtil.fetchType(_s.getRootNumber(),_forwards);
-        fct_.setParentType(declaring_);
-        fct_.setOperator(FetchMemberUtil.fetchOperator(_s.getOperatorNumber(),_forwards));
         _forwards.addSwitchMethod(block_,fct_);
         return fct_;
     }
@@ -1212,7 +1206,7 @@ public final class ForwardInfos {
             if (typeCtor_ != null) {
                 return new ExecStandardInstancingOperation(typeCtor_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), s_.isNewBefore(), new ExecInstancingCommonContent(s_.getInstancingCommonContent(),_forwards), new ExecInstancingStdContent(s_.getInstancingStdContent()));
             }
-            return new ExecDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent(), new ExecFormattedRootBlock(null,s_.getClassName())));
+            return new ExecDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent(), new ExecFormattedRootBlock((ExecRootBlock) null,s_.getClassName())));
         }
         if (_anaNode instanceof AnonymousInstancingOperation) {
             AnonymousInstancingOperation s_ = (AnonymousInstancingOperation) _anaNode;

@@ -5,9 +5,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.WithEl;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 
 public final class BlockPageEl extends AbstractPageEl {
+    public BlockPageEl(ExecFormattedRootBlock _global) {
+        super(_global);
+    }
+
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
         basicReceive(_wrap, _argument,_context, _stack);
     }

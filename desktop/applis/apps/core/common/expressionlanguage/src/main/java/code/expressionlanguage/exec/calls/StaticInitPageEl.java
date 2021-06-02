@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundBlock;
 
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.BoolVal;
@@ -16,8 +17,8 @@ public final class StaticInitPageEl extends AbstractInitPageEl {
     private Argument fwd;
     private final IdMap<ExecInitBlock, BoolVal> processedBlocks = new IdMap<ExecInitBlock, BoolVal>();
 
-    public StaticInitPageEl(CustList<ExecBlock> _visited) {
-        super(_visited);
+    public StaticInitPageEl(CustList<ExecBlock> _visited, ExecFormattedRootBlock _global) {
+        super(_visited,_global);
     }
 
     @Override

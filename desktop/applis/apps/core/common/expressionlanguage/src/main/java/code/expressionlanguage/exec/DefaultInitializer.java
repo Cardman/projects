@@ -29,14 +29,14 @@ public class DefaultInitializer implements Initializer {
     }
 
     public final CustList<ClassFieldStruct> feedFields(ContextEl _context, ExecFormattedRootBlock _className) {
-        ExecFormattedRootBlock base_ = new ExecFormattedRootBlock(_className.getRootBlock());
+        ExecFormattedRootBlock base_ = ExecFormattedRootBlock.gene(_className);
         CustList<ExecFormattedRootBlock> allClasses_ = new CustList<ExecFormattedRootBlock>(base_);
-        allClasses_.addAllElts(_className.getRootBlock().getAllGenericSuperTypes());
+        allClasses_.addAllElts(base_.getRootBlock().getAllGenericSuperTypes());
         CustList<ClassFieldStruct> fields_ = new CustList<ClassFieldStruct>();
         for (ExecFormattedRootBlock c: allClasses_) {
             String preFormatted_ = c.getFormatted();
             String id_ = StringExpUtil.getIdFromAllTypes(preFormatted_);
-            ExecFormattedRootBlock formatted_ = ExecInherits.quickFormat(_className, c);
+            ExecFormattedRootBlock formatted_ = ExecFormattedRootBlock.quickFormat(_className, c);
             ExecRootBlock rootBlock_ = c.getRootBlock();
             for (ExecFieldBlock b: rootBlock_.getInstanceFields()) {
                 String fieldDeclClass_ = ExecInherits.quickFormat(formatted_, b.getImportedClassName());

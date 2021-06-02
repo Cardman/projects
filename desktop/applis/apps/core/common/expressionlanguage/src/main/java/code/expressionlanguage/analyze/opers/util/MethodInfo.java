@@ -73,11 +73,20 @@ public final class MethodInfo implements Parametrable {
         setCustMethod(_m.getCustMethod());
     }
     public void pairMemberId(String _formattedClass, AnalyzedPageEl _page,MethodHeaderInfo _m) {
-        types(_formattedClass,_page,_m.getImportedReturnType());
-        classMethodId(_formattedClass,_m.getId());
-        setFileName(_m.getRoot().getFile().getFileName());
-        pair(_m.getRoot(),_m.getFunction());
+        pairInfos(_formattedClass, _page, _m.getImportedReturnType(), _m.getRoot(), _m.getFunction(), _m.getId());
         memberId(_m.getRootNumber(),_m.getNameNumber());
+    }
+    public void pairMemberId(String _formattedClass, AnalyzedPageEl _page,String _importedReturnType, RootBlock _root, NamedCalledFunctionBlock _function, MethodId _id) {
+        pairInfos(_formattedClass, _page, _importedReturnType,_root, _function, _id);
+        memberId(_root,_function);
+        setCustMethod(_function);
+    }
+
+    private void pairInfos(String _formattedClass, AnalyzedPageEl _page, String _importedReturnType, RootBlock _root, NamedFunctionBlock _function, MethodId _id) {
+        types(_formattedClass, _page, _importedReturnType);
+        classMethodId(_formattedClass, _id);
+        setFileName(_root.getFile().getFileName());
+        pair(_root, _function);
     }
 
     public void classMethodId(String _className, MethodId _id) {
@@ -147,7 +156,7 @@ public final class MethodInfo implements Parametrable {
 
     @Override
     public Identifiable getPartialId() {
-        return constraints;
+        return getConstraints();
     }
 
     public int getAncestor() {

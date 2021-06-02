@@ -10,8 +10,8 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
 public final class CommonSwitchMethodPageEl extends AbstractCommonMethodPageEl {
     private final Argument value;
-    public CommonSwitchMethodPageEl(Argument _gl, ExecFormattedRootBlock _glClass, Argument _value) {
-        super(_gl, _glClass);
+    public CommonSwitchMethodPageEl(ExecFormattedRootBlock _glClass, Argument _value) {
+        super(_glClass);
         value = _value;
     }
 

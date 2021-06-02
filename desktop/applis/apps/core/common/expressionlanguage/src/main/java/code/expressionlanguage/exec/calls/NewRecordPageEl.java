@@ -6,6 +6,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -13,7 +14,8 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
 
     private final StringMap<String> names;
     private final CustList<Argument> args;
-    public NewRecordPageEl(StringMap<String> _names, CustList<Argument> _args) {
+    public NewRecordPageEl(StringMap<String> _names, CustList<Argument> _args, ExecFormattedRootBlock _global) {
+        super(_global);
         names = _names;
         args = _args;
     }

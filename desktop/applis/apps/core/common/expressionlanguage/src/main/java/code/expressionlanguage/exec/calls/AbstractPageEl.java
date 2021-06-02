@@ -24,7 +24,7 @@ public abstract class AbstractPageEl {
 
     protected static final String EMPTY_STRING = "";
 
-    private ExecFormattedRootBlock globalClass = new ExecFormattedRootBlock(null,"");
+    private final ExecFormattedRootBlock globalClass;
 
     private ExecRootBlock blockRootType;
 
@@ -52,6 +52,9 @@ public abstract class AbstractPageEl {
     private TryBlockStack lastTry;
     private final PageElContent content = new PageElContent();
 
+    protected AbstractPageEl(ExecFormattedRootBlock _global) {
+        globalClass = _global;
+    }
     public Struct getGlobalStruct() {
         return content.getGlobalStruct();
     }
@@ -359,9 +362,6 @@ public abstract class AbstractPageEl {
         return globalClass;
     }
 
-    public void setGlobalClass(ExecFormattedRootBlock _globalClass) {
-        globalClass = _globalClass;
-    }
     public ExecRootBlock getBlockRootType() {
         return blockRootType;
     }

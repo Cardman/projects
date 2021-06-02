@@ -210,9 +210,6 @@ public final class ExecInherits {
         return quickFormat(_context.getClassBody(StringExpUtil.getIdFromAllTypes(_first)),_first,_second);
     }
 
-    public static ExecFormattedRootBlock quickFormat(ExecFormattedRootBlock _type, ExecFormattedRootBlock _second) {
-        return new ExecFormattedRootBlock(_second.getRootBlock(),quickFormat(_type,_second.getFormatted()));
-    }
     public static String quickFormat(ExecFormattedRootBlock _type, String _second) {
         return quickFormat(_type.getRootBlock(),_type.getFormatted(),_second);
     }
@@ -301,21 +298,10 @@ public final class ExecInherits {
         }
         String generic_ = "";
         if (classBody_ instanceof ExecRootBlock) {
-            for (ExecFormattedRootBlock e: ((ExecRootBlock) classBody_).getAllGenericSuperTypes()) {
-                String g = e.getFormatted();
-                if (StringUtil.quickEq(StringExpUtil.getIdFromAllTypes(g),param_)) {
-                    generic_ = g;
-                    break;
-                }
-            }
+            generic_ = new ExecLookingSuperTypes(((ExecRootBlock) classBody_).getAllGenericSuperTypes()).find(param_);
         }
         if (classBody_ instanceof StandardType) {
-            for (String g: ((StandardType) classBody_).getAllGenericSuperTypes()) {
-                if (StringUtil.quickEq(StringExpUtil.getIdFromAllTypes(g),param_)) {
-                    generic_ = g;
-                    break;
-                }
-            }
+            generic_ = new CommonLookingSuperTypes(((StandardType) classBody_).getAllGenericSuperTypes()).find(param_);
         }
         if (generic_.isEmpty()) {
             return "";

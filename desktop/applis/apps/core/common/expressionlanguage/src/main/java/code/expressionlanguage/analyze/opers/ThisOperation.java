@@ -42,7 +42,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             }
             String access_ = previousResultClass.getName();
             String id_ = StringExpUtil.getIdFromAllTypes(access_);
-            RootBlock g_ = _page.getGlobalType();
+            RootBlock g_ = _page.getGlobalType().getRootBlock();
             if (g_ == null) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFileName(_page.getLocalizer().getCurrentFileName());

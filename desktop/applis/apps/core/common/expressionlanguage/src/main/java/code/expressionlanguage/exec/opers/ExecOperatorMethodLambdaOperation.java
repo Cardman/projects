@@ -33,8 +33,7 @@ public final class ExecOperatorMethodLambdaOperation extends ExecAbstractLambdaO
 
     public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous,
                                    String _clArg) {
-        String idCl_ = StringExpUtil.getIdFromAllTypes(_common.getFormattedType().getFormatted());
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_common.getFormattedType(), idCl_, _meth.getMethod(), _meth.getPair());
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_common.getFormattedType(), _meth.getMethod(), _meth.getPair());
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg);
     }
 

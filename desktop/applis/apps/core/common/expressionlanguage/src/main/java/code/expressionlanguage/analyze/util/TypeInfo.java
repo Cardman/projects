@@ -27,7 +27,7 @@ public final class TypeInfo {
     }
 
     public TypeInfo(StandardType _type, String _formatted, MethodAccessKind _scope, boolean _base) {
-        this.formatted = new AnaFormattedRootBlock(null,_formatted);
+        this.formatted = new AnaFormattedRootBlock((RootBlock) null,_formatted);
         root = _type;
         typeId = _formatted;
         superTypes = _type.getAllSuperTypes();

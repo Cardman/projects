@@ -557,7 +557,7 @@ public final class RendForwardInfos {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
             ExecTypeFunction typeCtor_ = FetchMemberUtil.fetchPossibleTypeCtor(s_.getMemberId(), _forwards);
             if (typeCtor_ == null) {
-                return new RendDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent(), new ExecFormattedRootBlock(null,s_.getClassName())));
+                return new RendDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent(), new ExecFormattedRootBlock((ExecRootBlock)null,s_.getClassName())));
             }
             return new RendStandardInstancingOperation(typeCtor_, new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCommonContent(s_.getInstancingCommonContent(),_forwards), new ExecInstancingStdContent(s_.getInstancingStdContent()));
         }

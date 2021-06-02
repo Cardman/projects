@@ -9,8 +9,8 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
 public final class CommonMethodPageEl extends AbstractCommonMethodPageEl {
 
-    public CommonMethodPageEl(Argument _gl, ExecFormattedRootBlock _glClass) {
-        super(_gl, _glClass);
+    public CommonMethodPageEl(ExecFormattedRootBlock _glClass) {
+        super(_glClass);
     }
 
     public void initReturnType(Argument _right) {

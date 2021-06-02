@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AccessEnum;
@@ -49,6 +50,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         ExecTemplates.getClassName(null, cont_.getContext(), null);
         ExecTemplates.trySetArgument(cont_.getContext(),new Argument(),new ArgumentsPair(), null);
         new ClassMethodId("",new MethodId(null,"",new StringList())).eq(new ClassMethodId(" ",new MethodId(null,"",new StringList())));
+        AnaInherits.getOverridingFullTypeByBases(null,null);
     }
 
     @Test

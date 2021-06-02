@@ -327,7 +327,7 @@ public final class ResultTernary {
             }
         }
         if (_g instanceof StandardType) {
-            for (String t: _g.getAllGenericSuperTypes()) {
+            for (String t: ((StandardType)_g).getAllGenericSuperTypes()) {
                 String f_ = AnaInherits.format(_g, _base, t);
                 _superTypes.add(StringExpUtil.getPrettyArrayType(f_, _d));
             }

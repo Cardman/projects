@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.*;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
@@ -5485,8 +5486,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     private static void setGlobalType(AnalyzedTestContext _conf, String _globalClass) {
-        _conf.getAnalyzing().setGlobalClass(_globalClass);
-        _conf.getAnalyzing().setGlobalType(_conf.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(_globalClass)));
+        _conf.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_conf.getAnalyzing(),_globalClass));
     }
 
     private static RootBlock getAnaClassBody(AnalyzedTestContext _classes, String _className) {

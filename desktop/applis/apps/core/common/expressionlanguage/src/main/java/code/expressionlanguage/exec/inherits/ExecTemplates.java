@@ -893,7 +893,7 @@ public final class ExecTemplates {
     }
 
     public static Argument getField(FieldMetaInfo _meta, Argument _previous, ContextEl _conf, StackCall _stackCall) {
-        String baseClass_ = _meta.getDeclaringClass();
+        String baseClass_ = _meta.getFormatted().getFormatted();
         baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
         String fieldName_ = _meta.getName();
         boolean isStaticField_ = _meta.isStaticField();
@@ -953,7 +953,7 @@ public final class ExecTemplates {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
             return Argument.createVoid();
         }
-        String baseClass_ = _meta.getDeclaringClass();
+        String baseClass_ = _meta.getFormatted().getFormatted();
         baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
         String fieldName_ = _meta.getName();
         boolean isStaticField_ = _meta.isStaticField();

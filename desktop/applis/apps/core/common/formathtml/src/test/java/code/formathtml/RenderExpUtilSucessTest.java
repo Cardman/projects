@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.Delimiters;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ExecClassesUtil;
@@ -1075,7 +1076,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
         String globalClass_ = context_.getAnalyzing().getGlobalClass();
         setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
-        context_.getAnalyzing().setGlobalType(context_.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));
+        context_.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(context_.getAnalyzing(),globalClass_));
         context_.getAnalyzing().setAccessStaticContext(MethodId.getKind(false));
         Delimiters d_ = checkSyntax(context_, "$this.inst", 0);
         String el_ = "$this.inst";
@@ -5925,7 +5926,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
         String globalClass_ = _analyzing.getGlobalClass();
         setupAna(_analyzingDoc, _analyzing);
-        _analyzing.setGlobalType(_analyzing.getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));
+        _analyzing.setGlobalType(new AnaFormattedRootBlock(_analyzing,globalClass_));
         AnaLocalVariable a_ = new AnaLocalVariable();
         a_.setClassName(_type);
         a_.setConstType(ConstType.LOC_VAR);
@@ -5945,8 +5946,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static void setGlobalType(AnalyzedTestConfiguration _context, String _clasName) {
-        _context.getAnalyzing().setGlobalClass(_clasName);
-        _context.getAnalyzing().setGlobalType(_context.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(_clasName)));
+        _context.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_context.getAnalyzing(),_clasName));
     }
 
     private static void checkNullEx(AnalyzedTestConfiguration _context) {

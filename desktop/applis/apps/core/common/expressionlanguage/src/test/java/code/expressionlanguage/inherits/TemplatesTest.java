@@ -3,10 +3,12 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -927,7 +929,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String className_ = StringExpUtil.getIdFromAllTypes("pkg.Ex<E>");
         RootBlock root_ = cont_.getAnalyzing().getAnaClassBody(className_);
-        StringList superTypes_ = root_.getAllGenericSuperTypes();
+        CustList<AnaFormattedRootBlock> superTypes_ = root_.getAllGenericSuperTypesInfo();
         assertEq(0, superTypes_.size());
     }
 
@@ -942,9 +944,9 @@ public final class TemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String className_ = StringExpUtil.getIdFromAllTypes("pkg.Ex");
         RootBlock root_ = cont_.getAnalyzing().getAnaClassBody(className_);
-        StringList superTypes_ = root_.getAllGenericSuperTypes();
+        CustList<AnaFormattedRootBlock> superTypes_ = root_.getAllGenericSuperTypesInfo();
         assertEq(1, superTypes_.size());
-        assertEq("pkg.ExTwo<#E>", superTypes_.get(0));
+        assertEq("pkg.ExTwo<#E>", superTypes_.get(0).getFormatted());
     }
 
     @Test

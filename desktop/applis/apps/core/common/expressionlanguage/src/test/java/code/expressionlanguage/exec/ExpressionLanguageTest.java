@@ -6513,7 +6513,6 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,c_);
-        addImportingPage(c_, stackCall_);
         Argument arg_ = tryCalculate(c_, stackCall_);
         assertNull(stackCall_.getCallingState());
         return arg_;
@@ -6522,7 +6521,6 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     private static Struct directCalculateExc(String _el) {
         ContextEl c_ = analyze(_el);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,c_);
-        addImportingPage(c_, stackCall_);
         tryCalculate(c_, stackCall_);
         assertNotNull(((CustomFoundExc) stackCall_.getCallingState()).getStruct());
         return ((CustomFoundExc) stackCall_.getCallingState()).getStruct();
@@ -6599,7 +6597,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     private static Argument tryCalculate(ContextEl _context, StackCall _stackCall) {
         ExecRootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
-        _stackCall.getLastPage().setGlobalClass(new ExecFormattedRootBlock(cl_,"code.formathtml.classes.Apply"));
+        ExecutingUtil.addPage(_context,new CommonMethodPageEl(new ExecFormattedRootBlock(cl_,"code.formathtml.classes.Apply")), _stackCall);
         ExecFieldBlock f_ = fetchField(cl_);
         ExpressionLanguage el_ = new ExpressionLanguage(f_.getEl(_context,0));
         return ExpressionLanguage.tryToCalculate(_context,el_,0, _stackCall);
@@ -6639,7 +6637,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     private static void addImportingPage(ContextEl _conf, StackCall _stackCall) {
-        ExecutingUtil.addPage(_conf,new CommonMethodPageEl(Argument.createVoid(),new ExecFormattedRootBlock(null,"")), _stackCall);
+        ExecutingUtil.addPage(_conf,new CommonMethodPageEl(new ExecFormattedRootBlock((ExecRootBlock)null,"")), _stackCall);
     }
 
     private static ContextEl contextEl(StringMap<String> _files) {

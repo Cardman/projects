@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 
 public final class CurrentInvokingConstructor extends AbstractInvokingConstructor {
 
@@ -14,7 +15,7 @@ public final class CurrentInvokingConstructor extends AbstractInvokingConstructo
     @Override
     AnaClassArgumentMatching getFrom(AnalyzedPageEl _page) {
         String clCurName_ = _page.getGlobalClass();
-        setType(_page.getGlobalType());
+        setType(AnaFormattedRootBlock.copy(_page.getGlobalType()));
         return new AnaClassArgumentMatching(clCurName_);
     }
 

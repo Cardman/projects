@@ -5,7 +5,6 @@ import code.expressionlanguage.functionid.MethodId;
 public final class AnaLambdaAnoContent {
     private MethodId method;
     private int rootNumber = -1;
-    private int operatorNumber = -1;
 
     public MethodId getMethod() {
         return method;
@@ -23,11 +22,4 @@ public final class AnaLambdaAnoContent {
         this.rootNumber = _rootNumber;
     }
 
-    public int getOperatorNumber() {
-        return operatorNumber;
-    }
-
-    public void setOperatorNumber(int _operatorNumber) {
-        this.operatorNumber = _operatorNumber;
-    }
 }

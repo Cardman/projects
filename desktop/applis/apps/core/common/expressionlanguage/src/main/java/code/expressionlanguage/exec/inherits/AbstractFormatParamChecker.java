@@ -28,7 +28,7 @@ public abstract class AbstractFormatParamChecker extends AbstractParamChecker {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(_classNameFound.getFormatted(), className_), cast_, _stackCall)));
             return _classNameFound;
         }
-        return new ExecFormattedRootBlock(_classNameFound.getRootBlock(), sup_);
+        return new ExecFormattedRootBlock(_classNameFound, sup_);
     }
     private static String getBadCastMessage(String _classNameFound, String _className) {
         return StringUtil.concat(_className, RETURN_LINE, _classNameFound, RETURN_LINE);

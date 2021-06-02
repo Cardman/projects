@@ -22,6 +22,10 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
 
     private ExecTypeFunction emptyCtorPair;
 
+    protected AbstractCallingInstancingPageEl(ExecFormattedRootBlock _global) {
+        super(_global);
+    }
+
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
         basicReceive(_wrap, _argument,_context, _stack);
     }

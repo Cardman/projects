@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -320,8 +321,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
         analyzingDoc_.setup(_conf.getConfiguration(), _conf.getDual());
         AnalyzingDoc.setupInts(page_, analyzingDoc_);
-        page_.setGlobalClass(globalClass_);
-        page_.setGlobalType(page_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));
+        page_.setGlobalType(new AnaFormattedRootBlock(page_,globalClass_));
         for (PairVar e: _vars) {
             AnaLocalVariable a_ = new AnaLocalVariable();
             a_.setClassName(e.getLocal().getClassName());

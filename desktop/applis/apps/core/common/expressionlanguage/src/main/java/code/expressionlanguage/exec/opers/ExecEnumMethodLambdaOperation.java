@@ -37,8 +37,7 @@ public final class ExecEnumMethodLambdaOperation extends ExecAbstractLambdaOpera
 
     public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous,
                                    String _clArg, ExecRootBlock _type) {
-        String idCl_ = StringExpUtil.getIdFromAllTypes(_common.getFormattedType().getFormatted());
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_common.getFormattedType(),idCl_, _meth.getMethod(), new ExecTypeFunction(_type,null));
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_common.getFormattedType(), _meth.getMethod(), new ExecTypeFunction(_type,null));
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg);
     }
 

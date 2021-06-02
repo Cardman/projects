@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.NamedCalledFunctionBlock;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -27,7 +28,7 @@ public final class ExecStaticEltContent {
 
     static ExecFormattedRootBlock build(Forwards _fwd, AnaFormattedRootBlock _implicit) {
         if (_implicit.getRootBlock() == null) {
-            return new ExecFormattedRootBlock(null, _implicit.getFormatted());
+            return new ExecFormattedRootBlock((ExecRootBlock)null, _implicit.getFormatted());
         }
         return FetchMemberUtil.fwdFormatType(_implicit, _fwd);
     }

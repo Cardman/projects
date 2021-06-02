@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.Cache;
@@ -55,8 +54,8 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         access = AccessEnum.PRIVATE;
         modifier = MethodModifier.NORMAL;
         returnType = "";
-        pair = new ExecTypeFunction(null,null);
-        formatted = new ExecFormattedRootBlock(null,"");
+        pair = new ExecTypeFunction((ExecRootBlock)null,null);
+        formatted = ExecFormattedRootBlock.defValue();
         fileName = "";
         stdCallee = null;
         callee = null;
@@ -75,9 +74,9 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         modifier = MethodModifier.FINAL;
         returnType = StringUtil.nullToEmpty(_returnType);
         fid = _realId;
-        formatted = new ExecFormattedRootBlock(null,className);
+        formatted = new ExecFormattedRootBlock((ExecRootBlock)null,className);
         formDeclaringClass = StringUtil.nullToEmpty(_declaringClass);
-        pair = new ExecTypeFunction(null,null);
+        pair = new ExecTypeFunction((ExecRootBlock)null,null);
         fileName = "";
         stdCallee = null;
         callee = null;
@@ -95,7 +94,7 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         returnType = StringUtil.nullToEmpty(_returnType);
         fid = _realId;
         formDeclaringClass = StringUtil.nullToEmpty(type_.getFullName());
-        pair = new ExecTypeFunction(type_,null);
+        pair = new ExecTypeFunction(_formatted,null);
         callee = null;
         fileName = type_.getFile().getFileName();
         formatted = _formatted;
@@ -116,7 +115,7 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         returnType = StringUtil.nullToEmpty(_annot.getImportedReturnType());
         fid = id_;
         formDeclaringClass = StringUtil.nullToEmpty(type_.getFullName());
-        pair = new ExecTypeFunction(type_,_annot);
+        pair = new ExecTypeFunction(_formatted,_annot);
         callee = _annot;
         fileName = type_.getFile().getFileName();
         formatted = _formatted;
@@ -134,7 +133,7 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         String ret_ = _over.getImportedReturnType();
         boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL || _over.getKind() == ExecMethodKind.EXPLICIT_CAST || _over.getKind() == ExecMethodKind.IMPLICIT_CAST
                 || _over.getKind() == ExecMethodKind.TRUE_OPERATOR  || _over.getKind() == ExecMethodKind.FALSE_OPERATOR;
-        MethodId fid_ = MetaInfoUtil.tryFormatId(formatted_, _context, id_);
+        MethodId fid_ = tryFormatId(formatted_, _context, id_);
         String formCl_ = formCl(_context, formatted_);
         String idCl_ = type_.getFullName();
         if (param_) {
@@ -148,7 +147,7 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         returnType = StringUtil.nullToEmpty(ret_);
         fid = fid_;
         formDeclaringClass = StringUtil.nullToEmpty(formCl_);
-        pair = new ExecTypeFunction(type_,_over);
+        pair = new ExecTypeFunction(_formatted,_over);
         callee = _over;
         fileName = type_.getFile().getFileName();
         setOwner(type_);
@@ -157,19 +156,21 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         cache = null;
         directCast = false;
     }
-    public MethodMetaInfo(ContextEl _cont, ExecAnonymousFunctionBlock _f, ExecRootBlock _type, String _declaringClass) {
+    public MethodMetaInfo(ContextEl _cont, ExecAnonymousFunctionBlock _f, ExecFormattedRootBlock _formatted) {
+        ExecRootBlock type_ = _formatted.getRootBlock();
+        String formatted_ = _formatted.getFormatted();
         String idType_ = "";
         String idCl_ = "";
-        if (_type != null) {
-            idType_ = _type.getFullName();
-            idCl_ = _type.getFullName();
+        if (type_ != null) {
+            idType_ = type_.getFullName();
+            idCl_ = type_.getFullName();
         }
-        String formCl_ = MetaInfoUtil.tryFormatType(idType_, _declaringClass, _cont);
+        String formCl_ = tryFormatType(idType_, formatted_, _cont);
         LgNames standards_ = _cont.getStandards();
         MethodId id_ = _f.getId();
         boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
         if (param_) {
-            idCl_ = _declaringClass;
+            idCl_ = formatted_;
         }
         invokable = true;
         access = _f.getAccess();
@@ -177,14 +178,14 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         realId = id_;
         modifier = _f.getModifier();
         returnType = StringUtil.nullToEmpty(_f.getImportedReturnType());
-        fid =  MetaInfoUtil.tryFormatId(_declaringClass, _cont, realId);
+        fid =  tryFormatId(formatted_, _cont, realId);
         formDeclaringClass = StringUtil.nullToEmpty(formCl_);
-        pair = new ExecTypeFunction(_type,_f);
+        pair = new ExecTypeFunction(type_,_f);
         callee = _f;
         fileName = _f.getFile().getFileName();
         cache = new ShownCache(_f, standards_.getContent().getCoreNames().getAliasObject());
-        setOwner(_type);
-        formatted = new ExecFormattedRootBlock(_type, _declaringClass);
+        setOwner(type_);
+        formatted = _formatted;
         stdCallee = null;
         directCast = false;
         expCast = false;
@@ -199,7 +200,7 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         returnType = StringUtil.nullToEmpty(_std.getImportedReturnType());
         fid = realId;
         formDeclaringClass = StringUtil.nullToEmpty(_className);
-        pair = new ExecTypeFunction(null,null);
+        pair = new ExecTypeFunction((ExecRootBlock)null,null);
         formatted = _formatted;
         fileName = "";
         callee = null;
@@ -217,8 +218,8 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         returnType = StringUtil.nullToEmpty(_oper.getImportedReturnType());
         formDeclaringClass = "";
         fileName = _oper.getFile().getFileName();
-        pair = new ExecTypeFunction(null,_oper);
-        formatted = new ExecFormattedRootBlock(null, "");
+        pair = new ExecTypeFunction((ExecRootBlock)null,_oper);
+        formatted = ExecFormattedRootBlock.defValue();
         callee = _oper;
         stdCallee = null;
         cache = null;
@@ -256,7 +257,7 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         realId = _realId;
         modifier = met_;
         returnType = StringUtil.nullToEmpty(_common.getReturnFieldType());
-        fid = MetaInfoUtil.tryFormatId(_declaringClass, _realId);
+        fid = tryFormatId(_declaringClass, _realId);
         String formCl_ = formCl(_declaringClass);
         formDeclaringClass = StringUtil.nullToEmpty(formCl_);
         pair = _pair;
@@ -267,14 +268,15 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         stdCallee = null;
         directCast = false;
     }
-    public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, String _className, MethodId _realId, ExecTypeFunction _pair) {
+    public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, MethodId _realId, ExecTypeFunction _pair) {
+        String idCl_ = StringExpUtil.getIdFromAllTypes(_common.getFormattedType().getFormatted());
         invokable = true;
         access = AccessEnum.PUBLIC;
-        className = StringUtil.nullToEmpty(_className);
+        className = StringUtil.nullToEmpty(idCl_);
         realId = _realId;
         modifier = MethodModifier.STATIC;
         returnType = StringUtil.nullToEmpty(_common.getReturnFieldType());
-        fid = MetaInfoUtil.tryFormatId(_declaringClass, _realId);
+        fid = tryFormatId(_declaringClass, _realId);
         String formCl_ = formCl(_declaringClass);
         formDeclaringClass = StringUtil.nullToEmpty(formCl_);
         pair = _pair;
@@ -294,11 +296,11 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         realId = _realId;
         modifier = _modifier;
         returnType = StringUtil.nullToEmpty(_common.getReturnFieldType());
-        fid = MetaInfoUtil.tryFormatId(_declaringClass, _realId);
+        fid = tryFormatId(_declaringClass, _realId);
         String formCl_ = formCl(_declaringClass);
         formDeclaringClass = StringUtil.nullToEmpty(formCl_);
         directCast = _directCast;
-        pair = new ExecTypeFunction(null,null);
+        pair = new ExecTypeFunction((ExecRootBlock)null,null);
         formatted = _declaringClass;
         callee = null;
         fileName = _common.getFileName();
@@ -313,11 +315,11 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         realId = _realId;
         modifier = _modifier;
         returnType = StringUtil.nullToEmpty(_common.getReturnFieldType());
-        fid = MetaInfoUtil.tryFormatId(_declaringClass, _realId);
+        fid = tryFormatId(_declaringClass, _realId);
         String formCl_ = formCl(_declaringClass);
         formDeclaringClass = StringUtil.nullToEmpty(formCl_);
         directCast = _directCast;
-        pair = new ExecTypeFunction(null,null);
+        pair = new ExecTypeFunction((ExecRootBlock)null,null);
         formatted = _declaringClass;
         callee = null;
         fileName = _common.getFileName();
@@ -325,17 +327,18 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         cache = null;
         expCast = false;
     }
-    public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, String _className, MethodId _realId, MethodModifier _modifier, StandardMethod _stdCallee) {
+    public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, MethodId _realId, MethodModifier _modifier, StandardMethod _stdCallee) {
+        String from_ = StringExpUtil.getIdFromAllTypes(_declaringClass.getFormatted());
         invokable = true;
         access = AccessEnum.PUBLIC;
-        className = StringUtil.nullToEmpty(_className);
+        className = StringUtil.nullToEmpty(from_);
         realId = _realId;
         modifier = _modifier;
         returnType = StringUtil.nullToEmpty(_common.getReturnFieldType());
-        fid = MetaInfoUtil.tryFormatId(_declaringClass, _realId);
+        fid = tryFormatId(_declaringClass, _realId);
         String formCl_ = formCl(_declaringClass);
         formDeclaringClass = StringUtil.nullToEmpty(formCl_);
-        pair = new ExecTypeFunction(null,null);
+        pair = new ExecTypeFunction((ExecRootBlock)null,null);
         formatted = _declaringClass;
         callee = null;
         stdCallee = _stdCallee;
@@ -345,34 +348,36 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         expCast = false;
     }
 
-    public MethodMetaInfo(ContextEl _cont, ExecAbstractSwitchMethod _f, ExecRootBlock _type, String _declaringClass) {
+    public MethodMetaInfo(ContextEl _cont, ExecAbstractSwitchMethod _f, ExecFormattedRootBlock _formatted) {
+        ExecRootBlock type_ = _formatted.getRootBlock();
+        String formatted_ = _formatted.getFormatted();
         String idType_ = "";
         String idCl_ = "";
-        if (_type != null) {
-            idType_ = _type.getFullName();
-            idCl_ = _type.getFullName();
+        if (type_ != null) {
+            idType_ = type_.getFullName();
+            idCl_ = type_.getFullName();
         }
         MethodId id_ = _f.getId();
         boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
         if (param_) {
-            idCl_ = _declaringClass;
+            idCl_ = formatted_;
         }
         LgNames standards_ = _cont.getStandards();
-        String formCl_ = MetaInfoUtil.tryFormatType(idType_, _declaringClass, _cont);
+        String formCl_ = tryFormatType(idType_, formatted_, _cont);
         invokable = true;
         access = AccessEnum.PUBLIC;
         className = StringUtil.nullToEmpty(idCl_);
         realId = id_;
         modifier = _f.getModifier();
         returnType = StringUtil.nullToEmpty(_f.getRetType());
-        fid = MetaInfoUtil.tryFormatId(_declaringClass, _cont, realId);
+        fid = tryFormatId(formatted_, _cont, realId);
         formDeclaringClass = StringUtil.nullToEmpty(formCl_);
-        pair = new ExecTypeFunction(_type,null);
+        pair = new ExecTypeFunction(type_,null);
         callee = _f;
         fileName = _f.getFile().getFileName();
         cache = new ShownCache(_f, standards_.getContent().getCoreNames().getAliasObject());
-        setOwner(_type);
-        formatted = new ExecFormattedRootBlock(_type, _declaringClass);
+        setOwner(type_);
+        formatted = _formatted;
         stdCallee = null;
         directCast = false;
         expCast = false;
@@ -398,7 +403,7 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
         returnType = StringUtil.nullToEmpty(ret_);
         fid = id_;
         formDeclaringClass = StringUtil.nullToEmpty(formCl_);
-        pair = new ExecTypeFunction(type_,null);
+        pair = new ExecTypeFunction(_formatted,null);
         setOwner(type_);
         formatted = _formatted;
         fileName = type_.getFile().getFileName();
@@ -410,14 +415,10 @@ public final class MethodMetaInfo extends AbsAnnotatedStruct implements Annotate
     }
     private static String formCl(ContextEl _cont, String _declaringClass) {
         String idCl_ = StringExpUtil.getIdFromAllTypes(_declaringClass);
-        return MetaInfoUtil.tryFormatType(idCl_, _declaringClass, _cont);
+        return tryFormatType(idCl_, _declaringClass, _cont);
     }
     private static String formCl(ExecFormattedRootBlock _declaringClass) {
-        return MetaInfoUtil.tryFormatType(_declaringClass);
-    }
-
-    public String getDeclaringClass() {
-        return formatted.getFormatted();
+        return _declaringClass.getFormatted();
     }
 
     public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){

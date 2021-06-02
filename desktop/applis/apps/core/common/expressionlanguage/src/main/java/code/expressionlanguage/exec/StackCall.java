@@ -59,7 +59,7 @@ public final class StackCall {
     }
 
     public ExecFormattedRootBlock formatVarType(ExecFormattedRootBlock _varType) {
-        return new ExecFormattedRootBlock(_varType.getRootBlock(), formatVarType(_varType.getFormatted()));
+        return new ExecFormattedRootBlock(_varType, formatVarType(_varType.getFormatted()));
     }
     public String formatVarType(String _varType) {
         return getLastPage().formatVarType(_varType);

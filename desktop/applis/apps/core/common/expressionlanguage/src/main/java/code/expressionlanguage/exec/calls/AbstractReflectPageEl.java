@@ -1,15 +1,16 @@
 package code.expressionlanguage.exec.calls;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
 public abstract class AbstractReflectPageEl extends AbstractPageEl implements ForwardPageEl {
 
     private boolean wrapException;
 
     private boolean lambda;
+
+    protected AbstractReflectPageEl() {
+        super(ExecFormattedRootBlock.defValue());
+    }
 
     public boolean isWrapException() {
         return wrapException;

@@ -373,7 +373,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ExecFormattedRootBlock formattedType_ = ExecFormattedRootBlock.build(_id.getClassName(),_classes);
         ExecRootBlock classBody_ = formattedType_.getRootBlock();
         ExecNamedFunctionBlock fct_ = ExecClassesUtil.getMethodBodiesById(classBody_, _id.getConstraints()).first();
-        ExecTypeFunction p_ = new ExecTypeFunction(classBody_,fct_);
+        ExecTypeFunction p_ = new ExecTypeFunction(formattedType_,fct_);
         RendFctOperation f_ = new RendFctOperation(p_, new ExecOperationContent(1, clMatch_, _args.size()+1), new ExecInstFctContent(_id, formattedType_), true, new ExecArrContent(false));
         int i_ = 1;
         for (EntryCust<String,String> e: _args.entryList()) {
@@ -392,12 +392,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         opsMap = new CustList<RendDynOperationNode>();
         String aliasStringMapObject_ = beanAliases.getAliasStringMapObject();
         ExecFormattedRootBlock formattedType_ = ExecFormattedRootBlock.build(aliasStringMapObject_,_classes);
-        ExecRootBlock ex_ = formattedType_.getRootBlock();
         ExecClassArgumentMatching clMatch_ = new ExecClassArgumentMatching(aliasStringMapObject_);
         ConstructorId id_ = new ConstructorId(aliasStringMapObject_, new StringList(), false);
         AnaInstancingCommonContent cont_ = new AnaInstancingCommonContent(id_.getName());
         cont_.setConstId(id_);
-        opsMap.add(new RendStandardInstancingOperation(new ExecOperationContent(0, clMatch_, 0), new ExecInstancingCommonContent(cont_, formattedType_), new ExecInstancingStdContent(new AnaInstancingStdContent()), new ExecTypeFunction(ex_, null)));
+        opsMap.add(new RendStandardInstancingOperation(new ExecOperationContent(0, clMatch_, 0), new ExecInstancingCommonContent(cont_, formattedType_), new ExecInstancingStdContent(new AnaInstancingStdContent()), new ExecTypeFunction(formattedType_, null)));
     }
 
     private static String tr(StringList _list) {

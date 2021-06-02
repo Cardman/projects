@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -40,10 +41,9 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             addErr(call_.getBuiltError());
             return null;
         }
-        String clCurName_ = _page.getGlobalClass();
-        RootBlock clCurType_ = _page.getGlobalType();
-        String superClass_ = AnaInherits.getOverridingFullTypeByBases(clCurType_,clCurName_, cl_, _page);
-        if (superClass_.isEmpty()) {
+        AnaFormattedRootBlock clCurType_ = _page.getGlobalType();
+        AnaFormattedRootBlock superClass_ = AnaInherits.getFormattedOverridingFullTypeByBases(clCurType_, candidate_);
+        if (superClass_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -53,8 +53,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             addErr(call_.getBuiltError());
             return null;
         }
-        setType(candidate_);
-        return new AnaClassArgumentMatching(superClass_);
+        setType(superClass_);
+        return new AnaClassArgumentMatching(superClass_.getFormatted());
     }
 
     @Override

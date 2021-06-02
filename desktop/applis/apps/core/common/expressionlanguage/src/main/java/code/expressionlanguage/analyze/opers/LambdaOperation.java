@@ -1367,8 +1367,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 processArray(_args, _len, _page, clFrom_.substring(ARR.length()));
                 return;
             }
+            AnaFormattedRootBlock form_ = new AnaFormattedRootBlock(_page,clFrom_);
             String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
-            AnaGeneType h_ = _page.getAnaGeneType(id_);
+            RootBlock h_ = form_.getRootBlock();
             if (h_ instanceof RecordBlock) {
                 checkWildCards(clFrom_, _page);
                 StringList names_ = new StringList();
@@ -1378,7 +1379,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     String arg_ = _args.get(i);
                     String name_ = arg_.trim();
                     boolean contained_ = false;
-                    for (InfoBlock f: ((RecordBlock)h_).getFieldsBlocks()) {
+                    for (InfoBlock f: h_.getFieldsBlocks()) {
                         String par_ = AnaInherits.quickFormat(h_, clFrom_, f.getImportedClassName());
                         int index_ = AnaTypeUtil.getIndex(f,name_);
                         if (index_ >= 0) {
@@ -1410,11 +1411,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     offsetArg_ += arg_.length()+1;
                 }
                 lambdaMemberNumberContentId = new MemberId();
-                recordType = ((RecordBlock)h_).getNumberAll();
+                recordType = h_.getNumberAll();
                 lambdaMemberNumberContentId.setRootNumber(recordType);
-                lambdaCommonContent.setFoundFormatted(new AnaFormattedRootBlock((RecordBlock)h_,clFrom_));
+                lambdaCommonContent.setFoundFormatted(form_);
                 types_.add(clFrom_);
-                fieldType = (RootBlock) h_;
+                fieldType = h_;
                 StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
                 fct_.append(StringExpUtil.TEMPLATE_BEGIN);
                 fct_.append(StringUtil.join(types_, StringExpUtil.TEMPLATE_SEP));
@@ -2006,7 +2007,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
 
     private static AnaFormattedRootBlock simpleFormatted(String _resolved) {
-        return new AnaFormattedRootBlock(null, _resolved);
+        return new AnaFormattedRootBlock((RootBlock) null, _resolved);
     }
 
     private void buildErrLambda(int _offset,AnaClassArgumentMatching _class, String _name, AnalyzedPageEl _page) {

@@ -99,6 +99,6 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
 
     @Override
     protected String getDeclaringClass() {
-        return metaInfo.getDeclaringClass();
+        return metaInfo.getFormatted().getFormatted();
     }
 }

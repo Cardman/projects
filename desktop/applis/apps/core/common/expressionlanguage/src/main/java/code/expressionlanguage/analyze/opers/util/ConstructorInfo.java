@@ -83,7 +83,7 @@ public final class ConstructorInfo implements Parametrable {
 
     @Override
     public Identifiable getPartialId() {
-        return constraints;
+        return getConstraints();
     }
 
     @Override

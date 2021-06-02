@@ -117,7 +117,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation {
     }
 
     private boolean notMatchCurrentType(AnalyzedPageEl _page) {
-        return rootBlock != _page.getGlobalType();
+        return rootBlock != _page.getGlobalType().getRootBlock();
     }
 
     public boolean isDeclare() {

@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.util.CustList;
 
@@ -13,7 +14,8 @@ public abstract class AbstractInitPageEl extends AbstractPageEl {
 
     private final CustList<ExecBlock> visited;
 
-    protected AbstractInitPageEl(CustList<ExecBlock> _visited) {
+    protected AbstractInitPageEl(CustList<ExecBlock> _visited, ExecFormattedRootBlock _global) {
+        super(_global);
         this.visited = _visited;
     }
 

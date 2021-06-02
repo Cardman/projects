@@ -11,7 +11,6 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -26,12 +25,10 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
     private final boolean retRef;
 
     private final MethodAccessKind kind;
-    private ExecRootBlock parentType;
-    private ExecOperatorBlock operator;
     private final CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
     private final String retType;
     private final ExecAnonFctContent anonFctContent;
-    public ExecAbstractSwitchMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType, ExecAnonFctContent _anonFctContent) {
+    protected ExecAbstractSwitchMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType, ExecAnonFctContent _anonFctContent) {
         super(_offsetTrim);
         name = _name;
         retRef = _retRef;
@@ -79,22 +76,6 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
 
     public boolean isRetRef() {
         return retRef;
-    }
-
-    public ExecRootBlock getParentType() {
-        return parentType;
-    }
-
-    public void setParentType(ExecRootBlock _parentType) {
-        this.parentType = _parentType;
-    }
-
-    public ExecOperatorBlock getOperator() {
-        return operator;
-    }
-
-    public void setOperator(ExecOperatorBlock _operator) {
-        this.operator = _operator;
     }
 
     public abstract ExecBlock processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack);

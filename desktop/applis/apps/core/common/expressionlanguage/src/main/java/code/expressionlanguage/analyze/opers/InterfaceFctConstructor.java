@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -58,8 +59,8 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             addErr(call_.getBuiltError());
             return null;
         }
-        String idCl_ = StringExpUtil.getIdFromAllTypes(className_);
-        RootBlock sub_ = _page.getAnaClassBody(idCl_);
+        AnaFormattedRootBlock subType_ = new AnaFormattedRootBlock(_page, className_);
+        RootBlock sub_ = subType_.getRootBlock();
         if (!(sub_ instanceof InterfaceBlock)|| !sub_.withoutInstance()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -70,8 +71,8 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             addErr(call_.getBuiltError());
             return null;
         }
-        String superClass_ = AnaInherits.getOverridingFullTypeByBases(sub_,className_, cl_, _page);
-        if (superClass_.isEmpty()) {
+        AnaFormattedRootBlock superClass_ = AnaInherits.getFormattedOverridingFullTypeByBases(subType_, candidate_);
+        if (superClass_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -81,8 +82,8 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             addErr(call_.getBuiltError());
             return null;
         }
-        setType(candidate_);
-        return new AnaClassArgumentMatching(superClass_);
+        setType(superClass_);
+        return new AnaClassArgumentMatching(superClass_.getFormatted());
     }
 
     @Override

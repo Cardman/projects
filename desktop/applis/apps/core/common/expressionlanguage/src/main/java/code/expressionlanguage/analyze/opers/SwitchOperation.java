@@ -28,8 +28,6 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
     private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String retType = EMPTY_STRING;
     private final AnaArrContent arrContent;
-    private int rootNumber = -1;
-    private int operatorNumber = -1;
     private final int delta;
     public SwitchOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, SwitchMethodBlock _switchMethod, int _delta) {
         super(_index, _indexChild, _m, _op);
@@ -259,11 +257,9 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         RootBlock globalType_ = switchMethod.getParentType();
         OperatorBlock operator_ = switchMethod.getOperator();
         if (globalType_ != null) {
-            rootNumber = globalType_.getNumberAll();
             switchMethod.getAllReservedInners().addAllElts(globalType_.getAllReservedInners());
         }
         if (operator_ != null) {
-            operatorNumber = operator_.getOperatorNumber();
             switchMethod.getAllReservedInners().addAllElts(operator_.getAllReservedInners());
         }
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
@@ -322,14 +318,6 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
 
     public AnaArrContent getArrContent() {
         return arrContent;
-    }
-
-    public int getRootNumber() {
-        return rootNumber;
-    }
-
-    public int getOperatorNumber() {
-        return operatorNumber;
     }
 
     public int getDelta() {
