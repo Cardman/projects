@@ -8,7 +8,7 @@ public final class ArgumentWrapper {
     private final AbstractWrapper wrapper;
 
     public ArgumentWrapper(Argument _value, AbstractWrapper _wrapper) {
-        this.value = _value;
+        this.value = Argument.getNullableValue(_value);
         this.wrapper = _wrapper;
     }
 
@@ -16,7 +16,7 @@ public final class ArgumentWrapper {
         if (_wrap == null){
             return Argument.createVoid();
         }
-        return Argument.getNullableValue(_wrap.value);
+        return _wrap.value;
     }
 
     public Argument getValue() {

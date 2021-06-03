@@ -20,19 +20,5 @@ public final class ByteStruct extends AbsRelativeNumberStruct {
         return value;
     }
 
-    @Override
-    public int intStruct() {
-        return value;
-    }
-
-    @Override
-    public short shortStruct() {
-        return value;
-    }
-
-    @Override
-    public byte byteStruct() {
-        return value;
-    }
 
 }

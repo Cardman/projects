@@ -15,6 +15,21 @@ public abstract class AbsRelativeNumberStruct extends NumberStruct {
     }
 
     @Override
+    public int intStruct() {
+        return (int)longStruct();
+    }
+
+    @Override
+    public short shortStruct() {
+        return (short)longStruct();
+    }
+
+    @Override
+    public byte byteStruct() {
+        return (byte)longStruct();
+    }
+
+    @Override
     public long randCode() {
         return longStruct();
     }

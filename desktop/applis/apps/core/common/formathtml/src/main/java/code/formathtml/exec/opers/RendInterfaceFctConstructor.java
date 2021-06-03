@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.DefaultParamChecker;
@@ -55,12 +56,12 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
             }
             pair_.setArgument(ref_);
             prepareArgument(_nodes, ref_, _context, _rendStack);
-            Argument argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack).getValue();
+            ArgumentWrapper argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack);
             setSimpleArgument(argres_, _nodes, _context, _rendStack);
             return;
         }
         prepareArgument(_nodes, Argument.getNullableValue(pair_.getArgument()), _context, _rendStack);
-        Argument argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack).getValue();
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
     private void prepareArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, ContextEl _context, RendStackCall _rendStackCall) {

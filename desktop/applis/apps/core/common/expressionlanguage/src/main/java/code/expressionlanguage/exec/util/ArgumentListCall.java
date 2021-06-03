@@ -30,10 +30,7 @@ public final class ArgumentListCall {
     public CustList<Argument> getArguments() {
         CustList<Argument> args_ = new CustList<Argument>();
         for (ArgumentWrapper a: argumentWrappers) {
-            Argument value_ = a.getValue();
-            if (value_ != null) {
-                args_.add(value_);
-            }
+            args_.add(a.getValue());
         }
         return args_;
     }

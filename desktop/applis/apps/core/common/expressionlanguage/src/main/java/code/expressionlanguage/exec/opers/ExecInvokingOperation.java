@@ -71,11 +71,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         int lenCh_ = _nodes.size();
         for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
             ArgumentWrapper aw_ = _nodes.get(i);
-            Argument a_ = aw_.getValue();
-            if (a_ == null) {
+            if (aw_.getWrapper() != null) {
                 reord_.add(aw_);
                 continue;
             }
+            Argument a_ = aw_.getValue();
             if (i >= _natVararg) {
                 optArgs_.add(a_);
             } else {
@@ -243,7 +243,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 Struct struct_ = values_.get(i_).getStruct();
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c.substring(1));
                 ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_);
-                argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(null,v_));
+                argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(values_.get(i_),v_));
             } else {
                 argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(values_.get(i_),null));
             }
@@ -304,10 +304,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     return new Argument();
                 }
             } else {
-                if (a.getValue() == null) {
+                if (a.getWrapper() != null) {
                     LgNames stds_ = _conf.getStandards();
                     String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(param_, ExecTemplates.getClassName(a.getWrapper(), _conf, _stackCall)),cast_, _stackCall)));
+                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(param_, a.getWrapper().getClassName(_stackCall, _conf)),cast_, _stackCall)));
                     return new Argument();
                 }
             }
@@ -333,12 +333,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return false;
     }
     private static String getClName(ContextEl _conf, StackCall _stackCall, ArgumentWrapper _a) {
-        Argument val_ = _a.getValue();
+        AbstractWrapper wr_ = _a.getWrapper();
         String arg_;
-        if (val_ != null) {
-            arg_ = val_.getStruct().getClassName(_conf);
+        if (wr_ == null) {
+            arg_ = _a.getValue().getStruct().getClassName(_conf);
         } else {
-            arg_ = ExecTemplates.getClassName(_a.getWrapper(), _conf, _stackCall);
+            arg_ = wr_.getClassName(_stackCall, _conf);
         }
         return arg_;
     }
@@ -481,9 +481,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     private static Argument lambdaConstructor(ArgumentListCall _values, ContextEl _conf, StackCall _stackCall, LambdaConstructorStruct _ls) {
-        CustList<Argument> values_ = _values.getArguments();
         Struct metaInfo_ = _ls.getMetaInfo();
         if (!(metaInfo_ instanceof ConstructorMetaInfo)) {
+            CustList<Argument> values_ = _values.getArguments();
             return initArray(_conf, _stackCall, values_, _ls);
         }
         if (_ls.isSafeInstance()) {

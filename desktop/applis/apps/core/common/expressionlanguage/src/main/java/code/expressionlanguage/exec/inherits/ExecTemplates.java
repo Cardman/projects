@@ -332,8 +332,9 @@ public final class ExecTemplates {
             return;
         }
         String param_ = _params.getTypesAll().get(_i);
-        Argument a_ = _a.getValue();
-        if (a_ != null) {
+        AbstractWrapper w_ = _a.getWrapper();
+        if (w_ == null) {
+            Argument a_ = _a.getValue();
             Struct ex_ = checkObjectEx(param_, a_.getStruct().getClassName(_conf), _conf, _stackCall);
             if (ex_ != null) {
                 _p.setError(ex_);
@@ -343,8 +344,7 @@ public final class ExecTemplates {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,param_);
             _p.getRefParameters().addEntry(_params.getNamesAll().get(_i),new VariableWrapper(lv_));
         } else {
-            AbstractWrapper w_ = _a.getWrapper();
-            Struct ex_ = checkObjectEx(param_, getClassName(w_, _conf, _stackCall), _conf, _stackCall);
+            Struct ex_ = checkObjectEx(param_, w_.getClassName(_stackCall, _conf), _conf, _stackCall);
             if (ex_ != null) {
                 _p.setError(ex_);
                 return;
@@ -411,12 +411,6 @@ public final class ExecTemplates {
         }
         return Argument.getNull(_w.getValue(_stackCall, _context));
     }
-    public static String getClassName(AbstractWrapper _w, ContextEl _context, StackCall _stackCall) {
-        if (_w == null) {
-            return "";
-        }
-        return _w.getClassName(_stackCall, _context);
-    }
     public static StringBuilder countDiff(int _argsCount, int _paramsCount) {
         StringBuilder mess_ = new StringBuilder();
         mess_.append(_argsCount);
@@ -457,7 +451,7 @@ public final class ExecTemplates {
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, varType(c,_classFormat,fct_,i_));
                 ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_);
 //                out_.getWrappers().add(v_);
-                _in.getArgumentWrappers().add(new ArgumentWrapper(null,v_));
+                _in.getArgumentWrappers().add(new ArgumentWrapper(_firstArgs.get(i_),v_));
             } else {
 //                out_.getArguments().add(_firstArgs.get(i_));
                 _in.getArgumentWrappers().add(new ArgumentWrapper(_firstArgs.get(i_),null));

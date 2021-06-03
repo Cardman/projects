@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -32,15 +31,14 @@ public final class ExecCloneMethodLambdaOperation extends ExecAbstractLambdaOper
         ExecFormattedRootBlock ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, _conf, ownerType_, clArg_));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, ownerType_, clArg_));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, ContextEl _conf, ExecFormattedRootBlock _ownerType,
+    public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, ExecFormattedRootBlock _ownerType,
                                    String _clArg) {
-        String from_ = StringExpUtil.getPrettyArrayType(_conf.getStandards().getContent().getCoreNames().getAliasObject());
         MethodModifier met_ = MethodModifier.NORMAL;
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_ownerType,from_, _meth.getMethod(), met_,false);
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_ownerType, _meth.getMethod(), met_,false);
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg);
     }
 

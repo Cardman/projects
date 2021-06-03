@@ -36,18 +36,4 @@ public final class CharStruct extends AbsRelativeNumberStruct {
         return value;
     }
 
-    @Override
-    public int intStruct() {
-        return value;
-    }
-
-    @Override
-    public short shortStruct() {
-        return (short) value;
-    }
-
-    @Override
-    public byte byteStruct() {
-        return (byte)value;
-    }
 }

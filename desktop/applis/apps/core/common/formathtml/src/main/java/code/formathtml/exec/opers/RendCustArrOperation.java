@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecCustArrOperation;
@@ -99,9 +100,9 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         Struct argPrev_ = previous_.getStruct();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), argPrev_, _context, _rendStackCall.getStackCall()));
         Argument result_ = ExecCustArrOperation.redirect(_context,_right,_rendStackCall.getStackCall(),prev_,infos_,instFctContent,readWrite);
-        Argument argres_ = RendDynOperationNode.processCall(result_, _context, _rendStackCall).getValue();
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _rendStackCall);
         setSimpleArgument(argres_, _nodes, _context, _rendStackCall);
-        return argres_;
+        return argres_.getValue();
     }
 
     public ExecInstFctContent getInstFctContent() {

@@ -337,24 +337,12 @@ public abstract class RendBlock {
 //                wrap_.add(a);
 //            }
             ArgumentListCall list_ = ExecInvokingOperation.fectchArgs(((RendCustArrOperation)settable_).getInstFctContent().getLastType(),((RendCustArrOperation)settable_).getInstFctContent().getNaturalVararg(), null,_ctx,_rendStackCall.getStackCall(),((RendCustArrOperation)settable_).buildInfos(args_));
-            CustList<Argument> argsVal_ = new CustList<Argument>();
             for (ArgumentWrapper a: list_.getArgumentWrappers()) {
-                if (a.getValue() != null) {
-                    argsVal_.add(a.getValue());
-                    obj_.add(a.getValue().getStruct());
-                } else {
+                allObj_.add(a.getValue().getStruct());
+                if (a.getWrapper() != null) {
                     wrap_.add(a.getWrapper());
-                }
-            }
-            int argIndex_ = 0;
-            int wrapIndex_ = 0;
-            for (boolean p: _f.getVarNames().getRefs()) {
-                if (p) {
-                    allObj_.add(RendDynOperationNode.processCall(new Argument(ExecTemplates.getValue(wrap_.get(wrapIndex_),_ctx, _rendStackCall.getStackCall())),_ctx,_rendStackCall).getValue().getStruct());
-                    wrapIndex_++;
                 } else {
-                    allObj_.add(argsVal_.get(argIndex_).getStruct());
-                    argIndex_++;
+                    obj_.add(a.getValue().getStruct());
                 }
             }
         } else if (settable_ instanceof RendMethodOperation){

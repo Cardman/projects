@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.blocks.ExecRecordBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
 import code.expressionlanguage.exec.inherits.ExecInherits;
@@ -54,7 +55,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         } else {
             result_ = new InstanceParamChecker(pair, ExecInvokingOperation.fectchArgs(lastType_, instancingCommonContent.getNaturalVararg(), null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), instancingStdContent.getFieldName(), instancingStdContent.getBlockIndex()).checkParams(formattedType, previous_, null, _context, _rendStack.getStackCall());
         }
-        Argument argres_ = RendDynOperationNode.processCall(result_, _context, _rendStack).getValue();
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

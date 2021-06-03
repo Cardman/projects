@@ -56,7 +56,7 @@ public abstract class ExecMethodOperation extends ExecOperationNode {
         if (!_wrapper) {
             _wrappers.add(new ArgumentWrapper(_pair.getArgument(),null));
         } else {
-            _wrappers.add(new ArgumentWrapper(null,_pair.getWrapper()));
+            _wrappers.add(new ArgumentWrapper(_pair.getArgument(),_pair.getWrapper()));
         }
     }
 
