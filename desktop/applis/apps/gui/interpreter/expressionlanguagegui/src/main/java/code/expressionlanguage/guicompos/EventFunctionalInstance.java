@@ -19,51 +19,25 @@ import javax.swing.event.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.event.*;
 
-public final class EventFunctionalInstance extends WithoutParentIdStruct implements AbstractFunctionalInstance,
+public final class EventFunctionalInstance extends AbstractFunctionalInstanceImpl implements
         ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
         KeyListener,ChangeListener,TreeSelectionListener,ListSelectionListener,
         MouseMotionListener,MouseWheelListener,FieldableStruct {
 
-    private final String className;
-
-    private final LambdaStruct functional;
-
     private final CustList<ClassFieldStruct> fields;
     private final CommonExecutionInfos executionInfos;
 
-    private final ExecNamedFunctionBlock named;
     public EventFunctionalInstance(String _className, LambdaStruct _functional,
                                    CustList<ClassFieldStruct> _fields, ContextEl _contextEl, ExecNamedFunctionBlock _named) {
-        className = _className;
-        functional = _functional;
+        super(_className, _functional, _named);
         fields = _fields;
         executionInfos = _contextEl.getExecutionInfos();
-        named = _named;
-    }
-
-    @Override
-    public long randCode() {
-        return NumParsers.randCode(className);
-    }
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return className;
-    }
-
-    @Override
-    public ExecNamedFunctionBlock getNamed() {
-        return named;
-    }
-
-    @Override
-    public LambdaStruct getFunctional() {
-        return functional;
     }
 
     @Override
     public void valueChanged(SelectionInfo _e) {
         CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -71,7 +45,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasActionEvent();
         ActionEventStruct a_ = new ActionEventStruct(actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -79,7 +53,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasKeyEvent();
         KeyEventStruct a_ = new KeyEventStruct(_e,actEv_,_e.getKeyChar());
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -87,7 +61,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasKeyEvent();
         KeyEventStruct a_ = new KeyEventStruct(_e,actEv_,_e.getKeyChar(),_e.getKeyCode());
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -95,7 +69,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasKeyEvent();
         KeyEventStruct a_ = new KeyEventStruct(_e,actEv_,_e.getKeyChar(),_e.getKeyCode());
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -103,7 +77,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -111,7 +85,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -119,7 +93,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -127,7 +101,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -135,7 +109,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -143,7 +117,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -151,7 +125,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -159,7 +133,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWheelEvent();
         MouseWheelEventStruct a_ = new MouseWheelEventStruct(_e,actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -167,7 +141,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -175,7 +149,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -183,7 +157,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -191,7 +165,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -199,7 +173,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -207,7 +181,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -215,23 +189,23 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
     public void run() {
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, new CustList<Argument>());
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), new CustList<Argument>());
     }
 
     @Override
     public void stateChanged(ChangeEvent _e) {
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, new CustList<Argument>());
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), new CustList<Argument>());
     }
 
     @Override
     public void valueChanged(ListSelectionEvent _e) {
         CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
@@ -244,7 +218,7 @@ public final class EventFunctionalInstance extends WithoutParentIdStruct impleme
         } else {
             args_.add(new Argument());
         }
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), functional, args_);
+        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override

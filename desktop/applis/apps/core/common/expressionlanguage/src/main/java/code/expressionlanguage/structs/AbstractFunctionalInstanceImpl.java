@@ -1,6 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 
 public abstract class AbstractFunctionalInstanceImpl extends WithoutParentIdStruct implements AbstractFunctionalInstance {
@@ -18,6 +19,15 @@ public abstract class AbstractFunctionalInstanceImpl extends WithoutParentIdStru
 
     @Override
     public String getClassName(ContextEl _contextEl) {
+        return getClassName();
+    }
+
+    @Override
+    public long randCode() {
+        return NumParsers.randCode(className);
+    }
+
+    public String getClassName() {
         return className;
     }
 
