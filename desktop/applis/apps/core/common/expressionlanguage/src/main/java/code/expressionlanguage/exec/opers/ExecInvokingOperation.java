@@ -178,14 +178,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR, null).checkParams(_classNameFound, Argument.createVoid(), null, _conf, _stackCall);
     }
 
-    public static void checkParametersCtors(ContextEl _conf, ExecFormattedRootBlock _classNameFound,
-                                            ExecTypeFunction _named,
-                                            ArgumentListCall _firstArgs,
-                                            InstancingStep _kindCall, StackCall _stackCall) {
-        Argument arg_ = _stackCall.getLastPage().getGlobalArgument();
-        new DefaultParamChecker(_named, _firstArgs,MethodAccessKind.INSTANCE,  CallPrepareState.CTOR, _kindCall).checkParams(_classNameFound, arg_, null, _conf, _stackCall);
-    }
-
     public static Argument getInstanceCall(Argument _previous, ContextEl _conf, StackCall _stackCall) {
         Struct ls_ = _previous.getStruct();
         if (ls_ instanceof LambdaStruct) {

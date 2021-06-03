@@ -25,7 +25,7 @@ public final class RendNamedArgumentOperation extends RendAbstractUnaryOperation
             ArgumentsPair pairCh_ = getArgumentPair(_nodes, getFirstChild());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             ExecHelper.fwdWrapper(pair_,pairCh_);
-            setQuickNoConvertSimpleArgument(Argument.createVoid(), _nodes,_context, _rendStack);
+            setQuickNoConvertSimpleArgument(pairCh_.getArgument(), _nodes,_context, _rendStack);
             return;
         }
         CustList<Argument> arguments_ = getArguments(_nodes,this);

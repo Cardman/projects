@@ -25,7 +25,7 @@ public final class ExecNamedArgumentOperation extends ExecAbstractUnaryOperation
             ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
             ExecHelper.fwdWrapper(pair_,pairCh_);
-            setQuickNoConvertSimpleArgument(Argument.createVoid(), _conf, _nodes, _stack);
+            setQuickNoConvertSimpleArgument(pairCh_.getArgument(), _conf, _nodes, _stack);
             return;
         }
         CustList<Argument> arguments_ = getArguments(_nodes, this);
