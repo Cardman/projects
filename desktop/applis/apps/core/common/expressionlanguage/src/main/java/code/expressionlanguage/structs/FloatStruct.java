@@ -23,11 +23,6 @@ public final class FloatStruct extends AbsRealNumberStruct {
     }
 
     @Override
-    public float floatStruct() {
-        return value;
-    }
-
-    @Override
     protected StringStruct getStringValue(DisplayedStrings _dis) {
         return NumParsers.getFloatString(this,_dis.getInfinity(),
                 _dis.getNan(),

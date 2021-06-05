@@ -22,10 +22,10 @@ public final class RendCloneMethodLambdaOperation extends RendAbstractLambdaOper
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
+        Argument previousRendClone_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         ExecFormattedRootBlock ownerType_ = getFoundClass();
-        Argument res_ = new Argument(ExecCloneMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, ownerType_, clArg_));
+        Argument res_ = new Argument(ExecCloneMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previousRendClone_, ownerType_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }
 }

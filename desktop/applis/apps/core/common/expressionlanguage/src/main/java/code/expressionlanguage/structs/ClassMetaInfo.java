@@ -59,7 +59,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
     private String fileName = EMPTY_STRING;
     private ExecFormattedRootBlock formatted = ExecFormattedRootBlock.defValue();
     public ClassMetaInfo(String _name) {
-        super(null);
+        super(AccessEnum.PUBLIC);
         name = StringUtil.nullToEmpty(_name);
         variableOwner = "";
         formatted = new ExecFormattedRootBlock((ExecRootBlock)null,_name);
@@ -365,19 +365,19 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         return new ClassMetaInfo(_context.getStandards().getContent().getCoreNames().getAliasVoid(), ClassCategory.VOID,"","");
     }
 
-    public static ClassMetaInfo getCustomClassMetaInfo(ExecFormattedRootBlock _formatted, ContextEl _context) {
+    private static ClassMetaInfo getCustomClassMetaInfo(ExecFormattedRootBlock _formatted, ContextEl _context) {
         return new ClassMetaInfo(_formatted, _context);
     }
 
-    public static ClassMetaInfo getExtendedClassMetaInfoInit(ContextEl _context, String _name, ClassMetaInfo _classOwner) {
+    private static ClassMetaInfo getExtendedClassMetaInfoInit(ContextEl _context, String _name, ClassMetaInfo _classOwner) {
         return getExtendedClassMetaInfo(_context,_name,_classOwner.getName());
     }
 
-    public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context, String _name) {
+    private static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context, String _name) {
         return getExtendedClassMetaInfo(_context,_name,"");
     }
 
-    public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context, String _name, ClassMetaInfo _classOwner) {
+    private static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context, String _name, ClassMetaInfo _classOwner) {
         return getExtendedClassMetaInfo(_context,_name,_classOwner.getVariableOwner());
     }
 
@@ -426,11 +426,11 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         return new ClassMetaInfo(_name, _context, _variableOwner);
     }
 
-    public static ClassMetaInfo getClassMetaInfoId(ContextEl _context, ClassMetaInfo _name) {
+    private static ClassMetaInfo getClassMetaInfoId(ContextEl _context, ClassMetaInfo _name) {
         return getClassMetaInfo(_context,_name.getVariableOwnerId());
     }
 
-    public static ClassMetaInfo getClassMetaInfo(ContextEl _context, ClassMetaInfo _name) {
+    private static ClassMetaInfo getClassMetaInfo(ContextEl _context, ClassMetaInfo _name) {
         return getClassMetaInfo(_context,_name.getVariableOwner());
     }
 
@@ -453,7 +453,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         return getCustomClassMetaInfo(_name, _context);
     }
 
-    public static ClassMetaInfo getClassMetaInfo(ContextEl _context, StandardType _type, String _name) {
+    private static ClassMetaInfo getClassMetaInfo(ContextEl _context, StandardType _type, String _name) {
         return new ClassMetaInfo(_context, _type, _name);
     }
 
@@ -670,7 +670,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         }
         return getClassMetaInfoId(_context,this);
     }
-    public String getVariableOwnerId() {
+    private String getVariableOwnerId() {
         return StringExpUtil.getIdFromAllTypes(variableOwner);
     }
     public static Struct getClassMetaInfo(ContextEl _context, Struct _inst) {

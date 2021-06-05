@@ -39,6 +39,11 @@ public abstract class AbsRealNumberStruct extends NumberStruct {
     }
 
     @Override
+    public float floatStruct() {
+        return (float) doubleStruct();
+    }
+
+    @Override
     public StringStruct getDisplayedString(ContextEl _an) {
         DisplayedStrings dis_ = _an.getStandards().getDisplayedStrings();
         return getStringValue(dis_);

@@ -26,12 +26,12 @@ public final class ExecCastMethodLambdaOperation extends ExecAbstractLambdaOpera
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument previous_ = getPreviousArg(this, _nodes, _stack);
+        Argument previousCast_ = getPreviousArg(this, _nodes, _stack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         ExecFormattedRootBlock ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, ownerType_, clArg_));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previousCast_, ownerType_, clArg_));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
