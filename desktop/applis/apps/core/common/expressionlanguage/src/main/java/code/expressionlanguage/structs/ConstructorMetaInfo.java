@@ -168,11 +168,11 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
     public ConstructorId getRealId() {
         return realId;
     }
-    public boolean isVararg() {
-        return realId.isVararg();
-    }
     public boolean isPublic() {
         return access == AccessEnum.PUBLIC;
+    }
+    public boolean isVararg() {
+        return realId.isVararg();
     }
     
     public boolean isPackage() {

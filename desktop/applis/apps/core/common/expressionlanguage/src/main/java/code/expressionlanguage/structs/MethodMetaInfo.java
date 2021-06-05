@@ -393,20 +393,20 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         return modifier == MethodModifier.ABSTRACT;
     }
     
+    public boolean isPackage() {
+        return access == AccessEnum.PACKAGE;
+    }
     public boolean isFinal() {
         return modifier == MethodModifier.FINAL;
-    }
-    
-    public boolean isNormal() {
-        return modifier == MethodModifier.NORMAL;
-    }
-    public boolean isPublic() {
-        return access == AccessEnum.PUBLIC;
     }
     
     public boolean isProtected() {
         return access == AccessEnum.PROTECTED;
     }
+    public boolean isNormal() {
+        return modifier == MethodModifier.NORMAL;
+    }
+    
     
     public boolean isPackage() {
         return access == AccessEnum.PACKAGE;

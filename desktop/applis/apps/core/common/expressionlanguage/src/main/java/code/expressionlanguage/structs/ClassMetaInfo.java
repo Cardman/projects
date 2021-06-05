@@ -761,17 +761,17 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         return access == AccessEnum.PUBLIC;
     }
     
+
+    public boolean isPackage() {
+        return access == AccessEnum.PACKAGE;
+    }
+    public boolean isPrivate() {
+        return access == AccessEnum.PRIVATE;
+    }
     public boolean isProtected() {
         return access == AccessEnum.PROTECTED;
     }
     
-    public boolean isPackage() {
-        return access == AccessEnum.PACKAGE;
-    }
-
-    public boolean isPrivate() {
-        return access == AccessEnum.PRIVATE;
-    }
     public boolean isTypeArray() {
         return category == ClassCategory.ARRAY;
     }
