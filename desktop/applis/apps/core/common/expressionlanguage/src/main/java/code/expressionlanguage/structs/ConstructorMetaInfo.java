@@ -175,12 +175,12 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
         return access == AccessEnum.PUBLIC;
     }
     
-    public boolean isProtected() {
-        return access == AccessEnum.PROTECTED;
-    }
-    
     public boolean isPackage() {
         return access == AccessEnum.PACKAGE;
+    }
+
+    public boolean isProtected() {
+        return access == AccessEnum.PROTECTED;
     }
 
     public boolean isPrivate() {
