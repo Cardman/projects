@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -17,13 +16,11 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements AnnotatedParamStruct {
+public final class ConstructorMetaInfo extends AbAnMeStruct implements AnnotatedParamStruct {
 
-    private final String formDeclaringClass;
     private final ConstructorId realId;
     private final AccessEnum access;
     private final ConstructorId fid;
-    private final String returnType;
     private final boolean invokable;
     private final String fileName;
     private final ExecTypeFunction pair;
@@ -32,12 +29,11 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
     private final GeneType declType;
 
     public ConstructorMetaInfo(){
+        super(new SingleRetType(""));
         invokable = false;
-        formDeclaringClass = "";
         realId = new ConstructorId("",new StringList(),false);
         fid = new ConstructorId("",new StringList(),false);
         access = AccessEnum.PRIVATE;
-        returnType = "";
         pair = new ExecTypeFunction((ExecRootBlock)null,null);
         formatted = ExecFormattedRootBlock.defValue();
         fileName = "";
@@ -45,14 +41,12 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         declType = null;
     }
     public ConstructorMetaInfo(ExecTypeFunction _pair, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ConstructorId _realId) {
-        String className_ = StringExpUtil.getIdFromAllTypes(_declaringClass.getFormatted());
+        super(new SingleRetType(_common.getReturnFieldType()));
         ConstructorId fid_ = tryFormatId(_declaringClass, _realId);
         invokable = true;
         access = AccessEnum.PUBLIC;
         realId = _realId;
-        returnType = StringUtil.nullToEmpty(_common.getReturnFieldType());
         fid = fid_;
-        formDeclaringClass = StringUtil.nullToEmpty(className_);
         pair = _pair;
         setOwner(_pair.getType());
         formatted = _declaringClass;
@@ -61,41 +55,34 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         declType = _pair.getType();
     }
     public ConstructorMetaInfo(StandardType _standardType, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ConstructorId _realId) {
+        super(new SingleRetType(_common.getReturnFieldType()));
         standardType = _standardType;
-        String className_ = StringExpUtil.getIdFromAllTypes(_declaringClass.getFormatted());
         ConstructorId fid_ = tryFormatId(_declaringClass, _realId);
         invokable = true;
         access = AccessEnum.PUBLIC;
         realId = _realId;
-        returnType = StringUtil.nullToEmpty(_common.getReturnFieldType());
         fid = fid_;
-        formDeclaringClass = StringUtil.nullToEmpty(className_);
         pair = new ExecTypeFunction((ExecRootBlock) null,null);
         formatted = _declaringClass;
         fileName = _common.getFileName();
         declType = _standardType;
     }
     public ConstructorMetaInfo(ExecFormattedRootBlock _formatted, ExecConstructorBlock _ctor, ContextEl _context) {
+        super(new SingleRetType(koRetType(_ctor, _context)));
         ExecRootBlock type_ = _formatted.getRootBlock();
         String formatted_ = _formatted.getFormatted();
         ConstructorId id_ = new ConstructorId(formatted_, new StringList(), false);
         AccessEnum acc_ = type_.getAccess();
-        String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
         ConstructorId fid_ = id_;
-        String idType_ = type_.getFullName();
-        String formCl_ = tryFormatType(idType_, formatted_, _context);
         if (_ctor != null) {
             id_ = _ctor.getGenericId(type_.getGenericString());
-            ret_ = _ctor.getImportedReturnType();
             acc_ = _ctor.getAccess();
             fid_ = tryFormatId(formatted_, _context, id_);
         }
         invokable = true;
         access = acc_;
         realId = id_;
-        returnType = StringUtil.nullToEmpty(ret_);
         fid = fid_;
-        formDeclaringClass = StringUtil.nullToEmpty(formCl_);
         pair = new ExecTypeFunction(_formatted,_ctor);
         setOwner(type_);
         formatted  = _formatted;
@@ -104,26 +91,36 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
         declType = type_;
     }
     public ConstructorMetaInfo(ContextEl _context, StandardType _std, StandardConstructor _ctor, String _declaringClass, ExecFormattedRootBlock _formatted) {
+        super(new SingleRetType(koRetType(_context, _ctor)));
         ConstructorId id_ = new ConstructorId(_declaringClass, new StringList(), false);
-        String ret_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
         if (_ctor != null) {
             id_ = new ConstructorId(_declaringClass, _ctor.getImportedParametersTypes(), _ctor.isVarargs());
-            ret_ = _ctor.getImportedReturnType();
         }
-        String decl_ = _std.getFullName();
         standardType = _std;
         invokable = true;
         access = AccessEnum.PUBLIC;
         realId = id_;
-        returnType = StringUtil.nullToEmpty(ret_);
         fid = id_;
-        formDeclaringClass = StringUtil.nullToEmpty(decl_);
         pair = new ExecTypeFunction((ExecRootBlock)null,null);
         formatted = _formatted;
         fileName = "";
         declType = _std;
     }
 
+    private static String koRetType(ExecConstructorBlock _c, ContextEl _context) {
+        String c_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
+        if (_c != null) {
+            c_ = _c.getImportedReturnType();
+        }
+        return c_;
+    }
+    private static String koRetType(ContextEl _context, StandardConstructor _t) {
+        String s_ = _context.getStandards().getContent().getCoreNames().getAliasVoid();
+        if (_t != null) {
+            s_ = _t.getImportedReturnType();
+        }
+        return s_;
+    }
     public ExecFormattedRootBlock getFormatted() {
         return formatted;
     }
@@ -189,10 +186,6 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
     public boolean isPrivate() {
         return access == AccessEnum.PRIVATE;
     }
-    
-    public String getFormDeclaringClass() {
-        return formDeclaringClass;
-    }
 
     @Override
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
@@ -213,10 +206,6 @@ public final class ConstructorMetaInfo extends AbsAnnotatedStruct implements Ann
 
     public ConstructorId getFid() {
         return fid;
-    }
-
-    public String getReturnType() {
-        return returnType;
     }
 
     @Override

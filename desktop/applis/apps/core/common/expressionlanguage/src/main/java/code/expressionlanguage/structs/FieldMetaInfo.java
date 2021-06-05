@@ -14,13 +14,10 @@ import code.util.CustList;
 import code.util.core.StringUtil;
 
 
-public final class FieldMetaInfo extends AbsAnnotatedStruct implements AnnotatedMemberStruct {
+public final class FieldMetaInfo extends AbAnMeStruct {
 
     private final AccessEnum access;
-    private final String formDeclaringClass;
     private final String name;
-
-    private final String type;
 
     private final boolean staticField;
 
@@ -31,13 +28,12 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
     private final ExecRootBlock declaring;
     private final ExecFormattedRootBlock formatted;
     public FieldMetaInfo() {
+        super(new SingleRetType(""));
         invokable = false;
         name = "";
-        type = "";
         access = AccessEnum.PRIVATE;
         staticField = false;
         finalField = false;
-        formDeclaringClass = "";
         fileName = "";
         annotableBlock = null;
         declaring = null;
@@ -46,31 +42,27 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
     public FieldMetaInfo(ExecLambdaCommonContent _common, ExecLambdaFieldContent _field,
                          ClassField _id,
                          ExecFormattedRootBlock _formatted) {
+        super(new SingleRetType(_common.getReturnFieldType()));
         invokable = true;
         name = StringUtil.nullToEmpty(_id.getFieldName());
-        type = StringUtil.nullToEmpty(_common.getReturnFieldType());
         staticField = _field.isStaticField();
         finalField = _field.isFinalField();
         access = AccessEnum.PUBLIC;
-        formDeclaringClass = StringUtil.nullToEmpty(_formatted.getFormatted());
         fileName = _common.getFileName();
         declaring = _field.getRootBlock();
         annotableBlock = _field.getInfoBlock();
         setOwner(_field.getRootBlock());
         formatted = _formatted;
     }
-    public FieldMetaInfo(ContextEl _context, ExecInfoBlock _info, String _declaringClass,
+    public FieldMetaInfo(ExecInfoBlock _info,
                          String _name, ExecFormattedRootBlock _formatted) {
+        super(new SingleRetType(_info.getImportedClassName()));
         ExecRootBlock type_ = _formatted.getRootBlock();
-        String idType_ = type_.getFullName();
-        String formCl_ = tryFormatType(idType_, _declaringClass, _context);
         invokable = true;
         name = StringUtil.nullToEmpty(_name);
-        type = StringUtil.nullToEmpty(_info.getImportedClassName());
         staticField = _info.isStaticField();
         finalField = _info.isFinalField();
         access = _info.getAccess();
-        formDeclaringClass = StringUtil.nullToEmpty(formCl_);
         declaring = type_;
         annotableBlock = _info;
         fileName = type_.getFile().getFileName();
@@ -79,14 +71,13 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
     }
     public FieldMetaInfo(String _name,
                          String _returnType,
-                         String _formDeclaringClass, ExecFormattedRootBlock _formatted) {
+                         ExecFormattedRootBlock _formatted) {
+        super(new SingleRetType(_returnType));
         invokable = true;
         name = StringUtil.nullToEmpty(_name);
-        type = StringUtil.nullToEmpty(_returnType);
         staticField = true;
         finalField = true;
         access = AccessEnum.PUBLIC;
-        formDeclaringClass = StringUtil.nullToEmpty(_formDeclaringClass);
         fileName = "";
         annotableBlock = null;
         declaring = null;
@@ -134,10 +125,6 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
         return formatted;
     }
 
-    public String getFormDeclaringClass() {
-        return formDeclaringClass;
-    }
-
     public String getName() {
         return name;
     }
@@ -146,9 +133,6 @@ public final class FieldMetaInfo extends AbsAnnotatedStruct implements Annotated
     }
     public boolean isFinalField() {
         return finalField;
-    }
-    public String getType() {
-        return type;
     }
 
     @Override

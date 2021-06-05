@@ -10,7 +10,7 @@ public final class ReflectReplacingType extends AbstractReplacingType {
         return false;
     }
 
-    protected void replaceReflectedType(String _type, StringMap<String> _varTypes, StringBuilder _str, int _i) {
+    private void replaceReflectedType(String _type, StringMap<String> _varTypes, StringBuilder _str, int _i) {
         int diese_ = getDiese();
         String sub_ = _type.substring(diese_ + 1, _i);
         String value_ = _varTypes.getVal(sub_);

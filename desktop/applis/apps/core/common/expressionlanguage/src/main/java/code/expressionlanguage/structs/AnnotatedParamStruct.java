@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.CustList;
 
-public interface AnnotatedParamStruct extends AnnotatedMemberStruct {
+public interface AnnotatedParamStruct extends AnnotatedStruct {
     ExecTypeFunction getPair();
     ExecRootBlock getPairType();
     ExecMemberCallingsBlock getCallee();

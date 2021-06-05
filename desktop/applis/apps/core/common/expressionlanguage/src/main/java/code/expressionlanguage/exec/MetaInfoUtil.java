@@ -7,32 +7,15 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.*;
-import code.util.EntryCust;
-import code.util.StringList;
+import code.expressionlanguage.stds.StandardClass;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.CausingErrorStruct;
+import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.util.core.StringUtil;
 
 public final class MetaInfoUtil {
     private MetaInfoUtil() {
-    }
-
-    private static ClassMetaInfo getCustomClassMetaInfo(String _name, ContextEl _context) {
-        String base_ = StringExpUtil.getIdFromAllTypes(_name);
-        for (ExecRootBlock c: _context.getClasses().getClassBodies()) {
-            String k_ = c.getFullName();
-            if (!StringUtil.quickEq(k_, base_)) {
-                continue;
-            }
-            return getCustomClassMetaInfo(new ExecFormattedRootBlock(c,_name), _context);
-        }
-        return new ClassMetaInfo(_context.getStandards().getContent().getCoreNames().getAliasVoid(),_context, ClassCategory.VOID,"");
-    }
-
-    public static ClassMetaInfo getCustomClassMetaInfo(ExecFormattedRootBlock _formatted, ContextEl _context) {
-        return new ClassMetaInfo(_formatted, _context);
     }
 
     public static boolean isAbstractType(GeneType _type) {
@@ -43,78 +26,6 @@ public final class MetaInfoUtil {
             return ((ExecClassBlock)_type).isAbstractType();
         }
         return !(_type instanceof ExecRecordBlock);
-    }
-
-    public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context, String _name, ClassMetaInfo _classOwner) {
-        return getExtendedClassMetaInfo(_context,_name,_classOwner.getVariableOwner());
-    }
-
-    public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context, String _name, AnnotatedMemberStruct _member) {
-        return getExtendedClassMetaInfo(_context,_name,_member.getFormDeclaringClass());
-    }
-
-    public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context, String _name, String _variableOwner) {
-        if (StringUtil.quickEq(_name, StringExpUtil.SUB_TYPE)) {
-            StringList upperBounds_ = new StringList();
-            StringList lowerBounds_ = new StringList();
-            return new ClassMetaInfo(_name, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
-        }
-        if (_name.startsWith(StringExpUtil.SUB_TYPE)) {
-            StringList upperBounds_ = new StringList(_name.substring(StringExpUtil.SUB_TYPE.length()));
-            StringList lowerBounds_ = new StringList();
-            return new ClassMetaInfo(_name, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
-        }
-        if (_name.startsWith(StringExpUtil.SUP_TYPE)) {
-            StringList upperBounds_ = new StringList();
-            StringList lowerBounds_ = new StringList(_name.substring(StringExpUtil.SUB_TYPE.length()));
-            return new ClassMetaInfo(_name, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
-        }
-        if (_name.startsWith(AbstractReplacingType.PREFIX_VAR_TYPE_STR)) {
-            StringList upperBounds_ = new StringList();
-            StringList lowerBounds_ = new StringList();
-            return new ClassMetaInfo(_name, ClassCategory.VARIABLE,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
-        }
-        if (_name.startsWith("~")) {
-            StringList upperBounds_ = new StringList(_name.substring("~".length()));
-            StringList lowerBounds_ = new StringList(_name.substring("~".length()));
-            return new ClassMetaInfo(_name, ClassCategory.REF_TYPE,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
-        }
-        if (_name.startsWith(AbstractReplacingType.ARR_BEG_STRING)&&_name.contains(AbstractReplacingType.PREFIX_VAR_TYPE_STR)) {
-            return new ClassMetaInfo(_name, _context, ClassCategory.ARRAY, _variableOwner);
-        }
-        return getClassMetaInfo(_context,_name);
-    }
-
-    public static Struct getClassMetaInfo(ContextEl _context, AnnotatedMemberStruct _member) {
-        String formDeclaringClass_ = _member.getFormDeclaringClass();
-        if (formDeclaringClass_.isEmpty()) {
-            return NullStruct.NULL_VALUE;
-        }
-        return getClassMetaInfo(_context, formDeclaringClass_);
-    }
-
-    public static ClassMetaInfo getClassMetaInfo(ContextEl _context, String _name) {
-        if (ExecClassArgumentMatching.isPrimitive(_name, _context)) {
-            return new ClassMetaInfo(_name, _context, ClassCategory.PRIMITIVE,"");
-        }
-        if (_name.startsWith(AbstractReplacingType.ARR_BEG_STRING)) {
-            return new ClassMetaInfo(_name, _context, ClassCategory.ARRAY, "");
-        }
-        String base_ = StringExpUtil.getIdFromAllTypes(_name);
-        LgNames stds_ = _context.getStandards();
-        for (EntryCust<String, StandardType> c: stds_.getStandards().entryList()) {
-            String k_ = c.getKey();
-            if (!StringUtil.quickEq(k_, base_)) {
-                continue;
-            }
-            StandardType clblock_ = c.getValue();
-            return getClassMetaInfo(_context,clblock_, _name);
-        }
-        return getCustomClassMetaInfo(_name, _context);
-    }
-
-    public static ClassMetaInfo getClassMetaInfo(ContextEl _context, StandardType _type, String _name) {
-        return new ClassMetaInfo(_context, _type, _name);
     }
 
     public static ArrayStruct newStackTraceElementArrayFull(StackCall _stackCall) {

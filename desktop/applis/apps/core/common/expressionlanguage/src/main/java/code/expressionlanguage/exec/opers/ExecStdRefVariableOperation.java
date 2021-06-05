@@ -13,7 +13,7 @@ import code.expressionlanguage.fwd.opers.ExecVariableContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
-public class ExecStdRefVariableOperation extends ExecLeafOperation implements
+public final class ExecStdRefVariableOperation extends ExecLeafOperation implements
         AtomicExecCalculableOperation,ExecSettableElResult {
     private final ExecVariableContent variableContent;
     private final boolean declare;

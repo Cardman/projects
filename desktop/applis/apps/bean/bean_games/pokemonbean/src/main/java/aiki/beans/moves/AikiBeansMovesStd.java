@@ -663,7 +663,7 @@ public final class AikiBeansMovesStd {
         if (StringUtil.quickEq(fieldName_,SORTED_MOVES)) {
             ArrayStruct arr_ = ExecArrayFieldOperation.getArray(_val,_cont);
             StringList elts_ = new StringList();
-            for (Struct s: arr_.getInstance()) {
+            for (Struct s: arr_.list()) {
                 elts_.add(NumParsers.getString(s).getInstance());
             }
             instance_.setSortedMoves(elts_);

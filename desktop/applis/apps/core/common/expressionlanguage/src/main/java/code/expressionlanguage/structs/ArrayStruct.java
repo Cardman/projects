@@ -7,7 +7,7 @@ import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
-public final class ArrayStruct extends WithoutParentIdStruct implements Struct {
+public final class ArrayStruct extends WithoutParentIdStruct {
 
     private final Struct[] instance;
 

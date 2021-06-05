@@ -161,7 +161,7 @@ public final class ExecClassesUtil {
     public static void forwardClassesMetaInfos(ContextEl _context) {
         for (ClassMetaInfo c: _context.getClasses().getClassMetaInfos()) {
             String name_ = c.getName();
-            ClassMetaInfo.forward(MetaInfoUtil.getClassMetaInfo(_context,name_),c);
+            ClassMetaInfo.forward(ClassMetaInfo.getClassMetaInfo(_context,name_),c);
         }
     }
 
