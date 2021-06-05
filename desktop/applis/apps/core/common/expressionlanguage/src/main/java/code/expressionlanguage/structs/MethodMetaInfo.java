@@ -28,7 +28,6 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
     private final MethodId realId;
     private final MethodId fid;
 
-    private final AccessEnum access;
     private final MethodModifier modifier;
 
     private final String fileName;
@@ -42,11 +41,10 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
     private final Cache cache;
 
     public MethodMetaInfo() {
-        super(new SingleRetType(""));
+        super(new SingleRetType(""), AccessEnum.PRIVATE);
         invokable = false;
         realId = new MethodId(MethodAccessKind.INSTANCE,"",new StringList());
         fid = new MethodId(MethodAccessKind.INSTANCE,"",new StringList());
-        access = AccessEnum.PRIVATE;
         modifier = MethodModifier.NORMAL;
         pair = new ExecTypeFunction((ExecRootBlock)null,null);
         formatted = ExecFormattedRootBlock.defValue();
@@ -58,12 +56,11 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         expCast = false;
     }
     public MethodMetaInfo(ContextEl _cont, String _declaringClass, MethodId _realId, String _returnType) {
-        super(new DoubleRetType(_returnType,_declaringClass));
+        super(new DoubleRetType(_returnType,_declaringClass), AccessEnum.PUBLIC);
         LgNames lgNames_ = _cont.getStandards();
         String realInstClassName_ = StringExpUtil.getPrettyArrayType(lgNames_.getContent().getCoreNames().getAliasObject());
         String idRealCl_ = StringExpUtil.getIdFromAllTypes(realInstClassName_);
         invokable = true;
-        access = AccessEnum.PUBLIC;
         realId = _realId;
         modifier = MethodModifier.FINAL;
         fid = _realId;
@@ -77,10 +74,9 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         expCast = false;
     }
     public MethodMetaInfo(ExecFormattedRootBlock _formatted, MethodId _realId, String _returnType) {
-        super(new SingleRetType(_returnType));
+        super(new SingleRetType(_returnType), AccessEnum.PUBLIC);
         ExecRootBlock type_ = _formatted.getRootBlock();
         invokable = true;
-        access = AccessEnum.PUBLIC;
         realId = _realId;
         modifier = MethodModifier.STATIC;
         fid = _realId;
@@ -95,11 +91,10 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         expCast = false;
     }
     public MethodMetaInfo(ExecFormattedRootBlock _formatted, ExecAnnotationMethodBlock _annot) {
-        super(new SingleRetType(_annot.getImportedReturnType()));
+        super(new SingleRetType(_annot.getImportedReturnType()), AccessEnum.PUBLIC);
         ExecRootBlock type_ = _formatted.getRootBlock();
         MethodId id_ = _annot.getId();
         invokable = true;
-        access = AccessEnum.PUBLIC;
         realId = id_;
         modifier = MethodModifier.ABSTRACT;
         fid = id_;
@@ -114,14 +109,13 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         expCast = false;
     }
     public MethodMetaInfo(ExecFormattedRootBlock _formatted, ContextEl _context, ExecOverridableBlock _over, boolean _expCast) {
-        super(new SingleRetType(_over.getImportedReturnType()));
+        super(new SingleRetType(_over.getImportedReturnType()), _over.getAccess());
         ExecRootBlock type_ = _formatted.getRootBlock();
         String formatted_ = _formatted.getFormatted();
         expCast = _expCast;
         MethodId id_ = _over.getId();
         MethodId fid_ = tryFormatId(formatted_, _context, id_);
         invokable = true;
-        access = _over.getAccess();
         realId = id_;
         modifier = _over.getModifier();
         fid = fid_;
@@ -135,14 +129,13 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         directCast = false;
     }
     public MethodMetaInfo(ContextEl _cont, ExecAnonymousFunctionBlock _f, ExecFormattedRootBlock _formatted) {
-        super(new SingleRetType(_f.getImportedReturnType()));
+        super(new SingleRetType(_f.getImportedReturnType()), _f.getAccess());
         ExecRootBlock type_ = _formatted.getRootBlock();
         String formatted_ = _formatted.getFormatted();
         pair = new ExecTypeFunction(type_,_f);
         LgNames standards_ = _cont.getStandards();
         MethodId id_ = _f.getId();
         invokable = true;
-        access = _f.getAccess();
         stdCallee = null;
         realId = id_;
         formatted = _formatted;
@@ -156,9 +149,8 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         expCast = false;
     }
     public MethodMetaInfo(StandardMethod _std, ExecFormattedRootBlock _formatted) {
-        super(new SingleRetType(_std.getImportedReturnType()));
+        super(new SingleRetType(_std.getImportedReturnType()), AccessEnum.PUBLIC);
         invokable = true;
-        access = AccessEnum.PUBLIC;
         stdCallee = _std;
         realId = _std.getId();
         modifier = _std.getModifier();
@@ -172,11 +164,10 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         expCast = false;
     }
     public MethodMetaInfo(ExecOperatorBlock _oper) {
-        super(new SingleRetType(_oper.getImportedReturnType()));
+        super(new SingleRetType(_oper.getImportedReturnType()), _oper.getAccess());
         realId = _oper.getId();
         fid = realId;
         invokable = true;
-        access = _oper.getAccess();
         modifier = MethodModifier.STATIC;
         fileName = _oper.getFile().getFileName();
         pair = new ExecTypeFunction((ExecRootBlock)null,_oper);
@@ -188,7 +179,7 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         expCast = false;
     }
     public MethodMetaInfo(Cache _cache, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, ExecFormattedRootBlock _declaringClass, MethodId _realId, ExecTypeFunction _pair) {
-        super(new SingleRetType(_common.getReturnFieldType()));
+        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC);
         cache = _cache;
         boolean abstractMethod_ = false;
         boolean expCast_ = false;
@@ -207,7 +198,6 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
             met_ = MethodModifier.NORMAL;
         }
         invokable = true;
-        access = AccessEnum.PUBLIC;
         expCast = expCast_;
         realId = _realId;
         modifier = met_;
@@ -221,9 +211,8 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         directCast = false;
     }
     public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, MethodId _realId, ExecTypeFunction _pair) {
-        super(new SingleRetType(_common.getReturnFieldType()));
+        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC);
         invokable = true;
-        access = AccessEnum.PUBLIC;
         realId = _realId;
         modifier = MethodModifier.STATIC;
         fid = tryFormatId(_declaringClass, _realId);
@@ -238,9 +227,8 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         expCast = false;
     }
     public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, MethodId _realId, MethodModifier _modifier, boolean _directCast) {
-        super(new SingleRetType(_common.getReturnFieldType()));
+        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC);
         invokable = true;
-        access = AccessEnum.PUBLIC;
         realId = _realId;
         modifier = _modifier;
         fid = tryFormatId(_declaringClass, _realId);
@@ -254,9 +242,8 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         expCast = false;
     }
     public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, MethodId _realId, MethodModifier _modifier, StandardMethod _stdCallee) {
-        super(new SingleRetType(_common.getReturnFieldType()));
+        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC);
         invokable = true;
-        access = AccessEnum.PUBLIC;
         realId = _realId;
         modifier = _modifier;
         fid = tryFormatId(_declaringClass, _realId);
@@ -271,13 +258,12 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
     }
 
     public MethodMetaInfo(ContextEl _cont, ExecAbstractSwitchMethod _f, ExecFormattedRootBlock _formatted) {
-        super(new SingleRetType(_f.getRetType()));
+        super(new SingleRetType(_f.getRetType()), AccessEnum.PUBLIC);
         ExecRootBlock type_ = _formatted.getRootBlock();
         String formatted_ = _formatted.getFormatted();
         MethodId id_ = _f.getId();
         LgNames standards_ = _cont.getStandards();
         invokable = true;
-        access = AccessEnum.PUBLIC;
         realId = id_;
         directCast = false;
         modifier = _f.getModifier();
@@ -292,7 +278,7 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         expCast = false;
     }
     public MethodMetaInfo(ExecFormattedRootBlock _formatted, ContextEl _context, ExecInitBlock _meth) {
-        super(new SingleRetType(_context.getStandards().getContent().getCoreNames().getAliasVoid()));
+        super(new SingleRetType(_context.getStandards().getContent().getCoreNames().getAliasVoid()), AccessEnum.PRIVATE);
         ExecRootBlock type_ = _formatted.getRootBlock();
         MethodId id_ = _meth.getId();
         MethodModifier mod_;
@@ -302,7 +288,6 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
             mod_ = MethodModifier.STATIC;
         }
         invokable = false;
-        access = AccessEnum.PRIVATE;
         realId = id_;
         modifier = mod_;
         fid = id_;
@@ -392,28 +377,13 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
     public boolean isAbstract() {
         return modifier == MethodModifier.ABSTRACT;
     }
-    
-    public boolean isPackage() {
-        return access == AccessEnum.PACKAGE;
-    }
+
     public boolean isFinal() {
         return modifier == MethodModifier.FINAL;
     }
-    
-    public boolean isProtected() {
-        return access == AccessEnum.PROTECTED;
-    }
+
     public boolean isNormal() {
         return modifier == MethodModifier.NORMAL;
-    }
-    
-    
-    public boolean isPublic() {
-        return access == AccessEnum.PUBLIC;
-    }
-
-    public boolean isPrivate() {
-        return access == AccessEnum.PRIVATE;
     }
 
     @Override

@@ -16,7 +16,6 @@ import code.util.core.StringUtil;
 
 public final class FieldMetaInfo extends AbAnMeStruct {
 
-    private final AccessEnum access;
     private final String name;
 
     private final boolean staticField;
@@ -28,10 +27,9 @@ public final class FieldMetaInfo extends AbAnMeStruct {
     private final ExecRootBlock declaring;
     private final ExecFormattedRootBlock formatted;
     public FieldMetaInfo() {
-        super(new SingleRetType(""));
+        super(new SingleRetType(""), AccessEnum.PRIVATE);
         invokable = false;
         name = "";
-        access = AccessEnum.PRIVATE;
         staticField = false;
         finalField = false;
         fileName = "";
@@ -42,12 +40,11 @@ public final class FieldMetaInfo extends AbAnMeStruct {
     public FieldMetaInfo(ExecLambdaCommonContent _common, ExecLambdaFieldContent _field,
                          ClassField _id,
                          ExecFormattedRootBlock _formatted) {
-        super(new SingleRetType(_common.getReturnFieldType()));
+        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC);
         invokable = true;
         name = StringUtil.nullToEmpty(_id.getFieldName());
         staticField = _field.isStaticField();
         finalField = _field.isFinalField();
-        access = AccessEnum.PUBLIC;
         fileName = _common.getFileName();
         declaring = _field.getRootBlock();
         annotableBlock = _field.getInfoBlock();
@@ -56,13 +53,12 @@ public final class FieldMetaInfo extends AbAnMeStruct {
     }
     public FieldMetaInfo(ExecInfoBlock _info,
                          String _name, ExecFormattedRootBlock _formatted) {
-        super(new SingleRetType(_info.getImportedClassName()));
+        super(new SingleRetType(_info.getImportedClassName()), _info.getAccess());
         ExecRootBlock type_ = _formatted.getRootBlock();
         invokable = true;
         name = StringUtil.nullToEmpty(_name);
         staticField = _info.isStaticField();
         finalField = _info.isFinalField();
-        access = _info.getAccess();
         declaring = type_;
         annotableBlock = _info;
         fileName = type_.getFile().getFileName();
@@ -72,12 +68,11 @@ public final class FieldMetaInfo extends AbAnMeStruct {
     public FieldMetaInfo(String _name,
                          String _returnType,
                          ExecFormattedRootBlock _formatted) {
-        super(new SingleRetType(_returnType));
+        super(new SingleRetType(_returnType), AccessEnum.PUBLIC);
         invokable = true;
         name = StringUtil.nullToEmpty(_name);
         staticField = true;
         finalField = true;
-        access = AccessEnum.PUBLIC;
         fileName = "";
         annotableBlock = null;
         declaring = null;
@@ -103,22 +98,6 @@ public final class FieldMetaInfo extends AbAnMeStruct {
     public String getFileName() {
         return fileName;
     }
-
-    public boolean isPublic() {
-        return access == AccessEnum.PUBLIC;
-    }
-    
-    public boolean isProtected() {
-        return access == AccessEnum.PROTECTED;
-    }
-    
-    public boolean isPrivate() {
-        return access == AccessEnum.PRIVATE;
-    }
-    public boolean isPackage() {
-        return access == AccessEnum.PACKAGE;
-    }
-
 
     @Override
     public ExecFormattedRootBlock getFormatted() {

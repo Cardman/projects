@@ -56,15 +56,16 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
     private boolean staticType;
 
     private final String variableOwner;
-    private AccessEnum access;
     private String fileName = EMPTY_STRING;
     private ExecFormattedRootBlock formatted = ExecFormattedRootBlock.defValue();
     public ClassMetaInfo(String _name) {
+        super(null);
         name = StringUtil.nullToEmpty(_name);
         variableOwner = "";
         formatted = new ExecFormattedRootBlock((ExecRootBlock)null,_name);
     }
     public ClassMetaInfo(String _name, ContextEl _context, String _variableOwner) {
+        super(AccessEnum.PUBLIC);
         name = StringUtil.nullToEmpty(_name);
         variableOwner = StringUtil.nullToEmpty(_variableOwner);
         staticType = true;
@@ -73,9 +74,9 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         String comp_ = StringExpUtil.getQuickComponentBaseType(id_).getComponent();
         ExecRootBlock g_ = _context.getClasses().getClassBody(comp_);
         if (g_ == null) {
-            access = AccessEnum.PUBLIC;
+            setAccess(AccessEnum.PUBLIC);
         } else {
-            access = g_.getAccess();
+            setAccess(g_.getAccess());
         }
         abstractType = false;
         superClass = _context.getStandards().getContent().getCoreNames().getAliasObject();
@@ -84,33 +85,33 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         formatted = new ExecFormattedRootBlock((ExecRootBlock)null,_name);
     }
     public ClassMetaInfo(String _name, ClassCategory _cat, String _variableOwner,String _superClass) {
+        super(AccessEnum.PUBLIC);
         name = StringUtil.nullToEmpty(_name);
         variableOwner = StringUtil.nullToEmpty(_variableOwner);
         staticType = true;
         typeOwner = EMPTY_STRING;
         abstractType = true;
         superClass = _superClass;
-        access = AccessEnum.PUBLIC;
         category = _cat;
         finalType = true;
         formatted = new ExecFormattedRootBlock((ExecRootBlock)null,_name);
     }
     public ClassMetaInfo() {
+        super(AccessEnum.PUBLIC);
         name = "";
         variableOwner = "";
         staticType = true;
         typeOwner = EMPTY_STRING;
         abstractType = true;
         superClass = EMPTY_STRING;
-        access = AccessEnum.PUBLIC;
         category = ClassCategory.VOID;
         finalType = true;
     }
     public ClassMetaInfo(String _name, ClassCategory _cat, StringList _upperBounds, StringList _lowerBounds, String _variableOwner, AccessEnum _access) {
+        super(_access);
         name = StringUtil.nullToEmpty(_name);
         upperBounds.addAllElts(_upperBounds);
         lowerBounds.addAllElts(_lowerBounds);
-        access = _access;
         abstractType = true;
         typeOwner = EMPTY_STRING;
         superClass = EMPTY_STRING;
@@ -121,6 +122,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         formatted = new ExecFormattedRootBlock((ExecRootBlock)null,_name);
     }
     public ClassMetaInfo(ExecFormattedRootBlock _formatted, ContextEl _context){
+        super(_formatted.getRootBlock().getAccess());
         variableOwner = "";
         ExecRootBlock type_ = _formatted.getRootBlock();
         name = _formatted.getFormatted();
@@ -144,7 +146,6 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
             format_ = "";
         }
         formattedType(_formatted);
-        access = type_.getAccess();
         staticType = type_.withoutInstance();
         typeOwner = StringUtil.nullToEmpty(format_);
         if (type_ instanceof ExecInterfaceBlock) {
@@ -180,6 +181,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         superInterfaces.addAllElts(type_.getImportedDirectGenericSuperInterfaces());
     }
     public ClassMetaInfo(ContextEl _context, StandardType _type, String _name){
+        super(AccessEnum.PUBLIC);
         name = _name;
         variableOwner = "";
         ExecFormattedRootBlock formatted_ = new ExecFormattedRootBlock((ExecRootBlock) null, _name);
@@ -188,7 +190,6 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         initStdMethods(_type, formatted_);
         initStdCtors(_context, _type, formatted_);
         staticType = _type.withoutInstance();
-        access = AccessEnum.PUBLIC;
         typeOwner = "";
         if (_type instanceof StandardInterface) {
             category = ClassCategory.INTERFACE;
@@ -331,7 +332,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
 
     public static void forward(ClassMetaInfo _src, ClassMetaInfo _dest) {
         _dest.category = _src.category;
-        _dest.access = _src.access;
+        _dest.setAccess(_src.getAccess());
         _dest.abstractType = _src.abstractType;
         _dest.finalType = _src.finalType;
         _dest.staticType = _src.staticType;
@@ -756,20 +757,6 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
             list_.add(new ClassMetaInfo(pref_, ClassCategory.VARIABLE, upperBounds_, lowerBounds_, name, g_.getAccess()));
         }
         return list_;
-    }
-    public boolean isPublic() {
-        return access == AccessEnum.PUBLIC;
-    }
-    
-
-    public boolean isPackage() {
-        return access == AccessEnum.PACKAGE;
-    }
-    public boolean isPrivate() {
-        return access == AccessEnum.PRIVATE;
-    }
-    public boolean isProtected() {
-        return access == AccessEnum.PROTECTED;
     }
     
     public boolean isTypeArray() {

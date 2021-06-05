@@ -1,5 +1,6 @@
 package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -8,6 +9,34 @@ import code.expressionlanguage.functionid.MethodId;
 
 public abstract class AbsAnnotatedStruct extends WithoutParentStruct {
     private ExecRootBlock owner;
+    private AccessEnum access;
+
+    protected AbsAnnotatedStruct(AccessEnum _access) {
+        this.access = _access;
+    }
+
+    protected AccessEnum getAccess() {
+        return access;
+    }
+
+    protected void setAccess(AccessEnum _access) {
+        access = _access;
+    }
+
+    public boolean isPublic() {
+        return access == AccessEnum.PUBLIC;
+    }
+
+    public boolean isProtected() {
+        return access == AccessEnum.PROTECTED;
+    }
+
+    public boolean isPrivate() {
+        return access == AccessEnum.PRIVATE;
+    }
+    public boolean isPackage() {
+        return access == AccessEnum.PACKAGE;
+    }
 
     protected static MethodId tryFormatId(String _name, ContextEl _context, MethodId _id) {
         MethodId fid_;
