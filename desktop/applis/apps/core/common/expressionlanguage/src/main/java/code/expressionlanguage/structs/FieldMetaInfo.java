@@ -112,13 +112,13 @@ public final class FieldMetaInfo extends AbAnMeStruct {
         return access == AccessEnum.PROTECTED;
     }
     
+    public boolean isPrivate() {
+        return access == AccessEnum.PRIVATE;
+    }
     public boolean isPackage() {
         return access == AccessEnum.PACKAGE;
     }
 
-    public boolean isPrivate() {
-        return access == AccessEnum.PRIVATE;
-    }
 
     @Override
     public ExecFormattedRootBlock getFormatted() {
