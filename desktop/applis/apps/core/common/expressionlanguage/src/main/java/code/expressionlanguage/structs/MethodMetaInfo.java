@@ -408,8 +408,8 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
     }
     
     
-    public boolean isPackage() {
-        return access == AccessEnum.PACKAGE;
+    public boolean isPublic() {
+        return access == AccessEnum.PUBLIC;
     }
 
     public boolean isPrivate() {
