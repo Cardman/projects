@@ -1469,27 +1469,23 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetInterfaces)) {
-            StringList geneInterfaces_ = instanceClass_.getSuperInterfaces();
             ExecFormattedRootBlock nameType_ = instanceClass_.getFormatted();
-            ArrayStruct arr_ = getFormattedClassesMeta(_cont, instanceClass_, geneInterfaces_, nameType_);
+            ArrayStruct arr_ = getFormattedClassesMeta(_cont, instanceClass_, nameType_);
             result_.setResult(arr_);
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetGenericInterfaces)) {
-            StringList geneInterfaces_ = instanceClass_.getSuperInterfaces();
-            ArrayStruct arr_ = getFormattedClassesMeta(_cont, instanceClass_, geneInterfaces_, ExecFormattedRootBlock.defValue());
+            ArrayStruct arr_ = getFormattedClassesMeta(_cont, instanceClass_, ExecFormattedRootBlock.defValue());
             result_.setResult(arr_);
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetLowerBounds)) {
-            StringList geneInterfaces_ = instanceClass_.getLowerBounds();
-            ArrayStruct arr_ = getWildCardBounds(_cont, instanceClass_, geneInterfaces_);
+            ArrayStruct arr_ = getLowerWildCardBounds(_cont, instanceClass_);
             result_.setResult(arr_);
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetUpperBounds)) {
-            StringList geneInterfaces_ = instanceClass_.getUpperBounds();
-            ArrayStruct arr_ = getWildCardBounds(_cont, instanceClass_, geneInterfaces_);
+            ArrayStruct arr_ = getUpperWildCardBounds(_cont, instanceClass_);
             result_.setResult(arr_);
             return result_;
         }
@@ -1506,7 +1502,7 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetTypeParameters)) {
-            CustList<ClassMetaInfo> list_ = instanceClass_.getTypeParameters(_cont);
+            CustList<ClassMetaInfo> list_ = instanceClass_.getTypeParameters();
             result_.setResult(buildArrClass(_cont, list_));
             return result_;
         }
@@ -1738,13 +1734,18 @@ public final class AliasReflection {
         return new ErrorStruct(_cont, _clDyn, _errorType, _stackCall);
     }
 
-    private static ArrayStruct getWildCardBounds(ContextEl _cont, ClassMetaInfo _cl, StringList _bounds) {
-        CustList<ClassMetaInfo> list_ = ClassMetaInfo.getWildCardBoundsList(_cont, _cl, _bounds);
+    private static ArrayStruct getLowerWildCardBounds(ContextEl _cont, ClassMetaInfo _cl) {
+        CustList<ClassMetaInfo> list_ = ClassMetaInfo.getLowerWildCardBoundsList(_cont, _cl);
+        return buildArrClass(_cont, list_);
+    }
+    private static ArrayStruct getUpperWildCardBounds(ContextEl _cont, ClassMetaInfo _cl) {
+        CustList<ClassMetaInfo> list_ = ClassMetaInfo.getUpperWildCardBoundsList(_cont, _cl);
         return buildArrClass(_cont, list_);
     }
 
-    private static ArrayStruct getFormattedClassesMeta(ContextEl _cont, ClassMetaInfo _cl, StringList _geneInterfaces, ExecFormattedRootBlock _clName) {
-        CustList<ClassMetaInfo> list_ = ClassMetaInfo.getFormattedClassesMetaList(_cont, _cl, _geneInterfaces, _clName);
+    private static ArrayStruct getFormattedClassesMeta(ContextEl _cont, ClassMetaInfo _cl, ExecFormattedRootBlock _clName) {
+        StringList geneInterfaces_ = _cl.getSuperInterfaces();
+        CustList<ClassMetaInfo> list_ = ClassMetaInfo.getFormattedClassesMetaList(_cont, _cl, geneInterfaces_, _clName);
         return buildArrClass(_cont, list_);
     }
 

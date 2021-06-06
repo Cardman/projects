@@ -78,7 +78,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
                 className = className_;
                 pair = metaInfo.getPair();
             }
-            accessKind = metaInfo.getRealId().getKind();
+            accessKind = metaInfo.getKind();
         }
         return true;
     }

@@ -555,7 +555,13 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         return getExtendedClassMetaInfo(_cont,genericSuperClassName_,_cl);
     }
 
-    public static CustList<ClassMetaInfo> getWildCardBoundsList(ContextEl _cont, ClassMetaInfo _cl, StringList _bounds) {
+    public static CustList<ClassMetaInfo> getUpperWildCardBoundsList(ContextEl _cont, ClassMetaInfo _cl) {
+        return getWildCardBoundsList(_cont, _cl, _cl.upperBounds);
+    }
+    public static CustList<ClassMetaInfo> getLowerWildCardBoundsList(ContextEl _cont, ClassMetaInfo _cl) {
+        return getWildCardBoundsList(_cont, _cl, _cl.lowerBounds);
+    }
+    private static CustList<ClassMetaInfo> getWildCardBoundsList(ContextEl _cont, ClassMetaInfo _cl, StringList _bounds) {
         ExecFormattedRootBlock clName_ = _cl.getVariableOwner();
         if (clName_.getFormatted().isEmpty()) {
             return new CustList<ClassMetaInfo>(new CollCapacity(0));
@@ -594,7 +600,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
     }
 
     public static CustList<ClassMetaInfo> fetchBoundsClassesMetaList(ContextEl _cont, ClassMetaInfo _cl, ExecFormattedRootBlock _clName) {
-        StringList list_ = _cl.getBounds(_cont);
+        StringList list_ = _cl.getBounds();
         return getFormattedClassesMetaList(_cont, _cl, list_, _clName);
     }
     public static CustList<ClassMetaInfo> getParamsFct(boolean _vararg, ContextEl _cont, AnnotatedStruct _declaring, StringList _geneInterfaces) {
@@ -697,21 +703,14 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         return getClassMetaInfo(_context, formDeclaringClass_);
     }
 
-    public StringList getLowerBounds() {
-        return lowerBounds;
-    }
-    public StringList getUpperBounds() {
-        return upperBounds;
-    }
     public Struct tryWrap(ContextEl _cont, Struct _input) {
         Argument arg_ = new Argument(_input);
         ExecCastOperation.wrapFct(name,true,_cont,arg_);
         return arg_.getStruct();
     }
-    private StringList getBounds(ContextEl _cont) {
+    private StringList getBounds() {
         StringList list_ = new StringList();
-        String id_ = StringExpUtil.getIdFromAllTypes(variableOwner.getFormatted());
-        ExecRootBlock g_ = _cont.getClasses().getClassBody(id_);
+        ExecRootBlock g_ = variableOwner.getRootBlock();
         String varName_ = "";
         if (!name.startsWith(AbstractReplacingType.PREFIX_VAR_TYPE_STR)) {
             g_ = null;
@@ -731,11 +730,10 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         return list_;
     }
 
-    public CustList<ClassMetaInfo> getTypeParameters(ContextEl _cont) {
+    public CustList<ClassMetaInfo> getTypeParameters() {
         CustList<ClassMetaInfo> list_;
         list_ = new CustList<ClassMetaInfo>();
-        String id_ = StringExpUtil.getIdFromAllTypes(name);
-        ExecRootBlock g_ = _cont.getClasses().getClassBody(id_);
+        ExecRootBlock g_ = formatted.getRootBlock();
         if (g_ == null) {
             return list_;
         }
