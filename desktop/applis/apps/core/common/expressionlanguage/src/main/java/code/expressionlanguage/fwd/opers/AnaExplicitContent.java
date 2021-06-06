@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 public final class AnaExplicitContent {
     private String className;
     private AnaFormattedRootBlock formattedTypeOwner;
-    private String classNameOwner = "";
     private int offset;
 
     public String getClassName() {
@@ -32,7 +31,4 @@ public final class AnaExplicitContent {
         this.formattedTypeOwner = _formattedTypeOwner;
     }
 
-    public void setClassNameOwner(String _classNameOwner) {
-        this.classNameOwner = _classNameOwner;
-    }
 }

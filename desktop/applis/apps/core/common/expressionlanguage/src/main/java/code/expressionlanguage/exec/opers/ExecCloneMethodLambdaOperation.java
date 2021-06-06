@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -37,8 +36,7 @@ public final class ExecCloneMethodLambdaOperation extends ExecAbstractLambdaOper
 
     public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, ExecFormattedRootBlock _ownerType,
                                    String _clArg) {
-        MethodModifier met_ = MethodModifier.NORMAL;
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_ownerType, _meth.getMethod(), met_,false);
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_ownerType, _meth);
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg);
     }
 

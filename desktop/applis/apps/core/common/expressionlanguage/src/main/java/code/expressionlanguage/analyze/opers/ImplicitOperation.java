@@ -97,7 +97,6 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
             ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
             if (resMethod_.isFoundMethod()) {
-                explicitContent.setClassNameOwner(resMethod_.getRealClass());
                 explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
                 memberId = resMethod_.getMemberId();
                 function = resMethod_.getPair();
@@ -132,7 +131,6 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
         ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
         if (resMethod_.isFoundMethod()) {
-            explicitContent.setClassNameOwner(resMethod_.getRealClass());
             explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
             memberId = resMethod_.getMemberId();
             function = resMethod_.getPair();

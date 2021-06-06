@@ -8,7 +8,6 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 public final class ExecLambdaMethodContent {
     private final MethodId method;
     private final boolean polymorph;
-    private final boolean abstractMethod;
     private final boolean directCast;
     private final boolean expCast;
     private final boolean clonedMethod;
@@ -18,17 +17,20 @@ public final class ExecLambdaMethodContent {
     public ExecLambdaMethodContent(MethodId _method, AnaLambdaMethodContent _meth, ExecTypeFunction _pair) {
         method = _method;
         polymorph = _meth.isPolymorph();
-        abstractMethod = _meth.isAbstractMethod();
         directCast = _meth.isDirectCast();
         expCast = _meth.isExpCast();
         clonedMethod = _meth.isClonedMethod();
         pair = _pair;
-        modifier = modif(_method, _meth.isAbstractMethod());
+        modifier = modif(_method, _meth);
     }
 
-    private static MethodModifier modif(MethodId _realId, boolean _abstractMethod) {
+    private static MethodModifier modif(MethodId _realId, AnaLambdaMethodContent _meth) {
         MethodModifier met_;
-        if (_abstractMethod) {
+        if (_meth.isDirectCast()) {
+            met_ = MethodModifier.STATIC;
+        } else if (_meth.isClonedMethod()) {
+            met_ = MethodModifier.NORMAL;
+        } else if (_meth.isAbstractMethod()) {
             met_ = MethodModifier.ABSTRACT;
         } else {
             met_ = modif(_realId);

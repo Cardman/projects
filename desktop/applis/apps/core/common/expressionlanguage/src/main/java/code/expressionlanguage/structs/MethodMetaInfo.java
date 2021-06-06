@@ -37,7 +37,7 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         invokable = false;
         pairIds = new PairMethodIds(new MethodId(MethodAccessKind.INSTANCE,"",new StringList()));
         ExecFormattedRootBlock formatted_ = ExecFormattedRootBlock.defValue();
-        callers = new CallersInfo(MethodModifier.NORMAL,null, new ExecTypeFunction(formatted_,null), formatted_,null);
+        callers = buildCallerInfo(formatted_, null, MethodModifier.NORMAL, null);
         cache = null;
         casts = new Casts(false,false);
     }
@@ -48,7 +48,7 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         invokable = true;
         pairIds = new PairMethodIds(_realId);
         ExecFormattedRootBlock formatted_ = new ExecFormattedRootBlock((ExecRootBlock) null, idRealCl_);
-        callers = new CallersInfo( MethodModifier.FINAL,null, new ExecTypeFunction(formatted_,null), formatted_,null);
+        callers = buildCallerInfo(formatted_, null, MethodModifier.FINAL, null);
         cache = null;
         casts = new Casts(false,false);
     }
@@ -56,7 +56,7 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         super(new SingleRetType(_returnType), AccessEnum.PUBLIC,_formatted.getRootBlock().getFile().getFileName());
         invokable = true;
         pairIds = new PairMethodIds(_realId);
-        callers = new CallersInfo(MethodModifier.STATIC,null, new ExecTypeFunction(_formatted,null),_formatted,null);
+        callers = buildCallerInfo(_formatted, null, MethodModifier.STATIC, null);
         cache = null;
         casts = new Casts(false,false);
     }
@@ -64,7 +64,7 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         super(new SingleRetType(_annot.getImportedReturnType()), AccessEnum.PUBLIC,_formatted.getRootBlock().getFile().getFileName());
         invokable = true;
         pairIds = new PairMethodIds(_annot.getId());
-        callers = new CallersInfo(MethodModifier.ABSTRACT,_annot, new ExecTypeFunction(_formatted,_annot),_formatted,null);
+        callers = buildCallerInfo(_formatted, _annot, MethodModifier.ABSTRACT, null);
         cache = null;
         casts = new Casts(false,false);
     }
@@ -73,13 +73,14 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         MethodId id_ = _over.getId();
         invokable = true;
         pairIds = new PairMethodIds(id_,tryFormatId(_formatted, _context, id_));
-        callers = new CallersInfo(_over.getModifier(),_over, new ExecTypeFunction(_formatted,_over),_formatted,null);
+        callers = buildCallerInfo(_formatted, _over, _over.getModifier(), null);
         cache = null;
         casts = new Casts(false,_expCast);
     }
+
     public MethodMetaInfo(ContextEl _cont, ExecAnonymousFunctionBlock _f, ExecFormattedRootBlock _formatted) {
         super(new SingleRetType(_f.getImportedReturnType()), _f.getAccess(),_f.getFile().getFileName());
-        callers = new CallersInfo(_f.getModifier(),_f, new ExecTypeFunction(_formatted,_f),_formatted,null);
+        callers = buildCallerInfo(_formatted, _f, _f.getModifier(), null);
         MethodId id_ = _f.getId();
         invokable = true;
         pairIds = new PairMethodIds(id_,tryFormatId(_formatted, _cont, id_));
@@ -89,7 +90,7 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
     public MethodMetaInfo(StandardMethod _std, ExecFormattedRootBlock _formatted) {
         super(new SingleRetType(_std.getImportedReturnType()), AccessEnum.PUBLIC,"");
         invokable = true;
-        callers = new CallersInfo(_std.getModifier(),null, new ExecTypeFunction(_formatted,null),_formatted,_std);
+        callers = buildCallerInfo(_formatted, null, _std.getModifier(), _std);
         pairIds = new PairMethodIds(_std.getId());
         cache = null;
         casts = new Casts(false,false);
@@ -99,7 +100,7 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         pairIds = new PairMethodIds(_oper.getId());
         invokable = true;
         ExecFormattedRootBlock formatted_ = ExecFormattedRootBlock.defValue();
-        callers = new CallersInfo(MethodModifier.STATIC,_oper, new ExecTypeFunction(formatted_,_oper), formatted_,null);
+        callers = buildCallerInfo(formatted_, _oper, MethodModifier.STATIC, null);
         cache = null;
         casts = new Casts(false,false);
     }
@@ -108,7 +109,7 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         cache = null;
         invokable = true;
         pairIds = new PairMethodIds(_realId,tryFormatId(_declaringClass, _realId));
-        callers = new CallersInfo(_meth.getModifier(),_pair.getFct(), _pair,_declaringClass,null);
+        callers = buildCallerInfo(_declaringClass, _meth.getModifier(), _pair);
         casts = new Casts(false,_meth.isExpCast());
     }
     public MethodMetaInfo(Cache _cache, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ExecLambdaAnoContent _lambdaAnoCont) {
@@ -116,30 +117,31 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         cache = _cache;
         invokable = true;
         pairIds = new PairMethodIds(_lambdaAnoCont.getMethod(),tryFormatId(_declaringClass, _lambdaAnoCont.getMethod()));
-        callers = new CallersInfo(_lambdaAnoCont.getModifier(),_lambdaAnoCont.getPair().getFct(), _lambdaAnoCont.getPair(),_declaringClass,null);
+        callers = buildCallerInfo(_declaringClass, _lambdaAnoCont.getModifier(), _lambdaAnoCont.getPair());
         casts = new Casts(false,false);
     }
+
     public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, MethodId _realId, ExecTypeFunction _pair) {
         super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC,_common.getFileName());
         invokable = true;
         pairIds = new PairMethodIds(_realId,tryFormatId(_declaringClass, _realId));
-        callers = new CallersInfo(MethodModifier.STATIC,_pair.getFct(), _pair,_declaringClass,null);
+        callers = buildCallerInfo(_declaringClass, MethodModifier.STATIC, _pair);
         cache = null;
         casts = new Casts(false,false);
     }
-    public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, MethodId _realId, MethodModifier _modifier, boolean _directCast) {
+    public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ExecLambdaMethodContent _meth) {
         super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC,_common.getFileName());
         invokable = true;
-        pairIds = new PairMethodIds(_realId,tryFormatId(_declaringClass, _realId));
-        callers = new CallersInfo(_modifier,null, new ExecTypeFunction(_declaringClass,null),_declaringClass,null);
+        pairIds = new PairMethodIds(_meth.getMethod(),tryFormatId(_declaringClass, _meth.getMethod()));
+        callers = buildCallerInfo(_declaringClass, null, _meth.getModifier(), null);
         cache = null;
-        casts = new Casts(_directCast,false);
+        casts = new Casts(_meth.isDirectCast(),false);
     }
-    public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, MethodId _realId, MethodModifier _modifier, StandardMethod _stdCallee) {
+    public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, MethodId _realId, StandardMethod _stdCallee) {
         super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC,_common.getFileName());
         invokable = true;
         pairIds = new PairMethodIds(_realId,tryFormatId(_declaringClass, _realId));
-        callers = new CallersInfo(_modifier,null, new ExecTypeFunction(_declaringClass,null),_declaringClass,_stdCallee);
+        callers = buildCallerInfo(_declaringClass, null, _stdCallee.getModifier(), _stdCallee);
         cache = null;
         casts = new Casts(false,false);
     }
@@ -150,16 +152,29 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         invokable = true;
         cache = new ShownCache(_f, _cont.getStandards().getContent().getCoreNames().getAliasObject());
         pairIds = new PairMethodIds(id_,tryFormatId(_formatted, _cont, id_));
-        callers = new CallersInfo(_f.getModifier(),_f, new ExecTypeFunction(_formatted,null),_formatted,null);
+        callers = buildCallerInfo(_formatted, _f, _f.getModifier());
         casts = new Casts(false,false);
     }
+
     public MethodMetaInfo(ExecFormattedRootBlock _formatted, ContextEl _context, ExecInitBlock _meth) {
         super(new SingleRetType(_context.getStandards().getContent().getCoreNames().getAliasVoid()), AccessEnum.PRIVATE,_formatted.getRootBlock().getFile().getFileName());
         invokable = false;
         pairIds = new PairMethodIds(_meth.getId());
-        callers = new CallersInfo(modif(_meth),_meth, new ExecTypeFunction(_formatted,null),_formatted,null);
+        callers = buildCallerInfo(_formatted, _meth, modif(_meth));
         cache = null;
         casts = new Casts(false,false);
+    }
+
+    private static CallersInfo buildCallerInfo(ExecFormattedRootBlock _formatted, ExecMemberCallingsBlock _meth, MethodModifier _modif) {
+        return new CallersInfo(_modif, _meth, new ExecTypeFunction(_formatted, null), _formatted, null);
+    }
+
+    private static CallersInfo buildCallerInfo(ExecFormattedRootBlock _formatted, ExecNamedFunctionBlock _over, MethodModifier _modifier, StandardMethod _std) {
+        return new CallersInfo(_modifier, _over, new ExecTypeFunction(_formatted, _over), _formatted, _std);
+    }
+
+    private static CallersInfo buildCallerInfo(ExecFormattedRootBlock _declaringClass, MethodModifier _modifier, ExecTypeFunction _pair) {
+        return new CallersInfo(_modifier, _pair.getFct(), _pair, _declaringClass, null);
     }
 
     private static MethodModifier modif(ExecInitBlock _meth) {

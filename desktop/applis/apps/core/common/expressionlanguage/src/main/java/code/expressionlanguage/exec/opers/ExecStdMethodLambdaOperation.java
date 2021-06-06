@@ -2,13 +2,11 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.StandardMethod;
@@ -42,8 +40,7 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
 
     public static Struct newLambda(ExecLambdaCommonContent _common, Argument _previous, ExecFormattedRootBlock _ownerType,
                                    String _clArg, StandardMethod _function, MethodId _constraints) {
-        MethodModifier met_ = _function.getModifier();
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_ownerType, _constraints, met_,_function);
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_ownerType, _constraints, _function);
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_constraints,_clArg, false);
     }
 
