@@ -55,17 +55,7 @@ public final class ConstructorId implements Identifiable {
     public static ConstructorId to(String _access, StringList _params,ConstructorId _id) {
         return new ConstructorId(_access,_params,_id.refParams, _id.vararg);
     }
-    public ConstructorId reflectFormat(String _genericClass, ContextEl _classes) {
-        StringList types_ = getParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            String formatted_ = ExecInherits.reflectFormat(_genericClass, n_, _classes);
-            pTypes_.add(formatted_);
-        }
-        return new ConstructorId(_genericClass, pTypes_,refParams, isVararg());
-    }
+
     public ConstructorId reflectFormat(ExecFormattedRootBlock _genericClass) {
         StringList types_ = getParametersTypes();
         int len_ = types_.size();

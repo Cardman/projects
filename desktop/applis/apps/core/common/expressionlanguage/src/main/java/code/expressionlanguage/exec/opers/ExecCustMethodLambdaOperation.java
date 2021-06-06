@@ -36,7 +36,7 @@ public final class ExecCustMethodLambdaOperation extends ExecAbstractLambdaOpera
 
     public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous, ExecFormattedRootBlock _ownerType,
                                    String _clArg) {
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(null, _common, _meth, _ownerType, _meth.getMethod(), _meth.getPair());
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common, _meth, _ownerType, _meth.getMethod(), _meth.getPair());
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg);
     }
 

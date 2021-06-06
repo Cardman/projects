@@ -21,70 +21,64 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
     private final ConstructorId realId;
     private final ConstructorId fid;
     private final boolean invokable;
-    private final String fileName;
     private final ExecTypeFunction pair;
     private final ExecFormattedRootBlock formatted;
     private final StandardType standardType;
     private final GeneType declType;
 
     public ConstructorMetaInfo(){
-        super(new SingleRetType(""), AccessEnum.PRIVATE);
+        super(new SingleRetType(""), AccessEnum.PRIVATE,"");
         invokable = false;
         realId = new ConstructorId("",new StringList(),false);
         fid = new ConstructorId("",new StringList(),false);
-        pair = new ExecTypeFunction((ExecRootBlock)null,null);
-        formatted = ExecFormattedRootBlock.defValue();
-        fileName = "";
+        ExecFormattedRootBlock formatted_ = ExecFormattedRootBlock.defValue();
+        pair = new ExecTypeFunction(formatted_,null);
+        formatted = formatted_;
         standardType = null;
         declType = null;
     }
     public ConstructorMetaInfo(ExecTypeFunction _pair, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ConstructorId _realId) {
-        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC);
+        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC,_common.getFileName());
         ConstructorId fid_ = tryFormatId(_declaringClass, _realId);
         invokable = true;
         realId = _realId;
         fid = fid_;
         pair = _pair;
-        setOwner(_pair.getType());
         formatted = _declaringClass;
-        fileName = _common.getFileName();
         standardType = null;
         declType = _pair.getType();
     }
     public ConstructorMetaInfo(StandardType _standardType, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ConstructorId _realId) {
-        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC);
+        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC,_common.getFileName());
         standardType = _standardType;
         ConstructorId fid_ = tryFormatId(_declaringClass, _realId);
         invokable = true;
         realId = _realId;
         fid = fid_;
-        pair = new ExecTypeFunction((ExecRootBlock) null,null);
+        pair = new ExecTypeFunction(_declaringClass,null);
         formatted = _declaringClass;
-        fileName = _common.getFileName();
         declType = _standardType;
     }
     public ConstructorMetaInfo(ExecFormattedRootBlock _formatted, ExecConstructorBlock _ctor, ContextEl _context) {
-        super(new SingleRetType(koRetType(_ctor, _context)), ac(_formatted, _ctor));
+        super(new SingleRetType(koRetType(_ctor, _context)), ac(_formatted, _ctor),_formatted.getRootBlock().getFile().getFileName());
         ExecRootBlock type_ = _formatted.getRootBlock();
         String formatted_ = _formatted.getFormatted();
         ConstructorId id_ = new ConstructorId(formatted_, new StringList(), false);
         ConstructorId fid_ = id_;
         if (_ctor != null) {
             id_ = _ctor.getGenericId(type_.getGenericString());
-            fid_ = tryFormatId(formatted_, _context, id_);
+            fid_ = tryFormatId(_formatted, _context, id_);
         }
         invokable = true;
         realId = id_;
         fid = fid_;
         pair = new ExecTypeFunction(_formatted,_ctor);
-        setOwner(type_);
         formatted  = _formatted;
-        fileName = type_.getFile().getFileName();
         standardType = null;
         declType = type_;
     }
     public ConstructorMetaInfo(ContextEl _context, StandardType _std, StandardConstructor _ctor, String _declaringClass, ExecFormattedRootBlock _formatted) {
-        super(new SingleRetType(koRetType(_context, _ctor)), AccessEnum.PUBLIC);
+        super(new SingleRetType(koRetType(_context, _ctor)), AccessEnum.PUBLIC,"");
         ConstructorId id_ = new ConstructorId(_declaringClass, new StringList(), false);
         if (_ctor != null) {
             id_ = new ConstructorId(_declaringClass, _ctor.getImportedParametersTypes(), _ctor.isVarargs());
@@ -93,9 +87,8 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
         invokable = true;
         realId = id_;
         fid = id_;
-        pair = new ExecTypeFunction((ExecRootBlock)null,null);
+        pair = new ExecTypeFunction(_formatted,null);
         formatted = _formatted;
-        fileName = "";
         declType = _std;
     }
     private static AccessEnum ac(ExecFormattedRootBlock _formatted, ExecConstructorBlock _ctor) {
@@ -157,11 +150,6 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
 
     public StandardType getStandardType() {
         return standardType;
-    }
-
-    @Override
-    public String getFileName() {
-        return fileName;
     }
 
     public ConstructorId getRealId() {

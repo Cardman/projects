@@ -296,14 +296,15 @@ public final class AnaInherits {
         return format(_typeSub,_subType, generic_);
     }
 
-    public static String getOverridingFullTypeByBases(AnaGeneType _typSub, String _subType, String _superType, AnalyzedPageEl _page) {
+    public static String getOverridingFullTypeByBases(String _subType, String _superType, AnalyzedPageEl _page) {
+        AnaGeneType type_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(_subType));
         String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
         String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
         if (StringUtil.quickEq(idArg_,idSuperType_)) {
             return _subType;
         }
-        String generic_ = getSuperGeneric(_typSub, 0, idSuperType_, _page);
-        return quickFormat(_typSub,_subType, generic_);
+        String generic_ = getSuperGeneric(type_, 0, idSuperType_, _page);
+        return quickFormat(type_,_subType, generic_);
     }
 
     public static AnaFormattedRootBlock getFormattedOverridingFullTypeByBases(AnaFormattedRootBlock _subType, AnaGeneType _superType) {

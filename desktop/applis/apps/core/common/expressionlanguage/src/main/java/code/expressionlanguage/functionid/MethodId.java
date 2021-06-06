@@ -191,18 +191,6 @@ public final class MethodId implements Identifiable {
         return IdentifiableUtil.eqPartial(this,_other);
     }
 
-    public MethodId reflectFormat(String _genericClass, ContextEl _context) {
-        String name_ = getName();
-        int len_ = classNames.size();
-        StringList pTypes_ = new StringList();
-        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            String n_ = classNames.get(i);
-            String formatted_ = ExecInherits.reflectFormat(_genericClass, n_, _context);
-            pTypes_.add(formatted_);
-        }
-        return new MethodId(retRef, kind, name_, pTypes_, refParams,isVararg());
-    }
-
     public MethodId reflectFormat(ExecFormattedRootBlock _genericClass) {
         String name_ = getName();
         int len_ = classNames.size();

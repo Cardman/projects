@@ -213,9 +213,10 @@ public final class AnonymousLambdaOperation extends
                 }
             }
         }
-        lambdaCommonContent.setFoundFormatted(AnaFormattedRootBlock.copy(_page.getGlobalType()));
+        AnaFormattedRootBlock copy_ = AnaFormattedRootBlock.copy(_page.getGlobalType());
+        lambdaCommonContent.setFoundFormatted(copy_);
         lambdaCommonContent.setFileName(_page.getLocalizer().getCurrentFileName());
-        RootBlock globalType_ = block.getParentType();
+        RootBlock globalType_ = copy_.getRootBlock();
         OperatorBlock operator_ = block.getOperator();
         if (globalType_ != null) {
             lambdaAnoContent.setRootNumber(globalType_.getNumberAll());

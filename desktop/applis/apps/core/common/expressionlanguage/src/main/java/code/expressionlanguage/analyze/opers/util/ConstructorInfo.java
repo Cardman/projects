@@ -114,8 +114,7 @@ public final class ConstructorInfo implements Parametrable {
     }
 
     public void reformat(String _foundType,AnalyzedPageEl _page) {
-        AnaGeneType type_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(_foundType));
-        className = AnaInherits.getOverridingFullTypeByBases(type_,_foundType,className,_page);
+        className = AnaInherits.getOverridingFullTypeByBases(_foundType,className,_page);
         StringList params_ = AnaInherits.wildCardFormatParams(className, constraints.getParametersTypes(), _page);
         formatted = ConstructorId.to(className, params_, constraints);
     }

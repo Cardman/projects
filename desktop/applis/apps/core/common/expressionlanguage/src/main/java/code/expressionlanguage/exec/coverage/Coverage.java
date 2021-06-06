@@ -505,7 +505,7 @@ public final class Coverage {
         if (_lastPage instanceof ReflectAnnotationPageEl) {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl) _lastPage;
             AnnotatedStruct annotated_ = annotRet_.getAnnotated();
-            type_ = annotated_.getOwner();
+            type_ = annotated_.getFormatted().getRootBlock();
         } else if (_lastPage instanceof ReflectGetDefaultValuePageEl) {
             ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl) _lastPage;
             type_ = annotRet_.getMetaInfo().getPairType();

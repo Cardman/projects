@@ -5,8 +5,8 @@ import code.expressionlanguage.common.AccessEnum;
 public abstract class AbAnMeStruct extends AbsAnnotatedStruct implements AnnotatedStruct {
     private final AbsRetType retType;
 
-    protected AbAnMeStruct(AbsRetType _retType, AccessEnum _access) {
-        super(_access);
+    protected AbAnMeStruct(AbsRetType _retType, AccessEnum _access, String _fileName) {
+        super(_access,_fileName);
         retType = _retType;
     }
 
@@ -27,7 +27,7 @@ public abstract class AbAnMeStruct extends AbsAnnotatedStruct implements Annotat
     }
 
     protected String tryFormatType(ContextEl _cont, AnnotatedStruct _member) {
-        return tryFormatType(_cont,_member.getFormatted().getFormatted(),retType.retType());
+        return tryFormatType(_cont,_member.getFormatted(),retType.retType());
     }
 
 }

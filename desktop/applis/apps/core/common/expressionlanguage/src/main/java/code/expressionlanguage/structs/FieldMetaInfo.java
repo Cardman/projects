@@ -22,17 +22,15 @@ public final class FieldMetaInfo extends AbAnMeStruct {
 
     private final boolean finalField;
     private final boolean invokable;
-    private final String fileName;
     private final ExecInfoBlock annotableBlock;
     private final ExecRootBlock declaring;
     private final ExecFormattedRootBlock formatted;
     public FieldMetaInfo() {
-        super(new SingleRetType(""), AccessEnum.PRIVATE);
+        super(new SingleRetType(""), AccessEnum.PRIVATE,"");
         invokable = false;
         name = "";
         staticField = false;
         finalField = false;
-        fileName = "";
         annotableBlock = null;
         declaring = null;
         formatted = ExecFormattedRootBlock.defValue();
@@ -40,20 +38,18 @@ public final class FieldMetaInfo extends AbAnMeStruct {
     public FieldMetaInfo(ExecLambdaCommonContent _common, ExecLambdaFieldContent _field,
                          ClassField _id,
                          ExecFormattedRootBlock _formatted) {
-        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC);
+        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC,_common.getFileName());
         invokable = true;
         name = StringUtil.nullToEmpty(_id.getFieldName());
         staticField = _field.isStaticField();
         finalField = _field.isFinalField();
-        fileName = _common.getFileName();
         declaring = _field.getRootBlock();
         annotableBlock = _field.getInfoBlock();
-        setOwner(_field.getRootBlock());
         formatted = _formatted;
     }
     public FieldMetaInfo(ExecInfoBlock _info,
                          String _name, ExecFormattedRootBlock _formatted) {
-        super(new SingleRetType(_info.getImportedClassName()), _info.getAccess());
+        super(new SingleRetType(_info.getImportedClassName()), _info.getAccess(),_formatted.getRootBlock().getFile().getFileName());
         ExecRootBlock type_ = _formatted.getRootBlock();
         invokable = true;
         name = StringUtil.nullToEmpty(_name);
@@ -61,19 +57,16 @@ public final class FieldMetaInfo extends AbAnMeStruct {
         finalField = _info.isFinalField();
         declaring = type_;
         annotableBlock = _info;
-        fileName = type_.getFile().getFileName();
-        setOwner(type_);
         formatted = _formatted;
     }
     public FieldMetaInfo(String _name,
                          String _returnType,
                          ExecFormattedRootBlock _formatted) {
-        super(new SingleRetType(_returnType), AccessEnum.PUBLIC);
+        super(new SingleRetType(_returnType), AccessEnum.PUBLIC,"");
         invokable = true;
         name = StringUtil.nullToEmpty(_name);
         staticField = true;
         finalField = true;
-        fileName = "";
         annotableBlock = null;
         declaring = null;
         formatted = _formatted;
@@ -92,11 +85,6 @@ public final class FieldMetaInfo extends AbAnMeStruct {
 
     public ExecRootBlock getDeclaring() {
         return declaring;
-    }
-
-    @Override
-    public String getFileName() {
-        return fileName;
     }
 
     @Override

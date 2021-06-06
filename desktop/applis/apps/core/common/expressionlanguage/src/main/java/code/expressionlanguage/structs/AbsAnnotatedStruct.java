@@ -1,18 +1,26 @@
 package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 
 public abstract class AbsAnnotatedStruct extends WithoutParentStruct {
-    private ExecRootBlock owner;
     private AccessEnum access;
+    private String fileName;
 
-    protected AbsAnnotatedStruct(AccessEnum _access) {
+    protected AbsAnnotatedStruct(AccessEnum _access, String _fileName) {
         this.access = _access;
+        fileName = _fileName;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String _fileName) {
+        this.fileName = _fileName;
     }
 
     protected AccessEnum getAccess() {
@@ -38,20 +46,20 @@ public abstract class AbsAnnotatedStruct extends WithoutParentStruct {
         return access == AccessEnum.PACKAGE;
     }
 
-    protected static MethodId tryFormatId(String _name, ContextEl _context, MethodId _id) {
+    protected static MethodId tryFormatId(ExecFormattedRootBlock _name, ContextEl _context, MethodId _id) {
         MethodId fid_;
-        if (ExecInherits.correctNbParameters(_name, _context)) {
-            fid_ = _id.reflectFormat(_name, _context);
+        if (ExecInherits.correctNbParameters(_name.getFormatted(), _context)) {
+            fid_ = _id.reflectFormat(_name);
         } else {
             fid_ = _id;
         }
         return fid_;
     }
 
-    protected static ConstructorId tryFormatId(String _name, ContextEl _context, ConstructorId _id) {
+    protected static ConstructorId tryFormatId(ExecFormattedRootBlock _name, ContextEl _context, ConstructorId _id) {
         ConstructorId fid_;
-        if (ExecInherits.correctNbParameters(_name, _context)) {
-            fid_ = _id.reflectFormat(_name, _context);
+        if (ExecInherits.correctNbParameters(_name.getFormatted(), _context)) {
+            fid_ = _id.reflectFormat(_name);
         } else {
             fid_ = _id;
         }
@@ -66,18 +74,12 @@ public abstract class AbsAnnotatedStruct extends WithoutParentStruct {
         return _id.reflectFormat(_name);
     }
 
-    protected static String tryFormatType(ContextEl _cont, String _owner, String _type) {
+    protected static String tryFormatType(ContextEl _cont, ExecFormattedRootBlock _owner, String _type) {
         String type_ = _type;
-        if (ExecInherits.correctNbParameters(_owner,_cont)) {
-            type_ = ExecInherits.reflectFormat(_owner, type_, _cont);
+        if (ExecInherits.correctNbParameters(_owner.getFormatted(),_cont)) {
+            type_ = ExecInherits.reflectFormat(_owner, type_);
         }
         return type_;
     }
 
-    public ExecRootBlock getOwner() {
-        return owner;
-    }
-    public void setOwner(ExecRootBlock _owner) {
-        owner = _owner;
-    }
 }

@@ -273,9 +273,7 @@ public final class ResultTernary {
                     DimComp dci_ = StringExpUtil.getQuickComponentBaseType(t);
                     String component_ = dci_.getComponent();
                     int dLoc_ = dci_.getDim();
-                    String i_ = StringExpUtil.getIdFromAllTypes(component_);
-                    AnaGeneType j_ = _page.getAnaGeneType(i_);
-                    addTypes(superTypes_, component_, d_+ dLoc_, j_);
+                    addTypes(_page, superTypes_, component_, d_+ dLoc_);
                 }
                 for (int d = 1; d <= d_; d++) {
                     superTypes_.add(StringExpUtil.getPrettyArrayType(obj_, d));
@@ -303,9 +301,7 @@ public final class ResultTernary {
                 }
                 continue;
             }
-            String id_ = StringExpUtil.getIdFromAllTypes(base_);
-            AnaGeneType g_ = _page.getAnaGeneType(id_);
-            addTypes(superTypes_, base_, d_, g_);
+            addTypes(_page, superTypes_, base_, d_);
             for (int d = 1; d <= d_; d++) {
                 superTypes_.add(StringExpUtil.getPrettyArrayType(obj_, d));
             }
@@ -315,20 +311,22 @@ public final class ResultTernary {
         return superTypes_;
     }
 
-    private static void addTypes(StringList _superTypes, String _base, int _d, AnaGeneType _g) {
-        if (_g instanceof RootBlock) {
-            addWildCard(_superTypes, _d, (RootBlock)_g);
-            for (AnaFormattedRootBlock m: ((RootBlock) _g).getAllGenericSuperTypesInfo()) {
+    private static void addTypes(AnalyzedPageEl _page, StringList _superTypes, String _base, int _d) {
+        String id_ = StringExpUtil.getIdFromAllTypes(_base);
+        AnaGeneType g_ = _page.getAnaGeneType(id_);
+        if (g_ instanceof RootBlock) {
+            addWildCard(_superTypes, _d, (RootBlock) g_);
+            for (AnaFormattedRootBlock m: ((RootBlock) g_).getAllGenericSuperTypesInfo()) {
                 RootBlock rootBlock_ = m.getRootBlock();
                 String formatted_ = m.getFormatted();
-                String f_ = AnaInherits.format(_g, _base, formatted_);
+                String f_ = AnaInherits.format(g_, _base, formatted_);
                 addWildCard(_superTypes, _d, rootBlock_);
                 _superTypes.add(StringExpUtil.getPrettyArrayType(f_, _d));
             }
         }
-        if (_g instanceof StandardType) {
-            for (String t: ((StandardType)_g).getAllGenericSuperTypes()) {
-                String f_ = AnaInherits.format(_g, _base, t);
+        if (g_ instanceof StandardType) {
+            for (String t: ((StandardType) g_).getAllGenericSuperTypes()) {
+                String f_ = AnaInherits.format(g_, _base, t);
                 _superTypes.add(StringExpUtil.getPrettyArrayType(f_, _d));
             }
         }

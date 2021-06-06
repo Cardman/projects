@@ -1460,24 +1460,24 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetSuperClass)) {
-            String nameType_ = instanceClass_.getName();
+            ExecFormattedRootBlock nameType_ = instanceClass_.getFormatted();
             result_.setResult(ClassMetaInfo.superType(_cont, instanceClass_, nameType_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetGenericSuperClass)) {
-            result_.setResult(ClassMetaInfo.superType(_cont, instanceClass_, ""));
+            result_.setResult(ClassMetaInfo.superType(_cont, instanceClass_, ExecFormattedRootBlock.defValue()));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetInterfaces)) {
             StringList geneInterfaces_ = instanceClass_.getSuperInterfaces();
-            String nameType_ = instanceClass_.getName();
+            ExecFormattedRootBlock nameType_ = instanceClass_.getFormatted();
             ArrayStruct arr_ = getFormattedClassesMeta(_cont, instanceClass_, geneInterfaces_, nameType_);
             result_.setResult(arr_);
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetGenericInterfaces)) {
             StringList geneInterfaces_ = instanceClass_.getSuperInterfaces();
-            ArrayStruct arr_ = getFormattedClassesMeta(_cont, instanceClass_, geneInterfaces_, "");
+            ArrayStruct arr_ = getFormattedClassesMeta(_cont, instanceClass_, geneInterfaces_, ExecFormattedRootBlock.defValue());
             result_.setResult(arr_);
             return result_;
         }
@@ -1511,13 +1511,13 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetBounds)) {
-            String clName_ = instanceClass_.getVariableOwner();
+            ExecFormattedRootBlock clName_ = instanceClass_.getVariableOwner();
             ArrayStruct arr_ = fetchBoundsClassesMeta(_cont, instanceClass_, clName_);
             result_.setResult(arr_);
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetGenericBounds)) {
-            ArrayStruct arr_ = fetchBoundsClassesMeta(_cont, instanceClass_, "");
+            ArrayStruct arr_ = fetchBoundsClassesMeta(_cont, instanceClass_, ExecFormattedRootBlock.defValue());
             result_.setResult(arr_);
             return result_;
         }
@@ -1591,7 +1591,7 @@ public final class AliasReflection {
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
             StringList methods_ = new StringList();
-            ExecRootBlock callee_ = instanceClass_.getOwner();
+            ExecRootBlock callee_ = instanceClass_.getFormatted().getRootBlock();
             fetchAnonymous(methods_, callee_);
             ArrayStruct str_ = getTypes(_cont, methods_);
             result_.setResult(str_);
@@ -1743,12 +1743,12 @@ public final class AliasReflection {
         return buildArrClass(_cont, list_);
     }
 
-    private static ArrayStruct getFormattedClassesMeta(ContextEl _cont, ClassMetaInfo _cl, StringList _geneInterfaces, String _clName) {
+    private static ArrayStruct getFormattedClassesMeta(ContextEl _cont, ClassMetaInfo _cl, StringList _geneInterfaces, ExecFormattedRootBlock _clName) {
         CustList<ClassMetaInfo> list_ = ClassMetaInfo.getFormattedClassesMetaList(_cont, _cl, _geneInterfaces, _clName);
         return buildArrClass(_cont, list_);
     }
 
-    private static ArrayStruct fetchBoundsClassesMeta(ContextEl _cont, ClassMetaInfo _cl, String _clName) {
+    private static ArrayStruct fetchBoundsClassesMeta(ContextEl _cont, ClassMetaInfo _cl, ExecFormattedRootBlock _clName) {
         CustList<ClassMetaInfo> list_ = ClassMetaInfo.fetchBoundsClassesMetaList(_cont, _cl, _clName);
         return buildArrClass(_cont, list_);
     }
