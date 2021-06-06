@@ -5,7 +5,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.util.Replacement;
 import code.util.core.StringUtil;
 
-public final class ReplacementStruct extends WithoutParentStruct implements Struct {
+public final class ReplacementStruct extends WithoutParentStruct {
 
     private final Replacement instance;
 
