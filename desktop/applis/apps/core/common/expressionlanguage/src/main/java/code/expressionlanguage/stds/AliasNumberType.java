@@ -16,7 +16,7 @@ import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public final class AliasNumber {
+public final class AliasNumberType {
     private String aliasCompareTo;
     private String aliasCompare;
     private String aliasEquals;

@@ -40,30 +40,30 @@ public final class ApplyCoreMethodUtil {
         }
         if (StringUtil.quickEq(type_, replType_)) {
             ResultErrorStd result_ = new ResultErrorStd();
-            AliasCharSequence.calculate(_cont, result_, _method, _struct);
+            AliasCharSequenceType.calculate(_cont, result_, _method, _struct);
             return result_;
         }
         if (StringUtil.quickEq(type_, stringType_)
                 || StringUtil.quickEq(type_, lgNames_.getContent().getCharSeq().getAliasCharSequence())) {
-            return AliasCharSequence.invokeStdMethod(_cont, _method, _struct, _stackCall, _args);
+            return AliasCharSequenceType.invokeStdMethod(_cont, _method, _struct, _stackCall, _args);
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getStackElt().getAliasStackTraceElement())) {
-            return AliasStackTraceElement.invokeMethod(_cont, _method, _struct, _stackCall);
+            return AliasStackTraceElementType.invokeMethod(_cont, _method, _struct, _stackCall);
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasError())) {
             return processError(_cont, _method, _struct, args_, _stackCall);
         }
         if (StringUtil.quickEq(type_, mathType_)) {
-            return AliasMath.invokeStdMethod(_cont, _method, _stackCall, _args);
+            return AliasMathType.invokeStdMethod(_cont, _method, _stackCall, _args);
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasBoolean())) {
             ResultErrorStd result_ = new ResultErrorStd();
-            AliasNumber.processBoolean(_cont, result_, _method, _struct, args_);
+            AliasNumberType.processBoolean(_cont, result_, _method, _struct, args_);
             return result_;
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasCharacter())) {
             ResultErrorStd result_ = new ResultErrorStd();
-            AliasNumber.processCharacter(_cont, result_, _method, _struct, args_, _stackCall);
+            AliasNumberType.processCharacter(_cont, result_, _method, _struct, args_, _stackCall);
             return result_;
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasByte())
@@ -73,12 +73,12 @@ public final class ApplyCoreMethodUtil {
                 || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasFloat())
                 || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasDouble())) {
             ResultErrorStd result_ = new ResultErrorStd();
-            AliasNumber.processNumbers(_cont, result_, _method, _struct, type_, args_, _stackCall);
+            AliasNumberType.processNumbers(_cont, result_, _method, _struct, type_, args_, _stackCall);
             return result_;
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasNumber())) {
             ResultErrorStd result_ = new ResultErrorStd();
-            AliasNumber.processNumber(_cont, result_, _method, _struct, args_, _stackCall);
+            AliasNumberType.processNumber(_cont, result_, _method, _struct, args_, _stackCall);
             return result_;
         }
         String stringUtil_ = lgNames_.getContent().getCoreNames().getAliasStringUtil();
@@ -92,7 +92,7 @@ public final class ApplyCoreMethodUtil {
             return result_;
         }
         if (StringUtil.quickEq(type_, stringBuilderType_)) {
-            return AliasCharSequence.invokeMethod(_cont, _method, _struct, _stackCall, _args);
+            return AliasCharSequenceType.invokeMethod(_cont, _method, _struct, _stackCall, _args);
         }
         AliasReflection ref_ = lgNames_.getReflect();
         if (StringUtil.quickEq(type_, ref_.getAliasAnnotationType())) {
@@ -168,11 +168,11 @@ public final class ApplyCoreMethodUtil {
             return result_;
         }
         if (StringUtil.quickEq(type_, replType_)) {
-            AliasCharSequence.instantiate(result_, args_);
+            AliasCharSequenceType.instantiate(result_, args_);
             return result_;
         }
         if (StringUtil.quickEq(type_, stringType_)) {
-            AliasCharSequence.instantiateString(lgNames_, result_, _method, _cont, _stackCall, args_);
+            AliasCharSequenceType.instantiateString(lgNames_, result_, _method, _cont, _stackCall, args_);
             return result_;
         }
         if (StringUtil.quickEq(type_, booleanType_)
@@ -183,11 +183,11 @@ public final class ApplyCoreMethodUtil {
                 || StringUtil.quickEq(type_, longType_)
                 || StringUtil.quickEq(type_, floatType_)
                 || StringUtil.quickEq(type_, doubleType_)) {
-            AliasNumber.instantiateNumber(_cont, result_, _method, _stackCall, args_);
+            AliasNumberType.instantiateNumber(_cont, result_, _method, _stackCall, args_);
             return result_;
         }
         if (StringUtil.quickEq(type_, stringBuilderType_)) {
-            AliasCharSequence.instantiateStringBuilder(_cont, result_, _method, _stackCall, args_);
+            AliasCharSequenceType.instantiateStringBuilder(_cont, result_, _method, _stackCall, args_);
             return result_;
         }
         result_ = lgNames_.getOtherResult(_stackCall, _cont, _method, args_);

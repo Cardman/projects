@@ -5,10 +5,9 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.stds.ErrorCat;
 import code.expressionlanguage.analyze.errors.stds.StdWordError;
-import code.expressionlanguage.stds.AliasNumber;
+import code.expressionlanguage.stds.AliasNumberType;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -447,7 +446,7 @@ public final class ValidatorStandard {
         _types.removeDuplicates();
     }
 
-    public static Struct getSimpleResultBase(ClassField _classField, AliasNumber _nbAlias) {
+    public static Struct getSimpleResultBase(ClassField _classField, AliasNumberType _nbAlias) {
         String type_ = _classField.getClassName();
         String name_ = _classField.getFieldName();
         String charType_ = _nbAlias.getAliasCharacter();

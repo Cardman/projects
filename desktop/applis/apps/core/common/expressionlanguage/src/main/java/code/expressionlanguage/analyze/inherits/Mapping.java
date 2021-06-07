@@ -9,10 +9,10 @@ public final class Mapping {
 
     private AnaClassArgumentMatching arg;
     private AnaClassArgumentMatching param;
-    private StringMap<StringList> mapping = new StringMap<StringList>();
+    private StringMap<StringList> mapp = new StringMap<StringList>();
 
     public StringList getCyclic() {
-        for (String k: mapping.getKeys()) {
+        for (String k: mapp.getKeys()) {
             StringList visitedBounds_ = new StringList();
             StringList visitedBoundsAll_ = new StringList();
             StringList currentBounds_ = new StringList(k);
@@ -23,11 +23,11 @@ public final class Mapping {
                     if (c.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
                         var_ = c.substring(1);
                     }
-                    if (!mapping.contains(var_)) {
+                    if (!mapp.contains(var_)) {
                         continue;
                     }
                     visitedBounds_.add(var_);
-                    for (String n: mapping.getVal(var_)) {
+                    for (String n: mapp.getVal(var_)) {
                         if (n.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
                             if (StringUtil.quickEq(n.substring(1),k)) {
                                 return visitedBounds_;
@@ -127,10 +127,10 @@ public final class Mapping {
         while (true) {
             StringList nextBounds_ = new StringList();
             for (String c: currentBounds_) {
-                if (!mapping.contains(c)) {
+                if (!mapp.contains(c)) {
                     continue;
                 }
-                for (String n: mapping.getVal(c)) {
+                for (String n: mapp.getVal(c)) {
                     if (!n.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
                         continue;
                     }
@@ -170,10 +170,10 @@ public final class Mapping {
         param = _param;
     }
     public StringMap<StringList> getMapping() {
-        return mapping;
+        return mapp;
     }
     public void setMapping(StringMap<StringList> _mapping) {
-        mapping = _mapping;
+        mapp = _mapping;
     }
 
 }

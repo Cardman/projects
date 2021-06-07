@@ -889,11 +889,11 @@ public final class CustAliases {
         AliasCore coreNames_ = _content.getCoreNames();
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
         AliasPredefinedTypes predefTypes_ = _content.getPredefTypes();
-        AliasCharSequence charSeq_ = _content.getCharSeq();
+        AliasCharSequenceType charSeq_ = _content.getCharSeq();
         AliasReflection reflect_ = _content.getReflect();
-        AliasMath mathRef_ = _content.getMathRef();
-        AliasStackTraceElement stackElt_ = _content.getStackElt();
-        AliasNumber nbAlias_ = _content.getNbAlias();
+        AliasMathType mathRef_ = _content.getMathRef();
+        AliasStackTraceElementType stackElt_ = _content.getStackElt();
+        AliasNumberType nbAlias_ = _content.getNbAlias();
         String public_ = _keyWords.getKeyWordPublic();
         String private_ = _keyWords.getKeyWordPrivate();
         String interface_ = _keyWords.getKeyWordInterface();

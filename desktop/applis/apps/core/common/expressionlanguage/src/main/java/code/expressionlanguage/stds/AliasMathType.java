@@ -28,7 +28,7 @@ import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public final class AliasMath {
+public final class AliasMathType {
     private String aliasAbs;
     private String aliasMax;
     private String aliasMin;
@@ -347,7 +347,7 @@ public final class AliasMath {
         String name_ = _method.getConstraints().getName();
         StringList paramList_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
-        AliasMath am_ = lgNames_.getMathRef();
+        AliasMathType am_ = lgNames_.getMathRef();
         String aliasPrimLong_ = lgNames_.getContent().getPrimTypes().getAliasPrimLong();
         String aliasPrimFloat_ = lgNames_.getContent().getPrimTypes().getAliasPrimFloat();
         String aliasPrimDouble_ = lgNames_.getContent().getPrimTypes().getAliasPrimDouble();

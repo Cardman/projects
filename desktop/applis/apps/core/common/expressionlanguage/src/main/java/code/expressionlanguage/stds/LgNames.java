@@ -108,11 +108,11 @@ public abstract class LgNames implements BuildableLgNames {
         return content.getReflect();
     }
 
-    public AliasMath getMathRef() {
+    public AliasMathType getMathRef() {
         return content.getMathRef();
     }
 
-    public AliasCharSequence getCharSeq() {
+    public AliasCharSequenceType getCharSeq() {
         return content.getCharSeq();
     }
 
@@ -120,11 +120,11 @@ public abstract class LgNames implements BuildableLgNames {
         return content.getCoreNames();
     }
 
-    public AliasNumber getNbAlias() {
+    public AliasNumberType getNbAlias() {
         return content.getNbAlias();
     }
 
-    public AliasStackTraceElement getStackElt() {
+    public AliasStackTraceElementType getStackElt() {
         return content.getStackElt();
     }
 

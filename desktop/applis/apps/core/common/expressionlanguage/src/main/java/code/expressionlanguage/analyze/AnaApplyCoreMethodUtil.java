@@ -200,7 +200,7 @@ public final class AnaApplyCoreMethodUtil {
         Struct[] args_ = getObjects(_args);
         String name_ = _method.getConstraints().getName();
         StringList paramList_ = _method.getConstraints().getParametersTypes();
-        AliasMath am_ = _page.getMathRef();
+        AliasMathType am_ = _page.getMathRef();
         String aliasPrimLong_ = _page.getAliasPrimLong();
         String aliasPrimFloat_ = _page.getAliasPrimFloat();
         String aliasPrimDouble_ = _page.getAliasPrimDouble();

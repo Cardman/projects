@@ -5,9 +5,9 @@ import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.structs.Struct;
 
 public final class DefaultExecConstantsCalculator implements AbstractExecConstantsCalculator {
-    private final AliasNumber refNb;
+    private final AliasNumberType refNb;
 
-    public DefaultExecConstantsCalculator(AliasNumber _refNb) {
+    public DefaultExecConstantsCalculator(AliasNumberType _refNb) {
         this.refNb = _refNb;
     }
 
@@ -16,7 +16,7 @@ public final class DefaultExecConstantsCalculator implements AbstractExecConstan
         return ValidatorStandard.getSimpleResultBase(_classField,getRefNb());
     }
 
-    public AliasNumber getRefNb() {
+    public AliasNumberType getRefNb() {
         return refNb;
     }
 }

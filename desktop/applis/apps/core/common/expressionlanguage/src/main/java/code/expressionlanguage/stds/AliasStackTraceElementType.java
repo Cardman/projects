@@ -13,7 +13,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class AliasStackTraceElement {
+public final class AliasStackTraceElementType {
 
     private String aliasStackTraceElement;
     private String aliasStackTraceElementToString;
@@ -52,7 +52,7 @@ public final class AliasStackTraceElement {
         ResultErrorStd result_ = new ResultErrorStd();
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
-        AliasStackTraceElement ref_ = lgNames_.getStackElt();
+        AliasStackTraceElementType ref_ = lgNames_.getStackElt();
         if (StringUtil.quickEq(name_, ref_.aliasCurrentStack)) {
             result_.setResult(MetaInfoUtil.newStackTraceElementArray(_cont, _stackCall));
             return result_;

@@ -355,11 +355,11 @@ public final class LgNamesContent {
 
     private final AliasCore coreNames = new AliasCore();
 
-    private final AliasCharSequence charSeq = new AliasCharSequence();
+    private final AliasCharSequenceType charSeq = new AliasCharSequenceType();
     private final AliasReflection reflect = new AliasReflection();
-    private final AliasStackTraceElement stackElt = new AliasStackTraceElement();
-    private final AliasNumber nbAlias = new AliasNumber();
-    private final AliasMath mathRef = new AliasMath();
+    private final AliasStackTraceElementType stackElt = new AliasStackTraceElementType();
+    private final AliasNumberType nbAlias = new AliasNumberType();
+    private final AliasMathType mathRef = new AliasMathType();
     private final PrimitiveTypes primTypes = new PrimitiveTypes();
     private final AliasPredefinedTypes predefTypes = new AliasPredefinedTypes();
     private final DisplayedStrings displayedStrings = new DisplayedStrings();
@@ -2195,7 +2195,7 @@ public final class LgNamesContent {
         return displayedStrings;
     }
 
-    public AliasNumber getNbAlias() {
+    public AliasNumberType getNbAlias() {
         return nbAlias;
     }
 
@@ -2203,7 +2203,7 @@ public final class LgNamesContent {
         return coreNames;
     }
 
-    public AliasCharSequence getCharSeq() {
+    public AliasCharSequenceType getCharSeq() {
         return charSeq;
     }
 
@@ -2211,7 +2211,7 @@ public final class LgNamesContent {
         return predefTypes;
     }
 
-    public AliasMath getMathRef() {
+    public AliasMathType getMathRef() {
         return mathRef;
     }
 
@@ -2219,7 +2219,7 @@ public final class LgNamesContent {
         return reflect;
     }
 
-    public AliasStackTraceElement getStackElt() {
+    public AliasStackTraceElementType getStackElt() {
         return stackElt;
     }
 

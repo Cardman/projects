@@ -2,13 +2,13 @@ package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.options.ValidatorStandard;
-import code.expressionlanguage.stds.AliasNumber;
+import code.expressionlanguage.stds.AliasNumberType;
 import code.expressionlanguage.structs.Struct;
 
 public final class DefaultConstantsCalculator implements AbstractConstantsCalculator {
-    private final AliasNumber refNb;
+    private final AliasNumberType refNb;
 
-    public DefaultConstantsCalculator(AliasNumber _refNb) {
+    public DefaultConstantsCalculator(AliasNumberType _refNb) {
         this.refNb = _refNb;
     }
 
@@ -17,7 +17,7 @@ public final class DefaultConstantsCalculator implements AbstractConstantsCalcul
         return ValidatorStandard.getSimpleResultBase(_classField,getRefNb());
     }
 
-    public AliasNumber getRefNb() {
+    public AliasNumberType getRefNb() {
         return refNb;
     }
 }

@@ -14,7 +14,7 @@ import code.expressionlanguage.structs.*;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class AliasCharSequence {
+public final class AliasCharSequenceType {
 
     private String aliasCharSequence;
     private String aliasCharSequenceToString;

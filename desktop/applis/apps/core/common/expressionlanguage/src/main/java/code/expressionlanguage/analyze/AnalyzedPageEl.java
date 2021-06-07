@@ -211,13 +211,13 @@ public final class AnalyzedPageEl {
         return content.getDefaultPkg();
     }
 
-    public AliasMath getMathRef() {
+    public AliasMathType getMathRef() {
         return content.getMathRef();
     }
-    public AliasCharSequence getCharSeq() {
+    public AliasCharSequenceType getCharSeq() {
         return content.getCharSeq();
     }
-    public AliasNumber getNbAlias() {
+    public AliasNumberType getNbAlias() {
         return content.getNbAlias();
     }
 

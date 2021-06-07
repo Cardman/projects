@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -28,7 +27,6 @@ public final class AnonymousInstancingOperation extends
         AbstractInstancingOperation implements PreAnalyzableOperation {
 
     private final AnaInstancingAnonContent instancingAnonContent;
-    private String glClass="";
     private AnaFormattedRootBlock glType = AnaFormattedRootBlock.defValue();
     private String base="";
     private String type="";
@@ -210,7 +208,6 @@ public final class AnonymousInstancingOperation extends
         }
         instancingAnonContent.getBlock().getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
         instancingAnonContent.getBlock().getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());
-        glClass = _page.getGlobalClass();
         glType = _page.getGlobalType();
     }
     @Override
