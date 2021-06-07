@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -16,12 +15,10 @@ import code.expressionlanguage.structs.ErrorStruct;
 public final class CastParamChecker extends AbstractParamChecker {
     private final ExecTypeFunction pair;
     private final ExecNamedFunctionBlock method;
-    private final ExecRootBlock type;
     private final ArgumentListCall args;
     public CastParamChecker(ExecTypeFunction _pair, ArgumentListCall _args) {
         this.pair = _pair;
         this.method = _pair.getFct();
-        this.type = _pair.getType();
         this.args = _args;
     }
 

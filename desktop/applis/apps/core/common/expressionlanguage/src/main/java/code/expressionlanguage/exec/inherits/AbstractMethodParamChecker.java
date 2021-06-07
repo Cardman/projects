@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -19,7 +18,7 @@ public abstract class AbstractMethodParamChecker extends AbstractFormatParamChec
     private final ExecNamedFunctionBlock method;
     private final ArgumentListCall args;
 
-    public AbstractMethodParamChecker(ExecTypeFunction _pair, ArgumentListCall _args,
+    protected AbstractMethodParamChecker(ExecTypeFunction _pair, ArgumentListCall _args,
                                       MethodAccessKind _kind) {
         super(_kind);
         this.pair = _pair;

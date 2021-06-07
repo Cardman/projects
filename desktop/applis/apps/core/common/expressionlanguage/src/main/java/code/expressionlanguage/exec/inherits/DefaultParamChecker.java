@@ -5,23 +5,18 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.structs.AbstractFunctionalInstance;
-import code.expressionlanguage.structs.Struct;
 
 public final class DefaultParamChecker extends AbstractFormatParamChecker {
     private final ExecTypeFunction pair;
     private final ExecNamedFunctionBlock method;
-    private final ExecRootBlock type;
     private final ArgumentListCall args;
     private final CallPrepareState state;
     private final InstancingStep kindCall;
@@ -33,7 +28,6 @@ public final class DefaultParamChecker extends AbstractFormatParamChecker {
         super(_kind);
         this.pair = _pair;
         this.method = _pair.getFct();
-        this.type = _pair.getType();
         this.args = _args;
         this.state = _state;
         this.kindCall = _kindCall;

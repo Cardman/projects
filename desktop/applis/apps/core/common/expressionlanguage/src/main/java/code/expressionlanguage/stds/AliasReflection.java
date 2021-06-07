@@ -1276,8 +1276,7 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredClasses)) {
-            StringList methods_ = instanceClass_.getMemberTypes();
-            CustList<ClassMetaInfo> arr_ = ClassMetaInfo.getClassesMetaList(_cont, instanceClass_, methods_);
+            CustList<ClassMetaInfo> arr_ = ClassMetaInfo.getMembersMetaList(_cont, instanceClass_);
             result_.setResult(buildArrClass(_cont, arr_));
             return result_;
         }
@@ -1744,8 +1743,7 @@ public final class AliasReflection {
     }
 
     private static ArrayStruct getFormattedClassesMeta(ContextEl _cont, ClassMetaInfo _cl, ExecFormattedRootBlock _clName) {
-        StringList geneInterfaces_ = _cl.getSuperInterfaces();
-        CustList<ClassMetaInfo> list_ = ClassMetaInfo.getFormattedClassesMetaList(_cont, _cl, geneInterfaces_, _clName);
+        CustList<ClassMetaInfo> list_ = ClassMetaInfo.getFormattedInterfacesMetaList(_cont, _cl, _clName);
         return buildArrClass(_cont, list_);
     }
 

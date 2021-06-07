@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -13,13 +12,11 @@ import code.util.CustList;
 
 public final class ReflectStaticCallParamChecker extends AbstractStaticCallParamChecker {
     private final ExecNamedFunctionBlock method;
-    private final ExecRootBlock type;
 
     private final CustList<Argument> argsList;
     public ReflectStaticCallParamChecker(ExecTypeFunction _pair, CustList<Argument> _args) {
         super(_pair);
         this.method = _pair.getFct();
-        this.type = _pair.getType();
         this.argsList = _args;
     }
 

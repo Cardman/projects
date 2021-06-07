@@ -547,11 +547,10 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
     }
 
     public static Struct superType(ContextEl _cont, ClassMetaInfo _cl, ExecFormattedRootBlock _nameType) {
-        String genericSuperClassName_ = _cl.getSuperClass();
-        if (genericSuperClassName_.isEmpty()) {
+        if (_cl.superClass.isEmpty()) {
             return NullStruct.NULL_VALUE;
         }
-        genericSuperClassName_ = tryFormatType(_cont, _nameType, genericSuperClassName_);
+        String genericSuperClassName_ = tryFormatType(_cont, _nameType, _cl.superClass);
         return getExtendedClassMetaInfo(_cont,genericSuperClassName_,_cl);
     }
 
@@ -579,7 +578,10 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         }
         return arr_;
     }
-    public static CustList<ClassMetaInfo> getFormattedClassesMetaList(ContextEl _cont, ClassMetaInfo _cl, StringList _geneInterfaces, ExecFormattedRootBlock _clName) {
+    public static CustList<ClassMetaInfo> getFormattedInterfacesMetaList(ContextEl _cont, ClassMetaInfo _cl, ExecFormattedRootBlock _clName) {
+        return getFormattedClassesMetaList(_cont, _cl, _cl.superInterfaces, _clName);
+    }
+    private static CustList<ClassMetaInfo> getFormattedClassesMetaList(ContextEl _cont, ClassMetaInfo _cl, StringList _geneInterfaces, ExecFormattedRootBlock _clName) {
         int len_ = _geneInterfaces.size();
         CustList<ClassMetaInfo> arr_ = new CustList<ClassMetaInfo>(new CollCapacity(len_));
         for (int i = 0; i < len_; i++) {
@@ -589,7 +591,10 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         }
         return arr_;
     }
-    public static CustList<ClassMetaInfo> getClassesMetaList(ContextEl _cont, ClassMetaInfo _cl, StringList _geneInterfaces) {
+    public static CustList<ClassMetaInfo> getMembersMetaList(ContextEl _cont, ClassMetaInfo _cl) {
+        return getClassesMetaList(_cont, _cl, _cl.memberTypes);
+    }
+    private static CustList<ClassMetaInfo> getClassesMetaList(ContextEl _cont, ClassMetaInfo _cl, StringList _geneInterfaces) {
         int len_ = _geneInterfaces.size();
         CustList<ClassMetaInfo> arr_ = new CustList<ClassMetaInfo>(new CollCapacity(len_));
         for (int i = 0; i < len_; i++) {
@@ -827,14 +832,6 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
         return name;
     }
 
-    public String getSuperClass() {
-        return superClass;
-    }
-
-    public StringList getMemberTypes() {
-        return memberTypes;
-    }
-
     public Struct typeOwner(ContextEl _cont) {
         if (typeOwner.isEmpty()) {
             return NullStruct.NULL_VALUE;
@@ -879,10 +876,6 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements Annotated
 
     public boolean isFinalType() {
         return finalType;
-    }
-
-    public StringList getSuperInterfaces() {
-        return new StringList(superInterfaces);
     }
 
 

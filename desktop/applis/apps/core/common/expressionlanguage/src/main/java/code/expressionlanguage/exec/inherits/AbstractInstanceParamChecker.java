@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
@@ -27,8 +26,8 @@ public abstract class AbstractInstanceParamChecker extends AbstractParamChecker 
     private final String fieldName;
     private final int blockIndex;
 
-    public AbstractInstanceParamChecker(ExecTypeFunction _pair, ArgumentListCall _arguments, String _fieldName,
-                                        int _blockIndex) {
+    protected AbstractInstanceParamChecker(ExecTypeFunction _pair, ArgumentListCall _arguments, String _fieldName,
+                                           int _blockIndex) {
         pair = _pair;
         type = _pair.getType();
         method = _pair.getFct();

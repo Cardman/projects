@@ -479,16 +479,8 @@ public final class ExecTemplates {
 
     public static Struct getElement(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {
         LgNames stds_ = _conf.getStandards();
-        if (_struct == NullStruct.NULL_VALUE) {
-            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-            return NullStruct.NULL_VALUE;
-        }
         if (!(_struct instanceof ArrayStruct)) {
-            String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            String type_ = Argument.getNull(_struct).getClassName(_conf);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, type_, cast_, _stackCall)));
-            return NullStruct.NULL_VALUE;
+            return procNoArr(_struct, _conf, _stackCall);
         }
         if (_index == NullStruct.NULL_VALUE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
@@ -516,16 +508,8 @@ public final class ExecTemplates {
 
     public static Struct getRange(Struct _struct, Struct _index, ContextEl _conf, StackCall _stackCall) {
         LgNames stds_ = _conf.getStandards();
-        if (_struct == NullStruct.NULL_VALUE) {
-            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
-            return NullStruct.NULL_VALUE;
-        }
         if (!(_struct instanceof ArrayStruct)) {
-            String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
-            String type_ = Argument.getNull(_struct).getClassName(_conf);
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, type_, cast_, _stackCall)));
-            return NullStruct.NULL_VALUE;
+            return procNoArr(_struct, _conf, _stackCall);
         }
         if (_index == NullStruct.NULL_VALUE) {
             String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
@@ -541,6 +525,19 @@ public final class ExecTemplates {
         RangeStruct ind_ = (RangeStruct) _index;
         ArrayStruct arr_ = (ArrayStruct) _struct;
         return getRange(_index, _conf, _stackCall, ind_, arr_);
+    }
+
+    private static Struct procNoArr(Struct _struct, ContextEl _conf, StackCall _stackCall) {
+        LgNames stds_ = _conf.getStandards();
+        if (_struct == NullStruct.NULL_VALUE) {
+            String npe_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
+            return NullStruct.NULL_VALUE;
+        }
+        String cast_ = stds_.getContent().getCoreNames().getAliasCastType();
+        String type_ = Argument.getNull(_struct).getClassName(_conf);
+        _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, type_, cast_, _stackCall)));
+        return NullStruct.NULL_VALUE;
     }
 
     private static WithoutParentIdStruct getRange(Struct _index, ContextEl _conf, StackCall _stackCall, RangeStruct _ind, ArrayStruct _arr) {
