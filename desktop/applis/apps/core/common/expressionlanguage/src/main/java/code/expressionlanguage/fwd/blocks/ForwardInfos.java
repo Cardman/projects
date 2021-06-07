@@ -1350,11 +1350,8 @@ public final class ForwardInfos {
             if (named_ != null) {
                 return new ExecOperatorMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
             }
-            if (lambdaMethodContent_.isDirectCast()) {
-                return new ExecCastMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
-            }
-            if (lambdaMethodContent_.isClonedMethod()) {
-                return new ExecCloneMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
+            if (lambdaMethodContent_.isDirectCast() || lambdaMethodContent_.isClonedMethod()) {
+                return new ExecSimpleMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
             }
             return new ExecMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
         }

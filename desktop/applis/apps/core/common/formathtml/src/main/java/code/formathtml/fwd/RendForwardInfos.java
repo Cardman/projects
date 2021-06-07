@@ -682,11 +682,8 @@ public final class RendForwardInfos {
             if (named_ != null) {
                 return new RendOperatorMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
             }
-            if (lambdaMethodContent_.isDirectCast()) {
-                return new RendCastMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
-            }
-            if (lambdaMethodContent_.isClonedMethod()) {
-                return new RendCloneMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
+            if (lambdaMethodContent_.isDirectCast() || lambdaMethodContent_.isClonedMethod()) {
+                return new RendSimpleMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
             }
             return new RendMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
         }

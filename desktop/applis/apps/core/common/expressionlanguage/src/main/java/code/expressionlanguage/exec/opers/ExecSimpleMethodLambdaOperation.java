@@ -13,11 +13,11 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
-public final class ExecCastMethodLambdaOperation extends ExecAbstractLambdaOperation {
+public final class ExecSimpleMethodLambdaOperation extends ExecAbstractLambdaOperation {
 
     private final ExecLambdaMethodContent lambdaMethodContent;
 
-    public ExecCastMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent) {
+    public ExecSimpleMethodLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaMethodContent) {
         super(_opCont, _lamCont);
         lambdaMethodContent = _lambdaMethodContent;
     }
@@ -25,12 +25,12 @@ public final class ExecCastMethodLambdaOperation extends ExecAbstractLambdaOpera
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        Argument previousCast_ = getPreviousArg(this, _nodes, _stack);
+        Argument previousClone_ = getPreviousArg(this, _nodes, _stack);
         String clArg_ = getResultClass().getSingleNameOrEmpty();
         ExecFormattedRootBlock ownerType_ = getFoundClass();
         ownerType_ = _stack.formatVarType(ownerType_);
         clArg_ = _stack.formatVarType(clArg_);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previousCast_, ownerType_, clArg_));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),lambdaMethodContent,previousClone_, ownerType_, clArg_));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
