@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -11,7 +12,6 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.Ints;
-import code.util.core.StringUtil;
 
 public final class ExecArrayElementOperation extends
         ExecAbstractArrayInstancingOperation {
@@ -24,7 +24,7 @@ public final class ExecArrayElementOperation extends
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         String me_ = getMethodName();
-        int off_ = StringUtil.getFirstPrintableCharIndex(me_);
+        int off_ = StringExpUtil.getOffset(me_);
         setRelOffsetPossibleLastPage(off_, _stack);
         String cl_ = getClassName();
         String className_ = _stack.formatVarType(cl_);

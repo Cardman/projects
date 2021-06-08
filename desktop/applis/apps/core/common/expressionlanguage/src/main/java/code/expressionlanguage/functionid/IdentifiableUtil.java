@@ -10,9 +10,9 @@ public final class IdentifiableUtil {
     private IdentifiableUtil() {
     }
 
-    public static void appendLeftPart(StringList _paramsReturn, MethodId _id) {
+    public static void appendLeftPart(int _start,StringList _paramsReturn, MethodId _id) {
         int len_ = _id.getParametersTypesLength();
-        for (int i = 0; i < len_; i++) {
+        for (int i = _start; i < len_; i++) {
             String p_ = _id.getParametersType(i);
             if (i + 1 == len_ && _id.isVararg()) {
                 p_ = StringExpUtil.getPrettyArrayType(p_);

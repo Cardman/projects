@@ -1133,7 +1133,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof AnnotationInstanceArrOperation) {
             AnnotationInstanceArrOperation n_ = (AnnotationInstanceArrOperation) _anaNode;
-            return new ExecAnnotationInstanceArrOperation(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), n_.getClassName());
+            return new ExecArrayElementOperation(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecArrayInstancingContent(n_.getClassName()));
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;

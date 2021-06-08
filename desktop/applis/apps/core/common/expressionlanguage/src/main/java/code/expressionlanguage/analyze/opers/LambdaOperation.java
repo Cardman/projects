@@ -2449,15 +2449,19 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     static String appendParts(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints, String _found, boolean _add) {
         StringList paramsReturn_ = beginReturn(_found, _add);
-        IdentifiableUtil.appendLeftPart(paramsReturn_, _constraints);
-        appendRightPart(paramsReturn_, _page, _realClass, _realId);
+        return appendParts(_page, _returnType, _realClass, _realId, _constraints, paramsReturn_, 0);
+    }
+
+    private static String appendParts(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints, StringList _paramsReturn, int _start) {
+        IdentifiableUtil.appendLeftPart(_start, _paramsReturn, _constraints);
+        appendRightPart(_paramsReturn, _page, _realClass, _realId);
         if (_constraints.isRetRef()) {
-            paramsReturn_.add("~"+_returnType);
+            _paramsReturn.add("~"+ _returnType);
         } else {
-            paramsReturn_.add(_returnType);
+            _paramsReturn.add(_returnType);
         }
         String fctBase_ = _page.getAliasFct();
-        return StringUtil.concat(fctBase_, StringExpUtil.TEMPLATE_BEGIN, StringUtil.join(paramsReturn_, StringExpUtil.TEMPLATE_SEP), StringExpUtil.TEMPLATE_END);
+        return StringUtil.concat(fctBase_, StringExpUtil.TEMPLATE_BEGIN, StringUtil.join(_paramsReturn, StringExpUtil.TEMPLATE_SEP), StringExpUtil.TEMPLATE_END);
     }
 
     private static void appendRightPart(StringList _paramsReturn, AnalyzedPageEl _page, String _realClass, MethodId _realId) {
@@ -2491,33 +2495,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String returnType_ = _id.getReturnType();
         StringList paramsReturn_ = new StringList();
         MethodId id_ = _id.getId().getConstraints();
-        StringList params_ = id_.getParametersTypes();
         int start_;
         if (_op) {
             start_ = 1;
         } else {
             start_ = 0;
         }
-        int j_ = 0;
-        CustList<String> ext_ = params_.mid(start_);
-        for (String p: ext_) {
-            String p_ = p;
-            if (id_.isVararg() && j_ + 1 == ext_.size()) {
-                p_ = StringExpUtil.getPrettyArrayType(p_);
-            }
-            String pref_ = "";
-            if (id_.getParametersRef(j_+start_)) {
-                pref_ = "~";
-            }
-            paramsReturn_.add(pref_+p_);
-            j_++;
-        }
-        if (id_.isRetRef()) {
-            paramsReturn_.add("~"+returnType_);
-        } else {
-            paramsReturn_.add(returnType_);
-        }
-        return StringUtil.concat(_page.getAliasFct(), StringExpUtil.TEMPLATE_BEGIN, StringUtil.join(paramsReturn_, StringExpUtil.TEMPLATE_SEP), StringExpUtil.TEMPLATE_END);
+        return appendParts(_page,returnType_,_id.getRealClass(), _id.getRealId(),id_,paramsReturn_,start_);
     }
     private static String formatFieldReturn(boolean _static, StringList _params, FieldResult _field, boolean _demand, AnalyzedPageEl _page) {
         return formatFieldReturn(_static,_params,_field.getType(),_demand,_page,_field.getDeclaringClass());

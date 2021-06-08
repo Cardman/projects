@@ -22,7 +22,7 @@ public final class ExecFunctionalInfo {
         LgNames stds_ = _an.getStandards();
         String fctBase_ = stds_.getContent().getReflect().getAliasFct();
         StringList paramsReturn_ = new StringList();
-        IdentifiableUtil.appendLeftPart(paramsReturn_, _shortId);
+        IdentifiableUtil.appendLeftPart(0,paramsReturn_, _shortId);
         if (_shortId.isRetRef()) {
             paramsReturn_.add("~"+_returnType);
         } else {
