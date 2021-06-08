@@ -1310,7 +1310,7 @@ public final class ForwardInfos {
 
             ExecTypeFunction pair_ = buildAnonFctPair(_forwards, s_);
 //            ExecTypeFunction pair_ = new ExecTypeFunction(_forwards.getMapMembers().getValue(s_.getRootNumber()).getRootBlock(), r_);
-            return new ExecAnonymousLambdaOperation(new ExecOperationContent(s_.getContent()), new ExecLambdaCommonContent(s_.getLambdaCommonContent(),_forwards), new ExecLambdaAnoContent(s_.getLambdaAnoContent(), pair_));
+            return new ExecAnonymousLambdaOperation(new ExecOperationContent(s_.getContent()), new ExecLambdaCommonContent(s_.getLambdaCommonContent(),_forwards), new ExecLambdaMethodContent(s_.getMethod(), pair_));
         }
         if (_anaNode instanceof LambdaOperation) {
             LambdaOperation f_ = (LambdaOperation) _anaNode;
@@ -1345,7 +1345,7 @@ public final class ForwardInfos {
                 if (named_ != null) {
                     return new ExecCustMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
                 }
-                return new ExecEnumMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_, declaring_);
+                return new ExecEnumMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
             }
             if (named_ != null) {
                 return new ExecOperatorMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
@@ -1586,7 +1586,7 @@ public final class ForwardInfos {
     private static ExecTypeFunction buildAnonFctPair(Forwards _forwards, AnonymousLambdaOperation _s) {
         NamedCalledFunctionBlock method_ = _s.getBlock();
         ExecAnonymousFunctionBlock r_ = _forwards.getAnonLambda(method_);
-        return new ExecTypeFunction(FetchMemberUtil.fetchType(_s.getRootNumber(), _forwards), r_);
+        return new ExecTypeFunction(FetchMemberUtil.fetchType(_s.getLambdaCommonContent().getFoundFormatted().getRootBlock(), _forwards), r_);
     }
 
     private static void updateExec(ExecRootBlock _ex, RootBlock _root){

@@ -3,7 +3,6 @@ package code.expressionlanguage.fwd.blocks;
 import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
-import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.util.CacheInfo;
 import code.expressionlanguage.exec.util.NameAndType;
 

@@ -1,8 +1,11 @@
 package code.formathtml.exec.opers;
 
+import code.expressionlanguage.exec.opers.ExecAbstractLambdaOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.CallersInfo;
 
 public abstract class RendAbstractLambdaOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
 
@@ -22,6 +25,13 @@ public abstract class RendAbstractLambdaOperation extends RendLeafOperation impl
         return lambdaCommonContent;
     }
 
+    protected CallersInfo format(ExecLambdaMethodContent _caller) {
+        return ExecAbstractLambdaOperation.build(_caller,getFoundClass());
+    }
+
+    public String formatVarTypeRes() {
+        return getResultClass().getSingleNameOrEmpty();
+    }
     public ExecFormattedRootBlock getFoundClass() {
         return lambdaCommonContent.getFormattedType();
     }

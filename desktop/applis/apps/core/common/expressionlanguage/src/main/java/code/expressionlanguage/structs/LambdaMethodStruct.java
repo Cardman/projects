@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.fwd.opers.ExecLambdaAnoContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.util.core.StringUtil;
@@ -28,10 +27,6 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
 
     public LambdaMethodStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, String _className) {
         this(_metaInfo, _previous, _common, _meth.getMethod(), _className, _meth.isPolymorph());
-    }
-
-    public LambdaMethodStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, ExecLambdaAnoContent _meth, String _className) {
-        this(_metaInfo,_previous,_common,_meth.getMethod(),_className, false);
     }
 
     public LambdaMethodStruct(Struct _metaInfo, Argument _previous, ExecLambdaCommonContent _common, MethodId _meth, String _className, boolean _polymorph) {

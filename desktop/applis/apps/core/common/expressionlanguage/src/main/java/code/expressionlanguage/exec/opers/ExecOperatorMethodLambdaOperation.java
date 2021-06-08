@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
@@ -33,7 +32,7 @@ public final class ExecOperatorMethodLambdaOperation extends ExecAbstractLambdaO
 
     public static Struct newLambda(ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth, Argument _previous,
                                    String _clArg) {
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_common,_common.getFormattedType(), _meth.getMethod(), _meth.getPair());
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(build(_meth,_common.getFormattedType()),_common,_meth);
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_meth,_clArg);
     }
 

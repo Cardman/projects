@@ -5534,7 +5534,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         ContextEl ctx_ = validateStaticFields(files_);
         assertEq(1, countStaticFields(ctx_));
         Struct str_ = getStaticField(ctx_, new ClassField("pkg.ExTwo", "myf"));
-        assertEq("pkg.ExTwo", ((ClassMetaInfo)str_).getName());
+        assertEq("pkg.ExTwo", ((ClassMetaInfo)str_).getFormatted().getFormatted());
     }
     @Test
     public void calculateStaticField193Test() {

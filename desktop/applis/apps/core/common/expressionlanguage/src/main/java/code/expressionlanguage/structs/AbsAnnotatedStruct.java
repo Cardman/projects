@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 
-public abstract class AbsAnnotatedStruct extends WithoutParentStruct {
+public abstract class AbsAnnotatedStruct extends WithoutParentStruct implements AnnotatedStruct {
     private AccessEnum access;
     private String fileName;
 

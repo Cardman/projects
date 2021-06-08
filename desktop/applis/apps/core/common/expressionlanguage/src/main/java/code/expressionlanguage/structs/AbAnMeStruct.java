@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 
-public abstract class AbAnMeStruct extends AbsAnnotatedStruct implements AnnotatedStruct {
+public abstract class AbAnMeStruct extends AbsAnnotatedStruct {
     private final AbsRetType retType;
 
     protected AbAnMeStruct(AbsRetType _retType, AccessEnum _access, String _fileName) {

@@ -29,10 +29,8 @@ public final class ExecStdConstructorLambdaOperation extends ExecAbstractLambdaO
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        String clArg_ = getResultClass().getSingleNameOrEmpty();
-        ExecFormattedRootBlock ownerType_ = getFoundClass();
-        ownerType_ = _stack.formatVarType(ownerType_);
-        clArg_ = _stack.formatVarType(clArg_);
+        ExecFormattedRootBlock ownerType_ = formatVarType(_stack);
+        String clArg_ = formatVarTypeRes(_stack);
         Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, ownerType_, realId, clArg_, standardType));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

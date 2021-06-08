@@ -23,7 +23,7 @@ public final class RendOperatorMethodLambdaOperation extends RendAbstractLambdaO
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
-        String clArg_ = getResultClass().getSingleNameOrEmpty();
+        String clArg_ = formatVarTypeRes();
         Argument res_ = new Argument(ExecOperatorMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }

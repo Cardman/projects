@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.Members;

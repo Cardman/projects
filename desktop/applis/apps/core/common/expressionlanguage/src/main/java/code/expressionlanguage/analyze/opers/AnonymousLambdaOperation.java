@@ -16,7 +16,6 @@ import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.fwd.opers.AnaLambdaAnoContent;
 import code.expressionlanguage.fwd.opers.AnaLambdaCommonContent;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -24,7 +23,7 @@ import code.util.core.StringUtil;
 public final class AnonymousLambdaOperation extends
         LeafOperation {
     private final AnaLambdaCommonContent lambdaCommonContent;
-    private final AnaLambdaAnoContent lambdaAnoContent;
+    private MethodId method;
     private final NamedCalledFunctionBlock block;
     private final ParsedFctHeader parse;
 
@@ -32,7 +31,6 @@ public final class AnonymousLambdaOperation extends
                                     MethodOperation _m, OperationsSequence _op, NamedCalledFunctionBlock _block, ParsedFctHeader _parse) {
         super(_index, _indexChild, _m, _op);
         lambdaCommonContent = new AnaLambdaCommonContent();
-        lambdaAnoContent = new AnaLambdaAnoContent();
         block = _block;
         parse = _parse;
     }
@@ -219,7 +217,6 @@ public final class AnonymousLambdaOperation extends
         RootBlock globalType_ = copy_.getRootBlock();
         OperatorBlock operator_ = block.getOperator();
         if (globalType_ != null) {
-            lambdaAnoContent.setRootNumber(globalType_.getNumberAll());
             block.getAllReservedInners().addAllElts(globalType_.getAllReservedInners());
         }
         if (operator_ != null) {
@@ -317,7 +314,7 @@ public final class AnonymousLambdaOperation extends
         String found_ = lambdaCommonContent.getFoundFormatted().getFormatted();
         StringList params_ = AnaInherits.wildCardFormatParams(found_, idC_.getParametersTypes(), _page);
         MethodId id_ = MethodId.to(idC_.getKind(),params_,idC_);
-        lambdaAnoContent.setMethod(idC_);
+        method = idC_;
         String fct_ = formatReturn(_page, importedReturnType_, found_, idC_, id_);
         setResultClass(new AnaClassArgumentMatching(fct_));
         _page.setOffset(offset_);
@@ -331,15 +328,12 @@ public final class AnonymousLambdaOperation extends
         return block;
     }
 
-    public int getRootNumber() {
-        return lambdaAnoContent.getRootNumber();
-    }
-
     public AnaLambdaCommonContent getLambdaCommonContent() {
         return lambdaCommonContent;
     }
 
-    public AnaLambdaAnoContent getLambdaAnoContent() {
-        return lambdaAnoContent;
+    public MethodId getMethod() {
+        return method;
     }
+
 }

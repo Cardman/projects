@@ -24,6 +24,16 @@ public final class ExecLambdaMethodContent {
         modifier = modif(_method, _meth);
     }
 
+    public ExecLambdaMethodContent(MethodId _method, ExecTypeFunction _pair) {
+        method = _method;
+        polymorph = false;
+        directCast = false;
+        expCast = false;
+        clonedMethod = false;
+        pair = _pair;
+        modifier = modif(_method);
+    }
+
     private static MethodModifier modif(MethodId _realId, AnaLambdaMethodContent _meth) {
         MethodModifier met_;
         if (_meth.isDirectCast()) {
@@ -38,7 +48,7 @@ public final class ExecLambdaMethodContent {
         return met_;
     }
 
-    public static MethodModifier modif(MethodId _realId) {
+    private static MethodModifier modif(MethodId _realId) {
         MethodModifier met_;
         if (_realId.getKind() == MethodAccessKind.STATIC) {
             met_ = MethodModifier.STATIC;

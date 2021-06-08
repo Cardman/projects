@@ -8,7 +8,7 @@ public final class ClassNameCmp implements Comparing<ClassMetaInfo> {
 
     @Override
     public int compare(ClassMetaInfo _one, ClassMetaInfo _two) {
-        return StringUtil.compareStrings(_one.getName(),_two.getName());
+        return StringUtil.compareStrings(_one.getFormatted().getFormatted(),_two.getFormatted().getFormatted());
     }
 
 }

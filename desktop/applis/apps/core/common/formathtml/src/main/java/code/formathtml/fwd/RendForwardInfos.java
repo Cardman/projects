@@ -677,7 +677,7 @@ public final class RendForwardInfos {
                 if (named_ != null) {
                     return new RendCustMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
                 }
-                return new RendEnumMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_, declaring_);
+                return new RendEnumMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
             }
             if (named_ != null) {
                 return new RendOperatorMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);

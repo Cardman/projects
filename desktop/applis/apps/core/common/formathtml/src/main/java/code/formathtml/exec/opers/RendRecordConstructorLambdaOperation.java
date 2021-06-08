@@ -26,7 +26,7 @@ public final class RendRecordConstructorLambdaOperation extends RendAbstractLamb
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        String clArg_ = getResultClass().getSingleNameOrEmpty();
+        String clArg_ = formatVarTypeRes();
         ExecFormattedRootBlock ownerType_ = getFoundClass();
         Argument res_ = new Argument(ExecRecordConstructorLambdaOperation.newLambda(ownerType_, clArg_, pair, id));
         setSimpleArgument(res_, _nodes, _context, _rendStack);

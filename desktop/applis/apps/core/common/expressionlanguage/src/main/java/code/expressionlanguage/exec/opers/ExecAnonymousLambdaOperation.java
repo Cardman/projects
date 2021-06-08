@@ -4,40 +4,37 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.HiddenCache;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.opers.ExecLambdaAnoContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.CallersInfo;
 import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperation {
-    private final ExecLambdaAnoContent lambdaAnoContent;
+    private final ExecLambdaMethodContent lambdaAnoContent;
 
-    public ExecAnonymousLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaAnoContent _lambdaAnoContent) {
+    public ExecAnonymousLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecLambdaMethodContent _lambdaAnoContent) {
         super(_opCont, _lamCont);
         lambdaAnoContent = _lambdaAnoContent;
     }
 
-    public static Struct newAnonymousLambda(ExecLambdaCommonContent _common, ExecLambdaAnoContent _anonCont, Argument _previous,
-                                            String _name, AbstractPageEl _lastPage, StackCall _stackCall) {
-        String clArg_ = _name;
-        ExecFormattedRootBlock ownerType_ = _common.getFormattedType();
-        ownerType_ = _stackCall.formatVarType(ownerType_);
-        clArg_ = _stackCall.formatVarType(clArg_);
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(new HiddenCache(_lastPage), _common, ownerType_, _anonCont);
+    public Struct newAnonymousLambda(CallersInfo _info, ExecLambdaCommonContent _common, ExecLambdaMethodContent _anonCont, Argument _previous,
+                                     AbstractPageEl _lastPage, StackCall _stackCall) {
+        String clArg_ = formatVarTypeRes(_stackCall);
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_info,new HiddenCache(_lastPage), _common,_anonCont);
         return new LambdaMethodStruct(metaInfo_,_previous,_common,_anonCont,clArg_);
     }
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        Argument res_ = new Argument(newAnonymousLambda(getLambdaCommonContent(),lambdaAnoContent,previous_,
-                getResultClass().getSingleNameOrEmpty(), _stack.getLastPage(), _stack));
+        Argument res_ = new Argument(newAnonymousLambda(format(lambdaAnoContent,_stack),getLambdaCommonContent(),lambdaAnoContent,previous_,
+                _stack.getLastPage(), _stack));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 

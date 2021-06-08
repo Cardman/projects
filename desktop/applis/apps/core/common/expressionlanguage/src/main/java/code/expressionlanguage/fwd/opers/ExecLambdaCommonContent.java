@@ -1,9 +1,7 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
 public final class ExecLambdaCommonContent {
 

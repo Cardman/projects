@@ -2,7 +2,6 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
@@ -24,8 +23,7 @@ public final class RendMethodLambdaOperation extends RendAbstractLambdaOperation
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
-        String clArg_ = getResultClass().getSingleNameOrEmpty();
-        ExecFormattedRootBlock ownerType_ = getFoundClass();
+        String clArg_ = formatVarTypeRes();
         Argument res_ = new Argument(ExecMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previous_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }

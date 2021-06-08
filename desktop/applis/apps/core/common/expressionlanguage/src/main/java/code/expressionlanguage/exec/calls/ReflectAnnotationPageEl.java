@@ -60,7 +60,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             if (!arguments.isEmpty()) {
                 Struct arg_ = arguments.first().getStruct();
                 if (arg_ instanceof ClassMetaInfo) {
-                    cl_ = NumParsers.getClass(arg_).getName();
+                    cl_ = NumParsers.getClass(arg_).getFormatted().getFormatted();
                 }
             }
             if (!cl_.isEmpty()) {
