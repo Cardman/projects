@@ -221,6 +221,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             fct_.append(StringExpUtil.TEMPLATE_BEGIN);
                             fct_.append(StringUtil.join(parts_, StringExpUtil.TEMPLATE_SEP));
                             fct_.append(StringExpUtil.TEMPLATE_END);
+                            lambdaCommonContent.setResult(fct_.toString());
                             setResultClass(new AnaClassArgumentMatching(fct_.toString()));
                             return;
                         }
@@ -319,6 +320,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             fct_.append(StringExpUtil.TEMPLATE_BEGIN);
                             fct_.append(StringUtil.join(parts_, StringExpUtil.TEMPLATE_SEP));
                             fct_.append(StringExpUtil.TEMPLATE_END);
+                            lambdaCommonContent.setResult(fct_.toString());
                             setResultClass(new AnaClassArgumentMatching(fct_.toString()));
                             return;
                         }
@@ -1079,6 +1081,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         fct_.append(_page.getAliasPrimInteger());
         fct_.append(StringExpUtil.TEMPLATE_END);
+        lambdaCommonContent.setResult(fct_.toString());
         return fct_;
     }
 
@@ -1097,6 +1100,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         fct_.append(StringExpUtil.TEMPLATE_SEP);
         fct_.append(comp_);
         fct_.append(StringExpUtil.TEMPLATE_END);
+        lambdaCommonContent.setResult(fct_.toString());
         return fct_.toString();
     }
 
@@ -1113,6 +1117,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         fct_.append(StringExpUtil.TEMPLATE_SEP);
         fct_.append(comp_);
         fct_.append(StringExpUtil.TEMPLATE_END);
+        lambdaCommonContent.setResult(fct_.toString());
         return fct_.toString();
     }
 
@@ -1140,7 +1145,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaCommonContent.setAncestor(0);
         lambdaMethodContent.setAbstractMethod(false);
         lambdaMethodContent.setDirectCast(true);
-        return appendParts(_page, _type, _type, _idCast, _idCast, "", false);
+        String result_ = appendParts(_page, _type, _type, _idCast, _idCast, "", false);
+        lambdaCommonContent.setResult(result_);
+        return result_;
     }
 
     private void prMethArr(AnalyzedPageEl _page, String _name) {
@@ -1190,6 +1197,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         fct_.append(comp_);
         fct_.append(StringExpUtil.TEMPLATE_END);
+        lambdaCommonContent.setResult(fct_.toString());
         setResultClass(new AnaClassArgumentMatching(fct_.toString()));
     }
 
@@ -1238,6 +1246,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         fct_.append(_foundClass);
         fct_.append(StringExpUtil.TEMPLATE_END);
+        lambdaCommonContent.setResult(fct_.toString());
         return fct_.toString();
     }
 
@@ -1420,6 +1429,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 fct_.append(StringExpUtil.TEMPLATE_BEGIN);
                 fct_.append(StringUtil.join(types_, StringExpUtil.TEMPLATE_SEP));
                 fct_.append(StringExpUtil.TEMPLATE_END);
+                lambdaCommonContent.setResult(fct_.toString());
                 setResultClass(new AnaClassArgumentMatching(fct_.toString()));
                 return;
             }
@@ -1500,6 +1510,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             fct_.append(StringExpUtil.TEMPLATE_BEGIN);
             fct_.append(StringUtil.join(parts_, StringExpUtil.TEMPLATE_SEP));
             fct_.append(StringExpUtil.TEMPLATE_END);
+            lambdaCommonContent.setResult(fct_.toString());
             setResultClass(new AnaClassArgumentMatching(fct_.toString()));
             return;
         }
@@ -1627,6 +1638,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         fct_.append(StringExpUtil.TEMPLATE_BEGIN);
         fct_.append(StringUtil.join(parts_, StringExpUtil.TEMPLATE_SEP));
         fct_.append(StringExpUtil.TEMPLATE_END);
+        lambdaCommonContent.setResult(fct_.toString());
         setResultClass(new AnaClassArgumentMatching(fct_.toString()));
     }
 
@@ -1775,6 +1787,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             lambdaCommonContent.setShiftArgument(!static_);
             StringList params_ = buildParamsField(_args, _page, i_, aff_, r_);
             String fct_ = formatFieldReturn(static_, params_, r_, lambdaCommonContent.isShiftArgument(), _page);
+            lambdaCommonContent.setResult(fct_);
             setResultClass(new AnaClassArgumentMatching(fct_));
             return;
         }
@@ -1795,6 +1808,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             updateFieldInfos(aff_, r_);
             StringList params_ = buildParamsField(_args, _page, i_, aff_, r_);
             String fct_ = formatFieldReturn(true, params_, r_, false, _page);
+            lambdaCommonContent.setResult(fct_);
             setResultClass(new AnaClassArgumentMatching(fct_));
             return;
         }
@@ -1928,6 +1942,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         boolean static_ = r_.isStaticField();
         StringList params_ = buildParamsField(_args, _page, i_, aff_, r_);
         String fct_ = formatFieldReturn(static_, params_, r_, false, _page);
+        lambdaCommonContent.setResult(fct_);
         setResultClass(new AnaClassArgumentMatching(fct_));
     }
 
@@ -1995,11 +2010,19 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private String buildParentField(AnalyzedPageEl _page, String _resolved, String _res, boolean _shiftArgument) {
         lambdaCommonContent.setShiftArgument(_shiftArgument);
         StringList params_ = new StringList();
-        return formatFieldReturn(false, params_, _res, _shiftArgument, _page, _resolved);
+        String result_ = formatFieldReturn(false, params_, _res, _shiftArgument, _page, _resolved);
+        lambdaCommonContent.setResult(result_);
+        return result_;
     }
 
     private String buildVirtualField(AnalyzedPageEl _page, boolean _shiftArgument) {
         lambdaCommonContent.setShiftArgument(_shiftArgument);
+        String result_ = buildVirtualFieldTech(_page, _shiftArgument);
+        lambdaCommonContent.setResult(result_);
+        return result_;
+    }
+
+    private String buildVirtualFieldTech(AnalyzedPageEl _page, boolean _shiftArgument) {
         if (_shiftArgument) {
             return StringUtil.concat(_page.getAliasFct(), "<", _page.getAliasObject(), ",", lambdaCommonContent.getReturnFieldType(), ">");
         }
@@ -2290,6 +2313,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         fct_.append(StringExpUtil.TEMPLATE_BEGIN);
         fct_.append(StringUtil.join(parts_, StringExpUtil.TEMPLATE_SEP));
         fct_.append(StringExpUtil.TEMPLATE_END);
+        lambdaCommonContent.setResult(fct_.toString());
         setResultClass(new AnaClassArgumentMatching(fct_.toString()));
     }
     private MethodId resolveArguments(boolean _retRef,int _from, String _fromType, MethodAccessKind _static, StringList _params, AnalyzedPageEl _page){
@@ -2436,7 +2460,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private String formatReturn(AnalyzedPageEl _page, ClassMethodIdReturn _id, boolean _shift) {
         lambdaCommonContent.setShiftArgument(_shift);
-        return appendParts(_page, _id.getReturnType(), _id.getRealClass(), _id.getRealId(), _id.getId().getConstraints(), _id.getId().getClassName(), _shift);
+        String result_ = appendParts(_page, _id.getReturnType(), _id.getRealClass(), _id.getRealId(), _id.getId().getConstraints(), _id.getId().getClassName(), _shift);
+        lambdaCommonContent.setResult(result_);
+        return result_;
     }
 
     private static StringList beginReturn(String _foundClass, boolean _staticMeth) {
@@ -2501,7 +2527,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         } else {
             start_ = 0;
         }
-        return appendParts(_page,returnType_,_id.getRealClass(), _id.getRealId(),id_,paramsReturn_,start_);
+        String result_ = appendParts(_page, returnType_, _id.getRealClass(), _id.getRealId(), id_, paramsReturn_, start_);
+        lambdaCommonContent.setResult(result_);
+        return result_;
     }
     private static String formatFieldReturn(boolean _static, StringList _params, FieldResult _field, boolean _demand, AnalyzedPageEl _page) {
         return formatFieldReturn(_static,_params,_field.getType(),_demand,_page,_field.getDeclaringClass());

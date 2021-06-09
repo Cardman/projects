@@ -1,13 +1,13 @@
 package aiki.beans.facade.dto;
 import aiki.beans.PokemonStandards;
+import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -47,43 +47,43 @@ public final class AikiBeansFacadeDtoStd {
         buildWeatherTypeLine(_std);
     }
     private static void buildItemLine(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_ITEM_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_ITEM_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(PRICE,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(DESCRIPTION_CLASS,_std.getAliasString(),false,false,type_));
         _std.getStandards().addEntry(TYPE_ITEM_LINE, type_);
     }
     private static void buildItemTypeLine(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_ITEM_TYPE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_ITEM_TYPE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_ITEM_TYPE_LINE, type_);
     }
     private static void buildKeptMovesAfterFight(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_KEPT_MOVES_AFTER_FIGHT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_KEPT_MOVES_AFTER_FIGHT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_KEPT_MOVES_AFTER_FIGHT, type_);
     }
     private static void buildMoveLine(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -92,7 +92,7 @@ public final class AikiBeansFacadeDtoStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_MOVE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_MOVE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(PP,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(CATEGORY,_std.getAliasString(),false,false,type_));
@@ -109,28 +109,28 @@ public final class AikiBeansFacadeDtoStd {
         _std.getStandards().addEntry(TYPE_MOVE_LINE, type_);
     }
     private static void buildPokemonLine(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_POKEMON_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_POKEMON_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(EVOLUTIONS,_std.getAliasPrimInteger(),false,false,type_));
         _std.getStandards().addEntry(TYPE_POKEMON_LINE, type_);
     }
     private static void buildWeatherTypeLine(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_WEATHER_TYPE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_WEATHER_TYPE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_WEATHER_TYPE_LINE, type_);
     }
     public static ResultErrorStd getResultItemLine(ContextEl _cont, ClassField _classField, ItemLine _inst) {

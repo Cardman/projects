@@ -2,12 +2,10 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
@@ -314,7 +312,8 @@ public abstract class RendBlock {
             } else {
                 obj_ = new CustList<Struct>(_rendStackCall.getLastPage().getGlobalArgument().getStruct());
             }
-            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
+            objClasses_ = new StringList(_f.getVarNames().getVarTypes());
+//            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
             arg_ = Argument.getNullableValue(pair_.getArgument());
             allObj_ = obj_;
         }
@@ -324,15 +323,15 @@ public abstract class RendBlock {
             Struct instance_ = Argument.getNullableValue(pair_.getPreviousArgument()).getStruct();
             obj_ = new CustList<Struct>(instance_);
             allObj_.add(instance_);
-            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
+            objClasses_ = new StringList(_f.getVarNames().getVarTypes());
             arg_ = Argument.getNullableValue(pair_.getArgument());
             indexer_ = true;
 //            for (Argument a: _rendStackCall.getLastPage().getList().getArguments()) {
 //                obj_.add(a.getStruct());
 //            }
-            for (String p: _f.getVarNames().getVarTypes()) {
-                objClasses_.add(p);
-            }
+//            for (String p: _f.getVarNames().getVarTypes()) {
+//                objClasses_.add(p);
+//            }
 //            for (AbstractWrapper a: _rendStackCall.getLastPage().getList().getWrappers()) {
 //                wrap_.add(a);
 //            }
@@ -349,12 +348,13 @@ public abstract class RendBlock {
             stack_ = _rendStackCall.getFormParts().getContainersMapStack();
             ArgumentsPair pair_ = args_.getValue(settable_.getOrder());
             obj_ = new CustList<Struct>(Argument.getNullableValue(pair_.getPreviousArgument()).getStruct());
-            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
+            objClasses_ = new StringList(_f.getVarNames().getVarTypes());
+//            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
             arg_ = Argument.getNullableValue(pair_.getArgument());
             for (RendDynOperationNode r: ((RendMethodOperation) settable_).getChildrenNodes()) {
                 pair_ = args_.getValue(r.getOrder());
                 obj_.add(Argument.getNullableValue(pair_.getArgument()).getStruct());
-                objClasses_.add(NumParsers.getSingleNameOrEmpty(r.getResultClass().getNames()));
+//                objClasses_.add(NumParsers.getSingleNameOrEmpty(r.getResultClass().getNames()));
             }
             allObj_ = obj_;
         }

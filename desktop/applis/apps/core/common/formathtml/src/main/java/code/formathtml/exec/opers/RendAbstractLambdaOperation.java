@@ -10,10 +10,12 @@ import code.expressionlanguage.structs.CallersInfo;
 public abstract class RendAbstractLambdaOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
 
     private final ExecLambdaCommonContent lambdaCommonContent;
+    private final String result;
 
     protected RendAbstractLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont) {
         super(_opCont);
         lambdaCommonContent = _lamCont;
+        result = _lamCont.getResult();
     }
 
     @Override
@@ -30,7 +32,7 @@ public abstract class RendAbstractLambdaOperation extends RendLeafOperation impl
     }
 
     public String formatVarTypeRes() {
-        return getResultClass().getSingleNameOrEmpty();
+        return result;
     }
     public ExecFormattedRootBlock getFoundClass() {
         return lambdaCommonContent.getFormattedType();

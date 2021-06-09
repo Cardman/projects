@@ -752,7 +752,7 @@ public final class AliasNumberType {
     }
 
     public void build(LgNames _lgNames) {
-        CustList<StandardField> fields_;
+        CustList<CstFieldInfo> fields_;
         StringList params_;
         StandardMethod method_;
         CustList<StandardConstructor> constructors_;
@@ -760,7 +760,7 @@ public final class AliasNumberType {
         StandardType std_;
         StandardClass stdcl_;
         methods_ = new CustList<StandardMethod>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
         String aliasObject_ = _lgNames.getContent().getCoreNames().getAliasObject();
         String aliasPrimBoolean_ = _lgNames.getContent().getPrimTypes().getAliasPrimBoolean();
@@ -810,7 +810,7 @@ public final class AliasNumberType {
         standards_.addEntry(aliasBoolean, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasByte, fields_, constructors_, methods_, aliasShort, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimByte_,new StringList(params.getAliasByte0Byte0()),new StringList(params.getAliasByte1Byte0()));
         numbersValuesMethodsRadix(_lgNames, methods_, aliasPrimByte_, aliasByte, aliasParseByte,
@@ -819,11 +819,11 @@ public final class AliasNumberType {
                 new StringList(params.getAliasByte0CompareTo0()), new StringList(params.getAliasByte0Compare0(),params.getAliasByte0Compare1()),
                 new StringList(params.getAliasByte0ToBinString0()),new StringList(params.getAliasByte0ToOctString0()),new StringList(params.getAliasByte0ToHexString0()));
         numbersSafeParsersMethodsRadix(_lgNames, methods_, aliasByte, aliasParseByteOrNull, new StringList(params.getAliasByte0ParseByteOrNull0()), new StringList(params.getAliasByte1ParseByteOrNull0(),params.getAliasByte1ParseByteOrNull1()));
-        numbersValuesFields(fields_, aliasPrimByte_, std_);
+        numbersValuesFields(fields_, aliasPrimByte_);
         standards_.addEntry(aliasByte, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasShort, fields_, constructors_, methods_, aliasInteger, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimShort_,new StringList(params.getAliasShort0Short0()),new StringList(params.getAliasShort1Short0()));
         numbersValuesMethodsRadix(_lgNames, methods_, aliasPrimShort_, aliasShort, aliasParseShort,
@@ -832,11 +832,11 @@ public final class AliasNumberType {
                 new StringList(params.getAliasShort0CompareTo0()), new StringList(params.getAliasShort0Compare0(),params.getAliasShort0Compare1()),
                 new StringList(params.getAliasShort0ToBinString0()),new StringList(params.getAliasShort0ToOctString0()),new StringList(params.getAliasShort0ToHexString0()));
         numbersSafeParsersMethodsRadix(_lgNames, methods_, aliasShort, aliasParseShortOrNull, new StringList(params.getAliasShort0ParseShortOrNull0()), new StringList(params.getAliasShort1ParseShortOrNull0(),params.getAliasShort1ParseShortOrNull1()));
-        numbersValuesFields(fields_, aliasPrimShort_, std_);
+        numbersValuesFields(fields_, aliasPrimShort_);
         standards_.addEntry(aliasShort, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasInteger, fields_, constructors_, methods_, aliasLong, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimInteger_,new StringList(params.getAliasInteger0Integer0()),new StringList(params.getAliasInteger1Integer0()));
         numbersValuesMethodsRadix(_lgNames, methods_, aliasPrimInteger_, aliasInteger, aliasParseInt,
@@ -845,11 +845,11 @@ public final class AliasNumberType {
                 new StringList(params.getAliasInteger0CompareTo0()), new StringList(params.getAliasInteger0Compare0(),params.getAliasInteger0Compare1()),
                 new StringList(params.getAliasInteger0ToBinString0()),new StringList(params.getAliasInteger0ToOctString0()),new StringList(params.getAliasInteger0ToHexString0()));
         numbersSafeParsersMethodsRadix(_lgNames, methods_, aliasInteger, aliasParseIntOrNull, new StringList(params.getAliasInteger0ParseIntOrNull0()), new StringList(params.getAliasInteger1ParseIntOrNull0(),params.getAliasInteger1ParseIntOrNull1()));
-        numbersValuesFields(fields_, aliasPrimInteger_, std_);
+        numbersValuesFields(fields_, aliasPrimInteger_);
         standards_.addEntry(aliasInteger, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasLong, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimLong_,new StringList(params.getAliasLong0Long0()),new StringList(params.getAliasLong1Long0()));
         numbersValuesMethodsRadix(_lgNames, methods_, aliasPrimLong_, aliasLong, aliasParseLong,
@@ -858,7 +858,7 @@ public final class AliasNumberType {
                 new StringList(params.getAliasLong0CompareTo0()), new StringList(params.getAliasLong0Compare0(),params.getAliasLong0Compare1()),
                 new StringList(params.getAliasLong0ToBinString0()),new StringList(params.getAliasLong0ToOctString0()),new StringList(params.getAliasLong0ToHexString0()));
         numbersSafeParsersMethodsRadix(_lgNames, methods_, aliasLong, aliasParseLongOrNull, new StringList(params.getAliasLong0ParseLongOrNull0()), new StringList(params.getAliasLong1ParseLongOrNull0(),params.getAliasLong1ParseLongOrNull1()));
-        numbersValuesFields(fields_, aliasPrimLong_, std_);
+        numbersValuesFields(fields_, aliasPrimLong_);
         params_ = new StringList(aliasPrimLong_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasLong1ToStringMethod0(),params.getAliasLong1ToStringMethod1()));
         methods_.add( method_);
@@ -868,7 +868,7 @@ public final class AliasNumberType {
         standards_.addEntry(aliasLong, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasFloat, fields_, constructors_, methods_, aliasDouble, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimFloat_,new StringList(params.getAliasFloat0Float0()),new StringList(params.getAliasFloat1Float0()));
         numbersValuesMethods(_lgNames,methods_, aliasFloat, aliasParseFloat, aliasPrimFloat_, new StringList(params.getAliasFloat0ToStringMethod0()), new StringList(params.getAliasFloat0ParseFloat0()), new StringList(params.getAliasFloat0CompareTo0()), new StringList(params.getAliasFloat0Compare0(),params.getAliasFloat0Compare1()));
@@ -879,11 +879,11 @@ public final class AliasNumberType {
         params_ = new StringList(aliasPrimFloat_);
         method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasFloat0IsNan0()));
         methods_.add( method_);
-        numbersDotValuesFields(fields_, aliasPrimFloat_, std_);
+        numbersDotValuesFields(fields_, aliasPrimFloat_);
         standards_.addEntry(aliasFloat, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasDouble, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
         numbersConstructors(_lgNames,constructors_, aliasPrimDouble_,new StringList(params.getAliasDouble0Double0()),new StringList(params.getAliasDouble1Double0()));
         numbersValuesMethods(_lgNames,methods_, aliasDouble, aliasParseDouble, aliasPrimDouble_, new StringList(params.getAliasDouble0ToStringMethod0()), new StringList(params.getAliasDouble0ParseDouble0()), new StringList(params.getAliasDouble0CompareTo0()), new StringList(params.getAliasDouble0Compare0(),params.getAliasDouble0Compare1()));
@@ -900,17 +900,17 @@ public final class AliasNumberType {
         params_ = new StringList(aliasPrimDouble_);
         method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasDouble0IsNan0()));
         methods_.add( method_);
-        numbersDotValuesFields(fields_, aliasPrimDouble_, std_);
+        numbersDotValuesFields(fields_, aliasPrimDouble_);
         standards_.addEntry(aliasDouble, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasNumber, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
         numbersAbsMethods(_lgNames,methods_, aliasNumber);
         standards_.addEntry(aliasNumber, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasCharacter, fields_, constructors_, methods_, aliasInteger, MethodModifier.FINAL);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCharValue, params_, aliasPrimChar_, false, MethodModifier.NORMAL);
@@ -969,7 +969,7 @@ public final class AliasNumberType {
         params_ = new StringList(aliasPrimChar_);
         ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasCharacter0Character0()));
         constructors_.add(ctor_);
-        numbersValuesFields(fields_, aliasPrimChar_, stdcl_);
+        numbersValuesFields(fields_, aliasPrimChar_);
         std_ = stdcl_;
         standards_.addEntry(aliasCharacter, std_);
     }
@@ -1026,22 +1026,22 @@ public final class AliasNumberType {
         ctor_ = new StandardConstructor(params_,false,_second);
         _ctors.add(ctor_);
     }
-    private void numbersDotValuesFields(CustList<StandardField> _fields, String _primitive, StandardType _type) {
-        StandardField field_ = new StandardField(aliasMinValueField, _primitive, true, true, _type);
+    private void numbersDotValuesFields(CustList<CstFieldInfo> _fields, String _primitive) {
+        CstFieldInfo field_ = new CstFieldInfo(aliasMinValueField, _primitive);
         _fields.add(field_);
-        field_ = new StandardField(aliasMaxValueField, _primitive, true, true, _type);
+        field_ = new CstFieldInfo(aliasMaxValueField, _primitive);
         _fields.add(field_);
-        field_ = new StandardField(aliasMinusInfinityField, _primitive, true, true, _type);
+        field_ = new CstFieldInfo(aliasMinusInfinityField, _primitive);
         _fields.add(field_);
-        field_ = new StandardField(aliasPlusInfinityField, _primitive, true, true, _type);
+        field_ = new CstFieldInfo(aliasPlusInfinityField, _primitive);
         _fields.add(field_);
-        field_ = new StandardField(aliasNanField, _primitive, true, true, _type);
+        field_ = new CstFieldInfo(aliasNanField, _primitive);
         _fields.add(field_);
     }
-    private void numbersValuesFields(CustList<StandardField> _fields, String _primitive, StandardType _type) {
-        StandardField field_ = new StandardField(aliasMinValueField, _primitive, true, true, _type);
+    private void numbersValuesFields(CustList<CstFieldInfo> _fields, String _primitive) {
+        CstFieldInfo field_ = new CstFieldInfo(aliasMinValueField, _primitive);
         _fields.add(field_);
-        field_ = new StandardField(aliasMaxValueField, _primitive, true, true, _type);
+        field_ = new CstFieldInfo(aliasMaxValueField, _primitive);
         _fields.add(field_);
     }
     private void numbersValuesMethods(LgNames _lgNames, CustList<StandardMethod> _methods, String _owner, String _parserName, String _primitive, StringList _first, StringList _second, StringList _third, StringList _fourth) {

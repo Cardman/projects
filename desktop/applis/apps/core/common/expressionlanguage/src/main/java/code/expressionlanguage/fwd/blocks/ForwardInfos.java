@@ -24,6 +24,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.opers.*;
 import code.util.*;
+import code.util.core.StringUtil;
 
 public final class ForwardInfos {
     private ForwardInfos() {
@@ -1123,6 +1124,7 @@ public final class ForwardInfos {
     }
 
     private static ExecOperationNode createExecOperationNode(OperationNode _anaNode, Forwards _forwards) {
+        StringList names_ = _anaNode.getResultClass().getNames();
         if (_anaNode instanceof ConstantOperation) {
             ConstantOperation c_ = (ConstantOperation) _anaNode;
             return new ExecConstLeafOperation(false, new ExecOperationContent(c_.getContent()));
@@ -1299,7 +1301,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof DefaultOperation) {
             DefaultOperation f_ = (DefaultOperation) _anaNode;
-            return new ExecDefaultOperation(new ExecOperationContent(f_.getContent()), f_.getOffset());
+            return new ExecDefaultOperation(new ExecOperationContent(f_.getContent()), f_.getOffset(),names_);
         }
         if (_anaNode instanceof IdFctOperation) {
             IdFctOperation f_ = (IdFctOperation) _anaNode;
@@ -1341,14 +1343,8 @@ public final class ForwardInfos {
             ExecRootBlock declaring_ = pair_.getType();
             ExecNamedFunctionBlock named_ = pair_.getFct();
             ExecLambdaMethodContent lambdaMethodContent_ = new ExecLambdaMethodContent(f_.getMethod().getConstraints(), f_.getLambdaMethodContent(), pair_);
-            if (declaring_ != null) {
-                if (named_ != null) {
-                    return new ExecCustMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
-                }
-                return new ExecEnumMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
-            }
-            if (named_ != null) {
-                return new ExecOperatorMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
+            if (declaring_ != null || named_ != null) {
+                return new ExecCustMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
             }
             if (lambdaMethodContent_.isDirectCast() || lambdaMethodContent_.isClonedMethod()) {
                 return new ExecSimpleMethodLambdaOperation(new ExecOperationContent(f_.getContent()), lamCont_, lambdaMethodContent_);
@@ -1365,7 +1361,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof ParentInstanceOperation) {
             ParentInstanceOperation f_ = (ParentInstanceOperation) _anaNode;
-            return new ExecParentInstanceOperation(new ExecOperationContent(f_.getContent()), new ExecParentInstanceContent(f_.getParentInstanceContent()));
+            return new ExecParentInstanceOperation(new ExecOperationContent(f_.getContent()), new ExecParentInstanceContent(f_.getParentInstanceContent()),names_);
         }
         if (_anaNode instanceof ForwardOperation) {
             ForwardOperation f_ = (ForwardOperation) _anaNode;
@@ -1408,7 +1404,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof SafeDotOperation) {
             SafeDotOperation m_ = (SafeDotOperation) _anaNode;
-            return new ExecSafeDotOperation(new ExecOperationContent(m_.getContent()));
+            return new ExecSafeDotOperation(new ExecOperationContent(m_.getContent()),names_);
         }
         if (_anaNode instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
@@ -1418,9 +1414,9 @@ public final class ForwardInfos {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
             ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(m_.getFct(), _forwards);
             if (pair_.getFct() == null) {
-                return new ExecSemiAffectationNatOperation(new ExecOperationContent(m_.getContent()), new ExecOperatorContent(m_.getOperatorContent()), FetchMemberUtil.fetchImplicits(m_.getConvFrom(), _forwards), FetchMemberUtil.fetchImplicits(m_.getConvTo(), _forwards), m_.isPost());
+                return new ExecSemiAffectationNatOperation(new ExecOperationContent(m_.getContent()), new ExecOperatorContent(m_.getOperatorContent()), FetchMemberUtil.fetchImplicits(m_.getConvFrom(), _forwards), FetchMemberUtil.fetchImplicits(m_.getConvTo(), _forwards), m_.isPost(),names_);
             }
-            return new ExecSemiAffectationCustOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getFct(), m_.isPost(),_forwards), new ExecOperatorContent(m_.getOperatorContent()), pair_);
+            return new ExecSemiAffectationCustOperation(new ExecOperationContent(m_.getContent()), new ExecStaticPostEltContent(m_.getFct(), m_.isPost(),_forwards), new ExecOperatorContent(m_.getOperatorContent()), pair_,names_);
         }
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
@@ -1558,7 +1554,7 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof NullSafeOperation) {
             NullSafeOperation c_ = (NullSafeOperation) _anaNode;
-            return new ExecNullSafeOperation(new ExecOperationContent(c_.getContent()),c_.getOpOffset());
+            return new ExecNullSafeOperation(new ExecOperationContent(c_.getContent()),c_.getOpOffset(),names_);
         }
         if (_anaNode instanceof AssocationOperation) {
             AssocationOperation c_ = (AssocationOperation) _anaNode;
@@ -1568,17 +1564,22 @@ public final class ForwardInfos {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
             ClassMethodIdMemberIdTypeFct fct_ = c_.getFct();
             if (c_.isConcat()) {
-                return new ExecCompoundAffectationStringOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()));
+                return new ExecCompoundAffectationStringOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()),names_);
             }
             ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(fct_, _forwards);
             if (pair_.getFct() != null) {
-                return new ExecCompoundAffectationCustOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
+                return new ExecCompoundAffectationCustOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), new ExecStaticEltContent(fct_,_forwards), pair_, FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards),names_);
             }
-            return new ExecCompoundAffectationNatOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards));
+            String oper_ = c_.getOperatorContent().getOper();
+            String op_ = oper_.substring(0, oper_.length() - 1);
+            if (StringUtil.quickEq(op_, "??") || StringUtil.quickEq(op_, "???")) {
+                return new ExecCompoundAffectationNatSafeOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards),names_);
+            }
+            return new ExecCompoundAffectationNatOperation(new ExecOperationContent(c_.getContent()), new ExecOperatorContent(c_.getOperatorContent()), FetchMemberUtil.fetchImplicits(c_.getConv(), _forwards),names_);
         }
         if (_anaNode instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _anaNode;
-            return new ExecAffectationOperation(new ExecOperationContent(a_.getContent()), a_.getOpOffset());
+            return new ExecAffectationOperation(new ExecOperationContent(a_.getContent()), a_.getOpOffset(),names_);
         }
         return new ExecDeclaringOperation(new ExecOperationContent(_anaNode.getContent()));
     }
@@ -1646,16 +1647,16 @@ public final class ForwardInfos {
         _exec.setImplicitCallSuper(_ana.implicitConstr());
     }
     private static void fwdAnnotationsParameters(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ann, Coverage _coverage, Forwards _forwards) {
-        CustList<CustList<CustList<ExecOperationNode>>> ops_ = new CustList<CustList<CustList<ExecOperationNode>>>();
+        CustList<CustList<ExecAnnotContent>> ops_ = new CustList<CustList<ExecAnnotContent>>();
         int i_ = 0;
         for (CustList<OperationNode> l: _ana.getRootsList()) {
-            CustList<CustList<ExecOperationNode>> annotation_;
-            annotation_ = new CustList<CustList<ExecOperationNode>>();
+            CustList<ExecAnnotContent> annotation_;
+            annotation_ = new CustList<ExecAnnotContent>();
             _coverage.putBlockOperationsAnnotMethodParam(_ana);
             int j_ = 0;
             for (OperationNode r: l) {
                 _coverage.putBlockOperationsAnnotMethod(_ana,i_);
-                annotation_.add(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana));
+                annotation_.add(new ExecAnnotContent(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
                 j_++;
             }
             ops_.add(annotation_);
@@ -1664,16 +1665,16 @@ public final class ForwardInfos {
         _ann.getAnnotationsOpsParams().addAllElts(ops_);
     }
     private static void fwdAnnotationsParametersSw(SwitchMethodBlock _ana, ExecAbstractSwitchMethod _ann, Coverage _coverage, Forwards _forwards) {
-        CustList<CustList<CustList<ExecOperationNode>>> ops_ = new CustList<CustList<CustList<ExecOperationNode>>>();
+        CustList<CustList<ExecAnnotContent>> ops_ = new CustList<CustList<ExecAnnotContent>>();
         int i_ = 0;
         for (CustList<OperationNode> l: _ana.getRootsList()) {
-            CustList<CustList<ExecOperationNode>> annotation_;
-            annotation_ = new CustList<CustList<ExecOperationNode>>();
+            CustList<ExecAnnotContent> annotation_;
+            annotation_ = new CustList<ExecAnnotContent>();
             _coverage.putBlockOperationsAnnotMethodParam(_ana);
             int j_ = 0;
             for (OperationNode r: l) {
                 _coverage.putBlockOperationsAnnotMethod(_ana,i_);
-                annotation_.add(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana));
+                annotation_.add(new ExecAnnotContent(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
                 j_++;
             }
             ops_.add(annotation_);
@@ -1683,22 +1684,22 @@ public final class ForwardInfos {
     }
 
     private static void fwdAnnotations(InnerTypeOrElement _ana, ExecInnerTypeOrElement _ann, Coverage _coverage, Forwards _forwards) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        CustList<ExecAnnotContent> ops_ = new CustList<ExecAnnotContent>();
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotField(_ana);
-            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, (AbsBk)_ana));
+            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, (AbsBk)_ana),r.getResultClass().getNames()));
             i_++;
         }
         _ann.getAnnotationsOps().addAllElts(ops_);
     }
 
     private static void fwdAnnotations(FieldBlock _ana, ExecFieldBlock _ann, Coverage _coverage, Forwards _forwards) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        CustList<ExecAnnotContent> ops_ = new CustList<ExecAnnotContent>();
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotField(_ana);
-            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana));
+            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
             i_++;
         }
         _ann.getAnnotationsOps().addAllElts(ops_);
@@ -1710,32 +1711,32 @@ public final class ForwardInfos {
         return getExecutableNodes(-1,-1,_root, _coverage, _forwards, (AbsBk)_ana);
     }
     private static void fwdAnnotations(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ex, Coverage _coverage, Forwards _forwards) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        CustList<ExecAnnotContent> ops_ = new CustList<ExecAnnotContent>();
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotMethod(_ana);
-            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana));
+            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
             i_++;
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }
     private static void fwdAnnotationsSw(SwitchMethodBlock _ana, ExecAbstractSwitchMethod _ex, Coverage _coverage, Forwards _forwards) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        CustList<ExecAnnotContent> ops_ = new CustList<ExecAnnotContent>();
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotMethod(_ana);
-            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana));
+            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
             i_++;
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }
 
     private static void fwdAnnotations(RootBlock _ana, ExecRootBlock _ann, Coverage _coverage, Forwards _forwards) {
-        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        CustList<ExecAnnotContent> ops_ = new CustList<ExecAnnotContent>();
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotType(_ana);
-            ops_.add(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana));
+            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
             i_++;
         }
         _ann.getAnnotationsOps().clear();

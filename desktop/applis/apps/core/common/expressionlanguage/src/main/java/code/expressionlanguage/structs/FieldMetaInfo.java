@@ -6,8 +6,8 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaFieldContent;
 import code.util.CustList;
@@ -72,11 +72,11 @@ public final class FieldMetaInfo extends AbAnMeStruct {
         formatted = _formatted;
     }
 
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
+    public CustList<ExecAnnotContent> getAnnotationsOps(){
         if (annotableBlock != null) {
             return annotableBlock.getAnnotationsOps();
         }
-        return new CustList<CustList<ExecOperationNode>>();
+        return new CustList<ExecAnnotContent>();
     }
 
     public ExecInfoBlock getAnnotableBlock() {

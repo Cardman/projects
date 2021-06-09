@@ -6,13 +6,13 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ShownCache;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
@@ -112,14 +112,6 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         casts = new Casts(false,_meth.isExpCast());
     }
 
-    public MethodMetaInfo(CallersInfo _caller, ExecLambdaCommonContent _common, ExecLambdaMethodContent _meth) {
-        super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC,_common.getFileName());
-        invokable = true;
-        pairIds = new PairMethodIds(_meth.getMethod(),tryFormatId(_caller.getFormatted(), _meth.getMethod()));
-        callers = _caller;
-        cache = null;
-        casts = new Casts(false,false);
-    }
     public MethodMetaInfo(ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ExecLambdaMethodContent _meth) {
         super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC,_common.getFileName());
         invokable = true;
@@ -174,17 +166,17 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         return mod_;
     }
 
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
+    public CustList<ExecAnnotContent> getAnnotationsOps(){
         if (callers.getCallee() instanceof ExecAnnotableParamBlock) {
             return ((ExecAnnotableParamBlock) callers.getCallee()).getAnnotationsOps();
         }
-        return new CustList<CustList<ExecOperationNode>>();
+        return new CustList<ExecAnnotContent>();
     }
-    public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams(){
+    public CustList<CustList<ExecAnnotContent>> getAnnotationsOpsParams(){
         if (callers.getCallee() instanceof ExecAnnotableParamBlock) {
             return ((ExecAnnotableParamBlock) callers.getCallee()).getAnnotationsOpsParams();
         }
-        return new CustList<CustList<CustList<ExecOperationNode>>>();
+        return new CustList<CustList<ExecAnnotContent>>();
     }
 
     public ExecFormattedRootBlock getFormatted() {

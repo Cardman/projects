@@ -272,7 +272,7 @@ public final class ContextUtil {
             }
             return null;
         }
-        for (StandardField f: ((StandardType) _anaGeneType).getFields()) {
+        for (CstFieldInfo f: StandardClass.getCstFields((StandardType) _anaGeneType)) {
             if (!StringUtil.quickEq(f.getFieldName(), _fieldName)) {
                 continue;
             }

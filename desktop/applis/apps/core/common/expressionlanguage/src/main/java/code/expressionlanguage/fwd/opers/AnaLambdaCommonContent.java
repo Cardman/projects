@@ -11,6 +11,7 @@ public final class AnaLambdaCommonContent {
     private boolean shiftArgument;
     private int ancestor;
     private AnaFormattedRootBlock foundFormatted;
+    private String result = "";
 
     public boolean isIntermediate() {
         return intermediate;
@@ -68,4 +69,11 @@ public final class AnaLambdaCommonContent {
         this.foundFormatted = _foundFormatted;
     }
 
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String _result) {
+        this.result = _result;
+    }
 }

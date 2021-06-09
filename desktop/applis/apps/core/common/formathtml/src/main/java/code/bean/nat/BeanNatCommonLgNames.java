@@ -122,25 +122,25 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     protected void buildBeans() {
         CustList<StandardField> fields_;
         fields_ = new CustList<StandardField>();
-        StandardClass std_;
+        SpecialNatClass std_;
         CustList<StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;
         methods_ = new CustList<StandardMethod>();
         StringList params_;
         StandardMethod method_;
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass(TYPE_BEAN, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        std_ = new SpecialNatClass(TYPE_BEAN, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         getStandards().addEntry(TYPE_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        StandardClass cl_;
-        cl_ = new StandardClass(TYPE_LIST, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        SpecialNatClass cl_;
+        cl_ = new SpecialNatClass(TYPE_LIST, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         getIterables().put(TYPE_LIST, getAliasObject());
         getStandards().addEntry(TYPE_LIST, cl_);
         methods_ = new CustList<StandardMethod>();
-        cl_ = new StandardClass(TYPE_MAP, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        cl_ = new SpecialNatClass(TYPE_MAP, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         cl_.getDirectInterfaces().add(TYPE_ENTRIES);
         getIterables().put(TYPE_MAP, getAliasObject());
@@ -158,12 +158,12 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<StandardMethod>();
-        std_ = new StandardClass(TYPE_ITERATOR, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        std_ = new SpecialNatClass(TYPE_ITERATOR, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         getStandards().addEntry(TYPE_ITERATOR, std_);
         methods_ = new CustList<StandardMethod>();
         stdi_ = new StandardInterface(TYPE_DISPLAYABLE, methods_, new StringList());
         getStandards().addEntry(TYPE_DISPLAYABLE, stdi_);
-        cl_ = new StandardClass(TYPE_VALIDATOR, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        cl_ = new SpecialNatClass(TYPE_VALIDATOR, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
         getStandards().addEntry(TYPE_VALIDATOR, cl_);
     }
 

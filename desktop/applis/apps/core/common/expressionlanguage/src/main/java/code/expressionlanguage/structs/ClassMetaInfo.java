@@ -10,13 +10,13 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.exec.ClassCategory;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.stds.*;
 import code.util.CollCapacity;
 import code.util.CustList;
@@ -194,7 +194,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
     }
 
     private void initStdFields(StandardType _type, ExecFormattedRootBlock _formatted) {
-        for (StandardField f: _type.getFields()) {
+        for (CstFieldInfo f: StandardClass.getCstFields(_type)) {
             String ret_ = f.getImportedClassName();
             FieldMetaInfo met_ = new FieldMetaInfo(f.getFieldName(), ret_, _formatted);
             fieldsInfos.add(met_);
@@ -623,12 +623,12 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
         classes_.sortElts(new ClassNameCmp());
         return classes_;
     }
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
+    public CustList<ExecAnnotContent> getAnnotationsOps(){
         ExecRootBlock rootBlock_ = formatted.getRootBlock();
         if (rootBlock_ != null) {
             return rootBlock_.getAnnotationsOps();
         }
-        return new CustList<CustList<ExecOperationNode>>();
+        return new CustList<ExecAnnotContent>();
     }
 
     public Struct variableOwner(ContextEl _context) {

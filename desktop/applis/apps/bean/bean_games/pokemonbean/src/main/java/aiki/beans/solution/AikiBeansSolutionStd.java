@@ -1,15 +1,15 @@
 package aiki.beans.solution;
 import aiki.beans.*;
 import aiki.beans.PokemonStandards;
+import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -28,7 +28,7 @@ public final class AikiBeansSolutionStd {
         buildSolutionBean(_std);
     }
     private static void buildSolutionBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -37,7 +37,7 @@ public final class AikiBeansSolutionStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_SOLUTION_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_SOLUTION_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(STEPS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_PLACE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);

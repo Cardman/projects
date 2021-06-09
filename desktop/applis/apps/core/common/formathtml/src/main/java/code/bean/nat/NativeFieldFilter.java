@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
@@ -18,8 +17,11 @@ public final class NativeFieldFilter implements AbstractFieldFilter {
     @Override
     public void tryAddField(ScopeFilterType _scope, ScopeFilterField _scopeField, StringMap<FieldResult> _ancestors, AnalyzedPageEl _page) {
         AnaGeneType root_ = _scope.getTypeInfo().getRoot();
+        if (!(root_ instanceof SpecialNatClass)) {
+            return;
+        }
         String name_ = _scopeField.getName();
-        for (StandardField f: ((StandardType) root_).getFields()) {
+        for (StandardField f: ((SpecialNatClass) root_).getFields()) {
             if (StringUtil.quickEq(f.getFieldName(), name_)) {
                 String type_ = f.getImportedClassName();
                 FieldResult res_ = new FieldResult();

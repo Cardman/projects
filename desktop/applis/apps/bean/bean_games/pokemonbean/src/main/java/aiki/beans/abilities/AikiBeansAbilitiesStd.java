@@ -1,14 +1,14 @@
 package aiki.beans.abilities;
 import aiki.beans.*;
+import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -219,7 +219,7 @@ public final class AikiBeansAbilitiesStd {
         buildAbilityBean(_std);
     }
     private static void buildAbilitiesBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -228,7 +228,7 @@ public final class AikiBeansAbilitiesStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_ABILITIES_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_ABILITIES_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(TYPED_ABILITY,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(SORTED_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
@@ -243,7 +243,7 @@ public final class AikiBeansAbilitiesStd {
         _std.getStandards().addEntry(TYPE_ABILITIES_BEAN, type_);
     }
     private static void buildAbilityBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -252,7 +252,7 @@ public final class AikiBeansAbilitiesStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_ABILITY_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_ABILITY_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(END_ROUND,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(END_ROUND_RANK,_std.getAliasPrimInteger(),false,false,type_));

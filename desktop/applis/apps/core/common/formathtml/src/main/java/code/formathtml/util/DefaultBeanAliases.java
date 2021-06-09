@@ -2,6 +2,7 @@ package code.formathtml.util;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
+import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
@@ -464,7 +465,7 @@ public final class DefaultBeanAliases {
     }
 
     public void buildOther(LgNamesContent _content) {
-        CustList<StandardField> fields_;
+        CustList<CstFieldInfo> fields_;
         StringList params_;
         StandardMethod method_;
         StandardType std_;
@@ -472,7 +473,7 @@ public final class DefaultBeanAliases {
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasMessage, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
         params_ = new StringList();
         method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC);

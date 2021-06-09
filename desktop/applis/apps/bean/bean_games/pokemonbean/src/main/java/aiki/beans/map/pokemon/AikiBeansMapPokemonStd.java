@@ -3,15 +3,15 @@ import aiki.beans.*;
 import aiki.beans.PersonStruct;
 import aiki.beans.PokemonStandards;
 import aiki.map.characters.Trainer;
+import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -44,7 +44,7 @@ public final class AikiBeansMapPokemonStd {
         buildPokemonTeamBean(_std);
     }
     private static void buildPokemonTeamBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -53,7 +53,7 @@ public final class AikiBeansMapPokemonStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_POKEMON_TEAM_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_POKEMON_TEAM_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER,false,false,type_));
         fields_.add(new StandardField(REWARD,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(MULTIPLICITY,_std.getAliasPrimInteger(),false,false,type_));

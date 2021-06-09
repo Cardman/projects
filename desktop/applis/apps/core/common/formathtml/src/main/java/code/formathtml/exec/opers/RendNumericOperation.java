@@ -9,30 +9,30 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public abstract class RendNumericOperation extends RendMethodOperation implements RendCalculableOperation {
     private final int opOffset;
 
-    public RendNumericOperation(ExecOperationContent _content, int _opOffset) {
+    protected RendNumericOperation(ExecOperationContent _content, int _opOffset) {
         super(_content);
         opOffset = _opOffset;
     }
 
-    static Argument calculateAffect(Argument _left, Argument _right, String _op, StringList _cls, byte _cast, ContextEl _context, RendStackCall _stackCall) {
+    static Argument calculateAffect(Argument _left, Argument _right, String _op, byte _cast, ContextEl _context, RendStackCall _stackCall) {
         ResultErrorStd res_= new ResultErrorStd();
-        String op_ = _op.substring(0, _op.length() - 1);
-        if (StringUtil.quickEq(op_, "??") || StringUtil.quickEq(op_, "???")) {
-            Struct first_ = _left.getStruct();
-            if (first_ != NullStruct.NULL_VALUE) {
-                res_.setResult(ExecClassArgumentMatching.convert(first_,_context, _cls));
-            } else {
-                res_.setResult(ExecClassArgumentMatching.convert(_right.getStruct(),_context, _cls));
-            }
-            return new Argument(res_.getResult());
-        }
         ExecNumericOperation.calculateOperator(_context, res_, _op, _left.getStruct(), _right.getStruct(), _cast, _stackCall.getStackCall());
         return new Argument(res_.getResult());
+    }
+
+    static Argument calculateAffect(Argument _left, Argument _right, StringList _cls, ContextEl _conf) {
+        Struct first_ = _left.getStruct();
+        Argument res_;
+        if (first_ != NullStruct.NULL_VALUE) {
+            res_=new Argument(ExecClassArgumentMatching.convert(first_, _conf, _cls));
+        } else {
+            res_=new Argument(ExecClassArgumentMatching.convert(_right.getStruct(), _conf, _cls));
+        }
+        return res_;
     }
 
     public int getOpOffset() {

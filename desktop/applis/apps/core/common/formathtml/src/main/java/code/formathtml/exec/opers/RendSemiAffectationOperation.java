@@ -10,17 +10,20 @@ import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
+import code.util.StringList;
 
 public abstract class RendSemiAffectationOperation extends RendAbstractUnaryOperation {
     private final boolean post;
+    private final StringList names;
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
 
-    protected RendSemiAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, boolean _post) {
+    protected RendSemiAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, boolean _post, StringList _names) {
         super(_content);
         operatorContent = _operatorContent;
         post = _post;
+        names = _names;
     }
 
     public void setup() {
@@ -34,7 +37,7 @@ public abstract class RendSemiAffectationOperation extends RendAbstractUnaryOper
             RendDynOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, getResultClass().getNames()));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, names));
                 setQuickConvertSimpleArgument(leftArg_, _nodes, _context, _rendStack);
                 return;
             }

@@ -17,6 +17,7 @@ import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.exec.opers.*;
 import code.formathtml.fwd.AbstractInputBuilder;
+import code.formathtml.util.InputInfo;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -43,6 +44,10 @@ public final class NatInputBuilder implements AbstractInputBuilder {
         varNames_.add(varPrevLoc_);
         String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
         varNames_.add(varLoc_);
+        InputInfo info_ = new InputInfo();
+        info_.getVarTypes().add(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
+//        _resultInput.get.getVarTypes().add(NumParsers.getSingleNameOrEmpty(result.getNames()));
+        _resultInput.setVarNamesParams(info_);
         _resultInput.setVarNames(varNames_);
         _resultInput.setVarName(StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA,varLoc_));
     }

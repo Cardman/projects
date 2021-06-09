@@ -5,13 +5,13 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
+import code.util.StringList;
 
 public abstract class RendSettableCallFctOperation extends RendInvokingOperation implements RendSettableElResult {
     private final ExecArrContent arrContent;
@@ -32,11 +32,20 @@ public abstract class RendSettableCallFctOperation extends RendInvokingOperation
         Argument res_ = ExecCatOperation.localSumDiff(left_, _right, _context);
         return trySetArgument(_nodes, _context, res_, _rendStack);
     }
+
     @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, ExecClassArgumentMatching _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, StringList _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         Argument left_ = pair_.getArgument();
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, _cl.getNames(), _cl.getUnwrapObjectNb(), _context, _rendStack);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context);
+        return trySetArgument(_nodes, _context, res_, _rendStack);
+    }
+
+    @Override
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, byte _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
+        Argument left_ = pair_.getArgument();
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, _cl, _context, _rendStack);
         return trySetArgument(_nodes, _context, res_, _rendStack);
     }
 

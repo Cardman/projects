@@ -3,15 +3,15 @@ import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
+import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -658,7 +658,7 @@ public final class AikiBeansHelpStd {
         buildLanguageElementStringKey(_std);
     }
     private static void buildFightHelpBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -667,7 +667,7 @@ public final class AikiBeansHelpStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_FIGHT_HELP_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_FIGHT_HELP_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(DEFAULT_BOOST_VALUE,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(PRIVATING_MOVES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(MOVES_HEALING_SUBSTITUTE, BeanNatLgNames.TYPE_LIST,false,false,type_));
@@ -1991,7 +1991,7 @@ public final class AikiBeansHelpStd {
         _std.getStandards().addEntry(TYPE_FIGHT_HELP_BEAN, type_);
     }
     private static void buildGeneralHelpBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -2000,7 +2000,7 @@ public final class AikiBeansHelpStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_GENERAL_HELP_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_GENERAL_HELP_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(MAX_LEVEL,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(MAX_EV,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(MAX_IV,_std.getAliasPrimInteger(),false,false,type_));
@@ -2104,7 +2104,7 @@ public final class AikiBeansHelpStd {
         _std.getStandards().addEntry(TYPE_GENERAL_HELP_BEAN, type_);
     }
     private static void buildLangsBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -2113,7 +2113,7 @@ public final class AikiBeansHelpStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_LANGS_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_LANGS_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(LANGUAGES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(GET_TR_LANG,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -2205,25 +2205,25 @@ public final class AikiBeansHelpStd {
         _std.getStandards().addEntry(TYPE_LANGS_BEAN, type_);
     }
     private static void buildLanguageElementKey(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_LANGUAGE_ELEMENT_KEY, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_LANGUAGE_ELEMENT_KEY, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_LANGUAGE_ELEMENT_KEY, type_);
     }
     private static void buildLanguageElementStringKey(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_LANGUAGE_ELEMENT_STRING_KEY, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_LANGUAGE_ELEMENT_STRING_KEY, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_LANGUAGE_ELEMENT_STRING_KEY, type_);
     }
     public static ResultErrorStd getResultFightHelpBean(ContextEl _cont, ClassField _classField, Struct _instance) {

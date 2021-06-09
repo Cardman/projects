@@ -735,6 +735,27 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
 
     }
     @Test
+    public void calculateArgument35_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Integer[] b = {null};\n");
+        xml_.append("  Integer c = 2;\n");
+        xml_.append("  Integer d = b[0] ??= c;\n");
+        xml_.append("  return b[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
     public void calculateArgument36Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");
@@ -1338,6 +1359,35 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append(" public void this(int i) {\n");
         xml_.append("  v[i] = value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+
+    }
+    @Test
+    public void calculateArgument63_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  var v = new ExIndexer();\n");
+        xml_.append("  v.elt(0) ??= 2;\n");
+        xml_.append("  return v.val(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExIndexer {\n");
+        xml_.append(" public Integer[] v = new Integer[1];\n");
+        xml_.append(" public that Integer elt(int i) {\n");
+        xml_.append("  return that(v[i]);\n");
+        xml_.append(" }\n");
+        xml_.append(" public Integer val(int i) {\n");
+        xml_.append("  return v[i];\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

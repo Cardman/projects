@@ -3,15 +3,15 @@ import aiki.beans.LgIntStruct;
 import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
+import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
 import code.bean.nat.BeanNatLgNames;
@@ -144,18 +144,18 @@ public final class AikiBeansFightStd {
         buildTeamBean(_std);
     }
     private static void buildCommonFightBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_COMMON_FIGHT_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_COMMON_FIGHT_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_COMMON_FIGHT_BEAN, type_);
     }
     private static void buildFightBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -164,7 +164,7 @@ public final class AikiBeansFightStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_FIGHT_BEAN, fields_, constructors_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_FIGHT_BEAN, fields_, constructors_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(MULT,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(NB_ROUNDS,PokemonStandards.TYPE_LG_INT,false,false,type_));
         fields_.add(new StandardField(NB_FLEE_ATTEMPT,_std.getAliasPrimInteger(),false,false,type_));
@@ -182,7 +182,7 @@ public final class AikiBeansFightStd {
         _std.getStandards().addEntry(TYPE_FIGHT_BEAN, type_);
     }
     private static void buildFightCalculationBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -191,7 +191,7 @@ public final class AikiBeansFightStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_FIGHT_CALCULATION_BEAN, fields_, constructors_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_FIGHT_CALCULATION_BEAN, fields_, constructors_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(SORTED_FIGHTERS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(SORTED_FIGHTERS_WILD_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(DAMAGE, BeanNatLgNames.TYPE_LIST,false,false,type_));
@@ -236,7 +236,7 @@ public final class AikiBeansFightStd {
         _std.getStandards().addEntry(TYPE_FIGHT_CALCULATION_BEAN, type_);
     }
     private static void buildFighterBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -245,7 +245,7 @@ public final class AikiBeansFightStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_FIGHTER_BEAN, fields_, constructors_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_FIGHTER_BEAN, fields_, constructors_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(CHANGED,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(CURRENT_NAME,_std.getAliasString(),false,false,type_));
@@ -347,7 +347,7 @@ public final class AikiBeansFightStd {
         _std.getStandards().addEntry(TYPE_FIGHTER_BEAN, type_);
     }
     private static void buildTeamBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -356,7 +356,7 @@ public final class AikiBeansFightStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_TEAM_BEAN, fields_, constructors_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_TEAM_BEAN, fields_, constructors_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(FOE_TEAM,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(ENABLED_MOVES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(ENABLED_MOVES_BY_GROUP, BeanNatLgNames.TYPE_MAP,false,false,type_));

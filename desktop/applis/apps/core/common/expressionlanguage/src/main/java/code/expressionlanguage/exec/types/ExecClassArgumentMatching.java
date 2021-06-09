@@ -42,10 +42,11 @@ public final class ExecClassArgumentMatching {
     }
 
     public static Struct convert(Struct _arg, ContextEl _exec, StringList _className) {
-        if (StringUtil.equalsSet(_className,new StringList(_exec.getStandards().getContent().getNbAlias().getAliasNumber()))) {
+        String single_ = NumParsers.getSingleNameOrEmpty(_className);
+        if (StringUtil.quickEq(single_,_exec.getStandards().getContent().getNbAlias().getAliasNumber())) {
             return NumParsers.convertToNumber(_arg);
         }
-        byte cast_ = getPrimitiveWrapCast(NumParsers.getSingleNameOrEmpty(_className), _exec.getStandards());
+        byte cast_ = getPrimitiveWrapCast(single_, _exec.getStandards());
         if (cast_ == PrimitiveTypes.BOOL_WRAP) {
             return NumParsers.convertToBoolean(_arg);
         }
@@ -122,19 +123,6 @@ public final class ExecClassArgumentMatching {
         return NumParsers.convert(cast_);
     }
 
-
-    public String getSingleNameOrEmpty() {
-        return NumParsers.getSingleNameOrEmpty(className);
-    }
-
-    public boolean matchClass(String _class) {
-        StringList l_ = new StringList(_class);
-        return StringUtil.equalsSet(className, l_);
-    }
-
-    public StringList getNames() {
-        return className;
-    }
 
     public byte getUnwrapObjectNb() {
         return unwrapObjectNb;

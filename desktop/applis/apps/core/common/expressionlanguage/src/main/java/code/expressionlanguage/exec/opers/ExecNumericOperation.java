@@ -21,21 +21,23 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         opOffset = _opOffset;
     }
 
-    static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, StringList _cls, byte _cast, StackCall _stackCall) {
+    static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, byte _cast, StackCall _stackCall) {
         ResultErrorStd res_= new ResultErrorStd();
-        String op_ = _op.substring(0, _op.length() - 1);
-        if (StringUtil.quickEq(op_, "??") || StringUtil.quickEq(op_, "???")) {
-            Struct first_ = _left.getStruct();
-            if (first_ != NullStruct.NULL_VALUE) {
-                res_.setResult(ExecClassArgumentMatching.convertFormatted(first_,_conf, _cls, _stackCall));
-            } else {
-                res_.setResult(ExecClassArgumentMatching.convertFormatted(_right.getStruct(),_conf, _cls, _stackCall));
-            }
-            return new Argument(res_.getResult());
-        }
         calculateOperator(_conf, res_, _op, _left.getStruct(), _right.getStruct(), _cast, _stackCall);
         return new Argument(res_.getResult());
     }
+
+    static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, StringList _cls, StackCall _stackCall) {
+        Struct first_ = _left.getStruct();
+        Argument res_;
+        if (first_ != NullStruct.NULL_VALUE) {
+            res_=new Argument(ExecClassArgumentMatching.convertFormatted(first_, _conf, _cls, _stackCall));
+        } else {
+            res_=new Argument(ExecClassArgumentMatching.convertFormatted(_right.getStruct(), _conf, _cls, _stackCall));
+        }
+        return res_;
+    }
+
     public static Argument calculateIncrDecr(Argument _left, String _op, byte _cast) {
         Argument o_;
         if (StringUtil.quickEq(_op, INCR)) {
@@ -106,15 +108,27 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
             _res.setResult(NumParsers.calculateRotateRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
             return;
         }
-        if (StringUtil.quickEq(op_, "&&") || StringUtil.quickEq(op_, "&&&")) {
-            if (BooleanStruct.isFalse(_first)) {
-                _res.setResult(NumParsers.convertToBoolean(_first));
-                return;
-            }
-            _res.setResult(NumParsers.convertToBoolean(_second));
+        if (isAndLogic(op_)) {
+            andLogic(_res, _first, _second);
             return;
         }
+        orLogic(_res, _first, _second);
+    }
+
+    private static boolean isAndLogic(String _op) {
+        return StringUtil.quickEq(_op, "&&") || StringUtil.quickEq(_op, "&&&");
+    }
+
+    private static void orLogic(ResultErrorStd _res, Struct _first, Struct _second) {
         if (BooleanStruct.isTrue(_first)) {
+            _res.setResult(NumParsers.convertToBoolean(_first));
+            return;
+        }
+        _res.setResult(NumParsers.convertToBoolean(_second));
+    }
+
+    private static void andLogic(ResultErrorStd _res, Struct _first, Struct _second) {
+        if (BooleanStruct.isFalse(_first)) {
             _res.setResult(NumParsers.convertToBoolean(_first));
             return;
         }

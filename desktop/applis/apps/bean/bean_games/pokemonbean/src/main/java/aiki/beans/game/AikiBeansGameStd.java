@@ -3,15 +3,15 @@ import aiki.beans.LgIntStruct;
 import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
+import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -106,7 +106,7 @@ public final class AikiBeansGameStd {
         buildPokemonPlayerBean(_std);
     }
     private static void buildDifficultyBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -115,7 +115,7 @@ public final class AikiBeansGameStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_DIFFICULTY_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_DIFFICULTY_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(WIN_POINTS_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(ALLOW_CATCHING_KO,_std.getAliasPrimBoolean(),false,false,type_));
@@ -143,7 +143,7 @@ public final class AikiBeansGameStd {
         _std.getStandards().addEntry(TYPE_DIFFICULTY_BEAN, type_);
     }
     private static void buildGameProgressionBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -152,7 +152,7 @@ public final class AikiBeansGameStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_GAME_PROGRESSION_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_GAME_PROGRESSION_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(FINISHED_GAME,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.add(new StandardField(HERO_IMAGE,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(HERO_IMAGE_OPPOSITE_SEX,_std.getAliasString(),false,false,type_));
@@ -204,7 +204,7 @@ public final class AikiBeansGameStd {
         _std.getStandards().addEntry(TYPE_GAME_PROGRESSION_BEAN, type_);
     }
     private static void buildPokemonPlayerBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -213,7 +213,7 @@ public final class AikiBeansGameStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_POKEMON_PLAYER_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(IMAGE,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(EVOLUTIONS, BeanNatLgNames.TYPE_MAP,false,false,type_));

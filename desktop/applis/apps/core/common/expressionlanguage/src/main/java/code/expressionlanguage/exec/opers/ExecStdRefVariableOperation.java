@@ -5,13 +5,13 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExecStdRefVariableOperation extends ExecLeafOperation implements
         AtomicExecCalculableOperation,ExecSettableElResult {
@@ -60,12 +60,22 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
         Argument res_ = ExecCatOperation.localSumDiff(left_, _right, _conf);
         return trySetArgument(_conf, res_, _stack);
     }
+
     @Override
-    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
+    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StringList _cl, StackCall _stack) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, _cl.getNames(), _cast, _stack);
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _cl, _stack);
+        return trySetArgument(_conf, res_, _stack);
+    }
+
+    @Override
+    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, byte _cast, StackCall _stack) {
+        Argument a_ = getArgument(_nodes,this);
+        Struct store_ = a_.getStruct();
+        Argument left_ = new Argument(store_);
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, _cast, _stack);
         return trySetArgument(_conf, res_, _stack);
     }
 

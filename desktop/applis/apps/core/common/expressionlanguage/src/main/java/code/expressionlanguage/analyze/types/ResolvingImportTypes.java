@@ -10,7 +10,7 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.StandardField;
+import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
@@ -394,7 +394,7 @@ public final class ResolvingImportTypes {
         for (String s: _typesLoc) {
             AnaGeneType super_ = _page.getAnaGeneType(s);
             if (super_ instanceof StandardType) {
-                for (StandardField m: ((StandardType)super_).getFields()) {
+                for (CstFieldInfo m: StandardClass.getCstFields((StandardType) super_)) {
                     if (!StringUtil.quickEq(m.getFieldName(), _method.trim())) {
                         continue;
                     }

@@ -1,14 +1,13 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.common.AccessEnum;
-import code.util.BooleanList;
+import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.util.CustList;
 import code.util.StringList;
 
 public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements ExecAnnotableParamBlock {
 
-    private final CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+    private final CustList<ExecAnnotContent> annotationsOps = new CustList<ExecAnnotContent>();
 
     private final String name;
 
@@ -23,7 +22,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private final boolean retRef;
     private final boolean varargs;
-    private final CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
+    private final CustList<CustList<ExecAnnotContent>> annotationsOpsParams = new CustList<CustList<ExecAnnotContent>>();
 
     ExecNamedFunctionBlock(boolean _retRef, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, CustList<Boolean> _parametersRef) {
         super(_offsetTrim);
@@ -36,7 +35,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         parametersRef = _parametersRef;
     }
 
-    public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
+    public CustList<CustList<ExecAnnotContent>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
     }
 
@@ -72,7 +71,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         return importedReturnType;
     }
     @Override
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
+    public CustList<ExecAnnotContent> getAnnotationsOps() {
         return annotationsOps;
     }
 

@@ -9,13 +9,17 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExecDefaultOperation extends ExecAbstractUnaryOperation {
 
     private final int offset;
-    public ExecDefaultOperation(ExecOperationContent _opCont, int _offset) {
+    private final StringList names;
+
+    public ExecDefaultOperation(ExecOperationContent _opCont, int _offset, StringList _names) {
         super(_opCont);
         offset = _offset;
+        names = _names;
     }
 
     @Override
@@ -23,7 +27,7 @@ public final class ExecDefaultOperation extends ExecAbstractUnaryOperation {
                           ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         setRelOffsetPossibleLastPage(offset, _stack);
-        Argument argres_ = new Argument(ExecClassArgumentMatching.convertFormattedWide(ExecHelper.getFirstArgument(arguments_).getStruct(), _conf, getResultClass().getNames(), _stack));
+        Argument argres_ = new Argument(ExecClassArgumentMatching.convertFormattedWide(ExecHelper.getFirstArgument(arguments_).getStruct(), _conf, names, _stack));
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }
 

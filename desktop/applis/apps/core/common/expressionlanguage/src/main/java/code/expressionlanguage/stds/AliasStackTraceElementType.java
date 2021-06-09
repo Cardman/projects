@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.MetaInfoUtil;
@@ -22,7 +23,7 @@ public final class AliasStackTraceElementType {
     private String aliasCurrentFullStack;
 
     public void build(LgNames _stds) {
-        CustList<StandardField> fields_;
+        CustList<CstFieldInfo> fields_;
         StringList params_;
         StandardMethod method_;
         CustList<StandardConstructor> constructors_;
@@ -30,7 +31,7 @@ public final class AliasStackTraceElementType {
         StandardClass stdcl_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
         String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
         stdcl_ = new StandardClass(aliasStackTraceElement, fields_, constructors_, methods_, aliasObject_ , StdClassModifier.ABSTRACT);

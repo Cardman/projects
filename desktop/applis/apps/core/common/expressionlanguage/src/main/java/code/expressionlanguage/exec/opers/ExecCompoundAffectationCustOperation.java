@@ -10,6 +10,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExecCompoundAffectationCustOperation extends ExecCompoundAffectationOperation {
 
@@ -18,8 +19,8 @@ public final class ExecCompoundAffectationCustOperation extends ExecCompoundAffe
     private final ExecTypeFunction pair;
 
 
-    public ExecCompoundAffectationCustOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter) {
-        super(_opCont, _operatorContent, _converter);
+    public ExecCompoundAffectationCustOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, StringList _names) {
+        super(_opCont, _operatorContent, _converter, _names);
         pair = _pair;
         staticEltContent = _staticEltContent;
         formattedType = _staticEltContent.getFormattedType();

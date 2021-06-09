@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.IdMap;
+import code.util.StringList;
 
 public interface ExecSettableElResult {
 
@@ -18,7 +19,11 @@ public interface ExecSettableElResult {
 
     Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack);
+            Argument _right, StringList _cl, StackCall _stack);
+
+    Argument calculateCompoundSetting(
+            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
+            String _op, Argument _right, byte _cast, StackCall _stack);
 
     Argument calculateSemiSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,

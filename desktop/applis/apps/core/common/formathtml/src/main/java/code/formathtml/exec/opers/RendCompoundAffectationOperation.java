@@ -7,11 +7,11 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public abstract class RendCompoundAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
@@ -20,11 +20,12 @@ public abstract class RendCompoundAffectationOperation extends RendMethodOperati
     private RendMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converter;
-
-    protected RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converter) {
+    private final StringList names;
+    protected RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names) {
         super(_content);
         operatorContent = _operatorContent;
         converter = _converter;
+        names = _names;
     }
 
     public void setup() {
@@ -38,7 +39,7 @@ public abstract class RendCompoundAffectationOperation extends RendMethodOperati
             RendDynOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, getResultClass().getNames()));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, names));
                 setQuickConvertSimpleArgument(leftArg_, _nodes, _context, _rendStack);
                 return;
             }
@@ -85,6 +86,10 @@ public abstract class RendCompoundAffectationOperation extends RendMethodOperati
 
     protected ImplicitMethods getConverter() {
         return converter;
+    }
+
+    protected StringList getNames() {
+        return names;
     }
 
     public String getOper() {

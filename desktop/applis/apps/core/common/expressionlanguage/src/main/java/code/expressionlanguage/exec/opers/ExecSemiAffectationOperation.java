@@ -11,17 +11,20 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
+import code.util.StringList;
 
 public abstract class ExecSemiAffectationOperation extends ExecAbstractUnaryOperation implements CallExecSimpleOperation {
     private final boolean post;
+    private final StringList names;
     private ExecOperationNode settable;
     private ExecMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
 
-    protected ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, boolean _post) {
+    protected ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, boolean _post, StringList _names) {
         super(_opCont);
         operatorContent = _operatorContent;
         post = _post;
+        names = _names;
     }
 
     public void setup() {
@@ -41,7 +44,7 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractUnaryOper
                 pairBefore_.setIndexImplicitSemiFrom(-1);
                 pairBefore_.setIndexImplicitSemiTo(-1);
                 pairBefore_.setCalledIndexer(true);
-                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, getResultClass().getNames(), _stack));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, names, _stack));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes, _stack);
                 return;
             }

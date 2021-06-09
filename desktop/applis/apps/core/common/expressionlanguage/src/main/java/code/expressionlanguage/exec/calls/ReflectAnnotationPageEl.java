@@ -5,17 +5,17 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.Ints;
+import code.util.StringList;
+import code.util.core.StringUtil;
 
 public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private boolean retrievedAnnot;
@@ -23,8 +23,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private int indexAnnotationParam;
     private boolean onParameters;
     private ArrayStruct array;
-    private CustList<CustList<ExecOperationNode>> annotations = new CustList<CustList<ExecOperationNode>>();
-    private CustList<CustList<CustList<ExecOperationNode>>> annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
+    private CustList<ExecAnnotContent> annotations = new CustList<ExecAnnotContent>();
+    private CustList<CustList<ExecAnnotContent>> annotationsParams = new CustList<CustList<ExecAnnotContent>>();
     private final Ints annotationsIndexes = new Ints();
     private final CustList<Ints> annotationsParamsIndexes = new CustList<Ints>();
     private final AnnotatedStruct annotated;
@@ -51,7 +51,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 if (annotated instanceof AnnotatedParamStruct){
                     annotationsParams = ((AnnotatedParamStruct)annotated).getAnnotationsOpsParams();
                 } else {
-                    annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
+                    annotationsParams = new CustList<CustList<ExecAnnotContent>>();
                 }
             } else {
                 annotations = annotated.getAnnotationsOps();
@@ -65,9 +65,9 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             }
             if (!cl_.isEmpty()) {
                 if (onParameters) {
-                    CustList<CustList<CustList<ExecOperationNode>>> filters_ = new CustList<CustList<CustList<ExecOperationNode>>>();
-                    for (CustList<CustList<ExecOperationNode>> a: annotationsParams) {
-                        CustList<CustList<ExecOperationNode>> filter_ = new CustList<CustList<ExecOperationNode>>();
+                    CustList<CustList<ExecAnnotContent>> filters_ = new CustList<CustList<ExecAnnotContent>>();
+                    for (CustList<ExecAnnotContent> a: annotationsParams) {
+                        CustList<ExecAnnotContent> filter_ = new CustList<ExecAnnotContent>();
                         Ints indexes_ = new Ints();
                         filter(cl_, a, filter_, indexes_);
                         annotationsParamsIndexes.add(indexes_);
@@ -75,13 +75,13 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     }
                     annotationsParams = filters_;
                 } else {
-                    CustList<CustList<ExecOperationNode>> filter_ = new CustList<CustList<ExecOperationNode>>();
+                    CustList<ExecAnnotContent> filter_ = new CustList<ExecAnnotContent>();
                     filter(cl_, annotations, filter_, annotationsIndexes);
                     annotations = filter_;
                 }
             } else {
                 if (onParameters) {
-                    for (CustList<CustList<ExecOperationNode>> a: annotationsParams) {
+                    for (CustList<ExecAnnotContent> a: annotationsParams) {
                         int s_ = a.size();
                         Ints indexes_ = new Ints(new CollCapacity(s_));
                         feedIndexes(s_, indexes_);
@@ -99,7 +99,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 String annotArr_ = StringExpUtil.getPrettyArrayType(annot_);
                 array = new ArrayStruct(len_, annotArr_);
                 int i_ = 0;
-                for (CustList<CustList<ExecOperationNode>> e: annotationsParams) {
+                for (CustList<ExecAnnotContent> e: annotationsParams) {
                     ArrayStruct loc_;
                     loc_ = new ArrayStruct(e.size(), annot_);
                     array.set(i_, loc_);
@@ -119,8 +119,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 Struct loc_ = array.get(i);
                 int lenLoc_ = annotationsParams.get(i).size();
                 for (int j = indexAnnotation; j < lenLoc_; j++) {
-                    CustList<ExecOperationNode> ops_ = annotationsParams.get(i).get(j);
-                    ExpressionLanguage el_ = getCurrentEl(0,ops_);
+                    ExecAnnotContent ops_ = annotationsParams.get(i).get(j);
+                    ExpressionLanguage el_ = getCurrentEl(0,ops_.getOperations());
                     Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0, _stack);
                     if (_context.callsOrException(_stack)) {
                         return false;
@@ -135,8 +135,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         } else {
             int len_ = annotations.size();
             for (int i = indexAnnotation; i < len_; i++) {
-                CustList<ExecOperationNode> ops_ = annotations.get(i);
-                ExpressionLanguage el_ = getCurrentEl(0,ops_);
+                ExecAnnotContent ops_ = annotations.get(i);
+                ExpressionLanguage el_ = getCurrentEl(0,ops_.getOperations());
                 Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0, _stack);
                 if (_context.callsOrException(_stack)) {
                     return false;
@@ -158,11 +158,10 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         }
     }
 
-    private static void filter(String _cl, CustList<CustList<ExecOperationNode>> _annotations, CustList<CustList<ExecOperationNode>> _filter, Ints _indexes) {
+    private static void filter(String _cl, CustList<ExecAnnotContent> _annotations, CustList<ExecAnnotContent> _filter, Ints _indexes) {
         int i_ = 0;
-        for (CustList<ExecOperationNode> b: _annotations) {
-            ExecClassArgumentMatching arg_ = b.last().getResultClass();
-            if (arg_.matchClass(_cl)) {
+        for (ExecAnnotContent b: _annotations) {
+            if (StringUtil.equalsSet(b.getTypes(),new StringList(_cl))) {
                 _filter.add(b);
                 _indexes.add(i_);
             }

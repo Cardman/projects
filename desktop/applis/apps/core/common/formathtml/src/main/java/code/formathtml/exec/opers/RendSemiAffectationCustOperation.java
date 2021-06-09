@@ -11,14 +11,15 @@ import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
+import code.util.StringList;
 
 public class RendSemiAffectationCustOperation extends RendSemiAffectationOperation {
     private final ExecTypeFunction pair;
     private final ExecFormattedRootBlock formattedType;
     private final ExecStaticPostEltContent staticPostEltContent;
 
-    public RendSemiAffectationCustOperation(ExecOperationContent _content, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ExecTypeFunction _pair) {
-        super(_content, _operatorContent, _staticPostEltContent.isPost());
+    public RendSemiAffectationCustOperation(ExecOperationContent _content, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ExecTypeFunction _pair, StringList _names) {
+        super(_content, _operatorContent, _staticPostEltContent.isPost(),_names);
         pair = _pair;
         staticPostEltContent = _staticPostEltContent;
         formattedType = _staticPostEltContent.getFormattedType();

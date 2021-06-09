@@ -12,6 +12,7 @@ public final class ExecLambdaCommonContent {
     private final boolean shiftArgument;
     private final int ancestor;
     private final ExecFormattedRootBlock formattedType;
+    private final String result;
 
     public ExecLambdaCommonContent(AnaLambdaCommonContent _cont, Forwards _fwd) {
         intermediate = _cont.isIntermediate();
@@ -21,6 +22,7 @@ public final class ExecLambdaCommonContent {
         shiftArgument = _cont.isShiftArgument();
         ancestor = _cont.getAncestor();
         formattedType = ExecStaticEltContent.build(_fwd,_cont.getFoundFormatted());
+        result = _cont.getResult();
     }
 
     public boolean isIntermediate() {
@@ -49,5 +51,9 @@ public final class ExecLambdaCommonContent {
 
     public int getAncestor() {
         return ancestor;
+    }
+
+    public String getResult() {
+        return result;
     }
 }

@@ -1,9 +1,9 @@
 package aiki.beans.facade.simulation.enums;
 import aiki.beans.PokemonStandards;
+import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 
@@ -15,14 +15,14 @@ public final class AikiBeansFacadeSimulationEnumsStd {
         buildSimulationSteps(_std);
     }
     private static void buildSimulationSteps(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_SIMULATION_STEPS, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_SIMULATION_STEPS, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().addEntry(TYPE_SIMULATION_STEPS, type_);
     }
 }

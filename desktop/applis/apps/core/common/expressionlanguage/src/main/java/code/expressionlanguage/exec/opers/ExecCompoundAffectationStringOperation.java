@@ -8,12 +8,13 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExecCompoundAffectationStringOperation extends ExecCompoundAffectationOperation {
 
 
-    public ExecCompoundAffectationStringOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent) {
-        super(_opCont, _operatorContent, null);
+    public ExecCompoundAffectationStringOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, StringList _names) {
+        super(_opCont, _operatorContent, null, _names);
     }
 
 

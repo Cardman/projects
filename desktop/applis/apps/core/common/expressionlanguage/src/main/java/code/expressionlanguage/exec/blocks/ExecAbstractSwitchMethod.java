@@ -4,19 +4,19 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.exec.util.CacheInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
 import code.util.CustList;
 import code.util.StringList;
 
 public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock implements ExecReturnableWithSignature,ExecAnnotableParamBlock,WithCache {
 
-    private final CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+    private final CustList<ExecAnnotContent> annotationsOps = new CustList<ExecAnnotContent>();
 
     private final String name;
 
@@ -25,7 +25,7 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
     private final boolean retRef;
 
     private final MethodAccessKind kind;
-    private final CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
+    private final CustList<CustList<ExecAnnotContent>> annotationsOpsParams = new CustList<CustList<ExecAnnotContent>>();
     private final String retType;
     private final ExecAnonFctContent anonFctContent;
     protected ExecAbstractSwitchMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType, ExecAnonFctContent _anonFctContent) {
@@ -91,12 +91,12 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
         return anonFctContent.getCacheInfo();
     }
     @Override
-    public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
+    public CustList<CustList<ExecAnnotContent>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
     }
 
     @Override
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
+    public CustList<ExecAnnotContent> getAnnotationsOps() {
         return annotationsOps;
     }
 }

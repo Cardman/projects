@@ -20,7 +20,7 @@ public final class RendConstructorLambdaOperation extends RendAbstractLambdaOper
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
-        String clArg_ = getResultClass().getSingleNameOrEmpty();
+        String clArg_ = formatVarTypeRes();
         ExecFormattedRootBlock ownerType_ = getFoundClass();
         Argument res_ = new Argument(ExecConstructorLambdaOperation.newLambda(getLambdaCommonContent(),previous_, ownerType_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _rendStack);

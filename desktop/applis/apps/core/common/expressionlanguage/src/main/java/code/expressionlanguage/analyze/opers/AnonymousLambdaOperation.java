@@ -316,6 +316,7 @@ public final class AnonymousLambdaOperation extends
         MethodId id_ = MethodId.to(idC_.getKind(),params_,idC_);
         method = idC_;
         String fct_ = formatReturn(_page, importedReturnType_, found_, idC_, id_);
+        lambdaCommonContent.setResult(fct_);
         setResultClass(new AnaClassArgumentMatching(fct_));
         _page.setOffset(offset_);
         _page.setGlobalOffset(globalOffset_);

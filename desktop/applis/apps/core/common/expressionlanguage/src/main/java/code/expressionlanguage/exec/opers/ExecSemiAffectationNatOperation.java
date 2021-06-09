@@ -11,13 +11,14 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOperation {
     private final ImplicitMethods converterFrom;
     private final ImplicitMethods converterTo;
 
-    public ExecSemiAffectationNatOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converterFrom, ImplicitMethods _converterTo, boolean _post) {
-        super(_opCont, _operatorContent, _post);
+    public ExecSemiAffectationNatOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converterFrom, ImplicitMethods _converterTo, boolean _post, StringList _names) {
+        super(_opCont, _operatorContent, _post,_names);
         converterFrom = _converterFrom;
         converterTo = _converterTo;
     }

@@ -2,11 +2,11 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.exec.util.ClassMethodIdOverrides;
+import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.*;
@@ -20,7 +20,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType 
 
     private final StringList staticInitImportedInterfaces = new StringList();
 
-    private final CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+    private final CustList<ExecAnnotContent> annotationsOps = new CustList<ExecAnnotContent>();
     private final CustList<ExecFormattedRootBlock> allGenericSuperTypes = new CustList<ExecFormattedRootBlock>();
     private final CustList<ExecFunctionalInfo> functionalBodies = new CustList<ExecFunctionalInfo>();
     private ExecRootBlock uniqueType;
@@ -105,7 +105,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType 
         return rootBlockContent.getSelfAndParentTypes();
     }
 
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
+    public CustList<ExecAnnotContent> getAnnotationsOps() {
         return annotationsOps;
     }
 

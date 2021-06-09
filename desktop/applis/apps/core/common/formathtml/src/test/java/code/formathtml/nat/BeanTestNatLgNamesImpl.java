@@ -1,11 +1,12 @@
 package code.formathtml.nat;
 
 import code.bean.Bean;
+import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -131,8 +132,8 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         methods_ = new CustList<StandardMethod>();
         StandardMethod method_;
         StringList params_;
-        StandardClass cl_;
-        cl_ = new StandardClass(TYPE_BEAN_ONE, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
+        SpecialNatClass cl_;
+        cl_ = new SpecialNatClass(TYPE_BEAN_ONE, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         params_ = new StringList();
         method_ = new StandardMethod(STRINGS,params_, TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
@@ -152,7 +153,7 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<StandardMethod>();
-        cl_ = new StandardClass(TYPE_INPUT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        cl_ = new SpecialNatClass(TYPE_INPUT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
         method_ = new StandardMethod(TYPED_STRING,params_, getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);

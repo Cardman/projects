@@ -1,15 +1,15 @@
 package aiki.beans.pokemon.evolutions;
 import aiki.beans.*;
 import aiki.beans.PokemonStandards;
+import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -60,7 +60,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         buildEvolutionTeamBean(_std);
     }
     private static void buildEvolutionBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -69,7 +69,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_EVOLUTION_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_EVOLUTION_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(BASE,_std.getAliasString(),false,false,type_));
@@ -81,19 +81,19 @@ public final class AikiBeansPokemonEvolutionsStd {
         _std.getStandards().addEntry(TYPE_EVOLUTION_BEAN, type_);
     }
     private static void buildEvolutionHappinessBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_EVOLUTION_HAPPINESS_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_EVOLUTION_HAPPINESS_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(MIN,_std.getAliasPrimLong(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EVOLUTION_HAPPINESS_BEAN, type_);
     }
     private static void buildEvolutionItemBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -102,7 +102,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_EVOLUTION_ITEM_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_EVOLUTION_ITEM_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(ITEM,_std.getAliasString(),false,false,type_));
         params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -110,31 +110,31 @@ public final class AikiBeansPokemonEvolutionsStd {
         _std.getStandards().addEntry(TYPE_EVOLUTION_ITEM_BEAN, type_);
     }
     private static void buildEvolutionLevelBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_EVOLUTION_LEVEL_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_EVOLUTION_LEVEL_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(LEVEL,_std.getAliasPrimInteger(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EVOLUTION_LEVEL_BEAN, type_);
     }
     private static void buildEvolutionLevelGenderBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_LEVEL_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_LEVEL_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, type_);
     }
     private static void buildEvolutionMoveBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -143,7 +143,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_EVOLUTION_MOVE_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_EVOLUTION_MOVE_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(MOVE,_std.getAliasString(),false,false,type_));
         params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -151,19 +151,19 @@ public final class AikiBeansPokemonEvolutionsStd {
         _std.getStandards().addEntry(TYPE_EVOLUTION_MOVE_BEAN, type_);
     }
     private static void buildEvolutionMoveTypeBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_EVOLUTION_MOVE_TYPE_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_EVOLUTION_MOVE_TYPE_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(TYPE,_std.getAliasString(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EVOLUTION_MOVE_TYPE_BEAN, type_);
     }
     private static void buildEvolutionStoneBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -172,7 +172,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_EVOLUTION_STONE_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_EVOLUTION_STONE_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(STONE,_std.getAliasString(),false,false,type_));
         params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_STONE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -180,19 +180,19 @@ public final class AikiBeansPokemonEvolutionsStd {
         _std.getStandards().addEntry(TYPE_EVOLUTION_STONE_BEAN, type_);
     }
     private static void buildEvolutionStoneGenderBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_EVOLUTION_STONE_GENDER_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_STONE_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_EVOLUTION_STONE_GENDER_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_STONE_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false,type_));
         _std.getStandards().addEntry(TYPE_EVOLUTION_STONE_GENDER_BEAN, type_);
     }
     private static void buildEvolutionTeamBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -201,7 +201,7 @@ public final class AikiBeansPokemonEvolutionsStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_EVOLUTION_TEAM_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_EVOLUTION_TEAM_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(OTHER,_std.getAliasString(),false,false,type_));
         params_ = new StringList(_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_TEAM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);

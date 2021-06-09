@@ -10,12 +10,16 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class RendParentInstanceOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
     private final ExecParentInstanceContent parentInstanceContent;
-    public RendParentInstanceOperation(ExecOperationContent _content, ExecParentInstanceContent _parentInstanceContent) {
+    private final StringList names;
+
+    public RendParentInstanceOperation(ExecOperationContent _content, ExecParentInstanceContent _parentInstanceContent,StringList _names) {
         super(_content);
         parentInstanceContent = _parentInstanceContent;
+        names = _names;
     }
 
     @Override
@@ -23,7 +27,7 @@ public final class RendParentInstanceOperation extends RendLeafOperation impleme
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ parentInstanceContent.getOff(), _rendStack);
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         Struct struct_ = previous_.getStruct();
-        Argument arg_ = new Argument(ExecClassArgumentMatching.convert(struct_.getParent(), _context, getResultClass().getNames()));
+        Argument arg_ = new Argument(ExecClassArgumentMatching.convert(struct_.getParent(), _context, names));
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 

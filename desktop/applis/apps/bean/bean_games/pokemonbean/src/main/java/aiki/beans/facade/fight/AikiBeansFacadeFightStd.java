@@ -1,13 +1,13 @@
 package aiki.beans.facade.fight;
 import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
+import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -49,7 +49,7 @@ public final class AikiBeansFacadeFightStd {
         buildSufferedDamageCategory(_std);
     }
     private static void buildKeyHypothesis(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -58,7 +58,7 @@ public final class AikiBeansFacadeFightStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_KEY_HYPOTHESIS, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_KEY_HYPOTHESIS, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         type_.getDirectInterfaces().add(BeanNatLgNames.TYPE_DISPLAYABLE);
         params_ = new StringList();
         method_ = new StandardMethod(GET_PLAYER_POKEMON,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -81,7 +81,7 @@ public final class AikiBeansFacadeFightStd {
         _std.getStandards().addEntry(TYPE_KEY_HYPOTHESIS, type_);
     }
     private static void buildMultPowerMoves(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -90,7 +90,7 @@ public final class AikiBeansFacadeFightStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_MULT_POWER_MOVES, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_MULT_POWER_MOVES, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         params_ = new StringList();
         method_ = new StandardMethod(GET_MULT_INFLICTED,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
@@ -100,7 +100,7 @@ public final class AikiBeansFacadeFightStd {
         _std.getStandards().addEntry(TYPE_MULT_POWER_MOVES, type_);
     }
     private static void buildStatisticInfo(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -109,7 +109,7 @@ public final class AikiBeansFacadeFightStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_STATISTIC_INFO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_STATISTIC_INFO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         params_ = new StringList();
         method_ = new StandardMethod(GET_DISPLAY_STATISTIC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
@@ -134,7 +134,7 @@ public final class AikiBeansFacadeFightStd {
         _std.getStandards().addEntry(TYPE_STATISTIC_INFO, type_);
     }
     private static void buildSufferedDamageCategory(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -143,7 +143,7 @@ public final class AikiBeansFacadeFightStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_SUFFERED_DAMAGE_CATEGORY, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_SUFFERED_DAMAGE_CATEGORY, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         params_ = new StringList();
         method_ = new StandardMethod(GET_ROUND,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);

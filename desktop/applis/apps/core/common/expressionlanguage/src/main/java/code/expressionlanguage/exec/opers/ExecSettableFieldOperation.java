@@ -10,8 +10,8 @@ import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExecSettableFieldOperation extends
         ExecAbstractFieldOperation implements ExecSettableElResult {
@@ -77,16 +77,25 @@ public final class ExecSettableFieldOperation extends
         Argument res_ = ExecCatOperation.localSumDiff(left_, _right, _conf);
         return getCommonSetting(_conf,_nodes,res_,_stack);
     }
+
     @Override
-    public Argument calculateCompoundSetting(
-            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
+    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, byte _cast, StackCall _stack) {
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, _cl.getNames(), _cast, _stack);
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, _cast, _stack);
         return getCommonSetting(_conf,_nodes,res_,_stack);
     }
+
+    @Override
+    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StringList _cl, StackCall _stack) {
+        Argument current_ = getArgument(_nodes,this);
+        Struct store_ = current_.getStruct();
+        Argument left_ = new Argument(store_);
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _cl, _stack);
+        return getCommonSetting(_conf,_nodes,res_,_stack);
+    }
+
     @Override
     public Argument calculateSemiSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,

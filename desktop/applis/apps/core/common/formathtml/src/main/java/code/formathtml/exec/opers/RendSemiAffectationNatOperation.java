@@ -11,13 +11,14 @@ import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class RendSemiAffectationNatOperation extends RendSemiAffectationOperation {
     private final ImplicitMethods converterFrom;
     private final ImplicitMethods converterTo;
 
-    public RendSemiAffectationNatOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converterFrom, ImplicitMethods _converterTo, boolean _post) {
-        super(_content, _operatorContent, _post);
+    public RendSemiAffectationNatOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converterFrom, ImplicitMethods _converterTo, boolean _post, StringList _names) {
+        super(_content, _operatorContent, _post,_names);
         converterFrom = _converterFrom;
         converterTo = _converterTo;
     }

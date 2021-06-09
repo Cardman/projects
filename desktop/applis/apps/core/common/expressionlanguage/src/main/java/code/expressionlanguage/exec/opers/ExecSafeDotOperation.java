@@ -8,11 +8,15 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExecSafeDotOperation extends ExecAbstractDotOperation {
 
-    public ExecSafeDotOperation(ExecOperationContent _opCont) {
+    private final StringList names;
+
+    public ExecSafeDotOperation(ExecOperationContent _opCont,StringList _names) {
         super(_opCont);
+        names = _names;
     }
 
 
@@ -22,7 +26,7 @@ public final class ExecSafeDotOperation extends ExecAbstractDotOperation {
         ExecOperationNode l_ = ExecHelper.getLastNode(this);
         Argument a_ = getArgument(_nodes,o_);
         if (a_.isNull()&&!(l_ instanceof ExecAbstractLambdaOperation)) {
-            a_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, getResultClass().getNames(), _stack));
+            a_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, names, _stack));
             setQuickConvertSimpleArgument(a_, _conf, _nodes,_stack);
             return;
         }

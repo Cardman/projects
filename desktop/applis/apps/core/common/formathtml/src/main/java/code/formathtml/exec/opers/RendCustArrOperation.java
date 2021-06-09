@@ -13,11 +13,11 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunctionPair;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class RendCustArrOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult {
 
@@ -61,12 +61,22 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         Argument res_ = ExecCatOperation.localSumDiff(left_, _right, _context);
         return processCalling(_nodes, res_, _context, _rendStack);
     }
+
     @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, ExecClassArgumentMatching _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, byte _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, _cl.getNames(), _cl.getUnwrapObjectNb(), _context, _rendStack);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, _cl, _context, _rendStack);
+        return processCalling(_nodes, res_, _context, _rendStack);
+    }
+
+    @Override
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, StringList _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        Argument a_ = getArgument(_nodes,this);
+        Struct store_ = a_.getStruct();
+        Argument left_ = new Argument(store_);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context);
         return processCalling(_nodes, res_, _context, _rendStack);
     }
 

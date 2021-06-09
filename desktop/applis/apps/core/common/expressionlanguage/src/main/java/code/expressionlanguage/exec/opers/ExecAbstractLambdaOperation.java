@@ -10,10 +10,12 @@ import code.expressionlanguage.structs.CallersInfo;
 public abstract class ExecAbstractLambdaOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
 
     private final ExecLambdaCommonContent lambdaCommonContent;
+    private final String result;
 
     protected ExecAbstractLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont) {
         super(_opCont);
         lambdaCommonContent = _lamCont;
+        result = _lamCont.getResult();
     }
 
     @Override
@@ -34,7 +36,7 @@ public abstract class ExecAbstractLambdaOperation extends ExecLeafOperation impl
     }
 
     public String formatVarTypeRes(StackCall _stack) {
-        return _stack.formatVarType(getResultClass().getSingleNameOrEmpty());
+        return _stack.formatVarType(result);
     }
 
     public ExecFormattedRootBlock formatVarType(StackCall _stack) {

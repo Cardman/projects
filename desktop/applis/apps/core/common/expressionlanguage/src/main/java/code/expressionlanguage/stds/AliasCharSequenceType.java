@@ -2,6 +2,7 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringDataUtil;
 import code.expressionlanguage.common.StringExpUtil;
@@ -1308,7 +1309,7 @@ public final class AliasCharSequenceType {
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_;
-        CustList<StandardField> fields_;
+        CustList<CstFieldInfo> fields_;
         StandardMethod method_;
         StandardConstructor ctor_;
         StandardType std_;
@@ -1423,7 +1424,7 @@ public final class AliasCharSequenceType {
         standards_.addEntry(aliasCharSequence, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasString, fields_, constructors_, methods_, aliasObject_, MethodModifier.FINAL);
         params_ = new StringList(aliasString);
         method_ = new StandardMethod(aliasEqualsIgnoreCase, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasString0EqualsIgnoreCase0()));

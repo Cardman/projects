@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.fwd.blocks.AnaFieldContent;
+import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.blocks.ExecFieldContent;
 import code.util.CustList;
 import code.util.StringList;
@@ -21,7 +22,7 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
     private final ExecFieldContent fieldContent;
 
     private CustList<ExecOperationNode> opValue;
-    private final CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+    private final CustList<ExecAnnotContent> annotationsOps = new CustList<ExecAnnotContent>();
     private final CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     private final CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
     private final CustList<ExecAbstractSwitchMethod> switchMethods = new CustList<ExecAbstractSwitchMethod>();
@@ -64,7 +65,7 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
     }
 
     @Override
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
+    public CustList<ExecAnnotContent> getAnnotationsOps() {
         return annotationsOps;
     }
 

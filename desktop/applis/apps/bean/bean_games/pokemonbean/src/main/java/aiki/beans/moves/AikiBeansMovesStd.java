@@ -3,6 +3,7 @@ import aiki.beans.*;
 import aiki.beans.MvLineStruct;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
+import code.bean.nat.SpecialNatClass;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -10,9 +11,8 @@ import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardField;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
 import code.bean.nat.BeanNatLgNames;
@@ -137,7 +137,7 @@ public final class AikiBeansMovesStd {
         buildMovesBean(_std);
     }
     private static void buildMoveBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -146,7 +146,7 @@ public final class AikiBeansMovesStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_MOVE_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_MOVE_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(BOOSTED_TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.add(new StandardField(HAS_DEFAULT_TYPES,_std.getAliasPrimBoolean(),false,false,type_));
@@ -352,7 +352,7 @@ public final class AikiBeansMovesStd {
         _std.getStandards().addEntry(TYPE_MOVE_BEAN, type_);
     }
     private static void buildMoveLineBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -361,7 +361,7 @@ public final class AikiBeansMovesStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_MOVE_LINE_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_MOVE_LINE_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(PP,_std.getAliasPrimInteger(),false,false,type_));
@@ -378,7 +378,7 @@ public final class AikiBeansMovesStd {
         _std.getStandards().addEntry(TYPE_MOVE_LINE_BEAN, type_);
     }
     private static void buildMovesBean(PokemonStandards _std) {
-        StandardClass type_;
+        SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
@@ -387,7 +387,7 @@ public final class AikiBeansMovesStd {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new StandardClass(TYPE_MOVES_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_MOVES_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         fields_.add(new StandardField(TYPED_NAME,_std.getAliasString(),false,false,type_));
         fields_.add(new StandardField(CATEGORIES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.add(new StandardField(CATEGORY,_std.getAliasString(),false,false,type_));

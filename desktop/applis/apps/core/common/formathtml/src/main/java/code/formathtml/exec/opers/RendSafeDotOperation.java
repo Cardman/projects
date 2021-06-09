@@ -8,11 +8,15 @@ import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class RendSafeDotOperation extends RendAbstractDotOperation {
 
-    public RendSafeDotOperation(ExecOperationContent _d) {
+    private final StringList names;
+
+    public RendSafeDotOperation(ExecOperationContent _d,StringList _names) {
         super(_d);
+        names = _names;
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
@@ -20,7 +24,7 @@ public final class RendSafeDotOperation extends RendAbstractDotOperation {
         RendDynOperationNode l_ = getLastNode(this);
         Argument a_ = getArgument(_nodes,o_);
         if (a_.isNull()&&!(l_ instanceof RendAbstractLambdaOperation)) {
-            a_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, getResultClass().getNames()));
+            a_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, names));
             setQuickConvertSimpleArgument(a_, _nodes, _context, _rendStack);
             return;
         }

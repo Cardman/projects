@@ -481,9 +481,7 @@ public final class Coverage {
                 indexAnnot_ = annotRet_.getAnnotationsIndexes().get(indexAnnotation_);
             }
         }
-        ExecRootBlock type_ = matchType(lastPage_);
-        RootBlock typeAna_ = mappingTypes.getVal(type_);
-        AbsBk matchBl_ = matchBl(typeAna_,lastPage_);
+        AbsBk matchBl_ = matchBl(lastPage_);
         BlockCoverageResult blRes_ = getResultBlock(matchBl_, indexAnnotGroup_, indexAnnot_);
         OperationNode ana_ = blRes_.getMapping().getVal(_exec);
         CustList<AbstractCoverageResult> instr_ = blRes_.getCovers();
@@ -498,6 +496,12 @@ public final class Coverage {
             Struct valueStruct_ = getValueStruct(_exec,ana_, _pair);
             result_.cover(new Argument(valueStruct_));
         }
+    }
+
+    private AbsBk matchBl(AbstractPageEl _lastPage) {
+        ExecRootBlock type_ = matchType(_lastPage);
+        RootBlock typeAna_ = mappingTypes.getVal(type_);
+        return matchBl(typeAna_, _lastPage);
     }
 
     private static ExecRootBlock matchType(AbstractPageEl _lastPage) {

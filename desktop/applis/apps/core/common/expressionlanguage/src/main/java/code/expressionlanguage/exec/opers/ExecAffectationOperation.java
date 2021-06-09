@@ -12,17 +12,20 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExecAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
+    private final StringList names;
     private ExecOperationNode settable;
     private ExecMethodOperation settableParent;
 
     private final int opOffset;
 
-    public ExecAffectationOperation(ExecOperationContent _opCont, int _opOffset) {
+    public ExecAffectationOperation(ExecOperationContent _opCont, int _opOffset,StringList _names) {
         super(_opCont);
         opOffset = _opOffset;
+        names = _names;
     }
 
     public void setup() {
@@ -68,7 +71,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
             ExecOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, getResultClass().getNames(), _stack));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, names, _stack));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes, _stack);
                 return;
             }

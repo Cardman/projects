@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
+import code.util.StringList;
 
 public abstract class ExecSettableCallFctOperation extends ExecInvokingOperation implements ExecSettableElResult {
     private final ExecArrContent arrContent;
@@ -42,11 +43,20 @@ public abstract class ExecSettableCallFctOperation extends ExecInvokingOperation
         Argument res_ = ExecCatOperation.localSumDiff(left_, _right, _conf);
         return trySetArgument(_nodes, _conf, res_, _stack);
     }
+
     @Override
-    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast, StackCall _stack) {
+    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, byte _cast, StackCall _stack) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         Argument left_ = pair_.getArgument();
-        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, _cl.getNames(), _cast, _stack);
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, _cast, _stack);
+        return trySetArgument(_nodes, _conf, res_, _stack);
+    }
+
+    @Override
+    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StringList _cl, StackCall _stack) {
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
+        Argument left_ = pair_.getArgument();
+        Argument res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _cl, _stack);
         return trySetArgument(_nodes, _conf, res_, _stack);
     }
 

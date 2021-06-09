@@ -92,6 +92,8 @@ public final class ResultInput {
             }
             id = StringUtil.concat(idClass,".",idName);
             setResult(settable_.getResultClass());
+            InputInfo info_ = new InputInfo();
+            info_.getVarTypes().add(NumParsers.getSingleNameOrEmpty(result.getNames()));
             AnaClassArgumentMatching pr_;
             if (((SettableAbstractFieldOperation) settable_).isIntermediateDottedOperation()) {
                 pr_ = ((SettableAbstractFieldOperation) settable_).getPreviousResultClass();
@@ -105,6 +107,7 @@ public final class ResultInput {
             String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
             varNames_.add(varLoc_);
             setVarNames(varNames_);
+            setVarNamesParams(info_);
             setVarName(StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA,varLoc_));
         } else if (settable_ instanceof ArrOperation) {
             setSettable((OperationNode) settable_);
@@ -120,19 +123,21 @@ public final class ResultInput {
                 idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
                 StringList varParamNames_ = new StringList();
                 StringList typeNames_ = new StringList();
+                InputInfo info_ = new InputInfo();
+                info_.getVarTypes().add(NumParsers.getSingleNameOrEmpty(result.getNames()));
                 int s_ = childrenNodes_.size();
                 for (int i = 0; i < s_; i++) {
                     String varParam_ = AnaRendBlock.lookForVar(varNames_, _page);
                     varNames_.add(varParam_);
                     varParamNames_.add(varParam_);
                     typeNames_.add(_page.getAliasPrimInteger());
+                    info_.getVarTypes().add(NumParsers.getSingleNameOrEmpty(childrenNodes_.get(i).getResultClass().getNames()));
                 }
                 idName = StringUtil.concat("[](", StringUtil.join(typeNames_,","),")");
                 id = StringUtil.concat(idClass,".",idName);
                 String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
                 setVarNames(varNames_);
-                InputInfo info_ = new InputInfo();
                 info_.getVarNames().addAllElts(varParamNames_);
                 setVarNamesParams(info_);
                 setVarName(StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA, StringUtil.join(varParamNames_,AnaRendBlock.COMMA),AnaRendBlock.COMMA,varLoc_));
@@ -145,6 +150,7 @@ public final class ResultInput {
                 MethodId constraints_ = classMethodId_.getConstraints();
                 int nbParam_ = constraints_.getParametersTypesLength();
                 InputInfo info_ = new InputInfo();
+                info_.getVarTypes().add(NumParsers.getSingleNameOrEmpty(result.getNames()));
                 for (int i = 0; i < nbParam_; i++) {
                     String varParam_ = AnaRendBlock.lookForVar(varNames_, _page);
                     varNames_.add(varParam_);

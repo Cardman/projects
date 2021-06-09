@@ -5,9 +5,9 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -117,19 +117,19 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
         return formatted;
     }
 
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps(){
+    public CustList<ExecAnnotContent> getAnnotationsOps(){
         ExecNamedFunctionBlock fct_ = pair.getFct();
         if (fct_ != null) {
             return fct_.getAnnotationsOps();
         }
-        return new CustList<CustList<ExecOperationNode>>();
+        return new CustList<ExecAnnotContent>();
     }
-    public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams(){
+    public CustList<CustList<ExecAnnotContent>> getAnnotationsOpsParams(){
         ExecNamedFunctionBlock fct_ = pair.getFct();
         if (fct_ != null) {
             return fct_.getAnnotationsOpsParams();
         }
-        return new CustList<CustList<CustList<ExecOperationNode>>>();
+        return new CustList<CustList<ExecAnnotContent>>();
     }
 
     public GeneType getDeclType() {

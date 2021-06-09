@@ -10,14 +10,17 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class RendAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
 
+    private final StringList names;
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
 
-    public RendAffectationOperation(ExecOperationContent _content) {
+    public RendAffectationOperation(ExecOperationContent _content,StringList _names) {
         super(_content);
+        names = _names;
     }
 
     public void setup() {
@@ -71,7 +74,7 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
             RendDynOperationNode left_ = settableParent.getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE,_context, getResultClass().getNames()));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE,_context, names));
                 setQuickConvertSimpleArgument(leftArg_, _nodes, _context, _rendStack);
                 return;
             }

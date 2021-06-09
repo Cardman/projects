@@ -3,6 +3,8 @@ package cards.president.beans;
 import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import code.bean.Bean;
+import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -56,7 +58,7 @@ public final class PresidentStandards extends BeanNatLgNames {
     public void buildOther() {
         buildBeans();
         CustList<StandardField> fields_;
-        StandardClass std_;
+        SpecialNatClass std_;
         CustList<StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;
         StandardMethod method_;
@@ -64,21 +66,21 @@ public final class PresidentStandards extends BeanNatLgNames {
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass(TYPE_PRESIDENT_BEAN, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
+        std_ = new SpecialNatClass(TYPE_PRESIDENT_BEAN, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         fields_.add( new StandardField(NICKNAMES, TYPE_LIST, false, false, std_));
         fields_.add( new StandardField(LINES_DEAL, TYPE_LIST, false, false, std_));
         getStandards().addEntry(TYPE_PRESIDENT_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass(TYPE_LINE_DEAL, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         fields_.add( new StandardField(NUMBER, getPrimInt(), false, false, std_));
         fields_.add( new StandardField(SCORES, TYPE_LIST, false, false, std_));
         getStandards().addEntry(TYPE_LINE_DEAL, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new StandardClass(TYPE_RULES_PRESIDENT_BEAN, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
+        std_ = new SpecialNatClass(TYPE_RULES_PRESIDENT_BEAN, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
         fields_.add( new StandardField(CARTES_BATTUES, getAliasString(), false, false, std_));
         fields_.add( new StandardField(EQUALTY, getAliasString(), false, false, std_));
         fields_.add( new StandardField(POSSIBLE_REVERSING, getAliasPrimBoolean(), false, false, std_));
@@ -97,12 +99,12 @@ public final class PresidentStandards extends BeanNatLgNames {
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
-        std_ = new StandardClass(TYPE_RESULTS_PRESIDENT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        std_ = new SpecialNatClass(TYPE_RESULTS_PRESIDENT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         getStandards().addEntry(TYPE_RESULTS_PRESIDENT, std_);
         fields_ = new CustList<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
-        std_ = new StandardClass(TYPE_RULES_PRESIDENT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        std_ = new SpecialNatClass(TYPE_RULES_PRESIDENT, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         getStandards().addEntry(TYPE_RULES_PRESIDENT, std_);
     }
 

@@ -10,9 +10,9 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public abstract class ExecCompoundAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, CallExecSimpleOperation {
@@ -21,12 +21,13 @@ public abstract class ExecCompoundAffectationOperation extends ExecMethodOperati
     private ExecMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converter;
+    private final StringList names;
 
-
-    protected ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converter) {
+    protected ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names) {
         super(_opCont);
         operatorContent = _operatorContent;
         converter = _converter;
+        names = _names;
     }
 
     public void setup() {
@@ -44,7 +45,7 @@ public abstract class ExecCompoundAffectationOperation extends ExecMethodOperati
                 ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
                 pair_.setIndexImplicitCompound(-1);
                 pair_.setEndCalculate(true);
-                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, getResultClass().getNames(), _stack));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, names, _stack));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes, _stack);
                 return;
             }
@@ -113,6 +114,10 @@ public abstract class ExecCompoundAffectationOperation extends ExecMethodOperati
 
     protected ExecOperatorContent getOperatorContent() {
         return operatorContent;
+    }
+
+    protected StringList getNames() {
+        return names;
     }
 
     public ExecOperationNode getSettable() {

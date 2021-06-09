@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -13,7 +13,7 @@ public interface ExecInfoBlock extends BuildingEl {
     String getImportedClassName();
     boolean isFinalField();
     String getRealImportedClassName();
-    CustList<CustList<ExecOperationNode>> getAnnotationsOps();
+    CustList<ExecAnnotContent> getAnnotationsOps();
 
     CustList<ExecRootBlock> getAnonymous();
     CustList<ExecAnonymousFunctionBlock> getAnonymousLambda();

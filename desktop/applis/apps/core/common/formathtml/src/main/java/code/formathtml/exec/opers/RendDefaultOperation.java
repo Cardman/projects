@@ -10,21 +10,24 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class RendDefaultOperation extends RendAbstractUnaryOperation {
 
     private final int offset;
+    private final StringList names;
 
-    public RendDefaultOperation(ExecOperationContent _content, int _offset) {
+    public RendDefaultOperation(ExecOperationContent _content, int _offset,StringList _names) {
         super(_content);
         offset = _offset;
+        names = _names;
     }
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         setRelativeOffsetPossibleLastPage(getIndexInEl() + offset, _rendStack);
-        Argument argres_ = new Argument(ExecClassArgumentMatching.convertWide(ExecHelper.getFirstArgument(arguments_).getStruct(), _context, getResultClass().getNames()));
+        Argument argres_ = new Argument(ExecClassArgumentMatching.convertWide(ExecHelper.getFirstArgument(arguments_).getStruct(), _context, names));
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

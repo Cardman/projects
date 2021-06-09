@@ -2,6 +2,7 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
@@ -63,14 +64,14 @@ public final class AliasMathType {
     private String aliasSeedSpecDoubleGenerator;
     private final AliasParamMath params = new AliasParamMath();
     public void build(LgNames _stds) {
-        CustList<StandardField> fields_;
+        CustList<CstFieldInfo> fields_;
         StringList params_;
         StandardMethod method_;
         CustList<StandardConstructor> constructors_;
         CustList<StandardMethod> methods_;
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<StandardField>();
+        fields_ = new CustList<CstFieldInfo>();
         String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
         String aliasPrimInteger_ = _stds.getContent().getPrimTypes().getAliasPrimInteger();
         String aliasPrimLong_ = _stds.getContent().getPrimTypes().getAliasPrimLong();
