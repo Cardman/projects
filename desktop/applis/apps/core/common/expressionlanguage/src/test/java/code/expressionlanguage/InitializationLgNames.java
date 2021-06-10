@@ -46,20 +46,24 @@ public final class InitializationLgNames {
     public static AnalyzedTestContext buildStdOneAna(String _lg,Options _opt) {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);
-        return buildLgAna(_lg, lgName_, _opt, new DefaultConstantsCalculator(lgName_.getNbAlias()));
+        return buildDefKwAna(_lg, _opt, lgName_,4, new DefaultConstantsCalculator(lgName_.getNbAlias()));
     }
 
     private static AnalyzedTestContext buildAna(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(_stack, _opt, _lgNames, tabWidth_);
+        return common(_stack, _lgNames, _opt, _calculator, a_, kw_, tabWidth_);
+    }
+
+    private static AnalyzedTestContext common(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator, AnalysisMessages _a, KeyWords _kw, int _tabWidth) {
+        ContextEl out_ = ContextFactory.simpleBuild(_stack, _opt, _lgNames, _tabWidth);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(_lgNames, a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_, new DefaultFieldFilter());
+        ContextFactory.validatedStds(_lgNames, _a, _kw, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), _tabWidth, page_, new DefaultFieldFilter());
         _lgNames.build();
         ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(out_,page_, new Forwards());
+        return new AnalyzedTestContext(out_, page_, new Forwards());
     }
 
     private static AnalyzedTestContext buildToStringAna(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {
@@ -67,33 +71,16 @@ public final class InitializationLgNames {
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordToString("toSpecString");
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(_stack, _opt, _lgNames, tabWidth_);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(_lgNames, a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_, new DefaultFieldFilter());
-        _lgNames.build();
-        ValidatorStandard.setupOverrides(page_);
-        Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(out_,page_, new Forwards());
+        return common(_stack, _lgNames, _opt, _calculator, a_, kw_, tabWidth_);
     }
 
-    private static AnalyzedTestContext buildLgAna(String _lang, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {
-        AnalyzedTestContext out_ = buildDefKwAna(_lang, _opt, _lgNames,4, _calculator);
-        Assert.assertTrue(out_.getAnalyzing().isEmptyStdError());
-        return out_;
-    }
     private static AnalyzedTestContext builExp(LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordNbExpBin("power");
         kw_.setKeyWordNbExpDec("exp");
         int tabWidth_ = 4;
-        ContextEl out_ = ContextFactory.simpleBuild(IndexConstants.INDEX_NOT_FOUND_ELT, _opt, _lgNames, tabWidth_);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(_lgNames, a_, kw_, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), tabWidth_, page_, new DefaultFieldFilter());
-        _lgNames.build();
-        ValidatorStandard.setupOverrides(page_);
-        Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(out_,page_, new Forwards());
+        return common(IndexConstants.INDEX_NOT_FOUND_ELT, _lgNames, _opt, _calculator, a_, kw_, tabWidth_);
     }
 
     public static void basicStandards(LgNames _lgNames) {
@@ -461,11 +448,6 @@ public final class InitializationLgNames {
         } else {
             km_.initFrStds(_undefinedLgNames);
         }
-        ContextEl contextEl_ = ContextFactory.simpleBuild(IndexConstants.INDEX_NOT_FOUND_ELT, _options, _undefinedLgNames, _tabWidth);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(_undefinedLgNames, a_, kwl_, new CustList<CommentDelimiters>(), _options, contextEl_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_undefinedLgNames.getContent()), _undefinedLgNames.getContent(), _tabWidth, page_, new DefaultFieldFilter());
-        _undefinedLgNames.build();
-        ValidatorStandard.setupOverrides(page_);
-        return new AnalyzedTestContext(contextEl_,page_, new Forwards());
+        return common(IndexConstants.INDEX_NOT_FOUND_ELT, _undefinedLgNames, _options, _calculator, a_, kwl_, _tabWidth);
     }
 }
