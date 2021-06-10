@@ -10,12 +10,12 @@ import java.net.SocketException;
 /**Thread safe class*/
 public final class ConnectionToServer implements Runnable, Locking {
 
-    private ServerSocket serverSocket;
-    private NetGroupFrame serverWindow;
+    private final ServerSocket serverSocket;
+    private final NetGroupFrame serverWindow;
     private Socket socket;
     private boolean accept;
     private boolean errorSocket;
-    private boolean error;
+
     /**This class thread is independant from EDT*/
     public ConnectionToServer(ServerSocket _serverSocket,NetGroupFrame _serverWindow,String _ipHost, int _port){
         serverSocket=_serverSocket;
@@ -37,13 +37,11 @@ public final class ConnectionToServer implements Runnable, Locking {
             accept = true;
             Socket socket_ = acceptSocket();
             //If the server is started without client ==> pause.
-            if (!error && !errorSocket) {
+            if (socket_ != null) {
                 serverWindow.gearClient(socket_);
                 accept = false;
-            } else if (errorSocket) {
-                if (serverSocket.isClosed()) {
-                    break;
-                }
+            } else if (errorSocket && serverSocket.isClosed()) {
+                break;
             }
             //server side
         }
@@ -51,7 +49,6 @@ public final class ConnectionToServer implements Runnable, Locking {
 
     private Socket acceptSocket() {
         errorSocket = false;
-        error = false;
         if (accept) {
             try {
                 socket = serverSocket.accept();
@@ -59,7 +56,6 @@ public final class ConnectionToServer implements Runnable, Locking {
                 errorSocket = true;
                 return null;
             } catch (IOException e) {
-                error = true;
                 return null;
             }
         }
