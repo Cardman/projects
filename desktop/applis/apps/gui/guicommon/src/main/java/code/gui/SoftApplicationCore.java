@@ -2,7 +2,6 @@ package code.gui;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
@@ -14,6 +13,7 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.Node;
+import code.stream.AbstractFileCoreStream;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
@@ -49,7 +49,7 @@ public abstract class SoftApplicationCore {
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, BufferedImage _icon) {
-        String language_ = loadLanguage(_dir);
+        String language_ = loadLanguage(_dir,getFrames().getFileCoreStream());
         if (language_.isEmpty()) {
             proponeLanguage(_dir, _args, _icon);
         }
@@ -59,7 +59,7 @@ public abstract class SoftApplicationCore {
     StringMap<Object> getFile(String[] _args) {
         StringMap<Object> files_ = new StringMap<Object>();
         if (_args.length > 0) {
-            String fileName_ = new File(_args[0]).getAbsolutePath();
+            String fileName_ = getFrames().getFileCoreStream().newFile(_args[0]).getAbsolutePath();
             fileName_ = StringUtil.replaceBackSlash(fileName_);
             files_.put(fileName_, getObject(_args[0]));
         }
@@ -76,14 +76,14 @@ public abstract class SoftApplicationCore {
     }
 
     /**@throws LangueException*/
-    private static String loadLanguage(String _dir) {
+    private static String loadLanguage(String _dir, AbstractFileCoreStream _fact) {
 //        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(getFolderJarPath()+LANGUAGE);
-        String language_ = tryToGetXmlLanguage(_dir);
+        String language_ = tryToGetXmlLanguage(_dir,_fact);
         if (language_ != null) {
             return language_;
         }
 //        String content_ = StreamTextFile.contentsOfFile(ConstFiles.getFolderJarPath()+LANGUAGE_TXT);
-        String content_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(),LANGUAGE_TXT));
+        String content_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(_fact),LANGUAGE_TXT),_fact);
         if (content_ == null) {
             return EMPTY_STRING;
         }
@@ -100,8 +100,8 @@ public abstract class SoftApplicationCore {
         return content_;
     }
 
-    private static String tryToGetXmlLanguage(String _dir) {
-        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(StringUtil.concat(_dir,StreamTextFile.SEPARATEUR,LANGUAGE));
+    private static String tryToGetXmlLanguage(String _dir,AbstractFileCoreStream _fact) {
+        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(StringUtil.concat(_dir,StreamTextFile.SEPARATEUR,LANGUAGE),_fact);
         if (noeud_ == null) {
             return null;
         }
@@ -169,9 +169,9 @@ public abstract class SoftApplicationCore {
 
     protected abstract void launch(String _language, StringMap<Object> _args);
 
-    protected static TopLeftFrame loadCoords(String _folder, String _file) {
+    protected static TopLeftFrame loadCoords(String _folder, String _file,AbstractFileCoreStream _fact) {
 //        return (TopLeftFrame) StreamTextFile.deserialiser(getFolderJarPath()+_file);
-        return DocumentReaderGuiUtil.getTopLeftFrame(StreamTextFile.contentsOfFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file)));
+        return DocumentReaderGuiUtil.getTopLeftFrame(StreamTextFile.contentsOfFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file),_fact));
     }
 
     public static void saveCoords(String _folder, String _file, int _x, int _y) {
@@ -190,7 +190,7 @@ public abstract class SoftApplicationCore {
 
 
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl, String _folder) {
-        StreamFolderFile.makeParent(StringUtil.concat(_tmpUserFolderSl.getTmpUserFolder(),_folder)+"/");
+        StreamFolderFile.makeParent(StringUtil.concat(_tmpUserFolderSl.getTmpUserFolder(),_folder)+"/", _tmpUserFolderSl.getFileCoreStream());
         return StringUtil.concat(_tmpUserFolderSl.getTmpUserFolder(),_folder);
     }
 

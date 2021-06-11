@@ -1,6 +1,5 @@
 package code.gui;
 import java.awt.BorderLayout;
-import java.io.File;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JOptionPane;
@@ -13,6 +12,7 @@ import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
+import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.threads.AbstractThread;
 import code.util.CustList;
@@ -103,7 +103,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     }
 
     public void searchFile() {
-        File currentFolder_ = new File(getCurrentFolder());
+        AbstractFile currentFolder_ = getSuperFrame().getFileCoreStream().newFile(getCurrentFolder());
         if (!currentFolder_.exists()) {
             DefaultMutableTreeNode selected_;
             selected_ = (DefaultMutableTreeNode) getFolderSystem().getLastSelectedPathComponent();
@@ -116,7 +116,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         if (thread != null && thread.isAlive()) {
             return;
         }
-        CustList<File> backup_ = new CustList<File>(getFiles());
+        CustList<AbstractFile> backup_ = new CustList<AbstractFile>(getFiles());
         init(getCurrentFolder(), getExtension());
         getFileModel().clear();
         setKeepSearching(true);
@@ -186,7 +186,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         String fileName_ = getFileName().getText();
         String extFileName_ = StringUtil.concat(fileName_,getExtension());
         String selectedRelPath_ = StringUtil.concat(getCurrentFolder(), extFileName_);
-        if (new File(selectedRelPath_).exists()) {
+        if (getSuperFrame().getFileCoreStream().newFile(selectedRelPath_).exists()) {
             closeWindow();
             setSelectedPath(selectedRelPath_);
             return;
@@ -195,7 +195,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         String lg_ = frame.getLanguageKey();
         if (selectedPath_ != null) {
             selectedPath_ = StringUtil.replaceBackSlash(selectedPath_);
-            if (!new File(selectedPath_).exists()) {
+            if (!getSuperFrame().getFileCoreStream().newFile(selectedPath_).exists()) {
                 ConfirmDialog.showMessage(this, StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE, dialog);
                 selectedPath_ = null;
                 setSelectedPath(selectedPath_);
@@ -208,7 +208,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         }
         if (getFileTable().getSelectedRowCount() == 1) {
             selectedPath_ = getFileModel().getSelectedFilePath(getFileTable().getSelectedRow());
-            if (!new File(selectedPath_).exists()) {
+            if (!getSuperFrame().getFileCoreStream().newFile(selectedPath_).exists()) {
                 ConfirmDialog.showMessage(this, StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE, dialog);
                 selectedPath_ = null;
                 setSelectedPath(selectedPath_);
@@ -223,12 +223,12 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
             ConfirmDialog.showMessage(this, messages.getVal(ERROR_TYPING), messages.getVal(ERROR_TITLE),lg_, JOptionPane.ERROR_MESSAGE, dialog);
             return;
         }
-        if (!StreamFolderFile.isAbsolute(extFileName_)) {
+        if (!StreamFolderFile.isAbsolute(extFileName_, getSuperFrame().getFileCoreStream())) {
             selectedPath_ = StringUtil.concat(getCurrentFolder(), extFileName_);
         } else {
             selectedPath_ = extFileName_;
         }
-        if (!new File(selectedPath_).exists()) {
+        if (!getSuperFrame().getFileCoreStream().newFile(selectedPath_).exists()) {
             ConfirmDialog.showMessage(this, StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE, dialog);
             selectedPath_ = null;
             setSelectedPath(selectedPath_);
@@ -270,7 +270,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         getFileModel().init(_folder, _extension);
     }
 
-    protected CustList<File> getFiles() {
+    protected CustList<AbstractFile> getFiles() {
         return getFileModel().getFiles();
     }
 

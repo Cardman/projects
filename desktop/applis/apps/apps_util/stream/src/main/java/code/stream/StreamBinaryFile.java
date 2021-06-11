@@ -1,10 +1,5 @@
 package code.stream;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 import code.stream.core.StreamCoreUtil;
 import code.util.core.IndexConstants;
@@ -14,22 +9,13 @@ public final class StreamBinaryFile {
     private StreamBinaryFile() {
     }
 
-    public static byte[] loadFile(String _file) {
-        if (_file == null) {
-            return null;
-        }
-        File file_ = new File(_file);
-        BufferedInputStream buff_ = tryCreateBufferedReader(StreamFileCore.tryCreateFileInputStream(file_));
+    public static byte[] loadFile(String _file,AbstractFileCoreStream _fact) {
+        AbstractFile file_ = _fact.newFile(_file);
+        InputStream buff_ = StreamFileCore.tryCreateFileInputStream(_file);
         return loadFile(file_,buff_);
     }
 
-    private static BufferedInputStream tryCreateBufferedReader(FileInputStream _file) {
-        if (_file == null) {
-            return null;
-        }
-        return new BufferedInputStream(_file);
-    }
-    private static byte[] loadFile(File _file,BufferedInputStream _buff) {
+    private static byte[] loadFile(AbstractFile _file,InputStream _buff) {
         if (_buff == null) {
             return null;
         }
@@ -54,23 +40,19 @@ public final class StreamBinaryFile {
             return null;
         }
     }
-
     public static boolean writeFile(String _file, byte[] _content) {
-        if (_file == null) {
-            return false;
-        }
         return write(_content, StreamFileCore.tryCreateFileOutputStream(_file));
     }
 
-    private static boolean write(byte[] _content, FileOutputStream _fos) {
+    private static boolean write(byte[] _content, OutputStream _fos) {
         if (_content == null || _fos == null) {
             return false;
         }
-        boolean w_ = write(_content, new BufferedOutputStream(_fos));
+        boolean w_ = write2(_content, _fos);
         return w_ && StreamCoreUtil.close(_fos);
     }
 
-    private static boolean write(byte[] _content, BufferedOutputStream _buff) {
+    private static boolean write2(byte[] _content, OutputStream _buff) {
         try {
             _buff.write(_content);
             return StreamCoreUtil.close(_buff);

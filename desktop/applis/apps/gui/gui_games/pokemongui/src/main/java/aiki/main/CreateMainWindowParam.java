@@ -1,5 +1,4 @@
 package aiki.main;
-import java.io.File;
 
 import aiki.db.DataBase;
 import aiki.db.PerCent;
@@ -7,6 +6,7 @@ import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import aiki.gui.threads.PerCentIncr;
 import code.gui.CustComponent;
+import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -38,8 +38,8 @@ public final class CreateMainWindowParam implements Runnable {
         String path_;
         if (!load.getLastRom().isEmpty()) {
             String lastRom_ = StringUtil.replaceBackSlash(load.getLastRom());
-            File file_ = new File(lastRom_);
-            if (!StreamFolderFile.isAbsolute(lastRom_)) {
+            AbstractFile file_ = window.getFileCoreStream().newFile(lastRom_);
+            if (!StreamFolderFile.isAbsolute(lastRom_, window.getFileCoreStream())) {
                 path_ = StringUtil.concat(path,load.getLastRom());
             } else {
                 path_ = file_.getAbsolutePath();

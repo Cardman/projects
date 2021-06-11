@@ -1,5 +1,6 @@
 package code.stream;
 import java.io.*;
+import java.nio.charset.Charset;
 
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -15,36 +16,38 @@ import code.util.ints.UniformingString;
 public final class StreamTextFile {
 
     public static final String SEPARATEUR = "/";
+    private static final String UTF_8 = "UTF-8";
 
     private StreamTextFile() {
     }
 
-    public static StringList allSortedFiles(String _folder) {
-        FileInfo f_ = new FileInfo(new File(_folder));
+    public static StringList allSortedFiles(String _folder,AbstractFileCoreStream _fact) {
+        AbstractFile abstractFile_ = _fact.newFile(_folder);
+        FileInfo f_ = new FileInfo(abstractFile_,_fact);
         StringList files_ = new StringList();
-        for (FileInfo s: getSortedDescNodes(f_)) {
+        for (FileInfo s: getSortedDescNodes(_fact,f_)) {
             files_.add(StringUtil.replaceBackSlash(s.getInfo().getAbsolutePath()));
         }
         return files_;
     }
-    private static CustList<FileInfo> getSortedDescNodes(FileInfo _root) {
+    private static CustList<FileInfo> getSortedDescNodes(AbstractFileCoreStream _fact,FileInfo _root) {
         CustList<FileInfo> list_ = new CustList<FileInfo>();
         FileInfo c_ = _root;
         while (c_ != null) {
             list_.add(c_);
-            c_ = getNext(c_, _root);
+            c_ = getNext(_fact,c_, _root);
         }
         return list_;
     }
 
-    private static FileInfo getNext(FileInfo _current, FileInfo _root) {
-        FileInfo n_ = _current.getFirstChild();
+    private static FileInfo getNext(AbstractFileCoreStream _fact,FileInfo _current, FileInfo _root) {
+        FileInfo n_ = _current.getFirstChild(_fact);
         if (n_ != null) {
             return n_;
         }
         FileInfo curr_ = _current;
         while (true) {
-            FileInfo next_ = curr_.getNextSibling();
+            FileInfo next_ = curr_.getNextSibling(_fact);
             if (next_ != null) {
                 return next_;
             }
@@ -55,11 +58,11 @@ public final class StreamTextFile {
             curr_ = par_;
         }
     }
-    public static StringList files(String _folder) {
+    public static StringList files(String _folder,AbstractFileCoreStream _fact) {
         StringList files_ = new StringList();
         StringList current_ = new StringList(_folder);
         String folder_ = _folder;
-        folder_ = new File(folder_).getAbsolutePath();
+        folder_ = _fact.newFile(folder_).getAbsolutePath();
         folder_ = StringUtil.replaceBackSlash(folder_);
         if (folder_.endsWith(StringUtil.concat(SEPARATEUR,_folder))) {
             String suffix_ = StringUtil.concat(SEPARATEUR,_folder);
@@ -69,11 +72,8 @@ public final class StreamTextFile {
         while (true) {
             StringList new_ = new StringList();
             for (String c : current_) {
-                File[] filesFolder_ = new File(c).listFiles();
-                if (filesFolder_ == null) {
-                    continue;
-                }
-                for (File f : filesFolder_) {
+                FileListInfo filesFolder_ = _fact.newFile(c).listAbsolute(_fact);
+                for (AbstractFile f : filesFolder_.getNames()) {
                     new_.add(f.getAbsolutePath());
                     files_.add(f.getAbsolutePath());
                 }
@@ -88,38 +88,34 @@ public final class StreamTextFile {
         return files_;
     }
 
-    private static Document documentXmlExterne(String _nomFichier) {
-        return DocumentBuilder.parseSax(contentsOfFile(_nomFichier));
+    public static String contentsOfFile(String _nomFichier,AbstractFileCoreStream _fact) {
+        return contentsOfFile(_nomFichier,new DefaultUniformingString(),_fact);
     }
 
-    public static String contentsOfFile(String _nomFichier) {
-        return contentsOfFile(_nomFichier,new DefaultUniformingString());
+    public static String contentsOfFile(String _nomFichier, UniformingString _apply,AbstractFileCoreStream _fact) {
+        return readFile(_nomFichier,_apply,_fact);
     }
 
-    public static String contentsOfFile(String _nomFichier, UniformingString _apply) {
-        return readFile(_nomFichier,_apply);
+    private static String readFile(String _filePath,UniformingString _apply,AbstractFileCoreStream _fact) {
+        AbstractFile file_ = _fact.newFile(_filePath);
+        return readingFile(tryCreateBufferedReader(StreamFileCore.tryCreateFileInputStream(_filePath)), file_.length(),_apply);
     }
-
-    private static String readFile(String _filePath,UniformingString _apply) {
-        File file_ = new File(_filePath);
-        return readingFile(tryCreateBufferedReader(StreamFileCore.tryCreateFileInputStream(file_)), file_.length(),_apply);
-    }
-    private static BufferedReader tryCreateBufferedReader(FileInputStream _file) {
+    private static Reader tryCreateBufferedReader(InputStream _file) {
         if (_file == null) {
             return null;
         }
-        return new BufferedReader(new InputStreamReader(_file));
+        return new InputStreamReader(_file, Charset.forName(UTF_8));
     }
 
-    public static Element contenuDocumentXmlExterne(String _nomFichier) {
-        Document doc_ = documentXmlExterne(_nomFichier);
+    public static Element contenuDocumentXmlExterne(String _nomFichier,AbstractFileCoreStream _fact) {
+        Document doc_ = DocumentBuilder.parseSax(contentsOfFile(_nomFichier,_fact));
         if (doc_ == null) {
             return null;
         }
         return doc_.getDocumentElement();
     }
 
-    private static String readingFile(BufferedReader _br, long _capacity,UniformingString _apply) {
+    private static String readingFile(Reader _br, long _capacity,UniformingString _apply) {
         if (_br == null) {
             return null;
         }
@@ -144,16 +140,27 @@ public final class StreamTextFile {
         if (_nomFichier == null) {
             return false;
         }
-        return write(tryCreateWriter(_nomFichier,false),_text);
+        return write(_nomFichier, _text, false);
     }
-    private static boolean write(FileWriter _bw,String _text) {
+    public static boolean logToFile(String _nomFichier, String _text) {
+        if (_nomFichier == null) {
+            return false;
+        }
+        return write(_nomFichier, _text, true);
+    }
+
+    private static boolean write(String _nomFichier, String _text, boolean _append) {
+        return write(tryCreateWriter(_nomFichier, _append), _text);
+    }
+
+    private static boolean write(OutputStream _bw,String _text) {
         if (_bw == null) {
             return false;
         }
-        boolean w_ = write(new BufferedWriter(_bw), _text);
+        boolean w_ = write(new OutputStreamWriter(_bw,Charset.forName(UTF_8)), _text);
         return w_&&StreamCoreUtil.close(_bw);
     }
-    private static boolean write(BufferedWriter _bw,String _text) {
+    private static boolean write(Writer _bw,String _text) {
         try {
             _bw.write(_text);
             return StreamCoreUtil.close(_bw);
@@ -161,16 +168,9 @@ public final class StreamTextFile {
             return false;
         }
     }
-    public static boolean logToFile(String _nomFichier, String _text) {
-        if (_nomFichier == null) {
-            return false;
-        }
-        return write(tryCreateWriter(_nomFichier, true), _text);
-    }
-
-    private static FileWriter tryCreateWriter(String _nomFichier, boolean _append) {
+    private static OutputStream tryCreateWriter(String _nomFichier, boolean _append) {
         try {
-            return new FileWriter(_nomFichier,_append);
+            return new FileOutputStream(_nomFichier,_append);
         } catch (IOException e) {
             return null;
         }

@@ -90,7 +90,7 @@ public class ContainerTarot extends ContainerGame{
     protected static HandTarot chargerPileTarot(AbstractProgramInfos _tmpUserFolderSl) {
         return DocumentReaderTarotUtil.getHandTarot(StreamTextFile.contentsOfFile(
                 StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,
-                        StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT)));
+                        StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),_tmpUserFolderSl.getFileCoreStream()));
     }
 
     public static CustList<GraphicTarotCard> getGraphicCards(String _lg, Iterable<CardTarot> _hand) {

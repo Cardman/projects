@@ -1,6 +1,5 @@
 package code.converterimages.gui;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import javax.swing.WindowConstants;
 
@@ -85,16 +84,16 @@ public final class MainWindow extends GroupFrame {
 
     void export(boolean _readImages) {
         if (_readImages) {
-            StringList files_ = StreamTextFile.files(pathExport.getText());
+            StringList files_ = StreamTextFile.files(pathExport.getText(),getFileCoreStream());
             for (String f: files_) {
                 String f_ = StringUtil.replaceBackSlash(f);
-                if (!new File(pathExport.getText()+f).isDirectory()) {
+                if (!getFileCoreStream().newFile(pathExport.getText()+f).isDirectory()) {
                     continue;
                 }
-                StreamFolderFile.makeParent(path.getText()+StreamTextFile.SEPARATEUR+f_);
+                StreamFolderFile.makeParent(path.getText()+StreamTextFile.SEPARATEUR+f_,getFileCoreStream());
             }
             for (String f: files_) {
-                if (new File(pathExport.getText()+f).isDirectory()) {
+                if (getFileCoreStream().newFile(pathExport.getText()+f).isDirectory()) {
                     continue;
                 }
                 String f_ = StringUtil.replaceBackSlash(f);
@@ -115,20 +114,20 @@ public final class MainWindow extends GroupFrame {
                 }
             }
         } else {
-            StringList files_ = StreamTextFile.files(pathExport.getText());
+            StringList files_ = StreamTextFile.files(pathExport.getText(),getFileCoreStream());
             for (String f: files_) {
                 String f_ = StringUtil.replaceBackSlash(f);
-                if (!new File(pathExport.getText()+f).isDirectory()) {
+                if (!getFileCoreStream().newFile(pathExport.getText()+f).isDirectory()) {
                     continue;
                 }
-                StreamFolderFile.makeParent(path.getText()+StreamTextFile.SEPARATEUR+f_);
+                StreamFolderFile.makeParent(path.getText()+StreamTextFile.SEPARATEUR+f_,getFileCoreStream());
             }
             for (String f: files_) {
-                if (new File(pathExport.getText()+f).isDirectory()) {
+                if (getFileCoreStream().newFile(pathExport.getText()+f).isDirectory()) {
                     continue;
                 }
                 String f_ = StringUtil.replaceBackSlash(f);
-                String readImage_ = StreamTextFile.contentsOfFile(pathExport.getText()+f);
+                String readImage_ = StreamTextFile.contentsOfFile(pathExport.getText()+f,getFileCoreStream());
                 if (readImage_ == null) {
                     continue;
                 }
@@ -153,7 +152,7 @@ public final class MainWindow extends GroupFrame {
         }
     }
     public void writeOneImageArg(String _writePath) {
-        String readImage_ = StreamTextFile.contentsOfFile(_writePath);
+        String readImage_ = StreamTextFile.contentsOfFile(_writePath,getFileCoreStream());
         if (readImage_ == null) {
             return;
         }

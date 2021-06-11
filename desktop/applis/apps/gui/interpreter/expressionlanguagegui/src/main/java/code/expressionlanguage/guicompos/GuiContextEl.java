@@ -34,7 +34,7 @@ public final class GuiContextEl extends RunnableContextEl {
         interrupt();
         getGuiInit().launchHooks(this, _stackCall);
         _guiExecutingBlocks.getWindow().setNullCurrent();
-        AbstractThread th_ = _guiExecutingBlocks.getWindow().getThreadFactory().newThread(new CoveringCodeTask(this, getExecutingOptions()));
+        AbstractThread th_ = _guiExecutingBlocks.getWindow().getThreadFactory().newThread(new CoveringCodeTask(this, getExecutingOptions(),_guiExecutingBlocks.getWindow().getFileCoreStream()));
         th_.start();
         th_.join();
 

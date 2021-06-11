@@ -1,6 +1,5 @@
 package aiki.main;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import aiki.db.DataBase;
 import aiki.sml.Resources;
@@ -49,7 +48,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
                 if (zip_ == null) {
                     zip_ = DataBase.EMPTY_STRING;
                 }
-                if (zip_.isEmpty() || new File(zip_).exists()) {
+                if (zip_.isEmpty() || getFrames().getFileCoreStream().newFile(zip_).exists()) {
                     fileConfig_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE);
                 }
             }
@@ -62,26 +61,26 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
                 fileConfig_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE);
             }
         } else {
-            String xmlString_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(),fileConfig_));
+            String xmlString_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(getFrames().getFileCoreStream()),fileConfig_), getFrames().getFileCoreStream());
             param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
             param_.setLastSavedGame(gameSavePath_);
             param_.setLastRom(zip_);
         }
         if (param_ == null) {
-            String xmlString_ = StreamTextFile.contentsOfFile(fileConfig_);
+            String xmlString_ = StreamTextFile.contentsOfFile(fileConfig_, getFrames().getFileCoreStream());
             param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
             AbstractNameValidating def_ = getFrames().getValidator();
-            if (!def_.okPath(StreamFolderFile.getRelativeRootPath(param_.getLastSavedGame()),'/','\\')) {
+            if (!def_.okPath(StreamFolderFile.getRelativeRootPath(param_.getLastSavedGame(), getFrames().getFileCoreStream()),'/','\\')) {
                 param_.setLastSavedGame("");
             }
-            if (!def_.okPath(StreamFolderFile.getRelativeRootPath(param_.getLastRom()),'/','\\')) {
+            if (!def_.okPath(StreamFolderFile.getRelativeRootPath(param_.getLastRom(), getFrames().getFileCoreStream()),'/','\\')) {
                 param_.setLastRom("");
             }
         }
         //String path_ = getFolderJarPath();
-        TopLeftFrame topLeft_ = loadCoords(getTempFolder(getFrames()), Resources.COORDS);
+        TopLeftFrame topLeft_ = loadCoords(getTempFolder(getFrames()), Resources.COORDS, getFrames().getFileCoreStream());
         //path_ = pathConfig_;
-        String path_ = StreamFolderFile.getCurrentPath();
+        String path_ = StreamFolderFile.getCurrentPath(getFrames().getFileCoreStream());
 //        if (!_args.isEmpty()) {
 //            //open with
 ////            CreateMainWindow create_ = new CreateMainWindow(param_, true, path_, topLeft_);
@@ -122,7 +121,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
 
     @Override
     public Object getObject(String _fileName) {
-        String file_ = StreamTextFile.contentsOfFile(_fileName);
+        String file_ = StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream());
         Game o_ = DocumentReaderAikiCoreUtil.getGame(file_);
         if (o_ != null) {
             return o_;

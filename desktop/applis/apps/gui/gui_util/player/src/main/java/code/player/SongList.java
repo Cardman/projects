@@ -3,6 +3,7 @@ package code.player;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
+import code.stream.AbstractFileCoreStream;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 
@@ -15,8 +16,8 @@ public final class SongList {
         return songList;
     }
 
-    public void addSongsFromContent(String _doc) {
-        String content_ = StreamTextFile.contentsOfFile(_doc);
+    public void addSongsFromContent(String _doc, AbstractFileCoreStream _fact) {
+        String content_ = StreamTextFile.contentsOfFile(_doc,_fact);
         Document doc_ = DocumentBuilder.parseSax(content_);
         if (doc_ == null) {
             return;

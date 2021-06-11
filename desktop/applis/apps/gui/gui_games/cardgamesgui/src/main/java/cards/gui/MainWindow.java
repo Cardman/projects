@@ -558,34 +558,34 @@ public final class MainWindow extends NetGroupFrame {
         setImageIconFrame(LaunchingCards.getIcon());
         clock = new Clock();
         lastSavedGameDate = new TextLabel("");
-        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE)));
+        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE),getFileCoreStream()));
         if (!reglesBelote.isValidRules()) {
             reglesBelote = new RulesBelote();
             StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(reglesBelote));
         }
-        displayingBelote = DocumentReaderBeloteUtil.getDisplayingBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_BELOTE)));
+        displayingBelote = DocumentReaderBeloteUtil.getDisplayingBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_BELOTE),getFileCoreStream()));
         displayingBelote.validate();
-        reglesPresident = DocumentReaderPresidentUtil.getRulesPresident(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT)));
+        reglesPresident = DocumentReaderPresidentUtil.getRulesPresident(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT),getFileCoreStream()));
         if (!reglesPresident.isValidRules()) {
             reglesPresident = new RulesPresident();
             StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(reglesPresident));
         }
-        displayingPresident = DocumentReaderPresidentUtil.getDisplayingPresident(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_PRESIDENT)));
+        displayingPresident = DocumentReaderPresidentUtil.getDisplayingPresident(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_PRESIDENT),getFileCoreStream()));
         displayingPresident.validate();
-        reglesTarot = DocumentReaderTarotUtil.getRulesTarot(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_TAROT)));
+        reglesTarot = DocumentReaderTarotUtil.getRulesTarot(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_TAROT),getFileCoreStream()));
         if (!reglesTarot.isValidRules()) {
             reglesTarot = new RulesTarot();
             StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(reglesTarot));
         }
-        displayingTarot = DocumentReaderTarotUtil.getDisplayingTarot(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_TAROT)));
+        displayingTarot = DocumentReaderTarotUtil.getDisplayingTarot(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_TAROT),getFileCoreStream()));
         displayingTarot.validate();
-        parametres = DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS)));
+        parametres = DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS),getFileCoreStream()));
         parametres.setDelays();
 //        parametres.setLocale(_locale);
         initMessageName();
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
 
-        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS)));
+        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getFileCoreStream()));
         if (!pseudosJoueurs.isValidNicknames()) {
             pseudosJoueurs = new Nicknames(getLanguageKey());
             pseudosJoueurs.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS));
@@ -731,7 +731,7 @@ public final class MainWindow extends NetGroupFrame {
     }
     private void changerNombreDePartiesEnQuittant() {
         String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
-        String content_ = StreamTextFile.contentsOfFile(fileName_);
+        String content_ = StreamTextFile.contentsOfFile(fileName_,getFileCoreStream());
         StringList vl_=new StringList();
         boolean read_ = true;
         StringList lines_ = new StringList();
@@ -1252,7 +1252,7 @@ public final class MainWindow extends NetGroupFrame {
         if (nomFichier_.isEmpty()) {
             return;
         }
-        Object par_ = DocumentReaderCardsUnionUtil.getObject(nomFichier_);
+        Object par_ = DocumentReaderCardsUnionUtil.getObject(nomFichier_,getFileCoreStream());
         tryToLoadDeal(nomFichier_, par_);
     }
 
@@ -1911,8 +1911,8 @@ public final class MainWindow extends NetGroupFrame {
         } else if (choosenGameMultiPlayers_ == GameEnum.BELOTE) {
             containerGame = new ContainerMultiBelote(this,DialogServer.isCreate(getDialogServer()));
         }
-        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(), FileConst.PORT_INI);
-        int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort());
+        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()), FileConst.PORT_INI);
+        int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(),getFileCoreStream());
         if (DialogServer.isCreate(getDialogServer())) {
             int nbChoosenPlayers_ = DialogServer.getNbPlayers(getDialogServer());
             Net.setNbPlayers(nbChoosenPlayers_, getNet());

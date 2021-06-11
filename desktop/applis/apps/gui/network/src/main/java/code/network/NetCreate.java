@@ -12,6 +12,7 @@ import java.util.Collections;
 
 import code.maths.litteralcom.MathExpUtil;
 import code.network.enums.IpType;
+import code.stream.AbstractFileCoreStream;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
@@ -29,8 +30,8 @@ public final class NetCreate {
     private NetCreate(){
     }
 
-    public static int tryToGetPort(String _fileName, int _defaultPort) {
-        String content_ = StreamTextFile.contentsOfFile(_fileName);
+    public static int tryToGetPort(String _fileName, int _defaultPort, AbstractFileCoreStream _fact) {
+        String content_ = StreamTextFile.contentsOfFile(_fileName,_fact);
         if (content_ == null) {
             return _defaultPort;
         }

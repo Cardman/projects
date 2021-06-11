@@ -11,6 +11,7 @@ import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
 import code.sml.Element;
 import code.sml.ElementList;
+import code.stream.AbstractFileCoreStream;
 import code.stream.StreamTextFile;
 import code.util.CollCapacity;
 import code.util.EnumList;
@@ -39,8 +40,8 @@ public final class DocumentReaderCardsUnionUtil {
     private static final String FIELD_SAVE_HOME_FOLDER = "saveHomeFolder";
     private static final String FIELD_WAIT_TRICK_CLICK = "waitTrickClick";
 
-    public static Object getObject(String _fileName) {
-        String content_ = StreamTextFile.contentsOfFile(_fileName);
+    public static Object getObject(String _fileName, AbstractFileCoreStream _fact) {
+        String content_ = StreamTextFile.contentsOfFile(_fileName,_fact);
         return getContentObject(content_);
     }
 

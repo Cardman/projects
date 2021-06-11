@@ -1,7 +1,6 @@
 package code.gui;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
-import java.io.File;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -13,6 +12,8 @@ import code.gui.events.DeployTreeEvent;
 import code.gui.initialize.AbstractGraphicStringListGenerator;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
+import code.stream.AbstractFile;
+import code.stream.FileListInfo;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.comparators.FileNameComparator;
@@ -97,9 +98,9 @@ public abstract class FileDialog extends Dialog {
         selectedAbsolutePath = EMPTY_STRING;
         excludedFolders = new StringList();
         if (currentFolderRoot) {
-            String root_ = StringUtil.replaceBackSlash(new File(folder).getAbsolutePath());
+            String root_ = StringUtil.replaceBackSlash(superFrame.getFileCoreStream().newFile(folder).getAbsolutePath());
             currentFolder = StringUtil.concat(root_,StreamTextFile.SEPARATEUR);
-            if (StringUtil.quickEq(currentFolder, StreamFolderFile.getCurrentPath())) {
+            if (StringUtil.quickEq(currentFolder, StreamFolderFile.getCurrentPath(superFrame.getFileCoreStream()))) {
                 for (String f: _excludedFolders) {
                     excludedFolders.add(StringUtil.concat(currentFolder,f));
                 }
@@ -132,18 +133,16 @@ public abstract class FileDialog extends Dialog {
         contentPane_.add(openSaveFile_, BorderLayout.SOUTH);
         if (currentFolderRoot) {
             DefaultMutableTreeNode default_ = new DefaultMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
-            File[] files_ = new File(currentFolder).listFiles();
-            if (files_ != null) {
-                CustList<File> currentFiles_ = new CustList<File>(files_);
-                currentFiles_.sortElts(new FileNameComparator());
-                CustList<File> filesList_ = new CustList<File>();
-                retrieve(default_, filesList_, currentFiles_);
-                refreshList(filesList_);
-            }
+            FileListInfo files_ = superFrame.getFileCoreStream().newFile(currentFolder).listAbsolute(superFrame.getFileCoreStream());
+            CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(files_.getNames());
+            currentFiles_.sortElts(new FileNameComparator());
+            CustList<AbstractFile> filesList_ = new CustList<AbstractFile>();
+            retrieve(default_, filesList_, currentFiles_);
+            refreshList(filesList_);
             folderSystem = new TreeGui(default_);
         } else {
             DefaultMutableTreeNode default_ = new DefaultMutableTreeNode(EMPTY_STRING);
-            for (String f: StreamFolderFile.listRootsAbPath()) {
+            for (String f: StreamFolderFile.listRootsAbPath(superFrame.getFileCoreStream())) {
                 default_.add(new DefaultMutableTreeNode(StringUtil.join(StringUtil.splitStrings(f, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
             }
             folderSystem = new TreeGui(default_);
@@ -156,9 +155,9 @@ public abstract class FileDialog extends Dialog {
         setContentPane(contentPane_);
     }
 
-    public void refreshList(CustList<File> _filesList) {
+    public void refreshList(CustList<AbstractFile> _filesList) {
         StringList list_ = new StringList();
-        for (File f: _filesList) {
+        for (AbstractFile f: _filesList) {
             list_.add(f.getName());
         }
         auto.setDictionary(list_);
@@ -189,19 +188,17 @@ public abstract class FileDialog extends Dialog {
         currentFolder = str_;
         currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
-        File currentFolder_ = new File(str_);
+        AbstractFile currentFolder_ = superFrame.getFileCoreStream().newFile(str_);
         if (!currentFolder_.exists()) {
             return;
         }
-        CustList<File> files_ = new CustList<File>();
-        File[] filesArray_ = currentFolder_.listFiles();
-        if (filesArray_ != null) {
-            CustList<File> currentFiles_ = new CustList<File>(filesArray_);
-            currentFiles_.sortElts(new FileNameComparator());
-            for (File l: currentFiles_) {
-                if (!l.isDirectory()&&l.getName().endsWith(extension)) {
-                    files_.add(l);
-                }
+        CustList<AbstractFile> files_ = new CustList<AbstractFile>();
+        FileListInfo filesArray_ = currentFolder_.listAbsolute(superFrame.getFileCoreStream());
+        CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
+        currentFiles_.sortElts(new FileNameComparator());
+        for (AbstractFile l: currentFiles_) {
+            if (!l.isDirectory()&&l.getName().endsWith(extension)) {
+                files_.add(l);
             }
         }
         folderSystem.reload();
@@ -219,25 +216,23 @@ public abstract class FileDialog extends Dialog {
         currentFolder = str_.toString();
         currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
-        File currentFolder_ = new File(str_.toString());
+        AbstractFile currentFolder_ = superFrame.getFileCoreStream().newFile(str_.toString());
         if (!currentFolder_.exists()) {
             selected_.removeFromParent();
             return;
         }
         selected_.removeAllChildren();
-        CustList<File> files_ = new CustList<File>();
-        File[] filesArray_ = currentFolder_.listFiles();
-        if (filesArray_ != null) {
-            CustList<File> currentFiles_ = new CustList<File>(filesArray_);
-            currentFiles_.sortElts(new FileNameComparator());
-            retrieve(selected_, files_, currentFiles_);
-        }
+        CustList<AbstractFile> files_ = new CustList<AbstractFile>();
+        FileListInfo filesArray_ = currentFolder_.listAbsolute(superFrame.getFileCoreStream());
+        CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
+        currentFiles_.sortElts(new FileNameComparator());
+        retrieve(selected_, files_, currentFiles_);
         folderSystem.reload();
         refreshList(files_);
     }
 
-    private void retrieve(DefaultMutableTreeNode _directoryNode, CustList<File> _files, CustList<File> _currentFiles) {
-        for (File f : _currentFiles) {
+    private void retrieve(DefaultMutableTreeNode _directoryNode, CustList<AbstractFile> _files, CustList<AbstractFile> _currentFiles) {
+        for (AbstractFile f : _currentFiles) {
             if (f.isDirectory()) {
                 if (StringUtil.contains(excludedFolders, StringUtil.replaceBackSlash(f.getAbsolutePath()))) {
                     continue;

@@ -98,7 +98,7 @@ public final class MainWindow extends GroupFrame {
         if (current != null) {
             return;
         }
-        String content_ = StreamTextFile.contentsOfFile(_fichier);
+        String content_ = StreamTextFile.contentsOfFile(_fichier,getFileCoreStream());
         if (content_ == null) {
             return;
         }

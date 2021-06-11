@@ -4,6 +4,7 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.AbstractIssuer;
 import code.expressionlanguage.utilcompo.AbstractLogger;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.stream.AbstractFileCoreStream;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.core.StringUtil;
@@ -11,10 +12,12 @@ import code.util.core.StringUtil;
 public final class DefaultLogger implements AbstractLogger {
     private final AbstractNameValidating nameValidating;
     private AbstractIssuer issuer;
+    private AbstractFileCoreStream list;
 
-    public DefaultLogger(AbstractNameValidating _nameValidating, AbstractIssuer _issuer) {
+    public DefaultLogger(AbstractNameValidating _nameValidating, AbstractIssuer _issuer, AbstractFileCoreStream _list) {
         nameValidating = _nameValidating;
         issuer = _issuer;
+        list = _list;
     }
 
     public AbstractIssuer getIssuer() {
@@ -28,14 +31,14 @@ public final class DefaultLogger implements AbstractLogger {
     @Override
     public void logErr(String _folerName, String _fileName, String _content, RunnableContextEl _cont) {
         String toFile_ = StringUtil.concat(_folerName,"/",_fileName);
-        StreamFolderFile.makeParent(toFile_);
+        StreamFolderFile.makeParent(toFile_,list);
         StreamTextFile.logToFile(toFile_, _content);
     }
 
     @Override
     public void log(String _folderName,String _fileName, String _content, RunnableContextEl _cont) {
         String toFile_ = StringUtil.concat(_folderName,"/",_fileName);
-        StreamFolderFile.makeParent(toFile_);
+        StreamFolderFile.makeParent(toFile_,list);
         StreamTextFile.logToFile(toFile_, _content);
     }
 

@@ -112,7 +112,7 @@ public final class MainWindow extends GroupFrame {
     }
 
     public void loadRenderConf(String _fichier) {
-        String content_ = StreamTextFile.contentsOfFile(_fichier);
+        String content_ = StreamTextFile.contentsOfFile(_fichier,getFileCoreStream());
         if (content_ == null) {
             return;
         }
@@ -130,7 +130,7 @@ public final class MainWindow extends GroupFrame {
         String archive_ = linesFiles_.first();
         String confRel_ = linesFiles_.get(1);
         UniformingString app_ = new DefaultUniformingString();
-        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_);
+        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_,getFileCoreStream());
         if (result_.getType() == OutputType.NOTHING) {
             return;
         }
@@ -165,8 +165,8 @@ public final class MainWindow extends GroupFrame {
             }
         }
         AbstractNameValidating validator_ = getValidator();
-        LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(validator_, null),
-                new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false,getThreadFactory()), getGenerator(),getThreadFactory()));
+        LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(validator_, null,getFileCoreStream()),
+                new DefaultFileSystem(app_, validator_,getFileCoreStream()), new DefaultReporter(validator_, app_, false,getThreadFactory(),getFileCoreStream()), getGenerator(),getThreadFactory()));
         lgNames_.setExecutingOptions(exec_);
         session.initNav();
         session.setLanguage(lg_,lgs_);

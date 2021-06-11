@@ -6,13 +6,14 @@ import code.gui.GroupFrame;
 import code.gui.initialize.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.random.AdvancedGenerator;
+import code.stream.AbstractFileCoreStream;
+import code.stream.DefaultFileCoreStream;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class ProgramInfos implements AbstractProgramInfos {
@@ -40,9 +41,11 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final AbstractGraphicStringListGenerator graphicStringListGenerator;
     private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator;
     private final AbstractThreadFactory threadFactory;
+    private final AbstractFileCoreStream fileCoreStream;
 
     public ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
         threadFactory = new DefaultThreadFactory();
+        fileCoreStream = new DefaultFileCoreStream();
         graphicStringListGenerator = _graphicStringListGenerator;
         graphicComboBoxGenerator = _graphicComboBoxGenerator;
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
@@ -52,8 +55,8 @@ public final class ProgramInfos implements AbstractProgramInfos {
         UpdateStyle updateStyle_ = new UpdateStyleImpl();
         updateStyle_.update();
     }
-    private static String initialize() {
-        String init_ = StringUtil.replaceBackSlashDot(new File(DOT).getAbsolutePath());
+    private String initialize() {
+        String init_ = StringUtil.replaceBackSlashDot(fileCoreStream.newFile(DOT).getAbsolutePath());
         return init_.substring(0, init_.length() - 1);
 
 //        String javaPath_ = StringUtil.replaceBackSlash(System.getProperty("java.class.path"));
@@ -162,6 +165,11 @@ public final class ProgramInfos implements AbstractProgramInfos {
 
     public AbstractThreadFactory getThreadFactory() {
         return threadFactory;
+    }
+
+    @Override
+    public AbstractFileCoreStream getFileCoreStream() {
+        return fileCoreStream;
     }
 
     @Override

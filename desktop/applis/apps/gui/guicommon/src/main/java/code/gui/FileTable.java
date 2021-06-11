@@ -1,16 +1,16 @@
 package code.gui;
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
+import code.stream.AbstractFile;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class FileTable {
+public final class FileTable {
 
     static final int NAME_INDEX = 0;
 
@@ -47,7 +47,7 @@ public class FileTable {
 
     private final StringMap<String> messages;
 
-    private final CustList<File> files = new CustList<File>();
+    private final CustList<AbstractFile> files = new CustList<AbstractFile>();
 
     private String extension;
 
@@ -127,7 +127,7 @@ public class FileTable {
     }
 
     public String getValueAt(int _rowIndex, int _columnIndex) {
-        File currentFile_;
+        AbstractFile currentFile_;
         currentFile_ = files.get(_rowIndex);
         if(_columnIndex == NAME_INDEX) {
             if (!extension.isEmpty()) {
@@ -148,7 +148,7 @@ public class FileTable {
         return null;
     }
 
-    public void setupFiles(CustList<File> _list,String _folder, String _extension) {
+    public void setupFiles(CustList<AbstractFile> _list,String _folder, String _extension) {
         indexOfSorted = IndexConstants.INDEX_NOT_FOUND_ELT;
         extension = _extension;
         increasing = false;
@@ -166,7 +166,7 @@ public class FileTable {
         applyChanges();
     }
 
-    public void setupFile(File _file) {
+    public void setupFile(AbstractFile _file) {
         files.add(_file);
         table.setRowCount(files.size());
         int cols_ = getColumnCount();
@@ -199,7 +199,7 @@ public class FileTable {
         table.applyChanges();
     }
 
-    public CustList<File> getFiles() {
+    public CustList<AbstractFile> getFiles() {
         return files;
     }
 

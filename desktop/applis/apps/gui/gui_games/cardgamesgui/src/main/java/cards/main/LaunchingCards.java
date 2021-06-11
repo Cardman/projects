@@ -1,6 +1,5 @@
 package cards.main;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import cards.belote.HandBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
@@ -16,6 +15,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.scripts.messages.gui.MessCardVideoGr;
+import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -40,26 +40,26 @@ public class LaunchingCards extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
-        StreamFolderFile.makeParent(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER));
-        File f = new File(StringUtil.concat(getTempFolderSl(getFrames()), FileConst.DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.name(), FileConst.DECK_EXT));
+        StreamFolderFile.makeParent(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER), getFrames().getFileCoreStream());
+        AbstractFile f = getFrames().getFileCoreStream().newFile(StringUtil.concat(getTempFolderSl(getFrames()), FileConst.DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.name(), FileConst.DECK_EXT));
         HandBelote mainB_=HandBelote.pileBase();
         if(!f.exists()) {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterBeloteUtil.setHandBelote(mainB_));
         }
-        f=new File(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT));
+        f=getFrames().getFileCoreStream().newFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT));
         HandTarot mainT_=HandTarot.pileBase();
         if(!f.exists()) {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterTarotUtil.setHandTarot(mainT_));
         }
         int maxStacks_ = RulesPresident.getNbMaxStacksPlayers();
         for (int i = IndexConstants.ONE_ELEMENT; i <= maxStacks_; i++) {
-            f=new File(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(i),FileConst.DECK_EXT));
+            f=getFrames().getFileCoreStream().newFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(i),FileConst.DECK_EXT));
             HandPresident h_ = HandPresident.stack(i);
             if(!f.exists()) {
                 StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterPresidentUtil.setHandPresident(h_));
             }
         }
-        f=new File(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE));
+        f=getFrames().getFileCoreStream().newFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE));
         if(!f.exists()) {
             StringList dealsNumbers_ = new StringList();
             int nbGames_ = GameEnum.values().length;
@@ -68,7 +68,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
             }
             StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN));
         }
-        TopLeftFrame coordonnees_=loadCoords(getTempFolder(getFrames()), FileConst.COORDS);
+        TopLeftFrame coordonnees_=loadCoords(getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream());
         CustComponent.invokeLater(new LaunchingGame(_args, _language,coordonnees_, getFrames(),factories));
     }
 
@@ -104,6 +104,6 @@ public class LaunchingCards extends AdvSoftApplicationCore {
 
     @Override
     public Object getObject(String _fileName) {
-        return DocumentReaderCardsUnionUtil.getObject(_fileName);
+        return DocumentReaderCardsUnionUtil.getObject(_fileName, getFrames().getFileCoreStream());
     }
 }

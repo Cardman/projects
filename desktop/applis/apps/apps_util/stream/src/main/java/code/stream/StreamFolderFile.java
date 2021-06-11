@@ -7,62 +7,65 @@ import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
-import java.io.File;
-
 public final class StreamFolderFile {
     private StreamFolderFile() {
     }
 
-    public static String getCurrentPath() {
-        return StringUtil.replaceBackSlashDot(new File(".").getAbsolutePath());
+    public static String getCurrentPath(AbstractFileCoreStream _list) {
+        return StringUtil.replaceBackSlashDot(_list.newFile(".").getAbsolutePath());
     }
 
-    public static boolean isAbsolute(String _path) {
-        File file_ = new File(_path);
+    public static boolean isAbsolute(String _path,AbstractFileCoreStream _list) {
+        AbstractFile file_ = _list.newFile(_path);
         String absPath_ = StringUtil.replaceBackSlashDot(file_.getAbsolutePath());
         String path_ = StringUtil.replaceBackSlashDot(_path);
         return StringUtil.quickEq(absPath_,path_);
     }
-    public static StringMap<String> getFiles(String _archiveOrFolder) {
-        return getFiles(_archiveOrFolder,new DefaultUniformingString()).getZipFiles();
+    public static StringMap<String> getFiles(String _archiveOrFolder,AbstractFileCoreStream _fact) {
+        return getFiles(_archiveOrFolder,new DefaultUniformingString(),_fact).getZipFiles();
     }
 
-    public static String getRelativeRootPath(String _absolute) {
-        for (String r: listRootsAbPath()) {
+    public static String getRelativeRootPath(String _absolute,AbstractFileCoreStream _list) {
+        for (String r: listRootsAbPath(_list)) {
             if (_absolute.startsWith(r)) {
                 return _absolute.substring(r.length());
             }
         }
         return _absolute;
     }
-    public static StringList listRootsAbPath() {
+
+    public static StringList listRootsAbPath(AbstractFileCoreStream _list) {
+        AbstractListRoot roots_ = _list.newFileList();
         StringList l_ = new StringList();
-        for (File f: File.listRoots()) {
-            l_.add(StringUtil.replaceBackSlashDot(f.getAbsolutePath()));
+        int length_ = roots_.length();
+        for (int i = 0; i< length_; i++) {
+            l_.add(StringUtil.replaceBackSlashDot(roots_.path(i)));
         }
         return l_;
     }
-    public static boolean makeParent(String _pathname) {
+
+    public static boolean makeParent(String _pathname,AbstractFileCoreStream _list) {
         StringList parts_ = StringUtil.splitChars(_pathname, '/', '\\');
         int nbElements_ = parts_.size() - 1;
         if (nbElements_ <= 0) {
             return false;
         }
-        return mkdirs(StringUtil.join(parts_.left(nbElements_),'/'));
+        return mkdirs(StringUtil.join(parts_.left(nbElements_),'/'),_list);
     }
-    public static boolean mkdirs(String _folder) {
-        return new File(_folder).mkdirs();
+
+    public static boolean mkdirs(String _folder,AbstractFileCoreStream _list) {
+        return _list.newFile(_folder).mkdirs();
     }
-    public static ReadFiles getFiles(String _archiveOrFolder, UniformingString _app) {
-        File file_ = new File(_archiveOrFolder);
+    public static ReadFiles getFiles(String _archiveOrFolder, UniformingString _app,AbstractFileCoreStream _fact) {
+        AbstractFile file_ = _fact.newFile(_archiveOrFolder);
         if (file_.isDirectory()) {
             StringMap<String> zipFiles_ = new StringMap<String>();
             String abs_ = file_.getAbsolutePath();
-            for (String f: StreamTextFile.allSortedFiles(_archiveOrFolder)) {
-                if (new File(f).isDirectory()) {
+            for (String f: StreamTextFile.allSortedFiles(_archiveOrFolder,_fact)) {
+                if (_fact.newFile(f).isDirectory()) {
                     continue;
                 }
-                String contentOfFile_ = StreamTextFile.contentsOfFile(f, _app);
+                String contentOfFile_ = StreamTextFile.contentsOfFile(f, _app,_fact);
                 if (contentOfFile_ == null) {
                     continue;
                 }
@@ -70,25 +73,25 @@ public final class StreamFolderFile {
             }
             return new ReadFiles(zipFiles_, OutputType.FOLDER);
         }
-        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder);
+        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder,_fact);
         return StreamZipFile.getZippedFiles(_app, bytes_);
     }
 
-    public static ReadBinFiles getBinFiles(String _archiveOrFolder) {
-        File file_ = new File(_archiveOrFolder);
+    public static ReadBinFiles getBinFiles(String _archiveOrFolder,AbstractFileCoreStream _fact) {
+        AbstractFile file_ = _fact.newFile(_archiveOrFolder);
         if (file_.isDirectory()) {
             StringMap<ContentTime> zipFiles_ = new StringMap<ContentTime>();
             StringMap<ContentTime> zipFolders_ = new StringMap<ContentTime>();
             String abs_ = file_.getAbsolutePath();
-            for (String f: StreamTextFile.allSortedFiles(_archiveOrFolder)) {
-                File info_ = new File(f);
+            for (String f: StreamTextFile.allSortedFiles(_archiveOrFolder,_fact)) {
+                AbstractFile info_ = _fact.newFile(f);
                 if (info_.isDirectory()) {
                     if (abs_.length()+1 <= f.length()) {
                         zipFolders_.addEntry(f.substring(abs_.length()+1),new ContentTime(null,info_.lastModified()));
                     }
                     continue;
                 }
-                byte[] contentOfFile_ = StreamBinaryFile.loadFile(f);
+                byte[] contentOfFile_ = StreamBinaryFile.loadFile(f,_fact);
                 if (contentOfFile_ == null) {
                     continue;
                 }
@@ -96,7 +99,7 @@ public final class StreamFolderFile {
             }
             return new ReadBinFiles(zipFiles_,zipFolders_, OutputType.FOLDER);
         }
-        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder);
+        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder,_fact);
         return StreamZipFile.getZippedBinFiles(bytes_);
     }
 

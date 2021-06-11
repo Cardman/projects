@@ -141,7 +141,7 @@ public class ContainerBelote extends ContainerGame {
     protected static HandBelote chargerPileBelote(AbstractProgramInfos _tmpUserFolderSl) {
         return DocumentReaderBeloteUtil.getHandBelote(StreamTextFile.contentsOfFile(
                   StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,
-                          StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT)));
+                          StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT),_tmpUserFolderSl.getFileCoreStream()));
     }
     public String pseudo() {
         return getPseudosJoueurs().getPseudo();

@@ -25,13 +25,13 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
 
     @Override
     public Object getObject(String _fileName) {
-        if (isBinary(StreamBinaryFile.loadFile(_fileName))) {
+        if (isBinary(StreamBinaryFile.loadFile(_fileName, getFrames().getFileCoreStream()))) {
             BufferedImage img_ = StreamImageFile.read(_fileName);
             if (img_ != null) {
                 return img_;
             }
         }
-        return StreamTextFile.contentsOfFile(_fileName);
+        return StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream());
     }
 
     @Override

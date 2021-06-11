@@ -1,6 +1,5 @@
 package aiki.main;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import aiki.db.DataBase;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -10,6 +9,9 @@ import code.maths.Rate;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.scripts.messages.gui.MessPkVideoGr;
+import code.stream.AbstractFile;
+import code.stream.AbstractFileCoreStream;
+import code.stream.FileListInfo;
 import code.stream.StreamImageFile;
 import code.util.CustList;
 import code.util.core.IndexConstants;
@@ -25,20 +27,20 @@ public final class VideoLoading {
     private boolean initialized;
     private final LgInt maxRd = LgInt.getMaxLongPlusOne();
 
-    public CustList<BufferedImage> getVideo(AbstractGenerator _abs) {
+    public CustList<BufferedImage> getVideo(AbstractGenerator _abs, AbstractFileCoreStream _list) {
         if (!initialized) {
             String path_ = VIDEO;
-            File file_ = new File(path_);
-            File[] filesLists_ = file_.listFiles();
-            if (filesLists_ != null) {
-                for (File folder_: filesLists_) {
+            AbstractFile file_ = _list.newFile(path_);
+            FileListInfo filesLists_ = file_.listAbsolute(_list);
+            if (!filesLists_.isNul()) {
+                for (AbstractFile folder_: filesLists_.getNames()) {
                     CustList<BufferedImage> imgs_ = new CustList<BufferedImage>();
-                    File[] files_ = folder_.listFiles();
-                    if (files_ == null) {
+                    FileListInfo files_ = folder_.listAbsolute(_list);
+                    if (files_.isNul()) {
                         continue;
                     }
                     int len_;
-                    len_ = files_.length;
+                    len_ = files_.getNames().length;
                     for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                         BufferedImage img_ = StreamImageFile.read(
                                 StringUtil.concat(path_, DataBase.SEPARATOR_FILES, folder_.getName(),

@@ -1,6 +1,6 @@
 package code.gui;
-import java.io.File;
 
+import code.stream.AbstractFile;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -10,12 +10,12 @@ public final class ThreadSearchingFile implements Runnable {
 
     private final FileOpenDialog dialog;
 
-    private final CustList<File> backup;
+    private final CustList<AbstractFile> backup;
 //    private Cursor cursor;
 
-    private final File folder;
+    private final AbstractFile folder;
 
-    public ThreadSearchingFile(FileOpenDialog _dialog, CustList<File> _backup, File _folder) {
+    public ThreadSearchingFile(FileOpenDialog _dialog, CustList<AbstractFile> _backup, AbstractFile _folder) {
         dialog = _dialog;
         backup = _backup;
         folder = _folder;
@@ -30,12 +30,12 @@ public final class ThreadSearchingFile implements Runnable {
 //        dialog.init(dialog.getCurrentFolder(), dialog.getExtension());
 //        dialog.applyChanges();
 //        dialog.setKeepSearching(true);
-        CustList<File> current_;
-        current_ = new CustList<File>(folder);
+        CustList<AbstractFile> current_;
+        current_ = new CustList<AbstractFile>(folder);
         FileCount fc_ = new FileCount();
         while (true) {
-            CustList<File> next_;
-            next_ = new CustList<File>();
+            CustList<AbstractFile> next_;
+            next_ = new CustList<AbstractFile>();
             if (!keep(current_,next_,fc_)) {
                 return;
             }
@@ -48,13 +48,9 @@ public final class ThreadSearchingFile implements Runnable {
 //        dialog.setCursor(cursor);
 //        CustComponent.invokeLater(new AfterSearchingFile(dialog, cursor, true, results_));
     }
-    boolean keep(CustList<File> _current,CustList<File> _next, FileCount _fc) {
-        for (File d: _current) {
-            File[] files_ = d.listFiles();
-            if (files_ == null) {
-                continue;
-            }
-            for (File f: files_) {
+    boolean keep(CustList<AbstractFile> _current,CustList<AbstractFile> _next, FileCount _fc) {
+        for (AbstractFile d: _current) {
+            for (AbstractFile f: d.listAbsolute(dialog.getSuperFrame().getFileCoreStream()).getNames()) {
                 if (!dialog.isKeepSearching()) {
 //                        CustComponent.invokeLater(new AfterSearchingFile(dialog, cursor, false, results_));
 //                        CustComponent.invokeLater(new AfterSearchingFile(dialog, false, results_, backup_));
@@ -67,7 +63,7 @@ public final class ThreadSearchingFile implements Runnable {
         return true;
     }
 
-    private void processSearch(CustList<File> _next, FileCount _fc, File _f) {
+    private void processSearch(CustList<AbstractFile> _next, FileCount _fc, AbstractFile _f) {
         _fc.incrSearch();
         CustComponent.invokeLater(new SettingInformation(dialog, _fc.getSearch(), _fc.getFound()));
         if (_f.isDirectory()) {

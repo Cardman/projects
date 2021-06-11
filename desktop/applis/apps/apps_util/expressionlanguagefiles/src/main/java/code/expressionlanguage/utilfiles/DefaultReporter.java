@@ -2,6 +2,7 @@ package code.expressionlanguage.utilfiles;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.*;
+import code.stream.AbstractFileCoreStream;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.*;
@@ -12,19 +13,19 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
-import java.io.File;
-
 public final class DefaultReporter implements AbstractReporter {
     private final AbstractNameValidating nameValidating;
     private final UniformingString uniformingString;
     private final boolean memory;
     private final AbstractThreadFactory threadFactory;
+    private final AbstractFileCoreStream fileCoreStream;
 
-    public DefaultReporter(AbstractNameValidating _nameValidating, UniformingString _uniformingString, boolean _memory, AbstractThreadFactory _threadFactory) {
+    public DefaultReporter(AbstractNameValidating _nameValidating, UniformingString _uniformingString, boolean _memory, AbstractThreadFactory _threadFactory, AbstractFileCoreStream _fact) {
         nameValidating = _nameValidating;
         uniformingString = _uniformingString;
         memory = _memory;
         threadFactory = _threadFactory;
+        fileCoreStream = _fact;
     }
 
     @Override
@@ -70,7 +71,7 @@ public final class DefaultReporter implements AbstractReporter {
     public String getFolderPath(String _folderPath, ExecutingOptions _exec,ReadFiles _results) {
         String folderPath_ = StringUtil.replaceBackSlashDot(_folderPath);
         if (_results.getType() != OutputType.FOLDER) {
-            String absolutePath_ = StringUtil.replaceBackSlash(new File(_folderPath).getAbsolutePath());
+            String absolutePath_ = StringUtil.replaceBackSlash(fileCoreStream.newFile(_folderPath).getAbsolutePath());
             int last_ = absolutePath_.lastIndexOf('/');
             if (last_ > -1) {
                 folderPath_ = StringUtil.replaceBackSlashDot(absolutePath_.substring(0,last_));
@@ -118,7 +119,7 @@ public final class DefaultReporter implements AbstractReporter {
         if (foldersConf_.hasDuplicates()) {
             return true;
         }
-        _exec.setOutput(StringUtil.replaceBackSlashDot(new File(_folderPath).getAbsolutePath()));
+        _exec.setOutput(StringUtil.replaceBackSlashDot(fileCoreStream.newFile(_folderPath).getAbsolutePath()));
         if (!memory) {
             _exec.setBaseFiles(StringUtil.replaceBackSlashDot(_exec.getOutput()+_exec.getFiles()));
         } else {
@@ -132,7 +133,7 @@ public final class DefaultReporter implements AbstractReporter {
     }
     @Override
     public String conf(String _fileConfOrContent) {
-        return StreamTextFile.contentsOfFile(_fileConfOrContent);
+        return StreamTextFile.contentsOfFile(_fileConfOrContent,fileCoreStream);
     }
 
     @Override
@@ -142,12 +143,12 @@ public final class DefaultReporter implements AbstractReporter {
 
     @Override
     public ReadBinFiles getBinFiles(String _archiveOrFolder) {
-        return StreamFolderFile.getBinFiles(_archiveOrFolder);
+        return StreamFolderFile.getBinFiles(_archiveOrFolder,fileCoreStream);
     }
 
     @Override
     public ReadFiles getFiles(String _archiveOrFolder) {
-        return StreamFolderFile.getFiles(_archiveOrFolder,uniformingString);
+        return StreamFolderFile.getFiles(_archiveOrFolder,uniformingString,fileCoreStream);
     }
 
     @Override
@@ -178,9 +179,9 @@ public final class DefaultReporter implements AbstractReporter {
         return null;
     }
 
-    private static void saveFile(String _folder, String _fileName, String _content) {
+    private void saveFile(String _folder, String _fileName, String _content) {
         String full_ = _folder + _fileName;
-        StreamFolderFile.makeParent(full_);
+        StreamFolderFile.makeParent(full_,fileCoreStream);
         StreamTextFile.saveTextFile(full_,_content);
     }
 }

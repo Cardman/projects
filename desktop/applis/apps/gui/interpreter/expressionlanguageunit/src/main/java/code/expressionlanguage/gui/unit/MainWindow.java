@@ -187,7 +187,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
             return;
         }
         String txt_ = _mainWindow.getTxtConf();
-        RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(_mainWindow),
+        RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(_mainWindow,getFileCoreStream()),
                 _mainWindow.getInfos());
         running = r_;
         AbstractThread th_ = getThreadFactory().newThread(r_);
@@ -220,7 +220,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
         if (!_mainWindow.ok(_fichier)) {
             return;
         }
-        RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(_mainWindow),
+        RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(_mainWindow,getFileCoreStream()),
                 _mainWindow.getInfos());
         running = r_;
         AbstractThread th_ = getThreadFactory().newThread(r_);
@@ -236,7 +236,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = getValidator();
         return new FileInfos(buildLogger(validator_),
-                buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected(),getThreadFactory()), getGenerator(),getThreadFactory());
+                buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected(),getThreadFactory(),getFileCoreStream()), getGenerator(),getThreadFactory());
     }
 
     @Override
@@ -256,14 +256,14 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
         if (memory.isSelected()) {
             return new MemoryLogger(_validator, unitIssuer,getThreadFactory());
         }
-        return new DefaultLogger(_validator, unitIssuer);
+        return new DefaultLogger(_validator, unitIssuer,getFileCoreStream());
     }
 
     private AbstractFileSystem buildSystem(AbstractNameValidating _validator) {
         if (memory.isSelected()) {
             return new MemoryFileSystem(uniformingString,_validator,getThreadFactory());
         }
-        return new DefaultFileSystem(uniformingString, _validator);
+        return new DefaultFileSystem(uniformingString, _validator,getFileCoreStream());
     }
 
     public void showProgress(ContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved) {

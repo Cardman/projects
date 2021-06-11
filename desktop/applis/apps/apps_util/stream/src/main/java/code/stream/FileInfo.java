@@ -1,61 +1,63 @@
 package code.stream;
-import java.io.File;
 
 import code.stream.comparators.FileNameComparator;
+import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public final class FileInfo {
 
-    private File info;
+    private final AbstractFile info;
 
-    private CustList<File> children;
+    private final CustList<AbstractFile> children;
 
     private int index;
 
     private FileInfo parent;
 
-    public FileInfo(File _info) {
+    public FileInfo(AbstractFile _info,AbstractFileCoreStream _fact) {
         info = _info;
-        File[] files_ = info.listFiles();
-        if (files_ != null) {
-            children = new CustList<File>(files_);
+        FileListInfo files_ = info.listAbsolute(_fact);
+        if (!files_.isNul()) {
+            children = new CustList<AbstractFile>(files_.getNames());
             children.sortElts(new FileNameComparator());
+        } else {
+            children = new CustList<AbstractFile>(new CollCapacity(0));
         }
     }
 
-    public FileInfo(File _info, int _index, FileInfo _parent) {
-        this(_info);
+    public FileInfo(AbstractFile _info,AbstractFileCoreStream _fact, int _index, FileInfo _parent) {
+        this(_info,_fact);
         parent = _parent;
         index = _index;
     }
 
-    public FileInfo getFirstChild() {
-        if (children == null || children.isEmpty()) {
+    public FileInfo getFirstChild(AbstractFileCoreStream _fact) {
+        if (children.isEmpty()) {
             return null;
         }
-        File f_ = children.first();
-        return new FileInfo(f_, IndexConstants.FIRST_INDEX, this);
+        AbstractFile f_ = children.first();
+        return new FileInfo(f_,_fact, IndexConstants.FIRST_INDEX, this);
     }
 
-    public FileInfo getNextSibling() {
+    public FileInfo getNextSibling(AbstractFileCoreStream _fact) {
         FileInfo p_ = getParent();
         if (p_ == null) {
             return null;
         }
-        CustList<File> children_ = p_.children;
+        CustList<AbstractFile> children_ = p_.children;
         if (index + 1 >= children_.size()) {
             return null;
         }
-        File f_ = children_.get(index + 1);
-        return new FileInfo(f_, index + 1, p_);
+        AbstractFile f_ = children_.get(index + 1);
+        return new FileInfo(f_,_fact, index + 1, p_);
     }
 
     public FileInfo getParent() {
         return parent;
     }
 
-    public File getInfo() {
+    public AbstractFile getInfo() {
         return info;
     }
 }

@@ -3,7 +3,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.net.Socket;
 
 import javax.swing.JOptionPane;
@@ -61,6 +60,8 @@ import code.network.Exiting;
 import code.network.NetGroupFrame;
 import code.scripts.messages.gui.MessGuiPkGr;
 import code.sml.util.ResourcesMessagesUtil;
+import code.stream.AbstractFile;
+import code.stream.AbstractFileCoreStream;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.threads.AbstractThread;
@@ -337,18 +338,18 @@ public final class MainWindow extends NetGroupFrame {
                 String name_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
                 loadingConf.setLastSavedGame(name_);
                 save(name_);
-                if (!new File(name_).exists()) {
-                    name_ = StringUtil.concat(StreamFolderFile.getCurrentPath(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
+                if (!getFileCoreStream().newFile(name_).exists()) {
+                    name_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
                     int index_ = 0;
-                    while (new File(name_).exists()) {
-                        name_ = StringUtil.concat(StreamFolderFile.getCurrentPath(),LoadingGame.DEFAULT_SAVE_GAME,Long.toString(index_),Resources.GAME_EXT);
+                    while (getFileCoreStream().newFile(name_).exists()) {
+                        name_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()),LoadingGame.DEFAULT_SAVE_GAME,Long.toString(index_),Resources.GAME_EXT);
                         index_++;
                     }
                     loadingConf.setLastSavedGame(name_);
                     save(name_);
                 }
             } else {
-                String path_ = new File(loadingConf.getLastSavedGame()).getAbsolutePath();
+                String path_ = getFileCoreStream().newFile(loadingConf.getLastSavedGame()).getAbsolutePath();
                 path_ = StringUtil.replaceBackSlash(path_);
                 save(path_);
             }
@@ -527,7 +528,7 @@ public final class MainWindow extends NetGroupFrame {
     public void loadOnlyRom(String _file, PerCent _p) {
         if (!_file.isEmpty()) {
             //startThread = true;
-            StringMap<String> files_ = StreamFolderFile.getFiles(_file);
+            StringMap<String> files_ = StreamFolderFile.getFiles(_file,getFileCoreStream());
             DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,_file, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
                 DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
@@ -550,14 +551,14 @@ public final class MainWindow extends NetGroupFrame {
         String path_;
         if (!_configuration.getLastRom().isEmpty()) {
             String lastRom_ = StringUtil.replaceBackSlash(_configuration.getLastRom());
-            File file_ = new File(lastRom_);
-            if (!StreamFolderFile.isAbsolute(lastRom_)) {
+            AbstractFile file_ = getFileCoreStream().newFile(lastRom_);
+            if (!StreamFolderFile.isAbsolute(lastRom_,getFileCoreStream())) {
                 path_ = StringUtil.concat(_path,_configuration.getLastRom());
             } else {
                 path_ = file_.getAbsolutePath();
             }
             path_ = StringUtil.replaceBackSlash(path_);
-            StringMap<String> files_ = StreamFolderFile.getFiles(path_);
+            StringMap<String> files_ = StreamFolderFile.getFiles(path_,getFileCoreStream());
             DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,path_, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
                 DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
@@ -583,15 +584,15 @@ public final class MainWindow extends NetGroupFrame {
             }
         } else {
             String lastSave_ = StringUtil.replaceBackSlash(_configuration.getLastSavedGame());
-            File file_ = new File(lastSave_);
-            if (!StreamFolderFile.isAbsolute(lastSave_)) {
+            AbstractFile file_ = getFileCoreStream().newFile(lastSave_);
+            if (!StreamFolderFile.isAbsolute(lastSave_,getFileCoreStream())) {
                 path_ = StringUtil.concat(_path,_configuration.getLastSavedGame());
             } else {
                 path_ = file_.getAbsolutePath();
             }
             path_ = StringUtil.replaceBackSlash(path_);
             DataBase db_ = facade.getData();
-            Game game_ = load(path_, db_);
+            Game game_ = load(path_, db_,getFileCoreStream());
             if (game_ == null) {
                 loadFlag.set(false);
                 if (_param) {
@@ -616,10 +617,10 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         AbstractNameValidating def_ = getFrames().getValidator();
-        if (!def_.okPath(StreamFolderFile.getRelativeRootPath(loadingConf.getExport()),'/','\\')) {
+        if (!def_.okPath(StreamFolderFile.getRelativeRootPath(loadingConf.getExport(), getFileCoreStream()),'/','\\')) {
             loadingConf.setExport("");
         }
-        exporting = getThreadFactory().newThread(new ExportRomThread(facade,loadingConf,getThreadFactory()));
+        exporting = getThreadFactory().newThread(new ExportRomThread(facade,loadingConf,getThreadFactory(), getFileCoreStream()));
         exporting.start();
     }
 
@@ -838,7 +839,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         boolean error_ = false;
         DataBase db_ = facade.getData();
-        Game game_ = load(fileName_, db_);
+        Game game_ = load(fileName_, db_,getFileCoreStream());
         if (game_ != null) {
             facade.load(game_);
             gameSave.setEnabledMenu(true);
@@ -868,8 +869,8 @@ public final class MainWindow extends NetGroupFrame {
         }
     }
 
-    public static Game load(String _fileName,DataBase _data) {
-        Game game_ = DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName));
+    public static Game load(String _fileName, DataBase _data, AbstractFileCoreStream _fact) {
+        Game game_ = DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName,_fact));
         if (game_ == null) {
             return null;
         }
@@ -1020,7 +1021,7 @@ public final class MainWindow extends NetGroupFrame {
         //JTextArea area_ = new JTextArea();
         RenderedPage session_;
         session_ = new RenderedPage(new ScrollPane(), getFrames());
-        session_.setProcess(videoLoading.getVideo(getGenerator()));
+        session_.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream()));
         FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_);
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
         dialog_.initSessionLg(facade,preparedDataWebTask,facade.getLanguage());
@@ -1064,7 +1065,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     public void processLoad(String _fileName, PerCent _p) {
-        StringMap<String> files_ = StreamFolderFile.getFiles(_fileName);
+        StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream());
         DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
             DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
@@ -1304,7 +1305,7 @@ public final class MainWindow extends NetGroupFrame {
             if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
                 FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, getFrames().getHomePath(), Resources.EXCLUDED);
             } else {
-                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(), Resources.EXCLUDED);
+                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()), Resources.EXCLUDED);
             }
 //            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, SoftApplication.getFolderJarPath(), Resources.EXCLUDED);
         } else {

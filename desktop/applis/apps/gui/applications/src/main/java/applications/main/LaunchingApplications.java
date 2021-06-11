@@ -135,7 +135,7 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
 
     private static void launchWindow(String _language, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, GuiFactroy _guiFact) {
-        TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list),COORDS);
+        TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream());
         MainWindow w_ = getWindow(_language, _list, _cardFactories, _aikiFactory, _guiFact);
         setLocation(w_, topLeft_);
     }
@@ -156,14 +156,14 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
     @Override
     public Object getObject(String _fileName) {
-        byte[] bytes_ = StreamBinaryFile.loadFile(_fileName);
+        byte[] bytes_ = StreamBinaryFile.loadFile(_fileName, getFrames().getFileCoreStream());
         if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_)) {
             BufferedImage img_ = StreamImageFile.read(_fileName);
             if (img_ != null) {
                 return img_;
             }
         }
-        String file_ = StreamTextFile.contentsOfFile(_fileName);
+        String file_ = StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream());
         if (file_ == null) {
             return null;
         }

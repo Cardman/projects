@@ -186,8 +186,8 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
             errors.append("\n");
             return null;
         }
-        if (StreamFolderFile.isAbsolute(_fileField.getText())) {
-            byte[] files_ = StreamBinaryFile.loadFile(_fileField.getText());
+        if (StreamFolderFile.isAbsolute(_fileField.getText(), parent.getFileCoreStream())) {
+            byte[] files_ = StreamBinaryFile.loadFile(_fileField.getText(), parent.getFileCoreStream());
             if (files_ == null) {
                 errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_fileField.getText()));
                 errors.append("\n");
@@ -197,12 +197,12 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
             errors.append("\n");
             return files_;
         }
-        if (!StreamFolderFile.isAbsolute(folderField.getText())) {
+        if (!StreamFolderFile.isAbsolute(folderField.getText(), parent.getFileCoreStream())) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadPath"),_fileField.getText(),folderField.getText()));
             errors.append("\n");
             return null;
         }
-        byte[] files_ = StreamBinaryFile.loadFile(StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText());
+        byte[] files_ = StreamBinaryFile.loadFile(StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText(), parent.getFileCoreStream());
         if (files_ == null) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_fileField.getText()));
             errors.append("\n");
@@ -251,7 +251,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
             errors.append("\n");
             return;
         }
-        byte[] confFile_ = StreamBinaryFile.loadFile(_filePath);
+        byte[] confFile_ = StreamBinaryFile.loadFile(_filePath, parent.getFileCoreStream());
         if (confFile_ == null) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_filePath));
             errors.append("\n");

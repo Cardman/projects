@@ -1,23 +1,23 @@
 package code.stream;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import code.util.core.StringUtil;
+
+import java.io.*;
 
 public final class StreamFileCore {
     private StreamFileCore() {
     }
-    public static FileInputStream tryCreateFileInputStream(File _file) {
+
+    public static InputStream tryCreateFileInputStream(String _file) {
         try {
-            return new FileInputStream(_file);
+            return new FileInputStream(StringUtil.nullToEmpty(_file));
         } catch (IOException e) {
             return null;
         }
     }
-    public static FileOutputStream tryCreateFileOutputStream(String _file) {
+    public static OutputStream tryCreateFileOutputStream(String _file) {
         try {
-            return new FileOutputStream(_file);
+            return new FileOutputStream(StringUtil.nullToEmpty(_file));
         } catch (IOException e) {
             return null;
         }

@@ -6,6 +6,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.structs.Struct;
 import code.gui.Clock;
+import code.stream.AbstractFileCoreStream;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.core.ContentTime;
@@ -16,9 +17,11 @@ import code.util.core.StringUtil;
 public final class ProgressingTestsImpl implements ProgressingTests {
     private TestableFrame mainWindow;
     private ExecutingOptions exec;
+    private AbstractFileCoreStream fact;
 
-    public ProgressingTestsImpl(TestableFrame _mainWindow) {
+    public ProgressingTestsImpl(TestableFrame _mainWindow, AbstractFileCoreStream _fact) {
         mainWindow = _mainWindow;
+        fact = _fact;
     }
 
     @Override
@@ -38,7 +41,7 @@ public final class ProgressingTestsImpl implements ProgressingTests {
         AbstractLogger logger_ = _infos.getLogger();
         byte[] bytes_ = _infos.getReporter().exportErrs(_exec, logger_);
         if (bytes_ != null) {
-            StreamFolderFile.makeParent(_exec.getOutputFolder()+"/"+_exec.getOutputZip());
+            StreamFolderFile.makeParent(_exec.getOutputFolder()+"/"+_exec.getOutputZip(),fact);
             StreamBinaryFile.writeFile(_exec.getOutputFolder()+"/"+_exec.getOutputZip(),bytes_);
         }
     }
@@ -69,7 +72,7 @@ public final class ProgressingTestsImpl implements ProgressingTests {
         if (export_ == null) {
             return;
         }
-        StreamFolderFile.makeParent(executingOptions_.getOutputFolder()+"/"+executingOptions_.getOutputZip());
+        StreamFolderFile.makeParent(executingOptions_.getOutputFolder()+"/"+executingOptions_.getOutputZip(),fact);
         StreamBinaryFile.writeFile(executingOptions_.getOutputFolder()+"/"+executingOptions_.getOutputZip(),export_);
     }
 }

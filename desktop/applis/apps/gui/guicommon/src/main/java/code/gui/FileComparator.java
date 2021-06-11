@@ -1,6 +1,6 @@
 package code.gui;
-import java.io.File;
 
+import code.stream.AbstractFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -8,7 +8,7 @@ import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 import code.util.ints.Comparing;
 
-public final class FileComparator implements Comparing<File> {
+public final class FileComparator implements Comparing<AbstractFile> {
 
     private boolean increasing;
 
@@ -24,7 +24,7 @@ public final class FileComparator implements Comparing<File> {
     }
 
     @Override
-    public int compare(File _o1, File _o2) {
+    public int compare(AbstractFile _o1, AbstractFile _o2) {
         if (indexOfSorted == FileTable.NAME_INDEX) {
             if (increasing) {
                 return StringUtil.compareStrings(_o1.getName(),_o2.getName());

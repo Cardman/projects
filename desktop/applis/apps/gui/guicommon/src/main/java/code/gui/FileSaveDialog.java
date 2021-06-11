@@ -1,6 +1,5 @@
 package code.gui;
 import java.awt.BorderLayout;
-import java.io.File;
 
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -11,6 +10,7 @@ import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
+import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
@@ -103,7 +103,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             if (!frame.getValidator().okPath(str_.toString(),'/','\\')) {
                 return;
             }
-            if (!StreamFolderFile.makeParent(str_.toString())) {
+            if (!StreamFolderFile.makeParent(str_.toString(), getSuperFrame().getFileCoreStream())) {
                 return;
             }
             applyTreeChangeSelected();
@@ -111,7 +111,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             if (!frame.getValidator().okPath(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()),'/','\\')) {
                 return;
             }
-            if (!StreamFolderFile.makeParent(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()))) {
+            if (!StreamFolderFile.makeParent(StringUtil.concat(getFolder(),StreamTextFile.SEPARATEUR,typedString.getText().trim()), getSuperFrame().getFileCoreStream())) {
                 return;
             }
             applyTreeChange();
@@ -142,7 +142,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             return;
         }
         //get selected row first table
-        File file_ = new File(StringUtil.concat(getCurrentFolder(), text_,getExtension()));
+        AbstractFile file_ = getSuperFrame().getFileCoreStream().newFile(StringUtil.concat(getCurrentFolder(), text_,getExtension()));
         if (file_.exists()) {
             String mes_ = StringUtil.simpleStringsFormat(messages.getVal(BODY_CONF), StringUtil.concat(getCurrentFolder(), text_));
 //            ConfirmDialog conf_ = new ConfirmDialog(

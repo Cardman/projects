@@ -1,8 +1,7 @@
 package code.gui;
-import java.io.File;
 
+import code.stream.AbstractFile;
 import code.util.CustList;
-import code.util.StringList;
 
 /**Thread safe class*/
 public final class AfterSearchingFile implements Runnable {
@@ -15,9 +14,9 @@ public final class AfterSearchingFile implements Runnable {
 
 //    private List<File> results;
 
-    private CustList<File> backup;
+    private CustList<AbstractFile> backup;
 
-    public AfterSearchingFile(FileOpenDialog _dialog, CustList<File> _backup) {
+    public AfterSearchingFile(FileOpenDialog _dialog, CustList<AbstractFile> _backup) {
         dialog = _dialog;
 //        cursor = _cursor;
 //        finished = _finished;

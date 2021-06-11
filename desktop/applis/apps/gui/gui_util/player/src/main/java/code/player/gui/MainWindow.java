@@ -161,7 +161,7 @@ public class MainWindow extends GroupFrame {
 
     public void loadList(String _fileName) {
         songs.append(_fileName);
-        String txt_ = StreamTextFile.contentsOfFile(_fileName);
+        String txt_ = StreamTextFile.contentsOfFile(_fileName,getFileCoreStream());
         Document doc_ = DocumentBuilder.parseSax(txt_);
         if (doc_ != null) {
             playOrPause(true);
@@ -206,9 +206,9 @@ public class MainWindow extends GroupFrame {
                 //.wav or .txt
                 ClipStream c_;
                 if (songsList.get(noSong).endsWith(WAV)) {
-                    c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
+                    c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong),getFileCoreStream()));
                 } else {
-                    String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
+                    String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong),getFileCoreStream());
                     c_ = openClip(txt_);
                 }
                 while (true) {
@@ -220,9 +220,9 @@ public class MainWindow extends GroupFrame {
                         break;
                     }
                     if (songsList.get(noSong).endsWith(WAV)) {
-                        c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
+                        c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong),getFileCoreStream()));
                     } else {
-                        String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
+                        String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong),getFileCoreStream());
                         c_ = openClip(txt_);
                     }
                 }
@@ -233,7 +233,7 @@ public class MainWindow extends GroupFrame {
                 clipStream = c_;
             } else if (songsList.get(noSong).endsWith(WPL)) {
                 //.wpl
-                String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
+                String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong),getFileCoreStream());
                 Document doc_ = DocumentBuilder.parseSax(txt_);
                 if (doc_ == null) {
                     ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
@@ -288,9 +288,9 @@ public class MainWindow extends GroupFrame {
                 contentList = mainDoc_.export();
                 ClipStream c_;
                 if (songsList.get(noSong).endsWith(WAV)) {
-                    c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
+                    c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong),getFileCoreStream()));
                 } else {
-                    String txtIn_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
+                    String txtIn_ = StreamTextFile.contentsOfFile(songsList.get(noSong),getFileCoreStream());
                     c_ = openClip(txtIn_);
                 }
                 while (true) {
@@ -302,9 +302,9 @@ public class MainWindow extends GroupFrame {
                         break;
                     }
                     if (songsList.get(noSong).endsWith(WAV)) {
-                        c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong)));
+                        c_ = StreamSoundFile.openClip(StreamBinaryFile.loadFile(songsList.get(noSong),getFileCoreStream()));
                     } else {
-                        String txtIn_ = StreamTextFile.contentsOfFile(songsList.get(noSong));
+                        String txtIn_ = StreamTextFile.contentsOfFile(songsList.get(noSong),getFileCoreStream());
                         c_ = openClip(txtIn_);
                     }
                 }
