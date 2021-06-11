@@ -19,6 +19,7 @@ import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
+import code.threads.AbstractThread;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -161,7 +162,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
 
     @Override
     public boolean ok(String _file) {
-        Thread th_ = parent.getTh();
+        AbstractThread th_ = parent.getTh();
         return th_ == null || !th_.isAlive();
     }
 
@@ -179,7 +180,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         }
     }
     public byte[] read(TextField _fileField) {
-        Thread th_ = parent.getTh();
+        AbstractThread th_ = parent.getTh();
         if (th_ != null && th_.isAlive()) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadThread"),_fileField.getText()));
             errors.append("\n");
@@ -224,7 +225,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         AbstractNameValidating validator_ = parent.getValidator();
         return FileInfos.buildMemoryFromFile(parent.getGenerator(),
                 confFile, src,files,
-                validator_,unitIssuer);
+                validator_,unitIssuer, parent.getThreadFactory());
     }
 
 
@@ -244,7 +245,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     }
 
     public void setFilePath(String _filePath) {
-        Thread th_ = parent.getTh();
+        AbstractThread th_ = parent.getTh();
         if (th_ != null && th_.isAlive()) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadThread"),_filePath));
             errors.append("\n");

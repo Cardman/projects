@@ -6,6 +6,7 @@ import code.gui.GroupFrame;
 import code.gui.initialize.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.random.AdvancedGenerator;
+import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -38,8 +39,10 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final DefaultNameValidating validator;
     private final AbstractGraphicStringListGenerator graphicStringListGenerator;
     private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator;
+    private final AbstractThreadFactory threadFactory;
 
     public ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
+        threadFactory = new DefaultThreadFactory();
         graphicStringListGenerator = _graphicStringListGenerator;
         graphicComboBoxGenerator = _graphicComboBoxGenerator;
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
@@ -155,6 +158,10 @@ public final class ProgramInfos implements AbstractProgramInfos {
 
     public AbstractGenerator getGenerator() {
         return generator;
+    }
+
+    public AbstractThreadFactory getThreadFactory() {
+        return threadFactory;
     }
 
     @Override

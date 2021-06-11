@@ -27,7 +27,7 @@ public final class FormEvent extends MouseAdapter {
             d.getImageThread().setAnimated(false);
         }
         SubmitForm.submit(form_,page.getNavigation());
-        CustComponent.newThread(EventThreadActions.inst(page, "", true)).start();
+        page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, "", true));
         page.animateProcess();
     }
 }

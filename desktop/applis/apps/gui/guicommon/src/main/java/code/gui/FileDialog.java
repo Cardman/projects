@@ -309,6 +309,10 @@ public abstract class FileDialog extends Dialog {
         return currentFolderRoot;
     }
 
+    public GroupFrame getSuperFrame() {
+        return superFrame;
+    }
+
     public void setSelectedPath(String _selectedPath) {
         selectedPath = _selectedPath;
     }

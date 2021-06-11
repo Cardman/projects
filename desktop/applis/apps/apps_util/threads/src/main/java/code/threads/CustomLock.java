@@ -3,19 +3,19 @@ package code.threads;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class CustomLock implements AbstractLock {
-    private AtomicBoolean lock = new AtomicBoolean();
+    private final AtomicBoolean lock = new AtomicBoolean();
     private long heldCount;
-    private Thread exclusiveThread;
+    private AbstractThread exclusiveThread;
     private long sleep = 1;
     @Override
     public int lock(Locking _context) {
-        Thread currentThread_ = _context.getCurrentThread();
-        if (currentThread_ == exclusiveThread) {
+        AbstractThread currentThread_ = _context.getCurrentThread();
+        if (currentThread_.getThread() == exclusiveThread.getThread()) {
             heldCount++;
             return -1;
         }
         while (!lock.compareAndSet(false,true)) {
-            ThreadUtil.sleep(sleep);
+            ThreadUtil.sleep(_context.getCurrentThreadFactory(),sleep);
             if (_context.isCurrentThreadEnded()) {
                 return 1;
             }
@@ -26,13 +26,13 @@ public final class CustomLock implements AbstractLock {
 
     @Override
     public boolean heldLock(Locking _context) {
-        return exclusiveThread == _context.getCurrentThread();
+        return exclusiveThread.getThread() == _context.getCurrentThread().getThread();
     }
 
     @Override
     public int unlock(Locking _context) {
-        Thread currentThread_ = _context.getCurrentThread();
-        if (currentThread_ != exclusiveThread) {
+        AbstractThread currentThread_ = _context.getCurrentThread();
+        if (currentThread_.getThread() != exclusiveThread.getThread()) {
             return -1;
         }
         if (heldCount == 0) {

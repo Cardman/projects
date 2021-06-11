@@ -12,6 +12,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.threads.AbstractThread;
 import code.util.EqList;
 import code.util.*;
 import code.util.StringMap;
@@ -103,7 +104,7 @@ public final class ConsultHosts extends Dialog {
     }
 
     public void seeHostedPokemon(boolean _first, Coords _coords) {
-        Thread thread_ = window.getPreparedPkThread();
+        AbstractThread thread_ = window.getPreparedPkThread();
         PreparedRenderedPages task_ = window.getPreparedPkTask();
         if (thread_ == null || thread_.isAlive() || task_ == null) {
             return;

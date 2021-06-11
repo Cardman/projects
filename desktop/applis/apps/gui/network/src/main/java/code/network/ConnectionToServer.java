@@ -1,5 +1,7 @@
 package code.network;
 import code.stream.core.StreamCoreUtil;
+import code.threads.AbstractThread;
+import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
 
 import java.io.IOException;
@@ -63,8 +65,12 @@ public final class ConnectionToServer implements Runnable, Locking {
     }
 
     @Override
-    public Thread getCurrentThread() {
-        return Thread.currentThread();
+    public AbstractThreadFactory getCurrentThreadFactory() {
+        return serverWindow.getThreadFactory();
+    }
+    @Override
+    public AbstractThread getCurrentThread() {
+        return serverWindow.getThreadFactory().newThread();
     }
 
     @Override

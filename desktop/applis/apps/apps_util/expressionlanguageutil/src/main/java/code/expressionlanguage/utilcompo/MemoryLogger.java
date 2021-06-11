@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.threads.AbstractThreadFactory;
 import code.util.core.StringUtil;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,10 +12,12 @@ public final class MemoryLogger implements AbstractLogger {
     private String errFile = "";
     private String errs = "";
     private AbstractIssuer issuer;
+    private final AbstractThreadFactory threadFactory;
 
-    public MemoryLogger(AbstractNameValidating _nameValidating, AbstractIssuer _issuer) {
+    public MemoryLogger(AbstractNameValidating _nameValidating, AbstractIssuer _issuer, AbstractThreadFactory _threadFact) {
         nameValidating = _nameValidating;
         issuer = _issuer;
+        threadFactory = _threadFact;
     }
 
     public AbstractIssuer getIssuer() {
@@ -35,7 +38,7 @@ public final class MemoryLogger implements AbstractLogger {
     @Override
     public void log(String _folerName, String _fileName, String _content, RunnableContextEl _cont) {
         byte[] encode_ = StringUtil.encode(_content);
-        FileStruct fileStruct_ = logs.putIfAbsent(_fileName, new FileStruct(encode_));
+        FileStruct fileStruct_ = logs.putIfAbsent(_fileName, new FileStruct(encode_,threadFactory));
         if (fileStruct_ == null) {
             return;
         }
@@ -49,7 +52,7 @@ public final class MemoryLogger implements AbstractLogger {
         for (int i = 0; i < contLen_; i++) {
             val(merged_, i + already_, encode_, i);
         }
-        fileStruct_.setDatedContent(merged_);
+        fileStruct_.setDatedContent(merged_,threadFactory);
     }
 
     private static void val(byte[] _merged, int _j, byte[] _content, int _i) {

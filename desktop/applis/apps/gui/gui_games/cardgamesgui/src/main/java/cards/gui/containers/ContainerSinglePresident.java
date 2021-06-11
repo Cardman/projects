@@ -82,12 +82,12 @@ public class ContainerSinglePresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         partie_.addCardsToCurrentTrick(_joueur);
         HandPresident h_ = partie_.getPlayedCards();
-        ThreadInvoker.invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(h_,lg_),RETURN_LINE)));
+        ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(h_,lg_),RETURN_LINE)));
 //        ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+h_+RETURN_LINE_CHAR);
-        ThreadInvoker.invokeNow(new SettingPresidentStatus(this, partie_.getLastStatus(), partie_.getNextPlayer()));
+        ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingPresidentStatus(this, partie_.getLastStatus(), partie_.getNextPlayer()));
 //        tapisPresident().setStatus(partie_.getLastStatus(), partie_.getNextPlayer());
 //        tapisPresident().repaintValidate();
-        ThreadInvoker.invokeNow(new SettingPresidentHand(this, h_));
+        ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingPresidentHand(this, h_));
 //        tapisPresident().setTalonPresident(h_);
 //        tapisPresident().repaintValidate();
     }
@@ -167,7 +167,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         afficherMainUtilisateurPresident(false);
         pack();
         animationPlaying = new AnimationCardPresident(this);
-        CustComponent.newThread(animationPlaying).start();
+        getOwner().getThreadFactory().newStartedThread(animationPlaying);
     }
 
     public void addButtonsForDiscard() {
@@ -210,7 +210,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getNoPlay().setVisibleButton(true);
         pack();
         animationPlaying = new AnimationCardPresident(this);
-        CustComponent.newThread(animationPlaying).start();
+        getOwner().getThreadFactory().newStartedThread(animationPlaying);
     }
 
     public void addButtonNextTrickPresident(String _texte,boolean _apte) {
@@ -403,7 +403,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         getHelpGame().setEnabledMenu(true);
         animationPlaying = new AnimationCardPresident(this);
-        CustComponent.newThread(animationPlaying).start();
+        getOwner().getThreadFactory().newStartedThread(animationPlaying);
     }
 
     @Override
@@ -459,7 +459,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setRaisonCourante(getMessages().getVal(MainWindow.WAIT_TURN));
         setThreadAnime(true);
         animationPlaying = new AnimationCardPresident(this);
-        CustComponent.newThread(animationPlaying).start();
+        getOwner().getThreadFactory().newStartedThread(animationPlaying);
     }
 
     private void afficherMainUtilisateurPresident(boolean _ecouteur) {
@@ -530,7 +530,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getPanneauBoutonsJeu().validate();
         setThreadAnime(true);
         animationPlaying = new AnimationCardPresident(this);
-        CustComponent.newThread(animationPlaying).start();
+        getOwner().getThreadFactory().newStartedThread(animationPlaying);
     }
 
     public void finPartiePresident() {

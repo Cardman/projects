@@ -14,6 +14,6 @@ public final class LoadFilesEvent implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent _e) {
-        ThreadUtil.start(new Thread(new LoadFiles(filesFrame)));
+        filesFrame.getInfos().getThreadFactory().newStartedThread(new LoadFiles(filesFrame));
     }
 }

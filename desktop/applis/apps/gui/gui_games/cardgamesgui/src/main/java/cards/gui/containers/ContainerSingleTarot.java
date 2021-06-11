@@ -243,7 +243,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 return;
             }
             animCarteTarot=new AnimationCardTarot(this);
-            CustComponent.newThread(animCarteTarot).start();
+            getOwner().getThreadFactory().newStartedThread(animCarteTarot);
             return;
         }
         if(partie_.keepBidding()) {
@@ -259,7 +259,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             }
             if(partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
                 setAnimContratTarot(new AnimationBidTarot(this));
-                CustComponent.newThread(getAnimContratTarot()).start();
+                getOwner().getThreadFactory().newStartedThread(getAnimContratTarot());
             } else {
                 //Activer les conseils
                 getConsulting().setEnabledMenu(true);
@@ -484,7 +484,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             return;
         }
         animCarteTarot=new AnimationCardTarot(this);
-        CustComponent.newThread(animCarteTarot).start();
+        getOwner().getThreadFactory().newStartedThread(animCarteTarot);
     }
     public void ajouterBoutonContratTarot(String _texte,BidTarot _action,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
@@ -738,7 +738,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setRaisonCourante(getMessages().getVal(MainWindow.WAIT_TURN));
         setThreadAnime(true);
         animCarteTarot=new AnimationCardTarot(this);
-        CustComponent.newThread(animCarteTarot).start();
+        getOwner().getThreadFactory().newStartedThread(animCarteTarot);
     }
     @Override
     public void annonceTarotChelem() {
@@ -822,21 +822,21 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             EnumList<Miseres> annoncesMiseres_ = partie_.getAnnoncesMiseres(_joueur);
             HandTarot poignee_=partie_.getPoignee(_joueur);
             for(Handfuls annonce_:annoncesPoignees_) {
-                ThreadInvoker.invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
+                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
 //                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
             }
             for(Miseres annonce_:annoncesMiseres_) {
-                ThreadInvoker.invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
+                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
 //                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
             }
             if(!poignee_.estVide()) {
                 TextLabel label_ = getHandfuls().getVal(_joueur);
-                ThreadInvoker.invokeNow(new SettingText(label_, Games.toString(annoncesPoignees_.first(),lg_)));
+                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingText(label_, Games.toString(annoncesPoignees_.first(),lg_)));
 //                    getHandfuls().getVal(_joueur).setText(annoncesPoignees_.first().toString());
             }
             poignee_.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
             Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
-            ThreadInvoker.invokeNow(new HandfulThread(poignee_, panelToSet_, getWindow()));
+            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new HandfulThread(poignee_, panelToSet_, getWindow()));
 //                panelToSet_.removeAll();
 //                for(CardTarot c:poignee_)
 //                {
@@ -848,7 +848,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
         if(partie_.getCarteAppelee().contient(ct_)) {
             getMini().setStatus(Role.CALLED_PLAYER, _joueur);
-            ThreadInvoker.invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
+            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
         }
         partie_.ajouterUneCarteDansPliEnCours(_joueur,ct_);
@@ -905,7 +905,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         animCarteTarot=new AnimationCardTarot(this);
-        CustComponent.newThread(animCarteTarot).start();
+        getOwner().getThreadFactory().newStartedThread(animCarteTarot);
         setThreadAnime(true);
 
     }
@@ -1108,7 +1108,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(partie_.avecContrat()) {
             if (partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
                 setAnimContratTarot(new AnimationBidTarot(this));
-                CustComponent.newThread(getAnimContratTarot()).start();
+                getOwner().getThreadFactory().newStartedThread(getAnimContratTarot());
             } else {
                 setCanBid(true);
                 for(BidTarot b:partie_.allowedBids()) {

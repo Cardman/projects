@@ -29,6 +29,6 @@ public class ListenerBidBeloteSingle extends MouseAdapter {
         container.setCanBid(false);
         container.setContratUtilisateurBelote(texte);
         container.setAnimContratBelote(new AnimationBidBelote(container));
-        CustComponent.newThread(container.getAnimContratBelote()).start();
+        container.getOwner().getThreadFactory().newStartedThread(container.getAnimContratBelote());
     }
 }

@@ -52,12 +52,12 @@ public final class DualAnimatedImage extends DualImage {
 
     public void start() {
         imageThread.setAnimated(true);
-        CustComponent.newThread(imageThread).start();
+        getPage().getGene().getThreadFactory().newStartedThread(imageThread);
     }
 
     public void increment() {
         paint();
-        ThreadUtil.sleep(delay);
+        ThreadUtil.sleep(getPage().getGene().getThreadFactory(),delay);
         index++;
         if (index >= images.size()) {
             index = 0;

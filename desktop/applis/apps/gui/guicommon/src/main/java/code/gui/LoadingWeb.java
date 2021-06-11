@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.Timer;
 
 import code.gui.document.ProcessingSession;
+import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 
 /**This class thread is independant from EDT,
@@ -19,12 +20,14 @@ public final class LoadingWeb implements Runnable {
     private ProgressingWebDialog dialog;
 
     private Timer timer;
+    private final AbstractThreadFactory fact;
 
     /**This class thread is independant from EDT*/
-    public LoadingWeb(ProcessingSession _session, CustList<BufferedImage> _images, Iconifiable _frame, ProgressingWebDialog _dialog) {
+    public LoadingWeb(AbstractThreadFactory _fact, ProcessingSession _session, CustList<BufferedImage> _images, Iconifiable _frame, ProgressingWebDialog _dialog) {
+        fact = _fact;
         session = _session;
         dialog = _dialog;
-        dialog.init(_frame, _images);
+        dialog.init(_fact,_frame, _images);
         TaskPaintingLabel task_ = new TaskPaintingLabel(dialog);
         timer = new Timer(0, task_);
         timer.setDelay(DELTA);
@@ -43,7 +46,7 @@ public final class LoadingWeb implements Runnable {
 
     @Override
     public void run() {
-        dialog.startAnimation();
+        dialog.startAnimation(fact);
         while (session.isProcessing()) {
             continue;
         }

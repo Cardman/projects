@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import code.gui.PreparedLabel;
+import code.threads.AbstractThreadFactory;
 import code.threads.ThreadUtil;
 import code.util.CustList;
 
@@ -17,11 +18,13 @@ public final class AnimatedImage implements Runnable {
 
     private AtomicBoolean animated = new AtomicBoolean(true);
 
-    public AnimatedImage(PreparedLabel _label, CustList<BufferedImage> _images,
+    private AbstractThreadFactory fact;
+    public AnimatedImage(AbstractThreadFactory _fact, PreparedLabel _label, CustList<BufferedImage> _images,
                          int _delay) {
         label = _label;
         images = _images;
         delay = _delay;
+        fact = _fact;
     }
 
     @Override
@@ -29,7 +32,7 @@ public final class AnimatedImage implements Runnable {
         int i = 0;
         while (animated.get()) {
             label.setIcon(images.get(i));
-            ThreadUtil.sleep(delay);
+            ThreadUtil.sleep(fact,delay);
             i++;
             if (i >= images.size()) {
                 i = 0;

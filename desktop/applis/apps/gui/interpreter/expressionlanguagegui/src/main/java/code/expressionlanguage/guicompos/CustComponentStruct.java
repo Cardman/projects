@@ -7,7 +7,6 @@ import code.expressionlanguage.structs.*;
 import code.gui.CustComponent;
 import code.util.CustList;
 
-import javax.swing.SwingUtilities;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
@@ -27,9 +26,9 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     public static void invokeLater(RunnableContextEl _run, Struct _r) {
         if (_r instanceof Runnable) {
             if (_run.getExecutingOptions().isInvokeDirect()) {
-                new Thread((Runnable) _r).start();
+                _run.getThreadFactory().newStartedThread((Runnable) _r);
             } else {
-                SwingUtilities.invokeLater((Runnable) _r);
+                CustComponent.invokeLater((Runnable) _r);
             }
 
         }
@@ -37,9 +36,9 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     public static void invokeRunnable(RunnableContextEl _run,Runnable _r) {
         if (_r != null) {
             if (_run.getExecutingOptions().isInvokeDirect()) {
-                new Thread(_r).start();
+                _run.getThreadFactory().newStartedThread(_r);
             } else {
-                SwingUtilities.invokeLater(_r);
+                CustComponent.invokeLater(_r);
             }
         }
     }

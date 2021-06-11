@@ -13,6 +13,7 @@ import code.minirts.events.*;
 import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
 import code.scripts.messages.gui.MessPlayerGr;
+import code.threads.AbstractThread;
 import code.util.StringMap;
 
 import javax.swing.*;
@@ -48,7 +49,7 @@ public final class MainWindow extends GroupFrame {
     private final AtomicBoolean paused = new AtomicBoolean();
     private final AtomicLong count = new AtomicLong();
     private AnimationUnitSoldier thread = new AnimationUnitSoldier(battleground,this);
-    private Thread threadLau = new Thread(thread);
+    private AbstractThread threadLau;
 
     private final CustCheckBox addSoldier = new CustCheckBox("Add soldier");
 
@@ -61,6 +62,7 @@ public final class MainWindow extends GroupFrame {
 
     public MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
+        threadLau = getThreadFactory().newThread(thread);
         Panel contentPane_ = Panel.newBorder();
         Panel scene_ = Panel.newBorder();
         InteractClick i_ = new InteractClick(this);
@@ -198,7 +200,7 @@ public final class MainWindow extends GroupFrame {
             return;
         }
         thread = new AnimationUnitSoldier(battleground,this);
-        threadLau = new Thread(thread);
+        threadLau = getThreadFactory().newThread(thread);
         threadLau.start();
     }
 

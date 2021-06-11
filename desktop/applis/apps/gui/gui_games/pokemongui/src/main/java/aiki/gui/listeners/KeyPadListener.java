@@ -70,7 +70,7 @@ public class KeyPadListener implements KeyListener {
             return;
         }
         thread = new Painting(scene, facade, dir_, window);
-        CustComponent.newThread(thread).start();
+        window.getThreadFactory().newStartedThread(thread);
     }
 
     @Override

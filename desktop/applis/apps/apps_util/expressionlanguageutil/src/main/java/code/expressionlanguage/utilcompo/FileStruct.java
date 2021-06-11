@@ -1,10 +1,12 @@
 package code.expressionlanguage.utilcompo;
 
+import code.threads.AbstractThreadFactory;
+
 public final class FileStruct {
     private byte[] content;
     private long lastDate;
-    public FileStruct(byte[] _content) {
-        setDatedContent(_content);
+    public FileStruct(byte[] _content,AbstractThreadFactory _threadFact) {
+        setDatedContent(_content,_threadFact);
     }
     public FileStruct(byte[] _content, long _lastDate) {
         setContent(_content);
@@ -15,9 +17,9 @@ public final class FileStruct {
         return content;
     }
 
-    public void setDatedContent(byte[] _content) {
+    public void setDatedContent(byte[] _content,AbstractThreadFactory _threadFact) {
         setContent(_content);
-        updateLastDate();
+        updateLastDate(_threadFact);
     }
 
     public void setContent(byte[] _content) {
@@ -28,7 +30,7 @@ public final class FileStruct {
         return lastDate;
     }
 
-    public void updateLastDate() {
-        lastDate = System.currentTimeMillis();
+    public void updateLastDate(AbstractThreadFactory _threadFact) {
+        lastDate = _threadFact.millis();
     }
 }

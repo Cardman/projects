@@ -1,5 +1,7 @@
 package code.network;
 import code.stream.core.StreamCoreUtil;
+import code.threads.AbstractThread;
+import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
 
 import java.io.BufferedReader;
@@ -10,11 +12,9 @@ import java.net.Socket;
 /**Thread safe class*/
 public abstract class BasicServer extends SendReceive implements Locking {
 
-    private NetGroupFrame net;
 
     public BasicServer(Socket _socket, NetGroupFrame _net) {
-        super(_socket);
-        net = _net;
+        super(_socket,_net);
     }
 
     @Override
@@ -29,7 +29,7 @@ public abstract class BasicServer extends SendReceive implements Locking {
                 if (input_ == null) {
                     break;
                 }
-                Object readObject_ = net.getObject(input_);
+                Object readObject_ = getNet().getObject(input_);
                 if (readObject_ == null) {
                     continue;
                 }
@@ -48,8 +48,13 @@ public abstract class BasicServer extends SendReceive implements Locking {
     public abstract void loopServer(String _input, Object _object);
 
     @Override
-    public Thread getCurrentThread() {
-        return Thread.currentThread();
+    public AbstractThreadFactory getCurrentThreadFactory() {
+        return getNet().getThreadFactory();
+    }
+
+    @Override
+    public AbstractThread getCurrentThread() {
+        return getNet().getThreadFactory().newThread();
     }
 
     @Override

@@ -30,7 +30,7 @@ public class ListenerBidTarotSingle extends MouseAdapter {
         container.setCanBid(false);
         container.setContratUtilisateur(enchere);
         container.setAnimContratTarot(new AnimationBidTarot(container));
-        CustComponent.newThread(container.getAnimContratTarot()).start();
+        container.getOwner().getThreadFactory().newStartedThread(container.getAnimContratTarot());
 
     }
 

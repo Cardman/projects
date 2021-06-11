@@ -46,7 +46,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     @Override
     public void displayLineReturn() {
         String event_ = ContainerGame.RETURN_LINE;
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -58,7 +58,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     public void actingBid(byte _player) {
         StringList pseudos_=pseudosSimuleeTarot();
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(container.getMessages().getVal(MainWindow.DECLARE_BID), pseudos_.get(_player)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -68,13 +68,13 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_player),Games.toString(_bid,lg_)),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
     public void noBid() {
         String event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.NO_BID),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
         container.revalidate();
     }
 
@@ -83,7 +83,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         String mess_ = container.getMessages().getVal(MainWindow.PARTNERS_TAKER);
         StringList pseudos_=pseudosSimuleeTarot();
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_called)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -168,12 +168,12 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     public void beginDemo() {
         String event_;
         event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
     public void sleepSimu(long _millis) {
-        ThreadUtil.sleep(_millis);
+        ThreadUtil.sleep(container.getOwner().getThreadFactory(),_millis);
     }
 
     @Override
@@ -222,7 +222,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         String event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.TAKER_CALL),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,container.getMessages().getVal(MainWindow.TAKER_CALL_WARNING),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -235,19 +235,19 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         event_ = StringUtil.concat(event_, StringUtil.simpleStringsFormat(mess_, Games.toString(_calledCards,lg_)),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_, container.getMessages().getVal(MainWindow.CALLED_PLAYER_WARNING),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
     public void seeDog(HandTarot _calledCards) {
         String event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.SHOWN_DOG),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
-        ThreadUtil.sleep(1000);
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadUtil.sleep(container.getOwner().getThreadFactory(),1000);
         container.setCanDiscard(false);
-        ThreadInvoker.invokeNow(new SimulationRefreshHandTarotDog(container, _calledCards));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationRefreshHandTarotDog(container, _calledCards));
         event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.PLAYERS_SHOW_DOG),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
         container.revalidate();
     }
 
@@ -256,7 +256,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         if (_called.containsObj(_taker)) {
             String event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.ALONE_TAKER),ContainerGame.RETURN_LINE);
             event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
         }
     }
 
@@ -264,8 +264,8 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     public void beforeSeeDog(byte _taker, HandTarot _curHand) {
         String event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.TAKE_DOG),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
-        ThreadInvoker.invokeNow(new WithdrawCards(container));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new WithdrawCards(container));
         if(_taker==0) {
             afficherMainUtilisateurSimuTarot(_curHand);
         }
@@ -276,8 +276,8 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         String mess_ = container.getMessages().getVal(MainWindow.DISCARD_CARDS);
         String event_ = StringUtil.concat(StringUtil.simpleNumberFormat(mess_, _last.total()),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
-        ThreadInvoker.invokeNow(new SimulationDiscardTarot(container, _last));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationDiscardTarot(container, _last));
         if(_taker==0) {
             afficherMainUtilisateurSimuTarot(_curHandAdd);
         }
@@ -298,11 +298,11 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         if (_bid.getJeuChien() == PlayingDog.WITH) {
             String event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.DECLARING_SLAM_DEMO_DISCARD),ContainerGame.RETURN_LINE);
             event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
         } else {
             String event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.DECLARING_SLAM_DEMO),ContainerGame.RETURN_LINE);
             event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
         }
     }
 
@@ -311,7 +311,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.getMessages().getVal(MainWindow.PLAY_CARD_FIRST);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -319,7 +319,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.getMessages().getVal(MainWindow.PLAY_CARD_THEN);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -330,7 +330,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
             String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
             String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(_annoncesPoignees.first(),lg_)),ContainerGame.RETURN_LINE);
             event_ = StringUtil.concat(event_, StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(_poignee,lg_)),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
         }
     }
 
@@ -341,7 +341,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         for(Miseres annonce_:_annoncesMiseres) {
             String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
             String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur),Games.toString(annonce_,lg_)),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
         }
     }
 
@@ -352,7 +352,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
         container.getMini().setStatus(Role.CALLED_PLAYER, _joueur);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(Role.CALLED_PLAYER,lg_)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -372,7 +372,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         String mess_ = container.getMessages().getVal(MainWindow.TRICK_WINNER);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_trickWinner)),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -384,13 +384,13 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.getMessages().getVal(MainWindow.BONUS_WIN);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_trickWinner), Games.toString(BonusTarot.SMALL_BOUND,lg_)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
     public void beginPlay() {
         String event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.BEGIN_PLAY_CARDS),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -399,7 +399,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         container.tapisTarot().setCartesTarotJeu(lg_,_nbPlayers);
     }
     private void afficherMainUtilisateurSimuTarot(HandTarot _mainUtilisateur) {
-        ThreadInvoker.invokeNow(new SimulationRefreshHandTarot(container, _mainUtilisateur));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationRefreshHandTarot(container, _mainUtilisateur));
     }
     private StringList pseudosSimuleeTarot() {
         GameTarot partie_=partieTarotSimulee();

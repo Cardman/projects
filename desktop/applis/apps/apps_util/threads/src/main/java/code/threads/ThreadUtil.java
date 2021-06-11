@@ -5,40 +5,21 @@ public final class ThreadUtil {
     private ThreadUtil() {
     }
 
-    public static boolean start(Thread _thread) {
-        if (_thread.isAlive()) {
-            return false;
+    public static boolean sleepCurrent(AbstractThreadFactory _fact, long _time) {
+        AbstractThread current_ = _fact.newThread();
+        long millis_ = _fact.millis();
+        while (millis_ + _time > _fact.millis()) {
+            if (current_.isInterrupted()) {
+                return false;
+            }
         }
-        _thread.start();
         return true;
     }
-
-    public static boolean setPriority(Thread _thread, int _prio) {
-        if (_prio > Thread.MAX_PRIORITY || _prio < Thread.MIN_PRIORITY) {
-            return false;
-        }
-        _thread.setPriority(_prio);
-        return true;
-    }
-    public static ThState join(Thread _thread) {
-        boolean alive_ = _thread.isAlive();
-        try {
-            _thread.join();
-            return ThState.ofNormal(alive_);
-        } catch (Exception e) {
-            return ThState.INTERRUPTED;
-        }
-    }
-    public static boolean sleep(long _time) {
+    public static boolean sleep(AbstractThreadFactory _fact,long _time) {
         if (_time <= 0) {
             return false;
         }
-        try {
-            Thread.sleep(_time);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        return _fact.sleep(_time);
     }
 
 }

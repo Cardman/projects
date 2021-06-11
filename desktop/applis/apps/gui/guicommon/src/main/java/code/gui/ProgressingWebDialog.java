@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
 
 import code.gui.animations.AnimatedImage;
+import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 
 public final class ProgressingWebDialog extends Dialog implements ProgressDialog {
@@ -25,7 +26,7 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
         setModal(false);
     }
 
-    public void init(Iconifiable _window, CustList<BufferedImage> _images) {
+    public void init(AbstractThreadFactory _fact,Iconifiable _window, CustList<BufferedImage> _images) {
         if (_window != null) {
             setDialogIcon(_window);
         }
@@ -33,7 +34,7 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
         if (!_images.isEmpty()) {
             anim = new PreparedLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
-            animation = new AnimatedImage(anim, _images, TIME * 10);
+            animation = new AnimatedImage(_fact,anim, _images, TIME * 10);
         } else {
             anim = new PreparedLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
@@ -49,11 +50,11 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
         setVisible(true);
     }
 
-    public void startAnimation() {
+    public void startAnimation(AbstractThreadFactory _fact) {
         if (animation == null) {
             return;
         }
-        CustComponent.newThread(animation).start();
+        _fact.newStartedThread(animation);
     }
 
     public void stopAnimation() {

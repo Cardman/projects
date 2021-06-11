@@ -39,7 +39,7 @@ public abstract class RoundThread implements Runnable {
 //            ThreadInvoker.invokeNow(new DrawingAnimation(battle, a, true));
             battle.drawAnimationInstantInitial(a);
             while (battle.isKeepAnimation()) {
-                ThreadUtil.sleep(5l);
+                ThreadUtil.sleep(getBattle().getWindow().getThreadFactory(),5l);
 //                ThreadInvoker.invokeNow(new DrawingAnimation(battle, a, false));
                 battle.drawAnimationInstant(a);
             }

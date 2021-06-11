@@ -25,7 +25,7 @@ public final class FightWildIntroThread extends FightIntroThread {
         getBattle().setHerosOppositeSex(getHerosOppositeSex(), false);
         getBattle().drawAnimationFightIni(getHeros(), pokemon);
         while (getBattle().isKeepAnimation()) {
-            ThreadUtil.sleep(5l);
+            ThreadUtil.sleep(getBattle().getWindow().getThreadFactory(),5l);
             getBattle().drawAnimationFightIniInst();
         }
         getBattle().setComments();

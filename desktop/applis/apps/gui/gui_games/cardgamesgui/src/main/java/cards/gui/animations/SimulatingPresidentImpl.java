@@ -44,7 +44,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void displayUserHand(HandPresident _hand) {
-        ThreadInvoker.invokeNow(new SimulationRefreshHandPresident(container, new HandPresident(_hand)));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationRefreshHandPresident(container, new HandPresident(_hand)));
     }
 
     @Override
@@ -57,7 +57,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         StringList nicknames_=pseudosSimuleePresident();
         String lg_ = container.getOwner().getLanguageKey();
         String event_ = StringUtil.concat(nicknames_.get(_l),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_w),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -65,13 +65,13 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         StringList nicknames_=pseudosSimuleePresident();
         String lg_ = container.getOwner().getLanguageKey();
         String event_ = StringUtil.concat(nicknames_.get(_w),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_l),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
     public void displayLineReturn() {
         String event_ = ContainerGame.RETURN_LINE;
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -151,12 +151,12 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     public void beginDemo() {
         String event_;
         event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
     public void sleepSimu(long _millis) {
-        ThreadUtil.sleep(_millis);
+        ThreadUtil.sleep(container.getOwner().getThreadFactory(),_millis);
     }
 
     @Override
@@ -197,17 +197,17 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void setupDeck() {
-        ThreadInvoker.invokeNow(new SettingPresidentDeck(container));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentDeck(container));
     }
 
     @Override
     public void gearStatusChange(ByteMap<Playing> _status, byte _starter) {
-        ThreadInvoker.invokeNow(new SettingPresidentStatus(container, _status, _starter));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentStatus(container, _status, _starter));
     }
 
     @Override
     public void displayPlayedHand(HandPresident _hand) {
-        ThreadInvoker.invokeNow(new SettingPresidentHand(container, _hand));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentHand(container, _hand));
     }
 
     @Override
@@ -215,7 +215,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         StringList nicknames_=pseudosSimuleePresident();
         String lg_ = container.getOwner().getLanguageKey();
         String event_ = StringUtil.concat(nicknames_.get(_nextPlayer),ContainerGame.INTRODUCTION_PTS,Games.toString(_hand,lg_),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override
@@ -223,7 +223,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         StringList nicknames_=pseudosSimuleePresident();
         String mess_ = container.getMessages().getVal(MainWindow.TRICK_WINNER);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, nicknames_.get(_player)),ContainerGame.RETURN_LINE,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
     @Override

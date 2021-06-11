@@ -2,6 +2,7 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.filenames.PathUtil;
 import code.stream.core.ContentTime;
+import code.threads.AbstractThreadFactory;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -12,23 +13,23 @@ public final class FolderStruct {
     private StringMap<FileStruct> files = new StringMap<FileStruct>();
     private StringMap<FolderStruct> folders = new StringMap<FolderStruct>();
     private long lastDate;
-    public FolderStruct() {
-        setupDate();
+    public FolderStruct(AbstractThreadFactory _threadFact) {
+        setupDate(_threadFact);
     }
     public FolderStruct(long _lastDate) {
         lastDate = _lastDate;
     }
 
-    public void setupDate() {
-        lastDate = System.currentTimeMillis();
+    public void setupDate(AbstractThreadFactory _threadFact) {
+        lastDate = _threadFact.millis();
     }
 
     public long getLastDate() {
         return lastDate;
     }
 
-    public static FolderStruct build(StringMap<ContentTime> _foldersElts, StringMap<ContentTime> _files) {
-        FolderStruct root_ = new FolderStruct();
+    public static FolderStruct build(StringMap<ContentTime> _foldersElts, StringMap<ContentTime> _files,AbstractThreadFactory _threadFact) {
+        FolderStruct root_ = new FolderStruct(_threadFact);
         for (EntryCust<String, ContentTime> f:_foldersElts.entryList()) {
             FolderStruct curr_ = root_;
             String key_ = f.getKey();

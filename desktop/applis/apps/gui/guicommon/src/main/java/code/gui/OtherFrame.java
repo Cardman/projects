@@ -57,7 +57,7 @@ public final class OtherFrame extends AbsFrame implements ChangeableTitle,WithLi
         frame.setFocusable(_focusable);
     }
     public void revalidateFrame() {
-        PackingWindowAfter.pack(this);
+        PackingWindowAfter.packg(this);
     }
 
     protected void setIconImage(BufferedImage _image) {

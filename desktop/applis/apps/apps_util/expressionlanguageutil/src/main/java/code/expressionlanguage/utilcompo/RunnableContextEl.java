@@ -4,18 +4,22 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.fwd.Forwards;
+import code.threads.AbstractThread;
+import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
 
 public class RunnableContextEl extends ContextEl implements Locking {
 
     private final ThreadStruct thread;
+    private final AbstractThreadFactory threadFactory;
     private String idDate;
     private String currentDir;
 
     public RunnableContextEl(InitPhase _state, CommonExecutionInfos _executionInfos) {
         super(_executionInfos);
-        thread = new ThreadStruct(Thread.currentThread());
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
+        threadFactory = standards_.getInfos().getThreadFactory();
+        thread = new ThreadStruct(threadFactory.newThread());
         currentDir = standards_.getExecutingOptions().getBaseFiles();
     }
 
@@ -32,7 +36,12 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     @Override
-    public Thread getCurrentThread() {
+    public AbstractThreadFactory getCurrentThreadFactory() {
+        return threadFactory;
+    }
+
+    @Override
+    public AbstractThread getCurrentThread() {
         return thread.getThread();
     }
 
@@ -80,4 +89,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
         ((LgNamesWithNewAliases) getStandards()).getExecutingOptions().getInterrupt().set(true);
     }
 
+    public AbstractThreadFactory getThreadFactory() {
+        return threadFactory;
+    }
 }

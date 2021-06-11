@@ -34,11 +34,11 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
     private String titleDialog = "";
 
     private AnimatedImage animation;
+    private GroupFrame window;
 
-    public void init(CommonFrame _window, CustList<BufferedImage> _images, boolean _setVisibility) {
-        if (_window != null) {
-            setDialogIcon(_window);
-        }
+    public void init(GroupFrame _window, CustList<BufferedImage> _images, boolean _setVisibility) {
+        setDialogIcon(_window);
+        window = _window;
         perCent = PER_CENT;
         setLocationRelativeTo(_window);
         Panel contentPane_ = Panel.newPageBox();
@@ -46,7 +46,7 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
         if (!_images.isEmpty()) {
             anim = new PreparedLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
-            animation = new AnimatedImage(anim, _images, TIME * 10);
+            animation = new AnimatedImage(_window.getThreadFactory(), anim, _images, TIME * 10);
         } else {
             anim = new PreparedLabel();
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
@@ -81,7 +81,7 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
         if (animation == null) {
             return;
         }
-        CustComponent.newThread(animation).start();
+        window.getThreadFactory().newStartedThread(animation);
     }
 
     public void stopAnimation() {

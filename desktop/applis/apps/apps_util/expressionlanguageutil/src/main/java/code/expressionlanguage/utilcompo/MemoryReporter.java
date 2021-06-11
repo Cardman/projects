@@ -6,6 +6,7 @@ import code.stream.core.ContentTime;
 import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
 import code.stream.core.StreamZipFile;
+import code.threads.AbstractThreadFactory;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -23,13 +24,15 @@ public final class MemoryReporter implements AbstractReporter {
     private final AbstractNameValidating nameValidating;
     private final UniformingString uniformingString;
     private StringMap<ContentTime> reports = new StringMap<ContentTime>();
+    private final AbstractThreadFactory threadFactory;
 
-    public MemoryReporter(byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString) {
+    public MemoryReporter(byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString, AbstractThreadFactory _threadFactory) {
         conf = _conf;
         this.src = _src;
         this.files = _files;
         nameValidating = _nameValidating;
         uniformingString = _uniformingString;
+        threadFactory = _threadFactory;
     }
 
     @Override
@@ -109,18 +112,18 @@ public final class MemoryReporter implements AbstractReporter {
     @Override
     public void coverFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont) {
         String coversFolder_ = _rCont.getExecutingOptions().getCoverFolder();
-        reports.addEntry(coversFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),System.currentTimeMillis()));
+        reports.addEntry(coversFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),threadFactory.millis()));
     }
 
     @Override
     public void errorFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont) {
         String errorsFolder_ = _rCont.getExecutingOptions().getErrorsFolder();
-        reports.addEntry(errorsFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),System.currentTimeMillis()));
+        reports.addEntry(errorsFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),threadFactory.millis()));
     }
 
     @Override
     public byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
-        StringMap<ContentTime> out_ = exportErr(_log);
+        StringMap<ContentTime> out_ = exportErr(_log,threadFactory);
         out_.addAllEntries(reports);
         if (!out_.isEmpty()) {
             return StreamZipFile.zipBinFiles(out_);
@@ -130,7 +133,7 @@ public final class MemoryReporter implements AbstractReporter {
 
     @Override
     public byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys,AbstractLogger _log) {
-        StringMap<ContentTime> out_ = exportSysLoggs(_ex, _sys, _log);
+        StringMap<ContentTime> out_ = exportSysLoggs(_ex, _sys, _log,threadFactory);
         out_.addAllEntries(reports);
         if (!out_.isEmpty()) {
             return StreamZipFile.zipBinFiles(out_);
@@ -138,19 +141,19 @@ public final class MemoryReporter implements AbstractReporter {
         return null;
     }
 
-    public static StringMap<ContentTime> exportErr(AbstractLogger _log) {
+    public static StringMap<ContentTime> exportErr(AbstractLogger _log, AbstractThreadFactory _threadFact) {
         StringMap<ContentTime> out_ = new StringMap<ContentTime>();
         if (_log instanceof MemoryLogger) {
             String errFile_ = ((MemoryLogger) _log).getErrFile();
             if (!errFile_.isEmpty()) {
                 String errs_ = ((MemoryLogger) _log).getErrs();
-                out_.addEntry(errFile_,new ContentTime(StringUtil.encode(errs_),System.currentTimeMillis()));
+                out_.addEntry(errFile_,new ContentTime(StringUtil.encode(errs_),_threadFact.millis()));
             }
         }
         return out_;
     }
-    public static StringMap<ContentTime> exportSysLoggs(ExecutingOptions _ex, AbstractFileSystem _sys, AbstractLogger _log) {
-        StringMap<ContentTime> out_ = exportErr(_log);
+    public static StringMap<ContentTime> exportSysLoggs(ExecutingOptions _ex, AbstractFileSystem _sys, AbstractLogger _log, AbstractThreadFactory _threadFact) {
+        StringMap<ContentTime> out_ = exportErr(_log,_threadFact);
         if (_log instanceof MemoryLogger) {
             ConcurrentHashMap<String, FileStruct> logs_ = ((MemoryLogger) _log).getLogs();
             for (Map.Entry<String, FileStruct> e: logs_.entrySet()) {

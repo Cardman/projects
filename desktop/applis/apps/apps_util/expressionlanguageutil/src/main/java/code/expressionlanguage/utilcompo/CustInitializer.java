@@ -15,6 +15,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
+import code.threads.AbstractThread;
 import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -102,8 +103,8 @@ public class CustInitializer extends DefaultInitializer {
             if (s.sameReference(_ctx.getThread())) {
                 continue;
             }
-            Thread t_ = ((ThreadStruct)s).getThread();
-            ThreadUtil.join(t_);
+            AbstractThread t_ = ((ThreadStruct)s).getThread();
+            t_.join();
         }
     }
     public void launchHooks(RunnableContextEl _ctx, StackCall _stackCall) {
@@ -112,15 +113,14 @@ public class CustInitializer extends DefaultInitializer {
             if (!(s instanceof ThreadStruct)) {
                 continue;
             }
-            Thread t_ = ((ThreadStruct)s).getThread();
-            t_.start();
+            ((ThreadStruct)s).start();
         }
         for (Struct s: inst_) {
             if (!(s instanceof ThreadStruct)) {
                 continue;
             }
-            Thread t_ = ((ThreadStruct)s).getThread();
-            ThreadUtil.join(t_);
+            AbstractThread t_ = ((ThreadStruct)s).getThread();
+            t_.join();
         }
     }
     public void joinHooks(RunnableContextEl _ctx) {
@@ -128,8 +128,8 @@ public class CustInitializer extends DefaultInitializer {
             if (!(s instanceof ThreadStruct)) {
                 continue;
             }
-            Thread t_ = ((ThreadStruct)s).getThread();
-            ThreadUtil.join(t_);
+            AbstractThread t_ = ((ThreadStruct)s).getThread();
+            t_.join();
         }
     }
     void putNewCustTreadIdDate(RunnableContextEl _id, String _value) {

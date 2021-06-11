@@ -5,6 +5,7 @@ import code.expressionlanguage.utilcompo.*;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.*;
+import code.threads.AbstractThreadFactory;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -17,11 +18,13 @@ public final class DefaultReporter implements AbstractReporter {
     private final AbstractNameValidating nameValidating;
     private final UniformingString uniformingString;
     private final boolean memory;
+    private final AbstractThreadFactory threadFactory;
 
-    public DefaultReporter(AbstractNameValidating _nameValidating, UniformingString _uniformingString, boolean _memory) {
+    public DefaultReporter(AbstractNameValidating _nameValidating, UniformingString _uniformingString, boolean _memory, AbstractThreadFactory _threadFactory) {
         nameValidating = _nameValidating;
         uniformingString = _uniformingString;
         memory = _memory;
+        threadFactory = _threadFactory;
     }
 
     @Override
@@ -159,7 +162,7 @@ public final class DefaultReporter implements AbstractReporter {
 
     @Override
     public byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
-        StringMap<ContentTime> out_ = MemoryReporter.exportErr(_log);
+        StringMap<ContentTime> out_ = MemoryReporter.exportErr(_log,threadFactory);
         if (!out_.isEmpty()) {
             return StreamZipFile.zipBinFiles(out_);
         }
@@ -168,7 +171,7 @@ public final class DefaultReporter implements AbstractReporter {
 
     @Override
     public byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys, AbstractLogger _log) {
-        StringMap<ContentTime> out_ = MemoryReporter.exportSysLoggs(_ex, _sys, _log);
+        StringMap<ContentTime> out_ = MemoryReporter.exportSysLoggs(_ex, _sys, _log,threadFactory);
         if (!out_.isEmpty()) {
             return StreamZipFile.zipBinFiles(out_);
         }

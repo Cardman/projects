@@ -9,7 +9,7 @@ public class ContainerSimuBelote extends ContainerBelote implements ContainerSim
     public ContainerSimuBelote(MainWindow _window) {
         super(_window);
         animationSimulation=new SimulationGameBelote(this);
-        CustComponent.newThread(animationSimulation).start();
+        getOwner().getThreadFactory().newStartedThread(animationSimulation);
     }
 
     @Override

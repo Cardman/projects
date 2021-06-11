@@ -3,6 +3,7 @@ package code.gui.initialize;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.GroupFrame;
 import code.maths.montecarlo.AbstractGenerator;
+import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -14,6 +15,7 @@ public interface AbstractProgramInfos {
     CustList<GroupFrame> getFrames();
     StringMap<AtomicInteger> getCounts();
     AbstractGenerator getGenerator();
+    AbstractThreadFactory getThreadFactory();
     AbstractNameValidating getValidator();
     AbstractGraphicStringListGenerator getGeneGraphicList();
     AbstractGraphicComboBoxGenerator getGeneComboBox();

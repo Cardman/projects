@@ -8,6 +8,6 @@ public final class LoadLanguageUtil {
     private LoadLanguageUtil() {
     }
     public static void loadLaungage(SoftApplicationCore _soft, String _folder, String[] _args) {
-        ThreadInvoker.invokeNow(new LoadLanguage(_soft, _folder, _args, null));
+        ThreadInvoker.invokeNow(_soft.getFrames().getThreadFactory(),new LoadLanguage(_soft, _folder, _args, null));
     }
 }

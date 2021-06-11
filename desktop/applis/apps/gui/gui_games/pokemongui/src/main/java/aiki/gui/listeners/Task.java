@@ -39,7 +39,7 @@ public class Task implements ActionListener {
             return;
         }
         painting = new Painting(scene, facade, dir, window);
-        CustComponent.newThread(painting).start();
+        window.getThreadFactory().newStartedThread(painting);
     }
 
     public Direction getDir() {

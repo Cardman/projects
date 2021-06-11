@@ -31,10 +31,7 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.scripts.messages.gui.MessCdmBaseGr;
 import code.sml.util.ResourcesMessagesUtil;
-import code.threads.AbstractLock;
-import code.threads.LockFactory;
-import code.threads.ThState;
-import code.threads.ThreadUtil;
+import code.threads.*;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -2046,11 +2043,11 @@ public final class CustAliases {
                 return res_;
             }
             Struct runnable_ = _args[0];
-            Thread thread_;
+            AbstractThread thread_;
             if (runnable_ instanceof Runnable) {
-                thread_ = new Thread((Runnable) runnable_);
+                thread_ = getInfos().getThreadFactory().newThread((Runnable) runnable_);
             } else {
-                thread_ = new Thread((Runnable) null);
+                thread_ = getInfos().getThreadFactory().newThread(null);
             }
             ThreadStruct std_ = new ThreadStruct(thread_);
             res_.setResult(std_);
@@ -2196,8 +2193,7 @@ public final class CustAliases {
                 return out_;
             }
             if (StringUtil.quickEq(name_,aliasStart)) {
-                Thread thread_ = ((ThreadStruct) _instance).getThread();
-                if (ThreadUtil.start(thread_)) {
+                if (((ThreadStruct) _instance).start()) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
                     _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, getAliasIllegalThreadStateException(), _stackCall)));
@@ -2214,12 +2210,12 @@ public final class CustAliases {
                     _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                     return res_;
                 }
-                res_.setResult(BooleanStruct.of(ThreadUtil.sleep(((NumberStruct)_args[0]).longStruct())));
+                res_.setResult(BooleanStruct.of(ThreadUtil.sleep(((RunnableContextEl)_cont).getThreadFactory(),((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasJoin)) {
-                Thread thread_ = ((ThreadStruct) _instance).getThread();
-                ThState state_ = ThreadUtil.join(thread_);
+                AbstractThread thread_ = ((ThreadStruct) _instance).getThread();
+                ThState state_ = thread_.join();
                 if (state_ == ThState.INTERRUPTED) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
@@ -2263,7 +2259,7 @@ public final class CustAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasIsAlive)) {
-                Thread thread_ = ((ThreadStruct) _instance).getThread();
+                AbstractThread thread_ = ((ThreadStruct) _instance).getThread();
                 boolean alive_ = thread_.isAlive();
                 res_.setResult(BooleanStruct.of(alive_));
                 return res_;
@@ -2279,18 +2275,17 @@ public final class CustAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasGetId)) {
-                Thread thread_ = ((ThreadStruct) _instance).getThread();
+                AbstractThread thread_ = ((ThreadStruct) _instance).getThread();
                 res_.setResult(new LongStruct(thread_.getId()));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasGetPriority)) {
-                Thread thread_ = ((ThreadStruct) _instance).getThread();
+                AbstractThread thread_ = ((ThreadStruct) _instance).getThread();
                 res_.setResult(new IntStruct(thread_.getPriority()));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasSetPriority)) {
-                Thread thread_ = ((ThreadStruct) _instance).getThread();
-                if (ThreadUtil.setPriority(thread_,((NumberStruct)_args[0]).intStruct())) {
+                if (((ThreadStruct) _instance).setPriority(((NumberStruct)_args[0]).intStruct())) {
                     res_.setResult(NullStruct.NULL_VALUE);
                 } else {
                     _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
@@ -2315,7 +2310,7 @@ public final class CustAliases {
             if (StringUtil.quickEq(name_,aliasThreadEq)) {
                 if (_args[0] instanceof ThreadStruct) {
                     if (_args[1] instanceof ThreadStruct) {
-                        res_.setResult(BooleanStruct.of(((ThreadStruct)_args[0]).getThread() == ((ThreadStruct)_args[1]).getThread()));
+                        res_.setResult(BooleanStruct.of(((ThreadStruct)_args[0]).getThread().getThread() == ((ThreadStruct)_args[1]).getThread().getThread()));
                         return res_;
                     }
                     res_.setResult(BooleanStruct.of(false));
@@ -2325,10 +2320,10 @@ public final class CustAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasThreadCurrentNanoTime)) {
-                res_.setResult(new LongStruct(System.nanoTime()));
+                res_.setResult(new LongStruct(((RunnableContextEl)_cont).getCurrentThreadFactory().nanos()));
                 return res_;
             }
-            res_.setResult(new LongStruct(System.currentTimeMillis()));
+            res_.setResult(new LongStruct(((RunnableContextEl)_cont).getCurrentThreadFactory().millis()));
             return res_;
         }
         if (StringUtil.quickEq(className_,aliasReentrantLock)) {

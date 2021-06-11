@@ -110,7 +110,7 @@ public final class AnimationUnitSoldier implements Runnable {
 
     /**La methode pause est utilisee pour permettre de voir l'avancement a l'oeil nu*/
     private void pause(long _tempsMillis) {
-        ThreadUtil.sleep(_tempsMillis);
+        ThreadUtil.sleep(window.getThreadFactory(), _tempsMillis);
         window.setEnabledPause(true);
         while (paused.get()) {
             battleground.paintSelection();

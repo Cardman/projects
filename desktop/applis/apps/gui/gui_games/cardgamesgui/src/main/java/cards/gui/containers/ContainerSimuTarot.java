@@ -9,7 +9,7 @@ public class ContainerSimuTarot extends ContainerTarot implements ContainerSimu 
     public ContainerSimuTarot(MainWindow _window) {
         super(_window);
         animationSimulation=new SimulationGameTarot(this);
-        CustComponent.newThread(animationSimulation).start();
+        getOwner().getThreadFactory().newStartedThread(animationSimulation);
     }
 
     @Override

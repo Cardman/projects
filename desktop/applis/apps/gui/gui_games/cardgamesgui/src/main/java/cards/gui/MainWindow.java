@@ -141,6 +141,7 @@ import code.scripts.messages.gui.MessGuiCardsGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.threads.AbstractThread;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -517,7 +518,7 @@ public final class MainWindow extends NetGroupFrame {
     private final StringMap<StringMap<PreparedPagesCards>> preparedTarot;
     //private final boolean standalone;
     private HelpInitializer helpInitializerTask;
-    private Thread helpInitializerThread;
+    private AbstractThread helpInitializerThread;
     private final DialogDisplayingBelote dialogDisplayingBelote = new DialogDisplayingBelote();
     private final DialogDisplayingTarot dialogDisplayingTarot = new DialogDisplayingTarot();
     private final DialogDisplayingPresident dialogDisplayingPresident = new DialogDisplayingPresident();
@@ -780,7 +781,7 @@ public final class MainWindow extends NetGroupFrame {
     public void gearClient(Socket _newSocket) {
         Net.getSockets(getNet()).put(Net.getSockets(getNet()).size(), _newSocket);
         SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this, getNet());
-        CustComponent.newThread(sendReceiveServer_).start();
+        getThreadFactory().newStartedThread(sendReceiveServer_);
         Net.getConnectionsServer(getNet()).put(Net.getSockets(getNet()).size()-1,sendReceiveServer_);
         IndexOfArriving index_ = new IndexOfArriving();
         index_.setIndex(Net.getSockets(getNet()).size()-1);
@@ -2187,11 +2188,11 @@ public final class MainWindow extends NetGroupFrame {
         this.helpInitializerTask = _helpInitializerTask;
     }
 
-    public Thread getHelpInitializerThread() {
+    public AbstractThread getHelpInitializerThread() {
         return helpInitializerThread;
     }
 
-    public void setHelpInitializerThread(Thread _helpInitializerThread) {
+    public void setHelpInitializerThread(AbstractThread _helpInitializerThread) {
         this.helpInitializerThread = _helpInitializerThread;
     }
 

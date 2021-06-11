@@ -53,7 +53,7 @@ public final class CreateMainWindowNoParam implements Runnable {
         PerCent p_ = new PerCentIncr();
         window.getLoadFlag().set(true);
         OpeningGame opening_ = new OpeningGame(window,p_);
-        CustComponent.newThread(opening_).start();
+        window.getThreadFactory().newStartedThread(opening_);
         if (load.loadRomAndGame()) {
             window.loadRomGame(load, path, new StringMap<Object>(), false,p_);
         } else {

@@ -5,8 +5,7 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
-import code.gui.CustComponent;
-import code.threads.ThreadUtil;
+import code.threads.AbstractThread;
 
 public final class GuiContextEl extends RunnableContextEl {
 
@@ -35,9 +34,9 @@ public final class GuiContextEl extends RunnableContextEl {
         interrupt();
         getGuiInit().launchHooks(this, _stackCall);
         _guiExecutingBlocks.getWindow().setNullCurrent();
-        Thread th_ = CustComponent.newThread(new CoveringCodeTask(this, getExecutingOptions()));
+        AbstractThread th_ = _guiExecutingBlocks.getWindow().getThreadFactory().newThread(new CoveringCodeTask(this, getExecutingOptions()));
         th_.start();
-        ThreadUtil.join(th_);
+        th_.join();
 
     }
     public GuiInitializer getGuiInit() {

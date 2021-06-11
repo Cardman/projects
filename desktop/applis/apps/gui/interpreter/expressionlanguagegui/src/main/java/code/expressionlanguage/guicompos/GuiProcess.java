@@ -24,12 +24,11 @@ import code.expressionlanguage.utilfiles.DefaultReporter;
 import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.Clock;
-import code.gui.CustComponent;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.core.OutputType;
 import code.stream.core.ReadFiles;
-import code.threads.ThreadUtil;
+import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -90,7 +89,7 @@ public final class GuiProcess implements Runnable {
             mainArgs_.add(0, _conf);
         }
         AbstractNameValidating validator_ = _window.getValidator();
-        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null), new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false), _window.getGenerator());
+        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null), new DefaultFileSystem(app_, validator_), new DefaultReporter(validator_, app_, false, _window.getThreadFactory()), _window.getGenerator(), _window.getThreadFactory());
 
         StringMap<String> list_ = RunningTest.tryGetSrc(archive_, exec_, fileInfos_, result_);
         if (list_ == null) {
@@ -156,9 +155,9 @@ public final class GuiProcess implements Runnable {
         if (!isVisible()) {
             context.getGuiInit().launchHooks(context, StackCall.newInstance(InitPhase.NOTHING,context));
             window.setNullCurrent();
-            Thread th_ = CustComponent.newThread(new CoveringCodeTask(context, executingOptions));
+            AbstractThread th_ = window.getThreadFactory().newThread(new CoveringCodeTask(context, executingOptions));
             th_.start();
-            ThreadUtil.join(th_);
+            th_.join();
         }
     }
 

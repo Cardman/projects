@@ -20,6 +20,7 @@ import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
+import code.threads.AbstractThread;
 import code.threads.ThreadUtil;
 import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
@@ -54,7 +55,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
     private final ProgressBar progressBar;
 
     private RunningTest running;
-    private Thread th;
+    private AbstractThread th;
     private final StringMap<String> unitMessages;
     private final UniformingString uniformingString = new DefaultUniformingString();
     private final TextArea errors = new TextArea();
@@ -161,7 +162,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
     public void quit() {
         if (th != null) {
             stop();
-            ThreadUtil.join(th);
+            th.join();
         }
         basicDispose();
     }
@@ -189,7 +190,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
         RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(_mainWindow),
                 _mainWindow.getInfos());
         running = r_;
-        Thread th_ = new Thread(r_);
+        AbstractThread th_ = getThreadFactory().newThread(r_);
         th = th_;
         th_.start();
     }
@@ -222,7 +223,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
         RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(_mainWindow),
                 _mainWindow.getInfos());
         running = r_;
-        Thread th_ = new Thread(r_);
+        AbstractThread th_ = getThreadFactory().newThread(r_);
         th = th_;
         th_.start();
     }
@@ -235,7 +236,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = getValidator();
         return new FileInfos(buildLogger(validator_),
-                buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected()), getGenerator());
+                buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected(),getThreadFactory()), getGenerator(),getThreadFactory());
     }
 
     @Override
@@ -243,7 +244,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
         return th == null || !th.isAlive();
     }
 
-    public Thread getTh() {
+    public AbstractThread getTh() {
         return th;
     }
 
@@ -253,14 +254,14 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
     }
     private AbstractLogger buildLogger(AbstractNameValidating _validator) {
         if (memory.isSelected()) {
-            return new MemoryLogger(_validator, unitIssuer);
+            return new MemoryLogger(_validator, unitIssuer,getThreadFactory());
         }
         return new DefaultLogger(_validator, unitIssuer);
     }
 
     private AbstractFileSystem buildSystem(AbstractNameValidating _validator) {
         if (memory.isSelected()) {
-            return new MemoryFileSystem(uniformingString,_validator);
+            return new MemoryFileSystem(uniformingString,_validator,getThreadFactory());
         }
         return new DefaultFileSystem(uniformingString, _validator);
     }

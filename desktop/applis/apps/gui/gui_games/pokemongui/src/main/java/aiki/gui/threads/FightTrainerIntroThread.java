@@ -25,7 +25,7 @@ public final class FightTrainerIntroThread extends FightIntroThread {
         getBattle().setHerosOppositeSex(getHerosOppositeSex(), getFacade().isDualFight());
         getBattle().drawAnimationFightIni(getHeros(), trainer);
         while (getBattle().isKeepAnimation()) {
-            ThreadUtil.sleep(5l);
+            ThreadUtil.sleep(getBattle().getWindow().getThreadFactory(),5l);
             getBattle().drawAnimationFightIniInst();
         }
         getBattle().setComments();

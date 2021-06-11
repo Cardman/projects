@@ -10,6 +10,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
+import code.threads.AbstractThreadFactory;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -161,6 +162,13 @@ public abstract class GroupFrame extends CommonFrame {
 
     public AbstractGenerator getGenerator() {
         return frames.getGenerator();
+    }
+    public void revalidateFrame() {
+        PackingWindowAfter.pack(this);
+    }
+
+    public AbstractThreadFactory getThreadFactory() {
+        return frames.getThreadFactory();
     }
 
     public AbstractNameValidating getValidator() {

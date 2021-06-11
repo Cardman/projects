@@ -1,5 +1,4 @@
 package code.gui;
-import javax.swing.SwingUtilities;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -17,14 +16,14 @@ public final class PackingWindowAfter implements Runnable {
             p_.frame = _frame;
             CustComponent.newThread(p_).start();
         } else {
-            pack(_frame);
+            packg(_frame);
         }
     }
-    public static void pack(Packable _frame) {
-        PackingWindowAfter p_;
-        p_ = new PackingWindowAfter();
-        p_.frame = _frame;
-        p_.pack();
+    public static void packg(Packable _frame) {
+        CustComponent.invokeLater(new PackThread(_frame));
+    }
+    public static void pack(GroupFrame _frame) {
+        CustComponent.invokeLater(new PackThread(_frame));
     }
 
     @Override

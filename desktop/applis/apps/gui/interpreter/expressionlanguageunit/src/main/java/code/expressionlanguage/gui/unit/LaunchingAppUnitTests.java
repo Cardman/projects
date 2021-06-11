@@ -26,7 +26,7 @@ public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
-        ThreadInvoker.invokeNow(new CreateMainWindow(_language,_args, getFrames()));
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindow(_language,_args, getFrames()));
     }
 
 

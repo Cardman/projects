@@ -46,6 +46,7 @@ import code.gui.events.ClosingChildFrameEvent;
 import code.maths.Rate;
 import code.scripts.messages.aiki.MessPkGr;
 import code.sml.util.ResourcesMessagesUtil;
+import code.threads.AbstractThread;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -217,7 +218,7 @@ public class Battle extends ChildFrame {
     private boolean enabledChangeLanguage;
 
     private RoundThread roundThread;
-    private Thread roundThreadLau;
+    private AbstractThread roundThreadLau;
 
     private boolean enableAnimation;
 
@@ -574,7 +575,7 @@ public class Battle extends ChildFrame {
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
             roundThread = new RoundBasicThread(facade, this);
-            roundThreadLau = CustComponent.newThread(roundThread);
+            roundThreadLau = window.getThreadFactory().newThread(roundThread);
             roundThreadLau.start();
         } else {
             afterRoundWithoutAnimation();
@@ -673,7 +674,7 @@ public class Battle extends ChildFrame {
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
             roundThread = new RoundKoUserThread(facade, this);
-            roundThreadLau = CustComponent.newThread(roundThread);
+            roundThreadLau = window.getThreadFactory().newThread(roundThread);
             roundThreadLau.start();
         } else {
             afterRoundWithoutAnimation();
@@ -914,7 +915,7 @@ public class Battle extends ChildFrame {
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
             roundThread = new RoundFleeThread(facade, this);
-            roundThreadLau = CustComponent.newThread(roundThread);
+            roundThreadLau = window.getThreadFactory().newThread(roundThread);
             roundThreadLau.start();
         } else {
             if (!facade.isExistingFight()) {
@@ -976,7 +977,7 @@ public class Battle extends ChildFrame {
             } else {
                 roundThread = new RoundBallThread(facade, this, ball_.getName());
             }
-            roundThreadLau = CustComponent.newThread(roundThread);
+            roundThreadLau = window.getThreadFactory().newThread(roundThread);
             roundThreadLau.start();
         } else {
             if (!facade.isExistingFight()) {
@@ -1000,7 +1001,7 @@ public class Battle extends ChildFrame {
         if (!enabledClicked) {
             return;
         }
-        Thread fightThread_ = window.getPreparedFightThread();
+        AbstractThread fightThread_ = window.getPreparedFightThread();
         PreparedRenderedPages fightTask_ = window.getPreparedFightTask();
         if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
             return;
@@ -1044,7 +1045,7 @@ public class Battle extends ChildFrame {
         if (facade.isChangeToFightScene()) {
             if (!htmlDialogs.isEmpty()) {
                 if (htmlDialogs.first().isVisible()) {
-                    Thread fightThread_ = window.getPreparedFightThread();
+                    AbstractThread fightThread_ = window.getPreparedFightThread();
                     PreparedRenderedPages fightTask_ = window.getPreparedFightTask();
                     if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
                         return;
@@ -1543,5 +1544,9 @@ public class Battle extends ChildFrame {
             return false;
         }
         return htmlDialogs.first().isVisible();
+    }
+
+    public MainWindow getWindow() {
+        return window;
     }
 }

@@ -52,7 +52,7 @@ public final class CreateMainWindowParam implements Runnable {
         PerCent p_ = new PerCentIncr();
         window.getLoadFlag().set(true);
         OpeningGame opening_ = new OpeningGame(window,p_);
-        CustComponent.newThread(opening_).start();
+        window.getThreadFactory().newStartedThread(opening_);
         if (!load.getLastSavedGame().isEmpty()) {
             window.loadRomGame(load, path, files, true,p_);
         } else {

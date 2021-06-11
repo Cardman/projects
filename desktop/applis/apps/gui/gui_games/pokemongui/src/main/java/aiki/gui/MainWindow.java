@@ -63,6 +63,7 @@ import code.scripts.messages.gui.MessGuiPkGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.threads.AbstractThread;
 import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -217,7 +218,7 @@ public final class MainWindow extends NetGroupFrame {
     private boolean enabledMove;
 
     private FightIntroThread fightIntroThread;
-    private Thread fightIntroThreadLau;
+    private AbstractThread fightIntroThreadLau;
 
     private final VideoLoading videoLoading = new VideoLoading();
     private final LoadFlag loadFlag = new LoadFlagImpl();
@@ -227,13 +228,13 @@ public final class MainWindow extends NetGroupFrame {
     private PreparedRenderedPages preparedPkNetTask;
     private PreparedRenderedPages preparedDiffTask;
     private PreparedRenderedPages preparedProgTask;
-    private Thread preparedDataWebThread;
-    private Thread preparedFightThread;
-    private Thread preparedPkThread;
-    private Thread preparedPkNetThread;
-    private Thread preparedDiffThread;
-    private Thread preparedProgThread;
-    private Thread exporting;
+    private AbstractThread preparedDataWebThread;
+    private AbstractThread preparedFightThread;
+    private AbstractThread preparedPkThread;
+    private AbstractThread preparedPkNetThread;
+    private AbstractThread preparedDiffThread;
+    private AbstractThread preparedProgThread;
+    private AbstractThread exporting;
 //    private KeyPadListener keyPadListener;
 
 //    private ForwardingJavaCompiler compiling;
@@ -317,9 +318,7 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         if (battle != null) {
-            while (isAliveThread()) {
-                ThreadUtil.sleep(0);
-            }
+            attendre();
         }
 //        if (compiling.isAlive()) {
 //            int adv_ = Constants.getPercentCompile();
@@ -543,7 +542,7 @@ public final class MainWindow extends NetGroupFrame {
             }
         }
         facade.initializePaginatorTranslations();
-        ThreadInvoker.invokeNow(new AfterLoadZip(this));
+        ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadZip(this));
     }
 
     /**thread safe method*/
@@ -573,7 +572,7 @@ public final class MainWindow extends NetGroupFrame {
             }
         }
         facade.initializePaginatorTranslations();
-        ThreadInvoker.invokeNow(new AfterLoadZip(this));
+        ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadZip(this));
         if (!_files.isEmpty() && _files.values().first() instanceof Game) {
             if (!facade.checkAndSetGame((Game) _files.values().first())) {
                 loadFlag.set(false);
@@ -603,7 +602,7 @@ public final class MainWindow extends NetGroupFrame {
             facade.load(game_);
         }
         facade.changeCamera();
-        ThreadInvoker.invokeNow(new AfterLoadGame(this));
+        ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadGame(this));
     }
 
     public void afterLoadZip() {
@@ -620,7 +619,7 @@ public final class MainWindow extends NetGroupFrame {
         if (!def_.okPath(StreamFolderFile.getRelativeRootPath(loadingConf.getExport()),'/','\\')) {
             loadingConf.setExport("");
         }
-        exporting = new Thread(new ExportRomThread(facade,loadingConf));
+        exporting = getThreadFactory().newThread(new ExportRomThread(facade,loadingConf,getThreadFactory()));
         exporting.start();
     }
 
@@ -767,13 +766,9 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         if (battle != null) {
-            while (isAliveThread()) {
-                ThreadUtil.sleep(0);
-            }
+            attendre();
         }
-        while (isPaintingScene()) {
-            ThreadUtil.sleep(0);
-        }
+        attendre2();
         if (!savedGame && facade.getGame() != null) {
             int choix_=saving();
             if(choix_==JOptionPane.CANCEL_OPTION) {
@@ -806,8 +801,8 @@ public final class MainWindow extends NetGroupFrame {
         loadFlag.set(true);
         LoadingThread load_ = new LoadingThread(this, fileName_,p_);
         LoadGame opening_ = new LoadGame(this,p_);
-        CustComponent.newThread(load_).start();
-        CustComponent.newThread(opening_).start();
+        getThreadFactory().newStartedThread(load_);
+        getThreadFactory().newStartedThread(opening_);
     }
 
     public void loadGame() {
@@ -815,13 +810,9 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         if (battle != null) {
-            while (isAliveThread()) {
-                ThreadUtil.sleep(0);
-            }
+            attendre();
         }
-        while (isPaintingScene()) {
-            ThreadUtil.sleep(0);
-        }
+        attendre2();
         if (!savedGame && facade.getGame() != null) {
             int choix_=saving();
             if(choix_==JOptionPane.CANCEL_OPTION) {
@@ -865,6 +856,18 @@ public final class MainWindow extends NetGroupFrame {
         }
     }
 
+    private void attendre2() {
+        while (isPaintingScene()) {
+            ThreadUtil.sleep(getThreadFactory(),0);
+        }
+    }
+
+    private void attendre() {
+        while (isAliveThread()) {
+            ThreadUtil.sleep(getThreadFactory(),0);
+        }
+    }
+
     public static Game load(String _fileName,DataBase _data) {
         Game game_ = DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName));
         if (game_ == null) {
@@ -882,9 +885,7 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         if (battle != null) {
-            while (isAliveThread()) {
-                ThreadUtil.sleep(0);
-            }
+            attendre();
         }
         save(fileName_);
         fileName_ = StringUtil.replaceBackSlash(fileName_);
@@ -920,13 +921,9 @@ public final class MainWindow extends NetGroupFrame {
 
     public void manageParams() {
         if (battle != null) {
-            while (isAliveThread()) {
-                ThreadUtil.sleep(0);
-            }
+            attendre();
         }
-        while (isPaintingScene()) {
-            ThreadUtil.sleep(0);
-        }
+        attendre2();
         DialogSoftParams.setSoftParams(this, loadingConf);
         DialogSoftParams.setParams(loadingConf, getSoftParams());
         if (DialogSoftParams.isOk(getSoftParams())) {
@@ -936,13 +933,9 @@ public final class MainWindow extends NetGroupFrame {
 
     public void proponeNewGame() {
         if (battle != null) {
-            while (isAliveThread()) {
-                ThreadUtil.sleep(0);
-            }
+            attendre();
         }
-        while (isPaintingScene()) {
-            ThreadUtil.sleep(0);
-        }
+        attendre2();
         if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
             return;
         }
@@ -1082,7 +1075,7 @@ public final class MainWindow extends NetGroupFrame {
         facade.clearGame();
         facade.initializePaginatorTranslations();
         inBattle = false;
-        ThreadInvoker.invokeNow(new ReinitComponents(this));
+        ThreadInvoker.invokeNow(getThreadFactory(),new ReinitComponents(this));
 //        battle.setVisible(false);
 //        scenePanel.reinit();
 //        String ext_ = StringList.escape(CLASS_FILES_EXT)+StringList.END_REG_EXP;
@@ -1093,7 +1086,7 @@ public final class MainWindow extends NetGroupFrame {
 //            ForwardingJavaCompiler.addSourceCode(e.getKey(), e.getValue());
 //        }
 //        ThreadInvoker.invokeNow(new AfterCompiling(this, false, false));
-        ThreadInvoker.invokeNow(new AfterLoadZip(this));
+        ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadZip(this));
         loadingConf.setLastRom(_fileName);
 //        pack();
 //        //reInitAllSession
@@ -1168,7 +1161,7 @@ public final class MainWindow extends NetGroupFrame {
     public void gearClient(Socket _newSocket) {
         Net.getSockets(getNet()).put(Net.getSockets(getNet()).size(), _newSocket);
         SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this, getNet());
-        CustComponent.newThread(sendReceiveServer_).start();
+        getThreadFactory().newStartedThread(sendReceiveServer_);
         Net.getConnectionsServer(getNet()).put(Net.getSockets(getNet()).size()-1,sendReceiveServer_);
         IndexOfArriving index_ = new IndexOfArriving();
         index_.setIndex(Net.getSockets(getNet()).size()-1);
@@ -1351,7 +1344,7 @@ public final class MainWindow extends NetGroupFrame {
             } else {
                 fightIntroThread = new FightTrainerIntroThread(facade, battle.getBattle());
             }
-            fightIntroThreadLau = CustComponent.newThread(fightIntroThread);
+            fightIntroThreadLau = getThreadFactory().newThread(fightIntroThread);
             fightIntroThreadLau.start();
         } else {
             battle.setComments();
@@ -1498,8 +1491,8 @@ public final class MainWindow extends NetGroupFrame {
 
     public void setPaintingScene(boolean _paintingScene) {
 //        difficulty.setEnabled(!_paintingScene);
-        ThreadInvoker.invokeNow(new ChangeEnabledDifficulty(difficulty, !_paintingScene));
-        ThreadInvoker.invokeNow(new PaintingScene(scenePanel, _paintingScene));
+        ThreadInvoker.invokeNow(getThreadFactory(),new ChangeEnabledDifficulty(difficulty, !_paintingScene));
+        ThreadInvoker.invokeNow(getThreadFactory(),new PaintingScene(scenePanel, _paintingScene));
 //        scenePanel.setPaintingScene(_paintingScene);
     }
 
@@ -1625,51 +1618,51 @@ public final class MainWindow extends NetGroupFrame {
         preparedProgTask = _preparedProgTask;
     }
 
-    public Thread getPreparedDataWebThread() {
+    public AbstractThread getPreparedDataWebThread() {
         return preparedDataWebThread;
     }
 
-    public void setPreparedDataWebThread(Thread _preparedDataWebThread) {
+    public void setPreparedDataWebThread(AbstractThread _preparedDataWebThread) {
         preparedDataWebThread = _preparedDataWebThread;
     }
 
-    public Thread getPreparedFightThread() {
+    public AbstractThread getPreparedFightThread() {
         return preparedFightThread;
     }
 
-    public void setPreparedFightThread(Thread _preparedFightThread) {
+    public void setPreparedFightThread(AbstractThread _preparedFightThread) {
         preparedFightThread = _preparedFightThread;
     }
 
-    public Thread getPreparedPkThread() {
+    public AbstractThread getPreparedPkThread() {
         return preparedPkThread;
     }
 
-    public void setPreparedPkThread(Thread _preparedPkThread) {
+    public void setPreparedPkThread(AbstractThread _preparedPkThread) {
         preparedPkThread = _preparedPkThread;
     }
 
-    public Thread getPreparedPkNetThread() {
+    public AbstractThread getPreparedPkNetThread() {
         return preparedPkNetThread;
     }
 
-    public void setPreparedPkNetThread(Thread _preparedPkThread) {
+    public void setPreparedPkNetThread(AbstractThread _preparedPkThread) {
         preparedPkNetThread = _preparedPkThread;
     }
 
-    public Thread getPreparedDiffThread() {
+    public AbstractThread getPreparedDiffThread() {
         return preparedDiffThread;
     }
 
-    public void setPreparedDiffThread(Thread _preparedDiffThread) {
+    public void setPreparedDiffThread(AbstractThread _preparedDiffThread) {
         preparedDiffThread = _preparedDiffThread;
     }
 
-    public Thread getPreparedProgThread() {
+    public AbstractThread getPreparedProgThread() {
         return preparedProgThread;
     }
 
-    public void setPreparedProgThread(Thread _preparedProgThread) {
+    public void setPreparedProgThread(AbstractThread _preparedProgThread) {
         preparedProgThread = _preparedProgThread;
     }
 

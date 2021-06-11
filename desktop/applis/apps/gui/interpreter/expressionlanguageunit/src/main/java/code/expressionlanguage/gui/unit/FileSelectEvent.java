@@ -16,6 +16,6 @@ public final class FileSelectEvent implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent _e) {
-        ThreadUtil.start(new Thread(new LoadConf(tested,mainWindow.selectedFile())));
+        mainWindow.getThreadFactory().newStartedThread(new LoadConf(tested,mainWindow.selectedFile()));
     }
 }

@@ -4,13 +4,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.*;
+import code.threads.AbstractThread;
 import code.util.CustList;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class ThreadSetStruct extends WithoutParentIdStruct implements Struct {
 
-    private final ConcurrentHashMap<Thread,Struct> elementSet = new ConcurrentHashMap<Thread,Struct>();
+    private final ConcurrentHashMap<AbstractThread,Struct> elementSet = new ConcurrentHashMap<AbstractThread,Struct>();
 
     public ArrayStruct toSnapshotArray(ContextEl _contextEl, StackCall _stackCall) {
         CustList<Struct> instantKeys_ = new CustList<Struct>();

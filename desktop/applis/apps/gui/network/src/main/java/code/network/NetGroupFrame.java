@@ -12,6 +12,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.threads.AbstractLock;
+import code.threads.AbstractThread;
 import code.threads.LockFactory;
 import code.util.StringList;
 
@@ -19,7 +20,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
 
     private Socket socket;
 
-    private Thread connectionTh;
+    private AbstractThread connectionTh;
     private ConnectionToServer connection;
 
     private String ipHost;
@@ -48,7 +49,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         }
         ipHost = _ip;
         connection=new ConnectionToServer(_serverSocket,this, _ip, _port);
-        connectionTh = CustComponent.newThread(connection);
+        connectionTh = getThreadFactory().newThread(connection);
         connectionTh.start();
     }
 
@@ -79,7 +80,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     private SocketResults getSocketResults(boolean _first, int _port, String _address) {
         try {
             Socket socket_ = new Socket(_address, _port);
-            CustComponent.newThread(new BasicClient(socket_, this)).start();
+            getThreadFactory().newStartedThread(new BasicClient(socket_, this));
             initIndexInGame(_first);
             socket = socket_;
             return new SocketResults(socket_);

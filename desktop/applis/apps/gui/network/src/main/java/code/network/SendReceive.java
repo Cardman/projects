@@ -12,8 +12,9 @@ public abstract class SendReceive implements Runnable {
 
     private NetGroupFrame net;
 
-    public SendReceive(Socket _socket) {
+    public SendReceive(Socket _socket, NetGroupFrame _net) {
         setSocket(_socket);
+        net = _net;
 
     }
 

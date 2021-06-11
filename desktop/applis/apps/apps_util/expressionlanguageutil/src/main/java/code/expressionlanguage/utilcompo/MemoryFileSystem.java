@@ -3,6 +3,7 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.PathUtil;
 import code.stream.core.ReadBinFiles;
+import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -13,15 +14,17 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     private final UniformingString uniformingString;
     private final AbstractNameValidating nameValidating;
     private FolderStruct root;
+    private final AbstractThreadFactory threadFactory;
 
-    public MemoryFileSystem(UniformingString _uniformingString, AbstractNameValidating _nameValidating) {
+    public MemoryFileSystem(UniformingString _uniformingString, AbstractNameValidating _nameValidating, AbstractThreadFactory _threadFact) {
         uniformingString = _uniformingString;
         nameValidating = _nameValidating;
+        threadFactory = _threadFact;
     }
 
     @Override
     public void build(String _base, ReadBinFiles _readBin) {
-        root = FolderStruct.build(_readBin.getZipFolders(),_readBin.getZipFiles());
+        root = FolderStruct.build(_readBin.getZipFolders(),_readBin.getZipFiles(),threadFactory);
     }
 
     @Override
@@ -70,11 +73,11 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         }
         FileStruct file_ = curr_.getFiles().getVal(simpleName_);
         if (file_ != null) {
-            file_.setDatedContent(content_);
+            file_.setDatedContent(content_,threadFactory);
             return true;
         }
-        curr_.setupDate();
-        curr_.getFiles().addEntry(simpleName_,new FileStruct(content_));
+        curr_.setupDate(threadFactory);
+        curr_.getFiles().addEntry(simpleName_,new FileStruct(content_,threadFactory));
         return true;
     }
 
@@ -107,11 +110,11 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         }
         FileStruct file_ = curr_.getFiles().getVal(simpleName_);
         if (file_ != null) {
-            file_.setDatedContent(_content);
+            file_.setDatedContent(_content,threadFactory);
             return true;
         }
-        curr_.setupDate();
-        curr_.getFiles().addEntry(simpleName_,new FileStruct(_content));
+        curr_.setupDate(threadFactory);
+        curr_.getFiles().addEntry(simpleName_,new FileStruct(_content,threadFactory));
         return true;
     }
 
@@ -150,7 +153,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
             success_ = count_ != curr_.getFiles().size();
         }
         if (success_) {
-            curr_.setupDate();
+            curr_.setupDate(threadFactory);
         }
         return success_;
     }
@@ -188,8 +191,8 @@ public final class MemoryFileSystem implements AbstractFileSystem {
             }
             dest_.getFolders().addEntry(simpleNameDest_,folder_);
             curr_.getFolders().removeKey(simpleName_);
-            dest_.setupDate();
-            curr_.setupDate();
+            dest_.setupDate(threadFactory);
+            curr_.setupDate(threadFactory);
         } else {
             StringList parts_ = PathUtil.splitParts(origin_);
             String simpleName_ = parts_.last();
@@ -213,8 +216,8 @@ public final class MemoryFileSystem implements AbstractFileSystem {
             }
             dest_.getFiles().addEntry(simpleNameDest_,file_);
             curr_.getFiles().removeKey(simpleName_);
-            dest_.setupDate();
-            curr_.setupDate();
+            dest_.setupDate(threadFactory);
+            curr_.setupDate(threadFactory);
         }
         return true;
     }
@@ -234,8 +237,8 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         }
         FileStruct file_ = curr_.getFiles().getVal(simpleName_);
         if (file_ == null) {
-            curr_.getFiles().addEntry(simpleName_,new FileStruct(content_));
-            curr_.setupDate();
+            curr_.getFiles().addEntry(simpleName_,new FileStruct(content_,threadFactory));
+            curr_.setupDate(threadFactory);
             return true;
         }
         byte[] val_ = file_.getContent();
@@ -248,7 +251,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         for (int i = 0; i < contLen_; i++) {
             val(merged_, i + already_, content_, i);
         }
-        file_.setDatedContent(merged_);
+        file_.setDatedContent(merged_,threadFactory);
         return true;
     }
 
@@ -362,9 +365,9 @@ public final class MemoryFileSystem implements AbstractFileSystem {
                 if (!nameValidating.ok(parent_)) {
                     return false;
                 }
-                FolderStruct new_ = new FolderStruct();
+                FolderStruct new_ = new FolderStruct(threadFactory);
                 curr_.getFolders().addEntry(parent_, new_);
-                curr_.setupDate();
+                curr_.setupDate(threadFactory);
                 next_ = new_;
             }
             curr_ = next_;
@@ -372,8 +375,8 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         if (curr_.getFolders().contains(simpleName_)) {
             return false;
         }
-        curr_.setupDate();
-        curr_.getFolders().addEntry(simpleName_,new FolderStruct());
+        curr_.setupDate(threadFactory);
+        curr_.getFolders().addEntry(simpleName_,new FolderStruct(threadFactory));
         return true;
     }
 

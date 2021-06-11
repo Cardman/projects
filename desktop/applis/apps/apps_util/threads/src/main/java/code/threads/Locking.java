@@ -1,6 +1,7 @@
 package code.threads;
 
 public interface Locking {
-    Thread getCurrentThread();
+    AbstractThreadFactory getCurrentThreadFactory();
+    AbstractThread getCurrentThread();
     boolean isCurrentThreadEnded();
 }

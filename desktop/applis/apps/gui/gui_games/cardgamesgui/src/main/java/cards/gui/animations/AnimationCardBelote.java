@@ -31,13 +31,13 @@ public final class AnimationCardBelote implements Runnable {
             long delaiPli_;
             if(!container.getParametres().getAttentePlisClic()) {
                 delaiPli_=container.getParametres().getDelaiAttentePlis();
-                ThreadUtil.sleep(delaiPli_);
+                ThreadUtil.sleep(container.getOwner().getThreadFactory(),delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 container.tapisBelote().setCartesBeloteJeu(partie_.getNombreDeJoueurs(),lg_);
             }
         }
         //Activer le menu Partie/Pause
-        ThreadInvoker.invokeNow(new ChangingPause(container, true));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true));
 //        container.getPause().setEnabled(true);
         while (true) {
             if (!partie_.keepPlayingCurrentTrick()) {
@@ -50,7 +50,7 @@ public final class AnimationCardBelote implements Runnable {
                     break;
                 }
                 long delaiPli_=container.getParametres().getDelaiAttentePlis();
-                ThreadUtil.sleep(delaiPli_);
+                ThreadUtil.sleep(container.getOwner().getThreadFactory(),delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 if (!partie_.keepPlayingCurrentGame()) {
                     break;
@@ -62,7 +62,7 @@ public final class AnimationCardBelote implements Runnable {
             if (player_ == DealBelote.NUMERO_UTILISATEUR) {
                 break;
             }
-            ThreadUtil.sleep(delaiCarte_);
+            ThreadUtil.sleep(container.getOwner().getThreadFactory(),delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
             container.jouerBelote(player_,pseudos_.get(player_));
             container.pause();

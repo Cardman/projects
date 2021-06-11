@@ -10,11 +10,8 @@ import code.gui.ThreadInvoker;
 /**Thread safe class*/
 public final class BasicClient extends SendReceive {
 
-    private NetGroupFrame window;
-
     public BasicClient(Socket _socket, NetGroupFrame _window) {
-        super(_socket);
-        window = _window;
+        super(_socket,_window);
     }
 
     @Override
@@ -34,7 +31,7 @@ public final class BasicClient extends SendReceive {
                     break;
                 }
                 //on peut traiter les "timeout"
-                Object readObject_ = window.getObject(input_);
+                Object readObject_ = getNet().getObject(input_);
                 if (readObject_ == null) {
                     continue;
                 }
@@ -42,13 +39,13 @@ public final class BasicClient extends SendReceive {
                     ex_ = (Exiting) readObject_;
                     break;
                 }
-                ThreadInvoker.invokeNow(new LoopClient(window, readObject_, getSocket()));
+                ThreadInvoker.invokeNow(getNet().getThreadFactory(),new LoopClient(getNet(), readObject_, getSocket()));
             }
             if (!noLine_) {
-                CustComponent.invokeLater(new Quitting(ex_, window, getSocket()));
+                CustComponent.invokeLater(new Quitting(ex_, getNet(), getSocket()));
             }
         } catch (IOException e){
-            CustComponent.invokeLater(new Quitting(null, window, getSocket()));
+            CustComponent.invokeLater(new Quitting(null, getNet(), getSocket()));
         }
     }
 }

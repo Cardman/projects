@@ -21,7 +21,7 @@ public final class RoundBallThread extends RoundThread {
     public void run() {
         getBattle().initBall();
         while (getBattle().isKeepAnimation()) {
-            ThreadUtil.sleep(5l);
+            ThreadUtil.sleep(getBattle().getWindow().getThreadFactory(),5l);
             getBattle().moveBall(ball);
         }
         getFacade().endRoundFightSuccessBall();

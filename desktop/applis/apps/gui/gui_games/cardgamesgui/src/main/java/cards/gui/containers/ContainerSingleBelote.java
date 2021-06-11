@@ -89,17 +89,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         String lg_ = getOwner().getLanguageKey();
         if(partie_.annoncerBeloteRebelote(_joueur,ct_)) {
             partie_.setAnnoncesBeloteRebelote(_joueur,ct_);
-            ThreadInvoker.invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_),RETURN_LINE)));
+            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_),RETURN_LINE)));
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+DeclaresBeloteRebelote.BELOTE_REBELOTE+RETURN_LINE_CHAR);
         }
         if (partie_.premierTour()) {
             partie_.annoncer(_joueur);
             DeclareHandBelote usDecl_ = partie_.getAnnonce(_joueur);
-            ThreadInvoker.invokeNow(new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE)));
+            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE)));
 //            ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+usDecl_.getAnnonce()+RETURN_LINE_CHAR);
             if(!usDecl_.getHand().estVide()) {
                 TextLabel label_ = getHandfuls().getVal(_joueur);
-                ThreadInvoker.invokeNow(new SettingText(label_, Games.toString(usDecl_.getDeclare(),lg_)));
+                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingText(label_, Games.toString(usDecl_.getDeclare(),lg_)));
 //                getHandfuls().getVal(_joueur).setText(usDecl_.getAnnonce().toString());
             }
             if (partie_.getContrat().getCouleurDominante()) {
@@ -109,7 +109,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             }
 
             Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
-            ThreadInvoker.invokeNow(new DeclaringThread(panelToSet_, usDecl_, getOwner()));
+            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new DeclaringThread(panelToSet_, usDecl_, getOwner()));
 //            panelToSet_.removeAll();
 //            for(CardBelote c: usDecl_.getMain())
 //            {
@@ -158,7 +158,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             byte debut_= partie_.playerHavingToBid();
             if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
                 animContratBelote=new AnimationBidBelote(this);
-                CustComponent.newThread(animContratBelote).start();
+                getOwner().getThreadFactory().newStartedThread(animContratBelote);
             } else {
                 if(partie_.keepBidding()) {
                     //Activer les conseils
@@ -196,7 +196,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                     return;
                 }
                 animCarteBelote=new AnimationCardBelote(this);
-                CustComponent.newThread(animCarteBelote).start();
+                getOwner().getThreadFactory().newStartedThread(animCarteBelote);
             } else if(partie_.getContrat().jouerDonne()) {
                 getMini().setStatus(Role.TAKER, partie_.getPreneur());
                 getMini().setStatus(Role.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
@@ -219,7 +219,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             return;
         }
         animCarteBelote=new AnimationCardBelote(this);
-        CustComponent.newThread(animCarteBelote).start();
+        getOwner().getThreadFactory().newStartedThread(animCarteBelote);
     }
     public void addButtonsForCoinche(GameBelote _partie) {
         int square_ = 1;
@@ -301,7 +301,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         contratUtilisateurBelote.setEnchere(getBidType());
         contratUtilisateurBelote.setPoints(getPts());
         animContratBelote=new AnimationBidBelote(this);
-        CustComponent.newThread(animContratBelote).start();
+        getOwner().getThreadFactory().newStartedThread(animContratBelote);
     }
     @Override
     public void fold() {
@@ -315,7 +315,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setCanBid(false);
         contratUtilisateurBelote=new BidBeloteSuit();
         animContratBelote=new AnimationBidBelote(this);
-        CustComponent.newThread(animContratBelote).start();
+        getOwner().getThreadFactory().newStartedThread(animContratBelote);
     }
     public void ajouterBoutonContratBelote(String _texte,BidBeloteSuit _action,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
@@ -493,7 +493,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         String lg_ = getOwner().getLanguageKey();
         if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
             animContratBelote=new AnimationBidBelote(this);
-            CustComponent.newThread(animContratBelote).start();
+            getOwner().getThreadFactory().newStartedThread(animContratBelote);
         } else {
             setCanBid(true);
             if (!partie_.getRegles().dealAll()) {
@@ -575,7 +575,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setRaisonCourante(getMessages().getVal(MainWindow.WAIT_TURN));
         setThreadAnime(true);
         animCarteBelote=new AnimationCardBelote(this);
-        CustComponent.newThread(animCarteBelote).start();
+        getOwner().getThreadFactory().newStartedThread(animCarteBelote);
 
 
     }
@@ -648,7 +648,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().repaintChildren();
         animCarteBelote = new AnimationCardBelote(this);
-        CustComponent.newThread(animCarteBelote).start();
+        getOwner().getThreadFactory().newStartedThread(animCarteBelote);
         setThreadAnime(true);
 
     }

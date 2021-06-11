@@ -3,16 +3,17 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
+import code.threads.AbstractThread;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class ThreadStruct extends WithoutParentIdStruct implements Struct {
 
-    private final Thread thread;
+    private final AbstractThread thread;
 
     private AtomicBoolean ended = new AtomicBoolean();
 
-    public ThreadStruct(Thread _thread) {
+    public ThreadStruct(AbstractThread _thread) {
         thread = _thread;
     }
 
@@ -24,8 +25,22 @@ public final class ThreadStruct extends WithoutParentIdStruct implements Struct 
         ended.set(true);
     }
 
-    public Thread getThread() {
+    public AbstractThread getThread() {
         return thread;
+    }
+    public boolean start(){
+        if (thread.isAlive()) {
+            return false;
+        }
+        thread.start();
+        return true;
+    }
+    public boolean setPriority(int _prio) {
+        if (_prio > Thread.MAX_PRIORITY || _prio < Thread.MIN_PRIORITY) {
+            return false;
+        }
+        thread.setPriority(_prio);
+        return true;
     }
 
     @Override

@@ -14,6 +14,7 @@ import code.gui.events.SubmitMouseEvent;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
+import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -41,7 +42,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private StringMap<String> messages;
 
     private ThreadSearchingFile info;
-    private Thread thread;
+    private AbstractThread thread;
 
     private final AtomicBoolean keepSearching = new AtomicBoolean();
 
@@ -120,7 +121,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         getFileModel().clear();
         setKeepSearching(true);
         info = new ThreadSearchingFile(this, backup_, currentFolder_);
-        thread = CustComponent.newThread(info);
+        thread = getSuperFrame().getThreadFactory().newThread(info);
         thread.start();
 //        setKeepSearching(true);
 //        Cursor cursor_ = getCursor();

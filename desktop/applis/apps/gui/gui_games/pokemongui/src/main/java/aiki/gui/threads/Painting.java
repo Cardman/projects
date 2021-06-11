@@ -51,7 +51,7 @@ public final class Painting implements Runnable {
             scene.keepTiles();
             facade.changeCamera();
             scene.load(facade, false);
-            ThreadUtil.sleep(pause);
+            ThreadUtil.sleep(window.getThreadFactory(),pause);
             scene.repaintLabel();
             if (facade.isChangeToFightScene()) {
                 CustComponent.invokeLater(new SetFightPanel(window));
@@ -66,14 +66,14 @@ public final class Painting implements Runnable {
                 scene.keepTiles();
                 facade.changeCamera();
                 scene.load(facade, false);
-                ThreadUtil.sleep(pause * 5L);
+                ThreadUtil.sleep(window.getThreadFactory(),pause * 5L);
                 scene.repaintLabel();
             } else {
                 facade.changeCamera(dir);
                 scene.load(facade, false);
                 for (int i = IndexConstants.FIRST_INDEX; i <= side; i++) {
                     scene.setDelta(i - side, true);
-                    ThreadUtil.sleep(pause);
+                    ThreadUtil.sleep(window.getThreadFactory(),pause);
                     scene.repaintLabel();
                 }
             }
@@ -84,7 +84,7 @@ public final class Painting implements Runnable {
             facade.changeCamera();
             scene.load(facade, false);
             scene.setDelta(0, false);
-            ThreadUtil.sleep(pause);
+            ThreadUtil.sleep(window.getThreadFactory(),pause);
             scene.repaintLabel();
             CustComponent.invokeLater(new SetInteractionScene(window));
             return;
@@ -93,7 +93,7 @@ public final class Painting implements Runnable {
             scene.keepTiles();
             facade.changeCamera();
             scene.load(facade, false);
-            ThreadUtil.sleep(pause);
+            ThreadUtil.sleep(window.getThreadFactory(),pause);
             scene.repaintLabel();
             CustComponent.invokeLater(new SetInteractionScene(window));
             return;
@@ -102,7 +102,7 @@ public final class Painting implements Runnable {
         scene.load(facade, false);
         for (int i = IndexConstants.FIRST_INDEX; i <= side; i++) {
             scene.setDelta(i - side, true);
-            ThreadUtil.sleep(pause);
+            ThreadUtil.sleep(window.getThreadFactory(),pause);
             scene.repaintLabel();
         }
         CustComponent.invokeLater(new SetInteractionScene(window));

@@ -77,9 +77,6 @@ public abstract class CommonFrame extends AbsFrame implements ChangeableTitle {
     protected Window getComponent() {
         return frame;
     }
-    public void revalidateFrame() {
-        PackingWindowAfter.pack(this);
-    }
 
     protected void setIconImage(BufferedImage _image) {
         frame.setIconImage(_image);

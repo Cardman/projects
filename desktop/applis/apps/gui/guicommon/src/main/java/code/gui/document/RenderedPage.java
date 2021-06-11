@@ -18,6 +18,7 @@ import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.Document;
+import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -34,7 +35,7 @@ public final class RenderedPage implements ProcessingSession {
 
     private final AtomicBoolean processing = new AtomicBoolean();
 
-    private Thread threadAction;
+    private AbstractThread threadAction;
 
     private CustList<BufferedImage> process = new CustList<BufferedImage>();
 
@@ -108,7 +109,7 @@ public final class RenderedPage implements ProcessingSession {
         standards = _prepared.getBeanNatLgNames();
         contextCreator = new NativeContextCreator();
         ThreadDirectActions th_ = new ThreadDirectActions(this);
-        threadAction = CustComponent.newThread(th_);
+        threadAction = gene.getThreadFactory().newThread(th_);
         threadAction.start();
         animateProcess();
     }
@@ -120,15 +121,15 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _stds;
         contextCreator = _creator;
-        threadAction = CustComponent.newThread(_inst);
+        threadAction = gene.getThreadFactory().newThread(_inst);
         threadAction.start();
         animateProcess();
     }
 
     void animateProcess() {
         if (!process.isEmpty()) {
-            LoadingWeb load_ = new LoadingWeb(this, process, frame, dialog);
-            CustComponent.newThread(load_).start();
+            LoadingWeb load_ = new LoadingWeb(gene.getThreadFactory(),this, process, frame, dialog);
+            gene.getThreadFactory().newStartedThread(load_);
         }
     }
 
@@ -139,7 +140,7 @@ public final class RenderedPage implements ProcessingSession {
         if (!(standards instanceof BeanNatLgNames)) {
             return;
         }
-        threadAction = CustComponent.newThread(new ThreadRefresh(this, (BeanNatLgNames) standards));
+        threadAction = gene.getThreadFactory().newThread(new ThreadRefresh(this, (BeanNatLgNames) standards));
         threadAction.start();
         animateProcess();
     }

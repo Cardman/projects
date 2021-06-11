@@ -50,7 +50,7 @@ public final class SimulationGameTarot implements Runnable,SimulationGame {
 
     @Override
     public void run() {
-        CustComponent.newThread(new SettingSimulationComponent(this)).start();
+        container.getOwner().getThreadFactory().newStartedThread(new SettingSimulationComponent(this));
     }
 
     @Override

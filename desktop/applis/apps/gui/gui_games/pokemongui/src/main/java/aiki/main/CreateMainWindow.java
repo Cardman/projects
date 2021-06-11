@@ -4,7 +4,6 @@ import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.LoadingGame;
 import aiki.gui.MainWindow;
 import aiki.sml.Resources;
-import code.gui.CustComponent;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
 import code.gui.initialize.AbstractProgramInfos;
@@ -12,6 +11,7 @@ import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
 import code.sml.Document;
+import code.threads.AbstractThread;
 import code.util.StringMap;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
@@ -53,17 +53,17 @@ public final class CreateMainWindow implements Runnable {
         PreparedRenderedPages diff_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DiffGameInit(), built_, builtMessages_, builtOther_);
         PreparedRenderedPages prog_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new ProgGameInit(), built_, builtMessages_, builtOther_);
         MainWindow window_ = new MainWindow(lg, list,aikiFactory);
-        Thread dataWebThread_ = CustComponent.newThread(dataWeb_);
+        AbstractThread dataWebThread_ = window_.getThreadFactory().newThread(dataWeb_);
         dataWebThread_.start();
-        Thread fightThread_ = CustComponent.newThread(fight_);
+        AbstractThread fightThread_ = window_.getThreadFactory().newThread(fight_);
         fightThread_.start();
-        Thread pkThread_ = CustComponent.newThread(pk_);
+        AbstractThread pkThread_ = window_.getThreadFactory().newThread(pk_);
         pkThread_.start();
-        Thread pkNetThread_ = CustComponent.newThread(pkNet_);
+        AbstractThread pkNetThread_ = window_.getThreadFactory().newThread(pkNet_);
         pkNetThread_.start();
-        Thread diffThread_ = CustComponent.newThread(diff_);
+        AbstractThread diffThread_ = window_.getThreadFactory().newThread(diff_);
         diffThread_.start();
-        Thread progThread_ = CustComponent.newThread(prog_);
+        AbstractThread progThread_ = window_.getThreadFactory().newThread(prog_);
         progThread_.start();
         window_.setPreparedDataWebThread(dataWebThread_);
         window_.setPreparedFightThread(fightThread_);
@@ -81,9 +81,9 @@ public final class CreateMainWindow implements Runnable {
         window_.pack();
         window_.setVisible(true);
         if (!withParam.isEmpty()) {
-            CustComponent.newThread(new CreateMainWindowParam(window_, load, path, withParam)).start();
+            window_.getThreadFactory().newStartedThread(new CreateMainWindowParam(window_, load, path, withParam));
         } else {
-            CustComponent.newThread(new CreateMainWindowNoParam(window_, load, path)).start();
+            window_.getThreadFactory().newStartedThread(new CreateMainWindowNoParam(window_, load, path));
         }
     }
 }
