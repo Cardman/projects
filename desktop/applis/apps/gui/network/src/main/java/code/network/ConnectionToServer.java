@@ -1,6 +1,5 @@
 package code.network;
 import code.gui.initialize.AbstractProgramInfos;
-import code.stream.core.StreamCoreUtil;
 import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
