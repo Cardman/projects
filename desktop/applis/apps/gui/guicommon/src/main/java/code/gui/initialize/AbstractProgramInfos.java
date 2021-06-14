@@ -32,5 +32,6 @@ public interface AbstractProgramInfos {
     boolean close(Closeable _cl);
     ClipStream openClip(byte[] _file);
     BufferedImage readImg(String _file);
+    AbstractSocketFactory getSocketFactory();
     boolean writeImg(String _format, String _file, BufferedImage _img);
 }

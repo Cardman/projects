@@ -1,11 +1,11 @@
 package cards.network.threads;
-import java.net.Socket;
 
 import cards.facade.Games;
 import cards.network.common.Bye;
 import cards.network.common.DelegateServer;
 import cards.network.common.Quit;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
+import code.gui.initialize.AbstractSocket;
 import code.network.NetGroupFrame;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -27,7 +27,7 @@ public final class Net {
     private Games games = new Games();
 
 
-    private IntMap<Socket> sockets =new IntMap<Socket>();
+    private IntMap<AbstractSocket> sockets =new IntMap<AbstractSocket>();
 
     private IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
 
@@ -58,7 +58,7 @@ public final class Net {
     @param _socket The used socket (client) which is used for sending
     @param _text the text to be sent
     */
-    static void sendText(Socket _socket, String _text) {
+    static void sendText(AbstractSocket _socket, String _text) {
         NetGroupFrame.trySendString(_text,_socket);
     }
     /**server
@@ -93,7 +93,7 @@ public final class Net {
     }
 
     /**server and client*/
-    public static void sendObject(Socket _socket, Object _serializable) {
+    public static void sendObject(AbstractSocket _socket, Object _serializable) {
         Net.sendText(_socket,DocumentWriterCardsMultiUtil.setObject(_serializable));
     }
     /**server
@@ -202,7 +202,7 @@ public final class Net {
     @param _place the place of a player around the table
      * @param _instance
     @return the associated socket of the place or null if it is an invalid place for a player*/
-    static Socket getSocketByPlace(byte _place, Net _instance) {
+    static AbstractSocket getSocketByPlace(byte _place, Net _instance) {
         for (int i: getPlacesPlayers(_instance).getKeys()) {
             if (getPlacesPlayers(_instance).getVal(i) == _place) {
                 return getSockets(_instance).getVal(i);
@@ -247,7 +247,7 @@ public final class Net {
     }
 
     static void removePlayer(int _player, Bye _bye, Net _instance) {
-        Socket socket_ = Net.getSockets(_instance).getVal(_player);
+        AbstractSocket socket_ = Net.getSockets(_instance).getVal(_player);
         Net.getSockets(_instance).removeKey(_player);
         Net.getConnectionsServer(_instance).removeKey(_player);
         Net.getReadyPlayers(_instance).removeKey(_player);
@@ -291,7 +291,7 @@ public final class Net {
 
     /**server
      * @param _instance*/
-    public static IntMap<Socket> getSockets(Net _instance) {
+    public static IntMap<AbstractSocket> getSockets(Net _instance) {
         return _instance.sockets;
     }
 

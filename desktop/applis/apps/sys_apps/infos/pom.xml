@@ -14,8 +14,8 @@
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
-			<groupId>guicommon</groupId>
-			<artifactId>guicommon</artifactId>
+			<groupId>network</groupId>
+			<artifactId>network</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

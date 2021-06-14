@@ -1,5 +1,5 @@
 package code.network;
-import java.net.Socket;
+import code.gui.initialize.AbstractSocket;
 
 /**Thread safe class*/
 public final class LoopClient implements Runnable {
@@ -9,10 +9,10 @@ public final class LoopClient implements Runnable {
     private Object readObject;
 
     /** Used socket for a client */
-    private Socket socket;
+    private AbstractSocket socket;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public LoopClient(NetGroupFrame _window, Object _readObject, Socket _socket) {
+    public LoopClient(NetGroupFrame _window, Object _readObject, AbstractSocket _socket) {
         window = _window;
         readObject = _readObject;
         socket = _socket;

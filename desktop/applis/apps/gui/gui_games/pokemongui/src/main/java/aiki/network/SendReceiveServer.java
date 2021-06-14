@@ -1,5 +1,4 @@
 package aiki.network;
-import java.net.Socket;
 
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.stream.Bye;
@@ -13,6 +12,7 @@ import aiki.network.stream.Ready;
 import aiki.network.stream.SentPokemon;
 import code.network.AddingPlayer;
 import code.network.BasicServer;
+import code.gui.initialize.AbstractSocket;
 import code.network.NetGroupFrame;
 import code.threads.AbstractLock;
 import code.util.*;
@@ -27,7 +27,7 @@ public final class SendReceiveServer extends BasicServer {
     private final Net instance;
 
     /**This class thread is independant from EDT*/
-    public SendReceiveServer(Socket _socket, NetGroupFrame _net, Net _instance) {
+    public SendReceiveServer(AbstractSocket _socket, NetGroupFrame _net, Net _instance) {
         super(_socket, _net);
         lock = _net.getLock();
         instance = _instance;
@@ -136,7 +136,7 @@ public final class SendReceiveServer extends BasicServer {
         }
         if (_readObject == Ok.INSTANCE) {
             if (Net.allReady(_instance)) {
-                for(Socket so_:Net.getSockets(_instance).values()){
+                for(AbstractSocket so_:Net.getSockets(_instance).values()){
                     Net.sendText(so_,_input);
                 }
                 for (int i: Net.getReadyPlayers(_instance).getKeys()) {
@@ -151,7 +151,7 @@ public final class SendReceiveServer extends BasicServer {
             forcedBye_.setForced(false);
             forcedBye_.setServer(false);
             forcedBye_.setTooManyPlayers(false);
-            Socket socket_;
+            AbstractSocket socket_;
             socket_ = Net.getSockets(_instance).getVal((int) IndexConstants.FIRST_INDEX);
             Net.getConnectionsServer(_instance).removeKey((int) IndexConstants.FIRST_INDEX);
             Net.getReadyPlayers(_instance).removeKey((int) IndexConstants.FIRST_INDEX);
@@ -181,7 +181,7 @@ public final class SendReceiveServer extends BasicServer {
     }
 
     static void removePlayer(int _player, Bye _bye, Net _instance) {
-        Socket socket_ = Net.getSockets(_instance).getVal(_player);
+        AbstractSocket socket_ = Net.getSockets(_instance).getVal(_player);
         Net.getSockets(_instance).removeKey(_player);
         Net.getConnectionsServer(_instance).removeKey(_player);
         Net.getReadyPlayers(_instance).removeKey(_player);

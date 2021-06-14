@@ -1,15 +1,16 @@
 package code.network;
+import code.gui.initialize.AbstractSocket;
 import code.threads.AbstractLock;
 
-import java.net.Socket;
+import java.io.Closeable;
 
 public interface NetWindow {
 
-    void gearClient(Socket _newSocket);
+    void gearClient(AbstractSocket _newSocket);
 
-    void loop(Object _readObject, Socket _socket);
+    void loop(Object _readObject, AbstractSocket _socket);
 
-    void quitNetwork(Exiting _exit, Socket _socket);
+    void quitNetwork(Exiting _exit, Closeable _socket);
 
     AbstractLock getLock();
 }

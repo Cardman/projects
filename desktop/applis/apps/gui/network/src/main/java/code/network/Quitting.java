@@ -1,5 +1,5 @@
 package code.network;
-import java.net.Socket;
+import java.io.Closeable;
 
 import javax.swing.JOptionPane;
 
@@ -24,12 +24,12 @@ public final class Quitting implements Runnable {
 
     private final NetGroupFrame window;
 
-    private final Socket socket;
+    private final Closeable socket;
 
     private StringMap<String> messages;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public Quitting(Exiting _bye, NetGroupFrame _window, Socket _socket) {
+    public Quitting(Exiting _bye, NetGroupFrame _window, Closeable _socket) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(FOLDER, _window.getLanguageKey(), QUITTING);
         String loadedResourcesMessages_ = MessGuiNetGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
@@ -39,7 +39,7 @@ public final class Quitting implements Runnable {
     }
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public Quitting(NetGroupFrame _window, Socket _socket) {
+    public Quitting(NetGroupFrame _window, Closeable _socket) {
         window = _window;
         socket = _socket;
     }

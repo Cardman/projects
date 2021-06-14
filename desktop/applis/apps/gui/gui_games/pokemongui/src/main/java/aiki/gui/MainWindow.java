@@ -3,7 +3,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.net.Socket;
+import java.io.Closeable;
 
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
@@ -54,10 +54,8 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
-import code.network.AttemptConnecting;
-import code.network.BasicClient;
-import code.network.Exiting;
-import code.network.NetGroupFrame;
+import code.gui.initialize.AbstractSocket;
+import code.network.*;
 import code.scripts.messages.gui.MessGuiPkGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
@@ -1169,7 +1167,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     @Override
-    public void gearClient(Socket _newSocket) {
+    public void gearClient(AbstractSocket _newSocket) {
         Net.getSockets(getNet()).put(Net.getSockets(getNet()).size(), _newSocket);
         SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this, getNet());
         getThreadFactory().newStartedThread(sendReceiveServer_);
@@ -1182,7 +1180,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     @Override
-    public void loop(Object _readObject, Socket _socket) {
+    public void loop(Object _readObject, AbstractSocket _socket) {
         if (_readObject instanceof AttemptConnecting) {
             if (!StringUtil.quickEq(((AttemptConnecting)_readObject).getServerName(),Net.getPokemon())) {
                 NewPlayer p_ = new NewPlayer();
@@ -1256,7 +1254,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     @Override
-    public void quitNetwork(Exiting _exit, Socket _socket) {
+    public void quitNetwork(Exiting _exit, Closeable _socket) {
         exitFromTrading();
         resetIndexInGame();
         closeConnexion(_socket);

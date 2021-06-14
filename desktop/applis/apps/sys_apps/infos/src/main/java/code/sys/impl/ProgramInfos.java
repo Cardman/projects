@@ -52,12 +52,14 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final AbstractFileCoreStream fileCoreStream;
     private final TechStreams streams;
     private final AbstractInterceptor interceptor;
+    private final AbstractSocketFactory socketFactory;
 
     public ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
         threadFactory = new DefaultThreadFactory();
         fileCoreStream = new DefaultFileCoreStream();
         streams = new TechStreams(new DefBinFact(new DefBinFactory()),new DefTextFact(new DefTextFactory()),new DefZipFact(new DefZipFactory()));
         interceptor = new DefInterceptor();
+        socketFactory = new DefSocketFactory();
         graphicStringListGenerator = _graphicStringListGenerator;
         graphicComboBoxGenerator = _graphicComboBoxGenerator;
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
@@ -248,5 +250,10 @@ public final class ProgramInfos implements AbstractProgramInfos {
     @Override
     public AbstractInterceptor getInterceptor() {
         return interceptor;
+    }
+
+    @Override
+    public AbstractSocketFactory getSocketFactory() {
+        return socketFactory;
     }
 }

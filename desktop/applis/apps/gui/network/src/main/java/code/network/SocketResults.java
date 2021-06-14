@@ -1,16 +1,15 @@
 package code.network;
 
-import java.net.Socket;
-
+import code.gui.initialize.AbstractSocket;
 import code.network.enums.ErrorHostConnectionType;
 
 public final class SocketResults {
 
-    private final Socket socket;
+    private final AbstractSocket socket;
 
     private final ErrorHostConnectionType error;
 
-    public SocketResults(Socket _socket) {
+    public SocketResults(AbstractSocket _socket) {
         socket = _socket;
         error = ErrorHostConnectionType.NOTHING;
     }
@@ -20,7 +19,7 @@ public final class SocketResults {
         error = _error;
     }
 
-    public Socket getSocket() {
+    public AbstractSocket getSocket() {
         return socket;
     }
 

@@ -1,21 +1,14 @@
 package code.network;
-import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.NetworkInterface;
-import java.net.ServerSocket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.Collections;
 
+import code.gui.initialize.AbstractAddressList;
+import code.gui.initialize.AbstractNetworkInterfaceList;
+import code.gui.initialize.AbstractServerSocket;
+import code.gui.initialize.AbstractSocketFactory;
 import code.maths.litteralcom.MathExpUtil;
 import code.network.enums.IpType;
 import code.stream.AbstractFileCoreStream;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -47,103 +40,67 @@ public final class NetCreate {
         return port_;
     }
 
-    public static String getHostAddress(IpType _ipType, String _defaultIp) {
-        if (_ipType == IpType.HOST_NAME) {
-            for (NetworkInterface n: getNetworkInterfaces()) {
-                for (InetAddress i: Collections.list(n.getInetAddresses())) {
-                    if (i.isLoopbackAddress()) {
-                        continue;
-                    }
-                    return i.getHostAddress();
-                }
+    public static String getHostAddress(AbstractSocketFactory _socketFactory, IpType _ipType, String _defaultIp) {
+        AbstractNetworkInterfaceList list_ = _socketFactory.newList();
+        int size_ = list_.size();
+        StringList host_ = new StringList();
+        for (int i = 0; i < size_; i++) {
+            String name_ = list_.getName(i);
+            if (!StringUtil.quickEq(name_.trim(), NET_ZERO) && !StringUtil.quickEq(name_.trim(), WLAN_ZERO) || list_.isVirtual(i)) {
+                continue;
             }
-            return _defaultIp;
+            feed(_ipType, list_, host_, i);
         }
-        if (_ipType == IpType.IP_V4) {
-            for (NetworkInterface n: getNetworkInterfaces()) {
-                for (InetAddress i: Collections.list(n.getInetAddresses())) {
-                    if (i.isLoopbackAddress()) {
-                        continue;
-                    }
-                    if (!(i instanceof Inet4Address)) {
-                        continue;
-                    }
-                    return i.getHostAddress();
-                }
-            }
-        }
-        for (NetworkInterface n: getNetworkInterfaces()) {
-            for (InetAddress i: Collections.list(n.getInetAddresses())) {
-                if (i.isLoopbackAddress()) {
-                    continue;
-                }
-                if (!(i instanceof Inet6Address)) {
-                    continue;
-                }
-                return i.getHostAddress();
-            }
+        if (host_.onlyOneElt()) {
+            return host_.first();
         }
         return _defaultIp;
     }
 
-    private static CustList<NetworkInterface> getNetworkInterfaces() {
-        CustList<NetworkInterface> l_ = new CustList<NetworkInterface>();
-        for (NetworkInterface n: getNetworkInterfacesList()) {
-            if (!StringUtil.quickEq(n.getName().trim(),NET_ZERO)) {
-                if (!StringUtil.quickEq(n.getName().trim(),WLAN_ZERO)) {
-                    continue;
-                }
-            }
-            if (n.isVirtual()) {
+    private static void feed(IpType _ipType, AbstractNetworkInterfaceList _list, StringList _host, int _i) {
+        int s_ = _list.size(_i);
+        for (int j = 0; j < s_; j++) {
+            if (_list.isLoopbackAddress(_i,j)) {
                 continue;
             }
-            l_.add(n);
+            feed(_ipType, _list, _host, _i, j);
         }
-        return l_;
     }
 
-    private static CustList<NetworkInterface> getNetworkInterfacesList() {
-        CustList<NetworkInterface> l_ = new CustList<NetworkInterface>();
-        try {
-            for (NetworkInterface n: Collections.list(NetworkInterface.getNetworkInterfaces())) {
-                l_.add(n);
+    private static void feed(IpType _ipType, AbstractNetworkInterfaceList _list, StringList _host, int _i, int _j) {
+        if (_ipType == IpType.HOST_NAME) {
+            _host.add(_list.getHost(_i, _j));
+            return;
+        }
+        if (_ipType == IpType.IP_V4) {
+            if (_list.isIpFour(_i, _j)) {
+                _host.add(_list.getHost(_i, _j));
             }
-            return l_;
-        } catch (SocketException e) {
-            return l_;
+            return;
+        }
+        if (_list.isIpSix(_i, _j)) {
+            _host.add(_list.getHost(_i, _j));
         }
     }
 
-    public static ServerSocket createServerSocket(String _ip, int _port) {
-        try {
-            return bind(_ip, _port, new ServerSocket());
-        } catch (IOException e) {
+    public static AbstractServerSocket createServerSocket(AbstractSocketFactory _fact, String _ip, int _port) {
+        return bind(_ip, _port, _fact.newServerSocket());
+    }
+
+    private static AbstractServerSocket bind(String _ip, int _port, AbstractServerSocket _serverSocket) {
+        if (_serverSocket.getClos() == null) {
             return null;
         }
+        return _serverSocket.bind(_ip,_port);
     }
 
-    private static ServerSocket bind(String _ip, int _port, ServerSocket _serverSocket) {
-        try {
-            _serverSocket.bind(new InetSocketAddress(_ip,_port));
-            _serverSocket.close();
-            return _serverSocket;
-        } catch (IOException e) {
-            return null;
-        }
-    }
-
-    static StringList getAllAddresses(IpType _ipType, String _host) {
+    static StringList getAllAddresses(AbstractSocketFactory _socketFactory, IpType _ipType, String _host) {
         StringList addresses_ = new StringList();
         if (_ipType == IpType.HOST_NAME) {
-            try {
-                //InetAddress.getAllByName throws UnknownHostException
-                //if no IP address for the host could be found,
-                //or if a scope_id was specified for a global IPv6 address.
-                for (InetAddress i: InetAddress.getAllByName(_host)) {
-                    addresses_.add(i.getHostAddress());
-                }
-            } catch (UnknownHostException e) {
-                return null;
+            AbstractAddressList addr_ = _socketFactory.newAddr(_host);
+            int size_ = addr_.size();
+            for (int i = 0; i < size_; i++) {
+                addresses_.add(addr_.getHost(i));
             }
             return addresses_;
         }

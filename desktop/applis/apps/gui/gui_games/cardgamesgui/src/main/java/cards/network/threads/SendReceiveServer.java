@@ -1,5 +1,4 @@
 package cards.network.threads;
-import java.net.Socket;
 
 import cards.belote.BidBeloteSuit;
 import cards.belote.DealBelote;
@@ -64,7 +63,7 @@ import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.enumerations.*;
-import code.gui.GroupFrame;
+import code.gui.initialize.AbstractSocket;
 import code.threads.AbstractLock;
 import code.threads.AbstractThreadFactory;
 import code.threads.ThreadUtil;
@@ -89,7 +88,7 @@ public final class SendReceiveServer extends BasicServer {
 
     private final Net instance;
     /**This class thread is independant from EDT*/
-    public SendReceiveServer(Socket _socket, NetGroupFrame _net, Net _instance) {
+    public SendReceiveServer(AbstractSocket _socket, NetGroupFrame _net, Net _instance) {
         super(_socket, _net);
         lock = _net.getLock();
         instance = _instance;
@@ -182,25 +181,25 @@ public final class SendReceiveServer extends BasicServer {
             int noClient_ = ((ChoosenPlace)_readObject).getIndex();
             Net.getPlacesPlayers(_instance).put(noClient_, (byte)((ChoosenPlace)_readObject).getPlace());
             ((ChoosenPlace) _readObject).setPlacesPlayers(Net.getPlacesPlayers(_instance));
-            for(Socket so_:Net.getSockets(_instance).values()) {
+            for(AbstractSocket so_:Net.getSockets(_instance).values()) {
                 Net.sendObject(so_,_readObject);
             }
             return;
         }
         if (_readObject instanceof RulesBelote) {
-            for(Socket so_:Net.getSockets(_instance).values()) {
+            for(AbstractSocket so_:Net.getSockets(_instance).values()) {
                 Net.sendText(so_,_input);
             }
             return;
         }
         if (_readObject instanceof RulesPresident) {
-            for(Socket so_:Net.getSockets(_instance).values()) {
+            for(AbstractSocket so_:Net.getSockets(_instance).values()) {
                 Net.sendText(so_,_input);
             }
             return;
         }
         if (_readObject instanceof RulesTarot) {
-            for(Socket so_:Net.getSockets(_instance).values()) {
+            for(AbstractSocket so_:Net.getSockets(_instance).values()) {
                 Net.sendText(so_,_input);
             }
             return;
@@ -208,7 +207,7 @@ public final class SendReceiveServer extends BasicServer {
         if (_readObject instanceof Ready) {
             int noClient_ = ((Ready)_readObject).getIndex();
             Net.getReadyPlayers(_instance).put(noClient_, (( Ready)_readObject).isReady());
-            for(Socket so_:Net.getSockets(_instance).values()) {
+            for(AbstractSocket so_:Net.getSockets(_instance).values()) {
                 Net.sendText(so_,_input);
             }
             return;

@@ -1,8 +1,8 @@
 package aiki.network;
-import java.net.Socket;
 
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
 import aiki.network.stream.CheckCompatibility;
+import code.gui.initialize.AbstractSocket;
 import code.network.NetGroupFrame;
 import code.util.*;
 
@@ -15,7 +15,7 @@ public final class Net {
 
     private static final String POKEMON = "POKEMON";
 
-    private IntMap<Socket> sockets =new IntMap<Socket>();
+    private IntMap<AbstractSocket> sockets =new IntMap<AbstractSocket>();
     private IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
     private IntMap<Boolean> readyPlayers = new IntMap<Boolean>();
 
@@ -37,7 +37,7 @@ public final class Net {
         @param _socket The used socket (client) which is used for sending
         @param _text the text to be sent
     */
-    static void sendText(Socket _socket, String _text) {
+    static void sendText(AbstractSocket _socket, String _text) {
         NetGroupFrame.trySendString(_text,_socket);
     }
 
@@ -56,7 +56,7 @@ public final class Net {
         return allReady_;
     }
 
-    public static void sendObject(Socket _socket,Object _serializable) {
+    public static void sendObject(AbstractSocket _socket,Object _serializable) {
         Net.sendText(_socket,DocumentWriterAikiMultiUtil.setObject(_serializable));
     }
 
@@ -74,7 +74,7 @@ public final class Net {
 
     /**server
      * @param _instance*/
-    public static IntMap<Socket> getSockets(Net _instance) {
+    public static IntMap<AbstractSocket> getSockets(Net _instance) {
         return _instance.sockets;
     }
 

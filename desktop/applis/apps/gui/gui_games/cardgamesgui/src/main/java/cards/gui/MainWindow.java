@@ -2,7 +2,7 @@ package cards.gui;
 import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.net.Socket;
+import java.io.Closeable;
 
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
@@ -129,12 +129,8 @@ import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
-import code.network.AttemptConnecting;
-import code.network.BasicClient;
-import code.network.Exiting;
-import code.network.NetCreate;
-import code.network.NetGroupFrame;
-import code.network.SocketResults;
+import code.gui.initialize.AbstractSocket;
+import code.network.*;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.scripts.messages.gui.MessGuiCardsGr;
@@ -786,7 +782,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     @Override
-    public void gearClient(Socket _newSocket) {
+    public void gearClient(AbstractSocket _newSocket) {
         Net.getSockets(getNet()).put(Net.getSockets(getNet()).size(), _newSocket);
         SendReceiveServer sendReceiveServer_=new SendReceiveServer(_newSocket,this, getNet());
         getThreadFactory().newStartedThread(sendReceiveServer_);
@@ -799,7 +795,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     @Override
-    public void loop(Object _readObject, Socket _socket) {
+    public void loop(Object _readObject, AbstractSocket _socket) {
         if (_readObject instanceof DelegateServer) {
             Net.setGames(((DelegateServer)_readObject).getGames(), getNet());
             delegateServer();
@@ -1050,7 +1046,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     @Override
-    public void quitNetwork(Exiting _exit, Socket _socket) {
+    public void quitNetwork(Exiting _exit, Closeable _socket) {
         menuPrincipal();
         closeConnexion(_socket);
         if (_exit != null && _exit.isClosing()) {

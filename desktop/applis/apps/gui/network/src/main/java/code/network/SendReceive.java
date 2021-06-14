@@ -1,5 +1,7 @@
 package code.network;
-import java.net.Socket;
+import code.gui.initialize.AbstractSocket;
+
+import java.io.Closeable;
 
 /**
 Processus fils du programme qui gere la connection tcp/ip.
@@ -8,11 +10,11 @@ Thread safe class*/
 public abstract class SendReceive implements Runnable {
 
     /** Used socket for a server or a client */
-    private Socket socket;
+    private AbstractSocket socket;
 
     private NetGroupFrame net;
 
-    public SendReceive(Socket _socket, NetGroupFrame _net) {
+    public SendReceive(AbstractSocket _socket, NetGroupFrame _net) {
         setSocket(_socket);
         net = _net;
 
@@ -22,12 +24,15 @@ public abstract class SendReceive implements Runnable {
         return net;
     }
 
-    protected Socket getSocket() {
+    protected Closeable getClosSocket() {
+        return getSocket().getClos();
+    }
+    protected AbstractSocket getSocket() {
         return socket;
     }
 
 
-    private void setSocket(Socket _socket) {
+    private void setSocket(AbstractSocket _socket) {
         socket = _socket;
     }
 }

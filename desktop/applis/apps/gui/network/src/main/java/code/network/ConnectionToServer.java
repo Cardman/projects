@@ -1,35 +1,31 @@
 package code.network;
 import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.AbstractServerSocket;
+import code.gui.initialize.AbstractSocket;
 import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.io.Closeable;
 
 /**Thread safe class*/
 public final class ConnectionToServer implements Runnable, Locking {
 
-    private final ServerSocket serverSocket;
+    private final AbstractServerSocket serverSocket;
     private final NetGroupFrame serverWindow;
-    private Socket socket;
-    private boolean accept;
-    private boolean errorSocket;
 
     /**This class thread is independant from EDT*/
-    public ConnectionToServer(ServerSocket _serverSocket,NetGroupFrame _serverWindow,String _ipHost, int _port){
+    public ConnectionToServer(AbstractServerSocket _serverSocket,NetGroupFrame _serverWindow,String _ipHost, int _port){
         serverSocket=_serverSocket;
         serverWindow = _serverWindow;
         serverWindow.createClient(_ipHost, null, true, _port);
     }
-    public void fermer(Socket _socket) {
+    public void fermer(Closeable _socket) {
         if (serverSocket == null){
             return;
         }
         AbstractProgramInfos frames_ = serverWindow.getFrames();
-        if (frames_.close(serverSocket)) {
+        if (frames_.close(serverSocket.getClos())) {
             frames_.close(_socket);
         }
     }
@@ -37,32 +33,19 @@ public final class ConnectionToServer implements Runnable, Locking {
     @Override
     public void run(){
         while(true){
-            accept = true;
-            Socket socket_ = acceptSocket();
+            AbstractSocket socket_ = acceptedSocket();
             //If the server is started without client ==> pause.
-            if (socket_ != null) {
+            if (socket_.getClos() != null) {
                 serverWindow.gearClient(socket_);
-                accept = false;
-            } else if (errorSocket && serverSocket.isClosed()) {
+            } else if (serverSocket.isClosed()) {
                 break;
             }
             //server side
         }
     }
 
-    private Socket acceptSocket() {
-        errorSocket = false;
-        if (accept) {
-            try {
-                socket = serverSocket.accept();
-            } catch (SocketException e) {
-                errorSocket = true;
-                return null;
-            } catch (IOException e) {
-                return null;
-            }
-        }
-        return socket;
+    private AbstractSocket acceptedSocket() {
+        return serverSocket.accept();
     }
 
     @Override

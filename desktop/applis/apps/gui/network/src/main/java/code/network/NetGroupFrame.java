@@ -1,13 +1,11 @@
 package code.network;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.io.*;
 
 import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.AbstractServerSocket;
+import code.gui.initialize.AbstractSocket;
+import code.gui.initialize.AbstractSocketFactory;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.threads.AbstractLock;
@@ -16,7 +14,7 @@ import code.util.StringList;
 
 public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
 
-    private Socket socket;
+    private AbstractSocket socket;
 
     private ConnectionToServer connection;
 
@@ -35,12 +33,12 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         @param _ipHost the chosen IP address
     */
     public void createServer(String _ipHost, IpType _ipType, int _port) {
-        String ip_ = NetCreate.getHostAddress(_ipType, _ipHost);
-        ServerSocket serverSocket_ = NetCreate.createServerSocket(ip_, _port);
+        String ip_ = NetCreate.getHostAddress(getSocketFactory(),_ipType, _ipHost);
+        AbstractServerSocket serverSocket_ = NetCreate.createServerSocket(getSocketFactory(),ip_, _port);
         tryCreateServer(_port, ip_, serverSocket_);
     }
 
-    private void tryCreateServer(int _port, String _ip, ServerSocket _serverSocket) {
+    private void tryCreateServer(int _port, String _ip, AbstractServerSocket _serverSocket) {
         if (_serverSocket == null) {
             return;
         }
@@ -50,7 +48,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     }
 
     /**server and client*/
-    public void closeConnexion(Socket _socket) {
+    public void closeConnexion(Closeable _socket) {
         if (connection == null) {
             return;
         }
@@ -62,41 +60,39 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         if (_first) {
             return getSocketResults(true, _port, _host);
         }
-        StringList allAddresses_ = NetCreate.getAllAddresses(_ipType, _host);
-        if (allAddresses_ == null) {
-            return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
-        }
+        StringList allAddresses_ = NetCreate.getAllAddresses(getSocketFactory(),_ipType, _host);
         if (allAddresses_.isEmpty()) {
-            return new SocketResults(ErrorHostConnectionType.NO_ADDRESS);
+            return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
         }
         String first_ = allAddresses_.first();
         return getSocketResults(false, _port, first_);
     }
 
     private SocketResults getSocketResults(boolean _first, int _port, String _address) {
-        try {
-            Socket socket_ = new Socket(_address, _port);
-            getThreadFactory().newStartedThread(new BasicClient(socket_, this));
-            initIndexInGame(_first);
-            socket = socket_;
-            return new SocketResults(socket_);
-        } catch (UnknownHostException e) {
-            return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
-        } catch (IOException e) {
-            return new SocketResults(ErrorHostConnectionType.UNKNOWN_ERROR);
-        }
+        AbstractSocket socket_ = getSocketFactory().newSocket(_port, _address);
+        return results(_first, socket_);
     }
 
+    private SocketResults results(boolean _first, AbstractSocket _socket) {
+        if (_socket.getClos() == null) {
+            return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
+        }
+        getThreadFactory().newStartedThread(new BasicClient(_socket, this));
+        initIndexInGame(_first);
+        socket = _socket;
+        return new SocketResults(_socket);
+    }
 
-    public static boolean trySendString(String _str, Socket _socket) {
-        try {
-            OutputStream output_ = _socket.getOutputStream();
-            PrintWriter out_ = new PrintWriter(output_, true);
-            out_.println(_str);
-            return true;
-        } catch (Exception e) {
+    public AbstractSocketFactory getSocketFactory() {
+        return getFrames().getSocketFactory();
+    }
+
+    public static boolean trySendString(String _str, AbstractSocket _socket) {
+        if (_socket == null || _socket.getClos() == null) {
             return false;
         }
+        _socket.println(_str);
+        return true;
     }
 
     public abstract Object getObject(String _object);
@@ -106,7 +102,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         return port;
     }
 
-    protected Socket getSocket() {
+    protected AbstractSocket getSocket() {
         return socket;
     }
 
