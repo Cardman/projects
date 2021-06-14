@@ -3,11 +3,13 @@ package code.expressionlanguage.gui.unit;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 
 public interface TestableFrame {
     boolean ok(String _file);
+    AbstractInterceptor getIntercept();
     String getTxtConf();
     void showProgress(ContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved);
     void finish(Struct _infos, LgNamesWithNewAliases _evolved);

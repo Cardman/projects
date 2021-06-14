@@ -1,5 +1,4 @@
 package code.network;
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -7,13 +6,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import code.gui.CustComponent;
 import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.threads.AbstractLock;
-import code.threads.AbstractThread;
 import code.threads.LockFactory;
 import code.util.StringList;
 
@@ -90,17 +87,6 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         }
     }
 
-    /**server and client
-    Method allowing the client to send a serializable object by its socket
-    @param _serializable the serializable object to be sent
-    */
-    public boolean sendObject(Object _serializable) {
-        if (socket == null) {
-            return false;
-        }
-        String str_ = setObject(_serializable);
-        return trySendString(str_, socket);
-    }
 
     public static boolean trySendString(String _str, Socket _socket) {
         try {
@@ -108,7 +94,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
             PrintWriter out_ = new PrintWriter(output_, true);
             out_.println(_str);
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -120,7 +106,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         return port;
     }
 
-    public Socket getSocket() {
+    protected Socket getSocket() {
         return socket;
     }
 

@@ -22,8 +22,8 @@ public class LgNamesGui extends LgNamesUtils {
 
     private final GuiAliases guiAliases = new GuiAliases();
     private final GuiExecutingBlocks guiExecutingBlocks = new GuiExecutingBlocks();
-    public LgNamesGui(FileInfos _infos) {
-        super(_infos);
+    public LgNamesGui(FileInfos _infos, AbstractInterceptor _inter) {
+        super(_infos,_inter);
         setCalculator(new AdvancedExecConstantsCalculator(this));
     }
 

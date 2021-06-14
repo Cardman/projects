@@ -91,7 +91,7 @@ public final class RunningTest implements Runnable {
             return;
         }
         opt_.setReadOnly(true);
-        CustContextFactory.executeDefKw(lg_,opt_,exec_,list_,_progressingTests, new LgNamesUtils(_infos));
+        CustContextFactory.executeDefKw(lg_,opt_,exec_,list_,_progressingTests, new LgNamesUtils(_infos,_progressingTests.getInterceptor()));
     }
 
     public static StringMap<String> tryGetSrc(String _archive, ExecutingOptions _exec, FileInfos _infos,ReadFiles _results) {

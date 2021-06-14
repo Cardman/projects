@@ -2,6 +2,7 @@ package code.sys.impl;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.DefaultNameValidating;
+import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.GroupFrame;
 import code.gui.initialize.*;
 import code.maths.montecarlo.AbstractGenerator;
@@ -50,11 +51,13 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final AbstractThreadFactory threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
     private final TechStreams streams;
+    private final AbstractInterceptor interceptor;
 
     public ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
         threadFactory = new DefaultThreadFactory();
         fileCoreStream = new DefaultFileCoreStream();
         streams = new TechStreams(new DefBinFact(new DefBinFactory()),new DefTextFact(new DefTextFactory()),new DefZipFact(new DefZipFactory()));
+        interceptor = new DefInterceptor();
         graphicStringListGenerator = _graphicStringListGenerator;
         graphicComboBoxGenerator = _graphicComboBoxGenerator;
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
@@ -240,5 +243,10 @@ public final class ProgramInfos implements AbstractProgramInfos {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    @Override
+    public AbstractInterceptor getInterceptor() {
+        return interceptor;
     }
 }

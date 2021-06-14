@@ -675,6 +675,14 @@ public final class MainWindow extends NetGroupFrame {
         return lastSavedGameDate;
     }
 
+    /**server and client
+     Method allowing the client to send a serializable object by its socket
+     @param _serializable the serializable object to be sent
+     */
+    public boolean sendObject(Object _serializable) {
+        String str_ = setObject(_serializable);
+        return trySendString(str_, getSocket());
+    }
     @Override
     public void quit() {
         if (containerGame instanceof ContainerMulti) {

@@ -426,6 +426,7 @@ public final class CustAliases {
     private final CustAliasParameters custAliasParameters = new CustAliasParameters();
 
     private FileInfos infos;
+    private AbstractInterceptor interceptor;
 
     public static boolean isEnumType(GeneType _type) {
         return _type instanceof ExecEnumBlock || _type instanceof ExecInnerElementBlock;
@@ -1974,20 +1975,10 @@ public final class CustAliases {
         return ref_;
     }
     public ResultErrorStd instance(ContextEl _cont, ConstructorId _method, StackCall _stackCall, Argument... _args) {
-        try {
-            return ApplyCoreMethodUtil.instanceBase(_cont, _method, _args, _stackCall);
-        } catch (RuntimeException e) {
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, getAliasConcurrentError(), _stackCall)));
-            return new ResultErrorStd();
-        }
+        return interceptor.instance(getAliasConcurrentError(),_cont,_method,_stackCall,_args);
     }
     public ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, StackCall _stackCall, Argument... _args) {
-        try {
-            return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _exit, _args, _stackCall);
-        } catch (RuntimeException e) {
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, getAliasConcurrentError(), _stackCall)));
-            return new ResultErrorStd();
-        }
+        return interceptor.invoke(getAliasConcurrentError(),_cont,_method,_struct,_exit,_stackCall,_args);
     }
     public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
         if (StringUtil.quickEq(_id, _cont.getStandards().getContent().getCoreNames().getAliasObject())) {
@@ -4453,6 +4444,14 @@ public final class CustAliases {
 
     public void setInfos(FileInfos _infos) {
         infos = _infos;
+    }
+
+    public AbstractInterceptor getInterceptor() {
+        return interceptor;
+    }
+
+    public void setInterceptor(AbstractInterceptor _interceptor) {
+        this.interceptor = _interceptor;
     }
 
     static String tr(String _var, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {

@@ -167,7 +167,7 @@ public final class MainWindow extends GroupFrame {
         }
         AbstractNameValidating validator_ = getValidator();
         LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(validator_, null,getFileCoreStream(),getStreams()),
-                new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(),new TechInfos(getThreadFactory(),getStreams())));
+                new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(),new TechInfos(getThreadFactory(),getStreams())),getInterceptor());
         lgNames_.setExecutingOptions(exec_);
         session.initNav();
         session.setLanguage(lg_,lgs_);

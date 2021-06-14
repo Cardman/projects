@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
 import code.scripts.messages.gui.MessGuiGr;
@@ -172,7 +173,9 @@ public abstract class GroupFrame extends CommonFrame {
     public AbstractThreadFactory getThreadFactory() {
         return frames.getThreadFactory();
     }
-
+    public AbstractInterceptor getInterceptor() {
+        return frames.getInterceptor();
+    }
     public TechStreams getStreams() {
         return frames.getStreams();
     }

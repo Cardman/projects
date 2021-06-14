@@ -23,9 +23,9 @@ public final class FileInfos {
         threadFactory = _threadFactory;
     }
 
-    public static FileInfos buildMemoryFromFile(AbstractGenerator _generator, byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating, AbstractIssuer _issuer, TechInfos _threadFactory) {
+    public static FileInfos buildMemoryFromFile(AbstractGenerator _generator, AbstractNameValidating _nameValidating, AbstractIssuer _issuer, TechInfos _threadFactory, MemInputFiles _mem) {
         DefaultUniformingString uniformingString_ = new DefaultUniformingString();
-        return new FileInfos(new MemoryLogger(_nameValidating,_issuer,_threadFactory.getThreadFactory()),new MemoryFileSystem(uniformingString_,_nameValidating,_threadFactory.getThreadFactory()),new MemoryReporter(_conf, _src, _files, _nameValidating, uniformingString_,_threadFactory),_generator,_threadFactory);
+        return new FileInfos(new MemoryLogger(_nameValidating,_issuer,_threadFactory.getThreadFactory()),new MemoryFileSystem(uniformingString_,_nameValidating,_threadFactory.getThreadFactory()),new MemoryReporter(_mem.getConf(), _mem.getSrc(), _mem.getFiles(), _nameValidating, uniformingString_,_threadFactory),_generator,_threadFactory);
     }
 
     public AbstractLogger getLogger() {

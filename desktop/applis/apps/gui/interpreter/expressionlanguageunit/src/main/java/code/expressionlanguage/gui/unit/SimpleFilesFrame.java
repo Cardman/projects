@@ -4,9 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.FileInfos;
-import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
-import code.expressionlanguage.utilcompo.TechInfos;
+import code.expressionlanguage.utilcompo.*;
 import code.gui.*;
 import code.gui.Menu;
 import code.gui.MenuBar;
@@ -157,6 +155,11 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     }
 
     @Override
+    public AbstractInterceptor getIntercept() {
+        return parent.getInterceptor();
+    }
+
+    @Override
     public void closeWindow() {
         setVisible(false);
     }
@@ -225,8 +228,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = parent.getValidator();
         return FileInfos.buildMemoryFromFile(parent.getGenerator(),
-                confFile, src,files,
-                validator_,unitIssuer, new TechInfos(parent.getThreadFactory(),parent.getStreams()));
+                validator_,unitIssuer, new TechInfos(parent.getThreadFactory(),parent.getStreams()), new MemInputFiles(confFile, src, files));
     }
 
 

@@ -6,6 +6,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
 
 public interface ProgressingTests {
+    AbstractInterceptor getInterceptor();
     void showWarnings(RunnableContextEl _ctx, ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos);
     void showErrors(RunnableContextEl _ctx, ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos);
     void updateInfos(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved);

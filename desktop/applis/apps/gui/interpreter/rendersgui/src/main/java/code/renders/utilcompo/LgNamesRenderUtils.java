@@ -33,14 +33,20 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     private ExecutingOptions executingOptions;
     private final ExecutingBlocks executingBlocks = new ExecutingBlocks();
     private final StringMap<String> properties = MessCdmRenderGr.ms();
-    public LgNamesRenderUtils(FileInfos _infos) {
+    public LgNamesRenderUtils(FileInfos _infos,AbstractInterceptor _inter) {
         super(_infos.getGenerator());
         custAliases.setInfos(_infos);
+        custAliases.setInterceptor(_inter);
         infos = _infos;
     }
 
     public FileInfos getInfos() {
         return infos;
+    }
+
+    @Override
+    public AbstractInterceptor getInterceptor() {
+        return custAliases.getInterceptor();
     }
 
     @Override

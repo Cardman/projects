@@ -309,6 +309,15 @@ public final class MainWindow extends NetGroupFrame {
         String loadedResourcesMessages_ = MessGuiPkGr.ms().getVal(fileName_);
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
+
+    /**server and client
+     Method allowing the client to send a serializable object by its socket
+     @param _serializable the serializable object to be sent
+     */
+    public boolean sendObject(Object _serializable) {
+        String str_ = setObject(_serializable);
+        return trySendString(str_, getSocket());
+    }
     @Override
     public void quit() {
         if (indexInGame != IndexConstants.INDEX_NOT_FOUND_ELT) {

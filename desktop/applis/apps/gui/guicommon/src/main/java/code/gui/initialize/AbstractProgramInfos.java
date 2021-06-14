@@ -1,6 +1,7 @@
 package code.gui.initialize;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.GroupFrame;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.AbstractFileCoreStream;
@@ -23,6 +24,7 @@ public interface AbstractProgramInfos {
     AbstractThreadFactory getThreadFactory();
     TechStreams getStreams();
     AbstractFileCoreStream getFileCoreStream();
+    AbstractInterceptor getInterceptor();
 
     AbstractNameValidating getValidator();
     AbstractGraphicStringListGenerator getGeneGraphicList();

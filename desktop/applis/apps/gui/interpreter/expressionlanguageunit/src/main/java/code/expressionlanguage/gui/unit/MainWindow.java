@@ -142,6 +142,11 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
     }
 
     @Override
+    public AbstractInterceptor getIntercept() {
+        return getInterceptor();
+    }
+
+    @Override
     public void dispose() {
         basicDispose();
     }

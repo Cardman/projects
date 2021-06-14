@@ -59,9 +59,6 @@ public final class Net {
     @param _text the text to be sent
     */
     static void sendText(Socket _socket, String _text) {
-        if (_socket == null) {
-            return;
-        }
         NetGroupFrame.trySendString(_text,_socket);
     }
     /**server

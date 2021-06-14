@@ -5,6 +5,7 @@ import code.expressionlanguage.stds.BuildableLgNames;
 
 public interface LgNamesWithNewAliases extends BuildableLgNames {
     FileInfos getInfos();
+    AbstractInterceptor getInterceptor();
     CustAliases getCustAliases();
     ExecutingOptions getExecutingOptions();
     void setExecutingOptions(ExecutingOptions _executingOptions);

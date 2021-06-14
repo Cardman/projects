@@ -24,9 +24,10 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     private ExecutingOptions executingOptions;
 
     private final ExecutingBlocks executingBlocks = new ExecutingBlocks();
-    public LgNamesUtils(FileInfos _infos) {
+    public LgNamesUtils(FileInfos _infos, AbstractInterceptor _inter) {
         super(_infos.getGenerator());
         custAliases.setInfos(_infos);
+        custAliases.setInterceptor(_inter);
         infos = _infos;
     }
     public void forwardAndClear(Classes _classes) {
@@ -72,6 +73,11 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
         return custAliases.getOtherResult(_cont,_instance,_method, executingBlocks, _stack, _args);
+    }
+
+    @Override
+    public AbstractInterceptor getInterceptor() {
+        return custAliases.getInterceptor();
     }
 
     public FileInfos getInfos() {

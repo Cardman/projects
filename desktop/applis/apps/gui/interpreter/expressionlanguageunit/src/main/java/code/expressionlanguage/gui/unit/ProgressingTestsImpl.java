@@ -25,6 +25,11 @@ public final class ProgressingTestsImpl implements ProgressingTests {
     }
 
     @Override
+    public AbstractInterceptor getInterceptor() {
+        return mainWindow.getIntercept();
+    }
+
+    @Override
     public ExecutingOptions getExec() {
         return exec;
     }
