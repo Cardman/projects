@@ -16,6 +16,7 @@ import code.sml.Node;
 import code.stream.AbstractFileCoreStream;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
+import code.stream.core.TechStreams;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
@@ -49,7 +50,7 @@ public abstract class SoftApplicationCore {
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, BufferedImage _icon) {
-        String language_ = loadLanguage(_dir,getFrames().getFileCoreStream());
+        String language_ = loadLanguage(_dir,getFrames().getFileCoreStream(), getFrames().getStreams());
         if (language_.isEmpty()) {
             proponeLanguage(_dir, _args, _icon);
         }
@@ -76,14 +77,14 @@ public abstract class SoftApplicationCore {
     }
 
     /**@throws LangueException*/
-    private static String loadLanguage(String _dir, AbstractFileCoreStream _fact) {
+    private static String loadLanguage(String _dir, AbstractFileCoreStream _fact, TechStreams _tech) {
 //        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(getFolderJarPath()+LANGUAGE);
-        String language_ = tryToGetXmlLanguage(_dir,_fact);
+        String language_ = tryToGetXmlLanguage(_dir,_fact,_tech);
         if (language_ != null) {
             return language_;
         }
 //        String content_ = StreamTextFile.contentsOfFile(ConstFiles.getFolderJarPath()+LANGUAGE_TXT);
-        String content_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(_fact),LANGUAGE_TXT),_fact);
+        String content_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(_fact),LANGUAGE_TXT),_fact,_tech);
         if (content_ == null) {
             return EMPTY_STRING;
         }
@@ -100,8 +101,8 @@ public abstract class SoftApplicationCore {
         return content_;
     }
 
-    private static String tryToGetXmlLanguage(String _dir,AbstractFileCoreStream _fact) {
-        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(StringUtil.concat(_dir,StreamTextFile.SEPARATEUR,LANGUAGE),_fact);
+    private static String tryToGetXmlLanguage(String _dir,AbstractFileCoreStream _fact, TechStreams _tech) {
+        Node noeud_ = StreamTextFile.contenuDocumentXmlExterne(StringUtil.concat(_dir,StreamTextFile.SEPARATEUR,LANGUAGE),_fact,_tech);
         if (noeud_ == null) {
             return null;
         }
@@ -123,14 +124,14 @@ public abstract class SoftApplicationCore {
         return null;
     }
 
-    public static void saveLanguage(String _folder, String _locale) {
+    public static void saveLanguage(String _folder, String _locale,TechStreams _str) {
         Document document_= DocumentBuilder.newXmlDocument();
         Element info_=document_.createElement(PARAMETERS);
         Element infoPart_ = document_.createElement(LOCALE);
         infoPart_.setAttribute(LOCALE, _locale);
         info_.appendChild(infoPart_);
         document_.appendChild(info_);
-        StreamTextFile.saveTextFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), document_.export());
+        StreamTextFile.saveTextFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), document_.export(),_str);
     }
 
     public static void setLocation(CommonFrame _frame, TopLeftFrame _topLeft) {
@@ -169,17 +170,17 @@ public abstract class SoftApplicationCore {
 
     protected abstract void launch(String _language, StringMap<Object> _args);
 
-    protected static TopLeftFrame loadCoords(String _folder, String _file,AbstractFileCoreStream _fact) {
+    protected static TopLeftFrame loadCoords(String _folder, String _file,AbstractFileCoreStream _fact, TechStreams _tech) {
 //        return (TopLeftFrame) StreamTextFile.deserialiser(getFolderJarPath()+_file);
-        return DocumentReaderGuiUtil.getTopLeftFrame(StreamTextFile.contentsOfFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file),_fact));
+        return DocumentReaderGuiUtil.getTopLeftFrame(StreamTextFile.contentsOfFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file),_fact,_tech));
     }
 
-    public static void saveCoords(String _folder, String _file, int _x, int _y) {
+    public static void saveCoords(String _folder, String _file, int _x, int _y,TechStreams _str) {
         TopLeftFrame topLeft_ = new TopLeftFrame();
         topLeft_.setWidth(_x);
         topLeft_.setHeight(_y);
 //        StreamTextFile.save(getFolderJarPath()+_file, topLeft_);
-        StreamTextFile.saveTextFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file), DocumentWriterGuiUtil.setTopLeftFrame(topLeft_));
+        StreamTextFile.saveTextFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file), DocumentWriterGuiUtil.setTopLeftFrame(topLeft_),_str);
     }
 
     protected abstract BufferedImage getImageIcon();

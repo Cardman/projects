@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 
 import aiki.db.DataBase;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -12,7 +13,6 @@ import code.scripts.messages.gui.MessPkVideoGr;
 import code.stream.AbstractFile;
 import code.stream.AbstractFileCoreStream;
 import code.stream.FileListInfo;
-import code.stream.StreamImageFile;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -27,7 +27,7 @@ public final class VideoLoading {
     private boolean initialized;
     private final LgInt maxRd = LgInt.getMaxLongPlusOne();
 
-    public CustList<BufferedImage> getVideo(AbstractGenerator _abs, AbstractFileCoreStream _list) {
+    public CustList<BufferedImage> getVideo(AbstractGenerator _abs, AbstractFileCoreStream _list, AbstractProgramInfos _abInfo) {
         if (!initialized) {
             String path_ = VIDEO;
             AbstractFile file_ = _list.newFile(path_);
@@ -42,7 +42,7 @@ public final class VideoLoading {
                     int len_;
                     len_ = files_.getNames().length;
                     for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-                        BufferedImage img_ = StreamImageFile.read(
+                        BufferedImage img_ = _abInfo.readImg(
                                 StringUtil.concat(path_, DataBase.SEPARATOR_FILES, folder_.getName(),
                                 DataBase.SEPARATOR_FILES, FILE, Long.toString(i), DataBase.IMG_FILES_RES_EXT));
                         if (img_ != null) {

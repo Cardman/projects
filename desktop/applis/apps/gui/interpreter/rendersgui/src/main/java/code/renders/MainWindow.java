@@ -4,6 +4,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilcompo.TechInfos;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
@@ -112,7 +113,7 @@ public final class MainWindow extends GroupFrame {
     }
 
     public void loadRenderConf(String _fichier) {
-        String content_ = StreamTextFile.contentsOfFile(_fichier,getFileCoreStream());
+        String content_ = StreamTextFile.contentsOfFile(_fichier,getFileCoreStream(),getStreams());
         if (content_ == null) {
             return;
         }
@@ -130,7 +131,7 @@ public final class MainWindow extends GroupFrame {
         String archive_ = linesFiles_.first();
         String confRel_ = linesFiles_.get(1);
         UniformingString app_ = new DefaultUniformingString();
-        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_,getFileCoreStream());
+        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_,getFileCoreStream(),getStreams());
         if (result_.getType() == OutputType.NOTHING) {
             return;
         }
@@ -165,8 +166,8 @@ public final class MainWindow extends GroupFrame {
             }
         }
         AbstractNameValidating validator_ = getValidator();
-        LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(validator_, null,getFileCoreStream()),
-                new DefaultFileSystem(app_, validator_,getFileCoreStream()), new DefaultReporter(validator_, app_, false,getThreadFactory(),getFileCoreStream()), getGenerator(),getThreadFactory()));
+        LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(validator_, null,getFileCoreStream(),getStreams()),
+                new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(),new TechInfos(getThreadFactory(),getStreams())));
         lgNames_.setExecutingOptions(exec_);
         session.initNav();
         session.setLanguage(lg_,lgs_);

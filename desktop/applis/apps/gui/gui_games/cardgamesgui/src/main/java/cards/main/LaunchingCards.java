@@ -44,19 +44,19 @@ public class LaunchingCards extends AdvSoftApplicationCore {
         AbstractFile f = getFrames().getFileCoreStream().newFile(StringUtil.concat(getTempFolderSl(getFrames()), FileConst.DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.name(), FileConst.DECK_EXT));
         HandBelote mainB_=HandBelote.pileBase();
         if(!f.exists()) {
-            StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterBeloteUtil.setHandBelote(mainB_));
+            StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterBeloteUtil.setHandBelote(mainB_), getFrames().getStreams());
         }
         f=getFrames().getFileCoreStream().newFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT));
         HandTarot mainT_=HandTarot.pileBase();
         if(!f.exists()) {
-            StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterTarotUtil.setHandTarot(mainT_));
+            StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterTarotUtil.setHandTarot(mainT_), getFrames().getStreams());
         }
         int maxStacks_ = RulesPresident.getNbMaxStacksPlayers();
         for (int i = IndexConstants.ONE_ELEMENT; i <= maxStacks_; i++) {
             f=getFrames().getFileCoreStream().newFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),Long.toString(i),FileConst.DECK_EXT));
             HandPresident h_ = HandPresident.stack(i);
             if(!f.exists()) {
-                StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterPresidentUtil.setHandPresident(h_));
+                StreamTextFile.saveTextFile(f.getAbsolutePath(), DocumentWriterPresidentUtil.setHandPresident(h_), getFrames().getStreams());
             }
         }
         f=getFrames().getFileCoreStream().newFile(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE));
@@ -66,9 +66,9 @@ public class LaunchingCards extends AdvSoftApplicationCore {
             for (int i = IndexConstants.FIRST_INDEX; i<nbGames_; i++) {
                 dealsNumbers_.add("0");
             }
-            StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN));
+            StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN), getFrames().getStreams());
         }
-        TopLeftFrame coordonnees_=loadCoords(getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream());
+        TopLeftFrame coordonnees_=loadCoords(getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
         CustComponent.invokeLater(new LaunchingGame(_args, _language,coordonnees_, getFrames(),factories));
     }
 
@@ -104,6 +104,6 @@ public class LaunchingCards extends AdvSoftApplicationCore {
 
     @Override
     public Object getObject(String _fileName) {
-        return DocumentReaderCardsUnionUtil.getObject(_fileName, getFrames().getFileCoreStream());
+        return DocumentReaderCardsUnionUtil.getObject(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
     }
 }

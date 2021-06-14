@@ -3,8 +3,8 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.*;
+import code.stream.core.AbstractZipFact;
 import code.stream.core.ContentTime;
-import code.stream.core.StreamZipFile;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
@@ -40,7 +40,7 @@ public final class ZipBinStructUtil {
     }
 
     public static CustList<EntryBinaryStruct> getEntryBinaryStructs(byte[] _bytes, RunnableContextEl _ctx) {
-        StringMap<ContentTime> unzip_ = StreamZipFile.zippedBinaryFiles(_bytes);
+        StringMap<ContentTime> unzip_ = _ctx.getTechStreams().getZipFact().zippedBinaryFiles(_bytes);
         if (unzip_ == null) {
             return null;
         }
@@ -63,7 +63,7 @@ public final class ZipBinStructUtil {
     }
 
     public static Struct zipBinFiles(Struct _files, RunnableContextEl _ctx) {
-        byte[] exp_ = getZipBinFileAsArray(_files);
+        byte[] exp_ = getZipBinFileAsArray(_files,_ctx.getTechStreams().getZipFact());
         if (exp_ == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -77,7 +77,7 @@ public final class ZipBinStructUtil {
         return bs_;
     }
 
-    public static byte[] getZipBinFileAsArray(Struct _files) {
+    public static byte[] getZipBinFileAsArray(Struct _files, AbstractZipFact _zip) {
         if (_files instanceof ArrayStruct) {
             StringMap<ContentTime> files_ = new StringMap<ContentTime>();
             int fileLength_ = ((ArrayStruct) _files).getLength();
@@ -96,8 +96,8 @@ public final class ZipBinStructUtil {
                 }
                 files_.addEntry(e_.getName().getInstance(),new ContentTime(file_,e_.getTime()));
             }
-            return StreamZipFile.zipBinFiles(files_);
+            return _zip.zipBinFiles(files_);
         }
-        return StreamZipFile.zipBinFiles(new StringMap<ContentTime>());
+        return _zip.zipBinFiles(new StringMap<ContentTime>());
     }
 }

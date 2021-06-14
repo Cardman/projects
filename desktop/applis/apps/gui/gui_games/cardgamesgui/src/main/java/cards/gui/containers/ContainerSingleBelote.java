@@ -667,7 +667,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             StreamTextFile.saveTextFile(
                     StringUtil.concat(LaunchingCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
                             StreamTextFile.SEPARATEUR,GameEnum.BELOTE.name(),FileConst.DECK_EXT),
-                    DocumentWriterBeloteUtil.setHandBelote(partie_.empiler()));
+                    DocumentWriterBeloteUtil.setHandBelote(partie_.empiler()), getWindow().getStreams());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);

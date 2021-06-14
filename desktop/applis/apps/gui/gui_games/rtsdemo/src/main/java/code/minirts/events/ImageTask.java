@@ -3,7 +3,6 @@ package code.minirts.events;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
 import code.minirts.MainWindow;
-import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
 import code.util.core.StringUtil;
 
@@ -56,7 +55,7 @@ public class ImageTask implements ActionListener {
         }
         tmpImg_ = tool_.createImage(new MemoryImageSource(wCurs_, hCurs_, pixels_, 0, wCurs_));
         b_.getGraphics().drawImage(tmpImg_, pt_.x, pt_.y, null);
-        StreamImageFile.write(PNG,StringUtil.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,PNG),b_);
+        window.getFrames().writeImg(PNG,StringUtil.concat(MainWindow.FOLDER, StreamTextFile.SEPARATEUR,Long.toString(noImg),EXT,PNG),b_);
     }
 
 }

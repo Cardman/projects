@@ -4,6 +4,9 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.fwd.Forwards;
+import code.stream.core.AbstractTextFact;
+import code.stream.core.AbstractZipFact;
+import code.stream.core.TechStreams;
 import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
@@ -12,6 +15,8 @@ public class RunnableContextEl extends ContextEl implements Locking {
 
     private final ThreadStruct thread;
     private final AbstractThreadFactory threadFactory;
+    private final TechStreams zipFact;
+    private final AbstractTextFact textFact;
     private String idDate;
     private String currentDir;
 
@@ -19,6 +24,8 @@ public class RunnableContextEl extends ContextEl implements Locking {
         super(_executionInfos);
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
         threadFactory = standards_.getInfos().getThreadFactory();
+        zipFact = standards_.getInfos().getTechStreams();
+        textFact = standards_.getInfos().getTextFact();
         thread = new ThreadStruct(threadFactory.newThread());
         currentDir = standards_.getExecutingOptions().getBaseFiles();
     }
@@ -89,7 +96,8 @@ public class RunnableContextEl extends ContextEl implements Locking {
         ((LgNamesWithNewAliases) getStandards()).getExecutingOptions().getInterrupt().set(true);
     }
 
-    public AbstractThreadFactory getThreadFactory() {
-        return threadFactory;
+    public TechStreams getTechStreams() {
+        return zipFact;
     }
+
 }

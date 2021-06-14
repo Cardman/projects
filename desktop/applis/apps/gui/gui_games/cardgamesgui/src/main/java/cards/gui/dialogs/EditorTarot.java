@@ -319,7 +319,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     }
     /**Lorsqu'on veut sauvegarder une partie*/
     private void validerSauvegarde(String _s) {
-        StreamTextFile.saveTextFile(_s, DocumentWriterTarotUtil.setGameTarot(partie));
+        StreamTextFile.saveTextFile(_s, DocumentWriterTarotUtil.setGameTarot(partie), window.getStreams());
     }
     @Override
     public void deplacerCartes() {

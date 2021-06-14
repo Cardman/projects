@@ -1,10 +1,11 @@
-package code.stream.core;
+package code.sys.impl;
 
 import java.io.Closeable;
-import java.io.IOException;
-import java.io.Reader;
+import java.nio.charset.Charset;
 
 public final class StreamCoreUtil {
+
+    private static final String UTF_8 = "UTF-8";
 
     private StreamCoreUtil() {
     }
@@ -12,15 +13,11 @@ public final class StreamCoreUtil {
         try {
             _close.close();
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
     }
-    public static int read(Reader _br) {
-        try {
-            return _br.read();
-        } catch (IOException e) {
-            return -2;
-        }
+    public static Charset utf() {
+        return Charset.forName(UTF_8);
     }
 }

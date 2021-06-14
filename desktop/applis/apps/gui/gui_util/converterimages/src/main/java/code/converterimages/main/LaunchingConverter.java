@@ -4,7 +4,6 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.stream.StreamBinaryFile;
-import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
 import code.converterimages.gui.CreateMainWindow;
@@ -25,13 +24,13 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
 
     @Override
     public Object getObject(String _fileName) {
-        if (isBinary(StreamBinaryFile.loadFile(_fileName, getFrames().getFileCoreStream()))) {
-            BufferedImage img_ = StreamImageFile.read(_fileName);
+        if (isBinary(StreamBinaryFile.loadFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams()))) {
+            BufferedImage img_ = getFrames().readImg(_fileName);
             if (img_ != null) {
                 return img_;
             }
         }
-        return StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream());
+        return StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
     }
 
     @Override

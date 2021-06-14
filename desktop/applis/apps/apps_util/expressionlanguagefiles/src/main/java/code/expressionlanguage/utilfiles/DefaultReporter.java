@@ -6,7 +6,6 @@ import code.stream.AbstractFileCoreStream;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.*;
-import code.threads.AbstractThreadFactory;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -17,10 +16,10 @@ public final class DefaultReporter implements AbstractReporter {
     private final AbstractNameValidating nameValidating;
     private final UniformingString uniformingString;
     private final boolean memory;
-    private final AbstractThreadFactory threadFactory;
+    private final TechInfos threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
 
-    public DefaultReporter(AbstractNameValidating _nameValidating, UniformingString _uniformingString, boolean _memory, AbstractThreadFactory _threadFactory, AbstractFileCoreStream _fact) {
+    public DefaultReporter(AbstractNameValidating _nameValidating, UniformingString _uniformingString, boolean _memory, TechInfos _threadFactory, AbstractFileCoreStream _fact) {
         nameValidating = _nameValidating;
         uniformingString = _uniformingString;
         memory = _memory;
@@ -133,7 +132,7 @@ public final class DefaultReporter implements AbstractReporter {
     }
     @Override
     public String conf(String _fileConfOrContent) {
-        return StreamTextFile.contentsOfFile(_fileConfOrContent,fileCoreStream);
+        return StreamTextFile.contentsOfFile(_fileConfOrContent,fileCoreStream, threadFactory.getTechStreams());
     }
 
     @Override
@@ -143,12 +142,12 @@ public final class DefaultReporter implements AbstractReporter {
 
     @Override
     public ReadBinFiles getBinFiles(String _archiveOrFolder) {
-        return StreamFolderFile.getBinFiles(_archiveOrFolder,fileCoreStream);
+        return StreamFolderFile.getBinFiles(_archiveOrFolder,fileCoreStream,threadFactory.getTechStreams());
     }
 
     @Override
     public ReadFiles getFiles(String _archiveOrFolder) {
-        return StreamFolderFile.getFiles(_archiveOrFolder,uniformingString,fileCoreStream);
+        return StreamFolderFile.getFiles(_archiveOrFolder,uniformingString,fileCoreStream,threadFactory.getTechStreams());
     }
 
     @Override
@@ -163,18 +162,18 @@ public final class DefaultReporter implements AbstractReporter {
 
     @Override
     public byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
-        StringMap<ContentTime> out_ = MemoryReporter.exportErr(_log,threadFactory);
+        StringMap<ContentTime> out_ = MemoryReporter.exportErr(_log,threadFactory.getThreadFactory());
         if (!out_.isEmpty()) {
-            return StreamZipFile.zipBinFiles(out_);
+            return threadFactory.getZipFact().zipBinFiles(out_);
         }
         return null;
     }
 
     @Override
     public byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys, AbstractLogger _log) {
-        StringMap<ContentTime> out_ = MemoryReporter.exportSysLoggs(_ex, _sys, _log,threadFactory);
+        StringMap<ContentTime> out_ = MemoryReporter.exportSysLoggs(_ex, _sys, _log,threadFactory.getThreadFactory());
         if (!out_.isEmpty()) {
-            return StreamZipFile.zipBinFiles(out_);
+            return threadFactory.getZipFact().zipBinFiles(out_);
         }
         return null;
     }
@@ -182,6 +181,6 @@ public final class DefaultReporter implements AbstractReporter {
     private void saveFile(String _folder, String _fileName, String _content) {
         String full_ = _folder + _fileName;
         StreamFolderFile.makeParent(full_,fileCoreStream);
-        StreamTextFile.saveTextFile(full_,_content);
+        StreamTextFile.saveTextFile(full_,_content,threadFactory.getTechStreams());
     }
 }

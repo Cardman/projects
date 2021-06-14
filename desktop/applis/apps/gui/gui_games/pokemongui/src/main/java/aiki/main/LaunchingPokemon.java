@@ -61,13 +61,13 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
                 fileConfig_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE);
             }
         } else {
-            String xmlString_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(getFrames().getFileCoreStream()),fileConfig_), getFrames().getFileCoreStream());
+            String xmlString_ = StreamTextFile.contentsOfFile(StringUtil.concat(StreamFolderFile.getCurrentPath(getFrames().getFileCoreStream()),fileConfig_), getFrames().getFileCoreStream(), getFrames().getStreams());
             param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
             param_.setLastSavedGame(gameSavePath_);
             param_.setLastRom(zip_);
         }
         if (param_ == null) {
-            String xmlString_ = StreamTextFile.contentsOfFile(fileConfig_, getFrames().getFileCoreStream());
+            String xmlString_ = StreamTextFile.contentsOfFile(fileConfig_, getFrames().getFileCoreStream(), getFrames().getStreams());
             param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
             AbstractNameValidating def_ = getFrames().getValidator();
             if (!def_.okPath(StreamFolderFile.getRelativeRootPath(param_.getLastSavedGame(), getFrames().getFileCoreStream()),'/','\\')) {
@@ -78,7 +78,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
             }
         }
         //String path_ = getFolderJarPath();
-        TopLeftFrame topLeft_ = loadCoords(getTempFolder(getFrames()), Resources.COORDS, getFrames().getFileCoreStream());
+        TopLeftFrame topLeft_ = loadCoords(getTempFolder(getFrames()), Resources.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
         //path_ = pathConfig_;
         String path_ = StreamFolderFile.getCurrentPath(getFrames().getFileCoreStream());
 //        if (!_args.isEmpty()) {
@@ -121,7 +121,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
 
     @Override
     public Object getObject(String _fileName) {
-        String file_ = StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream());
+        String file_ = StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
         Game o_ = DocumentReaderAikiCoreUtil.getGame(file_);
         if (o_ != null) {
             return o_;

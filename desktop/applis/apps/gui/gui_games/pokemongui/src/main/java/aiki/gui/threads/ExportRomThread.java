@@ -6,8 +6,10 @@ import aiki.sml.LoadingGame;
 import code.stream.AbstractFileCoreStream;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
+import code.stream.core.AbstractZipFact;
 import code.stream.core.ContentTime;
 import code.stream.core.StreamZipFile;
+import code.stream.core.TechStreams;
 import code.threads.AbstractThreadFactory;
 import code.util.EntryCust;
 import code.util.StringMap;
@@ -18,12 +20,14 @@ public final class ExportRomThread implements Runnable {
     private final LoadingGame loadingGame;
     private final AbstractThreadFactory threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
+    private final TechStreams zipFact;
 
-    public ExportRomThread(FacadeGame _facadeGame, LoadingGame _loadingGame, AbstractThreadFactory _threadFactory, AbstractFileCoreStream _fileCoreStream) {
+    public ExportRomThread(FacadeGame _facadeGame, LoadingGame _loadingGame, AbstractThreadFactory _threadFactory, AbstractFileCoreStream _fileCoreStream, TechStreams _zip) {
         this.facadeGame = _facadeGame;
         this.loadingGame = _loadingGame;
         threadFactory = _threadFactory;
         fileCoreStream = _fileCoreStream;
+        zipFact = _zip;
     }
 
     @Override
@@ -38,7 +42,7 @@ public final class ExportRomThread implements Runnable {
                 meta_.addEntry(e.getKey(),new ContentTime(StringUtil.encode(e.getValue()),threadFactory.millis()));
             }
             StreamFolderFile.makeParent(path_,fileCoreStream);
-            StreamBinaryFile.writeFile(path_,StreamZipFile.zipBinFiles(meta_));
+            StreamBinaryFile.writeFile(path_,zipFact.getZipFact().zipBinFiles(meta_),zipFact);
         }
     }
 }

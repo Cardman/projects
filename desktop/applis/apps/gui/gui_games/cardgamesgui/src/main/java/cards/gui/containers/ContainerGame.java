@@ -104,7 +104,7 @@ public class ContainerGame implements Containable {
 
     protected static void changerNombreDeParties(GameEnum _game, long _nbGames, AbstractProgramInfos _tmpUserFolderSl) {
         String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
-        String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream());
+        String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
         StringList vl_=new StringList();
         boolean read_ = true;
         StringList lines_ = new StringList();
@@ -131,7 +131,7 @@ public class ContainerGame implements Containable {
         //de logiciel alors le nombre de parties est remis a zero lors
         //d'une fermeture de logiciel
         vl_.set(_game.ordinal(), Long.toString(_nbGames + 1));
-        StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN));
+        StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN),_tmpUserFolderSl.getStreams());
     }
 
     public void ajouterTexteDansZone(String _texte) {
@@ -156,7 +156,7 @@ public class ContainerGame implements Containable {
         getWindow().setContentPane(_container);
     }
     public void saveCurrentGame(String _file) {
-        getPar().sauvegarderPartieEnCours(_file);
+        getPar().sauvegarderPartieEnCours(_file, getWindow().getStreams());
     }
     public boolean playingSingleGame() {
         return getPar().enCoursDePartie();
@@ -167,7 +167,7 @@ public class ContainerGame implements Containable {
     }
     protected static long chargerNombreDeParties(GameEnum _jeu, AbstractProgramInfos _tmpUserFolderSl) {
         String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
-        String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream());
+        String content_ = StreamTextFile.contentsOfFile(fileName_,_tmpUserFolderSl.getFileCoreStream(),_tmpUserFolderSl.getStreams());
         if (content_ == null) {
             return 0L;
         }

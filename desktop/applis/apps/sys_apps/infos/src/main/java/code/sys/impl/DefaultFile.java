@@ -1,5 +1,9 @@
-package code.stream;
+package code.sys.impl;
 
+import code.stream.AbstractFile;
+import code.stream.AbstractFileCoreStream;
+import code.stream.FileListInfo;
+import code.stream.PathsUtil;
 import code.util.core.StringUtil;
 
 import java.io.File;

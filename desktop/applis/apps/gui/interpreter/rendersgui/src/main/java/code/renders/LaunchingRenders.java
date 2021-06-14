@@ -21,7 +21,7 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
     }
     @Override
     public Object getObject(String _fileName) {
-        return StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream());
+        return StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
     }
 
     @Override

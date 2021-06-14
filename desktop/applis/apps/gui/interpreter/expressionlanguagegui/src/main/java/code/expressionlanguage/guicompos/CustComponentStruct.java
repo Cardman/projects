@@ -26,7 +26,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     public static void invokeLater(RunnableContextEl _run, Struct _r) {
         if (_r instanceof Runnable) {
             if (_run.getExecutingOptions().isInvokeDirect()) {
-                _run.getThreadFactory().newStartedThread((Runnable) _r);
+                _run.getCurrentThreadFactory().newStartedThread((Runnable) _r);
             } else {
                 CustComponent.invokeLater((Runnable) _r);
             }
@@ -36,7 +36,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     public static void invokeRunnable(RunnableContextEl _run,Runnable _r) {
         if (_r != null) {
             if (_run.getExecutingOptions().isInvokeDirect()) {
-                _run.getThreadFactory().newStartedThread(_r);
+                _run.getCurrentThreadFactory().newStartedThread(_r);
             } else {
                 CustComponent.invokeLater(_r);
             }

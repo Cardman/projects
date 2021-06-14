@@ -318,7 +318,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     }
     /**Lorsqu'on veut sauvegarder une partie*/
     private void validerSauvegarde(String _s) {
-        StreamTextFile.saveTextFile(_s, DocumentWriterBeloteUtil.setGameBelote(partie));
+        StreamTextFile.saveTextFile(_s, DocumentWriterBeloteUtil.setGameBelote(partie), window.getStreams());
     }
     private void erreur(BeloteCardsScrollableList _plc) {
         String lg_ = getMain().getLanguageKey();

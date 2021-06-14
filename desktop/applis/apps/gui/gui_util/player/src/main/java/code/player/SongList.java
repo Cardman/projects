@@ -5,6 +5,7 @@ import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.stream.AbstractFileCoreStream;
 import code.stream.StreamTextFile;
+import code.stream.core.TechStreams;
 import code.util.StringList;
 
 public final class SongList {
@@ -16,8 +17,8 @@ public final class SongList {
         return songList;
     }
 
-    public void addSongsFromContent(String _doc, AbstractFileCoreStream _fact) {
-        String content_ = StreamTextFile.contentsOfFile(_doc,_fact);
+    public void addSongsFromContent(String _doc, AbstractFileCoreStream _fact, TechStreams _str) {
+        String content_ = StreamTextFile.contentsOfFile(_doc,_fact,_str);
         Document doc_ = DocumentBuilder.parseSax(content_);
         if (doc_ == null) {
             return;

@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -85,7 +84,7 @@ public final class CustContextFactory {
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
         ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,rCont_,_progressingTests,_definedLgNames);
-        rCont_.getThreadFactory().newStartedThread(showUpdates_);
+        rCont_.getCurrentThreadFactory().newStartedThread(showUpdates_);
         ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethodPair();
         ArgumentListCall argList_ = new ArgumentListCall(argMethod_);
         ExecFormattedRootBlock aClass_ = ExecFormattedRootBlock.build(_definedLgNames.getCustAliases().getAliasExecute(),rCont_.getClasses());

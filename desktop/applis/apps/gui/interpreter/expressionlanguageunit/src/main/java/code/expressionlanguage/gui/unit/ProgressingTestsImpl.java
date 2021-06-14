@@ -42,7 +42,7 @@ public final class ProgressingTestsImpl implements ProgressingTests {
         byte[] bytes_ = _infos.getReporter().exportErrs(_exec, logger_);
         if (bytes_ != null) {
             StreamFolderFile.makeParent(_exec.getOutputFolder()+"/"+_exec.getOutputZip(),fact);
-            StreamBinaryFile.writeFile(_exec.getOutputFolder()+"/"+_exec.getOutputZip(),bytes_);
+            StreamBinaryFile.writeFile(_exec.getOutputFolder()+"/"+_exec.getOutputZip(),bytes_,mainWindow.getInfos().getTechStreams());
         }
     }
 
@@ -73,6 +73,6 @@ public final class ProgressingTestsImpl implements ProgressingTests {
             return;
         }
         StreamFolderFile.makeParent(executingOptions_.getOutputFolder()+"/"+executingOptions_.getOutputZip(),fact);
-        StreamBinaryFile.writeFile(executingOptions_.getOutputFolder()+"/"+executingOptions_.getOutputZip(),export_);
+        StreamBinaryFile.writeFile(executingOptions_.getOutputFolder()+"/"+executingOptions_.getOutputZip(),export_,mainWindow.getInfos().getTechStreams());
     }
 }

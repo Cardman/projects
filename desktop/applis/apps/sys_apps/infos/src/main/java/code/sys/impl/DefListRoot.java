@@ -1,8 +1,10 @@
-package code.stream;
+package code.sys.impl;
+
+import code.stream.AbstractListRoot;
 
 import java.io.File;
 
-public class DefListRoot implements AbstractListRoot {
+public final class DefListRoot implements AbstractListRoot {
     private final File[] roots = File.listRoots();
     @Override
     public int length() {

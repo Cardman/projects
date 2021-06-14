@@ -1,11 +1,9 @@
 package code.stream;
-import java.io.*;
-import java.nio.charset.Charset;
 
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
-import code.stream.core.StreamCoreUtil;
+import code.stream.core.TechStreams;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.DefaultUniformingString;
@@ -16,7 +14,6 @@ import code.util.ints.UniformingString;
 public final class StreamTextFile {
 
     public static final String SEPARATEUR = "/";
-    private static final String UTF_8 = "UTF-8";
 
     private StreamTextFile() {
     }
@@ -88,92 +85,43 @@ public final class StreamTextFile {
         return files_;
     }
 
-    public static String contentsOfFile(String _nomFichier,AbstractFileCoreStream _fact) {
-        return contentsOfFile(_nomFichier,new DefaultUniformingString(),_fact);
+    public static String contentsOfFile(String _nomFichier,AbstractFileCoreStream _fact, TechStreams _tech) {
+        return contentsOfFile(_nomFichier,new DefaultUniformingString(),_fact,_tech);
     }
 
-    public static String contentsOfFile(String _nomFichier, UniformingString _apply,AbstractFileCoreStream _fact) {
-        return readFile(_nomFichier,_apply,_fact);
+    public static String contentsOfFile(String _nomFichier, UniformingString _apply,AbstractFileCoreStream _fact, TechStreams _tech) {
+        return readFile(_nomFichier,_apply,_fact,_tech);
     }
 
-    private static String readFile(String _filePath,UniformingString _apply,AbstractFileCoreStream _fact) {
+    private static String readFile(String _filePath, UniformingString _apply, AbstractFileCoreStream _fact, TechStreams _tech) {
         AbstractFile file_ = _fact.newFile(_filePath);
-        return readingFile(tryCreateBufferedReader(StreamFileCore.tryCreateFileInputStream(_filePath)), file_.length(),_apply);
-    }
-    private static Reader tryCreateBufferedReader(InputStream _file) {
-        if (_file == null) {
-            return null;
-        }
-        return new InputStreamReader(_file, Charset.forName(UTF_8));
+        return _tech.getTextFact().contentsOfFile(_filePath,_apply, file_.length());
     }
 
-    public static Element contenuDocumentXmlExterne(String _nomFichier,AbstractFileCoreStream _fact) {
-        Document doc_ = DocumentBuilder.parseSax(contentsOfFile(_nomFichier,_fact));
+    public static Element contenuDocumentXmlExterne(String _nomFichier,AbstractFileCoreStream _fact, TechStreams _tech) {
+        Document doc_ = DocumentBuilder.parseSax(contentsOfFile(_nomFichier,_fact,_tech));
         if (doc_ == null) {
             return null;
         }
         return doc_.getDocumentElement();
     }
 
-    private static String readingFile(Reader _br, long _capacity,UniformingString _apply) {
-        if (_br == null) {
-            return null;
-        }
-        StringBuilder strBuilder_ = new StringBuilder((int) _capacity);
-        while (true) {
-
-            int char_ = StreamCoreUtil.read(_br);
-            if (char_ == -2) {
-                StreamCoreUtil.close(_br);
-                return null;
-            }
-            if (char_ < 0) {
-                break;
-            }
-            strBuilder_.append((char) char_);
-        }
-        StreamCoreUtil.close(_br);
-        return _apply.apply(strBuilder_.toString());
-    }
-
-    public static boolean saveTextFile(String _nomFichier, String _text) {
+    public static boolean saveTextFile(String _nomFichier, String _text, TechStreams _tech) {
         if (_nomFichier == null) {
             return false;
         }
-        return write(_nomFichier, _text, false);
+        return write(_nomFichier, _text, false,_tech);
     }
-    public static boolean logToFile(String _nomFichier, String _text) {
+
+    public static boolean logToFile(String _nomFichier, String _text, TechStreams _tech) {
         if (_nomFichier == null) {
             return false;
         }
-        return write(_nomFichier, _text, true);
+        return write(_nomFichier, _text, true,_tech);
     }
 
-    private static boolean write(String _nomFichier, String _text, boolean _append) {
-        return write(tryCreateWriter(_nomFichier, _append), _text);
-    }
-
-    private static boolean write(OutputStream _bw,String _text) {
-        if (_bw == null) {
-            return false;
-        }
-        boolean w_ = write(new OutputStreamWriter(_bw,Charset.forName(UTF_8)), _text);
-        return w_&&StreamCoreUtil.close(_bw);
-    }
-    private static boolean write(Writer _bw,String _text) {
-        try {
-            _bw.write(_text);
-            return StreamCoreUtil.close(_bw);
-        } catch (IOException e) {
-            return false;
-        }
-    }
-    private static OutputStream tryCreateWriter(String _nomFichier, boolean _append) {
-        try {
-            return new FileOutputStream(_nomFichier,_append);
-        } catch (IOException e) {
-            return null;
-        }
+    private static boolean write(String _nomFichier, String _text, boolean _append, TechStreams _tech) {
+        return _tech.getTextFact().write(_nomFichier, _text, _append);
     }
 
 }

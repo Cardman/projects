@@ -13,6 +13,7 @@ import code.sml.Element;
 import code.sml.ElementList;
 import code.stream.AbstractFileCoreStream;
 import code.stream.StreamTextFile;
+import code.stream.core.TechStreams;
 import code.util.CollCapacity;
 import code.util.EnumList;
 import code.util.core.StringUtil;
@@ -40,8 +41,8 @@ public final class DocumentReaderCardsUnionUtil {
     private static final String FIELD_SAVE_HOME_FOLDER = "saveHomeFolder";
     private static final String FIELD_WAIT_TRICK_CLICK = "waitTrickClick";
 
-    public static Object getObject(String _fileName, AbstractFileCoreStream _fact) {
-        String content_ = StreamTextFile.contentsOfFile(_fileName,_fact);
+    public static Object getObject(String _fileName, AbstractFileCoreStream _fact, TechStreams _streams) {
+        String content_ = StreamTextFile.contentsOfFile(_fileName,_fact,_streams);
         return getContentObject(content_);
     }
 

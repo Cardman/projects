@@ -6,6 +6,7 @@ import code.expressionlanguage.utilcompo.AbstractFileSystem;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.stream.*;
 import code.stream.core.ReadBinFiles;
+import code.stream.core.TechStreams;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
@@ -15,12 +16,14 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     private final UniformingString uniformingString;
     private final AbstractNameValidating nameValidating;
     private final AbstractFileCoreStream fileCoreStream;
+    private final TechStreams streams;
     private String base = "";
 
-    public DefaultFileSystem(UniformingString _uniformingString, AbstractNameValidating _nameValidating, AbstractFileCoreStream _fileCoreStream) {
+    public DefaultFileSystem(UniformingString _uniformingString, AbstractNameValidating _nameValidating, AbstractFileCoreStream _fileCoreStream, TechStreams _streams) {
         uniformingString = _uniformingString;
         nameValidating = _nameValidating;
         fileCoreStream = _fileCoreStream;
+        streams = _streams;
     }
 
     @Override
@@ -50,7 +53,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     @Override
     public String contentsOfFile(String _file, RunnableContextEl _rCont) {
         String file_ = prefix(_file, _rCont);
-        return StreamTextFile.contentsOfFile(file_, uniformingString,fileCoreStream);
+        return StreamTextFile.contentsOfFile(file_, uniformingString,fileCoreStream,streams);
     }
 
     @Override
@@ -59,13 +62,13 @@ public final class DefaultFileSystem implements AbstractFileSystem {
             return false;
         }
         String file_ = prefix(_file, _rCont);
-        return StreamTextFile.saveTextFile(file_,_content);
+        return StreamTextFile.saveTextFile(file_,_content,streams);
     }
 
     @Override
     public byte[] loadFile(String _file, RunnableContextEl _rCont) {
         String file_ = prefix(_file, _rCont);
-        return StreamBinaryFile.loadFile(file_,fileCoreStream);
+        return StreamBinaryFile.loadFile(file_,fileCoreStream,streams);
     }
 
     @Override
@@ -74,7 +77,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
             return false;
         }
         String file_ = prefix(_file, _rCont);
-        return StreamBinaryFile.writeFile(file_,_content);
+        return StreamBinaryFile.writeFile(file_,_content,streams);
     }
 
     @Override
@@ -102,7 +105,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
             return false;
         }
         String file_ = prefix(_file, _rCont);
-        return StreamTextFile.logToFile(file_,_content);
+        return StreamTextFile.logToFile(file_,_content,streams);
     }
 
     @Override

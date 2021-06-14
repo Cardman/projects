@@ -663,7 +663,7 @@ public class ScenePanel {
             return;
         }
         String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(window.getFileCoreStream()), Resources.PORT_INI);
-        int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(), window.getFileCoreStream());
+        int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(), window.getFileCoreStream(), window.getStreams());
         if (DialogServer.isCreate(window.getDialogServer())) {
             window.createServer(ip_, DialogServer.getIpType(window.getDialogServer()), port_);
             return;

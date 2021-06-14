@@ -547,7 +547,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
                     StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),
                     Long.toString(partie_.getRegles().getNbStacks()),FileConst.DECK_EXT),
-                    DocumentWriterPresidentUtil.setHandPresident(partie_.empiler()));
+                    DocumentWriterPresidentUtil.setHandPresident(partie_.empiler()), getWindow().getStreams());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);

@@ -24,9 +24,9 @@ public final class MemoryReporter implements AbstractReporter {
     private final AbstractNameValidating nameValidating;
     private final UniformingString uniformingString;
     private StringMap<ContentTime> reports = new StringMap<ContentTime>();
-    private final AbstractThreadFactory threadFactory;
+    private final TechInfos threadFactory;
 
-    public MemoryReporter(byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString, AbstractThreadFactory _threadFactory) {
+    public MemoryReporter(byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString, TechInfos _threadFactory) {
         conf = _conf;
         this.src = _src;
         this.files = _files;
@@ -101,42 +101,42 @@ public final class MemoryReporter implements AbstractReporter {
 
     @Override
     public ReadBinFiles getBinFiles(String _archiveOrFolder) {
-        return StreamZipFile.getZippedBinFiles(files);
+        return StreamZipFile.getZippedBinFiles(files,threadFactory.getTechStreams());
     }
 
     @Override
     public ReadFiles getFiles(String _archiveOrFolder) {
-        return StreamZipFile.getZippedFiles(uniformingString,src);
+        return StreamZipFile.getZippedFiles(uniformingString,src,threadFactory.getTechStreams());
     }
 
     @Override
     public void coverFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont) {
         String coversFolder_ = _rCont.getExecutingOptions().getCoverFolder();
-        reports.addEntry(coversFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),threadFactory.millis()));
+        reports.addEntry(coversFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),threadFactory.getThreadFactory().millis()));
     }
 
     @Override
     public void errorFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont) {
         String errorsFolder_ = _rCont.getExecutingOptions().getErrorsFolder();
-        reports.addEntry(errorsFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),threadFactory.millis()));
+        reports.addEntry(errorsFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),threadFactory.getThreadFactory().millis()));
     }
 
     @Override
     public byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
-        StringMap<ContentTime> out_ = exportErr(_log,threadFactory);
+        StringMap<ContentTime> out_ = exportErr(_log,threadFactory.getThreadFactory());
         out_.addAllEntries(reports);
         if (!out_.isEmpty()) {
-            return StreamZipFile.zipBinFiles(out_);
+            return threadFactory.getZipFact().zipBinFiles(out_);
         }
         return null;
     }
 
     @Override
     public byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys,AbstractLogger _log) {
-        StringMap<ContentTime> out_ = exportSysLoggs(_ex, _sys, _log,threadFactory);
+        StringMap<ContentTime> out_ = exportSysLoggs(_ex, _sys, _log,threadFactory.getThreadFactory());
         out_.addAllEntries(reports);
         if (!out_.isEmpty()) {
-            return StreamZipFile.zipBinFiles(out_);
+            return threadFactory.getZipFact().zipBinFiles(out_);
         }
         return null;
     }

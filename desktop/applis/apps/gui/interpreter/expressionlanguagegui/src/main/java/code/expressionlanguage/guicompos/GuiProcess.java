@@ -60,7 +60,7 @@ public final class GuiProcess implements Runnable {
         }
         String archive_ = linesFiles_.first();
         UniformingString app_ = new DefaultUniformingString();
-        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_, _window.getFileCoreStream());
+        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_, _window.getFileCoreStream(), _window.getStreams());
         if (result_.getType() == OutputType.NOTHING) {
             return null;
         }
@@ -89,7 +89,7 @@ public final class GuiProcess implements Runnable {
             mainArgs_.add(0, _conf);
         }
         AbstractNameValidating validator_ = _window.getValidator();
-        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null, _window.getFileCoreStream()), new DefaultFileSystem(app_, validator_, _window.getFileCoreStream()), new DefaultReporter(validator_, app_, false, _window.getThreadFactory(), _window.getFileCoreStream()), _window.getGenerator(), _window.getThreadFactory());
+        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null, _window.getFileCoreStream(), _window.getStreams()), new DefaultFileSystem(app_, validator_, _window.getFileCoreStream(), _window.getStreams()), new DefaultReporter(validator_, app_, false, new TechInfos(_window.getThreadFactory(), _window.getStreams()), _window.getFileCoreStream()), _window.getGenerator(), new TechInfos(_window.getThreadFactory(), _window.getStreams()));
 
         StringMap<String> list_ = RunningTest.tryGetSrc(archive_, exec_, fileInfos_, result_);
         if (list_ == null) {
@@ -108,7 +108,7 @@ public final class GuiProcess implements Runnable {
             byte[] bytes_ = fileInfos_.getReporter().exportErrs(exec_, logger_);
             if (bytes_ != null) {
                 StreamFolderFile.makeParent(exec_.getOutputFolder()+"/"+exec_.getOutputZip(), _window.getFileCoreStream());
-                StreamBinaryFile.writeFile(exec_.getOutputFolder()+"/"+exec_.getOutputZip(),bytes_);
+                StreamBinaryFile.writeFile(exec_.getOutputFolder()+"/"+exec_.getOutputZip(),bytes_, _window.getStreams());
             }
             return null;
         }
@@ -155,7 +155,7 @@ public final class GuiProcess implements Runnable {
         if (!isVisible()) {
             context.getGuiInit().launchHooks(context, StackCall.newInstance(InitPhase.NOTHING,context));
             window.setNullCurrent();
-            AbstractThread th_ = window.getThreadFactory().newThread(new CoveringCodeTask(context, executingOptions,window.getFileCoreStream()));
+            AbstractThread th_ = window.getThreadFactory().newThread(new CoveringCodeTask(context, executingOptions,window.getFileCoreStream(),window.getStreams()));
             th_.start();
             th_.join();
         }

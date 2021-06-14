@@ -54,7 +54,7 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
     public void setLanguage(String _language) {
         langue = _language;
         dispose();
-        SoftApplicationCore.saveLanguage(dir, _language);
+        SoftApplicationCore.saveLanguage(dir, _language,soft.getFrames().getStreams());
         getPane().removeAll();
         StringMap<Object> file_ = soft.getFile(args);
         soft.launch(langue, file_);

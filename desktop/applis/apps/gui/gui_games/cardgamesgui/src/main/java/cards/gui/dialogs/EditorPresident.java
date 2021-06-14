@@ -314,7 +314,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     /**Lorsqu'on veut sauvegarder une partie*/
     private void validerSauvegarde(String _s) {
-        StreamTextFile.saveTextFile(_s, DocumentWriterPresidentUtil.setGamePresident(partie));
+        StreamTextFile.saveTextFile(_s, DocumentWriterPresidentUtil.setGamePresident(partie), window.getStreams());
     }
 
     @Override

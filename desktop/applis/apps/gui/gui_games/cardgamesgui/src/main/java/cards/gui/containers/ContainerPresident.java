@@ -99,7 +99,7 @@ public class ContainerPresident extends ContainerGame {
         return DocumentReaderPresidentUtil.getHandPresident(StreamTextFile.contentsOfFile(
                 StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,
                         StreamTextFile.SEPARATEUR,GameEnum.PRESIDENT.name(),
-                        Long.toString(_nbStacks),FileConst.DECK_EXT),_tmpUserFolderSl.getFileCoreStream()));
+                        Long.toString(_nbStacks),FileConst.DECK_EXT),_tmpUserFolderSl.getFileCoreStream(), _tmpUserFolderSl.getStreams()));
     }
 
     public void discard(byte _index) {

@@ -23,6 +23,7 @@ import code.scripts.messages.cards.MessPresidentGr;
 import code.scripts.messages.cards.MessTarotGr;
 import code.scripts.messages.cards.MessagesCardsAll;
 import code.stream.StreamTextFile;
+import code.stream.core.TechStreams;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
@@ -181,18 +182,18 @@ public final class Games {
         }
         return true;
     }
-    public void sauvegarderPartieEnCours(String _nomFichier){
+    public void sauvegarderPartieEnCours(String _nomFichier, TechStreams _str){
         if(enCoursDePartieBelote()){
             GameBelote game_ = partieBelote();
-            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterBeloteUtil.setGameBelote(game_));
+            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterBeloteUtil.setGameBelote(game_),_str);
         }
         if(enCoursDePartieTarot()){
             GameTarot game_ = partieTarot();
-            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterTarotUtil.setGameTarot(game_));
+            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterTarotUtil.setGameTarot(game_),_str);
         }
         if(enCoursDePartiePresident()){
             GamePresident game_ = partiePresident();
-            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterPresidentUtil.setGamePresident(game_));
+            StreamTextFile.saveTextFile(_nomFichier, DocumentWriterPresidentUtil.setGamePresident(game_),_str);
         }
     }
     public static StringBuilder autoriseMessEcartDe(GameTarot _g,ReasonDiscard _r,CardTarot _c, String _loc) {

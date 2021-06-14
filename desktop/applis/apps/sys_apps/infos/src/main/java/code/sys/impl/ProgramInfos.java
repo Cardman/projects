@@ -7,13 +7,20 @@ import code.gui.initialize.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.random.AdvancedGenerator;
 import code.stream.AbstractFileCoreStream;
-import code.stream.DefaultFileCoreStream;
+import code.stream.ClipStream;
+import code.stream.core.*;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
+import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class ProgramInfos implements AbstractProgramInfos {
@@ -42,10 +49,12 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator;
     private final AbstractThreadFactory threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
+    private final TechStreams streams;
 
     public ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
         threadFactory = new DefaultThreadFactory();
         fileCoreStream = new DefaultFileCoreStream();
+        streams = new TechStreams(new DefBinFact(new DefBinFactory()),new DefTextFact(new DefTextFactory()),new DefZipFact(new DefZipFactory()));
         graphicStringListGenerator = _graphicStringListGenerator;
         graphicComboBoxGenerator = _graphicComboBoxGenerator;
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
@@ -172,6 +181,10 @@ public final class ProgramInfos implements AbstractProgramInfos {
         return fileCoreStream;
     }
 
+    public TechStreams getStreams() {
+        return streams;
+    }
+
     @Override
     public AbstractNameValidating getValidator() {
         return validator;
@@ -185,5 +198,47 @@ public final class ProgramInfos implements AbstractProgramInfos {
     @Override
     public AbstractGraphicComboBoxGenerator getGeneComboBox() {
         return graphicComboBoxGenerator;
+    }
+
+    @Override
+    public boolean close(Closeable _cl) {
+        return StreamCoreUtil.close(_cl);
+    }
+
+    @Override
+    public ClipStream openClip(byte[] _file) {
+        ByteArrayInputStream bis_ = new ByteArrayInputStream(_file);
+        try {
+            AudioInputStream audioIn_ = AudioSystem.getAudioInputStream(bis_);
+            Clip clip_ = AudioSystem.getClip();
+            clip_.open(audioIn_);
+            StreamCoreUtil.close(bis_);
+            ClipStream c_ = new ClipStream();
+            c_.setClip(clip_);
+            c_.setStream(audioIn_);
+            return c_;
+        } catch (Exception e) {
+            StreamCoreUtil.close(bis_);
+            return null;
+        }
+    }
+
+    @Override
+    public BufferedImage readImg(String _file) {
+        try {
+            return ImageIO.read(new FileInputStream(StringUtil.nullToEmpty(_file)));
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean writeImg(String _format, String _file, BufferedImage _img) {
+        try {
+            ImageIO.write(_img,StringUtil.nullToEmpty(_format),new FileOutputStream(StringUtil.nullToEmpty(_file)));
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
 }

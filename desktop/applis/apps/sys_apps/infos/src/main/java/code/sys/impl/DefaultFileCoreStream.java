@@ -1,4 +1,8 @@
-package code.stream;
+package code.sys.impl;
+
+import code.stream.AbstractFile;
+import code.stream.AbstractFileCoreStream;
+import code.stream.AbstractListRoot;
 
 public final class DefaultFileCoreStream implements AbstractFileCoreStream {
 

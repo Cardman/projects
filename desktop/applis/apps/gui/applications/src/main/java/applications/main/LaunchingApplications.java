@@ -27,7 +27,6 @@ import code.renders.LaunchingRenders;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.stream.StreamBinaryFile;
-import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
@@ -135,7 +134,7 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
 
     private static void launchWindow(String _language, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, GuiFactroy _guiFact) {
-        TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream());
+        TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream(), _list.getStreams());
         MainWindow w_ = getWindow(_language, _list, _cardFactories, _aikiFactory, _guiFact);
         setLocation(w_, topLeft_);
     }
@@ -156,14 +155,14 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
     @Override
     public Object getObject(String _fileName) {
-        byte[] bytes_ = StreamBinaryFile.loadFile(_fileName, getFrames().getFileCoreStream());
+        byte[] bytes_ = StreamBinaryFile.loadFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
         if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_)) {
-            BufferedImage img_ = StreamImageFile.read(_fileName);
+            BufferedImage img_ = getFrames().readImg(_fileName);
             if (img_ != null) {
                 return img_;
             }
         }
-        String file_ = StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream());
+        String file_ = StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
         if (file_ == null) {
             return null;
         }

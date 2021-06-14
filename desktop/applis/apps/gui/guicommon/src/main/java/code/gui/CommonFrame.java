@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
-public abstract class CommonFrame extends AbsFrame implements ChangeableTitle {
+public abstract class CommonFrame implements ChangeableTitle {
 
     private String accessFile;
 
@@ -73,11 +73,6 @@ public abstract class CommonFrame extends AbsFrame implements ChangeableTitle {
         frame.setDefaultCloseOperation(_operation);
     }
 
-    @Override
-    protected Window getComponent() {
-        return frame;
-    }
-
     protected void setIconImage(BufferedImage _image) {
         frame.setIconImage(_image);
     }
@@ -112,7 +107,7 @@ public abstract class CommonFrame extends AbsFrame implements ChangeableTitle {
         frame.setJMenuBar(_menu.getMenuBar());
         menuBar = _menu;
     }
-    JFrame getFrame() {
+    protected JFrame getFrame() {
         return frame;
     }
     @Override
@@ -139,7 +134,7 @@ public abstract class CommonFrame extends AbsFrame implements ChangeableTitle {
 
     public void setLocationRelativeTo(CommonFrame _c) {
         if (_c != null) {
-            frame.setLocationRelativeTo(_c.getComponent());
+            frame.setLocationRelativeTo(_c.getFrame());
         } else {
             frame.setLocationRelativeTo(null);
         }

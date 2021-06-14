@@ -2210,7 +2210,7 @@ public final class CustAliases {
                     _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                     return res_;
                 }
-                res_.setResult(BooleanStruct.of(ThreadUtil.sleep(((RunnableContextEl)_cont).getThreadFactory(),((NumberStruct)_args[0]).longStruct())));
+                res_.setResult(BooleanStruct.of(ThreadUtil.sleep(((RunnableContextEl) _cont).getCurrentThreadFactory(),((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
             if (StringUtil.quickEq(name_,aliasJoin)) {
@@ -2855,7 +2855,7 @@ public final class CustAliases {
                 for (int j = 0; j < bLen_; j++) {
                     bs_.set(j, bins_.get(j));
                 }
-                byte[] finalFile_ = ZipBinStructUtil.getZipBinFileAsArray(bs_);
+                byte[] finalFile_ = ZipBinStructUtil.getZipBinFileAsArray(bs_,infos.getZipFact());
                 if (finalFile_ != null) {
                     StringStruct str_ = (StringStruct)_args[0];
                     res_.setResult(BooleanStruct.of(infos.getFileSystem().writeFile(str_.getInstance(),finalFile_, (RunnableContextEl) _cont)));

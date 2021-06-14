@@ -5,6 +5,7 @@ import cards.president.RulesPresident;
 import cards.tarot.enumerations.DealingTarot;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamTextFile;
+import code.stream.core.TechStreams;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -133,7 +134,7 @@ public final class Nicknames {
         pseudosPresident = _pseudosPresident;
     }
 
-    public void sauvegarder(String _fichier){
-        StreamTextFile.saveTextFile(_fichier, DocumentWriterCardsUnionUtil.setNicknames(this));
+    public void sauvegarder(String _fichier, TechStreams _tech){
+        StreamTextFile.saveTextFile(_fichier, DocumentWriterCardsUnionUtil.setNicknames(this),_tech);
     }
 }

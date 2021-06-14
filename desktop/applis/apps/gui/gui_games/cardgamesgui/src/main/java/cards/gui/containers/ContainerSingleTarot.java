@@ -923,7 +923,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             StreamTextFile.saveTextFile(StringUtil.concat(
                     LaunchingCards.getTempFolderSl(getOwner().getFrames()),FileConst.DECK_FOLDER,
                     StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),
-                    DocumentWriterTarotUtil.setHandTarot(partie_.empiler()));
+                    DocumentWriterTarotUtil.setHandTarot(partie_.empiler()), getWindow().getStreams());
         }
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);

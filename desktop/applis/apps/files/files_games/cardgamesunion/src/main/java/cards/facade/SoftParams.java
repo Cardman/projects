@@ -2,6 +2,7 @@ package cards.facade;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
 import code.stream.StreamTextFile;
+import code.stream.core.TechStreams;
 import code.util.EnumList;
 
 
@@ -86,8 +87,8 @@ public final class SoftParams {
 //    public void setLocale(String _locale) {
 //        locale = _locale;
 //    }
-    public void sauvegarder(String _fichier){
-        StreamTextFile.saveTextFile(_fichier, DocumentWriterCardsUnionUtil.setSoftParams(this));
+    public void sauvegarder(String _fichier, TechStreams _tech){
+        StreamTextFile.saveTextFile(_fichier, DocumentWriterCardsUnionUtil.setSoftParams(this),_tech);
     }
     public EnumList<GameEnum> getLaunching() {
         return launching;

@@ -21,8 +21,8 @@ public final class StreamFolderFile {
         String path_ = StringUtil.replaceBackSlashDot(_path);
         return StringUtil.quickEq(absPath_,path_);
     }
-    public static StringMap<String> getFiles(String _archiveOrFolder,AbstractFileCoreStream _fact) {
-        return getFiles(_archiveOrFolder,new DefaultUniformingString(),_fact).getZipFiles();
+    public static StringMap<String> getFiles(String _archiveOrFolder,AbstractFileCoreStream _fact,TechStreams _zip) {
+        return getFiles(_archiveOrFolder,new DefaultUniformingString(),_fact,_zip).getZipFiles();
     }
 
     public static String getRelativeRootPath(String _absolute,AbstractFileCoreStream _list) {
@@ -56,7 +56,7 @@ public final class StreamFolderFile {
     public static boolean mkdirs(String _folder,AbstractFileCoreStream _list) {
         return _list.newFile(_folder).mkdirs();
     }
-    public static ReadFiles getFiles(String _archiveOrFolder, UniformingString _app,AbstractFileCoreStream _fact) {
+    public static ReadFiles getFiles(String _archiveOrFolder, UniformingString _app,AbstractFileCoreStream _fact,TechStreams _zip) {
         AbstractFile file_ = _fact.newFile(_archiveOrFolder);
         if (file_.isDirectory()) {
             StringMap<String> zipFiles_ = new StringMap<String>();
@@ -65,7 +65,7 @@ public final class StreamFolderFile {
                 if (_fact.newFile(f).isDirectory()) {
                     continue;
                 }
-                String contentOfFile_ = StreamTextFile.contentsOfFile(f, _app,_fact);
+                String contentOfFile_ = StreamTextFile.contentsOfFile(f, _app,_fact,_zip);
                 if (contentOfFile_ == null) {
                     continue;
                 }
@@ -73,11 +73,11 @@ public final class StreamFolderFile {
             }
             return new ReadFiles(zipFiles_, OutputType.FOLDER);
         }
-        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder,_fact);
-        return StreamZipFile.getZippedFiles(_app, bytes_);
+        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder,_fact,_zip);
+        return StreamZipFile.getZippedFiles(_app, bytes_,_zip);
     }
 
-    public static ReadBinFiles getBinFiles(String _archiveOrFolder,AbstractFileCoreStream _fact) {
+    public static ReadBinFiles getBinFiles(String _archiveOrFolder,AbstractFileCoreStream _fact, TechStreams _zip) {
         AbstractFile file_ = _fact.newFile(_archiveOrFolder);
         if (file_.isDirectory()) {
             StringMap<ContentTime> zipFiles_ = new StringMap<ContentTime>();
@@ -91,7 +91,7 @@ public final class StreamFolderFile {
                     }
                     continue;
                 }
-                byte[] contentOfFile_ = StreamBinaryFile.loadFile(f,_fact);
+                byte[] contentOfFile_ = StreamBinaryFile.loadFile(f,_fact,_zip);
                 if (contentOfFile_ == null) {
                     continue;
                 }
@@ -99,8 +99,8 @@ public final class StreamFolderFile {
             }
             return new ReadBinFiles(zipFiles_,zipFolders_, OutputType.FOLDER);
         }
-        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder,_fact);
-        return StreamZipFile.getZippedBinFiles(bytes_);
+        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder,_fact,_zip);
+        return StreamZipFile.getZippedBinFiles(bytes_,_zip);
     }
 
 }

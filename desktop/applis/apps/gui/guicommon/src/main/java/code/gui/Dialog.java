@@ -42,7 +42,7 @@ public abstract class Dialog implements ChangeableTitle {
     }
 
     public void setLocationRelativeTo(CommonFrame _onwer) {
-        dialog.setLocationRelativeTo(_onwer.getComponent());
+        dialog.setLocationRelativeTo(_onwer.getFrame());
     }
 
     public void setLocationRelativeTo(Dialog _onwer) {

@@ -142,7 +142,7 @@ public final class MainWindow extends GroupFrame {
     public void changeLanguage(String _language) {
         if (canChangeLanguageAll()) {
             setLanguageKey(_language);
-            SoftApplicationCore.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language);
+            SoftApplicationCore.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language,getStreams());
             for (GroupFrame g: getFrames().getFrames()) {
                 g.changeLanguage(_language);
             }
@@ -167,7 +167,7 @@ public final class MainWindow extends GroupFrame {
         Point point_=getLocation();
         int x_ = point_.x;
         int y_ = point_.y;
-        SoftApplicationCore.saveCoords(LaunchingApplications.getTempFolder(getFrames()), LaunchingApplications.COORDS, x_, y_);
+        SoftApplicationCore.saveCoords(LaunchingApplications.getTempFolder(getFrames()), LaunchingApplications.COORDS, x_, y_,getStreams());
     }
 
     @Override

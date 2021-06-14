@@ -1,5 +1,4 @@
 package code.network;
-import code.stream.core.StreamCoreUtil;
 import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
@@ -35,14 +34,10 @@ public abstract class BasicServer extends SendReceive implements Locking {
                 }
                 loopServer(input_, readObject_);
             }
-            close(getSocket());
+            getNet().getFrames().close(getSocket());
         } catch (IOException e) {
-            close(getSocket());
+            getNet().getFrames().close(getSocket());
         }
-    }
-
-    private static void close(Socket _close) {
-        StreamCoreUtil.close(_close);
     }
 
     public abstract void loopServer(String _input, Object _object);

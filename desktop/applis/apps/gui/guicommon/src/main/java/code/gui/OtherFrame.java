@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 
-public final class OtherFrame extends AbsFrame implements ChangeableTitle,WithListener {
+public final class OtherFrame implements ChangeableTitle,WithListener {
 
     private BufferedImage imageIconFrame;
 
@@ -106,8 +106,8 @@ public final class OtherFrame extends AbsFrame implements ChangeableTitle,WithLi
 
     @Override
     public void setLocationRelativeTo(WithListener _c) {
-        if (_c instanceof CommonFrame) {
-            frame.setLocationRelativeTo(((CommonFrame)_c).getComponent());
+        if (_c instanceof OtherFrame) {
+            frame.setLocationRelativeTo(((OtherFrame)_c).getComponent());
         } else if (_c instanceof OtherDialog) {
             frame.setLocationRelativeTo(((OtherDialog)_c).getComponent());
         } else {
@@ -140,8 +140,7 @@ public final class OtherFrame extends AbsFrame implements ChangeableTitle,WithLi
         owner = _owner;
     }
 
-    @Override
-    protected Window getComponent() {
+    Window getComponent() {
         return frame;
     }
 

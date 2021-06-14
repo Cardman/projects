@@ -15,6 +15,6 @@ public final class ShowOpeningDialog implements Runnable {
     @Override
     public void run() {
         VideoLoading videoLoading_ = window.getVideoLoading();
-        window.getDialog().init(window, videoLoading_.getVideo(window.getGenerator(), window.getFileCoreStream()), true);
+        window.getDialog().init(window, videoLoading_.getVideo(window.getGenerator(), window.getFileCoreStream(), window.getFrames()), true);
     }
 }

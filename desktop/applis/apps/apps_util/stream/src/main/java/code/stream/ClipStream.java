@@ -1,12 +1,12 @@
 package code.stream;
-import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
+import java.io.Closeable;
 
 public final class ClipStream {
 
     private Clip clip;
 
-    private AudioInputStream stream;
+    private Closeable stream;
 
     public Clip getClip() {
         return clip;
@@ -16,11 +16,11 @@ public final class ClipStream {
         clip = _clip;
     }
 
-    public AudioInputStream getStream() {
+    public Closeable getStream() {
         return stream;
     }
 
-    public void setStream(AudioInputStream _stream) {
+    public void setStream(Closeable _stream) {
         stream = _stream;
     }
 }

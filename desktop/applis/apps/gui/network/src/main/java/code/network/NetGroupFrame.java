@@ -1,4 +1,5 @@
 package code.network;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -20,7 +21,6 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
 
     private Socket socket;
 
-    private AbstractThread connectionTh;
     private ConnectionToServer connection;
 
     private String ipHost;
@@ -49,8 +49,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         }
         ipHost = _ip;
         connection=new ConnectionToServer(_serverSocket,this, _ip, _port);
-        connectionTh = getThreadFactory().newThread(connection);
-        connectionTh.start();
+        getThreadFactory().newStartedThread(connection);
     }
 
     /**server and client*/

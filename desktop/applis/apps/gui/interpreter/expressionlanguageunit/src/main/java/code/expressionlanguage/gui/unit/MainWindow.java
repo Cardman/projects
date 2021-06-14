@@ -21,7 +21,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.AbstractThread;
-import code.threads.ThreadUtil;
 import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
 import code.util.ints.UniformingString;
@@ -236,7 +235,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = getValidator();
         return new FileInfos(buildLogger(validator_),
-                buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected(),getThreadFactory(),getFileCoreStream()), getGenerator(),getThreadFactory());
+                buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected(),new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(),new TechInfos(getThreadFactory(),getStreams()));
     }
 
     @Override
@@ -256,14 +255,14 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
         if (memory.isSelected()) {
             return new MemoryLogger(_validator, unitIssuer,getThreadFactory());
         }
-        return new DefaultLogger(_validator, unitIssuer,getFileCoreStream());
+        return new DefaultLogger(_validator, unitIssuer,getFileCoreStream(),getStreams());
     }
 
     private AbstractFileSystem buildSystem(AbstractNameValidating _validator) {
         if (memory.isSelected()) {
             return new MemoryFileSystem(uniformingString,_validator,getThreadFactory());
         }
-        return new DefaultFileSystem(uniformingString, _validator,getFileCoreStream());
+        return new DefaultFileSystem(uniformingString, _validator,getFileCoreStream(),getStreams());
     }
 
     public void showProgress(ContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved) {

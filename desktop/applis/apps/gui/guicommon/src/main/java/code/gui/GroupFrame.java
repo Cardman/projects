@@ -11,6 +11,7 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFileCoreStream;
+import code.stream.core.TechStreams;
 import code.threads.AbstractThreadFactory;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -171,6 +172,11 @@ public abstract class GroupFrame extends CommonFrame {
     public AbstractThreadFactory getThreadFactory() {
         return frames.getThreadFactory();
     }
+
+    public TechStreams getStreams() {
+        return frames.getStreams();
+    }
+
     public AbstractFileCoreStream getFileCoreStream() {
         return frames.getFileCoreStream();
     }

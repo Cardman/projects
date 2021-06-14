@@ -1018,7 +1018,7 @@ public class Battle extends ChildFrame {
         }
         RenderedPage session_;
         session_ = new RenderedPage(new ScrollPane(), window.getFrames());
-        session_.setProcess(window.getVideoLoading().getVideo(window.getGenerator(),window.getFileCoreStream()));
+        session_.setProcess(window.getVideoLoading().getVideo(window.getGenerator(),window.getFileCoreStream(),window.getFrames()));
         FrameHtmlData dialog_ = new FrameHtmlData(window, messages.getVal(TITLE), session_);
         dialog_.initSessionLg(facade,fightTask_,facade.getLanguage());
         htmlDialogs.add(dialog_);

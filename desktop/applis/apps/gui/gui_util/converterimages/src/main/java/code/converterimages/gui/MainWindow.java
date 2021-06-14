@@ -10,7 +10,6 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
 import code.stream.StreamFolderFile;
-import code.stream.StreamImageFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.consts.Constants;
@@ -97,20 +96,20 @@ public final class MainWindow extends GroupFrame {
                     continue;
                 }
                 String f_ = StringUtil.replaceBackSlash(f);
-                BufferedImage img_ = StreamImageFile.read(pathExport.getText()+f);
+                BufferedImage img_ = getFrames().readImg(pathExport.getText()+f);
                 if (img_ == null) {
                     continue;
                 }
                 String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
                 if (f_.endsWith(DOT+PNG_EXT)) {
                     String path_ = StringUtil.replace(f_, DOT + PNG_EXT, DOT + TXT_EXT);
-                    StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
+                    StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_,getStreams());
                 } else if (f_.endsWith(DOT+JPG_EXT)) {
                     String path_ = StringUtil.replace(f_, DOT + JPG_EXT, DOT + TXT_EXT);
-                    StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
+                    StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_,getStreams());
                 } else if (f_.endsWith(DOT+JPEG_EXT)) {
                     String path_ = StringUtil.replace(f_, DOT + JPEG_EXT, DOT + TXT_EXT);
-                    StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_);
+                    StreamTextFile.saveTextFile(path.getText()+StreamTextFile.SEPARATEUR+ path_, txt_,getStreams());
                 }
             }
         } else {
@@ -127,37 +126,37 @@ public final class MainWindow extends GroupFrame {
                     continue;
                 }
                 String f_ = StringUtil.replaceBackSlash(f);
-                String readImage_ = StreamTextFile.contentsOfFile(pathExport.getText()+f,getFileCoreStream());
+                String readImage_ = StreamTextFile.contentsOfFile(pathExport.getText()+f,getFileCoreStream(),getStreams());
                 if (readImage_ == null) {
                     continue;
                 }
                 BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
-                StreamImageFile.write(PNG_EXT,path.getText()+StreamTextFile.SEPARATEUR+ StringUtil.replace(f_, DOT+TXT_EXT, DOT+PNG_EXT),img_);
+                getFrames().writeImg(PNG_EXT,path.getText()+StreamTextFile.SEPARATEUR+ StringUtil.replace(f_, DOT+TXT_EXT, DOT+PNG_EXT),img_);
             }
         }
     }
 
     public void readOneImageArg(String _readPath) {
-        BufferedImage img_ = StreamImageFile.read(_readPath);
+        BufferedImage img_ = getFrames().readImg(_readPath);
         if (img_ == null) {
             return;
         }
         String txt_ = BaseSixtyFourUtil.getStringByImage(ConverterGraphicBufferedImage.toArrays(img_));
         if (_readPath.endsWith(DOT+PNG_EXT)) {
-            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+PNG_EXT, DOT+TXT_EXT), txt_);
+            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+PNG_EXT, DOT+TXT_EXT), txt_,getStreams());
         } else  if (_readPath.endsWith(DOT+JPG_EXT)) {
-            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+JPG_EXT, DOT+TXT_EXT), txt_);
+            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+JPG_EXT, DOT+TXT_EXT), txt_,getStreams());
         } else  if (_readPath.endsWith(DOT+JPEG_EXT)) {
-            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+JPEG_EXT, DOT+TXT_EXT), txt_);
+            StreamTextFile.saveTextFile(StringUtil.replace(_readPath, DOT+JPEG_EXT, DOT+TXT_EXT), txt_,getStreams());
         }
     }
     public void writeOneImageArg(String _writePath) {
-        String readImage_ = StreamTextFile.contentsOfFile(_writePath,getFileCoreStream());
+        String readImage_ = StreamTextFile.contentsOfFile(_writePath,getFileCoreStream(),getStreams());
         if (readImage_ == null) {
             return;
         }
         BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
-        StreamImageFile.write(PNG_EXT, StringUtil.replace(_writePath, DOT+TXT_EXT, DOT+PNG_EXT),img_);
+        getFrames().writeImg(PNG_EXT, StringUtil.replace(_writePath, DOT+TXT_EXT, DOT+PNG_EXT),img_);
     }
     @Override
     public void quit() {

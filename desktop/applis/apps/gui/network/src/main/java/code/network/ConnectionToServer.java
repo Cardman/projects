@@ -1,4 +1,5 @@
 package code.network;
+import code.gui.initialize.AbstractProgramInfos;
 import code.stream.core.StreamCoreUtil;
 import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
@@ -28,8 +29,9 @@ public final class ConnectionToServer implements Runnable, Locking {
         if (serverSocket == null){
             return;
         }
-        if (StreamCoreUtil.close(serverSocket)) {
-            StreamCoreUtil.close(_socket);
+        AbstractProgramInfos frames_ = serverWindow.getFrames();
+        if (frames_.close(serverSocket)) {
+            frames_.close(_socket);
         }
     }
 
