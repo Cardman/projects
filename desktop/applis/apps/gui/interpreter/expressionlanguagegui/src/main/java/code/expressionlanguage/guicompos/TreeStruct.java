@@ -7,7 +7,6 @@ import code.gui.CustComponent;
 import code.gui.TreeGui;
 
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 public final class TreeStruct extends CustComponentStruct {
     private final TreeGui tree;
@@ -25,9 +24,8 @@ public final class TreeStruct extends CustComponentStruct {
     }
 
     public Struct getLastSelectedPathComponent() {
-        Object sel_ = tree.getLastSelectedPathComponent();
-        if (sel_ instanceof DefaultMutableTreeNode) {
-            return new TreeNodeStruct((DefaultMutableTreeNode) sel_);
+        if (tree.selectEvt() != null) {
+            return new TreeNodeStruct(tree.getSelected());
         }
         return NullStruct.NULL_VALUE;
     }

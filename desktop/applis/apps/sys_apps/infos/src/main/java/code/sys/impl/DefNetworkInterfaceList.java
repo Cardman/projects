@@ -1,5 +1,6 @@
 package code.sys.impl;
 
+import code.gui.initialize.AbstractAddressList;
 import code.gui.initialize.AbstractNetworkInterfaceList;
 
 import java.net.*;
@@ -17,6 +18,11 @@ public class DefNetworkInterfaceList implements AbstractNetworkInterfaceList {
     }
 
     @Override
+    public AbstractAddressList list(int _index) {
+        return new DefAddressList(Collections.list(list.get(_index).getInetAddresses()));
+    }
+
+    @Override
     public int size() {
         return list.size();
     }
@@ -24,26 +30,6 @@ public class DefNetworkInterfaceList implements AbstractNetworkInterfaceList {
     @Override
     public int size(int _index) {
         return Collections.list(list.get(_index).getInetAddresses()).size();
-    }
-
-    @Override
-    public boolean isIpFour(int _first, int _index) {
-        return Collections.list(list.get(_index).getInetAddresses()).get(_index) instanceof Inet4Address;
-    }
-
-    @Override
-    public boolean isIpSix(int _first, int _index) {
-        return Collections.list(list.get(_index).getInetAddresses()).get(_index) instanceof Inet6Address;
-    }
-
-    @Override
-    public boolean isLoopbackAddress(int _first, int _index) {
-        return Collections.list(list.get(_index).getInetAddresses()).get(_index).isLoopbackAddress();
-    }
-
-    @Override
-    public String getHost(int _first, int _index) {
-        return Collections.list(list.get(_index).getInetAddresses()).get(_index).getHostAddress();
     }
 
     @Override

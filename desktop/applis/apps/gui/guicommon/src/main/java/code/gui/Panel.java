@@ -10,10 +10,6 @@ public final class Panel extends CustComponent {
 
     private final JPanel panel;
 
-    private Panel() {
-        this(new JPanel());
-    }
-
     private Panel(LayoutManager _panel) {
         this(new JPanel(_panel));
     }
@@ -46,14 +42,16 @@ public final class Panel extends CustComponent {
         return new Panel(new GridLayout(_row,_col,_h,_v));
     }
     public static Panel newPageBox() {
-        Panel panel_ = new Panel();
-        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
+        JPanel inner_ = new JPanel();
+        Panel panel_ = new Panel(inner_);
+        panel_.setLayout(new BoxLayout(inner_, BoxLayout.PAGE_AXIS));
         return panel_;
     }
 
     public static Panel newLineBox() {
-        Panel panel_ = new Panel();
-        panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.LINE_AXIS));
+        JPanel inner_ = new JPanel();
+        Panel panel_ = new Panel(inner_);
+        panel_.setLayout(new BoxLayout(inner_, BoxLayout.LINE_AXIS));
         return panel_;
     }
 
@@ -107,9 +105,8 @@ public final class Panel extends CustComponent {
         int index_ = -1;
         CustList<CustComponent> rem_ = new CustList<CustComponent>();
         for (CustComponent c: getChildren()) {
-            if (c.getComponent() == _cust.getComponent()) {
+            if (c == _cust) {
                 c.setParent(null);
-                _cust.setParent(null);
                 index_ = i_;
             } else {
                 rem_.add(c);

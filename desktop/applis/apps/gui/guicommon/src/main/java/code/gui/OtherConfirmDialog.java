@@ -12,7 +12,7 @@ public final class OtherConfirmDialog {
     public static final int NO_OPTION = JOptionPane.NO_OPTION;
     public static final int CANCEL_OPTION = JOptionPane.CANCEL_OPTION;
     private static final String EMPTY_STRING = "";
-    private JDialog dialog = new JDialog();
+    private final JDialog dialog = new JDialog();
 
     private int answer;
 

@@ -2,24 +2,31 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
+import code.gui.AbstractMutableTreeNode;
+import code.gui.DefMutableTreeNode;
+import code.gui.TreeGui;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 public final class TreeNodeStruct extends WithoutParentStruct implements Struct {
 
-    private final DefaultMutableTreeNode treeNode;
+    private final AbstractMutableTreeNode treeNode;
+    private String userObject = "";
 
     TreeNodeStruct() {
-        treeNode = new DefaultMutableTreeNode("");
+        treeNode = new DefMutableTreeNode("");
     }
 
     TreeNodeStruct(Struct _str) {
-        treeNode = new DefaultMutableTreeNode(getString(_str));
+        treeNode = new DefMutableTreeNode(getString(_str));
     }
 
-    TreeNodeStruct(DefaultMutableTreeNode _cp) {
-        treeNode = _cp;
+    TreeNodeStruct(AbstractMutableTreeNode _str) {
+        treeNode = _str;
+    }
+
+    TreeNodeStruct(TreePath _cp) {
+        treeNode = new DefMutableTreeNode(TreeGui.selected(_cp));
     }
 
     void add(Struct _node) {
@@ -106,15 +113,15 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
     }
 
     Struct getParentNode() {
-        TreeNode par_ = treeNode.getParent();
-        if (!(par_ instanceof DefaultMutableTreeNode)) {
+        AbstractMutableTreeNode par_ = treeNode.getParent();
+        if (par_ == null) {
             return NullStruct.NULL_VALUE;
         }
-        return new TreeNodeStruct((DefaultMutableTreeNode) par_);
+        return new TreeNodeStruct(par_);
     }
 
     Struct getPreviousSibling() {
-        DefaultMutableTreeNode prev_ = treeNode.getPreviousSibling();
+        AbstractMutableTreeNode prev_ = treeNode.getPreviousSibling();
         if (prev_ == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -122,7 +129,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
     }
 
     Struct getNextSibling() {
-        DefaultMutableTreeNode next_ = treeNode.getNextSibling();
+        AbstractMutableTreeNode next_ = treeNode.getNextSibling();
         if (next_ == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -136,7 +143,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         if (treeNode.getChildCount() == 0) {
             return NullStruct.NULL_VALUE;
         }
-        return new TreeNodeStruct((DefaultMutableTreeNode) treeNode.getChildAt(0));
+        return new TreeNodeStruct(treeNode.getChildAt(0));
     }
 
     Struct getLastChild() {
@@ -144,27 +151,23 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         if (count_ == 0) {
             return NullStruct.NULL_VALUE;
         }
-        return new TreeNodeStruct((DefaultMutableTreeNode) treeNode.getChildAt(count_-1));
+        return new TreeNodeStruct(treeNode.getChildAt(count_-1));
 
     }
 
     StringStruct getUserObject() {
-        Object user_ = treeNode.getUserObject();
-        if (!(user_ instanceof String)) {
-            return new StringStruct("");
-        }
-        return new StringStruct((String) user_);
+        return new StringStruct(userObject);
     }
 
     void setUserObject(Struct _struct) {
         if (_struct instanceof StringStruct) {
-            treeNode.setUserObject(((StringStruct)_struct).getInstance());
+            userObject= ((StringStruct)_struct).getInstance();
         } else {
-            treeNode.setUserObject("");
+            userObject= "";
         }
     }
 
-    DefaultMutableTreeNode getTreeNode() {
+    AbstractMutableTreeNode getTreeNode() {
         return treeNode;
     }
     private static String getString(Struct _str) {

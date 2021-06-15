@@ -91,7 +91,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         // Non null pour les valeurs
         cles_.sortElts(new ComparatorListSizeElement());
         racineBis = new NodeHelp(elementsBis.getVal(cles_.first()));
-        DefaultMutableTreeNode root_ = new DefaultMutableTreeNode(
+        AbstractMutableTreeNode root_ = new DefMutableTreeNode(
                 racineBis.nom());
         boolean wasNull_ = editor == null;
         Panel container_;
@@ -105,23 +105,23 @@ public final class FrameGeneralHelp extends ChildFrame {
             CustList<Integer> cheminSansNoeud_ = chemin_.left(
                     chemin_.getLastIndex());
             NodeHelp noeudLoc_;
-            DefaultMutableTreeNode noeudLocGraphique_;
+            AbstractMutableTreeNode noeudLocGraphique_;
             noeudLoc_ = racineBis.element(cheminSansNoeud_);
             if (cheminSansNoeud_.isEmpty()) {
                 noeudLocGraphique_ = root_;
             } else {
-                noeudLocGraphique_ = (DefaultMutableTreeNode) root_
+                noeudLocGraphique_ = root_
                         .getChildAt(cheminSansNoeud_.first());
                 int lengthPath_ = cheminSansNoeud_.size();
                 for (int indice_ = IndexConstants.SECOND_INDEX; indice_ < lengthPath_; indice_++) {
-                    noeudLocGraphique_ = (DefaultMutableTreeNode) noeudLocGraphique_
+                    noeudLocGraphique_ = noeudLocGraphique_
                             .getChildAt(cheminSansNoeud_.get(indice_));
                 }
             }
             ElementHelp elementLoc_ = elementsBis.getVal(chemin_);
             NodeHelp nouveauNoeud_ = new NodeHelp(elementLoc_);
             noeudLoc_.ajouterInfo(nouveauNoeud_);
-            noeudLocGraphique_.add(new DefaultMutableTreeNode(
+            noeudLocGraphique_.add(new DefMutableTreeNode(
                     elementLoc_.nom()));
         }
         if (wasNull_) {

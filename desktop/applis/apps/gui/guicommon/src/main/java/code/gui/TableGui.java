@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.util.core.StringUtil;
+
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -62,15 +64,11 @@ public final class TableGui extends CustComponent {
     }
 
     public String getValueAt(int _row, int _column) {
-        Object v_ = table.getValueAt(_row, _column);
-        if (!(v_ instanceof String)) {
-            return "";
-        }
-        return (String) v_;
+        return String.valueOf(table.getValueAt(_row, _column));
     }
 
     public void setValueAt(String _aValue, int _row, int _column) {
-        table.setValueAt(_aValue, _row, _column);
+        table.setValueAt(StringUtil.nullToEmpty(_aValue), _row, _column);
     }
 
     public void moveColumn(int _column, int _targetColumn) {

@@ -1,7 +1,5 @@
 package code.gui;
 
-import code.util.CustList;
-
 import javax.swing.*;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.*;
@@ -10,9 +8,11 @@ public final class TreeGui extends CustComponent {
     private final JTree tree;
     private final DefaultTreeModel model;
     private final DefaultTreeSelectionModel selectionModel;
+    private AbstractMutableTreeNode selected;
 
-    public TreeGui(DefaultMutableTreeNode _t) {
-        model = new DefaultTreeModel(_t);
+    public TreeGui(AbstractMutableTreeNode _t) {
+        selected = _t;
+        model = new DefaultTreeModel(((DefMutableTreeNode)_t).node());
         tree = new JTree(model);
         selectionModel = new DefaultTreeSelectionModel();
         tree.setSelectionModel(selectionModel);
@@ -27,31 +27,50 @@ public final class TreeGui extends CustComponent {
         tree.setRootVisible(_rootVisible);
     }
 
-    public Object getLastSelectedPathComponent() {
-        return tree.getLastSelectedPathComponent();
+    public TreePath selectEvt() {
+        TreePath selectionPath_ = getSelectionPath();
+        selected = new DefMutableTreeNode(selected(selectionPath_));
+        return selectionPath_;
+    }
+    //Nul => Nul & !Nul => !Nul
+    public static MutableTreeNode selected(TreePath _path) {
+        if (_path == null) {
+            return null;
+        }
+        return (MutableTreeNode)_path.getLastPathComponent();
     }
 
-    public void select(DefaultMutableTreeNode _node) {
-        TreeNode treeNode_ = _node.getParent();
-        CustList<TreeNode> nodes_ = new CustList<TreeNode>();
-        nodes_.add(_node);
-        while (treeNode_ != null) {
-            nodes_.add(0, treeNode_);
-            treeNode_ = treeNode_.getParent();
-        }
-        tree.setSelectionPath(new TreePath(nodes_.list().toArray()));
+    public AbstractMutableTreeNode getSelected() {
+        return selected;
+    }
+
+    public void removeFromParent() {
+        selected.removeFromParent();
+    }
+
+    public void removeAllChildren() {
+        selected.removeAllChildren();
+    }
+    public TreePath getSelectionPath() {
+        return tree.getSelectionPath();
+    }
+
+    public void select(AbstractMutableTreeNode _node) {
+        tree.setSelectionPath(getTreePath(((DefMutableTreeNode)_node).node()));
     }
     public void addTreeSelectionListener(TreeSelectionListener _tsl) {
         tree.addTreeSelectionListener(_tsl);
     }
 
     public void reload() {
-        Object obj_ = tree.getLastSelectedPathComponent();
-        if (obj_ instanceof TreeNode) {
-            model.reload((TreeNode) obj_);
+        if (selectEvt() != null) {
+            model.reload(((DefMutableTreeNode) selected).node());
         } else {
             model.reload();
         }
+    }
+    private TreePath getTreePath(TreeNode _node) {
+        return new TreePath(model.getPathToRoot(_node));
     }
     @Override
     protected JComponent getComponent() {
@@ -60,5 +79,9 @@ public final class TreeGui extends CustComponent {
 
     private void setSelectionModel() {
         selectionModel.setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+    }
+
+    public void add(AbstractMutableTreeNode _mutableTreeNode) {
+        selected.add(_mutableTreeNode);
     }
 }

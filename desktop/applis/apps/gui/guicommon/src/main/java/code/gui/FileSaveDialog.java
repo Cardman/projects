@@ -2,7 +2,7 @@ package code.gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JOptionPane;
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.CreateFolderEvent;
@@ -95,10 +95,9 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         if (typedString.getText().trim().isEmpty()) {
             return;
         }
-        Object sel_;
-        sel_ =getFolderSystem().getLastSelectedPathComponent();
-        if (sel_ instanceof DefaultMutableTreeNode) {
-            StringBuilder str_ = buildPath((DefaultMutableTreeNode) sel_);
+        TreePath path_ = getFolderSystem().getSelectionPath();
+        if (path_ != null) {
+            StringBuilder str_ = buildPath(path_);
             str_.append(typedString.getText());
             if (!frame.getValidator().okPath(str_.toString(),'/','\\')) {
                 return;

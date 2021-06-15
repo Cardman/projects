@@ -3,7 +3,6 @@ import java.awt.BorderLayout;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JOptionPane;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.SearchingEvent;
@@ -105,12 +104,10 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     public void searchFile() {
         AbstractFile currentFolder_ = getSuperFrame().getFileCoreStream().newFile(getCurrentFolder());
         if (!currentFolder_.exists()) {
-            DefaultMutableTreeNode selected_;
-            selected_ = (DefaultMutableTreeNode) getFolderSystem().getLastSelectedPathComponent();
-            if (selected_ == null) {
+            if (getFolderSystem().selectEvt() == null) {
                 return;
             }
-            selected_.removeFromParent();
+            getFolderSystem().removeFromParent();
             return;
         }
         if (thread != null && thread.isAlive()) {

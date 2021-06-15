@@ -67,7 +67,7 @@ public final class TabbedPane extends CustComponent {
         int i_ = 0;
         int index_ = -1;
         for (CustComponent c: getChildren()) {
-            if (c.getComponent() == _cust.getComponent()) {
+            if (c == _cust) {
                 index_ = i_;
                 break;
             }
@@ -81,9 +81,8 @@ public final class TabbedPane extends CustComponent {
         CustList<CustComponent> rem_ = new CustList<CustComponent>();
         CustList<String> remTitles_ = new CustList<String>();
         for (CustComponent c: getChildren()) {
-            if (c.getComponent() == _cust.getComponent()) {
+            if (c == _cust) {
                 c.setParent(null);
-                _cust.setParent(null);
                 index_ = i_;
             } else {
                 remTitles_.add(component.getTitleAt(i_));

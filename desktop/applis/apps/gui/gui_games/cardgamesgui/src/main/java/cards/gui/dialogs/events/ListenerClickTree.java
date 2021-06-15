@@ -1,7 +1,6 @@
 package cards.gui.dialogs.events;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 import cards.gui.dialogs.help.ElementHelp;
@@ -29,15 +28,12 @@ public class ListenerClickTree implements TreeSelectionListener {
 
     @Override
     public void valueChanged(TreeSelectionEvent _e) {
-        Object sel_;
-        sel_ =tree.getLastSelectedPathComponent();
-        if (!(sel_ instanceof TreeNode)) {
+        if (tree.selectEvt() == null) {
             return;
         }
-        DefaultMutableTreeNode selected_ = (DefaultMutableTreeNode) sel_;
         CustList<TreeNode> chemin_;
         chemin_ = new CustList<TreeNode>();
-        for (TreeNode o2_ : selected_.getPath()) {
+        for (TreeNode o2_ : tree.getSelected().getPath()) {
             chemin_.add(o2_);
         }
         TreeNode noeudParent_;

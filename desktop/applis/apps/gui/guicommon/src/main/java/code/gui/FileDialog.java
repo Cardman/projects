@@ -3,8 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
@@ -132,18 +131,17 @@ public abstract class FileDialog extends Dialog {
         Panel contentPane_ = Panel.newBorder();
         contentPane_.add(openSaveFile_, BorderLayout.SOUTH);
         if (currentFolderRoot) {
-            DefaultMutableTreeNode default_ = new DefaultMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
+            AbstractMutableTreeNode default_ = new DefMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
             FileListInfo files_ = superFrame.getFileCoreStream().newFile(currentFolder).listAbsolute(superFrame.getFileCoreStream());
             CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(files_.getNames());
             currentFiles_.sortElts(new FileNameComparator());
             CustList<AbstractFile> filesList_ = new CustList<AbstractFile>();
-            retrieve(default_, filesList_, currentFiles_);
-            refreshList(filesList_);
             folderSystem = new TreeGui(default_);
+            refreshList(filesList_, currentFiles_);
         } else {
-            DefaultMutableTreeNode default_ = new DefaultMutableTreeNode(EMPTY_STRING);
+            AbstractMutableTreeNode default_ = new DefMutableTreeNode(EMPTY_STRING);
             for (String f: StreamFolderFile.listRootsAbPath(superFrame.getFileCoreStream())) {
-                default_.add(new DefaultMutableTreeNode(StringUtil.join(StringUtil.splitStrings(f, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
+                default_.add(new DefMutableTreeNode(StringUtil.join(StringUtil.splitStrings(f, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
             }
             folderSystem = new TreeGui(default_);
             folderSystem.setRootVisible(false);
@@ -206,52 +204,50 @@ public abstract class FileDialog extends Dialog {
     }
 
     public void applyTreeChangeSelected() {
-        Object sel_;
-        sel_ =folderSystem.getLastSelectedPathComponent();
-        if (!(sel_ instanceof DefaultMutableTreeNode)) {
+        TreePath path_ = folderSystem.selectEvt();
+        if (path_ == null) {
             return;
         }
-        DefaultMutableTreeNode selected_ = (DefaultMutableTreeNode) sel_;
-        StringBuilder str_ = buildPath(selected_);
+        StringBuilder str_ = buildPath(path_);
         currentFolder = str_.toString();
         currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
         AbstractFile currentFolder_ = superFrame.getFileCoreStream().newFile(str_.toString());
         if (!currentFolder_.exists()) {
-            selected_.removeFromParent();
+            folderSystem.removeFromParent();
             return;
         }
-        selected_.removeAllChildren();
+        folderSystem.removeAllChildren();
         CustList<AbstractFile> files_ = new CustList<AbstractFile>();
         FileListInfo filesArray_ = currentFolder_.listAbsolute(superFrame.getFileCoreStream());
         CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
         currentFiles_.sortElts(new FileNameComparator());
-        retrieve(selected_, files_, currentFiles_);
+        refreshList(files_, currentFiles_);
         folderSystem.reload();
-        refreshList(files_);
     }
 
-    private void retrieve(DefaultMutableTreeNode _directoryNode, CustList<AbstractFile> _files, CustList<AbstractFile> _currentFiles) {
+    private void refreshList(CustList<AbstractFile> _files, CustList<AbstractFile> _currentFiles) {
         for (AbstractFile f : _currentFiles) {
             if (f.isDirectory()) {
                 if (StringUtil.contains(excludedFolders, StringUtil.replaceBackSlash(f.getAbsolutePath()))) {
                     continue;
                 }
-                _directoryNode.add(new DefaultMutableTreeNode(f.getName()));
+                folderSystem.add(new DefMutableTreeNode(f.getName()));
             } else {
                 if (f.getName().endsWith(extension)) {
                     _files.add(f);
                 }
             }
         }
+        refreshList(_files);
     }
 
-    static StringBuilder buildPath(DefaultMutableTreeNode _treePath) {
+    static StringBuilder buildPath(TreePath _treePath) {
         StringList pathFull_ = new StringList();
-        TreeNode current_ = _treePath;
+        TreePath current_ = _treePath;
         while (current_ != null) {
-            pathFull_.add(0,(String)((DefaultMutableTreeNode)current_).getUserObject());
-            current_ = current_.getParent();
+            pathFull_.add(0,String.valueOf(current_.getLastPathComponent()));
+            current_ = current_.getParentPath();
         }
         StringUtil.removeObj(pathFull_, EMPTY_STRING);
         StringBuilder str_ = new StringBuilder();

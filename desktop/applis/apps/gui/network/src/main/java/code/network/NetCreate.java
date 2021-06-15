@@ -49,7 +49,7 @@ public final class NetCreate {
             if (!StringUtil.quickEq(name_.trim(), NET_ZERO) && !StringUtil.quickEq(name_.trim(), WLAN_ZERO) || list_.isVirtual(i)) {
                 continue;
             }
-            feed(_ipType, list_, host_, i);
+            feed(_ipType, host_, list_.list(i));
         }
         if (host_.onlyOneElt()) {
             return host_.first();
@@ -57,29 +57,29 @@ public final class NetCreate {
         return _defaultIp;
     }
 
-    private static void feed(IpType _ipType, AbstractNetworkInterfaceList _list, StringList _host, int _i) {
-        int s_ = _list.size(_i);
+    private static void feed(IpType _ipType, StringList _host, AbstractAddressList _list) {
+        int s_ = _list.size();
         for (int j = 0; j < s_; j++) {
-            if (_list.isLoopbackAddress(_i,j)) {
+            if (_list.isLoopbackAddress(j)) {
                 continue;
             }
-            feed(_ipType, _list, _host, _i, j);
+            feed(_ipType, _list, _host, j);
         }
     }
 
-    private static void feed(IpType _ipType, AbstractNetworkInterfaceList _list, StringList _host, int _i, int _j) {
+    private static void feed(IpType _ipType, AbstractAddressList _list, StringList _host, int _j) {
         if (_ipType == IpType.HOST_NAME) {
-            _host.add(_list.getHost(_i, _j));
+            _host.add(_list.getHost(_j));
             return;
         }
         if (_ipType == IpType.IP_V4) {
-            if (_list.isIpFour(_i, _j)) {
-                _host.add(_list.getHost(_i, _j));
+            if (_list.isIpFour(_j)) {
+                _host.add(_list.getHost(_j));
             }
             return;
         }
-        if (_list.isIpSix(_i, _j)) {
-            _host.add(_list.getHost(_i, _j));
+        if (_list.isIpSix(_j)) {
+            _host.add(_list.getHost(_j));
         }
     }
 

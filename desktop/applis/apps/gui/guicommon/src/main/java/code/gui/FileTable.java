@@ -145,7 +145,7 @@ public final class FileTable {
             return_ = StringUtil.replaceBackSlash(return_);
             return return_;
         }
-        return null;
+        return "";
     }
 
     public void setupFiles(CustList<AbstractFile> _list,String _folder, String _extension) {

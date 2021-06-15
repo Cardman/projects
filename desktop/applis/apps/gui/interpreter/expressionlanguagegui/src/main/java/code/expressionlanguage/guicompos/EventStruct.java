@@ -14,12 +14,10 @@ import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.common.NumParsers;
-import code.gui.ListSelection;
-import code.gui.SelectionInfo;
+import code.gui.*;
 import code.util.CustList;
 
 import javax.swing.event.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.event.*;
 
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
@@ -293,13 +291,8 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     public void valueChanged(TreeSelectionEvent _e) {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
-        Object sel_ = _e.getPath().getLastPathComponent();
-        if (sel_ instanceof DefaultMutableTreeNode) {
-            TreeNodeStruct arg_ = new TreeNodeStruct((DefaultMutableTreeNode) sel_);
-            args_.add(new Argument(arg_));
-        } else {
-            args_.add(new Argument());
-        }
+        TreeNodeStruct arg_ = new TreeNodeStruct(_e.getPath());
+        args_.add(new Argument(arg_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListenerValueChanged(),args_);
     }
 
