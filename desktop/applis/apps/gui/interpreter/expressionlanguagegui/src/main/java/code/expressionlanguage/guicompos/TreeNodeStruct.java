@@ -1,10 +1,14 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.gui.AbstractMutableTreeNode;
 import code.gui.DefMutableTreeNode;
 import code.gui.TreeGui;
+import code.util.CustList;
+import code.util.core.StringUtil;
 
 import javax.swing.tree.TreePath;
 
@@ -155,6 +159,36 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
 
     }
 
+    static boolean eqPath(CustList<TreeNodeStruct> _one, CustList<TreeNodeStruct> _two) {
+        int len_ = _one.size();
+        if (len_ != _two.size()) {
+            return false;
+        }
+        for (int i = 0; i < len_; i++) {
+            if (!StringUtil.quickEq(_one.get(i).userObject,_two.get(i).userObject)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    ArrayStruct getPath(LgNames _stds) {
+        CustList<TreeNodeStruct> pars_ = getPath();
+        int len_ = pars_.size();
+        ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_stds.getCharSeq().getAliasString()));
+        for (int i = 0; i < len_; i++) {
+            arr_.set(i,new StringStruct(pars_.get(i).userObject));
+        }
+        return arr_;
+    }
+    CustList<TreeNodeStruct> getPath() {
+        CustList<TreeNodeStruct> pars_ = new CustList<TreeNodeStruct>();
+        Struct par_ = getParentNode();
+        while (par_ instanceof TreeNodeStruct) {
+            pars_.add(0, (TreeNodeStruct) par_);
+            par_ = ((TreeNodeStruct)par_).getParentNode();
+        }
+        return pars_;
+    }
     StringStruct getUserObject() {
         return new StringStruct(userObject);
     }
@@ -187,7 +221,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         if (!(_other instanceof TreeNodeStruct)) {
             return false;
         }
-        return treeNode == ((TreeNodeStruct)_other).treeNode;
+        return eqPath(getPath(),((TreeNodeStruct)_other).getPath());
     }
 
     @Override

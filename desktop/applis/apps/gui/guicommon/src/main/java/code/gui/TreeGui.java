@@ -12,11 +12,15 @@ public final class TreeGui extends CustComponent {
 
     public TreeGui(AbstractMutableTreeNode _t) {
         selected = _t;
-        model = new DefaultTreeModel(((DefMutableTreeNode)_t).node());
+        model = new DefaultTreeModel(convert(_t));
         tree = new JTree(model);
         selectionModel = new DefaultTreeSelectionModel();
         tree.setSelectionModel(selectionModel);
         setSelectionModel();
+    }
+
+    public static MutableTreeNode convert(AbstractMutableTreeNode _t) {
+        return ((DefMutableTreeNode)_t).node();
     }
 
     public boolean isRootVisible() {
@@ -56,7 +60,7 @@ public final class TreeGui extends CustComponent {
     }
 
     public void select(AbstractMutableTreeNode _node) {
-        tree.setSelectionPath(getTreePath(((DefMutableTreeNode)_node).node()));
+        tree.setSelectionPath(getTreePath(convert(_node)));
     }
     public void addTreeSelectionListener(TreeSelectionListener _tsl) {
         tree.addTreeSelectionListener(_tsl);
@@ -64,7 +68,7 @@ public final class TreeGui extends CustComponent {
 
     public void reload() {
         if (selectEvt() != null) {
-            model.reload(((DefMutableTreeNode) selected).node());
+            model.reload(convert(selected));
         } else {
             model.reload();
         }
