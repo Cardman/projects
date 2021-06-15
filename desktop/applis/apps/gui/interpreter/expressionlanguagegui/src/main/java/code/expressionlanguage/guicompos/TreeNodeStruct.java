@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
@@ -15,14 +16,14 @@ import javax.swing.tree.TreePath;
 public final class TreeNodeStruct extends WithoutParentStruct implements Struct {
 
     private final AbstractMutableTreeNode treeNode;
-    private String userObject = "";
+    private StringStruct userObject = new StringStruct("");
 
     TreeNodeStruct() {
         treeNode = new DefMutableTreeNode("");
     }
 
     TreeNodeStruct(Struct _str) {
-        treeNode = new DefMutableTreeNode(getString(_str));
+        treeNode = new DefMutableTreeNode(NumParsers.getString(_str).getInstance());
     }
 
     TreeNodeStruct(AbstractMutableTreeNode _str) {
@@ -165,7 +166,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
             return false;
         }
         for (int i = 0; i < len_; i++) {
-            if (!StringUtil.quickEq(_one.get(i).userObject,_two.get(i).userObject)) {
+            if (!StringUtil.quickEq(_one.get(i).userObject.getInstance(),_two.get(i).userObject.getInstance())) {
                 return false;
             }
         }
@@ -176,7 +177,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         int len_ = pars_.size();
         ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_stds.getCharSeq().getAliasString()));
         for (int i = 0; i < len_; i++) {
-            arr_.set(i,new StringStruct(pars_.get(i).userObject));
+            arr_.set(i,pars_.get(i).userObject);
         }
         return arr_;
     }
@@ -190,25 +191,15 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         return pars_;
     }
     StringStruct getUserObject() {
-        return new StringStruct(userObject);
+        return userObject;
     }
 
     void setUserObject(Struct _struct) {
-        if (_struct instanceof StringStruct) {
-            userObject= ((StringStruct)_struct).getInstance();
-        } else {
-            userObject= "";
-        }
+        userObject= NumParsers.getString(_struct);
     }
 
     AbstractMutableTreeNode getTreeNode() {
         return treeNode;
-    }
-    private static String getString(Struct _str) {
-        if (_str instanceof StringStruct) {
-            return ((StringStruct)_str).getInstance();
-        }
-        return "";
     }
 
     @Override
