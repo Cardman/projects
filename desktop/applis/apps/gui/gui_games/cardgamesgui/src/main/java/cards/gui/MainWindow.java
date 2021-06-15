@@ -1046,7 +1046,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     @Override
-    public void quitNetwork(Exiting _exit, Closeable _socket) {
+    public void quitNetwork(Exiting _exit, AbstractSocket _socket) {
         menuPrincipal();
         closeConnexion(_socket);
         if (_exit != null && _exit.isClosing()) {

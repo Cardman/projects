@@ -6,8 +6,6 @@ import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
 
-import java.io.Closeable;
-
 /**Thread safe class*/
 public final class ConnectionToServer implements Runnable, Locking {
 
@@ -20,12 +18,9 @@ public final class ConnectionToServer implements Runnable, Locking {
         serverWindow = _serverWindow;
         serverWindow.createClient(_ipHost, null, true, _port);
     }
-    public void fermer(Closeable _socket) {
-        if (serverSocket == null){
-            return;
-        }
+    public void fermer(AbstractSocket _socket) {
         AbstractProgramInfos frames_ = serverWindow.getFrames();
-        if (frames_.close(serverSocket.getClos())) {
+        if (serverSocket.close()) {
             frames_.close(_socket);
         }
     }
@@ -33,7 +28,7 @@ public final class ConnectionToServer implements Runnable, Locking {
     @Override
     public void run(){
         while(true){
-            AbstractSocket socket_ = acceptedSocket();
+            AbstractSocket socket_ = serverSocket.accept();
             //If the server is started without client ==> pause.
             if (socket_.getClos() != null) {
                 serverWindow.gearClient(socket_);
@@ -42,10 +37,6 @@ public final class ConnectionToServer implements Runnable, Locking {
             }
             //server side
         }
-    }
-
-    private AbstractSocket acceptedSocket() {
-        return serverSocket.accept();
     }
 
     @Override

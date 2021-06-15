@@ -2,7 +2,6 @@ package code.network;
 
 import code.gui.initialize.AbstractAddressList;
 import code.gui.initialize.AbstractNetworkInterfaceList;
-import code.gui.initialize.AbstractServerSocket;
 import code.gui.initialize.AbstractSocketFactory;
 import code.maths.litteralcom.MathExpUtil;
 import code.network.enums.IpType;
@@ -81,17 +80,6 @@ public final class NetCreate {
         if (_list.isIpSix(_j)) {
             _host.add(_list.getHost(_j));
         }
-    }
-
-    public static AbstractServerSocket createServerSocket(AbstractSocketFactory _fact, String _ip, int _port) {
-        return bind(_ip, _port, _fact.newServerSocket());
-    }
-
-    private static AbstractServerSocket bind(String _ip, int _port, AbstractServerSocket _serverSocket) {
-        if (_serverSocket.getClos() == null) {
-            return null;
-        }
-        return _serverSocket.bind(_ip,_port);
     }
 
     static StringList getAllAddresses(AbstractSocketFactory _socketFactory, IpType _ipType, String _host) {

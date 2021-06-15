@@ -1,13 +1,10 @@
 package code.gui.initialize;
 
-import java.io.Closeable;
-
 public interface AbstractServerSocket {
-    Closeable getClos();
+    boolean close();
 
+    boolean isOk();
     boolean isClosed();
-
-    AbstractServerSocket bind(String _ip, int _port);
 
     AbstractSocket accept();
 }

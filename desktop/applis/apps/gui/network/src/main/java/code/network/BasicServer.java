@@ -30,7 +30,7 @@ public abstract class BasicServer extends SendReceive implements Locking {
             }
             loopServer(input_, readObject_);
         }
-        getNet().getFrames().close(getClosSocket());
+        getNet().getFrames().close(getSocket());
     }
 
     public abstract void loopServer(String _input, Object _object);

@@ -4,6 +4,7 @@ import java.io.Closeable;
 import javax.swing.JOptionPane;
 
 import code.gui.ConfirmDialog;
+import code.gui.initialize.AbstractSocket;
 import code.scripts.messages.gui.MessGuiNetGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
@@ -24,12 +25,12 @@ public final class Quitting implements Runnable {
 
     private final NetGroupFrame window;
 
-    private final Closeable socket;
+    private final AbstractSocket socket;
 
     private StringMap<String> messages;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public Quitting(Exiting _bye, NetGroupFrame _window, Closeable _socket) {
+    public Quitting(Exiting _bye, NetGroupFrame _window, AbstractSocket _socket) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(FOLDER, _window.getLanguageKey(), QUITTING);
         String loadedResourcesMessages_ = MessGuiNetGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
@@ -39,7 +40,7 @@ public final class Quitting implements Runnable {
     }
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public Quitting(NetGroupFrame _window, Closeable _socket) {
+    public Quitting(NetGroupFrame _window, AbstractSocket _socket) {
         window = _window;
         socket = _socket;
     }

@@ -38,7 +38,7 @@ public final class BasicClient extends SendReceive {
             ThreadInvoker.invokeNow(getNet().getThreadFactory(),new LoopClient(getNet(), readObject_, getSocket()));
         }
         if (!noLine_) {
-            CustComponent.invokeLater(new Quitting(ex_, getNet(), getClosSocket()));
+            CustComponent.invokeLater(new Quitting(ex_, getNet(), getSocket()));
         }
     }
 }

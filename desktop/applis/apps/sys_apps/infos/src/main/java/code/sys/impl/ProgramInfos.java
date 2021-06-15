@@ -7,8 +7,8 @@ import code.gui.GroupFrame;
 import code.gui.initialize.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.random.AdvancedGenerator;
+import code.stream.AbsClipStream;
 import code.stream.AbstractFileCoreStream;
-import code.stream.ClipStream;
 import code.stream.core.*;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
@@ -206,22 +206,19 @@ public final class ProgramInfos implements AbstractProgramInfos {
     }
 
     @Override
-    public boolean close(Closeable _cl) {
-        return StreamCoreUtil.close(_cl);
+    public boolean close(AbstractSocket _cl) {
+        return StreamCoreUtil.close(_cl.getClos());
     }
 
     @Override
-    public ClipStream openClip(byte[] _file) {
+    public AbsClipStream openClip(byte[] _file) {
         ByteArrayInputStream bis_ = new ByteArrayInputStream(_file);
         try {
             AudioInputStream audioIn_ = AudioSystem.getAudioInputStream(bis_);
             Clip clip_ = AudioSystem.getClip();
             clip_.open(audioIn_);
             StreamCoreUtil.close(bis_);
-            ClipStream c_ = new ClipStream();
-            c_.setClip(clip_);
-            c_.setStream(audioIn_);
-            return c_;
+            return new ClipStream(clip_,audioIn_);
         } catch (Exception e) {
             StreamCoreUtil.close(bis_);
             return null;

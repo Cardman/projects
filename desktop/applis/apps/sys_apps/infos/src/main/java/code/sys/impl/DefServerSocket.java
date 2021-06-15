@@ -3,29 +3,21 @@ package code.sys.impl;
 import code.gui.initialize.AbstractServerSocket;
 import code.gui.initialize.AbstractSocket;
 
-import java.io.Closeable;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 
 public class DefServerSocket implements AbstractServerSocket {
     private ServerSocket serverSocket;
+    private boolean ok;
 
-    public DefServerSocket() {
+    public DefServerSocket(String _ip, int _port) {
         try {
             serverSocket = new ServerSocket();
-        } catch (Exception e) {
-            serverSocket = null;
-        }
-    }
-
-    @Override
-    public AbstractServerSocket bind(String _ip, int _port) {
-        try {
             serverSocket.bind(new InetSocketAddress(_ip, _port));
             serverSocket.close();
-            return this;
+            ok = true;
         } catch (Exception e) {
-            return this;
+            serverSocket = null;
         }
     }
 
@@ -39,8 +31,13 @@ public class DefServerSocket implements AbstractServerSocket {
     }
 
     @Override
-    public Closeable getClos() {
-        return serverSocket;
+    public boolean isOk() {
+        return ok;
+    }
+
+    @Override
+    public boolean close() {
+        return StreamCoreUtil.close(serverSocket);
     }
 
     @Override

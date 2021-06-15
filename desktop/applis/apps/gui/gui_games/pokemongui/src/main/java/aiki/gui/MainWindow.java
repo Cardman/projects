@@ -1254,7 +1254,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     @Override
-    public void quitNetwork(Exiting _exit, Closeable _socket) {
+    public void quitNetwork(Exiting _exit, AbstractSocket _socket) {
         exitFromTrading();
         resetIndexInGame();
         closeConnexion(_socket);

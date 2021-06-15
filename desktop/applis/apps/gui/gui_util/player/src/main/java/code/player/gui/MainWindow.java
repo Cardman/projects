@@ -1,7 +1,6 @@
 package code.player.gui;
 import java.awt.Dimension;
 
-import javax.sound.sampled.LineEvent;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
@@ -13,15 +12,13 @@ import code.images.BaseSixtyFourUtil;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.player.main.LaunchingPlayer;
-import code.stream.ClipStream;
+import code.stream.*;
 import code.scripts.messages.gui.MessPlayerGr;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.sml.util.ResourcesMessagesUtil;
-import code.stream.StreamBinaryFile;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -31,7 +28,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class MainWindow extends GroupFrame {
+public class MainWindow extends GroupFrame implements LineShortListenable {
     private static final String ACCESS = "player.gui.mainwindow";
 
     private static final String CST_START = "start";
@@ -82,7 +79,7 @@ public class MainWindow extends GroupFrame {
 
     private Timer timer;
     private final TextLabel songsLabel = new TextLabel("");
-    private ClipStream clipStream;
+    private AbsClipStream clipStream;
     private int noSong = -1;
     private final TextArea songs = new TextArea(10, 40);
     private final SongRenderer songRend = new SongRenderer();
@@ -202,7 +199,7 @@ public class MainWindow extends GroupFrame {
             }
             if (songsList.get(noSong).endsWith(WAV) || songsList.get(noSong).endsWith(TXT)) {
                 //.wav or .txt
-                ClipStream c_;
+                AbsClipStream c_;
                 if (songsList.get(noSong).endsWith(WAV)) {
                     c_ = getFrames().openClip(StreamBinaryFile.loadFile(songsList.get(noSong),getFileCoreStream(),getStreams()));
                 } else {
@@ -284,7 +281,7 @@ public class MainWindow extends GroupFrame {
                     mainDoc_.appendChild(elt_);
                 }
                 contentList = mainDoc_.export();
-                ClipStream c_;
+                AbsClipStream c_;
                 if (songsList.get(noSong).endsWith(WAV)) {
                     c_ = getFrames().openClip(StreamBinaryFile.loadFile(songsList.get(noSong),getFileCoreStream(),getStreams()));
                 } else {
@@ -317,31 +314,31 @@ public class MainWindow extends GroupFrame {
             songRend.setSize();
             scroll.revalidate();
             pack();
-            clipStream.getClip().start();
-            clipStream.getClip().addLineListener(new SpeakingEvent(this));
+            clipStream.start();
+            clipStream.addLineListener(this);
             play.setTextAndSize(CST_PAUSE);
             currentNoSong.setText((noSong+1)+"/"+songsList.size());
             currentSong.setText(songsList.get(noSong));
             String strBegin_ = getStringTime(0);
-            elapsedTime.setText(strBegin_+REL_SEP+getStringTime(clipStream.getClip().getMicrosecondLength()));
+            elapsedTime.setText(strBegin_+REL_SEP+getStringTime(clipStream.getMicrosecondLength()));
             if (timer == null) {
                 timer = new Timer(SECOND_MILLIS, new UpdateTimeEvent(this));
                 timer.start();
             }
         } else {
-            if (clipStream.getClip().isRunning()) {
+            if (clipStream.isRunning()) {
                 saveState();
-                lastFrame = clipStream.getClip().getFramePosition();
+                lastFrame = clipStream.getFramePosition();
                 pausing = true;
-                clipStream.getClip().stop();
+                clipStream.stop();
             } else {
-                if (lastFrame < clipStream.getClip().getFrameLength()) {
-                    clipStream.getClip().setFramePosition(lastFrame);
+                if (lastFrame < clipStream.getFrameLength()) {
+                    clipStream.setFramePosition(lastFrame);
                 } else {
-                    clipStream.getClip().setFramePosition(0);
+                    clipStream.setFramePosition(0);
                 }
                 pausing = false;
-                clipStream.getClip().start();
+                clipStream.start();
             }
 
         }
@@ -389,7 +386,7 @@ public class MainWindow extends GroupFrame {
         return list_;
     }
 
-    public ClipStream openClip(String _imageString) {
+    public AbsClipStream openClip(String _imageString) {
         if (_imageString == null) {
             return null;
         }
@@ -458,7 +455,7 @@ public class MainWindow extends GroupFrame {
     public void nextSong() {
         if (clipStream != null && !next) {
             lastFrame = 0;
-            clipStream.getClip().close();
+            clipStream.closeClip();
             tryClose();
             clipStream = null;
         }
@@ -469,7 +466,7 @@ public class MainWindow extends GroupFrame {
             lastFrame = 0;
             noSong--;
             noSong--;
-            clipStream.getClip().close();
+            clipStream.closeClip();
             tryClose();
             clipStream = null;
         }
@@ -481,7 +478,7 @@ public class MainWindow extends GroupFrame {
             playSong = false;
             songsList.clear();
             noSong = songsList.size();
-            clipStream.getClip().close();
+            clipStream.closeClip();
             tryClose();
             clipStream = null;
         }
@@ -491,11 +488,12 @@ public class MainWindow extends GroupFrame {
         if (clipStream == null) {
             return;
         }
-        getFrames().close(clipStream.getStream());
+        clipStream.closeStream();
     }
 
-    public void updateClip(LineEvent _event) {
-        String ev_ = toLowerCase(_event.getType().toString());
+    @Override
+    public void update(String _type, long _position) {
+        String ev_ = toLowerCase(_type);
         if (StringUtil.quickEq(ev_, CST_START)) {
             //LineEvent.Type.START
             play.setTextAndSize(CST_PAUSE);
@@ -506,7 +504,7 @@ public class MainWindow extends GroupFrame {
             if (!pausing) {
                 next = true;
                 playSong = true;
-                clipStream.getClip().close();
+                clipStream.closeClip();
                 tryClose();
                 next = false;
             }
@@ -540,8 +538,8 @@ public class MainWindow extends GroupFrame {
         if (clipStream == null) {
             return;
         }
-        String l_ = getStringTime(clipStream.getClip().getMicrosecondLength());
-        String c_ = getStringTime(clipStream.getClip().getMicrosecondPosition());
+        String l_ = getStringTime(clipStream.getMicrosecondLength());
+        String c_ = getStringTime(clipStream.getMicrosecondPosition());
         elapsedTime.setText(c_+REL_SEP+l_);
     }
 

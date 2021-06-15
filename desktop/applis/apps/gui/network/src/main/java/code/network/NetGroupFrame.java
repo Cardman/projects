@@ -34,21 +34,16 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     */
     public void createServer(String _ipHost, IpType _ipType, int _port) {
         String ip_ = NetCreate.getHostAddress(getSocketFactory(),_ipType, _ipHost);
-        AbstractServerSocket serverSocket_ = NetCreate.createServerSocket(getSocketFactory(),ip_, _port);
-        tryCreateServer(_port, ip_, serverSocket_);
-    }
-
-    private void tryCreateServer(int _port, String _ip, AbstractServerSocket _serverSocket) {
-        if (_serverSocket == null) {
-            return;
+        AbstractServerSocket serverSocket_ = getSocketFactory().newServerSocket(ip_, _port);
+        if (serverSocket_.isOk()) {
+            ipHost = ip_;
+            connection = new ConnectionToServer(serverSocket_, this, ip_, _port);
+            getThreadFactory().newStartedThread(connection);
         }
-        ipHost = _ip;
-        connection=new ConnectionToServer(_serverSocket,this, _ip, _port);
-        getThreadFactory().newStartedThread(connection);
     }
 
     /**server and client*/
-    public void closeConnexion(Closeable _socket) {
+    public void closeConnexion(AbstractSocket _socket) {
         if (connection == null) {
             return;
         }

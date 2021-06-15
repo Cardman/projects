@@ -1,8 +1,6 @@
 package code.network;
 import code.gui.initialize.AbstractSocket;
 
-import java.io.Closeable;
-
 /**
 Processus fils du programme qui gere la connection tcp/ip.
 This class thread is independant from EDT,
@@ -24,9 +22,6 @@ public abstract class SendReceive implements Runnable {
         return net;
     }
 
-    protected Closeable getClosSocket() {
-        return getSocket().getClos();
-    }
     protected AbstractSocket getSocket() {
         return socket;
     }
