@@ -30,7 +30,7 @@ public class DefSocket implements AbstractSocket {
     @Override
     public String println(String _string) {
         try {
-            new PrintWriter(socket.getOutputStream(), true).println(_string);
+            new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),StreamCoreUtil.utf()), true).println(_string);
             return _string+"\n";
         } catch (Exception e) {
             return "";
