@@ -172,6 +172,18 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         }
         return true;
     }
+    static boolean eqIndexes(CustList<IntStruct> _one, CustList<IntStruct> _two) {
+        int len_ = _one.size();
+        if (len_ != _two.size()) {
+            return false;
+        }
+        for (int i = 0; i < len_; i++) {
+            if (_one.get(i).intStruct() != _two.get(i).intStruct()) {
+                return false;
+            }
+        }
+        return true;
+    }
     ArrayStruct getPath(LgNames _stds) {
         CustList<TreeNodeStruct> pars_ = getPath();
         int len_ = pars_.size();
@@ -186,6 +198,22 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         Struct par_ = getParentNode();
         while (par_ instanceof TreeNodeStruct) {
             pars_.add(0, (TreeNodeStruct) par_);
+            par_ = ((TreeNodeStruct)par_).getParentNode();
+        }
+        return pars_;
+    }
+    IntStruct getIndex() {
+        AbstractMutableTreeNode par_ = treeNode.getParent();
+        if (par_ == null) {
+            return new IntStruct(-1);
+        }
+        return new IntStruct(par_.getAntiIndex(treeNode));
+    }
+    CustList<IntStruct> getIndexes() {
+        CustList<IntStruct> pars_ = new CustList<IntStruct>();
+        Struct par_ = getParentNode();
+        while (par_ instanceof TreeNodeStruct) {
+            pars_.add(0, ((TreeNodeStruct) par_).getIndex());
             par_ = ((TreeNodeStruct)par_).getParentNode();
         }
         return pars_;
@@ -212,7 +240,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         if (!(_other instanceof TreeNodeStruct)) {
             return false;
         }
-        return eqPath(getPath(),((TreeNodeStruct)_other).getPath());
+        return eqIndexes(getIndexes(),((TreeNodeStruct)_other).getIndexes());
     }
 
     @Override

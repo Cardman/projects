@@ -20,6 +20,11 @@ public class DefMutableTreeNode implements AbstractMutableTreeNode {
     }
 
     @Override
+    public int getAntiIndex(AbstractMutableTreeNode _treeNode) {
+        return node.getIndex(((DefMutableTreeNode) _treeNode).node());
+    }
+
+    @Override
     public void add(AbstractMutableTreeNode _treeNode) {
         node.add(((DefMutableTreeNode) _treeNode).node());
     }

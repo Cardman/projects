@@ -3,6 +3,7 @@ package code.gui;
 import javax.swing.tree.TreeNode;
 
 public interface AbstractMutableTreeNode {
+    int getAntiIndex(AbstractMutableTreeNode _treeNode);
     void add(AbstractMutableTreeNode _treeNode);
 
     int getChildCount();
