@@ -1,8 +1,7 @@
 package code.gui;
 
-import javax.swing.tree.TreeNode;
-
 public interface AbstractMutableTreeNode {
+    int getIndex();
     int getAntiIndex(AbstractMutableTreeNode _treeNode);
     boolean add(AbstractMutableTreeNode _treeNode);
 
@@ -25,8 +24,6 @@ public interface AbstractMutableTreeNode {
     AbstractMutableTreeNode getNextSibling();
 
     AbstractMutableTreeNode removeFromParent();
-
-    TreeNode[] getPath();
 
     AbstractMutableTreeNode add(String _info);
 

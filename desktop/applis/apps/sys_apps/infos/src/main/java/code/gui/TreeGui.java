@@ -33,20 +33,20 @@ public final class TreeGui implements AbsTreeGui {
 
     public boolean selectEvt() {
         TreePath selectionPath_ = getSelectionPath();
-        selected = new DefMutableTreeNode(selectedEvt(selectionPath_));
+        selected = selectedEvt(selectionPath_);
         return select;
     }
-    public static MutableTreeNode selected(TreePath _path) {
+    public static DefMutableTreeNode selected(TreePath _path) {
         try {
-            return (MutableTreeNode)_path.getLastPathComponent();
+            return new DefMutableTreeNode((MutableTreeNode)_path.getLastPathComponent());
         } catch (Exception e) {
-            return null;
+            return new DefMutableTreeNode("");
         }
     }
-    public MutableTreeNode selectedEvt(TreePath _path) {
+    public DefMutableTreeNode selectedEvt(TreePath _path) {
         try {
             select = true;
-            return (MutableTreeNode)_path.getLastPathComponent();
+            return new DefMutableTreeNode((MutableTreeNode)_path.getLastPathComponent());
         } catch (Exception e) {
             select = false;
             return null;

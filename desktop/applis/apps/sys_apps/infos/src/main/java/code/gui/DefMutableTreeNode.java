@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.util.core.StringUtil;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
@@ -8,15 +10,25 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     private final DefaultMutableTreeNode node;
 
     public DefMutableTreeNode(String _name) {
-        node = new DefaultMutableTreeNode(_name);
+        node = new DefaultMutableTreeNode(StringUtil.nullToEmpty(_name));
     }
 
     public DefMutableTreeNode(MutableTreeNode _name) {
         node = (DefaultMutableTreeNode) _name;
+        userObject();
     }
 
     public MutableTreeNode node() {
         return node;
+    }
+
+    @Override
+    public int getIndex() {
+        try {
+            return node.getParent().getIndex(node);
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     @Override
@@ -31,7 +43,7 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     @Override
     public AbstractMutableTreeNode add(String _info) {
         try {
-            DefaultMutableTreeNode mut_ = new DefaultMutableTreeNode(_info);
+            DefaultMutableTreeNode mut_ = new DefaultMutableTreeNode(StringUtil.nullToEmpty(_info));
             node.add(mut_);
             return new DefMutableTreeNode(mut_);
         } catch (Exception e) {
@@ -149,20 +161,15 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     }
 
     @Override
-    public TreeNode[] getPath() {
-        try {
-            return node.getPath();
-        } catch (Exception e) {
-            return new TreeNode[0];
-        }
-    }
-
-    @Override
     public String getUserObject() {
         try {
-            return String.valueOf(node.getUserObject());
+            return userObject();
         } catch (Exception e) {
             return "";
         }
+    }
+
+    private String userObject() {
+        return String.valueOf(node.getUserObject());
     }
 }

@@ -12,6 +12,6 @@ public final class DefTreeSelectionListener implements TreeSelectionListener {
 
     @Override
     public void valueChanged(TreeSelectionEvent _e) {
-        shortListTree.valueChanged(new DefMutableTreeNode(TreeGui.selected(_e.getPath())));
+        shortListTree.valueChanged(TreeGui.selected(_e.getPath()));
     }
 }

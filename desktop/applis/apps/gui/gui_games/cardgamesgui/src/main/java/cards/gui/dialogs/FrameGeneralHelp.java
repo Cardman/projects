@@ -3,7 +3,6 @@ import java.awt.Dimension;
 
 import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 import cards.gui.MainWindow;
 import cards.gui.dialogs.events.ListenerClickTree;

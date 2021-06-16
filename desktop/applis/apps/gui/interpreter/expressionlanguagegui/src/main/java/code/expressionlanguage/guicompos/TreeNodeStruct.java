@@ -103,44 +103,38 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
 
     Struct getParentNode() {
         AbstractMutableTreeNode par_ = treeNode.getParent();
-        if (par_ == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return new TreeNodeStruct(par_);
+        return nodeOrNull(par_);
     }
 
     Struct getPreviousSibling() {
         AbstractMutableTreeNode prev_ = treeNode.getPreviousSibling();
-        if (prev_ == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return new TreeNodeStruct(prev_);
+        return nodeOrNull(prev_);
     }
 
     Struct getNextSibling() {
         AbstractMutableTreeNode next_ = treeNode.getNextSibling();
-        if (next_ == null) {
+        return nodeOrNull(next_);
+    }
+
+    static Struct nodeOrNull(AbstractMutableTreeNode _value) {
+        if (_value == null) {
             return NullStruct.NULL_VALUE;
         }
-        return new TreeNodeStruct(next_);
+        return new TreeNodeStruct(_value);
     }
 
     IntStruct getChildCount() {
         return new IntStruct(treeNode.getChildCount());
     }
     Struct getFirstChild() {
-        if (treeNode.getChildCount() == 0) {
-            return NullStruct.NULL_VALUE;
-        }
-        return new TreeNodeStruct(treeNode.getChildAt(0));
+        AbstractMutableTreeNode ch_ = treeNode.getChildAt(0);
+        return nodeOrNull(ch_);
     }
 
     Struct getLastChild() {
         int count_ = treeNode.getChildCount();
-        if (count_ == 0) {
-            return NullStruct.NULL_VALUE;
-        }
-        return new TreeNodeStruct(treeNode.getChildAt(count_-1));
+        AbstractMutableTreeNode ch_ = treeNode.getChildAt(count_ - 1);
+        return nodeOrNull(ch_);
 
     }
 

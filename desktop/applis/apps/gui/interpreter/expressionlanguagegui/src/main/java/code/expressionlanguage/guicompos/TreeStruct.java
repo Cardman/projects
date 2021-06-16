@@ -23,10 +23,8 @@ public final class TreeStruct extends CustComponentStruct {
     }
 
     public Struct getLastSelectedPathComponent() {
-        if (tree.selectEvt()) {
-            return new TreeNodeStruct(tree.getSelected());
-        }
-        return NullStruct.NULL_VALUE;
+        tree.selectEvt();
+        return TreeNodeStruct.nodeOrNull(tree.getSelected());
     }
     public void select(Struct _node) {
         if (_node instanceof TreeNodeStruct) {

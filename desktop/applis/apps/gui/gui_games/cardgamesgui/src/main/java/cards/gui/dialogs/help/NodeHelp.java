@@ -28,12 +28,9 @@ public class NodeHelp implements Displayable {
     }
 
     public NodeHelp element(CustList<Integer> _indices) {
-        if (_indices.isEmpty()) {
-            return this;
-        }
-        NodeHelp element_ = elementLoc(_indices.first());
+        NodeHelp element_ = this;
         int pathLength_ = _indices.size();
-        for (int indice_ = IndexConstants.SECOND_INDEX; indice_ < pathLength_; indice_++) {
+        for (int indice_ = 0; indice_ < pathLength_; indice_++) {
             element_ = element_.elementLoc(_indices.get(indice_));
         }
         return element_;
