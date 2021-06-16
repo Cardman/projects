@@ -5,7 +5,6 @@ import code.gui.AbstractMutableTreeNode;
 import code.gui.DefMutableTreeNode;
 import code.gui.TreeGui;
 import code.gui.initialize.AbsCompoFactory;
-import code.gui.initialize.LoadLanguageUtil;
 
 import javax.swing.tree.TreePath;
 
@@ -22,6 +21,6 @@ public final class DefCompoFactory implements AbsCompoFactory {
 
     @Override
     public AbstractMutableTreeNode newMutableTreeNode(TreePath _cp) {
-        return new DefMutableTreeNode(LoadLanguageUtil.selected(_cp));
+        return new DefMutableTreeNode(TreeGui.selected(_cp));
     }
 }

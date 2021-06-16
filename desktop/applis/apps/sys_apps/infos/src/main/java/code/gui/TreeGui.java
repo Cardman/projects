@@ -1,7 +1,5 @@
 package code.gui;
 
-import code.gui.initialize.LoadLanguageUtil;
-
 import javax.swing.*;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.*;
@@ -35,10 +33,16 @@ public final class TreeGui implements AbsTreeGui {
 
     public TreePath selectEvt() {
         TreePath selectionPath_ = getSelectionPath();
-        selected = new DefMutableTreeNode(LoadLanguageUtil.selected(selectionPath_));
+        selected = new DefMutableTreeNode(selected(selectionPath_));
         return selectionPath_;
     }
-
+    public static MutableTreeNode selected(TreePath _path) {
+        try {
+            return (MutableTreeNode)_path.getLastPathComponent();
+        } catch (Exception e) {
+            return null;
+        }
+    }
     public AbstractMutableTreeNode getSelected() {
         return selected;
     }
