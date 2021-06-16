@@ -8,27 +8,23 @@ import code.threads.Locking;
 /**Thread safe class*/
 public abstract class BasicServer extends SendReceive implements Locking {
 
-
-    private final AbstractBufferedReader input;
-
-    public BasicServer(AbstractSocket _socket, NetGroupFrame _net) {
+    protected BasicServer(AbstractSocket _socket, NetGroupFrame _net) {
         super(_socket,_net);
-        input = _socket.getInput();
     }
 
     @Override
     public void run() {
 
+        AbstractBufferedReader inputSock_ = getSocket().getInput();
         while (true) {
-            String input_ = input.readLine();
+            String input_ = inputSock_.readLine();
             if (input_ == null) {
                 break;
             }
             Object readObject_ = getNet().getObject(input_);
-            if (readObject_ == null) {
-                continue;
+            if (readObject_ != null) {
+                loopServer(input_, readObject_);
             }
-            loopServer(input_, readObject_);
         }
         getSocket().close();
     }

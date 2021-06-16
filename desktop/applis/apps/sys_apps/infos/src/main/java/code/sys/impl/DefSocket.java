@@ -18,10 +18,6 @@ public class DefSocket implements AbstractSocket {
     }
 
 
-    public Socket getSocket() {
-        return socket;
-    }
-
     @Override
     public AbstractBufferedReader getInput() {
         try {

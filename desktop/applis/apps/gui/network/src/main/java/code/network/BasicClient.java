@@ -8,23 +8,18 @@ import code.gui.initialize.AbstractSocket;
 /**Thread safe class*/
 public final class BasicClient extends SendReceive {
 
-    private final AbstractBufferedReader input;
-
     public BasicClient(AbstractSocket _socket, NetGroupFrame _window) {
         super(_socket,_window);
-        input = _socket.getInput();
     }
 
     @Override
     public void run() {
-        Exiting ex_ = null;
-        boolean noLine_ = false;
+        AbstractBufferedReader inputSock_ = getSocket().getInput();
         while (true) {
             //tourne toujours
-            String input_ = input.readLine();
+            String input_ = inputSock_.readLine();
             if (input_ == null) {
-                noLine_ = true;
-                break;
+                return;
             }
             //on peut traiter les "timeout"
             Object readObject_ = getNet().getObject(input_);
@@ -32,13 +27,11 @@ public final class BasicClient extends SendReceive {
                 continue;
             }
             if (readObject_ instanceof Exiting) {
-                ex_ = (Exiting) readObject_;
-                break;
+                Exiting ex_ = (Exiting) readObject_;
+                CustComponent.invokeLater(new Quitting(ex_, getNet(), getSocket()));
+                return;
             }
             ThreadInvoker.invokeNow(getNet().getThreadFactory(),new LoopClient(getNet(), readObject_, getSocket()));
-        }
-        if (!noLine_) {
-            CustComponent.invokeLater(new Quitting(ex_, getNet(), getSocket()));
         }
     }
 }
