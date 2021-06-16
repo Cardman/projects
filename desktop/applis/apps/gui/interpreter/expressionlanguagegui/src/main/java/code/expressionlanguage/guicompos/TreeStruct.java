@@ -6,6 +6,7 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.AbsShortListTree;
 import code.gui.AbsTreeGui;
 import code.gui.CustComponent;
+import code.gui.MutableTreeNodeUtil;
 
 public final class TreeStruct extends CustComponentStruct {
     private final AbsTreeGui tree;
@@ -23,8 +24,7 @@ public final class TreeStruct extends CustComponentStruct {
     }
 
     public Struct getLastSelectedPathComponent() {
-        tree.selectEvt();
-        return TreeNodeStruct.nodeOrNull(tree.getSelected());
+        return TreeNodeStruct.nodeOrNull(tree.selectEvt());
     }
     public void select(Struct _node) {
         if (_node instanceof TreeNodeStruct) {
@@ -39,11 +39,7 @@ public final class TreeStruct extends CustComponentStruct {
     }
 
     public void reload() {
-        if (tree.selectEvt()) {
-            tree.reload(tree.getSelected());
-        } else {
-            tree.reloadRoot();
-        }
+        MutableTreeNodeUtil.reload(tree);
     }
 
     @Override

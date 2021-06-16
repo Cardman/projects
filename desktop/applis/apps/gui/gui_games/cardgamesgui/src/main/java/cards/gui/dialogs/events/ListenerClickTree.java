@@ -26,10 +26,11 @@ public class ListenerClickTree implements AbsShortListTree {
 
     @Override
     public void valueChanged(AbstractMutableTreeNode _e) {
-        if (!tree.selectEvt()) {
+        AbstractMutableTreeNode sel_ = tree.selectEvt();
+        if (sel_ == null) {
             return;
         }
-        Ints indices_ = MutableTreeNodeUtil.getIndexes(tree.getSelected());
+        Ints indices_ = MutableTreeNodeUtil.getIndexes(sel_);
         ElementHelp element_ = node.element(indices_).getElementLocal();
         editor.initialize(element_.getNavigation(),element_.getMetaDocument());
     }

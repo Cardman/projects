@@ -198,19 +198,16 @@ public abstract class FileDialog extends Dialog {
                 files_.add(l);
             }
         }
-        if (folderSystem.selectEvt()) {
-            folderSystem.reload(folderSystem.getSelected());
-        } else {
-            folderSystem.reloadRoot();
-        }
+        MutableTreeNodeUtil.reload(folderSystem);
         refreshList(files_);
     }
 
     public void applyTreeChangeSelected() {
-        if (!folderSystem.selectEvt()) {
+        AbstractMutableTreeNode sel_ = folderSystem.selectEvt();
+        if (sel_ == null) {
             return;
         }
-        StringBuilder str_ = buildPath(folderSystem.getSelected());
+        StringBuilder str_ = buildPath(sel_);
         currentFolder = str_.toString();
         currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
@@ -225,11 +222,7 @@ public abstract class FileDialog extends Dialog {
         CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
         currentFiles_.sortElts(new FileNameComparator());
         refreshList(files_, currentFiles_);
-        if (folderSystem.selectEvt()) {
-            folderSystem.reload(folderSystem.getSelected());
-        } else {
-            folderSystem.reloadRoot();
-        }
+        MutableTreeNodeUtil.reload(folderSystem);
     }
 
     private void refreshList(CustList<AbstractFile> _files, CustList<AbstractFile> _currentFiles) {

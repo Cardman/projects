@@ -106,7 +106,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     public void searchFile() {
         AbstractFile currentFolder_ = getSuperFrame().getFileCoreStream().newFile(getCurrentFolder());
         if (!currentFolder_.exists()) {
-            if (!getFolderSystem().selectEvt()) {
+            if (getFolderSystem().selectEvt() == null) {
                 return;
             }
             getFolderSystem().removeFromParent();

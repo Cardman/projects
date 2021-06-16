@@ -8,7 +8,6 @@ public final class TreeGui implements AbsTreeGui {
     private final DefaultTreeModel model;
     private final DefaultTreeSelectionModel selectionModel;
     private AbstractMutableTreeNode selected;
-    private boolean select;
 
     public TreeGui(AbstractMutableTreeNode _t) {
         selected = _t;
@@ -31,10 +30,10 @@ public final class TreeGui implements AbsTreeGui {
         tree.setRootVisible(_rootVisible);
     }
 
-    public boolean selectEvt() {
+    public AbstractMutableTreeNode selectEvt() {
         TreePath selectionPath_ = getSelectionPath();
         selected = selectedEvt(selectionPath_);
-        return select;
+        return selected;
     }
     public static DefMutableTreeNode selected(TreePath _path) {
         try {
@@ -43,12 +42,10 @@ public final class TreeGui implements AbsTreeGui {
             return new DefMutableTreeNode("");
         }
     }
-    public DefMutableTreeNode selectedEvt(TreePath _path) {
+    public static DefMutableTreeNode selectedEvt(TreePath _path) {
         try {
-            select = true;
             return new DefMutableTreeNode((MutableTreeNode)_path.getLastPathComponent());
         } catch (Exception e) {
-            select = false;
             return null;
         }
     }

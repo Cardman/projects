@@ -5,7 +5,7 @@ public interface AbsTreeGui {
     void reload(AbstractMutableTreeNode _node);
     void reloadRoot();
     AbstractMutableTreeNode getSelected();
-    boolean selectEvt();
+    AbstractMutableTreeNode selectEvt();
 
     boolean isRootVisible();
 

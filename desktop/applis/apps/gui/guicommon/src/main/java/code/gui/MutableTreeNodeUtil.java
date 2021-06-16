@@ -5,6 +5,14 @@ import code.util.Ints;
 public final class MutableTreeNodeUtil {
     private MutableTreeNodeUtil() {
     }
+    public static void reload(AbsTreeGui _abs) {
+        AbstractMutableTreeNode sel_ = _abs.selectEvt();
+        if (sel_ != null) {
+            _abs.reload(sel_);
+        } else {
+            _abs.reloadRoot();
+        }
+    }
     public static Ints getIndexes(AbstractMutableTreeNode _current) {
         AbstractMutableTreeNode parent_ = _current;
         Ints pars_ = new Ints();
