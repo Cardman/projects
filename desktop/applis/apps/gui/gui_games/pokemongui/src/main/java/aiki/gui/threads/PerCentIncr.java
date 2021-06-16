@@ -1,11 +1,13 @@
 package aiki.gui.threads;
 
 import aiki.db.PerCent;
-
-import java.util.concurrent.atomic.AtomicInteger;
+import code.threads.AbstractAtomicInteger;
 
 public final class PerCentIncr implements PerCent {
-    private AtomicInteger val = new AtomicInteger();
+    private AbstractAtomicInteger val;
+    public PerCentIncr(AbstractAtomicInteger _prog) {
+        val = _prog;
+    }
     @Override
     public int getPercent() {
         return val.get();

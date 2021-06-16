@@ -1,5 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
+import code.threads.AbstractAtomicBoolean;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -17,7 +18,7 @@ public final class ExecutingOptions {
     private String outputFolder = "";
     private String output = "";
     private int tabWidth = 4;
-    private final AtomicBoolean interrupt = new AtomicBoolean();
+    private final AbstractAtomicBoolean interrupt;
     private boolean covering;
     private String coverFolder = "coverage";
     private String errorsFolder = "errors";
@@ -29,6 +30,9 @@ public final class ExecutingOptions {
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
 
+    public ExecutingOptions(AbstractAtomicBoolean _inter) {
+        interrupt = _inter;
+    }
     public String getBaseFiles() {
         return baseFiles;
     }
@@ -85,7 +89,7 @@ public final class ExecutingOptions {
         this.outputZip = _outputZip;
     }
 
-    public AtomicBoolean getInterrupt() {
+    public AbstractAtomicBoolean getInterrupt() {
         return interrupt;
     }
 

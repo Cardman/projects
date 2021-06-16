@@ -3,12 +3,13 @@ package applications.gui;
 import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.minirts.LaunchingDemo;
+import code.threads.AbstractAtomicInteger;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class DemoEvent extends AbstractEvent {
 
-    DemoEvent(MainWindow _window, AtomicInteger _at) {
+    DemoEvent(MainWindow _window, AbstractAtomicInteger _at) {
         super(_window,_at);
     }
 

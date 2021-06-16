@@ -138,7 +138,7 @@ public final class MainWindow extends GroupFrame {
         StringMap<String> zipFiles_ = result_.getZipFiles();
         String clName_ = "";
         String mName_ = "";
-        ExecutingOptions exec_ = new ExecutingOptions();
+        ExecutingOptions exec_ = new ExecutingOptions(getThreadFactory().newAtomicBoolean());
         String lg_ = getLanguageKey();
         StringList lgs_ = Constants.getAvailableLanguages();
         if (linesFiles_.size() > 2) {

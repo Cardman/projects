@@ -5,6 +5,7 @@ import code.maths.geo.CustPoint;
 import code.minirts.rts.Facade;
 import code.minirts.rts.Soldier;
 import code.minirts.rts.UnitMapKey;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.ThreadUtil;
 
 import java.awt.*;
@@ -19,9 +20,9 @@ public final class AnimationUnitSoldier implements Runnable {
 
     private MainWindow window;
 
-    private AtomicBoolean paused;
+    private AbstractAtomicBoolean paused;
 
-    private AtomicBoolean stop;
+    private AbstractAtomicBoolean stop;
 
     public AnimationUnitSoldier(PanelBattle _conteneur,MainWindow _window) {
         window = _window;

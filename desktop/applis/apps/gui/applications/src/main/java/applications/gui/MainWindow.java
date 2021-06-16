@@ -16,6 +16,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.minirts.LaunchingDemo;
 import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
+import code.threads.AbstractAtomicInteger;
 import code.util.CustList;
 import code.util.consts.Constants;
 import code.util.core.IndexConstants;
@@ -50,56 +51,56 @@ public final class MainWindow extends GroupFrame {
         Panel panel_ = Panel.newPageBox();
         Panel linePokemon_ = Panel.newLineBox();
         buttonPokemon = new LabelButton(LaunchingPokemon.getIcon());
-        AtomicInteger at_ = new AtomicInteger(0);
+        AbstractAtomicInteger at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPokemon.getMainWindowClass(), at_);
         buttonPokemon.addMouseListener(new PokemonEvent(this,at_, _aikiFactory));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         Panel lineCards_ = Panel.newLineBox();
         buttonCards = new LabelButton(LaunchingCards.getIcon());
-        at_ = new AtomicInteger(0);
+        at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingCards.getMainWindowClass(),at_);
         buttonCards.addMouseListener(new CardsEvent(this,at_,_cardFactories));
         lineCards_.add(buttonCards);
         panel_.add(lineCards_);
         Panel lineTests_ = Panel.newLineBox();
         buttonTests = new LabelButton("3");
-        at_ = new AtomicInteger(0);
+        at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingAppUnitTests.getMainWindowClass(),at_);
         buttonTests.addMouseListener(new AppUnitEvent(this,at_));
         lineTests_.add(buttonTests);
         panel_.add(lineTests_);
         Panel lineRenders_ = Panel.newLineBox();
         buttonRenders = new LabelButton("4");
-        at_ = new AtomicInteger(0);
+        at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingRenders.getMainWindowClass(),at_);
         buttonRenders.addMouseListener(new RenderEvent(this,at_));
         lineRenders_.add(buttonRenders);
         panel_.add(lineRenders_);
         Panel lineDemo_ = Panel.newLineBox();
         buttonDemo = new LabelButton("5");
-        at_ = new AtomicInteger(0);
+        at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingDemo.getMainWindowClass(),at_);
         buttonDemo.addMouseListener(new DemoEvent(this,at_));
         lineDemo_.add(buttonDemo);
         panel_.add(lineDemo_);
         Panel linePlayer_ = Panel.newLineBox();
         buttonPlayer = new LabelButton(LaunchingPlayer.getIcon());
-        at_ = new AtomicInteger(0);
+        at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPlayer.getMainWindowClass(),at_);
         buttonPlayer.addMouseListener(new PlayerEvent(this,at_));
         linePlayer_.add(buttonPlayer);
         panel_.add(linePlayer_);
         Panel lineConverter_ = Panel.newLineBox();
         buttonConverter = new LabelButton("7");
-        at_ = new AtomicInteger(0);
+        at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingConverter.getMainWindowClass(),at_);
         buttonConverter.addMouseListener(new ConverterEvent(this,at_));
         lineConverter_.add(buttonConverter);
         panel_.add(lineConverter_);
         Panel lineApp_ = Panel.newLineBox();
         buttonApps = new LabelButton("8");
-        at_ = new AtomicInteger(0);
+        at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingFull.getMainWindowClass(),at_);
         buttonApps.addMouseListener(new AppsEvent(this,at_, _guiFact));
         lineApp_.add(buttonApps);
@@ -123,7 +124,7 @@ public final class MainWindow extends GroupFrame {
     @Override
     public void quit() {
         int nb_ = IndexConstants.SIZE_EMPTY;
-        for (AtomicInteger a: getFrames().getCounts().values()) {
+        for (AbstractAtomicInteger a: getFrames().getCounts().values()) {
             if (a.get() > 0) {
                 nb_++;
             }

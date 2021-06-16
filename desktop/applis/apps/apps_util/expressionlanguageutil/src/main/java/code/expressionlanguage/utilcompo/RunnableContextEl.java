@@ -26,7 +26,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
         threadFactory = standards_.getInfos().getThreadFactory();
         zipFact = standards_.getInfos().getTechStreams();
         textFact = standards_.getInfos().getTextFact();
-        thread = new ThreadStruct(threadFactory.newThread());
+        thread = new ThreadStruct(threadFactory.newThread(), threadFactory.newAtomicBoolean());
         currentDir = standards_.getExecutingOptions().getBaseFiles();
     }
 

@@ -1,11 +1,13 @@
 package aiki.gui.threads;
 
 import aiki.db.LoadFlag;
-
-import java.util.concurrent.atomic.AtomicBoolean;
+import code.threads.AbstractAtomicBoolean;
 
 public final class LoadFlagImpl implements LoadFlag {
-    private AtomicBoolean val = new AtomicBoolean();
+    private AbstractAtomicBoolean val;
+    public LoadFlagImpl(AbstractAtomicBoolean _val) {
+        val = _val;
+    }
     @Override
     public void set(boolean _b) {
         val.set(_b);

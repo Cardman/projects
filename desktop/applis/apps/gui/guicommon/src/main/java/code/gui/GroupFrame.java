@@ -41,7 +41,7 @@ public abstract class GroupFrame extends CommonFrame {
         frames = _list;
         frames.getFrames().add(this);
         if (frames.getFrames().size() == 1) {
-            fileOpenDialog = new FileOpenDialog();
+            fileOpenDialog = new FileOpenDialog(_list.getThreadFactory().newAtomicBoolean(),_list.getThreadFactory().newAtomicBoolean());
             fileSaveDialog = new FileSaveDialog();
             folderOpenDialog = new FolderOpenDialog();
             confirmDialog = new ConfirmDialog();

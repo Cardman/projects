@@ -10,6 +10,7 @@ import code.maths.random.AdvancedGenerator;
 import code.stream.AbsClipStream;
 import code.stream.AbstractFileCoreStream;
 import code.stream.core.*;
+import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringList;
@@ -41,7 +42,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
 //    private static final String RELATIVE_VIRTUAL_STORE = "AppData/Local/VirtualStore/";
 
     private final CustList<GroupFrame> frames = new CustList<GroupFrame>();
-    private final StringMap<AtomicInteger> counts = new StringMap<AtomicInteger>();
+    private final StringMap<AbstractAtomicInteger> counts = new StringMap<AbstractAtomicInteger>();
     private final AbstractGenerator generator;
     private final String tmpUserFolder;
     private final String homePath;
@@ -169,7 +170,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
         return frames;
     }
 
-    public StringMap<AtomicInteger> getCounts() {
+    public StringMap<AbstractAtomicInteger> getCounts() {
         return counts;
     }
 
@@ -203,11 +204,6 @@ public final class ProgramInfos implements AbstractProgramInfos {
     @Override
     public AbstractGraphicComboBoxGenerator getGeneComboBox() {
         return graphicComboBoxGenerator;
-    }
-
-    @Override
-    public boolean close(AbstractSocket _cl) {
-        return StreamCoreUtil.close(_cl.getClos());
     }
 
     @Override

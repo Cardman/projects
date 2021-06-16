@@ -49,7 +49,7 @@ public final class CreateMainWindowParam implements Runnable {
             path_ = DataBase.EMPTY_STRING;
         }
         loadRom_ = path_;
-        PerCent p_ = new PerCentIncr();
+        PerCent p_ = new PerCentIncr(window.getThreadFactory().newAtomicInteger());
         window.getLoadFlag().set(true);
         OpeningGame opening_ = new OpeningGame(window,p_);
         window.getThreadFactory().newStartedThread(opening_);

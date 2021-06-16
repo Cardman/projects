@@ -21,10 +21,11 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     private String ipHost;
 
     private int port;
-    private final AbstractLock lock = LockFactory.newLock();
+    private final AbstractLock lock;
 
     protected NetGroupFrame(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
+        lock = LockFactory.newLock(_list.getThreadFactory().newAtomicBoolean());
     }
     /**
         Create a server then a client
@@ -69,7 +70,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     }
 
     private SocketResults results(boolean _first, AbstractSocket _socket) {
-        if (_socket.getClos() == null) {
+        if (_socket.isKo()) {
             return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
         }
         getThreadFactory().newStartedThread(new BasicClient(_socket, this));
@@ -83,11 +84,10 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     }
 
     public static boolean trySendString(String _str, AbstractSocket _socket) {
-        if (_socket == null || _socket.getClos() == null) {
+        if (_socket == null || _socket.isKo()) {
             return false;
         }
-        _socket.println(_str);
-        return true;
+        return !_socket.println(_str).isEmpty();
     }
 
     public abstract Object getObject(String _object);

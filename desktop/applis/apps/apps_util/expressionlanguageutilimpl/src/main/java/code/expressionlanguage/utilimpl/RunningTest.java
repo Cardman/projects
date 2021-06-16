@@ -78,7 +78,7 @@ public final class RunningTest implements Runnable {
         if (result_.getType() == OutputType.NOTHING) {
             return;
         }
-        ExecutingOptions exec_ = new ExecutingOptions();
+        ExecutingOptions exec_ = new ExecutingOptions(_infos.getThreadFactory().newAtomicBoolean());
         Options opt_ = new Options();
         if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
             lg_ = "";

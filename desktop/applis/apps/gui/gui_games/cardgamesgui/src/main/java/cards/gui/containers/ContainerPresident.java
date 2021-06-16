@@ -19,6 +19,7 @@ import code.gui.Panel;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesPresidentPresident;
 import code.stream.StreamTextFile;
+import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -41,7 +42,7 @@ public class ContainerPresident extends ContainerGame {
     /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
     private boolean partieAleatoireJouee;
 
-    private final AtomicBoolean arretDemo = new AtomicBoolean();
+    private final AbstractAtomicBoolean arretDemo;
 
     private boolean canDiscard;
     private boolean canPlay;
@@ -65,6 +66,7 @@ public class ContainerPresident extends ContainerGame {
 
     ContainerPresident(MainWindow _window) {
         super(_window);
+        arretDemo = _window.getThreadFactory().newAtomicBoolean();
     }
 
     @Override

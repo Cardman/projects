@@ -4,6 +4,7 @@ import aiki.main.AikiFactory;
 import aiki.main.LaunchingPokemon;
 import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractAtomicInteger;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -11,7 +12,7 @@ public final class PokemonEvent extends AbstractEvent {
 
     private final AikiFactory aikiFactory;
 
-    PokemonEvent(MainWindow _window, AtomicInteger _at, AikiFactory _aikiFactory) {
+    PokemonEvent(MainWindow _window, AbstractAtomicInteger _at, AikiFactory _aikiFactory) {
         super(_window,_at);
         aikiFactory = _aikiFactory;
     }

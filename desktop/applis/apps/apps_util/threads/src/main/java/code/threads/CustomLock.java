@@ -1,12 +1,13 @@
 package code.threads;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public final class CustomLock implements AbstractLock {
-    private final AtomicBoolean lock = new AtomicBoolean();
+    private final AbstractAtomicBoolean lock;
     private long heldCount;
     private AbstractThread exclusiveThread;
     private long sleep = 1;
+    public CustomLock(AbstractAtomicBoolean _val) {
+        lock = _val;
+    }
     @Override
     public int lock(Locking _context) {
         AbstractThread currentThread_ = _context.getCurrentThread();

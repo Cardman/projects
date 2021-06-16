@@ -20,6 +20,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesTarotTarot;
 import code.stream.StreamTextFile;
+import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
@@ -40,7 +41,7 @@ public class ContainerTarot extends ContainerGame{
     private boolean partieSauvegardee;
     /**Vrai si et seulement si au moins une partie aleatoire a ete jouee depuis le dernier passage dans le menu principal*/
     private boolean partieAleatoireJouee;
-    private final AtomicBoolean arretDemo = new AtomicBoolean();
+    private final AbstractAtomicBoolean arretDemo;
     private boolean canBid;
     private boolean canCall;
     private boolean canDiscard;
@@ -67,6 +68,7 @@ public class ContainerTarot extends ContainerGame{
 
     ContainerTarot(MainWindow _window) {
         super(_window);
+        arretDemo = _window.getThreadFactory().newAtomicBoolean();
     }
 
     @Override

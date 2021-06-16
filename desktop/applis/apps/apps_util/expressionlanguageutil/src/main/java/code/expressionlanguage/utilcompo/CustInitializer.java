@@ -1,7 +1,5 @@
 package code.expressionlanguage.utilcompo;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
@@ -15,6 +13,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
+import code.threads.AbstractAtomicLong;
 import code.threads.AbstractThread;
 import code.threads.ThreadUtil;
 import code.util.CustList;
@@ -25,7 +24,10 @@ public class CustInitializer extends DefaultInitializer {
 	/**Used map in order that the user can easily log when a few thread is used (depends on Thread class implementation)*/
 	private final ThreadSetStruct threadSet = new ThreadSetStruct();
     private final ThreadSetStruct hooks = new ThreadSetStruct();
-	private final AtomicLong countThreads = new AtomicLong();
+	private final AbstractAtomicLong countThreads;
+	public CustInitializer(AbstractAtomicLong _value) {
+        countThreads = _value;
+    }
     @Override
     protected Struct init(ContextEl _context, Struct _parent,
                           ExecFormattedRootBlock _className, String _fieldName, int _ordinal,

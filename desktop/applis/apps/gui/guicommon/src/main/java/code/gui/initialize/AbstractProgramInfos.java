@@ -7,18 +7,18 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.stream.AbsClipStream;
 import code.stream.AbstractFileCoreStream;
 import code.stream.core.TechStreams;
+import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringMap;
 
 import java.awt.image.BufferedImage;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public interface AbstractProgramInfos {
     String getHomePath();
     String getTmpUserFolder();
     CustList<GroupFrame> getFrames();
-    StringMap<AtomicInteger> getCounts();
+    StringMap<AbstractAtomicInteger> getCounts();
     AbstractGenerator getGenerator();
     AbstractThreadFactory getThreadFactory();
     TechStreams getStreams();
@@ -28,7 +28,7 @@ public interface AbstractProgramInfos {
     AbstractNameValidating getValidator();
     AbstractGraphicStringListGenerator getGeneGraphicList();
     AbstractGraphicComboBoxGenerator getGeneComboBox();
-    boolean close(AbstractSocket _cl);
+
     AbsClipStream openClip(byte[] _file);
     BufferedImage readImg(String _file);
     AbstractSocketFactory getSocketFactory();

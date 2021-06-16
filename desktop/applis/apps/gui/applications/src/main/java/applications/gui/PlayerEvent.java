@@ -3,11 +3,12 @@ package applications.gui;
 import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.player.main.LaunchingPlayer;
+import code.threads.AbstractAtomicInteger;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class PlayerEvent extends AbstractEvent {
-    PlayerEvent(MainWindow _window, AtomicInteger _at) {
+    PlayerEvent(MainWindow _window, AbstractAtomicInteger _at) {
         super(_window,_at);
     }
 

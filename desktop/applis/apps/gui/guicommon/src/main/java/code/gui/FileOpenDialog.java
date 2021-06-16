@@ -1,6 +1,5 @@
 package code.gui;
 import java.awt.BorderLayout;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JOptionPane;
 
@@ -13,6 +12,7 @@ import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.StringMap;
@@ -43,17 +43,19 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private ThreadSearchingFile info;
     private AbstractThread thread;
 
-    private final AtomicBoolean keepSearching = new AtomicBoolean();
+    private final AbstractAtomicBoolean keepSearching;
 
-    private final AtomicBoolean showNewResults = new AtomicBoolean();
+    private final AbstractAtomicBoolean showNewResults;
 
     private TextLabel searchedFiles = new TextLabel("");
 
     private TextLabel foundFiles = new TextLabel("");
     private CommonFrame frame;
 
-    public FileOpenDialog(){
+    public FileOpenDialog(AbstractAtomicBoolean _keepSearching,AbstractAtomicBoolean _showNewResults){
         setAccessFile(DIALOG_ACCESS);
+        keepSearching = _keepSearching;
+        showNewResults = _showNewResults;
     }
     public static void setFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
         _w.getFileOpenDialog().dialog = _w.getConfirmDialog();

@@ -1,5 +1,4 @@
 package code.network;
-import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.AbstractServerSocket;
 import code.gui.initialize.AbstractSocket;
 import code.threads.AbstractThread;
@@ -19,9 +18,8 @@ public final class ConnectionToServer implements Runnable, Locking {
         serverWindow.createClient(_ipHost, null, true, _port);
     }
     public void fermer(AbstractSocket _socket) {
-        AbstractProgramInfos frames_ = serverWindow.getFrames();
         if (serverSocket.close()) {
-            frames_.close(_socket);
+            _socket.close();
         }
     }
 
@@ -30,7 +28,7 @@ public final class ConnectionToServer implements Runnable, Locking {
         while(true){
             AbstractSocket socket_ = serverSocket.accept();
             //If the server is started without client ==> pause.
-            if (socket_.getClos() != null) {
+            if (!socket_.isKo()) {
                 serverWindow.gearClient(socket_);
             } else if (serverSocket.isClosed()) {
                 break;

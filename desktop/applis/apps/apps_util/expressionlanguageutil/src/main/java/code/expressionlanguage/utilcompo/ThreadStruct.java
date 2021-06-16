@@ -3,18 +3,18 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractThread;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class ThreadStruct extends WithoutParentIdStruct implements Struct {
 
     private final AbstractThread thread;
 
-    private AtomicBoolean ended = new AtomicBoolean();
+    private final AbstractAtomicBoolean ended;
 
-    public ThreadStruct(AbstractThread _thread) {
+    public ThreadStruct(AbstractThread _thread,AbstractAtomicBoolean _ended) {
         thread = _thread;
+        ended = _ended;
     }
 
     public boolean isEnded() {

@@ -221,7 +221,7 @@ public final class MainWindow extends NetGroupFrame {
     private AbstractThread fightIntroThreadLau;
 
     private final VideoLoading videoLoading = new VideoLoading();
-    private final LoadFlag loadFlag = new LoadFlagImpl();
+    private final LoadFlag loadFlag;
     private PreparedRenderedPages preparedDataWebTask;
     private PreparedRenderedPages preparedFightTask;
     private PreparedRenderedPages preparedPkTask;
@@ -262,6 +262,7 @@ public final class MainWindow extends NetGroupFrame {
 
     public MainWindow(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
         super(_lg, _list);
+        loadFlag = new LoadFlagImpl(_list.getThreadFactory().newAtomicBoolean());
         aikiFactory = _aikiFactory;
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
@@ -806,7 +807,7 @@ public final class MainWindow extends NetGroupFrame {
         if (fileName_.isEmpty()) {
             return;
         }
-        PerCent p_ = new PerCentIncr();
+        PerCent p_ = new PerCentIncr(getThreadFactory().newAtomicInteger());
         loadFlag.set(true);
         LoadingThread load_ = new LoadingThread(this, fileName_,p_);
         LoadGame opening_ = new LoadGame(this,p_);

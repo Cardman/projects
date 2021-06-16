@@ -4,6 +4,7 @@ import code.expressionlanguage.guicompos.GuiFactroy;
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractAtomicInteger;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -11,7 +12,7 @@ public final class AppsEvent extends AbstractEvent {
 
     private final GuiFactroy fact;
 
-    AppsEvent(MainWindow _window, AtomicInteger _at, GuiFactroy _fact) {
+    AppsEvent(MainWindow _window, AbstractAtomicInteger _at, GuiFactroy _fact) {
         super(_window,_at);
         fact = _fact;
     }

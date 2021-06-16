@@ -8,8 +8,10 @@ import java.net.Socket;
 
 public class DefSocket implements AbstractSocket {
     private Socket socket;
+    private boolean ko;
 
     public DefSocket() {
+        ko = true;
     }
     public DefSocket(Socket _socket) {
         socket = _socket;
@@ -30,19 +32,22 @@ public class DefSocket implements AbstractSocket {
     }
 
     @Override
-    public void println(String _string) {
-        new PrintWriter(getOutputStream(), true).println(_string);
-    }
-
-    private OutputStream getOutputStream() {
+    public String println(String _string) {
         try {
-            return socket.getOutputStream();
+            new PrintWriter(socket.getOutputStream(), true).println(_string);
+            return _string;
         } catch (Exception e) {
-            return null;
+            return "";
         }
     }
 
-    public Closeable getClos() {
-        return getSocket();
+    @Override
+    public void close() {
+        StreamCoreUtil.close(socket);
+    }
+
+    @Override
+    public boolean isKo() {
+        return ko;
     }
 }

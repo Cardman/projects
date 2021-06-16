@@ -31,7 +31,7 @@ public final class GuiContextFactory {
     }
     public static ResultsGuiContext build(StringList _mainArgs, MainWindow _window, int _stack,
                                                Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {
-        GuiInitializer ci_ = new GuiInitializer();
+        GuiInitializer ci_ = new GuiInitializer(_window.getThreadFactory().newAtomicLong());
         _definedLgNames.setExecutingOptions(_exec);
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(ci_,_mainArgs,_window);
         Coverage coverage_ = new Coverage(_options.isCovering());

@@ -22,6 +22,7 @@ import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesCommonCommon;
 import code.stream.StreamTextFile;
+import code.threads.AbstractAtomicBoolean;
 import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
@@ -56,11 +57,11 @@ public class ContainerGame implements Containable {
     private String raisonCourante=EMPTY_STRING;
     private boolean threadAnime;
     private boolean aJoueCarte;
-    private final AtomicBoolean pause = new AtomicBoolean();
+    private final AbstractAtomicBoolean pause;
     private TextArea events;
     private MiniCarpet mini;
     /**Est vrai si et seulement si le jeu est en pause*/
-    private final AtomicBoolean passe = new AtomicBoolean();
+    private final AbstractAtomicBoolean passe;
     /**Parametres de lancement, de jouerie*/
     private SoftParams parametres=new SoftParams();
     private StringMap<String> messages = new StringMap<String>();
@@ -73,6 +74,8 @@ public class ContainerGame implements Containable {
     private boolean changerPileFin;
     public ContainerGame(MainWindow _window) {
         pseudosJoueurs=new Nicknames(_window.getLanguageKey());
+        pause = _window.getThreadFactory().newAtomicBoolean();
+        passe = _window.getThreadFactory().newAtomicBoolean();
         setWindow(_window);
         setParametres(_window.getParametresLogiciel());
         setReglesTarot(_window.getReglesTarot());

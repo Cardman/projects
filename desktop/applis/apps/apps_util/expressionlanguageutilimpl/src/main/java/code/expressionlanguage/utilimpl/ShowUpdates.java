@@ -6,16 +6,16 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.expressionlanguage.utilcompo.ProgressingTests;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
-
-import java.util.concurrent.atomic.AtomicBoolean;
+import code.threads.AbstractAtomicBoolean;
 
 public final class ShowUpdates implements Runnable {
-    private AtomicBoolean show = new AtomicBoolean();
+    private AbstractAtomicBoolean show;
     private Struct info;
     private RunnableContextEl ctx;
     private ProgressingTests progressingTests;
     private LgNamesWithNewAliases evolved;
     public ShowUpdates(Struct _info, RunnableContextEl _ctx, ProgressingTests _progressingTests,LgNamesWithNewAliases _evolved) {
+        show = _ctx.getCurrentThreadFactory().newAtomicBoolean();
         show.set(true);
         info = _info;
         ctx = _ctx;

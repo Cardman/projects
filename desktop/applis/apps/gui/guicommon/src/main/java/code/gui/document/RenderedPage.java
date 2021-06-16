@@ -18,6 +18,7 @@ import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.Document;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.IdMap;
@@ -33,7 +34,7 @@ public final class RenderedPage implements ProcessingSession {
     private final IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
     private FindEvent finding;
 
-    private final AtomicBoolean processing = new AtomicBoolean();
+    private final AbstractAtomicBoolean processing;
 
     private AbstractThread threadAction;
 
@@ -59,6 +60,7 @@ public final class RenderedPage implements ProcessingSession {
     public RenderedPage(ScrollPane _frame, AbstractProgramInfos _gene) {
         scroll = _frame;
         gene = _gene;
+        processing = _gene.getThreadFactory().newAtomicBoolean();
     }
 
     public void initNav() {

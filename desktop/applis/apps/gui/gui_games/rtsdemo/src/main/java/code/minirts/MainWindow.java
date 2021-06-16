@@ -13,6 +13,8 @@ import code.minirts.events.*;
 import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
 import code.scripts.messages.gui.MessPlayerGr;
+import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractAtomicLong;
 import code.threads.AbstractThread;
 import code.util.StringMap;
 
@@ -20,8 +22,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.MemoryImageSource;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicLong;
 
 public final class MainWindow extends GroupFrame {
 
@@ -45,15 +45,15 @@ public final class MainWindow extends GroupFrame {
     private final Facade facade = new Facade();
 
     private final PanelBattle battleground = new PanelBattle(facade);
-    private final AtomicBoolean stopped = new AtomicBoolean();
-    private final AtomicBoolean paused = new AtomicBoolean();
-    private final AtomicLong count = new AtomicLong();
+    private final AbstractAtomicBoolean stopped;
+    private final AbstractAtomicBoolean paused;
+    private final AbstractAtomicLong count;
     private AnimationUnitSoldier thread = new AnimationUnitSoldier(battleground,this);
     private AbstractThread threadLau;
 
     private final CustCheckBox addSoldier = new CustCheckBox("Add soldier");
 
-    private final AtomicBoolean dragged = new AtomicBoolean();
+    private final AbstractAtomicBoolean dragged;
 
     private CustPoint first = new CustPoint(0,0);
 
@@ -62,6 +62,10 @@ public final class MainWindow extends GroupFrame {
 
     public MainWindow(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
+        stopped = _list.getThreadFactory().newAtomicBoolean();
+        paused = _list.getThreadFactory().newAtomicBoolean();
+        dragged = _list.getThreadFactory().newAtomicBoolean();
+        count = _list.getThreadFactory().newAtomicLong();
         threadLau = getThreadFactory().newThread(thread);
         Panel contentPane_ = Panel.newBorder();
         Panel scene_ = Panel.newBorder();
@@ -232,11 +236,11 @@ public final class MainWindow extends GroupFrame {
         return battleground;
     }
 
-    public AtomicBoolean getStopped() {
+    public AbstractAtomicBoolean getStopped() {
         return stopped;
     }
 
-    public AtomicBoolean getPaused() {
+    public AbstractAtomicBoolean getPaused() {
         return paused;
     }
 

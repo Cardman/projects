@@ -1,7 +1,6 @@
 package code.sys.impl;
 
-import code.threads.AbstractThread;
-import code.threads.AbstractThreadFactory;
+import code.threads.*;
 
 public final class DefaultThreadFactory implements AbstractThreadFactory {
 
@@ -33,5 +32,35 @@ public final class DefaultThreadFactory implements AbstractThreadFactory {
     @Override
     public AbstractThread newThread() {
         return new DefaultThread();
+    }
+
+    @Override
+    public AbstractAtomicBoolean newAtomicBoolean() {
+        return new DefAtomicBoolean();
+    }
+
+    @Override
+    public AbstractAtomicBoolean newAtomicBoolean(boolean _value) {
+        return new DefAtomicBoolean(_value);
+    }
+
+    @Override
+    public AbstractAtomicInteger newAtomicInteger() {
+        return new DefAtomicInteger();
+    }
+
+    @Override
+    public AbstractAtomicInteger newAtomicInteger(int _value) {
+        return new DefAtomicInteger(_value);
+    }
+
+    @Override
+    public AbstractAtomicLong newAtomicLong() {
+        return new DefAtomicLong();
+    }
+
+    @Override
+    public AbstractAtomicLong newAtomicLong(long _value) {
+        return new DefAtomicLong(_value);
     }
 }

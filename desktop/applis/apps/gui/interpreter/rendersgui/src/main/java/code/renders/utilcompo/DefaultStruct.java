@@ -2,10 +2,9 @@ package code.renders.utilcompo;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
-
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
+import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractAtomicInteger;
+import code.threads.AbstractAtomicLong;
 
 public final class DefaultStruct extends WithoutParentIdStruct {
 
@@ -18,13 +17,13 @@ public final class DefaultStruct extends WithoutParentIdStruct {
         className = _className;
     }
 
-    public static DefaultStruct newInstance(AtomicBoolean _instance, String _className) {
+    public static DefaultStruct newInstance(AbstractAtomicBoolean _instance, String _className) {
         return new DefaultStruct(_instance, _className);
     }
-    public static DefaultStruct newInstance(AtomicLong _instance, String _className) {
+    public static DefaultStruct newInstance(AbstractAtomicLong _instance, String _className) {
         return new DefaultStruct(_instance, _className);
     }
-    public static DefaultStruct newInstance(AtomicInteger _instance, String _className) {
+    public static DefaultStruct newInstance(AbstractAtomicInteger _instance, String _className) {
         return new DefaultStruct(_instance, _className);
     }
     @Override

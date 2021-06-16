@@ -84,6 +84,7 @@ import code.network.SocketResults;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.stream.StreamFolderFile;
+import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -336,11 +337,12 @@ public class ScenePanel {
 
     private LabelButton chosenCity;
 
-    private final AtomicBoolean paintingScene = new AtomicBoolean();
+    private final AbstractAtomicBoolean paintingScene;
 
     private final Panel component = Panel.newLineBox();
 
     public ScenePanel(MainWindow _window, FacadeGame _facade) {
+        paintingScene = _window.getThreadFactory().newAtomicBoolean();
         facade = _facade;
         window = _window;
         Panel panelHoriz_ = Panel.newLineBox();
