@@ -10,18 +10,15 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableFunctionalInstance;
-import code.expressionlanguage.common.NumParsers;
 import code.gui.*;
 import code.util.CustList;
 
 import javax.swing.event.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 import java.awt.event.*;
 
 public final class EventFunctionalInstance extends AbstractFunctionalInstanceImpl implements
         ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
-        KeyListener,ChangeListener,TreeSelectionListener,ListSelectionListener,
+        KeyListener,ChangeListener,AbsShortListTree,ListSelectionListener,
         MouseMotionListener,MouseWheelListener,FieldableStruct {
 
     private final CustList<ClassFieldStruct> fields;
@@ -209,9 +206,9 @@ public final class EventFunctionalInstance extends AbstractFunctionalInstanceImp
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent _e) {
+    public void valueChanged(AbstractMutableTreeNode _e) {
         CustList<Argument> args_ = new CustList<Argument>();
-        TreeNodeStruct arg_ = new TreeNodeStruct(((LgNamesGui) executionInfos.getStandards()).getGuiExecutingBlocks().getWindow().getCompoFactory().newMutableTreeNode(_e.getPath()));
+        TreeNodeStruct arg_ = new TreeNodeStruct(_e);
         args_.add(new Argument(arg_));
         RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }

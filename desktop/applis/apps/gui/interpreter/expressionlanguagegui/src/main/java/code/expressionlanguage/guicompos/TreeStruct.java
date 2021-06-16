@@ -3,10 +3,9 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsShortListTree;
 import code.gui.AbsTreeGui;
 import code.gui.CustComponent;
-
-import javax.swing.event.TreeSelectionListener;
 
 public final class TreeStruct extends CustComponentStruct {
     private final AbsTreeGui tree;
@@ -24,7 +23,7 @@ public final class TreeStruct extends CustComponentStruct {
     }
 
     public Struct getLastSelectedPathComponent() {
-        if (tree.selectEvt() != null) {
+        if (tree.selectEvt()) {
             return new TreeNodeStruct(tree.getSelected());
         }
         return NullStruct.NULL_VALUE;
@@ -36,13 +35,13 @@ public final class TreeStruct extends CustComponentStruct {
     }
 
     public void addTreeSelectionListener(Struct _tsl) {
-        if (_tsl instanceof TreeSelectionListener) {
-            tree.addTreeSelectionListener((TreeSelectionListener) _tsl);
+        if (_tsl instanceof AbsShortListTree) {
+            tree.addTreeSelectionListener((AbsShortListTree) _tsl);
         }
     }
 
     public void reload() {
-        if (tree.selectEvt() != null) {
+        if (tree.selectEvt()) {
             tree.reload(tree.getSelected());
         } else {
             tree.reloadRoot();

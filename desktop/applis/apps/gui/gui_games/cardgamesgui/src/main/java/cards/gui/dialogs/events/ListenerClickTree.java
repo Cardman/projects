@@ -1,17 +1,17 @@
 package cards.gui.dialogs.events;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreeNode;
 
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
+import code.gui.AbsShortListTree;
 import code.gui.AbsTreeGui;
+import code.gui.AbstractMutableTreeNode;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.core.IndexConstants;
 
-public class ListenerClickTree implements TreeSelectionListener {
+public class ListenerClickTree implements AbsShortListTree {
 
     private NodeHelp node;
 
@@ -27,8 +27,8 @@ public class ListenerClickTree implements TreeSelectionListener {
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent _e) {
-        if (tree.selectEvt() == null) {
+    public void valueChanged(AbstractMutableTreeNode _e) {
+        if (!tree.selectEvt()) {
             return;
         }
         CustList<TreeNode> chemin_;

@@ -1,15 +1,11 @@
 package code.gui;
 
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.TreePath;
-
 public interface AbsTreeGui {
     void select(AbstractMutableTreeNode _node);
     void reload(AbstractMutableTreeNode _node);
     void reloadRoot();
     AbstractMutableTreeNode getSelected();
-
-    TreePath selectEvt();
+    boolean selectEvt();
 
     boolean isRootVisible();
 
@@ -17,13 +13,11 @@ public interface AbsTreeGui {
 
     CustComponent getTree();
 
-    void addTreeSelectionListener(TreeSelectionListener _sel);
+    void addTreeSelectionListener(AbsShortListTree _sel);
 
     void removeFromParent();
 
     void removeAllChildren();
-
-    TreePath getSelectionPath();
 
     void add(String _info);
 }

@@ -1,7 +1,6 @@
 package code.gui;
 
 import javax.swing.*;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.*;
 
 public final class TreeGui implements AbsTreeGui {
@@ -9,6 +8,7 @@ public final class TreeGui implements AbsTreeGui {
     private final DefaultTreeModel model;
     private final DefaultTreeSelectionModel selectionModel;
     private AbstractMutableTreeNode selected;
+    private boolean select;
 
     public TreeGui(AbstractMutableTreeNode _t) {
         selected = _t;
@@ -31,15 +31,24 @@ public final class TreeGui implements AbsTreeGui {
         tree.setRootVisible(_rootVisible);
     }
 
-    public TreePath selectEvt() {
+    public boolean selectEvt() {
         TreePath selectionPath_ = getSelectionPath();
-        selected = new DefMutableTreeNode(selected(selectionPath_));
-        return selectionPath_;
+        selected = new DefMutableTreeNode(selectedEvt(selectionPath_));
+        return select;
     }
     public static MutableTreeNode selected(TreePath _path) {
         try {
             return (MutableTreeNode)_path.getLastPathComponent();
         } catch (Exception e) {
+            return null;
+        }
+    }
+    public MutableTreeNode selectedEvt(TreePath _path) {
+        try {
+            select = true;
+            return (MutableTreeNode)_path.getLastPathComponent();
+        } catch (Exception e) {
+            select = false;
             return null;
         }
     }
@@ -54,15 +63,17 @@ public final class TreeGui implements AbsTreeGui {
     public void removeAllChildren() {
         selected.removeAllChildren();
     }
-    public TreePath getSelectionPath() {
+    private TreePath getSelectionPath() {
         return tree.getSelectionPath();
     }
 
     public void select(AbstractMutableTreeNode _node) {
         tree.setSelectionPath(getTreePath(convert(_node)));
     }
-    public void addTreeSelectionListener(TreeSelectionListener _tsl) {
-        tree.addTreeSelectionListener(_tsl);
+
+    @Override
+    public void addTreeSelectionListener(AbsShortListTree _sel) {
+        tree.addTreeSelectionListener(new DefTreeSelectionListener(_sel));
     }
 
     @Override

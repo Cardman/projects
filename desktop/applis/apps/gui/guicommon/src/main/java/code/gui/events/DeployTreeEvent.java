@@ -1,10 +1,10 @@
 package code.gui.events;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 
+import code.gui.AbsShortListTree;
+import code.gui.AbstractMutableTreeNode;
 import code.gui.FileDialog;
 
-public class DeployTreeEvent implements TreeSelectionListener {
+public class DeployTreeEvent implements AbsShortListTree {
 
     private FileDialog dialog;
 
@@ -13,7 +13,7 @@ public class DeployTreeEvent implements TreeSelectionListener {
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent _e) {
+    public void valueChanged(AbstractMutableTreeNode _e) {
         dialog.applyTreeChangeSelected();
     }
 

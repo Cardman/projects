@@ -95,7 +95,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         if (typedString.getText().trim().isEmpty()) {
             return;
         }
-        TreePath path_ = getFolderSystem().getSelectionPath();
+        AbstractMutableTreeNode path_ = getFolderSystem().getSelected();
         if (path_ != null) {
             StringBuilder str_ = buildPath(path_);
             str_.append(typedString.getText());

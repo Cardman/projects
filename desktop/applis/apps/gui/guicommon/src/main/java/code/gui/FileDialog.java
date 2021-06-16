@@ -3,7 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 
 import javax.swing.*;
-import javax.swing.tree.TreePath;
 
 import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
@@ -199,7 +198,7 @@ public abstract class FileDialog extends Dialog {
                 files_.add(l);
             }
         }
-        if (folderSystem.selectEvt() != null) {
+        if (folderSystem.selectEvt()) {
             folderSystem.reload(folderSystem.getSelected());
         } else {
             folderSystem.reloadRoot();
@@ -208,11 +207,10 @@ public abstract class FileDialog extends Dialog {
     }
 
     public void applyTreeChangeSelected() {
-        TreePath path_ = folderSystem.selectEvt();
-        if (path_ == null) {
+        if (!folderSystem.selectEvt()) {
             return;
         }
-        StringBuilder str_ = buildPath(path_);
+        StringBuilder str_ = buildPath(folderSystem.getSelected());
         currentFolder = str_.toString();
         currentTitle = StringUtil.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);
         setTitle(currentTitle);
@@ -227,7 +225,7 @@ public abstract class FileDialog extends Dialog {
         CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
         currentFiles_.sortElts(new FileNameComparator());
         refreshList(files_, currentFiles_);
-        if (folderSystem.selectEvt() != null) {
+        if (folderSystem.selectEvt()) {
             folderSystem.reload(folderSystem.getSelected());
         } else {
             folderSystem.reloadRoot();
@@ -250,12 +248,12 @@ public abstract class FileDialog extends Dialog {
         refreshList(_files);
     }
 
-    static StringBuilder buildPath(TreePath _treePath) {
+    static StringBuilder buildPath(AbstractMutableTreeNode _treePath) {
         StringList pathFull_ = new StringList();
-        TreePath current_ = _treePath;
+        AbstractMutableTreeNode current_ = _treePath;
         while (current_ != null) {
-            pathFull_.add(0,String.valueOf(current_.getLastPathComponent()));
-            current_ = current_.getParentPath();
+            pathFull_.add(0,String.valueOf(current_.getUserObject()));
+            current_ = current_.getParent();
         }
         StringUtil.removeObj(pathFull_, EMPTY_STRING);
         StringBuilder str_ = new StringBuilder();

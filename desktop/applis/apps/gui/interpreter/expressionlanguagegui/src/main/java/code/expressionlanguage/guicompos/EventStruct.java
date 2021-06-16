@@ -22,7 +22,7 @@ import java.awt.event.*;
 
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
         ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
-        KeyListener,ChangeListener,TreeSelectionListener,ListSelectionListener,
+        KeyListener,ChangeListener,AbsShortListTree,ListSelectionListener,
         MouseMotionListener,MouseWheelListener{
 
     private final String className;
@@ -288,10 +288,10 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void valueChanged(TreeSelectionEvent _e) {
+    public void valueChanged(AbstractMutableTreeNode _e) {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
-        TreeNodeStruct arg_ = new TreeNodeStruct(((LgNamesGui) executionInfos.getStandards()).getGuiExecutingBlocks().getWindow().getCompoFactory().newMutableTreeNode(_e.getPath()));
+        TreeNodeStruct arg_ = new TreeNodeStruct(_e);
         args_.add(new Argument(arg_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListenerValueChanged(),args_);
     }
