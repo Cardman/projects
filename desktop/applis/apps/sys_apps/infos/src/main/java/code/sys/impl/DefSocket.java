@@ -31,7 +31,7 @@ public class DefSocket implements AbstractSocket {
     public String println(String _string) {
         try {
             new PrintWriter(socket.getOutputStream(), true).println(_string);
-            return _string;
+            return _string+"\n";
         } catch (Exception e) {
             return "";
         }
