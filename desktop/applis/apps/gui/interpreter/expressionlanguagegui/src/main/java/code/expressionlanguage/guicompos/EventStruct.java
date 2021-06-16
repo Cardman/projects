@@ -291,7 +291,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     public void valueChanged(TreeSelectionEvent _e) {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
-        TreeNodeStruct arg_ = new TreeNodeStruct(_e.getPath());
+        TreeNodeStruct arg_ = new TreeNodeStruct(((LgNamesGui) executionInfos.getStandards()).getGuiExecutingBlocks().getWindow().getCompoFactory().newMutableTreeNode(_e.getPath()));
         args_.add(new Argument(arg_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListenerValueChanged(),args_);
     }

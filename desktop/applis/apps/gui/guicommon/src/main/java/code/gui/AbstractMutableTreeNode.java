@@ -27,4 +27,6 @@ public interface AbstractMutableTreeNode {
     void removeFromParent();
 
     TreeNode[] getPath();
+
+    void add(String _info);
 }

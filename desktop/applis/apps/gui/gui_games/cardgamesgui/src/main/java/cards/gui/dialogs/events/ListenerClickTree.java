@@ -5,7 +5,7 @@ import javax.swing.tree.TreeNode;
 
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
-import code.gui.TreeGui;
+import code.gui.AbsTreeGui;
 import code.gui.document.RenderedPage;
 import code.util.CustList;
 import code.util.Ints;
@@ -17,10 +17,10 @@ public class ListenerClickTree implements TreeSelectionListener {
 
     private RenderedPage editor;
 
-    private TreeGui tree;
+    private AbsTreeGui tree;
 
     public ListenerClickTree(NodeHelp _node,
-            RenderedPage _editor, TreeGui _tree) {
+            RenderedPage _editor, AbsTreeGui _tree) {
         node = _node;
         editor = _editor;
         tree = _tree;

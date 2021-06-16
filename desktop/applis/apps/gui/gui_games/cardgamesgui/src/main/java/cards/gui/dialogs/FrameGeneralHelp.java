@@ -91,7 +91,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         // Non null pour les valeurs
         cles_.sortElts(new ComparatorListSizeElement());
         racineBis = new NodeHelp(elementsBis.getVal(cles_.first()));
-        AbstractMutableTreeNode root_ = new DefMutableTreeNode(
+        AbstractMutableTreeNode root_ = _w.getCompoFactory().newMutableTreeNode(
                 racineBis.nom());
         boolean wasNull_ = editor == null;
         Panel container_;
@@ -121,13 +121,13 @@ public final class FrameGeneralHelp extends ChildFrame {
             ElementHelp elementLoc_ = elementsBis.getVal(chemin_);
             NodeHelp nouveauNoeud_ = new NodeHelp(elementLoc_);
             noeudLoc_.ajouterInfo(nouveauNoeud_);
-            noeudLocGraphique_.add(new DefMutableTreeNode(
-                    elementLoc_.nom()));
+            noeudLocGraphique_.add(
+                    elementLoc_.nom());
         }
         if (wasNull_) {
             editor = new RenderedPage(new ScrollPane(), _w.getFrames());
         }
-        TreeGui arbre_ = new TreeGui(root_);
+        AbsTreeGui arbre_ = _w.getCompoFactory().newTreeGui(root_);
         arbre_.setRootVisible(false);
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
         editor.initialize(racineBis.getElementLocal().getNavigation(),racineBis.getElementLocal().getMetaDocument());
@@ -141,7 +141,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         if (wasNull_) {
             separateur = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,
-                    new ScrollPane(arbre_), editor.getScroll());
+                    new ScrollPane(arbre_.getTree()), editor.getScroll());
             separateur.setPreferredSize(new Dimension(600, 550));
             separateur.setDividerLocation(150);
             container_.add(separateur);
@@ -149,7 +149,7 @@ public final class FrameGeneralHelp extends ChildFrame {
             container_.add(search);
             setContentPane(container_);
         } else {
-            separateur.setLeftComponent(new ScrollPane(arbre_));
+            separateur.setLeftComponent(new ScrollPane(arbre_.getTree()));
             container_.add(separateur);
             container_.add(field);
             container_.add(search);

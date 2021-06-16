@@ -35,7 +35,7 @@ public abstract class FileDialog extends Dialog {
     private Panel buttons = Panel.newLineBox();
     private TextField fileName = new TextField(NB_COLS);
     private AutoCompleteDocument auto;
-    private TreeGui folderSystem;
+    private AbsTreeGui folderSystem;
     private FileTable fileModel;
     private TableGui fileTable;
     private boolean currentFolderRoot;
@@ -131,22 +131,22 @@ public abstract class FileDialog extends Dialog {
         Panel contentPane_ = Panel.newBorder();
         contentPane_.add(openSaveFile_, BorderLayout.SOUTH);
         if (currentFolderRoot) {
-            AbstractMutableTreeNode default_ = new DefMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
+            AbstractMutableTreeNode default_ = superFrame.getCompoFactory().newMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
             FileListInfo files_ = superFrame.getFileCoreStream().newFile(currentFolder).listAbsolute(superFrame.getFileCoreStream());
             CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(files_.getNames());
             currentFiles_.sortElts(new FileNameComparator());
             CustList<AbstractFile> filesList_ = new CustList<AbstractFile>();
-            folderSystem = new TreeGui(default_);
+            folderSystem = superFrame.getCompoFactory().newTreeGui(default_);
             refreshList(filesList_, currentFiles_);
         } else {
-            AbstractMutableTreeNode default_ = new DefMutableTreeNode(EMPTY_STRING);
+            AbstractMutableTreeNode default_ = superFrame.getCompoFactory().newMutableTreeNode(EMPTY_STRING);
             for (String f: StreamFolderFile.listRootsAbPath(superFrame.getFileCoreStream())) {
-                default_.add(new DefMutableTreeNode(StringUtil.join(StringUtil.splitStrings(f, StreamTextFile.SEPARATEUR), EMPTY_STRING)));
+                default_.add(StringUtil.join(StringUtil.splitStrings(f, StreamTextFile.SEPARATEUR), EMPTY_STRING));
             }
-            folderSystem = new TreeGui(default_);
+            folderSystem = superFrame.getCompoFactory().newTreeGui(default_);
             folderSystem.setRootVisible(false);
         }
-        SplitPane fileSelector_ = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,new ScrollPane(folderSystem),new ScrollPane(fileTable));
+        SplitPane fileSelector_ = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,new ScrollPane(folderSystem.getTree()),new ScrollPane(fileTable));
         folderSystem.addTreeSelectionListener(new DeployTreeEvent(this));
         contentPane_.add(fileSelector_, BorderLayout.CENTER);
         contentPane_.add(openSaveFile_, BorderLayout.SOUTH);
@@ -199,7 +199,11 @@ public abstract class FileDialog extends Dialog {
                 files_.add(l);
             }
         }
-        folderSystem.reload();
+        if (folderSystem.selectEvt() != null) {
+            folderSystem.reload(folderSystem.getSelected());
+        } else {
+            folderSystem.reloadRoot();
+        }
         refreshList(files_);
     }
 
@@ -223,7 +227,11 @@ public abstract class FileDialog extends Dialog {
         CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
         currentFiles_.sortElts(new FileNameComparator());
         refreshList(files_, currentFiles_);
-        folderSystem.reload();
+        if (folderSystem.selectEvt() != null) {
+            folderSystem.reload(folderSystem.getSelected());
+        } else {
+            folderSystem.reloadRoot();
+        }
     }
 
     private void refreshList(CustList<AbstractFile> _files, CustList<AbstractFile> _currentFiles) {
@@ -232,7 +240,7 @@ public abstract class FileDialog extends Dialog {
                 if (StringUtil.contains(excludedFolders, StringUtil.replaceBackSlash(f.getAbsolutePath()))) {
                     continue;
                 }
-                folderSystem.add(new DefMutableTreeNode(f.getName()));
+                folderSystem.add(f.getName());
             } else {
                 if (f.getName().endsWith(extension)) {
                     _files.add(f);
@@ -284,7 +292,7 @@ public abstract class FileDialog extends Dialog {
         return fileName;
     }
 
-    protected TreeGui getFolderSystem() {
+    protected AbsTreeGui getFolderSystem() {
         return folderSystem;
     }
 

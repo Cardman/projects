@@ -23,7 +23,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public final class ProgramInfos implements AbstractProgramInfos {
 
@@ -48,6 +47,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final String homePath;
     private final DefaultNameValidating validator;
     private final AbstractGraphicStringListGenerator graphicStringListGenerator;
+    private final AbsCompoFactory compoFactory;
     private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator;
     private final AbstractThreadFactory threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
@@ -61,6 +61,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
         streams = new TechStreams(new DefBinFact(new DefBinFactory()),new DefTextFact(new DefTextFactory()),new DefZipFact(new DefZipFactory()));
         interceptor = new DefInterceptor();
         socketFactory = new DefSocketFactory();
+        compoFactory = new DefCompoFactory();
         graphicStringListGenerator = _graphicStringListGenerator;
         graphicComboBoxGenerator = _graphicComboBoxGenerator;
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
@@ -199,6 +200,11 @@ public final class ProgramInfos implements AbstractProgramInfos {
     @Override
     public AbstractGraphicStringListGenerator getGeneGraphicList() {
         return graphicStringListGenerator;
+    }
+
+    @Override
+    public AbsCompoFactory getCompoFactory() {
+        return compoFactory;
     }
 
     @Override

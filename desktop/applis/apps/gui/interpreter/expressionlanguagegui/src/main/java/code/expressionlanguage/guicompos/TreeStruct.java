@@ -3,16 +3,16 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsTreeGui;
 import code.gui.CustComponent;
-import code.gui.TreeGui;
 
 import javax.swing.event.TreeSelectionListener;
 
 public final class TreeStruct extends CustComponentStruct {
-    private final TreeGui tree;
-    protected TreeStruct(String _className, TreeNodeStruct _node) {
+    private final AbsTreeGui tree;
+    protected TreeStruct(String _className, AbsTreeGui _tree) {
         super(_className);
-        tree = new TreeGui(_node.getTreeNode());
+        tree = _tree;
     }
 
     public BooleanStruct isRootVisible() {
@@ -42,11 +42,15 @@ public final class TreeStruct extends CustComponentStruct {
     }
 
     public void reload() {
-        tree.reload();
+        if (tree.selectEvt() != null) {
+            tree.reload(tree.getSelected());
+        } else {
+            tree.reloadRoot();
+        }
     }
 
     @Override
     protected CustComponent getComponent() {
-        return tree;
+        return tree.getTree();
     }
 }

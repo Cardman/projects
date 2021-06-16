@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.CstFieldInfo;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -3348,10 +3349,10 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypes().size() == 0) {
-                r_.setResult(new TreeNodeStruct());
+                r_.setResult(new TreeNodeStruct(_guiEx.getWindow().getCompoFactory().newMutableTreeNode("")));
                 return r_;
             }
-            r_.setResult(new TreeNodeStruct(_args[0]));
+            r_.setResult(new TreeNodeStruct(_guiEx.getWindow().getCompoFactory().newMutableTreeNode(NumParsers.getString(_args[0]).getInstance())));
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasTree)) {
@@ -3364,7 +3365,7 @@ public final class GuiAliases {
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
                 return r_;
             }
-            r_.setResult(new TreeStruct(aliasTree, (TreeNodeStruct) _args[0]));
+            r_.setResult(new TreeStruct(aliasTree, _guiEx.getWindow().getCompoFactory().newTreeGui(((TreeNodeStruct) _args[0]).getTreeNode())));
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasTableGui)) {

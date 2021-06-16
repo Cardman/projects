@@ -6,32 +6,16 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.gui.AbstractMutableTreeNode;
-import code.gui.DefMutableTreeNode;
-import code.gui.TreeGui;
 import code.util.CustList;
 import code.util.core.StringUtil;
-
-import javax.swing.tree.TreePath;
 
 public final class TreeNodeStruct extends WithoutParentStruct implements Struct {
 
     private final AbstractMutableTreeNode treeNode;
     private StringStruct userObject = new StringStruct("");
 
-    TreeNodeStruct() {
-        treeNode = new DefMutableTreeNode("");
-    }
-
-    TreeNodeStruct(Struct _str) {
-        treeNode = new DefMutableTreeNode(NumParsers.getString(_str).getInstance());
-    }
-
     TreeNodeStruct(AbstractMutableTreeNode _str) {
         treeNode = _str;
-    }
-
-    TreeNodeStruct(TreePath _cp) {
-        treeNode = new DefMutableTreeNode(TreeGui.selected(_cp));
     }
 
     void add(Struct _node) {

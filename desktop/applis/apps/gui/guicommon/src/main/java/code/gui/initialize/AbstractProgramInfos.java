@@ -28,6 +28,7 @@ public interface AbstractProgramInfos {
     AbstractNameValidating getValidator();
     AbstractGraphicStringListGenerator getGeneGraphicList();
     AbstractGraphicComboBoxGenerator getGeneComboBox();
+    AbsCompoFactory getCompoFactory();
 
     AbsClipStream openClip(byte[] _file);
     BufferedImage readImg(String _file);

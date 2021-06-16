@@ -4,7 +4,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
-public class DefMutableTreeNode implements AbstractMutableTreeNode {
+public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     private final DefaultMutableTreeNode node;
 
     public DefMutableTreeNode(String _name) {
@@ -22,6 +22,11 @@ public class DefMutableTreeNode implements AbstractMutableTreeNode {
     @Override
     public int getAntiIndex(AbstractMutableTreeNode _treeNode) {
         return node.getIndex(((DefMutableTreeNode) _treeNode).node());
+    }
+
+    @Override
+    public void add(String _info) {
+        node.add(new DefaultMutableTreeNode(_info));
     }
 
     @Override

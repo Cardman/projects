@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
 import code.scripts.messages.gui.MessGuiGr;
@@ -170,6 +171,9 @@ public abstract class GroupFrame extends CommonFrame {
         PackingWindowAfter.pack(this);
     }
 
+    public AbsCompoFactory getCompoFactory() {
+        return frames.getCompoFactory();
+    }
     public AbstractThreadFactory getThreadFactory() {
         return frames.getThreadFactory();
     }
