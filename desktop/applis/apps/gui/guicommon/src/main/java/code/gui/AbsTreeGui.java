@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.util.CustList;
+
 public interface AbsTreeGui {
     void select(AbstractMutableTreeNode _node);
     void reload(AbstractMutableTreeNode _node);
@@ -14,6 +16,8 @@ public interface AbsTreeGui {
     CustComponent getTree();
 
     void addTreeSelectionListener(AbsShortListTree _sel);
+    int removeTreeSelectionListener(AbsShortListTree _sel);
+    CustList<AbsShortListTree> getTreeSelectionListeners();
 
     void removeFromParent();
 

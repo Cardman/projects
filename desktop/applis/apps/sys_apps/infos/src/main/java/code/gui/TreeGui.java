@@ -1,5 +1,8 @@
 package code.gui;
 
+import code.util.CustList;
+import code.util.IdMap;
+
 import javax.swing.*;
 import javax.swing.tree.*;
 
@@ -8,6 +11,7 @@ public final class TreeGui implements AbsTreeGui {
     private final DefaultTreeModel model;
     private final DefaultTreeSelectionModel selectionModel;
     private AbstractMutableTreeNode selected;
+    private final IdMap<AbsShortListTree,DefTreeSelectionListener> list = new IdMap<AbsShortListTree, DefTreeSelectionListener>();
 
     public TreeGui(AbstractMutableTreeNode _t) {
         selected = _t;
@@ -70,7 +74,27 @@ public final class TreeGui implements AbsTreeGui {
 
     @Override
     public void addTreeSelectionListener(AbsShortListTree _sel) {
-        tree.addTreeSelectionListener(new DefTreeSelectionListener(_sel));
+        DefTreeSelectionListener value_ = new DefTreeSelectionListener(_sel);
+        tree.addTreeSelectionListener(value_);
+        list.addEntry(_sel,value_);
+    }
+
+    @Override
+    public int removeTreeSelectionListener(AbsShortListTree _sel) {
+        try {
+            int index_ = list.indexOfEntry(_sel);
+            DefTreeSelectionListener value_ = list.getValue(index_);
+            list.removeKey(_sel);
+            tree.removeTreeSelectionListener(value_);
+            return index_;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    @Override
+    public CustList<AbsShortListTree> getTreeSelectionListeners() {
+        return list.getKeys();
     }
 
     @Override

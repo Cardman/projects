@@ -39,4 +39,8 @@ public final class TreeComponent extends CustComponent {
     public void addTreeSelectionListener(TreeSelectionListener _sel) {
         tree.addTreeSelectionListener(_sel);
     }
+
+    public void removeTreeSelectionListener(TreeSelectionListener _sel) {
+        tree.removeTreeSelectionListener(_sel);
+    }
 }
