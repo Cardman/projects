@@ -244,8 +244,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
                 .size() - 1);
         indexInGame = choiceOfPlaceForPlayingGame
                 .getCurrent().byteValue();
-        choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
-        panel_.add(choiceOfPlaceForPlayingGame.self());
+        choiceOfPlaceForPlayingGame.getCombo().setListener(new ChangePlaceEvent(this));
+        panel_.add(choiceOfPlaceForPlayingGame.getCombo().self());
         ready = new CustCheckBox(getMessages().getVal(MainWindow.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);

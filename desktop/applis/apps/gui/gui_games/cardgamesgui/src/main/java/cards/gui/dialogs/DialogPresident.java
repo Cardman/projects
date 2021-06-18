@@ -82,7 +82,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 //            listeChoix.addItem(choix_);
 //        }
         listeChoix.setSelectedItem(getReglesPresident().getMixedCards());
-        dealing_.add(listeChoix.self());
+        dealing_.add(listeChoix.getCombo().self());
         if (getNbGames() != null) {
             dealing_.add(new TextLabel(getMessages().getVal(NUMBER_DEALS)));
             dealing_.add(getNbGames());
@@ -105,10 +105,10 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
             index_++;
         }
         if (i_ > -1) {
-            equality.selectItem(i_);
+            equality.getCombo().selectItem(i_);
         }
-        equality.setListener(new ListenerEqualityPlaying(this));
-        rules_.add(equality.self());
+        equality.getCombo().setListener(new ListenerEqualityPlaying(this));
+        rules_.add(equality.getCombo().self());
         rules_.add(new TextLabel(""));
         stopAllPlayedCards = new TextLabel("");
         if (getReglesPresident().getEqualty() == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {

@@ -26,8 +26,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     }
 
     public String getSelectedItem() {
-        return (String) Optional.ofNullable(combo.getSelectedItem())
-                .filter(o -> o instanceof String).orElse(null);
+        return (String) combo.getSelectedItem();
     }
 
     @Override

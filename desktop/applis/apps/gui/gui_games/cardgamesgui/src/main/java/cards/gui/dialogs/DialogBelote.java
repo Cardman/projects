@@ -70,7 +70,7 @@ public abstract class DialogBelote extends DialogCards {
 //            listeChoix.addItem(choix_);
 //        }
         listeChoix.setSelectedItem(getReglesBelote().getCartesBattues());
-        dealing_.add(listeChoix.self());
+        dealing_.add(listeChoix.getCombo().self());
         dealAll = new CustCheckBox(getMessages().getVal(DEALING_MODE));
         dealAll.setSelected(getReglesBelote().dealAll());
         dealing_.add(dealAll);
@@ -131,9 +131,9 @@ public abstract class DialogBelote extends DialogCards {
             index_++;
         }
         if (i_ > -1) {
-            listChoiceTwo.selectItem(i_);
+            listChoiceTwo.getCombo().selectItem(i_);
         }
-        sousPanneau_.add(listChoiceTwo.self());
+        sousPanneau_.add(listChoiceTwo.getCombo().self());
         underTrumpingFoe=new CustCheckBox(getMessages().getVal(UNDER_TRUMPING_FOE));
         underTrumpingFoe.setSelected(getReglesBelote().getSousCoupeAdv());
         sousPanneau_.add(underTrumpingFoe);

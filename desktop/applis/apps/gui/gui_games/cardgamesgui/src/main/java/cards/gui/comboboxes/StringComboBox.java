@@ -11,15 +11,15 @@ public class StringComboBox extends TreeComboBox<Integer> {
         super(new IntTreeMap<String>(), _combo);
     }
 
-    @Override
+//    @Override
     public void addItem(String _anObject) {
         AbsMap<Integer, String> tr_;
         tr_ = getElements();
         tr_.put(tr_.size(), _anObject);
-        super.addItem(_anObject);
+        getCombo().addItem(_anObject);
     }
 
     public String getSelectedComboItem() {
-        return getSelectedItem();
+        return getCombo().getSelectedItem();
     }
 }

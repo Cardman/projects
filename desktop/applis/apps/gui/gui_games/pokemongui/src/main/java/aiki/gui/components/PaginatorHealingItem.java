@@ -270,7 +270,7 @@ public final class PaginatorHealingItem extends Paginator {
 //                getFacade().setContentOfStatusHealingItem(convertStringField(status.getText()));
 //            }
 //        });
-        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
+        modeName.getCombo().setListener(new ChangedModeEvent(modeName, nameAuto));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -278,7 +278,7 @@ public final class PaginatorHealingItem extends Paginator {
 //                AutoCompleteDocument.setMode(name, s_);
 //            }
 //        });
-        modeStatus.setListener(new ChangedModeEvent(modeStatus, statusAuto));
+        modeStatus.getCombo().setListener(new ChangedModeEvent(modeStatus, statusAuto));
 //        modeStatus.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeStatus.getCurrent();
@@ -494,13 +494,13 @@ public final class PaginatorHealingItem extends Paginator {
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
-        search_.add(modeName.self());
+        search_.add(modeName.getCombo().self());
         search_.add(new TextLabel(getMessages().getVal(CST_DESCRIPTION)));
         search_.add(description);
-        search_.add(modeDescription.self());
+        search_.add(modeDescription.getCombo().self());
         search_.add(new TextLabel(getMessages().getVal(CST_STATUS)));
         search_.add(status);
-        search_.add(modeStatus.self());
+        search_.add(modeStatus.getCombo().self());
         search_.add(new TextLabel(getMessages().getVal(HP)));
         search_.add(minHp);
         search_.add(maxHp);
@@ -522,50 +522,50 @@ public final class PaginatorHealingItem extends Paginator {
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(RELATIVE_PP)));
-        search_.add(relativePp.self());
+        search_.add(relativePp.getCombo().self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(HEAL_MOVE)));
-        search_.add(healMove.self());
+        search_.add(healMove.getCombo().self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(HEAL_KO)));
-        search_.add(healFromKo.self());
+        search_.add(healFromKo.getCombo().self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(STATISTIC)));
-        search_.add(statis.self());
+        search_.add(statis.getCombo().self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         _p.add(search_);
         Panel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
-        sorting_.add(cmpNameSorting.self());
-        sorting_.add(cmpNamePrio.self());
+        sorting_.add(cmpNameSorting.getCombo().self());
+        sorting_.add(cmpNamePrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_DESCRIPTION)));
-        sorting_.add(cmpDescriptionSorting.self());
-        sorting_.add(cmpDescriptionPrio.self());
+        sorting_.add(cmpDescriptionSorting.getCombo().self());
+        sorting_.add(cmpDescriptionPrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(PRICE)));
-        sorting_.add(cmpPriceSorting.self());
-        sorting_.add(cmpPricePrio.self());
+        sorting_.add(cmpPriceSorting.getCombo().self());
+        sorting_.add(cmpPricePrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(NUMBER)));
-        sorting_.add(cmpNumberSorting.self());
-        sorting_.add(cmpNumberPrio.self());
+        sorting_.add(cmpNumberSorting.getCombo().self());
+        sorting_.add(cmpNumberPrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(PP)));
-        sorting_.add(cmpPpSorting.self());
-        sorting_.add(cmpPpPrio.self());
+        sorting_.add(cmpPpSorting.getCombo().self());
+        sorting_.add(cmpPpPrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(RELATIVE_PP)));
-        sorting_.add(cmpRelativePpSorting.self());
-        sorting_.add(cmpRelativePpPrio.self());
+        sorting_.add(cmpRelativePpSorting.getCombo().self());
+        sorting_.add(cmpRelativePpPrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(HP)));
-        sorting_.add(cmpHpSorting.self());
-        sorting_.add(cmpHpPrio.self());
+        sorting_.add(cmpHpSorting.getCombo().self());
+        sorting_.add(cmpHpPrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(RELATIVE_HP)));
-        sorting_.add(cmpRelativeHpSorting.self());
-        sorting_.add(cmpRelativeHpPrio.self());
+        sorting_.add(cmpRelativeHpSorting.getCombo().self());
+        sorting_.add(cmpRelativeHpPrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(STATISTIC)));
-        sorting_.add(cmpNbStatisticsSorting.self());
-        sorting_.add(cmpNbStatisticsPrio.self());
+        sorting_.add(cmpNbStatisticsSorting.getCombo().self());
+        sorting_.add(cmpNbStatisticsPrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_STATUS)));
-        sorting_.add(cmpNbStatusSorting.self());
-        sorting_.add(cmpNbStatusPrio.self());
+        sorting_.add(cmpNbStatusSorting.getCombo().self());
+        sorting_.add(cmpNbStatusPrio.getCombo().self());
         _p.add(sorting_);
         Panel top_;
         top_ = Panel.newLineBox();
@@ -597,11 +597,11 @@ public final class PaginatorHealingItem extends Paginator {
         getNbResults().setValue(getFacade().getNbResultsPerPageHealingItem());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
-        getPages().setListener(new ChangedPageEvent(this));
+        getPages().getCombo().setListener(new ChangedPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());
-        bottom_.add(getPages().self());
+        bottom_.add(getPages().getCombo().self());
         bottom_.add(getNext());
         bottom_.add(getNextDelta());
         bottom_.add(getEnd());
@@ -628,7 +628,7 @@ public final class PaginatorHealingItem extends Paginator {
         if (isAdding()) {
             return;
         }
-        getFacade().changePageHealingItem(getPages().getSelectedIndex());
+        getFacade().changePageHealingItem(getPages().getCombo().getSelectedIndex());
         refreshResults();
         getWindow().pack();
     }

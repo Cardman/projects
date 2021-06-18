@@ -4,8 +4,8 @@ import code.util.comparators.ComparatorIndexes;
 import code.util.comparators.ComparatorMapValue;
 import code.util.ints.Listable;
 
-public final class ComboBox<T> extends AbsComboBox implements GraphicComboGrIntBase {
-
+public final class ComboBox<T> extends AbsComboBox {
+// implements GraphicComboGrIntBase
     private static final String EMPTY_STRING = "";
 
     private final EnumList<T> order = new EnumList<T>();
@@ -29,7 +29,7 @@ public final class ComboBox<T> extends AbsComboBox implements GraphicComboGrIntB
         EnumMap<T,String> m_ = createMap(_tr);
         elements.putAllMap(m_);
         for (T e: elements.getKeys()) {
-            addItem(_tr.getVal(e));
+            getCombo().addItem(_tr.getVal(e));
         }
     }
 
@@ -39,7 +39,7 @@ public final class ComboBox<T> extends AbsComboBox implements GraphicComboGrIntB
         elements = new TreeMap<T,String>(new ComparatorMapValue<T>(m_));
         elements.putAllMap(m_);
         for (T e: elements.getKeys()) {
-            addItem(_tr.getVal(e));
+            getCombo().addItem(_tr.getVal(e));
         }
     }
 
@@ -51,7 +51,7 @@ public final class ComboBox<T> extends AbsComboBox implements GraphicComboGrIntB
         return m_;
     }
 
-    @Override
+//    @Override
     public void removeItem(int _anIndex) {
         TreeMap<T, String> tr_;
         tr_ = getElements();
@@ -67,32 +67,32 @@ public final class ComboBox<T> extends AbsComboBox implements GraphicComboGrIntB
         TreeMap<T, String> tr_;
         tr_ = getElements();
         tr_.put(_t, _dis);
-        addItem(_dis);
+        getCombo().addItem(_dis);
     }
     public void setSelectedItem(T _t) {
         int i_ = 0;
         for (EntryCust<T, String> e: getElements().entryList()) {
             if (e.getKey() == _t) {
-                selectItem(i_);
+                getCombo().selectItem(i_);
                 return;
             }
             i_++;
         }
     }
-    @Override
+//    @Override
     public void removeAllItems() {
         getElements().clear();
         getCombo().removeAllItems();
     }
     public T getCurrent() {
-        int index_ = getSelectedIndex();
+        int index_ = getCombo().getSelectedIndex();
         if (index_ < 0) {
             return null;
         }
         return elements.getKey(index_);
     }
     public boolean isSelectNullCurrent() {
-        int index_ = getSelectedIndex();
+        int index_ = getCombo().getSelectedIndex();
         if (index_ < 0) {
             return false;
         }

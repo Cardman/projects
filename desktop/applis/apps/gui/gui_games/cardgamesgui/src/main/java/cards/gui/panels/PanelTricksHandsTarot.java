@@ -127,23 +127,23 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         container.add(cards,BorderLayout.CENTER);
         Panel selectionGameState_=Panel.newLineBox();
         selectionGameState_.add(new TextLabel(messages.getVal(TRICK)));
-        Integer[] numerosPlis_;
-        numerosPlis_=new Integer[tricks_.size()+1];
+        int[] numerosPlis_;
+        numerosPlis_=new int[tricks_.size()+1];
         int nbTricksNumbers_ = numerosPlis_.length;
         for(byte indicePli_ = IndexConstants.FIRST_INDEX; indicePli_<nbTricksNumbers_; indicePli_++) {
             numerosPlis_[indicePli_]=indicePli_-1;
         }
         trickNumber=new NumComboBox(window.getFrames().getGeneComboBox(), numerosPlis_);
-        trickNumber.setListener(new ListenerTricks(this));
-        selectionGameState_.add(trickNumber.self());
+        trickNumber.getCombo().setListener(new ListenerTricks(this));
+        selectionGameState_.add(trickNumber.getCombo().self());
         selectionGameState_.add(new TextLabel(messages.getVal(CARD)));
-        Integer[] numerosJoueurs_=new Integer[_numberPlayers];
+        int[] numerosJoueurs_=new int[_numberPlayers];
         for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<_numberPlayers; indiceJoueur_++) {
             numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
         }
         cardNumberTrick=new NumComboBox(window.getFrames().getGeneComboBox(), numerosJoueurs_);
-        cardNumberTrick.setListener(new ListenerCards(this));
-        selectionGameState_.add(cardNumberTrick.self());
+        cardNumberTrick.getCombo().setListener(new ListenerCards(this));
+        selectionGameState_.add(cardNumberTrick.getCombo().self());
         container.add(selectionGameState_,BorderLayout.SOUTH);
     }
 

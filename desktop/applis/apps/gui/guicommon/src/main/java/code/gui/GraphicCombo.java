@@ -172,7 +172,7 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
         grList.remove(_index);
         if (oldIndex_ == _index) {
             if (!grList.getList().isEmpty()) {
-                update();
+                updateLoc();
             } else {
                 selectedIndex = -1;
                 setNoSelected();
@@ -206,6 +206,10 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
     }
 
     public void update() {
+        updateLoc();
+    }
+
+    private void updateLoc() {
         String selected_ = getSelectedItem();
         if (selected_ == null) {
             return;

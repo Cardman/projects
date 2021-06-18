@@ -157,13 +157,13 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         liste.addItem(nickNames.getPseudo());
         int nbPlayers_ = getReglesTarot().getRepartition().getNombreJoueurs();
         for(String n: nickNames.getPseudosTarot()) {
-            if (liste.getItemCount() == nbPlayers_) {
+            if (liste.getCombo().getItemCount() == nbPlayers_) {
                 break;
             }
             liste.addItem(n);
         }
         liste.addItem(getMessages().getVal(RANDOM));
-        panneau_.add(liste.self());
+        panneau_.add(liste.getCombo().self());
         c.add(panneau_,BorderLayout.NORTH);
         pile_.trier(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         TarotCardsScrollableList plc_=new TarotCardsScrollableList(nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGeneTarot().create(false));
@@ -215,7 +215,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosTarot()) {
-            if (listeTwo.getItemCount() == getReglesTarot().getRepartition().getNombreJoueurs() + 1) {
+            if (listeTwo.getCombo().getItemCount() == getReglesTarot().getRepartition().getNombreJoueurs() + 1) {
                 break;
             }
             String message_ = getMessages().getVal(PLAYER_HAND);
@@ -223,7 +223,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             listeTwo.addItem(message_);
         }
         listeTwo.addItem(getMessages().getVal(REMAINING));
-        sousPanneau_.add(listeTwo.self());
+        sousPanneau_.add(listeTwo.getCombo().self());
         labelSelectCards = new TextLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
@@ -293,7 +293,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         }
 //        nombreDeJoueurs_=nombreDeMains_-1;
         nombreDeJoueurs_=hands_.size();
-        byte donneur_ = (byte) liste.getSelectedIndex();
+        byte donneur_ = (byte) liste.getCombo().getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //            donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
             donneur_=(byte)MonteCarloUtil.randomLong(nombreDeJoueurs_,getMain().getGenerator());
@@ -336,7 +336,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             HandTarot cartesSelectionnees_= c_.getCartesTarotSelectionnees();
             m.ajouterCartes(cartesSelectionnees_);
         }
-        int numero_= listeTwo.getSelectedIndex();
+        int numero_= listeTwo.getCombo().getSelectedIndex();
         TarotCardsScrollableList panneauSelectionne_=(TarotCardsScrollableList)getHands(true).get(numero_);
         //(TarotCardsScrollableList)panelsCards.getComponent(numero_);
 //        TarotCardsScrollableList panneau2_;

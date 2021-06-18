@@ -18,7 +18,7 @@ public final class ComboBoxEnumCards<E> extends TreeComboBox<Integer> {
         tr_ = getElements();
         tr_.put(tr_.size(), _itemString);
         real.add(_item);
-        super.addItem(_itemString);
+        getCombo().addItem(_itemString);
     }
     @Override
     public void removeItem(int _anIndex) {

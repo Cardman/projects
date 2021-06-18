@@ -92,7 +92,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
             trSuit_.addEntry(couleur_, Games.toString(couleur_,lg_));
         }
         listeChoix.refresh(ls_, trSuit_);
-        panneau_.add(listeChoix.self());
+        panneau_.add(listeChoix.getCombo().self());
         Panel sousPanneauTwo_=Panel.newGrid(0,1);
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
         bouton_.addMouseListener(new AddSuitEvent(this));
@@ -133,18 +133,18 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         if (current_ == null) {
             return;
         }
-        if(orderedSuits.nombreDeCouleurs()==4&&listeChoix.getItemCount()==4) {
+        if(orderedSuits.nombreDeCouleurs()==4&&listeChoix.getCombo().getItemCount()==4) {
             orderedSuits.toutSupprimer();
         }
         orderedSuits.ajouterCouleur(current_);
-        listeChoix.removeItem(listeChoix.getSelectedIndex());
+        listeChoix.removeItem(listeChoix.getCombo().getSelectedIndex());
     }
 
     @Override
     public void removeSuit(MainWindow _window) {
         String lg_ = _window.getLanguageKey();
         //Retirer du tri
-        if(orderedSuits.nombreDeCouleurs()<4||listeChoix.getItemCount()<4) {
+        if(orderedSuits.nombreDeCouleurs()<4||listeChoix.getCombo().getItemCount()<4) {
             EnumList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
             orderedSuits.supprimerCouleurs(couleurs_);
             for(Suit couleur_:couleurs_) {

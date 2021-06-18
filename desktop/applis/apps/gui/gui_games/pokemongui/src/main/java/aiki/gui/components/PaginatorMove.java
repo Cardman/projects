@@ -172,7 +172,7 @@ public final class PaginatorMove extends Paginator {
         }
         name = new TextField(16);
         nameAuto = new AutoCompleteDocument(name,mvs_, getWindow(),_window.getFrames().getGeneGraphicList());
-        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
+        modeName.getCombo().setListener(new ChangedModeEvent(modeName, nameAuto));
 
         StringList ts_ = new StringList();
         for (String p: getFacade().getData().getTypes()) {
@@ -181,7 +181,7 @@ public final class PaginatorMove extends Paginator {
         }
         types = new TextField(16);
         typesAuto = new AutoCompleteDocument(types,ts_, getWindow(),_window.getFrames().getGeneGraphicList());
-        modeTypes.setListener(new ChangedModeEvent(modeTypes, typesAuto));
+        modeTypes.getCombo().setListener(new ChangedModeEvent(modeTypes, typesAuto));
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -322,10 +322,10 @@ public final class PaginatorMove extends Paginator {
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
-        search_.add(modeName.self());
+        search_.add(modeName.getCombo().self());
         search_.add(new TextLabel(getMessages().getVal(CST_TYPES)));
         search_.add(types);
-        search_.add(modeTypes.self());
+        search_.add(modeTypes.getCombo().self());
         search_.add(new TextLabel(getMessages().getVal(CST_PRIORITY)));
         search_.add(minPriority);
         search_.add(maxPriority);
@@ -336,32 +336,32 @@ public final class PaginatorMove extends Paginator {
         search_.add(minPrice);
         search_.add(maxPrice);
         search_.add(new TextLabel(getMessages().getVal(CST_DAMAGING)));
-        search_.add(damaging.self());
+        search_.add(damaging.getCombo().self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         search_.add(new TextLabel(getMessages().getVal(CST_TARGETS)));
-        search_.add(targets.self());
+        search_.add(targets.getCombo().self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         _p.add(search_);
         Panel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
-        sorting_.add(cmpNameSorting.self());
-        sorting_.add(cmpNamePrio.self());
+        sorting_.add(cmpNameSorting.getCombo().self());
+        sorting_.add(cmpNamePrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_PRICE)));
-        sorting_.add(cmpPriceSorting.self());
-        sorting_.add(cmpPricePrio.self());
+        sorting_.add(cmpPriceSorting.getCombo().self());
+        sorting_.add(cmpPricePrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_PRIORITY)));
-        sorting_.add(cmpPrioSorting.self());
-        sorting_.add(cmpPrioPrio.self());
+        sorting_.add(cmpPrioSorting.getCombo().self());
+        sorting_.add(cmpPrioPrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_PP)));
-        sorting_.add(cmpPpSorting.self());
-        sorting_.add(cmpPpPrio.self());
+        sorting_.add(cmpPpSorting.getCombo().self());
+        sorting_.add(cmpPpPrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_DAMAGING)));
-        sorting_.add(cmpDamagingSorting.self());
-        sorting_.add(cmpDamagingPrio.self());
+        sorting_.add(cmpDamagingSorting.getCombo().self());
+        sorting_.add(cmpDamagingPrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_TARGETS)));
-        sorting_.add(cmpTargetsSorting.self());
-        sorting_.add(cmpTargetsPrio.self());
+        sorting_.add(cmpTargetsSorting.getCombo().self());
+        sorting_.add(cmpTargetsPrio.getCombo().self());
         _p.add(sorting_);
         Panel top_;
         top_ = Panel.newLineBox();
@@ -411,11 +411,11 @@ public final class PaginatorMove extends Paginator {
         getNbResults().setValue(getFacade().getNbResultsPerPageMove());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
-        getPages().setListener(new ChangedPageEvent(this));
+        getPages().getCombo().setListener(new ChangedPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());
-        bottom_.add(getPages().self());
+        bottom_.add(getPages().getCombo().self());
         bottom_.add(getNext());
         bottom_.add(getNextDelta());
         bottom_.add(getEnd());
@@ -442,7 +442,7 @@ public final class PaginatorMove extends Paginator {
         if (isAdding()) {
             return;
         }
-        getFacade().changePageMove(getPages().getSelectedIndex());
+        getFacade().changePageMove(getPages().getCombo().getSelectedIndex());
         refreshResults();
         getWindow().pack();
     }

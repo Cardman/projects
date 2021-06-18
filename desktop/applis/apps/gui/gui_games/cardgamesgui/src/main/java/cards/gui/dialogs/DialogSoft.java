@@ -82,7 +82,7 @@ public final class DialogSoft extends DialogCards {
             list.refresh(order_, mess_);
 //            liste=new JComboBox<>(new Object[]{messages.getVal(LAUNCHING),GameEnum.BELOTE,GameEnum.PRESIDENT,GameEnum.TAROT});
 //            panneau_.add(liste);
-            panneau_.add(list.self());
+            panneau_.add(list.getCombo().self());
             saveHomeFolder = new CustCheckBox(messages.getVal(SELECT_HOME_PATH));
             panneau_.add(saveHomeFolder);
             container_.add(panneau_,BorderLayout.CENTER);

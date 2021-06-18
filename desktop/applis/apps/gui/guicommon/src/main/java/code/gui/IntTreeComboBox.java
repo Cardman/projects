@@ -3,7 +3,8 @@ import code.util.*;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorMapValue;
 
-public final class IntTreeComboBox extends AbsComboBox implements GraphicComboGrIntBase {
+public final class IntTreeComboBox extends AbsComboBox {
+    //implements GraphicComboGrIntBase
 //implements TranslatableComponent
 
     private static final String EMPTY_STRING = "";
@@ -18,11 +19,8 @@ public final class IntTreeComboBox extends AbsComboBox implements GraphicComboGr
 
     private boolean withDefaultValue;
 
-    public IntTreeComboBox(GraphicComboGrInt _combo, Integer... _elements){
+    public IntTreeComboBox(GraphicComboGrInt _combo){
         super(_combo);
-        for (Integer e: _elements) {
-            addItem(e.toString());
-        }
     }
 
     private static StringList str(Integer... _elements) {
@@ -42,7 +40,7 @@ public final class IntTreeComboBox extends AbsComboBox implements GraphicComboGr
         elements = new TreeMap<Integer,String>(new ComparatorMapValue<Integer>(m_));
         elements.putAllMap(m_);
         for (Integer e: elements.getKeys()) {
-            addItem(_tr.getVal(e));
+            getCombo().addItem(_tr.getVal(e));
         }
     }
 
@@ -54,7 +52,7 @@ public final class IntTreeComboBox extends AbsComboBox implements GraphicComboGr
         return m_;
     }
 
-    @Override
+//    @Override
     public void removeItem(int _anIndex) {
         TreeMap<Integer, String> tr_;
         tr_ = getElements();
@@ -63,35 +61,35 @@ public final class IntTreeComboBox extends AbsComboBox implements GraphicComboGr
         getCombo().removeItem(_anIndex);
     }
 
-    public void setItems(Integer... _numerosPlis) {
+    public void setItems(int[] _numerosPlis) {
         removeAllItems();
-        for (Integer i: _numerosPlis) {
-            addItem(i.toString());
+        for (int i: _numerosPlis) {
+            getCombo().addItem(Integer.toString(i));
         }
         refresh(getTree(_numerosPlis));
     }
-    private static IntTreeMap< String> getTree(Integer... _ints) {
+    private static IntTreeMap< String> getTree(int[] _ints) {
         IntTreeMap< String> tr_;
         tr_ = new IntTreeMap< String>();
-        for (Integer i: _ints) {
-            tr_.put(i, i.toString());
+        for (int i: _ints) {
+            tr_.put(i, Integer.toString(i));
         }
         return tr_;
     }
-    @Override
+//    @Override
     public void removeAllItems() {
         getElements().clear();
         getCombo().removeAllItems();
     }
     public Integer getCurrent() {
-        int index_ = getSelectedIndex();
+        int index_ = getCombo().getSelectedIndex();
         if (index_ < 0) {
             return null;
         }
         return elements.getKey(index_);
     }
     public boolean isSelectNullCurrent() {
-        int index_ = getSelectedIndex();
+        int index_ = getCombo().getSelectedIndex();
         if (index_ < 0) {
             return false;
         }

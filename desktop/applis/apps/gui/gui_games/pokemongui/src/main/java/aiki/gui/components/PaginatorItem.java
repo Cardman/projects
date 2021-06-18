@@ -133,7 +133,7 @@ public final class PaginatorItem extends Paginator {
 //                getFacade().setContentOfDescriptionItem(convertStringField(description.getText()));
 //            }
 //        });
-        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
+        modeName.getCombo().setListener(new ChangedModeEvent(modeName, nameAuto));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -215,10 +215,10 @@ public final class PaginatorItem extends Paginator {
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
-        search_.add(modeName.self());
+        search_.add(modeName.getCombo().self());
         search_.add(new TextLabel(getMessages().getVal(CST_DESCRIPTION)));
         search_.add(description);
-        search_.add(modeDescription.self());
+        search_.add(modeDescription.getCombo().self());
         search_.add(new TextLabel(getMessages().getVal(PRICE)));
         search_.add(minPrice);
         search_.add(maxPrice);
@@ -229,17 +229,17 @@ public final class PaginatorItem extends Paginator {
         Panel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
-        sorting_.add(cmpNameSorting.self());
-        sorting_.add(cmpNamePrio.self());
+        sorting_.add(cmpNameSorting.getCombo().self());
+        sorting_.add(cmpNamePrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(CST_DESCRIPTION)));
-        sorting_.add(cmpDescriptionSorting.self());
-        sorting_.add(cmpDescriptionPrio.self());
+        sorting_.add(cmpDescriptionSorting.getCombo().self());
+        sorting_.add(cmpDescriptionPrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(PRICE)));
-        sorting_.add(cmpPriceSorting.self());
-        sorting_.add(cmpPricePrio.self());
+        sorting_.add(cmpPriceSorting.getCombo().self());
+        sorting_.add(cmpPricePrio.getCombo().self());
         sorting_.add(new TextLabel(getMessages().getVal(NUMBER)));
-        sorting_.add(cmpNumberSorting.self());
-        sorting_.add(cmpNumberPrio.self());
+        sorting_.add(cmpNumberSorting.getCombo().self());
+        sorting_.add(cmpNumberPrio.getCombo().self());
         _p.add(sorting_);
         Panel top_;
         top_ = Panel.newLineBox();
@@ -278,11 +278,11 @@ public final class PaginatorItem extends Paginator {
         getNbResults().setValue(getFacade().getNbResultsPerPageItem());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
-        getPages().setListener(new ChangedPageEvent(this));
+        getPages().getCombo().setListener(new ChangedPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());
-        bottom_.add(getPages().self());
+        bottom_.add(getPages().getCombo().self());
         bottom_.add(getNext());
         bottom_.add(getNextDelta());
         bottom_.add(getEnd());
@@ -309,7 +309,7 @@ public final class PaginatorItem extends Paginator {
         if (isAdding()) {
             return;
         }
-        getFacade().changePageItem(getPages().getSelectedIndex());
+        getFacade().changePageItem(getPages().getCombo().getSelectedIndex());
         refreshResults();
         getWindow().pack();
     }
