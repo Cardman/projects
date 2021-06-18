@@ -81,18 +81,18 @@ public class HealingItemLabel extends SelectableLabel {
 //        }
         Ints widths_ = new Ints();
         widths_.add(_thirdColumn);
-        widths_.add(getFontMetrics(getFont()).stringWidth(item.getItemClass()));
+        widths_.add(stringWidth(item.getItemClass()));
         widths_.add(getThirdLineWidth());
-        widths_.add(getFontMetrics(getFont()).stringWidth(item.getNumber().toNumberString()));
+        widths_.add(stringWidth(item.getNumber().toNumberString()));
         setPreferredSize(new Dimension((int) widths_.getMaximum(1),h_));
     }
 
     public int getThirdColumnWidth() {
-        return getFontMetrics(getFont()).stringWidth(StringUtil.concat(item.getName(),SPACES));
+        return stringWidth(StringUtil.concat(item.getName(),SPACES));
     }
 
     public int getFourthColumnWidth() {
-        return getFontMetrics(getFont()).stringWidth(StringUtil.concat(item.getNumber().toNumberString(),SPACES));
+        return stringWidth(StringUtil.concat(item.getNumber().toNumberString(),SPACES));
     }
 
     @Override
@@ -110,7 +110,7 @@ public class HealingItemLabel extends SelectableLabel {
     }
 
     private int getThirdLineWidth() {
-        return getFontMetrics(getFont()).stringWidth(getThirdLineInfos());
+        return stringWidth(getThirdLineInfos());
     }
 
     private String getThirdLineInfos() {

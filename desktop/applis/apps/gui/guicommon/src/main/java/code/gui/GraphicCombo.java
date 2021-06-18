@@ -32,8 +32,7 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
         grList.setListener(new ComboSelection(menu, this));
         menu.add(grList.getGlobal());
         Font font_ = panel.getFont();
-        FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
-        int s_ = fontMetrics_.getHeight() + 2;
+        int s_ = panel.heightFont() + 2;
         BufferedImage img_ = new BufferedImage(s_, s_, BufferedImage.TYPE_INT_RGB);
         CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setColor(Color.WHITE);
@@ -80,9 +79,7 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
         if (grList.getList().size() == 1) {
             selectedIndex = 0;
             int w_ = grList.getMaxWidth();
-            Font font_ = panel.getFont();
-            FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
-            int s_ = fontMetrics_.getHeight() + 2;
+            int s_ = panel.heightFont() + 2;
             BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
             CustGraphics gr_ = new CustGraphics(img_.createGraphics());
             gr_.setFont(currentSelected.getFont());
@@ -214,9 +211,7 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
             return;
         }
         int w_ = grList.getMaxWidth();
-        Font font_ = panel.getFont();
-        FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
-        int s_ = fontMetrics_.getHeight() + 2;
+        int s_ = panel.heightFont() + 2;
         BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
         CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setFont(currentSelected.getFont());
@@ -228,9 +223,7 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
     }
 
     public void setNoSelected() {
-        Font font_ = panel.getFont();
-        FontMetrics fontMetrics_ = panel.getFontMetrics(font_);
-        int s_ = fontMetrics_.getHeight() + 2;
+        int s_ = panel.heightFont() + 2;
         int w_ = 5;
         BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
         CustGraphics gr_ = new CustGraphics(img_.createGraphics());

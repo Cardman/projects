@@ -157,10 +157,6 @@ public final class Panel extends CustComponent {
         panel.invalidate();
     }
 
-    public FontMetrics getFontMetrics(Font _font) {
-        return panel.getFontMetrics(_font);
-    }
-
     @Override
     protected JComponent getComponent() {
         return panel;

@@ -1,8 +1,6 @@
 package code.gui.document;
 
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
 
 import code.formathtml.render.*;
 import code.formathtml.util.FormInputCoords;
@@ -50,10 +48,8 @@ public final class WindowPage implements Runnable {
                     }
                     if (container_.containsOnlyEndLine()) {
                         Panel c_ = (Panel) cur_.getGraphic();
-                        Font font_ = c_.getFont();
-                        FontMetrics fMetrics_ = c_.getFontMetrics(font_);
                         int em_ = cur_.getComponent().getStyle().getEmToPixels();
-                        cur_.getChildren().last().getGraphic().setPreferredSize(new Dimension(em_, fMetrics_.getHeight()));
+                        cur_.getChildren().last().getGraphic().setPreferredSize(new Dimension(em_, c_.heightFont()));
                     }
                 }
                 IntComponent firstChild_ = container_.getFirstChildCompo();
@@ -86,12 +82,10 @@ public final class WindowPage implements Runnable {
                 MetaContainer gr_ = li_.getParent();
                 int width_ = ((MetaIndentNbLabel)meta_).getStyle().getEmToPixels();
                 Panel p_ = (Panel) cur_.getGraphic();
-                Font font_ = p_.getFont();
-                FontMetrics fontMetrics_ = p_.getFontMetrics(font_);
                 if (gr_ instanceof MetaOrderedList) {
                     int len_ = gr_.getChildren().size();
                     for (int i = 0; i < len_; i++) {
-                        width_ = Math.max(width_, fontMetrics_.stringWidth(Long.toString(i + 1L)));
+                        width_ = Math.max(width_, p_.stringWidth(Long.toString(i + 1L)));
                     }
                 }
                 cur_.add(new DualIndentNbLabel((DualContainer) cur_,(MetaIndentNbLabel) meta_, page, width_));

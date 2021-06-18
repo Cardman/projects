@@ -1,8 +1,6 @@
 package cards.gui.labels;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
 
 import cards.belote.BidBeloteSuit;
 import cards.consts.Suit;
@@ -28,8 +26,8 @@ public class SuitLabel extends PaintableLabel {
             setText(Games.toString(bid.getEnchere(),_lg));
             setBackground(Color.WHITE);
             setForeground(new Color(0, 0, 127));
-            int h_ = getFontMetrics(getFont()).getHeight();
-            int w_ = getFontMetrics(getFont()).stringWidth(getText());
+            int h_ = heightFont();
+            int w_ = stringWidth(getText());
             setPreferredSize(new Dimension(w_, h_));
         } else {
             setText(EMPTY_STRING);
@@ -52,10 +50,8 @@ public class SuitLabel extends PaintableLabel {
     @Override
     public void paintComponent(CustGraphics _g) {
         if (!getText().isEmpty()) {
-            Font font_ = getFont();
-            FontMetrics fontMetrics_ = getFontMetrics(font_);
-            int h_ = fontMetrics_.getHeight();
-            int w_ = fontMetrics_.stringWidth(text);
+            int h_ = heightFont();
+            int w_ = stringWidth(text);
             LabelButtonUtil.paintDefaultLabel(_g, text, w_, getWidth(), h_, getForeground(), getBackground());
         } else {
             _g.setColor(Color.WHITE);

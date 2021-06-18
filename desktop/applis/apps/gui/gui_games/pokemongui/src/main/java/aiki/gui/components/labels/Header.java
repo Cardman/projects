@@ -20,7 +20,7 @@ public class Header extends PaintableLabel {
     }
 
     public int width(String _string) {
-        return getFontMetrics(getFont()).stringWidth(_string);
+        return stringWidth(_string);
     }
 
     public void addString(String _text, int _x) {

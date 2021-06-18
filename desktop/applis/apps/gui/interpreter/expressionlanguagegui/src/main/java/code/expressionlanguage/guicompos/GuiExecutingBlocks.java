@@ -540,7 +540,7 @@ public final class GuiExecutingBlocks {
         if (!(_string instanceof StringStruct)) {
             return new IntStruct(-1);
         }
-        return new IntStruct(textLabel.getFontMetrics(_font.getFont()).stringWidth(((StringStruct)_string).getInstance()));
+        return new IntStruct(textLabel.stringWidth(_font.getFont(),((StringStruct)_string).getInstance()));
     }
 
 

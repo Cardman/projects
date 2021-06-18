@@ -53,10 +53,6 @@ public final class PreparedLabel extends CustComponent {
         return new ImageIcon(_icon);
     }
 
-    public FontMetrics getFontMetrics(Font _font) {
-        return label.getFontMetrics(_font);
-    }
-
     @Override
     protected JComponent getComponent() {
         return label;

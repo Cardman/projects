@@ -80,27 +80,27 @@ public class TmLabel extends SelectableLabel {
     }
 
     public int getNameWidth() {
-        return getFontMetrics(getFont()).stringWidth(moveName);
+        return stringWidth(moveName);
     }
 
     public int getTypesWidth() {
-        return getFontMetrics(getFont()).stringWidth(StringUtil.concat(SPACE,types));
+        return stringWidth(StringUtil.concat(SPACE,types));
     }
 
     public int getPriorityWidth() {
-        return getFontMetrics(getFont()).stringWidth(StringUtil.concat(SPACE,priority));
+        return stringWidth(StringUtil.concat(SPACE,priority));
     }
 
     public int getPpWidth() {
-        return getFontMetrics(getFont()).stringWidth(StringUtil.concat(SPACE,pp));
+        return stringWidth(StringUtil.concat(SPACE,pp));
     }
 
     public int getTargetWidth() {
-        return getFontMetrics(getFont()).stringWidth(StringUtil.concat(SPACE,target));
+        return stringWidth(StringUtil.concat(SPACE,target));
     }
 
     public int getPriceWidth() {
-        return getFontMetrics(getFont()).stringWidth(StringUtil.concat(SPACE,price));
+        return stringWidth(StringUtil.concat(SPACE,price));
     }
 
     public void setPreferredSize(int _width) {

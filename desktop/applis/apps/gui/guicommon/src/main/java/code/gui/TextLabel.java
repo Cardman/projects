@@ -1,8 +1,6 @@
 package code.gui;
 
 import javax.swing.*;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.image.BufferedImage;
 
 public final class TextLabel extends PaintableLabel {
@@ -11,11 +9,9 @@ public final class TextLabel extends PaintableLabel {
 
     public TextLabel(String _text) {
         text = _text;
-        Font font_ = getFont();
-        FontMetrics fontMetrics_ = getFontMetrics(font_);
-        int w_ = fontMetrics_.stringWidth(text)+2;
+        int w_ = stringWidth(text)+2;
         JLabel lab_ = getLabel();
-        BufferedImage img_ = LabelButtonUtil.paintDefaultLabel(lab_, text, w_, getForeground(), getBackground());
+        BufferedImage img_ = LabelButtonUtil.paintDefaultLabel(this, text, w_, getForeground(), getBackground());
         lab_.setIcon(new ImageIcon(img_));
     }
 
@@ -26,34 +22,26 @@ public final class TextLabel extends PaintableLabel {
 
     @Override
     public void paintComponent(CustGraphics _g2) {
-        Font font_ = getFont();
-        FontMetrics fontMetrics_ = getFontMetrics(font_);
-        int h_ = fontMetrics_.getHeight();
-        int w_ = fontMetrics_.stringWidth(text);
+        int h_ = heightFont();
+        int w_ = stringWidth(text);
         LabelButtonUtil.paintDefaultLabel(_g2, text, w_, getWidth(), h_, getForeground(), getBackground());
     }
 
     @Override
     public int getHeight() {
-        Font font_ = getFont();
-        FontMetrics fontMetrics_ = getFontMetrics(font_);
-        return fontMetrics_.getHeight();
+        return heightFont();
     }
 
     @Override
     public int getWidth() {
-        Font font_ = getFont();
-        FontMetrics fontMetrics_ = getFontMetrics(font_);
-        return fontMetrics_.stringWidth(text)+2;
+        return stringWidth(text)+2;
     }
 
     public void setText(String _simpleNumberFormat) {
         text = _simpleNumberFormat;
-        Font font_ = getFont();
-        FontMetrics fontMetrics_ = getFontMetrics(font_);
-        int w_ = fontMetrics_.stringWidth(text)+2;
+        int w_ = stringWidth(text)+2;
         JLabel lab_ = getLabel();
-        BufferedImage img_ = LabelButtonUtil.paintDefaultLabel(lab_, text, w_, getForeground(), getBackground());
+        BufferedImage img_ = LabelButtonUtil.paintDefaultLabel(this, text, w_, getForeground(), getBackground());
         lab_.setIcon(new ImageIcon(img_));
     }
 

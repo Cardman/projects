@@ -732,9 +732,9 @@ public class FrontBattle extends PaintableLabel {
                 }
                 width_ += i.getWidth();
             }
-            hMax_ += getFontMetrics(getFont()).getHeight();
+            hMax_ += heightFont();
             damage = damage_.getDamage().evaluate(4);
-            int strWidth_ = getFontMetrics(getFont()).stringWidth(damage);
+            int strWidth_ = stringWidth(damage);
             if (strWidth_ > width_) {
                 width_ = strWidth_;
             }
@@ -752,14 +752,13 @@ public class FrontBattle extends PaintableLabel {
         } else if (_animation instanceof AnimationEffectStatistic) {
             AnimationEffectStatistic statis_ = (AnimationEffectStatistic) _animation;
             CustList<BufferedImage> types_ = new CustList<BufferedImage>();
-            FontMetrics fMet_ = getFontMetrics(getFont());
-            int h_ = fMet_.getHeight();
+            int h_ = heightFont();
             int statSide_ = facade.getMap().getSideLength();
             for (InfosAnimationStatistic t: statis_.getInfos()) {
                 int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().name());
                 BufferedImage t_ = ConverterGraphicBufferedImage.decodeToImage(type_);
                 String var_ = Long.toString(t.getVariation());
-                int widthVar_ = fMet_.stringWidth(var_);
+                int widthVar_ = stringWidth(var_);
                 if (widthVar_ < statSide_) {
                     widthVar_ = statSide_;
                 }

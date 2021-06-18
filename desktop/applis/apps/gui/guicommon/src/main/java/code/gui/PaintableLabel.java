@@ -1,9 +1,4 @@
 package code.gui;
-import java.awt.*;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -36,10 +31,6 @@ public abstract class PaintableLabel extends CustComponent {
     }
     public void setIcon(BufferedImage _icon) {
         label.setIcon(new ImageIcon(_icon));
-    }
-
-    public FontMetrics getFontMetrics(Font _font) {
-        return label.getFontMetrics(_font);
     }
 
     public void setVerticalAlignment(int _alignment) {

@@ -24,10 +24,9 @@ public final class DualNumberedLabel extends DualLabel {
         PreparedLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
         Font copy_ =  newFont(style_);
-        FontMetrics fontMetrics_ = lab_.getFontMetrics(copy_);
-        int h_ = fontMetrics_.getHeight();
+        int h_ = lab_.heightFont(copy_);
         String tr_ = new StringBuilder(number).append("  ").toString();
-        int diff_ = fontMetrics_.stringWidth(tr_);
+        int diff_ = lab_.stringWidth(copy_,tr_);
         BufferedImage img_ = new BufferedImage(diff_, h_, BufferedImage.TYPE_INT_RGB);
         CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setFont(copy_);

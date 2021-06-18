@@ -1,6 +1,5 @@
 package code.player.gui;
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.image.BufferedImage;
 
 import code.gui.CustGraphics;
@@ -30,15 +29,14 @@ public class SongRenderer extends PaintableLabel {
     }
 
     public void setSize() {
-        FontMetrics f_ = getFontMetrics(getFont());
         int w_ = 0;
         for (String s: songs) {
-            int ws_ = f_.stringWidth(s);
+            int ws_ = stringWidth(s);
             if (ws_ > w_) {
                 w_ = ws_;
             }
         }
-        int h_ = f_.getHeight() * songs.size();
+        int h_ = heightFont() * songs.size();
         if (w_ <= 0 || h_ <= 0) {
             setEmptyIcon();
             return;
@@ -54,8 +52,7 @@ public class SongRenderer extends PaintableLabel {
     public void paintComponent(CustGraphics _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
-        FontMetrics f_ = getFontMetrics(getFont());
-        int hstring_ = f_.getHeight();
+        int hstring_ = heightFont();
         for (int i = IndexConstants.FIRST_INDEX; i < songs.size(); i++) {
             if (i == noSong) {
                 _g.setColor(Color.YELLOW);

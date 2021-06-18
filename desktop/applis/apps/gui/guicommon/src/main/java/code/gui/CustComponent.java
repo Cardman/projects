@@ -88,6 +88,21 @@ public abstract class CustComponent {
         return getComponent().getHeight();
     }
 
+    public int heightFont() {
+        return heightFont(getComponent().getFont());
+    }
+
+    public int heightFont(Font _font) {
+        return getComponent().getFontMetrics(_font).getHeight();
+    }
+
+    public int stringWidth(String _string) {
+        return stringWidth(getComponent().getFont(),_string);
+    }
+
+    public int stringWidth(Font _font,String _string) {
+        return getComponent().getFontMetrics(_font).stringWidth(_string);
+    }
     public Font getFont() {
         return getComponent().getFont();
     }

@@ -39,10 +39,10 @@ public class ItemLabel extends SelectableLabel {
             h_ = FOURTH_LINE;
         }
         Ints widths_ = new Ints();
-        widths_.add(getFontMetrics(getFont()).stringWidth(item.getName()));
-        widths_.add(getFontMetrics(getFont()).stringWidth(item.getItemClass()));
-        widths_.add(getFontMetrics(getFont()).stringWidth(Long.toString(item.getPrice())));
-        widths_.add(getFontMetrics(getFont()).stringWidth(item.getNumber().toNumberString()));
+        widths_.add(stringWidth(item.getName()));
+        widths_.add(stringWidth(item.getItemClass()));
+        widths_.add(stringWidth(Long.toString(item.getPrice())));
+        widths_.add(stringWidth(item.getNumber().toNumberString()));
         setPreferredSize(new Dimension((int) widths_.getMaximum(1),h_));
     }
 

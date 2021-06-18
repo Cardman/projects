@@ -1,6 +1,5 @@
 package code.gui;
 import java.awt.Dimension;
-import java.awt.FontMetrics;
 
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -26,12 +25,11 @@ public class WrappedLabel extends PaintableLabel {
     }
 
     public void setPreferredSize() {
-        FontMetrics f_ = getFontMetrics(getFont());
         int nbLines_ = lines.size() + 1;
-        int h_ = f_.getHeight() * nbLines_;
+        int h_ = heightFont() * nbLines_;
         int w_ = IndexConstants.SIZE_EMPTY;
         for (String l: lines) {
-            int wLine_ = f_.stringWidth(l);
+            int wLine_ = stringWidth(l);
             if (wLine_ > w_) {
                 w_ = wLine_;
             }
@@ -45,8 +43,7 @@ public class WrappedLabel extends PaintableLabel {
         _g.setColor(getBackground());
         _g.fillRect(0, 0, getWidth(), getHeight());
         _g.setColor(getForeground());
-        FontMetrics f_ = getFontMetrics(getFont());
-        int hLine_ = f_.getHeight();
+        int hLine_ = heightFont();
         int i_ = IndexConstants.FIRST_INDEX;
         for (String l: lines) {
             _g.drawString(l, 0, hLine_ * (i_ + 1));

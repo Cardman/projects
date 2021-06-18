@@ -43,7 +43,7 @@ public class ItemRenderer extends CustCellRender<String> {
         maxWordWidth = 0;
         for (String i: facade.getChosenItemsForBuyOrSell().getKeys()) {
             String disp_ = facade.translateItem(i);
-            int w_ = _currentLab.getFontMetrics(_currentLab.getFont()).stringWidth(disp_);
+            int w_ = _currentLab.stringWidth(disp_);
             if (w_ > maxWordWidth) {
                 maxWordWidth = w_;
             }

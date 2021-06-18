@@ -56,14 +56,13 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
         String elt_ = elements.get(_index);
         Panel panel_ = getPanel();
         Font font_ = panel_.getFont();
-        FontMetrics fontMetrics_ = panel_.getFontMetrics(font_);
-        height = Math.max(height,fontMetrics_.getHeight());
-        cellRender.setMaxWidth(Math.max(cellRender.getMaxWidth(),fontMetrics_.stringWidth(elt_)));
-        BufferedImage buff_ = new BufferedImage(cellRender.getWidth(),fontMetrics_.getHeight(),BufferedImage.TYPE_INT_RGB);
+        height = Math.max(height,panel_.heightFont());
+        cellRender.setMaxWidth(Math.max(cellRender.getMaxWidth(),panel_.stringWidth(elt_)));
+        BufferedImage buff_ = new BufferedImage(cellRender.getWidth(),panel_.heightFont(),BufferedImage.TYPE_INT_RGB);
         CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
         gr_.setFont(font_);
-        int h_ = fontMetrics_.getHeight();
-        int w_ = fontMetrics_.stringWidth(elt_);
+        int h_ = panel_.heightFont();
+        int w_ = panel_.stringWidth(elt_);
         if (_sel) {
             LabelButtonUtil.paintDefaultLabel(gr_, elt_, w_, cellRender.getMaxWidth(), h_, Color.WHITE, Color.BLUE);
         } else {
@@ -82,11 +81,9 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
     @Override
     public int getMaxWidth() {
         Panel panel_ = getPanel();
-        Font font_ = panel_.getFont();
-        FontMetrics fontMetics_ = panel_.getFontMetrics(font_);
         int width_ = 4;
         for (String s: getList()) {
-            width_ = Math.max(width_, fontMetics_.stringWidth(s));
+            width_ = Math.max(width_, panel_.stringWidth(s));
         }
         return width_;
     }

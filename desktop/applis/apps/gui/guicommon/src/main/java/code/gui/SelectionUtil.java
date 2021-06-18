@@ -11,6 +11,12 @@ public final class SelectionUtil {
             SelectionInfo ev_ = new SelectionInfo(min_, max_, _methodAction);
             _list.valueChanged(ev_);
         }
-        AbsComboBox.tryUp(_origin);
+        tryUp(_origin);
+    }
+
+    public static void tryUp(GraphicComboGrInt _combo) {
+        if (_combo instanceof GraphicComboGrIntBase) {
+            ((GraphicComboGrIntBase) _combo).update();
+        }
     }
 }

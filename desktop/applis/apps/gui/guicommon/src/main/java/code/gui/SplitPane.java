@@ -8,23 +8,13 @@ public final class SplitPane extends CustComponent {
     private final JSplitPane component;
 
     public SplitPane(int _orientation, CustComponent _left, CustComponent _right) {
-        if (getOrient(_orientation) == JSplitPane.VERTICAL_SPLIT) {
-            component = new JSplitPane(JSplitPane.VERTICAL_SPLIT,_left.getComponent(),_right.getComponent());
-        } else {
-            component = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,_left.getComponent(),_right.getComponent());
-        }
+        component = new JSplitPane(_orientation,_left.getComponent(),_right.getComponent());
         _left.setParent(this);
         getChildren().add(_left);
         _right.setParent(this);
         getChildren().add(_right);
     }
 
-    private static int getOrient(int _orientation) {
-        if (_orientation == JSplitPane.VERTICAL_SPLIT) {
-            return _orientation;
-        }
-        return JSplitPane.HORIZONTAL_SPLIT;
-    }
     @Override
     protected JComponent getComponent() {
         return component;

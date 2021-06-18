@@ -92,13 +92,7 @@ public abstract class AbsComboBox implements GraphicComboGrIntBase {
 
     @Override
     public void update() {
-        tryUp(combo);
-    }
-
-    public static void tryUp(GraphicComboGrInt _combo) {
-        if (_combo instanceof GraphicComboGrIntBase) {
-            ((GraphicComboGrIntBase) _combo).update();
-        }
+        SelectionUtil.tryUp(combo);
     }
 
     @Override

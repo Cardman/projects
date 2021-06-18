@@ -39,10 +39,9 @@ public final class DualAnchoredLabel extends DualLabel {
         PreparedLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
         Font copy_ =  newFont(style_);
-        FontMetrics fontMetrics_ = lab_.getFontMetrics(copy_);
-        int h_ = fontMetrics_.getHeight();
+        int h_ = lab_.heightFont(copy_);
         String text_ = getText();
-        int w_ = fontMetrics_.stringWidth(text_);
+        int w_ = lab_.stringWidth(copy_,text_);
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
         CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         gr_.setFont(copy_);
@@ -51,8 +50,8 @@ public final class DualAnchoredLabel extends DualLabel {
         gr_.setColor(Color.ORANGE);
         for (SegmentPart s: getSegments()) {
             int beginIndex_ = s.getBegin();
-            int b_ = fontMetrics_.stringWidth(text_.substring(0, beginIndex_));
-            int d_ = fontMetrics_.stringWidth(text_.substring(beginIndex_, s.getEnd()));
+            int b_ = lab_.stringWidth(copy_,text_.substring(0, beginIndex_));
+            int d_ = lab_.stringWidth(copy_,text_.substring(beginIndex_, s.getEnd()));
             gr_.fillRect(b_, 0, d_, h_);
         }
         gr_.setColor(Color.BLUE);

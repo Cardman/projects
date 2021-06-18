@@ -615,7 +615,7 @@ public final class PaginatorPokemon extends Paginator {
         //int maxPixName_ = header_.getFontMetrics(header_.getFont()).stringWidth(getMessages().getVal(NAME));
         int maxPixName_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_NAME),SPACE));
         for (PokemonLabel l: list_) {
-            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringUtil.concat(l.getPokemon().getName(),SPACE));
+            int value_ = l.stringWidth(StringUtil.concat(l.getPokemon().getName(),SPACE));
             if (value_ > maxPixName_) {
                 maxPixName_ = value_;
             }
@@ -625,7 +625,7 @@ public final class PaginatorPokemon extends Paginator {
 //        int maxPixAbility_ = header_.getFontMetrics(header_.getFont()).stringWidth(getMessages().getVal(ABILITY));
         int maxPixAbility_ = getHeader().width(StringUtil.concat(getMessages().getVal(CST_ABILITY),SPACE));
         for (PokemonLabel l: list_) {
-            int value_ = l.getFontMetrics(l.getFont()).stringWidth(StringUtil.concat(l.getPokemon().getAbility(),SPACE));
+            int value_ = l.stringWidth(StringUtil.concat(l.getPokemon().getAbility(),SPACE));
             if (value_ > maxPixAbility_) {
                 maxPixAbility_ = value_;
             }

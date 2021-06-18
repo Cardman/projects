@@ -80,7 +80,7 @@ public final class GraphicComboStruct extends InputStruct {
     }
 
     public void update() {
-        AbsComboBox.tryUp(graphicCombo);
+        SelectionUtil.tryUp(graphicCombo);
     }
     public ArrayStruct getSelectedIndexes(ContextEl _cont) {
         int selectedIndex_ = graphicCombo.getSelectedIndex();

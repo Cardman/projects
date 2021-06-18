@@ -58,11 +58,10 @@ public abstract class DualLabel extends DualLeaf {
     public void paint() {
         MetaStyle style_ = getComponent().getStyle();
         Font copy_ = newFont(style_);
-        FontMetrics fontMetrics_ = label.getFontMetrics(copy_);
-        int h_ = fontMetrics_.getHeight();
-        int w_ = fontMetrics_.stringWidth(text);
+        int h_ = label.heightFont(copy_);
+        int w_ = label.stringWidth(copy_,text);
         if (w_ == 0) {
-            w_ = fontMetrics_.stringWidth(" ");
+            w_ = label.stringWidth(copy_," ");
         }
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
         CustGraphics gr_ = new CustGraphics(img_.createGraphics());
@@ -72,8 +71,8 @@ public abstract class DualLabel extends DualLeaf {
         gr_.setColor(Color.ORANGE);
         for (SegmentPart s: segments) {
             int beginIndex_ = s.getBegin();
-            int b_ = fontMetrics_.stringWidth(text.substring(0, beginIndex_));
-            int d_ = fontMetrics_.stringWidth(text.substring(beginIndex_, s.getEnd()));
+            int b_ = label.stringWidth(copy_,text.substring(0, beginIndex_));
+            int d_ = label.stringWidth(copy_,text.substring(beginIndex_, s.getEnd()));
             gr_.fillRect(b_, 0, d_, h_);
         }
         gr_.setColor(new Color(style_.getFgColor()));

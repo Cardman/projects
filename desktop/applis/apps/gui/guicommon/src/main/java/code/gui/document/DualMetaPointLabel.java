@@ -24,8 +24,7 @@ public final class DualMetaPointLabel extends DualLabel {
         PreparedLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
         Font copy_ =  newFont(style_);
-        FontMetrics fontMetrics_ = lab_.getFontMetrics(copy_);
-        int h_ = fontMetrics_.getHeight();
+        int h_ = lab_.heightFont(copy_);
         int w_ = h_;
         BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
         CustGraphics gr_ = new CustGraphics(img_.createGraphics());

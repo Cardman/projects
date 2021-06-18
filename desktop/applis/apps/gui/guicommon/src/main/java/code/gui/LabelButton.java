@@ -2,12 +2,9 @@ package code.gui;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FontMetrics;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -35,12 +32,11 @@ public class LabelButton extends CustComponent {
     public LabelButton(String _text, boolean _initSize) {
         this();
         text = _text;
-        LabelButtonUtil.setTextDefaultColors(label, _text, enabledLabel);
+        setTextDefaultColors(_text, enabledLabel);
         if (_initSize) {
             initSize(_text);
         }
     }
-
     public LabelButton() {
         label = new JLabel();
         setLineBorder(Color.BLACK, 1);
@@ -56,6 +52,11 @@ public class LabelButton extends CustComponent {
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
+    void setTextDefaultColors(String _text,
+                              boolean _enabled) {
+        BufferedImage img_ = LabelButtonUtil.paintButton(this, _text, _enabled);
+        label.setIcon(new ImageIcon(img_));
+    }
     public void addMouseListener(MouseAdapter _l) {
         adapterCore = new MouseAdapaterCore(_l, this);
         label.addMouseListener(adapterCore);
@@ -78,20 +79,19 @@ public class LabelButton extends CustComponent {
             label.setForeground(DISABLED);
         }
         if (!text.isEmpty()) {
-            LabelButtonUtil.setTextDefaultColors(label, text, enabledLabel);
+            setTextDefaultColors(text, enabledLabel);
         }
     }
 
     public void setTextAndSize(String _text) {
         text = _text;
-        LabelButtonUtil.setTextDefaultColors(label, _text, enabledLabel);
+        setTextDefaultColors(_text, enabledLabel);
         initSize(_text);
     }
 
     public void initSize(String _text) {
-        FontMetrics fMetric_ = label.getFontMetrics(label.getFont());
-        int h_ = fMetric_.getHeight();
-        int w_ = fMetric_.stringWidth(_text);
+        int h_ = heightFont();
+        int w_ = stringWidth(_text);
         w_++;
         w_++;
         label.setPreferredSize(new Dimension(w_, h_));

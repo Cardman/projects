@@ -2,7 +2,6 @@ package aiki.gui.components.walk;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import aiki.facade.FacadeGame;
@@ -87,26 +86,25 @@ public class TeamPanel {
 
     int getDeltaName(ByteTreeMap<UsablePokemon> _team) {
         int maxPixName_ = 0;
-        JLabel ex_ = new JLabel();
         for (UsablePokemon l: _team.values()) {
             if (l instanceof PokemonPlayer) {
                 PokemonPlayer pk_ = (PokemonPlayer) l;
-                int value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACES));
+                int value_ = nbRemainPlaces.stringWidth(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
-                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringUtil.concat(facade.translateAbility(pk_.getAbility()),SPACES));
+                value_ = nbRemainPlaces.stringWidth(StringUtil.concat(facade.translateAbility(pk_.getAbility()),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
-                value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringUtil.concat(pk_.getRemainingHp().toNumberString(),SPACES));
+                value_ = nbRemainPlaces.stringWidth(StringUtil.concat(pk_.getRemainingHp().toNumberString(),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
             }
             if (l instanceof PokemonPlayer) {
                 PokemonPlayer egg_ = (PokemonPlayer) l;
-                int value_ = ex_.getFontMetrics(ex_.getFont()).stringWidth(StringUtil.concat(egg_.getName(),SPACES));
+                int value_ = nbRemainPlaces.stringWidth(StringUtil.concat(egg_.getName(),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }

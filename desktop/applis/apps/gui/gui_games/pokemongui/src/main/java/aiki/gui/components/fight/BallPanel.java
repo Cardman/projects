@@ -48,7 +48,7 @@ public class BallPanel {
     public void initBalls() {
         liste.clear();
         NatStringTreeMap<BallNumberRate> map_ = facade.calculateCatchingRates();
-        renderer.setMaxWidth(title.getFontMetrics(title.getFont()),map_);
+        renderer.setMaxWidth(title,map_);
         for (BallNumberRate b: map_.values()) {
             liste.add(b);
         }

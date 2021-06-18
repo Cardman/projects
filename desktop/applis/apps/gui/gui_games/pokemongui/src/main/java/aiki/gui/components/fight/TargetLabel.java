@@ -48,13 +48,12 @@ public class TargetLabel {
     private CustList<BufferedImage> statistics = new CustList<BufferedImage>();
 
     public static int getWidthStatistic(PaintableLabel _parent, FacadeGame _facade) {
-        FontMetrics fMet_ = _parent.getFontMetrics(_parent.getFont());
         int minValueStatis_ = _facade.getData().getMinBoost();
         int maxValueStatis_ = _facade.getData().getMaxBoost();
         int maxWidthValue_ = IndexConstants.SIZE_EMPTY;
         for (int i = minValueStatis_; i < maxValueStatis_; i++) {
             String var_ = Long.toString(i);
-            int widthVar_ = fMet_.stringWidth(var_);
+            int widthVar_ = _parent.stringWidth(var_);
             if (widthVar_ > maxWidthValue_) {
                 maxWidthValue_ = widthVar_;
             }
@@ -70,8 +69,7 @@ public class TargetLabel {
     }
 
     public static int getHeightStatistic(PaintableLabel _parent, FacadeGame _facade) {
-        FontMetrics fMet_ = _parent.getFontMetrics(_parent.getFont());
-        int maxWidthValue_ = fMet_.getHeight();
+        int maxWidthValue_ = _parent.heightFont();
         int add_ = IndexConstants.SIZE_EMPTY;
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
             int[][] type_ = _facade.getData().getAnimStatis().getVal(s.name());
@@ -96,28 +94,28 @@ public class TargetLabel {
                 img_ = ConverterGraphicBufferedImage.decodeToImage(b_);
                 imgWidth_ = img_.getWidth();
             }
-            int w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(fighterTranslatedName);
+            int w_ = _parent.stringWidth(fighterTranslatedName);
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(Long.toString(level));
+            w_ = _parent.stringWidth(Long.toString(level));
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(StringUtil.concat(percentExp.toNumberString(),PER_CENT));
+            w_ = _parent.stringWidth(StringUtil.concat(percentExp.toNumberString(),PER_CENT));
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
             if (w_ + imgWidth_ > width_) {
                 width_ = w_ + imgWidth_;
             }
-            w_ = _parent.getFontMetrics(_parent.getFont()).stringWidth(StringUtil.concat(percentHp.toNumberString(),PER_CENT));
+            w_ = _parent.stringWidth(StringUtil.concat(percentHp.toNumberString(),PER_CENT));
             if (w_ > deltaWidth_) {
                 deltaWidth_ = w_;
             }
@@ -131,7 +129,7 @@ public class TargetLabel {
         }
         int height_ = _facade.getMaxHeightPk();
         int heightImage_ = _facade.getMaxHeightPk();
-        int heightString_ = _parent.getFontMetrics(_parent.getFont()).getHeight();
+        int heightString_ = _parent.heightFont();
         int h_ = heightString_;
         //h_ += getHeightStatistic(_facade);
 //        if (!ball.isEmpty()) {
@@ -142,10 +140,10 @@ public class TargetLabel {
 //        }
         int heightIni_ = height_;
         int headerHeight_ = IndexConstants.SIZE_EMPTY;
-        headerHeight_ += _parent.getFontMetrics(_parent.getFont()).getHeight();
-        headerHeight_ += _parent.getFontMetrics(_parent.getFont()).getHeight();
-        headerHeight_ += _parent.getFontMetrics(_parent.getFont()).getHeight();
-        headerHeight_ += _parent.getFontMetrics(_parent.getFont()).getHeight();
+        headerHeight_ += _parent.heightFont();
+        headerHeight_ += _parent.heightFont();
+        headerHeight_ += _parent.heightFont();
+        headerHeight_ += _parent.heightFont();
         if (headerHeight_ > getHeightStatistic(_parent,_facade)) {
             height_ += headerHeight_;
         } else {

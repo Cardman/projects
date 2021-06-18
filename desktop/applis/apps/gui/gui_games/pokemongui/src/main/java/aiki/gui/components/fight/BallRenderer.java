@@ -1,7 +1,6 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FontMetrics;
 import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
@@ -34,7 +33,7 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
         facade = _facade;
     }
 
-    public void setMaxWidth(FontMetrics _fm,NatStringTreeMap<BallNumberRate> _balls) {
+    public void setMaxWidth(CustComponent _fm,NatStringTreeMap<BallNumberRate> _balls) {
         maxWidthImage = 0;
         maxWidthRate = 0;
         maxWidthNumber = 0;
