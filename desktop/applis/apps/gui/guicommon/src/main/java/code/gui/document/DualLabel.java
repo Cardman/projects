@@ -18,7 +18,7 @@ public abstract class DualLabel extends DualLeaf {
     private final String text;
     private final PreparedLabel label;
 
-    public DualLabel(DualContainer _container, MetaLabel _component, RenderedPage _page) {
+    protected DualLabel(DualContainer _container, MetaLabel _component, RenderedPage _page) {
         super(_container, _component, _page);
         text = _component.getText();
         label = new PreparedLabel();
@@ -87,15 +87,10 @@ public abstract class DualLabel extends DualLeaf {
     protected static Font newFont(MetaStyle _style) {
         String fontFamily_ = _style.getFontFamily();
         int realSize_ = _style.getRealSize();
-        if (_style.getBold() == Font.BOLD) {
-            if (_style.getItalic() == Font.ITALIC) {
-                return new Font(fontFamily_,Font.BOLD+Font.ITALIC,realSize_);
-            }
-            return new Font(fontFamily_,Font.BOLD,realSize_);
-        }
-        if (_style.getItalic() == Font.ITALIC) {
-            return new Font(fontFamily_,Font.ITALIC,realSize_);
-        }
-        return new Font(fontFamily_,Font.PLAIN,realSize_);
+        return font(fontFamily_, _style.getItalic()+_style.getBold(), realSize_);
+    }
+
+    private static Font font(String _fontFamily, int _font, int _realSize) {
+        return new Font(_fontFamily, _font, _realSize);
     }
 }
