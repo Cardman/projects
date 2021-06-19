@@ -185,7 +185,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
     }
     CustList<IntStruct> getIndexes() {
         CustList<IntStruct> pars_ = new CustList<IntStruct>();
-        Struct par_ = getParentNode();
+        Struct par_ = this;
         while (par_ instanceof TreeNodeStruct) {
             pars_.add(0, ((TreeNodeStruct) par_).getIndex());
             par_ = ((TreeNodeStruct)par_).getParentNode();
