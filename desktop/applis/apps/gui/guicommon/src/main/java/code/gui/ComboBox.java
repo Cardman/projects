@@ -24,22 +24,22 @@ public final class ComboBox<T> extends AbsComboBox {
     public void refresh(Listable<T> _order,AbsMap<T,String> _tr) {
         order.clear();
         order.addAllElts(_order);
-        getCombo().removeAllItems();
+        removeAllItems();
         elements = new TreeMap<T,String>(new ComparatorIndexes<T>(order));
         EnumMap<T,String> m_ = createMap(_tr);
         elements.putAllMap(m_);
         for (T e: elements.getKeys()) {
-            getCombo().addItem(_tr.getVal(e));
+            addItem(_tr.getVal(e));
         }
     }
 
     public void refresh(AbsMap<T,String> _tr) {
-        getCombo().removeAllItems();
+        removeAllItems();
         EnumMap<T,String> m_ = createMap(_tr);
         elements = new TreeMap<T,String>(new ComparatorMapValue<T>(m_));
         elements.putAllMap(m_);
         for (T e: elements.getKeys()) {
-            getCombo().addItem(_tr.getVal(e));
+            addItem(_tr.getVal(e));
         }
     }
 
@@ -67,13 +67,13 @@ public final class ComboBox<T> extends AbsComboBox {
         TreeMap<T, String> tr_;
         tr_ = getElements();
         tr_.put(_t, _dis);
-        getCombo().addItem(_dis);
+        addItem(_dis);
     }
     public void setSelectedItem(T _t) {
         int i_ = 0;
         for (EntryCust<T, String> e: getElements().entryList()) {
             if (e.getKey() == _t) {
-                getCombo().selectItem(i_);
+                selectItem(i_);
                 return;
             }
             i_++;
@@ -85,18 +85,11 @@ public final class ComboBox<T> extends AbsComboBox {
         getCombo().removeAllItems();
     }
     public T getCurrent() {
-        int index_ = getCombo().getSelectedIndex();
+        int index_ = getSelectedIndex();
         if (index_ < 0) {
             return null;
         }
         return elements.getKey(index_);
-    }
-    public boolean isSelectNullCurrent() {
-        int index_ = getCombo().getSelectedIndex();
-        if (index_ < 0) {
-            return false;
-        }
-        return elements.getKey(index_) == null;
     }
 
     public void setWithDefaultValue(boolean _withDefaultValue) {

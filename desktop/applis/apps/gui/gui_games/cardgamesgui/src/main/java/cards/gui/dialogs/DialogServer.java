@@ -108,7 +108,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         ipType.setSelectedItem(IpType.HOST_NAME);
 //        ipType = new JComboBox<>(IpType.values());
 //        ipType.setSelectedItem(IpType.HOST_NAME);
-        panel_.add(ipType.getCombo().self());
+        panel_.add(ipType.self());
         pane_.add(panel_);
         panel_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(messages.getVal(CREATE_SERVER));

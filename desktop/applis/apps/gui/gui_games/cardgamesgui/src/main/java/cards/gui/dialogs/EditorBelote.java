@@ -171,13 +171,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         liste.addItem(nickNames.getPseudo());
         int nbPlayers_ = getReglesBelote().getRepartition().getNombreJoueurs();
         for(String n: nickNames.getPseudosBelote()) {
-            if (liste.getCombo().getItemCount() == nbPlayers_) {
+            if (liste.getItemCount() == nbPlayers_) {
                 break;
             }
             liste.addItem(n);
         }
         liste.addItem(getMessages().getVal(RANDOM));
-        panneau_.add(liste.getCombo().self());
+        panneau_.add(liste.self());
         c.add(panneau_,BorderLayout.NORTH);
         panneau_=Panel.newBorder();
         panelsCards=Panel.newLineBox();
@@ -233,7 +233,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosBelote()) {
-            if (listeTwo.getCombo().getItemCount() == getReglesBelote().getRepartition().getNombreJoueurs() + 1) {
+            if (listeTwo.getItemCount() == getReglesBelote().getRepartition().getNombreJoueurs() + 1) {
                 break;
             }
             String message_ = getMessages().getVal(PLAYER_HAND);
@@ -241,7 +241,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             listeTwo.addItem(message_);
         }
         listeTwo.addItem(getMessages().getVal(CST_REMAINING));
-        sousPanneau_.add(listeTwo.getCombo().self());
+        sousPanneau_.add(listeTwo.self());
         labelSelectCards = new TextLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
@@ -307,7 +307,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        }
 //        nombreDeJoueurs_=nombreDeMains_-1;
         nombreDeJoueurs_=getHands(false).size();
-        byte donneur_ = (byte) liste.getCombo().getSelectedIndex();
+        byte donneur_ = (byte) liste.getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //          donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
             donneur_=(byte)MonteCarloUtil.randomLong(nombreDeJoueurs_,getMain().getGenerator());
@@ -342,7 +342,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             HandBelote cartesSelectionnees_= c_.getCartesBeloteSelectionnees();
             m.ajouterCartes(cartesSelectionnees_);
         }
-        int numero_=listeTwo.getCombo().getSelectedIndex();
+        int numero_=listeTwo.getSelectedIndex();
         BeloteCardsScrollableList panneauSelectionne_=(BeloteCardsScrollableList) getHands(true).get(numero_);
         //(BeloteCardsScrollableList)panelsCards.getComponent(numero_);
 //        BeloteCardsScrollableList panneau2_;

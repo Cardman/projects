@@ -94,7 +94,7 @@ public final class PaginatorEgg extends Paginator {
 //                getFacade().setContentOfNameEgg(convertStringField(name.getText()));
 //            }
 //        });
-        modeName.getCombo().setListener(new ChangedModeEvent(modeName, nameAuto));
+        modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
 //        modeName.addItemListener(new ItemListener(){
 //            public void itemStateChanged(ItemEvent _e) {
 //                SearchingMode s_ = modeName.getCurrent();
@@ -138,7 +138,7 @@ public final class PaginatorEgg extends Paginator {
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
-        search_.add(modeName.getCombo().self());
+        search_.add(modeName.self());
         search_.add(new TextLabel(getMessages().getVal(REMAIN_STEPS)));
         search_.add(minSteps);
         search_.add(maxSteps);
@@ -146,11 +146,11 @@ public final class PaginatorEgg extends Paginator {
         Panel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
-        sorting_.add(cmpNameSorting.getCombo().self());
-        sorting_.add(cmpNamePrio.getCombo().self());
+        sorting_.add(cmpNameSorting.self());
+        sorting_.add(cmpNamePrio.self());
         sorting_.add(new TextLabel(getMessages().getVal(REMAIN_STEPS)));
-        sorting_.add(cmpStepsSorting.getCombo().self());
-        sorting_.add(cmpStepsPrio.getCombo().self());
+        sorting_.add(cmpStepsSorting.self());
+        sorting_.add(cmpStepsPrio.self());
         _p.add(sorting_);
         Panel top_;
         top_ = Panel.newLineBox();
@@ -177,11 +177,11 @@ public final class PaginatorEgg extends Paginator {
         getNbResults().setValue(getFacade().getNbResultsPerPageEgg());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());
-        getPages().getCombo().setListener(new ChangedPageEvent(this));
+        getPages().setListener(new ChangedPageEvent(this));
         bottom_.add(getBegin());
         bottom_.add(getPreviousDelta());
         bottom_.add(getPrevious());
-        bottom_.add(getPages().getCombo().self());
+        bottom_.add(getPages().self());
         bottom_.add(getNext());
         bottom_.add(getNextDelta());
         bottom_.add(getEnd());
@@ -208,7 +208,7 @@ public final class PaginatorEgg extends Paginator {
         if (isAdding()) {
             return;
         }
-        getFacade().changePageEgg(getPages().getCombo().getSelectedIndex());
+        getFacade().changePageEgg(getPages().getSelectedIndex());
         refreshResults();
         getWindow().pack();
     }

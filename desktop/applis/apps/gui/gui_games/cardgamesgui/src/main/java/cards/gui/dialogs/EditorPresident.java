@@ -162,13 +162,13 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(new StringList(new IntTreeMap<String>().values()), 0));
         liste.addItem(nickNames.getPseudo());
         for(String n: nickNames.getPseudosPresident()) {
-            if (liste.getCombo().getItemCount() == nbPlayers_) {
+            if (liste.getItemCount() == nbPlayers_) {
                 break;
             }
             liste.addItem(n);
         }
         liste.addItem(getMessages().getVal(RANDOM));
-        panneau_.add(liste.getCombo().self());
+        panneau_.add(liste.self());
         c.add(panneau_,BorderLayout.NORTH);
         pile_.sortCards(displayingPresident.isDecreasing(), false);
         PresidentCardsScrollableList plc_=new PresidentCardsScrollableList(nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGenePresident().create(false));
@@ -217,14 +217,14 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
         listeTwo.addItem(getMessages().getVal(USER_HAND));
         for(String n: nickNames.getPseudosPresident()) {
-            if (listeTwo.getCombo().getItemCount() == getReglesPresident().getNbPlayers() + 1) {
+            if (listeTwo.getItemCount() == getReglesPresident().getNbPlayers() + 1) {
                 break;
             }
             String message_ = getMessages().getVal(PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, n);
             listeTwo.addItem(message_);
         }
-        sousPanneau_.add(listeTwo.getCombo().self());
+        sousPanneau_.add(listeTwo.self());
         labelSelectCards = new TextLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
@@ -286,7 +286,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             mains_.add(m);
         }
         nombreDeJoueurs_=hands_.size();
-        byte donneur_ = (byte) liste.getCombo().getSelectedIndex();
+        byte donneur_ = (byte) liste.getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //            donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
             donneur_=(byte)MonteCarloUtil.randomLong(nombreDeJoueurs_,getMain().getGenerator());
@@ -326,7 +326,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             HandPresident cartesSelectionnees_= c_.getCartesPresidentSelectionnees();
             m.ajouterCartes(cartesSelectionnees_);
         }
-        int numero_= listeTwo.getCombo().getSelectedIndex();
+        int numero_= listeTwo.getSelectedIndex();
         PresidentCardsScrollableList panneauSelectionne_=(PresidentCardsScrollableList) getHands(true).get(numero_);
         int taille_=panneauSelectionne_.taille();
         int max_=panneauSelectionne_.getMax();

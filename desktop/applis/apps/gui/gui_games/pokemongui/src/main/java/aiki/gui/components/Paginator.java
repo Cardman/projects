@@ -201,7 +201,7 @@ public abstract class Paginator {
         begin.setEnabledLabel(_nbPages > IndexConstants.FIRST_INDEX);
         end.setEnabledLabel(_nbPages > IndexConstants.FIRST_INDEX);
         adding = true;
-        pages.getCombo().selectItem(_noPage);
+        pages.selectItem(_noPage);
         adding = false;
     }
 

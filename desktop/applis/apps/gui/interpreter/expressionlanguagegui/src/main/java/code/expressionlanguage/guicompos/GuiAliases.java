@@ -119,6 +119,7 @@ public final class GuiAliases {
     private static final String TREE_NODE_SET_USER_OBJECT = "TreeNodeSetUserObject";
     private static final String TREE_RELOAD = "TreeReload";
     private static final String TREE_ADD_TREE_LISTENER = "TreeAddTreeListener";
+    private static final String TREE_NODE_EQ = "TreeNodeEq";
     private static final String TREE_NODE_NB = "TreeNodeNb";
     private static final String TABLE_IS_MULTIPLE = "TableIsMultiple";
     private static final String TABLE_LISTENER = "TableListener";
@@ -454,6 +455,7 @@ public final class GuiAliases {
     private String aliasTreeNodeRemoveFromParent;
     private String aliasTreeNodeRemoveAllChildren;
     private String aliasTreeNodeSetUserObject;
+    private String aliasTreeNodeEq;
     private String aliasTreeNodeNb;
     private String aliasTreeNodeGetFirstChild;
     private String aliasTreeNodeGetLastChild;
@@ -1795,6 +1797,9 @@ public final class GuiAliases {
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
         method_ = new StandardMethod(aliasTreeNodeIsDescendant, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeIsDescendant0()));
+        methods_.add( method_);
+        params_ = new StringList(aliasTreeNode,aliasTreeNode);
+        method_ = new StandardMethod(aliasTreeNodeEq, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeEq0(),guiAliasParameters.getAliasTreeNode0TreeNodeEq1()));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -4577,76 +4582,7 @@ public final class GuiAliases {
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasTreeNode)) {
-            TreeNodeStruct inst_ = (TreeNodeStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasTreeNodeAdd)) {
-                inst_.add(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeInsert)) {
-                inst_.insert(_args[0],_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeRemove)) {
-                if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
-                    inst_.remove(_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                inst_.removeNode(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeRemoveFromParent)) {
-                inst_.removeFromParent();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeRemoveAllChildren)) {
-                inst_.removeAllChildren();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeSetUserObject)) {
-                inst_.setUserObject(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeGetUserObject)) {
-                res_.setResult(inst_.getUserObject());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeNb)) {
-                res_.setResult(inst_.getChildCount());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeGetFirstChild)) {
-                res_.setResult(inst_.getFirstChild());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeGetLastChild)) {
-                res_.setResult(inst_.getLastChild());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeGetNextSibling)) {
-                res_.setResult(inst_.getNextSibling());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeGetPreviousSibling)) {
-                res_.setResult(inst_.getPreviousSibling());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeGetParentNode)) {
-                res_.setResult(inst_.getParentNode());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeNodeIsAncestor)) {
-                res_.setResult(inst_.isAncestorMethod(_args[0]));
-                return res_;
-            }
-            res_.setResult(inst_.isDescendantMethod(_args[0]));
-            return res_;
+            return treeNode(_cont, _instance, _method, _args);
         }
         if (StringUtil.quickEq(type_, aliasTree)) {
             TreeStruct inst_ = (TreeStruct) _instance;
@@ -5315,6 +5251,94 @@ public final class GuiAliases {
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
     }
 
+    private ResultErrorStd treeNode(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct[] _args) {
+        String name_ = _method.getConstraints().getName();
+        if (StringUtil.quickEq(name_, aliasTreeNodeEq)) {
+            ResultErrorStd res_ = new ResultErrorStd();
+            res_.setResult(TreeNodeStruct.eq(_args[0],_args[1]));
+            return res_;
+        }
+        TreeNodeStruct inst_ = (TreeNodeStruct)_instance;
+        if (StringUtil.quickEq(name_, aliasTreeNodeAdd)) {
+            ResultErrorStd res_ = new ResultErrorStd();
+            inst_.add(_args[0]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeInsert)) {
+            ResultErrorStd res_ = new ResultErrorStd();
+            inst_.insert(_args[0], _args[1]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeRemove)) {
+            ResultErrorStd res_ = new ResultErrorStd();
+            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(), _method.getConstraints().getParametersTypes().first())) {
+                inst_.remove(_args[0]);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            inst_.removeNode(_args[0]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        return treeNodeDef(_args, _method, inst_);
+    }
+
+    private ResultErrorStd treeNodeDef(Struct[] _args, ClassMethodId _method, TreeNodeStruct _inst) {
+        ResultErrorStd res_ = new ResultErrorStd();
+        String name_ = _method.getConstraints().getName();
+        if (StringUtil.quickEq(name_, aliasTreeNodeRemoveFromParent)) {
+            _inst.removeFromParent();
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeRemoveAllChildren)) {
+            _inst.removeAllChildren();
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeSetUserObject)) {
+            _inst.setUserObject(_args[0]);
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeGetUserObject)) {
+            res_.setResult(_inst.getUserObject());
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeNb)) {
+            res_.setResult(_inst.getChildCount());
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeGetFirstChild)) {
+            res_.setResult(_inst.getFirstChild());
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeGetLastChild)) {
+            res_.setResult(_inst.getLastChild());
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeGetNextSibling)) {
+            res_.setResult(_inst.getNextSibling());
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeGetPreviousSibling)) {
+            res_.setResult(_inst.getPreviousSibling());
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeGetParentNode)) {
+            res_.setResult(_inst.getParentNode());
+            return res_;
+        }
+        if (StringUtil.quickEq(name_, aliasTreeNodeIsAncestor)) {
+            res_.setResult(_inst.isAncestorMethod(_args[0]));
+            return res_;
+        }
+        res_.setResult(_inst.isDescendantMethod(_args[0]));
+        return res_;
+    }
+
     protected static void processFailInit(ContextEl _cont, CustAliases _custAliases, StackCall _stackCall) {
         _custAliases.processFailInit(_cont, _stackCall);
     }
@@ -5407,6 +5431,7 @@ public final class GuiAliases {
         setAliasTreeNodeSetUserObject(LgNamesContent.get(_util, _cust, TREE_NODE_SET_USER_OBJECT));
         setAliasTreeReload(LgNamesContent.get(_util, _cust, TREE_RELOAD));
         setAliasTreeAddTreeListener(LgNamesContent.get(_util, _cust, TREE_ADD_TREE_LISTENER));
+        setAliasTreeNodeEq(LgNamesContent.get(_util, _cust, TREE_NODE_EQ));
         setAliasTreeNodeNb(LgNamesContent.get(_util, _cust, TREE_NODE_NB));
         setAliasTableIsMultiple(LgNamesContent.get(_util, _cust, TABLE_IS_MULTIPLE));
         setAliasTableListener(LgNamesContent.get(_util, _cust, TABLE_LISTENER));
@@ -5889,6 +5914,7 @@ public final class GuiAliases {
                 new KeyValueMemberName(TREE_NODE_REMOVE_ALL_CHILDREN,getAliasTreeNodeRemoveAllChildren()),
                 new KeyValueMemberName(TREE_NODE_SET_USER_OBJECT,getAliasTreeNodeSetUserObject()),
                 new KeyValueMemberName(TREE_NODE_GET_USER_OBJECT,getAliasTreeNodeGetUserObject()),
+                new KeyValueMemberName(TREE_NODE_EQ,getAliasTreeNodeEq()),
                 new KeyValueMemberName(TREE_NODE_NB,getAliasTreeNodeNb()),
                 new KeyValueMemberName(TREE_NODE_GET_FIRST_CHILD,getAliasTreeNodeGetFirstChild()),
                 new KeyValueMemberName(TREE_NODE_GET_LAST_CHILD,getAliasTreeNodeGetLastChild()),
@@ -6496,6 +6522,14 @@ public final class GuiAliases {
 
     public void setAliasTreeNodeNb(String _v) {
         this.aliasTreeNodeNb = _v;
+    }
+
+    public String getAliasTreeNodeEq() {
+        return aliasTreeNodeEq;
+    }
+
+    public void setAliasTreeNodeEq(String _v) {
+        this.aliasTreeNodeEq = _v;
     }
 
     public String getAliasTreeNodeGetFirstChild() {

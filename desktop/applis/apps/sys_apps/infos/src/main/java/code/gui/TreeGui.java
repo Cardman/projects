@@ -41,14 +41,14 @@ public final class TreeGui implements AbsTreeGui {
     }
     public static DefMutableTreeNode selected(TreePath _path) {
         try {
-            return new DefMutableTreeNode((MutableTreeNode)_path.getLastPathComponent());
+            return DefMutableTreeNode.build((DefaultMutableTreeNode) _path.getLastPathComponent());
         } catch (Exception e) {
             return new DefMutableTreeNode("");
         }
     }
     public static DefMutableTreeNode selectedEvt(TreePath _path) {
         try {
-            return new DefMutableTreeNode((MutableTreeNode)_path.getLastPathComponent());
+            return DefMutableTreeNode.build((DefaultMutableTreeNode)_path.getLastPathComponent());
         } catch (Exception e) {
             return null;
         }

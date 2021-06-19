@@ -135,8 +135,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         trickNumber=new IntTreeComboBox(window.getFrames().getGeneComboBox().createCombo(new StringList(),-1));
         trickNumber.setWithDefaultValue(true);
         trickNumber.refresh(map_);
-        trickNumber.getCombo().setListener(new ListenerTricks(this));
-        selectionGameState_.add(trickNumber.getCombo().self());
+        trickNumber.setListener(new ListenerTricks(this));
+        selectionGameState_.add(trickNumber.self());
         selectionGameState_.add(new TextLabel(messages.getVal(CARD)));
 //        if (nbTricks_ == CustList.SIZE_EMPTY) {
 //            int nbCards_ = game.getProgressingTrick().total();
@@ -158,8 +158,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //        }
 //        cardNumberTrick=new JComboBox<>(numerosJoueurs_);
 //        cardNumberTrick.setModel(new DefaultComboBoxModel<Integer>(numerosJoueurs_));
-        cardNumberTrick.getCombo().setListener(new ListenerCards(this));
-        selectionGameState_.add(cardNumberTrick.getCombo().self());
+        cardNumberTrick.setListener(new ListenerCards(this));
+        selectionGameState_.add(cardNumberTrick.self());
         container.add(selectionGameState_,BorderLayout.SOUTH);
     }
 

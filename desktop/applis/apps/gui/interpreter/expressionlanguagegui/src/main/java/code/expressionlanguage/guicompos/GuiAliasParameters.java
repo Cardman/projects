@@ -137,6 +137,8 @@ public final class GuiAliasParameters {
     private static final String DIMENSION_0_DIMENSION_0="Dimension0Dimension0";
     private static final String DIMENSION_0_DIMENSION_1="Dimension0Dimension1";
     private static final String DIMENSION_1_DIMENSION_0="Dimension1Dimension0";
+    private static final String TREE_NODE_0_TREE_NODE_EQ_0="TreeNode0TreeNodeEq0";
+    private static final String TREE_NODE_0_TREE_NODE_EQ_1="TreeNode0TreeNodeEq1";
     private static final String TREE_NODE_0_TREE_NODE_ADD_0="TreeNode0TreeNodeAdd0";
     private static final String TREE_NODE_0_TREE_NODE_INSERT_0="TreeNode0TreeNodeInsert0";
     private static final String TREE_NODE_0_TREE_NODE_INSERT_1="TreeNode0TreeNodeInsert1";
@@ -552,6 +554,8 @@ public final class GuiAliasParameters {
     private String aliasDimension0Dimension0;
     private String aliasDimension0Dimension1;
     private String aliasDimension1Dimension0;
+    private String aliasTreeNode0TreeNodeEq0;
+    private String aliasTreeNode0TreeNodeEq1;
     private String aliasTreeNode0TreeNodeAdd0;
     private String aliasTreeNode0TreeNodeInsert0;
     private String aliasTreeNode0TreeNodeInsert1;
@@ -966,6 +970,8 @@ public final class GuiAliasParameters {
         aliasDimension0Dimension0=LgNamesContent.get(_util,_cust, DIMENSION_0_DIMENSION_0);
         aliasDimension0Dimension1=LgNamesContent.get(_util,_cust, DIMENSION_0_DIMENSION_1);
         aliasDimension1Dimension0=LgNamesContent.get(_util,_cust, DIMENSION_1_DIMENSION_0);
+        aliasTreeNode0TreeNodeEq0=LgNamesContent.get(_util,_cust, TREE_NODE_0_TREE_NODE_EQ_0);
+        aliasTreeNode0TreeNodeEq1=LgNamesContent.get(_util,_cust, TREE_NODE_0_TREE_NODE_EQ_1);
         aliasTreeNode0TreeNodeAdd0=LgNamesContent.get(_util,_cust, TREE_NODE_0_TREE_NODE_ADD_0);
         aliasTreeNode0TreeNodeInsert0=LgNamesContent.get(_util,_cust, TREE_NODE_0_TREE_NODE_INSERT_0);
         aliasTreeNode0TreeNodeInsert1=LgNamesContent.get(_util,_cust, TREE_NODE_0_TREE_NODE_INSERT_1);
@@ -1322,6 +1328,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMPONENT_0_REMOVE_LISTENER_0,aliasComponent0RemoveListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(DIMENSION_0_DIMENSION_0,aliasDimension0Dimension0),new KeyValueMemberName(DIMENSION_0_DIMENSION_1,aliasDimension0Dimension1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(DIMENSION_1_DIMENSION_0,aliasDimension1Dimension0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TREE_NODE_0_TREE_NODE_EQ_0,aliasTreeNode0TreeNodeEq0),new KeyValueMemberName(TREE_NODE_0_TREE_NODE_EQ_1,aliasTreeNode0TreeNodeEq1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TREE_NODE_0_TREE_NODE_ADD_0,aliasTreeNode0TreeNodeAdd0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TREE_NODE_0_TREE_NODE_INSERT_0,aliasTreeNode0TreeNodeInsert0),new KeyValueMemberName(TREE_NODE_0_TREE_NODE_INSERT_1,aliasTreeNode0TreeNodeInsert1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TREE_NODE_0_TREE_NODE_REMOVE_0,aliasTreeNode0TreeNodeRemove0)));
@@ -2020,6 +2027,14 @@ public final class GuiAliasParameters {
 
     public String getAliasDimension1Dimension0() {
         return aliasDimension1Dimension0;
+    }
+
+    public String getAliasTreeNode0TreeNodeEq0() {
+        return aliasTreeNode0TreeNodeEq0;
+    }
+
+    public String getAliasTreeNode0TreeNodeEq1() {
+        return aliasTreeNode0TreeNodeEq1;
     }
 
     public String getAliasTreeNode0TreeNodeAdd0() {

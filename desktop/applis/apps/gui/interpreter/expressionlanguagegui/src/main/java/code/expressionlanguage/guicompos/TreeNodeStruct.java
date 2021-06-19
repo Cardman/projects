@@ -213,12 +213,18 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         return ((LgNamesGui)_contextEl.getStandards()).getGuiAliases().getAliasTreeNode();
     }
 
+    static BooleanStruct eq(Struct _current, Struct _other) {
+        if (!(_current instanceof TreeNodeStruct)||!(_other instanceof TreeNodeStruct)) {
+            return BooleanStruct.of(_current.sameReference(_other));
+        }
+        return BooleanStruct.of(eqIndexes(((TreeNodeStruct)_current).getIndexes(),((TreeNodeStruct)_other).getIndexes()));
+    }
     @Override
     public boolean sameReference(Struct _other) {
         if (!(_other instanceof TreeNodeStruct)) {
             return false;
         }
-        return eqIndexes(getIndexes(),((TreeNodeStruct)_other).getIndexes());
+        return treeNode == ((TreeNodeStruct)_other).treeNode;
     }
 
     @Override

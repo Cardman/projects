@@ -96,7 +96,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
 //            }
 //            listeChoix.addItem(couleur_);
 //        }
-        sousPanneau_.add(listeChoix.getCombo().self());
+        sousPanneau_.add(listeChoix.self());
         Panel sousPanneauTwo_=Panel.newGrid(0,1);
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
         bouton_.addMouseListener(new AddSuitEvent(this));
@@ -129,17 +129,17 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         if (current_ == null) {
             return;
         }
-        if(orderedSuits.nombreDeCouleurs()==5&&listeChoix.getCombo().getItemCount()==5) {
+        if(orderedSuits.nombreDeCouleurs()==5&&listeChoix.getItemCount()==5) {
             orderedSuits.toutSupprimer();
         }
         orderedSuits.ajouterCouleur(current_);
-        listeChoix.removeItem(listeChoix.getCombo().getSelectedIndex());
+        listeChoix.removeItem(listeChoix.getSelectedIndex());
     }
     @Override
     public void removeSuit(MainWindow _window) {
         String lg_ = _window.getLanguageKey();
         //Retirer du tri
-        if(orderedSuits.nombreDeCouleurs()<5||listeChoix.getCombo().getItemCount()<5) {
+        if(orderedSuits.nombreDeCouleurs()<5||listeChoix.getItemCount()<5) {
             EnumList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
             orderedSuits.supprimerCouleurs(couleurs_);
             for (Suit couleur_:couleurs_) {

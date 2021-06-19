@@ -93,7 +93,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
 //        for (Suit couleur_:Suit.couleursOrdinaires()) {
 //            listeChoix.addItem(couleur_);
 //        }
-        panneau_.add(listeChoix.getCombo().self());
+        panneau_.add(listeChoix.self());
         Panel sousPanneauTwo_=Panel.newGrid(0,1);
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
         bouton_.addMouseListener(new AddSuitEvent(this));
@@ -134,18 +134,18 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         if (current_ == null) {
             return;
         }
-        if(orderedSuits.nombreDeCouleurs()==4&&listeChoix.getCombo().getItemCount()==4) {
+        if(orderedSuits.nombreDeCouleurs()==4&&listeChoix.getItemCount()==4) {
             orderedSuits.toutSupprimer();
         }
         orderedSuits.ajouterCouleur(current_);
-        listeChoix.removeItem(listeChoix.getCombo().getSelectedIndex());
+        listeChoix.removeItem(listeChoix.getSelectedIndex());
     }
 
     @Override
     public void removeSuit(MainWindow _window) {
         String lg_ = _window.getLanguageKey();
         //Retirer du tri
-        if(orderedSuits.nombreDeCouleurs()<4||listeChoix.getCombo().getItemCount()<4) {
+        if(orderedSuits.nombreDeCouleurs()<4||listeChoix.getItemCount()<4) {
             EnumList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
             orderedSuits.supprimerCouleurs(couleurs_);
             for(Suit couleur_:couleurs_) {

@@ -15,9 +15,7 @@ public abstract class TreeComboBox<T> extends AbsComboBox {
 
     private final AbsMap<T,String> elements;
 
-    private boolean withDefaultValue;
-
-    public TreeComboBox(AbsMap<T, String> _tr, GraphicComboGrInt _combo){
+    protected TreeComboBox(AbsMap<T, String> _tr, GraphicComboGrInt _combo){
         super(_combo);
         elements = _tr;
     }
@@ -27,13 +25,13 @@ public abstract class TreeComboBox<T> extends AbsComboBox {
     }
 
 //    @Override
-    public void removeItem(int _anIndex) {
-        AbsMap<T, String> tr_;
-        tr_ = getElements();
-        T e_ = tr_.getKey(_anIndex);
-        tr_.removeKey(e_);
-        getCombo().removeItem(_anIndex);
-    }
+//    public void removeItem(int _anIndex) {
+//        AbsMap<T, String> tr_;
+//        tr_ = getElements();
+//        T e_ = tr_.getKey(_anIndex);
+//        tr_.removeKey(e_);
+//        getCombo().removeItem(_anIndex);
+//    }
 
 //    @Override
     public void removeAllItems() {
@@ -41,18 +39,11 @@ public abstract class TreeComboBox<T> extends AbsComboBox {
         getCombo().removeAllItems();
     }
     public T getCurrent() {
-        int index_ = getCombo().getSelectedIndex();
+        int index_ = getSelectedIndex();
         if (index_ < 0) {
             return null;
         }
-        return elements.getKey(index_);
-    }
-    public boolean isSelectNullCurrent() {
-        int index_ = getCombo().getSelectedIndex();
-        if (index_ < 0) {
-            return false;
-        }
-        return elements.getKey(index_) == null;
+        return getElements().getKey(index_);
     }
 
 //    public void setCurrent(T _current) {
@@ -64,11 +55,4 @@ public abstract class TreeComboBox<T> extends AbsComboBox {
 //        setSelectedIndex(index_);
 //    }
 
-    public void setWithDefaultValue(boolean _withDefaultValue) {
-        withDefaultValue = _withDefaultValue;
-    }
-
-    public boolean isWithDefaultValue() {
-        return withDefaultValue;
-    }
 }

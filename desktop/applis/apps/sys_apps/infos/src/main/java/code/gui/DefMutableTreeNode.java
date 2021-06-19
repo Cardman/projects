@@ -4,18 +4,21 @@ import code.util.core.StringUtil;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
 
 public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     private final DefaultMutableTreeNode node;
 
+    private final String userObject;
+
     public DefMutableTreeNode(String _name) {
-        node = new DefaultMutableTreeNode(StringUtil.nullToEmpty(_name));
+        String value_ = StringUtil.nullToEmpty(_name);
+        node = new DefaultMutableTreeNode(value_);
+        userObject = value_;
     }
 
-    public DefMutableTreeNode(MutableTreeNode _name) {
+    public DefMutableTreeNode(MutableTreeNode _name, String _userObject) {
         node = (DefaultMutableTreeNode) _name;
-        userObject();
+        userObject = _userObject;
     }
 
     public MutableTreeNode node() {
@@ -45,7 +48,7 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
         try {
             DefaultMutableTreeNode mut_ = new DefaultMutableTreeNode(StringUtil.nullToEmpty(_info));
             node.add(mut_);
-            return new DefMutableTreeNode(mut_);
+            return new DefMutableTreeNode(mut_,_info);
         } catch (Exception e) {
             return null;
         }
@@ -94,7 +97,8 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     @Override
     public AbstractMutableTreeNode getParent() {
         try {
-            return new DefMutableTreeNode((MutableTreeNode)node.getParent());
+            DefaultMutableTreeNode parent_ = (DefaultMutableTreeNode) node.getParent();
+            return build(parent_);
         } catch (Exception e) {
             return null;
         }
@@ -114,9 +118,9 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     @Override
     public AbstractMutableTreeNode remove(int _index) {
         try {
-            TreeNode tr_ = node.getChildAt(_index);
+            DefaultMutableTreeNode parent_ = (DefaultMutableTreeNode) node.getChildAt(_index);
             node.remove(_index);
-            return new DefMutableTreeNode((MutableTreeNode) tr_);
+            return build(parent_);
         } catch (Exception e) {
             return null;
         }
@@ -125,7 +129,8 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     @Override
     public AbstractMutableTreeNode getChildAt(int _i) {
         try {
-            return new DefMutableTreeNode((MutableTreeNode) node.getChildAt(_i));
+            DefaultMutableTreeNode parent_ = (DefaultMutableTreeNode) node.getChildAt(_i);
+            return build(parent_);
         } catch (Exception e) {
             return null;
         }
@@ -134,7 +139,8 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     @Override
     public AbstractMutableTreeNode getPreviousSibling() {
         try {
-            return new DefMutableTreeNode(node.getPreviousSibling());
+            DefaultMutableTreeNode parent_ = node.getPreviousSibling();
+            return build(parent_);
         } catch (Exception e) {
             return null;
         }
@@ -143,7 +149,8 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     @Override
     public AbstractMutableTreeNode getNextSibling() {
         try {
-            return new DefMutableTreeNode(node.getNextSibling());
+            DefaultMutableTreeNode parent_ = node.getNextSibling();
+            return build(parent_);
         } catch (Exception e) {
             return null;
         }
@@ -152,24 +159,25 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     @Override
     public AbstractMutableTreeNode removeFromParent() {
         try {
-            TreeNode parent_ = node.getParent();
+            DefaultMutableTreeNode parent_ = (DefaultMutableTreeNode) node.getParent();
             node.removeFromParent();
-            return new DefMutableTreeNode((MutableTreeNode) parent_);
+            return build(parent_);
         } catch (Exception e) {
             return null;
         }
     }
 
+    static DefMutableTreeNode build(DefaultMutableTreeNode _node) {
+        return new DefMutableTreeNode(_node,String.valueOf(_node.getUserObject()));
+    }
+
     @Override
     public String getUserObject() {
         try {
-            return userObject();
+            return String.valueOf(node.getUserObject());
         } catch (Exception e) {
-            return "";
+            return userObject;
         }
     }
 
-    private String userObject() {
-        return String.valueOf(node.getUserObject());
-    }
 }

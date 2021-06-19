@@ -15,7 +15,7 @@ public class NumComboBox extends TreeComboBox<Integer> {
 
     public void addItem(int _item) {
         getElements().put(_item, Integer.toString(_item));
-        getCombo().addItem(Integer.toString(_item));
+        addItem(Integer.toString(_item));
     }
 
     private static IntTreeMap< String> getTree(int... _ints) {
@@ -30,7 +30,7 @@ public class NumComboBox extends TreeComboBox<Integer> {
         int index_ = 0;
         for (Integer k: getElements().getKeys()) {
             if (NumberUtil.eq(k, _i)) {
-                getCombo().selectItem(index_);
+                selectItem(index_);
                 break;
             }
             index_++;

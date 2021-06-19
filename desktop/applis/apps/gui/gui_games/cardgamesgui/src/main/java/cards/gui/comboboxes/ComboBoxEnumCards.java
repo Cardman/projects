@@ -18,18 +18,13 @@ public final class ComboBoxEnumCards<E> extends TreeComboBox<Integer> {
         tr_ = getElements();
         tr_.put(tr_.size(), _itemString);
         real.add(_item);
-        getCombo().addItem(_itemString);
+        addItem(_itemString);
     }
-    @Override
-    public void removeItem(int _anIndex) {
-        real.remove(_anIndex);
-        super.removeItem(_anIndex);
+
+    public CustList<E> getReal() {
+        return real;
     }
-    @Override
-    public void removeAllItems() {
-        real.clear();
-        super.removeAllItems();
-    }
+
     public E getCurrentElement() {
         Integer key_ = getCurrent();
         if (key_ == null) {

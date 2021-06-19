@@ -108,8 +108,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         choiceOfPlaceForPlayingGame.setSelectedItem(_players.getPseudos()
                 .size() - 1);
         indexInGame = choiceOfPlaceForPlayingGame.getCurrent().byteValue();
-        choiceOfPlaceForPlayingGame.getCombo().setListener(new ChangePlaceEvent(this));
-        panel_.add(choiceOfPlaceForPlayingGame.getCombo().self());
+        choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
+        panel_.add(choiceOfPlaceForPlayingGame.self());
         ready = new CustCheckBox(getMessages().getVal(MainWindow.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);

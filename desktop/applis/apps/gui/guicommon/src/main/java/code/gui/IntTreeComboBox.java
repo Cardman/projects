@@ -35,12 +35,12 @@ public final class IntTreeComboBox extends AbsComboBox {
     }
 
     public void refresh(AbsMap<Integer,String> _tr) {
-        getCombo().removeAllItems();
+        removeAllItems();
         IntMap<String> m_ = createMap(_tr);
         elements = new TreeMap<Integer,String>(new ComparatorMapValue<Integer>(m_));
         elements.putAllMap(m_);
         for (Integer e: elements.getKeys()) {
-            getCombo().addItem(_tr.getVal(e));
+            addItem(_tr.getVal(e));
         }
     }
 
@@ -64,7 +64,7 @@ public final class IntTreeComboBox extends AbsComboBox {
     public void setItems(int[] _numerosPlis) {
         removeAllItems();
         for (int i: _numerosPlis) {
-            getCombo().addItem(Integer.toString(i));
+            addItem(Integer.toString(i));
         }
         refresh(getTree(_numerosPlis));
     }
@@ -82,14 +82,14 @@ public final class IntTreeComboBox extends AbsComboBox {
         getCombo().removeAllItems();
     }
     public Integer getCurrent() {
-        int index_ = getCombo().getSelectedIndex();
+        int index_ = getSelectedIndex();
         if (index_ < 0) {
             return null;
         }
         return elements.getKey(index_);
     }
     public boolean isSelectNullCurrent() {
-        int index_ = getCombo().getSelectedIndex();
+        int index_ = getSelectedIndex();
         if (index_ < 0) {
             return false;
         }
