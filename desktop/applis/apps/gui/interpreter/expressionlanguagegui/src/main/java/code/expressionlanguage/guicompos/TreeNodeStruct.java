@@ -181,11 +181,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         return pars_;
     }
     IntStruct getIndex() {
-        AbstractMutableTreeNode par_ = treeNode.getParent();
-        if (par_ == null) {
-            return new IntStruct(-1);
-        }
-        return new IntStruct(par_.getAntiIndex(treeNode));
+        return new IntStruct(treeNode.getIndex());
     }
     CustList<IntStruct> getIndexes() {
         CustList<IntStruct> pars_ = new CustList<IntStruct>();
