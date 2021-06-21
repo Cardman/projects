@@ -8,7 +8,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.IdMap;
 
-public final class ExecUnaryBooleanOperation extends ExecAbstractUnaryOperation {
+public final class ExecUnaryBooleanOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     public ExecUnaryBooleanOperation(ExecOperationContent _opCont) {
         super(_opCont);

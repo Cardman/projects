@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
@@ -46,6 +47,10 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
         return true;
     }
 
+    @Override
+    protected GeneType getDeclaringType() {
+        return className.getRootBlock();
+    }
     @Override
     protected String getDeclaringClass() {
         return className.getFormatted();

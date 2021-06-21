@@ -14,10 +14,8 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public abstract class RendCompoundAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
+public abstract class RendCompoundAffectationOperation extends RendAbstractAffectOperation {
 
-    private RendDynOperationNode settable;
-    private RendMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converter;
     private final StringList names;
@@ -28,15 +26,10 @@ public abstract class RendCompoundAffectationOperation extends RendMethodOperati
         names = _names;
     }
 
-    public void setup() {
-        settable = RendAffectationOperation.tryGetSettable(this);
-        settableParent = RendAffectationOperation.tryGetSettableParent(this);
-    }
-
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        if (settableParent instanceof RendSafeDotOperation) {
-            RendDynOperationNode left_ = settableParent.getFirstChild();
+        if (getSettableParent() instanceof RendSafeDotOperation) {
+            RendDynOperationNode left_ = getSettableParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
                 leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, names));
@@ -52,7 +45,7 @@ public abstract class RendCompoundAffectationOperation extends RendMethodOperati
                 setSimpleArgument(leftArg_, _nodes, _context, _rendStack);
                 return;
             }
-            Argument arg_ = RendAffectationOperation.calculateChSetting(settable,_nodes, leftArg_, _advStandards, _context, _rendStack);
+            Argument arg_ = RendAffectationOperation.calculateChSetting(getSettable(),_nodes, leftArg_, _advStandards, _context, _rendStack);
             setSimpleArgument(arg_, _nodes, _context, _rendStack);
             return;
         }
@@ -61,20 +54,21 @@ public abstract class RendCompoundAffectationOperation extends RendMethodOperati
 
     protected Argument endCalculateCh(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _res, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
         Argument arg_ = null;
-        if (settable instanceof RendStdRefVariableOperation) {
-            arg_ = ((RendStdRefVariableOperation)settable).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
+        RendDynOperationNode settable_ = getSettable();
+        if (settable_ instanceof RendStdRefVariableOperation) {
+            arg_ = ((RendStdRefVariableOperation)settable_).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
         }
-        if (settable instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)settable).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
+        if (settable_ instanceof RendSettableFieldOperation) {
+            arg_ = ((RendSettableFieldOperation)settable_).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
         }
-        if (settable instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)settable).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
+        if (settable_ instanceof RendArrOperation) {
+            arg_ = ((RendArrOperation)settable_).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
         }
-        if (settable instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)settable).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
+        if (settable_ instanceof RendCustArrOperation) {
+            arg_ = ((RendCustArrOperation)settable_).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
         }
-        if (settable instanceof RendSettableCallFctOperation) {
-            arg_ = ((RendSettableCallFctOperation)settable).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
+        if (settable_ instanceof RendSettableCallFctOperation) {
+            arg_ = ((RendSettableCallFctOperation)settable_).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
         }
         return Argument.getNullableValue(arg_);
     }
@@ -94,9 +88,5 @@ public abstract class RendCompoundAffectationOperation extends RendMethodOperati
 
     public String getOper() {
         return operatorContent.getOper();
-    }
-
-    public RendDynOperationNode getSettable() {
-        return settable;
     }
 }

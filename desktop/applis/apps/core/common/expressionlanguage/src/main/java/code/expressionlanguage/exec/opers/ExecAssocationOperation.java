@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
-public final class ExecAssocationOperation extends ExecAbstractUnaryOperation {
+public final class ExecAssocationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     public ExecAssocationOperation(ExecOperationContent _opCont) {
         super(_opCont);

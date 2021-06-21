@@ -10,12 +10,10 @@ import code.util.StringMap;
 public final class ExecInstancingAnnotContent {
     private final String methodName;
 
-    private final String className;
     private final ExecFormattedRootBlock formattedType;
     private final StringMap<AnnotationTypeInfo> fieldNames;
     public ExecInstancingAnnotContent(AnaInstancingAnnotContent _cont, Forwards _fwd) {
         methodName = _cont.getMethodName();
-        className = _cont.getClassName();
         fieldNames = _cont.getFieldNames();
         AnaFormattedRootBlock formattedType_ = _cont.getFormattedType();
         formattedType = FetchMemberUtil.fwdFormatType(formattedType_,_fwd);
@@ -33,7 +31,4 @@ public final class ExecInstancingAnnotContent {
         return formattedType;
     }
 
-    public String getClassName() {
-        return className;
-    }
 }

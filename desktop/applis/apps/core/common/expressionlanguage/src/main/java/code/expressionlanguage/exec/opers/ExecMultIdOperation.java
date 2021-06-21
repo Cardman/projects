@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
-public final class ExecMultIdOperation extends ExecAbstractUnaryOperation {
+public final class ExecMultIdOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     public ExecMultIdOperation(ExecOperationContent _opCont) {
         super(_opCont);

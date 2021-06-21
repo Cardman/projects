@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.InstanceParamChecker;
@@ -61,6 +62,10 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
         return true;
     }
 
+    @Override
+    protected GeneType getDeclaringType() {
+        return metaInfo.getFormatted().getRootBlock();
+    }
     @Override
     protected String getDeclaringClass() {
         return metaInfo.getFormatted().getFormatted();

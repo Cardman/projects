@@ -14,11 +14,9 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
+public final class ExecAffectationOperation extends ExecAbstractAffectOperation {
 
     private final StringList names;
-    private ExecOperationNode settable;
-    private ExecMethodOperation settableParent;
 
     private final int opOffset;
 
@@ -28,47 +26,11 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         names = _names;
     }
 
-    public void setup() {
-        settable = tryGetSettable(this);
-        settableParent = tryGetSettableParent(this);
-    }
-    static ExecOperationNode tryGetSettable(ExecMethodOperation _operation) {
-        ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
-        ExecOperationNode elt_;
-        if (!(root_ instanceof ExecAbstractDotOperation)) {
-            elt_ = root_;
-        } else {
-            elt_ = ExecHelper.getLastNode((ExecMethodOperation)root_);
-        }
-        return elt_;
-    }
-    static ExecMethodOperation tryGetSettableParent(ExecMethodOperation _operation) {
-        ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
-        ExecMethodOperation elt_;
-        if (!(root_ instanceof ExecAbstractDotOperation)) {
-            elt_ = ExecHelper.getParentOrNull(root_);
-        } else {
-            elt_ = (ExecMethodOperation)root_;
-        }
-        return elt_;
-    }
-
-    static ExecOperationNode getFirstToBeAnalyzed(ExecMethodOperation _operation) {
-        ExecOperationNode root_ = _operation.getFirstChild();
-        while (root_ instanceof ExecIdOperation) {
-            root_ = root_.getFirstChild();
-        }
-        return root_;
-    }
-    public ExecOperationNode getSettable() {
-        return settable;
-    }
-
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        if (settableParent instanceof ExecSafeDotOperation) {
-            ExecOperationNode left_ = settableParent.getFirstChild();
+        if (getSettableParent() instanceof ExecSafeDotOperation) {
+            ExecOperationNode left_ = getSettableParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
                 leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, names, _stack));
@@ -78,17 +40,15 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         }
         Argument rightArg_ = getLastArgument(_nodes, this);
         setRelOffsetPossibleLastPage(opOffset, _stack);
-        if (settable instanceof ExecStdRefVariableOperation) {
-            if (((ExecStdRefVariableOperation)settable).isDeclare()){
-                CustList<ExecOperationNode> childrenNodes_ = getChildrenNodes();
-                ArgumentsPair pairRight_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,childrenNodes_.size()-1));
-                AbstractPageEl ip_ = _stack.getLastPage();
-                ip_.getRefParams().put(((ExecStdRefVariableOperation)settable).getVariableName(),ExecTemplates.getWrap(pairRight_.getWrapper()));
-                setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes, _stack);
-                return;
-            }
+        if (getSettable() instanceof ExecStdRefVariableOperation && ((ExecStdRefVariableOperation) getSettable()).isDeclare()) {
+            CustList<ExecOperationNode> childrenNodes_ = getChildrenNodes();
+            ArgumentsPair pairRight_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1));
+            AbstractPageEl ip_ = _stack.getLastPage();
+            ip_.getRefParams().put(((ExecStdRefVariableOperation) getSettable()).getVariableName(), ExecTemplates.getWrap(pairRight_.getWrapper()));
+            setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes, _stack);
+            return;
         }
-        Argument arg_ = calculateChSetting(settable,_nodes, _conf, rightArg_, _stack);
+        Argument arg_ = calculateChSetting(getSettable(),_nodes, _conf, rightArg_, _stack);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
     static Argument calculateChSetting(ExecOperationNode _set,

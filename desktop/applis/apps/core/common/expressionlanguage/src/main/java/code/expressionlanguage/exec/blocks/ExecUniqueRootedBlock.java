@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.common.GeneClass;
+import code.util.CustList;
 import code.util.StringList;
 
 public interface ExecUniqueRootedBlock extends GeneClass {
@@ -9,5 +10,5 @@ public interface ExecUniqueRootedBlock extends GeneClass {
 
     ExecFileBlock getFile();
 
-    StringList getStaticInitImportedInterfaces();
+    CustList<ExecRootBlock> getStaticInitImportedInterfaces();
 }

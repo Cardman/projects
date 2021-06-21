@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ClassCategory;

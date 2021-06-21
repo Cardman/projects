@@ -1,7 +1,6 @@
 package code.formathtml.exec.opers;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -17,9 +16,9 @@ import code.util.IdMap;
 
 public abstract class RendMethodOperation extends RendDynOperationNode {
 
-    private CustList<RendDynOperationNode> childrenNodes = new CustList<RendDynOperationNode>();
+    private final CustList<RendDynOperationNode> childrenNodes = new CustList<RendDynOperationNode>();
 
-    public RendMethodOperation(ExecOperationContent _content) {
+    protected RendMethodOperation(ExecOperationContent _content) {
         super(_content);
     }
 

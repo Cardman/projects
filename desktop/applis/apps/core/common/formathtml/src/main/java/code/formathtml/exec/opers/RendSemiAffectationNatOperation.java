@@ -28,7 +28,7 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
     protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode left_ = getFirstNode(this);
         Argument leftStore_ = getArgument(_nodes,left_);
-        Argument stored_ = getNullArgument(_nodes, getSettable());
+        Argument stored_ = getArgument(_nodes, getSettable());
         Argument before_ = stored_;
         if (converterFrom != null) {
             Argument conv_ = tryConvert(converterFrom.get(0),converterFrom.getOwnerClass(), leftStore_, _context, _rendStack);
@@ -49,10 +49,6 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
         }
         Argument arg_ = calculateSemiChSetting(_nodes, _advStandards, _context, _rendStack);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
-    }
-
-    private static Argument getNullArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendDynOperationNode _settable) {
-        return getArgument(_nodes, _settable);
     }
 
     private Argument calculateSemiChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {

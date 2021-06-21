@@ -19,7 +19,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecCastOperation extends ExecAbstractUnaryOperation {
+public final class ExecCastOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     private final ExecTypeCheckContent typeCheckContent;
     public ExecCastOperation(ExecOperationContent _opCont, ExecTypeCheckContent _typeCheckContent) {
@@ -41,29 +41,32 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
     }
 
     public static void wrapFct(String _className, boolean _full, ContextEl _conf, Argument _objArg) {
-        if (StringExpUtil.customCast(_className)) {
-            Struct str_ = _objArg.getStruct();
-            if (str_ instanceof LambdaStruct) {
-                ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(_className, _conf.getClasses());
-                ExecRootBlock r_ = className_.getRootBlock();
-                if (r_ instanceof ExecInterfaceBlock && r_.withoutInstance()) {
-                    CustList<ExecFunctionalInfo> functional_ = r_.getFunctionalBodies();
-                    if ((!r_.isWithInstanceElements() || _full)&& functional_.size() == 1) {
-                        ExecFunctionalInfo clRealId_ = functional_.first();
-                        String fctParam_ = ExecInherits.quickFormat(className_, clRealId_.getFctParam());
-                        String argCl_ = str_.getClassName(_conf);
-                        if (ExecInherits.isCorrectExecute(argCl_,fctParam_,_conf)) {
-                            ExecOverridableBlock overridableBlock_ = clRealId_.getOverridableBlock();
-                            AbstractFunctionalInstance struct_;
-                            if (_full) {
-                                struct_ = _conf.getStandards().newFullFunctionalInstance(className_, r_, (LambdaStruct) str_, overridableBlock_, _conf);
-                            } else {
-                                struct_ = _conf.getStandards().newFunctionalInstance(className_, r_, (LambdaStruct) str_, overridableBlock_, _conf);
-                            }
-                            _objArg.setStruct(struct_);
-                        }
-                    }
+        if (!StringExpUtil.customCast(_className)) {
+            return;
+        }
+        Struct str_ = _objArg.getStruct();
+        if (!(str_ instanceof LambdaStruct)) {
+            return;
+        }
+        ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(_className, _conf.getClasses());
+        ExecRootBlock r_ = className_.getRootBlock();
+        if (!(r_ instanceof ExecInterfaceBlock) || !r_.withoutInstance()) {
+            return;
+        }
+        CustList<ExecFunctionalInfo> functional_ = r_.getFunctionalBodies();
+        if ((!r_.isWithInstanceElements() || _full)&& functional_.size() == 1) {
+            ExecFunctionalInfo clRealId_ = functional_.first();
+            String fctParam_ = ExecInherits.quickFormat(className_, clRealId_.getFctParam());
+            String argCl_ = str_.getClassName(_conf);
+            if (ExecInherits.isCorrectExecute(argCl_,fctParam_,_conf)) {
+                ExecOverridableBlock overridableBlock_ = clRealId_.getOverridableBlock();
+                AbstractFunctionalInstance struct_;
+                if (_full) {
+                    struct_ = _conf.getStandards().newFullFunctionalInstance(className_, r_, (LambdaStruct) str_, overridableBlock_, _conf);
+                } else {
+                    struct_ = _conf.getStandards().newFunctionalInstance(className_, r_, (LambdaStruct) str_, overridableBlock_, _conf);
                 }
+                _objArg.setStruct(struct_);
             }
         }
     }

@@ -1,19 +1,17 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecRefTernaryOperation extends ExecSettableCallFctOperation implements AtomicExecCalculableOperation {
+public final class ExecRefTernaryOperation extends ExecSettableCallFctOperation {
 
     private final int offsetLocal;
 
@@ -39,10 +37,11 @@ public final class ExecRefTernaryOperation extends ExecSettableCallFctOperation 
 
     private ArgumentsPair getChosenArgumentsPair(IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         ArgumentsPair arg_;
-        if (BooleanStruct.isTrue(ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),0)).getArgument().getStruct())) {
-            arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),1));
+        CustList<ExecOperationNode> childrenNodes_ = getChildrenNodes();
+        if (BooleanStruct.isTrue(ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,0)).getArgument().getStruct())) {
+            arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,1));
         } else {
-            arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),2));
+            arg_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_,2));
         }
         return arg_;
     }

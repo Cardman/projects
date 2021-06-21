@@ -441,14 +441,8 @@ public final class RendForwardInfos {
                 continue;
             }
             while (true) {
-                if (exp_ instanceof RendAffectationOperation) {
-                    ((RendAffectationOperation) exp_).setup();
-                }
-                if (exp_ instanceof RendSemiAffectationOperation) {
-                    ((RendSemiAffectationOperation) exp_).setup();
-                }
-                if (exp_ instanceof RendCompoundAffectationOperation) {
-                    ((RendCompoundAffectationOperation) exp_).setup();
+                if (exp_ instanceof RendAbstractAffectOperation) {
+                    ((RendAbstractAffectOperation) exp_).setup();
                 }
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
@@ -471,14 +465,8 @@ public final class RendForwardInfos {
                 }
                 RendMethodOperation par_ = exp_.getParent();
                 if (op_ == _root) {
-                    if (par_ instanceof RendAffectationOperation) {
-                        ((RendAffectationOperation) par_).setup();
-                    }
-                    if (par_ instanceof RendSemiAffectationOperation) {
-                        ((RendSemiAffectationOperation) par_).setup();
-                    }
-                    if (par_ instanceof RendCompoundAffectationOperation) {
-                        ((RendCompoundAffectationOperation) par_).setup();
+                    if (par_ instanceof RendAbstractAffectOperation) {
+                        ((RendAbstractAffectOperation) par_).setup();
                     }
                     out_.add(par_);
                     current_ = null;
@@ -954,7 +942,7 @@ public final class RendForwardInfos {
         ExecClassArgumentMatching pr_ = FetchMemberUtil.toExec(_resultInput.getPreviousResult());
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
         RendStdRefVariableOperation rendPrevVar_ = new RendStdRefVariableOperation(new ExecOperationContent(0, pr_, 0), new ExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
-        ExecInstFctContent instFctContent_ = new ExecInstFctContent(_settable.getAnc(), _settable.isStaticChoiceMethod(), "", "", -1, FetchMemberUtil.fwdFormatType(_settable.getCallFctContent().getFormattedType(), _forwards));
+        ExecInstFctContent instFctContent_ = new ExecInstFctContent(_settable.getAnc(), _settable.isStaticChoiceMethod(), 0, "", -1, FetchMemberUtil.fwdFormatType(_settable.getCallFctContent().getFormattedType(), _forwards));
         MethodId constraints_ = _settable.getCallFctContent().getClassMethodId().getConstraints();
         int nbParam_ = constraints_.getParametersTypesLength();
         int refCount_ = 0;

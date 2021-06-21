@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRecordBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -34,19 +33,18 @@ public final class ExecStandardInstancingOperation extends
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getInstancingCommonContent().getMethodName());
-        if (!instancingStdContent.getFieldName().isEmpty()) {
-            off_ -= _stack.getLastPage().getTranslatedOffset();
-            off_ -= instancingStdContent.getFieldName().length();
-            off_--;
-        }
-        setRelOffsetPossibleLastPage(off_, _stack);
         ExecFormattedRootBlock className_ = _stack.formatVarType(getFormattedType());
         Argument res_ = null;
         if (instancingStdContent.getFieldName().isEmpty()) {
-            String base_ = StringExpUtil.getIdFromAllTypes(className_.getFormatted());
-            if (_conf.getExiting().hasToExit(_stack, base_)) {
+            setRelOffsetPossibleLastPage(off_, _stack);
+            if (_conf.getExiting().hasToExit(_stack, className_.getRootBlock())) {
                 res_ = Argument.createVoid();
             }
+        } else {
+            off_ -= _stack.getLastPage().getTranslatedOffset();
+            off_ -= instancingStdContent.getFieldName().length();
+            off_--;
+            setRelOffsetPossibleLastPage(off_, _stack);
         }
         if (res_ == null) {
             if (rootBlock instanceof ExecRecordBlock) {

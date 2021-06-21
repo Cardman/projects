@@ -16,7 +16,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
-import code.util.core.StringUtil;
 
 public final class RendChoiceFctOperation extends RendSettableCallFctOperation implements RendCalculableOperation {
 
@@ -32,7 +31,7 @@ public final class RendChoiceFctOperation extends RendSettableCallFctOperation i
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
+        int off_ = instFctContent.getMethodName();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         int naturalVararg_ = instFctContent.getNaturalVararg();
         ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();

@@ -11,7 +11,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecDefaultOperation extends ExecAbstractUnaryOperation {
+public final class ExecDefaultOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     private final int offset;
     private final StringList names;

@@ -25,13 +25,11 @@ public final class StaticInitPageEl extends AbstractInitPageEl {
     public void processTagsBase(ContextEl _context, StackCall _stack){
         ExecRootBlock blockRoot_ = getBlockRootType();
         //Super interfaces have no super classes
-        String gene_ = blockRoot_.getImportedDirectGenericSuperClass();
-        String superClass_ = StringExpUtil.getIdFromAllTypes(gene_);
         //initialize the super class first
-        if (_context.getExiting().hasToExit(_stack, superClass_)) {
+        if (_context.getExiting().hasToExit(_stack, blockRoot_.getUniqueType())) {
             return;
         }
-        for (String i: blockRoot_.getStaticInitImportedInterfaces()) {
+        for (ExecRootBlock i: blockRoot_.getStaticInitImportedInterfaces()) {
             //then initialize the additional super interfaces (not provided by the super class)
             if (_context.getExiting().hasToExit(_stack, i)) {
                 return;

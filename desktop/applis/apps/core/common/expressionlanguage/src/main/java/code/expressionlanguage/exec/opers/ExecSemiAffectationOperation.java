@@ -13,11 +13,9 @@ import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
 import code.util.StringList;
 
-public abstract class ExecSemiAffectationOperation extends ExecAbstractUnaryOperation implements CallExecSimpleOperation {
+public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOperation implements CallExecSimpleOperation {
     private final boolean post;
     private final StringList names;
-    private ExecOperationNode settable;
-    private ExecMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
 
     protected ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, boolean _post, StringList _names) {
@@ -27,16 +25,11 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractUnaryOper
         names = _names;
     }
 
-    public void setup() {
-        settable = ExecAffectationOperation.tryGetSettable(this);
-        settableParent = ExecAffectationOperation.tryGetSettableParent(this);
-    }
-
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        if (settableParent instanceof ExecSafeDotOperation) {
-            ExecOperationNode left_ = settableParent.getFirstChild();
+        if (getSettableParent() instanceof ExecSafeDotOperation) {
+            ExecOperationNode left_ = getSettableParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
                 ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
@@ -57,15 +50,15 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractUnaryOper
 
     protected void end(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes,settable);
-        Argument stored_ = getNullArgument(_nodes, settable);
+        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettable());
+        Argument stored_ = getArgument(_nodes, getSettable());
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
-            Argument arg_ = endCalculate(_conf, _nodes, _right, stored_, settable, post, _stack);
+            Argument arg_ = endCalculate(_conf, _nodes, _right, stored_, getSettable(), post, _stack);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
         }
-        if (settable instanceof ExecCustArrOperation || pairSet_.getWrapper() instanceof ArrayCustWrapper) {
+        if (getSettable() instanceof ExecCustArrOperation || pairSet_.getWrapper() instanceof ArrayCustWrapper) {
             Argument out_;
             if (!pair_.isCalledIndexer()) {
                 pair_.setCalledIndexer(true);
@@ -77,10 +70,6 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractUnaryOper
             return;
         }
         setSimpleArgument(_right, _conf, _nodes, _stack);
-    }
-
-    protected static Argument getNullArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecOperationNode _settable) {
-        return getArgument(_nodes, _settable);
     }
 
     private static Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, Argument _stored, ExecOperationNode _settable, boolean _staticPostEltContent, StackCall _stackCall) {
@@ -117,10 +106,6 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractUnaryOper
 
     public boolean isPost() {
         return post;
-    }
-
-    protected ExecOperationNode getSettable() {
-        return settable;
     }
 
 }

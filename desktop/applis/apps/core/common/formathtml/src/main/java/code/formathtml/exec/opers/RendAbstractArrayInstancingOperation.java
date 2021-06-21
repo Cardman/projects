@@ -7,12 +7,12 @@ public abstract class RendAbstractArrayInstancingOperation extends RendInvokingO
 
     private final ExecArrayInstancingContent arrayInstancingContent;
 
-    public RendAbstractArrayInstancingOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecArrayInstancingContent _arrayInstancingContent) {
+    protected RendAbstractArrayInstancingOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecArrayInstancingContent _arrayInstancingContent) {
         super(_content, _intermediateDottedOperation);
         arrayInstancingContent = _arrayInstancingContent;
     }
 
-    public final String getMethodName() {
+    public final int getMethodName() {
         return arrayInstancingContent.getMethodName();
     }
     public final String getClassName() {

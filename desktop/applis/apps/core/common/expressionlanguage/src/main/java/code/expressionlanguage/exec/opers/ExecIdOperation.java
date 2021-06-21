@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
-public final class ExecIdOperation extends ExecAbstractUnaryOperation {
+public final class ExecIdOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     public ExecIdOperation(ExecOperationContent _opCont) {
         super(_opCont);
@@ -15,7 +15,7 @@ public final class ExecIdOperation extends ExecAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        ExecOperationNode o_ = ExecAffectationOperation.getFirstToBeAnalyzed(this);
+        ExecOperationNode o_ = ExecAbstractAffectOperation.getFirstToBeAnalyzed(this);
         Argument a_ = getArgument(_nodes,o_);
         boolean simple_ = false;
         if (o_ instanceof ExecSettableElResult) {

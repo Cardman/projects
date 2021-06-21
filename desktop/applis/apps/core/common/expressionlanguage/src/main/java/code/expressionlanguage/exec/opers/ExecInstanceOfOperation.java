@@ -13,7 +13,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
+public final class ExecInstanceOfOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     private final ExecTypeCheckContent typeCheckContent;
     public ExecInstanceOfOperation(ExecOperationContent _opCont, ExecTypeCheckContent _typeCheckContent) {

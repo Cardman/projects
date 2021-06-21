@@ -35,7 +35,7 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecFormattedRootBlock classNameFound_ = ClassMethodId.formatType(formattedType, staticFctContent.getKind(), _stack);
         Argument res_;
-        if (_conf.getExiting().hasToExit(_stack, classNameFound_.getFormatted())) {
+        if (_conf.getExiting().hasToExit(_stack, classNameFound_.getRootBlock())) {
             res_ = Argument.createVoid();
         } else {
             Argument prev_ = new Argument();

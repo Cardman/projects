@@ -3,7 +3,6 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 
 import code.expressionlanguage.structs.BooleanStruct;
@@ -46,7 +45,7 @@ public final class RenderExpUtil {
         int len_ = _nodes.size();
         while (fr_ < len_) {
             RendDynOperationNode o = arguments_.getKey(fr_);
-            o.setRelativeOffsetPossibleLastPage(o.getIndexInEl(), _rendStackCall);
+            RendDynOperationNode.setRelativeOffsetPossibleLastPage(o.getIndexInEl(), _rendStackCall);
             ArgumentsPair pair_ = arguments_.getValue(fr_);
             if (!(o instanceof RendCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());

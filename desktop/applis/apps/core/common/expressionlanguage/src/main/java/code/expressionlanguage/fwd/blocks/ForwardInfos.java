@@ -143,10 +143,7 @@ public final class ForwardInfos {
                 redirections_.add(override_);
             }
         }
-        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
-            e.getValue().getRootBlock().getAllSuperTypes().addAllElts(e.getKey().getAllSuperTypes());
-            e.getValue().getRootBlock().getStaticInitImportedInterfaces().addAllElts(e.getKey().getStaticInitImportedInterfaces());
-        }
+        feed(_forwards);
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock root_ = e.getKey();
             RootBlock parentType_ = root_.getParentType();
@@ -167,8 +164,9 @@ public final class ForwardInfos {
             ExecFormattedRootBlock formattedType_ = null;
             Members mem_ = e.getValue();
             if (i instanceof UniqueRootedBlock && genericClasses_.size() > 1) {
-                mem_.getRootBlock().setUniqueType(FetchMemberUtil.fetchType(genericClasses_.get(1).getRootBlock().getNumberAll(), _forwards));
-                formattedType_ = FetchMemberUtil.fwdFormatType(genericClasses_.get(1),_forwards);
+                AnaFormattedRootBlock anaFormattedRootBlock_ = genericClasses_.get(1);
+                mem_.getRootBlock().setUniqueType(FetchMemberUtil.fetchType(anaFormattedRootBlock_.getRootBlock().getNumberAll(), _forwards));
+                formattedType_ = FetchMemberUtil.fwdFormatType(anaFormattedRootBlock_,_forwards);
             }
             ConstructorBlock emptyCtor_ = i.getEmptyCtor();
             ExecNamedFunctionBlock fct_ = null;
@@ -432,6 +430,15 @@ public final class ForwardInfos {
             SwitchMethodBlock key_ = a.getKey();
             ExecAbstractSwitchMethod value_ = a.getValue();
             feedFct(key_, value_, _forwards);
+        }
+    }
+
+    private static void feed(Forwards _forwards) {
+        for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
+            e.getValue().getRootBlock().getAllSuperTypes().addAllElts(e.getKey().getAllSuperTypes());
+            for (RootBlock r: e.getKey().getStaticInitImportedInterfaces()) {
+                e.getValue().getRootBlock().getStaticInitImportedInterfaces().add(FetchMemberUtil.fetchType(r, _forwards));
+            }
         }
     }
 
@@ -1101,14 +1108,8 @@ public final class ForwardInfos {
     }
 
     private static void tryInitSettablePart(ExecOperationNode _exp) {
-        if (_exp instanceof ExecAffectationOperation) {
-            ((ExecAffectationOperation) _exp).setup();
-        }
-        if (_exp instanceof ExecSemiAffectationOperation) {
-            ((ExecSemiAffectationOperation) _exp).setup();
-        }
-        if (_exp instanceof ExecCompoundAffectationOperation) {
-            ((ExecCompoundAffectationOperation) _exp).setup();
+        if (_exp instanceof ExecAbstractAffectOperation) {
+            ((ExecAbstractAffectOperation) _exp).setup();
         }
     }
 

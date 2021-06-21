@@ -5,9 +5,9 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 
 public abstract class ExecAbstractFieldOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
 
-    private ExecFieldOperationContent fieldContent;
+    private final ExecFieldOperationContent fieldContent;
 
-    public ExecAbstractFieldOperation(ExecOperationContent _a, ExecFieldOperationContent _fieldContent) {
+    protected ExecAbstractFieldOperation(ExecOperationContent _a, ExecFieldOperationContent _fieldContent) {
         super(_a);
         fieldContent = _fieldContent;
     }

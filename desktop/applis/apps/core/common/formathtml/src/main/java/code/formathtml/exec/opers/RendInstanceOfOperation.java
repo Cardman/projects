@@ -14,7 +14,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
+public final class RendInstanceOfOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private final ExecTypeCheckContent typeCheckContent;
     public RendInstanceOfOperation(ExecOperationContent _content, ExecTypeCheckContent _typeCheckContent) {

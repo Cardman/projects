@@ -4,7 +4,6 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -17,7 +16,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
-public final class RendExplicitOperation extends RendAbstractUnaryOperation {
+public final class RendExplicitOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private final ExecExplicitContent explicitContent;
     private final ExecTypeFunction pair;

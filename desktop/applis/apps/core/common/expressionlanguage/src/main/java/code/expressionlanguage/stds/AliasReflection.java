@@ -1138,8 +1138,7 @@ public final class AliasReflection {
             return defaultInstance(_cont, _exit, _args, _stackCall, instanceClass_);
         }
         if (StringUtil.quickEq(aliasInit_, name_)) {
-            String clDyn_ = instanceClass_.getFormatted().getFormatted();
-            _exit.hasToExit(_stackCall, clDyn_);
+            _exit.hasToExit(_stackCall, instanceClass_.getFormatted().getRootBlock());
             result_.setResult(NullStruct.NULL_VALUE);
             return result_;
         }
@@ -1612,7 +1611,7 @@ public final class AliasReflection {
             _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, clDyn_, lgNames_.getContent().getReflect().getAliasClassNotFoundError(), _stackCall)));
             return result_;
         }
-        if (BooleanStruct.isTrue(_args[_args.length - 1]) && _exit.hasToExit(_stackCall, res_)) {
+        if (BooleanStruct.isTrue(_args[_args.length - 1]) && _exit.hasToExit(_stackCall, _cont.getClassBody(StringExpUtil.getIdFromAllTypes(res_)))) {
             return result_;
         }
         result_.setResult(ClassMetaInfo.getClassMetaInfo(_cont,res_));
@@ -1660,12 +1659,11 @@ public final class AliasReflection {
         ExecRootBlock root_ = (ExecRootBlock) type_;
         CustList<ExecRootBlock> needRoot_ = root_.getSelfAndParentTypes();
         ExecRootBlock firstType_ = needRoot_.first();
-        String first_ = firstType_.getFullName();
         ExecFormattedRootBlock formType_ = new ExecFormattedRootBlock(root_, className_);
         if (_args.length > 0) {
             Struct par_ = _args[0];
             if (root_.withoutInstance()) {
-                if (_exit.hasToExit(_stackCall, first_)) {
+                if (_exit.hasToExit(_stackCall, firstType_)) {
                     return result_;
                 }
                 par_ = NullStruct.NULL_VALUE;
@@ -1694,17 +1692,17 @@ public final class AliasReflection {
         Struct parent_ = NullStruct.NULL_VALUE;
         int start_ = 0;
         if (root_.withoutInstance()) {
-            if (_exit.hasToExit(_stackCall, first_)) {
+            if (_exit.hasToExit(_stackCall, firstType_)) {
                 return result_;
             }
         } else {
             if (firstType_ instanceof ExecInnerElementBlock) {
+                if (_exit.hasToExit(_stackCall, firstType_.getParentType())) {
+                    return result_;
+                }
                 ExecInnerElementBlock i_ = (ExecInnerElementBlock) firstType_;
                 String classFieldName_ = i_.getRealImportedClassName();
                 String idCl_ = StringExpUtil.getIdFromAllTypes(classFieldName_);
-                if (_exit.hasToExit(_stackCall, idCl_)) {
-                    return result_;
-                }
                 String fieldName_ = i_.getUniqueFieldName();
                 StringMap<StringMap<Struct>> staticFields_ = _cont.getClasses().getStaticFields();
                 Struct staticField_ = NumParsers.getStaticField(new ClassField(idCl_, fieldName_), staticFields_);

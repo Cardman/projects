@@ -9,7 +9,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecValuesContent;
 import code.util.IdMap;
 
-public final class ExecEnumValueOfOperation extends ExecAbstractUnaryOperation {
+public final class ExecEnumValueOfOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     private final ExecValuesContent valuesContent;
 

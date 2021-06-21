@@ -1,5 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.Forwards;
@@ -7,7 +8,7 @@ import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
 public final class ExecInstFctContent {
 
-    private final String methodName;
+    private final int methodName;
 
     private final String lastType;
 
@@ -18,12 +19,12 @@ public final class ExecInstFctContent {
     private final boolean staticChoiceMethod;
     private final ExecFormattedRootBlock formattedType;
     public ExecInstFctContent(AnaCallFctContent _cont, int _anc, boolean _staticChoiceMethod, Forwards _fwd) {
-        this(_anc,_staticChoiceMethod,_cont.getMethodName(), _cont.getLastType(), _cont.getNaturalVararg(), FetchMemberUtil.fwdFormatType(_cont.getFormattedType(),_fwd));
+        this(_anc,_staticChoiceMethod, StringExpUtil.getOffset(_cont.getMethodName()), _cont.getLastType(), _cont.getNaturalVararg(), FetchMemberUtil.fwdFormatType(_cont.getFormattedType(),_fwd));
     }
-    public ExecInstFctContent(ClassMethodId _cl, ExecFormattedRootBlock _formattedType) {
-        this(0, false, _cl.getConstraints().getName(), "", -1, _formattedType);
+    public ExecInstFctContent(ExecFormattedRootBlock _formattedType) {
+        this(0, false, 0, "", -1, _formattedType);
     }
-    public ExecInstFctContent(int _anc, boolean _staticChoiceMethod, String _methodName, String _lastType, int _naturalVararg, ExecFormattedRootBlock _formattedType) {
+    public ExecInstFctContent(int _anc, boolean _staticChoiceMethod, int _methodName, String _lastType, int _naturalVararg, ExecFormattedRootBlock _formattedType) {
         methodName = _methodName;
         lastType = _lastType;
         naturalVararg = _naturalVararg;
@@ -40,7 +41,7 @@ public final class ExecInstFctContent {
         return staticChoiceMethod;
     }
 
-    public String getMethodName() {
+    public int getMethodName() {
         return methodName;
     }
 

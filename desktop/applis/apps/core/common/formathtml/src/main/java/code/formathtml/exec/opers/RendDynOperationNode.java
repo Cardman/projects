@@ -75,7 +75,7 @@ public abstract class RendDynOperationNode {
         return res_;
     }
 
-    public final void setRelativeOffsetPossibleLastPage(int _offset, RendStackCall _rendStackCall) {
+    public static void setRelativeOffsetPossibleLastPage(int _offset, RendStackCall _rendStackCall) {
         _rendStackCall.setOpOffset(_offset);
     }
 
@@ -94,14 +94,12 @@ public abstract class RendDynOperationNode {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         Argument last_ = Argument.getNullableValue(pair_.getArgument());
         byte unwrapObjectNb_ = content.getResultClass().getUnwrapObjectNb();
-        if (content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
-            if (last_.isNull()) {
-                LgNames stds_ = _context.getStandards();
-                String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStackCall);
-                _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _rendStackCall.getStackCall())));
-                return;
-            }
+        if ((content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) && last_.isNull()) {
+            LgNames stds_ = _context.getStandards();
+            String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStackCall);
+            _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _rendStackCall.getStackCall())));
+            return;
         }
         if (unwrapObjectNb_ > -1) {
             Argument arg_ = new Argument(NumParsers.unwrapObject(unwrapObjectNb_, last_.getStruct()));
@@ -140,85 +138,74 @@ public abstract class RendDynOperationNode {
         RendMethodOperation par_ = _operation.getParent();
         if (par_ instanceof RendCompoundAffectationOperation) {
             RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
-            if (StringUtil.quickEq(p_.getOper(),"??=")) {
-                if (_value != NullStruct.NULL_VALUE) {
-                    return par_.getOrder();
-                }
-            }
-            if (StringUtil.quickEq(p_.getOper(),"???=")) {
-                if (_value != NullStruct.NULL_VALUE) {
-                    return par_.getOrder();
-                }
-            }
-        }
-        if (par_ instanceof RendCompoundAffectationOperation) {
-            RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
-            if (StringUtil.quickEq(p_.getOper(),"&&=")) {
-                if (BooleanStruct.isFalse(_value)) {
-                    return par_.getOrder();
-                }
-            }
-            if (StringUtil.quickEq(p_.getOper(),"&&&=")) {
-                if (BooleanStruct.isFalse(_value)) {
-                    return par_.getOrder();
-                }
-            }
-            if (StringUtil.quickEq(p_.getOper(),"||=")) {
-                if (BooleanStruct.isTrue(_value)) {
-                    return par_.getOrder();
-                }
-            }
-            if (StringUtil.quickEq(p_.getOper(),"|||=")) {
-                if (BooleanStruct.isTrue(_value)) {
-                    return par_.getOrder();
-                }
-            }
-        }
-        if (par_ instanceof RendSafeDotOperation) {
-            if (_value == NullStruct.NULL_VALUE) {
-                RendDynOperationNode last_ = par_.getChildrenNodes().last();
-                boolean skip_ = !(last_ instanceof RendAbstractLambdaOperation);
-                if (skip_) {
-                    RendMethodOperation p_ = par_;
-                    while (p_ != null) {
-                        RendDynOperationNode set_ = null;
-                        if (p_ instanceof RendCompoundAffectationOperation) {
-                            set_ = ((RendCompoundAffectationOperation)p_).getSettable();
-                        }
-                        if (p_ instanceof RendAffectationOperation) {
-                            set_ = ((RendAffectationOperation)p_).getSettable();
-                        }
-                        if (set_ == last_) {
-                            return p_.getOrder();
-                        }
-                        p_ = p_.getParent();
-                    }
-                    return par_.getOrder();
-                }
-            }
-        }
-        if (par_ instanceof RendNullSafeOperation) {
-            if (_value != NullStruct.NULL_VALUE) {
+            if (shEq(_value, p_)) {
                 return par_.getOrder();
             }
         }
-        if (par_ instanceof RendQuickOperation) {
-            RendQuickOperation q_ = (RendQuickOperation) par_;
-            if (q_.match(_value)) {
-                return par_.getOrder();
+        if (par_ instanceof RendSafeDotOperation && _value == NullStruct.NULL_VALUE) {
+            RendDynOperationNode last_ = par_.getChildrenNodes().last();
+            if (!(last_ instanceof RendAbstractLambdaOperation)) {
+                return shortCutNul(par_, last_, par_.getOrder());
             }
+        }
+        if (nulSafeShort(_value, par_)) {
+            return par_.getOrder();
+        }
+        if (valueShort(_value, par_)) {
+            return par_.getOrder();
         }
         if (par_ instanceof RendRefTernaryOperation) {
             if (index_ == 1) {
                 return par_.getOrder();
             }
-            if (index_ == 0) {
-                if (BooleanStruct.isFalse(_value)) {
-                    return getOrder(_operation.getNextSibling()) + 1;
-                }
+            if (index_ == 0 && BooleanStruct.isFalse(_value)) {
+                return getOrder(_operation.getNextSibling()) + 1;
             }
         }
         return _operation.getOrder() + 1;
+    }
+
+    private static boolean valueShort(Struct _value, RendMethodOperation _par) {
+        return _par instanceof RendQuickOperation && ((RendQuickOperation) _par).match(_value);
+    }
+
+    private static boolean nulSafeShort(Struct _value, RendMethodOperation _par) {
+        return _par instanceof RendNullSafeOperation && _value != NullStruct.NULL_VALUE;
+    }
+
+    private static int shortCutNul(RendMethodOperation _par, RendDynOperationNode _last, int _order) {
+        RendMethodOperation p_ = _par;
+        while (p_ != null) {
+            RendDynOperationNode set_ = null;
+            if (p_ instanceof RendAbstractAffectOperation) {
+                set_ = ((RendAbstractAffectOperation) p_).getSettable();
+            }
+            if (set_ == _last) {
+                return p_.getOrder();
+            }
+            p_ = p_.getParent();
+        }
+        return _order;
+    }
+
+    private static boolean shEq(Struct _value, RendCompoundAffectationOperation _p) {
+        return nullEq(_value, _p) || andEq(_value, _p) || orEq(_value, _p);
+    }
+
+    private static boolean orEq(Struct _value, RendCompoundAffectationOperation _p) {
+        return shortEq(_p, "||=", "|||=") && BooleanStruct.isTrue(_value);
+    }
+
+    private static boolean andEq(Struct _value, RendCompoundAffectationOperation _p) {
+        return shortEq(_p, "&&=", "&&&=") && BooleanStruct.isFalse(_value);
+    }
+
+    private static boolean nullEq(Struct _value, RendCompoundAffectationOperation _p) {
+        return shortEq(_p, "??=", "???=") && _value != NullStruct.NULL_VALUE;
+    }
+
+    private static boolean shortEq(RendCompoundAffectationOperation _compound, String _slow, String _quick) {
+        return StringUtil.quickEq(_compound.getOper(), _slow) || StringUtil.quickEq(_compound.getOper(), _quick);
     }
 
     public final int getOrder() {
@@ -283,16 +270,10 @@ public abstract class RendDynOperationNode {
                 RendMethodOperation parent_ = getParent();
                 if (parent_ instanceof RendCompoundAffectationOperation) {
                     RendCompoundAffectationOperation par_ = (RendCompoundAffectationOperation) parent_;
-                    if (StringUtil.quickEq(par_.getOper(), "&&=")){
+                    if (shortEq(par_,"&&=","&&&=")) {
                         pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
                     }
-                    if (StringUtil.quickEq(par_.getOper(), "&&&=")){
-                        pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
-                    }
-                    if (StringUtil.quickEq(par_.getOper(), "||=")){
-                        pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
-                    }
-                    if (StringUtil.quickEq(par_.getOper(), "|||=")){
+                    if (shortEq(par_,"||=","|||=")) {
                         pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
                     }
                 } else if (parent_ instanceof RendQuickOperation) {

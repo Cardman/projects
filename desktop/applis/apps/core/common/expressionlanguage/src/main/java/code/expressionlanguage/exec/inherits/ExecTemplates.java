@@ -830,7 +830,11 @@ public final class ExecTemplates {
 
     public static AbstractWrapper getWrapper(ExecVariableContent _varCont, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
-        return ExecTemplates.getWrapper(_varCont.getVariableName(),_varCont.getDeep(), ip_.getCache(), _stack.getLastPage().getRefParams());
+        return getWrapper(_varCont, ip_.getCache(), _stack.getLastPage().getRefParams());
+    }
+
+    public static AbstractWrapper getWrapper(ExecVariableContent _varCont, Cache _cache, StringMap<AbstractWrapper> _refParams) {
+        return getWrapper(_varCont.getVariableName(),_varCont.getDeep(), _cache, _refParams);
     }
     public static AbstractWrapper getWrapper(String _val, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams) {
         if (_cache != null) {
@@ -892,7 +896,7 @@ public final class ExecTemplates {
 
         ClassField fieldId_ = new ClassField(baseClass_, fieldName_);
         if (isStaticField_) {
-            return getStaticField(_conf.getExiting(), type_, _conf, _stackCall, fieldId_);
+            return getStaticField(_conf.getExiting(),_meta.getFormatted().getRootBlock(), type_, _conf, _stackCall, fieldId_);
         }
         return getInstanceField(_previous, _conf, _stackCall, fieldId_);
     }
@@ -924,13 +928,13 @@ public final class ExecTemplates {
         return new Argument(struct_);
     }
 
-    public static Argument getStaticField(AbstractExiting _exit, String _ret, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
+    public static Argument getStaticField(AbstractExiting _exit,GeneType _init, String _ret, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
         Classes classes_ = _conf.getClasses();
-        String className_ = _fieldId.getClassName();
-        if (_exit.hasToExit(_stackCall, className_)) {
+        if (_exit.hasToExit(_stackCall, _init)) {
             return Argument.createVoid();
         }
         Struct struct_ = classes_.getStaticField(_fieldId,_ret, _conf);
+        String className_ = _fieldId.getClassName();
         _stackCall.getInitializingTypeInfos().addSensibleField(className_, struct_, _stackCall);
         return new Argument(struct_);
     }
@@ -959,7 +963,7 @@ public final class ExecTemplates {
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stackCall)));
                 return Argument.createVoid();
             }
-            return setStaticField(_conf.getExiting(), type_, _right, _conf, _stackCall, fieldId_);
+            return setStaticField(_conf.getExiting(), declaring_, type_, _right, _conf, _stackCall, fieldId_);
         }
         return setInstanceField(declaring_, type_, _previous, _right, _conf, _stackCall, fieldId_);
     }
@@ -996,15 +1000,15 @@ public final class ExecTemplates {
         return _right;
     }
 
-    public static Argument setStaticField(AbstractExiting _exit, String _returnType, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
+    public static Argument setStaticField(AbstractExiting _exit,GeneType _init, String _returnType, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
         Classes classes_ = _conf.getClasses();
-        String className_ = _fieldId.getClassName();
-        if (_exit.hasToExit(_stackCall, className_)) {
+        if (_exit.hasToExit(_stackCall, _init)) {
             return Argument.createVoid();
         }
         if (!checkQuick(_returnType, _right.getStruct().getClassName(_conf), _conf, _stackCall)) {
             return Argument.createVoid();
         }
+        String className_ = _fieldId.getClassName();
         if (_stackCall.getInitializingTypeInfos().isSensibleField(className_, _stackCall)) {
             _stackCall.getInitializingTypeInfos().failInitEnums();
             return _right;

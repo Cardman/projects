@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundAnnotation;
@@ -31,8 +30,7 @@ public final class ExecAnnotationInstanceArobaseOperation extends ExecInvokingOp
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
         Argument res_;
-        String base_ = StringExpUtil.getIdFromAllTypes(instancingAnnotContent.getClassName());
-        if (!_conf.getExiting().hasToExit(_stack, base_)) {
+        if (!_conf.getExiting().hasToExit(_stack, rootBlock)) {
             _stack.setCallingState(new CustomFoundAnnotation(instancingAnnotContent.getFormattedType(), rootBlock, instancingAnnotContent.getFieldNames(), arguments_));
         }
         res_ = Argument.createVoid();

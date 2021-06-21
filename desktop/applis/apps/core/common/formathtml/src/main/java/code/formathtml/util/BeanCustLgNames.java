@@ -374,7 +374,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ExecRootBlock classBody_ = formattedType_.getRootBlock();
         ExecNamedFunctionBlock fct_ = ExecClassesUtil.getMethodBodiesById(classBody_, _id.getConstraints()).first();
         ExecTypeFunction p_ = new ExecTypeFunction(formattedType_,fct_);
-        RendFctOperation f_ = new RendFctOperation(p_, new ExecOperationContent(1, clMatch_, _args.size()+1), new ExecInstFctContent(_id, formattedType_), true, new ExecArrContent(false));
+        RendFctOperation f_ = new RendFctOperation(p_, new ExecOperationContent(1, clMatch_, _args.size()+1), new ExecInstFctContent(formattedType_), true, new ExecArrContent(false));
         int i_ = 1;
         for (EntryCust<String,String> e: _args.entryList()) {
             RendInternVariableOperation a_ = new RendInternVariableOperation(i_-1,new ExecClassArgumentMatching(e.getValue()),i_,e.getKey());
@@ -750,7 +750,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return Argument.createVoid();
         }
         if (staticField_) {
-            return ExecTemplates.getStaticField(_context.getExiting(), fieldType_, _context, _stack.getStackCall(), fieldId_);
+            return ExecTemplates.getStaticField(_context.getExiting(), _rend.getRootBlock(), fieldType_, _context, _stack.getStackCall(), fieldId_);
         }
         return ExecTemplates.getInstanceField(previous_, _context, _stack.getStackCall(), fieldId_);
     }
@@ -771,7 +771,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return Argument.createVoid();
         }
         if (isStatic_) {
-            return ExecTemplates.setStaticField(_context.getExiting(), fieldType_, _right, _context, _stack.getStackCall(), fieldId_);
+            return ExecTemplates.setStaticField(_context.getExiting(), _rend.getRootBlock(), fieldType_, _right, _context, _stack.getStackCall(), fieldId_);
         }
         return ExecTemplates.setInstanceField(_rend.getRootBlock(), fieldType_, previous_, _right, _context, _stack.getStackCall(), fieldId_);
     }

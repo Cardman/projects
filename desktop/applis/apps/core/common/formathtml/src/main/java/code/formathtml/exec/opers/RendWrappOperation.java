@@ -11,7 +11,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
-public final class RendWrappOperation extends RendAbstractUnaryOperation {
+public final class RendWrappOperation extends RendMethodOperation implements RendCalculableOperation {
     public RendWrappOperation(ExecOperationContent _content) {
         super(_content);
     }

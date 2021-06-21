@@ -9,7 +9,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
-public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
+public final class ExecUnaryOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
     private final String oper;
 
     public ExecUnaryOperation(ExecOperationContent _opCont, String _oper) {

@@ -10,6 +10,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
+import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendRefTernaryOperation extends RendSettableCallFctOperation implements RendCalculableOperation {
@@ -43,10 +44,11 @@ public final class RendRefTernaryOperation extends RendSettableCallFctOperation 
 
     private ArgumentsPair getChosenArgumentsPair(IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
         ArgumentsPair arg_;
-        if (BooleanStruct.isTrue(getArgumentPair(_nodes,getNode(getChildrenNodes(),0)).getArgument().getStruct())) {
-            arg_ = getArgumentPair(_nodes, getNode(getChildrenNodes(),1));
+        CustList<RendDynOperationNode> childrenNodes_ = getChildrenNodes();
+        if (BooleanStruct.isTrue(getArgumentPair(_nodes,getNode(childrenNodes_,0)).getArgument().getStruct())) {
+            arg_ = getArgumentPair(_nodes, getNode(childrenNodes_,1));
         } else {
-            arg_ = getArgumentPair(_nodes,getNode(getChildrenNodes(),2));
+            arg_ = getArgumentPair(_nodes,getNode(childrenNodes_,2));
         }
         return arg_;
     }

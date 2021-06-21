@@ -1,6 +1,5 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ClassCategory;
@@ -12,7 +11,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
-public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation {
+public final class RendEnumValueOfOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private final ExecValuesContent valuesContent;
 

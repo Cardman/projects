@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
-public final class ExecUnaryBinOperation extends ExecAbstractUnaryOperation {
+public final class ExecUnaryBinOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     public ExecUnaryBinOperation(ExecOperationContent _opCont) {
         super(_opCont);

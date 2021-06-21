@@ -9,7 +9,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
-public final class RendUnaryBooleanOperation extends RendAbstractUnaryOperation {
+public final class RendUnaryBooleanOperation extends RendMethodOperation implements RendCalculableOperation {
 
     public RendUnaryBooleanOperation(ExecOperationContent _content) {
         super(_content);

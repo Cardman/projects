@@ -41,7 +41,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     }
 
     protected boolean initDefault(ContextEl _cont, StackCall _stackCall) {
-        return metaInfo.isWideStatic()&&_cont.getExiting().hasToExit(_stackCall, metaInfo.getFormatted().getFormatted());
+        return metaInfo.isWideStatic()&&_cont.getExiting().hasToExit(_stackCall, metaInfo.getFormatted().getRootBlock());
 //        return method_.isWideStatic()&&ExecutingUtil.hasToExit(_cont,method_.getClassName());
     }
 

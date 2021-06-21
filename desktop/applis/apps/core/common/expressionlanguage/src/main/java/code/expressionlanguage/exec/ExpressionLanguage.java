@@ -57,8 +57,7 @@ public final class ExpressionLanguage {
             ExecMethodOperation parent_ = o.getParent();
             if (parent_ instanceof ExecAbstractInstancingOperation && ((ExecAbstractInstancingOperation) parent_).isInitBefore() && o.getIndexChild() == 0) {
                 ExecRootBlock type_ = ((ExecAbstractInstancingOperation) parent_).getPair().getType();
-                String fullName_ = type_.getFullName();
-                if (!(type_ instanceof ExecInnerElementBlock)&&type_.withoutInstance()&&_context.getExiting().hasToExit(_stackCall, fullName_)) {
+                if (!(type_ instanceof ExecInnerElementBlock)&&type_.withoutInstance()&&_context.getExiting().hasToExit(_stackCall, type_)) {
                     processCalling(_el, pageEl_, o, _stackCall);
                     return;
                 }

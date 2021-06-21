@@ -53,7 +53,7 @@ public final class ExecSettableFieldOperation extends
                 String fieldType_ = settableFieldContent.getRealType();
                 _stack.setOffset(off_);
                 if (staticField_) {
-                    arg_ = ExecTemplates.getStaticField(_conf.getExiting(), fieldType_,_conf, _stack, fieldId_);
+                    arg_ = ExecTemplates.getStaticField(_conf.getExiting(),rootBlock, fieldType_,_conf, _stack, fieldId_);
                 } else {
                     arg_ = ExecTemplates.getInstanceField(prev_,_conf, _stack, fieldId_);
                 }
@@ -142,7 +142,7 @@ public final class ExecSettableFieldOperation extends
         //Come from code directly so constant static fields can be initialized here
         _stackCall.setOffset(off_);
         if (isStatic_) {
-            return ExecTemplates.setStaticField(_conf.getExiting(), fieldType_, _right, _conf, _stackCall, fieldId_);
+            return ExecTemplates.setStaticField(_conf.getExiting(), rootBlock, fieldType_, _right, _conf, _stackCall, fieldId_);
         }
         return ExecTemplates.setInstanceField(rootBlock, fieldType_, previous_, _right, _conf, _stackCall, fieldId_);
     }

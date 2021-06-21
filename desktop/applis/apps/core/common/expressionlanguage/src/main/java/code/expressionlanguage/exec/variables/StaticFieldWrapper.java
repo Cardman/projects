@@ -13,12 +13,12 @@ public final class StaticFieldWrapper extends FieldWrapper {
         super(_container, _fieldType, _rootBlock, _id);
     }
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
-        ExecTemplates.setStaticField(_conf.getExiting(), getFieldType(), _right, _conf, _stack, getId());
+        ExecTemplates.setStaticField(_conf.getExiting(),getRootBlock(), getFieldType(), _right, _conf, _stack, getId());
     }
 
     public Struct getValue(StackCall _stack, ContextEl _conf) {
 
-        return ExecTemplates.getStaticField(_conf.getExiting(), getFieldType(), _conf, _stack, getId()).getStruct();
+        return ExecTemplates.getStaticField(_conf.getExiting(),getRootBlock(), getFieldType(), _conf, _stack, getId()).getStruct();
     }
     public String getClassName(StackCall _stack, ContextEl _conf) {
         return getFieldType();

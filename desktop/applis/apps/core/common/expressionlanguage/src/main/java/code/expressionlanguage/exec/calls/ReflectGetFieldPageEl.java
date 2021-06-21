@@ -28,9 +28,7 @@ public final class ReflectGetFieldPageEl extends AbstractBasicReflectPageEl {
         if (!initClass) {
             initClass = true;
             if (metaInfo.isStaticField()) {
-                String baseClass_ = metaInfo.getFormatted().getFormatted();
-                baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
-                if (_context.getExiting().hasToExit(_stack, baseClass_)) {
+                if (_context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock())) {
                     setWrapException(true);
                     return false;
                 }

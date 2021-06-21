@@ -13,7 +13,6 @@ import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
-import code.util.core.StringUtil;
 
 public final class ExecChoiceFctOperation extends ExecSettableCallFctOperation {
 
@@ -30,7 +29,7 @@ public final class ExecChoiceFctOperation extends ExecSettableCallFctOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
+        int off_ = instFctContent.getMethodName();
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), previous_.getStruct(), _conf, _stack));

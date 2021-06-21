@@ -12,7 +12,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class RendDefaultOperation extends RendAbstractUnaryOperation {
+public final class RendDefaultOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private final int offset;
     private final StringList names;

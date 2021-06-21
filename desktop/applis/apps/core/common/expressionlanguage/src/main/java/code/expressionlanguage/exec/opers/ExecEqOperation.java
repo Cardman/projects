@@ -20,13 +20,9 @@ public final class ExecEqOperation extends ExecMethodOperation implements Atomic
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument first_ = getFirstArgument(_nodes,this);
         Argument second_ = getLastArgument(_nodes,this);
-        boolean complement_ = false;
         String op_ = oper.trim();
-        if (StringUtil.quickEq(op_, DIFF)) {
-            complement_ = true;
-        }
         boolean b_ = first_.getStruct().sameReference(second_.getStruct());
-        if (complement_) {
+        if (StringUtil.quickEq(op_, DIFF)) {
             b_ = !b_;
         }
         Argument arg_ = new Argument(BooleanStruct.of(b_));

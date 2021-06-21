@@ -12,7 +12,6 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
-import code.util.core.StringUtil;
 
 public final class MetaInfoUtil {
     private MetaInfoUtil() {
@@ -70,32 +69,27 @@ public final class MetaInfoUtil {
         return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,signature_);
     }
 
-    public static boolean hasToExit(ContextEl _cont, String _className, Argument _arg, StackCall _stackCall) {
-        Classes classes_ = _cont.getClasses();
-        String idClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        String curClass_ = _stackCall.getLastPage().getGlobalClass().getFormatted();
-        curClass_ = StringExpUtil.getIdFromAllTypes(curClass_);
-        if (StringUtil.quickEq(curClass_, idClass_)) {
+    public static boolean hasToExit(ContextEl _cont, GeneType _className, Argument _arg, StackCall _stackCall) {
+        if (_stackCall.getLastPage().getGlobalClass().getRootBlock() == _className) {
             return false;
         }
-        ExecRootBlock c_ = classes_.getClassBody(idClass_);
-        if (c_ != null) {
+        if (_className instanceof ExecRootBlock) {
             DefaultLockingClass locks_ = _cont.getLocks();
             if (_stackCall.getInitializingTypeInfos().isInitEnums()) {
-                InitClassState res_ = locks_.getState(idClass_);
+                InitClassState res_ = locks_.getState(_className.getFullName());
                 if (res_ != InitClassState.SUCCESS) {
                     _stackCall.getInitializingTypeInfos().failInitEnums();
                     return true;
                 }
                 return false;
             }
-            InitClassState res_ = locks_.getProgressingState(idClass_);
+            InitClassState res_ = locks_.getProgressingState(_className.getFullName());
             if (res_ == InitClassState.NOT_YET) {
-                _stackCall.setCallingState(new NotInitializedClass(new ExecFormattedRootBlock(c_,idClass_),c_, _arg));
+                _stackCall.setCallingState(new NotInitializedClass(new ExecFormattedRootBlock((ExecRootBlock) _className,_className.getFullName()),(ExecRootBlock) _className, _arg));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {
-                CausingErrorStruct causing_ = new CausingErrorStruct(idClass_, _cont, _stackCall);
+                CausingErrorStruct causing_ = new CausingErrorStruct(_className.getFullName(), _cont, _stackCall);
                 _stackCall.setCallingState(new CustomFoundExc(causing_));
                 return true;
             }

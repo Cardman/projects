@@ -10,7 +10,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecNamedArgumentOperation extends ExecAbstractUnaryOperation {
+public final class ExecNamedArgumentOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     private final ExecNamedContent namedContent;
     public ExecNamedArgumentOperation(ExecOperationContent _opCont, ExecNamedContent _namedContent) {

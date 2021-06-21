@@ -10,7 +10,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.util.IdMap;
 
-public final class ExecWrappOperation extends ExecAbstractUnaryOperation {
+public final class ExecWrappOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
     public ExecWrappOperation(ExecOperationContent _opCont) {
         super(_opCont);
     }

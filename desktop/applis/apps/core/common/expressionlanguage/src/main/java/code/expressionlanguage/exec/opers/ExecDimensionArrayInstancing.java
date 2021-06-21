@@ -17,7 +17,6 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.Ints;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 public final class ExecDimensionArrayInstancing extends
         ExecAbstractArrayInstancingOperation {
@@ -31,8 +30,7 @@ public final class ExecDimensionArrayInstancing extends
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         CustList<ExecOperationNode> filter_ = getChildrenNodes();
-        String m_= getMethodName();
-        int off_ = StringUtil.getFirstPrintableCharIndex(m_);
+        int off_ = getMethodName();
         setRelOffsetPossibleLastPage(off_, _stack);
         String className_ = getClassName();
         className_ = _stack.formatVarType(className_);
@@ -47,7 +45,6 @@ public final class ExecDimensionArrayInstancing extends
             NumberStruct n_ = NumParsers.convertToNumber(arg_.getStruct());
             int offset_ = o.getIndexInEl() + off_;
             offs_.add(offset_);
-            _stack.setOffset(offset_);
             int dim_ = n_.intStruct();
             args_[i_] = dim_;
             i_++;

@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -23,8 +22,7 @@ public final class ExecArrayElementOperation extends
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        String me_ = getMethodName();
-        int off_ = StringExpUtil.getOffset(me_);
+        int off_ = getMethodName();
         setRelOffsetPossibleLastPage(off_, _stack);
         String cl_ = getClassName();
         String className_ = _stack.formatVarType(cl_);

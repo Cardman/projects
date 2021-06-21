@@ -11,7 +11,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendNamedArgumentOperation extends RendAbstractUnaryOperation {
+public final class RendNamedArgumentOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private final ExecNamedContent namedContent;
     public RendNamedArgumentOperation(ExecOperationContent _content, ExecNamedContent _namedContent) {

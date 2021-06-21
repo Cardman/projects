@@ -69,7 +69,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private String importedDirectSuperClass = "";
     private final StringList importedDirectSuperInterfaces = new StringList();
-    private final StringList staticInitImportedInterfaces = new StringList();
+    private final CustList<RootBlock> staticInitImportedInterfaces = new CustList<RootBlock>();
     private final CustList<AnaFormattedRootBlock> importedDirectSuperTypes = new CustList<AnaFormattedRootBlock>();
 
     private final StringList annotations = new StringList();
@@ -1864,7 +1864,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     public String getImportedDirectGenericSuperClass(){
         return importedDirectSuperClass;
     }
-    public StringList getStaticInitImportedInterfaces() {
+    public CustList<RootBlock> getStaticInitImportedInterfaces() {
         return staticInitImportedInterfaces;
     }
 

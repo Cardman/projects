@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
@@ -16,7 +15,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.IdMap;
-import code.util.core.StringUtil;
 
 public final class ExecFctOperation extends ExecSettableCallFctOperation {
 
@@ -30,17 +28,15 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
     }
 
     public ExecFctOperation(ExecClassArgumentMatching _res,
-                            ClassMethodId _classMethodId,
                             int _child, int _order, ExecArrContent _arrContent, ExecTypeFunction _pair, ExecFormattedRootBlock _formattedType) {
         super(_child,_res,_order,true,_arrContent);
-        instFctContent = new ExecInstFctContent(_classMethodId, _formattedType);
+        instFctContent = new ExecInstFctContent(_formattedType);
         pair = _pair;
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        int off_ = StringUtil.getFirstPrintableCharIndex(instFctContent.getMethodName());
-        setRelOffsetPossibleLastPage(off_, _stack);
+        setRelOffsetPossibleLastPage(instFctContent.getMethodName(), _stack);
         ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
         Struct argPrev_ = previous_.getStruct();
         Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), argPrev_, _conf, _stack));

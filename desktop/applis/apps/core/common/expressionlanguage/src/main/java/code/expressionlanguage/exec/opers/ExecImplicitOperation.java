@@ -9,11 +9,10 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecExplicitCommonContent;
-import code.expressionlanguage.fwd.opers.ExecExplicitContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
-public final class ExecImplicitOperation extends ExecAbstractUnaryOperation {
+public final class ExecImplicitOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
     private final ExecExplicitCommonContent explicitContent;
 
     public ExecImplicitOperation(ExecOperationContent _opCont, ExecExplicitCommonContent _explicitContent) {

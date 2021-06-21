@@ -98,6 +98,11 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
     }
 
     @Override
+    protected GeneType getDeclaringType() {
+        return metaInfo.getFormatted().getRootBlock();
+    }
+
+    @Override
     protected String getDeclaringClass() {
         return metaInfo.getFormatted().getFormatted();
     }

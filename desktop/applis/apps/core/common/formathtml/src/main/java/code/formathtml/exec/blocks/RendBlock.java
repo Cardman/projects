@@ -296,12 +296,12 @@ public abstract class RendBlock {
         RendDynOperationNode root_ = args_.lastKey();
         RendDynOperationNode res_;
         if (root_ instanceof RendIdOperation) {
-            res_ = RendAffectationOperation.getIdOp((RendMethodOperation) root_);
+            res_ = RendAbstractAffectOperation.getIdOp((RendMethodOperation) root_);
         } else {
             res_ = root_;
         }
         CustList<LongTreeMap<NodeContainer>> stack_ = new CustList<LongTreeMap<NodeContainer>>();
-        RendDynOperationNode settable_ = RendAffectationOperation.castDottedTo(res_);
+        RendDynOperationNode settable_ = RendAbstractAffectOperation.castDottedTo(res_);
         Argument arg_ = Argument.createVoid();
         boolean indexer_ = false;
         if (settable_ instanceof RendSettableFieldOperation) {

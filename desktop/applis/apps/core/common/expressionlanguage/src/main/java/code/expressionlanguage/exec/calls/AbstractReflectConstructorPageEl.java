@@ -22,15 +22,16 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
 
     protected boolean keep(GeneType _gene,ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
-        String className_ = getDeclaringClass();
+        GeneType type_ = getDeclaringType();
         if (!initClass) {
             initClass = true;
             boolean static_ = !MetaInfoUtil.isAbstractType(_gene) && _gene.withoutInstance();
-            if (static_ && _context.getExiting().hasToExit(_stackCall, className_)) {
+            if (static_ && _context.getExiting().hasToExit(_stackCall, type_)) {
                 setWrapException(true);
                 return false;
             }
         }
+        String className_ = getDeclaringClass();
         if (MetaInfoUtil.isAbstractType(_gene)) {
             String null_ = stds_.getContent().getCoreNames().getAliasAbstractTypeErr();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stackCall)));
@@ -47,6 +48,8 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
         }
         return true;
     }
+
+    protected abstract GeneType getDeclaringType();
 
     protected abstract String getDeclaringClass();
 }

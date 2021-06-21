@@ -138,16 +138,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (isNotEnumType(_r, _category)) {
             return new Argument();
         }
-        String className_ = _r.getWildCardElement();
-        return getEnumValues(_exit,className_,_r, _cont, _stackCall);
+        return getEnumValues(_exit, _r, _cont, _stackCall);
     }
 
     public static Argument tryGetEnumValue(AbstractExiting _exit, ContextEl _cont, ExecRootBlock _r, ClassCategory _category, Argument _clArg, StackCall _stackCall) {
         if (isNotEnumType(_r, _category)) {
             return new Argument();
         }
-        String enumName_ = _r.getFullName();
-        return getEnumValue(_exit,enumName_,_r, _clArg, _cont, _stackCall);
+        return getEnumValue(_exit, _r, _clArg, _cont, _stackCall);
     }
 
 
@@ -172,7 +170,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     public static void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named, ArgumentListCall _firstArgs, ExecFormattedRootBlock _classNameFound, MethodAccessKind _kind, StackCall _stackCall) {
-        if (_exit.hasToExit(_stackCall, _classNameFound.getFormatted())) {
+        if (_exit.hasToExit(_stackCall, _classNameFound.getRootBlock())) {
             return;
         }
         new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR, null).checkParams(_classNameFound, Argument.createVoid(), null, _conf, _stackCall);
@@ -672,11 +670,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return new Argument(ExecTemplates.getRange(_arr,range_.getStruct(), _conf, _stackCall));
     }
 
-    private static Argument getEnumValues(AbstractExiting _exit, String _class, ExecRootBlock _root, ContextEl _conf, StackCall _stackCall) {
-        String id_ = StringExpUtil.getIdFromAllTypes(_class);
-        if (_exit.hasToExit(_stackCall, id_)) {
+    private static Argument getEnumValues(AbstractExiting _exit, ExecRootBlock _root, ContextEl _conf, StackCall _stackCall) {
+        if (_exit.hasToExit(_stackCall, _root)) {
             return Argument.createVoid();
         }
+        String wc_ = _root.getWildCardElement();
+        String id_ = StringExpUtil.getIdFromAllTypes(wc_);
         Classes classes_ = _conf.getClasses();
         CustList<Struct> enums_ = new CustList<Struct>();
         for (ExecInnerTypeOrElement b: _root.getEnumElements()) {
@@ -685,7 +684,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _stackCall.getInitializingTypeInfos().addSensibleField(id_, str_, _stackCall);
             enums_.add(str_);
         }
-        String clArr_ = _class;
+        String clArr_ = wc_;
         clArr_ = StringExpUtil.getPrettyArrayType(clArr_);
         ArrayStruct array_ = new ArrayStruct(enums_.size(), clArr_);
         int i_ = IndexConstants.FIRST_INDEX;
@@ -695,9 +694,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return new Argument(array_);
     }
-    private static Argument getEnumValue(AbstractExiting _exit, String _class, ExecRootBlock _root, Argument _name, ContextEl _conf, StackCall _stackCall) {
-        String enumName_ = StringExpUtil.getIdFromAllTypes(_class);
-        if (_exit.hasToExit(_stackCall, enumName_)) {
+    private static Argument getEnumValue(AbstractExiting _exit, ExecRootBlock _root, Argument _name, ContextEl _conf, StackCall _stackCall) {
+        if (_exit.hasToExit(_stackCall, _root)) {
             return Argument.createVoid();
         }
         Struct name_ = _name.getStruct();
@@ -705,6 +703,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return new Argument();
         }
         Classes classes_ = _conf.getClasses();
+        String enumName_ = _root.getFullName();
         for (ExecInnerTypeOrElement b: _root.getEnumElements()) {
             String fieldName_ = b.getUniqueFieldName();
             if (StringUtil.quickEq(fieldName_, ((StringStruct) name_).getInstance())) {

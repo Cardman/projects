@@ -11,7 +11,7 @@ import code.util.IdMap;
 public abstract class RendStdNumericOperation extends RendNumericOperation {
     private final String op;
 
-    public RendStdNumericOperation(ExecOperationContent _content, int _opOffset, String _op) {
+    protected RendStdNumericOperation(ExecOperationContent _content, int _opOffset, String _op) {
         super(_content, _opOffset);
         op = _op;
 

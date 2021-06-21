@@ -12,11 +12,9 @@ import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
 
-public abstract class RendSemiAffectationOperation extends RendAbstractUnaryOperation {
+public abstract class RendSemiAffectationOperation extends RendAbstractAffectOperation {
     private final boolean post;
     private final StringList names;
-    private RendDynOperationNode settable;
-    private RendMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
 
     protected RendSemiAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, boolean _post, StringList _names) {
@@ -26,15 +24,10 @@ public abstract class RendSemiAffectationOperation extends RendAbstractUnaryOper
         names = _names;
     }
 
-    public void setup() {
-        settable = RendAffectationOperation.tryGetSettable(this);
-        settableParent = RendAffectationOperation.tryGetSettableParent(this);
-    }
-
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        if (settableParent instanceof RendSafeDotOperation) {
-            RendDynOperationNode left_ = settableParent.getFirstChild();
+        if (getSettableParent() instanceof RendSafeDotOperation) {
+            RendDynOperationNode left_ = getSettableParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
                 leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, names));
@@ -49,10 +42,6 @@ public abstract class RendSemiAffectationOperation extends RendAbstractUnaryOper
 
     public boolean isPost() {
         return post;
-    }
-
-    protected RendDynOperationNode getSettable() {
-        return settable;
     }
 
     protected ExecOperatorContent getOperatorContent() {

@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.FieldMetaInfo;
@@ -27,9 +26,7 @@ public final class ReflectSetFieldPageEl extends AbstractBasicReflectPageEl {
         if (!initClass) {
             initClass = true;
             if (metaInfo.isStaticField()) {
-                String baseClass_ = metaInfo.getFormatted().getFormatted();
-                baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
-                if (_context.getExiting().hasToExit(_stack, baseClass_)) {
+                if (_context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock())) {
                     setWrapException(true);
                     return false;
                 }

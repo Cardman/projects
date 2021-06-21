@@ -2,7 +2,6 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;

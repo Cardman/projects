@@ -9,7 +9,7 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class ExecFirstOptOperation extends ExecAbstractUnaryOperation {
+public final class ExecFirstOptOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
 
     private final int offset;
     public ExecFirstOptOperation(ExecOperationContent _opCont, int _offset) {

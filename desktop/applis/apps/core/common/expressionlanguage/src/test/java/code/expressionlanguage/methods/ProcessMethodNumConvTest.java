@@ -3416,6 +3416,59 @@ public final class ProcessMethodNumConvTest extends ProcessMethodCommon {
         assertEq("Vrai", getString(ret_));
     }
     @Test
+    public void calculate102_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  ExClass2 f = new ExClass2();\n");
+        xml_.append("  f.field=1;\n");
+        xml_.append("  return e||f?(e?\"Vrai2\":(f?\"Vrai\":\"Faux\")):\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass2 $(ExClass i){\n");
+        xml_.append("  ExClass2 out = new ExClass2();\n");
+        xml_.append("  out.field=i.field;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass2 {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" operator&& ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1&&j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1||j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass2 i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
+    }
+    @Test
     public void calculate103Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
@@ -3553,6 +3606,59 @@ public final class ProcessMethodNumConvTest extends ProcessMethodCommon {
         assertEq("Vrai", getString(ret_));
     }
     @Test
+    public void calculate105_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  ExClass2 f = new ExClass2();\n");
+        xml_.append("  f.field=2;\n");
+        xml_.append("  return (e||=f)?\"Vrai\":(e?\"Vrai\":(f?\"Vrai\":\"Faux\"));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass2 $(ExClass i){\n");
+        xml_.append("  ExClass2 out = new ExClass2();\n");
+        xml_.append("  out.field=i.field;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass2 {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" operator&& ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1&&j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1||j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass2 i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Faux", getString(ret_));
+    }
+    @Test
     public void calculate106Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
@@ -3604,6 +3710,59 @@ public final class ProcessMethodNumConvTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("Faux", getString(ret_));
+    }
+    @Test
+    public void calculate106_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  ExClass2 f = new ExClass2();\n");
+        xml_.append("  f.field=2;\n");
+        xml_.append("  return (e||=f)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass2 $(ExClass i){\n");
+        xml_.append("  ExClass2 out = new ExClass2();\n");
+        xml_.append("  out.field=i.field;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass2 {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" operator&& ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1&&j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1||j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass2 i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
     }
     @Test
     public void calculate107Test() {
@@ -3658,6 +3817,60 @@ public final class ProcessMethodNumConvTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("Faux", getString(ret_));
+    }
+    @Test
+    public void calculate107_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  ExClass2 f = new ExClass2();\n");
+        xml_.append("  f.field=2;\n");
+        xml_.append("  boolean t = e||=f;\n");
+        xml_.append("  return t?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass2 $(ExClass i){\n");
+        xml_.append("  ExClass2 out = new ExClass2();\n");
+        xml_.append("  out.field=i.field;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass2 {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" operator&& ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1&&j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1||j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass2 i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
     }
     @Test
     public void calculate108Test() {
@@ -5346,6 +5559,166 @@ public final class ProcessMethodNumConvTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("Faux", getString(ret_));
+    }
+    @Test
+    public void calculate156_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  ExClass2 f = new ExClass2();\n");
+        xml_.append("  f.field=2;\n");
+        xml_.append("  return (e|||=f)?\"Vrai\":(e?\"Vrai\":(f?\"Vrai\":\"Faux\"));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass2 $(ExClass i){\n");
+        xml_.append("  ExClass2 out = new ExClass2();\n");
+        xml_.append("  out.field=i.field;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass2 {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" operator&& ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1&&j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1||j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass2 i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Faux", getString(ret_));
+    }
+    @Test
+    public void calculate157_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  ExClass2 f = new ExClass2();\n");
+        xml_.append("  f.field=2;\n");
+        xml_.append("  return (e|||=f)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass2 $(ExClass i){\n");
+        xml_.append("  ExClass2 out = new ExClass2();\n");
+        xml_.append("  out.field=i.field;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass2 {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" operator&& ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1&&j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1||j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass2 i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
+    }
+    @Test
+    public void calculate158_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  ExClass2 f = new ExClass2();\n");
+        xml_.append("  f.field=2;\n");
+        xml_.append("  boolean t = e|||=f;\n");
+        xml_.append("  return t?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass2 $(ExClass i){\n");
+        xml_.append("  ExClass2 out = new ExClass2();\n");
+        xml_.append("  out.field=i.field;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass2 {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" operator&& ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1&&j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" operator|| ExClass (ExClass2 i, ExClass2 j){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field=i.field==1||j.field==1?1:2;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean $(ExClass2 i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
     }
     @Test
     public void calculateFailTest() {

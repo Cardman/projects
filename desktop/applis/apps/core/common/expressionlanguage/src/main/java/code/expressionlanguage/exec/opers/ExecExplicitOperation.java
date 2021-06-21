@@ -14,7 +14,7 @@ import code.expressionlanguage.fwd.opers.ExecExplicitContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 
-public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
+public final class ExecExplicitOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
     private final ExecTypeFunction pair;
     private final ExecExplicitContent explicitContent;
     public ExecExplicitOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, ExecExplicitContent _explicitContent) {
@@ -42,7 +42,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
 
 
     public static boolean checkCustomOper(AbstractExiting _exit, ExecTypeFunction _rootBlock, ExecFormattedRootBlock _paramNameOwner, ContextEl _conf, Argument _fwd, StackCall _stackCall, ArgumentListCall _list) {
-        if (_exit.hasToExit(_stackCall, _paramNameOwner.getFormatted(),_fwd)) {
+        if (_exit.hasToExit(_stackCall, _paramNameOwner.getRootBlock(),_fwd)) {
             return true;
         }
         new StaticCallParamChecker(_rootBlock,_list).checkParams(_paramNameOwner,Argument.createVoid(),null,_conf,_stackCall);

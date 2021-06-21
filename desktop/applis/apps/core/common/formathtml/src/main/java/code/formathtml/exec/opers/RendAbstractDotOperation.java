@@ -8,7 +8,7 @@ import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 
 public abstract class RendAbstractDotOperation extends RendMethodOperation implements RendCalculableOperation {
-    public RendAbstractDotOperation(ExecOperationContent _content) {
+    protected RendAbstractDotOperation(ExecOperationContent _content) {
         super(_content);
     }
 

@@ -11,7 +11,7 @@ public abstract class ExecStdNumericOperation extends ExecNumericOperation {
 
     private final String oper;
 
-    public ExecStdNumericOperation(ExecOperationContent _opCont, int _opOffset, String _op) {
+    protected ExecStdNumericOperation(ExecOperationContent _opCont, int _opOffset, String _op) {
         super(_opCont, _opOffset);
         oper = _op;
     }

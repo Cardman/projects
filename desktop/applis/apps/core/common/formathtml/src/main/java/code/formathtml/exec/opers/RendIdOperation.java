@@ -8,7 +8,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
-public final class RendIdOperation extends RendAbstractUnaryOperation {
+public final class RendIdOperation extends RendMethodOperation implements RendCalculableOperation {
 
     public RendIdOperation(ExecOperationContent _content) {
         super(_content);
@@ -16,7 +16,7 @@ public final class RendIdOperation extends RendAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        RendDynOperationNode o_ = RendAffectationOperation.getIdOp(this);
+        RendDynOperationNode o_ = RendAbstractAffectOperation.getIdOp(this);
         Argument a_ = getArgument(_nodes,o_);
         boolean simple_ = false;
         if (o_ instanceof RendSettableElResult) {

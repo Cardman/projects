@@ -14,7 +14,7 @@ public abstract class ExecAbstractDotOperation extends ExecMethodOperation imple
         super(_opCont);
     }
 
-    public ExecAbstractDotOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
+    protected ExecAbstractDotOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
     }
     public void calculateDot(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {

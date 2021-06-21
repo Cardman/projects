@@ -49,11 +49,7 @@ public final class RendSettableFieldOperation extends
         if (_context.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        boolean simple_ = false;
         if (resultCanBeSet()) {
-            simple_ = true;
-        }
-        if (simple_) {
             setQuickNoConvertSimpleArgument(arg_, _nodes, _context, _rendStack);
         } else {
             setSimpleArgument(arg_, _nodes, _context, _rendStack);

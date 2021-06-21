@@ -8,9 +8,9 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperation {
 
     private final ExecFormattedRootBlock formattedType;
-    private ExecInvokingConstructorContent invokingConstructorContent;
+    private final ExecInvokingConstructorContent invokingConstructorContent;
 
-    private ExecTypeFunction pair;
+    private final ExecTypeFunction pair;
 
     protected ExecAbstractInvokingConstructor(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInvokingConstructorContent _invokingConstructorContent, ExecTypeFunction _pair) {
         super(_opCont, _intermediateDottedOperation);

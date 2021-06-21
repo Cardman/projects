@@ -7,7 +7,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
-public final class RendMultIdOperation extends RendAbstractUnaryOperation {
+public final class RendMultIdOperation extends RendMethodOperation implements RendCalculableOperation {
 
     public RendMultIdOperation(ExecOperationContent _content) {
         super(_content);

@@ -17,21 +17,13 @@ public final class RendEqOperation extends RendMethodOperation implements RendCa
         oper = _oper;
     }
 
-    private static boolean calculateEq(Argument _a, Argument _b) {
-        return _a.getStruct().sameReference(_b.getStruct());
-    }
-
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument first_ = getArgument(_nodes,getFirstNode(this));
         Argument second_ = getArgument(_nodes,getLastNode(this));
-        boolean complement_ = false;
         String op_ = oper.trim();
+        boolean b_ = first_.getStruct().sameReference(second_.getStruct());
         if (StringUtil.quickEq(op_, DIFF)) {
-            complement_ = true;
-        }
-        boolean b_ = calculateEq(first_, second_);
-        if (complement_) {
             b_ = !b_;
         }
         Argument arg_ = new Argument(BooleanStruct.of(b_));

@@ -13,7 +13,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendCastOperation extends RendAbstractUnaryOperation {
+public final class RendCastOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private final ExecTypeCheckContent typeCheckContent;
     public RendCastOperation(ExecOperationContent _content, ExecTypeCheckContent _typeCheckContent) {

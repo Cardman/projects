@@ -256,7 +256,7 @@ public final class AnaTypeUtil {
                     }
                 } else {
 //                    type_.getStaticInitImportedInterfaces().add(base_);
-                    c.getStaticInitImportedInterfaces().add(base_);
+                    c.getStaticInitImportedInterfaces().add(r_);
                 }
             }
             for (int i = 0; i < len_; i++) {
@@ -303,10 +303,10 @@ public final class AnaTypeUtil {
                 continue;
             }
             UniqueRootedBlock un_ = (UniqueRootedBlock)c;
-            StringList ints_ = un_.getStaticInitImportedInterfaces();
+            CustList<RootBlock> ints_ = un_.getStaticInitImportedInterfaces();
             StringList trimmedInt_ = new StringList();
-            for (String i: ints_) {
-                trimmedInt_.add(i);
+            for (RootBlock i: ints_) {
+                trimmedInt_.add(i.getFullName());
             }
             StringList all_ = c.getAllSuperTypes();
             StringList allCopy_ = new StringList(all_);

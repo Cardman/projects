@@ -12,7 +12,7 @@ import code.expressionlanguage.fwd.opers.ExecStaticPostEltContent;
 import code.util.IdMap;
 import code.util.StringList;
 
-public class ExecSemiAffectationCustOperation extends ExecSemiAffectationOperation {
+public final class ExecSemiAffectationCustOperation extends ExecSemiAffectationOperation {
     private final ExecTypeFunction pair;
     private final ExecFormattedRootBlock formattedType;
     private final ExecStaticPostEltContent staticPostEltContent;
@@ -37,7 +37,7 @@ public class ExecSemiAffectationCustOperation extends ExecSemiAffectationOperati
         end(_conf, _nodes, _right, _stack);
     }
 
-    protected ExecStaticPostEltContent getStaticPostEltContent() {
+    ExecStaticPostEltContent getStaticPostEltContent() {
         return staticPostEltContent;
     }
 

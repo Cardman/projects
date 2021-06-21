@@ -10,7 +10,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendFirstOptOperation extends RendAbstractUnaryOperation {
+public final class RendFirstOptOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private final int offset;
     public RendFirstOptOperation(ExecOperationContent _content, int _offset) {

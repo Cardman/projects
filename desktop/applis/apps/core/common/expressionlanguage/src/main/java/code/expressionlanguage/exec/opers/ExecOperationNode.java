@@ -78,7 +78,7 @@ public abstract class ExecOperationNode {
         _stackCall.setOffset(getIndexInEl());
     }
 
-    public final void setRelativeOffsetPossibleLastPage(int _offset, StackCall _stackCall) {
+    public static void setRelativeOffsetPossibleLastPage(int _offset, StackCall _stackCall) {
         _stackCall.setOffset(_offset);
     }
 
@@ -125,14 +125,12 @@ public abstract class ExecOperationNode {
         byte unwrapObjectNb_ = content.getResultClass().getUnwrapObjectNb();
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         Argument last_ = Argument.getNullableValue(pair_.getArgument());
-        if (content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
-            if (last_.isNull()) {
-                LgNames stds_ = _cont.getStandards();
-                String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                setRelativeOffsetPossibleLastPage(_stackCall);
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, null_, _stackCall)));
-                return;
-            }
+        if ((content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) && last_.isNull()) {
+            LgNames stds_ = _cont.getStandards();
+            String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            setRelativeOffsetPossibleLastPage(_stackCall);
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, null_, _stackCall)));
+            return;
         }
         if (unwrapObjectNb_ > -1) {
             Argument arg_ = new Argument(NumParsers.unwrapObject(unwrapObjectNb_, last_.getStruct()));
@@ -149,86 +147,78 @@ public abstract class ExecOperationNode {
         ExecMethodOperation par_ = _operation.getParent();
         if (par_ instanceof ExecCompoundAffectationOperation) {
             ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation)par_;
-            if (StringUtil.quickEq(p_.getOper(),AbsBk.NULL_EQ)) {
-                if (_value != NullStruct.NULL_VALUE) {
-                    return par_.getOrder();
-                }
-            }
-            if (StringUtil.quickEq(p_.getOper(),AbsBk.NULL_EQ_SHORT)) {
-                if (_value != NullStruct.NULL_VALUE) {
-                    return par_.getOrder();
-                }
-            }
-        }
-        if (par_ instanceof ExecCompoundAffectationOperation) {
-            ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation)par_;
-            if (StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ)) {
-                if (BooleanStruct.isFalse(_value)) {
-                    return par_.getOrder();
-                }
-            }
-            if (StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ_SHORT)) {
-                if (BooleanStruct.isFalse(_value)) {
-                    return par_.getOrder();
-                }
-            }
-            if (StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ)) {
-                if (BooleanStruct.isTrue(_value)) {
-                    return par_.getOrder();
-                }
-            }
-            if (StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ_SHORT)) {
-                if (BooleanStruct.isTrue(_value)) {
-                    return par_.getOrder();
-                }
-            }
-        }
-        if (par_ instanceof ExecSafeDotOperation) {
-            if (_value == NullStruct.NULL_VALUE) {
-                ExecOperationNode last_ = ExecHelper.getLastNode(par_);
-                boolean skip_ = !(last_ instanceof ExecAbstractLambdaOperation);
-                if (skip_) {
-                    ExecMethodOperation p_ = par_;
-                    while (p_ != null) {
-                        ExecOperationNode set_ = null;
-                        if (p_ instanceof ExecCompoundAffectationOperation) {
-                            set_ = ((ExecCompoundAffectationOperation)p_).getSettable();
-                        }
-                        if (p_ instanceof ExecAffectationOperation) {
-                            set_ = ((ExecAffectationOperation)p_).getSettable();
-                        }
-                        if (set_ == last_) {
-                            return p_.getOrder();
-                        }
-                        p_ = p_.getParent();
-                    }
-                    return par_.getOrder();
-                }
-            }
-        }
-        if (par_ instanceof ExecNullSafeOperation) {
-            if (_value != NullStruct.NULL_VALUE) {
+            if (shEq(_value, p_)) {
                 return par_.getOrder();
             }
         }
-        if (par_ instanceof ExecQuickOperation) {
-
-            ExecQuickOperation q_ = (ExecQuickOperation) par_;
-            if (q_.match(_value)) {
-                return par_.getOrder();
+        if (safeDotShort(_value, par_)) {
+            ExecOperationNode last_ = ExecHelper.getLastNode(par_);
+            if (!(last_ instanceof ExecAbstractLambdaOperation)) {
+                return shortCutNul(par_, last_, par_.getOrder());
             }
+        }
+        if (nulSafeShort(_value, par_)) {
+            return par_.getOrder();
+        }
+        if (valueShort(_value, par_)) {
+            return par_.getOrder();
         }
         if (par_ instanceof ExecRefTernaryOperation) {
             if (index_ == 1) {
                 return par_.getOrder();
             }
-            if (index_ == 0) {
-                if (BooleanStruct.isFalse(_value)) {
-                    return ExecHelper.getOrder(_operation.getNextSibling()) + 1;
-                }
+            if (index_ == 0 && BooleanStruct.isFalse(_value)) {
+                return ExecHelper.getOrder(_operation.getNextSibling()) + 1;
             }
         }
         return _operation.getOrder() + 1;
+    }
+
+    private static boolean valueShort(Struct _value, ExecMethodOperation _par) {
+        return _par instanceof ExecQuickOperation && ((ExecQuickOperation) _par).match(_value);
+    }
+
+    private static boolean nulSafeShort(Struct _value, ExecMethodOperation _par) {
+        return _par instanceof ExecNullSafeOperation && _value != NullStruct.NULL_VALUE;
+    }
+
+    private static boolean safeDotShort(Struct _value, ExecMethodOperation _par) {
+        return _par instanceof ExecSafeDotOperation && _value == NullStruct.NULL_VALUE;
+    }
+
+    private static int shortCutNul(ExecMethodOperation _par, ExecOperationNode _last, int _order) {
+        ExecMethodOperation p_ = _par;
+        while (p_ != null) {
+            ExecOperationNode set_ = null;
+            if (p_ instanceof ExecAbstractAffectOperation) {
+                set_ = ((ExecAbstractAffectOperation) p_).getSettable();
+            }
+            if (set_ == _last) {
+                return p_.getOrder();
+            }
+            p_ = p_.getParent();
+        }
+        return _order;
+    }
+
+    private static boolean shEq(Struct _value, ExecCompoundAffectationOperation _p) {
+        return nullEq(_value, _p) || andEq(_value, _p) || orEq(_value, _p);
+    }
+
+    private static boolean orEq(Struct _value, ExecCompoundAffectationOperation _p) {
+        return shortEq(_p, AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT) && BooleanStruct.isTrue(_value);
+    }
+
+    private static boolean andEq(Struct _value, ExecCompoundAffectationOperation _p) {
+        return shortEq(_p, AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT) && BooleanStruct.isFalse(_value);
+    }
+
+    private static boolean nullEq(Struct _value, ExecCompoundAffectationOperation _par) {
+        return shortEq(_par, AbsBk.NULL_EQ, AbsBk.NULL_EQ_SHORT) && _value != NullStruct.NULL_VALUE;
+    }
+
+    private static boolean shortEq(ExecCompoundAffectationOperation _compound, String _slow, String _quick) {
+        return StringUtil.quickEq(_compound.getOper(), _slow) || StringUtil.quickEq(_compound.getOper(), _quick);
     }
 
     public final int getOrder() {
@@ -272,13 +262,12 @@ public abstract class ExecOperationNode {
             return;
         }
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        ImplicitMethods implicitsTest_ = implicitsTest;
         int indexImplicitTest_ = pair_.getIndexImplicitTest();
         Argument before_ = _argument;
-        if (!implicitsTest_.isEmpty()) {
-            if (implicitsTest_.isValidIndex(indexImplicitTest_)) {
+        if (!implicitsTest.isEmpty()) {
+            if (implicitsTest.isValidIndex(indexImplicitTest_)) {
                 pair_.setArgumentBeforeTest(_argument);
-                pair_.setIndexImplicitTest(processConverter(_conf,_argument,implicitsTest_,indexImplicitTest_, _stackCall));
+                pair_.setIndexImplicitTest(processConverter(_conf,_argument,implicitsTest,indexImplicitTest_, _stackCall));
                 return;
             }
             if (!pair_.isCalcArgumentTest()) {
@@ -296,25 +285,13 @@ public abstract class ExecOperationNode {
                 ExecMethodOperation parent_ = getParent();
                 if (parent_ instanceof ExecCompoundAffectationOperation) {
                     ExecCompoundAffectationOperation par_ = (ExecCompoundAffectationOperation) parent_;
-                    if (StringUtil.quickEq(par_.getOper(), AbsBk.AND_LOG_EQ)){
+                    if (shortEq(par_, AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT)) {
                         if (!pair_.isCalcArgumentTest()) {
                             pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
                             pair_.setCalcArgumentTest(true);
                         }
                     }
-                    if (StringUtil.quickEq(par_.getOper(), AbsBk.AND_LOG_EQ_SHORT)){
-                        if (!pair_.isCalcArgumentTest()) {
-                            pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
-                            pair_.setCalcArgumentTest(true);
-                        }
-                    }
-                    if (StringUtil.quickEq(par_.getOper(), AbsBk.OR_LOG_EQ)){
-                        if (!pair_.isCalcArgumentTest()) {
-                            pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
-                            pair_.setCalcArgumentTest(true);
-                        }
-                    }
-                    if (StringUtil.quickEq(par_.getOper(), AbsBk.OR_LOG_EQ_SHORT)){
+                    if (shortEq(par_,AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT)) {
                         if (!pair_.isCalcArgumentTest()) {
                             pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
                             pair_.setCalcArgumentTest(true);
@@ -332,10 +309,9 @@ public abstract class ExecOperationNode {
             calcArg(_possiblePartial, _conf, _nodes, before_, _stackCall);
             return;
         }
-        ImplicitMethods implicits_ = implicits;
         int indexImplicit_ = pair_.getIndexImplicit();
-        if (implicits_.isValidIndex(indexImplicit_)) {
-            pair_.setIndexImplicit(processConverter(_conf,before_,implicits_,indexImplicit_, _stackCall));
+        if (implicits.isValidIndex(indexImplicit_)) {
+            pair_.setIndexImplicit(processConverter(_conf,before_,implicits,indexImplicit_, _stackCall));
             return;
         }
         Argument arg_ = before_;

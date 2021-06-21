@@ -35,8 +35,7 @@ public final class RendDimensionArrayInstancing extends
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument res_;
         CustList<RendDynOperationNode> filter_ = getChildrenNodes();
-        String m_= getMethodName();
-        int off_ = StringUtil.getFirstPrintableCharIndex(m_);
+        int off_ = getMethodName();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         String className_ = getClassName();
         className_ = StringExpUtil.getPrettyArrayType(className_, countArrayDims);
@@ -49,7 +48,6 @@ public final class RendDimensionArrayInstancing extends
             NumberStruct n_ = NumParsers.convertToNumber(arguments_.get(i_).getStruct());
             int offset_ = o.getIndexInEl() + off_;
             offs_.add(offset_);
-            _rendStack.setOpOffset(offset_);
             int dim_ = n_.intStruct();
             args_[i_] = dim_;
             i_++;

@@ -12,7 +12,6 @@ import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.Ints;
-import code.util.core.StringUtil;
 
 public final class RendArrayElementOperation extends
         RendAbstractArrayInstancingOperation {
@@ -24,8 +23,7 @@ public final class RendArrayElementOperation extends
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
-        String me_ = getMethodName();
-        int off_ = StringUtil.getFirstPrintableCharIndex(me_);
+        int off_ = getMethodName();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         String className_ = getClassName();
 

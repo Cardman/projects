@@ -8,7 +8,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
-public final class RendUnaryBinOperation extends RendAbstractUnaryOperation {
+public final class RendUnaryBinOperation extends RendMethodOperation implements RendCalculableOperation {
 
     public RendUnaryBinOperation(ExecOperationContent _content) {
         super(_content);

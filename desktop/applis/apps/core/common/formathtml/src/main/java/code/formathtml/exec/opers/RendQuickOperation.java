@@ -1,5 +1,4 @@
 package code.formathtml.exec.opers;
-import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;

@@ -15,10 +15,8 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public abstract class ExecCompoundAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, CallExecSimpleOperation {
+public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffectOperation implements CallExecSimpleOperation {
 
-    private ExecOperationNode settable;
-    private ExecMethodOperation settableParent;
     private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converter;
     private final StringList names;
@@ -30,16 +28,11 @@ public abstract class ExecCompoundAffectationOperation extends ExecMethodOperati
         names = _names;
     }
 
-    public void setup() {
-        settable = ExecAffectationOperation.tryGetSettable(this);
-        settableParent = ExecAffectationOperation.tryGetSettableParent(this);
-    }
-
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        if (settableParent instanceof ExecSafeDotOperation) {
-            ExecOperationNode left_ = settableParent.getFirstChild();
+        if (getSettableParent() instanceof ExecSafeDotOperation) {
+            ExecOperationNode left_ = getSettableParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
                 ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
@@ -61,7 +54,7 @@ public abstract class ExecCompoundAffectationOperation extends ExecMethodOperati
                 return;
             }
             setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
-            Argument arg_ = ExecAffectationOperation.calculateChSetting(settable,_nodes, _conf, leftArg_, _stack);
+            Argument arg_ = ExecAffectationOperation.calculateChSetting(getSettable(),_nodes, _conf, leftArg_, _stack);
             pair_.setEndCalculate(true);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
@@ -85,7 +78,7 @@ public abstract class ExecCompoundAffectationOperation extends ExecMethodOperati
         }
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
-            Argument arg_ = endCalculateCh(settable, _nodes, _conf, _right, _stack);
+            Argument arg_ = endCalculateCh(getSettable(), _nodes, _conf, _right, _stack);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
         }
@@ -118,10 +111,6 @@ public abstract class ExecCompoundAffectationOperation extends ExecMethodOperati
 
     protected StringList getNames() {
         return names;
-    }
-
-    public ExecOperationNode getSettable() {
-        return settable;
     }
 
     public String getOper() {

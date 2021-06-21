@@ -12,66 +12,19 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class RendAffectationOperation extends RendMethodOperation implements RendCalculableOperation {
+public final class RendAffectationOperation extends RendAbstractAffectOperation {
 
     private final StringList names;
-    private RendDynOperationNode settable;
-    private RendMethodOperation settableParent;
 
     public RendAffectationOperation(ExecOperationContent _content,StringList _names) {
         super(_content);
         names = _names;
     }
 
-    public void setup() {
-        settable = tryGetSettable(this);
-        settableParent = tryGetSettableParent(this);
-    }
-    public static RendDynOperationNode tryGetSettable(RendMethodOperation _operation) {
-        RendDynOperationNode root_ = getIdOp(_operation);
-        return castDottedTo(root_);
-    }
-    public static RendMethodOperation tryGetSettableParent(RendMethodOperation _operation) {
-        RendDynOperationNode root_ = getIdOp(_operation);
-        return castParentTo(root_);
-    }
-
-    public static RendDynOperationNode getIdOp(RendMethodOperation _operation) {
-        RendDynOperationNode root_ = _operation.getFirstChild();
-        while (root_ instanceof RendIdOperation) {
-            root_ = root_.getFirstChild();
-        }
-        return root_;
-    }
-
-    public static RendMethodOperation castParentTo(RendDynOperationNode _root) {
-        RendMethodOperation elt_;
-        if (!(_root instanceof RendAbstractDotOperation)) {
-            elt_ = getParentOrNull(_root);
-        } else {
-            elt_ = (RendMethodOperation) _root;
-        }
-        return elt_;
-    }
-
-    public static RendDynOperationNode castDottedTo(RendDynOperationNode _root) {
-        RendDynOperationNode elt_;
-        if (!(_root instanceof RendAbstractDotOperation)) {
-            elt_ = _root;
-        } else {
-            elt_ = getLastNode((RendMethodOperation) _root);
-        }
-        return elt_;
-    }
-
-    public RendDynOperationNode getSettable() {
-        return settable;
-    }
-
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        if (settableParent instanceof RendSafeDotOperation) {
-            RendDynOperationNode left_ = settableParent.getFirstChild();
+        if (getSettableParent() instanceof RendSafeDotOperation) {
+            RendDynOperationNode left_ = getSettableParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
                 leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE,_context, names));
@@ -80,17 +33,15 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
             }
         }
         RendDynOperationNode right_ = getLastNode(this);
-        if (settable instanceof RendStdRefVariableOperation) {
-            if (((RendStdRefVariableOperation)settable).isDeclare()){
-                CustList<RendDynOperationNode> childrenNodes_ = getChildrenNodes();
-                ArgumentsPair pairRight_ = getArgumentPair(_nodes, getNode(childrenNodes_,childrenNodes_.size()-1));
-                _rendStack.getLastPage().getRefParams().put(((RendStdRefVariableOperation)settable).getVariableName(),pairRight_.getWrapper());
-                setQuickNoConvertSimpleArgument(new Argument(), _nodes, _context, _rendStack);
-                return;
-            }
+        if (getSettable() instanceof RendStdRefVariableOperation && ((RendStdRefVariableOperation) getSettable()).isDeclare()) {
+            CustList<RendDynOperationNode> childrenNodes_ = getChildrenNodes();
+            ArgumentsPair pairRight_ = getArgumentPair(_nodes, getNode(childrenNodes_, childrenNodes_.size() - 1));
+            _rendStack.getLastPage().getRefParams().put(((RendStdRefVariableOperation) getSettable()).getVariableName(), pairRight_.getWrapper());
+            setQuickNoConvertSimpleArgument(new Argument(), _nodes, _context, _rendStack);
+            return;
         }
         Argument rightArg_ = getArgument(_nodes,right_);
-        Argument arg_ = calculateChSetting(settable,_nodes, rightArg_, _advStandards, _context, _rendStack);
+        Argument arg_ = calculateChSetting(getSettable(),_nodes, rightArg_, _advStandards, _context, _rendStack);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
     static Argument calculateChSetting(RendDynOperationNode _set,

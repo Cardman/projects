@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.InstanceParamChecker;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -26,9 +25,8 @@ public final class ExecAnonymousInstancingOperation extends
         int off_ = StringUtil.getFirstPrintableCharIndex(getInstancingCommonContent().getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecFormattedRootBlock className_ = _stack.formatVarType(getFormattedType());
-        String base_ = StringExpUtil.getIdFromAllTypes(className_.getFormatted());
         Argument res_;
-        if (_conf.getExiting().hasToExit(_stack, base_)) {
+        if (_conf.getExiting().hasToExit(_stack, className_.getRootBlock())) {
             res_ = Argument.createVoid();
         } else {
             res_ = new InstanceParamChecker(getPair(), fectchInstFormattedArgs(className_, getInstancingCommonContent(),_conf,_stack, buildInfos(_nodes)), "", -1).checkParams(className_, previous_, null, _conf, _stack);

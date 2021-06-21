@@ -17,7 +17,6 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
-import code.util.core.StringUtil;
 
 public final class RendFctOperation extends RendSettableCallFctOperation implements RendCalculableOperation {
 
@@ -33,7 +32,7 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
+        int off_ = instFctContent.getMethodName();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         int naturalVararg_ = getNaturalVararg();
         ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
@@ -60,10 +59,6 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
 
     public int getAnc() {
         return instFctContent.getAnc();
-    }
-
-    public String getMethodName() {
-        return instFctContent.getMethodName();
     }
 
     public boolean isStaticChoiceMethod() {
