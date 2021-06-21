@@ -175,7 +175,7 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     @Override
     public AbstractMutableTreeNode original() {
         try {
-            return ((UsObj)node.getUserObject()).getNode();
+            return userObject.getNode();
         } catch (Exception e) {
             return null;
         }
@@ -184,7 +184,7 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     @Override
     public String getUserObject() {
         try {
-            return String.valueOf(userObject.getUserObject());
+            return userObject.getUserObject();
         } catch (Exception e) {
             return "";
         }
