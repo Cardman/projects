@@ -8,15 +8,16 @@ import javax.swing.tree.MutableTreeNode;
 public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     private final DefaultMutableTreeNode node;
 
-    private final String userObject;
+    private final UsObj userObject;
 
     public DefMutableTreeNode(String _name) {
         String value_ = StringUtil.nullToEmpty(_name);
-        node = new DefaultMutableTreeNode(value_);
-        userObject = value_;
+        UsObj us_ = new UsObj(this,value_);
+        node = new DefaultMutableTreeNode(us_);
+        userObject = us_;
     }
 
-    public DefMutableTreeNode(MutableTreeNode _name, String _userObject) {
+    public DefMutableTreeNode(MutableTreeNode _name, UsObj _userObject) {
         node = (DefaultMutableTreeNode) _name;
         userObject = _userObject;
     }
@@ -46,9 +47,9 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     @Override
     public AbstractMutableTreeNode add(String _info) {
         try {
-            DefaultMutableTreeNode mut_ = new DefaultMutableTreeNode(StringUtil.nullToEmpty(_info));
-            node.add(mut_);
-            return new DefMutableTreeNode(mut_,_info);
+            DefMutableTreeNode defMutableTreeNode_ = new DefMutableTreeNode(_info);
+            node.add(defMutableTreeNode_.node);
+            return defMutableTreeNode_;
         } catch (Exception e) {
             return null;
         }
@@ -168,15 +169,24 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     }
 
     static DefMutableTreeNode build(DefaultMutableTreeNode _node) {
-        return new DefMutableTreeNode(_node,String.valueOf(_node.getUserObject()));
+        return new DefMutableTreeNode(_node,(UsObj)_node.getUserObject());
+    }
+
+    @Override
+    public AbstractMutableTreeNode original() {
+        try {
+            return ((UsObj)node.getUserObject()).getNode();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
     public String getUserObject() {
         try {
-            return String.valueOf(node.getUserObject());
+            return String.valueOf(userObject.getUserObject());
         } catch (Exception e) {
-            return userObject;
+            return "";
         }
     }
 

@@ -25,4 +25,11 @@ public final class MutableTreeNodeUtil {
         }
         return pars_;
     }
+
+    public static AbstractMutableTreeNode original(AbstractMutableTreeNode _node) {
+        if (_node == null) {
+            return null;
+        }
+        return _node.original();
+    }
 }

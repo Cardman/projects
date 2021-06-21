@@ -6,6 +6,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.gui.AbstractMutableTreeNode;
+import code.gui.MutableTreeNodeUtil;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -220,7 +221,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         if (!(_other instanceof TreeNodeStruct)) {
             return false;
         }
-        return treeNode == ((TreeNodeStruct)_other).treeNode;
+        return MutableTreeNodeUtil.original(treeNode) == MutableTreeNodeUtil.original(((TreeNodeStruct)_other).treeNode);
     }
 
     @Override

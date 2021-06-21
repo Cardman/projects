@@ -27,5 +27,7 @@ public interface AbstractMutableTreeNode {
 
     AbstractMutableTreeNode add(String _info);
 
+    AbstractMutableTreeNode original();
+
     String getUserObject();
 }
