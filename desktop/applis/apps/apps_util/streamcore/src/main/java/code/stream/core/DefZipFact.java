@@ -4,8 +4,6 @@ import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-import java.util.zip.ZipEntry;
-
 //very ugly implementation
 public final class DefZipFact implements AbstractZipFact {
 
@@ -22,20 +20,17 @@ public final class DefZipFact implements AbstractZipFact {
         }
         StringMap<ContentTime> files_ = new StringMap<ContentTime>();
         AbstractZipStreamIn zis_ = zipFactory.buildIn(_bytes);
-        while (true) {
-            ZipEntry e_ = zis_.getNextEntry();
-            if (e_ == null) {
-                break;
-            }
-            String name_ = StringUtil.replaceBackSlash(e_.getName());
-            if (e_.isDirectory()) {
+        while (zis_.hasNextEntry()) {
+            String name_ = StringUtil.replaceBackSlash(zis_.getName());
+            long time_ = zis_.getTime();
+            if (zis_.isDirectory()) {
                 byte[] bytes_ = new byte[0];
-                ContentTime content_ = new ContentTime(bytes_,e_.getTime());
+                ContentTime content_ = new ContentTime(bytes_, time_);
                 files_.put(name_, content_);
                 zis_.closeEntry();
                 continue;
             }
-            long size_ = e_.getSize();
+            long size_ = zis_.getSize();
             byte[] bytes_ = new byte[Math.max((int) size_,0)];
             int i = 0;
             while (i < bytes_.length) {
@@ -50,7 +45,7 @@ public final class DefZipFact implements AbstractZipFact {
             for (int j = 0; j < maxByte_; j++) {
                 set(bytes_, copy_, j);
             }
-            ContentTime content_ = new ContentTime(copy_,e_.getTime());
+            ContentTime content_ = new ContentTime(copy_, time_);
             files_.put(name_, content_);
             zis_.closeEntry();
         }
@@ -68,19 +63,16 @@ public final class DefZipFact implements AbstractZipFact {
             ContentTime file_ = n.getValue();
             byte[] content_ = file_.getContent();
             if (content_ != null) {
-                ZipEntry ze_ = zos_.buildEntry(n.getKey(),file_.getLastModifTime());
-                zos_.putNextEntry(ze_);
+                zos_.putNextEntry(n.getKey(),file_.getLastModifTime());
                 if (!n.getKey().endsWith("/")) {
                     zos_.write(content_);
                 }
             } else {
-                ZipEntry ze_;
                 if (n.getKey().endsWith("/")) {
-                    ze_ = zos_.buildEntry(n.getKey(),file_.getLastModifTime());
+                    zos_.putNextEntry(n.getKey(),file_.getLastModifTime());
                 } else {
-                    ze_ = zos_.buildEntry(n.getKey() + "/",file_.getLastModifTime());
+                    zos_.putNextEntry(n.getKey() + "/",file_.getLastModifTime());
                 }
-                zos_.putNextEntry(ze_);
             }
             zos_.closeEntry();
         }

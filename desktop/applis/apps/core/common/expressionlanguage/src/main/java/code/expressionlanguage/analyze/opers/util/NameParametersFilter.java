@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.opers.NamedArgumentOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.StaticCallAccessOperation;
 import code.util.CustList;
+import code.util.core.StringUtil;
 
 public final class NameParametersFilter {
 //    private int index = -1;
@@ -107,6 +108,13 @@ public final class NameParametersFilter {
     }
 
     public String getStaticCall() {
+        return formattedFilter.getStCall();
+    }
+
+    public String getStaticCall(String _def) {
+        if (StringUtil.quickEq("<>",formattedFilter.getStCall())) {
+            return _def;
+        }
         return formattedFilter.getStCall();
     }
 

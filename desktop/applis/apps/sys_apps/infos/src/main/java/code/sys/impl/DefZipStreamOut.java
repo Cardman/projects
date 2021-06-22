@@ -14,12 +14,6 @@ public final class DefZipStreamOut implements AbstractZipStreamOut {
         baos = new ByteArrayOutputStream();
         zipOut = new ZipOutputStream(baos);
     }
-    @Override
-    public ZipEntry buildEntry(String _name, long _time) {
-        ZipEntry e_ = new ZipEntry(_name);
-        e_.setTime(_time);
-        return e_;
-    }
 
     @Override
     public boolean write(byte[] _array) {
@@ -47,9 +41,11 @@ public final class DefZipStreamOut implements AbstractZipStreamOut {
     }
 
     @Override
-    public boolean putNextEntry(ZipEntry _entry) {
+    public boolean putNextEntry(String _key, long _lastModifTime) {
         try {
-            zipOut.putNextEntry(_entry);
+            ZipEntry e_ = new ZipEntry(_key);
+            e_.setTime(_lastModifTime);
+            zipOut.putNextEntry(e_);
             return true;
         } catch (IOException e) {
             return false;
