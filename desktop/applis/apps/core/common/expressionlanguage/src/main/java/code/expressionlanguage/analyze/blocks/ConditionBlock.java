@@ -57,12 +57,12 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
         AnaClassArgumentMatching resultClass_ = _root.getResultClass();
         if (!resultClass_.isBoolType(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), resultClass_, _page);
-            if (res_.isFoundMethod()) {
+            if (res_ != null) {
                 resultClass_.implicitInfosCore(res_);
                 functionImpl = res_.getPair();
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(resultClass_, _page);
-                if (trueOp_.isFoundMethod()) {
+                if (trueOp_ != null) {
                     resultClass_.implicitInfosTest(trueOp_);
                     function = trueOp_.getPair();
                 } else {

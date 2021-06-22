@@ -535,15 +535,28 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private static void tryAddMeth(CustList<CustList<MethodInfo>> _methods, AnalyzedPageEl _page, String _name, CustList<ClassMethodIdReturn> _resList, StringList _argsTypes, String _ret, String _stCall) {
         ClassMethodIdReturn resultOther_ = getCustResultLambdaInfer(_methods, _name, _page, _stCall, _argsTypes, _ret);
-        if (resultOther_.isFoundMethod()) {
+        if (resultOther_ != null) {
             _resList.add(resultOther_);
         }
     }
 
     private static void tryFilterAddCtor(CustList<ConstructorInfo> _list, AnalyzedPageEl _page, AnaGeneType _h, CustList<ConstrustorIdVarArg> _ctors, StringList _argsTypes, String _stCall, String _retType) {
-        ConstructorInfo constructorInfo_ = tryGetFilterSignaturesInfer(_list, _h, _page, _argsTypes,_stCall,_retType);
-        if (constructorInfo_ != null) {
-            _ctors.add(buildCtorInfo(_h,constructorInfo_));
+        Parametrable constructorInfo_ = tryGetFilterSignaturesInfer(_list, _h, _page, _argsTypes,_stCall,_retType);
+        if (constructorInfo_ instanceof ConstructorInfo) {
+            //        ConstrustorIdVarArg out_;
+//        out_ = new ConstrustorIdVarArg();
+//        if (_cInfo.isVarArgWrap()) {
+//            out_.setVarArgToCall(true);
+//        }
+//        setupContainer(_type,_cInfo.getClassName(),out_);
+//        out_.setRealId(_cInfo.getConstraints());
+//        out_.setPair(_cInfo.getPair());
+//        out_.setConstId(_cInfo.getFormatted());
+//        out_.setFileName(_cInfo.getFileName());
+//        out_.setStandardType(_cInfo.getStandardType());
+//        out_.setMemberId(_cInfo.getMemberId());
+//        return out_;
+            _ctors.add(buildCtorInfo(constructorInfo_.getClassName(), _h, (ConstructorInfo) constructorInfo_));
         }
     }
 
@@ -618,7 +631,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 } else {
                     resMethod_ = tryGetDeclaredFalse(type_, _page);
                 }
-                if (!resMethod_.isFoundMethod()) {
+                if (resMethod_ == null) {
                     int rc_ = _page.getLocalizer().getCurrentLocationIndex() + offset_;
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -725,7 +738,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             } else {
                 id_ = tryGetDeclaredImplicitCast(type_, feed_, OperationNode.toArgArray(methodTypes_), _page);
             }
-            if (!id_.isFoundMethod()) {
+            if (id_ == null) {
                 MethodId idCast_;
                 if (argsRes_.getParametersTypes().isEmpty()) {
                     idCast_ = new MethodId(MethodAccessKind.STATIC, name_,new StringList(_page.getAliasObject()));
@@ -846,7 +859,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 return;
             }
             ClassMethodIdReturn id_ = tryGetDeclaredCustMethodLambda(vararg_, MethodAccessKind.INSTANCE, str_, name_, accessSuper_, baseAccess_, feed_, methodTypes_, _page);
-            if (!id_.isFoundMethod()) {
+            if (id_ == null) {
                 buildErrNoRefMethod(MethodAccessKind.INSTANCE,name_,_page,methodTypes_);
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
@@ -920,7 +933,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 errOwner(s,argsRes_,_page);
             }
             ClassMethodIdReturn id_ = tryGetDeclaredCustMethodLambda(vararg_, kind_, str_, name_, true, true, feed_, methodTypes_, _page);
-            if (!id_.isFoundMethod()) {
+            if (id_ == null) {
                 buildErrNoRefMethod(kind_,name_,_page,methodTypes_);
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
@@ -1058,7 +1071,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         ClassMethodIdReturn id_ = tryGetDeclaredCustMethodLambda(vararg_, stCtx_, str_, name_, accessSuper_, baseAccess_, feed_, methodTypes_, _page);
-        if (!id_.isFoundMethod()) {
+        if (id_ == null) {
             buildErrNoRefMethod(stCtx_,name_,_page,methodTypes_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
@@ -1490,7 +1503,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructorLambda(vararg_, clFrom_,
                     id_, h_,
                     feed_, _page, methodTypes_);
-            if (ctorRes_.noRealId()) {
+            if (ctorRes_ == null) {
                 buildLambdaCtorErr(_page,clFrom_,methodTypes_);
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
@@ -1624,7 +1637,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructorLambda(_vararg, _cl,
                 id_, h_,
                 _feed, _page, _methodTypes);
-        if (ctorRes_.noRealId()) {
+        if (ctorRes_ == null) {
             buildLambdaCtorErr(_page,_cl,_methodTypes);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
@@ -2199,7 +2212,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         if (!isIntermediateDottedOperation()) {
             ClassMethodIdReturn id_ = getOperator(from_,methodTypes_, operator_, vararg_, feed_, _page);
-            if (!id_.isFoundMethod()) {
+            if (id_ == null) {
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
                 undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
                 undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -2219,7 +2232,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         ClassMethodIdReturn id_ = getOperator(from_,methodTypes_, operator_, vararg_, feed_, _page);
-        if (!id_.isFoundMethod()) {
+        if (id_ == null) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
             undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
             undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

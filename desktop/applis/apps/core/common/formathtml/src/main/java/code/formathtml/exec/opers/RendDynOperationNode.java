@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -22,7 +23,6 @@ import code.formathtml.exec.RendNativeFct;
 import code.formathtml.exec.RendStackCall;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.core.StringUtil;
 
 public abstract class RendDynOperationNode {
 
@@ -138,7 +138,7 @@ public abstract class RendDynOperationNode {
         RendMethodOperation par_ = _operation.getParent();
         if (par_ instanceof RendCompoundAffectationOperation) {
             RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
-            if (shEq(_value, p_)) {
+            if (ExecOperationNode.shEq(_value, p_)) {
                 return par_.getOrder();
             }
         }
@@ -188,26 +188,6 @@ public abstract class RendDynOperationNode {
         return _order;
     }
 
-    private static boolean shEq(Struct _value, RendCompoundAffectationOperation _p) {
-        return nullEq(_value, _p) || andEq(_value, _p) || orEq(_value, _p);
-    }
-
-    private static boolean orEq(Struct _value, RendCompoundAffectationOperation _p) {
-        return shortEq(_p, "||=", "|||=") && BooleanStruct.isTrue(_value);
-    }
-
-    private static boolean andEq(Struct _value, RendCompoundAffectationOperation _p) {
-        return shortEq(_p, "&&=", "&&&=") && BooleanStruct.isFalse(_value);
-    }
-
-    private static boolean nullEq(Struct _value, RendCompoundAffectationOperation _p) {
-        return shortEq(_p, "??=", "???=") && _value != NullStruct.NULL_VALUE;
-    }
-
-    private static boolean shortEq(RendCompoundAffectationOperation _compound, String _slow, String _quick) {
-        return StringUtil.quickEq(_compound.getOper(), _slow) || StringUtil.quickEq(_compound.getOper(), _quick);
-    }
-
     public final int getOrder() {
         return content.getOrder();
     }
@@ -250,16 +230,14 @@ public abstract class RendDynOperationNode {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
-        ImplicitMethods implicits_ = implicits;
         Argument out_ = _argument;
-        ImplicitMethods implicitsTest_ = implicitsTest;
-        if (!implicitsTest_.isEmpty()) {
-            Argument res_ = tryConvert(implicitsTest_.get(0),implicitsTest_.getOwnerClass(), out_, _context, _rendStack);
+        if (!implicitsTest.isEmpty()) {
+            Argument res_ = tryConvert(implicitsTest.get(0),implicitsTest.getOwnerClass(), out_, _context, _rendStack);
             if (res_ == null) {
                 return;
             }
             Struct nRes_ = Argument.getNull(res_.getStruct());
-            pair_.setArgumentTest(BooleanStruct.isTrue(nRes_));
+            pair_.argumentTest(BooleanStruct.isTrue(nRes_));
             RendMethodOperation parent_ = getParent();
             if (parent_ == null || parent_ instanceof RendRefTernaryOperation) {
                 calcArg(_nodes,new Argument(nRes_));
@@ -268,16 +246,11 @@ public abstract class RendDynOperationNode {
         } else {
             if (getNextSibling() != null) {
                 RendMethodOperation parent_ = getParent();
-                if (parent_ instanceof RendCompoundAffectationOperation) {
-                    RendCompoundAffectationOperation par_ = (RendCompoundAffectationOperation) parent_;
-                    if (shortEq(par_,"&&=","&&&=")) {
-                        pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
-                    }
-                    if (shortEq(par_,"||=","|||=")) {
-                        pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
-                    }
+                if (parent_ instanceof CompoundedOperator) {
+                    CompoundedOperator par_ = (CompoundedOperator) parent_;
+                    ExecOperationNode.testpair(_argument,pair_,par_);
                 } else if (parent_ instanceof RendQuickOperation) {
-                    pair_.setArgumentTest(((RendQuickOperation)parent_).match(Argument.getNull(_argument.getStruct())));
+                    pair_.argumentTest(((RendQuickOperation)parent_).match(Argument.getNull(_argument.getStruct())));
                 }
             }
         }
@@ -285,10 +258,10 @@ public abstract class RendDynOperationNode {
             calcArg(_nodes,out_);
             return;
         }
-        int s_ = implicits_.size();
+        int s_ = implicits.size();
         for (int i = 0; i < s_; i++) {
-            ExecTypeFunction c = implicits_.get(i);
-            Argument res_ = tryConvert(c, implicits_.getOwnerClass(), out_, _context, _rendStack);
+            ExecTypeFunction c = implicits.get(i);
+            Argument res_ = tryConvert(c, implicits.getOwnerClass(), out_, _context, _rendStack);
             if (res_ == null) {
                 return;
             }

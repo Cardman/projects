@@ -9,7 +9,6 @@ import code.expressionlanguage.stds.StandardMethod;
 
 public final class ClassMethodIdReturn {
 
-    private final boolean foundMethod;
     private ClassMethodId id;
     private MethodId realId;
     private String realClass;
@@ -26,14 +25,6 @@ public final class ClassMethodIdReturn {
     private StandardMethod standardMethod;
     private AnaTypeFct pair;
     private AnaFormattedRootBlock formattedType;
-
-    public ClassMethodIdReturn(boolean _foundMethod) {
-        foundMethod = _foundMethod;
-    }
-
-    public boolean isFoundMethod() {
-        return foundMethod;
-    }
 
     public ClassMethodId getId() {
         return id;

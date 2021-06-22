@@ -2862,7 +2862,6 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         mapp_.setArg("pkg.Ex");
         mapp_.setParam("pkg.ExTwo");
         ClassMethodIdReturn result_ = tryGetDeclaredImplicitCast(cont_, mapp_);
-        assertTrue(result_.isFoundMethod());
         assertEq("pkg.Ex",result_.getId().getClassName());
         assertEq("pkg.ExTwo",result_.getReturnType());
     }
@@ -2886,7 +2885,6 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
         mapp_.setMapping(inh_);
         ClassMethodIdReturn result_ = tryGetDeclaredImplicitCast(cont_, mapp_);
-        assertTrue(result_.isFoundMethod());
         assertEq("pkg.Ex<#0>",result_.getId().getClassName());
         assertEq("pkg.ExTwo<#0>",result_.getReturnType());
     }
@@ -2911,7 +2909,6 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         inh_.addEntry("1",new StringList(cont_.getAnalyzing().getAliasObject()));
         mapp_.setMapping(inh_);
         ClassMethodIdReturn result_ = tryGetDeclaredImplicitCast(cont_, mapp_);
-        assertTrue(result_.isFoundMethod());
         assertEq("pkg.Ex<#0>",result_.getId().getClassName());
         assertEq("pkg.ExTwo<#0>",result_.getReturnType());
     }
@@ -2938,7 +2935,6 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         inh_.addEntry("0",new StringList(cont_.getAnalyzing().getAliasObject()));
         mapp_.setMapping(inh_);
         ClassMethodIdReturn result_ = tryGetDeclaredImplicitCast(cont_, mapp_);
-        assertTrue(result_.isFoundMethod());
         assertEq("pkg.Ex<#0>",result_.getId().getClassName());
         assertEq("pkg.ExSub<#0>",result_.getReturnType());
     }

@@ -33,10 +33,10 @@ public abstract class ReachOperationNode {
     }
 
     public static ReachMethodOperation creatReachOperationNode(OperationNode _oper) {
-        if (_oper instanceof VarargOperation) {
-            return new ReachNoopOperation(_oper);
-        }
-        if (_oper instanceof IdFctOperation) {
+//        if (_oper instanceof VarargOperation) {
+//            return new ReachNoopOperation(_oper);
+//        }
+        if (InvokingOperation.getDeltaCount(_oper) != 0) {
             return new ReachNoopOperation(_oper);
         }
         if (_oper instanceof ArrayFieldOperation) {

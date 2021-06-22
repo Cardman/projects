@@ -375,7 +375,7 @@ public final class DimensionArrayInstancing extends
             AnaClassArgumentMatching resCh_ = o.getResultClass();
             if (!resCh_.isNumericInt(_page)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), resCh_, _page);
-                if (res_.isFoundMethod()) {
+                if (res_ != null) {
                     resCh_.implicitInfos(res_);
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();

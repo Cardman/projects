@@ -82,13 +82,13 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         invokingConstructorContent.setFormattedType(type);
         String id_ = StringExpUtil.getIdFromAllTypes(clCurName_);
         NameParametersFilter name_ = buildFilter(_page);
-        if (!name_.isOk()) {
+        if (!name_.getParameterFilterErr().isEmpty()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         ConstrustorIdVarArg ctorRes_;
         ctorRes_ = getDeclaredCustConstructor(varargOnly_, from,id_,type.getRootBlock(), feed_, varargParam_, name_, _page);
-        if (ctorRes_.noRealId()) {
+        if (ctorRes_ == null) {
             buildCtorError(name_,_page,from.getName());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             checkPositionBasis(_page);

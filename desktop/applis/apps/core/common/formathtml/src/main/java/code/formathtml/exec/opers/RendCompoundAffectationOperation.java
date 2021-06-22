@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -14,7 +15,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public abstract class RendCompoundAffectationOperation extends RendAbstractAffectOperation {
+public abstract class RendCompoundAffectationOperation extends RendAbstractAffectOperation implements CompoundedOperator {
 
     private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converter;
@@ -86,6 +87,7 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
         return names;
     }
 
+    @Override
     public String getOper() {
         return operatorContent.getOper();
     }

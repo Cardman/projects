@@ -233,12 +233,12 @@ public final class AnonymousInstancingOperation extends
         String formatted_ = StringExpUtil.getQuickFormattedType(instancingAnonContent.getBlock().getGenericString(), anonTypeVars);
         AnaClassArgumentMatching aClass_ = new AnaClassArgumentMatching(formatted_);
         NameParametersFilter name_ = buildFilter(_page);
-        if (!name_.isOk()) {
+        if (!name_.getParameterFilterErr().isEmpty()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(varargOnly_, aClass_,instancingAnonContent.getBlock().getFullName(),instancingAnonContent.getBlock(), null, varargParam_, name_, _page);
-        if (ctorRes_.noRealId()) {
+        if (ctorRes_ == null) {
             buildCtorError(name_,_page,formatted_);
             return;
         }

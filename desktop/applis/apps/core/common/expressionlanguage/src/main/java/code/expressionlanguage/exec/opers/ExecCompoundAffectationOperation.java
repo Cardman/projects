@@ -15,7 +15,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffectOperation implements CallExecSimpleOperation {
+public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffectOperation implements CallExecSimpleOperation,CompoundedOperator {
 
     private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converter;
@@ -113,6 +113,7 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
         return names;
     }
 
+    @Override
     public String getOper() {
         return operatorContent.getOper();
     }

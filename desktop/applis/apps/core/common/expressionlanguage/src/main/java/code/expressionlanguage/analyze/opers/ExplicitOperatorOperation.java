@@ -113,7 +113,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             id_ = new ClassMethodId(from,MethodId.to(static_,op_,s_));
         }
         NameParametersFilter name_ = buildFilter(_page);
-        if (!name_.isOk()) {
+        if (!name_.getParameterFilterErr().isEmpty()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -135,7 +135,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     new StringList(from), op_, false,
                     varargParam_, name_, _page, new ScopeFilter(null, true, false, isLvalue(), _page.getGlobalClass()));
         }
-        if (!cust_.isFoundMethod()) {
+        if (cust_ == null) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
             undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
             undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());

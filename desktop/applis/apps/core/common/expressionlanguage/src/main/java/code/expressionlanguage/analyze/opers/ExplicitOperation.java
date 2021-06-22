@@ -96,7 +96,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             args_.add(resultClass_);
             AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
             ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
-            if (resMethod_.isFoundMethod()) {
+            if (resMethod_ != null) {
                 explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
                 memberId = resMethod_.getMemberId();
                 function = resMethod_.getPair();
@@ -131,7 +131,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             args_.add(resultClass_);
             AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
             ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
-            if (resMethod_.isFoundMethod()) {
+            if (resMethod_ != null) {
                 explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
                 memberId = resMethod_.getMemberId();
                 function = resMethod_.getPair();
@@ -146,7 +146,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         args_.add(resultClass_);
         AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
         ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(explicitContent.getClassName(), null, argsClass_, _page);
-        if (!resMethod_.isFoundMethod()) {
+        if (resMethod_ == null) {
             return;
         }
         memberId = resMethod_.getMemberId();

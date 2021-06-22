@@ -625,14 +625,17 @@ public final class RendForwardInfos {
             LeafOperation f_ = (LeafOperation) _anaNode;
             return new RendConstLeafOperation(false,new ExecOperationContent(f_.getContent()));
         }
-        if (_anaNode instanceof VarargOperation) {
-            VarargOperation f_ = (VarargOperation) _anaNode;
-            return new RendConstLeafOperation(true,new ExecOperationContent(f_.getContent()));
+//        if (_anaNode instanceof VarargOperation) {
+//            VarargOperation f_ = (VarargOperation) _anaNode;
+//            return new RendConstLeafOperation(true,new ExecOperationContent(f_.getContent()));
+//        }
+        if (InvokingOperation.getDeltaCount(_anaNode) != 0) {
+            return new RendConstLeafOperation(true,new ExecOperationContent(_anaNode.getContent()));
         }
-        if (_anaNode instanceof IdFctOperation) {
-            IdFctOperation f_ = (IdFctOperation) _anaNode;
-            return new RendConstLeafOperation(true,new ExecOperationContent(f_.getContent()));
-        }
+//        if (_anaNode instanceof IdFctOperation) {
+//            IdFctOperation f_ = (IdFctOperation) _anaNode;
+//            return new RendConstLeafOperation(true,new ExecOperationContent(f_.getContent()));
+//        }
         if (_anaNode instanceof LambdaOperation) {
             LambdaOperation f_ = (LambdaOperation) _anaNode;
             ExecLambdaCommonContent lamCont_ = new ExecLambdaCommonContent(f_.getLambdaCommonContent(),_forwards);

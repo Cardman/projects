@@ -20,7 +20,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class IdFctOperation extends LeafOperation {
+public final class IdFctOperation extends LeafOperation implements FunctFilterOperation {
 
     private final String className;
 
@@ -210,6 +210,7 @@ public final class IdFctOperation extends LeafOperation {
         return method;
     }
 
+    @Override
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
     }

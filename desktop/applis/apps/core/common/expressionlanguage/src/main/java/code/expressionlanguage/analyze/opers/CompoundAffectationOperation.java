@@ -105,8 +105,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this, left_,right_, op_, _page);
         if (cl_ != null) {
             ClassMethodIdReturn foundTest_ = cl_.getTest();
-            AnaFormattedRootBlock test_ = foundTest_.getFormattedType();
-            if (test_ != null) {
+            if (foundTest_ != null){
                 clMatchLeft_.implicitInfosTest(foundTest_);
                 functionTest = foundTest_.getPair();
             }
@@ -116,7 +115,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             map_.setParam(left_.getResultClass());
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(left_.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
-                if (res_.isFoundMethod()) {
+                if (res_ != null) {
                     conv.infos(res_);
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -258,7 +257,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             mapping_.setParam(clMatchLeft_);
             if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_, _page);
-                if (res_.isFoundMethod()) {
+                if (res_ != null) {
                     clMatchRight_.implicitInfos(res_);
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();

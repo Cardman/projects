@@ -56,7 +56,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         out_.setFormattedFilter(getFormattedFilter(_page, this));
         out_.setStaticCallOp(st_);
         buildFilter(out_, _page);
-        out_.setOk(out_.getParameterFilterErr().isEmpty());
         return out_;
     }
 
@@ -114,33 +113,38 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     static NameParametersFilter buildQuickFilter(AnalyzedPageEl _page,MethodOperation _par) {
         NameParametersFilter out_ = new NameParametersFilter();
         CustList<OperationNode> childrenNodes_ = _par.getChildrenNodes();
-        CustList<NamedArgumentOperation> filter_ = out_.getParameterFilter();
+//        CustList<OperationNode> allOps_ = out_.getAllOps();
+//        CustList<NamedArgumentOperation> filter_ = out_.getParameterFilter();
         CustList<NamedArgumentOperation> filterErr_ = out_.getParameterFilterErr();
-        CustList<OperationNode> positionalArgs_ = out_.getPositional();
+//        CustList<OperationNode> positionalArgs_ = out_.getPositional();
         StringList names_ = new StringList();
-        int delta_ = getDeltaCount(_par.getFirstChild());
-        boolean ok_ = true;
+//        int delta_ = getDeltaCount(_par.getFirstChild());
+//        boolean ok_ = true;
         for (OperationNode o: childrenNodes_) {
             if (o instanceof NamedArgumentOperation) {
                 String name_ = ((NamedArgumentOperation) o).getName();
                 OperationNode next_ = o.getNextSibling();
                 if (StringUtil.contains(names_,name_) || !(next_ instanceof NamedArgumentOperation)&& next_ != null) {
-                    ok_ = false;
+//                    ok_ = false;
                     filterErr_.add(((NamedArgumentOperation) o));
                 }
                 names_.add(name_);
-                filter_.add(((NamedArgumentOperation) o));
-                if (out_.getIndex() == -1) {
-                    out_.setIndex(o.getIndexChild()+delta_);
-                }
+                out_.addNamed(((NamedArgumentOperation) o));
+//                allOps_.add(o);
+//                if (out_.getIndex() == -1) {
+//                    out_.setIndex(o.getIndexChild()+delta_);
+//                }
             } else {
-                if (!(o instanceof VarargOperation
-                        || o instanceof IdFctOperation)) {
-                    positionalArgs_.add(o);
+                if (getDeltaCount(o) == 0) {
+                    out_.addPos(o);
                 }
+//                if (!(o instanceof VarargOperation
+//                        || o instanceof IdFctOperation)) {
+//                    positionalArgs_.add(o);
+//                }
             }
         }
-        out_.setOk(ok_);
+//        out_.setOk(ok_);
         out_.setFormattedFilter(getFormattedFilter(_page,_par));
         return out_;
     }
@@ -187,9 +191,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return EMPTY_STRING;
     }
 
-    protected static int getDeltaCount(OperationNode _firstChild) {
+    public static int getDeltaCount(OperationNode _firstChild) {
         int deltaCount_ = 0;
-        if (_firstChild instanceof IdFctOperation || _firstChild instanceof VarargOperation) {
+        if (_firstChild instanceof FunctFilterOperation) {
             deltaCount_++;
         }
         return deltaCount_;
@@ -199,32 +203,24 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (_list) {
             return 0;
         }
-        int deltaCount_ = 0;
-        if (_firstChild instanceof IdFctOperation || _firstChild instanceof VarargOperation) {
-            deltaCount_++;
-        }
-        return deltaCount_;
+        return getDeltaCount(_firstChild);
     }
 
     protected static void tryGetCtors(String _typeInfer, CustList<ConstructorInfo> _ctors, AnalyzedPageEl _page, AnaGeneType _anaGeneType) {
         String base_ = StringExpUtil.getIdFromAllTypes(_typeInfer);
         if (_anaGeneType instanceof StandardType) {
             for (StandardConstructor e: ((StandardType)_anaGeneType).getConstructors()) {
-                ConstructorId ctor_ = e.getId().copy(base_);
-                ConstructorInfo mloc_ = new ConstructorInfo();
-                initCtorInfo((StandardType)_anaGeneType,_typeInfer,e,ctor_,mloc_);
+                ConstructorInfo mloc_ = initCtorInfo(base_,(StandardType)_anaGeneType,_typeInfer,e);
                 mloc_.format(_page);
                 _ctors.add(mloc_);
             }
         }
         if (_anaGeneType instanceof RootBlock) {
             for (ConstructorBlock e: ((RootBlock)_anaGeneType).getConstructorBlocks()) {
-                ConstructorId ctor_ = e.getId().copy(base_);
                 if (excludeCust((RootBlock) _anaGeneType, null,-1, e, _page)) {
                     continue;
                 }
-                ConstructorInfo mloc_ = new ConstructorInfo();
-                initCtorInfo((RootBlock) _anaGeneType,_typeInfer,e,ctor_,mloc_);
+                ConstructorInfo mloc_ = initCtorInfo(base_,(RootBlock) _anaGeneType,_typeInfer,e);
                 mloc_.format(_page);
                 _ctors.add(mloc_);
             }
@@ -258,8 +254,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (!formattedParams_.isValidIndex(ind_)) {
             return false;
         }
-        int lengthArgs_ = _filter.getPositional().size();
-        return ind_ >= Math.min(lengthArgs_, _filter.getIndex());
+//        int lengthArgs_ = _filter.getPositional().size();
+        return ind_ >= _filter.posCount();
+//        return ind_ >= Math.min(lengthArgs_, _filter.getIndex());
     }
     protected static String tryParamVarargFormat(Parametrable _param, String _name) {
         if (!_param.isVararg()) {
@@ -718,7 +715,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     } else {
                         if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                             ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_typeAff, new AnaClassArgumentMatching(returnType_), _page);
-                            if (!res_.isFoundMethod()) {
+                            if (res_ == null) {
                                 continue;
                             }
                         }
@@ -806,7 +803,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (first_ == null) {
             return -1;
         }
-        if (!(first_ instanceof VarargOperation)&&!(first_ instanceof IdFctOperation)) {
+//        if (!(first_ instanceof VarargOperation)&&!(first_ instanceof IdFctOperation)) {
+//            return -1;
+//        }
+        if (getDeltaCount(first_) == 0) {
             return -1;
         }
         CustList<OperationNode> ch_ = getChildrenNodes();
@@ -838,10 +838,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
 
     protected void buildErrNotFoundStd(MethodAccessKind _staticContext, String _name, NameParametersFilter _filter, AnalyzedPageEl _page) {
         StringList classesNames_ = new StringList();
-        for (OperationNode c: _filter.getPositional()) {
-            classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
-        }
-        for (NamedArgumentOperation c: _filter.getParameterFilter()) {
+        for (OperationNode c: _filter.getAllOps()) {
             classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -871,10 +868,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
 
     protected void buildCtorError(NameParametersFilter _filter, AnalyzedPageEl _page, String _clCurName) {
         StringList classesNames_ = new StringList();
-        for (OperationNode c: _filter.getPositional()) {
-            classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
-        }
-        for (NamedArgumentOperation c: _filter.getParameterFilter()) {
+        for (OperationNode c: _filter.getAllOps()) {
             classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();

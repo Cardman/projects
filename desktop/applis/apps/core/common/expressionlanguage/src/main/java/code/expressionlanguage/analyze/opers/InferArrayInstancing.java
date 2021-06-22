@@ -184,7 +184,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             mapping_.setMapping(map_);
             if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(classNameFinal_, argType_, _page);
-                if (res_.isFoundMethod()) {
+                if (res_ != null) {
                     argType_.implicitInfos(res_);
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();

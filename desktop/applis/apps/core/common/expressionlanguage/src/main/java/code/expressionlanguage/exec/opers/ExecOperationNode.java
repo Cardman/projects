@@ -201,23 +201,35 @@ public abstract class ExecOperationNode {
         return _order;
     }
 
-    private static boolean shEq(Struct _value, ExecCompoundAffectationOperation _p) {
+    public static boolean shEq(Struct _value, CompoundedOperator _p) {
         return nullEq(_value, _p) || andEq(_value, _p) || orEq(_value, _p);
     }
 
-    private static boolean orEq(Struct _value, ExecCompoundAffectationOperation _p) {
-        return shortEq(_p, AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT) && BooleanStruct.isTrue(_value);
+    private static boolean orEq(Struct _value, CompoundedOperator _p) {
+        return orEq(_p) && BooleanStruct.isTrue(_value);
     }
 
-    private static boolean andEq(Struct _value, ExecCompoundAffectationOperation _p) {
-        return shortEq(_p, AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT) && BooleanStruct.isFalse(_value);
+    private static boolean orEq(CompoundedOperator _p) {
+        return shortEq(_p, AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT);
     }
 
-    private static boolean nullEq(Struct _value, ExecCompoundAffectationOperation _par) {
-        return shortEq(_par, AbsBk.NULL_EQ, AbsBk.NULL_EQ_SHORT) && _value != NullStruct.NULL_VALUE;
+    private static boolean andEq(Struct _value, CompoundedOperator _p) {
+        return andEq(_p) && BooleanStruct.isFalse(_value);
     }
 
-    private static boolean shortEq(ExecCompoundAffectationOperation _compound, String _slow, String _quick) {
+    private static boolean andEq(CompoundedOperator _p) {
+        return shortEq(_p, AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT);
+    }
+
+    private static boolean nullEq(Struct _value, CompoundedOperator _par) {
+        return nullEq(_par) && _value != NullStruct.NULL_VALUE;
+    }
+
+    private static boolean nullEq(CompoundedOperator _par) {
+        return shortEq(_par, AbsBk.NULL_EQ, AbsBk.NULL_EQ_SHORT);
+    }
+
+    private static boolean shortEq(CompoundedOperator _compound, String _slow, String _quick) {
         return StringUtil.quickEq(_compound.getOper(), _slow) || StringUtil.quickEq(_compound.getOper(), _quick);
     }
 
@@ -263,45 +275,29 @@ public abstract class ExecOperationNode {
         }
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         int indexImplicitTest_ = pair_.getIndexImplicitTest();
-        Argument before_ = _argument;
+        Argument before_;
         if (!implicitsTest.isEmpty()) {
             if (implicitsTest.isValidIndex(indexImplicitTest_)) {
                 pair_.setArgumentBeforeTest(_argument);
                 pair_.setIndexImplicitTest(processConverter(_conf,_argument,implicitsTest,indexImplicitTest_, _stackCall));
                 return;
             }
-            if (!pair_.isCalcArgumentTest()) {
-                pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
-                pair_.setCalcArgumentTest(true);
-                before_ = Argument.getNullableValue(pair_.getArgumentBeforeTest());
-            }
+            before_ = pair_.argument(_argument);
+            pair_.argumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
             ExecMethodOperation parent_ = getParent();
             if (parent_ == null||parent_ instanceof ExecRefTernaryOperation) {
                 calcArg(_possiblePartial, _conf, _nodes, _argument, _stackCall);
                 return;
             }
         } else {
+            before_ = _argument;
             if (getNextSibling() != null) {
                 ExecMethodOperation parent_ = getParent();
-                if (parent_ instanceof ExecCompoundAffectationOperation) {
-                    ExecCompoundAffectationOperation par_ = (ExecCompoundAffectationOperation) parent_;
-                    if (shortEq(par_, AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT)) {
-                        if (!pair_.isCalcArgumentTest()) {
-                            pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
-                            pair_.setCalcArgumentTest(true);
-                        }
-                    }
-                    if (shortEq(par_,AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT)) {
-                        if (!pair_.isCalcArgumentTest()) {
-                            pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
-                            pair_.setCalcArgumentTest(true);
-                        }
-                    }
+                if (parent_ instanceof CompoundedOperator) {
+                    CompoundedOperator par_ = (CompoundedOperator) parent_;
+                    testpair(_argument, pair_, par_);
                 } else if (parent_ instanceof ExecQuickOperation) {
-                    if (!pair_.isCalcArgumentTest()) {
-                        pair_.setArgumentTest(((ExecQuickOperation)parent_).match(Argument.getNull(_argument.getStruct())));
-                        pair_.setCalcArgumentTest(true);
-                    }
+                    pair_.argumentTest(((ExecQuickOperation)parent_).match(Argument.getNull(_argument.getStruct())));
                 }
             }
         }
@@ -322,6 +318,15 @@ public abstract class ExecOperationNode {
             }
         }
         calcArg(_possiblePartial, _conf, _nodes, arg_, _stackCall);
+    }
+
+    public static void testpair(Argument _argument, ArgumentsPair _pair, CompoundedOperator _par) {
+        if (andEq(_par)) {
+            _pair.argumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
+        }
+        if (orEq(_par)) {
+            _pair.argumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+        }
     }
 
     private void calcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _arg, StackCall _stackCall) {

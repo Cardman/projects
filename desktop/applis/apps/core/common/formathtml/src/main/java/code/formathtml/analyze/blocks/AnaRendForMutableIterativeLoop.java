@@ -138,11 +138,11 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
             AnaClassArgumentMatching exp_ = rootExp.getResultClass();
             if (!exp_.isBoolType(_page)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);
-                if (res_.isFoundMethod()) {
+                if (res_ != null) {
                     exp_.implicitInfosCore(res_);
                 } else {
                     ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(exp_, _page);
-                    if (trueOp_.isFoundMethod()) {
+                    if (trueOp_ != null) {
                         exp_.implicitInfosTest(trueOp_);
                     } else {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();

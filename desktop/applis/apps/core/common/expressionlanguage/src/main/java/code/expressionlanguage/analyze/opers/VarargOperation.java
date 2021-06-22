@@ -16,7 +16,7 @@ import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
-public final class VarargOperation extends LeafOperation {
+public final class VarargOperation extends LeafOperation implements FunctFilterOperation {
 
     private String className;
 
@@ -116,6 +116,7 @@ public final class VarargOperation extends LeafOperation {
         return className;
     }
 
+    @Override
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
     }

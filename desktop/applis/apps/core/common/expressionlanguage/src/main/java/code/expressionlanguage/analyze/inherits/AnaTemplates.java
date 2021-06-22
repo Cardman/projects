@@ -437,7 +437,7 @@ public final class AnaTemplates {
         map_.addAllEntries(_vars);
         String geneNb_ = getGeneNb(anaGeneType_);
         ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_classes, new AnaClassArgumentMatching(geneNb_), _page, map_);
-        if (!res_.isFoundMethod()) {
+        if (res_ == null) {
             return null;
         }
         String formPar_ = res_.getId().getConstraints().shiftFirst().first();
@@ -1018,7 +1018,7 @@ public final class AnaTemplates {
         map_.setParam(_param);
         if (argType_ != null && !argType_.isSubTypeOf(refTypeParamId_,_page)) {
             ClassMethodIdReturn result_ = tryGetDeclaredImplicitCast(_param, _arg, _page, _vars);
-            if (result_.isFoundMethod()) {
+            if (result_ != null) {
                 map_.setArg(result_.getReturnType());
             }
         }

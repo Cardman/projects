@@ -291,7 +291,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             mapping_.setMapping(map_);
             if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(eltType_, argType_, _page);
-                if (res_.isFoundMethod()) {
+                if (res_ != null) {
                     argType_.implicitInfos(res_);
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();

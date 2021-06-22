@@ -3225,11 +3225,8 @@ public final class LinkageUtil {
     }
 
     private static void processLeafType(VariablesOffsets _vars, int _sum, OperationNode _val) {
-        if (_val instanceof IdFctOperation) {
-            _vars.addParts(((IdFctOperation)_val).getPartOffsets());
-        }
-        if (_val instanceof VarargOperation) {
-            _vars.addParts(((VarargOperation)_val).getPartOffsets());
+        if (_val instanceof FunctFilterOperation) {
+            _vars.addParts(((FunctFilterOperation)_val).getPartOffsets());
         }
         if (_val instanceof ForwardOperation) {
             ForwardOperation f_ = (ForwardOperation) _val;

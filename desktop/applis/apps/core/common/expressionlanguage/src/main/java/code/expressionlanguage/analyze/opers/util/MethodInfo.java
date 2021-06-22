@@ -68,7 +68,7 @@ public final class MethodInfo implements Parametrable {
         setFileName(_m.getFileName());
         setReturnType(_m.getReturnType());
         setOriginalReturnType(_m.getReturnType());
-        trySetParamNames(this, _m.getCustMethod());
+        trySetParamNames(this, _m);
         setStandardMethod(_m.getStandardMethod());
         setCustMethod(_m.getCustMethod());
     }
@@ -93,9 +93,12 @@ public final class MethodInfo implements Parametrable {
         className = _className;
         constraints = _id;
     }
-    private static void trySetParamNames(MethodInfo _mloc, NamedFunctionBlock _custMethod) {
-        if (_custMethod != null) {
-            _mloc.setParametersNames(_custMethod.getParametersNames());
+    private static void trySetParamNames(MethodInfo _mloc, ImportedMethod _custMethod) {
+        if (_custMethod.getCustMethod() != null) {
+            _mloc.setParametersNames(_custMethod.getCustMethod().getParametersNames());
+        }
+        if (_custMethod.getStandardMethod() != null) {
+            _mloc.setParametersNames(_custMethod.getStandardMethod().getParametersNames());
         }
     }
     public void pair(RootBlock _root, NamedFunctionBlock _fct) {

@@ -289,12 +289,12 @@ public final class StandardInstancingOperation extends
             return;
         }
         NameParametersFilter name_ = buildFilter(_page);
-        if (!name_.isOk()) {
+        if (!name_.getParameterFilterErr().isEmpty()) {
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(varargOnly_, new AnaClassArgumentMatching(_realClassName),base_,g_, feed_, _paramVargArg, name_, _page);
-        if (ctorRes_.noRealId()) {
+        if (ctorRes_ == null) {
             buildCtorError(name_,_page,_realClassName);
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
@@ -306,10 +306,10 @@ public final class StandardInstancingOperation extends
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         NameParametersFilter out_ = new NameParametersFilter();
         CustList<OperationNode> childrenNodes_ = _par.getChildrenNodes();
-        CustList<NamedArgumentOperation> filter_ = out_.getParameterFilter();
+//        CustList<NamedArgumentOperation> filter_ = out_.getParameterFilter();
         CustList<NamedArgumentOperation> filterErr_ = out_.getParameterFilterErr();
         StringList names_ = new StringList();
-        boolean ok_ = true;
+//        boolean ok_ = true;
         for (OperationNode o: childrenNodes_) {
             String name_ = ((NamedArgumentOperation) o).getName();
             boolean contained_ = false;
@@ -326,7 +326,7 @@ public final class StandardInstancingOperation extends
                     instancingStdContent.getInfos().addEntry(name_,f.getImportedClassName());
                     if (!AnaInherits.isCorrectOrNumbers(m_, _page)){
                         ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(par_, o.getResultClass(), _page);
-                        if (!res_.isFoundMethod()) {
+                        if (res_ == null) {
                             continue;
                         }
                         o.getResultClass().implicitInfos(res_);
@@ -336,13 +336,13 @@ public final class StandardInstancingOperation extends
                 }
             }
             if (StringUtil.contains(names_,name_) || !contained_) {
-                ok_ = false;
+//                ok_ = false;
                 filterErr_.add(((NamedArgumentOperation) o));
             }
             names_.add(name_);
-            filter_.add(((NamedArgumentOperation) o));
+            out_.addNamed(((NamedArgumentOperation) o));
         }
-        out_.setOk(ok_);
+//        out_.setOk(ok_);
         return out_;
     }
     private int getCurrentChildTypeIndex(AnaGeneType _type, String _realClassName, AnalyzedPageEl _page) {

@@ -46,12 +46,12 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         AnaClassArgumentMatching clMatch_ = opOne_.getResultClass();
         if (!clMatch_.isBoolType(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), clMatch_, _page);
-            if (res_.isFoundMethod()) {
+            if (res_ != null) {
                 clMatch_.implicitInfosCore(res_);
                 implFct = res_.getPair();
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(clMatch_, _page);
-                if (trueOp_.isFoundMethod()) {
+                if (trueOp_ != null) {
                     clMatch_.implicitInfosTest(trueOp_);
                     testFct = trueOp_.getPair();
                 } else {

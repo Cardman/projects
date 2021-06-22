@@ -1292,10 +1292,10 @@ public final class ForwardInfos {
             LeafOperation f_ = (LeafOperation) _anaNode;
             return new ExecConstLeafOperation(false, new ExecOperationContent(f_.getContent()));
         }
-        if (_anaNode instanceof VarargOperation) {
-            VarargOperation f_ = (VarargOperation) _anaNode;
-            return new ExecConstLeafOperation(true, new ExecOperationContent(f_.getContent()));
-        }
+//        if (_anaNode instanceof VarargOperation) {
+//            VarargOperation f_ = (VarargOperation) _anaNode;
+//            return new ExecConstLeafOperation(true, new ExecOperationContent(f_.getContent()));
+//        }
         if (_anaNode instanceof DefaultValueOperation) {
             DefaultValueOperation f_ = (DefaultValueOperation) _anaNode;
             return new ExecDefaultValueOperation(new ExecOperationContent(f_.getContent()), f_.getClassName());
@@ -1304,9 +1304,8 @@ public final class ForwardInfos {
             DefaultOperation f_ = (DefaultOperation) _anaNode;
             return new ExecDefaultOperation(new ExecOperationContent(f_.getContent()), f_.getOffset(),names_);
         }
-        if (_anaNode instanceof IdFctOperation) {
-            IdFctOperation f_ = (IdFctOperation) _anaNode;
-            return new ExecConstLeafOperation(true, new ExecOperationContent(f_.getContent()));
+        if (InvokingOperation.getDeltaCount(_anaNode) != 0) {
+            return new ExecConstLeafOperation(true, new ExecOperationContent(_anaNode.getContent()));
         }
         if (_anaNode instanceof AnonymousLambdaOperation) {
             AnonymousLambdaOperation s_ = (AnonymousLambdaOperation) _anaNode;

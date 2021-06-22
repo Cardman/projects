@@ -17,10 +17,6 @@ public final class ConstrustorIdVarArg {
     private AnaFormattedRootBlock formattedType;
     private MemberId memberId = new MemberId();
 
-    public boolean noRealId() {
-        return realId == null;
-    }
-
     public ConstructorId getRealId() {
         return realId;
     }

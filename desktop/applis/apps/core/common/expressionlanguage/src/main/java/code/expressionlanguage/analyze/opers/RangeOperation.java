@@ -71,7 +71,7 @@ public final class RangeOperation extends MethodOperation {
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             if (!clMatchLeft_.isNumericInt(_page)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), clMatchLeft_, _page);
-                if (res_.isFoundMethod()) {
+                if (res_ != null) {
                     clMatchLeft_.implicitInfos(res_);
                 } else {
                     okNum = false;
@@ -95,7 +95,7 @@ public final class RangeOperation extends MethodOperation {
             }
             if (!clMatchRight_.isNumericInt(_page)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), clMatchRight_, _page);
-                if (res_.isFoundMethod()) {
+                if (res_ != null) {
                     clMatchRight_.implicitInfos(res_);
                 } else {
                     okNum = false;
@@ -129,7 +129,7 @@ public final class RangeOperation extends MethodOperation {
                 AnaClassArgumentMatching clMatchStep_ = chidren_.last().getResultClass();
                 if (!clMatchStep_.isNumericInt(_page)) {
                     ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), clMatchStep_, _page);
-                    if (res_.isFoundMethod()) {
+                    if (res_ != null) {
                         clMatchStep_.implicitInfos(res_);
                     } else {
                         okNum = false;
@@ -155,7 +155,7 @@ public final class RangeOperation extends MethodOperation {
         } else {
             if (!clMatchLeft_.isNumericInt(_page)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), clMatchLeft_, _page);
-                if (res_.isFoundMethod()) {
+                if (res_ != null) {
                     clMatchLeft_.implicitInfos(res_);
                 } else {
                     okNum = false;

@@ -31,8 +31,11 @@ public final class ArgumentsPair {
         this.wrapper = _wrapper;
     }
 
-    public Argument getArgumentBeforeTest() {
-        return argumentBeforeTest;
+    public Argument argument(Argument _arg) {
+        if (calcArgumentTest) {
+            return Argument.getNullableValue(_arg);
+        }
+        return Argument.getNullableValue(argumentBeforeTest);
     }
 
     public void setArgumentBeforeTest(Argument _argumentBeforeTest) {
@@ -43,16 +46,12 @@ public final class ArgumentsPair {
         return argumentTest;
     }
 
-    public void setArgumentTest(boolean _argumentTest) {
+    public void argumentTest(boolean _argumentTest) {
+        if (calcArgumentTest) {
+            return;
+        }
         this.argumentTest = _argumentTest;
-    }
-
-    public boolean isCalcArgumentTest() {
-        return calcArgumentTest;
-    }
-
-    public void setCalcArgumentTest(boolean _calcArgumentTest) {
-        this.calcArgumentTest = _calcArgumentTest;
+        calcArgumentTest = true;
     }
 
     public Argument getPreviousArgument() {

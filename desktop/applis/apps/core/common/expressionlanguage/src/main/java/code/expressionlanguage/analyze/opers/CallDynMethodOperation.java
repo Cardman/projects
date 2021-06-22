@@ -224,7 +224,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             }
             CustList<OperationNode> filter_ = new CustList<OperationNode>();
             for (OperationNode o: chidren_) {
-                if (o instanceof IdFctOperation) {
+                if (getDeltaCount(o) != 0) {
                     continue;
                 }
                 filter_.add(o);
@@ -440,7 +440,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                         parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
                     } else if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                         ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(pa_, a_, _page);
-                        if (res_.isFoundMethod()) {
+                        if (res_ != null) {
                             a_.implicitInfos(res_);
                         } else {
                             FoundErrorInterpret cast_ = new FoundErrorInterpret();

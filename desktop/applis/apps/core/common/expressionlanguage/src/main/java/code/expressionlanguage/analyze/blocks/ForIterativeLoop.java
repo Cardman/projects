@@ -215,7 +215,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
         m_.setParam(_elementClass);
         if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_elementClass, arg_, _page);
-            if (res_.isFoundMethod()) {
+            if (res_ != null) {
                 arg_.implicitInfos(res_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();

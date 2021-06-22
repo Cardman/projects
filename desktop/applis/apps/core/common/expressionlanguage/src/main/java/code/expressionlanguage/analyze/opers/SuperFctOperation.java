@@ -143,7 +143,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             feed_ = new ClassMethodIdAncestor(feedBase_,idMethod_.getAncestor());
         }
         NameParametersFilter name_ = buildFilter(_page);
-        if (!name_.isOk()) {
+        if (!name_.getParameterFilterErr().isEmpty()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -152,9 +152,9 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             ClassMethodId f_ = getTrueFalse(feedBase_, _page);
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
-            AnaClassArgumentMatching[] argsClass_ = OperationNode.getResultsFromArgs(name_.getPositional());
+            AnaClassArgumentMatching[] argsClass_ = OperationNode.getResultsFromArgs(name_.getAll());
             clMeth_ = tryGetDeclaredCustTrueFalse(staticAccess_, bounds_, trimMeth_, f_, argsClass_, _page);
-            if (!clMeth_.isFoundMethod()) {
+            if (clMeth_ == null) {
                 buildErrNotFoundTrueFalse(staticAccess_,trimMeth_,_page,argsClass_);
                 setResultClass(voidToObject(new AnaClassArgumentMatching(_page.getAliasObject()), _page));
                 return;
@@ -163,17 +163,17 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             trueFalse = true;
             MethodId id_ = clMeth_.getRealId();
             staticMethod = true;
-            unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getPositional(), _page);
+            unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, true, true, isLvalue(), _page.getGlobalClass()));
-        anc = clMeth_.getAncestor();
-        if (!clMeth_.isFoundMethod()) {
+        if (clMeth_ == null) {
             buildErrNotFoundStd(isStaticAccess(), trimMeth_, name_, _page);
             setResultClass(voidToObject(new AnaClassArgumentMatching(_page.getAliasObject()), _page));
             return;
         }
+        anc = clMeth_.getAncestor();
         if (StringUtil.quickEq(trimMeth_,_page.getKeyWords().getKeyWordNull())) {
             errLeftValue = true;
         }

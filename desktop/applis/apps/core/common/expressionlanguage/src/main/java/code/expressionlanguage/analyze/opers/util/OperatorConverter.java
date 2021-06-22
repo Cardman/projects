@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 
 public final class OperatorConverter {
     private final ClassMethodIdReturn fct;
-    private ClassMethodIdReturn test = new ClassMethodIdReturn(false);
+    private ClassMethodIdReturn test;
 
     public OperatorConverter(ClassMethodIdReturn _fct) {
         fct = _fct;

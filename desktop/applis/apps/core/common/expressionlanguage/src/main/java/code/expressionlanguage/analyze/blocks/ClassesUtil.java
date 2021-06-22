@@ -69,11 +69,11 @@ public final class ClassesUtil {
         }
         for (RootBlock e: _page.getAllFoundTypes()) {
             ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(e, _page);
-            if (resDyn_.isFoundMethod()) {
+            if (resDyn_ != null) {
                 _page.getToStr().addEntry(e,resDyn_);
             }
             ClassMethodIdReturn resDynRand_ = tryGetDeclaredRandCode(e, _page);
-            if (resDynRand_.isFoundMethod()) {
+            if (resDynRand_ != null) {
                 _page.getRandCodes().addEntry(e,resDynRand_);
             }
         }
@@ -156,7 +156,7 @@ public final class ClassesUtil {
     private static ClassMethodIdReturn getCustResultExec(CustList<MethodInfo> _methods, AnalyzedPageEl _page) {
         Parametrable found_ = getFoundMethodExec(_methods, _page);
         if (!(found_ instanceof MethodInfo)) {
-            return new ClassMethodIdReturn(false);
+            return null;
         }
         MethodInfo m_ = (MethodInfo) found_;
         MethodId id_ = m_.getFormatted();

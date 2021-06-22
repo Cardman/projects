@@ -137,7 +137,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             bounds_.addAllElts(getBounds(c, _page));
         }
         NameParametersFilter name_ = buildFilter(_page);
-        if (!name_.isOk()) {
+        if (!name_.getParameterFilterErr().isEmpty()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -147,8 +147,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
                 bounds_, trimMethSet_, false,
                 varargParam_, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
-        boolean found_ = clMeth_.isFoundMethod();
-        if (!clMethSet_.isFoundMethod()) {
+        boolean found_ = clMeth_ != null;
+        if (clMethSet_ == null) {
             found_ = false;
         }
         if (found_) {
@@ -204,8 +204,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _page);
         OperationNode right_ = chidren_.last();
         if (right_ instanceof WrappOperation || right_ instanceof NamedArgumentOperation
-                ||right_ instanceof FirstOptOperation || right_ instanceof IdFctOperation
-                ||right_ instanceof VarargOperation) {
+                ||right_ instanceof FirstOptOperation || getDeltaCount(right_) != 0) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -239,7 +238,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         if (!indexClass_.isNumericInt(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), indexClass_, _page);
-            if (res_.isFoundMethod()) {
+            if (res_ != null) {
                 indexClass_.implicitInfos(res_);
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();

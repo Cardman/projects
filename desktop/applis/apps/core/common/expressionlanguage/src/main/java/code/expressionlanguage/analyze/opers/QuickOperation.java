@@ -60,8 +60,7 @@ public abstract class QuickOperation extends MethodOperation {
             fct.infos(opConv_,_page);
             okNum = true;
             ClassMethodIdReturn foundTest_ = opConv_.getTest();
-            AnaFormattedRootBlock test_ = foundTest_.getFormattedType();
-            if (test_ == null) {
+            if (foundTest_ == null) {
                 return;
             }
             functionTest = foundTest_.getPair();
@@ -71,7 +70,7 @@ public abstract class QuickOperation extends MethodOperation {
             map_.setParam(leftRes_);
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(leftRes_.getSingleNameOrEmpty(), getResultClass(), _page);
-                if (res_.isFoundMethod()) {
+                if (res_ != null) {
                     conv.infos(res_);
                 } else {
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);

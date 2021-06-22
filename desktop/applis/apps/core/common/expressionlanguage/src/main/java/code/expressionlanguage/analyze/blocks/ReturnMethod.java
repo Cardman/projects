@@ -144,7 +144,7 @@ public final class ReturnMethod extends AbruptBlock {
         if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
             //look for implicit casts
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_retType, ret_, _page);
-            if (res_.isFoundMethod()) {
+            if (res_ != null) {
                 ret_.implicitInfos(res_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();

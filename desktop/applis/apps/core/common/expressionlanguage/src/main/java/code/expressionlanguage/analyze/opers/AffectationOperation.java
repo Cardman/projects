@@ -208,7 +208,7 @@ public final class AffectationOperation extends MethodOperation {
         mapping_.setParam(clMatchLeft_);
         if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
             ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_, _page);
-            if (res_.isFoundMethod()) {
+            if (res_ != null) {
                 clMatchRight_.implicitInfos(res_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
