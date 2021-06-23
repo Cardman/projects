@@ -627,9 +627,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 || StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordFalse())) {
                 ClassMethodIdReturn resMethod_;
                 if (StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordTrue())){
-                    resMethod_ = tryGetDeclaredTrue(type_, _page);
+                    resMethod_ = tryGetDeclaredTests(type_, _page, _page.getTrues());
                 } else {
-                    resMethod_ = tryGetDeclaredFalse(type_, _page);
+                    resMethod_ = tryGetDeclaredTests(type_, _page, _page.getFalses());
                 }
                 if (resMethod_ == null) {
                     int rc_ = _page.getLocalizer().getCurrentLocationIndex() + offset_;
@@ -736,9 +736,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             ClassMethodIdReturn id_;
             if (StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordExplicit())){
-                id_ = tryGetDeclaredCast(type_, feed_, OperationNode.toArgArray(methodTypes_), _page);
+                id_ = tryGetCast(type_, feed_, OperationNode.toArgArray(methodTypes_), _page, _page.getExplicitCastMethods(), _page.getExplicitIdCastMethods(), _page.getExplicitFromCastMethods());
             } else {
-                id_ = tryGetDeclaredImplicitCast(type_, feed_, OperationNode.toArgArray(methodTypes_), _page);
+                id_ = tryGetCast(type_, feed_, OperationNode.toArgArray(methodTypes_), _page, _page.getImplicitCastMethods(), _page.getImplicitIdCastMethods(), _page.getImplicitFromCastMethods());
             }
             if (id_ == null) {
                 MethodId idCast_;

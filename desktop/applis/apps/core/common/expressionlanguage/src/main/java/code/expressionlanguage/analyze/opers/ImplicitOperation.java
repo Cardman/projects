@@ -95,7 +95,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(new AnaClassArgumentMatching(explicitContent.getClassName(), _page.getPrimitiveTypes()));
             args_.add(resultClass_);
             AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
-            ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
+            ClassMethodIdReturn resMethod_ = tryGetCast(explicitContent.getClassName(), uniq_, argsClass_, _page, _page.getImplicitCastMethods(), _page.getImplicitIdCastMethods(), _page.getImplicitFromCastMethods());
             if (resMethod_ != null) {
                 explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
                 memberId = resMethod_.getMemberId();
@@ -129,7 +129,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(virtual_);
         args_.add(resultClass_);
         AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
-        ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(explicitContent.getClassName(), uniq_, argsClass_, _page);
+        ClassMethodIdReturn resMethod_ = tryGetCast(explicitContent.getClassName(), uniq_, argsClass_, _page, _page.getImplicitCastMethods(), _page.getImplicitIdCastMethods(), _page.getImplicitFromCastMethods());
         if (resMethod_ != null) {
             explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
             memberId = resMethod_.getMemberId();

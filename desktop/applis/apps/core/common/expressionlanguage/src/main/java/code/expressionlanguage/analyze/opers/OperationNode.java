@@ -1130,9 +1130,9 @@ public abstract class OperationNode {
         ClassMethodIdReturn res_;
         AbstractComparer cmp_ = new DefaultComparer();
         if (StringUtil.quickEq(_name, _page.getKeyWords().getKeyWordTrue())) {
-            res_ = fetchTrueOperator(_classes,_argsClass[0],_uniqueId, _page, cmp_);
+            res_ = fetchTestsOperator(_classes,_argsClass[0],_uniqueId, _page, cmp_, _page.getTrues());
         } else {
-            res_ = fetchFalseOperator(_classes,_argsClass[0],_uniqueId, _page, cmp_);
+            res_ = fetchTestsOperator(_classes, _argsClass[0], _uniqueId, _page, cmp_, _page.getFalses());
         }
         possibleAdjust(res_);
         return res_;
@@ -1176,17 +1176,10 @@ public abstract class OperationNode {
         return getCustResultLambda(varargOnly_, methods_, _name, _page, _argsClass);
     }
 
-    protected static ClassMethodIdReturn tryGetDeclaredTrue(String _classes, AnalyzedPageEl _page) {
+    protected static ClassMethodIdReturn tryGetDeclaredTests(String _classes, AnalyzedPageEl _page, StringMap<CustList<MethodHeaderInfo>> _tests) {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
-        fetchTrue(methods_,_classes, null, _page, new DefaultComparer());
-        return tryGetDeclaredTrueFalse(_classes, methods_);
-    }
-
-    protected static ClassMethodIdReturn tryGetDeclaredFalse(String _classes, AnalyzedPageEl _page) {
-        CustList<MethodInfo> methods_;
-        methods_ = new CustList<MethodInfo>();
-        fetchFalse(methods_,_classes, null, _page, new DefaultComparer());
+        fetchTests(methods_,_classes, null, _page, new DefaultComparer(), _tests);
         return tryGetDeclaredTrueFalse(_classes, methods_);
     }
 
@@ -1207,7 +1200,8 @@ public abstract class OperationNode {
         }
         return null;
     }
-    protected static ClassMethodIdReturn tryGetDeclaredCast(String _classes, ClassMethodId _uniqueId, AnaClassArgumentMatching[] _argsClass, AnalyzedPageEl _page) {
+
+    protected static ClassMethodIdReturn tryGetCast(String _classes, ClassMethodId _uniqueId, AnaClassArgumentMatching[] _argsClass, AnalyzedPageEl _page, StringMap<CustList<MethodHeaderInfo>> _one, StringMap<CustList<MethodHeaderInfo>> _two, StringMap<CustList<MethodHeaderInfo>> _three) {
         CustList<MethodInfo> methods_;
         AnaClassArgumentMatching cl_;
         if (_argsClass.length > 1) {
@@ -1216,21 +1210,7 @@ public abstract class OperationNode {
             cl_ = _argsClass[0];
         }
         AbstractComparer cmp_ = new DefaultComparer();
-        methods_ = getDeclaredCustCast(_classes, _uniqueId, cl_, _page, cmp_);
-        ClassMethodIdReturn res_ = getCustCastResult(methods_, cl_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
-        possibleAdjust(res_);
-        return res_;
-    }
-    protected static ClassMethodIdReturn tryGetDeclaredImplicitCast(String _classes, ClassMethodId _uniqueId, AnaClassArgumentMatching[] _argsClass, AnalyzedPageEl _page) {
-        CustList<MethodInfo> methods_;
-        AnaClassArgumentMatching cl_;
-        if (_argsClass.length > 1) {
-            cl_ = _argsClass[1];
-        } else {
-            cl_ = _argsClass[0];
-        }
-        AbstractComparer cmp_ = new DefaultComparer();
-        methods_ = getDeclaredCustImplicitCast(_classes, _uniqueId, cl_, _page, cmp_);
+        methods_ = comCast(_uniqueId, _page, cmp_, _one, _two, _three, new PairMatchCast(cl_, _classes));
         ClassMethodIdReturn res_ = getCustCastResult(methods_, cl_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
         possibleAdjust(res_);
         return res_;
@@ -1376,7 +1356,7 @@ public abstract class OperationNode {
         if (StringUtil.quickEq(_op,"&&")) {
             CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
             for (String n:left_.getNames()) {
-                fetchFalse(listTrue_,n, null, _page, cmp_);
+                fetchTests(listTrue_, n, null, _page, cmp_, _page.getFalses());
             }
             ClassMethodIdReturn clMethImp_ = getCustCastResult(listTrue_,  left_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
             if (clMethImp_ != null) {
@@ -1386,7 +1366,7 @@ public abstract class OperationNode {
         } else if (StringUtil.quickEq(_op,"||")) {
             CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
             for (String n:left_.getNames()) {
-                fetchTrue(listTrue_,n, null, _page, cmp_);
+                fetchTests(listTrue_,n, null, _page, cmp_, _page.getTrues());
             }
             ClassMethodIdReturn clMethImp_ = getCustCastResult(listTrue_,  left_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
             if (clMethImp_ != null) {
@@ -1703,30 +1683,15 @@ public abstract class OperationNode {
         }
         return methods_;
     }
-    private static CustList<MethodInfo>
-    getDeclaredCustImplicitCast(String _fromClass, ClassMethodId _uniqueId, AnaClassArgumentMatching _arg, AnalyzedPageEl _page, AbstractComparer _cmp) {
-        CustList<MethodInfo> methods_ = getDeclaredCustImplicitCastFrom(_fromClass,_uniqueId, _page, _cmp, _page.getImplicitCastMethods(), _page.getImplicitIdCastMethods());
-        for (String n: _arg.getNames()) {
-            methods_.addAllElts(getDeclaredCustImplicitCast(_fromClass, _uniqueId, n, _page, _cmp, _page.getImplicitFromCastMethods()));
-        }
-        return methods_;
-    }
-    private static CustList<MethodInfo>
-    getDeclaredCustCast(String _fromClass, ClassMethodId _uniqueId, AnaClassArgumentMatching _arg, AnalyzedPageEl _page, AbstractComparer _cmp) {
-        CustList<MethodInfo> methods_ = getDeclaredCustCastFrom(_fromClass,_uniqueId, _page, _cmp);
-        for (String n: _arg.getNames()) {
-            methods_.addAllElts(getDeclaredCustCast(_fromClass, _uniqueId, n, _page, _cmp));
+
+    private static CustList<MethodInfo> comCast(ClassMethodId _uniqueId, AnalyzedPageEl _page, AbstractComparer _cmp, StringMap<CustList<MethodHeaderInfo>> _one, StringMap<CustList<MethodHeaderInfo>> _two, StringMap<CustList<MethodHeaderInfo>> _three, PairMatchCast _pair) {
+        CustList<MethodInfo> methods_ = getDeclaredCustImplicitCastFrom(_pair.getFrom(),_uniqueId, _page, _cmp, _one, _two);
+        for (String n: _pair.getMatch().getNames()) {
+            methods_.addAllElts(getDeclaredCustImplicitCast(_pair.getFrom(), _uniqueId, n, _page, _cmp, _three));
         }
         return methods_;
     }
 
-    private static CustList<MethodInfo> getDeclaredCustCast(String _fromClass, ClassMethodId _uniqueId, String _single, AnalyzedPageEl _page, AbstractComparer _cmp) {
-        return getDeclaredCustImplicitCast(_fromClass, _uniqueId, _single, _page, _cmp, _page.getExplicitFromCastMethods());
-    }
-
-    private static CustList<MethodInfo> getDeclaredCustCastFrom(String _fromClass, ClassMethodId _uniqueId, AnalyzedPageEl _page, AbstractComparer _cmp) {
-        return getDeclaredCustImplicitCastFrom(_fromClass, _uniqueId, _page, _cmp, _page.getExplicitCastMethods(), _page.getExplicitIdCastMethods());
-    }
     private static CustList<MethodInfo> getDeclaredCustImplicitCast(String _fromClass, ClassMethodId _uniqueId, String _single, AnalyzedPageEl _page, AbstractComparer _cmp, StringMap<CustList<MethodHeaderInfo>> _methods) {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
@@ -1835,33 +1800,21 @@ public abstract class OperationNode {
     }
     public static ClassMethodIdReturn fetchTrueOperator(AnaClassArgumentMatching _arg, AnalyzedPageEl _page) {
         StringList names_ = _arg.getNames();
-        return fetchTrueOperator(names_, _arg, null, _page, new DefaultComparer());
+        return fetchTestsOperator(names_, _arg, null, _page, new DefaultComparer(), _page.getTrues());
     }
-    private static ClassMethodIdReturn fetchFalseOperator(StringList _names, AnaClassArgumentMatching _arg, ClassMethodId _uniqueId, AnalyzedPageEl _page, AbstractComparer _cmp) {
+
+    private static ClassMethodIdReturn fetchTestsOperator(StringList _names, AnaClassArgumentMatching _arg, ClassMethodId _uniqueId, AnalyzedPageEl _page, AbstractComparer _cmp, StringMap<CustList<MethodHeaderInfo>> _tests) {
         CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
         for (String n: _names) {
-            fetchFalse(listTrue_,n, _uniqueId, _page, _cmp);
+            fetchTests(listTrue_,n, _uniqueId, _page, _cmp, _tests);
         }
         return getCustCastResult(listTrue_,  _arg, _page, _page.getCurrentConstraints().getCurrentConstraints(), _cmp);
     }
-    private static ClassMethodIdReturn fetchTrueOperator(StringList _names, AnaClassArgumentMatching _arg, ClassMethodId _uniqueId, AnalyzedPageEl _page, AbstractComparer _cmp) {
-        CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
-        for (String n: _names) {
-            fetchTrue(listTrue_,n, _uniqueId, _page, _cmp);
-        }
-        return getCustCastResult(listTrue_,  _arg, _page, _page.getCurrentConstraints().getCurrentConstraints(), _cmp);
-    }
-    private static void fetchTrue(CustList<MethodInfo> _methods, String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page, AbstractComparer _cmp) {
+    private static void fetchTests(CustList<MethodInfo> _methods, String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page, AbstractComparer _cmp, StringMap<CustList<MethodHeaderInfo>> _tests) {
         if (!StringExpUtil.customCast(_id)) {
             return;
         }
-        _methods.addAllElts(fetch(_id, _uniqueId, _page, _cmp, _page.getTrues(), _page.getAliasPrimBoolean(), _page.getCurrentConstraints().getCurrentConstraints()));
-    }
-    private static void fetchFalse(CustList<MethodInfo> _methods, String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page, AbstractComparer _cmp) {
-        if (!StringExpUtil.customCast(_id)) {
-            return;
-        }
-        _methods.addAllElts(fetch(_id, _uniqueId, _page, _cmp, _page.getFalses(), _page.getAliasPrimBoolean(), _page.getCurrentConstraints().getCurrentConstraints()));
+        _methods.addAllElts(fetch(_id, _uniqueId, _page, _cmp, _tests, _page.getAliasPrimBoolean(), _page.getCurrentConstraints().getCurrentConstraints()));
     }
 
     private static CustList<MethodInfo> fetch(String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page, AbstractComparer _cmp, StringMap<CustList<MethodHeaderInfo>> _list, String _returnType, StringMap<StringList> _vars) {
