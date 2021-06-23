@@ -312,7 +312,7 @@ public final class AnonymousLambdaOperation extends
         MethodId idC_ = block.getId();
         lambdaCommonContent.setReturnFieldType(importedReturnType_);
         String found_ = lambdaCommonContent.getFoundFormatted().getFormatted();
-        StringList params_ = AnaInherits.wildCardFormatParams(found_, idC_.getParametersTypes(), _page);
+        StringList params_ = AnaInherits.wildCardFormatParams(found_, idC_, _page);
         MethodId id_ = MethodId.to(idC_.getKind(),params_,idC_);
         method = idC_;
         String fct_ = formatReturn(_page, importedReturnType_, found_, idC_, id_);

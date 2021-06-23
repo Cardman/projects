@@ -17,8 +17,6 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.common.Matching;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardType;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -208,23 +206,26 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
 
     protected static void tryGetCtors(String _typeInfer, CustList<ConstructorInfo> _ctors, AnalyzedPageEl _page, AnaGeneType _anaGeneType) {
         String base_ = StringExpUtil.getIdFromAllTypes(_typeInfer);
-        if (_anaGeneType instanceof StandardType) {
-            for (StandardConstructor e: ((StandardType)_anaGeneType).getConstructors()) {
-                ConstructorInfo mloc_ = initCtorInfo(base_,(StandardType)_anaGeneType,_typeInfer,e);
-                mloc_.format(_page);
-                _ctors.add(mloc_);
-            }
-        }
-        if (_anaGeneType instanceof RootBlock) {
-            for (ConstructorBlock e: ((RootBlock)_anaGeneType).getConstructorBlocks()) {
-                if (excludeCust((RootBlock) _anaGeneType, null,-1, e, _page)) {
-                    continue;
-                }
-                ConstructorInfo mloc_ = initCtorInfo(base_,(RootBlock) _anaGeneType,_typeInfer,e);
-                mloc_.format(_page);
-                _ctors.add(mloc_);
-            }
-        }
+        _ctors.addAllElts(tryGetSignatures(_anaGeneType,_page,_typeInfer,""));
+//        if (_anaGeneType instanceof StandardType) {
+//            for (StandardConstructor e: ((StandardType)_anaGeneType).getConstructors()) {
+//                ConstructorInfo mloc_ = initCtorInfo(base_,(StandardType)_anaGeneType,_typeInfer,e);
+//                mloc_.setStCall("");
+//                mloc_.format(_page);
+//                _ctors.add(mloc_);
+//            }
+//        }
+//        if (_anaGeneType instanceof RootBlock) {
+//            for (ConstructorBlock e: ((RootBlock)_anaGeneType).getConstructorBlocks()) {
+//                if (excludeQuick((RootBlock) _anaGeneType, e, _page)) {
+//                    continue;
+//                }
+//                ConstructorInfo mloc_ = initCtorInfo(base_,(RootBlock) _anaGeneType,_typeInfer,e);
+//                mloc_.setStCall("");
+//                mloc_.format(_page);
+//                _ctors.add(mloc_);
+//            }
+//        }
 
     }
     protected static String tryParamFormat(NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {
@@ -268,10 +269,11 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             return null;
         }
         Identifiable idMethod_ = _param.getGeneFormatted();
-        if (ind_ != idMethod_.getParametersTypesLength() - 1) {
+        int lastIndex_ = idMethod_.getParametersTypesLength() - 1;
+        if (ind_ != lastIndex_) {
             return null;
         }
-        return StringExpUtil.getPrettyArrayType(idMethod_.getParametersTypes().last());
+        return StringExpUtil.getPrettyArrayType(idMethod_.getParametersType(lastIndex_));
     }
     public static void tryInfer(OperationNode _current, AnalyzedPageEl _page) {
         AnaClassArgumentMatching arg_ = _current.getResultClass();
@@ -554,14 +556,15 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     protected static String tryGetParam(Parametrable _param, int _indexChild) {
         String parametersType_;
         Identifiable idMethod_ = _param.getGeneFormatted();
+        int nbParams_ = idMethod_.getParametersTypesLength();
         if (!idMethod_.isVararg()) {
-            if (idMethod_.getParametersTypesLength() <= _indexChild) {
+            if (nbParams_ <= _indexChild) {
                 return null;
             }
             parametersType_ = idMethod_.getParametersType(_indexChild);
         } else {
-            if (idMethod_.getParametersTypesLength() <= _indexChild) {
-                parametersType_ = idMethod_.getParametersTypes().last();
+            if (nbParams_ <= _indexChild) {
+                parametersType_ = idMethod_.getParametersType(nbParams_ - 1);
             } else {
                 parametersType_ = idMethod_.getParametersType(_indexChild);
             }
@@ -733,7 +736,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             MethodId constraints_ = f_.getConstraints();
             String name_ = constraints_.getName();
             String className_ = f_.getClassName();
-            StringList parametersTypes_ = constraints_.getParametersTypes();
+            StringList parametersTypes_ = IdentifiableUtil.params(constraints_);
             parametersTypes_.add(0, _page.getAliasPrimBoolean());
             f_ = new ClassMethodId(className_,new MethodId(MethodAccessKind.STATIC,name_,parametersTypes_));
         }
@@ -777,7 +780,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                         a_.getResultClass().setUnwrapObject(_lasttype, _page.getPrimitiveTypes());
                     }
                 } else {
-                    String param_ = _id.getParametersTypes().get(i);
+                    String param_ = _id.getParametersType(i);
                     if (AnaTypeUtil.isPrimitive(param_, _page)) {
                         a_.getResultClass().setUnwrapObject(param_, _page.getPrimitiveTypes());
                     }
@@ -787,7 +790,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             int lenCh_ = _args.size();
             for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
                 OperationNode a_ = _args.get(i);
-                String param_ = _id.getParametersTypes().get(i);
+                String param_ = _id.getParametersType(i);
                 if (i + 1 == lenCh_ && _id.isVararg()) {
                     param_ = StringExpUtil.getPrettyArrayType(param_);
                 }

@@ -275,14 +275,13 @@ public final class ExecTemplates {
 
     private static Struct okArgsEx(Identifiable _id, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
         StringList params_ = new StringList();
-        int i_ = 0;
-        for (String c: _id.getParametersTypes()) {
-            String c_ = c;
-            if (i_ + 1 == _id.getParametersTypes().size() && _id.isVararg()) {
+        int len_ = _id.getParametersTypesLength();
+        for (int i = 0; i < len_; i++){
+            String c_ = _id.getParametersType(i);
+            if (i + 1 == len_ && _id.isVararg()) {
                 c_ = StringExpUtil.getPrettyArrayType(c_);
             }
             params_.add(c_);
-            i_++;
         }
         if (_firstArgs.size() != params_.size()) {
             LgNames stds_ = _conf.getStandards();
@@ -290,7 +289,7 @@ public final class ExecTemplates {
             StringBuilder mess_ = countDiff(_firstArgs.size(), params_.size());
             return new ErrorStruct(_conf,mess_.toString(),cast_, _stackCall);
         }
-        i_ = IndexConstants.FIRST_INDEX;
+        int i_ = IndexConstants.FIRST_INDEX;
         for (Argument a: _firstArgs) {
             String param_ = params_.get(i_);
             Struct ex_ = checkObjectEx(param_, a.getStruct().getClassName(_conf), _conf, _stackCall);

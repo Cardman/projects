@@ -1391,11 +1391,11 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringUtil.quickEq(className_,TYPE_BEAN_ONE)) {
             BeanOne i_ = (BeanOne)instance_;
             if (StringUtil.quickEq(methodName_,GO_TO_PAGE)) {
-                if (_method.getConstraints().getParametersTypes().size() == 0) {
+                if (_method.getConstraints().getParametersTypesLength() == 0) {
                     res_.setResult(new StringStruct(i_.goToPage()));
                     return res_;
                 }
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     res_.setResult(new StringStruct(i_.goToPage(NumParsers.convertToNumber(_args[0]).longStruct())));
                     return res_;
                 }
@@ -1471,11 +1471,11 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
             BeanTwo i_ = (BeanTwo)instance_;
             if (StringUtil.quickEq(methodName_,GO)) {
-                if (_method.getConstraints().getParametersTypes().size() == 0) {
+                if (_method.getConstraints().getParametersTypesLength() == 0) {
                     res_.setResult(new StringStruct(i_.go()));
                     return res_;
                 }
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     res_.setResult(new StringStruct(i_.go(NumParsers.convertToNumber(_args[0]).longStruct())));
                     return res_;
                 }
@@ -1831,24 +1831,24 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             return res_;
         }
         if (StringUtil.quickEq(className_,TYPE_COMPOSITE)) {
-            if (_method.getParametersTypes().isEmpty()) {
+            if (_method.getParametersTypesLength() == 0) {
                 res_.setResult(new StdStruct(new Composite(),TYPE_COMPOSITE));
                 return res_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 res_.setResult(new StdStruct(new Composite((String)(Object)_args[0]),TYPE_COMPOSITE));
                 return res_;
             }
         }
         if (StringUtil.quickEq(className_,TYPE_RATE_EQ)) {
-            if (StringUtil.quickEq(_method.getParametersTypes().first(), getAliasString())) {
+            if (StringUtil.quickEq(_method.getParametersType(0), getAliasString())) {
                 if (!RateEq.matchesRate((String)(Object)_args[0])) {
                     return res_;
                 }
                 res_.setResult(new StdStruct(new RateEq((String)(Object)_args[0]),TYPE_RATE_EQ));
                 return res_;
             }
-            if (StringUtil.quickEq(_method.getParametersTypes().first(), TYPE_RATE_EQ)) {
+            if (StringUtil.quickEq(_method.getParametersType(0), TYPE_RATE_EQ)) {
                 res_.setResult(new StdStruct(new RateEq((RateEq)(Object)_args[0]),TYPE_RATE_EQ));
                 return res_;
             }

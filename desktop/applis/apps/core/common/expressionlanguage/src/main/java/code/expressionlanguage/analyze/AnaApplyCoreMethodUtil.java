@@ -9,7 +9,6 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.maths.litteralcom.MathExpUtil;
 import code.util.Replacement;
-import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -96,8 +95,7 @@ public final class AnaApplyCoreMethodUtil {
             return range(args_);
         }
         if (StringUtil.quickEq(type_, stringType_)) {
-            StringList list_ = _method.getParametersTypes();
-            if (list_.size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 return new StringStruct("");
             }
             return null;
@@ -199,49 +197,48 @@ public final class AnaApplyCoreMethodUtil {
     private static Struct invokeAnalyzisMathStdMethod(ClassMethodId _method, AnalyzedPageEl _page, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         String name_ = _method.getConstraints().getName();
-        StringList paramList_ = _method.getConstraints().getParametersTypes();
         AliasMathType am_ = _page.getMathRef();
         String aliasPrimLong_ = _page.getAliasPrimLong();
         String aliasPrimFloat_ = _page.getAliasPrimFloat();
         String aliasPrimDouble_ = _page.getAliasPrimDouble();
         if (StringUtil.quickEq(name_, am_.getAliasAbs())) {
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimDouble_)) {
                 return(new DoubleStruct(Math.abs(NumParsers.convertToNumber(args_[0]).doubleStruct())));
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimFloat_)) {
                 return(new FloatStruct(Math.abs(NumParsers.convertToNumber(args_[0]).floatStruct())));
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimLong_)) {
                 return(new LongStruct(Math.abs(NumParsers.convertToNumber(args_[0]).longStruct())));
             }
             return(new IntStruct(Math.abs(NumParsers.convertToNumber(args_[0]).intStruct())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasMax())) {
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimDouble_)) {
                 return(new DoubleStruct(Math.max(NumParsers.convertToNumber(args_[0]).doubleStruct(),NumParsers.convertToNumber(args_[1]).doubleStruct())));
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimFloat_)) {
                 return(new FloatStruct(Math.max(NumParsers.convertToNumber(args_[0]).floatStruct(),NumParsers.convertToNumber(args_[1]).floatStruct())));
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimLong_)) {
                 return(new LongStruct(Math.max(NumParsers.convertToNumber(args_[0]).longStruct(),(NumParsers.convertToNumber(args_[1]).longStruct()))));
             }
             return(new IntStruct(Math.max(NumParsers.convertToNumber(args_[0]).intStruct(),NumParsers.convertToNumber(args_[1]).intStruct())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasMin())) {
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimDouble_)) {
                 return(new DoubleStruct(Math.min(NumParsers.convertToNumber(args_[0]).doubleStruct(),NumParsers.convertToNumber(args_[1]).doubleStruct())));
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimFloat_)) {
                 return(new FloatStruct(Math.min(NumParsers.convertToNumber(args_[0]).floatStruct(),NumParsers.convertToNumber(args_[1]).floatStruct())));
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimLong_)) {
                 return(new LongStruct(Math.min(NumParsers.convertToNumber(args_[0]).longStruct(),NumParsers.convertToNumber(args_[1]).longStruct())));
             }
             return(new IntStruct(Math.min(NumParsers.convertToNumber(args_[0]).intStruct(),NumParsers.convertToNumber(args_[1]).intStruct())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasMod())) {
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimLong_)) {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
@@ -257,7 +254,7 @@ public final class AnaApplyCoreMethodUtil {
             return(new IntStruct(NumberUtil.mod(num_, den_)));
         }
         if (StringUtil.quickEq(name_, am_.getAliasQuot())) {
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimLong_)) {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
@@ -273,28 +270,28 @@ public final class AnaApplyCoreMethodUtil {
             return(new IntStruct(NumberUtil.quot(num_, den_)));
         }
         if (StringUtil.quickEq(name_, am_.getAliasPlus())) {
-            if (paramList_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 return(args_[0]);
             }
             return(NumParsers.calculateSum(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+                    AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasMinus())) {
-            if (paramList_.size() != 1) {
+            if (_method.getConstraints().getParametersTypesLength() != 1) {
                 return (NumParsers.calculateDiff(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                        AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+                        AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
             }
             NumberStruct b_ = NumParsers.convertToNumber(_args[0].getStruct());
-            byte cast_ = AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes());
+            byte cast_ = AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes());
             return NumParsers.opposite(b_,cast_);
         }
         if (StringUtil.quickEq(name_, am_.getAliasMult())) {
             return(NumParsers.calculateMult(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+                    AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasBinMod())) {
             Struct arg_ = NumParsers.calculateMod(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes()));
+                    AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
                 return null;
             }
@@ -302,27 +299,27 @@ public final class AnaApplyCoreMethodUtil {
         }
         if (StringUtil.quickEq(name_, am_.getAliasBinQuot())) {
             Struct arg_ = NumParsers.calculateDiv(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes()));
+                    AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
                 return null;
             }
             return(arg_);
         }
         if (StringUtil.quickEq(name_, am_.getAliasNegBin())) {
-            byte cast_ = AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes());
+            byte cast_ = AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes());
             return NumParsers.negBinNumber(NumParsers.convertToNumber(_args[0].getStruct()),cast_);
         }
         if (StringUtil.quickEq(name_, am_.getAliasNeg())) {
             return(NumParsers.convertToBoolean(_args[0].getStruct()).neg());
         }
         if (StringUtil.quickEq(name_, am_.getAliasAnd())) {
-            return(NumParsers.calculateAnd(args_[0], args_[1], AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateAnd(args_[0], args_[1], AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasOr())) {
-            return(NumParsers.calculateOr(args_[0], args_[1], AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateOr(args_[0], args_[1], AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasXor())) {
-            return(NumParsers.calculateXor(args_[0], args_[1], AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateXor(args_[0], args_[1], AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasLt())) {
             return(NumParsers.quickCalculateLowerNb(args_[0], args_[1]));
@@ -343,29 +340,28 @@ public final class AnaApplyCoreMethodUtil {
             return(NumParsers.quickCalculateGreaterNb(args_[0], args_[1]));
         }
         if (StringUtil.quickEq(name_, am_.getAliasShiftLeft())) {
-            return(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasShiftRight())) {
-            return(NumParsers.calculateShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasBitShiftLeft())) {
-            return(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasBitShiftRight())) {
-            return(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasRotateLeft())) {
-            return(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         if (StringUtil.quickEq(name_, am_.getAliasRotateRight())) {
-            return(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(paramList_.first(), _page.getPrimTypes())));
+            return(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         return null;
     }
 
     private static Struct instantiateNumber(ConstructorId _method, AnalyzedPageEl _page, Struct... _args) {
         String type_ = _method.getName();
-        StringList list_ = _method.getParametersTypes();
         String booleanType_ = _page.getNbAlias().getAliasBoolean();
         String charType_ = _page.getNbAlias().getAliasCharacter();
         String stringType_ = _page.getCharSeq().getAliasString();
@@ -375,7 +371,7 @@ public final class AnaApplyCoreMethodUtil {
         String longType_ = _page.getNbAlias().getAliasLong();
         String floatType_ = _page.getNbAlias().getAliasFloat();
         if (StringUtil.quickEq(type_, booleanType_)) {
-            if (StringUtil.quickEq(list_.first(), stringType_)) {
+            if (StringUtil.quickEq(_method.getParametersType(0), stringType_)) {
                 String one_ = NumParsers.getCharSeq(_args[0]).toStringInstance();
                 if (StringUtil.quickEq(one_, _page.getDisplayedStrings().getTrueString())) {
                     return(BooleanStruct.of(true));
@@ -388,36 +384,36 @@ public final class AnaApplyCoreMethodUtil {
             return _args[0];
         }
         if (StringUtil.quickEq(type_, byteType_)) {
-            if (StringUtil.quickEq(list_.first(), stringType_)) {
-                return parseByte(list_,_args,true);
+            if (StringUtil.quickEq(_method.getParametersType(0), stringType_)) {
+                return parseByte(_method.getParametersTypesLength(),_args,true);
             }
             return _args[0];
         }
         if (StringUtil.quickEq(type_, shortType_)) {
-            if (StringUtil.quickEq(list_.first(), stringType_)) {
-                return parseShort(list_,_args,true);
+            if (StringUtil.quickEq(_method.getParametersType(0), stringType_)) {
+                return parseShort(_method.getParametersTypesLength(),_args,true);
             }
             return _args[0];
         }
         if (StringUtil.quickEq(type_, intType_)) {
-            if (StringUtil.quickEq(list_.first(), stringType_)) {
-                return parseInt(list_,_args,true);
+            if (StringUtil.quickEq(_method.getParametersType(0), stringType_)) {
+                return parseInt(_method.getParametersTypesLength(),_args,true);
             }
             return _args[0];
         }
         if (StringUtil.quickEq(type_, longType_)) {
-            if (StringUtil.quickEq(list_.first(), stringType_)) {
-                return parseLong(list_,_args,true);
+            if (StringUtil.quickEq(_method.getParametersType(0), stringType_)) {
+                return parseLong(_method.getParametersTypesLength(),_args,true);
             }
             return _args[0];
         }
         if (StringUtil.quickEq(type_, floatType_)) {
-            if (StringUtil.quickEq(list_.first(), stringType_)) {
+            if (StringUtil.quickEq(_method.getParametersType(0), stringType_)) {
                 return parseFloat(_args[0],true);
             }
             return _args[0];
         }
-        if (StringUtil.quickEq(list_.first(), stringType_)) {
+        if (StringUtil.quickEq(_method.getParametersType(0), stringType_)) {
             return parseDouble(_args[0],true);
         }
         return _args[0];
@@ -426,7 +422,6 @@ public final class AnaApplyCoreMethodUtil {
     private static Struct calculateNumber(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
-        StringList list_ = _method.getConstraints().getParametersTypes();
         String booleanType_ = _page.getNbAlias().getAliasBoolean();
         String charType_ = _page.getNbAlias().getAliasCharacter();
         String byteType_ = _page.getNbAlias().getAliasByte();
@@ -458,13 +453,13 @@ public final class AnaApplyCoreMethodUtil {
                 return(BooleanStruct.of(false));
             }
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
-                if (!list_.isEmpty()) {
+                if (_method.getConstraints().getParametersTypesLength() > 0) {
                     return ((NumParsers.convertToBoolean(_args[0])).getDisplayedString(_page));
                 }
                 BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
                 return (instance_.getDisplayedString(_page));
             }
-            if (StringUtil.quickEq(list_.first(), booleanPrimType_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), booleanPrimType_)) {
                 return (_args[0]);
             }
             StringStruct disp_ = NumParsers.getString(_args[0]);
@@ -583,7 +578,7 @@ public final class AnaApplyCoreMethodUtil {
                     return (new StringStruct(Long.toString(one_)));
                 }
                 boolean exc_ = StringUtil.quickEq(name_, _page.getNbAlias().getAliasParseByte());
-                return parseByte(list_, _args, exc_);
+                return parseByte(_method.getConstraints().getParametersTypesLength(), _args, exc_);
             }
             if (StringUtil.quickEq(type_, shortType_)) {
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
@@ -610,7 +605,7 @@ public final class AnaApplyCoreMethodUtil {
                     return (new StringStruct(Long.toString(one_)));
                 }
                 boolean exc_ = StringUtil.quickEq(name_, _page.getNbAlias().getAliasParseShort());
-                return parseShort(list_, _args, exc_);
+                return parseShort(_method.getConstraints().getParametersTypesLength(), _args, exc_);
             }
             if (StringUtil.quickEq(type_, intType_)) {
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
@@ -637,7 +632,7 @@ public final class AnaApplyCoreMethodUtil {
                     return (new StringStruct(Long.toString(one_)));
                 }
                 boolean exc_ = StringUtil.quickEq(name_, _page.getNbAlias().getAliasParseInt());
-                return parseInt(list_, _args, exc_);
+                return parseInt(_method.getConstraints().getParametersTypesLength(), _args, exc_);
             }
             if (StringUtil.quickEq(type_, longType_)) {
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
@@ -664,7 +659,7 @@ public final class AnaApplyCoreMethodUtil {
                     return new ByteStruct(NumberUtil.signum(nb_));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
-                    if (list_.size() == 2) {
+                    if (_method.getConstraints().getParametersTypesLength() == 2) {
                         long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();
                         int radix_ = (NumParsers.convertToNumber(_args[1])).intStruct();
                         return new StringStruct(StringExpUtil.toLongRadix(nb_,radix_));
@@ -673,7 +668,7 @@ public final class AnaApplyCoreMethodUtil {
                     return (new StringStruct(Long.toString(one_)));
                 }
                 boolean exc_ = StringUtil.quickEq(name_, _page.getNbAlias().getAliasParseLong());
-                return parseLong(list_, _args, exc_);
+                return parseLong(_method.getConstraints().getParametersTypesLength(), _args, exc_);
             }
             if (StringUtil.quickEq(type_, floatType_)) {
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
@@ -711,11 +706,11 @@ public final class AnaApplyCoreMethodUtil {
                 return(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
             }
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsNan())) {
-                double one_ = NumParsers.asDouble(_struct, list_, _args);
+                double one_ = NumParsers.asDouble(_struct, _method.getConstraints().getParametersTypesLength(), _args);
                 return (BooleanStruct.of(Double.isNaN(one_)));
             }
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsInfinite())) {
-                double one_ = NumParsers.asDouble(_struct, list_, _args);
+                double one_ = NumParsers.asDouble(_struct, _method.getConstraints().getParametersTypesLength(), _args);
                 return (BooleanStruct.of(Double.isInfinite(one_)));
             }
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
@@ -746,7 +741,7 @@ public final class AnaApplyCoreMethodUtil {
                 return(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
             }
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasEquals())) {
-                if (list_.size() > 1) {
+                if (_method.getConstraints().getParametersTypesLength() > 1) {
                     return(BooleanStruct.of(NumParsers.sameValue(_args[0],_args[1])));
                 }
                 return(BooleanStruct.of(NumParsers.sameValue(_struct,_args[0])));
@@ -775,7 +770,7 @@ public final class AnaApplyCoreMethodUtil {
                 NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 return(new DoubleStruct(instance_.doubleStruct()));
             }
-            if (list_.isEmpty()) {
+            if (_method.getConstraints().getParametersTypesLength() == 0) {
                 NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 return(instance_.getDisplayedString(_page));
             }
@@ -831,7 +826,7 @@ public final class AnaApplyCoreMethodUtil {
         }
     }
 
-    private static Struct parseLong(StringList _list, Struct[] _args, boolean _exception) {
+    private static Struct parseLong(int _list, Struct[] _args, boolean _exception) {
         if (!(_args[0] instanceof CharSequenceStruct)) {
             if (!_exception) {
                 return(NullStruct.NULL_VALUE);
@@ -852,7 +847,7 @@ public final class AnaApplyCoreMethodUtil {
         }
     }
 
-    private static Struct parseInt(StringList _list, Struct[] _args, boolean _exception) {
+    private static Struct parseInt(int _list, Struct[] _args, boolean _exception) {
         if (!(_args[0] instanceof CharSequenceStruct)) {
             if (!_exception) {
                 return(NullStruct.NULL_VALUE);
@@ -873,7 +868,7 @@ public final class AnaApplyCoreMethodUtil {
         }
     }
 
-    private static Struct parseShort(StringList _list, Struct[] _args, boolean _exception) {
+    private static Struct parseShort(int _list, Struct[] _args, boolean _exception) {
         if (!(_args[0] instanceof CharSequenceStruct)) {
             if (!_exception) {
                 return(NullStruct.NULL_VALUE);
@@ -894,7 +889,7 @@ public final class AnaApplyCoreMethodUtil {
         }
     }
 
-    private static Struct parseByte(StringList _list, Struct[] _args, boolean _exception) {
+    private static Struct parseByte(int _list, Struct[] _args, boolean _exception) {
         if (!(_args[0] instanceof CharSequenceStruct)) {
             if (!_exception) {
                 return(NullStruct.NULL_VALUE);
@@ -931,7 +926,6 @@ public final class AnaApplyCoreMethodUtil {
             return calculateLocString(str_, _method, _page, _args);
         }
         String name_ = _method.getConstraints().getName();
-        StringList list_ = _method.getConstraints().getParametersTypes();
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasStringCompare())) {
             Struct arg_ = _args[0];
             if (!(arg_ instanceof StringStruct)) {
@@ -940,23 +934,24 @@ public final class AnaApplyCoreMethodUtil {
             StringStruct first_ = (StringStruct) arg_;
             return compareToString(first_,_args[1]);
         }
-        Struct arg_ = NumParsers.getArg(list_, _args);
-        if (NumParsers.isDisplay(list_, arg_)) {
+        int nbParams_ = _method.getConstraints().getParametersTypesLength();
+        Struct arg_ = NumParsers.getArg(nbParams_, _args);
+        if (NumParsers.isDisplay(nbParams_, arg_)) {
             return getAnaDisplayable(arg_).getDisplayedString(_page);
         }
         if (!(arg_ instanceof ArrayStruct)) {
             return null;
         }
-        return tryGetCharArray(list_, (ArrayStruct) arg_, _args);
+        return tryGetCharArray(nbParams_, (ArrayStruct) arg_, _args);
     }
 
-    private static Struct tryGetCharArray(StringList _list, ArrayStruct _arg, Struct[] _args) {
+    private static Struct tryGetCharArray(int _list, ArrayStruct _arg, Struct[] _args) {
         int len_ = _arg.getLength();
         char[] arr_ = new char[len_];
         for (int i = 0; i < len_; i++) {
             arr_[i] = NumParsers.convertToChar(_arg.get(i)).getChar();
         }
-        if (_list.size() == 1) {
+        if (_list == 1) {
             return new StringStruct(String.valueOf(arr_));
         }
         int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
@@ -969,14 +964,13 @@ public final class AnaApplyCoreMethodUtil {
 
     private static Struct calculateLocString(StringStruct _str, ClassMethodId _method, AnalyzedPageEl _page, Struct... _args) {
         String name_ = _method.getConstraints().getName();
-        StringList list_ = _method.getConstraints().getParametersTypes();
         String stringType_ = _page.getCharSeq().getAliasString();
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasRegionMatches())) {
             return regionMatches(_str, NumParsers.convertToBoolean(_args[0]), NumParsers.convertToNumber(_args[1]), _args[2],
                     NumParsers.convertToNumber(_args[3]), NumParsers.convertToNumber(_args[4]));
         }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasReplaceString())) {
-            if (StringUtil.quickEq(list_.first(), stringType_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), stringType_)) {
                 return replaceString(_str,_args[0], _args[1]);
             }
             return replace(_str, NumParsers.convertToChar(_args[0]), NumParsers.convertToChar(_args[1]));
@@ -1078,7 +1072,6 @@ public final class AnaApplyCoreMethodUtil {
 
     private static Struct calculateLocCharSeq(CharSequenceStruct _charSequence, ClassMethodId _method, AnalyzedPageEl _page, Struct... _args) {
         String name_ = _method.getConstraints().getName();
-        StringList list_ = _method.getConstraints().getParametersTypes();
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasLength())) {
             return new IntStruct(_charSequence.length());
         }
@@ -1095,7 +1088,7 @@ public final class AnaApplyCoreMethodUtil {
             return regionMatches(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]));
         }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasStartsWith())) {
-            if (list_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 return startsWith(_charSequence, _args[0]);
             }
             return startsWith(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]));
@@ -1104,7 +1097,7 @@ public final class AnaApplyCoreMethodUtil {
             return endsWith(_charSequence, _args[0]);
         }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasIndexOf())) {
-            if (list_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof NumberStruct)) {
                     return indexOfString(_charSequence, _args[0]);
                 }
@@ -1119,7 +1112,7 @@ public final class AnaApplyCoreMethodUtil {
             return contains(_charSequence, _args[0]);
         }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasLastIndexOf())) {
-            if (list_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof NumberStruct)) {
                     return lastIndexOfString(_charSequence, _args[0]);
                 }
@@ -1131,7 +1124,7 @@ public final class AnaApplyCoreMethodUtil {
             return lastIndexOf(_charSequence, _args[0], _args[1]);
         }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasSubstring()) || StringUtil.quickEq(name_, _page.getCharSeq().getAliasSubSequence())) {
-            if (list_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 return substring(_charSequence, NumParsers.convertToNumber(_args[0]));
             }
             return substring(_charSequence, NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]));

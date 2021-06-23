@@ -1116,9 +1116,9 @@ public final class NumParsers {
         return NumberUtil.compareLg(_nb1.longStruct(),_nb2.longStruct());
     }
 
-    public static double asDouble(Struct _struct, StringList _list, Struct[] _args) {
+    public static double asDouble(Struct _struct, int _list, Struct[] _args) {
         double one_;
-        if (_list.isEmpty()) {
+        if (_list == 0) {
             NumberStruct instance_ = convertToNumber(_struct);
             one_ = instance_.doubleStruct();
         } else {
@@ -1127,9 +1127,9 @@ public final class NumParsers {
         return one_;
     }
 
-    public static int getRadix(StringList _list, Struct[] _args) {
+    public static int getRadix(int _list, Struct[] _args) {
         int radix_ = DEFAULT_RADIX;
-        if (_list.size() != 1) {
+        if (_list != 1) {
             radix_ = convertToNumber(_args[1]).intStruct();
         }
         return radix_;
@@ -1218,13 +1218,13 @@ public final class NumParsers {
         return true;
     }
 
-    public static boolean isDisplay(StringList _list, Struct _arg) {
-        return _list.size() == 1 && _arg instanceof DisplayableStruct;
+    public static boolean isDisplay(int _list, Struct _arg) {
+        return _list == 1 && _arg instanceof DisplayableStruct;
     }
 
-    public static Struct getArg(StringList _list, Struct[] _args) {
+    public static Struct getArg(int _list, Struct[] _args) {
         Struct arg_;
-        if (_list.size() == 1) {
+        if (_list == 1) {
             arg_ = _args[0];
         } else {
             arg_ = _args[2];

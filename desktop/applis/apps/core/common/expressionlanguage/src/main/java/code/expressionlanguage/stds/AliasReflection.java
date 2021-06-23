@@ -834,15 +834,11 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetParameterTypes)) {
-            boolean vararg_ = method_.isVararg();
-            StringList geneInterfaces_ =  method_.getFid().getParametersTypes();
-            result_.setResult(getParamsFct(vararg_, _cont, method_, geneInterfaces_));
+            result_.setResult(getFidParamsFct(_cont, method_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetParameterNames)) {
-            boolean vararg_ = method_.isVararg();
-            StringList geneInterfaces_ = method_.getParameterNames();
-            result_.setResult(getParamsFct(vararg_, _cont, method_, geneInterfaces_));
+            result_.setResult(getRealIdParamsFct(_cont, method_));
             return result_;
         }
         return invokeMethodInfoDef(_cont, _method, _args, _stackCall, method_);
@@ -1102,8 +1098,12 @@ public final class AliasReflection {
         return buildArrClass(_cont,ClassMetaInfo.getTypes(_cont, _typesNames));
     }
 
-    private static ArrayStruct getParamsFct(boolean _vararg, ContextEl _cont, AnnotatedStruct _declaring, StringList _geneInterfaces) {
-        return buildArrClass(_cont,ClassMetaInfo.getParamsFct(_vararg, _cont, _declaring, _geneInterfaces));
+    private static ArrayStruct getFidParamsFct(ContextEl _cont, AnnotatedParamStruct _declaring) {
+        return buildArrClass(_cont,ClassMetaInfo.getFidParamsFct(_cont, _declaring));
+    }
+
+    private static ArrayStruct getRealIdParamsFct(ContextEl _cont, AnnotatedParamStruct _declaring) {
+        return buildArrClass(_cont,ClassMetaInfo.getRealIdParamsFct(_cont, _declaring));
     }
 
     public static ResultErrorStd invokeClassInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Struct[] _args, StackCall _stackCall) {
@@ -1859,15 +1859,11 @@ public final class AliasReflection {
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetParameterTypes)) {
-            boolean vararg_ = ctor_.isVararg();
-            StringList geneInterfaces_ =  ctor_.getFid().getParametersTypes();
-            result_.setResult(getParamsFct(vararg_, _cont, ctor_, geneInterfaces_));
+            result_.setResult(getFidParamsFct(_cont, ctor_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetParameterNames)) {
-            boolean vararg_ = ctor_.isVararg();
-            StringList geneInterfaces_ =  ctor_.getParametersTypes();
-            result_.setResult(getParamsFct(vararg_, _cont, ctor_, geneInterfaces_));
+            result_.setResult(getRealIdParamsFct(_cont, ctor_));
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetReturnType)) {

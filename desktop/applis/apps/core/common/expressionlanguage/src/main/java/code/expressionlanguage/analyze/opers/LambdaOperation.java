@@ -247,7 +247,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         }
                         StringMap<StringList> mapCtr_ = _page.getCurrentConstraints().getCurrentConstraints();
                         CustList<ConstrustorIdVarArg> ctors_ = new CustList<ConstrustorIdVarArg>();
-                        CustList<ConstructorInfo> sgns_ = tryGetSignatures(id_, h_, _page, prev_, stCall_.getStCall());
+                        CustList<ConstructorInfo> sgns_ = tryGetSignatures(h_, _page, prev_, stCall_.getStCall());
 
                         for (String s: candidates_) {
                             StringList allTypes_ = StringExpUtil.getAllTypes(s);
@@ -658,7 +658,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     return;
                 }
                 boolean varargFct_ = argsRes_.isVararg();
-                StringList params_ = argsRes_.getParametersTypes();
                 AnaGeneType geneType_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(type_));
                 if (geneType_ == null) {
                     int rc_ = _page.getLocalizer().getCurrentLocationIndex() + offset_;
@@ -674,12 +673,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     return;
                 }
                 String gene_ = geneType_.getGenericString();
+                StringList params_ = IdentifiableUtil.params(argsRes_);
                 if (params_.size() < 2) {
                     params_.add(0, gene_);
                 }
                 feed_ = new ClassMethodId(type_, new MethodId(MethodAccessKind.STATIC, name_, params_, varargFct_));
-                for (String s: argsRes_.getParametersTypes()) {
-                    String format_ = AnaInherits.wildCardFormatParam(type_, s, _page);
+                int nbParams_ = argsRes_.getParametersTypesLength();
+                for (int i = 0; i < nbParams_; i++) {
+                    String format_ = AnaInherits.wildCardFormatParam(type_, argsRes_.getParametersType(i), _page);
                     if (format_.isEmpty()) {
                         String fct_ = buildCast(_page, name_, type_, new MethodId(MethodAccessKind.STATIC, name_, new StringList(_page.getAliasObject())));
                         setResultClass(new AnaClassArgumentMatching(fct_));
@@ -692,32 +693,33 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (argsRes_ == null) {
                     return;
                 }
-                for (String s: argsRes_.getParametersTypes()) {
-                    methodTypes_.add(new AnaClassArgumentMatching(s));
+                int nbParams_ = argsRes_.getParametersTypesLength();
+                for (int i = 0; i < nbParams_; i++) {
+                    methodTypes_.add(new AnaClassArgumentMatching(argsRes_.getParametersType(i)));
                 }
             }
-            if (argsRes_.getParametersTypes().size() > 2) {
+            if (argsRes_.getParametersTypesLength() > 2) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFileName(_page.getLocalizer().getCurrentFileName());
                 static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //key word len
                 static_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
                         Long.toString(2),
-                        Long.toString(argsRes_.getParametersTypes().size())
+                        Long.toString(argsRes_.getParametersTypesLength())
                 );
                 _page.getLocalizer().addError(static_);
                 addErr(static_.getBuiltError());
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
-            if (argsRes_.getParametersTypes().size() > 1 && feed_ == null) {
+            if (argsRes_.getParametersTypesLength() > 1 && feed_ == null) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFileName(_page.getLocalizer().getCurrentFileName());
                 static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //key word len
                 static_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
                         Long.toString(1),
-                        Long.toString(argsRes_.getParametersTypes().size())
+                        Long.toString(argsRes_.getParametersTypesLength())
                 );
                 _page.getLocalizer().addError(static_);
                 addErr(static_.getBuiltError());
@@ -740,10 +742,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             if (id_ == null) {
                 MethodId idCast_;
-                if (argsRes_.getParametersTypes().isEmpty()) {
+                if (argsRes_.getParametersTypesLength() == 0) {
                     idCast_ = new MethodId(MethodAccessKind.STATIC, name_,new StringList(_page.getAliasObject()));
                 } else {
-                    idCast_ = new MethodId(MethodAccessKind.STATIC, name_,new StringList(argsRes_.getParametersTypes()));
+                    idCast_ = new MethodId(MethodAccessKind.STATIC, name_,IdentifiableUtil.params(argsRes_));
                 }
                 String fct_ = buildCast(_page, name_, type_, idCast_);
                 setResultClass(new AnaClassArgumentMatching(fct_));
@@ -820,9 +822,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (argsRes_.isVararg()) {
                     vararg_ = _len- i_;
                 }
-                for (String s: argsRes_.getParametersTypes()) {
-                    methodTypes_.add(s);
-                }
+                methodTypes_.addAllElts(IdentifiableUtil.params(argsRes_));
             }
             for (String s: str_) {
                 errOwner(s,argsRes_,_page);
@@ -925,9 +925,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (argsRes_.isVararg()) {
                     vararg_ = _len- 2;
                 }
-                for (String s: argsRes_.getParametersTypes()) {
-                    methodTypes_.add(s);
-                }
+                methodTypes_.addAllElts(IdentifiableUtil.params(argsRes_));
             }
             for (String s: str_) {
                 errOwner(s,argsRes_,_page);
@@ -1008,9 +1006,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (argsRes_.isVararg()) {
                 vararg_ = _len- i_;
             }
-            for (String s: argsRes_.getParametersTypes()) {
-                methodTypes_.add(s);
-            }
+            methodTypes_.addAllElts(IdentifiableUtil.params(argsRes_));
         }
         for (String s: str_) {
             errOwner(s,argsRes_,_page);
@@ -1284,26 +1280,26 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (errOwner(_type, _id, _page)) {
             return;
         }
-        int indexType_ = 0;
-        for (String s: _id.getParametersTypes()) {
-            String format_ = AnaInherits.wildCardFormatParam(_type, s, _page);
+        int nbParams_ = _id.getParametersTypesLength();
+        for (int i = 0; i < nbParams_; i++) {
+            String s_ = _id.getParametersType(i);
+            String format_ = AnaInherits.wildCardFormatParam(_type, s_, _page);
             if (format_.isEmpty()) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFileName(_page.getLocalizer().getCurrentFileName());
                 static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //key word id len
                 static_.buildError(_page.getAnalysisMessages().getBadParameTypeForId(),
-                        s);
+                        s_);
                 _page.getLocalizer().addError(static_);
                 addErr(static_.getBuiltError());
                 format_ = _page.getAliasObject();
             }
             String pref_ = "";
-            if (_id.getParametersRef(indexType_)) {
+            if (_id.getParametersRef(i)) {
                 pref_ = "~";
             }
             _formatted.add(pref_+format_);
-            indexType_++;
         }
     }
     private boolean errOwner(String _type, MethodId _id, AnalyzedPageEl _page) {
@@ -1480,9 +1476,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (argsRes_.isVararg()) {
                 vararg_ = _len- i_;
             }
-            for (String s: argsRes_.getParametersTypes()) {
-                methodTypes_.add(s);
-            }
+            methodTypes_.addAllElts(IdentifiableUtil.params(argsRes_));
         }
         if (!isIntermediateDottedOperation()) {
             String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
@@ -1501,7 +1495,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             checkWildCards(clFrom_, _page);
             ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructorLambda(vararg_, clFrom_,
-                    id_, h_,
+                    h_,
                     feed_, _page, methodTypes_);
             if (ctorRes_ == null) {
                 buildLambdaCtorErr(_page,clFrom_,methodTypes_);
@@ -1635,7 +1629,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         checkWildCards(_cl, _page);
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructorLambda(_vararg, _cl,
-                id_, h_,
+                h_,
                 _feed, _page, _methodTypes);
         if (ctorRes_ == null) {
             buildLambdaCtorErr(_page,_cl,_methodTypes);
@@ -2205,9 +2199,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     vararg_ = _len- i_;
                 }
             }
-            for (String s: argsRes_.getParametersTypes()) {
-                methodTypes_.add(s);
-            }
+            methodTypes_.addAllElts(IdentifiableUtil.params(argsRes_));
             errOwner(from_, argsRes_, _page);
         }
         if (!isIntermediateDottedOperation()) {

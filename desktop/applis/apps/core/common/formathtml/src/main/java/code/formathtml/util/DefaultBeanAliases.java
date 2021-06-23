@@ -612,7 +612,6 @@ public final class DefaultBeanAliases {
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, StackCall _stackCall, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        StringList list_ = _method.getConstraints().getParametersTypes();
         String type_ = _method.getClassName();
         if (StringUtil.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
             return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args, _stackCall);
@@ -620,7 +619,7 @@ public final class DefaultBeanAliases {
         String name_ = _method.getConstraints().getName();
         MessageStruct instance_ = getMessageStruct(_instance, aliasMessage);
         if (StringUtil.quickEq(name_, aliasNewMessage)) {
-            if (list_.isEmpty()) {
+            if (_method.getConstraints().getParametersTypesLength() == 0) {
                 res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(),aliasMessage));
             } else {
                 String value_ = NumParsers.getString(_args[0]).getInstance();

@@ -775,7 +775,7 @@ public abstract class OperationNode {
     }
 
     static ConstrustorIdVarArg getDeclaredCustConstructor(int _varargOnly, AnaClassArgumentMatching _class,
-                                                          String _id, AnaGeneType _type,
+                                                          AnaGeneType _type,
                                                           ConstructorId _uniqueId, String _param, NameParametersFilter _filter, AnalyzedPageEl _page) {
         String clCurName_ = _class.getName();
         int varargOnly_ = ctorVarArgOnly(_varargOnly, _uniqueId);
@@ -791,7 +791,7 @@ public abstract class OperationNode {
                 if (exclude(_uniqueId,varargOnly_, s)) {
                     continue;
                 }
-                ConstructorInfo mloc_ = initCtorInfo(_id, (StandardType) _type, clCurName_, s);
+                ConstructorInfo mloc_ = initCtorInfo((StandardType) _type, clCurName_, s);
                 ctors_.add(mloc_);
             }
         }
@@ -800,7 +800,7 @@ public abstract class OperationNode {
                 if (excludeCust((RootBlock) _type, _uniqueId,varargOnly_, b, _page)) {
                     continue;
                 }
-                ConstructorInfo mloc_ = initCtorInfo(_id, (AbsBk) _type, clCurName_, b);
+                ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, clCurName_, b);
                 ctors_.add(mloc_);
             }
         }
@@ -822,8 +822,8 @@ public abstract class OperationNode {
         return getConstrustorId(clCurName_,_type,_filter, _page, signatures_);
     }
 
-    protected static ConstructorInfo initCtorInfo(String _id, AbsBk _type, String _clCurName, ConstructorBlock _b) {
-        ConstructorId ctor_ = _b.getId().copy(_id);
+    protected static ConstructorInfo initCtorInfo(AbsBk _type, String _clCurName, ConstructorBlock _b) {
+        ConstructorId ctor_ = _b.getId().copy(StringExpUtil.getIdFromAllTypes(_clCurName));
         ConstructorInfo mloc_ = new ConstructorInfo();
         mloc_.setCustomCtor(_b);
         mloc_.setFileName(_type.getFile().getFileName());
@@ -834,8 +834,8 @@ public abstract class OperationNode {
         return mloc_;
     }
 
-    protected static ConstructorInfo initCtorInfo(String _id, StandardType _type, String _clCurName, StandardConstructor _s) {
-        ConstructorId ctor_ = _s.getId().copy(_id);
+    protected static ConstructorInfo initCtorInfo(StandardType _type, String _clCurName, StandardConstructor _s) {
+        ConstructorId ctor_ = _s.getId().copy(StringExpUtil.getIdFromAllTypes(_clCurName));
         ConstructorInfo mloc_ = new ConstructorInfo();
         mloc_.setStandardType(_type);
         mloc_.setParametersNames(_s.getParametersNames());
@@ -924,7 +924,7 @@ public abstract class OperationNode {
     }
 
     static ConstrustorIdVarArg getDeclaredCustConstructorLambda(int _varargOnly, String _class,
-                                                                String _id, AnaGeneType _type,
+                                                                AnaGeneType _type,
                                                                 ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args) {
         int varargOnly_ = ctorVarArgOnly(_varargOnly, _uniqueId);
         if (noCtor(_type)) {
@@ -938,7 +938,7 @@ public abstract class OperationNode {
                 if (exclude(_uniqueId,varargOnly_, s)) {
                     continue;
                 }
-                ConstructorInfo mloc_ = initCtorInfo(_id, (StandardType) _type, _class, s);
+                ConstructorInfo mloc_ = initCtorInfo((StandardType) _type, _class, s);
                 mloc_.format(_page);
                 if (!isPossibleMethodLambda(mloc_, _page, _args)) {
                     continue;
@@ -951,7 +951,7 @@ public abstract class OperationNode {
                 if (excludeCust((RootBlock) _type, _uniqueId,varargOnly_, b, _page)) {
                     continue;
                 }
-                ConstructorInfo mloc_ = initCtorInfo(_id, (AbsBk) _type, _class, b);
+                ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, _class, b);
                 mloc_.format(_page);
                 if (!isPossibleMethodLambda(mloc_, _page, _args)) {
                     continue;
@@ -982,11 +982,11 @@ public abstract class OperationNode {
         return sortCtors(signatures_, gr_);
     }
 
-    protected static CustList<ConstructorInfo> tryGetSignatures(String _id, AnaGeneType _type, AnalyzedPageEl _page, String _clCurName, String _stCall) {
+    protected static CustList<ConstructorInfo> tryGetSignatures(AnaGeneType _type, AnalyzedPageEl _page, String _clCurName, String _stCall) {
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         if (_type instanceof StandardType) {
             for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
-                ConstructorInfo mloc_ = initCtorInfo(_id, (StandardType) _type, _clCurName, s);
+                ConstructorInfo mloc_ = initCtorInfo((StandardType) _type, _clCurName, s);
                 mloc_.setStCall(_stCall);
                 mloc_.format(_page);
                 signatures_.add(mloc_);
@@ -997,7 +997,7 @@ public abstract class OperationNode {
                 if (excludeQuick((RootBlock) _type, b, _page)) {
                     continue;
                 }
-                ConstructorInfo mloc_ = initCtorInfo(_id, (AbsBk) _type, _clCurName, b);
+                ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, _clCurName, b);
                 mloc_.setStCall(_stCall);
                 mloc_.format(_page);
                 signatures_.add(mloc_);
@@ -3044,7 +3044,10 @@ public abstract class OperationNode {
         res_.setReturnType(_m.getReturnType());
         res_.setOriginalReturnType(_m.getOriginalReturnType());
         res_.setFileName(_m.getFileName());
-        setIds(_m, res_);
+        res_.setStandardMethod(_m.getStandardMethod());
+        res_.setPair(_m.getPair());
+        res_.setFormattedType(_m.buildFormatted());
+        res_.setMemberId(_m.getMemberId());
         res_.setAncestor(_m.getAncestor());
         res_.setAbstractMethod(_m.isAbstractMethod());
         return res_;
@@ -3061,16 +3064,9 @@ public abstract class OperationNode {
         return signatures_;
     }
 
-    private static void setIds(MethodInfo _m, ClassMethodIdReturn _res) {
-        _res.setStandardMethod(_m.getStandardMethod());
-        _res.setPair(_m.getPair());
-        _res.setFormattedType(_m.buildFormatted());
-        _res.setMemberId(_m.getMemberId());
-    }
-
     private static boolean isPossibleMethod(MethodInfo _id,
                                             AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page, StringMap<StringList> _vars, AbstractComparer _cmp) {
-        StringList params_ = _id.getFormatted().shiftFirst();
+        CustList<String> params_ = _id.getFormatted().shiftFirst();
         int nbDem_ = params_.size();
         boolean allNotBoxUnbox_ = true;
         for (int i = IndexConstants.FIRST_INDEX; i < nbDem_; i++) {
@@ -3102,7 +3098,7 @@ public abstract class OperationNode {
 
     private static boolean isPossibleMethodFct(MethodInfo _id,
                                             String _argsClass, AnalyzedPageEl _page, StringMap<StringList> _vars, AbstractComparer _cmp) {
-        StringList params_ = _id.getFormatted().shiftFirst();
+        CustList<String> params_ = _id.getFormatted().shiftFirst();
         int nbDem_ = params_.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nbDem_; i++) {
             String wc_ = wrap(i,params_.size(), false,params_.get(i));

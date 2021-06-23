@@ -58,24 +58,24 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
             }
             args.addAllElts(((ArrayStruct)struct_).listArgs());
             if (getMetaInfo().isExpCast()) {
-                if (args.size() + 1 != mid_.getParametersTypes().size()) {
+                if (args.size() + 1 != mid_.getParametersTypesLength()) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size() + 1, mid_.getParametersTypes().size()).toString(), null_, _stack)));
+                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size() + 1, mid_.getParametersTypesLength()).toString(), null_, _stack)));
                     return false;
                 }
             } else if (!StringUtil.quickEq(mid_.getName(),"[]=")) {
-                if (args.size() != mid_.getParametersTypes().size()) {
+                if (args.size() != mid_.getParametersTypesLength()) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypes().size()).toString(), null_, _stack)));
+                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypesLength()).toString(), null_, _stack)));
                     return false;
                 }
             } else {
-                if (args.size() != mid_.getParametersTypes().size() + 1) {
+                if (args.size() != mid_.getParametersTypesLength() + 1) {
                     String null_;
                     null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypes().size() + 1).toString(), null_, _stack)));
+                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypesLength() + 1).toString(), null_, _stack)));
                     return false;
                 }
                 rightArg = args.last();

@@ -543,8 +543,9 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
         setMemberId(_ctorRes.getMemberId());
         if (_ctorRes.isVarArgToCall()) {
-            setNaturalVararg(getConstId().getParametersTypes().size() - 1);
-            setLastType(getConstId().getParametersTypes().last());
+            int nbParams_ = getConstId().getParametersTypesLength();
+            setNaturalVararg(nbParams_ - 1);
+            setLastType(getConstId().getParametersType(nbParams_ - 1));
         }
         unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), _name.getAll(), _page);
     }

@@ -51,10 +51,10 @@ public abstract class EquallableElUtil {
         assertEq(_expected.getName(),_result.getName());
         Assert.assertSame(_expected.getKind(),_result.getKind());
         Assert.assertEquals(_expected.isVararg(),_result.isVararg());
-        int size_ = _expected.getParametersTypes().size();
-        Assert.assertEquals(size_, _result.getParametersTypes().size());
+        int size_ = _expected.getParametersTypesLength();
+        Assert.assertEquals(size_, _result.getParametersTypesLength());
         for (int i = 0; i < size_; i++) {
-            assertEq(_expected.getParametersTypes().get(i),_result.getParametersTypes().get(i));
+            assertEq(_expected.getParametersType(i),_result.getParametersType(i));
         }
     }
     

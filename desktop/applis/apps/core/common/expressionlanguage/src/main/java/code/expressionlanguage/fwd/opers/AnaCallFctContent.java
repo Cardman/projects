@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
-import code.util.StringList;
 
 public final class AnaCallFctContent {
 
@@ -33,9 +32,8 @@ public final class AnaCallFctContent {
         setClassMethodId(new ClassMethodId(foundClass_, realId_));
         function = _res.getPair();
         if (_res.isVarArgToCall()) {
-            StringList paramtTypes_ = realId_.getParametersTypes();
-            naturalVararg = paramtTypes_.size() - 1;
-            lastType = paramtTypes_.last();
+            naturalVararg = realId_.getParametersTypesLength() - 1;
+            lastType = realId_.getParametersType(naturalVararg);
         }
     }
 

@@ -1828,7 +1828,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (!ContextUtil.canAccess(getFullName(), a_, _page)) {
                 continue;
             }
-            if (c.getId().getParametersTypes().isEmpty()) {
+            if (c.getId().getParametersTypesLength() == 0) {
                 return true;
             }
         }

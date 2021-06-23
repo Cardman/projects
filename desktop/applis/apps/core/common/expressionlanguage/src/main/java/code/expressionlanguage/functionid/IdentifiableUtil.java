@@ -10,6 +10,28 @@ public final class IdentifiableUtil {
     private IdentifiableUtil() {
     }
 
+    public static StringList params(Identifiable _this) {
+        StringList params_ = new StringList();
+        int nbParams_ = _this.getParametersTypesLength();
+        for (int i = 0; i < nbParams_; i++) {
+            String p_ = _this.getParametersType(i);
+            params_.add(p_);
+        }
+        return params_;
+    }
+    public static StringList incomplete(Identifiable _this) {
+        StringList params_ = new StringList();
+        int nbParams_ = _this.getParametersTypesLength();
+        for (int i = 0; i < nbParams_; i++) {
+            String p_ = _this.getParametersType(i);
+            if (p_.contains("#")) {
+                params_.add("");
+            } else {
+                params_.add(p_);
+            }
+        }
+        return params_;
+    }
     public static void appendLeftPart(int _start,StringList _paramsReturn, MethodId _id) {
         int len_ = _id.getParametersTypesLength();
         for (int i = _start; i < len_; i++) {

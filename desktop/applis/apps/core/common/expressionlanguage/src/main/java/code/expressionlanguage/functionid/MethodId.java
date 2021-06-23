@@ -7,9 +7,7 @@ import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.stds.DisplayedStrings;
-import code.util.BooleanList;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -28,42 +26,42 @@ public final class MethodId implements Identifiable {
     private final String name;
 
     private final CustList<Boolean> refParams;
-    private final StringList classNames;
+    private final CustList<String> classNames;
 
     private final boolean vararg;
 
-    public MethodId(MethodAccessKind _staticMethod, String _name, StringList _classNames) {
+    public MethodId(MethodAccessKind _staticMethod, String _name, CustList<String> _classNames) {
         this(_staticMethod, _name, _classNames, false);
     }
 
-    public MethodId(MethodAccessKind _staticMethod, String _name, StringList _classNames, boolean _vararg) {
+    public MethodId(MethodAccessKind _staticMethod, String _name, CustList<String> _classNames, boolean _vararg) {
         retRef = false;
         kind = _staticMethod;
         vararg = _vararg;
         name = StringUtil.nullToEmpty(_name);
         refParams = new CustList<Boolean>();
-        classNames = new StringList();
+        classNames = new CustList<String>();
         feedParamTypes(_classNames);
     }
 
-    public MethodId(boolean _retRef, MethodAccessKind _staticMethod, String _name, StringList _classNames, CustList<Boolean> _refParam, boolean _vararg) {
+    public MethodId(boolean _retRef, MethodAccessKind _staticMethod, String _name, CustList<String> _classNames, CustList<Boolean> _refParam, boolean _vararg) {
         retRef = _retRef;
         kind = _staticMethod;
         vararg = _vararg;
         name = StringUtil.nullToEmpty(_name);
         refParams = new CustList<Boolean>();
-        classNames = new StringList();
+        classNames = new CustList<String>();
         feedParamTypes(_classNames,_refParam);
     }
 
-    private void feedParamTypes(StringList _classNames) {
+    private void feedParamTypes(CustList<String> _classNames) {
         for (String s: _classNames) {
             classNames.add(StringUtil.nullToEmpty(s));
             refParams.add(false);
         }
     }
 
-    private void feedParamTypes(StringList _classNames, CustList<Boolean> _refParams) {
+    private void feedParamTypes(CustList<String> _classNames, CustList<Boolean> _refParams) {
         int min_ = Math.min(_classNames.size(),_refParams.size());
         for (String s: _classNames.left(min_)) {
             classNames.add(StringUtil.nullToEmpty(s));
@@ -81,7 +79,7 @@ public final class MethodId implements Identifiable {
         return new ConstructorId(_access,_id.classNames,_id.refParams, _id.vararg);
     }
 
-    public static MethodId to(MethodAccessKind _access, StringList _params,MethodId _id) {
+    public static MethodId to(MethodAccessKind _access, CustList<String> _params,MethodId _id) {
         return new MethodId(_id.retRef, _access, _id.name, _params,_id.refParams, _id.vararg);
     }
 
@@ -89,7 +87,7 @@ public final class MethodId implements Identifiable {
         return new MethodId(_id.retRef, _access, _name, _id.classNames,_id.refParams, _id.vararg);
     }
     public MethodId prepend(String _name,String _type, boolean _ref) {
-        StringList types_ = new StringList(classNames);
+        CustList<String> types_ = new CustList<String>(classNames);
         CustList<Boolean> refs_ = new CustList<Boolean>(refParams);
         types_.add(0,_type);
         refs_.add(0,_ref);
@@ -151,7 +149,7 @@ public final class MethodId implements Identifiable {
         if (vararg) {
             suf_ = VARARG_DOTS;
         }
-        StringList cls_ = new StringList();
+        CustList<String> cls_ = new CustList<String>();
         int m_ = Math.min(classNames.size(),refParams.size());
         for (int i = 0; i < m_; i++) {
             String s_ = "";
@@ -194,7 +192,7 @@ public final class MethodId implements Identifiable {
     public MethodId reflectFormat(ExecFormattedRootBlock _genericClass) {
         String name_ = getName();
         int len_ = classNames.size();
-        StringList pTypes_ = new StringList();
+        CustList<String> pTypes_ = new CustList<String>();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = classNames.get(i);
             String formatted_ = ExecInherits.reflectFormat(_genericClass, n_);
@@ -203,18 +201,18 @@ public final class MethodId implements Identifiable {
         return new MethodId(retRef, kind, name_, pTypes_, refParams,isVararg());
     }
     public MethodId quickFormat(AnaFormattedRootBlock _root) {
-        StringList pTypes_ = getFormattedTypes(_root);
+        CustList<String> pTypes_ = getFormattedTypes(_root);
         return new MethodId(retRef, kind, name, pTypes_, refParams,isVararg());
     }
 
     public FormattedMethodId quickOverrideFormat(AnaFormattedRootBlock _root) {
-        StringList pTypes_ = getFormattedTypes(_root);
+        CustList<String> pTypes_ = getFormattedTypes(_root);
         return new FormattedMethodId(retRef, name, pTypes_,refParams, isVararg());
     }
 
-    private StringList getFormattedTypes(AnaFormattedRootBlock _root) {
+    private CustList<String> getFormattedTypes(AnaFormattedRootBlock _root) {
         int len_ = classNames.size();
-        StringList pTypes_ = new StringList();
+        CustList<String> pTypes_ = new CustList<String>();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = classNames.get(i);
             String formatted_ = AnaInherits.quickFormat(_root, n_);
@@ -246,12 +244,8 @@ public final class MethodId implements Identifiable {
         return kind;
     }
 
-    @Override
-    public StringList getParametersTypes() {
-        return new StringList(classNames);
-    }
-    public StringList shiftFirst() {
-        return new StringList(classNames.mid(1));
+    public CustList<String> shiftFirst() {
+        return classNames.mid(1);
     }
 
     @Override

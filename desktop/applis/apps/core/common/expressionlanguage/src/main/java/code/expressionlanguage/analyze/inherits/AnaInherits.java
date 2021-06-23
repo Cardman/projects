@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
@@ -75,10 +76,11 @@ public final class AnaInherits {
         return StringExpUtil.getWildCardFormattedTypeReturn(_second, varTypes_);
     }
 
-    public static StringList wildCardFormatParams(String _first, StringList _params, AnalyzedPageEl _page) {
+    public static StringList wildCardFormatParams(String _first, Identifiable _params, AnalyzedPageEl _page) {
         StringList params_ = new StringList();
-        for (String s: _params) {
-            params_.add(wildCardFormatParam(_first,s,_page));
+        int nbParams_ = _params.getParametersTypesLength();
+        for (int i = 0; i < nbParams_; i++) {
+            params_.add(wildCardFormatParam(_first,_params.getParametersType(i),_page));
         }
         return params_;
     }

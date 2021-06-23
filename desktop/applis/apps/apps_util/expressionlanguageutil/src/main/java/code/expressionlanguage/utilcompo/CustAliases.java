@@ -2042,7 +2042,7 @@ public final class CustAliases {
             return res_;
         }
         if (StringUtil.quickEq(name_,aliasReentrantLock)) {
-            if (_method.getParametersTypes().isEmpty()) {
+            if (_method.getParametersTypesLength() == 0) {
                 AbstractLock re_ = LockFactory.newLock(getInfos().getThreadFactory().newAtomicBoolean());
                 AbstractLockStruct std_ = new AbstractLockStruct(re_, aliasReentrantLock);
                 res_.setResult(std_);
@@ -2055,7 +2055,7 @@ public final class CustAliases {
             return res_;
         }
         if (StringUtil.quickEq(name_,aliasAtomicBoolean)) {
-            if (_method.getParametersTypes().isEmpty()) {
+            if (_method.getParametersTypesLength() == 0) {
                 AbstractAtomicBoolean at_ = getInfos().getThreadFactory().newAtomicBoolean();
                 AtomicBooleanStruct std_ = new AtomicBooleanStruct(at_, aliasAtomicBoolean);
                 res_.setResult(std_);
@@ -2067,7 +2067,7 @@ public final class CustAliases {
             return res_;
         }
         if (StringUtil.quickEq(name_,aliasAtomicInteger)) {
-            if (_method.getParametersTypes().isEmpty()) {
+            if (_method.getParametersTypesLength() == 0) {
                 AbstractAtomicInteger at_ = getInfos().getThreadFactory().newAtomicInteger();
                 AtomicIntegerStruct std_ = new AtomicIntegerStruct(at_, aliasAtomicInteger);
                 res_.setResult(std_);
@@ -2079,7 +2079,7 @@ public final class CustAliases {
             return res_;
         }
         if (StringUtil.quickEq(name_,aliasAtomicLong)) {
-            if (_method.getParametersTypes().isEmpty()) {
+            if (_method.getParametersTypesLength() == 0) {
                 AbstractAtomicLong at_ = getInfos().getThreadFactory().newAtomicLong();
                 AtomicLongStruct std_ = new AtomicLongStruct(at_, aliasAtomicLong);
                 res_.setResult(std_);
@@ -2920,8 +2920,8 @@ public final class CustAliases {
 
     private void log(RunnableContextEl _cont,
                      ClassMethodId _method, ExecutingBlocks _execBlocks, StackCall _stackCall, Struct... _args) {
-        if (_method.getConstraints().getParametersTypes().size() == 1) {
-            String type_ = _method.getConstraints().getParametersTypes().first();
+        if (_method.getConstraints().getParametersTypesLength() == 1) {
+            String type_ = _method.getConstraints().getParametersType(0);
             String aliasObject_ = _cont.getStandards().getContent().getCoreNames().getAliasObject();
             if (StringUtil.quickEq(type_, aliasObject_)) {
                 String className_ = aliasFormatType;
@@ -2932,7 +2932,7 @@ public final class CustAliases {
                 return;
             }
         }
-        if (_method.getConstraints().getParametersTypes().size() == 2) {
+        if (_method.getConstraints().getParametersTypesLength() == 2) {
             String className_ = aliasFormatType;
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);

@@ -4,9 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.stds.DisplayedStrings;
-import code.util.BooleanList;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -20,25 +18,25 @@ public final class ConstructorId implements Identifiable {
 
     private final String name;
 
-    private final StringList classNames;
+    private final CustList<String> classNames;
     private final CustList<Boolean> refParams;
     private final boolean vararg;
 
-    public ConstructorId(String _name, StringList _classNames, boolean _vararg) {
+    public ConstructorId(String _name, CustList<String> _classNames, boolean _vararg) {
         name = StringUtil.nullToEmpty(_name);
         vararg = _vararg;
         refParams = new CustList<Boolean>();
-        classNames = new StringList();
+        classNames = new CustList<String>();
         for (String s: _classNames) {
             classNames.add(StringUtil.nullToEmpty(s));
             refParams.add(false);
         }
     }
-    public ConstructorId(String _name, StringList _classNames, CustList<Boolean> _refParams, boolean _vararg) {
+    public ConstructorId(String _name, CustList<String> _classNames, CustList<Boolean> _refParams, boolean _vararg) {
         name = StringUtil.nullToEmpty(_name);
         vararg = _vararg;
         refParams = new CustList<Boolean>();
-        classNames = new StringList();
+        classNames = new CustList<String>();
         int min_ = Math.min(_classNames.size(),_refParams.size());
         for (String s: _classNames.left(min_)) {
             classNames.add(StringUtil.nullToEmpty(s));
@@ -52,16 +50,15 @@ public final class ConstructorId implements Identifiable {
         return new MethodId(false, MethodAccessKind.INSTANCE, _id.name, _id.classNames,_id.refParams, _id.vararg);
     }
 
-    public static ConstructorId to(String _access, StringList _params,ConstructorId _id) {
+    public static ConstructorId to(String _access, CustList<String> _params,ConstructorId _id) {
         return new ConstructorId(_access,_params,_id.refParams, _id.vararg);
     }
 
     public ConstructorId reflectFormat(ExecFormattedRootBlock _genericClass) {
-        StringList types_ = getParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
+        int len_ = getParametersTypesLength();
+        CustList<String> pTypes_ = new CustList<String>();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
+            String n_ = getParametersType(i);
             String formatted_ = ExecInherits.reflectFormat(_genericClass, n_);
             pTypes_.add(formatted_);
         }
@@ -85,7 +82,7 @@ public final class ConstructorId implements Identifiable {
         if (vararg) {
             suf_ = CST_VARARG;
         }
-        StringList cls_ = new StringList();
+        CustList<String> cls_ = new CustList<String>();
         int m_ = Math.min(classNames.size(),refParams.size());
         for (int i = 0; i < m_; i++) {
             String s_ = "";
@@ -99,11 +96,6 @@ public final class ConstructorId implements Identifiable {
 
     public boolean eq(ConstructorId _obj) {
         return IdentifiableUtil.eqPartial(this,_obj);
-    }
-
-    @Override
-    public StringList getParametersTypes() {
-        return new StringList(classNames);
     }
 
     @Override

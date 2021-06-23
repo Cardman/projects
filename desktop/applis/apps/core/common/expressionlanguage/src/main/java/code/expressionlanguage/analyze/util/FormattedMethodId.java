@@ -1,7 +1,5 @@
 package code.expressionlanguage.analyze.util;
-import code.util.BooleanList;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class FormattedMethodId {
@@ -10,20 +8,20 @@ public final class FormattedMethodId {
     private final boolean retRef;
     private final String name;
 
-    private final StringList classNames;
+    private final CustList<String> classNames;
     private final CustList<Boolean> refParams;
     private final boolean vararg;
 
-    public FormattedMethodId(boolean _retRef, String _name, StringList _classNames, CustList<Boolean> _refParam, boolean _vararg) {
+    public FormattedMethodId(boolean _retRef, String _name, CustList<String> _classNames, CustList<Boolean> _refParam, boolean _vararg) {
         retRef = _retRef;
         vararg = _vararg;
         name = StringUtil.nullToEmpty(_name);
         refParams = _refParam;
-        classNames = new StringList();
+        classNames = new CustList<String>();
         feedParamTypes(_classNames);
     }
 
-    private void feedParamTypes(StringList _classNames) {
+    private void feedParamTypes(CustList<String> _classNames) {
         for (String s: _classNames) {
             classNames.add(StringUtil.nullToEmpty(s));
         }

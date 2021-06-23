@@ -20,6 +20,7 @@ public final class ConstructorInfo implements Parametrable {
 
     private ConstructorId constraints;
     private ConstructorId formatted;
+    private StringList formattedParams;
     private final AnaTypeFct pair = new AnaTypeFct();
 
     private String className;
@@ -98,29 +99,25 @@ public final class ConstructorInfo implements Parametrable {
 
     public void format(AnalyzedPageEl _page) {
         if (!stCall.isEmpty()) {
-            StringList params_ = new StringList();
-            for (String p: constraints.getParametersTypes()) {
-                if (p.contains("#")) {
-                    params_.add("");
-                } else {
-                    params_.add(p);
-                }
-            }
+            StringList params_ = IdentifiableUtil.incomplete(constraints);
             formatted = ConstructorId.to(className, params_, constraints);
+            formattedParams = params_;
             return;
         }
-        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints.getParametersTypes(), _page);
+        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints, _page);
         formatted = ConstructorId.to(className, params_, constraints);
+        formattedParams = params_;
     }
 
     public void reformat(String _foundType,AnalyzedPageEl _page) {
         className = AnaInherits.getOverridingFullTypeByBases(_foundType,className,_page);
-        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints.getParametersTypes(), _page);
+        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints, _page);
         formatted = ConstructorId.to(className, params_, constraints);
+        formattedParams = params_;
     }
 
     public StringList getFormattedParams() {
-        return formatted.getParametersTypes();
+        return formattedParams;
     }
     @Override
     public Identifiable getGeneFormatted() {

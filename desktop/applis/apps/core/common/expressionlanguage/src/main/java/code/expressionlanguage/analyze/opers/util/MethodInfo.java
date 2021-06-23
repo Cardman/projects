@@ -182,7 +182,7 @@ public final class MethodInfo implements Parametrable {
 
     public void reformat(String _foundType,AnalyzedPageEl _page) {
         className = AnaInherits.getOverridingFullTypeByBases(_foundType,className,_page);
-        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints.getParametersTypes(), _page);
+        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints, _page);
         formattedParams = params_;
         formatted = buildFormatted(MethodId.getKind(false), params_, constraints);
         returnType = AnaInherits.wildCardFormatReturn(className,originalReturnType,_page);
@@ -190,31 +190,22 @@ public final class MethodInfo implements Parametrable {
 
     public void format(boolean _keepParams, AnalyzedPageEl _page) {
         if (!formattedFilter.getStCall().isEmpty()) {
-            StringList params_ = new StringList();
-            for (String p: constraints.getParametersTypes()) {
-                if (p.contains("#")) {
-                    params_.add("");
-                } else {
-                    params_.add(p);
-                }
-            }
+            StringList params_ = IdentifiableUtil.incomplete(constraints);
             formattedParams = params_;
             formatted = buildFormatted(MethodId.getKind(_keepParams), params_, constraints);
             return;
         }
-        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints.getParametersTypes(), _page);
+        StringList params_ = AnaInherits.wildCardFormatParams(className, constraints, _page);
         formattedParams = params_;
         formatted = buildFormatted(MethodId.getKind(_keepParams), params_, constraints);
     }
 
-    public void format(MethodId _id) {
-        StringList params_ = new StringList();
-        for (String p: _id.getParametersTypes()) {
-            params_.add(p);
-        }
-        formattedParams = params_;
-        formatted = buildFormatted(_id.getKind(), params_, _id);
+    public void format(boolean _retRef, String _name, StringList _classNames, CustList<Boolean> _refParam) {
+        formattedParams = _classNames;
+        formatted = buildFormatted(MethodAccessKind.INSTANCE, _classNames, new MethodId(_retRef, MethodAccessKind.INSTANCE,
+                _name,_classNames,_refParam,false));
     }
+
     private static MethodId buildFormatted(MethodAccessKind _keepParams, StringList _params, MethodId _id) {
         return MethodId.to(_keepParams, _params, _id);
     }

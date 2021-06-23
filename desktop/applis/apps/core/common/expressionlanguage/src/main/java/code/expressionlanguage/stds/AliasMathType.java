@@ -346,22 +346,22 @@ public final class AliasMathType {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = ExecHelper.getObjects(_args);
         String name_ = _method.getConstraints().getName();
-        StringList paramList_ = _method.getConstraints().getParametersTypes();
+//        StringList paramList_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
         AliasMathType am_ = lgNames_.getMathRef();
         String aliasPrimLong_ = lgNames_.getContent().getPrimTypes().getAliasPrimLong();
         String aliasPrimFloat_ = lgNames_.getContent().getPrimTypes().getAliasPrimFloat();
         String aliasPrimDouble_ = lgNames_.getContent().getPrimTypes().getAliasPrimDouble();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasAbs())) {
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimDouble_)) {
                 result_.setResult(new DoubleStruct(Math.abs(NumParsers.convertToNumber(args_[0]).doubleStruct())));
                 return result_;
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimFloat_)) {
                 result_.setResult(new FloatStruct(Math.abs(NumParsers.convertToNumber(args_[0]).floatStruct())));
                 return result_;
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimLong_)) {
                 result_.setResult(new LongStruct(Math.abs(NumParsers.convertToNumber(args_[0]).longStruct())));
                 return result_;
             }
@@ -369,15 +369,15 @@ public final class AliasMathType {
             return result_;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasMax())) {
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimDouble_)) {
                 result_.setResult(new DoubleStruct(Math.max(NumParsers.convertToNumber(args_[0]).doubleStruct(),NumParsers.convertToNumber(args_[1]).doubleStruct())));
                 return result_;
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimFloat_)) {
                 result_.setResult(new FloatStruct(Math.max(NumParsers.convertToNumber(args_[0]).floatStruct(),NumParsers.convertToNumber(args_[1]).floatStruct())));
                 return result_;
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimLong_)) {
                 result_.setResult(new LongStruct(Math.max(NumParsers.convertToNumber(args_[0]).longStruct(),NumParsers.convertToNumber(args_[1]).longStruct())));
                 return result_;
             }
@@ -385,15 +385,15 @@ public final class AliasMathType {
             return result_;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasMin())) {
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimDouble_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimDouble_)) {
                 result_.setResult(new DoubleStruct(Math.min(NumParsers.convertToNumber(args_[0]).doubleStruct(),NumParsers.convertToNumber(args_[1]).doubleStruct())));
                 return result_;
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimFloat_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimFloat_)) {
                 result_.setResult(new FloatStruct(Math.min(NumParsers.convertToNumber(args_[0]).floatStruct(),NumParsers.convertToNumber(args_[1]).floatStruct())));
                 return result_;
             }
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimLong_)) {
                 result_.setResult(new LongStruct(Math.min(NumParsers.convertToNumber(args_[0]).longStruct(),NumParsers.convertToNumber(args_[1]).longStruct())));
                 return result_;
             }
@@ -401,7 +401,7 @@ public final class AliasMathType {
             return result_;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasMod())) {
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimLong_)) {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
@@ -421,7 +421,7 @@ public final class AliasMathType {
             return result_;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getMathRef().getAliasQuot())) {
-            if (StringUtil.quickEq(paramList_.first(), aliasPrimLong_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), aliasPrimLong_)) {
                 long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
                 long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
@@ -441,33 +441,33 @@ public final class AliasMathType {
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasPlus)) {
-            if (paramList_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 result_.setResult(args_[0]);
                 return result_;
             }
             result_.setResult(NumParsers.calculateSum(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+                    ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasMinus)) {
-            if (paramList_.size() != 1) {
+            if (_method.getConstraints().getParametersTypesLength() != 1) {
                 result_.setResult(NumParsers.calculateDiff(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                        ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+                        ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
                 return result_;
             }
             NumberStruct b_ = NumParsers.convertToNumber(_args[0].getStruct());
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes());
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes());
             result_.setResult(NumParsers.opposite(b_,cast_));
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasMult)) {
             result_.setResult(NumParsers.calculateMult(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+                    ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasBinMod)) {
             Struct arg_ = NumParsers.calculateMod(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
+                    ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
                 _stackCall.setCallingState(new CustomFoundExc(getDivideZero(_cont, _stackCall)));
                 return result_;
@@ -477,7 +477,7 @@ public final class AliasMathType {
         }
         if (StringUtil.quickEq(name_, am_.aliasBinQuot)) {
             Struct arg_ = NumParsers.calculateDiv(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
-                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes()));
+                    ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes()));
             if (arg_ == NullStruct.NULL_VALUE) {
                 _stackCall.setCallingState(new CustomFoundExc(getDivideZero(_cont, _stackCall)));
                 return result_;
@@ -486,7 +486,7 @@ public final class AliasMathType {
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasNegBin)) {
-            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes());
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes());
             result_.setResult(NumParsers.negBinNumber(NumParsers.convertToNumber(_args[0].getStruct()),cast_));
             return result_;
         }
@@ -495,15 +495,15 @@ public final class AliasMathType {
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasAnd)) {
-            result_.setResult(NumParsers.calculateAnd(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+            result_.setResult(NumParsers.calculateAnd(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasOr)) {
-            result_.setResult(NumParsers.calculateOr(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+            result_.setResult(NumParsers.calculateOr(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasXor)) {
-            result_.setResult(NumParsers.calculateXor(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+            result_.setResult(NumParsers.calculateXor(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasLt)) {
@@ -531,27 +531,27 @@ public final class AliasMathType {
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasShiftLeft)) {
-            result_.setResult(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+            result_.setResult(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasShiftRight)) {
-            result_.setResult(NumParsers.calculateShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+            result_.setResult(NumParsers.calculateShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasBitShiftLeft)) {
-            result_.setResult(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+            result_.setResult(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasBitShiftRight)) {
-            result_.setResult(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+            result_.setResult(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasRotateLeft)) {
-            result_.setResult(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+            result_.setResult(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
             return result_;
         }
         if (StringUtil.quickEq(name_, am_.aliasRotateRight)) {
-            result_.setResult(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_.getPrimTypes())));
+            result_.setResult(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), lgNames_.getPrimTypes())));
             return result_;
         }
         if (_stackCall.getInitializingTypeInfos().isInitEnums()) {
@@ -559,7 +559,7 @@ public final class AliasMathType {
             return result_;
         }
         if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasSeed())) {
-            if (paramList_.isEmpty()) {
+            if (_method.getConstraints().getParametersTypesLength() == 0) {
                 Struct seed_ = _stackCall.getSeed();
                 result_.setResult(seed_);
                 return result_;
@@ -569,7 +569,7 @@ public final class AliasMathType {
             return result_;
         }
         if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasSeedSpecGenerator())) {
-            if (paramList_.isEmpty()) {
+            if (_method.getConstraints().getParametersTypesLength() == 0) {
                 Struct seed_ = _stackCall.getSeedSpecGenerator();
                 result_.setResult(seed_);
                 return result_;
@@ -579,7 +579,7 @@ public final class AliasMathType {
             return result_;
         }
         if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasSeedSpecDoubleGenerator())) {
-            if (paramList_.isEmpty()) {
+            if (_method.getConstraints().getParametersTypesLength() == 0) {
                 Struct seed_ = _stackCall.getSeedSpecDoubleGenerator();
                 result_.setResult(seed_);
                 return result_;
@@ -594,14 +594,14 @@ public final class AliasMathType {
         }
         if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasNativeRandom())) {
             AbstractGenerator generator_ = lgNames_.getGenerator();
-            if (paramList_.isEmpty()) {
+            if (_method.getConstraints().getParametersTypesLength() == 0) {
                 result_.setResult(new DoubleStruct(generator_.pick()));
                 return result_;
             }
             result_.setResult(new LongStruct(MonteCarloUtil.randomLong(NumParsers.convertToNumber(args_[0]).longStruct(),generator_)));
             return result_;
         }
-        if (paramList_.isEmpty()) {
+        if (_method.getConstraints().getParametersTypesLength() == 0) {
             return random(_cont, result_, _stackCall);
         }
         return randomParam(_cont, result_, args_, _stackCall);

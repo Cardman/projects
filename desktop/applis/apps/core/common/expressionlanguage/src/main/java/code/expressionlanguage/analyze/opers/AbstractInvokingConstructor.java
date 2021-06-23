@@ -87,7 +87,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             return;
         }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(varargOnly_, from,id_,type.getRootBlock(), feed_, varargParam_, name_, _page);
+        ctorRes_ = getDeclaredCustConstructor(varargOnly_, from, type.getRootBlock(), feed_, varargParam_, name_, _page);
         if (ctorRes_ == null) {
             buildCtorError(name_,_page,from.getName());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -104,8 +104,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         memberId = _res.getMemberId();
         constId = _res.getRealId();
         if (_res.isVarArgToCall()) {
-            invokingConstructorContent.setNaturalVararg(constId.getParametersTypes().size() - 1);
-            invokingConstructorContent.setLastType(constId.getParametersTypes().last());
+            int nbParams_ = constId.getParametersTypesLength();
+            invokingConstructorContent.setNaturalVararg(nbParams_ - 1);
+            invokingConstructorContent.setLastType(constId.getParametersType(nbParams_ - 1));
         }
         unwrapArgsFct(constId, invokingConstructorContent.getNaturalVararg(), invokingConstructorContent.getLastType(), _args.getAll(), _page);
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));

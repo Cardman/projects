@@ -19,15 +19,20 @@ public final class ConstructorIdVarArg {
     }
 
     public StringList getParametersTypes() {
-        return constructorId.getParametersTypes();
+        StringList list_ = new StringList();
+        int len_ = constructorId.getParametersTypesLength();
+        for (int i = 0; i < len_; i++) {
+            list_.add(constructorId.getParametersType(i));
+        }
+        return list_;
     }
 
     public int getParametersTypesLength() {
-        return constructorId.getParametersTypes().size();
+        return constructorId.getParametersTypesLength();
     }
 
     public String getParametersType(int _index) {
-        return constructorId.getParametersTypes().get(_index);
+        return constructorId.getParametersType(_index);
     }
 
     public boolean isVararg() {

@@ -76,7 +76,7 @@ public final class AliasCharSequenceType {
             return;
         }
         String name_ = _method.getConstraints().getName();
-        StringList list_ = _method.getConstraints().getParametersTypes();
+        int nbParams_ = _method.getConstraints().getParametersTypesLength();
         LgNames lgNames_ = _cont.getStandards();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasStringCompare())) {
             Struct arg_ = _args[0];
@@ -88,8 +88,8 @@ public final class AliasCharSequenceType {
             compareToString(first_,_args[1], _res, _cont, _stackCall);
             return;
         }
-        Struct arg_ = NumParsers.getArg(list_, _args);
-        if (NumParsers.isDisplay(list_, arg_)) {
+        Struct arg_ = NumParsers.getArg(nbParams_, _args);
+        if (NumParsers.isDisplay(nbParams_, arg_)) {
             _res.setResult(ExecCatOperation.getDisplayable(new Argument(arg_), _cont));
             return;
         }
@@ -97,16 +97,16 @@ public final class AliasCharSequenceType {
             _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
             return;
         }
-        tryGetCharArray(_res, list_, (ArrayStruct) arg_, _args, _cont, _stackCall);
+        tryGetCharArray(_res, nbParams_, (ArrayStruct) arg_, _args, _cont, _stackCall);
     }
 
-    private static void tryGetCharArray(ResultErrorStd _res, StringList _list, ArrayStruct _arg, Struct[] _args, ContextEl _context, StackCall _stackCall) {
+    private static void tryGetCharArray(ResultErrorStd _res, int _list, ArrayStruct _arg, Struct[] _args, ContextEl _context, StackCall _stackCall) {
         int len_ = _arg.getLength();
         char[] arr_ = new char[len_];
         for (int i = 0; i < len_; i++) {
             arr_[i] = NumParsers.convertToChar(_arg.get(i)).getChar();
         }
-        if (_list.size() == 1) {
+        if (_list == 1) {
             _res.setResult(new StringStruct(String.valueOf(arr_)));
             return;
         }
@@ -127,7 +127,6 @@ public final class AliasCharSequenceType {
 
     private static void calculateLocString(StringStruct _str, ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, StackCall _stackCall, Struct... _args) {
         String name_ = _method.getConstraints().getName();
-        StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
         String stringType_ = lgNames_.getContent().getCharSeq().getAliasString();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasRegionMatches())) {
@@ -136,7 +135,7 @@ public final class AliasCharSequenceType {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasReplaceString())) {
-            if (StringUtil.quickEq(list_.first(), stringType_)) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), stringType_)) {
                 replaceString(_str,_args[0], _args[1], _res);
                 return;
             }
@@ -241,26 +240,26 @@ public final class AliasCharSequenceType {
     }
 
     public static void instantiateString(LgNames _stds, ResultErrorStd _res, ConstructorId _method, ContextEl _context, StackCall _stackCall, Struct... _args) {
-        StringList list_ = _method.getParametersTypes();
+        int nbParams_ = _method.getParametersTypesLength();
         String bytePrimType_ = _stds.getContent().getPrimTypes().getAliasPrimByte();
         String charPrimType_ = _stds.getContent().getPrimTypes().getAliasPrimChar();
-        if (list_.size() == 0) {
+        if (nbParams_ == 0) {
             _res.setResult(new StringStruct(""));
             return;
         }
-        if (list_.size() == 1) {
-            if (StringUtil.quickEq(list_.first(), bytePrimType_)) {
+        if (nbParams_ == 1) {
+            if (StringUtil.quickEq(_method.getParametersType(0), bytePrimType_)) {
                 newStringStructByByteArray(_args[0], _res, _context, _stackCall);
                 return;
             }
-            if (StringUtil.quickEq(list_.first(), charPrimType_)) {
+            if (StringUtil.quickEq(_method.getParametersType(0), charPrimType_)) {
                 newStringStructByCharArray(_args[0], _res, _context, _stackCall);
                 return;
             }
             newStringBuilderStruct(_args[0], _res, _context, _stackCall);
             return;
         }
-        if (StringUtil.quickEq(list_.last(), bytePrimType_)) {
+        if (StringUtil.quickEq(_method.getParametersType(2), bytePrimType_)) {
             newStringStructByByteArray(_args[0], _args[1], _args[2], _res, _context, _stackCall);
             return;
         }
@@ -370,14 +369,13 @@ public final class AliasCharSequenceType {
     }
 
     public static void instantiateStringBuilder(ContextEl _cont, ResultErrorStd _res, ConstructorId _method, StackCall _stackCall, Struct... _args) {
-        StringList list_ = _method.getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
         String intPrimType_ = lgNames_.getContent().getPrimTypes().getAliasPrimInteger();
-        if (list_.size() == 0) {
+        if (_method.getParametersTypesLength() == 0) {
             newStringBuilderStruct(_res);
             return;
         }
-        if (StringUtil.quickEq(list_.first(), intPrimType_)) {
+        if (StringUtil.quickEq(_method.getParametersType(0), intPrimType_)) {
             newStringBuilderStructByNumber(NumParsers.convertToNumber(_args[0]), _res, _cont, _stackCall);
             return;
         }
@@ -409,7 +407,6 @@ public final class AliasCharSequenceType {
     private static void calculateStrBuilder(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, StackCall _stackCall, Struct... _args) {
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
-        StringList list_ = _method.getConstraints().getParametersTypes();
         String aliasPrimChar_ = lgNames_.getContent().getPrimTypes().getAliasPrimChar();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSame())) {
             _res.setResult(BooleanStruct.of(_args[0] == _args[1]));
@@ -417,15 +414,15 @@ public final class AliasCharSequenceType {
         }
         StringBuilderStruct one_ = NumParsers.getStrBuilder(_struct);
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasAppend())) {
-            if (list_.size() == 1 && StringUtil.quickEq(list_.first(), StringExpUtil.getPrettyArrayType(aliasPrimChar_))) {
+            if (_method.getConstraints().getParametersTypesLength() == 1 && StringUtil.quickEq(_method.getConstraints().getParametersType(0), StringExpUtil.getPrettyArrayType(aliasPrimChar_))) {
                 appendChars(one_,_args[0], _cont, _res, _stackCall);
                 return;
             }
-            if (list_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 append(one_,ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont), _res, _stackCall);
                 return;
             }
-            if (StringUtil.quickEq(list_.first(), StringExpUtil.getPrettyArrayType(lgNames_.getContent().getPrimTypes().getAliasPrimChar()))) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), StringExpUtil.getPrettyArrayType(lgNames_.getContent().getPrimTypes().getAliasPrimChar()))) {
                 appendChars(one_,_args[0], NumParsers.convertToNumber(_args[1]), NumParsers.convertToNumber(_args[2]), _cont, _res, _stackCall);
                 return;
             }
@@ -453,16 +450,16 @@ public final class AliasCharSequenceType {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasInsert())) {
-            if (list_.size() == 2 && StringUtil.quickEq(list_.get(1), StringExpUtil.getPrettyArrayType(aliasPrimChar_))) {
+            if (_method.getConstraints().getParametersTypesLength() == 2 && StringUtil.quickEq(_method.getConstraints().getParametersType(1), StringExpUtil.getPrettyArrayType(aliasPrimChar_))) {
                 insertChars(one_, NumParsers.convertToNumber(_args[0]), _args[1], _cont, _res, _stackCall);
                 return;
             }
-            if (list_.size() == 2) {
+            if (_method.getConstraints().getParametersTypesLength() == 2) {
                 insert(one_, NumParsers.convertToNumber(_args[0]),
                         ExecCatOperation.getDisplayable(new Argument(_args[1]),_cont), _cont, _res, _stackCall);
                 return;
             }
-            if (StringUtil.quickEq(list_.get(1), StringExpUtil.getPrettyArrayType(lgNames_.getContent().getPrimTypes().getAliasPrimChar()))) {
+            if (StringUtil.quickEq(_method.getConstraints().getParametersType(1), StringExpUtil.getPrettyArrayType(lgNames_.getContent().getPrimTypes().getAliasPrimChar()))) {
                 insertChars(one_, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]), _cont, _res, _stackCall);
                 return;
             }
@@ -837,7 +834,6 @@ public final class AliasCharSequenceType {
 
     private static void calculateLocCharSeq(CharSequenceStruct _charSequence, ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, StackCall _stackCall, Struct... _args) {
         String name_ = _method.getConstraints().getName();
-        StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasLength())) {
             length(_charSequence, _res);
@@ -864,7 +860,7 @@ public final class AliasCharSequenceType {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasStartsWith())) {
-            if (list_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 startsWith(_charSequence, _args[0], _res, _cont, _stackCall);
                 return;
             }
@@ -876,7 +872,7 @@ public final class AliasCharSequenceType {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasIndexOf())) {
-            if (list_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof NumberStruct)) {
                     indexOfString(_charSequence, _args[0], _res, _cont, _stackCall);
                     return;
@@ -896,7 +892,7 @@ public final class AliasCharSequenceType {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasLastIndexOf())) {
-            if (list_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof NumberStruct)) {
                     lastIndexOfString(_charSequence, _args[0], _res, _cont, _stackCall);
                     return;
@@ -912,7 +908,7 @@ public final class AliasCharSequenceType {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSubstring()) || StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSubSequence())) {
-            if (list_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 substring(_charSequence, NumParsers.convertToNumber(_args[0]), _res, _cont, _stackCall);
                 return;
             }
@@ -920,7 +916,7 @@ public final class AliasCharSequenceType {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSplit())) {
-            if (list_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof CharStruct)) {
                     splitSingleString(_charSequence, _args[0], lgNames_, _res, _cont, _stackCall);
                     return;
@@ -944,7 +940,7 @@ public final class AliasCharSequenceType {
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSplitStrings())) {
-            if (list_.size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 splitStrings(_charSequence, _args[0], lgNames_, _res, _cont, _stackCall);
                 return;
             }

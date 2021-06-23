@@ -3217,7 +3217,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(ScrollPaneStruct.newScroll(_args[0], aliasScrollPane));
             } else {
                 r_.setResult(ScrollPaneStruct.newScroll(aliasScrollPane));
@@ -3270,7 +3270,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(new PlainButtonStruct(_args[0],aliasButton));
             } else {
                 r_.setResult(new PlainButtonStruct(aliasButton));
@@ -3283,7 +3283,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(new TextLabelStruct(_args[0],aliasTextLabel));
             } else {
                 r_.setResult(new TextLabelStruct(aliasTextLabel));
@@ -3296,7 +3296,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(new PreparedLabelStruct(_args[0],aliasImageLabel));
             } else {
                 r_.setResult(new PreparedLabelStruct(aliasImageLabel));
@@ -3304,11 +3304,11 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasFont)) {
-            if (_method.getParametersTypes().size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 r_.setResult(new FontStruct());
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(new FontStruct(((NumberStruct)_args[0]).intStruct()));
                 return r_;
             }
@@ -3316,15 +3316,15 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasColor)) {
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct()));
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 2) {
+            if (_method.getParametersTypesLength() == 2) {
                 r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct(),BooleanStruct.isTrue(_args[1])));
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 3) {
+            if (_method.getParametersTypesLength() == 3) {
                 r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct()));
                 return r_;
             }
@@ -3336,7 +3336,7 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasDimension)) {
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof DimensionStruct)) {
                     r_.setResult(new DimensionStruct(0,0));
                     return r_;
@@ -3353,7 +3353,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 r_.setResult(new TreeNodeStruct(_guiEx.getWindow().getCompoFactory().newMutableTreeNode("")));
                 return r_;
             }
@@ -3407,11 +3407,11 @@ public final class GuiAliases {
                 return r_;
             }
             AbstractGraphicComboBoxGenerator geneComboBox_ = _guiEx.getWindow().getFrames().getGeneComboBox();
-            if (_method.getParametersTypes().size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(new StringList(),-1)));
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(newList(_args[0]), 0)));
                 return r_;
             }
@@ -3433,11 +3433,11 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 r_.setResult(new RadioButtonStruct(aliasRadio));
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(new RadioButtonStruct(aliasRadio,_args[0]));
                 return r_;
             }
@@ -3450,11 +3450,11 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 r_.setResult(new CheckBoxStruct(aliasCheckBox));
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(new CheckBoxStruct(aliasCheckBox,_args[0]));
                 return r_;
             }
@@ -3476,11 +3476,11 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 r_.setResult(new TextFieldStruct(aliasTextField));
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof NumberStruct)) {
                     r_.setResult(new TextFieldStruct(aliasTextField,_args[0]));
                     return r_;
@@ -3497,15 +3497,15 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 r_.setResult(new TextAreaStruct(aliasTextArea));
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(new TextAreaStruct(aliasTextArea,_args[0]));
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 2) {
+            if (_method.getParametersTypesLength() == 2) {
                 r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1]));
                 return r_;
             }
@@ -3527,19 +3527,19 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 r_.setResult(new SliderStruct(aliasSlider));
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 1) {
+            if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(new SliderStruct(aliasSlider,_args[0]));
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 2) {
+            if (_method.getParametersTypesLength() == 2) {
                 r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1]));
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 3) {
+            if (_method.getParametersTypesLength() == 3) {
                 r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_args[2]));
                 return r_;
             }
@@ -3561,7 +3561,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 r_.setResult(new MenuStruct());
                 return r_;
             }
@@ -3574,7 +3574,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 r_.setResult(new MenuItemStruct());
                 return r_;
             }
@@ -3587,7 +3587,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            if (_method.getParametersTypes().size() == 0) {
+            if (_method.getParametersTypesLength() == 0) {
                 r_.setResult(new MenuItemCheckStruct());
                 return r_;
             }
@@ -3729,7 +3729,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasConfirmField)) {
-                if (_method.getConstraints().getParametersTypes().size() == 7) {
+                if (_method.getConstraints().getParametersTypesLength() == 7) {
                     res_.setResult(_guiEx.showTextField(_args[0], _args[1], _args[2], _args[3], _args[4], _args[5], _args[6]));
                     return res_;
                 }
@@ -3737,7 +3737,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasConfirmFull)) {
-                if (_method.getConstraints().getParametersTypes().size() == 7) {
+                if (_method.getConstraints().getParametersTypesLength() == 7) {
                     res_.setResult(_guiEx.getAnswer(_args[0], _args[1], _args[2], _args[3], _args[4], _args[5], _args[6]));
                     return res_;
                 }
@@ -3745,7 +3745,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasConfirmYesNo)) {
-                if (_method.getConstraints().getParametersTypes().size() == 6) {
+                if (_method.getConstraints().getParametersTypesLength() == 6) {
                     res_.setResult(_guiEx.getAnswerYesNo(_args[0], _args[1], _args[2], _args[3], _args[4], _args[5]));
                     return res_;
                 }
@@ -3753,14 +3753,14 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasConfirmOk)) {
-                if (_method.getConstraints().getParametersTypes().size() == 5) {
+                if (_method.getConstraints().getParametersTypesLength() == 5) {
                     res_.setResult(_guiEx.getAnswerOk(_args[0], _args[1], _args[2], _args[3], _args[4]));
                     return res_;
                 }
                 res_.setResult(_guiEx.getAnswerOk(_args[0], _args[1], _args[2], _args[3]));
                 return res_;
             }
-            if (_method.getConstraints().getParametersTypes().size() == 5) {
+            if (_method.getConstraints().getParametersTypesLength() == 5) {
                 _guiEx.showMessage(_args[0], _args[1], _args[2], _args[3], _args[4]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -3860,7 +3860,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasCompBack)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     inst_.setBackground(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3869,7 +3869,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasCompFore)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     inst_.setForeground(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3878,7 +3878,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasCompFocusable)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     inst_.setFocusable(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3887,7 +3887,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasCompOpaque)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     inst_.setOpaque(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3896,7 +3896,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasCompToolTip)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     inst_.setToolTipText(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -3918,7 +3918,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasCompBorLine)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     inst_.setLineBorder(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4059,7 +4059,7 @@ public final class GuiAliases {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                if (_method.getConstraints().getParametersTypes().size() == 2) {
+                if (_method.getConstraints().getParametersTypesLength() == 2) {
                     strPan_.add((CustComponentStruct)_args[0],((NumberStruct)_args[1]).intStruct());
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4072,7 +4072,7 @@ public final class GuiAliases {
                 res_.setResult(strPan_.getComponent(((NumberStruct)_args[0]).intStruct()));
                 return res_;
             }
-            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
+            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersType(0))) {
                 res_.setResult(strPan_.remove(((NumberStruct)_args[0]).intStruct()));
                 return res_;
             }
@@ -4137,7 +4137,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasTabbedPaneSelIndex)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     strPan_.setSelectedIndex(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4153,7 +4153,7 @@ public final class GuiAliases {
                 res_.setResult(strPan_.index((CustComponentStruct)_args[0]));
                 return res_;
             }
-            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersTypes().first())) {
+            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersType(0))) {
                 res_.setResult(strPan_.remove(_args[0]));
                 return res_;
             }
@@ -4167,7 +4167,7 @@ public final class GuiAliases {
         if (StringUtil.quickEq(type_,aliasScrollPane)) {
             ScrollPaneStruct strPan_ = (ScrollPaneStruct) _instance;
             if (StringUtil.quickEq(name_, aliasScrollPaneHorizontalValue)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     strPan_.setHorizontalValue(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4176,7 +4176,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasScrollPaneVerticalValue)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     strPan_.setVerticalValue(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4355,7 +4355,7 @@ public final class GuiAliases {
         if (StringUtil.quickEq(type_, aliasProgBar)) {
             ProgressBarStruct inst_ = (ProgressBarStruct) _instance;
             if (StringUtil.quickEq(name_, aliasProgBarMin)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     inst_.setMinimum(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4364,7 +4364,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasProgBarMax)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     inst_.setMaximum(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4373,7 +4373,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasProgBarValue)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     inst_.setValue(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4381,7 +4381,7 @@ public final class GuiAliases {
                 res_.setResult(inst_.getValue());
                 return res_;
             }
-            if (_method.getConstraints().getParametersTypes().size() == 1) {
+            if (_method.getConstraints().getParametersTypesLength() == 1) {
                 inst_.setHorizontal(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4538,7 +4538,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasImageDraw)) {
-                if (StringUtil.quickEq(getAliasImage(),_method.getConstraints().getParametersTypes().first())) {
+                if (StringUtil.quickEq(getAliasImage(),_method.getConstraints().getParametersType(0))) {
                     image_.drawImage(_args[0],((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct());
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4592,7 +4592,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasTreeGetSelected)) {
-                if (_method.getConstraints().getParametersTypes().size() == 1) {
+                if (_method.getConstraints().getParametersTypesLength() == 1) {
                     inst_.select(_args[0]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4819,7 +4819,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasGrListSet)) {
-                if (_method.getConstraints().getParametersTypes().size() == 3) {
+                if (_method.getConstraints().getParametersTypesLength() == 3) {
                     inst_.set(((NumberStruct)_args[0]).intStruct(),_args[1],_args[2]);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
@@ -4836,7 +4836,7 @@ public final class GuiAliases {
                 wrapAndCall(_cont, args_, _guiEx.getPairPaintSet(), _stackCall);
                 return res_;
             }
-            if (_method.getConstraints().getParametersTypes().size() == 3) {
+            if (_method.getConstraints().getParametersTypesLength() == 3) {
                 inst_.add(((NumberStruct)_args[0]).intStruct(),_args[1],_args[2]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -5273,7 +5273,7 @@ public final class GuiAliases {
         }
         if (StringUtil.quickEq(name_, aliasTreeNodeRemove)) {
             ResultErrorStd res_ = new ResultErrorStd();
-            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(), _method.getConstraints().getParametersTypes().first())) {
+            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(), _method.getConstraints().getParametersType(0))) {
                 inst_.remove(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;

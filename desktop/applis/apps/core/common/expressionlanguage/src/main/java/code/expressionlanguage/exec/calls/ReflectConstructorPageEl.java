@@ -63,16 +63,16 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
             CustList<Argument> args_ = ((ArrayStruct)struct_).listArgs();
             Argument previous_;
             if (static_) {
-                if (args_.size() != mid_.getParametersTypes().size()) {
+                if (args_.size() != mid_.getParametersTypesLength()) {
                     String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), mid_.getParametersTypes().size()).toString(), null_, _stack)));
+                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), mid_.getParametersTypesLength()).toString(), null_, _stack)));
                     return false;
                 }
                 previous_ = Argument.createVoid();
             } else {
-                if (args_.size() != 1 + mid_.getParametersTypes().size()) {
+                if (args_.size() != 1 + mid_.getParametersTypesLength()) {
                     String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), 1 + mid_.getParametersTypes().size()).toString(), null_, _stack)));
+                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), 1 + mid_.getParametersTypesLength()).toString(), null_, _stack)));
                     return false;
                 }
                 previous_ = args_.first();

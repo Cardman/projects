@@ -117,7 +117,6 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
     @Override
     public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont,
                                          ConstructorId _method, Struct... _args) {
-        StringList list_ = _method.getParametersTypes();
         return getOtherResultBean(_cont, _method, _args);
     }
 
@@ -128,7 +127,6 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
     public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
-        StringList list_ = _method.getConstraints().getParametersTypes();
         if (_instance instanceof ArrayStruct) {
             res_.setResult(BooleanStruct.of(ExecArrayFieldOperation.getArray(_instance,_cont).getLength()==0));
             return res_;

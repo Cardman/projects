@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.exec.ClassCategory;
+import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
@@ -589,12 +590,19 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
         StringList list_ = _cl.getBounds();
         return getFormattedClassesMetaList(_cont, _cl, list_, _cl.variableOwner);
     }
-    public static CustList<ClassMetaInfo> getParamsFct(boolean _vararg, ContextEl _cont, AnnotatedStruct _declaring, StringList _geneInterfaces) {
-        int len_ = _geneInterfaces.size();
+    public static CustList<ClassMetaInfo> getFidParamsFct(ContextEl _cont, AnnotatedParamStruct _declaring) {
+        return getParamsFct(_cont,_declaring, _declaring.fid());
+    }
+    public static CustList<ClassMetaInfo> getRealIdParamsFct(ContextEl _cont, AnnotatedParamStruct _declaring) {
+        return getParamsFct(_cont,_declaring, _declaring.realId());
+    }
+    private static CustList<ClassMetaInfo> getParamsFct(ContextEl _cont, AnnotatedParamStruct _declaring, Identifiable _geneInterfaces) {
+        boolean vararg_ = _declaring.isVararg();
+        int len_ = _geneInterfaces.getParametersTypesLength();
         CustList<ClassMetaInfo> list_ = new CustList<ClassMetaInfo>(new CollCapacity(len_));
         for (int i = 0; i < len_; i++) {
-            String int_ = _geneInterfaces.get(i);
-            if (_vararg && i+1 == len_) {
+            String int_ = _geneInterfaces.getParametersType(i);
+            if (vararg_ && i+1 == len_) {
                 int_ = StringExpUtil.getPrettyArrayType(int_);
             }
             list_.add(getExtendedClassMetaInfo(_cont,int_, _declaring));

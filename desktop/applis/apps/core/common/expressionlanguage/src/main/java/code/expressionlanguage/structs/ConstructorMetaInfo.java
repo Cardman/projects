@@ -7,6 +7,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
@@ -152,6 +153,16 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
         return standardType;
     }
 
+    @Override
+    public Identifiable fid() {
+        return getFid();
+    }
+
+    @Override
+    public Identifiable realId() {
+        return getRealId();
+    }
+
     public ConstructorId getRealId() {
         return realId;
     }
@@ -205,10 +216,6 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(StringUtil.concat(formatted.getFormatted(),";",realId.getSignature(_an)));
-    }
-
-    public StringList getParametersTypes() {
-        return realId.getParametersTypes();
     }
 
     public boolean isInvokable() {

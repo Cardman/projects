@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ShownCache;
+import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -209,9 +210,17 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
     public MethodId getFid() {
         return pairIds.getFid();
     }
-    public StringList getParameterNames() {
-        return new StringList(pairIds.getRealId().getParametersTypes());
+
+    @Override
+    public Identifiable fid() {
+        return getFid();
     }
+
+    @Override
+    public Identifiable realId() {
+        return getRealId();
+    }
+
     public boolean isVararg() {
         return pairIds.getRealId().isVararg();
     }
