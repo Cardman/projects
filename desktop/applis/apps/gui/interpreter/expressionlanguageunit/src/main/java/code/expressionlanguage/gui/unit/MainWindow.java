@@ -254,7 +254,7 @@ public final class MainWindow extends GroupFrame implements TestableFrame {
 
     public void logErr() {
         errorsScroll.setVisible(!errorsScroll.isVisible());
-        contentPane.repaintChildren();
+        contentPane.repaintChildren(getImageFactory());
     }
     private AbstractLogger buildLogger(AbstractNameValidating _validator) {
         if (memory.isSelected()) {

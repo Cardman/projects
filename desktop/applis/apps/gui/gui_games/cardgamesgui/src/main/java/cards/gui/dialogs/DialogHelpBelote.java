@@ -35,7 +35,7 @@ public final class DialogHelpBelote extends Dialog {
         setVisible(true);
     }
     public static void setTitleDialog(MainWindow _fenetre,String _title) {
-        _fenetre.getDialogHelpBelote().setDialogIcon(_fenetre);
+        _fenetre.getDialogHelpBelote().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogHelpBelote().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogHelpBelote().setTitle(_title);
     }

@@ -3,13 +3,21 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsGraphicListPainter;
+import code.gui.images.AbstractImageFactory;
 
 public abstract class AbsAdvGraphicListPainter implements AbsGraphicListPainter {
     private final CommonExecutionInfos executionInfos;
     private Struct value;
+    private AbstractImageFactory fact;
 
-    protected AbsAdvGraphicListPainter(CommonExecutionInfos _executionInfos) {
+    protected AbsAdvGraphicListPainter(AbstractImageFactory _fact, CommonExecutionInfos _executionInfos) {
+        fact = _fact;
         executionInfos = _executionInfos;
+    }
+
+    @Override
+    public AbstractImageFactory getFact() {
+        return fact;
     }
 
     public CommonExecutionInfos getExecutionInfos() {

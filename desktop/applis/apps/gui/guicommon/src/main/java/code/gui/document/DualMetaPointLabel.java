@@ -1,13 +1,12 @@
 package code.gui.document;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import code.formathtml.render.MetaPointForm;
 import code.formathtml.render.MetaPointLabel;
 import code.formathtml.render.MetaStyle;
-import code.gui.CustGraphics;
 import code.gui.PreparedLabel;
+import code.gui.images.AbstractImage;
 
 public final class DualMetaPointLabel extends DualLabel {
 
@@ -26,22 +25,21 @@ public final class DualMetaPointLabel extends DualLabel {
         Font copy_ =  newFont(style_);
         int h_ = lab_.heightFont(copy_);
         int w_ = h_;
-        BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
-        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
-        gr_.setFont(copy_);
-        gr_.setColor(new Color(style_.getBgColor()));
-        gr_.fillRect(0, 0, w_, h_);
-        gr_.setColor(new Color(style_.getFgColor()));
+        AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(w_, h_);
+        img_.setFont(copy_);
+        img_.setColor(new Color(style_.getBgColor()));
+        img_.fillRect(0, 0, w_, h_);
+        img_.setColor(new Color(style_.getFgColor()));
         if (form == MetaPointForm.DISK) {
-            gr_.fillOval(0, 0, w_, h_);
+            img_.fillOval(0, 0, w_, h_);
         } else if (form == MetaPointForm.CIRCLE) {
-            gr_.drawOval(0, 0, w_, h_);
+            img_.drawOval(0, 0, w_, h_);
         } else if (form == MetaPointForm.SQUARRE) {
-            gr_.fillRect(2, 2, w_ - 4, h_ - 4);
+            img_.fillRect(2, 2, w_ - 4, h_ - 4);
         } else {
-            gr_.drawRect(2, 2, w_ - 4, h_ - 4);
+            img_.drawRect(2, 2, w_ - 4, h_ - 4);
         }
-        lab_.setIcon(img_);
-        gr_.dispose();
+        lab_.setIcon(getPage().getGene().getImageFactory(), img_);
+        img_.dispose();
     }
 }

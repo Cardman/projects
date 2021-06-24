@@ -2,7 +2,6 @@ package cards.gui;
 import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.Closeable;
 
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
@@ -551,7 +550,7 @@ public final class MainWindow extends NetGroupFrame {
         setFocusable(true);
         requestFocus();
         setFocusableWindowState(true);
-        setImageIconFrame(LaunchingCards.getIcon());
+        setImageIconFrame(LaunchingCards.getIcon(getImageFactory()));
         clock = new Clock();
         lastSavedGameDate = new TextLabel("");
         reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE),getFileCoreStream(),getStreams()));

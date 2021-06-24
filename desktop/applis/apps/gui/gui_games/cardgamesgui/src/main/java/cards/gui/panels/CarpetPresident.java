@@ -10,6 +10,7 @@ import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
 import code.gui.Panel;
 import code.gui.TextLabel;
+import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -73,7 +74,7 @@ public class CarpetPresident {
 //        centerDeck.repaint();
 //    }
 
-    public void setTalonPresident() {
+    public void setTalonPresident(AbstractImageFactory _fact) {
 //        centerDeck.removeAll();
         for (GraphicPresidentCard g: listCards) {
             g.setVisible(false);
@@ -86,14 +87,14 @@ public class CarpetPresident {
 //            centerDeck.add(cg_);
 //            entered_ = true;
 //        }
-        repaintValidate();
+        repaintValidate(_fact);
     }
 
-    public void repaintValidate() {
-        centerDeck.repaintChildren();
+    public void repaintValidate(AbstractImageFactory _fact) {
+        centerDeck.repaintChildren(_fact);
     }
 
-    public void setTalonPresident(String _lg, HandPresident _m) {
+    public void setTalonPresident(AbstractImageFactory _fact,String _lg, HandPresident _m) {
         if (_m.estVide()) {
             return;
         }
@@ -103,13 +104,13 @@ public class CarpetPresident {
         }
         for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             listCards.get(i).setVisible(true);
-            listCards.get(i).setCarteEnJeu(_lg,_m.carte(i));
+            listCards.get(i).setCarteEnJeu(_fact,_lg,_m.carte(i));
 //            listCards.get(i).repaint();
         }
         for (int i = len_; i < number; i++) {
             listCards.get(i).setVisible(false);
         }
-        repaintValidate();
+        repaintValidate(_fact);
 //        centerDeck.removeAll();
 //        boolean entered_ = false;
 //        for (CardPresident c: _m) {
@@ -122,7 +123,7 @@ public class CarpetPresident {
 //        centerDeck.validate();
     }
 
-    public void setStatus(String _lg, ByteMap<Playing> _status, byte _nextPlayer) {
+    public void setStatus(AbstractImageFactory _fact,String _lg, ByteMap<Playing> _status, byte _nextPlayer) {
         cards.putAllMap(_status);
         for (byte p: cards.getKeys()) {
             TextLabel l_ = labels.get(p);
@@ -133,7 +134,7 @@ public class CarpetPresident {
             }
             l_.setText(StringUtil.concat(pseudos.get(p),SEPARATOR, Games.toString(cards.getVal(p),_lg)));
         }
-        repaintValidate();
+        repaintValidate(_fact);
     }
 
     public Panel getContainer() {

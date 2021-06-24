@@ -2,6 +2,8 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.util.core.IndexConstants;
 
 import java.awt.Color;
@@ -10,19 +12,17 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public final class ImageStruct extends WithoutParentIdStruct implements Struct {
-    private final BufferedImage image;
+    private final AbstractImage image;
     private final boolean withAlpha;
-    private final Graphics graphics;
-    public ImageStruct(int _w, int _h, boolean _rgba) {
+    public ImageStruct(AbstractImageFactory _fact, int _w, int _h, boolean _rgba) {
         int w_ = Math.max(1,_w);
         int h_ = Math.max(1,_h);
         withAlpha = _rgba;
         if (_rgba) {
-            image = new BufferedImage(w_,h_,BufferedImage.TYPE_INT_ARGB);
+            image = _fact.newImageArgb(w_,h_);
         } else {
-            image = new BufferedImage(w_,h_,BufferedImage.TYPE_INT_RGB);
+            image = _fact.newImageRgb(w_,h_);
         }
-        graphics = image.getGraphics();
     }
 
     public IntStruct getWidth() {
@@ -62,7 +62,7 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
         return new IntStruct(image.getRGB(_x,_y));
     }
 
-    BufferedImage getImage() {
+    AbstractImage getImage() {
         return image;
     }
 
@@ -71,7 +71,7 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
     }
 
     public Struct getColor() {
-        Color color_ = graphics.getColor();
+        Color color_ = image.getColor();
         if (color_ == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -82,11 +82,11 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
         if (!(_c instanceof ColorStruct)) {
             return;
         }
-        graphics.setColor(((ColorStruct)_c).getColor());
+        image.setColor(((ColorStruct)_c).getColor());
     }
 
     public Struct getFont() {
-        Font font_ = graphics.getFont();
+        Font font_ = image.getFont();
         if (font_ == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -97,31 +97,31 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
         if (!(_font instanceof FontStruct)) {
             return;
         }
-        graphics.setFont(((FontStruct)_font).getFont());
+        image.setFont(((FontStruct)_font).getFont());
     }
 
     public void dispose() {
-        graphics.dispose();
+        image.dispose();
     }
 
     public void drawLine(int _x1, int _y1, int _x2, int _y2) {
-        graphics.drawLine(_x1, _y1, _x2, _y2);
+        image.drawLine(_x1, _y1, _x2, _y2);
     }
 
     public void fillRect(int _x, int _y, int _width, int _height) {
-        graphics.fillRect(_x, _y, _width, _height);
+        image.fillRect(_x, _y, _width, _height);
     }
 
     public void drawRect(int _x, int _y, int _width, int _height) {
-        graphics.drawRect(_x, _y, _width, _height);
+        image.drawRect(_x, _y, _width, _height);
     }
 
     public void drawOval(int _x, int _y, int _width, int _height) {
-        graphics.drawOval(_x, _y, _width, _height);
+        image.drawOval(_x, _y, _width, _height);
     }
 
     public void fillOval(int _x, int _y, int _width, int _height) {
-        graphics.fillOval(_x, _y, _width, _height);
+        image.fillOval(_x, _y, _width, _height);
     }
 
     public void drawPolygon(Struct _xPoints, Struct _yPoints) {
@@ -143,7 +143,7 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
             xs_[i] = ((NumberStruct)x_.get(i)).intStruct();
             ys_[i] = ((NumberStruct)y_.get(i)).intStruct();
         }
-        graphics.drawPolygon(xs_, ys_, len_);
+        image.drawPolygon(xs_, ys_, len_);
     }
 
     public void fillPolygon(Struct _xPoints, Struct _yPoints) {
@@ -165,21 +165,21 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
             xs_[i] = ((NumberStruct)x_.get(i)).intStruct();
             ys_[i] = ((NumberStruct)y_.get(i)).intStruct();
         }
-        graphics.fillPolygon(xs_, ys_, len_);
+        image.fillPolygon(xs_, ys_, len_);
     }
 
     public void drawString(Struct _str, int _x, int _y) {
         if (!(_str instanceof StringStruct)) {
             return;
         }
-        graphics.drawString(((StringStruct)_str).getInstance(), _x, _y);
+        image.drawString(((StringStruct)_str).getInstance(), _x, _y);
     }
 
     public void drawImage(Struct _img, int _x, int _y) {
         if (!(_img instanceof ImageStruct)) {
             return;
         }
-        graphics.drawImage(((ImageStruct)_img).image, _x, _y, null);
+        image.drawImage(((ImageStruct)_img).image, _x, _y);
     }
 
     @Override
@@ -187,7 +187,7 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
         return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasImage();
     }
 
-    public static boolean eq(BufferedImage _imgOne, BufferedImage _imgTwo) {
+    public static boolean eq(AbstractImage _imgOne, AbstractImage _imgTwo) {
         if (_imgOne.getWidth() != _imgTwo.getWidth()) {
             return false;
         }

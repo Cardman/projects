@@ -8,6 +8,7 @@ import aiki.gui.listeners.TileListener;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
 import code.gui.Panel;
+import code.gui.images.AbstractImageFactory;
 import code.images.ConverterBufferedImage;
 import code.util.TreeMap;
 
@@ -15,7 +16,7 @@ public class MapPanel {
 
     private Panel container;
 
-    public void init(FacadeGame _facade, ScenePanel _scene) {
+    public void init(AbstractImageFactory _fact, FacadeGame _facade, ScenePanel _scene) {
         container = Panel.newGrid(_facade.getMapHeight(), _facade.getMapWidth());
         TreeMap<MiniMapCoords, int[][]> images_;
         images_ = _facade.getImages();
@@ -26,7 +27,7 @@ public class MapPanel {
             if (info_.isHeros() && info_.getPlace() == _facade.getGame().getPlayerCoords().getNumberPlace()) {
                 img_ = ConverterBufferedImage.stackImages(img_, _facade.getMiniHeros());
             }
-            TileLabel tile_ = new TileLabel(img_, sideLength_);
+            TileLabel tile_ = new TileLabel(_fact, img_, sideLength_);
             String tooltip_ = _facade.getName(t.getXcoords(), t.getYcoords());
             if (!tooltip_.isEmpty()) {
                 tile_.setToolTipText(tooltip_);

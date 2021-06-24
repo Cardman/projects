@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import cards.consts.Role;
 import cards.gui.labels.CellPlayer;
 import code.gui.Panel;
+import code.gui.images.AbstractImageFactory;
 import code.util.*;
 import code.util.StringList;
 
@@ -18,7 +19,7 @@ public final class MiniCarpet {
     private MiniCarpet() {
     }
 
-    public static MiniCarpet newCarpet(int _nombreDeJoueurs,boolean _horaire,StringList _pseudos) {
+    public static MiniCarpet newCarpet(AbstractImageFactory _fact, int _nombreDeJoueurs, boolean _horaire, StringList _pseudos) {
         MiniCarpet m_ = new MiniCarpet();
         m_.horaire=_horaire;
         if(_nombreDeJoueurs==4) {
@@ -210,14 +211,14 @@ public final class MiniCarpet {
         }
         for (CellPlayer c: m_.cellsPlayers.values()) {
             c.setStatus(Role.DEFENDER);
-            c.repaintLabel();
+            c.repaintLabel(_fact);
         }
         return m_;
     }
 
-    public void setStatus(Role _st, int _player) {
+    public void setStatus(AbstractImageFactory _fact,Role _st, int _player) {
         cellsPlayers.getVal(_player).setStatus(_st);
-        cellsPlayers.getVal(_player).repaintLabel();
+        cellsPlayers.getVal(_player).repaintLabel(_fact);
     }
 
     public Panel getContainer() {

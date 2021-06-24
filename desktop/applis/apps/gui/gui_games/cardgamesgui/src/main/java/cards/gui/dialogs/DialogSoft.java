@@ -45,7 +45,7 @@ public final class DialogSoft extends DialogCards {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogSoft(String _titre, MainWindow _fenetre) {
-        _fenetre.getDialogSoft().setDialogIcon(_fenetre);
+        _fenetre.getDialogSoft().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogSoft().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogSoft().messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogSoft().getAccessFile());
@@ -68,7 +68,7 @@ public final class DialogSoft extends DialogCards {
         if(StringUtil.quickEq(menu,MainWindow.CST_LAUNCHING)) {
             //Lancement du logiciel
             Panel panneau_=Panel.newPageBox();
-            list = new ComboBox<GameEnum>(_fenetre.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+            list = new ComboBox<GameEnum>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1));
             EnumMap<GameEnum,String> mess_;
             EnumList<GameEnum> order_;
             mess_ = new EnumMap<GameEnum,String>();

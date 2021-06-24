@@ -9,6 +9,7 @@ import javax.swing.JProgressBar;
 import javax.swing.Timer;
 
 import code.gui.animations.AnimatedImage;
+import code.gui.images.AbstractImage;
 import code.util.CustList;
 
 public abstract class ProgressingDialog extends Dialog implements ProgressDialog {
@@ -36,19 +37,19 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
     private AnimatedImage animation;
     private GroupFrame window;
 
-    public void init(GroupFrame _window, CustList<BufferedImage> _images, boolean _setVisibility) {
-        setDialogIcon(_window);
+    public void init(GroupFrame _window, CustList<AbstractImage> _images, boolean _setVisibility) {
+        setDialogIcon(_window.getImageFactory(),_window);
         window = _window;
         perCent = PER_CENT;
         setLocationRelativeTo(_window);
         Panel contentPane_ = Panel.newPageBox();
         Panel label_ = Panel.newLineBox();
         if (!_images.isEmpty()) {
-            anim = new PreparedLabel();
+            anim = PreparedLabel.prep(_window.getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
-            animation = new AnimatedImage(_window.getThreadFactory(), anim, _images, TIME * 10);
+            animation = new AnimatedImage(_window.getImageFactory(), _window.getThreadFactory(), anim, _images, TIME * 10);
         } else {
-            anim = new PreparedLabel();
+            anim = PreparedLabel.prep(_window.getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim.setOpaque(true);
             anim.setBackground(Color.WHITE);

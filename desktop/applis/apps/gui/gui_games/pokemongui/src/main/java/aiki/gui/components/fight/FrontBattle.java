@@ -1,7 +1,6 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
@@ -11,8 +10,9 @@ import aiki.game.fight.animations.*;
 import aiki.game.fight.enums.FightState;
 import aiki.gui.MainWindow;
 import aiki.gui.dialogs.FrameHtmlData;
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.util.CustList;
@@ -58,17 +58,17 @@ public class FrontBattle extends PaintableLabel {
 
     private boolean drawImage;
 
-    private BufferedImage image;
+    private AbstractImage image;
 
     private boolean drawImages;
 
-    private BufferedImage heros;
+    private AbstractImage heros;
 
-    private BufferedImage herosSexOpposite;
+    private AbstractImage herosSexOpposite;
 
     private boolean paintTwoHeros;
 
-    private BufferedImage other;
+    private AbstractImage other;
 
     private boolean keepAnimation;
 
@@ -587,10 +587,10 @@ public class FrontBattle extends PaintableLabel {
         imageNumber = 0;
         xIni += maxWidth / 2;
         yIni += maxHeight / 2;
-        repaintLabel();
+        repaintLabel(battle.getWindow().getImageFactory());
     }
 
-    void drawAnimationInstant(AnimationInt _animation) {
+    void drawAnimationInstant(AbstractImageFactory _fact, AnimationInt _animation) {
         wild = false;
         drawImage = true;
         imageNumber++;
@@ -717,15 +717,15 @@ public class FrontBattle extends PaintableLabel {
         int hMax_ = 0;
         if (_animation instanceof AnimationEffectDamage) {
             AnimationEffectDamage damage_ = (AnimationEffectDamage) _animation;
-            StringMap<BufferedImage> types_ = new StringMap<BufferedImage>();
+            StringMap<AbstractImage> types_ = new StringMap<AbstractImage>();
             for (String t: damage_.getTypes()) {
                 int[][] type_ = facade.getData().getTypesImages().getVal(t);
-                BufferedImage t_ = ConverterGraphicBufferedImage.decodeToImage(type_);
+                AbstractImage t_ = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), type_);
                 types_.put(t, t_);
             }
             hMax_ = 0;
             int width_ = 0;
-            for (BufferedImage i: types_.values()) {
+            for (AbstractImage i: types_.values()) {
                 if (i.getHeight() > hMax_) {
                     hMax_ = i.getHeight();
                 }
@@ -737,36 +737,36 @@ public class FrontBattle extends PaintableLabel {
             if (strWidth_ > width_) {
                 width_ = strWidth_;
             }
-            image = new BufferedImage(width_, hMax_, BufferedImage.TYPE_INT_ARGB);
-            CustGraphics gr_ = new CustGraphics(image.getGraphics());
-            gr_.setColor(Color.WHITE);
-            gr_.fillRect(0, 0, width_, hMax_);
+            image = _fact.newImageArgb(width_, hMax_);
+//            CustGraphics gr_ = image.getGraphics();
+            image.setColor(Color.WHITE);
+            image.fillRect(0, 0, width_, hMax_);
             int x_ = 0;
-            for (BufferedImage i: types_.values()) {
-                gr_.drawImage(i, x_, 0);
+            for (AbstractImage i: types_.values()) {
+                image.drawImage(i, x_, 0);
                 x_ += i.getWidth();
             }
-            gr_.setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
-            gr_.drawString(damage, 0, hMax_);
+            image.setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
+            image.drawString(damage, 0, hMax_);
         } else if (_animation instanceof AnimationEffectStatistic) {
             AnimationEffectStatistic statis_ = (AnimationEffectStatistic) _animation;
-            CustList<BufferedImage> types_ = new CustList<BufferedImage>();
+            CustList<AbstractImage> types_ = new CustList<AbstractImage>();
             int h_ = heightFont();
             int statSide_ = facade.getMap().getSideLength();
             for (InfosAnimationStatistic t: statis_.getInfos()) {
                 int[][] type_ = facade.getData().getAnimStatis().getVal(t.getStatistic().name());
-                BufferedImage t_ = ConverterGraphicBufferedImage.decodeToImage(type_);
+                AbstractImage t_ = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), type_);
                 String var_ = Long.toString(t.getVariation());
                 int widthVar_ = stringWidth(var_);
                 if (widthVar_ < statSide_) {
                     widthVar_ = statSide_;
                 }
-                BufferedImage varStat_ = new BufferedImage(widthVar_, h_ + statSide_, BufferedImage.TYPE_INT_ARGB);
-                CustGraphics g_ = new CustGraphics(varStat_.createGraphics());
-                g_.drawImage(t_, 0, 0);
-                g_.setColor(Color.BLACK);
-                g_.drawString(var_, 0, statSide_ + h_);
-                g_.dispose();
+                AbstractImage varStat_ = _fact.newImageArgb(widthVar_, h_ + statSide_);
+//                CustGraphics g_ = varStat_.createGraphics();
+                varStat_.drawImage(t_, 0, 0);
+                varStat_.setColor(Color.BLACK);
+                varStat_.drawString(var_, 0, statSide_ + h_);
+                varStat_.dispose();
                 types_.add(varStat_);
             }
             if (TargetCoords.eq(statis_.getFromFighter(), statis_.getToFighter())) {
@@ -779,7 +779,7 @@ public class FrontBattle extends PaintableLabel {
                 if (keepAnimation) {
                     label_.setStatistics(types_);
                 } else {
-                    label_.setStatistics(new CustList<BufferedImage>());
+                    label_.setStatistics(new CustList<AbstractImage>());
                 }
                 label_.apply(this, facade);
                 drawImage = false;
@@ -790,23 +790,23 @@ public class FrontBattle extends PaintableLabel {
             } else {
                 hMax_ = 0;
                 int width_ = 0;
-                for (BufferedImage i: types_) {
+                for (AbstractImage i: types_) {
                     if (i.getHeight() > hMax_) {
                         hMax_ = i.getHeight();
                     }
                     width_ += i.getWidth();
                 }
                 if (width_ > 0) {
-                    image = new BufferedImage(width_, hMax_, BufferedImage.TYPE_INT_ARGB);
-                    CustGraphics g_ = new CustGraphics(image.createGraphics());
-                    g_.setColor(Color.WHITE);
-                    g_.fillRect(0, 0, width_, hMax_);
+                    image = _fact.newImageArgb(width_, hMax_);
+//                    CustGraphics g_ = image.createGraphics();
+                    image.setColor(Color.WHITE);
+                    image.fillRect(0, 0, width_, hMax_);
                     int x_ = 0;
-                    for (BufferedImage i: types_) {
-                        g_.drawImage(i, x_, 0);
+                    for (AbstractImage i: types_) {
+                        image.drawImage(i, x_, 0);
                         x_ += i.getWidth();
                     }
-                    g_.dispose();
+                    image.dispose();
                 } else {
                     paintDefaultEffect = true;
                 }
@@ -816,7 +816,7 @@ public class FrontBattle extends PaintableLabel {
             if (!status_.getStatus().isEmpty()) {
                 if (TargetCoords.eq(status_.getFromFighter(), status_.getToFighter())) {
                     int[][] stTxt_ = facade.getData().getAnimStatus().getVal(status_.getStatus());
-                    BufferedImage image_ = ConverterGraphicBufferedImage.decodeToImage(stTxt_);
+                    AbstractImage image_ = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), stTxt_);
                     TargetLabel label_;
                     if (status_.isPlayerFromFighter()) {
                         label_ = playerTargets.getVal((byte) status_.getFromFighter().getPosition());
@@ -824,9 +824,9 @@ public class FrontBattle extends PaintableLabel {
                         label_ = foeTargets.getVal((byte) status_.getFromFighter().getPosition());
                     }
                     if (keepAnimation) {
-                        label_.setStatistics(new CustList<BufferedImage>(image_));
+                        label_.setStatistics(new CustList<AbstractImage>(image_));
                     } else {
-                        label_.setStatistics(new CustList<BufferedImage>());
+                        label_.setStatistics(new CustList<AbstractImage>());
                     }
                     label_.apply(this, facade);
                     drawImage = false;
@@ -835,7 +835,7 @@ public class FrontBattle extends PaintableLabel {
                     imageNumber++;
                 } else {
                     int[][] stTxt_ = facade.getData().getAnimStatus().getVal(status_.getStatus());
-                    image = ConverterGraphicBufferedImage.decodeToImage(stTxt_);
+                    image = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), stTxt_);
                 }
             } else {
                 paintDefaultEffect = true;
@@ -844,7 +844,7 @@ public class FrontBattle extends PaintableLabel {
             AnimationEffect e_ = (AnimationEffect) _animation;
             if (e_.getEffectKind() == EffectKind.ABSORB) {
                 int[][] stTxt_ = facade.getData().getAnimAbsorb();
-                image = ConverterGraphicBufferedImage.decodeToImage(stTxt_);
+                image = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), stTxt_);
             } else {
                 if (TargetCoords.eq(e_.getFromFighter(), e_.getToFighter())) {
                     drawBlueRect = true;
@@ -881,7 +881,7 @@ public class FrontBattle extends PaintableLabel {
         }
 //        koPlayerTargets.removeDuplicates();
 //        koFoeTargets.removeDuplicates();
-        repaintLabel();
+        repaintLabel(battle.getWindow().getImageFactory());
         /*if (_animation instanceof AnimationEffectDamage) {
             getGraphics().setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
             getGraphics().drawString(number_, xIni, hMax_ + yIni);
@@ -896,15 +896,15 @@ public class FrontBattle extends PaintableLabel {
         for (TargetLabel t: playerTargets.values()) {
             t.apply(this, facade);
         }
-        repaintLabel();
+        repaintLabel(battle.getWindow().getImageFactory());
     }
 
-    void setHerosOppositeSex(BufferedImage _oppositeSex, boolean _paintTwoHeros) {
+    void setHerosOppositeSex(AbstractImage _oppositeSex, boolean _paintTwoHeros) {
         herosSexOpposite = _oppositeSex;
         paintTwoHeros = _paintTwoHeros;
     }
 
-    void drawAnimationFightIni(BufferedImage _heros, BufferedImage _other) {
+    void drawAnimationFightIni(AbstractImage _heros, AbstractImage _other) {
         wild = false;
         heros = _heros;
         other = _other;
@@ -926,7 +926,7 @@ public class FrontBattle extends PaintableLabel {
             yPlayer = maxHeight * 3;
         }
         imageNumber = 0;
-        repaintLabel();
+        repaintLabel(battle.getWindow().getImageFactory());
     }
 
     void drawAnimationFightIniInst() {
@@ -950,7 +950,7 @@ public class FrontBattle extends PaintableLabel {
             keepAnimation = false;
             drawImages = false;
         }
-        repaintLabel();
+        repaintLabel(battle.getWindow().getImageFactory());
     }
 
     public void initBall() {
@@ -964,13 +964,13 @@ public class FrontBattle extends PaintableLabel {
         imageNumber = 0;
         xIni += maxWidth / 2;
         yIni += maxHeight / 2;
-        repaintLabel();
+        repaintLabel(battle.getWindow().getImageFactory());
     }
 
     /**
     @param _ball
     */
-    public void moveBall(String _ball) {
+    public void moveBall(AbstractImageFactory _fact, String _ball) {
         wild = true;
         drawImage = true;
         drawBlueRect = false;
@@ -984,7 +984,7 @@ public class FrontBattle extends PaintableLabel {
         xEnd_ += maxWidth / 2;
         yEnd_ += maxHeight / 2;
         int[][] img_ = facade.getData().getMiniItems().getVal(_ball);
-        image = ConverterGraphicBufferedImage.centerImage(img_, facade.getMap().getSideLength());
+        image = ConverterGraphicBufferedImage.centerImage(_fact,img_, facade.getMap().getSideLength());
         int remainImages_ = NB_IMAGES - imageNumber;
         if (remainImages_ > 0) {
             int xDelta_ = (xEnd_ - xIni) / remainImages_;
@@ -1001,7 +1001,7 @@ public class FrontBattle extends PaintableLabel {
             }
             caught = caught_;
         }
-        repaintLabel();
+        repaintLabel(battle.getWindow().getImageFactory());
     }
 
     public void setWild(boolean _wild) {
@@ -1150,7 +1150,7 @@ public class FrontBattle extends PaintableLabel {
     }*/
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         if (drawImage) {

@@ -1,4 +1,6 @@
 package code.gui;
+import code.gui.images.AbstractImage;
+
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
@@ -14,13 +16,13 @@ public final class MenuItem implements EnabledMenu {
         menu =new JMenuItem();
     }
 
-    public MenuItem(BufferedImage _icon) {
-        menu =new JMenuItem(new ImageIcon(_icon));
-    }
+//    public MenuItem(AbstractImage _icon) {
+//        menu =new JMenuItem(new ImageIcon(_icon.data()));
+//    }
 
-    public MenuItem(String _text, BufferedImage _icon) {
-        menu =new JMenuItem(_text, new ImageIcon(_icon));
-    }
+//    public MenuItem(String _text, AbstractImage _icon) {
+//        menu =new JMenuItem(_text, new ImageIcon(_icon.data()));
+//    }
 
     public MenuItem(String _text, int _mnemonic) {
         menu =new JMenuItem(_text, _mnemonic);

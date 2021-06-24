@@ -1,4 +1,6 @@
 package code.gui;
+import code.gui.images.AbstractImage;
+
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
@@ -13,25 +15,25 @@ public class CheckBoxMenuItem implements EnabledMenu {
         menu = new JCheckBoxMenuItem();
     }
 
-    public CheckBoxMenuItem(BufferedImage _icon) {
-        menu = new JCheckBoxMenuItem(new ImageIcon(_icon));
-    }
+//    public CheckBoxMenuItem(AbstractImage _icon) {
+//        menu = new JCheckBoxMenuItem(new ImageIcon(_icon.data()));
+//    }
 
     public CheckBoxMenuItem(String _text) {
         menu = new JCheckBoxMenuItem(_text);
     }
 
-    public CheckBoxMenuItem(String _text, BufferedImage _icon) {
-        menu = new JCheckBoxMenuItem(_text, new ImageIcon(_icon));
-    }
+//    public CheckBoxMenuItem(String _text, AbstractImage _icon) {
+//        menu = new JCheckBoxMenuItem(_text, new ImageIcon(_icon.data()));
+//    }
 
     public CheckBoxMenuItem(String _text, boolean _b) {
         menu = new JCheckBoxMenuItem(_text, _b);
     }
 
-    public CheckBoxMenuItem(String _text, BufferedImage _icon, boolean _b) {
-        menu = new JCheckBoxMenuItem(_text, new ImageIcon(_icon), _b);
-    }
+//    public CheckBoxMenuItem(String _text, AbstractImage _icon, boolean _b) {
+//        menu = new JCheckBoxMenuItem(_text, new ImageIcon(_icon.data()), _b);
+//    }
 
     JCheckBoxMenuItem getMenu() {
         return menu;

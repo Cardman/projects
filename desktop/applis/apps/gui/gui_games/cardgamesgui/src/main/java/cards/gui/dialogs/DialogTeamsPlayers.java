@@ -20,7 +20,7 @@ public final class DialogTeamsPlayers extends DialogCards {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogTeamsPlayers(MainWindow _fenetre) {
-        _fenetre.getDialogTeamsPlayers().setDialogIcon(_fenetre);
+        _fenetre.getDialogTeamsPlayers().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogTeamsPlayers().messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogTeamsPlayers().getAccessFile());
         _fenetre.getDialogTeamsPlayers().setTitle(_fenetre.getDialogTeamsPlayers().messages.getVal(TITLE));

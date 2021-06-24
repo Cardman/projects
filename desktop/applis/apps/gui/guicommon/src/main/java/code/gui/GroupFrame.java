@@ -7,6 +7,8 @@ import javax.swing.*;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
@@ -27,7 +29,7 @@ public abstract class GroupFrame extends CommonFrame {
 
     private StringMap<String> messages;
 
-    private BufferedImage imageIconFrame;
+    private AbstractImage imageIconFrame;
 
     private boolean opened;
 
@@ -45,7 +47,7 @@ public abstract class GroupFrame extends CommonFrame {
             fileOpenDialog = new FileOpenDialog(_list.getThreadFactory().newAtomicBoolean(),_list.getThreadFactory().newAtomicBoolean());
             fileSaveDialog = new FileSaveDialog();
             folderOpenDialog = new FolderOpenDialog();
-            confirmDialog = new ConfirmDialog();
+            confirmDialog = new ConfirmDialog(_list);
             languageDialog = new LanguageDialog();
             frames.getFrames().first().messages = group(_lg);
         } else {
@@ -68,13 +70,13 @@ public abstract class GroupFrame extends CommonFrame {
         return false;
     }
 
-    public void setImageIconFrame(BufferedImage _imageIconFrame) {
+    public void setImageIconFrame(AbstractImage _imageIconFrame) {
         imageIconFrame = _imageIconFrame;
         setIconImage(imageIconFrame);
     }
 
     @Override
-    public BufferedImage getImageIconFrame() {
+    public AbstractImage getImageIconFrame() {
         return imageIconFrame;
     }
 
@@ -171,6 +173,9 @@ public abstract class GroupFrame extends CommonFrame {
         PackingWindowAfter.pack(this);
     }
 
+    public AbstractImageFactory getImageFactory(){
+        return frames.getImageFactory();
+    }
     public AbsCompoFactory getCompoFactory() {
         return frames.getCompoFactory();
     }

@@ -1,6 +1,7 @@
 package code.converterimages.main;
 
 import code.gui.*;
+import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.stream.StreamBinaryFile;
@@ -25,7 +26,7 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
     @Override
     public Object getObject(String _fileName) {
         if (isBinary(StreamBinaryFile.loadFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams()))) {
-            BufferedImage img_ = getFrames().readImg(_fileName);
+            AbstractImage img_ = getFrames().readImg(_fileName);
             if (img_ != null) {
                 return img_;
             }
@@ -65,11 +66,6 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
     }
     public static String getMainWindowClass() {
         return "converter";
-    }
-
-    @Override
-    protected BufferedImage getImageIcon() {
-        return null;
     }
 
 }

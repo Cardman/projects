@@ -7,6 +7,7 @@ import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.Panel;
+import code.gui.images.AbstractImageFactory;
 import code.util.*;
 import code.util.core.IndexConstants;
 
@@ -289,11 +290,11 @@ public class CarpetTarot {
     Place les dos des cartes (une pour chaque joueur) sur le tapis avant et
     apres chaque pli
     */
-    public void setCartesTarotJeu(String _lg,byte _nombreDeJoueurs) {
+    public void setCartesTarotJeu(AbstractImageFactory _fact,String _lg, byte _nombreDeJoueurs) {
         for (byte joueur_ = 0; joueur_ < _nombreDeJoueurs; joueur_++) {
             GraphicTarotCard place_ = cards.getVal((int) joueur_);
             place_.setJeu(_lg);
-            place_.repaintLabel();
+            place_.repaintLabel(_fact);
         }
     }
 
@@ -301,10 +302,10 @@ public class CarpetTarot {
     Met a jour la carte a jouer d'un joueur donne en fonction du nombre de
     joueurs
     */
-    public void setCarteTarot(String _lg,byte _joueur, CardTarot _m) {
+    public void setCarteTarot(AbstractImageFactory _fact,String _lg,byte _joueur, CardTarot _m) {
         GraphicTarotCard place_ = cards.getVal((int) _joueur);
-        place_.setCarteEnJeu(_lg,_m);
-        place_.repaintLabel();
+        place_.setCarteEnJeu(_fact,_lg,_m);
+        place_.repaintLabel(_fact);
     }
 
     public Panel getCenterDeck() {

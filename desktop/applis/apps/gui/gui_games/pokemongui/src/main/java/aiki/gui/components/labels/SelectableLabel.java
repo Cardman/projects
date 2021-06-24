@@ -3,8 +3,8 @@ import java.awt.Color;
 import java.awt.Font;
 
 import aiki.gui.components.Paginator;
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 
 public class SelectableLabel extends PaintableLabel {
 
@@ -24,7 +24,7 @@ public class SelectableLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         if (selected) {
             _g.setColor(Color.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);

@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 
 public class PokemonDataRenderer extends CustCellRender<String> {
@@ -21,12 +23,14 @@ public class PokemonDataRenderer extends CustCellRender<String> {
 
     private boolean selected;
 
-    private BufferedImage pkImage;
+    private AbstractImage pkImage;
+    private final AbstractImageFactory fact;
 
-    public PokemonDataRenderer(FacadeGame _facade, String _noEvo) {
+    public PokemonDataRenderer(AbstractImageFactory _fact,FacadeGame _facade, String _noEvo) {
         facade = _facade;
         sideLength = facade.getMap().getSideLength();
         noEvo = _noEvo;
+        fact = _fact;
     }
 
     public void setNoEvo(String _noEvo) {
@@ -42,7 +46,7 @@ public class PokemonDataRenderer extends CustCellRender<String> {
         if (!key_.isEmpty()) {
             name = facade.translatePokemon(key_);
             int[][] img_ = facade.getData().getMiniPk().getVal(key_);
-            pkImage = ConverterGraphicBufferedImage.decodeToImage(img_);
+            pkImage = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
             height = pkImage.getHeight();
         } else {
             name = DataBase.EMPTY_STRING;
@@ -53,7 +57,11 @@ public class PokemonDataRenderer extends CustCellRender<String> {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    protected AbstractImageFactory getImageFactory() {
+        return fact;
+    }
+    @Override
+    public void paintComponent(AbstractImage _g) {
         if (!name.isEmpty()) {
             _g.drawImage(pkImage, 0, 0);
             _g.drawString(name, sideLength, getHeight());

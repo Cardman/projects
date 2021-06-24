@@ -54,7 +54,7 @@ public final class DialogSoftParams extends Dialog {
     }
 
     private void init(MainWindow _window, LoadingGame _loading) {
-        setDialogIcon(_window);
+        setDialogIcon(_window.getImageFactory(),_window);
         messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
         ok = false;
         setTitle(messages.getVal(TITLE));

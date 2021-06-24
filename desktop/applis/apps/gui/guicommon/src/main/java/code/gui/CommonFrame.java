@@ -1,9 +1,11 @@
 package code.gui;
+import code.gui.images.AbstractImage;
+import code.gui.initialize.AbstractProgramInfos;
+
 import java.awt.*;
 import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public abstract class CommonFrame implements ChangeableTitle {
 
@@ -18,6 +20,7 @@ public abstract class CommonFrame implements ChangeableTitle {
     protected CommonFrame(String _languageKey) {
         languageKey = _languageKey;
     }
+    protected abstract AbstractProgramInfos getFrames();
     public String getLanguageKey() {
         return languageKey;
     }
@@ -73,8 +76,8 @@ public abstract class CommonFrame implements ChangeableTitle {
         frame.setDefaultCloseOperation(_operation);
     }
 
-    protected void setIconImage(BufferedImage _image) {
-        frame.setIconImage(_image);
+    protected void setIconImage(AbstractImage _image) {
+        frame.setIconImage(((ImageIcon)PreparedLabel.buildIcon(getFrames().getImageFactory(),_image)).getImage());
     }
 
     protected String getAccessFile() {
@@ -125,19 +128,11 @@ public abstract class CommonFrame implements ChangeableTitle {
     }
 
     public void setLocationRelativeTo(CustComponent _c) {
-        if (_c != null) {
-            frame.setLocationRelativeTo(_c.getComponent());
-        } else {
-            frame.setLocationRelativeTo(null);
-        }
+        frame.setLocationRelativeTo(_c.getComponent());
     }
 
     public void setLocationRelativeTo(CommonFrame _c) {
-        if (_c != null) {
-            frame.setLocationRelativeTo(_c.getFrame());
-        } else {
-            frame.setLocationRelativeTo(null);
-        }
+        frame.setLocationRelativeTo(_c.getFrame());
     }
 
     public void setLocationRelativeToNull() {
@@ -159,14 +154,14 @@ public abstract class CommonFrame implements ChangeableTitle {
         frame.setTitle(_title);
     }
 
-    public BufferedImage printAll() {
-        int w_ = getWidth();
-        int h_ = getHeight();
-        BufferedImage b_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-        Graphics g_ = b_.createGraphics();
-        frame.printAll(g_);
-        return b_;
-    }
+//    public AbstractImage printAll() {
+//        int w_ = getWidth();
+//        int h_ = getHeight();
+//        AbstractImage b_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
+//        Graphics g_ = b_.createGraphics();
+//        frame.printAll(g_);
+//        return b_;
+//    }
     public Point getLocationOnScreen() {
         return frame.getLocationOnScreen();
     }

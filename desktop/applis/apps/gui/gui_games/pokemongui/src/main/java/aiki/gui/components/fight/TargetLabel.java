@@ -1,12 +1,10 @@
 package aiki.gui.components.fight;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
-import code.gui.CustGraphics;
-import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -21,7 +19,7 @@ public class TargetLabel {
 
     private boolean playerTeam;
 
-    private BufferedImage image;
+    private AbstractImage image;
 
     private String fighterName;
 
@@ -45,9 +43,9 @@ public class TargetLabel {
 
     private String ball = DataBase.EMPTY_STRING;
 
-    private CustList<BufferedImage> statistics = new CustList<BufferedImage>();
+    private CustList<AbstractImage> statistics = new CustList<AbstractImage>();
 
-    public static int getWidthStatistic(PaintableLabel _parent, FacadeGame _facade) {
+    public static int getWidthStatistic(FrontBattle _parent, FacadeGame _facade) {
         int minValueStatis_ = _facade.getData().getMinBoost();
         int maxValueStatis_ = _facade.getData().getMaxBoost();
         int maxWidthValue_ = IndexConstants.SIZE_EMPTY;
@@ -60,7 +58,7 @@ public class TargetLabel {
         }
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
             int[][] type_ = _facade.getData().getAnimStatis().getVal(s.name());
-            BufferedImage t_ = ConverterGraphicBufferedImage.decodeToImage(type_);
+            AbstractImage t_ = ConverterGraphicBufferedImage.decodeToImage(_parent.getBattle().getWindow().getImageFactory(), type_);
             if (t_.getWidth() > maxWidthValue_) {
                 maxWidthValue_ = t_.getWidth();
             }
@@ -68,18 +66,18 @@ public class TargetLabel {
         return maxWidthValue_;
     }
 
-    public static int getHeightStatistic(PaintableLabel _parent, FacadeGame _facade) {
+    public static int getHeightStatistic(FrontBattle _parent, FacadeGame _facade) {
         int maxWidthValue_ = _parent.heightFont();
         int add_ = IndexConstants.SIZE_EMPTY;
         for (Statistic s: Statistic.getStatisticsWithBoost()) {
             int[][] type_ = _facade.getData().getAnimStatis().getVal(s.name());
-            BufferedImage t_ = ConverterGraphicBufferedImage.decodeToImage(type_);
+            AbstractImage t_ = ConverterGraphicBufferedImage.decodeToImage(_parent.getBattle().getWindow().getImageFactory(), type_);
             add_ = t_.getHeight();
         }
         return maxWidthValue_ + add_;
     }
 
-    public void apply(PaintableLabel _parent, FacadeGame _facade) {
+    public void apply(FrontBattle _parent, FacadeGame _facade) {
         DataBase data_ = _facade.getData();
         int widthImage_ = _facade.getMaxWidthPk();
         int width_ = _facade.getMaxWidthPk();
@@ -89,9 +87,9 @@ public class TargetLabel {
             fighterTranslatedName = _facade.translatePokemon(fighterName);
             int imgWidth_ = 0;
             if (!ball.isEmpty()) {
-                BufferedImage img_;
+                AbstractImage img_;
                 int[][] b_ = _facade.getData().getMiniItems().getVal(ball);
-                img_ = ConverterGraphicBufferedImage.decodeToImage(b_);
+                img_ = ConverterGraphicBufferedImage.decodeToImage(_parent.getBattle().getWindow().getImageFactory(), b_);
                 imgWidth_ = img_.getWidth();
             }
             int w_ = _parent.stringWidth(fighterTranslatedName);
@@ -156,9 +154,9 @@ public class TargetLabel {
         //height_ += getHeightStatistic(_facade);
         int delta_ = height_ - heightIni_;
         if (!ball.isEmpty()) {
-            BufferedImage img_;
+            AbstractImage img_;
             int[][] b_ = _facade.getData().getMiniItems().getVal(ball);
-            img_ = ConverterGraphicBufferedImage.decodeToImage(b_);
+            img_ = ConverterGraphicBufferedImage.decodeToImage(_parent.getBattle().getWindow().getImageFactory(), b_);
             if (delta_ < img_.getHeight()) {
                 delta_ = img_.getHeight();
                 height_ = heightIni_ + img_.getHeight();
@@ -174,59 +172,58 @@ public class TargetLabel {
                 height_ = IndexConstants.ONE_ELEMENT;
             }
         }
-        image = new BufferedImage(width_, height_, BufferedImage.TYPE_INT_ARGB);
+        image = _parent.getBattle().getWindow().getImageFactory().newImageArgb(width_, height_);
         if (!fighterName.isEmpty()) {
             int hMax_ = 0;
             int widthStatis_ = 0;
-            for (BufferedImage i: statistics) {
+            for (AbstractImage i: statistics) {
                 if (i.getHeight() > hMax_) {
                     hMax_ = i.getHeight();
                 }
                 widthStatis_ += i.getWidth();
             }
-            CustGraphics g_ = new CustGraphics(image.createGraphics());
-            g_.setColor(Color.WHITE);
-            g_.fillRect(deltaWidth_, 0, widthStatis_, hMax_);
+            image.setColor(Color.WHITE);
+            image.fillRect(deltaWidth_, 0, widthStatis_, hMax_);
             int x_ = 0;
-            for (BufferedImage i: statistics) {
-                g_.drawImage(i, x_ + deltaWidth_, 0);
+            for (AbstractImage i: statistics) {
+                image.drawImage(i, x_ + deltaWidth_, 0);
                 x_ += i.getWidth();
             }
-            BufferedImage image_;
+            AbstractImage image_;
             if (playerTeam) {
-                image_ = ConverterGraphicBufferedImage.centerImage(data_.getMaxiPkBack().getVal(fighterName), widthImage_, heightImage_);
+                image_ = ConverterGraphicBufferedImage.centerImage(_parent.getBattle().getWindow().getImageFactory(), data_.getMaxiPkBack().getVal(fighterName), widthImage_, heightImage_);
             } else {
-                image_ = ConverterGraphicBufferedImage.centerImage(data_.getMaxiPkFront().getVal(fighterName), widthImage_, heightImage_);
+                image_ = ConverterGraphicBufferedImage.centerImage(_parent.getBattle().getWindow().getImageFactory(),data_.getMaxiPkFront().getVal(fighterName), widthImage_, heightImage_);
             }
-            g_.setColor(Color.BLACK);
-            g_.drawString(fighterTranslatedName, 0, h_);
+            image.setColor(Color.BLACK);
+            image.drawString(fighterTranslatedName, 0, h_);
             if (!ball.isEmpty()) {
-                BufferedImage img_;
+                AbstractImage img_;
                 int[][] b_ = _facade.getData().getMiniItems().getVal(ball);
-                img_ = ConverterGraphicBufferedImage.decodeToImage(b_);
-                g_.drawImage(img_, width_ - img_.getWidth(), 0);
+                img_ = ConverterGraphicBufferedImage.decodeToImage(_parent.getBattle().getWindow().getImageFactory(), b_);
+                image.drawImage(img_, width_ - img_.getWidth(), 0);
                 //h_ += img_.getHeight();
             }
             h_ += heightString_;
-            g_.drawString(Long.toString(level), 0, h_);
+            image.drawString(Long.toString(level), 0, h_);
             h_ += heightString_;
-            g_.setColor(Color.BLUE);
-            g_.drawString(percentExp.toNumberString(), 0, h_);
+            image.setColor(Color.BLUE);
+            image.drawString(percentExp.toNumberString(), 0, h_);
             h_ += heightString_;
             int rate_ = NumberUtil.parseInt(percentHp.toNumberString());
             int red_ = 255;
             int green_ = 255;
             green_ = green_ * rate_ / Rate.CENT;
             red_ = red_ * ((Rate.CENT - rate_) / Rate.CENT);
-            g_.setColor(new Color(red_, green_, 0));
-            g_.drawString(StringUtil.concat(percentHp.toNumberString(),PER_CENT), 0, h_);
-            g_.drawImage(image_, 0, delta_);
+            image.setColor(new Color(red_, green_, 0));
+            image.drawString(StringUtil.concat(percentHp.toNumberString(),PER_CENT), 0, h_);
+            image.drawImage(image_, 0, delta_);
             if (ko) {
-                g_.setColor(Color.RED);
-                g_.drawLine(0, h_, width_, height_);
-                g_.drawLine(0, height_, width_, h_);
+                image.setColor(Color.RED);
+                image.drawLine(0, h_, width_, height_);
+                image.drawLine(0, height_, width_, h_);
             }
-            g_.dispose();
+            image.dispose();
         }
         finalWidth = width_;
         finalHeight = height_;
@@ -243,7 +240,7 @@ public class TargetLabel {
         //setPreferredSize(new Dimension(width, height));
     }
 
-    public void set(PaintableLabel _parent, boolean _playerTeam,FacadeGame _facade, String _name) {
+    public void set(FrontBattle _parent, boolean _playerTeam,FacadeGame _facade, String _name) {
         playerTeam = _playerTeam;
         fighterName = _name;
         apply(_parent, _facade);
@@ -325,11 +322,11 @@ public class TargetLabel {
         playerTeam = _playerTeam;
     }
 
-    public BufferedImage getImage() {
+    public AbstractImage getImage() {
         return image;
     }
 
-    public void setImage(BufferedImage _image) {
+    public void setImage(AbstractImage _image) {
         image = _image;
     }
 
@@ -421,11 +418,11 @@ public class TargetLabel {
         ball = _ball;
     }
 
-    public CustList<BufferedImage> getStatistics() {
+    public CustList<AbstractImage> getStatistics() {
         return statistics;
     }
 
-    public void setStatistics(CustList<BufferedImage> _statistics) {
+    public void setStatistics(CustList<AbstractImage> _statistics) {
         statistics = _statistics;
     }
 }

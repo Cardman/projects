@@ -13,7 +13,7 @@ import code.util.StringList;
 public final class DialogTricksTarot extends DialogCards {
 
     public static void setDialogTricksTarot(String _titre, MainWindow _fenetre) {
-        _fenetre.getDialogTricksTarot().setDialogIcon(_fenetre);
+        _fenetre.getDialogTricksTarot().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogTricksTarot().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogTricksTarot().setTitle(_titre);
         _fenetre.getDialogTricksTarot().setResizable(true);

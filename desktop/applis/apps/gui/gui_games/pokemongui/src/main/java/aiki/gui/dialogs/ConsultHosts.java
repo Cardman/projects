@@ -46,7 +46,7 @@ public final class ConsultHosts extends Dialog {
     }
 
     private void init(MainWindow _frame, FacadeGame _facade) {
-        setDialogIcon(_frame);
+        setDialogIcon(_frame.getImageFactory(),_frame);
         window = _frame;
         messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _frame.getLanguageKey(), getAccessFile());
         //super(_frame, true);

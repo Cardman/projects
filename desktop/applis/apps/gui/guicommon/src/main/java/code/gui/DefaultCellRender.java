@@ -1,5 +1,8 @@
 package code.gui;
 
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
+
 import java.awt.Color;
 
 public final class DefaultCellRender extends CustCellRender<String> {
@@ -9,7 +12,11 @@ public final class DefaultCellRender extends CustCellRender<String> {
     private PreparedLabel label;
     private String text;
     private boolean selected;
+    private final AbstractImageFactory fact;
 
+    public DefaultCellRender(AbstractImageFactory _fact) {
+        fact = _fact;
+    }
     @Override
     public void getListCellRendererComponent(PreparedLabel _currentLab,
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
@@ -27,12 +34,16 @@ public final class DefaultCellRender extends CustCellRender<String> {
     }
 
     @Override
+    protected AbstractImageFactory getImageFactory() {
+        return fact;
+    }
+    @Override
     public int getWidth() {
         return maxWidth;
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         int h_ = label.heightFont();
         int w_ = label.stringWidth(text);
         if (selected) {

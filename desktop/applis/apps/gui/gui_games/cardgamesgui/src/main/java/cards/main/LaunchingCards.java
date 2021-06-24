@@ -1,5 +1,4 @@
 package cards.main;
-import java.awt.image.BufferedImage;
 
 import cards.belote.HandBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
@@ -12,6 +11,8 @@ import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.HandTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.scripts.messages.gui.MessCardVideoGr;
@@ -78,8 +79,8 @@ public class LaunchingCards extends AdvSoftApplicationCore {
         LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
-    public static BufferedImage getIcon() {
-        return getImage(MessCardVideoGr.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES, StreamTextFile.SEPARATEUR, FileConst.SUITS_TXT)));
+    public static AbstractImage getIcon(AbstractImageFactory _fact) {
+        return getImage(MessCardVideoGr.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES, StreamTextFile.SEPARATEUR, FileConst.SUITS_TXT)), _fact);
     }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {
@@ -95,11 +96,6 @@ public class LaunchingCards extends AdvSoftApplicationCore {
     }
     public static String getMainWindowClass() {
         return "cards";
-    }
-
-    @Override
-    protected BufferedImage getImageIcon() {
-        return getIcon();
     }
 
     @Override

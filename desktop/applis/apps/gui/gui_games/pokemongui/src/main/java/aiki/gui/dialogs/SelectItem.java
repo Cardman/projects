@@ -43,7 +43,7 @@ public final class SelectItem extends SelectDialog {
     }
 
     private void init(MainWindow _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
-        setDialogIcon(_parent);
+        setDialogIcon(_parent.getImageFactory(),_parent);
         messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setTitle(messages.getVal(TITLE));
         facade = _facade;

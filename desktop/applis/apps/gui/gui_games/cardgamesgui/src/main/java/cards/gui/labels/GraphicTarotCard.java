@@ -2,15 +2,15 @@ package cards.gui.labels;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.image.BufferedImage;
 
 import javax.swing.SwingConstants;
 
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.FileConst;
 import cards.tarot.enumerations.CardTarot;
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
 import code.scripts.pages.cards.CardsInit;
@@ -24,10 +24,10 @@ public class GraphicTarotCard extends PaintableLabel {
     private final boolean fullCard;
     private boolean peinte;
     private boolean peindreCarte=true;
-    private BufferedImage bufferedImage;
+    private AbstractImage bufferedImage;
     private String lg;
 
-    public GraphicTarotCard(String _lg,CardTarot _pc, int _i, boolean _fullCard) {
+    public GraphicTarotCard(AbstractImageFactory _fact,String _lg,CardTarot _pc, int _i, boolean _fullCard) {
         this(_lg,_i,_fullCard);
         peindreCarte=true;
         card=_pc;
@@ -35,7 +35,7 @@ public class GraphicTarotCard extends PaintableLabel {
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
-        bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
+        bufferedImage = ConverterGraphicBufferedImage.decodeToImage(_fact,file_);
     }
 
     public GraphicTarotCard(String _lg,int _i, boolean _fullCard) {
@@ -64,7 +64,7 @@ public class GraphicTarotCard extends PaintableLabel {
     public static Dimension getDimensionForSeveralCards(int _number) {
         return new Dimension(100 + 25 * (_number - 1), 150);
     }
-    void setCarte(String _lg,CardTarot _pc) {
+    void setCarte(AbstractImageFactory _fact, String _lg, CardTarot _pc) {
         lg = _lg;
         card=_pc;
         peinte=false;
@@ -73,16 +73,16 @@ public class GraphicTarotCard extends PaintableLabel {
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
-        bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
+        bufferedImage = ConverterGraphicBufferedImage.decodeToImage(_fact,file_);
     }
 
     public CardTarot getCard() {
         return card;
     }
 
-    public void setCarteEnJeu(String _lg,CardTarot _carte) {
+    public void setCarteEnJeu(AbstractImageFactory _fact, String _lg, CardTarot _carte) {
         peindreCarte=true;
-        setCarte(_lg,_carte);
+        setCarte(_fact,_lg,_carte);
     }
     public void setJeu(String _lg) {
         lg = _lg;
@@ -95,7 +95,7 @@ public class GraphicTarotCard extends PaintableLabel {
 
     /**Methode importante dessinant les cartes des jeux de cartes face non cachee sauf pour certaines cartes du solitaire*/
     @Override
-    public void paintComponent(CustGraphics _g2) {
+    public void paintComponent(AbstractImage _g2) {
         if(!peindreCarte) {
             _g2.setColor(Color.RED);
             _g2.fillRect(0,0,getWidth()-1,getHeight()-1);

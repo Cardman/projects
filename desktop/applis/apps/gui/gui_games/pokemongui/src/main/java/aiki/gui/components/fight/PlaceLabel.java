@@ -1,8 +1,8 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
 
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 
 public class PlaceLabel extends PaintableLabel {
 
@@ -30,7 +30,7 @@ public class PlaceLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.BLACK);
         _g.drawString(text, 0, getHeight());
         if (selected) {

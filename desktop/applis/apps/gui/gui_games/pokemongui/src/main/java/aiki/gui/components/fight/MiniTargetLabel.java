@@ -1,17 +1,16 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 
 public class MiniTargetLabel extends PaintableLabel {
 
-    private BufferedImage image;
+    private AbstractImage image;
 
     private boolean selectable;
 
@@ -19,10 +18,10 @@ public class MiniTargetLabel extends PaintableLabel {
 
     private int index;
 
-    public void set(FacadeGame _facade, String _name, int _index) {
+    public void set(FacadeGame _facade, Battle _battle, String _name, int _index) {
         index = _index;
         DataBase data_ = _facade.getData();
-        image = ConverterGraphicBufferedImage.decodeToImage(data_.getMiniPk().getVal(_name));
+        image = ConverterGraphicBufferedImage.decodeToImage(_battle.getWindow().getImageFactory(), data_.getMiniPk().getVal(_name));
         setPreferredSize(new Dimension(image.getWidth(),image.getHeight()));
     }
 
@@ -39,7 +38,7 @@ public class MiniTargetLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         if (!selectable) {
             _g.setColor(Color.GRAY);
             _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);

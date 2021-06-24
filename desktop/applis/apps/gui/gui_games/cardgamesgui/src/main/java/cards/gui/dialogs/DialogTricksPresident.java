@@ -14,7 +14,7 @@ public final class DialogTricksPresident extends DialogCards {
 
     public static void setDialogTricksPresident(String _titre, MainWindow _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogTricksPresident().setDialogIcon(_fenetre);
+        _fenetre.getDialogTricksPresident().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogTricksPresident().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogTricksPresident().setTitle(_titre);
         _fenetre.getDialogTricksPresident().setResizable(true);

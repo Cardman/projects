@@ -3,6 +3,7 @@ import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
+import code.gui.images.AbstractImage;
 import code.threads.ThreadUtil;
 import code.gui.images.ConverterGraphicBufferedImage;
 
@@ -10,7 +11,7 @@ import code.gui.images.ConverterGraphicBufferedImage;
 Thread safe class*/
 public final class FightWildIntroThread extends FightIntroThread {
 
-    private BufferedImage pokemon;
+    private AbstractImage pokemon;
 
     /**This class thread is independant from EDT*/
     public FightWildIntroThread(FacadeGame _facade, Battle _battle) {
@@ -21,7 +22,7 @@ public final class FightWildIntroThread extends FightIntroThread {
     public void run() {
         initHeros();
         String name_ = getFacade().getFight().wildPokemon().getName();
-        pokemon = ConverterGraphicBufferedImage.decodeToImage(getFacade().getData().getMaxiPkFront().getVal(name_));
+        pokemon = ConverterGraphicBufferedImage.decodeToImage(getBattle().getWindow().getImageFactory(), getFacade().getData().getMaxiPkFront().getVal(name_));
         getBattle().setHerosOppositeSex(getHerosOppositeSex(), false);
         getBattle().drawAnimationFightIni(getHeros(), pokemon);
         while (getBattle().isKeepAnimation()) {

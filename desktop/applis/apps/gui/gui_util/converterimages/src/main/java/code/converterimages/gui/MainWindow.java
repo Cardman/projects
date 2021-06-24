@@ -6,6 +6,7 @@ import javax.swing.WindowConstants;
 import code.converterimages.main.LaunchingConverter;
 import code.gui.*;
 import code.gui.events.QuittingEvent;
+import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
@@ -96,7 +97,7 @@ public final class MainWindow extends GroupFrame {
                     continue;
                 }
                 String f_ = StringUtil.replaceBackSlash(f);
-                BufferedImage img_ = getFrames().readImg(pathExport.getText()+f);
+                AbstractImage img_ = getFrames().readImg(pathExport.getText()+f);
                 if (img_ == null) {
                     continue;
                 }
@@ -130,14 +131,14 @@ public final class MainWindow extends GroupFrame {
                 if (readImage_ == null) {
                     continue;
                 }
-                BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
+                AbstractImage img_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(readImage_));
                 getFrames().writeImg(PNG_EXT,path.getText()+StreamTextFile.SEPARATEUR+ StringUtil.replace(f_, DOT+TXT_EXT, DOT+PNG_EXT),img_);
             }
         }
     }
 
     public void readOneImageArg(String _readPath) {
-        BufferedImage img_ = getFrames().readImg(_readPath);
+        AbstractImage img_ = getFrames().readImg(_readPath);
         if (img_ == null) {
             return;
         }
@@ -155,7 +156,7 @@ public final class MainWindow extends GroupFrame {
         if (readImage_ == null) {
             return;
         }
-        BufferedImage img_ = ConverterGraphicBufferedImage.decodeToImage(BaseSixtyFourUtil.getImageByString(readImage_));
+        AbstractImage img_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(readImage_));
         getFrames().writeImg(PNG_EXT, StringUtil.replace(_writePath, DOT+TXT_EXT, DOT+PNG_EXT),img_);
     }
     @Override

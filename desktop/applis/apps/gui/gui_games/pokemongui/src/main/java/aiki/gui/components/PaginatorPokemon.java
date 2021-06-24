@@ -103,12 +103,12 @@ public final class PaginatorPokemon extends Paginator {
 
     public PaginatorPokemon(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_POKEMON,_p);
-        cmpNamePrio = new NumComboBox(_window.getFrames().getGeneComboBox());
-        cmpAbilityPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
-        cmpItemPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
-        cmpLevelPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
-        cmpGenderPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
-        cmpPossEvosPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpNamePrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
+        cmpAbilityPrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
+        cmpItemPrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
+        cmpLevelPrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
+        cmpGenderPrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
+        cmpPossEvosPrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
         setWindow(_w);
         setFacade(_d);
         order.add(SearchingMode.WHOLE_STRING);
@@ -117,40 +117,40 @@ public final class PaginatorPokemon extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        modeName = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        modeAbility = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        modeAbility = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         modeAbility.setWithDefaultValue(false);
         modeAbility.refresh(order, getMessagesSearchMode());
-        modeItem = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        modeItem = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         modeItem.setWithDefaultValue(false);
         modeItem.refresh(order, getMessagesSearchMode());
-        withItem = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        withItem = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         withItem.setWithDefaultValue(false);
         withItem.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        modeMoves = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        modeMoves = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         modeMoves.setWithDefaultValue(false);
         modeMoves.refresh(order, getMessagesSearchMode());
-        gender = new ComboBox<Gender>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        gender = new ComboBox<Gender>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         gender.setWithDefaultValue(true);
         gender.refresh(getFacade().getTranslatedGendersCurLanguage());
-        cmpNameSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        cmpNameSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpAbilitySorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        cmpAbilitySorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         cmpAbilitySorting.setWithDefaultValue(false);
         cmpAbilitySorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpItemSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        cmpItemSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         cmpItemSorting.setWithDefaultValue(false);
         cmpItemSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpLevelSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        cmpLevelSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         cmpLevelSorting.setWithDefaultValue(false);
         cmpLevelSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpGenderSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        cmpGenderSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         cmpGenderSorting.setWithDefaultValue(false);
         cmpGenderSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpPossEvosSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        cmpPossEvosSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         cmpPossEvosSorting.setWithDefaultValue(false);
         cmpPossEvosSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nb_ = PaginationPokemonPlayer.NB_COMPARATORS;
@@ -172,7 +172,7 @@ public final class PaginatorPokemon extends Paginator {
             pk_.add(pkTr_);
         }
         name = new TextField(16);
-        nameAuto = new AutoCompleteDocument(name,pk_, getWindow(),_window.getFrames().getGeneGraphicList());
+        nameAuto = new AutoCompleteDocument(name,pk_, getWindow(),_window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -193,7 +193,7 @@ public final class PaginatorPokemon extends Paginator {
             ab_.add(abTr_);
         }
         ability = new TextField(16);
-        abilityAuto = new AutoCompleteDocument(ability,ab_, getWindow(),_window.getFrames().getGeneGraphicList());
+        abilityAuto = new AutoCompleteDocument(ability,ab_, getWindow(),_window.getFrames());
 //        ability.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -214,7 +214,7 @@ public final class PaginatorPokemon extends Paginator {
             it_.add(abTr_);
         }
         item = new TextField(16);
-        itemAuto = new AutoCompleteDocument(item,it_, getWindow(),_window.getFrames().getGeneGraphicList());
+        itemAuto = new AutoCompleteDocument(item,it_, getWindow(),_window.getFrames());
 //        item.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -240,7 +240,7 @@ public final class PaginatorPokemon extends Paginator {
             mv_.add(mvTr_);
         }
         moves = new TextField(16);
-        movesAuto = new AutoCompleteDocument(moves,mv_, getWindow(),_window.getFrames().getGeneGraphicList());
+        movesAuto = new AutoCompleteDocument(moves,mv_, getWindow(),_window.getFrames());
 //        moves.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -598,7 +598,7 @@ public final class PaginatorPokemon extends Paginator {
         int nb_ = rendered_.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
             PokemonLabel l_ = new PokemonLabel(rendered_.get(i));
-            l_.setImagesResults(getFacade());
+            l_.setImagesResults(getMain().getImageFactory(), getFacade());
             l_.refresh(getFacade().getTranslatedGendersCurLanguage());
             l_.addMouseListener(new PaginatorEvent(this,i));
             //l_.setPreferredSize(new Dimension(100,10));
@@ -684,7 +684,7 @@ public final class PaginatorPokemon extends Paginator {
 //        results.add(new JLabel(POKEMON));
         results.add(getHeader());
         for (PokemonLabel l: list_) {
-            l.repaintLabel();
+            l.repaintLabel(getMain().getImageFactory());
             //l.setGenderCoord(maxPixName_ + maxPixAbility_ + maxPixItem_ + maxPixItem_);
             //l.setPreferredSize(new Dimension(maxPixName_ + maxPixAbility_ + maxPixItem_ + maxPixLevel_ + maxPixGender_,10));
             results.add(l);

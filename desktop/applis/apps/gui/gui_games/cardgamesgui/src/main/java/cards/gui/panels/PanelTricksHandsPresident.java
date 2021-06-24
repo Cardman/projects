@@ -80,7 +80,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         //boolean entered_ = false;
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             sousPanneau3_= Panel.newLineBox();
-            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
+            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window.getImageFactory(),lg_,dealt_.hand(joueur_))) {
                 sousPanneau3_.add(c);
             }
 //            entered_ = false;
@@ -132,7 +132,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //        list_.add(null);
 //        numerosPlis_[nbNumbers_ - 1] = CURRENT_TRICK;
 //        trickNumber=new NumComboBox(numerosPlis_);
-        trickNumber=new IntTreeComboBox(window.getFrames().getGeneComboBox().createCombo(new StringList(),-1));
+        trickNumber=new IntTreeComboBox(window.getFrames().getGeneComboBox().createCombo(window.getImageFactory(),new StringList(),-1));
         trickNumber.setWithDefaultValue(true);
         trickNumber.refresh(map_);
         trickNumber.setListener(new ListenerTricks(this));
@@ -151,7 +151,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
 //        } else {
 //            cardNumberTrick=new JComboBox<>();
 //        }
-        cardNumberTrick=new IntTreeComboBox(window.getFrames().getGeneComboBox().createCombo(new StringList(),-1));
+        cardNumberTrick=new IntTreeComboBox(window.getFrames().getGeneComboBox().createCombo(window.getImageFactory(),new StringList(),-1));
 //        Integer[] numerosJoueurs_=new Integer[_numberPlayers];
 //        for(byte indiceJoueur_=CustList.FIRST_INDEX;indiceJoueur_<_numberPlayers;indiceJoueur_++) {
 //            numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
@@ -184,7 +184,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             DealPresident dealt_ = tricksHands.getDistribution();
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
                 Panel sousPanneau4_= Panel.newLineBox();
-                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
+                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window.getImageFactory(),lg_,dealt_.hand(joueur_))) {
                     sousPanneau4_.add(c);
                 }
                 hands.add(sousPanneau4_);
@@ -206,7 +206,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             int nb_ = tricksHands.getProgressingTrick().getNombreDeCartesParJoueur();
             for(HandPresident h_:tricksHands.getProgressingTrick()) {
                 Panel cards_ = Panel.newLineBox();
-                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,h_)) {
+                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window.getImageFactory(),lg_,h_)) {
                     cards_.add(c);
                 }
                 if (h_.estVide()) {
@@ -241,7 +241,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             for (CoordsHands c: panels_.getKeys()) {
                 gr_.add(panels_.getVal(c));
             }
-            gr_.repaintSecondChildren();
+            gr_.repaintSecondChildren(window.getImageFactory());
             selectedTrick = gr_;
             cards.add(gr_,indexRem_);
             int nbCards_ = tricksHands.getProgressingTrick().total();
@@ -263,7 +263,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         CustList<TrickPresident> tricks_ = tricksHands.getTricks();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             Panel sousPanneau4_= Panel.newLineBox();
-            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
+            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window.getImageFactory(),lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;
@@ -301,7 +301,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             }
             for(HandPresident h_:tricks_.get(numeroPli_)) {
                 Panel cards_ = Panel.newLineBox();
-                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,h_)) {
+                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window.getImageFactory(),lg_,h_)) {
                     cards_.add(c);
                 }
                 if (h_.estVide()) {
@@ -335,7 +335,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             }
             selectedTrick = gr_;
             cards.add(gr_,indexRem_);
-            gr_.repaintSecondChildren();
+            gr_.repaintSecondChildren(window.getImageFactory());
             int nbCards_ = tricks_.get(numeroPli_).total();
             int[] numerosJoueurs_=new int[nbCards_ + 1];
             for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<=nbCards_; indiceJoueur_++) {
@@ -364,7 +364,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             hands.removeAll();
             for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
                 Panel sousPanneau4_= Panel.newLineBox();
-                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
+                for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window.getImageFactory(), lg_,dealt_.hand(joueur_))) {
                     sousPanneau4_.add(c);
                 }
                 hands.add(sousPanneau4_);
@@ -388,7 +388,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             for(HandPresident h_ :tricksHands.getProgressingTrick()) {
                 if(indice2_<=numeroCarte_) {
                     Panel cards_ = Panel.newLineBox();
-                    for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,h_)) {
+                    for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window.getImageFactory(),lg_,h_)) {
                         cards_.add(c);
                     }
                     if (h_.estVide()) {
@@ -425,7 +425,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             for (CoordsHands c: panels_.getKeys()) {
                 gr_.add(panels_.getVal(c));
             }
-            gr_.repaintSecondChildren();
+            gr_.repaintSecondChildren(window.getImageFactory());
             selectedTrick = gr_;
             cards.add(gr_,indexRem_);
             parent.pack();
@@ -447,7 +447,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         hands.removeAll();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             Panel sousPanneau4_= Panel.newLineBox();
-            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,dealt_.hand(joueur_))) {
+            for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window.getImageFactory(),lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;
@@ -485,7 +485,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             for(HandPresident h_ :tricks_.get(numeroPli_)) {
                 if(indice2_<=numeroCarte_) {
                     Panel cards_ = Panel.newLineBox();
-                    for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,h_)) {
+                    for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window.getImageFactory(),lg_,h_)) {
                         cards_.add(c);
                     }
                     if (h_.estVide()) {
@@ -524,7 +524,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             selectedTrick = gr_;
             cards.add(gr_,indexRem_);
         }
-        selectedTrick.repaintSecondChildren();
+        selectedTrick.repaintSecondChildren(window.getImageFactory());
         parent.pack();
 
     }

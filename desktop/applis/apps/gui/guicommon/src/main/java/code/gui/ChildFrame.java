@@ -1,12 +1,22 @@
 package code.gui;
+import code.gui.images.AbstractImage;
+import code.gui.initialize.AbstractProgramInfos;
+
 import java.awt.image.BufferedImage;
 
 public abstract class ChildFrame extends CommonFrame {
 
-    private BufferedImage imageIconFrame;
+    private final AbstractProgramInfos frames;
+    private AbstractImage imageIconFrame;
 
-    protected ChildFrame(String _lg) {
+    protected ChildFrame(String _lg,GroupFrame _group) {
         super(_lg);
+        frames = _group.getFrames();
+    }
+
+    @Override
+    public AbstractProgramInfos getFrames() {
+        return frames;
     }
 
     protected void setDialogIcon(GroupFrame _group) {
@@ -17,7 +27,7 @@ public abstract class ChildFrame extends CommonFrame {
     public abstract void closeWindow();
 
     @Override
-    public BufferedImage getImageIconFrame() {
+    public AbstractImage getImageIconFrame() {
         return imageIconFrame;
     }
 }

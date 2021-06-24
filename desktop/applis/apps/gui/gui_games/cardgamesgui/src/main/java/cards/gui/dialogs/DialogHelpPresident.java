@@ -32,7 +32,7 @@ public final class DialogHelpPresident extends Dialog {
         setVisible(true);
     }
     public static void setTitleDialog(MainWindow _fenetre,String _title) {
-        _fenetre.getDialogHelpPresident().setDialogIcon(_fenetre);
+        _fenetre.getDialogHelpPresident().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogHelpPresident().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogHelpPresident().setTitle(_title);
         _fenetre.getDialogHelpPresident().initMessageName(_fenetre);

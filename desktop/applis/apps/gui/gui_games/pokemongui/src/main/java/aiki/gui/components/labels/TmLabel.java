@@ -6,7 +6,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.MoveData;
 import aiki.util.SortingMove;
-import code.gui.CustGraphics;
+import code.gui.images.AbstractImage;
 import code.images.ConverterBufferedImage;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
@@ -132,7 +132,7 @@ public class TmLabel extends SelectableLabel {
 //    }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         _g.setColor(Color.BLACK);

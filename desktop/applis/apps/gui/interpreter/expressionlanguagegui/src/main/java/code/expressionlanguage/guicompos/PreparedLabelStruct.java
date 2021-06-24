@@ -3,37 +3,33 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.PreparedLabel;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 
-import javax.swing.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 
 public final class PreparedLabelStruct extends CustComponentStruct {
     private final PreparedLabel textLabel;
-    protected PreparedLabelStruct(String _className) {
+
+    protected PreparedLabelStruct(AbstractImageFactory _fact, String _className) {
         super(_className);
-        textLabel = new PreparedLabel();
+        textLabel = PreparedLabel.prep(_fact);
     }
-    protected PreparedLabelStruct(Struct _img,String _className) {
+    protected PreparedLabelStruct(AbstractImageFactory _fact, Struct _img,String _className) {
         super(_className);
-        textLabel = new PreparedLabel(builImage(_img));
+        textLabel = new PreparedLabel(_fact,builImage(_img));
     }
-    public void setImage(Struct _text) {
-        if (!(_text instanceof ImageStruct)) {
-            textLabel.setEmptyIcon();
-        } else {
-            BufferedImage img_ = ((ImageStruct) _text).getImage();
-            textLabel.setIcon(img_);
-        }
+    public void setImage(AbstractImageFactory _fact, Struct _text) {
+        textLabel.setIcon(_fact,builImage(_text));
     }
 
-    public static ImageIcon builImage(Struct _text) {
-        BufferedImage img_ = null;
+    public static AbstractImage builImage(Struct _text) {
+        AbstractImage img_ = null;
         if (_text instanceof ImageStruct) {
             img_ = ((ImageStruct) _text).getImage();
         }
-        return PreparedLabel.buildIcon(img_);
+        return img_;
     }
 
     public void addMouseListener(MouseListener _mouseListener) {

@@ -23,10 +23,10 @@ public final class SimulationRefreshHandTarotDog implements Runnable {
     static void updateCardsInPanelTarotDog(ContainerSimuTarot _s, Panel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = _s.getOwner().getLanguageKey();
-        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_,_hand)) {
+        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(_s.getWindow().getImageFactory(),lg_,_hand)) {
             _panel.add(c);
         }
-        _panel.repaintChildren();
+        _panel.repaintChildren(_s.getOwner().getImageFactory());
         _panel.validate();
     }
 

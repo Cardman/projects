@@ -16,6 +16,7 @@ import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
+import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.Document;
 import code.threads.AbstractAtomicBoolean;
@@ -38,7 +39,7 @@ public final class RenderedPage implements ProcessingSession {
 
     private AbstractThread threadAction;
 
-    private CustList<BufferedImage> process = new CustList<BufferedImage>();
+    private CustList<AbstractImage> process = new CustList<AbstractImage>();
 
     private TextArea area;
 
@@ -82,7 +83,7 @@ public final class RenderedPage implements ProcessingSession {
         navigation.setLanguages(_languages);
     }
 
-    public void setProcess(CustList<BufferedImage> _process) {
+    public void setProcess(CustList<AbstractImage> _process) {
         process = _process;
     }
 

@@ -8,10 +8,11 @@ public final class CustSelList<T> implements ListCellRenderer<T> {
 
 	private CustCellRender<T> render;
 	private CustList<T> list = new CustList<>();
-	private final PreparedLabel label = new PreparedLabel();
+	private PreparedLabel label;
 
     public void setRender(CustCellRender<T> _render) {
         this.render = _render;
+        label = PreparedLabel.prep(_render.getImageFactory());
     }
 
 

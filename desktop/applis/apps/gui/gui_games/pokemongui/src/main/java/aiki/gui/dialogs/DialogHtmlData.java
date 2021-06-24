@@ -41,7 +41,7 @@ public final class DialogHtmlData extends Dialog {
 //    }
     public static void setDialogHtmlData(MainWindow _window, Dialog _parent, String _title, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
-        _window.getDialogHtmlData().setDialogIcon(_parent);
+        _window.getDialogHtmlData().setDialogIcon(_window.getImageFactory(),_parent);
         _window.getDialogHtmlData().setTitle(_title);
         _window.getDialogHtmlData().init(_window, _parent, _session);
         _window.getDialogHtmlData().initSession(_dataBase,_pre,_lg);
@@ -56,7 +56,7 @@ public final class DialogHtmlData extends Dialog {
 //    }
     public static void setDialogHtmlData(MainWindow _parent, String _title, RenderedPage _session,FacadeGame _dataBase,PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
-        _parent.getDialogHtmlData().setDialogIcon(_parent);
+        _parent.getDialogHtmlData().setDialogIcon(_parent.getImageFactory(),_parent);
         _parent.getDialogHtmlData().setTitle(_title);
         _parent.getDialogHtmlData().init(_parent, _parent, _session);
         _parent.getDialogHtmlData().initSession(_dataBase,_pre,_lg);

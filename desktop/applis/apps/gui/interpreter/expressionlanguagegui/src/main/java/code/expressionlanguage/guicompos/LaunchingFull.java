@@ -5,8 +5,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.util.StringMap;
 
-import java.awt.image.BufferedImage;
-
 public class LaunchingFull extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "launcher";
@@ -39,10 +37,6 @@ public class LaunchingFull extends AdvSoftApplicationCore {
     }
     public static String getMainWindowClass() {
         return "launcher";
-    }
-    @Override
-    protected BufferedImage getImageIcon() {
-        return null;
     }
 
 }

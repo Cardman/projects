@@ -56,7 +56,7 @@ public final class FrameGeneralHelp extends ChildFrame {
     private LabelButton search;
 
     public FrameGeneralHelp(String _titre, MainWindow _fenetre) {
-        super(_fenetre.getLanguageKey());
+        super(_fenetre.getLanguageKey(),_fenetre);
         setAccessFile(DIALOG_ACCESS);
         setDialogIcon(_fenetre);
         setTitle(_titre);
@@ -132,12 +132,12 @@ public final class FrameGeneralHelp extends ChildFrame {
         editor.initialize(racineBis.getElementLocal().getNavigation(),racineBis.getElementLocal().getMetaDocument());
         if (field == null) {
             field = new TextField(20);
-            search = new LabelButton();
+            search = new LabelButton(messages.getVal(SEARCH_LABEL));
             editor.setSearchText(search);
             editor.setField(field);
             editor.addFinder();
         }
-        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
+//        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         if (wasNull_) {
             separateur = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,
                     new ScrollPane(arbre_.getTree()), editor.getScroll());

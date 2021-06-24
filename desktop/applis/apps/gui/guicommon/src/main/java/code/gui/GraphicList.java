@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
+import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
 import code.util.Ints;
 
@@ -48,7 +49,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         graphicListPainter = _graphicListPainter;
     }
 
-    protected GraphicList(boolean _simple, Ints _selectedIndexes, CustList<T> _objects, int _visible) {
+    protected GraphicList(AbstractImageFactory _fact, boolean _simple, Ints _selectedIndexes, CustList<T> _objects, int _visible) {
         selectedIndexes = new Ints(_selectedIndexes);
         visibleRowCount = _visible;
         list = new CustList<T>(_objects);
@@ -56,7 +57,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         panel = Panel.newPageBox();
         panel.setAutoscrolls(true);
         scroll = new ScrollPane(panel);
-        graphicListPainter = new DefaultGraphicListPainter();
+        graphicListPainter = new DefaultGraphicListPainter(_fact);
     }
 
     protected void setList(CustList<T> _list) {
@@ -82,7 +83,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
     }
     public void add(int _index, T _elt) {
         list.add(_index, _elt);
-        PreparedLabel lab_ = new PreparedLabel();
+        PreparedLabel lab_ = PreparedLabel.prep(graphicListPainter.getFact());
         addLab(_index, lab_);
     }
 
@@ -126,7 +127,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         panel_.add(_lab, _index);
     }
     public void set(int _index, T _elt) {
-        PreparedLabel lab_ = new PreparedLabel();
+        PreparedLabel lab_ = PreparedLabel.prep(graphicListPainter.getFact());
         set(_index,lab_,_elt);
     }
     public void set(int _index, PreparedLabel _lab, T _elt) {
@@ -242,7 +243,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         r_.setList(list);
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {
-            PreparedLabel lab_ = new PreparedLabel();
+            PreparedLabel lab_ = PreparedLabel.prep(graphicListPainter.getFact());
             listComponents.add(lab_);
             panel_.add(lab_);
             PreparedLabel c_ = listComponents.get(index_);

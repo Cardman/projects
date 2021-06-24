@@ -5,9 +5,9 @@ import java.awt.Dimension;
 import cards.belote.BidBeloteSuit;
 import cards.consts.Suit;
 import cards.facade.Games;
-import code.gui.CustGraphics;
 import code.gui.LabelButtonUtil;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 import code.util.core.NumberUtil;
 
 public class SuitLabel extends PaintableLabel {
@@ -48,7 +48,7 @@ public class SuitLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         if (!getText().isEmpty()) {
             int h_ = heightFont();
             int w_ = stringWidth(text);
@@ -70,7 +70,7 @@ public class SuitLabel extends PaintableLabel {
         return text;
     }
 
-    private void dessinerGrandSymbole(CustGraphics _g,int _x,int _y) {
+    private void dessinerGrandSymbole(AbstractImage _g,int _x,int _y) {
         if(bid.getCouleur() == Suit.HEART) {
             _g.setColor(Color.RED);
             _g.fillOval(_x,_y,10,10);

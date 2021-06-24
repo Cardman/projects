@@ -46,7 +46,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
     }
 
     private void initDialogServer(MainWindow _fenetre, GameEnum _game) {
-        setDialogIcon(_fenetre);
+        setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         create = false;
         join = false;
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
@@ -102,7 +102,7 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);
         EnumList<IpType> list_ = new EnumList<IpType>(IpType.values());
-        ipType = new ComboBox<IpType>(_fenetre.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        ipType = new ComboBox<IpType>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1));
         ipType.setWithDefaultValue(false);
         ipType.refresh(list_, messagesIpEnum);
         ipType.setSelectedItem(IpType.HOST_NAME);

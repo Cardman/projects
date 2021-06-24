@@ -7,6 +7,8 @@ import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.president.enumerations.CardPresident;
 import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.util.core.NumberUtil;
 
 /**
@@ -25,8 +27,13 @@ public class CardPresidentCellRenderer extends CustCellRender<CardPresident> {
         selectionne=_isSelected;
         _currentLab.setPreferredSize(new Dimension(50,10));
     }
+
     @Override
-    public void paintComponent(CustGraphics _g) {
+    protected AbstractImageFactory getImageFactory() {
+        return window.getImageFactory();
+    }
+    @Override
+    public void paintComponent(AbstractImage _g) {
         if(!selectionne) {
             _g.setColor(Color.WHITE);
         } else {

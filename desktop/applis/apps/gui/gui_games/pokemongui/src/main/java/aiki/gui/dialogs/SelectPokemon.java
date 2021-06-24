@@ -47,7 +47,7 @@ public final class SelectPokemon extends SelectDialog {
 
     private void init(MainWindow _parent, FacadeGame _facade, boolean _storage) {
         //super(_parent, true);
-        setDialogIcon(_parent);
+        setDialogIcon(_parent.getImageFactory(),_parent);
         window = _parent;
         messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
 //        window = _parent;

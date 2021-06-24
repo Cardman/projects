@@ -236,7 +236,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         Panel container_ = Panel.newPageBox();
         Panel panel_ = Panel.newGrid(0, 2);
         panel_.add(new TextLabel(getMessages().getVal(MainWindow.PLACE)));
-        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames().getGeneComboBox());
+        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getImageFactory(),getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
         }
@@ -468,7 +468,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             panneau_.add(caseCoche_);
         }
         byte relative_ = relative(_declaration.getTakerIndex());
-        getMini().setStatus(Role.TAKER, relative_);
+        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         pack();
     }
     @Override
@@ -484,7 +484,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         PlayingCardBelote card_ = _card;
         byte relative_ = relative(card_.getPlace());
         String lg_ = getOwner().getLanguageKey();
-        tapisBelote().setCarteBelote(lg_, relative_, card_.getPlayedCard());
+        tapisBelote().setCarteBelote(getWindow().getImageFactory(), lg_, relative_, card_.getPlayedCard());
 
         String pseudo_ = getPseudoByPlace(card_.getPlace());
         if (_card.isDeclaringBeloteRebelote()) {
@@ -518,7 +518,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             }
         }
         relative_ = relative(card_.getTakerIndex());
-        getMini().setStatus(Role.TAKER, relative_);
+        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         //PackingWindowAfter.pack(this, true);
         pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
@@ -533,7 +533,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (!_error.getCards().estVide()) {
             Panel panneau_ = Panel.newLineBox();
             HandBelote cartesBeloteRebelote_ = _error.getCards();
-            for (GraphicBeloteCard c: getGraphicCards(lg_, cartesBeloteRebelote_)) {
+            for (GraphicBeloteCard c: getGraphicCards(getWindow().getImageFactory(),lg_, cartesBeloteRebelote_)) {
                 panneau_.add(c);
             }
             ConfirmDialog.showComponent(getOwner(), panneau_,
@@ -565,7 +565,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setCarteSortie(false);
         setCanPlay(false);
         byte relative_ = relative(_cards.getTakerIndex());
-        getMini().setStatus(Role.TAKER, relative_);
+        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
 
         /* On place les cartes de l'utilisateur */
 
@@ -609,7 +609,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     @Override
     public void pauseBetweenTrick() {
         String lg_ = getOwner().getLanguageKey();
-        tapisBelote().setCartesBeloteJeu((byte) nbChoosenPlayers, lg_);
+        tapisBelote().setCartesBeloteJeu(getWindow().getImageFactory(), (byte) nbChoosenPlayers, lg_);
         //pack();
         PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
         d_.setPlace(indexInGame);
@@ -700,7 +700,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         String lg_ = getOwner().getLanguageKey();
         StringList list_ = new StringList(pseudos_.values());
-        setMini(MiniCarpet.newCarpet(nbChoosenPlayers, getDisplayingBelote().isClockwise(), list_));
+        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),nbChoosenPlayers, getDisplayingBelote().isClockwise(), list_));
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, nbChoosenPlayers, getDisplayingBelote().isClockwise(),
                 list_, 1);
         getTapis().setTapisBelote(tapis_);
@@ -739,7 +739,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_, BorderLayout.EAST);
         if (!_cardsOnDeck.estVide()) {
-            tapisBelote().setTalonBelote(lg_,_cardsOnDeck);
+            tapisBelote().setTalonBelote(getWindow().getImageFactory(),lg_,_cardsOnDeck);
         }
         Panel panel_ = Panel.newPageBox();
         panel_.add(new ScrollPane(container_));
@@ -779,12 +779,12 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private void updateCardsInPanelBeloteMulti(Panel _panel, HandBelote _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicBeloteCard c: getGraphicCards(lg_, _hand)) {
+        for (GraphicBeloteCard c: getGraphicCards(getWindow().getImageFactory(),lg_, _hand)) {
             c.addMouseListener(new ListenerCardBeloteMultiGame(this,c.getCard()));
             _panel.add(c);
         }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
 //        boolean entered_ = false;
 //        for (CardBelote c: _hand) {
 //            GraphicBeloteCard carte_ = new GraphicBeloteCard(

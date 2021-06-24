@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
 
 import code.gui.animations.AnimatedImage;
+import code.gui.document.ProcessingSession;
+import code.gui.images.AbstractImage;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 
@@ -26,17 +28,17 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
         setModal(false);
     }
 
-    public void init(AbstractThreadFactory _fact,Iconifiable _window, CustList<BufferedImage> _images) {
+    public void init(AbstractThreadFactory _fact, ProcessingSession _session, Iconifiable _window, CustList<AbstractImage> _images) {
         if (_window != null) {
-            setDialogIcon(_window);
+            setDialogIcon(_session.getGene().getImageFactory(),_window);
         }
         setLocationRelativeToWindow(_window);
         if (!_images.isEmpty()) {
-            anim = new PreparedLabel();
+            anim = PreparedLabel.prep(_session.getGene().getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
-            animation = new AnimatedImage(_fact,anim, _images, TIME * 10);
+            animation = new AnimatedImage(_session.getGene().getImageFactory(),_fact,anim, _images, TIME * 10);
         } else {
-            anim = new PreparedLabel();
+            anim = PreparedLabel.prep(_session.getGene().getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim.setOpaque(true);
             anim.setBackground(Color.WHITE);

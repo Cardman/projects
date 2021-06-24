@@ -3,16 +3,17 @@ import java.awt.*;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JDialog;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 import code.gui.events.CrossClosingDialogEvent;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 
 public abstract class Dialog implements ChangeableTitle {
 
     private String accessFile;
 
-    private BufferedImage imageIconFrame;
+    private AbstractImage imageIconFrame;
 
     private Panel contentPane  = Panel.newLineBox();
 
@@ -74,13 +75,13 @@ public abstract class Dialog implements ChangeableTitle {
         contentPane.removeAll();
     }
 
-    protected void setDialogIcon(Iconifiable _group) {
-        dialog.setIconImage(_group.getImageIconFrame());
+    protected void setDialogIcon(AbstractImageFactory _fact, Iconifiable _group) {
+        dialog.setIconImage(((ImageIcon)PreparedLabel.buildIcon(_fact,_group.getImageIconFrame())).getImage());
         imageIconFrame = _group.getImageIconFrame();
     }
 
     @Override
-    public BufferedImage getImageIconFrame() {
+    public AbstractImage getImageIconFrame() {
         return imageIconFrame;
     }
 

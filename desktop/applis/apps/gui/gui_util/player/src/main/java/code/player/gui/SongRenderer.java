@@ -1,9 +1,9 @@
 package code.player.gui;
 import java.awt.Color;
-import java.awt.image.BufferedImage;
 
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
@@ -28,7 +28,7 @@ public class SongRenderer extends PaintableLabel {
         noSong = _noSong;
     }
 
-    public void setSize() {
+    public void setSize(AbstractImageFactory _fact) {
         int w_ = 0;
         for (String s: songs) {
             int ws_ = stringWidth(s);
@@ -41,15 +41,15 @@ public class SongRenderer extends PaintableLabel {
             setEmptyIcon();
             return;
         }
-        BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-        CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-        gr_.setFont(getFont());
-        paintComponent(gr_);
-        setIcon(img_);
+        AbstractImage img_ = _fact.newImageArgb(w_, h_);
+//        CustGraphics gr_ = new CustGraphics(img_.getGraphics());
+        img_.setFont(getFont());
+        paintComponent(img_);
+        setIcon(_fact,img_);
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         int hstring_ = heightFont();

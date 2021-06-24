@@ -10,6 +10,7 @@ import code.gui.AbsGraphicList;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
+import code.gui.images.AbstractImageFactory;
 import code.util.NatStringTreeMap;
 
 public class BallPanel {
@@ -24,7 +25,7 @@ public class BallPanel {
 
     private final Panel container;
 
-    public BallPanel(int _nb, String _titre, FacadeGame _facade, AbsGraphicList<BallNumberRate> _liste) {
+    public BallPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, AbsGraphicList<BallNumberRate> _liste) {
         liste = _liste;
         facade = _facade;
         container = Panel.newBorder();
@@ -34,7 +35,7 @@ public class BallPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
-        renderer = new BallRenderer(facade);
+        renderer = new BallRenderer(_fact,facade);
         liste.setRender(renderer);
         initBalls();
         container.add(liste.self(),BorderLayout.CENTER);

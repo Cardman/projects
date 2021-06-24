@@ -124,7 +124,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setEvents(new TextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(getEvents()));
-        setMini(MiniCarpet.newCarpet(partie_.getNombreDeJoueurs(),getDisplayingTarot().isClockwise(),pseudos_));
+        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),getDisplayingTarot().isClockwise(),pseudos_));
         panneau2_.add(getMiniPanel());
         setIncludedTrumpsForHandful(Panel.newLineBox());
         ScrollPane scrollIncl_ = new ScrollPane(getIncludedTrumpsForHandful());
@@ -231,7 +231,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()));
             }
             for(byte p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
-                tapisTarot().setCarteTarot(lg_, p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
+                tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_, p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
             }
             if (partie_.premierTour() && pliEnCours_.estVide() && !pliEnCours_.getVuParToutJoueur()) {
                 partie_.setPliEnCours(true);
@@ -272,7 +272,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             return;
         }
         if (partie_.getContrat().isJouerDonne()) {
-            getMini().setStatus(Role.TAKER, partie_.getPreneur());
+            getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, partie_.getPreneur());
         }
         if(partie_.isCallingState()) {
             if (partie_.getRegles().getDiscardAfterCall()) {
@@ -445,7 +445,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             HandTarot atouts_=partie_.getTricks().first().getCartes().couleur(Suit.TRUMP);
             if(!atouts_.estVide()) {
-                for (GraphicTarotCard c: getGraphicCards(lg_,atouts_)) {
+                for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,atouts_)) {
                     getPanelDiscardedTrumps().add(c);
                 }
 //                boolean entered_ = false;
@@ -458,7 +458,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                }
                 getPanelDiscardedTrumps().setVisible(true);
                 getPanelDiscardedTrumps().validate();
-                getPanelDiscardedTrumps().repaintChildren();
+                getPanelDiscardedTrumps().repaintChildren(getWindow().getImageFactory());
             }
         }
         for (TrickTarot t: partie_.unionPlis()) {
@@ -476,7 +476,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             addTextInAreaByLoading(p,pseudos_.get(p),partie_.getPliEnCours().carteDuJoueur(p,partie_.getNombreDeJoueurs()));
         }
         for(byte p:pliEnCours_.joueursAyantJoue(nombreDeJoueurs_)) {
-            tapisTarot().setCarteTarot(lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
+            tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,p, pliEnCours_.carteDuJoueur(p, nombreDeJoueurs_));
         }
         if (!partie_.keepPlayingCurrentGame()) {
             finPartieTarot();
@@ -541,7 +541,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
             if(!atouts_.estVide()) {
                 getPanelDiscardedTrumps().removeAll();
-                for (GraphicTarotCard c: getGraphicCards(lg_,atouts_)) {
+                for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,atouts_)) {
                     getPanelDiscardedTrumps().add(c);
                 }
 //                boolean entered_ = false;
@@ -554,12 +554,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                }
                 getPanelDiscardedTrumps().setVisible(true);
                 getPanelDiscardedTrumps().validate();
-                getPanelDiscardedTrumps().repaintChildren();
+                getPanelDiscardedTrumps().repaintChildren(getWindow().getImageFactory());
                 //pack();
             }
         }
         tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain());
-        tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
+        tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
         getScrollCallableCards().setVisible(false);
         debutPliTarot();
     }
@@ -759,7 +759,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 partie_.addCurTrick();
                 HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
                 if(!atouts_.estVide()) {
-                    for (GraphicTarotCard c: getGraphicCards(lg_,atouts_)) {
+                    for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,atouts_)) {
                         getPanelDiscardedTrumps().add(c);
                     }
 //                    boolean entered_ = false;
@@ -772,13 +772,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                    }
                     getPanelDiscardedTrumps().setVisible(true);
                     getPanelDiscardedTrumps().validate();
-                    getPanelDiscardedTrumps().repaintChildren();
+                    getPanelDiscardedTrumps().repaintChildren(getWindow().getImageFactory());
                     //pack();
                 }
             }
             getPanneauBoutonsJeu().validate();
             tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain());
-            tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
+            tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
             debutPliTarot();
         }
         //pack();
@@ -807,7 +807,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             pack();
         }
         if(partie_.getCarteAppelee().contient(_ct)) {
-            getMini().setStatus(Role.CALLED_PLAYER, _joueur);
+            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
             ajouterTexteDansZone(StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_)));
         }
 
@@ -847,12 +847,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             //pack();
         }
         if(partie_.getCarteAppelee().contient(ct_)) {
-            getMini().setStatus(Role.CALLED_PLAYER, _joueur);
+            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
             ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
         }
         partie_.ajouterUneCarteDansPliEnCours(_joueur,ct_);
-        tapisTarot().setCarteTarot(lg_,_joueur,ct_);
+        tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,_joueur,ct_);
     }
     private void afficherMainUtilisateurTarotChien() {
         GameTarot partie_=partieTarot();
@@ -889,7 +889,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameTarot partie_=partieTarot();
         String lg_ = getOwner().getLanguageKey();
         if(partie_.getCarteAppelee().contient(_carteJouee)) {
-            getMini().setStatus(Role.CALLED_PLAYER, DealTarot.NUMERO_UTILISATEUR);
+            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, DealTarot.NUMERO_UTILISATEUR);
             ajouterTexteDansZone(StringUtil.concat(pseudo(),INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_)));
         }
         /*L'utilisateur joue sa carte*/
@@ -898,7 +898,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         //Il ne se rendra pas compte que la main est repeinte entierement
         setRaisonCourante(getMessages().getVal(MainWindow.END_TRICK));
         afficherMainUtilisateurTarot(false);
-        tapisTarot().setCarteTarot(lg_,DealTarot.NUMERO_UTILISATEUR,_carteJouee);
+        tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,DealTarot.NUMERO_UTILISATEUR,_carteJouee);
         pause();
         //Desactiver le menu Partie/Pause
         getPause().setEnabledMenu(false);
@@ -1144,7 +1144,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
             getPanelDiscardedTrumps().removeAll();
             if(!atouts_.estVide()) {
-                for (GraphicTarotCard c: getGraphicCards(lg_,atouts_)) {
+                for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,atouts_)) {
                     getPanelDiscardedTrumps().add(c);
                 }
 //                boolean entered_ = false;
@@ -1157,7 +1157,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                }
                 getPanelDiscardedTrumps().setVisible(true);
                 getPanelDiscardedTrumps().validate();
-                getPanelDiscardedTrumps().repaintChildren();
+                getPanelDiscardedTrumps().repaintChildren(getWindow().getImageFactory());
             }
             addButtonNextTrickTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), true);
         }
@@ -1236,7 +1236,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private void updateCardsInPanelTarotDog(Panel _panel, HandTarot _hand, boolean _inHand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotSingleDog(this,c.getCard(),_inHand,c));
             _panel.add(c);
         }
@@ -1251,12 +1251,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
     }
     private void updateCardsInPanelTarotCallBeforeDog(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotSingleBeforeDog(this,c.getCard()));
             _panel.add(c);
         }
@@ -1270,7 +1270,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
     }
     private void updateCardsInPanelTarotHandful(Panel _panel, HandTarot _hand, boolean _included) {
         _panel.removeAll();
@@ -1286,12 +1286,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private void updateCardsInPanelTarotJeu(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotSingleGame(this, c.getCard()));
             _panel.add(c);
         }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
 //        boolean entered_ = false;
 //        for(CardTarot c: _hand)
 //        {
@@ -1410,7 +1410,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         GameTarot partie_ = partieTarot();
         String lg_ = getOwner().getLanguageKey();
         tapisTarot().setEcart(lg_,partie_.getDistribution().derniereMain());
-        tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
+        tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
         getScrollCallableCards().setVisible(false);
         debutPliTarot();
     }

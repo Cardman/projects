@@ -17,6 +17,7 @@ import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.expressionlanguage.guicompos.GuiFactroy;
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.*;
+import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.images.BaseSixtyFourUtil;
@@ -88,7 +89,7 @@ public class LaunchingApplications extends SoftApplicationCore {
                 launchWindow(_language, getFrames(), cardFactories, aikiFactory, guiFactory);
                 LaunchingDemo launch_ = new LaunchingDemo(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
-            } else if (readObject_ instanceof BufferedImage || readObject_ instanceof int[][]) {
+            } else if (readObject_ instanceof AbstractImage || readObject_ instanceof int[][]) {
                 launchWindow(_language, getFrames(), cardFactories, aikiFactory, guiFactory);
                 LaunchingConverter launch_ = new LaunchingConverter(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
@@ -142,11 +143,6 @@ public class LaunchingApplications extends SoftApplicationCore {
         return getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
     }
 
-    @Override
-    protected final BufferedImage getImageIcon() {
-        return null;
-    }
-
     private static boolean isZip(byte[] _bytes) {
         return _bytes != null && _bytes.length > 3
                 && _bytes[0] == (byte)0x50&& _bytes[1] == (byte)0x4b
@@ -157,7 +153,7 @@ public class LaunchingApplications extends SoftApplicationCore {
     public Object getObject(String _fileName) {
         byte[] bytes_ = StreamBinaryFile.loadFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
         if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_)) {
-            BufferedImage img_ = getFrames().readImg(_fileName);
+            AbstractImage img_ = getFrames().readImg(_fileName);
             if (img_ != null) {
                 return img_;
             }

@@ -11,12 +11,13 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.AbsGraphicListDefBase;
 import code.gui.Interval;
+import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
 
 public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
 
-    public AdvGraphicListPainter(CommonExecutionInfos _executionInfos) {
-        super(_executionInfos);
+    public AdvGraphicListPainter(AbstractImageFactory _fact, CommonExecutionInfos _executionInfos) {
+        super(_fact,_executionInfos);
     }
 
     @Override

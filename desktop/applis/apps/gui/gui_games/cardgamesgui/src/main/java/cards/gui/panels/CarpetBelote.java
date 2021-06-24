@@ -11,6 +11,7 @@ import cards.gui.labels.GraphicBeloteCard;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.TextArea;
+import code.gui.images.AbstractImageFactory;
 import code.util.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -293,26 +294,26 @@ public class CarpetBelote {
         centerDeck.validate();
     }
 
-    public void setTalonBelote(String _lg, HandBelote _m) {
-        GraphicBeloteCard cg_=new GraphicBeloteCard(_lg,_m.premiereCarte(),SwingConstants.RIGHT,true);
+    public void setTalonBelote(AbstractImageFactory _fact,String _lg, HandBelote _m) {
+        GraphicBeloteCard cg_=new GraphicBeloteCard(_fact,_lg,_m.premiereCarte(),SwingConstants.RIGHT,true);
         cg_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
         centerDeck.add(cg_);
     }
 
     /**Place les dos des cartes (une pour chaque joueur) sur le tapis avant et apres chaque pli*/
-    public void setCartesBeloteJeu(byte _nombreDeJoueurs, String _lg) {
+    public void setCartesBeloteJeu(AbstractImageFactory _fact, byte _nombreDeJoueurs, String _lg) {
         for(byte joueur_=0;joueur_<_nombreDeJoueurs;joueur_++) {
             GraphicBeloteCard place_ = cards.getVal((int) joueur_);
             place_.setJeu(_lg);
-            place_.repaintLabel();
+            place_.repaintLabel(_fact);
         }
     }
     /**Met a jour la carte a jouer d'un joueur
     donne en fonction du nombre de joueurs*/
-    public void setCarteBelote(String _lg, byte _joueur,CardBelote _m) {
+    public void setCarteBelote(AbstractImageFactory _fact, String _lg, byte _joueur, CardBelote _m) {
         GraphicBeloteCard place_= cards.getVal((int) _joueur);
-        place_.setCarteEnJeu(_lg, _m);
-        place_.repaintLabel();
+        place_.setCarteEnJeu(_fact,_lg, _m);
+        place_.repaintLabel(_fact);
     }
 
     public Panel getContainer() {

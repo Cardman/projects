@@ -56,8 +56,8 @@ public final class PaginatorEgg extends Paginator {
 
     public PaginatorEgg(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_EGG,_p);
-        cmpNamePrio = new NumComboBox(_window.getFrames().getGeneComboBox());
-        cmpStepsPrio = new NumComboBox(_window.getFrames().getGeneComboBox());
+        cmpNamePrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
+        cmpStepsPrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
         setWindow(_w);
         setFacade(_d);
         order.add(SearchingMode.WHOLE_STRING);
@@ -66,13 +66,13 @@ public final class PaginatorEgg extends Paginator {
         order.add(SearchingMode.BEGIN);
         order.add(SearchingMode.END);
         order.add(SearchingMode.MATCH_SPACE);
-        modeName = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        modeName = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         modeName.setWithDefaultValue(false);
         modeName.refresh(order, getMessagesSearchMode());
-        cmpNameSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        cmpNameSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        cmpStepsSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        cmpStepsSorting = new ComboBox<SelectedBoolean>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         cmpStepsSorting.setWithDefaultValue(false);
         cmpStepsSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         int nbCmp_ = PaginationEgg.NB_COMPARATORS;
@@ -87,7 +87,7 @@ public final class PaginatorEgg extends Paginator {
             pk_.add(pkTr_);
         }
         name = new TextField(16);
-        nameAuto = new AutoCompleteDocument(name,pk_, getWindow(),_window.getFrames().getGeneGraphicList());
+        nameAuto = new AutoCompleteDocument(name,pk_, getWindow(),_window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -316,7 +316,7 @@ public final class PaginatorEgg extends Paginator {
         int nb_ = rendered_.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
             EggLabel l_ = new EggLabel(rendered_.get(i));
-            l_.setImagesResults(getFacade());
+            l_.setImagesResults(getMain().getImageFactory(),getFacade());
             l_.addMouseListener(new PaginatorEvent(this,i));
             list_.add(l_);
         }
@@ -343,7 +343,7 @@ public final class PaginatorEgg extends Paginator {
         }
         results.add(getHeader());
         for (EggLabel l: list_) {
-            l.repaintLabel();
+            l.repaintLabel(getMain().getImageFactory());
             results.add(l);
             getResultsLabels().add(l);
         }

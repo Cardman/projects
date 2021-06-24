@@ -3,6 +3,8 @@ package code.gui;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.util.Ints;
 import code.util.StringList;
 
@@ -11,20 +13,22 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
     private DefaultCellRender cellRender;
     private final StringList elements;
     private int height = 1;
-    public GraphicStringList(StringList _objects) {
-        this(true, _objects, new Ints());
+    private AbstractImageFactory fact;
+    public GraphicStringList(AbstractImageFactory _fact, StringList _objects) {
+        this(_fact,true, _objects, new Ints());
     }
 
-    private GraphicStringList(boolean _simple, StringList _objects, Ints _selectedIndexes) {
-        super(_simple, _selectedIndexes, _objects, new DefaultGraphicListPainter());
-        buildList();
+    private GraphicStringList(AbstractImageFactory _fact, boolean _simple, StringList _objects, Ints _selectedIndexes) {
+        super(_simple, _selectedIndexes, _objects, new DefaultGraphicListPainter(_fact));
+        fact = _fact;
+        buildList(_fact);
         elements = _objects;
         setList(elements);
         rebuild();
     }
 
-    private void buildList() {
-        cellRender = new DefaultCellRender();
+    private void buildList(AbstractImageFactory _fact) {
+        cellRender = new DefaultCellRender(_fact);
         cellRender.setMaxWidth(getMaxWidth());
         setRender(cellRender);
     }
@@ -39,34 +43,34 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
         Panel panel_ = getPanel();
         int len_ = elements.size();
         for (int i = 0; i < len_; i++) {
-            BufferedImage buff_ = repaintSelected(i, getSelectedIndexes().containsObj(i));
-            PreparedLabel lab_ = new PreparedLabel(buff_);
+            AbstractImage buff_ = repaintSelected(i, getSelectedIndexes().containsObj(i));
+            PreparedLabel lab_ = new PreparedLabel(fact,buff_);
             getListComponents().add(lab_);
             panel_.add(lab_);
         }
     }
 
     void repaintSelect(int _index, boolean _sel) {
-        BufferedImage buff_ = repaintSelected(_index, _sel);
+        AbstractImage buff_ = repaintSelected(_index, _sel);
         PreparedLabel lab_ = getListComponents().get(_index);
-        lab_.setIcon(buff_);
+        lab_.setIcon(fact,buff_);
     }
 
-    private BufferedImage repaintSelected(int _index, boolean _sel) {
+    private AbstractImage repaintSelected(int _index, boolean _sel) {
         String elt_ = elements.get(_index);
         Panel panel_ = getPanel();
         Font font_ = panel_.getFont();
         height = Math.max(height,panel_.heightFont());
         cellRender.setMaxWidth(Math.max(cellRender.getMaxWidth(),panel_.stringWidth(elt_)));
-        BufferedImage buff_ = new BufferedImage(cellRender.getWidth(),panel_.heightFont(),BufferedImage.TYPE_INT_RGB);
-        CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
-        gr_.setFont(font_);
+        AbstractImage buff_ = fact.newImageRgb(cellRender.getWidth(),panel_.heightFont());
+//        CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
+        buff_.setFont(font_);
         int h_ = panel_.heightFont();
         int w_ = panel_.stringWidth(elt_);
         if (_sel) {
-            LabelButtonUtil.paintDefaultLabel(gr_, elt_, w_, cellRender.getMaxWidth(), h_, Color.WHITE, Color.BLUE);
+            LabelButtonUtil.paintDefaultLabel(buff_, elt_, w_, cellRender.getMaxWidth(), h_, Color.WHITE, Color.BLUE);
         } else {
-            LabelButtonUtil.paintDefaultLabel(gr_, elt_, w_, cellRender.getMaxWidth(), h_, Color.BLACK, Color.WHITE);
+            LabelButtonUtil.paintDefaultLabel(buff_, elt_, w_, cellRender.getMaxWidth(), h_, Color.BLACK, Color.WHITE);
         }
         return buff_;
     }

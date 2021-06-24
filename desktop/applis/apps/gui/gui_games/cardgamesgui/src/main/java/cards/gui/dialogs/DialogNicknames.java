@@ -37,7 +37,7 @@ public final class DialogNicknames extends DialogCards {
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogNicknames(String _titre, MainWindow _fenetre) {
-        _fenetre.getDialogNicknames().setDialogIcon(_fenetre);
+        _fenetre.getDialogNicknames().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogNicknames().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogNicknames().messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogNicknames().getAccessFile());

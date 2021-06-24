@@ -91,7 +91,7 @@ public abstract class Paginator {
 
     public Paginator(MainWindow _window, String _access, Panel _dest) {
         main = _window;
-        pages = new NumComboBox(_window.getFrames().getGeneComboBox());
+        pages = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
         container = _dest;
         initMessages(_access);
         header = new Header();
@@ -167,7 +167,7 @@ public abstract class Paginator {
             l_.setSelected(true);
         }
         for (SelectableLabel s: resultsLabels) {
-            s.repaintLabel();
+            s.repaintLabel(getMain().getImageFactory());
         }
     }
 

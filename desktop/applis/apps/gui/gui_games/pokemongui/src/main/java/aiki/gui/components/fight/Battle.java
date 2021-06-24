@@ -43,6 +43,8 @@ import aiki.gui.listeners.SelectPlaceEvent;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.maths.Rate;
 import code.scripts.messages.aiki.MessPkGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -229,7 +231,7 @@ public class Battle extends ChildFrame {
     private final Panel forms = Panel.newLineBox();
     private final Panel team = Panel.newPageBox();
     public Battle(MainWindow _window, FacadeGame _facade, FrontBattle _frontBattle) {
-        super(_window.getLanguageKey());
+        super(_window.getLanguageKey(),_window);
 //        super(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        setContentPane(splitter);
@@ -320,7 +322,7 @@ public class Battle extends ChildFrame {
         }
         if (plLabelBack != null) {
             plLabelBack.setText(messages.getVal(GO_BACK));
-            plLabelBack.repaintLabel();
+            plLabelBack.repaintLabel(window.getImageFactory());
         }
         if (frontBattle != null) {
             frontBattle.translate();
@@ -870,19 +872,19 @@ public class Battle extends ChildFrame {
             targets = new TargetsPanel();
         }
         if (fighterFrontPanel == null) {
-            fighterFrontPanel = new FighterPanel(facade.getFight().getMult(), DataBase.EMPTY_STRING, facade, facade.getPlayerFrontTeam(), window.getAikiFactory().getGeneFighter().create(true));
+            fighterFrontPanel = new FighterPanel(window.getImageFactory(), facade.getFight().getMult(), DataBase.EMPTY_STRING, facade, facade.getPlayerFrontTeam(), window.getAikiFactory().getGeneFighter().create(window.getImageFactory(),true));
             fighterFrontPanel.addListener(this, true);
         }
         if (fighterBackPanel == null) {
-            fighterBackPanel = new FighterPanel(2, DataBase.EMPTY_STRING, facade, facade.getPlayerBackTeam(), window.getAikiFactory().getGeneFighter().create(true));
+            fighterBackPanel = new FighterPanel(window.getImageFactory(), 2, DataBase.EMPTY_STRING, facade, facade.getPlayerBackTeam(), window.getAikiFactory().getGeneFighter().create(window.getImageFactory(),true));
             fighterBackPanel.addListener(this, false);
         }
         if (fighterPanel == null) {
-            fighterPanel = new FighterPanel(2, DataBase.EMPTY_STRING, facade, facade.getPlayerTeam(), window.getAikiFactory().getGeneFighter().create(true));
+            fighterPanel = new FighterPanel(window.getImageFactory(), 2, DataBase.EMPTY_STRING, facade, facade.getPlayerTeam(), window.getAikiFactory().getGeneFighter().create(window.getImageFactory(),true));
             fighterPanel.addListener(this);
         }
         if (pokemonPanel == null) {
-            pokemonPanel = new PokemonPanel(2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO), window.getAikiFactory().getGenePkPanel().create(true));
+            pokemonPanel = new PokemonPanel(window.getImageFactory(),2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO), window.getAikiFactory().getGenePkPanel().create(window.getImageFactory(),true));
             pokemonPanel.addListener(this);
         }
         if (movesLearnPanel == null) {
@@ -894,7 +896,7 @@ public class Battle extends ChildFrame {
             abilitiesLearnPanel = Panel.newPageBox();
         }
         if (ballPanel == null) {
-            ballPanel = new BallPanel(5, DataBase.EMPTY_STRING, facade, window.getAikiFactory().getGeneBallNumberRate().create(true));
+            ballPanel = new BallPanel(window.getImageFactory(), 5, DataBase.EMPTY_STRING, facade, window.getAikiFactory().getGeneBallNumberRate().create(window.getImageFactory(),true));
         }
         if (catchBall == null) {
             catchBall = new LabelButton();
@@ -1074,13 +1076,13 @@ public class Battle extends ChildFrame {
     public void choosePlayerTarget(byte _number, int _index) {
         window.setSavedGame(false);
         facade.setFirstChosenMovePlayerTarget(_number);
-        targets.repaintLabelPlayer(_index);
+        targets.repaintLabelPlayer(_index,this);
     }
 
     public void chooseFoeTarget(byte _number, int _index) {
         window.setSavedGame(false);
         facade.setFirstChosenMoveFoeTarget(_number);
-        targets.repaintLabelFoe(_index);
+        targets.repaintLabelFoe(_index,this);
     }
 
     public void chooseFrontFighter() {
@@ -1097,7 +1099,7 @@ public class Battle extends ChildFrame {
             for (PlaceLabel p: placesLabels) {
                 p.setSelected(facade.getFight().getChosenSubstitute());
             }
-            panelPlaces.repaintChildren();
+            panelPlaces.repaintChildren(window.getImageFactory());
         }
         enableClick = true;
     }
@@ -1120,7 +1122,7 @@ public class Battle extends ChildFrame {
             for (PlaceLabel p: placesLabels) {
                 p.setSelected(facade.getFight().getChosenSubstitute());
             }
-            panelPlaces.repaintChildren();
+            panelPlaces.repaintChildren(window.getImageFactory());
         }
         enableClick = true;
     }
@@ -1147,7 +1149,7 @@ public class Battle extends ChildFrame {
     private void initEvos() {
         enableClick = false;
 //        pokemonPanel.initEvos();
-        pokemonPanel = new PokemonPanel(2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO), window.getAikiFactory().getGenePkPanel().create(true));
+        pokemonPanel = new PokemonPanel(window.getImageFactory(),2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO), window.getAikiFactory().getGenePkPanel().create(window.getImageFactory(), true));
         pokemonPanel.addListener(this);
         enableClick = true;
     }
@@ -1216,7 +1218,7 @@ public class Battle extends ChildFrame {
             abilitiesLearnPanel.add(ab_);
         }
         abilitiesLearnPanel.validate();
-        abilitiesLearnPanel.repaintChildren();
+        abilitiesLearnPanel.repaintChildren(window.getImageFactory());
         changeAbility(facade.getAbility());
     }
 
@@ -1248,7 +1250,7 @@ public class Battle extends ChildFrame {
         facade.changeAction(_action);
         for (ActionLabel a: actionsLabels) {
             a.setSelected(_action);
-            a.repaintLabel();
+            a.repaintLabel(window.getImageFactory());
         }
         actions.removeAll();
         actions.add(actionType);
@@ -1352,7 +1354,7 @@ public class Battle extends ChildFrame {
                 movesPanel_.add(move_);
                 movesLabels.add(move_);
             }
-            movesPanel_.repaintChildren();
+            movesPanel_.repaintChildren(window.getImageFactory());
             actions.add(movesPanel_);
             boolean wasNull_ = targetsPanel == null;
             if (wasNull_) {
@@ -1378,7 +1380,7 @@ public class Battle extends ChildFrame {
         facade.chooseMove(_move);
         for (MoveLabel m: movesLabels) {
             m.setSelected(_move);
-            m.repaintLabel();
+            m.repaintLabel(window.getImageFactory());
         }
         if (facade.getFight().getSelectedActionCurFighter() == ActionType.MOVE) {
 //            if (targetsPanel != null) {
@@ -1426,7 +1428,7 @@ public class Battle extends ChildFrame {
         for (PlaceLabel p: placesLabels) {
             p.setSelected(_index);
         }
-        panelPlaces.repaintChildren();
+        panelPlaces.repaintChildren(window.getImageFactory());
     }
 
     public void chooseEvolution() {
@@ -1461,7 +1463,7 @@ public class Battle extends ChildFrame {
         for (AbilityLabel a: abilityLabels) {
             a.setSelected(_ability);
         }
-        abilitiesLearnPanel.repaintChildren();
+        abilitiesLearnPanel.repaintChildren(window.getImageFactory());
     }
 
     private void initComments() {
@@ -1492,14 +1494,14 @@ public class Battle extends ChildFrame {
     }
 
     public void drawAnimationInstant(AnimationInt _animation) {
-        frontBattle.drawAnimationInstant(_animation);
+        frontBattle.drawAnimationInstant(window.getImageFactory(),_animation);
     }
 
-    public void setHerosOppositeSex(BufferedImage _herosOppositeSex, boolean _paintTwoHeros) {
+    public void setHerosOppositeSex(AbstractImage _herosOppositeSex, boolean _paintTwoHeros) {
         frontBattle.setHerosOppositeSex(_herosOppositeSex, _paintTwoHeros);
     }
 
-    public void drawAnimationFightIni(BufferedImage _heros, BufferedImage _other) {
+    public void drawAnimationFightIni(AbstractImage _heros, AbstractImage _other) {
         frontBattle.drawAnimationFightIni(_heros, _other);
     }
 
@@ -1527,8 +1529,8 @@ public class Battle extends ChildFrame {
         frontBattle.initBall();
     }
 
-    public void moveBall(String _ball) {
-        frontBattle.moveBall(_ball);
+    public void moveBall(AbstractImageFactory _fact, String _ball) {
+        frontBattle.moveBall(_fact,_ball);
     }
 
     public void setWild(boolean _wild) {

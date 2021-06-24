@@ -3,6 +3,8 @@ package code.gui.initialize;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.GroupFrame;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.AbsClipStream;
 import code.stream.AbstractFileCoreStream;
@@ -29,9 +31,10 @@ public interface AbstractProgramInfos {
     AbstractGraphicStringListGenerator getGeneGraphicList();
     AbstractGraphicComboBoxGenerator getGeneComboBox();
     AbsCompoFactory getCompoFactory();
+    AbstractImageFactory getImageFactory();
 
     AbsClipStream openClip(byte[] _file);
-    BufferedImage readImg(String _file);
+    AbstractImage readImg(String _file);
     AbstractSocketFactory getSocketFactory();
-    boolean writeImg(String _format, String _file, BufferedImage _img);
+    boolean writeImg(String _format, String _file, AbstractImage _img);
 }

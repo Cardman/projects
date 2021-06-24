@@ -107,7 +107,7 @@ public class MainWindow extends GroupFrame implements LineShortListenable {
         super(_lg, _list);
         initMessages(_lg);
         setTitle(messages.getVal(CST_TITLE_PLAYER));
-        setIconImage(LaunchingPlayer.getIcon());
+        setIconImage(LaunchingPlayer.getIcon(_list.getImageFactory()));
         Panel pane_ = Panel.newPageBox();
         songsLabel.setText(messages.getVal(CST_SONGS));
         pane_.add(songsLabel);
@@ -311,7 +311,7 @@ public class MainWindow extends GroupFrame implements LineShortListenable {
             }
             songRend.setSongs(songsList);
             songRend.setNoSong(noSong);
-            songRend.setSize();
+            songRend.setSize(getImageFactory());
             scroll.revalidate();
             pack();
             clipStream.start();

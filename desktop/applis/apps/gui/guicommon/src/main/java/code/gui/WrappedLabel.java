@@ -1,6 +1,8 @@
 package code.gui;
 import java.awt.Dimension;
 
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -13,18 +15,18 @@ public class WrappedLabel extends PaintableLabel {
     public WrappedLabel() {
     }
 
-    public WrappedLabel(String _text) {
+    public WrappedLabel(AbstractImageFactory _fact,String _text) {
         lines.addAllElts(StringUtil.splitChars(_text, LINE_RETURN));
-        setPreferredSize();
+        setPreferredSize(_fact);
     }
 
-    public void setLabelText(String _text) {
-        lines.clear();
-        lines.addAllElts(StringUtil.splitChars(_text, LINE_RETURN));
-        setPreferredSize();
-    }
+//    public void setLabelText(String _text) {
+//        lines.clear();
+//        lines.addAllElts(StringUtil.splitChars(_text, LINE_RETURN));
+//        setPreferredSize();
+//    }
 
-    public void setPreferredSize() {
+    public void setPreferredSize(AbstractImageFactory _fact) {
         int nbLines_ = lines.size() + 1;
         int h_ = heightFont() * nbLines_;
         int w_ = IndexConstants.SIZE_EMPTY;
@@ -35,11 +37,11 @@ public class WrappedLabel extends PaintableLabel {
             }
         }
         setPreferredSize(new Dimension(w_, h_));
-        repaintLabel();
+        repaintLabel(_fact);
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(getBackground());
         _g.fillRect(0, 0, getWidth(), getHeight());
         _g.setColor(getForeground());

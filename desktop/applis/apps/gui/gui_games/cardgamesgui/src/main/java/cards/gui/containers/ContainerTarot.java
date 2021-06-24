@@ -17,6 +17,7 @@ import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.TarotResoucesAccess;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import code.gui.*;
+import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesTarotTarot;
 import code.stream.StreamTextFile;
@@ -95,12 +96,12 @@ public class ContainerTarot extends ContainerGame{
                         StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),_tmpUserFolderSl.getFileCoreStream(), _tmpUserFolderSl.getStreams()));
     }
 
-    public static CustList<GraphicTarotCard> getGraphicCards(String _lg, Iterable<CardTarot> _hand) {
+    public static CustList<GraphicTarotCard> getGraphicCards(AbstractImageFactory _fact, String _lg, Iterable<CardTarot> _hand) {
         CustList<GraphicTarotCard> list_;
         list_ = new CustList<GraphicTarotCard>();
         boolean entered_ = false;
         for(CardTarot c: _hand) {
-            GraphicTarotCard carte_=new GraphicTarotCard(_lg, c,SwingConstants.RIGHT,!entered_);
+            GraphicTarotCard carte_=new GraphicTarotCard(_fact,_lg, c,SwingConstants.RIGHT,!entered_);
             carte_.setPreferredSize(entered_);
             list_.add(carte_);
             entered_ = true;

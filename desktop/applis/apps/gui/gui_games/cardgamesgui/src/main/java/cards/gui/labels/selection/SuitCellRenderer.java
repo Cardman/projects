@@ -6,6 +6,8 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.MainWindow;
 import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.util.core.NumberUtil;
 
 /**
@@ -27,7 +29,7 @@ public class SuitCellRenderer extends CustCellRender<Suit> {
         _currentLab.setPreferredSize(new Dimension(100,10));
     }
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         if(!selectionne) {
             _g.setColor(Color.WHITE);
         } else {
@@ -86,6 +88,11 @@ public class SuitCellRenderer extends CustCellRender<Suit> {
         if (couleur != null) {
             _g.drawString(Games.toString(couleur, lg_), 10, 10);
         }
+    }
+
+    @Override
+    protected AbstractImageFactory getImageFactory() {
+        return window.getImageFactory();
     }
     @Override
     public int getHeight() {

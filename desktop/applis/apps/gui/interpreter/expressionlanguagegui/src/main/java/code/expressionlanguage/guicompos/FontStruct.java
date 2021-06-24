@@ -8,17 +8,21 @@ import code.util.core.StringUtil;
 import java.awt.*;
 
 public final class FontStruct extends WithoutParentStruct implements Struct {
-    private String family;
-    private boolean bold;
-    private boolean italic;
-    private int size;
+    private final String family;
+    private final boolean bold;
+    private final boolean italic;
+    private final int size;
     public FontStruct() {
         family = getFontFamily(NullStruct.NULL_VALUE);
         size = 12;
+        bold = false;
+        italic = false;
     }
     public FontStruct(int _size) {
         family = getFontFamily(NullStruct.NULL_VALUE);
         size = _size;
+        bold = false;
+        italic = false;
     }
     public FontStruct(Struct _family, boolean _bold,boolean _italic, int _size) {
         family = getFontFamily(_family);

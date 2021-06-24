@@ -4,6 +4,8 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.GroupFrame;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.random.AdvancedGenerator;
@@ -22,6 +24,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
+import java.awt.image.RenderedImage;
 import java.io.*;
 
 public final class ProgramInfos implements AbstractProgramInfos {
@@ -48,6 +52,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final DefaultNameValidating validator;
     private final AbstractGraphicStringListGenerator graphicStringListGenerator;
     private final AbsCompoFactory compoFactory;
+    private final AbstractImageFactory imageFactory;
     private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator;
     private final AbstractThreadFactory threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
@@ -62,6 +67,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
         interceptor = new DefInterceptor();
         socketFactory = new DefSocketFactory();
         compoFactory = new DefCompoFactory();
+        imageFactory = new DefImageFactory();
         graphicStringListGenerator = _graphicStringListGenerator;
         graphicComboBoxGenerator = _graphicComboBoxGenerator;
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
@@ -208,6 +214,11 @@ public final class ProgramInfos implements AbstractProgramInfos {
     }
 
     @Override
+    public AbstractImageFactory getImageFactory() {
+        return imageFactory;
+    }
+
+    @Override
     public AbstractGraphicComboBoxGenerator getGeneComboBox() {
         return graphicComboBoxGenerator;
     }
@@ -228,20 +239,20 @@ public final class ProgramInfos implements AbstractProgramInfos {
     }
 
     @Override
-    public BufferedImage readImg(String _file) {
+    public AbstractImage readImg(String _file) {
         try {
-            return ImageIO.read(new FileInputStream(StringUtil.nullToEmpty(_file)));
-        } catch (IOException e) {
+            return new DefImage(ImageIO.read(new FileInputStream(StringUtil.nullToEmpty(_file))));
+        } catch (Exception e) {
             return null;
         }
     }
 
     @Override
-    public boolean writeImg(String _format, String _file, BufferedImage _img) {
+    public boolean writeImg(String _format, String _file, AbstractImage _img) {
         try {
-            ImageIO.write(_img,StringUtil.nullToEmpty(_format),new FileOutputStream(StringUtil.nullToEmpty(_file)));
+            ImageIO.write((RenderedImage) ((DefImage)_img).data(),StringUtil.nullToEmpty(_format),new FileOutputStream(StringUtil.nullToEmpty(_file)));
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
     }

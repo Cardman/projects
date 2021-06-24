@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 
 public class ItemRenderer extends CustCellRender<String> {
@@ -23,9 +25,11 @@ public class ItemRenderer extends CustCellRender<String> {
 
     private int maxWordWidth;
 
-    private BufferedImage miniItem;
+    private final AbstractImageFactory fact;
+    private AbstractImage miniItem;
 
-    public ItemRenderer(FacadeGame _facade) {
+    public ItemRenderer(AbstractImageFactory _fact, FacadeGame _facade) {
+        fact = _fact;
         facade = _facade;
         sideLength = facade.getMap().getSideLength();
     }
@@ -39,7 +43,7 @@ public class ItemRenderer extends CustCellRender<String> {
         displayName = facade.translateItem(name);
         price = facade.getData().getItem(name).getPrice();
         int[][] img_ = facade.getData().getMiniItems().getVal(name);
-        miniItem = ConverterGraphicBufferedImage.decodeToImage(img_);
+        miniItem = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
         maxWordWidth = 0;
         for (String i: facade.getChosenItemsForBuyOrSell().getKeys()) {
             String disp_ = facade.translateItem(i);
@@ -52,7 +56,11 @@ public class ItemRenderer extends CustCellRender<String> {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    protected AbstractImageFactory getImageFactory() {
+        return fact;
+    }
+    @Override
+    public void paintComponent(AbstractImage _g) {
         _g.drawImage(miniItem, 0, 0);
         _g.setColor(Color.BLACK);
         _g.drawString(displayName, sideLength, getHeight());

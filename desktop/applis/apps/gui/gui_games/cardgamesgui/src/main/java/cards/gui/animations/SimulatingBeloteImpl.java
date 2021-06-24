@@ -129,7 +129,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         container.setEvents(new TextArea(ContainerBelote.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(container.getEvents()));
-        container.setMini(MiniCarpet.newCarpet(partie_.getNombreDeJoueurs(),container.getDisplayingBelote().isClockwise(),pseudos_));
+        container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),container.getDisplayingBelote().isClockwise(),pseudos_));
         panneau2_.add(container.getMiniPanel());
         container.setHandfuls(new ByteMap<TextLabel>());
         container.setDeclaredHandfuls(new ByteMap<Panel>());
@@ -154,7 +154,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
         if (!partie_.getDistribution().derniereMain().estVide()) {
-            container.tapisBelote().setTalonBelote(lg_,partie_.getDistribution().derniereMain());
+            container.tapisBelote().setTalonBelote(container.getWindow().getImageFactory(),lg_,partie_.getDistribution().derniereMain());
         }
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock().getComponent());
@@ -165,10 +165,10 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,partie_.getDeal().hand())) {
+        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow().getImageFactory(), lg_,partie_.getDeal().hand())) {
             panneau1_.add(c);
         }
-        panneau1_.repaintChildren();
+        panneau1_.repaintChildren(container.getOwner().getImageFactory());
         panneau1_.validate();
     }
     @Override
@@ -271,7 +271,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
     @Override
     public void played(byte _joueur, CardBelote _playedCard) {
         String lg_ = container.getOwner().getLanguageKey();
-        container.tapisBelote().setCarteBelote(lg_,_joueur,_playedCard);
+        container.tapisBelote().setCarteBelote(container.getWindow().getImageFactory(), lg_,_joueur,_playedCard);
     }
 
     @Override
@@ -300,7 +300,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
     @Override
     public void clearCarpet(byte _nbPlayers) {
         String lg_ = container.getOwner().getLanguageKey();
-        container.tapisBelote().setCartesBeloteJeu(_nbPlayers, lg_);
+        container.tapisBelote().setCartesBeloteJeu(container.getOwner().getImageFactory(), _nbPlayers, lg_);
     }
 
     @Override

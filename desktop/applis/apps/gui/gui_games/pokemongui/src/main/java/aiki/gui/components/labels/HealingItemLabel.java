@@ -1,14 +1,14 @@
 package aiki.gui.components.labels;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 
 import aiki.gui.MainWindow;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.Paginator;
 import aiki.util.SortingHealingItem;
-import code.gui.CustGraphics;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.Ints;
 import code.util.StringList;
@@ -53,7 +53,7 @@ public class HealingItemLabel extends SelectableLabel {
 
     private final SortingHealingItem item;
 
-    private BufferedImage miniImageItem;
+    private AbstractImage miniImageItem;
 
     /**max pixels name*/
     private int fourthColumn;
@@ -69,11 +69,11 @@ public class HealingItemLabel extends SelectableLabel {
         messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, HEALING_ITEM_LABEL);
     }
 
-    public void setImagesResults(FacadeGame _facade, int _thirdColumn, int _fourthColumn, int _fifthColumn) {
+    public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade, int _thirdColumn, int _fourthColumn, int _fifthColumn) {
         fourthColumn = _fourthColumn;
         fifthColumn = _fifthColumn;
         int[][] miniItem_ = _facade.getData().getMiniItems().getVal(item.getKeyName());
-        miniImageItem = ConverterGraphicBufferedImage.decodeToImage(miniItem_);
+        miniImageItem = ConverterGraphicBufferedImage.decodeToImage(_fact,miniItem_);
         sideLength = _facade.getMap().getSideLength();
         int h_ = sideLength;
 //        if (h_ < FOURTH_LINE) {
@@ -96,7 +96,7 @@ public class HealingItemLabel extends SelectableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.drawImage(miniImageItem, 0, 0);

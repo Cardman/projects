@@ -154,10 +154,10 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         getNoPlay().setVisibleButton(true);
         if (partie_.getNextPlayer() == DealPresident.NUMERO_UTILISATEUR) {
-            tapisPresident().setStatus(lg_,partie_.getLastStatus(), partie_.getNextPlayer());
+            tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.getNextPlayer());
 //            tapisPresident().repaintValidate();
             if (!partie_.getProgressingTrick().estVide()) {
-                tapisPresident().setTalonPresident(lg_,partie_.getProgressingTrick().getBestCards());
+                tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getProgressingTrick().getBestCards());
 //                tapisPresident().repaintValidate();
             }
             placerBoutonsAvantJeuUtilisateurPresident();
@@ -352,7 +352,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         panneau2_.add(getNoPlay());
         setActionsHistory(panneau2_);
         container_.add(panneau2_,BorderLayout.EAST);
-        tapisPresident().setTalonPresident();
+        tapisPresident().setTalonPresident(getWindow().getImageFactory());
 //        tapisPresident().repaintValidate();
         Panel panel_ = Panel.newPageBox();
         panel_.add(new ScrollPane(container_));
@@ -515,9 +515,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
         //Il ne se rendra pas compte que la main est repeinte entierement
         setRaisonCourante(getMessages().getVal(MainWindow.END_TRICK));
         afficherMainUtilisateurPresident(false);
-        tapisPresident().setTalonPresident(lg_,partie_.getPlayedCards());
+        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,partie_.getPlayedCards());
 //        tapisPresident().repaintValidate();
-        tapisPresident().setStatus(lg_,partie_.getLastStatus(), partie_.getNextPlayer());
+        tapisPresident().setStatus(getWindow().getImageFactory(),lg_,partie_.getLastStatus(), partie_.getNextPlayer());
 //        tapisPresident().repaintValidate();
         pause();
         //Desactiver le menu Partie/Pause
@@ -686,7 +686,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         int iter_ = IndexConstants.FIRST_INDEX;
         byte index_ = IndexConstants.SECOND_INDEX;
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
+        for (GraphicPresidentCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
             int curStr_ = c.getCard().strength(partiePresident().isReversed());
             if (iter_ > IndexConstants.FIRST_INDEX) {
                 if (curStr_ == str_) {
@@ -701,14 +701,14 @@ public class ContainerSinglePresident extends ContainerPresident implements
             _panel.add(c);
         }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     private void updateCardsInPanelPresidentDiscard(Panel _panel, HandPresident _hand, boolean _inHand) {
         _panel.removeAll();
         byte index_ = IndexConstants.FIRST_INDEX;
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
+        for (GraphicPresidentCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand,c));
             _panel.add(c);
             index_++;
@@ -729,7 +729,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             }
         }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     @Override
@@ -785,7 +785,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     @Override
     public void nextTrick() {
-        tapisPresident().setTalonPresident();
+        tapisPresident().setTalonPresident(getWindow().getImageFactory());
 //        tapisPresident().repaintValidate();
         debutPliPresident();
     }

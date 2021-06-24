@@ -48,7 +48,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     }
     public static void setDialogDisplayingBelote(String _titre, MainWindow _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogDisplayingBelote().setDialogIcon(_fenetre);
+        _fenetre.getDialogDisplayingBelote().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogDisplayingBelote().setMain(_fenetre);
         _fenetre.getDialogDisplayingBelote().getJt().removeAll();
         _fenetre.getDialogDisplayingBelote().setTitle(_titre);
@@ -81,7 +81,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
         panneau_=Panel.newGrid(0,4);
-        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
@@ -108,7 +108,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         for (Suit chaine_:displayingBelote.getSuits()) {
             liste_.add(chaine_);
         }
-        orderedSuits=new SuitsScrollableList(liste_,4, _window, _window.getCardFactories().getGeneSuit().create(false));
+        orderedSuits=new SuitsScrollableList(liste_,4, _window, _window.getCardFactories().getGeneSuit().create(_window.getImageFactory(),false));
         liste_.clear();
         panneau_.add(orderedSuits.getContainer());
         //Panneau Tri avant enchere (Atout)

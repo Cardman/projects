@@ -1,12 +1,12 @@
 package aiki.gui.components.labels;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
-import code.gui.CustGraphics;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.util.EnumMap;
 import code.util.Ints;
@@ -24,9 +24,9 @@ public class PokemonLabel extends SelectableLabel {
 
     private SortingPokemonPlayer pokemon;
 
-    private BufferedImage miniImagePk;
+    private AbstractImage miniImagePk;
 
-    private BufferedImage miniImageItem;
+    private AbstractImage miniImageItem;
 
     private boolean withItem;
 
@@ -40,13 +40,13 @@ public class PokemonLabel extends SelectableLabel {
         pokemon = _pokemon;
     }
 
-    public void setImagesResults(FacadeGame _facade) {
+    public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade) {
         int[][] miniPk_ = _facade.getData().getMiniPk().getVal(pokemon.getKeyName());
-        miniImagePk = ConverterGraphicBufferedImage.decodeToImage(miniPk_);
+        miniImagePk = ConverterGraphicBufferedImage.decodeToImage(_fact,miniPk_);
         withItem = !pokemon.getKeyItem().isEmpty();
         if (withItem) {
             int[][] miniItem_ = _facade.getData().getMiniItems().getVal(pokemon.getKeyItem());
-            miniImageItem = ConverterGraphicBufferedImage.decodeToImage(miniItem_);
+            miniImageItem = ConverterGraphicBufferedImage.decodeToImage(_fact,miniItem_);
         }
         sideLength = _facade.getMap().getSideLength();
     }
@@ -77,7 +77,7 @@ public class PokemonLabel extends SelectableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(Color.BLACK);

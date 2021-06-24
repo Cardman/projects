@@ -140,10 +140,10 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,h_)) {
+        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(container.getWindow().getImageFactory(), lg_,h_)) {
             panneau1_.add(c);
         }
-        panneau1_.repaintChildren();
+        panneau1_.repaintChildren(container.getOwner().getImageFactory());
         panneau1_.validate();
     }
 

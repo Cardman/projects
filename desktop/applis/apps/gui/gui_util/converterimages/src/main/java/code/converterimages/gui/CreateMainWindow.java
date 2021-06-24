@@ -1,5 +1,6 @@
 package code.converterimages.gui;
 
+import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
@@ -19,7 +20,7 @@ public final class CreateMainWindow implements Runnable {
     public void run() {
         MainWindow mainWindow_ = new MainWindow(lg, list);
         if (!args.isEmpty()) {
-            if (args.firstValue() instanceof BufferedImage) {
+            if (args.firstValue() instanceof AbstractImage) {
                 mainWindow_.readOneImageArg(args.firstKey());
             } else {
                 mainWindow_.writeOneImageArg(args.firstKey());

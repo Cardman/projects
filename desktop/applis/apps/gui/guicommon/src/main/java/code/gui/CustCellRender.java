@@ -1,22 +1,24 @@
 package code.gui;
 
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
 
 import java.awt.image.BufferedImage;
 
 public abstract class CustCellRender<T> {
     private CustList<T> list = new CustList<T>();
+    protected abstract AbstractImageFactory getImageFactory();
     public abstract void getListCellRendererComponent(PreparedLabel _currentLab,
                                                       int _index, boolean _isSelected, boolean _cellHasFocus);
     public abstract int getHeight();
     public abstract int getWidth();
-    public abstract void paintComponent(CustGraphics _g);
+    public abstract void paintComponent(AbstractImage _g);
     public void paintComponent(PreparedLabel _component) {
-        BufferedImage buff_ = new BufferedImage(getWidth(),getHeight(),BufferedImage.TYPE_INT_RGB);
-        CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
-        gr_.setFont(_component.getFont());
-        paintComponent(gr_);
-        _component.setIcon(buff_);
+        AbstractImage buff_ = getImageFactory().newImageRgb(getWidth(),getHeight());
+        buff_.setFont(_component.getFont());
+        paintComponent(buff_);
+        _component.setIcon(getImageFactory(),buff_);
     }
 
     public CustList<T> getList() {

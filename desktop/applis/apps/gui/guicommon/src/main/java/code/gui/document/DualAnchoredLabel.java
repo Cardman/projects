@@ -1,13 +1,12 @@
 package code.gui.document;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaStyle;
 import code.formathtml.render.SegmentPart;
-import code.gui.CustGraphics;
 import code.gui.PreparedLabel;
+import code.gui.images.AbstractImage;
 
 public final class DualAnchoredLabel extends DualLabel {
 
@@ -42,22 +41,21 @@ public final class DualAnchoredLabel extends DualLabel {
         int h_ = lab_.heightFont(copy_);
         String text_ = getText();
         int w_ = lab_.stringWidth(copy_,text_);
-        BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_RGB);
-        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
-        gr_.setFont(copy_);
-        gr_.setColor(new Color(style_.getBgColor()));
-        gr_.fillRect(0, 0, w_, h_);
-        gr_.setColor(Color.ORANGE);
+        AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(w_, h_);
+        img_.setFont(copy_);
+        img_.setColor(new Color(style_.getBgColor()));
+        img_.fillRect(0, 0, w_, h_);
+        img_.setColor(Color.ORANGE);
         for (SegmentPart s: getSegments()) {
             int beginIndex_ = s.getBegin();
             int b_ = lab_.stringWidth(copy_,text_.substring(0, beginIndex_));
             int d_ = lab_.stringWidth(copy_,text_.substring(beginIndex_, s.getEnd()));
-            gr_.fillRect(b_, 0, d_, h_);
+            img_.fillRect(b_, 0, d_, h_);
         }
-        gr_.setColor(Color.BLUE);
-        gr_.drawString(text_, 0, h_ - 1);
-        gr_.drawLine(0, h_ - 1, w_, h_ - 1);
-        lab_.setIcon(img_);
-        gr_.dispose();
+        img_.setColor(Color.BLUE);
+        img_.drawString(text_, 0, h_ - 1);
+        img_.drawLine(0, h_ - 1, w_, h_ - 1);
+        lab_.setIcon(getPage().getGene().getImageFactory(), img_);
+        img_.dispose();
     }
 }

@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.images.AbstractImageFactory;
 import code.util.Ints;
 import code.util.StringList;
 
@@ -7,14 +8,14 @@ import java.awt.*;
 
 public final class GraphicStringListMult extends GraphicList<String> implements AbsInputGraphicList<String> {
 
-    public GraphicStringListMult(StringList _objects, Ints _selectedIndexes, int _visibleRows) {
-        super(false, _selectedIndexes, _objects,_visibleRows);
-        buildList();
+    public GraphicStringListMult(AbstractImageFactory _fact, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
+        super(_fact,false, _selectedIndexes, _objects,_visibleRows);
+        buildList(_fact);
         rebuild();
     }
 
-    protected void buildList() {
-        DefaultCellRender cellRender_ = new DefaultCellRender();
+    protected void buildList(AbstractImageFactory _fact) {
+        DefaultCellRender cellRender_ = new DefaultCellRender(_fact);
         cellRender_.setMaxWidth(getMaxWidth());
         setRender(cellRender_);
     }

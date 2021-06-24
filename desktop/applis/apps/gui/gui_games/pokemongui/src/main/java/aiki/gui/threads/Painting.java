@@ -50,9 +50,9 @@ public final class Painting implements Runnable {
             scene.setAnimated(false);
             scene.keepTiles();
             facade.changeCamera();
-            scene.load(facade, false);
+            scene.load(window.getImageFactory(),facade, false);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
-            scene.repaintLabel();
+            scene.repaintLabel(window.getImageFactory());
             if (facade.isChangeToFightScene()) {
                 CustComponent.invokeLater(new SetFightPanel(window));
                 return;
@@ -65,16 +65,16 @@ public final class Painting implements Runnable {
             if (facade.getGame().isPlaceChanged()) {
                 scene.keepTiles();
                 facade.changeCamera();
-                scene.load(facade, false);
+                scene.load(window.getImageFactory(),facade, false);
                 ThreadUtil.sleep(window.getThreadFactory(),pause * 5L);
-                scene.repaintLabel();
+                scene.repaintLabel(window.getImageFactory());
             } else {
                 facade.changeCamera(dir);
-                scene.load(facade, false);
+                scene.load(window.getImageFactory(),facade, false);
                 for (int i = IndexConstants.FIRST_INDEX; i <= side; i++) {
                     scene.setDelta(i - side, true);
                     ThreadUtil.sleep(window.getThreadFactory(),pause);
-                    scene.repaintLabel();
+                    scene.repaintLabel(window.getImageFactory());
                 }
             }
             CustComponent.invokeLater(new SetFightPanel(window));
@@ -82,28 +82,28 @@ public final class Painting implements Runnable {
         }
         if (facade.getGame().getNbSteps() == 0) {
             facade.changeCamera();
-            scene.load(facade, false);
+            scene.load(window.getImageFactory(),facade, false);
             scene.setDelta(0, false);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
-            scene.repaintLabel();
+            scene.repaintLabel(window.getImageFactory());
             CustComponent.invokeLater(new SetInteractionScene(window));
             return;
         }
         if (facade.getGame().isPlaceChanged()) {
             scene.keepTiles();
             facade.changeCamera();
-            scene.load(facade, false);
+            scene.load(window.getImageFactory(),facade, false);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
-            scene.repaintLabel();
+            scene.repaintLabel(window.getImageFactory());
             CustComponent.invokeLater(new SetInteractionScene(window));
             return;
         }
         facade.changeCamera(dir);
-        scene.load(facade, false);
+        scene.load(window.getImageFactory(),facade, false);
         for (int i = IndexConstants.FIRST_INDEX; i <= side; i++) {
             scene.setDelta(i - side, true);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
-            scene.repaintLabel();
+            scene.repaintLabel(window.getImageFactory());
         }
         CustComponent.invokeLater(new SetInteractionScene(window));
     }

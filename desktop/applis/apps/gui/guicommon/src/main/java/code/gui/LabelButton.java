@@ -1,13 +1,14 @@
 package code.gui;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
+
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
+import javax.swing.*;
 
 public class LabelButton extends CustComponent {
 
@@ -19,7 +20,8 @@ public class LabelButton extends CustComponent {
 
     private boolean enabledLabel = true;
 
-    private final JLabel label;
+    private final JButton label;
+//    private final JLabel label;
 
     private String text = "";
 
@@ -38,24 +40,26 @@ public class LabelButton extends CustComponent {
         }
     }
     public LabelButton() {
-        label = new JLabel();
-        setLineBorder(Color.BLACK, 1);
+        label = new JButton();
+//        setLineBorder(Color.BLACK, 1);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        label.setOpaque(true);
-        label.setForeground(DEFAULT_FOREGROUND);
-        label.setBackground(Color.WHITE);
+//        label.setOpaque(true);
+//        label.setForeground(DEFAULT_FOREGROUND);
+//        label.setBackground(Color.WHITE);
     }
 
-    public LabelButton(BufferedImage _imageIcon) {
-        label = new JLabel(new ImageIcon(_imageIcon));
+    public LabelButton(AbstractImageFactory _fact, AbstractImage _imageIcon) {
+        label = new JButton(PreparedLabel.buildIcon(_fact,_imageIcon));
         setLineBorder(Color.BLACK, 1);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     void setTextDefaultColors(String _text,
                               boolean _enabled) {
-        BufferedImage img_ = LabelButtonUtil.paintButton(this, _text, _enabled);
-        label.setIcon(new ImageIcon(img_));
+//        BufferedImage img_ = LabelButtonUtil.paintButton(this, _text, _enabled);
+//        label.setIcon(new ImageIcon(img_));
+        label.setText(_text);
+        label.setEnabled(_enabled);
     }
     public void addMouseListener(MouseAdapter _l) {
         adapterCore = new MouseAdapaterCore(_l, this);
@@ -73,11 +77,11 @@ public class LabelButton extends CustComponent {
             label.setCursor(new Cursor(Cursor.HAND_CURSOR));
         }
         enabledLabel = _enabled;
-        if (_enabled) {
-            label.setForeground(DEFAULT_FOREGROUND);
-        } else {
-            label.setForeground(DISABLED);
-        }
+//        if (_enabled) {
+//            label.setForeground(DEFAULT_FOREGROUND);
+//        } else {
+//            label.setForeground(DISABLED);
+//        }
         if (!text.isEmpty()) {
             setTextDefaultColors(text, enabledLabel);
         }
@@ -86,15 +90,15 @@ public class LabelButton extends CustComponent {
     public void setTextAndSize(String _text) {
         text = _text;
         setTextDefaultColors(_text, enabledLabel);
-        initSize(_text);
+//        initSize(_text);
     }
 
     public void initSize(String _text) {
-        int h_ = heightFont();
-        int w_ = stringWidth(_text);
-        w_++;
-        w_++;
-        label.setPreferredSize(new Dimension(w_, h_));
+//        int h_ = heightFont();
+//        int w_ = stringWidth(_text);
+//        w_++;
+//        w_++;
+//        label.setPreferredSize(new Dimension(w_, h_));
     }
 
     public void setVisibleButton(boolean _aFlag) {

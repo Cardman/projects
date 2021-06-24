@@ -5,8 +5,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.util.StringMap;
 
-import java.awt.image.BufferedImage;
-
 public class LaunchingDemo extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "rts";
@@ -36,11 +34,6 @@ public class LaunchingDemo extends AdvSoftApplicationCore {
     }
     public static String getMainWindowClass() {
         return "rts";
-    }
-
-    @Override
-    protected BufferedImage getImageIcon() {
-        return null;
     }
 
 }

@@ -29,7 +29,7 @@ public final class FrameHtmlData extends ChildFrame {
     private final ProgressingWebDialog dialog;
 
     public FrameHtmlData(MainWindow _parent, String _title, RenderedPage _session) {
-        super(_parent.getLanguageKey());
+        super(_parent.getLanguageKey(),_parent);
         setAccessFile(DIALOG_ACCESS);
         messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setDialogIcon(_parent);

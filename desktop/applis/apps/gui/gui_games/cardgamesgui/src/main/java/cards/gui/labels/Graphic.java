@@ -1,8 +1,8 @@
 package cards.gui.labels;
 import java.awt.Color;
 
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.Longs;
@@ -23,7 +23,7 @@ public class Graphic extends PaintableLabel {
         couleurs=_pcouleurs;
     }
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         int rapport_=getWidth()/scores.size();
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
@@ -60,7 +60,7 @@ public class Graphic extends PaintableLabel {
             _g.drawLine(rapport_*(partie_+1),(int)-espMoinsTroisSigmas_.ll(),rapport_*(partie_+2),(int)-espMoinsTroisSigmas2_.ll());
         }
     }
-    private void dessinerPointilles(CustGraphics _g2,boolean _horizontal) {
+    private void dessinerPointilles(AbstractImage _g2,boolean _horizontal) {
         _g2.setColor(Color.BLACK);
         int rapport2_=10;
         if(_horizontal) {

@@ -6,8 +6,8 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.ChosenMoveInfos;
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 import code.images.ConverterBufferedImage;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
@@ -57,7 +57,7 @@ public class MoveLabel extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         if (infos.isUsable()) {

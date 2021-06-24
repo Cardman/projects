@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.util.*;
 import code.util.Ints;
 import code.util.core.NumberUtil;
@@ -26,31 +28,31 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
     private int selectedIndex = -1;
 
     private boolean enabled = true;
+    private AbstractImageFactory fact;
 
-    public GraphicCombo(GraphicStringList _grList, int _selectedIndex) {
+    public GraphicCombo(AbstractImageFactory _fact, GraphicStringList _grList, int _selectedIndex) {
+        fact = _fact;
         grList = _grList;
         grList.setListener(new ComboSelection(menu, this));
         menu.add(grList.getGlobal());
         Font font_ = panel.getFont();
         int s_ = panel.heightFont() + 2;
-        BufferedImage img_ = new BufferedImage(s_, s_, BufferedImage.TYPE_INT_RGB);
-        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
-        gr_.setColor(Color.WHITE);
-        gr_.fillRect(0, 0, s_, s_);
-        gr_.setColor(Color.BLACK);
-        gr_.fillPolygon(NumberUtil.wrapIntArray(s_/4,s_*3/4,s_/2), NumberUtil.wrapIntArray(s_/4,s_/4,s_*3/4), 3);
-        pseudoButton = new PreparedLabel(img_);
-        pseudoButton.setIcon(img_);
+        AbstractImage img_ = _fact.newImageRgb(s_, s_);
+        img_.setColor(Color.WHITE);
+        img_.fillRect(0, 0, s_, s_);
+        img_.setColor(Color.BLACK);
+        img_.fillPolygon(NumberUtil.wrapIntArray(s_/4,s_*3/4,s_/2), NumberUtil.wrapIntArray(s_/4,s_/4,s_*3/4), 3);
+        pseudoButton = new PreparedLabel(fact,img_);
+        pseudoButton.setIcon(fact,img_);
         pseudoButton.addMouseListener(new Popup(this));
         int w_ = 5;
-        BufferedImage img2_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-        CustGraphics gr2_ = new CustGraphics(img2_.createGraphics());
-        gr2_.setFont(font_);
-        gr2_.setColor(Color.WHITE);
-        gr2_.fillRect(0, 0, w_, s_);
-        currentSelected = new PreparedLabel(img2_);
+        AbstractImage img2_ = _fact.newImageRgb(w_, s_);
+        img2_.setFont(font_);
+        img2_.setColor(Color.WHITE);
+        img2_.fillRect(0, 0, w_, s_);
+        currentSelected = new PreparedLabel(fact,img2_);
         currentSelected.setLineBorder(Color.BLACK);
-        gr_.dispose();
+        img_.dispose();
         panel.add(currentSelected);
         panel.add(pseudoButton);
         panel.add(menu);
@@ -80,14 +82,14 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
             selectedIndex = 0;
             int w_ = grList.getMaxWidth();
             int s_ = panel.heightFont() + 2;
-            BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-            CustGraphics gr_ = new CustGraphics(img_.createGraphics());
-            gr_.setFont(currentSelected.getFont());
-            gr_.setColor(Color.WHITE);
-            gr_.fillRect(0, 0, w_, s_);
-            gr_.setColor(Color.BLACK);
-            gr_.drawString(_object, 0, s_ - 1);
-            currentSelected.setIcon(img_);
+            AbstractImage img_ = fact.newImageRgb(w_, s_);
+//            CustGraphics gr_ = new CustGraphics(img_.createGraphics());
+            img_.setFont(currentSelected.getFont());
+            img_.setColor(Color.WHITE);
+            img_.fillRect(0, 0, w_, s_);
+            img_.setColor(Color.BLACK);
+            img_.drawString(_object, 0, s_ - 1);
+            currentSelected.setIcon(fact,img_);
         }
     }
 
@@ -216,25 +218,25 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
         }
         int w_ = grList.getMaxWidth();
         int s_ = panel.heightFont() + 2;
-        BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
-        gr_.setFont(currentSelected.getFont());
-        gr_.setColor(Color.WHITE);
-        gr_.fillRect(0, 0, w_, s_);
-        gr_.setColor(Color.BLACK);
-        gr_.drawString(selected_, 0, s_ - 1);
-        currentSelected.setIcon(img_);
+        AbstractImage img_ = fact.newImageRgb(w_, s_);
+//        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
+        img_.setFont(currentSelected.getFont());
+        img_.setColor(Color.WHITE);
+        img_.fillRect(0, 0, w_, s_);
+        img_.setColor(Color.BLACK);
+        img_.drawString(selected_, 0, s_ - 1);
+        currentSelected.setIcon(fact,img_);
     }
 
     public void setNoSelected() {
         int s_ = panel.heightFont() + 2;
         int w_ = 5;
-        BufferedImage img_ = new BufferedImage(w_, s_, BufferedImage.TYPE_INT_RGB);
-        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
-        gr_.setFont(currentSelected.getFont());
-        gr_.setColor(Color.WHITE);
-        gr_.fillRect(0, 0, w_, s_);
-        currentSelected.setIcon(img_);
+        AbstractImage img_ = fact.newImageRgb(w_, s_);
+//        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
+        img_.setFont(currentSelected.getFont());
+        img_.setColor(Color.WHITE);
+        img_.fillRect(0, 0, w_, s_);
+        currentSelected.setIcon(fact,img_);
     }
 
     public CustComponent getCurrentSelected() {

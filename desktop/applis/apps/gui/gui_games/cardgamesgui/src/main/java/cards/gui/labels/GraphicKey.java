@@ -4,8 +4,8 @@ import java.awt.Font;
 
 import cards.gui.MainWindow;
 import cards.gui.dialogs.FileConst;
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -22,7 +22,7 @@ public class GraphicKey extends PaintableLabel {
         messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _lg, GRAPHIC_KEY);
     }
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(Color.BLACK);

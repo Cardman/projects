@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import code.formathtml.render.MetaAnimatedImage;
 import code.gui.CustComponent;
 import code.gui.PreparedLabel;
+import code.gui.images.AbstractImage;
 import code.threads.ThreadUtil;
 import code.sml.Element;
 import code.util.CustList;
@@ -70,7 +71,7 @@ public final class DualAnimatedImage extends DualImage {
         if (img_.length == 0) {
             return;
         }
-        BufferedImage imgBuf_ = new BufferedImage(img_[0].length, img_.length, BufferedImage.TYPE_INT_RGB);
+        AbstractImage imgBuf_ = getPage().getGene().getImageFactory().newImageRgb(img_[0].length, img_.length);
         int y_ = 0;
         for (int[] r: img_) {
             int x_ = 0;
@@ -80,7 +81,7 @@ public final class DualAnimatedImage extends DualImage {
             }
             y_++;
         }
-        getLabel().setIcon(imgBuf_);
+        getLabel().setIcon(getPage().getGene().getImageFactory(), imgBuf_);
     }
     public String getHref() {
         return href;

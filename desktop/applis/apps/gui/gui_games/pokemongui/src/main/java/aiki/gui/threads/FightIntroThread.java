@@ -1,8 +1,8 @@
 package aiki.gui.threads;
-import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
+import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 
 /**This class thread is independant from EDT,
@@ -13,8 +13,8 @@ public abstract class FightIntroThread implements Runnable {
 
     private Battle battle;
 
-    private BufferedImage heros;
-    private BufferedImage herosOppositeSex;
+    private AbstractImage heros;
+    private AbstractImage herosOppositeSex;
 
     /**This class thread is independant from EDT*/
     public FightIntroThread(FacadeGame _facade, Battle _battle) {
@@ -23,8 +23,8 @@ public abstract class FightIntroThread implements Runnable {
     }
 
     protected void initHeros() {
-        heros = ConverterGraphicBufferedImage.decodeToImage(facade.getBackHeros());
-        herosOppositeSex = ConverterGraphicBufferedImage.decodeToImage(facade.getBackHerosSexOpposite());
+        heros = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), facade.getBackHeros());
+        herosOppositeSex = ConverterGraphicBufferedImage.decodeToImage(battle.getWindow().getImageFactory(), facade.getBackHerosSexOpposite());
     }
 
     protected FacadeGame getFacade() {
@@ -35,11 +35,11 @@ public abstract class FightIntroThread implements Runnable {
         return battle;
     }
 
-    protected BufferedImage getHeros() {
+    protected AbstractImage getHeros() {
         return heros;
     }
 
-    protected BufferedImage getHerosOppositeSex() {
+    protected AbstractImage getHerosOppositeSex() {
         return herosOppositeSex;
     }
 }

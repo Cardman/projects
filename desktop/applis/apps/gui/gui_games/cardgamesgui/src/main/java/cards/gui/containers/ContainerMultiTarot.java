@@ -212,7 +212,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         Panel container_=Panel.newPageBox();
         Panel panel_ = Panel.newPageBox();
         panel_.add(new TextLabel(getMessages().getVal(MainWindow.PLACE)));
-        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames().getGeneComboBox());
+        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getImageFactory(),getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
         }
@@ -384,7 +384,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void displayCalling(CallableCards _cards) {
         setCanCall(true);
         byte relative_ = relative(_cards.getTakerIndex());
-        getMini().setStatus(Role.TAKER, relative_);
+        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         if (_cards.getCallableCards().estVide()) {
             return;
         }
@@ -408,7 +408,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //getPanneauBoutonsJeu().validate();
         setDiscardCall(true);
         byte relative_ = relative(_dog.getTakerIndex());
-        getMini().setStatus(Role.TAKER, relative_);
+        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         cardsInDog = _dog.getDog();
         setChienMulti(cardsInDog, false);
         pack();
@@ -431,7 +431,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         //getPanneauBoutonsJeu().validate();
         byte relative_ = relative(_dog.getTakerIndex());
-        getMini().setStatus(Role.TAKER, relative_);
+        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         cardsInDog = _dog.getDog();
         setDiscardCall(_dog.isCallAfter());
         setChienMulti(cardsInDog, false);
@@ -448,7 +448,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         String lg_ = getOwner().getLanguageKey();
         canPlayLabel.setText(EMPTY_STRING);
         byte relative_ = relative(_call.getPlace());
-        getMini().setStatus(Role.TAKER, relative_);
+        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         getEvents().append(StringUtil.concat(getPseudoByPlace(_call.getPlace()),INTRODUCTION_PTS,Games.toString(_call.getCalledCards(),lg_),RETURN_LINE));
 
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.CALLED_CARD_KNOWN);
@@ -482,7 +482,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         HandTarot atouts_ = _discardedTrumps.getTrumps();
         getPanelDiscardedTrumps().removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(lg_,atouts_)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(), lg_,atouts_)) {
             getPanelDiscardedTrumps().add(c);
         }
 //        boolean entered_ = false;
@@ -495,7 +495,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        }
         getPanelDiscardedTrumps().validate();
         getPanelDiscardedTrumps().setVisible(true);
-        getPanelDiscardedTrumps().repaintChildren();
+        getPanelDiscardedTrumps().repaintChildren(getWindow().getImageFactory());
         //pack();
         SeenDiscardedTrumps dis_ = new SeenDiscardedTrumps();
         dis_.setDeclaringSlam(_discardedTrumps.isDeclaringSlam());
@@ -505,7 +505,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     public void displaySlam(PlayerActionGame _bidding) {
         byte relative_ = relative(_bidding.getPlace());
-        getMini().setStatus(Role.TAKER, relative_);
+        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         getEvents().append(StringUtil.concat(getPseudoByPlace(_bidding.getPlace()),INTRODUCTION_PTS,MainWindow.SLAM,RETURN_LINE));
 
         PlayerActionGame dis_ = new PlayerActionGame(PlayerActionGameType.DONE_DISPLAY_SLAM);
@@ -573,7 +573,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().add(miseres_);
         //getPanneauBoutonsJeu().validate();
         byte relative_ = relative(_declaration.getTakerIndex());
-        getMini().setStatus(Role.TAKER, relative_);
+        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         pack();
         //PackingWindowAfter.pack(this, true);
     }
@@ -582,10 +582,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         PlayingCardTarot card_ = _card;
         byte relative_ = relative(card_.getPlace());
         String lg_ = getOwner().getLanguageKey();
-        tapisTarot().setCarteTarot(lg_,relative_, card_.getPlayedCard());
+        tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,relative_, card_.getPlayedCard());
         String pseudo_ = getPseudoByPlace(card_.getPlace());
         if (_card.isCalledCard()) {
-            getMini().setStatus(Role.CALLED_PLAYER, relative_);
+            getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, relative_);
             ajouterTexteDansZone(StringUtil.concat(pseudo_,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_)));
 
         }
@@ -609,7 +609,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         panelToSet_.validate();
         relative_ = relative(card_.getTakerIndex());
-        getMini().setStatus(Role.TAKER, relative_);
+        getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, relative_);
         //pack();
         PlayerActionGame dealt_ = new PlayerActionGame(PlayerActionGameType.DONE_PLAYING);
         dealt_.setPlace(indexInGame);
@@ -669,7 +669,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     @Override
     public void pauseBetweenTrick() {
         String lg_ = getOwner().getLanguageKey();
-        tapisTarot().setCartesTarotJeu(lg_,(byte) nbChoosenPlayers);
+        tapisTarot().setCartesTarotJeu(getWindow().getImageFactory(),lg_,(byte) nbChoosenPlayers);
         pack();
         //PackingWindowAfter.pack(this, true);
         PlayerActionGame d_ = new PlayerActionGame(PlayerActionGameType.DONE_PAUSE);
@@ -756,7 +756,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             pseudos_.put(relative_, getPseudoByPlace(p));
         }
         StringList list_ = new StringList(pseudos_.values());
-        setMini(MiniCarpet.newCarpet(list_.size(), getDisplayingTarot().isClockwise(), list_));
+        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),list_.size(), getDisplayingTarot().isClockwise(), list_));
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, nbChoosenPlayers, getDisplayingTarot().isClockwise(), _dog.total());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
@@ -959,7 +959,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void updateCardsInPanelTarotDogMulti(Panel _panel, HandTarot _hand, boolean _inHand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotMultiDog(this, c.getCard(),_inHand,c));
             _panel.add(c);
         }
@@ -974,13 +974,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     private void updateCardsInPanelTarotCallBeforeDogMulti(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotMultiBeforeDog(this, c.getCard()));
             _panel.add(c);
         }
@@ -994,7 +994,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
     }
     private void updateCardsInPanelTarotHandfulMulti(Panel _panel, HandTarot _hand, boolean _included) {
         _panel.removeAll();
@@ -1006,12 +1006,12 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             _panel.add(carte_);
         }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
     }
     private void updateCardsInPanelTarotJeuMulti(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotMultiGame(this, c.getCard()));
             _panel.add(c);
         }
@@ -1026,7 +1026,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     @Override

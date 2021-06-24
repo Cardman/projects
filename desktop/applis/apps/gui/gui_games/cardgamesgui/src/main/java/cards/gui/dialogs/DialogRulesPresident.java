@@ -17,7 +17,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesPresident(String _titre, MainWindow _fenetre, RulesPresident _rulesPresident) {
-        _fenetre.getDialogRulesPresident().setDialogIcon(_fenetre);
+        _fenetre.getDialogRulesPresident().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogRulesPresident().setTitle(_titre);
         _fenetre.getDialogRulesPresident().setReglesPresident(_rulesPresident);
         _fenetre.getDialogRulesPresident().setLocationRelativeTo(_fenetre);

@@ -3,8 +3,8 @@ import java.awt.Color;
 import java.awt.Font;
 
 import aiki.gui.components.Paginator;
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 import code.images.IntPoint;
 import code.util.CustList;
 
@@ -36,7 +36,7 @@ public class Header extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.YELLOW);
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(Color.BLACK);

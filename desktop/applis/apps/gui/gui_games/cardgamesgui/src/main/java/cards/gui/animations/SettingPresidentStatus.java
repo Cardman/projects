@@ -22,6 +22,6 @@ public final class SettingPresidentStatus implements Runnable {
     @Override
     public void run() {
         String lg_ = container.getOwner().getLanguageKey();
-        container.tapisPresident().setStatus(lg_,status, nextPlayer);
+        container.tapisPresident().setStatus(container.getOwner().getImageFactory(), lg_,status, nextPlayer);
     }
 }

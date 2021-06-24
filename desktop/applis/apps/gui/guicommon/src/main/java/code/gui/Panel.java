@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
 
 import java.awt.*;
@@ -129,14 +130,14 @@ public final class Panel extends CustComponent {
         panel.removeAll();
     }
 
-    public void repaintSecondChildren() {
+    public void repaintSecondChildren(AbstractImageFactory _fact) {
         for (CustComponent c: getChildren()) {
             if (c instanceof PaintableLabel) {
-                ((PaintableLabel)c).repaintLabel();
+                ((PaintableLabel)c).repaintLabel(_fact);
             } else if (c instanceof Panel) {
                 for (CustComponent d: c.getChildren()) {
                     if (d instanceof PaintableLabel) {
-                        ((PaintableLabel)d).repaintLabel();
+                        ((PaintableLabel)d).repaintLabel(_fact);
                     }
                 }
                 c.validate();
@@ -144,10 +145,10 @@ public final class Panel extends CustComponent {
         }
         validate();
     }
-    public void repaintChildren() {
+    public void repaintChildren(AbstractImageFactory _fact) {
         for (CustComponent c: getChildren()) {
             if (c instanceof PaintableLabel) {
-                ((PaintableLabel)c).repaintLabel();
+                ((PaintableLabel)c).repaintLabel(_fact);
             }
         }
         validate();

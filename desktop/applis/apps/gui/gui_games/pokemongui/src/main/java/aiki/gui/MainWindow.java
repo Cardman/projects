@@ -3,7 +3,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.Closeable;
 
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
@@ -276,7 +275,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         facade.setDisplayLanguages(displayLanguages_);
         facade.setSimplyLanguage(_lg);
-        setImageIconFrame(LaunchingPokemon.getIcon());
+        setImageIconFrame(LaunchingPokemon.getIcon(getImageFactory()));
         mainPanel = Panel.newPageBox();
         scenePanel = new ScenePanel(this, facade);
         initBattle();
@@ -485,7 +484,7 @@ public final class MainWindow extends NetGroupFrame {
             ImageHeroKey i_;
             i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
             int[][] imgTxt_ = facade.getData().getFrontHeros().getVal(i_);
-            HeroLabel label_ = new HeroLabel(imgTxt_);
+            HeroLabel label_ = new HeroLabel(getImageFactory(),imgTxt_);
             label_.setPreferredSize(new Dimension(imgTxt_[0].length, imgTxt_.length));
             label_.addMouseListener(new HeroSelect(this, s));
             herosLabels.put(s, label_);
@@ -502,7 +501,7 @@ public final class MainWindow extends NetGroupFrame {
         LabelButton ok_ = new LabelButton(OK);
         ok_.addMouseListener(new ConfirmNewGameEvent(this));
         beginGame.add(ok_);
-        beginGame.repaintSecondChildren();
+        beginGame.repaintSecondChildren(getImageFactory());
         scenePanel.addBeginGame(beginGame);
     }
 
@@ -519,7 +518,7 @@ public final class MainWindow extends NetGroupFrame {
         chosenSex = _sex;
         herosLabels.getVal(_sex).setSelected(true);
         herosLabels.getVal(_sex.getOppositeSex()).setSelected(false);
-        beginGame.repaintSecondChildren();
+        beginGame.repaintSecondChildren(getImageFactory());
     }
 
     private void newGame() {
@@ -1342,7 +1341,7 @@ public final class MainWindow extends NetGroupFrame {
         battle.enableAnimation(loadingConf.isEnableAnimation());
         battle.initializeFight(false);
         if (!_animate) {
-            battle.repaintLabel();
+            battle.repaintLabel(getImageFactory());
         }
 //        mainPanel.add(battle, CustList.FIRST_INDEX);
         inBattle = true;

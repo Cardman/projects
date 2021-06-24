@@ -26,8 +26,10 @@ public abstract class WindowStruct extends WithoutParentIdStruct implements Stru
     void setLocationRelativeTo(Struct _c){
         if (_c instanceof CustComponentStruct) {
             getAbstractWindow().setLocationRelativeTo(((CustComponentStruct)_c).getComponent());
-        } else if (_c instanceof WindowStruct) {
-            getAbstractWindow().setLocationRelativeTo(((WindowStruct)_c).getAbstractWindow());
+        } else if (_c instanceof DialogStruct) {
+            getAbstractWindow().setLocationRelativeTo(((DialogStruct)_c).getDialog());
+        } else if (_c instanceof FrameStruct) {
+            getAbstractWindow().setLocationRelativeTo(((FrameStruct)_c).getCommonFrame());
         } else {
             getAbstractWindow().setLocationRelativeToNull();
         }

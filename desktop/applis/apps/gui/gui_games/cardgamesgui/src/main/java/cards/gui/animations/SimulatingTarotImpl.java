@@ -125,7 +125,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         container.setEvents(new TextArea(ContainerTarot.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(container.getEvents()));
-        container.setMini(MiniCarpet.newCarpet(partie_.getNombreDeJoueurs(),container.getDisplayingTarot().isClockwise(),pseudos_));
+        container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),container.getDisplayingTarot().isClockwise(),pseudos_));
         panneau2_.add(container.getMiniPanel());
         container.setHandfuls(new ByteMap<TextLabel>());
         container.setDeclaredHandfuls(new ByteMap<Panel>());
@@ -158,10 +158,10 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_,partie_.getDeal().hand())) {
+        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(container.getWindow().getImageFactory(), lg_,partie_.getDeal().hand())) {
             panneau1_.add(c);
         }
-        panneau1_.repaintChildren();
+        panneau1_.repaintChildren(container.getOwner().getImageFactory());
         panneau1_.validate();
     }
     @Override
@@ -350,7 +350,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         String lg_ = container.getOwner().getLanguageKey();
         StringList pseudos_=pseudosSimuleeTarot();
         String mess_ = container.getMessages().getVal(MainWindow.DEMO_ACTION);
-        container.getMini().setStatus(Role.CALLED_PLAYER, _joueur);
+        container.getMini().setStatus(container.getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_,pseudos_.get(_joueur),Games.toString(Role.CALLED_PLAYER,lg_)),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
@@ -358,7 +358,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     @Override
     public void played(byte _joueur, CardTarot _playedCard) {
         String lg_ = container.getOwner().getLanguageKey();
-        container.tapisTarot().setCarteTarot(lg_,_joueur,_playedCard);
+        container.tapisTarot().setCarteTarot(container.getWindow().getImageFactory(),lg_,_joueur,_playedCard);
     }
 
     @Override
@@ -396,7 +396,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     @Override
     public void clearCarpet(byte _nbPlayers) {
         String lg_ = container.getOwner().getLanguageKey();
-        container.tapisTarot().setCartesTarotJeu(lg_,_nbPlayers);
+        container.tapisTarot().setCartesTarotJeu(container.getWindow().getImageFactory(),lg_,_nbPlayers);
     }
     private void afficherMainUtilisateurSimuTarot(HandTarot _mainUtilisateur) {
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationRefreshHandTarot(container, _mainUtilisateur));

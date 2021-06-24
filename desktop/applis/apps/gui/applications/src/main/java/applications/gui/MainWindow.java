@@ -24,7 +24,6 @@ import code.util.core.StringUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public final class MainWindow extends GroupFrame {
 
@@ -50,14 +49,14 @@ public final class MainWindow extends GroupFrame {
         setTitle(APPLICATIONS);
         Panel panel_ = Panel.newPageBox();
         Panel linePokemon_ = Panel.newLineBox();
-        buttonPokemon = new LabelButton(LaunchingPokemon.getIcon());
+        buttonPokemon = new LabelButton(_list.getImageFactory(),LaunchingPokemon.getIcon(getImageFactory()));
         AbstractAtomicInteger at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPokemon.getMainWindowClass(), at_);
         buttonPokemon.addMouseListener(new PokemonEvent(this,at_, _aikiFactory));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         Panel lineCards_ = Panel.newLineBox();
-        buttonCards = new LabelButton(LaunchingCards.getIcon());
+        buttonCards = new LabelButton(_list.getImageFactory(),LaunchingCards.getIcon(getImageFactory()));
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingCards.getMainWindowClass(),at_);
         buttonCards.addMouseListener(new CardsEvent(this,at_,_cardFactories));
@@ -85,7 +84,7 @@ public final class MainWindow extends GroupFrame {
         lineDemo_.add(buttonDemo);
         panel_.add(lineDemo_);
         Panel linePlayer_ = Panel.newLineBox();
-        buttonPlayer = new LabelButton(LaunchingPlayer.getIcon());
+        buttonPlayer = new LabelButton(_list.getImageFactory(),LaunchingPlayer.getIcon(getImageFactory()));
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPlayer.getMainWindowClass(),at_);
         buttonPlayer.addMouseListener(new PlayerEvent(this,at_));

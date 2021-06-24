@@ -1,14 +1,16 @@
 package code.gui;
 
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
 
 public final class OtherDialog implements ChangeableTitle,WithListener {
-    private JDialog dialog = new JDialog();
+    private final JDialog dialog = new JDialog();
     private Ownable owner;
-    private BufferedImage image;
+    private AbstractImage image;
 
     @Override
     public String getTitle() {
@@ -25,37 +27,36 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
         return dialog.getLocationOnScreen();
     }
 
-    protected Window getComponent() {
+    Window getComponent() {
         return dialog;
     }
 
+    void setIconImage(AbstractImageFactory _fact, AbstractImage _group) {
+        dialog.setIconImage(((ImageIcon)PreparedLabel.buildIcon(_fact,_group)).getImage());
+    }
     @Override
-    public BufferedImage getImageIconFrame() {
+    public AbstractImage getImageIconFrame() {
         return image;
     }
 
-    public void setImage(BufferedImage _image) {
+    public void setImage(AbstractImageFactory _fact, AbstractImage _image) {
         image = _image;
+        setIconImage(_fact,_image);
     }
 
     @Override
     public void setLocationRelativeTo(CustComponent _c) {
-        if (_c != null) {
-            dialog.setLocationRelativeTo(_c.getComponent());
-        } else {
-            dialog.setLocationRelativeTo(null);
-        }
+        dialog.setLocationRelativeTo(_c.getComponent());
     }
 
     @Override
-    public void setLocationRelativeTo(WithListener _c) {
-        if (_c instanceof OtherFrame) {
-            dialog.setLocationRelativeTo(((OtherFrame) _c).getComponent());
-        } else if (_c instanceof OtherDialog) {
-            dialog.setLocationRelativeTo(((OtherDialog) _c).getComponent());
-        } else {
-            dialog.setLocationRelativeTo(null);
-        }
+    public void setLocationRelativeTo(OtherFrame _c) {
+        dialog.setLocationRelativeTo(_c.getComponent());
+    }
+
+    @Override
+    public void setLocationRelativeTo(OtherDialog _c) {
+        dialog.setLocationRelativeTo(_c.getComponent());
     }
 
     @Override

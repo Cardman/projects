@@ -18,7 +18,7 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
     }
     public static void initDialogRulesTarot(String _titre, MainWindow _fenetre, RulesTarot _rulesTarot) {
         //super(_titre, _fenetre,_rulesTarot);
-        _fenetre.getDialogRulesTarot().setDialogIcon(_fenetre);
+        _fenetre.getDialogRulesTarot().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogRulesTarot().setTitle(_titre);
         _fenetre.getDialogRulesTarot().setReglesTarot(_rulesTarot);
         _fenetre.getDialogRulesTarot().setLocationRelativeTo(_fenetre);

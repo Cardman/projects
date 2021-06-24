@@ -27,7 +27,7 @@ public final class LanguageDialog extends Dialog implements SetterLanguage {
     }
 
     private void init(GroupFrame _owner, String _title) {
-        setDialogIcon(_owner);
+        setDialogIcon(_owner.getImageFactory(),_owner);
         setLocationRelativeTo(_owner);
         setTitle(_title);
         Panel panneau_ = Panel.newGrid(0,1);

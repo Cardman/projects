@@ -13,6 +13,7 @@ import code.gui.AbsGraphicList;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
+import code.gui.images.AbstractImageFactory;
 import code.util.*;
 
 public class FighterPanel {
@@ -25,7 +26,7 @@ public class FighterPanel {
 
     private final Panel container;
 
-    public FighterPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters, AbsGraphicList<Fighter> _liste) {
+    public FighterPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters, AbsGraphicList<Fighter> _liste) {
         liste = _liste;
         facade = _facade;
         container = Panel.newBorder();
@@ -35,7 +36,7 @@ public class FighterPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
-        liste.setRender(new FighterRenderer(facade));
+        liste.setRender(new FighterRenderer(_fact,facade));
         initFighters(_fighters);
         container.add(liste.self(), BorderLayout.CENTER);
         container.setPreferredSize(new Dimension(150,64*_nb));

@@ -16,6 +16,7 @@ import cards.president.enumerations.PresidentResoucesAccess;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.LabelButton;
 import code.gui.Panel;
+import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesPresidentPresident;
 import code.stream.StreamTextFile;
@@ -74,12 +75,12 @@ public class ContainerPresident extends ContainerGame {
         return false;
     }
 
-    public static CustList<GraphicPresidentCard> getGraphicCards(String _lg, Iterable<CardPresident> _hand) {
+    public static CustList<GraphicPresidentCard> getGraphicCards(AbstractImageFactory _fact, String _lg, Iterable<CardPresident> _hand) {
         CustList<GraphicPresidentCard> list_;
         list_ = new CustList<GraphicPresidentCard>();
         boolean entered_ = false;
         for(CardPresident c: _hand) {
-            GraphicPresidentCard carte_=new GraphicPresidentCard(_lg, c,SwingConstants.RIGHT,!entered_);
+            GraphicPresidentCard carte_=new GraphicPresidentCard(_fact,_lg, c,SwingConstants.RIGHT,!entered_);
             carte_.setPreferredSize(entered_);
             list_.add(carte_);
             entered_ = true;
@@ -126,21 +127,21 @@ public class ContainerPresident extends ContainerGame {
     public void updateCardsInPanelPresidentReceived() {
         getPanelReceivedCards().removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicPresidentCard c: getGraphicCards(lg_, getReceivedCards())) {
+        for (GraphicPresidentCard c: getGraphicCards(getWindow().getImageFactory(),lg_, getReceivedCards())) {
             getPanelReceivedCards().add(c);
         }
         getPanelReceivedCards().validate();
-        getPanelReceivedCards().repaintChildren();
+        getPanelReceivedCards().repaintChildren(getWindow().getImageFactory());
     }
 
     public void updateCardsInPanelPresidentGiven() {
         getPanelGivenCards().removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicPresidentCard c: getGraphicCards(lg_,getGivenCards())) {
+        for (GraphicPresidentCard c: getGraphicCards(getWindow().getImageFactory(),lg_,getGivenCards())) {
             getPanelGivenCards().add(c);
         }
         getPanelGivenCards().validate();
-        getPanelGivenCards().repaintChildren();
+        getPanelGivenCards().repaintChildren(getWindow().getImageFactory());
     }
 
     public void discard() {

@@ -33,7 +33,7 @@ public final class AnimationCardTarot implements Runnable {
                 ThreadUtil.sleep(container.getOwner().getThreadFactory(),delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 //container.tapisTarot().setEcart(partie_.getDistribution().derniereMain());
-                container.tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
+                container.tapisTarot().setCartesTarotJeu(container.getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
             }
         }
         //Activer le menu Partie/Pause
@@ -52,7 +52,7 @@ public final class AnimationCardTarot implements Runnable {
                     break;
                 }
                 //container.tapisTarot().setEcart(partie_.getDistribution().derniereMain());
-                container.tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
+                container.tapisTarot().setCartesTarotJeu(container.getWindow().getImageFactory(),lg_,partie_.getNombreDeJoueurs());
                 //validate container.pack();
             }
             byte player_ = partie_.playerHavingToPlay();

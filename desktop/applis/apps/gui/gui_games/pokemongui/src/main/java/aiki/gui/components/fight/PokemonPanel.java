@@ -10,6 +10,7 @@ import code.gui.AbsGraphicList;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
+import code.gui.images.AbstractImageFactory;
 import code.util.TreeMap;
 import code.util.core.IndexConstants;
 
@@ -26,7 +27,7 @@ public class PokemonPanel {
     private final String noEvo;
 
     private final Panel container;
-    public PokemonPanel(int _nb, String _titre, FacadeGame _facade, String _noEvo, AbsGraphicList<String> _liste) {
+    public PokemonPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, String _noEvo, AbsGraphicList<String> _liste) {
         liste = _liste;
         facade = _facade;
         container = Panel.newBorder();
@@ -37,7 +38,7 @@ public class PokemonPanel {
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         noEvo = _noEvo;
-        renderer = new PokemonDataRenderer(facade, noEvo);
+        renderer = new PokemonDataRenderer(_fact,facade, noEvo);
         liste.setRender(renderer);
         initEvos();
         container.add(liste.self(),BorderLayout.CENTER);

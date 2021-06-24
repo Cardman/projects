@@ -6,8 +6,6 @@ import code.gui.initialize.LoadLanguageUtil;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
 
-import java.awt.image.BufferedImage;
-
 public class LaunchingRenders extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "renders_sites";
@@ -35,10 +33,6 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
     }
     public static String getMainWindowClass() {
         return "renders_sites";
-    }
-    @Override
-    protected BufferedImage getImageIcon() {
-        return null;
     }
 
 }

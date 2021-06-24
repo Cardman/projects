@@ -17,6 +17,6 @@ public final class SettingPresidentHand implements Runnable {
     @Override
     public void run() {
         String lg_ = container.getOwner().getLanguageKey();
-        container.tapisPresident().setTalonPresident(lg_,hand);
+        container.tapisPresident().setTalonPresident(container.getWindow().getImageFactory(),lg_,hand);
     }
 }

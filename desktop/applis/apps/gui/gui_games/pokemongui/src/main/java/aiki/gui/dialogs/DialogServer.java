@@ -41,7 +41,7 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
         _fenetre.getDialogServer().init(_fenetre);
     }
     private void init(MainWindow _fenetre) {
-        setDialogIcon(_fenetre);
+        setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         join = false;
         create = false;
         messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _fenetre.getLanguageKey(), getAccessFile());
@@ -64,7 +64,7 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);
         EnumList<IpType> list_ = new EnumList<IpType>(IpType.values());
-        ipType = new ComboBox<IpType>(_fenetre.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        ipType = new ComboBox<IpType>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1));
         ipType.setWithDefaultValue(false);
         ipType.refresh(list_, messagesIpEnum);
         ipType.setSelectedItem(IpType.HOST_NAME);

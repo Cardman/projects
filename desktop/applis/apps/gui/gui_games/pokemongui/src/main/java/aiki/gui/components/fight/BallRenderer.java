@@ -1,11 +1,12 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
@@ -21,7 +22,8 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
 
     private BallNumberRate ball;
 
-    private BufferedImage ballImage;
+    private final AbstractImageFactory fact;
+    private AbstractImage ballImage;
 
     private int maxWidthImage;
 
@@ -29,7 +31,8 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
 
     private int maxWidthNumber;
 
-    public BallRenderer(FacadeGame _facade) {
+    public BallRenderer(AbstractImageFactory _fact, FacadeGame _facade) {
+        fact = _fact;
         facade = _facade;
     }
 
@@ -39,7 +42,7 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
         maxWidthNumber = 0;
         for (BallNumberRate b: _balls.values()) {
             int[][] img_ = facade.getData().getMiniItems().getVal(b.getName());
-            BufferedImage b_ = ConverterGraphicBufferedImage.decodeToImage(img_);
+            AbstractImage b_ = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
             Rate r_ = b.getRate();
             int w_ = _fm.stringWidth(r_.toNumberString());
             if (w_ > maxWidthRate) {
@@ -62,12 +65,12 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
         selected = _isSelected;
         ball = getList().get(_index);
         int[][] img_ = facade.getData().getMiniItems().getVal(ball.getName());
-        ballImage = ConverterGraphicBufferedImage.decodeToImage(img_);
+        ballImage = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
         _currentLab.setPreferredSize(new Dimension(100, ballImage.getHeight()));
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
         _g.drawImage(ballImage, 0, 0);
@@ -79,6 +82,11 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
             _g.setColor(Color.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
+    }
+
+    @Override
+    protected AbstractImageFactory getImageFactory() {
+        return fact;
     }
 
     @Override

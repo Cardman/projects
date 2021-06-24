@@ -13,7 +13,7 @@ public class ContainerSimuPresident extends ContainerPresident implements
 
     @Override
     public void withdrawCards() {
-        tapisPresident().setTalonPresident();
+        tapisPresident().setTalonPresident(getWindow().getImageFactory());
 //        tapisPresident().repaintValidate();
     }
 

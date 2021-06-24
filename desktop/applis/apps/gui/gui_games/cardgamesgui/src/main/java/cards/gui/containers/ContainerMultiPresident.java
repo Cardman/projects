@@ -101,7 +101,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         Panel container_ = Panel.newPageBox();
         Panel panel_ = Panel.newGrid(0, 2);
         panel_.add(new TextLabel(getMessages().getVal(MainWindow.PLACE)));
-        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames().getGeneComboBox());
+        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getImageFactory(),getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
         }
@@ -361,9 +361,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
         for (byte p: _card.getStatus().getKeys()) {
             status_.put(relative(p), _card.getStatus().getVal(p));
         }
-        tapisPresident().setTalonPresident(lg_,_card.getPlayedHand());
+        tapisPresident().setTalonPresident(getWindow().getImageFactory(),lg_,_card.getPlayedHand());
 //        tapisPresident().repaintValidate();
-        tapisPresident().setStatus(lg_,status_, relative_);
+        tapisPresident().setStatus(getWindow().getImageFactory(),lg_,status_, relative_);
 //        tapisPresident().repaintValidate();
 
         String pseudo_ = getPseudoByPlace(_card.getPlace());
@@ -421,7 +421,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void pauseBetweenTrick() {
-        tapisPresident().setTalonPresident();
+        tapisPresident().setTalonPresident(getWindow().getImageFactory());
 //        tapisPresident().repaintValidate();
         //pack();
         String lg_ = getOwner().getLanguageKey();
@@ -570,7 +570,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         int iter_ = IndexConstants.FIRST_INDEX;
         byte index_ = IndexConstants.SECOND_INDEX;
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
+        for (GraphicPresidentCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
             int curStr_ = c.getCard().strength(_reversed);
             if (iter_ > IndexConstants.FIRST_INDEX) {
                 if (curStr_ == str_) {
@@ -585,14 +585,14 @@ public class ContainerMultiPresident extends ContainerPresident implements
             _panel.add(c);
         }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     private void updateCardsInPanelPresidentDiscard(Panel _panel, HandPresident _hand, boolean _inHand) {
         _panel.removeAll();
         byte index_ = IndexConstants.FIRST_INDEX;
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
+        for (GraphicPresidentCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand,c));
             _panel.add(c);
             index_++;
@@ -613,7 +613,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             }
         }
         _panel.validate();
-        _panel.repaintChildren();
+        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     @Override

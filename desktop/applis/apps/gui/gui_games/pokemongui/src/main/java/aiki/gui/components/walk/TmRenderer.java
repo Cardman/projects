@@ -4,6 +4,8 @@ import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
 import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.maths.LgInt;
 
 public class TmRenderer extends CustCellRender<String> {
@@ -17,8 +19,10 @@ public class TmRenderer extends CustCellRender<String> {
     private String name;
 
     private LgInt price;
+    private final AbstractImageFactory fact;
 
-    public TmRenderer(FacadeGame _facade) {
+    public TmRenderer(AbstractImageFactory _fact, FacadeGame _facade) {
+        fact = _fact;
         facade = _facade;
         sideLength = facade.getMap().getSideLength();
     }
@@ -36,7 +40,7 @@ public class TmRenderer extends CustCellRender<String> {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.BLACK);
         _g.drawString(facade.translateMove(name), 0, getHeight());
         _g.drawString(price.toNumberString(), 100, getHeight());
@@ -46,6 +50,10 @@ public class TmRenderer extends CustCellRender<String> {
         }
     }
 
+    @Override
+    protected AbstractImageFactory getImageFactory() {
+        return fact;
+    }
     @Override
     public int getHeight() {
         return sideLength;

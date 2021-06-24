@@ -42,7 +42,7 @@ public class TeamPanel {
     private final TextLabel nbRemainPlaces;
 
     private final Panel container;
-    public TeamPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, boolean _single, StringMap<String> _mess, AbsGraphicList<UsablePokemon> _liste) {
+    public TeamPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, AbsGraphicList<UsablePokemon> _liste, PokemonRenderer _renderer) {
         facade = _facade;
         liste = _liste;
         container = Panel.newBorder();
@@ -52,7 +52,7 @@ public class TeamPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
-        renderer = new PokemonRenderer(facade, _single);
+        renderer = _renderer;
         liste.setRender(renderer);
         initFighters(_team,_mess);
         int side_ = facade.getMap().getSideLength();

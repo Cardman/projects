@@ -40,7 +40,7 @@ public final class SelectHealedMove extends Dialog {
     }
 
     private void init(MainWindow _parent, FacadeGame _facade) {
-        setDialogIcon(_parent);
+        setDialogIcon(_parent.getImageFactory(),_parent);
         messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setTitle(messages.getVal(TITLE));
         facade = _facade;

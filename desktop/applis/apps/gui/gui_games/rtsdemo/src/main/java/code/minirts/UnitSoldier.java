@@ -1,7 +1,7 @@
 package code.minirts;
 
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 import code.minirts.rts.Soldier;
 
 import java.awt.Color;
@@ -16,7 +16,7 @@ public class UnitSoldier extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
         if (!soldier.isSelected()) {

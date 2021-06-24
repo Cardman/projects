@@ -37,7 +37,7 @@ public final class DialogDifficulty extends Dialog {
     }
 
     private void init(MainWindow _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
-        setDialogIcon(_window);
+        setDialogIcon(_window.getImageFactory(),_window);
         facade = _facade;
         window = _window;
         //super(_window, true);

@@ -1,8 +1,7 @@
 package code.gui;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.image.BufferedImage;
 
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.stream.DocumentReaderGuiUtil;
@@ -20,6 +19,8 @@ import code.stream.core.TechStreams;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
+
+import java.awt.*;
 
 public abstract class SoftApplicationCore {
 
@@ -40,7 +41,7 @@ public abstract class SoftApplicationCore {
     protected SoftApplicationCore(AbstractProgramInfos _frames) {
         frames = _frames;
     }
-    protected void loadLaungage(String _dir, String[] _args, BufferedImage _icon) {
+    protected void loadLaungage(String _dir, String[] _args, AbstractImage _icon) {
         String lg_ = prepareLanguage(_dir, _args, _icon);
         if (lg_.isEmpty()) {
             return;
@@ -49,7 +50,7 @@ public abstract class SoftApplicationCore {
         launch(lg_, files_);
     }
 
-    protected final String prepareLanguage(String _dir, String[] _args, BufferedImage _icon) {
+    protected final String prepareLanguage(String _dir, String[] _args, AbstractImage _icon) {
         String language_ = loadLanguage(_dir,getFrames().getFileCoreStream(), getFrames().getStreams());
         if (language_.isEmpty()) {
             proponeLanguage(_dir, _args, _icon);
@@ -67,13 +68,13 @@ public abstract class SoftApplicationCore {
         return files_;
     }
 
-    private LanguageFrame proponeLanguage(String _dir, String[] _args, BufferedImage _icon) {
+    private LanguageFrame proponeLanguage(String _dir, String[] _args, AbstractImage _icon) {
         return new LanguageFrame(_dir, _args, this, _icon);
     }
 
-    protected static BufferedImage getImage(String _icon) {
+    protected static AbstractImage getImage(String _icon, AbstractImageFactory _fact) {
         int[][] file_ = BaseSixtyFourUtil.getImageByString(_icon);
-        return ConverterGraphicBufferedImage.decodeToImage(file_);
+        return ConverterGraphicBufferedImage.decodeToImage(_fact,file_);
     }
 
     /**@throws LangueException*/
@@ -182,8 +183,6 @@ public abstract class SoftApplicationCore {
 //        StreamTextFile.save(getFolderJarPath()+_file, topLeft_);
         StreamTextFile.saveTextFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,_file), DocumentWriterGuiUtil.setTopLeftFrame(topLeft_),_str);
     }
-
-    protected abstract BufferedImage getImageIcon();
 
     public AbstractProgramInfos getFrames() {
         return frames;

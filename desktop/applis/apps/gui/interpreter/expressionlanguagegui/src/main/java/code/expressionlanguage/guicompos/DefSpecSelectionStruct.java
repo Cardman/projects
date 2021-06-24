@@ -36,7 +36,8 @@ public final class DefSpecSelectionStruct implements SpecSelectionStruct {
             real_.add(2,new Argument(new IntStruct(_rect.height)));
             GuiContextEl r_ = newCtx(executionInfos);
             Argument argument_ = invokePaint(r_, real_);
-            ((PreparedLabelStruct)dest_).setImage(argument_.getStruct());
+            MainWindow window_ = ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindow();
+            ((PreparedLabelStruct)dest_).setImage(window_.getImageFactory(),argument_.getStruct());
             return argument_;
         }
         return Argument.createVoid();

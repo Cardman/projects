@@ -29,7 +29,7 @@ public final class DialogHelpTarot extends Dialog {
     private static final String TAB="\t";
 
     public static void setTitleDialog(MainWindow _fenetre,String _title) {
-        _fenetre.getDialogHelpTarot().setDialogIcon(_fenetre);
+        _fenetre.getDialogHelpTarot().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogHelpTarot().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogHelpTarot().setTitle(_title);
     }

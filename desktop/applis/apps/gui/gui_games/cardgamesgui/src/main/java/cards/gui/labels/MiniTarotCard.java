@@ -7,8 +7,8 @@ import javax.swing.SwingConstants;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.tarot.enumerations.CardTarot;
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 import code.util.core.NumberUtil;
 
 public class MiniTarotCard extends PaintableLabel {
@@ -27,7 +27,7 @@ public class MiniTarotCard extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,75+getWidth(),getHeight());
         _g.setColor(Color.BLACK);
@@ -38,7 +38,7 @@ public class MiniTarotCard extends PaintableLabel {
         }
     }
 
-    private void dessinerGrandSymbole(CustGraphics _g,int _x,int _y) {
+    private void dessinerGrandSymbole(AbstractImage _g,int _x,int _y) {
         Suit couleur_=card.couleur();
         if(couleur_ == Suit.TRUMP) {
             _g.setColor(Color.BLUE);

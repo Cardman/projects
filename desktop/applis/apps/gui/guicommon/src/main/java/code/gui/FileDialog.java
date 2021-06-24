@@ -59,7 +59,7 @@ public abstract class FileDialog extends Dialog {
 
     protected void initByFrame(GroupFrame _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
         //super(_w,true);
-        setDialogIcon(_w);
+        setDialogIcon(_w.getImageFactory(),_w);
         setModal(true);
         setLocationRelativeTo(_w);
         extension = _extension;
@@ -75,7 +75,7 @@ public abstract class FileDialog extends Dialog {
 
     protected void initByDialog(GroupFrame _c,Dialog _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
         //super(_w,true);
-        setDialogIcon(_w);
+        setDialogIcon(_c.getImageFactory(),_w);
         setModal(true);
         setLocationRelativeTo(_w);
         superFrame = _c;
@@ -117,8 +117,7 @@ public abstract class FileDialog extends Dialog {
         fileTable.addListSelectionListener(new ClickRowEvent(this));
         Panel openSaveFile_ = Panel.newPageBox();
         fileName = new TextField(NB_COLS);
-        AbstractGraphicStringListGenerator gene_ = superFrame.getFrames().getGeneGraphicList();
-        auto = new AutoCompleteDocument(fileName,new StringList(), this,gene_);
+        auto = new AutoCompleteDocument(fileName,new StringList(), this,superFrame.getFrames());
         if (addTypingFileName) {
             Panel fieldFile_ = Panel.newLineBox();
             fieldFile_.add(new TextLabel(messages.getVal(NAME)));

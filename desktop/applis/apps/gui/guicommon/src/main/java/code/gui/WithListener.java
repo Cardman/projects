@@ -14,7 +14,9 @@ public interface WithListener {
     void setContentPane(Panel _p);
 
     void setLocationRelativeTo(CustComponent _c);
-    void setLocationRelativeTo(WithListener _c);
+
+    void setLocationRelativeTo(OtherDialog _c);
+    void setLocationRelativeTo(OtherFrame _c);
     void setLocationRelativeToNull();
     boolean isVisible();
 

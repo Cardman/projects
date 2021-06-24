@@ -40,13 +40,13 @@ public final class AfterAnimationBidTarot implements Runnable {
             }
         } else {
             if(gameTarot_.getContrat().isJouerDonne()) {
-                container.getMini().setStatus(Role.TAKER, gameTarot_.getPreneur());
+                container.getMini().setStatus(container.getWindow().getImageFactory(), Role.TAKER, gameTarot_.getPreneur());
                 CallingCard appel_=gameTarot_.getRegles().getRepartition().getAppel();
                 if(appel_==CallingCard.DEFINED||appel_==CallingCard.WITHOUT) {
                     if(appel_==CallingCard.DEFINED) {
                         gameTarot_.initEquipeDeterminee();
                         for (byte c: gameTarot_.getAppele()) {
-                            container.getMini().setStatus(Role.CALLED_PLAYER, c);
+                            container.getMini().setStatus(container.getWindow().getImageFactory(), Role.CALLED_PLAYER, c);
                         }
                     } else {
                         gameTarot_.initDefense();

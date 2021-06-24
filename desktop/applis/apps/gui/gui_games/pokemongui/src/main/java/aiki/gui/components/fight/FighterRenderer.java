@@ -1,11 +1,12 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -25,7 +26,8 @@ public class FighterRenderer extends CustCellRender<Fighter> {
 
     private boolean selected;
 
-    private BufferedImage pkImage;
+    private final AbstractImageFactory fact;
+    private AbstractImage pkImage;
 
     private LgInt intRate;
 
@@ -33,7 +35,8 @@ public class FighterRenderer extends CustCellRender<Fighter> {
 
     private boolean enabled;
 
-    public FighterRenderer(FacadeGame _facade) {
+    public FighterRenderer(AbstractImageFactory _fact, FacadeGame _facade) {
+        fact = _fact;
         facade = _facade;
         sideLength = facade.getMap().getSideLength();
     }
@@ -47,7 +50,7 @@ public class FighterRenderer extends CustCellRender<Fighter> {
         selected = _isSelected;
         String name_ = fighter.getName();
         int[][] img_ = facade.getData().getMiniPk().getVal(name_);
-        pkImage = ConverterGraphicBufferedImage.decodeToImage(img_);
+        pkImage = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
         if (facade.getFight().getChoices().isEmpty()) {
             enabled = true;
         } else {
@@ -57,7 +60,11 @@ public class FighterRenderer extends CustCellRender<Fighter> {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    protected AbstractImageFactory getImageFactory() {
+        return fact;
+    }
+    @Override
+    public void paintComponent(AbstractImage _g) {
         if (!enabled) {
             _g.setColor(new Color(127, 127, 127));
             _g.fillRect(0, 0, getWidth() - 1, getHeight() -1);

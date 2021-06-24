@@ -3,8 +3,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import aiki.map.enums.Direction;
-import code.gui.CustGraphics;
 import code.gui.PaintableLabel;
+import code.gui.images.AbstractImage;
 import code.util.core.NumberUtil;
 
 public class KeyPad extends PaintableLabel {
@@ -17,7 +17,7 @@ public class KeyPad extends PaintableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.YELLOW);
         _g.fillRect(0, 0, getWidth(), getHeight());
         _g.setColor(Color.BLACK);

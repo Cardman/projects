@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import code.formathtml.render.MetaSimpleImage;
 import code.gui.PreparedLabel;
+import code.gui.images.AbstractImage;
 import code.sml.Element;
 
 
@@ -41,7 +42,7 @@ public final class DualSimpleImage extends DualImage {
         if (image.length == 0) {
             return;
         }
-        BufferedImage imgBuf_ = new BufferedImage(image[0].length, image.length, BufferedImage.TYPE_INT_RGB);
+        AbstractImage imgBuf_ = getPage().getGene().getImageFactory().newImageRgb(image[0].length, image.length);
         int y_ = 0;
         for (int[] r: image) {
             int x_ = 0;
@@ -51,7 +52,7 @@ public final class DualSimpleImage extends DualImage {
             }
             y_++;
         }
-        getLabel().setIcon(imgBuf_);
+        getLabel().setIcon(getPage().getGene().getImageFactory(), imgBuf_);
     }
     public String getHref() {
         return href;

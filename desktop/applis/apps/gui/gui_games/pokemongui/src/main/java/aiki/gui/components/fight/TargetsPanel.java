@@ -34,7 +34,7 @@ public class TargetsPanel {
         IdList<BoolVal> chosablePl_ = _facade.getFight().getChosablePlayerTargets();
         for (byte k: teamPl_.getKeys()) {
             MiniTargetLabel target_ = new MiniTargetLabel();
-            target_.set(_facade, teamPl_.getVal(k).getName(), i_);
+            target_.set(_facade,_battle, teamPl_.getVal(k).getName(), i_);
             boolean match_ = chosablePl_.get(k) == BoolVal.TRUE;
             if (match_) {
                 target_.addMouseListener(new SelectPlayerTarget(_battle, k, i_));
@@ -49,7 +49,7 @@ public class TargetsPanel {
         IdList<BoolVal> chosableFoe_ = _facade.getFight().getChosableFoeTargets();
         for (byte k: teamFoe_.getKeys()) {
             MiniTargetLabel target_ = new MiniTargetLabel();
-            target_.set(_facade, teamFoe_.getVal(k).getName(), i_);
+            target_.set(_facade,_battle, teamFoe_.getVal(k).getName(), i_);
             boolean match_ = chosableFoe_.get(k) == BoolVal.TRUE;
             if (match_) {
                 target_.addMouseListener(new SelectFoeTarget(_battle, k, i_));
@@ -61,7 +61,7 @@ public class TargetsPanel {
         placeLabels(mult_);
     }
 
-    public void repaintLabelFoe(int _index) {
+    public void repaintLabelFoe(int _index, Battle _battle) {
         for (MiniTargetLabel l: foeTargets) {
             l.setSelected(false);
         }
@@ -70,14 +70,14 @@ public class TargetsPanel {
         }
         foeTargets.get(_index).setSelected(_index);
         for (MiniTargetLabel l: foeTargets) {
-            l.repaintLabel();
+            l.repaintLabel(_battle.getWindow().getImageFactory());
         }
         for (MiniTargetLabel l: playerTargets) {
-            l.repaintLabel();
+            l.repaintLabel(_battle.getWindow().getImageFactory());
         }
     }
 
-    public void repaintLabelPlayer(int _index) {
+    public void repaintLabelPlayer(int _index, Battle _battle) {
         for (MiniTargetLabel l: foeTargets) {
             l.setSelected(false);
         }
@@ -86,10 +86,10 @@ public class TargetsPanel {
         }
         playerTargets.get(_index).setSelected(_index);
         for (MiniTargetLabel l: foeTargets) {
-            l.repaintLabel();
+            l.repaintLabel(_battle.getWindow().getImageFactory());
         }
         for (MiniTargetLabel l: playerTargets) {
-            l.repaintLabel();
+            l.repaintLabel(_battle.getWindow().getImageFactory());
         }
     }
 

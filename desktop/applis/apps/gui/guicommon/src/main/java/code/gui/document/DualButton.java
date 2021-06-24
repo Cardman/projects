@@ -7,17 +7,18 @@ import java.awt.image.BufferedImage;
 import code.formathtml.render.MetaButton;
 import code.gui.CustComponent;
 import code.gui.LabelButtonUtil;
+import code.gui.PlainButton;
 import code.gui.PreparedLabel;
 
 public final class DualButton extends DualInput {
 
     private final String value;
-    private final PreparedLabel label;
+    private final PlainButton label;
 
     public DualButton(DualContainer _container, MetaButton _component,
             RenderedPage _page) {
         super(_container, _component, _page);
-        label = new PreparedLabel();
+        label = new PlainButton();
         updateGraphics(label,_component);
         label.setLineBorder(Color.BLACK, 1);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -40,7 +41,8 @@ public final class DualButton extends DualInput {
     }
 
     public void paint() {
-        BufferedImage img_ = LabelButtonUtil.paintButton(label, value, true);
-        label.setIcon(img_);
+//        BufferedImage img_ = LabelButtonUtil.paintButton(label, value, true);
+//        label.setIcon(img_);
+        label.setText(value);
     }
 }

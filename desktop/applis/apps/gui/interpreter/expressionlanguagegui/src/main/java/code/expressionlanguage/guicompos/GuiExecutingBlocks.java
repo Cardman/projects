@@ -75,7 +75,7 @@ public final class GuiExecutingBlocks {
         fr_.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame = new FrameStruct(fr_);
         _guiInit.getWindows().add(frame,false);
-        confirm = new OtherConfirmDialog();
+        confirm = new OtherConfirmDialog(_window.getImageFactory());
     }
     private void initEventParts(GuiContextEl _context) {
         eventClose = new DefaultClosingMainWindow(this, _context);

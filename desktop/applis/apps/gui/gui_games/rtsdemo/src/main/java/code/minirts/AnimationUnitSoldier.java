@@ -43,7 +43,7 @@ public final class AnimationUnitSoldier implements Runnable {
     }
 
     public void addNewSoldier(int _x, int _y, long _next) {
-        battleground.addNewSoldier(_x, _y,_next);
+        battleground.addNewSoldier(window.getImageFactory(), _x, _y,_next);
     }
 
     public void setNewLocation(int _x, int _y) {
@@ -51,7 +51,7 @@ public final class AnimationUnitSoldier implements Runnable {
     }
 
     public void moveCamera(Point _pt) {
-        battleground.moveCamera(_pt);
+        battleground.moveCamera(window.getImageFactory(), _pt);
     }
 
     public void pause() {
@@ -80,7 +80,7 @@ public final class AnimationUnitSoldier implements Runnable {
     void loop() {
         Facade f_ = battleground.getFacade();
         f_.loop();
-        battleground.selectOrDeselectMany();
+        battleground.selectOrDeselectMany(window.getImageFactory());
     }
 
     void moving() {
@@ -106,7 +106,7 @@ public final class AnimationUnitSoldier implements Runnable {
         int h_ = parent_.getHeight();
         CustPoint curTopLeft_ = f_.getTopLeftPoint();
 //        battleground.repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-        battleground.repaint(curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), w_, h_);
+        battleground.repaint(window.getImageFactory(), curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), w_, h_);
     }
 
     /**La methode pause est utilisee pour permettre de voir l'avancement a l'oeil nu*/
@@ -114,7 +114,7 @@ public final class AnimationUnitSoldier implements Runnable {
         ThreadUtil.sleep(window.getThreadFactory(), _tempsMillis);
         window.setEnabledPause(true);
         while (paused.get()) {
-            battleground.paintSelection();
+            battleground.paintSelection(window.getImageFactory());
         }
     }
 }

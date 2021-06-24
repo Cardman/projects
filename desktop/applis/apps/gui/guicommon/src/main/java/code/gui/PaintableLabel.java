@@ -1,4 +1,7 @@
 package code.gui;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
+
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -7,20 +10,21 @@ public abstract class PaintableLabel extends CustComponent {
 
     private final JLabel label = new JLabel();
 
-    public void repaintLabel() {
+    public void repaintLabel(AbstractImageFactory _fact) {
         int w_ = getWidth();
         int h_ = getHeight();
         if (w_ <= 0 || h_ <= 0) {
             setEmptyIcon();
             return;
         }
-        BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-        CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-        gr_.setFont(getFont());
-        paintComponent(gr_);
-        setIcon(img_);
+        AbstractImage img_ = _fact.newImageArgb(w_, h_);
+//        CustGraphics gr_ = img_.getGraphics();
+        img_.setFont(getFont());
+        paintComponent(img_);
+        setIcon(_fact,img_);
     }
-    public abstract void paintComponent(CustGraphics _g);
+
+    public abstract void paintComponent(AbstractImage _g);
 
     public boolean requestFocusInWindow() {
         return label.requestFocusInWindow();
@@ -29,8 +33,8 @@ public abstract class PaintableLabel extends CustComponent {
     public void setEmptyIcon() {
         label.setIcon(new ImageIcon());
     }
-    public void setIcon(BufferedImage _icon) {
-        label.setIcon(new ImageIcon(_icon));
+    public void setIcon(AbstractImageFactory _fact,AbstractImage _icon) {
+        label.setIcon(PreparedLabel.buildIcon(_fact,_icon));
     }
 
     public void setVerticalAlignment(int _alignment) {

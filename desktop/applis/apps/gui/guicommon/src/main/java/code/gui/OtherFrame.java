@@ -1,18 +1,20 @@
 package code.gui;
 
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
 
 public final class OtherFrame implements ChangeableTitle,WithListener {
 
-    private BufferedImage imageIconFrame;
+    private AbstractImage imageIconFrame;
 
     private boolean mainFrame;
 
     private Ownable owner;
-    private JFrame frame = new JFrame();
+    private final JFrame frame = new JFrame();
 
     public void setMainFrame(boolean _mainFrame) {
         mainFrame = _mainFrame;
@@ -39,13 +41,13 @@ public final class OtherFrame implements ChangeableTitle,WithListener {
         return mainFrame;
     }
 
-    public void setImageIconFrame(BufferedImage _imageIconFrame) {
+    public void setImageIconFrame(AbstractImageFactory _fact, AbstractImage _imageIconFrame) {
         imageIconFrame = _imageIconFrame;
-        setIconImage(imageIconFrame);
+        setIconImage(_fact,imageIconFrame);
     }
 
     @Override
-    public BufferedImage getImageIconFrame() {
+    public AbstractImage getImageIconFrame() {
         return imageIconFrame;
     }
 
@@ -60,8 +62,8 @@ public final class OtherFrame implements ChangeableTitle,WithListener {
         PackingWindowAfter.packg(this);
     }
 
-    protected void setIconImage(BufferedImage _image) {
-        frame.setIconImage(_image);
+    void setIconImage(AbstractImageFactory _fact, AbstractImage _group) {
+        frame.setIconImage(((ImageIcon)PreparedLabel.buildIcon(_fact,_group)).getImage());
     }
 
     public void addWindowListener(WindowListener _l) {
@@ -97,22 +99,17 @@ public final class OtherFrame implements ChangeableTitle,WithListener {
 
     @Override
     public void setLocationRelativeTo(CustComponent _c) {
-        if (_c != null) {
-            frame.setLocationRelativeTo(_c.getComponent());
-        } else {
-            frame.setLocationRelativeTo(null);
-        }
+        frame.setLocationRelativeTo(_c.getComponent());
     }
 
     @Override
-    public void setLocationRelativeTo(WithListener _c) {
-        if (_c instanceof OtherFrame) {
-            frame.setLocationRelativeTo(((OtherFrame)_c).getComponent());
-        } else if (_c instanceof OtherDialog) {
-            frame.setLocationRelativeTo(((OtherDialog)_c).getComponent());
-        } else {
-            frame.setLocationRelativeTo(null);
-        }
+    public void setLocationRelativeTo(OtherDialog _c) {
+        frame.setLocationRelativeTo(_c.getComponent());
+    }
+
+    @Override
+    public void setLocationRelativeTo(OtherFrame _c) {
+        frame.setLocationRelativeTo(_c.getComponent());
     }
 
     @Override

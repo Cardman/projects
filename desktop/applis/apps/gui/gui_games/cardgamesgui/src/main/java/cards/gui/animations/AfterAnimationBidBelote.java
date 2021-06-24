@@ -36,8 +36,8 @@ public final class AfterAnimationBidBelote implements Runnable {
                 container.addButtonsForCoinche(gameBelote_);
             }
         } else if(gameBelote_.getContrat().jouerDonne()) {
-            container.getMini().setStatus(Role.TAKER, gameBelote_.getPreneur());
-            container.getMini().setStatus(Role.CALLED_PLAYER, gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur()).first());
+            container.getMini().setStatus(container.getWindow().getImageFactory(), Role.TAKER, gameBelote_.getPreneur());
+            container.getMini().setStatus(container.getWindow().getImageFactory(), Role.CALLED_PLAYER, gameBelote_.getTeamsRelation().partenaires(gameBelote_.getPreneur()).first());
             container.addButtonNextTrickBelote(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);
         } else {
             container.addButtonEndDealBelote(container.getMessages().getVal(MainWindow.END_DEAL), true);

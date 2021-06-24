@@ -1,9 +1,7 @@
 package code.gui.images;
 
 import java.awt.Color;
-import java.awt.image.BufferedImage;
 
-import code.gui.CustGraphics;
 import code.images.IntPoint;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -16,7 +14,7 @@ public final class ConverterGraphicBufferedImage {
 
     private ConverterGraphicBufferedImage(){
     }
-    public static boolean eq(BufferedImage _imgOne, BufferedImage _imgTwo) {
+    public static boolean eq(AbstractImage _imgOne, AbstractImage _imgTwo) {
         if (_imgOne.getWidth() != _imgTwo.getWidth()) {
             return false;
         }
@@ -43,26 +41,24 @@ public final class ConverterGraphicBufferedImage {
         return new Color(Color.WHITE.getRed(), Color.WHITE.getBlue(), Color.WHITE.getGreen(), 0);
     }
 
-    public static BufferedImage centerImage(int[][] _front, int _side) {
-        BufferedImage img_ = decodeToImage(_front);
+    public static AbstractImage centerImage(AbstractImageFactory _fact,int[][] _front, int _side) {
+        AbstractImage img_ = decodeToImage(_fact,_front);
         int wMin_ = img_.getWidth();
         int hMin_ = img_.getHeight();
-        BufferedImage combined_ = new BufferedImage(_side, _side, BufferedImage.TYPE_INT_ARGB);
-        CustGraphics g_ = new CustGraphics(combined_.getGraphics());
-        g_.drawImage(img_, (_side - wMin_) / 2, (_side - hMin_) / 2);
+        AbstractImage combined_ = _fact.newImageArgb(_side, _side);
+        combined_.drawImage(img_, (_side - wMin_) / 2, (_side - hMin_) / 2);
         return combined_;
     }
-    public static BufferedImage centerImage(int[][] _front, int _width, int _height) {
-        BufferedImage img_ = decodeToImage(_front);
+    public static AbstractImage centerImage(AbstractImageFactory _fact,int[][] _front, int _width, int _height) {
+        AbstractImage img_ = decodeToImage(_fact,_front);
         int wMin_ = img_.getWidth();
         int hMin_ = img_.getHeight();
-        BufferedImage combined_ = new BufferedImage(_width, _height, BufferedImage.TYPE_INT_ARGB);
-        CustGraphics g_ = new CustGraphics(combined_.getGraphics());
-        g_.drawImage(img_, (_width - wMin_) / 2, (_height - hMin_) / 2);
+        AbstractImage combined_ = _fact.newImageArgb(_width, _height);
+        combined_.drawImage(img_, (_width - wMin_) / 2, (_height - hMin_) / 2);
         return combined_;
     }
 
-    public static int[][] toArrays(BufferedImage _image) {
+    public static int[][] toArrays(AbstractImage _image) {
         int height_ = _image.getHeight();
         int width_ = _image.getWidth();
         int[][] arrays_ = new int[height_][width_];
@@ -74,10 +70,23 @@ public final class ConverterGraphicBufferedImage {
         return arrays_;
     }
 
-    public static BufferedImage decodeToImage(int[][] _imageString) {
+    public static byte[] toBytes(int[] _pix) {
+        int n_ = _pix.length;
+        byte[] out_ = new byte[n_ * 4];
+        int pos_ = 0;
+        for (int p : _pix) {
+            out_[pos_] = (byte) (p / (256 * 256 * 256));
+            out_[pos_ + 1] = (byte) (p / (256 * 256) % 256);
+            out_[pos_ + 2] = (byte) (p / (256) % 256);
+            out_[pos_ + 3] = (byte) (p % 256);
+            pos_ += 4;
+        }
+        return out_;
+    }
+    public static AbstractImage decodeToImage(AbstractImageFactory _fact,int[][] _imageString) {
         int height_ = _imageString.length;
         int width_ = _imageString[0].length;
-        BufferedImage image_ = new BufferedImage(width_, height_, BufferedImage.TYPE_INT_ARGB);
+        AbstractImage image_ = _fact.newImageArgb(width_, height_);
         for (int i = 0; i < height_; i++) {
             for (int j = 0; j < width_; j++) {
                 image_.setRGB(j, i, new Color(_imageString[i][j]).getRGB());
@@ -87,7 +96,7 @@ public final class ConverterGraphicBufferedImage {
     }
 
 
-    public static void transparentAllWhite(BufferedImage _buffered) {
+    public static void transparentAllWhite(AbstractImage _buffered) {
         int h_ = _buffered.getHeight();
         int w_ = _buffered.getWidth();
         int white_ = WHITE_RGB_INT;
@@ -102,7 +111,7 @@ public final class ConverterGraphicBufferedImage {
         }
     }
 
-    public static IntPointPair croppedPointDimensions(BufferedImage _buffered) {
+    public static IntPointPair croppedPointDimensions(AbstractImage _buffered) {
         int indexOne_ = 0;
         int indexTwo_ = 0;
         int w_ = _buffered.getWidth();
@@ -211,10 +220,19 @@ public final class ConverterGraphicBufferedImage {
         return new IntPointPair(new IntPoint(indexOne_, indexTwo_),new IntPoint(newWidth_, newHeight_));
     }
 
-    private static int calculateAlphaCode(BufferedImage _buffered,
+    private static int calculateAlphaCode(AbstractImage _buffered,
             int _indexOne, int _y) {
         return _buffered.getRGB(_indexOne, _y) / THREE_BYTES;
     }
 
 
+//    public static void drawImage(AbstractImage _dest, AbstractImage _img, int _x, int _y) {
+//        int h_ = _img.getHeight() + _y;
+//        int w_ = _img.getWidth() + _x;
+//        for (int i = _y; i < h_; i++) {
+//            for (int j = _x; j < w_; j++) {
+//                _dest.setRGB(j,i,_img.getRGB(j-_x,i-_y));
+//            }
+//        }
+//    }
 }

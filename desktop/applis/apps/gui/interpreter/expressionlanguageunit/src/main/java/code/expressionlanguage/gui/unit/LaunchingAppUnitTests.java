@@ -6,8 +6,6 @@ import code.gui.initialize.LoadLanguageUtil;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
 
-import java.awt.image.BufferedImage;
-
 public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "UG";
@@ -37,10 +35,6 @@ public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     public static String getMainWindowClass() {
         return "ug";
-    }
-    @Override
-    protected BufferedImage getImageIcon() {
-        return null;
     }
 
 }

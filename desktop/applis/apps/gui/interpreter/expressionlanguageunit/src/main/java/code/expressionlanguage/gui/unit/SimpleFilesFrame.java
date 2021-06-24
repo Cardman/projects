@@ -63,7 +63,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private String filePath = "";
 
     public SimpleFilesFrame(MainWindow _parent, String _title) {
-        super(_parent.getLanguageKey());
+        super(_parent.getLanguageKey(),_parent);
         parent =_parent;
         setAccessFile(DIALOG_ACCESS);
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", getLanguageKey(), getAccessFile());

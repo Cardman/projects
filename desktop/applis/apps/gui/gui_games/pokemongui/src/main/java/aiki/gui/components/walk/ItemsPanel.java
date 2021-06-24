@@ -9,6 +9,7 @@ import code.gui.AbsGraphicList;
 import code.gui.GraphicList;
 import code.gui.Panel;
 import code.gui.TextLabel;
+import code.gui.images.AbstractImageFactory;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -27,7 +28,7 @@ public class ItemsPanel {
 
     private final Panel container;
 
-    public ItemsPanel(int _nb, String _titre, FacadeGame _facade, AbsGraphicList<String> _liste) {
+    public ItemsPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, AbsGraphicList<String> _liste) {
         liste = _liste;
         facade = _facade;
         container = Panel.newBorder();
@@ -37,7 +38,7 @@ public class ItemsPanel {
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
-        liste.setRender(new ItemRenderer(facade));
+        liste.setRender(new ItemRenderer(_fact,facade));
         initItems();
         int side_ = facade.getMap().getSideLength();
         container.add(liste.self(),BorderLayout.CENTER);

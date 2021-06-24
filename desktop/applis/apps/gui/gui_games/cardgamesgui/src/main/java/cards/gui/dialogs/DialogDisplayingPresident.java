@@ -46,7 +46,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     }
     public static void setDialogDisplayingPresident(String _titre, MainWindow _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogDisplayingPresident().setDialogIcon(_fenetre);
+        _fenetre.getDialogDisplayingPresident().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogDisplayingPresident().setMain(_fenetre);
         _fenetre.getDialogDisplayingPresident().getJt().removeAll();
         _fenetre.getDialogDisplayingPresident().setTitle(_titre);
@@ -83,7 +83,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
 //        for (Suit couleur_:Suit.couleursOrdinaires()) {
 //            listeChoix.addItem(couleur_);
 //        }
-        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();
@@ -107,7 +107,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         for (Suit chaine_:displayingPresident.getSuits()) {
             liste_.add(chaine_);
         }
-        orderedSuits=new SuitsScrollableList(liste_,4, _window, _window.getCardFactories().getGeneSuit().create(false));
+        orderedSuits=new SuitsScrollableList(liste_,4, _window, _window.getCardFactories().getGeneSuit().create(_window.getImageFactory(),false));
         liste_.clear();
         panneau_.add(orderedSuits.getContainer());
         //Panneau Tri avant enchere (Atout)

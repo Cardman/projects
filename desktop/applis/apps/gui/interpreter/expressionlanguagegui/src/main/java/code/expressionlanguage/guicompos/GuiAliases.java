@@ -3068,7 +3068,8 @@ public final class GuiAliases {
             return new Argument(new TextLabelStruct(aliasTextLabel));
         }
         if (StringUtil.quickEq(_id,aliasImageLabel)) {
-            return new Argument(new PreparedLabelStruct(aliasImageLabel));
+            MainWindow window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
+            return new Argument(new PreparedLabelStruct(window_.getImageFactory(),aliasImageLabel));
         }
         if (StringUtil.quickEq(_id,aliasRender)) {
             return new Argument(new RenderStruct());
@@ -3296,10 +3297,11 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
+            MainWindow window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
             if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new PreparedLabelStruct(_args[0],aliasImageLabel));
+                r_.setResult(new PreparedLabelStruct(window_.getImageFactory(),_args[0],aliasImageLabel));
             } else {
-                r_.setResult(new PreparedLabelStruct(aliasImageLabel));
+                r_.setResult(new PreparedLabelStruct(window_.getImageFactory(),aliasImageLabel));
             }
             return r_;
         }
@@ -3332,7 +3334,7 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasImage)) {
-            r_.setResult(new ImageStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),BooleanStruct.isTrue(_args[2])));
+            r_.setResult(new ImageStruct(_guiEx.getWindow().getImageFactory(),((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),BooleanStruct.isTrue(_args[2])));
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasDimension)) {
@@ -3408,14 +3410,14 @@ public final class GuiAliases {
             }
             AbstractGraphicComboBoxGenerator geneComboBox_ = _guiEx.getWindow().getFrames().getGeneComboBox();
             if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(new StringList(),-1)));
+                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),new StringList(),-1)));
                 return r_;
             }
             if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(newList(_args[0]), 0)));
+                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),newList(_args[0]), 0)));
                 return r_;
             }
-            r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(newList(_args[1]), ((NumberStruct)_args[0]).intStruct())));
+            r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),newList(_args[1]), ((NumberStruct)_args[0]).intStruct())));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasButtonGroup)) {
@@ -4275,7 +4277,8 @@ public final class GuiAliases {
                 return res_;
             }
             PreparedLabelStruct txt_ = (PreparedLabelStruct) _instance;
-            txt_.setImage(_args[0]);
+            MainWindow window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
+            txt_.setImage(window_.getImageFactory(),_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

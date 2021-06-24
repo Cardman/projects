@@ -12,6 +12,6 @@ public final class SettingPresidentDeck implements Runnable {
 
     @Override
     public void run() {
-        container.tapisPresident().setTalonPresident();
+        container.tapisPresident().setTalonPresident(container.getWindow().getImageFactory());
     }
 }

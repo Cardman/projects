@@ -14,7 +14,7 @@ public final class DialogTricksBelote extends DialogCards {
 
     public static void setDialogTricksBelote(String _titre, MainWindow _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogTricksBelote().setDialogIcon(_fenetre);
+        _fenetre.getDialogTricksBelote().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogTricksBelote().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogTricksBelote().setTitle(_titre);
         _fenetre.getDialogTricksBelote().setResizable(true);

@@ -1,8 +1,14 @@
 package code.gui;
 
 import code.expressionlanguage.structs.Struct;
+import code.gui.images.AbstractImageFactory;
 
 public final class DefaultGraphicListPainter implements AbsGraphicListPainter {
+    private AbstractImageFactory fact;
+    public DefaultGraphicListPainter(AbstractImageFactory _fact) {
+        fact = _fact;
+    }
+
     @Override
     public void selectPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         if (!_list.isEnabled()) {
@@ -37,6 +43,11 @@ public final class DefaultGraphicListPainter implements AbsGraphicListPainter {
     @Override
     public Interval selectIntervalKeyPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         return _list.selectIntervalKeyPaint(_sel, _index);
+    }
+
+    @Override
+    public AbstractImageFactory getFact() {
+        return fact;
     }
 
     @Override

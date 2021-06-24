@@ -45,7 +45,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     }
     public static void setDialogDisplayingTarot(String _titre, MainWindow _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogDisplayingTarot().setDialogIcon(_fenetre);
+        _fenetre.getDialogDisplayingTarot().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogDisplayingTarot().setMain(_fenetre);
         _fenetre.getDialogDisplayingTarot().getJt().removeAll();
         _fenetre.getDialogDisplayingTarot().setTitle(_titre);
@@ -78,7 +78,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri
         Panel sousPanneau_=Panel.newGrid(0,3);
-        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(new StringList(), -1));
+        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = new EnumList<Suit>(Suit.values());
@@ -111,7 +111,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         for (Suit chaine_:displayingTarot.getSuits()) {
             liste_.add(chaine_);
         }
-        orderedSuits=new SuitsScrollableList(liste_,5, _window, _window.getCardFactories().getGeneSuit().create(false));
+        orderedSuits=new SuitsScrollableList(liste_,5, _window, _window.getCardFactories().getGeneSuit().create(_window.getImageFactory(),false));
         liste_.clear();
         sousPanneau_.add(orderedSuits.getContainer());
         getJt().add(messages.getVal(SORTING),sousPanneau_);

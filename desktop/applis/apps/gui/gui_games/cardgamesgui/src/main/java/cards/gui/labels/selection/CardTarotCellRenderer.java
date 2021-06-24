@@ -7,6 +7,8 @@ import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.util.core.NumberUtil;
 
 /**
@@ -18,6 +20,11 @@ public class CardTarotCellRenderer extends CustCellRender<CardTarot>{
     public CardTarotCellRenderer(MainWindow _window) {
         window = _window;
     }
+
+    @Override
+    protected AbstractImageFactory getImageFactory() {
+        return window.getImageFactory();
+    }
     @Override
     public void getListCellRendererComponent(PreparedLabel _currentLab,
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
@@ -26,7 +33,7 @@ public class CardTarotCellRenderer extends CustCellRender<CardTarot>{
         _currentLab.setPreferredSize(new Dimension(50,10));
     }
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         if(!selectionne) {
             _g.setColor(Color.WHITE);
         } else {

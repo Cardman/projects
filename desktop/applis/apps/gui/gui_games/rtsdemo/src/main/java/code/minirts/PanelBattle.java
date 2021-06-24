@@ -1,8 +1,9 @@
 package code.minirts;
 
 import code.gui.CustComponent;
-import code.gui.CustGraphics;
 import code.gui.Panel;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.maths.geo.CustPoint;
 import code.maths.geo.Rect;
 import code.minirts.events.InteractClick;
@@ -15,7 +16,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
-import java.awt.image.BufferedImage;
 
 public class PanelBattle {
 
@@ -47,7 +47,7 @@ public class PanelBattle {
         content.addMouseWheelListener(_l);
     }
 
-    public void addNewSoldier(int _x, int _y, long _next) {
+    public void addNewSoldier(AbstractImageFactory _fact,int _x, int _y, long _next) {
         facade.addNewSoldier(_x, _y,_next);
         if (!facade.isAdded()) {
             return;
@@ -65,10 +65,10 @@ public class PanelBattle {
         int h_ = parent_.getHeight();
         paintSelection = false;
 //        repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-        repaint(curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), w_, h_);
+        repaint(_fact,curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), w_, h_);
     }
 
-    public void repaint(int _x, int _y, int _width, int _height) {
+    public void repaint(AbstractImageFactory _fact,int _x, int _y, int _width, int _height) {
         Rect gl_ = RtsGame.newRect(_x,_y,_width,_height);
         for (EntryCust<UnitMapKey, UnitSoldier> e: soldierLabels.entryList()) {
             UnitSoldier u_ = e.getValue();
@@ -79,34 +79,34 @@ public class PanelBattle {
             if (!gl_.intersects(loc_)) {
                 continue;
             }
-            BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            gr_.setFont(u_.getFont());
-            u_.paintComponent(gr_);
-            u_.setIcon(img_);
+            AbstractImage img_ = _fact.newImageArgb(w_, h_);
+//            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
+            img_.setFont(u_.getFont());
+            u_.paintComponent(img_);
+            u_.setIcon(_fact,img_);
         }
-        paintSelection();
+        paintSelection(_fact);
     }
 
-    public void paintSelection() {
+    public void paintSelection(AbstractImageFactory _fact) {
         if (paintSelection) {
             int w_ = selecting.getWidth();
             int h_ = selecting.getHeight();
-            BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            gr_.setFont(selecting.getFont());
+            AbstractImage img_ = _fact.newImageArgb(w_, h_);
+//            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
+            img_.setFont(selecting.getFont());
             Rect r_ = facade.getSelection();
-            gr_.setColor(Color.BLUE);
-            gr_.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(),(int) r_.getWidth().ll(), (int)r_.getHeight().ll());
-            selecting.setIcon(img_);
+            img_.setColor(Color.BLUE);
+            img_.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(),(int) r_.getWidth().ll(), (int)r_.getHeight().ll());
+            selecting.setIcon(_fact,img_);
         } else {
             int w_ = selecting.getWidth();
             int h_ = selecting.getHeight();
-            BufferedImage img_ = new BufferedImage(w_, h_, BufferedImage.TYPE_INT_ARGB);
-            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            gr_.setColor(new Color(255,255,255,0));
-            gr_.fillRect(0, 0, w_, h_);
-            selecting.setIcon(img_);
+            AbstractImage img_ = _fact.newImageArgb(w_, h_);
+//            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
+            img_.setColor(new Color(255,255,255,0));
+            img_.fillRect(0, 0, w_, h_);
+            selecting.setIcon(_fact,img_);
         }
     }
 
@@ -148,7 +148,7 @@ public class PanelBattle {
         facade.setRectangle(_x, _y);
     }
 
-    public void selectOrDeselectMany() {
+    public void selectOrDeselectMany(AbstractImageFactory _fact) {
         facade.selectOrDeselectMany();
         CustPoint curTopLeft_ = facade.getTopLeftPoint();
         CustComponent parent_ = container.getParent();
@@ -156,14 +156,14 @@ public class PanelBattle {
         int h_ = parent_.getHeight();
 //        paintSelection = false;
 //        repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-        repaint(curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), w_, h_);
+        repaint(_fact,curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), w_, h_);
     }
 
     public void setNewLocation(int _x, int _y) {
         facade.setNewLocation(_x, _y);
     }
 
-    public void moveCamera(Point _pt) {
+    public void moveCamera(AbstractImageFactory _fact,Point _pt) {
         CustComponent parent_ = container.getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
@@ -173,7 +173,7 @@ public class PanelBattle {
 //        setLocation(curTopLeft_);
         paintSelection = false;
 //        repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-        repaint(curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), w_, h_);
+        repaint(_fact,curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), w_, h_);
     }
     public void setPaintSelection(boolean _paintSelection) {
         paintSelection = _paintSelection;

@@ -1,5 +1,4 @@
 package aiki.main;
-import java.awt.image.BufferedImage;
 
 import aiki.db.DataBase;
 import aiki.sml.Resources;
@@ -8,6 +7,8 @@ import aiki.sml.LoadingGame;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.scripts.messages.gui.MessPkVideoGr;
@@ -94,8 +95,8 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
         ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindow(param_, _args, path_, topLeft_, _language, getFrames(), aikiFactory));
     }
 
-    public static BufferedImage getIcon() {
-        return getImage(MessPkVideoGr.ms().getVal(StringUtil.concat(Resources.RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, Resources.ICON_TXT)));
+    public static AbstractImage getIcon(AbstractImageFactory _fact) {
+        return getImage(MessPkVideoGr.ms().getVal(StringUtil.concat(Resources.RESOURCES_FOLDER, StreamTextFile.SEPARATEUR, Resources.ICON_TXT)), _fact);
     }
 
     public static String getTempFolderSl(AbstractProgramInfos _tmpUserFolderSl) {
@@ -112,11 +113,6 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
     }
     public static String getMainWindowClass() {
         return "aiki";
-    }
-
-    @Override
-    protected BufferedImage getImageIcon() {
-        return getIcon();
     }
 
     @Override

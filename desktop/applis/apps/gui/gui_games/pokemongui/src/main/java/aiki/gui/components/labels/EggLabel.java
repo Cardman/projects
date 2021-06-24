@@ -1,11 +1,11 @@
 package aiki.gui.components.labels;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.util.SortingEgg;
-import code.gui.CustGraphics;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 
 public class EggLabel extends SelectableLabel {
@@ -14,7 +14,7 @@ public class EggLabel extends SelectableLabel {
 
     private SortingEgg egg;
 
-    private BufferedImage miniImagePk;
+    private AbstractImage miniImagePk;
 
     private int xName;
 
@@ -28,9 +28,9 @@ public class EggLabel extends SelectableLabel {
         egg = _egg;
     }
 
-    public void setImagesResults(FacadeGame _facade) {
+    public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade) {
         int[][] miniPk_ = _facade.getData().getMiniPk().getVal(egg.getKeyName());
-        miniImagePk = ConverterGraphicBufferedImage.decodeToImage(miniPk_);
+        miniImagePk = ConverterGraphicBufferedImage.decodeToImage(_fact,miniPk_);
         sideLength = _facade.getMap().getSideLength();
         remainSteps = (int) (_facade.getData().getPokemon(egg.getKeyName()).getHatchingSteps().ll() - egg.getSteps());
         xRemainSteps = stringWidth(Long.toString(remainSteps));
@@ -47,7 +47,7 @@ public class EggLabel extends SelectableLabel {
     }
 
     @Override
-    public void paintComponent(CustGraphics _g) {
+    public void paintComponent(AbstractImage _g) {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(Color.BLACK);
