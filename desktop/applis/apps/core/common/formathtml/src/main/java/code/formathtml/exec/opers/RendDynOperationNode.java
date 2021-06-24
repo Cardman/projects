@@ -230,16 +230,15 @@ public abstract class RendDynOperationNode {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
-        Argument out_ = _argument;
         if (!implicitsTest.isEmpty()) {
-            Argument res_ = tryConvert(implicitsTest.get(0),implicitsTest.getOwnerClass(), out_, _context, _rendStack);
+            Argument res_ = tryConvert(implicitsTest.get(0),implicitsTest.getOwnerClass(), _argument, _context, _rendStack);
             if (res_ == null) {
                 return;
             }
             Struct nRes_ = Argument.getNull(res_.getStruct());
             pair_.argumentTest(BooleanStruct.isTrue(nRes_));
             RendMethodOperation parent_ = getParent();
-            if (parent_ == null || parent_ instanceof RendRefTernaryOperation) {
+            if (isTestContext(parent_)) {
                 calcArg(_nodes,new Argument(nRes_));
                 return;
             }
@@ -255,9 +254,14 @@ public abstract class RendDynOperationNode {
             }
         }
         if (pair_.isArgumentTest()) {
-            calcArg(_nodes,out_);
+            calcArg(_nodes, _argument);
             return;
         }
+        defCalcArg(_argument, _nodes, _context, _rendStack, _argument);
+    }
+
+    private void defCalcArg(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _out) {
+        Argument out_ = _out;
         int s_ = implicits.size();
         for (int i = 0; i < s_; i++) {
             ExecTypeFunction c = implicits.get(i);
@@ -274,6 +278,10 @@ public abstract class RendDynOperationNode {
             }
         }
         calcArg(_nodes, out_);
+    }
+
+    private static boolean isTestContext(RendMethodOperation _parent) {
+        return _parent == null || _parent instanceof RendRefTernaryOperation;
     }
 
     private void calcArg(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _out) {

@@ -2,6 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -25,7 +26,7 @@ public final class RendCompoundAffectationNatSafeOperation extends RendCompoundA
         RendDynOperationNode right_ = getLastNode(this);
         Argument leftArg_ = getArgument(_nodes,left_);
         Argument rightArg_ = getArgument(_nodes,right_);
-        if (StringUtil.quickEq(getOperatorContent().getOper(), "???=") && !leftArg_.isNull()) {
+        if (StringUtil.quickEq(getOperatorContent().getOper(), AbsBk.NULL_EQ_SHORT) && !leftArg_.isNull()) {
             setSimpleArgument(leftArg_, _nodes, _context, _rendStack);
             return;
         }

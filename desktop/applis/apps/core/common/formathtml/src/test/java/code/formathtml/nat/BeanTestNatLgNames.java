@@ -34,6 +34,7 @@ import code.formathtml.exec.opers.RendSettableFieldOperation;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.util.DualAnalyzedContext;
+import code.formathtml.util.NodeContainer;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -182,7 +183,18 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         BeanStruct bean_ = getBeanOrNull(currentBeanName_);
         setStoredForms(bean_, stringMapObject_);
         _rendStack.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
+        String res_ = RendBlock.getRes(rendDocumentBlock_, _conf, this, _ctx, _rendStack, _dest);
+        for (EntryCust<Long, LongTreeMap<NodeContainer>> e: _rendStack.getHtmlPage().getContainers().entryList()) {
+            for (EntryCust<Long, NodeContainer> f: e.getValue().entryList()) {
+                if (f.getValue().getUpdated() == NullStruct.NULL_VALUE){
+                    CustList<Struct> struct_ = new CustList<Struct>();
+                    struct_.add(bean_);
+                    struct_.addAllElts(f.getValue().getStructParam());
+                    f.getValue().setStruct(struct_);
+                }
+            }
+        }
+        return res_;
     }
     private BeanStruct getBeanOrNull(String _currentBeanName) {
         return getBean(_currentBeanName);

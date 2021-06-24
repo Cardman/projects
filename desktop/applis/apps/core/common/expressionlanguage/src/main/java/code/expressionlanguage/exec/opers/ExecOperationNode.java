@@ -209,7 +209,7 @@ public abstract class ExecOperationNode {
         return orEq(_p) && BooleanStruct.isTrue(_value);
     }
 
-    private static boolean orEq(CompoundedOperator _p) {
+    public static boolean orEq(CompoundedOperator _p) {
         return shortEq(_p, AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT);
     }
 
@@ -217,7 +217,7 @@ public abstract class ExecOperationNode {
         return andEq(_p) && BooleanStruct.isFalse(_value);
     }
 
-    private static boolean andEq(CompoundedOperator _p) {
+    public static boolean andEq(CompoundedOperator _p) {
         return shortEq(_p, AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT);
     }
 
@@ -285,7 +285,7 @@ public abstract class ExecOperationNode {
             before_ = pair_.argument(_argument);
             pair_.argumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
             ExecMethodOperation parent_ = getParent();
-            if (parent_ == null||parent_ instanceof ExecRefTernaryOperation) {
+            if (isTestContext(parent_)) {
                 calcArg(_possiblePartial, _conf, _nodes, _argument, _stackCall);
                 return;
             }
@@ -305,19 +305,27 @@ public abstract class ExecOperationNode {
             calcArg(_possiblePartial, _conf, _nodes, before_, _stackCall);
             return;
         }
-        int indexImplicit_ = pair_.getIndexImplicit();
+        defCalcArg(_possiblePartial, _conf, _nodes, _stackCall, pair_, before_);
+    }
+
+    private void defCalcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall, ArgumentsPair _pair, Argument _before) {
+        int indexImplicit_ = _pair.getIndexImplicit();
         if (implicits.isValidIndex(indexImplicit_)) {
-            pair_.setIndexImplicit(processConverter(_conf,before_,implicits,indexImplicit_, _stackCall));
+            _pair.setIndexImplicit(processConverter(_conf, _before,implicits,indexImplicit_, _stackCall));
             return;
         }
-        Argument arg_ = before_;
+        Argument arg_ = _before;
         if (content.getResultClass().isConvertToString()){
-            arg_ = processString(before_,_conf, _stackCall);
+            arg_ = processString(_before, _conf, _stackCall);
             if (_stackCall.getCallingState() != null) {
                 return;
             }
         }
         calcArg(_possiblePartial, _conf, _nodes, arg_, _stackCall);
+    }
+
+    private static boolean isTestContext(ExecMethodOperation _parent) {
+        return _parent == null || _parent instanceof ExecRefTernaryOperation;
     }
 
     public static void testpair(Argument _argument, ArgumentsPair _pair, CompoundedOperator _par) {

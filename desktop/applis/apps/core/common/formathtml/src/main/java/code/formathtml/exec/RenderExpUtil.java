@@ -3,15 +3,14 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 
-import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.opers.*;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.*;
-import code.util.core.StringUtil;
 
 public final class RenderExpUtil {
     private RenderExpUtil() {
@@ -36,9 +35,6 @@ public final class RenderExpUtil {
         for (RendDynOperationNode o: _nodes) {
             ArgumentsPair a_ = new ArgumentsPair();
             a_.setArgument(o.getArgument());
-            if (o instanceof RendPossibleIntermediateDotted&&!((RendPossibleIntermediateDotted)o).isIntermediateDottedOperation()) {
-                a_.setPreviousArgument(_rendStackCall.getLastPage().getGlobalArgument());
-            }
             arguments_.addEntry(o, a_);
         }
         int fr_ = 0;
@@ -51,16 +47,14 @@ public final class RenderExpUtil {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
                 o.setSimpleArgument(a_, arguments_, _ctx, _rendStackCall);
                 fr_ = getNextIndex(len_,o, pair_, _ctx, _rendStackCall);
-                continue;
-            }
-            if (pair_.getArgument() != null) {
+            } else if (pair_.getArgument() != null) {
                 o.setSimpleArgument(pair_.getArgument(), arguments_, _ctx, _rendStackCall);
                 fr_ = getNextIndex(len_,o, pair_, _ctx, _rendStackCall);
-                continue;
+            } else {
+                RendCalculableOperation a_ = (RendCalculableOperation)o;
+                a_.calculate(arguments_, _advStandards, _ctx, _rendStackCall);
+                fr_ = getNextIndex(len_,o, pair_, _ctx, _rendStackCall);
             }
-            RendCalculableOperation a_ = (RendCalculableOperation)o;
-            a_.calculate(arguments_, _advStandards, _ctx, _rendStackCall);
-            fr_ = getNextIndex(len_,o, pair_, _ctx, _rendStackCall);
         }
         return arguments_;
     }
@@ -78,18 +72,7 @@ public final class RenderExpUtil {
             }
             if (par_ instanceof RendCompoundAffectationOperation){
                 RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation) par_;
-                if (StringUtil.quickEq(p_.getOper(),"&&=")) {
-                    st_ = BooleanStruct.of(false);
-                }
-                if (StringUtil.quickEq(p_.getOper(),"&&&=")) {
-                    st_ = BooleanStruct.of(false);
-                }
-                if (StringUtil.quickEq(p_.getOper(),"||=")) {
-                    st_ = BooleanStruct.of(true);
-                }
-                if (StringUtil.quickEq(p_.getOper(),"|||=")) {
-                    st_ = BooleanStruct.of(true);
-                }
+                st_ = ExpressionLanguage.absCompound(p_,st_);
             }
         }
         return RendDynOperationNode.getNextIndex(_o, st_);

@@ -1,19 +1,16 @@
 package code.expressionlanguage.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.*;
-import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.core.StringUtil;
 
 public final class ExpressionLanguage {
 
@@ -66,35 +63,25 @@ public final class ExpressionLanguage {
             if (!(o instanceof AtomicExecCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
                 o.setConstantSimpleArgument(a_,_context,_nodes, _stackCall);
-                if (_context.callsOrException(_stackCall)) {
-                    processCalling(_el, pageEl_, o, _stackCall);
-                    return;
-                }
-                fr_ = getNextIndex(_nodes,o, fr_ + 1);
-                continue;
-            }
-            if (pair_.getArgument() != null) {
+                fr_ = getNextIndex(len_,_nodes,o, fr_ + 1,_context,_stackCall,_el);
+            } else if (pair_.getArgument() != null) {
                 o.setConstantSimpleArgument(pair_.getArgument(),_context,_nodes, _stackCall);
-                if (_context.callsOrException(_stackCall)) {
-                    processCalling(_el, pageEl_, o, _stackCall);
-                    return;
-                }
-                fr_ = getNextIndex(_nodes,o, fr_ + 1);
-                continue;
+                fr_ = getNextIndex(len_,_nodes,o, fr_ + 1,_context,_stackCall,_el);
+            } else {
+                AtomicExecCalculableOperation a_ = (AtomicExecCalculableOperation)o;
+                a_.calculate(_nodes, _context, _stackCall);
+                fr_ = getNextIndex(len_,_nodes,o, fr_ + 1,_context,_stackCall,_el);
             }
-            AtomicExecCalculableOperation a_ = (AtomicExecCalculableOperation)o;
-            a_.calculate(_nodes, _context, _stackCall);
-            if (_context.callsOrException(_stackCall)) {
-                processCalling(_el, pageEl_, o, _stackCall);
-                return;
-            }
-            fr_ = getNextIndex(_nodes,o, fr_ + 1);
         }
-        pageEl_.setTranslatedOffset(0);
+        restore(pageEl_,_stackCall);
     }
 
     private static void processCalling(ExpressionLanguage _el, AbstractPageEl _pageEl, ExecOperationNode _o, StackCall _stackCall) {
         _el.setCurrentOper(_o);
+        restore(_pageEl, _stackCall);
+    }
+
+    private static void restore(AbstractPageEl _pageEl, StackCall _stackCall) {
         if (!_stackCall.calls()) {
             _pageEl.setTranslatedOffset(0);
         }
@@ -137,23 +124,27 @@ public final class ExpressionLanguage {
         }
         if (currentOper_ instanceof CallExecSimpleOperation) {
             ((CallExecSimpleOperation) currentOper_).endCalculate(_cont, arguments, _arg, _stackCall);
-            if (_cont.callsOrException(_stackCall)) {
-                return;
-            }
-            getNextIndex(currentOper_, least_);
+            getNextIndex(currentOper_, least_,_cont,_stackCall);
             return;
         }
         currentOper_.setSimpleArgument(_arg, _cont, arguments, _stackCall);
-        if (_cont.callsOrException(_stackCall)) {
-            return;
-        }
-        getNextIndex(currentOper_, least_);
+        getNextIndex(currentOper_, least_,_cont,_stackCall);
     }
 
-    private void getNextIndex(ExecOperationNode _currentOper, int _least) {
+    private void getNextIndex(ExecOperationNode _currentOper, int _least, ContextEl _context, StackCall _stackCall) {
+        if (_context.callsOrException(_stackCall)) {
+            return;
+        }
         index = getNextIndex(arguments, _currentOper, _least);
     }
 
+    private static int getNextIndex(int _max, IdMap<ExecOperationNode, ArgumentsPair> _args, ExecOperationNode _oper, int _least, ContextEl _context, StackCall _stackCall,ExpressionLanguage _exp) {
+        if (_context.callsOrException(_stackCall)) {
+            processCalling(_exp, _stackCall.getLastPage(), _oper, _stackCall);
+            return _max;
+        }
+        return getNextIndex(_args,_oper,_least);
+    }
     private static int getNextIndex(IdMap<ExecOperationNode, ArgumentsPair> _args, ExecOperationNode _oper, int _least) {
         ArgumentsPair value_ = ExecHelper.getArgumentPair(_args,_oper);
         Argument res_ = Argument.getNullableValue(value_.getArgument());
@@ -165,23 +156,22 @@ public final class ExpressionLanguage {
             }
             if (par_ instanceof ExecCompoundAffectationOperation){
                 ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
-                if (StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ)) {
-                    v_ = BooleanStruct.of(false);
-                }
-                if (StringUtil.quickEq(p_.getOper(),AbsBk.AND_LOG_EQ_SHORT)) {
-                    v_ = BooleanStruct.of(false);
-                }
-                if (StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ)) {
-                    v_ = BooleanStruct.of(true);
-                }
-                if (StringUtil.quickEq(p_.getOper(),AbsBk.OR_LOG_EQ_SHORT)) {
-                    v_ = BooleanStruct.of(true);
-                }
+                v_ = absCompound(p_,v_);
             }
         }
         return Math.max(_least, ExecOperationNode.getNextIndex(_oper, v_));
     }
 
+    public static Struct absCompound(CompoundedOperator _comp,Struct _def) {
+        Struct v_ = _def;
+        if (ExecOperationNode.andEq(_comp)) {
+            v_ = BooleanStruct.of(false);
+        }
+        if (ExecOperationNode.orEq(_comp)) {
+            v_ = BooleanStruct.of(true);
+        }
+        return v_;
+    }
     public IdMap<ExecOperationNode, ArgumentsPair> getArguments() {
         return arguments;
     }
