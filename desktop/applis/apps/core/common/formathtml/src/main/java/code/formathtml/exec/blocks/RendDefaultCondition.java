@@ -10,8 +10,8 @@ import code.formathtml.util.BeanLgNames;
 public final class RendDefaultCondition extends RendSwitchPartCondition implements RendWithEl {
 
 
-    public RendDefaultCondition(int _offsetTrim, String _importedClassName, String _variableName) {
-        super(_offsetTrim, _importedClassName, _variableName);
+    public RendDefaultCondition(String _importedClassName, String _variableName) {
+        super(_importedClassName, _variableName);
     }
 
     @Override

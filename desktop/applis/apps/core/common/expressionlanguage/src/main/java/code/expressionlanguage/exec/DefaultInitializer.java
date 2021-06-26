@@ -78,7 +78,7 @@ public class DefaultInitializer implements Initializer {
                 }
                 _stackCall.removeLastPage();
                 if (_stackCall.nbPages() == 0) {
-                    break;
+                    return;
                 }
                 AbstractPageEl b_ = _stackCall.getLastPage();
                 tryForward(_owner, p_, b_, _stackCall);
@@ -91,7 +91,7 @@ public class DefaultInitializer implements Initializer {
                 _stackCall.getLastPage().processTagsBase(_owner, _stackCall);
             }
             if (exitAfterCall(_owner, _stackCall)) {
-                break;
+                return;
             }
         }
     }

@@ -12,11 +12,9 @@ import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class RendForMutableIterativeLoop extends RendParentBlock implements RendLoop,RendWithEl {
@@ -24,42 +22,26 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
 
     private final String label;
 
-    private String importedClassName = EMPTY_STRING;
+    private final String importedClassName;
 
     private final String importedClassIndexName;
 
-    private StringList variableNames = new StringList();
+    private final StringList variableNames;
 
-    private final int initOffset;
+    private final RendOperationNodeListOff init;
+    private final RendOperationNodeListOff exp;
+    private final RendOperationNodeListOff step;
 
-    private final int expressionOffset;
-
-    private final int stepOffset;
-
-    private final CustList<RendDynOperationNode> opInit;
-
-    private final CustList<RendDynOperationNode> opExp;
-
-    private final CustList<RendDynOperationNode> opStep;
-
-    private final boolean refVariable;
-
-    public RendForMutableIterativeLoop(boolean _refVariable,String _className,
-                                int _from,
-                                int _to, int _step,StringList _varNames, String _classIndex, String _label, int _offsetTrim,
-                                CustList<RendDynOperationNode> _opInit, CustList<RendDynOperationNode> _opExp, CustList<RendDynOperationNode> _opStep) {
-        super(_offsetTrim);
-        refVariable = _refVariable;
+    public RendForMutableIterativeLoop(String _className,
+                                       StringList _varNames, String _classIndex, String _label,
+                                       RendOperationNodeListOff _init, RendOperationNodeListOff _exp, RendOperationNodeListOff _step) {
         importedClassName = _className;
-        initOffset = _from;
-        expressionOffset = _to;
-        stepOffset = _step;
         variableNames = _varNames;
         importedClassIndexName = _classIndex;
         label = _label;
-        opInit = _opInit;
-        opExp = _opExp;
-        opStep = _opStep;
+        init = _init;
+        exp = _exp;
+        step = _step;
     }
 
     @Override
@@ -71,7 +53,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
-        ip_.setOffset(initOffset);
+        ip_.setOffset(init.getOffset());
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrInit());
         Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _ctx);
         for (String v: variableNames) {
@@ -80,8 +62,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             ip_.getVars().put(v, lv_);
             ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,importedClassName));
         }
-        if (!opInit.isEmpty()) {
-            RenderExpUtil.calculateReuse(opInit, _stds, _ctx, _rendStack);
+        if (!init.getList().isEmpty()) {
+            RenderExpUtil.calculateReuse(init.getList(), _stds, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
@@ -118,12 +100,12 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
 
     private ConditionReturn evaluateCondition(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
         ImportingPage last_ = _rendStackCall.getLastPage();
-        if (opExp.isEmpty()) {
+        if (exp.getList().isEmpty()) {
             return ConditionReturn.YES;
         }
-        last_.setOffset(expressionOffset);
+        last_.setOffset(exp.getOffset());
         last_.setProcessingAttribute(_context.getRendKeyWords().getAttrCondition());
-        Argument arg_ = RenderExpUtil.calculateReuse(opExp, _stds, _ctx, _rendStackCall);
+        Argument arg_ = RenderExpUtil.calculateReuse(exp.getList(), _stds, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return ConditionReturn.CALL_EX;
         }
@@ -139,10 +121,10 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
-        ip_.setOffset(stepOffset);
+        ip_.setOffset(step.getOffset());
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrStep());
-        if (!opStep.isEmpty()) {
-            RenderExpUtil.calculateReuse(opStep, _advStandards, _ctx, _rendStack);
+        if (!step.getList().isEmpty()) {
+            RenderExpUtil.calculateReuse(step.getList(), _advStandards, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }

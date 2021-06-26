@@ -5,9 +5,8 @@ import code.util.StringList;
 
 public abstract class ExecAbstractDeclareVariable extends ExecLeaf implements StackableBlock {
 
-    private StringList variableNames;
-    protected ExecAbstractDeclareVariable(StringList _variableNames,int _offsetTrim) {
-        super(_offsetTrim);
+    private final StringList variableNames;
+    protected ExecAbstractDeclareVariable(StringList _variableNames) {
         variableNames = _variableNames;
     }
 

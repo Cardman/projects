@@ -21,12 +21,12 @@ public final class RendRadio extends RendInput {
     private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
     private String varNameConverterFieldValue = EMPTY_STRING;
 
-    public RendRadio(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+    public RendRadio(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
                      CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                      CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
                      String _varName, String _varNameConverter, String _varNameConverterField, String _id, String _idClass, String _idName, String _className,
                      CustList<RendDynOperationNode> _opsConverterFieldValue, String _varNameConverterFieldValue, InputInfo _list) {
-        super(_offsetTrim, _read, _execAttributes, _execAttributesText, _opsRead, _opsValue, _opsWrite, _opsConverter, _opsConverterField, _varName, _varNameConverter, _varNameConverterField, _id, _idClass, _idName, _className, _list);
+        super(_read, _execAttributes, _execAttributesText, _opsRead, _opsValue, _opsWrite, _opsConverter, _opsConverterField, _varName, _varNameConverter, _varNameConverterField, _id, _idClass, _idName, _className, _list);
         this.opsConverterFieldValue = _opsConverterFieldValue;
         this.varNameConverterFieldValue = _varNameConverterFieldValue;
     }

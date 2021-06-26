@@ -9,13 +9,13 @@ import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
 
 public final class ExecSwitchEnumMethod extends ExecAbstractSwitchMethod {
 
-    public ExecSwitchEnumMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType, ExecAnonFctContent _anonFctContent) {
-        super(_retRef, _name, _modifier, _importedParamType, _offsetTrim, _retType, _anonFctContent);
+    public ExecSwitchEnumMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, String _retType, ExecAnonFctContent _anonFctContent) {
+        super(_retRef, _name, _modifier, _importedParamType, _retType, _anonFctContent);
     }
 
     @Override
     public ExecBlock processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
-        ExecBracedBlock found_ = ExecEnumSwitchBlock.innerProcess(this, _if, _arg);
+        ExecBracedBlock found_ = ExecEnumSwitchBlock.innerProcessEnum(this, _if, _arg);
         cover(_cont,_if,_arg,_stack, found_);
         return found_;
     }

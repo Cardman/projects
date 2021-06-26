@@ -15,8 +15,8 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
 
     private final String label;
 
-    public RendWhileCondition(int _offsetTrim, CustList<RendDynOperationNode> _op, int _offset, String _label) {
-        super(_offsetTrim,_op,_offset);
+    public RendWhileCondition(CustList<RendDynOperationNode> _op, int _offset, String _label) {
+        super(_op,_offset);
         label = _label;
     }
 

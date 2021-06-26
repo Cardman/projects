@@ -28,11 +28,13 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
 
     private MethodAccessKind accessKind;
     private final MethodMetaInfo metaInfo;
+    private final AbstractPreparer preparer;
 
-    public AbstractRefectCommonMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo) {
+    protected AbstractRefectCommonMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer) {
         instance = _instance;
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
+        preparer = _preparer;
     }
     @Override
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
@@ -40,36 +42,29 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         setReturnedArgument(_argument);
     }
 
-    protected boolean initDefault(ContextEl _cont, StackCall _stackCall) {
-        return metaInfo.isWideStatic()&&_cont.getExiting().hasToExit(_stackCall, metaInfo.getFormatted().getRootBlock());
-//        return method_.isWideStatic()&&ExecutingUtil.hasToExit(_cont,method_.getClassName());
-    }
-
     boolean keep(ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
         if (!initClass) {
             initClass = true;
-            if (initType(_context, _stackCall)) {
+            if (preparer.initType(_context, _stackCall)) {
                 setWrapException(true);
                 return false;
             }
         }
         setWrapException(false);
         if (pair == null) {
-            if (metaInfo.isInstanceMethod()) {
-                if (instance.isNull()) {
-                    String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _stackCall)));
-                    return false;
-                }
+            if (metaInfo.isInstanceMethod() && instance.isNull()) {
+                String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
+                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _stackCall)));
+                return false;
             }
-            if (isAbstract(_context, _stackCall)) {
+            if (preparer.isAbstract(_context, _stackCall)) {
                 String null_ = stds_.getContent().getCoreNames().getAliasIllegalArg();
                 _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, metaInfo.getDisplayedString(_context).getInstance(), null_, _stackCall)));
                 return false;
             }
             ExecFormattedRootBlock className_ = metaInfo.getFormatted();
-            if (isPolymorph(_context, _stackCall)) {
+            if (preparer.isPolymorph(_context, _stackCall)) {
                 Struct instance_ = instance.getStruct();
                 ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(_context, instance_, metaInfo.getPair());
                 className = polymorph_.getClassName();
@@ -116,7 +111,4 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         return ExecImplicitOperation.getArgument(getClassName().getFormatted(), _context, _stack, _l);
     }
 
-    abstract boolean initType(ContextEl _context, StackCall _stack);
-    abstract boolean isAbstract(ContextEl _context, StackCall _stack);
-    abstract boolean isPolymorph(ContextEl _context, StackCall _stack);
 }

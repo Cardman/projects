@@ -35,11 +35,9 @@ final class ExecNamePartType extends ExecLeafPartType {
         if (getParent() instanceof ExecTemplatePartType) {
             ExecPartType prev_ = getParent().getFirstChild();
             String base_ = ((ExecNamePartType)prev_).exportHeader();
-            if (StringUtil.quickEq(getTypeName().trim(), _an.getStandards().getContent().getCoreNames().getAliasVoid())) {
-                if (StringUtil.quickEq(base_.trim(), _an.getStandards().getContent().getReflect().getAliasFct()) && getParent().getStrTypes().size() == getIndex() + 1) {
-                    setImportedTypeName(getTypeName().trim());
-                    setAnalyzedType(getTypeName().trim());
-                }
+            if (StringUtil.quickEq(getTypeName().trim(), _an.getStandards().getContent().getCoreNames().getAliasVoid()) && StringUtil.quickEq(base_.trim(), _an.getStandards().getContent().getReflect().getAliasFct()) && getParent().getStrTypes().size() == getIndex() + 1) {
+                setImportedTypeName(getTypeName().trim());
+                setAnalyzedType(getTypeName().trim());
             }
         }
     }

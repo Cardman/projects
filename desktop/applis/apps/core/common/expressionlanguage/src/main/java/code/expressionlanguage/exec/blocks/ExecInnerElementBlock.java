@@ -1,43 +1,24 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.AbstractInitPageEl;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.fwd.blocks.ExecElementContent;
 import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.core.IndexConstants;
 
 public final class ExecInnerElementBlock extends ExecRootBlock implements ExecInnerTypeOrElement, ExecUniqueRootedBlock {
 
-    private final ExecElementContent elementContent;
+    private final ExecElementContainer elementContent;
 
     private String importedClassName;
     private String realImportedClassName;
 
-    private CustList<ExecOperationNode> opValue;
-
-    private final int trOffset;
-    private final CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
-    private final CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
-    private final CustList<ExecAbstractSwitchMethod> switchMethods = new CustList<ExecAbstractSwitchMethod>();
-    public ExecInnerElementBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access, ExecElementContent _elementContent, int _trOffset) {
-        super(_offsetTrim, _rootBlockContent, _access);
-        elementContent = _elementContent;
-        trOffset = _trOffset;
+    public ExecInnerElementBlock(ExecRootBlockContent _rootBlockContent, AccessEnum _access, ExecElementContent _elementContent, int _trOffset) {
+        super(_rootBlockContent, _access);
+        elementContent = new ExecElementContainer(_elementContent, _trOffset);
     }
 
     @Override
     public String getUniqueFieldName() {
-        return elementContent.getFieldName();
-    }
-
-    public void setOpValue(CustList<ExecOperationNode> _op) {
-        this.opValue = _op;
+        return elementContent.getElementContent().getFieldName();
     }
 
     @Override
@@ -59,54 +40,13 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     }
 
     @Override
-    public boolean isStaticField() {
-        return true;
-    }
-
-    @Override
-    public boolean isFinalField() {
-        return true;
-    }
-
-    @Override
-    public StringList getFieldName() {
-        return new StringList(elementContent.getFieldName());
-    }
-
-    @Override
     public boolean withoutInstance() {
         return true;
     }
 
     @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        return opValue;
+    public ExecMemberContainer getElementContent() {
+        return elementContent;
     }
 
-    public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
-        _last.setGlobalOffset(elementContent.getFieldNameOffest());
-        _last.setOffset(0);
-        ExpressionLanguage el_ = _last.getCurrentEl(_cont, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        ExpressionLanguage.tryToCalculate(_cont,el_, trOffset, _stack);
-        if (_cont.callsOrException(_stack)) {
-            return;
-        }
-        _last.clearCurrentEls();
-        processMemberBlock(_last);
-    }
-
-    @Override
-    public CustList<ExecRootBlock> getAnonymous() {
-        return anonymous;
-    }
-
-    @Override
-    public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
-        return anonymousLambda;
-    }
-
-    @Override
-    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
-        return switchMethods;
-    }
 }

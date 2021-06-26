@@ -12,23 +12,8 @@ public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambd
 
     private final MethodId methodId;
     public LambdaDirectStdRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo);
+        super(_instance,_array, _metaInfo, new DefPreparer());
         methodId = _metaInfo.getRealId();
-    }
-
-    @Override
-    boolean initType(ContextEl _cont, StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    boolean isAbstract(ContextEl _cont, StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    boolean isPolymorph(ContextEl _cont, StackCall _stack) {
-        return false;
     }
 
     @Override

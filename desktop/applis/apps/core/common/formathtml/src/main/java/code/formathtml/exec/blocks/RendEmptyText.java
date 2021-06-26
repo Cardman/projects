@@ -14,8 +14,7 @@ public final class RendEmptyText extends RendPossibleEmpty {
 
     private final boolean add;
 
-    public RendEmptyText(int _offsetTrim, String _expression, boolean _add) {
-        super(_offsetTrim);
+    public RendEmptyText(String _expression, boolean _add) {
         this.expression = _expression;
         this.add = _add;
     }

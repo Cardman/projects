@@ -15,8 +15,8 @@ public final class RendIfCondition extends RendCondition implements RendWithEl {
 
     private final String label;
 
-    public RendIfCondition(int _offsetTrim, CustList<RendDynOperationNode> _op, int _offset, String _label) {
-        super(_offsetTrim,_op,_offset);
+    public RendIfCondition(CustList<RendDynOperationNode> _op, int _offset, String _label) {
+        super(_op,_offset);
         label = _label;
     }
 

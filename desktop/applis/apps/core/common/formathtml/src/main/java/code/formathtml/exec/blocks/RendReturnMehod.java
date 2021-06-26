@@ -8,9 +8,6 @@ import code.formathtml.stacks.RendRemovableVars;
 import code.formathtml.util.BeanLgNames;
 
 public final class RendReturnMehod extends RendLeaf implements RendMethodCallingFinally,RendWithEl {
-    public RendReturnMehod(int _offsetTrim) {
-        super(_offsetTrim);
-    }
 
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {

@@ -383,7 +383,4 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         conditionNb = _conditionNb;
     }
 
-    public boolean isRefVariable() {
-        return refVariable;
-    }
 }

@@ -7,11 +7,16 @@ import code.util.StringList;
 
 public abstract class ExecInitBlock extends ExecMemberCallingsBlock implements ExecReturnableWithSignature {
 
+    private final int offsetTrim;
+
     private int number;
     ExecInitBlock(int _offsetTrim) {
-        super(_offsetTrim);
+        offsetTrim = _offsetTrim;
     }
 
+    public int getOffsetTrim() {
+        return offsetTrim;
+    }
     @Override
     public String getSignature(ContextEl _ana) {
         return getId().getSignature(_ana);

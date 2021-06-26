@@ -7,12 +7,12 @@ import code.util.CustList;
 
 public final class ExecElseIfCondition extends ExecCondition implements StackableBlock {
 
-    public ExecElseIfCondition(int _conditionOffset, CustList<ExecOperationNode> _opCondition, int _offsetTrim) {
-        super(_conditionOffset, _opCondition, _offsetTrim);
+    public ExecElseIfCondition(int _conditionOffset, CustList<ExecOperationNode> _opCondition) {
+        super(_conditionOffset, _opCondition);
     }
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
-        ExecHelperBlocks.processElseIf(_cont,this, _stack);
+        ExecHelperBlocks.processElseIf(_cont,this, _stack,getCondition());
     }
 }

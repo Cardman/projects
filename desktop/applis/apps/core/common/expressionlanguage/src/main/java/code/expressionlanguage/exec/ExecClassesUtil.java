@@ -28,6 +28,10 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class ExecClassesUtil {
+
+    public static final String WILD_CARD_PAIR = "<?,?>";
+    public static final String WILD_CARD = "<?>";
+
     private ExecClassesUtil() {
     }
 
@@ -42,45 +46,45 @@ public final class ExecClassesUtil {
         String locName_ = ValidatorStandard.tr(l_);
         _classes.setIteratorVarCust(locName_);
         String iterator_ = stds_.getContent().getPredefTypes().getAliasIterator();
-        _classes.setExpsIteratorCust(newCall(_classes.getIteratorVarCust(),StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIterable(),"<?>"),
+        _classes.setExpsIteratorCust(newCall(_classes.getIteratorVarCust(),StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIterable(), WILD_CARD),
                 new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,iterator_, new StringList())),
-                StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorType(),"<?>"), _classes));
+                StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorType(), WILD_CARD), _classes));
         locName_ = ValidatorStandard.tr(l_);
         _classes.setHasNextVarCust(locName_);
-        _classes.setExpsHasNextCust(newCall(_classes.getHasNextVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
+        _classes.setExpsHasNextCust(newCall(_classes.getHasNextVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorType(), WILD_CARD),
                 new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_, new StringList())),
                 stds_.getContent().getPrimTypes().getAliasPrimBoolean(), _classes));
         locName_ = ValidatorStandard.tr(l_);
         _classes.setNextVarCust(locName_);
-        _classes.setExpsNextCust(newCall(_classes.getNextVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorType(),"<?>"),
+        _classes.setExpsNextCust(newCall(_classes.getNextVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorType(), WILD_CARD),
                 new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_, new StringList())),
                 stds_.getContent().getCoreNames().getAliasObject(), _classes));
 
         _classes.setIteratorTableVarCust(locName_);
         String iteratorTable_ = stds_.getContent().getPredefTypes().getAliasIteratorTable();
-        _classes.setExpsIteratorTableCust(newCall(_classes.getIteratorTableVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIterableTable(),"<?,?>"),
+        _classes.setExpsIteratorTableCust(newCall(_classes.getIteratorTableVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIterableTable(), WILD_CARD_PAIR),
                 new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_, new StringList())),
-                StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"), _classes));
+                StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorTableType(), WILD_CARD_PAIR), _classes));
         locName_ = ValidatorStandard.tr(l_);
         _classes.setHasNextPairVarCust(locName_);
-        _classes.setExpsHasNextPairCust(newCall(_classes.getHasNextPairVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
+        _classes.setExpsHasNextPairCust(newCall(_classes.getHasNextPairVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorTableType(), WILD_CARD_PAIR),
                 new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_, new StringList())),
                 stds_.getContent().getPrimTypes().getAliasPrimBoolean(), _classes));
         locName_ = ValidatorStandard.tr(l_);
         _classes.setNextPairVarCust(locName_);
-        _classes.setExpsNextPairCust(newCall(_classes.getNextPairVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorTableType(),"<?,?>"),
+        _classes.setExpsNextPairCust(newCall(_classes.getNextPairVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasIteratorTableType(), WILD_CARD_PAIR),
                 new ClassMethodId(stds_.getContent().getPredefTypes().getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_, new StringList())),
-                StringUtil.concat(stds_.getContent().getPredefTypes().getAliasPairType(),"<?,?>"), _classes));
+                StringUtil.concat(stds_.getContent().getPredefTypes().getAliasPairType(), WILD_CARD_PAIR), _classes));
         locName_ = ValidatorStandard.tr(l_);
         _classes.setFirstVarCust(locName_);
         String first_ = stds_.getContent().getPredefTypes().getAliasGetFirst();
-        _classes.setExpsFirstCust(newCall(_classes.getFirstVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
+        _classes.setExpsFirstCust(newCall(_classes.getFirstVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasPairType(), WILD_CARD_PAIR),
                 new ClassMethodId(stds_.getContent().getPredefTypes().getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_, new StringList())),
                 stds_.getContent().getCoreNames().getAliasObject(), _classes));
         locName_ = ValidatorStandard.tr(l_);
         _classes.setSecondVarCust(locName_);
         String second_ = stds_.getContent().getPredefTypes().getAliasGetSecond();
-        _classes.setExpsSecondCust(newCall(_classes.getSecondVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasPairType(),"<?,?>"),
+        _classes.setExpsSecondCust(newCall(_classes.getSecondVarCust(), StringUtil.concat(stds_.getContent().getPredefTypes().getAliasPairType(), WILD_CARD_PAIR),
                 new ClassMethodId(stds_.getContent().getPredefTypes().getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_, new StringList())),
                 stds_.getContent().getCoreNames().getAliasObject(), _classes));
         String id_ = StringExpUtil.getIdFromAllTypes(stds_.getContent().getPredefTypes().getAliasSeedDoubleGenerator());
@@ -180,10 +184,8 @@ public final class ExecClassesUtil {
     public static CustList<ExecOverridableBlock> getMethodBodiesById(ExecRootBlock _genericClassName, MethodId _id) {
         CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
         for (ExecBlock m: _genericClassName.getChildrenOthers()) {
-            if (m instanceof ExecOverridableBlock) {
-                if (((ExecOverridableBlock)m).getId().eq(_id)) {
-                    methods_.add((ExecOverridableBlock) m);
-                }
+            if (m instanceof ExecOverridableBlock && ((ExecOverridableBlock) m).getId().eq(_id)) {
+                methods_.add((ExecOverridableBlock) m);
             }
         }
         return methods_;

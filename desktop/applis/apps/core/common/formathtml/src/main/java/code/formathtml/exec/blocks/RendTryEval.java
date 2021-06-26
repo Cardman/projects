@@ -11,8 +11,7 @@ public final class RendTryEval extends RendParentBlock implements RendWithEl,Ren
 
     private final String label;
 
-    public RendTryEval(String _label, int _offsetTrim) {
-        super(_offsetTrim);
+    public RendTryEval(String _label) {
         label = _label;
     }
 

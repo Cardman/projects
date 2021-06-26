@@ -15,12 +15,9 @@ public final class RendDeclareVariable extends RendAbstractDeclareVariable {
 
     private final String importedClassName;
 
-    private final int classNameOffset;
-
-    public RendDeclareVariable(int _offsetTrim, String _info, int _offset, StringList _variables) {
-        super(_offsetTrim,_variables);
+    public RendDeclareVariable(String _info, StringList _variables) {
+        super(_variables);
         importedClassName = _info;
-        classNameOffset = _offset;
     }
 
     @Override

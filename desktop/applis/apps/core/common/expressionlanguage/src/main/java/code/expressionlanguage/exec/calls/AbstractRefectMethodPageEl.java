@@ -25,8 +25,8 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
     private final Argument array;
     private Argument rightArg;
     private final ExecMemberCallingsBlock callee;
-    public AbstractRefectMethodPageEl(Argument _instance,Argument _array, MethodMetaInfo _metaInfo) {
-        super(_instance, _metaInfo);
+    protected AbstractRefectMethodPageEl(Argument _instance, Argument _array, MethodMetaInfo _metaInfo, AbstractPreparer _preparer) {
+        super(_instance, _metaInfo, _preparer);
         array = _array;
         callee = _metaInfo.getCallee();
     }
@@ -43,45 +43,54 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        LgNames stds_ = _context.getStandards();
         if (!keep(_context, _stack)) {
             return false;
         }
-        if (!calledMethod) {
-            calledMethod = true;
-            MethodId mid_ = getMetaInfo().getRealId();
-            Struct struct_ = getArray().getStruct();
-            if (!(struct_ instanceof ArrayStruct)) {
-                String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-                _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _stack)));
+        if (!calledMethod && !checkCallPhase(_context, _stack)) {
+            return false;
+        }
+        return callPhase(_context, _stack);
+    }
+
+    private boolean checkCallPhase(ContextEl _context, StackCall _stack) {
+        LgNames stds_ = _context.getStandards();
+        calledMethod = true;
+        MethodId mid_ = getMetaInfo().getRealId();
+        Struct struct_ = getArray().getStruct();
+        if (!(struct_ instanceof ArrayStruct)) {
+            String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
+            _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _stack)));
+            return false;
+        }
+        args.addAllElts(((ArrayStruct)struct_).listArgs());
+        if (getMetaInfo().isExpCast()) {
+            if (args.size() + 1 != mid_.getParametersTypesLength()) {
+                String null_;
+                null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size() + 1, mid_.getParametersTypesLength()).toString(), null_, _stack)));
                 return false;
             }
-            args.addAllElts(((ArrayStruct)struct_).listArgs());
-            if (getMetaInfo().isExpCast()) {
-                if (args.size() + 1 != mid_.getParametersTypesLength()) {
-                    String null_;
-                    null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size() + 1, mid_.getParametersTypesLength()).toString(), null_, _stack)));
-                    return false;
-                }
-            } else if (!StringUtil.quickEq(mid_.getName(),"[]=")) {
-                if (args.size() != mid_.getParametersTypesLength()) {
-                    String null_;
-                    null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypesLength()).toString(), null_, _stack)));
-                    return false;
-                }
-            } else {
-                if (args.size() != mid_.getParametersTypesLength() + 1) {
-                    String null_;
-                    null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypesLength() + 1).toString(), null_, _stack)));
-                    return false;
-                }
-                rightArg = args.last();
-                args = args.left(args.size()-1);
+        } else if (!StringUtil.quickEq(mid_.getName(),"[]=")) {
+            if (args.size() != mid_.getParametersTypesLength()) {
+                String null_;
+                null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypesLength()).toString(), null_, _stack)));
+                return false;
             }
+        } else {
+            if (args.size() != mid_.getParametersTypesLength() + 1) {
+                String null_;
+                null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args.size(), mid_.getParametersTypesLength() + 1).toString(), null_, _stack)));
+                return false;
+            }
+            rightArg = args.last();
+            args = args.left(args.size()-1);
         }
+        return true;
+    }
+
+    private boolean callPhase(ContextEl _context, StackCall _stack) {
         if (!calledAfter) {
             setWrapException(false);
             Argument arg_ = prepare(_context, args, rightArg, _stack);

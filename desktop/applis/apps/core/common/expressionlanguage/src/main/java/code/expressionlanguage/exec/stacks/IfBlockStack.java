@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.stacks;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 
 
-public final class IfBlockStack extends AbstractStask {
+public final class IfBlockStack extends AbstractStask implements ConditionBlockStack,EnteredStack {
 
     private ExecBracedBlock execBlock;
     private ExecBracedBlock execLastBlock;

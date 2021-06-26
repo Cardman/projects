@@ -4,10 +4,10 @@ import code.expressionlanguage.Argument;
 
 public final class ExecStdCaseCondition extends ExecAbstractCaseCondition {
 
-    private Argument arg;
+    private final Argument arg;
 
-    public ExecStdCaseCondition(int _valueOffset, Argument _arg, int _offsetTrim) {
-        super(_valueOffset, _offsetTrim);
+    public ExecStdCaseCondition(int _valueOffset, Argument _arg) {
+        super(_valueOffset);
         arg = _arg;
     }
 

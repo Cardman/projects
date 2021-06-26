@@ -14,8 +14,8 @@ import code.util.CustList;
 
 public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
     private final String instanceTest;
-    public ExecInstanceSwitchBlock(String _instanceTest,String _label, int _valueOffset, CustList<ExecOperationNode> _opValue, int _offsetTrim) {
-        super(_label, _valueOffset, _opValue, _offsetTrim);
+    public ExecInstanceSwitchBlock(String _instanceTest, String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
+        super(_label, _valueOffset, _opValue);
         instanceTest = _instanceTest;
     }
 
@@ -51,13 +51,18 @@ public final class ExecInstanceSwitchBlock extends ExecAbstractSwitchBlock {
                 }
             }
         }
-        for (ExecBracedBlock b: children_) {
+        return defCase(_instanceTest, _if, _arg, _stack, children_, found_);
+    }
+
+    private static ExecBracedBlock defCase(String _instanceTest, SwitchBlockStack _if, Argument _arg, StackCall _stack, CustList<ExecBracedBlock> _children, ExecBracedBlock _found) {
+        ExecBracedBlock out_ = _found;
+        for (ExecBracedBlock b: _children) {
             if (b instanceof ExecAbstractInstanceTypeCaseCondition && !((ExecAbstractInstanceTypeCaseCondition)b).isSpecific()) {
                 ExecAbstractInstanceTypeCaseCondition b_ = (ExecAbstractInstanceTypeCaseCondition) b;
-                found_ = fetchDef(_instanceTest, _if, _arg,found_,b_, _stack);
+                out_ = fetchDef(_instanceTest, _if, _arg,out_,b_, _stack);
             }
         }
-        return found_;
+        return out_;
     }
 
     private static ExecBracedBlock fetch(ContextEl _cont, SwitchBlockStack _if, Argument _arg,

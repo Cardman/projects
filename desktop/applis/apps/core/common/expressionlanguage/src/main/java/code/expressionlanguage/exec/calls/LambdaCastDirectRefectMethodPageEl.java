@@ -9,22 +9,7 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 public final class LambdaCastDirectRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
     public LambdaCastDirectRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo);
-    }
-
-    @Override
-    boolean initType(ContextEl _cont, StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    boolean isAbstract(ContextEl _cont, StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    boolean isPolymorph(ContextEl _cont, StackCall _stack) {
-        return false;
+        super(_instance,_array, _metaInfo, new DefPreparer());
     }
 
     @Override

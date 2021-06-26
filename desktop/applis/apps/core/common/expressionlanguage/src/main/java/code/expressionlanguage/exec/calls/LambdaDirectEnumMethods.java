@@ -9,22 +9,7 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class LambdaDirectEnumMethods extends AbstractRefectLambdaMethodPageEl {
     public LambdaDirectEnumMethods(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo);
-    }
-
-    @Override
-    boolean initType(ContextEl _context, StackCall _stack) {
-        return initDefault(_context, _stack);
-    }
-
-    @Override
-    boolean isAbstract(ContextEl _context, StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    boolean isPolymorph(ContextEl _context, StackCall _stack) {
-        return false;
+        super(_instance,_array, _metaInfo, new DefInitPreparerDir(_metaInfo));
     }
 
     @Override

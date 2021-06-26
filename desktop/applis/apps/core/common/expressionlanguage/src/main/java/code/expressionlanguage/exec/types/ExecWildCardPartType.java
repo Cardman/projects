@@ -3,39 +3,14 @@ package code.expressionlanguage.exec.types;
 import code.expressionlanguage.ContextEl;
 import code.util.core.StringUtil;
 
-final class ExecWildCardPartType extends ExecParentPartType {
-    private String prefix;
+final class ExecWildCardPartType extends ExecPrefPartType {
     ExecWildCardPartType(ExecParentPartType _parent, int _index, String _prefix, String _previousOperator) {
-        super(_parent, _index, _previousOperator);
-        prefix = _prefix;
+        super(_parent, _index, _prefix, _previousOperator);
     }
 
     @Override
-    String getBegin() {
-        return prefix;
-    }
-
-    @Override
-    String getPrettyBegin() {
-        return prefix;
-    }
-
-    @Override
-    String getPrettyEnd() {
-        return EMPTY_STRING;
-    }
-    @Override
-    String getEnd() {
-        return EMPTY_STRING;
-    }
-
-    @Override
-    boolean analyzeTree(ContextEl _an) {
-        if (!(getParent() instanceof ExecTemplatePartType)) {
-            return false;
-        }
-        ExecPartType prev_ = getParent().getChildren().first();
-        String base_ = ((ExecNamePartType)prev_).getTypeName();
+    boolean analyzeTree(ExecTemplatePartType _parent, ContextEl _an) {
+        String base_ = ((ExecNamePartType)_parent.getChildren().first()).getTypeName();
         if (StringUtil.quickEq(base_.trim(), _an.getStandards().getContent().getReflect().getAliasFct())) {
             return false;
         }

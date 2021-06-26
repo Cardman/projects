@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -14,8 +13,8 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
     private final MethodModifier methodModifier;
 
     private final ExecMethodKind kind;
-    public ExecOverridableBlock(boolean _retRef, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, ExecMethodKind _execKind, int _offsetTrim, StringList _importedParametersTypes, CustList<Boolean> _parametersRef) {
-        super(_retRef, _name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
+    public ExecOverridableBlock(AccessEnum _access, MethodModifier _modifier, ExecMethodKind _execKind, ExecExecNamedFunctionContent _content) {
+        super(_access, _content);
         methodModifier = _modifier;
         kind = _execKind;
     }

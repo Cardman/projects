@@ -6,5 +6,4 @@ public interface WithEl {
 
     void processEl(ContextEl _cont, StackCall _stack);
 
-    int getOffsetTrim();
 }

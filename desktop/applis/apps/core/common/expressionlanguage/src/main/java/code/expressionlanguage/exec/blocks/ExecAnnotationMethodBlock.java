@@ -14,7 +14,6 @@ import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.Struct;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -25,8 +24,8 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     private final int defaultValueOffset;
 
     private CustList<ExecOperationNode> opValue = new CustList<ExecOperationNode>();
-    public ExecAnnotationMethodBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _defaultValueOffset, int _offsetTrim) {
-        super(false, _name, _varargs, _access, _parametersNames, _offsetTrim, new StringList(), new CustList<Boolean>());
+    public ExecAnnotationMethodBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _defaultValueOffset) {
+        super(_access, new ExecExecNamedFunctionContent(_name, new StringList(), new CustList<Boolean>(), _parametersNames, false, _varargs));
         defaultValueOffset = _defaultValueOffset;
     }
 
@@ -64,7 +63,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
             return;
         }
         _last.clearCurrentEls();
-        processMemberBlock(_last);
+        ExecHelperBlocks.processMemberBlock(_last);
     }
 
     private void setValue(ContextEl _cont, Argument _arg, ExecRootBlock _type, StackCall _stackCall) {

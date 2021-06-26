@@ -14,8 +14,7 @@ public final class RendText extends RendLeaf implements RendWithEl {
 
     private final ExecTextPart textPart;
 
-    public RendText(int _offsetTrim, ExecTextPart _textPart, int _offset) {
-        super(_offsetTrim);
+    public RendText(ExecTextPart _textPart, int _offset) {
         expressionOffset = _offset;
         textPart = _textPart;
     }

@@ -9,8 +9,8 @@ import code.util.CustList;
 
 public final class RendDoWhileCondition extends RendCondition {
 
-    public RendDoWhileCondition(int _offsetTrim, CustList<RendDynOperationNode> _op, int _offset) {
-        super(_offsetTrim,_op,_offset);
+    public RendDoWhileCondition(CustList<RendDynOperationNode> _op, int _offset) {
+        super(_op,_offset);
     }
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {

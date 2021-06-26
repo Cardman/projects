@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.*;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -21,22 +20,7 @@ import code.util.CustList;
 public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
 
     public StaticCallMethodPageEl(Argument _instance, Argument _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo);
-    }
-
-    @Override
-    boolean initType(ContextEl _cont, StackCall _stack) {
-        return initDefault(_cont, _stack);
-    }
-
-    @Override
-    boolean isAbstract(ContextEl _cont, StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    boolean isPolymorph(ContextEl _cont, StackCall _stack) {
-        return false;
+        super(_instance,_array, _metaInfo, new DefInitPreparerDir(_metaInfo));
     }
 
     @Override

@@ -9,30 +9,17 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private final CustList<ExecAnnotContent> annotationsOps = new CustList<ExecAnnotContent>();
 
-    private final String name;
+    private final ExecExecNamedFunctionContent content;
 
     private String importedReturnType;
 
-    private final StringList importedParametersTypes;
-    private final CustList<Boolean> parametersRef;
-
-    private final StringList parametersNames;
-
     private final AccessEnum access;
 
-    private final boolean retRef;
-    private final boolean varargs;
     private final CustList<CustList<ExecAnnotContent>> annotationsOpsParams = new CustList<CustList<ExecAnnotContent>>();
 
-    ExecNamedFunctionBlock(boolean _retRef, String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, int _offsetTrim, StringList _importedParametersTypes, CustList<Boolean> _parametersRef) {
-        super(_offsetTrim);
-        retRef = _retRef;
-        importedParametersTypes = _importedParametersTypes;
-        name = _name;
-        varargs = _varargs;
+    ExecNamedFunctionBlock(AccessEnum _access, ExecExecNamedFunctionContent _content) {
+        content = _content;
         access = _access;
-        parametersNames = _parametersNames;
-        parametersRef = _parametersRef;
     }
 
     public CustList<CustList<ExecAnnotContent>> getAnnotationsOpsParams() {
@@ -40,23 +27,23 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
     }
 
     public String getName() {
-        return name;
+        return content.getName();
     }
 
     public final boolean getParametersRef(int _index) {
-        return parametersRef.get(_index);
+        return content.getParametersRef().get(_index);
     }
 
     public final String getParametersName(int _index) {
-        return parametersNames.get(_index);
+        return content.getParametersNames().get(_index);
     }
 
     public final boolean isRetRef() {
-        return retRef;
+        return content.isRetRef();
     }
 
     public final boolean isVarargs() {
-        return varargs;
+        return content.isVarargs();
     }
 
     public final AccessEnum getAccess() {
@@ -64,7 +51,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
     }
 
     public final StringList getImportedParametersTypes() {
-        return importedParametersTypes;
+        return content.getImportedParametersTypes();
     }
 
     public String getImportedReturnType() {
@@ -80,6 +67,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
     }
 
     public CustList<Boolean> getParametersRef() {
-        return parametersRef;
+        return content.getParametersRef();
     }
 }

@@ -7,8 +7,8 @@ import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 public final class ExecInterfaceBlock extends ExecRootBlock implements GeneInterface,ExecInterfacable {
 
     private final boolean staticType;
-    public ExecInterfaceBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access, boolean _staticType) {
-        super(_offsetTrim, _rootBlockContent, _access);
+    public ExecInterfaceBlock(ExecRootBlockContent _rootBlockContent, AccessEnum _access, boolean _staticType) {
+        super(_rootBlockContent, _access);
         staticType = _staticType;
     }
 

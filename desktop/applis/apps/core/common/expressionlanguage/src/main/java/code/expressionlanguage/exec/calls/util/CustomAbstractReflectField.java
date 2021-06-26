@@ -8,7 +8,7 @@ public abstract class CustomAbstractReflectField extends AbstractReflectElement 
     private final ReflectingType reflect;
     private final FieldMetaInfo gl;
 
-    public CustomAbstractReflectField(ReflectingType _reflect, FieldMetaInfo _gl,
+    protected CustomAbstractReflectField(ReflectingType _reflect, FieldMetaInfo _gl,
                                       boolean _lambda) {
         super(_lambda);
         reflect = _reflect;

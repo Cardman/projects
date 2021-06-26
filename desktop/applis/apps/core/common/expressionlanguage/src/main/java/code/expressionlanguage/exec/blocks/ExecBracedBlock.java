@@ -8,16 +8,9 @@ public abstract class ExecBracedBlock extends ExecBlock {
     private ExecBlock firstChild;
     private final CustList<ExecAbstractDeclareVariable> declares = new CustList<ExecAbstractDeclareVariable>();
 
-    ExecBracedBlock(int _offsetTrim) {
-        super(_offsetTrim);
+    ExecBracedBlock() {
     }
 
-    static boolean isNextTryParts(ExecBlock _n) {
-        return _n instanceof ExecAbstractCatchEval || _n instanceof ExecFinallyEval;
-    }
-    public static boolean isNextIfParts(ExecBlock _n) {
-        return _n instanceof ExecElseIfCondition || _n instanceof ExecElseCondition;
-    }
     public final void appendChild(ExecBlock _child) {
         _child.setParent(this);
         if (_child instanceof ExecAbstractDeclareVariable) {

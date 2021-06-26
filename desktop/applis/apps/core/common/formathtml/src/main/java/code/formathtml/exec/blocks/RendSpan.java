@@ -15,8 +15,8 @@ public final class RendSpan extends RendElement {
     private final ExecTextPart result;
     private StringMap<String> formatted=new StringMap<String>();
 
-    public RendSpan(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, ExecTextPart _result, StringMap<String> _formatted) {
-        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+    public RendSpan(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, ExecTextPart _result, StringMap<String> _formatted) {
+        super(_read, _execAttributes, _execAttributesText);
         this.result = _result;
         this.formatted = _formatted;
     }

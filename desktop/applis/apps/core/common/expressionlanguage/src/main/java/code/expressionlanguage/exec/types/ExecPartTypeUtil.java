@@ -20,16 +20,35 @@ public final class ExecPartTypeUtil {
     private ExecPartTypeUtil(){
     }
     public static String processPrettyType(String _input) {
+        return processPretty(_input, false);
+    }
+
+    private static ExecPartType nextPretty(StringBuilder _out, ExecPartType _root, ExecParentPartType _par) {
+        ExecPartType current_;
+        if (_par == _root) {
+            _out.append(_par.getPrettyEnd());
+            current_ = null;
+        } else if (_par == null) {
+            current_ = null;
+        } else {
+            _out.append(_par.getPrettyEnd());
+            current_ = _par;
+        }
+        return current_;
+    }
+
+    public static String processPrettySingleType(String _input) {
+        return processPretty(_input, true);
+    }
+
+    private static String processPretty(String _input, boolean _single) {
         StringBuilder out_ = new StringBuilder();
         ExecAnalyzingType loc_ = analyzeLocalExec(_input);
-        ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues().getValue(0));
+        ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValuesEx().getValue(0));
         addValues(root_, loc_);
         ExecPartType current_ = root_;
         while (current_ != null) {
-            if (current_ instanceof ExecLeafPartType) {
-                String t_ = ((ExecLeafPartType)current_).getTypeName();
-                out_.append(t_);
-            }
+            prettyLeaf(out_, current_);
             ExecParentChildType parChild_ = createFirstChildExec(current_);
             ExecPartType child_ = parChild_.getChild();
             if (child_ != null) {
@@ -42,68 +61,22 @@ public final class ExecPartTypeUtil {
                 ExecPartType next_ = createNextSiblingExec(current_);
                 ExecParentPartType par_ = current_.getParent();
                 if (next_ != null) {
-                    out_.append(next_.getPreviousOperator());
+                    out_.append(next_.getPreviousOperator(_single));
                     par_.appendChild(next_);
                     current_ = next_;
                     break;
                 }
-                if (par_ == root_) {
-                    out_.append(par_.getPrettyEnd());
-                    current_ = null;
-                    continue;
-                }
-                if (par_ == null) {
-                    current_ = null;
-                    continue;
-                }
-                out_.append(par_.getPrettyEnd());
-                current_ = par_;
+                current_ = nextPretty(out_, root_, par_);
             }
         }
         return out_.toString();
     }
-    public static String processPrettySingleType(String _input) {
-        StringBuilder out_ = new StringBuilder();
-        ExecAnalyzingType loc_ = analyzeLocalExec(_input);
-        ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues().getValue(0));
-        addValues(root_, loc_);
-        ExecPartType current_ = root_;
-        while (current_ != null) {
-            if (current_ instanceof ExecLeafPartType) {
-                String t_ = ((ExecLeafPartType)current_).getTypeName();
-                out_.append(t_);
-            }
-            ExecParentChildType parChild_ = createFirstChildExec(current_);
-            ExecPartType child_ = parChild_.getChild();
-            if (child_ != null) {
-                out_.append(parChild_.getParentPartType().getPrettyBegin());
-                parChild_.getParentPartType().appendChild(child_);
-                current_ = child_;
-                continue;
-            }
-            while (current_ != null) {
-                ExecPartType next_ = createNextSiblingExec(current_);
-                ExecParentPartType par_ = current_.getParent();
-                if (next_ != null) {
-                    out_.append(next_.getPreviousOperatorSingle());
-                    par_.appendChild(next_);
-                    current_ = next_;
-                    break;
-                }
-                if (par_ == root_) {
-                    out_.append(par_.getPrettyEnd());
-                    current_ = null;
-                    continue;
-                }
-                if (par_ == null) {
-                    current_ = null;
-                    continue;
-                }
-                out_.append(par_.getPrettyEnd());
-                current_ = par_;
-            }
+
+    private static void prettyLeaf(StringBuilder _out, ExecPartType _current) {
+        if (_current instanceof ExecLeafPartType) {
+            String t_ = ((ExecLeafPartType) _current).getTypeName();
+            _out.append(t_);
         }
-        return out_.toString();
     }
 
     /**Calls Templates.isCorrect*/
@@ -140,21 +113,17 @@ public final class ExecPartTypeUtil {
                     current_ = next_;
                     break;
                 }
-                if (par_ == root_) {
-                    if (koTmp(_context, par_)) {
-                        return false;
-                    }
-                    current_ = null;
-                    continue;
+                if (koTmp(_context, root_, par_)) {
+                    return false;
                 }
-                if (par_ == null) {
-                    current_ = null;
-                    continue;
-                }
-                current_ = par_;
+                current_ = next(root_, par_);
             }
         }
         return true;
+    }
+
+    private static boolean koTmp(ContextEl _context, ExecPartType _root, ExecParentPartType _par) {
+        return _par == _root && koTmp(_context, _par);
     }
 
     private static boolean koTmp(ContextEl _context, ExecPartType _current) {
@@ -180,21 +149,17 @@ public final class ExecPartTypeUtil {
                     current_ = next_;
                     break;
                 }
-                if (par_ == root_) {
-                    if (isNotCorrectParam(_context, par_)) {
-                        return false;
-                    }
-                    current_ = null;
-                    continue;
+                if (isNotCorrectParam(_context, root_, par_)) {
+                    return false;
                 }
-                if (par_ == null) {
-                    current_ = null;
-                    continue;
-                }
-                current_ = par_;
+                current_ = next(root_, par_);
             }
         }
         return true;
+    }
+
+    private static boolean isNotCorrectParam(ContextEl _context, ExecPartType _root, ExecParentPartType _par) {
+        return _par == _root && isNotCorrectParam(_context, _par);
     }
 
     private static boolean isNotCorrectParam(ContextEl _context, ExecPartType _current) {
@@ -229,18 +194,18 @@ public final class ExecPartTypeUtil {
             return new ExecResultPartType("",null);
         }
         ExecAnalyzingType loc_ = analyzeLocalExec(_input);
-        ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues().getValue(0));
+        ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValuesEx().getValue(0));
         addValues(root_, loc_);
         ExecPartType current_ = root_;
         while (current_ != null) {
-            if (current_ instanceof ExecLeafPartType) {
-                ((ExecLeafPartType)current_).checkDynExistence(_an);
-                String t_ = ((ExecLeafPartType)current_).exportHeader();
-                if (t_.trim().isEmpty()) {
-                    return new ExecResultPartType("",null);
-                }
-                out_.append(t_);
-            }
+//            if (current_ instanceof ExecLeafPartType) {
+//                ((ExecLeafPartType)current_).checkDynExistence(_an);
+//                String t_ = ((ExecLeafPartType)current_).exportHeader();
+//                if (t_.trim().isEmpty()) {
+//                    return new ExecResultPartType("",null);
+//                }
+//                out_.append(t_);
+//            }
             ExecParentChildType parChild_ = createFirstChildExec(current_);
             ExecPartType child_ = parChild_.getChild();
             if (child_ != null) {
@@ -250,10 +215,8 @@ public final class ExecPartTypeUtil {
                 continue;
             }
             while (current_ != null) {
-                if (current_ instanceof ExecParentPartType) {
-                    if (!((ExecParentPartType)current_).analyzeTree(_an)) {
-                        return new ExecResultPartType("",null);
-                    }
+                if (koAnalyzeTree(out_,_an, current_)) {
+                    return new ExecResultPartType("", null);
                 }
                 ExecPartType next_ = createNextSiblingExec(current_);
                 ExecParentPartType par_ = current_.getParent();
@@ -263,24 +226,45 @@ public final class ExecPartTypeUtil {
                     current_ = next_;
                     break;
                 }
-                if (par_ == root_) {
-                    if (!par_.analyzeTree(_an)) {
-                        return new ExecResultPartType("",null);
-                    }
-                    out_.append(par_.getEnd());
-                    current_ = null;
-                    continue;
+                if (koAnalyzeTree(_an, root_, par_)) {
+                    return new ExecResultPartType("", null);
                 }
-                if (par_ == null) {
-                    current_ = null;
-                    continue;
-                }
-                out_.append(par_.getEnd());
-                current_ = par_;
+                current_ = next(root_, par_);
+                appendEnd(out_, par_);
             }
         }
         return new ExecResultPartType(out_.toString(), root_);
     }
+
+    private static ExecPartType next(ExecPartType _root, ExecParentPartType _par) {
+        if (_par == _root) {
+            return null;
+        }
+        return _par;
+    }
+
+    private static boolean koAnalyzeTree(ContextEl _an, ExecPartType _root, ExecParentPartType _par) {
+        return _par == _root && !_par.analyzeTree(_an);
+    }
+
+    private static void appendEnd(StringBuilder _out, ExecParentPartType _par) {
+        if (_par != null) {
+            _out.append(_par.getEnd());
+        }
+    }
+
+    private static boolean koAnalyzeTree(StringBuilder _build,ContextEl _an, ExecPartType _current) {
+        if (_current instanceof ExecLeafPartType) {
+            ((ExecLeafPartType)_current).checkDynExistence(_an);
+            String t_ = ((ExecLeafPartType)_current).exportHeader();
+            if (t_.trim().isEmpty()) {
+                return true;
+            }
+            _build.append(t_);
+        }
+        return _current instanceof ExecParentPartType && !((ExecParentPartType) _current).analyzeTree(_an);
+    }
+
     private static ExecParentChildType createFirstChildExec(ExecPartType _parent) {
         if (!(_parent instanceof ExecParentPartType)) {
             return new ExecParentChildType(null,null);
@@ -319,69 +303,75 @@ public final class ExecPartTypeUtil {
         }
         if (_p instanceof ExecTemplatePartType) {
             StrTypes values_;
-            values_ = _an.getValues();
+            values_ = _an.getValuesEx();
             values_.remove(values_.getValues().getLastIndex());
             ((ExecParentPartType)_p).getStrTypes().addAllEntries(values_);
         } else {
-            ((ExecParentPartType)_p).getStrTypes().addAllEntries(_an.getValues());
+            ((ExecParentPartType)_p).getStrTypes().addAllEntries(_an.getValuesEx());
         }
     }
 
     private static ExecAnalyzingType analyzeLocalExec(String _string) {
         ExecAnalyzingType a_ = new ExecAnalyzingType();
-        StrTypes values_ = a_.getValues();
+        StrTypes values_ = a_.getValuesEx();
         if (_string.trim().isEmpty()) {
             values_.addEntry(IndexConstants.FIRST_INDEX, _string);
-            a_.setError(true);
+            a_.setErrorEx();
             return a_;
         }
         if (StringExpUtil.isTypeLeafExec(_string)) {
-            a_.setKind(KindPartType.TYPE_NAME);
+            a_.setKindEx(KindPartType.TYPE_NAME);
             a_.setupValueExec(_string);
             return a_;
         }
         if (StringUtil.quickEq(_string.trim(), StringExpUtil.SUB_TYPE)) {
-            a_.setKind(KindPartType.EMPTY_WILD_CARD);
+            a_.setKindEx(KindPartType.EMPTY_WILD_CARD);
             a_.setupValueExec(_string);
             return a_;
         }
         if (_string.trim().startsWith(StringExpUtil.SUB_TYPE)) {
-            a_.setPrio(WILD_CARD_PRIO);
+            a_.setPrioEx(WILD_CARD_PRIO);
             a_.setupUnaryValuesExec(_string, StringExpUtil.SUB_TYPE);
             return a_;
         }
         if (_string.trim().startsWith(StringExpUtil.SUP_TYPE)) {
             if (StringUtil.quickEq(_string.trim(), StringExpUtil.SUP_TYPE)) {
-                a_.setError(true);
+                a_.setErrorEx();
             }
-            a_.setPrio(WILD_CARD_PRIO);
+            a_.setPrioEx(WILD_CARD_PRIO);
             a_.setupUnaryValuesExec(_string, StringExpUtil.SUP_TYPE);
             return a_;
         }
         if (_string.trim().startsWith("~")) {
             if (StringUtil.quickEq(_string.trim(), "~")) {
-                a_.setError(true);
+                a_.setErrorEx();
             }
-            a_.setPrio(WILD_CARD_PRIO);
+            a_.setPrioEx(WILD_CARD_PRIO);
             a_.setupUnaryValuesExec(_string, "~");
             return a_;
         }
-        StrTypes operators_ = a_.getOperators();
+        StrTypes operators_ = a_.getOperatorsEx();
         ArrayResult res_ = StringExpUtil.tryGetArray(_string, values_, operators_);
         if (res_ != ArrayResult.NONE) {
             if (res_ == ArrayResult.ERROR) {
                 values_.addEntry(IndexConstants.FIRST_INDEX, _string);
-                a_.setError(true);
+                a_.setErrorEx();
             } else {
-                a_.setPrio(ARR_PRIO);
+                a_.setPrioEx(ARR_PRIO);
             }
             return a_;
         }
         if (_string.trim().startsWith(AbstractReplacingType.ARR_BEG_STRING)) {
-            a_.setPrio(ARR_PRIO);
+            a_.setPrioEx(ARR_PRIO);
             a_.setupUnaryValuesExec(_string, AbstractReplacingType.ARR_BEG_STRING);
             return a_;
         }
+        return loop(_string);
+    }
+
+    private static ExecAnalyzingType loop(String _string) {
+        ExecAnalyzingType a_ = new ExecAnalyzingType();
+        StrTypes operators_ = a_.getOperatorsEx();
         int count_ = 0;
         int len_ = _string.length();
         int i_ = 0;
@@ -389,40 +379,62 @@ public final class ExecPartTypeUtil {
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (curChar_ == StringExpUtil.LT) {
-                if (count_== 0 && prio_ == TMP_PRIO) {
-                    operators_.clear();
-                    operators_.addEntry(i_,StringExpUtil.TEMPLATE_BEGIN);
-                }
+                addBeginOp(operators_, count_, i_, prio_);
                 count_++;
             }
-            if (curChar_ == StringExpUtil.COMMA && count_ == 1 && prio_ == TMP_PRIO) {
-                operators_.addEntry(i_, StringExpUtil.TEMPLATE_SEP);
-            }
+            addCommaOp(operators_, count_, i_, prio_, curChar_);
             if (curChar_ == StringExpUtil.GT) {
                 count_--;
-                if (count_ == 0 && prio_ == TMP_PRIO) {
-                    operators_.addEntry(i_,StringExpUtil.TEMPLATE_END);
-                }
+                addEndOp(operators_, count_, i_, prio_);
             }
-            if (count_ == 0) {
-                if (_string.startsWith(StringExpUtil.INNER_TYPE,i_) || curChar_ == '-') {
-                    if (prio_ > INT_PRIO) {
-                        operators_.clear();
-                        prio_ = INT_PRIO;
-                    }
-                    if (curChar_ == StringExpUtil.SEP_CLASS_CHAR){
-                        operators_.addEntry(i_, INNER_TYPE);
-                        i_++;
-                    } else {
-                        operators_.addEntry(i_,"-");
-                    }
+            if (inner(_string, count_, i_, curChar_)) {
+                if (prio_ > INT_PRIO) {
+                    operators_.clear();
+                    prio_ = INT_PRIO;
+                }
+                if (curChar_ == StringExpUtil.SEP_CLASS_CHAR) {
+                    operators_.addEntry(i_, INNER_TYPE);
+                    i_++;
+                } else {
+                    operators_.addEntry(i_, "-");
                 }
             }
             i_++;
         }
-        a_.setPrio(prio_);
+        a_.setPrioEx(prio_);
         a_.setupValuesExec(_string);
         return a_;
+    }
+
+    private static void addCommaOp(StrTypes _operators, int _count, int _index, int _prio, char _cur) {
+        if (comma(_count, _prio, _cur)) {
+            _operators.addEntry(_index, StringExpUtil.TEMPLATE_SEP);
+        }
+    }
+
+    private static void addEndOp(StrTypes _operators, int _count, int _index, int _prio) {
+        if (tmpPrio(_count, _prio)) {
+            _operators.addEntry(_index, StringExpUtil.TEMPLATE_END);
+        }
+    }
+
+    private static void addBeginOp(StrTypes _operators, int _count, int _index, int _prio) {
+        if (tmpPrio(_count, _prio)) {
+            _operators.clear();
+            _operators.addEntry(_index,StringExpUtil.TEMPLATE_BEGIN);
+        }
+    }
+
+    private static boolean inner(String _string, int _count, int _index, char _curChar) {
+        return _count == 0 && (_string.startsWith(StringExpUtil.INNER_TYPE, _index) || _curChar == '-');
+    }
+
+    private static boolean comma(int _count, int _prio, char _curChar) {
+        return _curChar == StringExpUtil.COMMA && _count == 1 && _prio == TMP_PRIO;
+    }
+
+    private static boolean tmpPrio(int _count, int _prio) {
+        return _count== 0 && _prio == TMP_PRIO;
     }
 
     private static boolean okDoubleDotIndexes(String _input) {
@@ -440,10 +452,8 @@ public final class ExecPartTypeUtil {
                 }
                 count_--;
             }
-            if (curChar_ == StringExpUtil.COMMA) {
-                if (count_ == 0) {
-                    return false;
-                }
+            if (curChar_ == StringExpUtil.COMMA && count_ == 0) {
+                return false;
             }
             i_++;
         }

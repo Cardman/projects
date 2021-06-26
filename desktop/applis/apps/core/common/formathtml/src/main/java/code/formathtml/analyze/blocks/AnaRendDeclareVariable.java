@@ -58,10 +58,6 @@ public final class AnaRendDeclareVariable extends AnaRendLeaf {
         return refVariable;
     }
 
-    public int getClassNameOffset() {
-        return classNameOffset;
-    }
-
     public String getImportedClassName() {
         return importedClassName;
     }

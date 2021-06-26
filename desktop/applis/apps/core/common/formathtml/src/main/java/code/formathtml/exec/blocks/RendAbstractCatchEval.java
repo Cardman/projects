@@ -8,12 +8,8 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 
 public abstract class RendAbstractCatchEval extends RendParentBlock implements RendEval {
-    RendAbstractCatchEval(int _offsetTrim) {
-        super(_offsetTrim);
-    }
 
-    @Override
-    public final void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processCatch(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendBlock n_ = getNextSibling();

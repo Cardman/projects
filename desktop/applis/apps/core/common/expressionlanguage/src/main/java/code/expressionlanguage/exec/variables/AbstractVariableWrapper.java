@@ -9,7 +9,7 @@ import code.expressionlanguage.structs.Struct;
 public abstract class AbstractVariableWrapper implements AbstractWrapper {
     private final LocalVariable local;
 
-    public AbstractVariableWrapper(LocalVariable _local) {
+    protected AbstractVariableWrapper(LocalVariable _local) {
         local = _local;
     }
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {

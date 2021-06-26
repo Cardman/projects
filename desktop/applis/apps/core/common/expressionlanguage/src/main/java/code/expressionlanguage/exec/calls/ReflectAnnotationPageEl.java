@@ -45,74 +45,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
-        LgNames stds_ = _context.getStandards();
-        if (!retrievedAnnot) {
-            if (onParameters) {
-                if (annotated instanceof AnnotatedParamStruct){
-                    annotationsParams = ((AnnotatedParamStruct)annotated).getAnnotationsOpsParams();
-                } else {
-                    annotationsParams = new CustList<CustList<ExecAnnotContent>>();
-                }
-            } else {
-                annotations = annotated.getAnnotationsOps();
-            }
-            String cl_ = "";
-            if (!arguments.isEmpty()) {
-                Struct arg_ = arguments.first().getStruct();
-                if (arg_ instanceof ClassMetaInfo) {
-                    cl_ = NumParsers.getClass(arg_).getFormatted().getFormatted();
-                }
-            }
-            if (!cl_.isEmpty()) {
-                if (onParameters) {
-                    CustList<CustList<ExecAnnotContent>> filters_ = new CustList<CustList<ExecAnnotContent>>();
-                    for (CustList<ExecAnnotContent> a: annotationsParams) {
-                        CustList<ExecAnnotContent> filter_ = new CustList<ExecAnnotContent>();
-                        Ints indexes_ = new Ints();
-                        filter(cl_, a, filter_, indexes_);
-                        annotationsParamsIndexes.add(indexes_);
-                        filters_.add(filter_);
-                    }
-                    annotationsParams = filters_;
-                } else {
-                    CustList<ExecAnnotContent> filter_ = new CustList<ExecAnnotContent>();
-                    filter(cl_, annotations, filter_, annotationsIndexes);
-                    annotations = filter_;
-                }
-            } else {
-                if (onParameters) {
-                    for (CustList<ExecAnnotContent> a: annotationsParams) {
-                        int s_ = a.size();
-                        Ints indexes_ = new Ints(new CollCapacity(s_));
-                        feedIndexes(s_, indexes_);
-                        annotationsParamsIndexes.add(indexes_);
-                    }
-                } else {
-                    int s_ = annotations.size();
-                    feedIndexes(s_, annotationsIndexes);
-                }
-            }
-            if (onParameters) {
-                int len_ = annotationsParams.size();
-                String annot_ = stds_.getContent().getReflect().getAliasAnnotationType();
-                annot_ = StringExpUtil.getPrettyArrayType(annot_);
-                String annotArr_ = StringExpUtil.getPrettyArrayType(annot_);
-                array = new ArrayStruct(len_, annotArr_);
-                int i_ = 0;
-                for (CustList<ExecAnnotContent> e: annotationsParams) {
-                    ArrayStruct loc_;
-                    loc_ = new ArrayStruct(e.size(), annot_);
-                    array.set(i_, loc_);
-                    i_++;
-                }
-            } else {
-                int len_ = annotations.size();
-                String annot_ = stds_.getContent().getReflect().getAliasAnnotationType();
-                annot_ = StringExpUtil.getPrettyArrayType(annot_);
-                array = new ArrayStruct(len_, annot_);
-            }
-            retrievedAnnot = true;
-        }
+        retrAllAnnot(_context);
         if (onParameters) {
             int len_ = annotationsParams.size();
             for (int i = indexAnnotationParam; i < len_; i++) {
@@ -132,24 +65,102 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 indexAnnotationParam++;
                 indexAnnotation = 0;
             }
-        } else {
-            int len_ = annotations.size();
-            for (int i = indexAnnotation; i < len_; i++) {
-                ExecAnnotContent ops_ = annotations.get(i);
-                ExpressionLanguage el_ = getCurrentEl(0,ops_.getOperations());
-                Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0, _stack);
-                if (_context.callsOrException(_stack)) {
-                    return false;
-                }
-                clearCurrentEls();
-                array.set(i, ret_.getStruct());
-                indexAnnotation++;
-            }
+            Argument out_ = new Argument(array);
+            setReturnedArgument(out_);
+            return true;
         }
-
+        int len_ = annotations.size();
+        for (int i = indexAnnotation; i < len_; i++) {
+            ExecAnnotContent ops_ = annotations.get(i);
+            ExpressionLanguage el_ = getCurrentEl(0,ops_.getOperations());
+            Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0, _stack);
+            if (_context.callsOrException(_stack)) {
+                return false;
+            }
+            clearCurrentEls();
+            array.set(i, ret_.getStruct());
+            indexAnnotation++;
+        }
         Argument out_ = new Argument(array);
         setReturnedArgument(out_);
         return true;
+    }
+
+    private void retrAllAnnot(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        if (retrievedAnnot) {
+            return;
+        }
+        if (onParameters) {
+            annotParams();
+            String cl_ = filterType();
+            if (!cl_.isEmpty()) {
+                CustList<CustList<ExecAnnotContent>> filters_ = new CustList<CustList<ExecAnnotContent>>();
+                for (CustList<ExecAnnotContent> a: annotationsParams) {
+                    CustList<ExecAnnotContent> filter_ = new CustList<ExecAnnotContent>();
+                    Ints indexes_ = new Ints();
+                    filter(cl_, a, filter_, indexes_);
+                    annotationsParamsIndexes.add(indexes_);
+                    filters_.add(filter_);
+                }
+                annotationsParams = filters_;
+            } else {
+                for (CustList<ExecAnnotContent> a: annotationsParams) {
+                    int s_ = a.size();
+                    Ints indexes_ = new Ints(new CollCapacity(s_));
+                    feedIndexes(s_, indexes_);
+                    annotationsParamsIndexes.add(indexes_);
+                }
+            }
+            int len_ = annotationsParams.size();
+            String annot_ = stds_.getContent().getReflect().getAliasAnnotationType();
+            annot_ = StringExpUtil.getPrettyArrayType(annot_);
+            String annotArr_ = StringExpUtil.getPrettyArrayType(annot_);
+            array = new ArrayStruct(len_, annotArr_);
+            int i_ = 0;
+            for (CustList<ExecAnnotContent> e: annotationsParams) {
+                ArrayStruct loc_;
+                loc_ = new ArrayStruct(e.size(), annot_);
+                array.set(i_, loc_);
+                i_++;
+            }
+            retrievedAnnot = true;
+            return;
+        }
+        annotations = annotated.getAnnotationsOps();
+        String cl_ = filterType();
+        if (!cl_.isEmpty()) {
+            CustList<ExecAnnotContent> filter_ = new CustList<ExecAnnotContent>();
+            filter(cl_, annotations, filter_, annotationsIndexes);
+            annotations = filter_;
+        } else {
+            int s_ = annotations.size();
+            feedIndexes(s_, annotationsIndexes);
+        }
+        int len_ = annotations.size();
+        String annot_ = stds_.getContent().getReflect().getAliasAnnotationType();
+        annot_ = StringExpUtil.getPrettyArrayType(annot_);
+        array = new ArrayStruct(len_, annot_);
+        retrievedAnnot = true;
+    }
+
+    private void annotParams() {
+        if (annotated instanceof AnnotatedParamStruct){
+            annotationsParams = ((AnnotatedParamStruct)annotated).getAnnotationsOpsParams();
+        } else {
+            annotationsParams = new CustList<CustList<ExecAnnotContent>>();
+        }
+    }
+
+    private String filterType() {
+        String cl_ = "";
+        if (!arguments.isEmpty()) {
+            Struct arg_ = arguments.first().getStruct();
+            if (arg_ instanceof ClassMetaInfo) {
+                cl_ = NumParsers.getClass(arg_).getFormatted().getFormatted();
+            }
+        }
+        return cl_;
     }
 
     private static void feedIndexes(int _s, Ints _indexes) {

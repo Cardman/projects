@@ -6,8 +6,8 @@ import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 public final class ExecRecordBlock extends ExecRootBlock {
 
     private final boolean mutable;
-    public ExecRecordBlock(boolean _mutable,int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
-        super(_offsetTrim, _rootBlockContent, _access);
+    public ExecRecordBlock(boolean _mutable, ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
+        super(_rootBlockContent, _access);
         mutable = _mutable;
     }
 

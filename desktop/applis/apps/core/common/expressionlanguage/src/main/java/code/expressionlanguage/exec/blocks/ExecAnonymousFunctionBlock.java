@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.util.CacheInfo;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
@@ -15,8 +14,8 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
     private final MethodModifier methodModifier;
     private final ExecAnonFctContent anonFctContent;
 
-    public ExecAnonymousFunctionBlock(boolean _retRef,String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, MethodModifier _modifier, int _offsetTrim, ExecAnonFctContent _anonFctContent, StringList _importedParametersTypes, CustList<Boolean> _parametersRef) {
-        super(_retRef, _name, _varargs, _access, _parametersNames, _offsetTrim, _importedParametersTypes, _parametersRef);
+    public ExecAnonymousFunctionBlock(AccessEnum _access, MethodModifier _modifier, ExecAnonFctContent _anonFctContent, ExecExecNamedFunctionContent _content) {
+        super(_access, _content);
         methodModifier = _modifier;
         anonFctContent = _anonFctContent;
     }

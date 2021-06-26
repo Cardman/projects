@@ -23,19 +23,15 @@ public final class FieldInitPageEl extends AbstractInitPageEl {
         //initializing instance fields in the type walk through
         ExecBlock en_ = getBlock();
         if (en_ instanceof ExecFieldBlock) {
-            setGlobalOffset(en_.getOffsetTrim());
-            setOffset(0);
-            ((ExecFieldBlock)en_).processEl(_context,_stack,this);
+            ((ExecFieldBlock)en_).getElementContent().processEl(_context,_stack,this);
             return;
         }
         if (en_ instanceof ExecAnnotationMethodBlock) {
-            setGlobalOffset(en_.getOffsetTrim());
-            setOffset(0);
             ((ExecAnnotationMethodBlock)en_).processEl(_context,_stack,this);
             return;
         }
         if (en_ instanceof ExecInstanceBlock && processedBlocks.getVal((ExecInitBlock) en_) == BoolVal.FALSE) {
-            setGlobalOffset(en_.getOffsetTrim());
+            setGlobalOffset(((ExecInitBlock)en_).getOffsetTrim());
             setOffset(0);
             processedBlocks.put((ExecInitBlock) en_, BoolVal.TRUE);
             CustomFoundBlock cust_ = new CustomFoundBlock(this, (ExecInitBlock) en_);
@@ -43,7 +39,7 @@ public final class FieldInitPageEl extends AbstractInitPageEl {
             return;
         }
         if (en_ != null) {
-            en_.processMemberBlock(this);
+            ExecHelperBlocks.processMemberBlock(this);
             return;
         }
         setNullReadWrite();

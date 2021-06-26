@@ -233,7 +233,4 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         return rootStep;
     }
 
-    public boolean isRefVariable() {
-        return refVariable;
-    }
 }

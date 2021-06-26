@@ -8,8 +8,8 @@ public final class ExecClassBlock extends ExecRootBlock implements ExecUniqueRoo
 
     private final ExecClassContent classContent;
 
-    public ExecClassBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access, ExecClassContent _classContent) {
-        super(_offsetTrim, _rootBlockContent, _access);
+    public ExecClassBlock(ExecRootBlockContent _rootBlockContent, AccessEnum _access, ExecClassContent _classContent) {
+        super(_rootBlockContent, _access);
         classContent = _classContent;
     }
 

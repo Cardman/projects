@@ -8,8 +8,8 @@ import java.awt.image.BufferedImage;
 
 public final class LabelButtonUtil {
 
-    public static final Color DEFAULT_FOREGROUND = new Color(0, 0, 127);
-    public static final Color DISABLED = new Color(127, 127, 255);
+//    public static final Color DEFAULT_FOREGROUND = new Color(0, 0, 127);
+//    public static final Color DISABLED = new Color(127, 127, 255);
 
     private LabelButtonUtil(){
     }
@@ -65,11 +65,11 @@ public final class LabelButtonUtil {
 //        gr_.dispose();
 //        return img_;
 //    }
-    public static Color color(boolean _enabled, Color _enable, Color _disable) {
-        if (_enabled) {
-            return _enable;
-        } else {
-            return _disable;
-        }
-    }
+//    public static Color color(boolean _enabled, Color _enable, Color _disable) {
+//        if (_enabled) {
+//            return _enable;
+//        } else {
+//            return _disable;
+//        }
+//    }
 }

@@ -9,8 +9,7 @@ public abstract class ExecAbstractCaseCondition extends ExecBracedBlock implemen
 
     private final int valueOffset;
 
-    protected ExecAbstractCaseCondition(int _valueOffset, int _offsetTrim) {
-        super(_offsetTrim);
+    protected ExecAbstractCaseCondition(int _valueOffset) {
         valueOffset = _valueOffset;
     }
 

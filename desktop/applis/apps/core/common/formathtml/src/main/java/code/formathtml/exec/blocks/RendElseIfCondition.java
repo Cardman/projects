@@ -9,8 +9,8 @@ import code.util.CustList;
 
 public final class RendElseIfCondition extends RendCondition implements RendWithEl {
 
-    public RendElseIfCondition(int _offsetTrim, CustList<RendDynOperationNode> _op, int _offset) {
-        super(_offsetTrim,_op,_offset);
+    public RendElseIfCondition(CustList<RendDynOperationNode> _op, int _offset) {
+        super(_op,_offset);
     }
 
     @Override

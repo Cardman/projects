@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.util;
 import code.expressionlanguage.common.AbstractOperationIndexer;
-import code.expressionlanguage.exec.opers.ExecNamedArgumentOperation;
 import code.util.CustList;
 
 public final class ExecOperationIndexer extends AbstractOperationIndexer {

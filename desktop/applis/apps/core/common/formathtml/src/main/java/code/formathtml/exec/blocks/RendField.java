@@ -7,8 +7,7 @@ public final class RendField extends RendParentBlock {
     private int prepareOffset;
     private CustList<RendDynOperationNode> exps;
 
-    public RendField(int _offsetTrim,CustList<RendDynOperationNode> _res, int _prepareOffset) {
-        super(_offsetTrim);
+    public RendField(CustList<RendDynOperationNode> _res, int _prepareOffset) {
         prepareOffset = _prepareOffset;
         exps = _res;
     }

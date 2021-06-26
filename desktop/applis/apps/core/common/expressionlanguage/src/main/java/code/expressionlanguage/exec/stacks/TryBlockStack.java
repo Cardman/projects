@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.stacks;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.structs.Struct;
 
-public final class TryBlockStack extends AbstractStask {
+public final class TryBlockStack extends AbstractStask implements EnteredStack {
 
     private AbruptCallingFinally calling;
     private Struct exception;
@@ -11,14 +11,14 @@ public final class TryBlockStack extends AbstractStask {
 
     private ExecBracedBlock execCurrentBlock;
 
-    private boolean visitedFinally;
+    private boolean entered;
 
-    public boolean isVisitedFinally() {
-        return visitedFinally;
+    public boolean isEntered() {
+        return entered;
     }
 
-    public void setVisitedFinally(boolean _visitedFinally) {
-        visitedFinally = _visitedFinally;
+    public void setEntered(boolean _entered) {
+        entered = _entered;
     }
 
     public ExecBracedBlock getLastBlock() {

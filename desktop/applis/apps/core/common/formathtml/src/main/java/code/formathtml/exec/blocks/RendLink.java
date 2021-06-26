@@ -16,8 +16,8 @@ public final class RendLink extends RendElement {
     private final String content;
     private final StringMap<ExecTextPart> execOpExpTitle;
 
-    public RendLink(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, String _content, StringMap<ExecTextPart> _execOpExpTitle) {
-        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+    public RendLink(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, String _content, StringMap<ExecTextPart> _execOpExpTitle) {
+        super(_read, _execAttributes, _execAttributesText);
         this.content = _content;
         this.execOpExpTitle = _execOpExpTitle;
     }

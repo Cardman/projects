@@ -60,13 +60,7 @@ final class ExecTemplatePartType extends ExecBinaryType {
         for (int i = 0; i < len_; i++) {
             StringList t_ = boundsAll_.get(i);
             String arg_ = ch_.get(i+1).getAnalyzedType();
-            if (StringUtil.quickEq(arg_, StringExpUtil.SUB_TYPE)) {
-                continue;
-            }
-            if (arg_.startsWith(StringExpUtil.SUB_TYPE)) {
-                continue;
-            }
-            if (arg_.startsWith(StringExpUtil.SUP_TYPE)) {
+            if (StringUtil.quickEq(arg_, StringExpUtil.SUB_TYPE) || arg_.startsWith(StringExpUtil.SUB_TYPE) || arg_.startsWith(StringExpUtil.SUP_TYPE)) {
                 continue;
             }
             String comp_ = arg_;

@@ -37,15 +37,14 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType 
     private final CustList<ExecAnonymousFunctionBlock> anonymousRootLambda = new CustList<ExecAnonymousFunctionBlock>();
     private final CustList<ExecAbstractSwitchMethod> switchMethodsRoot = new CustList<ExecAbstractSwitchMethod>();
     private boolean withInstanceElements;
-    private final CustList<ExecInfoBlock> allFields = new CustList<ExecInfoBlock>();
+    private final CustList<ExecFieldBlock> allExpFields = new CustList<ExecFieldBlock>();
     private final CustList<ExecMemberCallingsBlock> allFct = new CustList<ExecMemberCallingsBlock>();
     private final CustList<ExecBlock> allInstanceMembers = new CustList<ExecBlock>();
     private final CustList<ExecBlock> allStaticMembers = new CustList<ExecBlock>();
     private final CustList<ExecInstanceBlock> allInstanceInits = new CustList<ExecInstanceBlock>();
     private final CustList<ExecStaticBlock> allStaticInits = new CustList<ExecStaticBlock>();
 
-    ExecRootBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
-        super(_offsetTrim);
+    ExecRootBlock(ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
         rootBlockContent = _rootBlockContent;
         access = _access;
     }
@@ -213,8 +212,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType 
         withInstanceElements = _withInstanceElements;
     }
 
-    public CustList<ExecInfoBlock> getAllFields() {
-        return allFields;
+    public CustList<ExecFieldBlock> getAllExpFields() {
+        return allExpFields;
     }
 
     public CustList<ExecMemberCallingsBlock> getAllFct() {

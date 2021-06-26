@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.InstanceParamChecker;
 import code.expressionlanguage.exec.inherits.ReflectInstanceParamChecker;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -48,7 +47,6 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         LgNames stds_ = _context.getStandards();
         GeneType type_ = metaInfo.getDeclType();
         boolean static_ = type_.withoutInstance();
-        ExecFormattedRootBlock res_ = metaInfo.getFormatted();
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;
@@ -78,22 +76,29 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
                 previous_ = args_.first();
                 args_ = args_.mid(1);
             }
-            Argument arg_ = Argument.createVoid();
-            ExecTypeFunction pair_ = metaInfo.getPair();
-            ExecRootBlock execSuperClass_ = pair_.getType();
-            if (execSuperClass_ != null) {
-                arg_ = new ReflectInstanceParamChecker(pair_, args_, "", -1).checkParams(res_, previous_, null, _context, _stack);
-            }
-            if (metaInfo.getStandardType() != null) {
-                ArgumentListCall l_ = new ArgumentListCall(args_);
-                arg_ = ExecInvokingOperation.instancePrepareStd(_context, mid_, l_, _stack);
-            }
-            if (_context.callsOrException(_stack)) {
-                setWrapException(_stack.calls());
-                return false;
-            }
-            setReturnedArgument(arg_);
+            return callPhase(_context, _stack, args_, previous_);
         }
+        return true;
+    }
+
+    private boolean callPhase(ContextEl _context, StackCall _stack, CustList<Argument> _args, Argument _previous) {
+        ExecFormattedRootBlock res_ = metaInfo.getFormatted();
+        ConstructorId mid_ = metaInfo.getRealId();
+        Argument arg_ = Argument.createVoid();
+        ExecTypeFunction pair_ = metaInfo.getPair();
+        ExecRootBlock execSuperClass_ = pair_.getType();
+        if (execSuperClass_ != null) {
+            arg_ = new ReflectInstanceParamChecker(pair_, _args, "", -1).checkParams(res_, _previous, null, _context, _stack);
+        }
+        if (metaInfo.getStandardType() != null) {
+            ArgumentListCall l_ = new ArgumentListCall(_args);
+            arg_ = ExecInvokingOperation.instancePrepareStd(_context, mid_, l_, _stack);
+        }
+        if (_context.callsOrException(_stack)) {
+            setWrapException(_stack.calls());
+            return false;
+        }
+        setReturnedArgument(arg_);
         return true;
     }
 

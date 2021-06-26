@@ -3,8 +3,9 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
@@ -17,14 +18,12 @@ import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.StringMap;
 
-public final class RendForIterativeLoop extends RendParentBlock implements RendLoop {
+public abstract class RendForIterativeLoop extends RendParentBlock implements RendLoop {
 
     private final String label;
 
@@ -33,35 +32,20 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
 
     private final String variableName;
 
-    private final int initOffset;
+    private final RendOperationNodeListOff init;
+    private final RendOperationNodeListOff exp;
+    private final RendOperationNodeListOff step;
 
-    private final int expressionOffset;
-
-    private final int stepOffset;
-
-    private final boolean eq;
-    private final CustList<RendDynOperationNode> opInit;
-
-    private final CustList<RendDynOperationNode> opExp;
-
-    private final CustList<RendDynOperationNode> opStep;
-
-    public RendForIterativeLoop(String _className, String _variable,
-                         int _from,
-                         int _to, boolean _eq, int _step, String _classIndex, String _label, int _offsetTrim,
-                         CustList<RendDynOperationNode> _opInit, CustList<RendDynOperationNode> _opExp, CustList<RendDynOperationNode> _opStep) {
-        super(_offsetTrim);
+    protected RendForIterativeLoop(String _className, String _variable,
+                                   String _classIndex, String _label,
+                                   RendOperationNodeListOff _init, RendOperationNodeListOff _exp, RendOperationNodeListOff _step) {
         importedClassName = _className;
         variableName = _variable;
-        initOffset = _from;
-        expressionOffset = _to;
-        stepOffset = _step;
-        eq = _eq;
         importedClassIndexName = _classIndex;
         label = _label;
-        opInit = _opInit;
-        opExp = _opExp;
-        opStep = _opStep;
+        init = _init;
+        exp = _exp;
+        step = _step;
     }
 
     public String getVariableName() {
@@ -95,9 +79,9 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();
 
-        ip_.setOffset(initOffset);
+        ip_.setOffset(init.getOffset());
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrFrom());
-        Argument argFrom_ = RenderExpUtil.calculateReuse(opInit, _advStandards, _ctx, _rendStackCall);
+        Argument argFrom_ = RenderExpUtil.calculateReuse(init.getList(), _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
@@ -105,9 +89,9 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, null_, _rendStackCall.getStackCall())));
             return;
         }
-        ip_.setOffset(expressionOffset);
+        ip_.setOffset(exp.getOffset());
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrTo());
-        Argument argTo_ = RenderExpUtil.calculateReuse(opExp, _advStandards, _ctx, _rendStackCall);
+        Argument argTo_ = RenderExpUtil.calculateReuse(exp.getList(), _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
@@ -115,9 +99,9 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, null_, _rendStackCall.getStackCall())));
             return;
         }
-        ip_.setOffset(stepOffset);
+        ip_.setOffset(step.getOffset());
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrStep());
-        Argument argStep_ = RenderExpUtil.calculateReuse(opStep, _advStandards, _ctx, _rendStackCall);
+        Argument argStep_ = RenderExpUtil.calculateReuse(step.getList(), _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
@@ -127,24 +111,16 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         long fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
         long toValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argTo_.getStruct())).longStruct();
-        long stepValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argStep_.getStruct())).longStruct();
-        if (stepValue_ > 0) {
-            if (fromValue_ > toValue_) {
-                stepValue_ = -stepValue_;
-            }
-        } else if (stepValue_ < 0) {
-            if (fromValue_ < toValue_) {
-                stepValue_ = -stepValue_;
-            }
-        }
-        boolean finished_ = stepValue_ == 0 || fromValue_ == toValue_ && !eq;
+        long stepValue_ = ExecHelperBlocks.stepValue(argStep_,fromValue_,toValue_);
+        boolean eq_ = this instanceof RendForIterativeLoopEq;
+        boolean finished_ = stepValue_ == 0 || fromValue_ == toValue_ && !eq_;
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setLoop(this);
         l_.setLabel(label);
         l_.setFinished(finished_);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
-        l_.setEq(eq);
+        l_.setEq(eq_);
         l_.setCurrentValue(fromValue_);
         l_.setAchieveValue(toValue_);
         l_.setStep(stepValue_);
@@ -172,12 +148,10 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        StringMap<LoopVariable> vars_ = ip_.getVars();
-        StringMap<AbstractWrapper> varsInfos_ = ip_.getRefParams();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
         if (l_.hasNextIter()) {
-            incrementLoop(l_, vars_,varsInfos_, _ctx, _rendStack);
+            incrementLoop(l_, _ctx, _rendStack);
             rw_.setRead(forLoopLoc_.getFirstChild());
             return;
         }
@@ -185,14 +159,14 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     }
 
     public void incrementLoop(RendLoopBlockStack _l,
-                              StringMap<LoopVariable> _vars, StringMap<AbstractWrapper> _varsInfos, ContextEl _ctx, RendStackCall _stackCall) {
+                              ContextEl _ctx, RendStackCall _stackCall) {
         _l.setIndex(_l.getIndex() + 1);
         _l.incr();
         String var_ = getVariableName();
-        LoopVariable lv_ = _vars.getVal(var_);
-        AbstractWrapper lInfo_ = _varsInfos.getVal(var_);
-        long o_ = NumParsers.convertToNumber(lInfo_.getValue(_stackCall.getStackCall(), _ctx)).longStruct()+_l.getStep();
-        lInfo_.setValue(_stackCall.getStackCall(), _ctx,new Argument(NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _ctx.getStandards().getPrimTypes()), new LongStruct(o_))));
-        lv_.setIndex(lv_.getIndex() + 1);
+        Argument struct_ = ExecTemplates.getWrapValue(_ctx,var_, -1, _stackCall.getLastPage().getPageEl().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall.getStackCall());
+        long o_ = NumParsers.convertToNumber(struct_.getStruct()).longStruct()+_l.getStep();
+        Struct element_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _ctx.getStandards().getPrimTypes()), new LongStruct(o_));
+        ExecTemplates.setWrapValue(_ctx,var_, new Argument(element_),-1, _stackCall.getLastPage().getPageEl().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall.getStackCall());
+        ExecTemplates.incrIndexLoop(_ctx,var_, -1, _stackCall.getLastPage().getPageEl().getCache(), _stackCall.getLastPage().getVars(), _stackCall.getStackCall());
     }
 }

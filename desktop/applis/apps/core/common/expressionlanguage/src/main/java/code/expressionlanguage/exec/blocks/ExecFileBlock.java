@@ -12,8 +12,7 @@ public final class ExecFileBlock extends ExecBracedBlock {
 
     private final String fileName;
 
-    public ExecFileBlock(int _offsetTrim, FileMetricsCore _metricsCore, String _fileName) {
-        super(_offsetTrim);
+    public ExecFileBlock(FileMetricsCore _metricsCore, String _fileName) {
         metricsCore = _metricsCore;
         fileName = _fileName;
     }

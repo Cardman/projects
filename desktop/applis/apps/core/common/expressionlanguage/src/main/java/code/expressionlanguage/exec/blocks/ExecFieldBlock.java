@@ -1,17 +1,12 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.fwd.blocks.AnaFieldContent;
 import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.blocks.ExecFieldContent;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.core.IndexConstants;
 
 public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
 
@@ -19,16 +14,11 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
 
     private String importedClassName;
 
-    private final ExecFieldContent fieldContent;
+    private final ExecExpFieldContainer elementContent;
 
-    private CustList<ExecOperationNode> opValue;
     private final CustList<ExecAnnotContent> annotationsOps = new CustList<ExecAnnotContent>();
-    private final CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
-    private final CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
-    private final CustList<ExecAbstractSwitchMethod> switchMethods = new CustList<ExecAbstractSwitchMethod>();
-    public ExecFieldBlock(int _offsetTrim, AnaFieldContent _fieldContent) {
-        super(_offsetTrim);
-        fieldContent = new ExecFieldContent(_fieldContent);
+    public ExecFieldBlock(AnaFieldContent _fieldContent) {
+        elementContent = new ExecExpFieldContainer(new ExecFieldContent(_fieldContent));
     }
 
     @Override
@@ -45,23 +35,20 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
         this.importedClassName = _importedClassName;
     }
 
-    @Override
     public boolean isStaticField() {
-        return fieldContent.isStaticField();
+        return elementContent.getFieldContent().isStaticField();
     }
 
-    @Override
     public boolean isFinalField() {
-        return fieldContent.isFinalField();
+        return elementContent.getFieldContent().isFinalField();
     }
 
-    @Override
     public StringList getFieldName() {
         return fieldName;
     }
 
     public AccessEnum getAccess() {
-        return fieldContent.getAccess();
+        return elementContent.getFieldContent().getAccess();
     }
 
     @Override
@@ -69,39 +56,13 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
         return annotationsOps;
     }
 
-    @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        return opValue;
-    }
-
-    public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
-        _last.setGlobalOffset(fieldContent.getValueOffset());
-        _last.setOffset(0);
-        ExpressionLanguage el_ = _last.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
-        if (_cont.callsOrException(_stack)) {
-            return;
-        }
-        _last.clearCurrentEls();
-        processMemberBlock(_last);
-    }
-
     public void setOpValue(CustList<ExecOperationNode> _opValue) {
-        this.opValue = _opValue;
+        elementContent.setOpValue(_opValue);
     }
 
     @Override
-    public CustList<ExecRootBlock> getAnonymous() {
-        return anonymous;
+    public ExecExpFieldContainer getElementContent() {
+        return elementContent;
     }
 
-    @Override
-    public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
-        return anonymousLambda;
-    }
-
-    @Override
-    public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
-        return switchMethods;
-    }
 }

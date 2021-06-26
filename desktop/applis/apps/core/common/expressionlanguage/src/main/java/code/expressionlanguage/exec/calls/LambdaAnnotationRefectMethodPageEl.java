@@ -11,23 +11,8 @@ public final class LambdaAnnotationRefectMethodPageEl extends AbstractRefectLamb
 
     private final String name;
     public LambdaAnnotationRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo);
+        super(_instance,_array, _metaInfo, new DefPreparer());
         name = _metaInfo.getRealId().getName();
-    }
-
-    @Override
-    boolean initType(ContextEl _cont, StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    boolean isAbstract(ContextEl _cont, StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    boolean isPolymorph(ContextEl _cont, StackCall _stack) {
-        return false;
     }
 
     @Override

@@ -17,52 +17,16 @@ public final class LocalThrowing {
     }
     public static void removeBlockFinally(ContextEl _conf, Struct _str, StackCall _stackCall) {
         Struct custCause_ = _str;
-        ExecAbstractCatchEval catchElt_ = null;
         while (_stackCall.hasPages()) {
             AbstractPageEl bkIp_ = _stackCall.getLastPage();
             bkIp_.clearCurrentEls();
             _stackCall.setCallingState(null);
-            while (bkIp_.hasBlock()) {
-                AbstractStask bl_ = bkIp_.getLastStack();
-                ExecBlock currentBlock_ = bl_.getCurrentVisitedBlock();
-                if (currentBlock_ instanceof ExecTryEval) {
-                    ExecBlock n_ = currentBlock_.getNextSibling();
-                    //process try block
-                    while (n_ instanceof ExecAbstractCatchEval) {
-                        if (n_ instanceof ExecCatchEval) {
-                            ExecCatchEval ca_ = (ExecCatchEval) n_;
-                            String name_ = ca_.getImportedClassName();
-                            if (custCause_ == NullStruct.NULL_VALUE) {
-                                n_ = n_.getNextSibling();
-                                continue;
-                            }
-                            name_ = _stackCall.formatVarType(name_);
-                            if (ExecInherits.safeObject(name_, Argument.getNull(custCause_).getClassName(_conf), _conf) == ErrorType.NOTHING) {
-                                catchElt_ = ca_;
-                                String var_ = ca_.getVariableName();
-                                LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,name_);
-                                bkIp_.putValueVar(var_, lv_);
-                                bl_.setCurrentVisitedBlock(ca_);
-                                break;
-                            }
-                        } else {
-                            ExecNullCatchEval ca_ = (ExecNullCatchEval) n_;
-                            if (custCause_ == NullStruct.NULL_VALUE) {
-                                catchElt_ = ca_;
-                                bl_.setCurrentVisitedBlock(ca_);
-                                break;
-                            }
-                        }
-                        n_ = n_.getNextSibling();
-                    }
-                    if (catchElt_ != null) {
-                        _conf.getCoverage().passCatches(catchElt_,_stackCall);
-                        ExecBlock childCatch_ = catchElt_.getFirstChild();
-                        bkIp_.setBlock(childCatch_);
-                        return;
-                    }
+            while (true) {
+                AbstractStask bl_ = bkIp_.tryGetLastStack();
+                if (bl_ == null) {
+                    break;
                 }
-                if (AbstractPageEl.setRemovedCallingFinallyToProcess(bkIp_,bl_,null,custCause_)) {
+                if (setRemovedCallingFinallyToProcess(_conf,_stackCall,custCause_, bkIp_, bl_)) {
                     return;
                 }
             }
@@ -70,6 +34,59 @@ public final class LocalThrowing {
             _stackCall.removeLastPage();
         }
         _stackCall.setCallingState(new CustomFoundExc(custCause_));
+    }
+
+    private static boolean setRemovedCallingFinallyToProcess(ContextEl _conf, StackCall _stackCall,Struct _custCause, AbstractPageEl _bkIp, AbstractStask _bl) {
+        ExecBlock currentBlock_ = _bl.getCurrentVisitedBlock();
+        if (currentBlock_ instanceof ExecTryEval) {
+            ExecAbstractCatchEval catchElt_ = retCatch(_conf, _stackCall, _custCause, _bkIp, _bl, currentBlock_);
+            if (catchElt_ != null) {
+                _conf.getCoverage().passCatches(catchElt_,_stackCall);
+                ExecBlock childCatch_ = catchElt_.getFirstChild();
+                _bkIp.setBlock(childCatch_);
+                return true;
+            }
+        }
+        return ExecHelperBlocks.setRemovedCallingFinallyToProcess(_bkIp, _bl, null, _custCause);
+    }
+
+    private static ExecAbstractCatchEval retCatch(ContextEl _conf, StackCall _stackCall, Struct _cause, AbstractPageEl _bkIp, AbstractStask _bl, ExecBlock _currentBlock) {
+        ExecAbstractCatchEval catchElt_ = null;
+        ExecBlock n_ = _currentBlock.getNextSibling();
+        //process try block
+        while (n_ instanceof ExecAbstractCatchEval && catchElt_ == null) {
+            if (n_ instanceof ExecCatchEval) {
+                ExecCatchEval ca_ = (ExecCatchEval) n_;
+                String name_ = ca_.getImportedClassName();
+                if (_cause == NullStruct.NULL_VALUE) {
+                    n_ = n_.getNextSibling();
+                    continue;
+                }
+                name_ = _stackCall.formatVarType(name_);
+                if (ExecInherits.safeObject(name_, Argument.getNull(_cause).getClassName(_conf), _conf) == ErrorType.NOTHING) {
+                    catchElt_ = ca_;
+                    String var_ = ca_.getVariableName();
+                    LocalVariable lv_ = LocalVariable.newLocalVariable(_cause,name_);
+                    _bkIp.putValueVar(var_, lv_);
+                    _bl.setCurrentVisitedBlock(ca_);
+                }
+            } else {
+                ExecNullCatchEval ca_ = (ExecNullCatchEval) n_;
+                if (_cause == NullStruct.NULL_VALUE) {
+                    catchElt_ = ca_;
+                    _bl.setCurrentVisitedBlock(ca_);
+                }
+            }
+            n_ = next(catchElt_, n_);
+        }
+        return catchElt_;
+    }
+
+    private static ExecBlock next(ExecAbstractCatchEval _catchElt, ExecBlock _n) {
+        if (_catchElt == null) {
+            return _n.getNextSibling();
+        }
+        return _n;
     }
 
 

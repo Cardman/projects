@@ -21,8 +21,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
 
     private final int pageOffset;
 
-    public RendImport(int _offsetTrim, Element _elt, ExecTextPart _textPart, int _pageOffset) {
-        super(_offsetTrim);
+    public RendImport(Element _elt, ExecTextPart _textPart, int _pageOffset) {
         this.elt = _elt;
         this.textPart = _textPart;
         this.pageOffset = _pageOffset;

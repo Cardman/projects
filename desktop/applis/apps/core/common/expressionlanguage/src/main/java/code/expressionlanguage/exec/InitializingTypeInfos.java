@@ -96,7 +96,7 @@ public final class InitializingTypeInfos {
         getSensibleFields().clear();
         _stackCall.clearPages();
     }
-    private String getCurInitType(StackCall _stackCall) {
+    private static String getCurInitType(StackCall _stackCall) {
         return _stackCall.getCall(0).getGlobalClass().getFormatted();
     }
     public InitPhase getInitEnums() {

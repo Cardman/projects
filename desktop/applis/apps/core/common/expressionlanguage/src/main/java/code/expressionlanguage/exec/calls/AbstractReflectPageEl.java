@@ -17,11 +17,9 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
     }
 
     void setWrapException(boolean _wrapException) {
-        if (_wrapException) {
-            if (lambda) {
-                wrapException = false;
-                return;
-            }
+        if (_wrapException && lambda) {
+            wrapException = false;
+            return;
         }
         wrapException = _wrapException;
     }

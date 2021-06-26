@@ -12,11 +12,11 @@ import javax.swing.*;
 
 public class LabelButton extends CustComponent {
 
-    private static final int MAX_COLOR = 255;
-    private static final int MID_COLOR = 127;
+//    private static final int MAX_COLOR = 255;
+//    private static final int MID_COLOR = 127;
 
-    private static final Color DEFAULT_FOREGROUND = new Color(0, 0, MID_COLOR);
-    private static final Color DISABLED = new Color(MID_COLOR, MID_COLOR, MAX_COLOR);
+//    private static final Color DEFAULT_FOREGROUND = new Color(0, 0, MID_COLOR);
+//    private static final Color DISABLED = new Color(MID_COLOR, MID_COLOR, MAX_COLOR);
 
     private boolean enabledLabel = true;
 

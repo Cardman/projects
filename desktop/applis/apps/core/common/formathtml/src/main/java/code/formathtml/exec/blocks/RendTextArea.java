@@ -34,12 +34,11 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
     private String className = EMPTY_STRING;
     private final Element elt;
 
-    public RendTextArea(int _offsetTrim, CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
+    public RendTextArea(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                         CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
                         StringMap<ExecTextPart> _execAttributesText, StringMap<ExecTextPart> _execAttributes,
                         String _varNameConverter, String _varNameConverterField,
                         String _varName, String _id, String _idClass, String _idName, String _className, Element _elt, InputInfo _list) {
-        super(_offsetTrim);
         this.opsRead = _opsRead;
         this.opsValue = _opsValue;
         this.opsWrite = _opsWrite;

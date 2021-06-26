@@ -10,7 +10,7 @@ public abstract class AbstractReflectElement implements CallingState {
 
     private final boolean lambda;
 
-    public AbstractReflectElement(boolean _lambda) {
+    protected AbstractReflectElement(boolean _lambda) {
         lambda = _lambda;
     }
 

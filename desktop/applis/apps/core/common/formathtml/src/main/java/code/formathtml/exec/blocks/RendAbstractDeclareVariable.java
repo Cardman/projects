@@ -7,8 +7,7 @@ public abstract class RendAbstractDeclareVariable extends RendLeaf implements Re
 
     private StringList variableNames;
 
-    protected RendAbstractDeclareVariable(int _offsetTrim, StringList _variableNames) {
-        super(_offsetTrim);
+    protected RendAbstractDeclareVariable(StringList _variableNames) {
         variableNames = _variableNames;
     }
     public abstract void removeLocalVars(ImportingPage _ip);

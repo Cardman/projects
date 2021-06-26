@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.structs.FieldMetaInfo;
-import code.util.CustList;
 
 public final class CustomReflectSetField extends CustomAbstractReflectField {
 

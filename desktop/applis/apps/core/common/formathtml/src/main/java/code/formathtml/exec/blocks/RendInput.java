@@ -28,11 +28,11 @@ public abstract class RendInput extends RendElement {
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
 
-    public RendInput(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+    public RendInput(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
                      CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                      CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField, String _varName, String _varNameConverter,
                      String _varNameConverterField, String _id, String _idClass, String _idName, String _className, InputInfo _list) {
-        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+        super(_read, _execAttributes, _execAttributesText);
         this.opsRead = _opsRead;
         this.opsValue = _opsValue;
         this.opsWrite = _opsWrite;

@@ -10,23 +10,7 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 public final class LambdaPolymorphRefectMethodPageEl extends AbstractRefectLambdaMethodPageEl {
 
     public LambdaPolymorphRefectMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo);
-    }
-
-    @Override
-    boolean initType(ContextEl _cont, StackCall _stack) {
-        return initDefault(_cont, _stack);
-    }
-
-    @Override
-    boolean isAbstract(ContextEl _cont, StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    boolean isPolymorph(ContextEl _cont, StackCall _stack) {
-        MethodMetaInfo method_ = getMetaInfo();
-        return method_.isInstanceMethod();
+        super(_instance,_array, _metaInfo, new PolyInitPreparer(_metaInfo));
     }
 
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {

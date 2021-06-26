@@ -151,11 +151,11 @@ public final class ExecutingUtil {
         }
         return createForwardingInstancing(_context,_e);
     }
-    public static CallConstructorPageEl createNewInstancing(ContextEl _context, CustomFoundConstructor _e) {
+    public static AbstractPageEl createNewInstancing(ContextEl _context, CustomFoundConstructor _e) {
         ExecFormattedRootBlock cl_ = _e.getClassName();
         Parameters args_ = _e.getArguments();
         Argument global_ = _e.getCurrentObject();
-        CallConstructorPageEl page_ = new CallConstructorPageEl(cl_);
+        AbstractCallingInstancingPageEl page_ = buildCtor(_e);
         Struct str_ = NullStruct.NULL_VALUE;
         if (global_ != null) {
             str_ = global_.getStruct();
@@ -167,6 +167,23 @@ public final class ExecutingUtil {
         page_.setReturnedArgument(argGl_);
         setInstanciationInfos(_context,page_, args_, _e.getPair());
         return page_;
+    }
+
+    private static AbstractCallingInstancingPageEl buildCtor(CustomFoundConstructor _e) {
+        boolean implicitConstr_ = false;
+        ExecBlock blockRoot_ = _e.getPair().getFct();
+        //No constructor found in the current class => call the super one
+        //Constructor found in the current class but no explicit call to super in the code => call the super one
+        //Constructor found in the current class but no explicit call to super in the code => call the super one
+        if (!(blockRoot_ instanceof ExecConstructorBlock) || ((ExecConstructorBlock) blockRoot_).implicitConstr()) {
+            //No constructor found in the current class => call the super one
+            implicitConstr_ = true;
+        }
+        ExecFormattedRootBlock className_ = _e.getClassName();
+        if (!implicitConstr_) {
+            return new DirectCallConstructorPageEl(className_);
+        }
+        return new CallConstructorPageEl(className_);
     }
 
     public static NewAnnotationPageEl createAnnotation(ContextEl _context, ExecFormattedRootBlock _class, ExecRootBlock _type,
@@ -185,7 +202,7 @@ public final class ExecutingUtil {
         return page_;
     }
     private static AbstractPageEl createForwardingInstancing(ContextEl _context, CustomFoundConstructor _e) {
-        CallConstructorPageEl page_ = new CallConstructorPageEl(_e.getClassName());
+        AbstractCallingInstancingPageEl page_ = buildCtor(_e);
         Parameters args_ = _e.getArguments();
         Argument global_ = _e.getCurrentObject();
         page_.setGlobalArgument(global_);
@@ -290,53 +307,9 @@ public final class ExecutingUtil {
             CustomReflectLambdaRdCod c_ = (CustomReflectLambdaRdCod) _ref;
             pageLoc_ = new LambdaRdCodRefectMethodPageEl(c_.getArgument());
         } else if (_ref instanceof CustomReflectLambdaMethod) {
-            CustomReflectLambdaMethod c_ = (CustomReflectLambdaMethod) _ref;
-            MethodMetaInfo metaInfo_ = c_.getGl();
-            AbstractRefectLambdaMethodPageEl refMet_;
-            Argument instance_ = c_.getInstance();
-            ArgumentListCall array_ = c_.getArray();
-            if (reflect_ == ReflectingType.METHOD) {
-                refMet_ = new LambdaPolymorphRefectMethodPageEl(instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.DIRECT) {
-                refMet_ = new LambdaDirectRefectMethodPageEl(instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.STATIC_CALL) {
-                refMet_ = new LambdaStaticCallMethodPageEl(instance_,array_, metaInfo_);
-            } else if (cast(reflect_)) {
-                refMet_ = lambdaCast(reflect_, metaInfo_, instance_, array_);
-            } else if (reflect_ == ReflectingType.STD_FCT) {
-                refMet_ = new LambdaDirectStdRefectMethodPageEl(instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.CLONE_FCT) {
-                refMet_ = new LambdaDirectCloneRefectMethodPageEl(instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.ENUM_METHODS) {
-                refMet_ = new LambdaDirectEnumMethods(instance_,array_, metaInfo_);
-            } else {
-                refMet_ = new LambdaAnnotationRefectMethodPageEl(instance_,array_, metaInfo_);
-            }
-            pageLoc_ = refMet_;
+            pageLoc_ = lambdaMeth((CustomReflectLambdaMethod) _ref);
         } else if (_ref instanceof CustomReflectMethod) {
-            CustomReflectMethod c_ = (CustomReflectMethod) _ref;
-            MethodMetaInfo metaInfo_ = c_.getGl();
-            AbstractRefectMethodPageEl refMet_;
-            Argument instance_ = c_.getInstance();
-            Argument array_ = c_.getArray();
-            if (reflect_ == ReflectingType.METHOD) {
-                refMet_ = new PolymorphRefectMethodPageEl(instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.DIRECT) {
-                refMet_ = new DirectRefectMethodPageEl(instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.STATIC_CALL) {
-                refMet_ = new StaticCallMethodPageEl(instance_,array_, metaInfo_);
-            } else if (cast(reflect_)) {
-                refMet_ = reflectCast(reflect_, metaInfo_, instance_, array_);
-            } else if (reflect_ == ReflectingType.STD_FCT) {
-                refMet_ = new DirectStdRefectMethodPageEl(instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.CLONE_FCT) {
-                refMet_ = new DirectCloneRefectMethodPageEl(instance_,array_, metaInfo_);
-            } else if (reflect_ == ReflectingType.ENUM_METHODS) {
-                refMet_ = new DirectEnumMethods(instance_,array_, metaInfo_);
-            } else {
-                refMet_ = new DirectAnnotationRefectMethodPageEl(instance_,array_, metaInfo_);
-            }
-            pageLoc_ = refMet_;
+            pageLoc_ = reflectMethod((CustomReflectMethod) _ref);
         } else {
             CustomReflectAnnotations c_ = (CustomReflectAnnotations) _ref;
             CustList<Argument> args_ = c_.getArguments();
@@ -346,6 +319,62 @@ public final class ExecutingUtil {
         pageLoc_.setLambda(_ref.isLambda());
         ReadWrite rwLoc_ = new ReadWrite();
         pageLoc_.setReadWrite(rwLoc_);
+        return pageLoc_;
+    }
+
+    private static AbstractReflectPageEl reflectMethod(CustomReflectMethod _ref) {
+        ReflectingType reflect_ = _ref.getReflect();
+        AbstractReflectPageEl pageLoc_;
+        MethodMetaInfo metaInfo_ = _ref.getGl();
+        AbstractRefectMethodPageEl refMet_;
+        Argument instance_ = _ref.getInstance();
+        Argument array_ = _ref.getArray();
+        if (reflect_ == ReflectingType.METHOD) {
+            refMet_ = new PolymorphRefectMethodPageEl(instance_,array_, metaInfo_);
+        } else if (reflect_ == ReflectingType.DIRECT) {
+            refMet_ = new DirectRefectMethodPageEl(instance_,array_, metaInfo_);
+        } else if (reflect_ == ReflectingType.STATIC_CALL) {
+            refMet_ = new StaticCallMethodPageEl(instance_,array_, metaInfo_);
+        } else if (cast(reflect_)) {
+            refMet_ = reflectCast(reflect_, metaInfo_, instance_, array_);
+        } else if (reflect_ == ReflectingType.STD_FCT) {
+            refMet_ = new DirectStdRefectMethodPageEl(instance_,array_, metaInfo_);
+        } else if (reflect_ == ReflectingType.CLONE_FCT) {
+            refMet_ = new DirectCloneRefectMethodPageEl(instance_,array_, metaInfo_);
+        } else if (reflect_ == ReflectingType.ENUM_METHODS) {
+            refMet_ = new DirectEnumMethods(instance_,array_, metaInfo_);
+        } else {
+            refMet_ = new DirectAnnotationRefectMethodPageEl(instance_,array_, metaInfo_);
+        }
+        pageLoc_ = refMet_;
+        return pageLoc_;
+    }
+
+    private static AbstractReflectPageEl lambdaMeth(CustomReflectLambdaMethod _ref) {
+        ReflectingType reflect_ = _ref.getReflect();
+        AbstractReflectPageEl pageLoc_;
+        MethodMetaInfo metaInfo_ = _ref.getGl();
+        AbstractRefectLambdaMethodPageEl refMet_;
+        Argument instance_ = _ref.getInstance();
+        ArgumentListCall array_ = _ref.getArray();
+        if (reflect_ == ReflectingType.METHOD) {
+            refMet_ = new LambdaPolymorphRefectMethodPageEl(instance_,array_, metaInfo_);
+        } else if (reflect_ == ReflectingType.DIRECT) {
+            refMet_ = new LambdaDirectRefectMethodPageEl(instance_,array_, metaInfo_);
+        } else if (reflect_ == ReflectingType.STATIC_CALL) {
+            refMet_ = new LambdaStaticCallMethodPageEl(instance_,array_, metaInfo_);
+        } else if (cast(reflect_)) {
+            refMet_ = lambdaCast(reflect_, metaInfo_, instance_, array_);
+        } else if (reflect_ == ReflectingType.STD_FCT) {
+            refMet_ = new LambdaDirectStdRefectMethodPageEl(instance_,array_, metaInfo_);
+        } else if (reflect_ == ReflectingType.CLONE_FCT) {
+            refMet_ = new LambdaDirectCloneRefectMethodPageEl(instance_,array_, metaInfo_);
+        } else if (reflect_ == ReflectingType.ENUM_METHODS) {
+            refMet_ = new LambdaDirectEnumMethods(instance_,array_, metaInfo_);
+        } else {
+            refMet_ = new LambdaAnnotationRefectMethodPageEl(instance_,array_, metaInfo_);
+        }
+        pageLoc_ = refMet_;
         return pageLoc_;
     }
 

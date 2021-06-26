@@ -28,11 +28,15 @@ public final class ExecAnalyzingType {
         } else {
             error = true;
         }
-        String str_ = _string.substring(first_);
+        feedArr(_string, _operator, first_, arr_);
+    }
+
+    private void feedArr(String _string, String _operator, int _first, int _arr) {
+        String str_ = _string.substring(_first);
         values = new StrTypes();
-        values.addEntry(first_, str_);
+        values.addEntry(_first, str_);
         operators = new StrTypes();
-        operators.addEntry(arr_, _operator);
+        operators.addEntry(_arr, _operator);
     }
 
     public void setupValuesExec(String _string) {
@@ -42,53 +46,58 @@ public final class ExecAnalyzingType {
             error = true;
             return;
         }
-        int beginValuePart_ = IndexConstants.FIRST_INDEX;
-        int endValuePart_ = operators.firstKey();
-        String str_ = _string.substring(beginValuePart_, endValuePart_);
-        values.addEntry(beginValuePart_, str_);
+        int beginValuePartEx_ = IndexConstants.FIRST_INDEX;
+        int endValuePartEx_ = operators.firstKey();
+        String str_ = _string.substring(beginValuePartEx_, endValuePartEx_);
+        values.addEntry(beginValuePartEx_, str_);
         int i_ = IndexConstants.SECOND_INDEX;
         int nbKeys_ = operators.size();
         while (i_ < nbKeys_) {
-            beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-            endValuePart_ = operators.getKey(i_);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(beginValuePart_, str_);
+            beginValuePartEx_ = endValuePartEx_ + operators.getValue(i_-1).length();
+            endValuePartEx_ = operators.getKey(i_);
+            str_ = _string.substring(beginValuePartEx_, endValuePartEx_);
+            values.addEntry(beginValuePartEx_, str_);
             i_++;
         }
-        beginValuePart_ = endValuePart_ + operators.lastValue().length();
-        str_ = _string.substring(beginValuePart_);
+        after(_string, endValuePartEx_);
+    }
+
+    private void after(String _string, int _endValuePartEx) {
+        int beginValuePartEx_ = _endValuePartEx + operators.lastValue().length();
+        String str_ = _string.substring(beginValuePartEx_);
         if (!str_.trim().isEmpty() && prio == ExecPartTypeUtil.TMP_PRIO) {
             values = new StrTypes();
             values.addEntry(IndexConstants.FIRST_INDEX, _string);
             error = true;
             return;
         }
-        values.addEntry(beginValuePart_, str_);
+        values.addEntry(beginValuePartEx_, str_);
     }
-    public KindPartType getKind() {
+
+    KindPartType getKindEx() {
         return kind;
     }
-    public void setKind(KindPartType _kind) {
+    void setKindEx(KindPartType _kind) {
         kind = _kind;
     }
 
-    public StrTypes getOperators() {
+    StrTypes getOperatorsEx() {
         return operators;
     }
-    public StrTypes getValues() {
+    StrTypes getValuesEx() {
         return values;
     }
-    public boolean isError() {
+    boolean isErrorEx() {
         return error;
     }
 
-    public void setError(boolean _error) {
-        error = _error;
+    void setErrorEx() {
+        error = true;
     }
-    public int getPrio() {
+    int getPrioEx() {
         return prio;
     }
-    public void setPrio(int _prio) {
+    void setPrioEx(int _prio) {
         prio = _prio;
     }
 

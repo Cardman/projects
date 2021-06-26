@@ -17,10 +17,8 @@ import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -38,23 +36,18 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
 
 
     private final String variableNameSecond;
-
-    private final int expressionOffset;
-
-    private final CustList<RendDynOperationNode> opList;
+    private final RendOperationNodeListOff exp;
 
     public RendForEachTable(String _className, String _variable,
-                     String _classNameSec, String _variableSec,
-                     int _expressionOffset, String _classIndex, String _label, int _offsetTrim,CustList<RendDynOperationNode> _opList) {
-        super(_offsetTrim);
+                            String _classNameSec, String _variableSec,
+                            String _classIndex, String _label, RendOperationNodeListOff _exp) {
         importedClassNameFirst = _className;
         variableNameFirst = _variable;
         importedClassNameSecond = _classNameSec;
         variableNameSecond = _variableSec;
-        expressionOffset = _expressionOffset;
         importedClassIndexName = _classIndex;
         label = _label;
-        opList = _opList;
+        exp = _exp;
     }
 
     @Override
@@ -105,9 +98,9 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
 
     Struct processLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
-        ip_.setOffset(expressionOffset);
+        ip_.setOffset(exp.getOffset());
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrMap());
-        Argument arg_ = RenderExpUtil.calculateReuse(opList, _advStandards, _ctx, _rendStackCall);
+        Argument arg_ = RenderExpUtil.calculateReuse(exp.getList(), _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return NullStruct.NULL_VALUE;
         }
@@ -180,7 +173,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         lv_.setIndex(lv_.getIndex() + 1);
         call_.getRendReadWrite().setRead(getFirstChild());
     }
-    private ConditionReturn iteratorHasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _rendLastStack, RendStackCall _rendStackCall) {
+    private static ConditionReturn iteratorHasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _rendLastStack, RendStackCall _rendStackCall) {
         Struct strIter_ = _rendLastStack.getStructIterator();
         Argument arg_ = hasNextPair(strIter_,_conf, _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {

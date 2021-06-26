@@ -22,26 +22,11 @@ abstract class ExecPartType {
     }
 
     static ExecPartType createPartTypeExec(ExecParentPartType _parent, int _index, ExecAnalyzingType _analyze, String _value) {
-        String previousOperator_ = EMPTY_STRING;
-        if (_parent instanceof ExecInnerPartType) {
-            CustList<String> ops_ = ((ExecInnerPartType) _parent).getOperators();
-            if (ops_.isValidIndex(_index - 1)) {
-                previousOperator_ = ops_.get(_index - 1);
-            }
-        }
-        if (_parent instanceof ExecTemplatePartType) {
-            if (_index > 0) {
-                if (_index == 1) {
-                    previousOperator_ = "<";
-                } else {
-                    previousOperator_ = ",";
-                }
-            }
-        }
-        if (_analyze.isError()) {
+        String previousOperator_ = previousOperator(_parent, _index);
+        if (_analyze.isErrorEx()) {
             return new ExecEmptyPartType(_parent, _index, _value,"", previousOperator_);
         }
-        StrTypes operators_ = _analyze.getOperators();
+        StrTypes operators_ = _analyze.getOperatorsEx();
         if (operators_.isEmpty()) {
             String str_ = "..";
             if (_parent instanceof ExecInnerPartType) {
@@ -50,24 +35,42 @@ abstract class ExecPartType {
                     str_ = ops_.get(_index - 1);
                 }
             }
-            if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
+            if (_analyze.getKindEx() == KindPartType.EMPTY_WILD_CARD) {
                 return new ExecEmptyWildCardPart(_parent, _index, _value,str_, previousOperator_);
             }
             return new ExecNamePartType(_parent, _index, _value,str_, previousOperator_);
         }
-        if (_analyze.getPrio() == ExecPartTypeUtil.TMP_PRIO) {
+        if (_analyze.getPrioEx() == ExecPartTypeUtil.TMP_PRIO) {
             return new ExecTemplatePartType(_parent, _index, previousOperator_);
         }
-        if (_analyze.getPrio() == ExecPartTypeUtil.INT_PRIO) {
+        if (_analyze.getPrioEx() == ExecPartTypeUtil.INT_PRIO) {
             return new ExecInnerPartType(_parent, _index, operators_.values(), previousOperator_);
         }
-        if (_analyze.getPrio() == ExecPartTypeUtil.ARR_PRIO) {
+        if (_analyze.getPrioEx() == ExecPartTypeUtil.ARR_PRIO) {
             return new ExecArraryPartType(_parent, _index, previousOperator_);
         }
         if (StringUtil.quickEq(operators_.firstValue(),"~")) {
             return new ExecRefPartType(_parent, _index, operators_.firstValue(), previousOperator_);
         }
         return new ExecWildCardPartType(_parent, _index, operators_.firstValue(), previousOperator_);
+    }
+
+    private static String previousOperator(ExecParentPartType _parent, int _index) {
+        String previousOperator_ = EMPTY_STRING;
+        if (_parent instanceof ExecInnerPartType) {
+            CustList<String> ops_ = ((ExecInnerPartType) _parent).getOperators();
+            if (ops_.isValidIndex(_index - 1)) {
+                previousOperator_ = ops_.get(_index - 1);
+            }
+        }
+        if (_parent instanceof ExecTemplatePartType && _index > 0) {
+            if (_index == 1) {
+                previousOperator_ = "<";
+            } else {
+                previousOperator_ = ",";
+            }
+        }
+        return previousOperator_;
     }
 
     protected static String trOp(String _op) {
@@ -113,11 +116,14 @@ abstract class ExecPartType {
         analyzedType = _analyzedType;
     }
 
+    String getPreviousOperator(boolean _single) {
+        if (_single) {
+            return previousOperatorSingle;
+        }
+        return previousOperator;
+    }
     String getPreviousOperator() {
         return previousOperator;
     }
 
-    String getPreviousOperatorSingle() {
-        return previousOperatorSingle;
-    }
 }

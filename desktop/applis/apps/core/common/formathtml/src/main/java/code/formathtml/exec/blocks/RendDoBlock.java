@@ -12,8 +12,7 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
 
     private final String label;
 
-    public RendDoBlock(int _offsetTrim, String _label) {
-        super(_offsetTrim);
+    public RendDoBlock(String _label) {
         label = _label;
     }
 

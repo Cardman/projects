@@ -4,8 +4,8 @@ public final class ExecEnumCaseCondition extends ExecAbstractCaseCondition {
 
     private final String value;
 
-    public ExecEnumCaseCondition(String _value, int _valueOffset, int _offsetTrim) {
-        super(_valueOffset, _offsetTrim);
+    public ExecEnumCaseCondition(String _value, int _valueOffset) {
+        super(_valueOffset);
         value = _value;
     }
 

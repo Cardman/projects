@@ -29,59 +29,53 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
         basicReceive(_wrap, _argument,_context, _stack);
     }
-    public boolean isFirstField() {
-        return firstField;
-    }
 
-    public void setFirstField(boolean _firstField) {
-        firstField = _firstField;
-    }
-
-    public final boolean checkCondition(ContextEl _context, StackCall _stack) {
-        boolean implicitConstr_ = false;
-        ExecBlock blockRoot_ = getBlockRoot();
-        if (!(blockRoot_ instanceof ExecConstructorBlock)) {
-            //No constructor found in the current class => call the super one
-            implicitConstr_ = true;
-        } else if (((ExecConstructorBlock)blockRoot_).implicitConstr()) {
-            //Constructor found in the current class but no explicit call to super in the code => call the super one
-            implicitConstr_ = true;
-        }
-        if (implicitConstr_) {
-            ExecRootBlock blockRootType_ = getBlockRootType();
-            if (blockRootType_ instanceof ExecUniqueRootedBlock) {
-                //class or enum (included inner enum)
-                ExecFormattedRootBlock formattedSuperClass_ = blockRootType_.getFormattedSuperClass();
-                if (!calledImplicitConstructor && formattedSuperClass_ != null) {
-                    calledImplicitConstructor = true;
-                    Argument global_ = getGlobalArgument();
-                    _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(formattedSuperClass_), emptyCtorPair, EMPTY_STRING, -1, global_, new Parameters(), InstancingStep.USING_SUPER_IMPL));
-                    return false;
-                }
-                //the super constructor is called here
-            }
-            boolean initFields_ = false;
-            ExecBlock bl_ = null;
-            if (blockRoot_ instanceof ExecBracedBlock) {
-                bl_ = ((ExecBracedBlock)blockRoot_).getFirstChild();
-            }
-            if (!(bl_ instanceof ExecLine)) {
-                initFields_ = true;
-            } else {
-                ExecLine l_ = (ExecLine) bl_;
-                if (!l_.isCallInts()) {
-                    initFields_ = true;
-                }
-            }
-            //initialize fields if there is no interface constructors to call
-            if (!firstField && initFields_) {
-                firstField = true;
-                _stack.setCallingState(new NotInitializedFields(this));
+    public final boolean checkCondition(StackCall _stack) {
+        ExecRootBlock blockRootType_ = getBlockRootType();
+        if (blockRootType_ instanceof ExecUniqueRootedBlock) {
+            //class or enum (included inner enum)
+            ExecFormattedRootBlock formattedSuperClass_ = blockRootType_.getFormattedSuperClass();
+            if (!calledImplicitConstructor && formattedSuperClass_ != null) {
+                calledImplicitConstructor = true;
+                Argument global_ = getGlobalArgument();
+                _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(formattedSuperClass_), emptyCtorPair, EMPTY_STRING, -1, global_, new Parameters(), InstancingStep.USING_SUPER_IMPL));
                 return false;
             }
-            //fields of the current class are initialized if there is no interface constructors to call
+            //the super constructor is called here
         }
-        return true;
+        ExecBlock blockRoot_ = getBlockRoot();
+        ExecBlock bl_ = null;
+        if (blockRoot_ instanceof ExecBracedBlock) {
+            bl_ = ((ExecBracedBlock)blockRoot_).getFirstChild();
+        }
+//        boolean initFields_ = initFields(bl_);
+//        //initialize fields if there is no interface constructors to call
+//        if (!firstField && initFields_) {
+//            firstField = true;
+//            _stack.setCallingState(new NotInitializedFields(this));
+//            return false;
+//        }
+//        //fields of the current class are initialized if there is no interface constructors to call
+        return !hasToInitFields(bl_,_stack);
+    }
+
+    public boolean hasToInitFields(ExecBlock _bl, StackCall _stack) {
+        boolean initFields_ = initFields(_bl);
+        //initialize fields if there is no interface constructors to call
+        if (!firstField && initFields_) {
+            firstField = true;
+            _stack.setCallingState(new NotInitializedFields(this));
+            return true;
+        }
+        //fields of the current class are initialized if there is no interface constructors to call
+        return false;
+    }
+    private static boolean initFields(ExecBlock _bl) {
+        if (!(_bl instanceof ExecLine)) {
+            return true;
+        }
+        ExecLine l_ = (ExecLine) _bl;
+        return !l_.isCallInts();
     }
 
     public void blockRootTypes(ExecTypeFunction _pair) {

@@ -10,22 +10,7 @@ import code.util.CustList;
 
 public final class DirectEnumMethods extends AbstractRefectMethodPageEl {
     public DirectEnumMethods(Argument _instance, Argument _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo);
-    }
-
-    @Override
-    boolean initType(ContextEl _context, StackCall _stack) {
-        return initDefault(_context, _stack);
-    }
-
-    @Override
-    boolean isAbstract(ContextEl _context, StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    boolean isPolymorph(ContextEl _context, StackCall _stack) {
-        return false;
+        super(_instance,_array, _metaInfo, new DefInitPreparerDir(_metaInfo));
     }
 
     @Override

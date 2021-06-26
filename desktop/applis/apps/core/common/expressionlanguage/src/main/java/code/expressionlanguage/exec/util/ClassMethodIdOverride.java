@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.util;
 
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.StringMap;
 

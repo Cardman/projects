@@ -11,22 +11,18 @@ import code.util.CustList;
 
 public final class RendLine extends RendLeaf implements RendWithEl {
 
-    private final int expressionOffset;
+    private final RendOperationNodeListOff exp;
 
-    private final CustList<RendDynOperationNode> opExp;
-
-    public RendLine(int _offsetTrim, CustList<RendDynOperationNode> _res, int _offset) {
-        super(_offsetTrim);
-        expressionOffset = _offset;
-        opExp = _res;
+    public RendLine(CustList<RendDynOperationNode> _res, int _offset) {
+        exp = new RendOperationNodeListOff(_res,_offset);
     }
 
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        ip_.setOffset(expressionOffset);
+        ip_.setOffset(exp.getOffset());
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
-        RenderExpUtil.calculateReuse(opExp, _stds, _ctx, _rendStack);
+        RenderExpUtil.calculateReuse(exp.getList(), _stds, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }

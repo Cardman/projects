@@ -10,8 +10,7 @@ import code.formathtml.util.BeanLgNames;
 public final class RendBreakBlock extends RendLeaf implements RendWithEl,RendMethodCallingFinally {
 
     private final String label;
-    public RendBreakBlock(int _offsetTrim, String _info) {
-        super(_offsetTrim);
+    public RendBreakBlock(String _info) {
         label = _info;
     }
 

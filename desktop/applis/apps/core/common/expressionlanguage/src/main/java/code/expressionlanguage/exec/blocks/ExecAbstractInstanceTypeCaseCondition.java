@@ -4,8 +4,8 @@ public final class ExecAbstractInstanceTypeCaseCondition extends ExecAbstractIns
     private final String importedClassName;
     private final boolean specific;
 
-    public ExecAbstractInstanceTypeCaseCondition(String _variableName, String _importedClassName, int _valueOffset, int _offsetTrim, boolean _spec) {
-        super(_variableName,_valueOffset, _offsetTrim);
+    public ExecAbstractInstanceTypeCaseCondition(String _variableName, String _importedClassName, int _valueOffset, boolean _spec) {
+        super(_variableName,_valueOffset);
         importedClassName = _importedClassName;
         specific = _spec;
     }

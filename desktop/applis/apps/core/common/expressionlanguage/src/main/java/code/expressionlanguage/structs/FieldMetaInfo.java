@@ -47,7 +47,7 @@ public final class FieldMetaInfo extends AbAnMeStruct {
         annotableBlock = _field.getInfoBlock();
         formatted = _formatted;
     }
-    public FieldMetaInfo(ExecInfoBlock _info,
+    public FieldMetaInfo(ExecFieldBlock _info,
                          String _name, ExecFormattedRootBlock _formatted) {
         super(new SingleRetType(_info.getImportedClassName()), _info.getAccess(),_formatted.getRootBlock().getFile().getFileName());
         ExecRootBlock type_ = _formatted.getRootBlock();
@@ -55,6 +55,18 @@ public final class FieldMetaInfo extends AbAnMeStruct {
         name = StringUtil.nullToEmpty(_name);
         staticField = _info.isStaticField();
         finalField = _info.isFinalField();
+        declaring = type_;
+        annotableBlock = _info;
+        formatted = _formatted;
+    }
+    public FieldMetaInfo(ExecInnerTypeOrElement _info,
+                         String _name, ExecFormattedRootBlock _formatted) {
+        super(new SingleRetType(_info.getImportedClassName()), AccessEnum.PUBLIC,_formatted.getRootBlock().getFile().getFileName());
+        ExecRootBlock type_ = _formatted.getRootBlock();
+        invokable = true;
+        name = StringUtil.nullToEmpty(_name);
+        staticField = true;
+        finalField = true;
         declaring = type_;
         annotableBlock = _info;
         formatted = _formatted;
@@ -105,7 +117,7 @@ public final class FieldMetaInfo extends AbAnMeStruct {
     @Override
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
         if (annotableBlock != null) {
-            return (annotableBlock.getAnonymousLambda());
+            return (annotableBlock.getElementContent().getContainer().getAnonymousLambda());
         }
         return new CustList<ExecAnonymousFunctionBlock>();
     }
@@ -113,7 +125,7 @@ public final class FieldMetaInfo extends AbAnMeStruct {
     @Override
     public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
         if (annotableBlock != null) {
-            return annotableBlock.getSwitchMethods();
+            return annotableBlock.getElementContent().getContainer().getSwitchMethods();
         }
         return new CustList<ExecAbstractSwitchMethod>();
     }

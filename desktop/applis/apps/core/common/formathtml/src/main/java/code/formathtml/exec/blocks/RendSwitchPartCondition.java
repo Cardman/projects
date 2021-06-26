@@ -5,8 +5,7 @@ public abstract class RendSwitchPartCondition extends RendParentBlock {
     private String importedClassName;
     private String variableName;
 
-    public RendSwitchPartCondition(int _offsetTrim, String _importedClassName, String _variableName) {
-        super(_offsetTrim);
+    public RendSwitchPartCondition(String _importedClassName, String _variableName) {
         this.importedClassName = _importedClassName;
         this.variableName = _variableName;
     }

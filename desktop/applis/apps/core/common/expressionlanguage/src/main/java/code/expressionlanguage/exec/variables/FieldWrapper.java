@@ -9,7 +9,7 @@ public abstract class FieldWrapper implements AbstractWrapper {
     private final String fieldType;
     private final ExecRootBlock rootBlock;
     private final ClassField id;
-    public FieldWrapper(Struct _container, String _fieldType, ExecRootBlock _rootBlock,
+    protected FieldWrapper(Struct _container, String _fieldType, ExecRootBlock _rootBlock,
                         ClassField _id) {
         container = _container;
         fieldType = _fieldType;

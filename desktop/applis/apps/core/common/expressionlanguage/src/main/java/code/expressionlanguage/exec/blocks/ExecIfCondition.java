@@ -1,54 +1,22 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.stacks.IfBlockStack;
 import code.util.CustList;
 
 public final class ExecIfCondition extends ExecCondition implements StackableBlock {
 
     private final String label;
 
-    public ExecIfCondition(int _conditionOffset, String _label, CustList<ExecOperationNode> _opCondition, int _offsetTrim) {
-        super(_conditionOffset, _opCondition, _offsetTrim);
+    public ExecIfCondition(int _conditionOffset, String _label, CustList<ExecOperationNode> _opCondition) {
+        super(_conditionOffset, _opCondition);
         label = _label;
     }
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
-        AbstractPageEl ip_ = _stack.getLastPage();
-        if (ip_.matchIfStatement(this)) {
-            processBlockAndRemove(_cont, _stack);
-            return;
-        }
-        ConditionReturn assert_ = evaluateCondition(_cont, _stack);
-        if (assert_ == ConditionReturn.CALL_EX) {
-            return;
-        }
-        IfBlockStack if_ = new IfBlockStack();
-        if_.setExecLastBlock(this);
-        if_.setLabel(label);
-        ExecBlock n_ = getNextSibling();
-        while (isNextIfParts(n_)) {
-            if_.setExecLastBlock((ExecBracedBlock) n_);
-            n_ = n_.getNextSibling();
-        }
-        if_.setExecBlock(this);
-        if_.setCurrentVisitedBlock(this);
-        if (assert_ == ConditionReturn.YES) {
-            ip_.addBlock(if_);
-            if_.setEntered(true);
-            ip_.setBlock(getFirstChild());
-        } else {
-            ip_.addBlock(if_);
-            if (if_.getLastBlock() != this) {
-                ip_.setBlock(getNextSibling());
-                ip_.setLastIf(if_);
-            }
-        }
+        ExecHelperBlocks.processIf(_cont,label,this,_stack, getCondition());
     }
 
 }

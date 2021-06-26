@@ -21,7 +21,7 @@ public final class ExportAnnotationUtil {
         IdMap<Struct, String> cls_ = new IdMap<Struct, String>();
         while (current_ != null) {
             appendPrefix(out_, current_.getStackObject());
-            InfoAnnotPart res_ = updateFirst(_infinity, _nan, _exp, root_, current_, elts_, counts_, cls_, out_);
+            InfoAnnotPart res_ = updateFirst(root_, current_, elts_, counts_, cls_, out_, new DisplayNb(_infinity, _exp, _nan));
             if (res_ != null) {
                 current_ = res_;
                 continue;
@@ -41,16 +41,15 @@ public final class ExportAnnotationUtil {
         return out_.toString();
     }
 
-    private static InfoAnnotPart updateFirst(String _infinity, String _nan,String _exp,
-                                             InfoAnnotPart _root, InfoAnnotPart _current,
+    private static InfoAnnotPart updateFirst(InfoAnnotPart _root, InfoAnnotPart _current,
                                              CustList<CustList<StackObject>> _elts,
                                              StringMap<Integer> _counts, IdMap<Struct, String> _cls,
-                                             StringBuilder _out) {
+                                             StringBuilder _out, DisplayNb _disp) {
         if (!(_root instanceof ParentAnnotPart)) {
             return null;
         }
         if (_current instanceof LeafAnnotPart) {
-            _out.append(((LeafAnnotPart)_current).export(_infinity,_nan,_exp));
+            _out.append(((LeafAnnotPart)_current).export(_disp.getInfinity(), _disp.getNan(), _disp.getExponent()));
             return null;
         }
         ParentAnnotPart par_ = (ParentAnnotPart)_current;

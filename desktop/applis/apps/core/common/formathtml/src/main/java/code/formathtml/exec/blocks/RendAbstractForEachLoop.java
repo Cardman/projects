@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -16,6 +17,7 @@ import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 
 public abstract class RendAbstractForEachLoop extends RendParentBlock implements RendLoop {
 
@@ -26,20 +28,43 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
     private final String importedClassIndexName;
 
     private final String variableName;
-
-    private final int expressionOffset;
-
-    private final CustList<RendDynOperationNode> opList;
+    private final RendOperationNodeListOff exp;
 
     protected RendAbstractForEachLoop(String _importedClassName, String _variable,
-                                      int _expressionOffset, String _classIndex, String _label, int _offsetTrim,CustList<RendDynOperationNode> _res) {
-        super(_offsetTrim);
+                                      int _expressionOffset, String _classIndex, String _label, CustList<RendDynOperationNode> _res) {
         importedClassName = _importedClassName;
         variableName = _variable;
-        expressionOffset = _expressionOffset;
+        exp = new RendOperationNodeListOff(_res,_expressionOffset);
         importedClassIndexName = _classIndex;
         label = _label;
-        opList = _res;
+    }
+
+    protected static RendLoopBlockStack newLoopBlockStackArr(ContextEl _cont, String _label, Struct _its, RendStackCall _rendStack, RendAbstractForEachLoop _loop) {
+        boolean finished_ = false;
+        long length_ = ExecHelperBlocks.getLength(_its, _cont, _rendStack.getStackCall());
+        if (length_ == IndexConstants.SIZE_EMPTY) {
+            finished_ = true;
+        }
+        if (_cont.callsOrException(_rendStack.getStackCall())) {
+            return null;
+        }
+        RendLoopBlockStack l_ = new RendLoopBlockStack();
+        l_.setLabel(_label);
+        l_.setLoop(_loop);
+        l_.setIndex(-1);
+        l_.setFinished(finished_);
+        l_.setBlock(_loop);
+        l_.setCurrentVisitedBlock(_loop);
+        l_.setMaxIteration(length_);
+        l_.setContainer(_its);
+        return l_;
+    }
+
+    protected static ConditionReturn hasNext(RendLoopBlockStack _l) {
+        if (_l.hasNext()) {
+            return ConditionReturn.YES;
+        }
+        return ConditionReturn.NO;
     }
 
     @Override
@@ -83,9 +108,9 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
     protected abstract void putVar(ContextEl _ctx, RendStackCall _rendStack,RendLoopBlockStack _l);
     private Struct processLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
-        ip_.setOffset(expressionOffset);
+        ip_.setOffset(exp.getOffset());
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrList());
-        Argument arg_ = RenderExpUtil.calculateReuse(opList, _advStandards, _ctx, _rendStackCall);
+        Argument arg_ = RenderExpUtil.calculateReuse(exp.getList(), _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return NullStruct.NULL_VALUE;
         }

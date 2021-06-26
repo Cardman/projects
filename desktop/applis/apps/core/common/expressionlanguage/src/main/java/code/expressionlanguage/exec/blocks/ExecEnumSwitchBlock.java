@@ -11,58 +11,42 @@ import code.util.core.StringUtil;
 
 public final class ExecEnumSwitchBlock extends ExecAbstractSwitchBlock {
 
-    public ExecEnumSwitchBlock(String _label, int _valueOffset, CustList<ExecOperationNode> _opValue, int _offsetTrim) {
-        super(_label,_valueOffset,_opValue, _offsetTrim);
+    public ExecEnumSwitchBlock(String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
+        super(_label,_valueOffset,_opValue);
     }
 
     @Override
     protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
-        ExecBracedBlock found_ = innerProcess(this, _if, _arg);
+        ExecBracedBlock found_ = innerProcessEnum(this, _if, _arg);
         addStack(_cont,_if,_arg,_stack, found_);
     }
 
-    public static ExecBracedBlock innerProcess(ExecBracedBlock _braced, SwitchBlockStack _if, Argument _arg) {
-        ExecBlock n_ = _braced.getFirstChild();
-        CustList<ExecBracedBlock> children_;
-        children_ = new CustList<ExecBracedBlock>();
-        while (n_ instanceof ExecBracedBlock) {
-            children_.add((ExecBracedBlock)n_);
-            _if.setExecLastVisitedBlock((ExecBracedBlock) n_);
-            n_ = n_.getNextSibling();
-        }
-        _if.setExecBlock(_braced);
-        ExecBracedBlock found_ = null;
+    public static ExecBracedBlock innerProcessEnum(ExecBracedBlock _braced, SwitchBlockStack _if, Argument _arg) {
+        CustList<ExecBracedBlock> children_ = children(_braced, _if);
+        ExecBracedBlock found_;
         if (_arg.isNull()) {
-            for (ExecBracedBlock b: children_) {
-                if (b instanceof ExecDefaultCondition) {
-                    found_ = b;
-                    continue;
-                }
-                if (b instanceof ExecNullCaseCondition) {
-                    found_ = b;
-                    break;
-                }
-            }
+            found_ = nullCase(children_);
         } else {
-            found_ = innerProcess(children_, _arg);
+            found_ = innerProcessEnum(children_, _arg);
         }
         return found_;
     }
-    public static ExecBracedBlock innerProcess(CustList<ExecBracedBlock> _children, Argument _arg) {
+
+    public static ExecBracedBlock innerProcessEnum(CustList<ExecBracedBlock> _children, Argument _arg) {
         String name_ = NumParsers.getNameOfEnum(_arg.getStruct());
         ExecBracedBlock def_ = null;
         ExecBracedBlock found_ = null;
         for (ExecBracedBlock b: _children) {
-            if (b instanceof ExecDefaultCondition) {
-                def_ = b;
-                continue;
-            }
-            if (b instanceof ExecEnumCaseCondition) {
-                ExecEnumCaseCondition c_ = (ExecEnumCaseCondition) b;
-                if (StringUtil.quickEq(c_.getValue(), name_)) {
-                    found_ = c_;
-                    break;
+            if (!(b instanceof ExecDefaultCondition)) {
+                if (b instanceof ExecEnumCaseCondition) {
+                    ExecEnumCaseCondition c_ = (ExecEnumCaseCondition) b;
+                    if (StringUtil.quickEq(c_.getValue(), name_)) {
+                        found_ = c_;
+                        break;
+                    }
                 }
+            } else {
+                def_ = b;
             }
         }
         if (found_ != null) {

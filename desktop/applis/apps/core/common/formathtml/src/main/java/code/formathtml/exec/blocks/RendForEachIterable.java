@@ -20,8 +20,8 @@ import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public final class RendForEachIterable extends RendAbstractForEachLoop {
-    public RendForEachIterable(String _importedClassName, String _variable, int _expressionOffset, String _classIndex, String _label, int _offsetTrim, CustList<RendDynOperationNode> _res) {
-        super(_importedClassName, _variable, _expressionOffset, _classIndex, _label, _offsetTrim, _res);
+    public RendForEachIterable(String _importedClassName, String _variable, int _expressionOffset, String _classIndex, String _label, CustList<RendDynOperationNode> _res) {
+        super(_importedClassName, _variable, _expressionOffset, _classIndex, _label, _res);
     }
 
     @Override

@@ -5,8 +5,8 @@ import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 
 public final class ExecAnnotationBlock extends ExecRootBlock implements ExecInterfacable {
 
-    public ExecAnnotationBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
-        super(_offsetTrim, _rootBlockContent, _access);
+    public ExecAnnotationBlock(ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
+        super(_rootBlockContent, _access);
     }
 
     @Override

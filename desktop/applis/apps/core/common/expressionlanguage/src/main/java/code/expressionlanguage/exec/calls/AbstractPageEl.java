@@ -47,49 +47,46 @@ public abstract class AbstractPageEl {
     private AbstractWrapper wrapper;
     private Argument returnedArgument = Argument.createVoid();
 
-    private LoopBlockStack lastLoop;
-    private IfBlockStack lastIf;
-    private TryBlockStack lastTry;
-    private final PageElContent content = new PageElContent();
+    private final PageElContent contentEx = new PageElContent();
 
     protected AbstractPageEl(ExecFormattedRootBlock _global) {
         globalClass = _global;
     }
     public Struct getGlobalStruct() {
-        return content.getGlobalStruct();
+        return contentEx.getGlobalStruct();
     }
     public Argument getGlobalArgument() {
-        return content.getGlobalArgument();
+        return contentEx.getGlobalArgument();
     }
-    public void setGlobalArgumentStruct(Struct _obj) {
-        content.setGlobalArgumentStruct(_obj);
+    public final void setGlobalArgumentStruct(Struct _obj) {
+        contentEx.setGlobalArgumentStruct(_obj);
     }
 
     public void setGlobalArgument(Argument _globalArgument) {
-        content.setGlobalArgument(_globalArgument);
+        contentEx.setGlobalArgument(_globalArgument);
     }
 
     public StringMap<AbstractWrapper> getRefParams() {
-        return content.getRefParams();
+        return contentEx.getRefParams();
     }
 
     public void putValueVar(String _key, LocalVariable _var) {
-        content.getRefParams().put(_key, new VariableWrapper(_var));
+        contentEx.getRefParams().put(_key, new VariableWrapper(_var));
     }
     public StringMap<LoopVariable> getVars() {
-        return content.getVars();
+        return contentEx.getVars();
     }
 
     public void removeRefVar(String _key) {
-        content.removeRefVar(_key);
+        contentEx.removeRefVar(_key);
     }
 
     public Cache getCache() {
-        return content.getCache();
+        return contentEx.getCache();
     }
 
     public void setCache(Cache _cache) {
-        this.content.setCache(_cache);
+        this.contentEx.setCache(_cache);
     }
 
     public final void forwardTo(AbstractPageEl _page, ContextEl _context, StackCall _stack) {
@@ -110,17 +107,6 @@ public abstract class AbstractPageEl {
         getLastEl().setArgument(_wrap,_argument, _context, _stackCall);
     }
 
-    public void processVisitedLoop(LoopBlockStack _l, ExecLoop _bl, ExecBlock _next, ContextEl _context, StackCall _stackCall) {
-        if (_l.isEvaluatingKeepLoop()) {
-            _bl.processLastElementLoop(_context,_l, _stackCall);
-            return;
-        }
-        if (_l.isFinished()) {
-            _next.processBlockAndRemove(_context, _stackCall);
-            return;
-        }
-        setBlock(_l.getCurrentVisitedBlock().getFirstChild());
-    }
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -167,17 +153,15 @@ public abstract class AbstractPageEl {
         }
         return null;
     }
-    public boolean hasBlock() {
-        return !blockStacks.isEmpty();
+    public boolean noBlock() {
+        return blockStacks.isEmpty();
     }
 
     public LoopBlockStack getLastLoopIfPossible(ExecBlock _bl) {
         LoopBlockStack c_ = null;
-        if (hasBlock()) {
-            AbstractStask lastStack_ = getLastStack();
-            if (lastStack_ instanceof LoopBlockStack) {
-                c_ = (LoopBlockStack) lastStack_;
-            }
+        AbstractStask abstractStask_ = tryGetLastStack();
+        if (abstractStask_ instanceof LoopBlockStack) {
+            c_ = (LoopBlockStack) abstractStask_;
         }
         if (c_ != null && c_.getCurrentVisitedBlock() == _bl) {
             return c_;
@@ -185,27 +169,17 @@ public abstract class AbstractPageEl {
         return null;
     }
     public boolean matchStatement(ExecBlock _bl) {
-        if (!hasBlock()) {
+        AbstractStask last_ = tryGetLastStack();
+        if (!(last_ instanceof ConditionBlockStack)) {
             return false;
         }
-        AbstractStask last_ = getLastStack();
-        if (!(last_ instanceof SwitchBlockStack)) {
-            return false;
-        }
-        return _bl == ((SwitchBlockStack)last_).getBlock();
-    }
-    public boolean matchIfStatement(ExecBlock _bl) {
-        if (!hasBlock()) {
-            return false;
-        }
-        AbstractStask last_ = getLastStack();
-        if (!(last_ instanceof IfBlockStack)) {
-            return false;
-        }
-        return _bl == ((IfBlockStack)last_).getBlock();
+        return _bl == ((ConditionBlockStack)last_).getBlock();
     }
 
-    public AbstractStask getLastStack() {
+    public AbstractStask tryGetLastStack() {
+        if (noBlock()) {
+            return null;
+        }
         return blockStacks.last();
     }
 
@@ -217,40 +191,30 @@ public abstract class AbstractPageEl {
         AbstractStask last_ = blockStacks.last();
         last_.getCurrentVisitedBlock().removeAllVars(this);
         blockStacks.removeQuicklyLast();
-        if (hasBlock()) {
-            AbstractStask before_ = blockStacks.last();
-            if (before_ instanceof LoopBlockStack) {
-                setLastLoop((LoopBlockStack) before_);
-            }
-            if (before_ instanceof IfBlockStack) {
-                setLastIf((IfBlockStack) before_);
-            }
-            if (before_ instanceof TryBlockStack) {
-                setLastTry((TryBlockStack) before_);
-            }
-        }
     }
 
-    public static boolean setRemovedCallingFinallyToProcess(AbstractPageEl _ip,AbstractStask _vars, MethodCallingFinally _call, Struct _ex) {
-        if (!(_vars instanceof TryBlockStack)) {
-            _ip.removeLastBlock();
-            return false;
+    protected void commonTageBase(ContextEl _context, StackCall _stack, Argument _arg) {
+        //method walk through
+        ExecBlock en_ = getBlock();
+        if (en_ instanceof ExecAbstractSwitchMethod) {
+            SwitchBlockStack st_ = new SwitchBlockStack();
+            st_.setLabel("");
+            setBlock(((ExecAbstractSwitchMethod)en_).processCase(_context,st_,Argument.getNullableValue(_arg),_stack));
+            return;
         }
-        TryBlockStack try_ = (TryBlockStack) _vars;
-        if (try_.getCurrentVisitedBlock() instanceof ExecFinallyEval) {
-            _ip.removeLastBlock();
-            return false;
+        if (en_ instanceof ExecAbstractExpressionReturnMethod) {
+            ((ExecAbstractExpressionReturnMethod)en_).processEl(_context, _stack);
+            return;
         }
-        ExecBracedBlock br_ = try_.getLastBlock();
-        if (br_ instanceof ExecFinallyEval) {
-            _ip.setLastTry(try_);
-            _ip.setBlock(br_);
-            try_.setException(_ex);
-            try_.setCalling(new AbruptCallingFinally(_call));
-            return true;
+        if (en_ instanceof MethodCallingFinally) {
+            ((MethodCallingFinally)en_).removeBlockFinally(_context,_stack);
+            return;
         }
-        _ip.removeLastBlock();
-        return false;
+        if (en_ instanceof WithEl) {
+            ((WithEl)en_).processEl(_context, _stack);
+            return;
+        }
+        setNullReadWrite();
     }
 
     public void clearCurrentEls() {
@@ -332,30 +296,6 @@ public abstract class AbstractPageEl {
 
     public void setWrapper(AbstractWrapper _wrapper) {
         wrapper = _wrapper;
-    }
-
-    public LoopBlockStack getLastLoop() {
-        return lastLoop;
-    }
-
-    public void setLastLoop(LoopBlockStack _lastLoop) {
-        this.lastLoop = _lastLoop;
-    }
-
-    public IfBlockStack getLastIf() {
-        return lastIf;
-    }
-
-    public void setLastIf(IfBlockStack _lastIf) {
-        this.lastIf = _lastIf;
-    }
-
-    public TryBlockStack getLastTry() {
-        return lastTry;
-    }
-
-    public void setLastTry(TryBlockStack _lastTry) {
-        this.lastTry = _lastTry;
     }
 
     public ExecFormattedRootBlock getGlobalClass() {

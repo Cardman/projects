@@ -8,8 +8,7 @@ import code.util.IntTreeMap;
 import code.util.StringMap;
 
 public final class RendEmptyInstruction extends RendPossibleEmpty {
-    public RendEmptyInstruction(int _offsetTrim) {
-        super(_offsetTrim);
+    public RendEmptyInstruction() {
         setEscapedChars(new StringMap<IntTreeMap<Integer>>());
     }
 

@@ -17,10 +17,10 @@ public final class RendAnchor extends RendElement {
     private final StringList varNames;
     private final ExecTextPart textPart;
 
-    public RendAnchor(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+    public RendAnchor(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
                       CustList<RendDynOperationNode> _opAnc,
                       StringList _varNames, ExecTextPart _textPart) {
-        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+        super(_read, _execAttributes, _execAttributesText);
         opExpAnch = _opAnc;
         this.varNames = _varNames;
         this.textPart = _textPart;

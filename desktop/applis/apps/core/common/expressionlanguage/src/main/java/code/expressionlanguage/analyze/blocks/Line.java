@@ -21,7 +21,6 @@ public final class Line extends Leaf implements BuildableElMethod {
     private boolean callInts;
     private boolean callFromCtorToCtor;
     private final ResultExpression res = new ResultExpression();
-    private String importedClass;
 
     public Line(OffsetStringInfo _left, int _offset) {
         super(_offset);
@@ -42,8 +41,6 @@ public final class Line extends Leaf implements BuildableElMethod {
         MethodAccessKind st_ = f_.getStaticContext();
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();
-        String import_ = _page.getAliasObject();
-        importedClass = import_;
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, expression, Calculation.staticCalculation(st_), _page));
         if (!_page.getCurrentEmptyPartErr().isEmpty()) {
             addErrorBlock(_page.getCurrentEmptyPartErr());
@@ -69,8 +66,7 @@ public final class Line extends Leaf implements BuildableElMethod {
             if (declaring_.isRefVariable()) {
                 checkOpers(res.getRoot(), _page);
             }
-            import_ = declaring_.getImportedClassName();
-            importedClass = import_;
+            String import_ = declaring_.getImportedClassName();
             String err_ = AffectationOperation.processInfer(import_, _page);
             declaring_.setErrInf(err_);
             declaring_.getVariableNames().addAllElts(vars_);
@@ -155,7 +151,4 @@ public final class Line extends Leaf implements BuildableElMethod {
         return res.getRoot();
     }
 
-    public String getImportedClass() {
-        return importedClass;
-    }
 }

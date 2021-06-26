@@ -4,8 +4,8 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 
 public final class ExecAnonymousTypeBlock extends ExecRootBlock implements ExecUniqueRootedBlock {
-    public ExecAnonymousTypeBlock(int _offsetTrim, ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
-        super(_offsetTrim, _rootBlockContent, _access);
+    public ExecAnonymousTypeBlock(ExecRootBlockContent _rootBlockContent, AccessEnum _access) {
+        super(_rootBlockContent, _access);
     }
 
     @Override

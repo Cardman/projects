@@ -17,8 +17,8 @@ public final class RendForm extends RendElement {
     private final StringList varNames;
     private final ExecTextPart textPart;
 
-    public RendForm(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, CustList<RendDynOperationNode> _opForm, StringList _varNames, ExecTextPart _textPart) {
-        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+    public RendForm(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, CustList<RendDynOperationNode> _opForm, StringList _varNames, ExecTextPart _textPart) {
+        super(_read, _execAttributes, _execAttributesText);
         this.opForm = _opForm;
         this.varNames = _varNames;
         this.textPart = _textPart;

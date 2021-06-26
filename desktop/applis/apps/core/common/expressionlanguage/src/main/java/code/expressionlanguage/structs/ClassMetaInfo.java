@@ -305,7 +305,11 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
 
     private void fetchFields(ExecFormattedRootBlock _formatted) {
         ExecRootBlock type_ = _formatted.getRootBlock();
-        for (ExecInfoBlock b: type_.getAllFields()) {
+        for (ExecInnerTypeOrElement b: type_.getEnumElements()) {
+            FieldMetaInfo met_ = new FieldMetaInfo(b, b.getUniqueFieldName(), _formatted);
+            fieldsInfos.add(met_);
+        }
+        for (ExecFieldBlock b: type_.getAllExpFields()) {
 
             for (String f: b.getFieldName()) {
                 FieldMetaInfo met_ = new FieldMetaInfo(b, f, _formatted);
@@ -784,7 +788,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
         ExecRootBlock rootBlock_ = formatted.getRootBlock();
         if (rootBlock_ instanceof ExecInfoBlock) {
-            return ((ExecInfoBlock)rootBlock_).getAnonymousLambda();
+            return ((ExecInfoBlock)rootBlock_).getElementContent().getContainer().getAnonymousLambda();
         }
         if (rootBlock_ != null) {
             return rootBlock_.getAnonymousRootLambda();
@@ -796,7 +800,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
     public CustList<ExecAbstractSwitchMethod> getSwitchMethods() {
         ExecRootBlock rootBlock_ = formatted.getRootBlock();
         if (rootBlock_ instanceof ExecInfoBlock) {
-            return ((ExecInfoBlock)rootBlock_).getSwitchMethods();
+            return ((ExecInfoBlock)rootBlock_).getElementContent().getContainer().getSwitchMethods();
         }
         if (rootBlock_ != null) {
             return rootBlock_.getSwitchMethodsRoot();

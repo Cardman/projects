@@ -14,25 +14,21 @@ import code.util.core.IndexConstants;
 public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
 
 
-    private final int expressionOffset;
-
-    private final CustList<ExecOperationNode> opThrow;
-    public ExecThrowing(int _expressionOffset, CustList<ExecOperationNode> _opThrow, int _offsetTrim) {
-        super(_offsetTrim);
-        expressionOffset = _expressionOffset;
-        opThrow = _opThrow;
+    private final ExecOperationNodeListOff exp;
+    public ExecThrowing(int _expressionOffset, CustList<ExecOperationNode> _opThrow) {
+        exp = new ExecOperationNodeListOff(_opThrow,_expressionOffset);
     }
 
     @Override
     public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        return opThrow;
+        return exp.getList();
     }
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.setOffset(0);
-        ip_.setGlobalOffset(expressionOffset);
+        ip_.setGlobalOffset(exp.getOffset());
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
         if (_cont.callsOrException(_stack)) {

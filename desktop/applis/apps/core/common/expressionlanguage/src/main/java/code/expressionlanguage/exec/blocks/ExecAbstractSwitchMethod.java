@@ -28,8 +28,7 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
     private final CustList<CustList<ExecAnnotContent>> annotationsOpsParams = new CustList<CustList<ExecAnnotContent>>();
     private final String retType;
     private final ExecAnonFctContent anonFctContent;
-    protected ExecAbstractSwitchMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, int _offsetTrim, String _retType, ExecAnonFctContent _anonFctContent) {
-        super(_offsetTrim);
+    protected ExecAbstractSwitchMethod(boolean _retRef, String _name, MethodAccessKind _modifier, String _importedParamType, String _retType, ExecAnonFctContent _anonFctContent) {
         name = _name;
         retRef = _retRef;
         importedParamType = _importedParamType;

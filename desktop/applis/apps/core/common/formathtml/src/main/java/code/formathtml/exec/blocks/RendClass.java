@@ -3,8 +3,7 @@ package code.formathtml.exec.blocks;
 public final class RendClass extends RendParentBlock {
     private String fullName=EMPTY_STRING;
 
-    public RendClass(int _offsetTrim, String _info) {
-        super(_offsetTrim);
+    public RendClass(String _info) {
         fullName = _info;
     }
 

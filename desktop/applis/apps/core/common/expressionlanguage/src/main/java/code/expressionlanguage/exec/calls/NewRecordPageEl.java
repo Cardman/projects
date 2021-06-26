@@ -21,7 +21,7 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
     }
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (!checkCondition(_context, _stack)) {
+        if (!checkCondition(_stack)) {
             return;
         }
         //set fields for annotation after calculating default one

@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.stacks;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 
-public final class SwitchBlockStack extends AbstractStask {
+public final class SwitchBlockStack extends AbstractStask implements ConditionBlockStack {
 
     private ExecBracedBlock execBlock;
 

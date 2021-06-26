@@ -14,8 +14,8 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
 
     private final Argument argument;
 
-    public RendCaseCondition(int _offsetTrim, String _importedClassName, String _variableName, String _value, Argument _argument) {
-        super(_offsetTrim, _importedClassName, _variableName);
+    public RendCaseCondition(String _importedClassName, String _variableName, String _value, Argument _argument) {
+        super(_importedClassName, _variableName);
         this.value = _value;
         this.argument = _argument;
     }

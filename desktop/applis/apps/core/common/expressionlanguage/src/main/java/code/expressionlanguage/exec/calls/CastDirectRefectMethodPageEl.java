@@ -10,24 +10,9 @@ import code.util.CustList;
 public final class CastDirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     public CastDirectRefectMethodPageEl(Argument _instance, Argument _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo);
+        super(_instance,_array, _metaInfo, new DefPreparer());
     }
 
-    @Override
-    boolean initType(ContextEl _cont, StackCall _stack) {
-        return false;
-    }
-
-
-    @Override
-    boolean isAbstract(ContextEl _cont, StackCall _stack) {
-        return false;
-    }
-
-    @Override
-    boolean isPolymorph(ContextEl _cont, StackCall _stack) {
-        return false;
-    }
 
     @Override
     Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {

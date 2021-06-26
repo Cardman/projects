@@ -10,8 +10,8 @@ import code.util.StringMap;
 
 public final class RendEscImg extends RendElement {
 
-    public RendEscImg(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
-        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+    public RendEscImg(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
+        super(_read, _execAttributes, _execAttributesText);
     }
 
     @Override

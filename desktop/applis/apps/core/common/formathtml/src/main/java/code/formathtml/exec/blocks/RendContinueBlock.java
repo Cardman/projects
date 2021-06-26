@@ -11,8 +11,7 @@ public final class RendContinueBlock extends RendLeaf implements RendWithEl,Rend
 
     private final String label;
 
-    public RendContinueBlock(int _offsetTrim, String _info) {
-        super(_offsetTrim);
+    public RendContinueBlock(String _info) {
         label = _info;
     }
 

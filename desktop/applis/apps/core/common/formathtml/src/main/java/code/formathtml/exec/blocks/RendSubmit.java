@@ -18,8 +18,8 @@ public final class RendSubmit extends RendElement {
 
     private final StringMap<String> preformatted;
 
-    public RendSubmit(int _offsetTrim, Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, StringMap<ExecTextPart> _opExp, StringMap<String> _preformatted) {
-        super(_offsetTrim, _read, _execAttributes, _execAttributesText);
+    public RendSubmit(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, StringMap<ExecTextPart> _opExp, StringMap<String> _preformatted) {
+        super(_read, _execAttributes, _execAttributesText);
         this.opExp = _opExp;
         this.preformatted = _preformatted;
     }

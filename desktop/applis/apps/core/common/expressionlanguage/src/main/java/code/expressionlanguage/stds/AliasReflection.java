@@ -761,7 +761,7 @@ public final class AliasReflection {
             ExecInfoBlock annotableBlock_ = field_.getAnnotableBlock();
             StringList methods_ = new StringList();
             if (annotableBlock_ != null) {
-                for (ExecRootBlock c: annotableBlock_.getAnonymous()) {
+                for (ExecRootBlock c: annotableBlock_.getElementContent().getContainer().getAnonymous()) {
                     methods_.add(c.getFullName());
                 }
             }
@@ -1916,7 +1916,7 @@ public final class AliasReflection {
 
     private static void fetchAnonymous(StringList _methods, ExecRootBlock _callee) {
         if (_callee instanceof ExecInfoBlock) {
-            for (ExecRootBlock c: ((ExecInfoBlock)_callee).getAnonymous()) {
+            for (ExecRootBlock c: ((ExecInfoBlock)_callee).getElementContent().getContainer().getAnonymous()) {
                 _methods.add(c.getFullName());
             }
         } else if (_callee != null) {

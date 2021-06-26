@@ -46,12 +46,9 @@ public abstract class RendBlock {
     private RendBlock previousSibling;
 
 
-    private final int offsetTrim;
-
     private StringMap<IntTreeMap<Integer>> escapedChars = new StringMap<IntTreeMap<Integer>>();
 
-    RendBlock(int _offsetTrim) {
-        offsetTrim = _offsetTrim;
+    RendBlock() {
     }
 
     public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, String _currentUrl) {
@@ -116,8 +113,6 @@ public abstract class RendBlock {
     }
 
     private static void processTags(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendBlock _read, RendStackCall _rendStackCall) {
-        ImportingPage ip_ = _rendStackCall.getLastPage();
-        ip_.setOffset(_read.getOffsetTrim());
         tryProcessEl(_context, _stds, _ctx, _read, _rendStackCall);
     }
 
@@ -511,10 +506,6 @@ public abstract class RendBlock {
             child_ = child_.getNextSibling();
         }
         return l_;
-    }
-
-    public final int getOffsetTrim() {
-        return offsetTrim;
     }
 
     public final RendBlock getPreviousSibling() {

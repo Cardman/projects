@@ -7,8 +7,7 @@ public abstract class RendParentBlock extends RendBlock {
 
     private RendBlock firstChild;
     private CustList<RendAbstractDeclareVariable> decl = new CustList<RendAbstractDeclareVariable>();
-    protected RendParentBlock(int _offsetTrim) {
-        super(_offsetTrim);
+    protected RendParentBlock() {
     }
     public static boolean isNextIfParts(RendBlock _n) {
         return isStrictNextIfParts(_n) || _n instanceof RendPossibleEmpty;

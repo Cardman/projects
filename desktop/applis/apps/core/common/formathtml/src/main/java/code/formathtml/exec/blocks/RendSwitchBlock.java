@@ -21,19 +21,14 @@ import code.util.core.StringUtil;
 public final class RendSwitchBlock extends RendParentBlock implements RendWithEl {
 
     private final String label;
-
-    private final int valueOffset;
-
-    private final CustList<RendDynOperationNode> opValue;
+    private final RendOperationNodeListOff value;
 
     private final boolean enumTest;
     private final String instanceTest;
 
-    public RendSwitchBlock(int _offsetTrim, String _label, int _valueOffset, CustList<RendDynOperationNode> _opValue, boolean _enumTest, String _instanceTest) {
-        super(_offsetTrim);
+    public RendSwitchBlock(String _label, int _valueOffset, CustList<RendDynOperationNode> _opValue, boolean _enumTest, String _instanceTest) {
         this.label = _label;
-        this.valueOffset = _valueOffset;
-        this.opValue = _opValue;
+        value = new RendOperationNodeListOff(_opValue,_valueOffset);
         this.enumTest = _enumTest;
         this.instanceTest = _instanceTest;
     }
@@ -46,9 +41,9 @@ public final class RendSwitchBlock extends RendParentBlock implements RendWithEl
             processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
-        ip_.setOffset(valueOffset);
+        ip_.setOffset(value.getOffset());
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
-        Argument arg_ =  RenderExpUtil.calculateReuse(opValue, _stds, _ctx, _rendStack);
+        Argument arg_ =  RenderExpUtil.calculateReuse(value.getList(), _stds, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }

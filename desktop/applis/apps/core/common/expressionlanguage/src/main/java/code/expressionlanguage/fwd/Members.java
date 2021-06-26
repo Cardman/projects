@@ -49,9 +49,7 @@ public final class Members {
     public ExecInfoBlock getField(int _key) {
         return allFields.getValue(_key);
     }
-    public Iterable<EntryCust<InfoBlock, ExecInfoBlock>> getFields() {
-        return allFields.entryList();
-    }
+
     public void addExplicitField(FieldBlock _key, ExecFieldBlock _value) {
         allExplicitFields.addEntry(_key, _value);
     }

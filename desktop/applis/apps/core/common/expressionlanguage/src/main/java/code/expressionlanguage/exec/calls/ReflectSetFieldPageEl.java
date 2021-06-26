@@ -25,11 +25,9 @@ public final class ReflectSetFieldPageEl extends AbstractBasicReflectPageEl {
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         if (!initClass) {
             initClass = true;
-            if (metaInfo.isStaticField()) {
-                if (_context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock())) {
-                    setWrapException(true);
-                    return false;
-                }
+            if (metaInfo.isStaticField() && _context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock())) {
+                setWrapException(true);
+                return false;
             }
         }
         setWrapException(false);

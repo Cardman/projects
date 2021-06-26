@@ -4,8 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.WithEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -25,7 +23,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
     }
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (!checkCondition(_context, _stack)) {
+        if (!checkCondition(_stack)) {
             return;
         }
         //set fields for annotation after calculating default one

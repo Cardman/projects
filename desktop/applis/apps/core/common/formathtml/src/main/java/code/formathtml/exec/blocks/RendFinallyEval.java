@@ -6,9 +6,6 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 
 public final class RendFinallyEval extends RendParentBlock implements RendEval {
-    public RendFinallyEval(int _offsetTrim) {
-        super(_offsetTrim);
-    }
 
 
     @Override

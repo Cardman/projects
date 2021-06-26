@@ -6,8 +6,8 @@ public abstract class ExecAbstractInstanceCaseCondition extends ExecAbstractCase
 
     private final String variableName;
 
-    protected ExecAbstractInstanceCaseCondition(String _variableName, int _valueOffset, int _offsetTrim) {
-        super(_valueOffset, _offsetTrim);
+    protected ExecAbstractInstanceCaseCondition(String _variableName, int _valueOffset) {
+        super(_valueOffset);
         variableName = _variableName;
     }
 

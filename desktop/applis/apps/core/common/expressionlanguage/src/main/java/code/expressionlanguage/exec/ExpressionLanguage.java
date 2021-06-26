@@ -41,6 +41,7 @@ public final class ExpressionLanguage {
             return null;
         }
         _right.argument = ExecHelper.getArgumentPair(_right.arguments,_right.arguments.size()-1);
+        _stackCall.getLastPage().setTranslatedOffset(0);
         return _right.argument;
     }
 
@@ -73,7 +74,6 @@ public final class ExpressionLanguage {
                 fr_ = getNextIndex(len_,_nodes,o, fr_ + 1,_context,_stackCall,_el);
             }
         }
-        restore(pageEl_,_stackCall);
     }
 
     private static void processCalling(ExpressionLanguage _el, AbstractPageEl _pageEl, ExecOperationNode _o, StackCall _stackCall) {
