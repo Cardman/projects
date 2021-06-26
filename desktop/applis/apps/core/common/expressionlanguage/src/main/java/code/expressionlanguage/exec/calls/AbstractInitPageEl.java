@@ -4,10 +4,15 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
+import code.expressionlanguage.exec.blocks.ExecInitBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.util.CustList;
+import code.util.IdMap;
+import code.util.core.BoolVal;
 
 public abstract class AbstractInitPageEl extends AbstractPageEl {
     private int member;
@@ -19,6 +24,22 @@ public abstract class AbstractInitPageEl extends AbstractPageEl {
         this.visited = _visited;
     }
 
+    protected void block(StackCall _stack, IdMap<ExecInitBlock, BoolVal> _processedBlocks) {
+        ExecBlock en_ = getBlock();
+        if (en_ instanceof ExecInitBlock && _processedBlocks.getVal((ExecInitBlock) en_) == BoolVal.FALSE) {
+            setGlobalOffset(((ExecInitBlock) en_).getOffsetTrim());
+            setOffset(0);
+            _processedBlocks.put((ExecInitBlock) en_, BoolVal.TRUE);
+            CustomFoundBlock cust_ = new CustomFoundBlock(this, (ExecInitBlock) en_);
+            _stack.setCallingState(cust_);
+            return;
+        }
+        if (en_ != null) {
+            ExecHelperBlocks.processMemberBlock(this);
+            return;
+        }
+        setNullReadWrite();
+    }
     public void blockRoot(ExecRootBlock _type) {
         setBlockRootType(_type);
         setBlockRoot(_type);

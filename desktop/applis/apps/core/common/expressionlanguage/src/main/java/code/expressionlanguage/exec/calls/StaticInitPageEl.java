@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.calls.util.CustomFoundBlock;
 
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.util.CustList;
@@ -41,19 +40,7 @@ public final class StaticInitPageEl extends AbstractInitPageEl {
             ((ExecInfoBlock)en_).getElementContent().processEl(_context,_stack,this);
             return;
         }
-        if (en_ instanceof ExecStaticBlock && processedBlocks.getVal((ExecInitBlock) en_) == BoolVal.FALSE) {
-            setGlobalOffset(((ExecInitBlock)en_).getOffsetTrim());
-            setOffset(0);
-            processedBlocks.put((ExecInitBlock) en_, BoolVal.TRUE);
-            CustomFoundBlock cust_ = new CustomFoundBlock(this, (ExecInitBlock) en_);
-            _stack.setCallingState(cust_);
-            return;
-        }
-        if (en_ != null) {
-            ExecHelperBlocks.processMemberBlock(this);
-            return;
-        }
-        setNullReadWrite();
+        block(_stack, processedBlocks);
     }
 
     public IdMap<ExecInitBlock, BoolVal> getProcessedBlocks() {
