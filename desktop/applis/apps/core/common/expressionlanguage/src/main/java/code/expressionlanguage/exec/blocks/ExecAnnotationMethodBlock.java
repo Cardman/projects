@@ -82,6 +82,10 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         ExecTemplates.setInstanceField(_rootBlock, _returnType, gl_, arg_, _cont, _stackCall, new ClassField(_cl, _name));
     }
 
+    public int getDefaultValueOffset() {
+        return defaultValueOffset;
+    }
+
     public CustList<ExecOperationNode> getOpValue() {
         return opValue;
     }

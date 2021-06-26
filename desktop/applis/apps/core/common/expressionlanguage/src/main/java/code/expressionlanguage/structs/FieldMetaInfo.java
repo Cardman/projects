@@ -84,6 +84,11 @@ public final class FieldMetaInfo extends AbAnMeStruct {
         formatted = _formatted;
     }
 
+    @Override
+    public ExecBlock getBl() {
+        return (ExecBlock) annotableBlock;
+    }
+
     public CustList<ExecAnnotContent> getAnnotationsOps(){
         if (annotableBlock != null) {
             return annotableBlock.getAnnotationsOps();

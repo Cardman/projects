@@ -635,6 +635,12 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
         classes_.sortElts(new ClassNameCmp());
         return classes_;
     }
+
+    @Override
+    public ExecBlock getBl() {
+        return formatted.getRootBlock();
+    }
+
     public CustList<ExecAnnotContent> getAnnotationsOps(){
         ExecRootBlock rootBlock_ = formatted.getRootBlock();
         if (rootBlock_ != null) {

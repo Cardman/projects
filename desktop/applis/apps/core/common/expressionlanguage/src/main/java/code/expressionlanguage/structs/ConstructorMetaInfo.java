@@ -118,6 +118,11 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
         return formatted;
     }
 
+    @Override
+    public ExecBlock getBl() {
+        return pair.getFct();
+    }
+
     public CustList<ExecAnnotContent> getAnnotationsOps(){
         ExecNamedFunctionBlock fct_ = pair.getFct();
         if (fct_ != null) {

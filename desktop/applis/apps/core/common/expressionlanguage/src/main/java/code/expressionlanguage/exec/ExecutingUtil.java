@@ -300,6 +300,8 @@ public final class ExecutingUtil {
             CustomReflectMethodDefVal c_ = (CustomReflectMethodDefVal) _ref;
             MethodMetaInfo metaInfo_ = c_.getGl();
             pageLoc_ = new ReflectGetDefaultValuePageEl(metaInfo_);
+            ExecBlock bl_ = metaInfo_.getBl();
+            setFile(pageLoc_, bl_);
         } else if (_ref instanceof CustomReflectLambdaToStr) {
             CustomReflectLambdaToStr c_ = (CustomReflectLambdaToStr) _ref;
             pageLoc_ = new LambdaToStrRefectMethodPageEl(c_.getArgument());
@@ -314,12 +316,20 @@ public final class ExecutingUtil {
             CustomReflectAnnotations c_ = (CustomReflectAnnotations) _ref;
             CustList<Argument> args_ = c_.getArguments();
             pageLoc_ = new ReflectAnnotationPageEl(args_, c_.getGl());
+            ExecBlock bl_ = c_.getGl().getBl();
+            setFile(pageLoc_, bl_);
             ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(reflect_ == ReflectingType.ANNOTATION_PARAM);
         }
         pageLoc_.setLambda(_ref.isLambda());
         ReadWrite rwLoc_ = new ReadWrite();
         pageLoc_.setReadWrite(rwLoc_);
         return pageLoc_;
+    }
+
+    private static void setFile(AbstractReflectPageEl _pageLoc, ExecBlock _bl) {
+        if (_bl != null) {
+            _pageLoc.setFile(_bl.getFile());
+        }
     }
 
     private static AbstractReflectPageEl reflectMethod(CustomReflectMethod _ref) {

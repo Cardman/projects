@@ -4,10 +4,12 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringList;
 
 public interface InfoBlock extends AnnotableBlock {
 
+    Ints getAnnotationsIndexes();
     boolean isStaticField();
     StringList getFieldName();
     int getFieldNumber();

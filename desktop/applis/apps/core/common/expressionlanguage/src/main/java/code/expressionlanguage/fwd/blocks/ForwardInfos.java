@@ -1670,7 +1670,7 @@ public final class ForwardInfos {
             int j_ = 0;
             for (OperationNode r: l) {
                 _coverage.putBlockOperationsAnnotMethod(_ana,i_);
-                annotation_.add(new ExecAnnotContent(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
+                annotation_.add(new ExecAnnotContent(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _ana.getAnnotationsIndexesParams().get(i_).get(j_)));
                 j_++;
             }
             ops_.add(annotation_);
@@ -1688,7 +1688,7 @@ public final class ForwardInfos {
             int j_ = 0;
             for (OperationNode r: l) {
                 _coverage.putBlockOperationsAnnotMethod(_ana,i_);
-                annotation_.add(new ExecAnnotContent(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
+                annotation_.add(new ExecAnnotContent(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _ana.getAnnotationsIndexesParams().get(i_).get(j_)));
                 j_++;
             }
             ops_.add(annotation_);
@@ -1702,7 +1702,7 @@ public final class ForwardInfos {
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotField(_ana);
-            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, (AbsBk)_ana),r.getResultClass().getNames()));
+            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, (AbsBk)_ana),r.getResultClass().getNames(), _ana.getAnnotationsIndexes().get(i_)));
             i_++;
         }
         _ann.getAnnotationsOps().addAllElts(ops_);
@@ -1713,7 +1713,7 @@ public final class ForwardInfos {
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotField(_ana);
-            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
+            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _ana.getAnnotationsIndexes().get(i_)));
             i_++;
         }
         _ann.getAnnotationsOps().addAllElts(ops_);
@@ -1729,7 +1729,7 @@ public final class ForwardInfos {
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotMethod(_ana);
-            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
+            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _ana.getAnnotationsIndexes().get(i_)));
             i_++;
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
@@ -1739,7 +1739,7 @@ public final class ForwardInfos {
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotMethod(_ana);
-            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
+            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _ana.getAnnotationsIndexes().get(i_)));
             i_++;
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
@@ -1750,7 +1750,7 @@ public final class ForwardInfos {
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotType(_ana);
-            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames()));
+            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _ana.getAnnotationsIndexes().get(i_)));
             i_++;
         }
         _ann.getAnnotationsOps().clear();

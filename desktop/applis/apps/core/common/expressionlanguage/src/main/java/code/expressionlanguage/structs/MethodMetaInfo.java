@@ -167,6 +167,11 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         return mod_;
     }
 
+    @Override
+    public ExecBlock getBl() {
+        return callers.getCallee();
+    }
+
     public CustList<ExecAnnotContent> getAnnotationsOps(){
         if (callers.getCallee() instanceof ExecAnnotableParamBlock) {
             return ((ExecAnnotableParamBlock) callers.getCallee()).getAnnotationsOps();
