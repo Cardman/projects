@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -19,10 +20,16 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
         setWrapper(_wrap);
         setReturnedArgument(_argument);
     }
-
+    @Override
+    public void processTagsBase(ContextEl _context, StackCall _stack) {
+        if (!checkCondition(_context, _stack)) {
+            return;
+        }
+        setNullReadWrite();
+    }
     protected boolean keep(GeneType _gene,ContextEl _context, StackCall _stackCall) {
         LgNames stds_ = _context.getStandards();
-        GeneType type_ = getDeclaringType();
+        GeneType type_ = getFormatted().getRootBlock();
         if (!initClass) {
             initClass = true;
             boolean static_ = !MetaInfoUtil.isAbstractType(_gene) && _gene.withoutInstance();
@@ -31,7 +38,7 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
                 return false;
             }
         }
-        String className_ = getDeclaringClass();
+        String className_ = getFormatted().getFormatted();
         if (MetaInfoUtil.isAbstractType(_gene)) {
             String null_ = stds_.getContent().getCoreNames().getAliasAbstractTypeErr();
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_context, className_, null_, _stackCall)));
@@ -48,8 +55,15 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
         }
         return true;
     }
+    public abstract boolean checkCondition(ContextEl _context, StackCall _stack);
 
-    protected abstract GeneType getDeclaringType();
-
-    protected abstract String getDeclaringClass();
+    protected boolean end(ContextEl _context, StackCall _stack, Argument _arg) {
+        if (_context.callsOrException(_stack)) {
+            setWrapException(_stack.calls());
+            return false;
+        }
+        setReturnedArgument(_arg);
+        return true;
+    }
+    protected abstract ExecFormattedRootBlock getFormatted();
 }

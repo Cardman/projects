@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.InstanceParamChecker;
@@ -27,13 +26,6 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
         metaInfo = _metaInfo;
         setGlobalArgumentStruct(_metaInfo);
     }
-    @Override
-    public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (!checkCondition(_context, _stack)) {
-            return;
-        }
-        setNullReadWrite();
-    }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         if (!keep(metaInfo.getDeclType(),_context, _stack)) {
@@ -41,33 +33,24 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
         }
         ExecFormattedRootBlock res_ = metaInfo.getFormatted();
         setWrapException(false);
-        if (!calledMethod) {
-            calledMethod = true;
-            ConstructorId mid_ = metaInfo.getRealId();
-            Argument arg_ = Argument.createVoid();
-            ExecTypeFunction pair_ = metaInfo.getPair();
-            ExecRootBlock execSuperClass_ = pair_.getType();
-            if (execSuperClass_ != null) {
-                arg_ = new InstanceParamChecker(pair_, array, "", -1).checkParams(res_, argument, null, _context, _stack);
-            }
-            if (metaInfo.getStandardType() != null) {
-                arg_ = ExecInvokingOperation.instancePrepareStd(_context, mid_, array, _stack);
-            }
-            if (_context.callsOrException(_stack)) {
-                setWrapException(_stack.calls());
-                return false;
-            }
-            setReturnedArgument(arg_);
+        if (calledMethod) {
+            return true;
         }
-        return true;
+        calledMethod = true;
+        ConstructorId mid_ = metaInfo.getRealId();
+        Argument argCtor_ = Argument.createVoid();
+        ExecTypeFunction pair_ = metaInfo.getPair();
+        ExecRootBlock execSuperClass_ = pair_.getType();
+        if (execSuperClass_ != null) {
+            argCtor_ = new InstanceParamChecker(pair_, array, "", -1).checkParams(res_, argument, null, _context, _stack);
+        }
+        if (metaInfo.getStandardType() != null) {
+            argCtor_ = ExecInvokingOperation.instancePrepareStd(_context, mid_, array, _stack);
+        }
+        return end(_context,_stack,argCtor_);
     }
-
     @Override
-    protected GeneType getDeclaringType() {
-        return metaInfo.getFormatted().getRootBlock();
-    }
-    @Override
-    protected String getDeclaringClass() {
-        return metaInfo.getFormatted().getFormatted();
+    protected ExecFormattedRootBlock getFormatted() {
+        return metaInfo.getFormatted();
     }
 }

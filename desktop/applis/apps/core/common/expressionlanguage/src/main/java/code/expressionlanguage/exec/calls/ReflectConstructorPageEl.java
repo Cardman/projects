@@ -32,13 +32,6 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         metaInfo = _metaInfo;
         setGlobalArgumentStruct(_metaInfo);
     }
-    @Override
-    public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (!checkCondition(_context, _stack)) {
-            return;
-        }
-        setNullReadWrite();
-    }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         if (!keep(metaInfo.getDeclType(),_context, _stack)) {
@@ -94,21 +87,10 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
             ArgumentListCall l_ = new ArgumentListCall(_args);
             arg_ = ExecInvokingOperation.instancePrepareStd(_context, mid_, l_, _stack);
         }
-        if (_context.callsOrException(_stack)) {
-            setWrapException(_stack.calls());
-            return false;
-        }
-        setReturnedArgument(arg_);
-        return true;
+        return end(_context, _stack, arg_);
     }
-
     @Override
-    protected GeneType getDeclaringType() {
-        return metaInfo.getFormatted().getRootBlock();
-    }
-
-    @Override
-    protected String getDeclaringClass() {
-        return metaInfo.getFormatted().getFormatted();
+    protected ExecFormattedRootBlock getFormatted() {
+        return metaInfo.getFormatted();
     }
 }

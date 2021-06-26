@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
@@ -26,13 +25,6 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
         id = _id;
         className = _className;
     }
-    @Override
-    public void processTagsBase(ContextEl _context, StackCall _stack) {
-        if (!checkCondition(_context, _stack)) {
-            return;
-        }
-        setNullReadWrite();
-    }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         if (!keep(root,_context, _stack)) {
@@ -48,11 +40,7 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
     }
 
     @Override
-    protected GeneType getDeclaringType() {
-        return className.getRootBlock();
-    }
-    @Override
-    protected String getDeclaringClass() {
-        return className.getFormatted();
+    protected ExecFormattedRootBlock getFormatted() {
+        return className;
     }
 }
