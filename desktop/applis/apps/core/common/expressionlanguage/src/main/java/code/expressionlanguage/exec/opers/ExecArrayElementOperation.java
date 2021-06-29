@@ -24,8 +24,7 @@ public final class ExecArrayElementOperation extends
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         int off_ = getMethodName();
         setRelOffsetPossibleLastPage(off_, _stack);
-        String cl_ = getClassName();
-        String className_ = _stack.formatVarType(cl_);
+        String className_ = _stack.formatVarType(getClassName());
 
         int nbCh_ = arguments_.size();
 
