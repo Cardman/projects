@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -31,10 +30,6 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         this.importedClassName = _importedClassName;
         this.importedClassIndexName = _importedClassIndexName;
         this.variableNames = _variableNames;
-    }
-
-    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
-        ExecHelperBlocks.processLastElementLoopMutable(_conf, _l, _stack, step, variableNames, exp, this);
     }
 
     @Override
@@ -64,4 +59,15 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         }
     }
 
+    public StringList getVariableNames() {
+        return variableNames;
+    }
+
+    public ExecOperationNodeListOff getExp() {
+        return exp;
+    }
+
+    public ExecOperationNodeListOff getStep() {
+        return step;
+    }
 }

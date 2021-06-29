@@ -20,7 +20,7 @@ public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
     @Override
     protected void checkIfNext(ContextEl _cont, LoopBlockStack _l, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
-        ip_.getRefParams().put(getVariableName(), new ArrayWrapper(_l.getContainerEx(),new LongStruct(0)));
+        ip_.getRefParams().put(getVariableName(), new ArrayWrapper(_l.getContent().getContainer(),new LongStruct(0)));
         incrOrFinish(_cont, hasNext(_cont,_l, _stack),_l, _stack);
     }
 
@@ -31,8 +31,8 @@ public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
 
     @Override
     protected Argument retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
-        Struct container_ = _l.getContainerEx();
-        LongStruct lg_ = new LongStruct(_l.getIndexEx());
+        Struct container_ = _l.getContent().getContainer();
+        LongStruct lg_ = new LongStruct(_l.getContent().getIndex());
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.getRefParams().set(getVariableName(),new ArrayWrapper(container_,lg_));
         return new Argument(ExecTemplates.getElement(container_, lg_, _conf, _stack));

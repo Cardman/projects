@@ -1,7 +1,7 @@
 package code.formathtml.stacks;
 import code.formathtml.exec.blocks.RendParentBlock;
 
-public final class RendSwitchBlockStack extends RendAbstractStask {
+public final class RendSwitchBlockStack extends RendAbstractStask implements RendConditionBlockStack {
 
     private RendParentBlock block;
 
@@ -14,11 +14,6 @@ public final class RendSwitchBlockStack extends RendAbstractStask {
 
     public void setBlock(RendParentBlock _block) {
         block = _block;
-    }
-
-    @Override
-    public RendParentBlock getLastBlock() {
-        return block;
     }
 
     @Override

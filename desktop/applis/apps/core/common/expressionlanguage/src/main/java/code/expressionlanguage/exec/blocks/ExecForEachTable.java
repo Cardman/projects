@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.exec.Classes;
 import code.util.CustList;
@@ -37,10 +36,6 @@ public final class ExecForEachTable extends ExecBracedBlock implements Stackable
         expression = _expression;
     }
 
-    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
-        ExecHelperBlocks.processLastElementLoopTable(_conf, _l, _stack, variableNameFirst, variableNameSecond, this);
-    }
-
     @Override
     public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
         if (_indexProcess == 0) {
@@ -65,6 +60,14 @@ public final class ExecForEachTable extends ExecBracedBlock implements Stackable
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
         ExecHelperBlocks.processTable(_cont, _stack, label, variableNameFirst, variableNameSecond,expression, this);
+    }
+
+    public String getVariableNameFirst() {
+        return variableNameFirst;
+    }
+
+    public String getVariableNameSecond() {
+        return variableNameSecond;
     }
 
     public String getImportedClassNameFirst() {

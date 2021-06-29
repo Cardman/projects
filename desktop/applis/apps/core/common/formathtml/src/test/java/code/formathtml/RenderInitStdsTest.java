@@ -78,8 +78,8 @@ public final class RenderInitStdsTest extends CommonRender {
         RendBlock.processElseIf(a_.getConfiguration(),null,null,null, rendStackCall_);
         RendBlock.processFinally(a_.getConfiguration(),null,null,null, rendStackCall_);
         RendBlock.setVisited(rendStackCall_.getLastPage(),null);
-        assertTrue(!RendBlock.hasBlockBreak(rendStackCall_.getLastPage(),""));
-        assertTrue(!RendBlock.hasBlockContinue(a_.getConfiguration(),null,null, rendStackCall_.getLastPage(),"", rendStackCall_));
+        assertNull(RendBlock.hasBlockBreak(rendStackCall_.getLastPage(),""));
+        assertNull(RendBlock.hasBlockContinue(a_.getConfiguration(),null,null, rendStackCall_.getLastPage(),"", rendStackCall_));
         assertNull(RendBlock.getParentNode((Element)null));
         RendDynOperationNode.getArgumentPair(new IdMap<RendDynOperationNode, ArgumentsPair>(),null);
         RendDynOperationNode.getFirstNode(null);

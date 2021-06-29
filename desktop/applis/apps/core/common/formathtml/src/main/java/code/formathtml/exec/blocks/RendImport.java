@@ -117,7 +117,6 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         if_.setBlock(this);
         if_.setCurrentVisitedBlock(this);
         ip_.addBlock(if_);
-        ip_.setLastIf(if_);
         if_.setEntered(true);
         _rendStack.addPage(newIp_);
     }

@@ -2,36 +2,27 @@ package code.formathtml.stacks;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.blocks.RendParentBlock;
 
-public final class RendTryBlockStack extends RendAbstractStask {
+public final class RendTryBlockStack extends RendAbstractStask implements RendEnteredStack {
 
     private RendAbruptCallingFinally calling;
     private Struct exception;
-
-    private RendParentBlock block;
 
     private RendParentBlock lastBlock;
 
     private RendParentBlock currentBlock;
 
-    private boolean visitedFinally;
+    private boolean entered;
 
-    public boolean isVisitedFinally() {
-        return visitedFinally;
-    }
-
-    public void setVisitedFinally(boolean _visitedFinally) {
-        visitedFinally = _visitedFinally;
+    @Override
+    public boolean isEntered() {
+        return entered;
     }
 
     @Override
-    public RendParentBlock getBlock() {
-        return block;
+    public void setEntered(boolean _entered) {
+        this.entered = _entered;
     }
 
-    public void setBlock(RendParentBlock _block) {
-        block = _block;
-    }
-    @Override
     public RendParentBlock getLastBlock() {
         return lastBlock;
     }

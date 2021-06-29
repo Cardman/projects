@@ -39,13 +39,12 @@ public final class RendForEachIterable extends RendAbstractForEachLoop {
         Struct iterStr_ = arg_.getStruct();
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setLabel(_label);
-        l_.setLoop(this);
-        l_.setIndex(-1);
+        l_.getContent().setIndex(-1);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
-        l_.setStructIterator(iterStr_);
-        l_.setMaxIteration(length_);
-        l_.setContainer(_its);
+        l_.getContent().setStructIterator(iterStr_);
+        l_.getContent().setMaxIteration(length_);
+        l_.getContent().setContainer(_its);
         return l_;
     }
 
@@ -58,7 +57,7 @@ public final class RendForEachIterable extends RendAbstractForEachLoop {
 
     @Override
     protected Argument retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack) {
-        return next(_l.getStructIterator(),_conf, _advStandards, _ctx, _rendStack);
+        return next(_l.getContent().getStructIterator(),_conf, _advStandards, _ctx, _rendStack);
     }
 
     @Override
@@ -67,7 +66,7 @@ public final class RendForEachIterable extends RendAbstractForEachLoop {
     }
 
     private static ConditionReturn iteratorHasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _rendLastStack, RendStackCall _rendStackCall) {
-        Struct strIter_ = _rendLastStack.getStructIterator();
+        Struct strIter_ = _rendLastStack.getContent().getStructIterator();
         Argument arg_ = hasNext(strIter_,_conf, _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return ConditionReturn.CALL_EX;

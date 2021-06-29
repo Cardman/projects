@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -17,7 +18,7 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringList;
 
-public final class RendForMutableIterativeLoop extends RendParentBlock implements RendLoop,RendWithEl {
+public final class RendForMutableIterativeLoop extends RendParentBlock implements RendWithEl {
 
 
     private final String label;
@@ -50,7 +51,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
+            processVisitedLoop(_cont,_stds,c_,this,_ctx,_rendStack);
+//            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
         ip_.setOffset(init.getOffset());
@@ -73,14 +75,12 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             return;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
-        l_.setLoop(this);
         l_.setLabel(label);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
-        l_.setFinished(res_ == ConditionReturn.NO);
+        l_.getContent().setFinished(res_ == ConditionReturn.NO);
         ip_.addBlock(l_);
-        c_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        if (c_.isFinished()) {
+        if (l_.getContent().isFinished()) {
             processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
@@ -115,12 +115,10 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         return ConditionReturn.NO;
     }
 
-    @Override
     public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
-        RendBlock forLoopLoc_ = l_.getBlock();
+//        RendReadWrite rw_ = ip_.getRendReadWrite();
+//        RendBlock forLoopLoc_ = _loopBlock.getCurrentVisitedBlock();
         ip_.setOffset(step.getOffset());
         ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrStep());
         if (!step.getList().isEmpty()) {
@@ -137,10 +135,11 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
-        if (keep_ == ConditionReturn.NO) {
-            l_.setFinished(true);
-        } else {
-            rw_.setRead(forLoopLoc_.getFirstChild());
-        }
+        ExecHelperBlocks.afterConditLoop(keep_, _loopBlock.getContent());
+//        if (keep_ == ConditionReturn.NO) {
+//            _loopBlock.getContent().setFinished(true);
+////        } else {
+////            rw_.setRead(forLoopLoc_.getFirstChild());
+//        }
     }
 }

@@ -39,10 +39,6 @@ public final class ImportingPage {
 
     private boolean enabledOp=true;
 
-    private RendLoopBlockStack lastLoop;
-    private RendIfStack lastIf;
-    private RendTryBlockStack lastTry;
-
     public int getRowFile(int _sum) {
         int i_ = 0;
         int r_ = 1;
@@ -162,7 +158,6 @@ public final class ImportingPage {
         }
         RendParentBlock br_ = try_.getLastBlock();
         if (br_ instanceof RendFinallyEval) {
-            _ip.setLastTry(try_);
             _ip.getRendReadWrite().setRead(br_);
             try_.setException(_ex);
             try_.setCalling(new RendAbruptCallingFinally(_call));
@@ -175,10 +170,10 @@ public final class ImportingPage {
         RendAbstractStask last_ = rendBlockStacks.last();
         last_.getCurrentVisitedBlock().removeAllVars(this);
         if (last_ instanceof RendIfStack) {
-            if (last_.getBlock() instanceof RendElement) {
+            if (((RendIfStack)last_).getBlock() instanceof RendElement) {
                 rendReadWrite.setWrite(RendBlock.getParentNode(rendReadWrite));
             }
-            if (last_.getBlock() instanceof RendForm) {
+            if (((RendIfStack)last_).getBlock() instanceof RendForm) {
                 CustList<LongTreeMap<NodeContainer>> map_ = rendReadWrite.getConf().getContainersMapStack();
                 Longs formsNb_ = rendReadWrite.getConf().getFormsNb();
                 Long nb_ = formsNb_.last();
@@ -194,18 +189,6 @@ public final class ImportingPage {
             }
         }
         rendBlockStacks.removeQuicklyLast();
-        if (hasBlock()) {
-            RendAbstractStask before_ = rendBlockStacks.last();
-            if (before_ instanceof RendLoopBlockStack) {
-                setLastLoop((RendLoopBlockStack) before_);
-            }
-            if (before_ instanceof RendIfStack) {
-                setLastIf((RendIfStack) before_);
-            }
-            if (before_ instanceof RendTryBlockStack) {
-                setLastTry((RendTryBlockStack) before_);
-            }
-        }
     }
 
     public String getReadUrl() {
@@ -232,8 +215,11 @@ public final class ImportingPage {
         internGlobal = _internGlobal;
     }
 
-    public RendAbstractStask getRendLastStack() {
-        return rendBlockStacks.last();
+    public RendAbstractStask tryGetRendLastStack() {
+        if (hasBlock()) {
+            return rendBlockStacks.last();
+        }
+        return null;
     }
 
     public boolean hasBlock() {
@@ -242,19 +228,21 @@ public final class ImportingPage {
 
     public RendLoopBlockStack getLastLoopIfPossible(RendBlock _bl) {
         RendLoopBlockStack c_ = null;
-        if (hasBlock() && getRendLastStack() instanceof RendLoopBlockStack) {
-            c_ = (RendLoopBlockStack) getRendLastStack();
+        RendAbstractStask last_ = tryGetRendLastStack();
+        if (last_ instanceof RendLoopBlockStack) {
+            c_ = (RendLoopBlockStack) last_;
         }
-        if (c_ != null && c_.getBlock() == _bl) {
+        if (c_ != null && c_.getCurrentVisitedBlock() == _bl) {
             return c_;
         }
         return null;
     }
     public boolean matchStatement(RendBlock _bl) {
-        if (!hasBlock()) {
+        RendAbstractStask last_ = tryGetRendLastStack();
+        if (!(last_ instanceof RendConditionBlockStack)) {
             return false;
         }
-        return _bl == getRendLastStack().getBlock();
+        return _bl == ((RendConditionBlockStack)last_).getBlock();
     }
 
     public StringMap<LocalVariable> getInternVars() {
@@ -281,30 +269,6 @@ public final class ImportingPage {
 
     public void putValueVar(String _var, LocalVariable _local) {
         pageEl.putValueVar(_var,_local);
-    }
-
-    public RendTryBlockStack getLastTry() {
-        return lastTry;
-    }
-
-    public void setLastTry(RendTryBlockStack _lastTry) {
-        this.lastTry = _lastTry;
-    }
-
-    public RendIfStack getLastIf() {
-        return lastIf;
-    }
-
-    public void setLastIf(RendIfStack _lastIf) {
-        this.lastIf = _lastIf;
-    }
-
-    public RendLoopBlockStack getLastLoop() {
-        return lastLoop;
-    }
-
-    public void setLastLoop(RendLoopBlockStack _lastLoop) {
-        this.lastLoop = _lastLoop;
     }
 
 }

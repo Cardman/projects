@@ -20,11 +20,8 @@ public final class ExecBreakBlock extends ExecLeaf implements MethodCallingFinal
         //and the current block is a "try" or a "catch"
         while (true) {
             AbstractStask bl_ = ExecHelperBlocks.hasBlockBreak(ip_,label);
-            if (bl_ == null) {
+            if (bl_ == null || ExecHelperBlocks.setRemovedCallingFinallyToProcess(ip_, bl_, this, null)) {
                 return;
-            }
-            if (ExecHelperBlocks.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
-                break;
             }
         }
 

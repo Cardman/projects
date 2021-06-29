@@ -41,14 +41,14 @@ public abstract class ExecForIterativeLoop extends ExecBracedBlock implements St
         step = _step;
     }
 
-    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
-        if (_l.hasNextIterEx()) {
-            incrementLoop(_conf, _l, _stack);
-            _conf.getCoverage().passLoop(this, new Argument(BooleanStruct.of(true)), _stack);
+    public static void processLastElementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack, ExecForIterativeLoop _loop) {
+        if (_l.getContent().hasNextIter()) {
+            _loop.incrementLoop(_conf, _l, _stack);
+            _conf.getCoverage().passLoop(_loop, new Argument(BooleanStruct.of(true)), _stack);
             return;
         }
-        _l.setFinishedEx(true);
-        _conf.getCoverage().passLoop(this, new Argument(BooleanStruct.of(false)), _stack);
+        _l.getContent().setFinished(true);
+        _conf.getCoverage().passLoop(_loop, new Argument(BooleanStruct.of(false)), _stack);
 
     }
 
@@ -80,11 +80,11 @@ public abstract class ExecForIterativeLoop extends ExecBracedBlock implements St
     }
 
     private void incrementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall) {
-        _l.setIndexEx(_l.getIndexEx() + 1);
-        _l.incrEx();
+        _l.getContent().setIndex(_l.getContent().getIndex() + 1);
+        _l.getContent().incr();
         String var_ = getVariableName();
         Argument struct_ = ExecTemplates.getWrapValue(_conf,var_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
-        long o_ = NumParsers.convertToNumber(struct_.getStruct()).longStruct()+_l.getStepEx();
+        long o_ = NumParsers.convertToNumber(struct_.getStruct()).longStruct()+_l.getContent().getStep();
         Struct element_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _conf.getStandards().getPrimTypes()), new LongStruct(o_));
         ExecTemplates.setWrapValue(_conf,var_, new Argument(element_),-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
         ExecTemplates.incrIndexLoop(_conf,var_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);

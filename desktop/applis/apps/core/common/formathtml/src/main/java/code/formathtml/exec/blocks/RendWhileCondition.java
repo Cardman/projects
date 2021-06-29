@@ -2,6 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -11,7 +12,7 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
-public final class RendWhileCondition extends RendCondition implements RendLoop {
+public final class RendWhileCondition extends RendCondition {
 
     private final String label;
 
@@ -27,7 +28,8 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
+            processVisitedLoop(_cont,_stds,c_,this,_ctx,_rendStack);
+//            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
         ConditionReturn res_ = keepLoop(_cont, _stds, _ctx, _rendStack);
@@ -35,33 +37,32 @@ public final class RendWhileCondition extends RendCondition implements RendLoop 
             return;
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
-        l_.setLoop(this);
         l_.setLabel(label);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
-        l_.setFinished(res_ == ConditionReturn.NO);
+        l_.getContent().setFinished(res_ == ConditionReturn.NO);
         ip_.addBlock(l_);
-        if (l_.isFinished()) {
+        if (l_.getContent().isFinished()) {
             processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
         rw_.setRead(getFirstChild());
     }
 
-    @Override
     public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, RendStackCall _rendStack) {
-        ImportingPage ip_ = _rendStack.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendBlock forLoopLoc_ = _loopBlock.getBlock();
+//        ImportingPage ip_ = _rendStack.getLastPage();
+//        RendReadWrite rw_ = ip_.getRendReadWrite();
+//        RendBlock forLoopLoc_ = _loopBlock.getCurrentVisitedBlock();
         ConditionReturn keep_ = keepLoop(_conf, _advStandards, _ctx, _rendStack);
         if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
-        if (keep_ == ConditionReturn.NO) {
-            _loopBlock.setFinished(true);
-        } else {
-            rw_.setRead(forLoopLoc_.getFirstChild());
-        }
+        ExecHelperBlocks.afterConditLoop(keep_, _loopBlock.getContent());
+//        if (keep_ == ConditionReturn.NO) {
+//            _loopBlock.getContent().setFinished(true);
+//        } else {
+//            rw_.setRead(forLoopLoc_.getFirstChild());
+//        }
     }
 
     public ConditionReturn keepLoop(Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {

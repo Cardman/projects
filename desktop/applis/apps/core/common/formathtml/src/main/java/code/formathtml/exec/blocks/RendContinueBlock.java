@@ -24,9 +24,9 @@ public final class RendContinueBlock extends RendLeaf implements RendWithEl,Rend
     @Override
     public void removeBlockFinally(Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        while (hasBlockContinue(_conf,_stds,_ctx,ip_,label, _rendStack)) {
-            RendRemovableVars bl_ = ip_.getRendLastStack();
-            if (ImportingPage.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
+        while (true) {
+            RendRemovableVars bl_ = hasBlockContinue(_conf,_stds,_ctx,ip_,label, _rendStack);
+            if (bl_ == null || ImportingPage.setRemovedCallingFinallyToProcess(ip_, bl_, this, null)) {
                 return;
             }
         }

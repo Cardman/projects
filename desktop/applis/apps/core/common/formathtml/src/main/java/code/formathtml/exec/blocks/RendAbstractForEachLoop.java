@@ -19,7 +19,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public abstract class RendAbstractForEachLoop extends RendParentBlock implements RendLoop {
+public abstract class RendAbstractForEachLoop extends RendParentBlock implements RendWithEl {
 
     private final String label;
 
@@ -50,21 +50,17 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         }
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setLabel(_label);
-        l_.setLoop(_loop);
-        l_.setIndex(-1);
-        l_.setFinished(finished_);
+        l_.getContent().setIndex(-1);
+        l_.getContent().setFinished(finished_);
         l_.setBlock(_loop);
         l_.setCurrentVisitedBlock(_loop);
-        l_.setMaxIteration(length_);
-        l_.setContainer(_its);
+        l_.getContent().setMaxIteration(length_);
+        l_.getContent().setContainer(_its);
         return l_;
     }
 
     protected static ConditionReturn hasNext(RendLoopBlockStack _l) {
-        if (_l.hasNext()) {
-            return ConditionReturn.YES;
-        }
-        return ConditionReturn.NO;
+        return ExecHelperBlocks.hasNext(_l.getContent());
     }
 
     @Override
@@ -80,7 +76,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         ImportingPage ip_ = _rendStack.getLastPage();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
+            processVisitedLoop(_cont,_stds,c_,this,_ctx,_rendStack);
             return;
         }
         Struct its_ = processLoop(_cont, _stds, _ctx, _rendStack);
@@ -92,7 +88,6 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
             return;
         }
         l_.setLabel(label);
-        l_.setLoop(this);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
         ip_.addBlock(l_);
@@ -117,7 +112,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         return arg_.getStruct();
 
     }
-    @Override
+
     public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
@@ -129,14 +124,14 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         if (hasNext_ == ConditionReturn.YES) {
             incrementLoop(_conf, _loopBlock, vars_,varsInfos_, _advStandards, _ctx, _rendStack);
         } else {
-            _loopBlock.setFinished(true);
+            _loopBlock.getContent().setFinished(true);
         }
     }
 
     private void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
                                StringMap<LoopVariable> _vars,
                                StringMap<AbstractWrapper> _varsInfos, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
-        _l.setIndex(_l.getIndex() + 1);
+        _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         ImportingPage abs_ = _rendStackCall.getLastPage();
 
 //        abs_.setGlobalOffset(variableNameOffset);

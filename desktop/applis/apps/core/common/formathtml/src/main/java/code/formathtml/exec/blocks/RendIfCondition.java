@@ -52,7 +52,6 @@ public final class RendIfCondition extends RendCondition implements RendWithEl {
             ip_.addBlock(if_);
             if (if_.getLastBlock() != this) {
                 rw_.setRead(getNextSibling());
-                ip_.setLastIf(if_);
             }
         }
     }

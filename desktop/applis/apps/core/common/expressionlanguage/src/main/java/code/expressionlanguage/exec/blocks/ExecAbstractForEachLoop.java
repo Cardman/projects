@@ -53,28 +53,28 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
         return importedClassIndexName;
     }
 
-    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
-        _l.setEvaluatingKeepLoopEx(true);
-        ConditionReturn hasNext_ = hasNext(_conf,_l, _stack);
+    public static void processLastElementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack, ExecAbstractForEachLoop _loop) {
+        _l.getContent().setEvaluatingKeepLoop(true);
+        ConditionReturn hasNext_ = _loop.hasNext(_conf,_l, _stack);
         if (hasNext_ == ConditionReturn.CALL_EX) {
             return;
         }
-        incrOrFinish(_conf, hasNext_,_l, _stack);
+        _loop.incrOrFinish(_conf, hasNext_,_l, _stack);
     }
     protected void incrOrFinish(ContextEl _cont, ConditionReturn _hasNext, LoopBlockStack _l, StackCall _stackCall) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         if (_hasNext == ConditionReturn.NO) {
             ip_.clearCurrentEls();
             _cont.getCoverage().passLoop(this, new Argument(BooleanStruct.of(false)), _stackCall);
-            _l.setEvaluatingKeepLoopEx(false);
-            _l.setFinishedEx(true);
+            _l.getContent().setEvaluatingKeepLoop(false);
+            _l.getContent().setFinished(true);
             return;
         }
         _cont.getCoverage().passLoop(this, new Argument(BooleanStruct.of(true)), _stackCall);
         incrementLoop(_cont, _l, _stackCall);
     }
     private void incrementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall) {
-        _l.setIndexEx(_l.getIndexEx() + 1);
+        _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         AbstractPageEl abs_ = _stackCall.getLastPage();
 
         abs_.setGlobalOffset(variableNameOffset);
@@ -89,7 +89,7 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
         if (_conf.callsOrException(_stackCall)) {
             return;
         }
-        _l.setEvaluatingKeepLoopEx(false);
+        _l.getContent().setEvaluatingKeepLoop(false);
         abs_.setBlock(getFirstChild());
     }
 

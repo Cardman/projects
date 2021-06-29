@@ -28,7 +28,6 @@ public final class RendTryEval extends RendParentBlock implements RendWithEl,Ren
             n_ = n_.getNextSibling();
         }
         tryStack_.setCurrentVisitedBlock(this);
-        tryStack_.setBlock(this);
         ip_.addBlock(tryStack_);
         ip_.getRendReadWrite().setRead(getFirstChild());
     }

@@ -23,10 +23,13 @@ public final class RendBreakBlock extends RendLeaf implements RendWithEl,RendMet
     @Override
     public void removeBlockFinally(Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        while (hasBlockBreak(ip_,label)) {
-            RendRemovableVars bl_ = ip_.getRendLastStack();
+        while (true) {
+            RendRemovableVars bl_ = hasBlockBreak(ip_,label);
+            if (bl_ == null) {
+                return;
+            }
             if (ImportingPage.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
-                break;
+                return;
             }
         }
     }

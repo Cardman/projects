@@ -34,8 +34,8 @@ public final class ExecForEachArray extends ExecAbstractForEachLoop {
 
     @Override
     protected Argument retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
-        Struct container_ = _l.getContainerEx();
-        LongStruct lg_ = new LongStruct(_l.getIndexEx());
+        Struct container_ = _l.getContent().getContainer();
+        LongStruct lg_ = new LongStruct(_l.getContent().getIndex());
         return new Argument(ExecTemplates.getElement(container_, lg_, _conf, _stack));
     }
 

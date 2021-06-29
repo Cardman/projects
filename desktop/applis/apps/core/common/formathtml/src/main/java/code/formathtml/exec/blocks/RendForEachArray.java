@@ -35,8 +35,8 @@ public final class RendForEachArray extends RendAbstractForEachLoop {
 
     @Override
     protected Argument retrieveValue(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _l, RendStackCall _rendStack) {
-        Struct container_ = _l.getContainer();
-        LongStruct lg_ = new LongStruct(_l.getIndex());
+        Struct container_ = _l.getContent().getContainer();
+        LongStruct lg_ = new LongStruct(_l.getContent().getIndex());
         return new Argument(ExecTemplates.getElement(container_, lg_, _ctx, _rendStack.getStackCall()));
     }
 

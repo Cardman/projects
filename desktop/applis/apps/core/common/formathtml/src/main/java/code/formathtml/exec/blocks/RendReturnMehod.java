@@ -17,8 +17,11 @@ public final class RendReturnMehod extends RendLeaf implements RendMethodCalling
     @Override
     public void removeBlockFinally(Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        while (ip_.hasBlock()) {
-            RendRemovableVars bl_ = ip_.getRendLastStack();
+        while (true) {
+            RendRemovableVars bl_ = ip_.tryGetRendLastStack();
+            if (bl_ == null) {
+                break;
+            }
             if (ImportingPage.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
                 return;
             }
