@@ -7,7 +7,6 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaFieldContent;
 import code.util.CustList;
@@ -87,13 +86,6 @@ public final class FieldMetaInfo extends AbAnMeStruct {
     @Override
     public ExecBlock getBl() {
         return (ExecBlock) annotableBlock;
-    }
-
-    public CustList<ExecAnnotContent> getAnnotationsOps(){
-        if (annotableBlock != null) {
-            return annotableBlock.getAnnotationsOps();
-        }
-        return new CustList<ExecAnnotContent>();
     }
 
     public ExecInfoBlock getAnnotableBlock() {

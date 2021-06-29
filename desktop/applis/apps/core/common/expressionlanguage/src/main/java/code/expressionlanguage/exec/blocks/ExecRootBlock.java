@@ -11,7 +11,7 @@ import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.util.*;
 
-public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType {
+public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,ExecAnnotableBlock {
     private final ExecRootBlockContent rootBlockContent;
 
     private final AccessEnum access;
@@ -104,6 +104,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType 
         return rootBlockContent.getSelfAndParentTypes();
     }
 
+    @Override
     public CustList<ExecAnnotContent> getAnnotationsOps() {
         return annotationsOps;
     }

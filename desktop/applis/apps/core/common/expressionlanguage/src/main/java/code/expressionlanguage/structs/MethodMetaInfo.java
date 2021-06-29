@@ -13,7 +13,6 @@ import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
@@ -170,19 +169,6 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
     @Override
     public ExecBlock getBl() {
         return callers.getCallee();
-    }
-
-    public CustList<ExecAnnotContent> getAnnotationsOps(){
-        if (callers.getCallee() instanceof ExecAnnotableParamBlock) {
-            return ((ExecAnnotableParamBlock) callers.getCallee()).getAnnotationsOps();
-        }
-        return new CustList<ExecAnnotContent>();
-    }
-    public CustList<CustList<ExecAnnotContent>> getAnnotationsOpsParams(){
-        if (callers.getCallee() instanceof ExecAnnotableParamBlock) {
-            return ((ExecAnnotableParamBlock) callers.getCallee()).getAnnotationsOpsParams();
-        }
-        return new CustList<CustList<ExecAnnotContent>>();
     }
 
     public ExecFormattedRootBlock getFormatted() {

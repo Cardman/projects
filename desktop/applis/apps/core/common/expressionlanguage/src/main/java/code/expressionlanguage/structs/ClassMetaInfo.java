@@ -17,7 +17,6 @@ import code.expressionlanguage.exec.ClassCategory;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.stds.*;
 import code.util.CollCapacity;
 import code.util.CustList;
@@ -639,14 +638,6 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
     @Override
     public ExecBlock getBl() {
         return formatted.getRootBlock();
-    }
-
-    public CustList<ExecAnnotContent> getAnnotationsOps(){
-        ExecRootBlock rootBlock_ = formatted.getRootBlock();
-        if (rootBlock_ != null) {
-            return rootBlock_.getAnnotationsOps();
-        }
-        return new CustList<ExecAnnotContent>();
     }
 
     public Struct variableOwner(ContextEl _context) {

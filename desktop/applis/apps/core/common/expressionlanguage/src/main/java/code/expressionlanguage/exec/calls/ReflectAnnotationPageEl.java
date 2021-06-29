@@ -6,6 +6,9 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
+import code.expressionlanguage.exec.blocks.ExecAnnotableParamBlock;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
@@ -131,7 +134,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             retrievedAnnot = true;
             return;
         }
-        annotations = annotated.getAnnotationsOps();
+        annot();
         String cl_ = filterType();
         if (!cl_.isEmpty()) {
             CustList<ExecAnnotContent> filter_ = new CustList<ExecAnnotContent>();
@@ -148,9 +151,19 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         retrievedAnnot = true;
     }
 
+    private void annot() {
+        ExecBlock bl_ = annotated.getBl();
+        if (bl_ instanceof ExecAnnotableBlock) {
+            annotations = ((ExecAnnotableBlock)bl_).getAnnotationsOps();
+        } else {
+            annotations = new CustList<ExecAnnotContent>();
+        }
+    }
+
     private void annotParams() {
-        if (annotated instanceof AnnotatedParamStruct){
-            annotationsParams = ((AnnotatedParamStruct)annotated).getAnnotationsOpsParams();
+        ExecBlock bl_ = annotated.getBl();
+        if (bl_ instanceof ExecAnnotableParamBlock){
+            annotationsParams = ((ExecAnnotableParamBlock)bl_).getAnnotationsOpsParams();
         } else {
             annotationsParams = new CustList<CustList<ExecAnnotContent>>();
         }

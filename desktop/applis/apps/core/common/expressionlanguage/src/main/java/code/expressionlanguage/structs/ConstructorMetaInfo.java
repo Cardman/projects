@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.Identifiable;
-import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -121,21 +120,6 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
     @Override
     public ExecBlock getBl() {
         return pair.getFct();
-    }
-
-    public CustList<ExecAnnotContent> getAnnotationsOps(){
-        ExecNamedFunctionBlock fct_ = pair.getFct();
-        if (fct_ != null) {
-            return fct_.getAnnotationsOps();
-        }
-        return new CustList<ExecAnnotContent>();
-    }
-    public CustList<CustList<ExecAnnotContent>> getAnnotationsOpsParams(){
-        ExecNamedFunctionBlock fct_ = pair.getFct();
-        if (fct_ != null) {
-            return fct_.getAnnotationsOpsParams();
-        }
-        return new CustList<CustList<ExecAnnotContent>>();
     }
 
     public GeneType getDeclType() {

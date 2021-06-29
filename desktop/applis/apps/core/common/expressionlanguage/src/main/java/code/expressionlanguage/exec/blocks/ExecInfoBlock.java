@@ -1,13 +1,9 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
-import code.util.CustList;
-
-public interface ExecInfoBlock {
+public interface ExecInfoBlock extends ExecAnnotableBlock {
     ExecMemberContainer getElementContent();
 
     String getImportedClassName();
     String getRealImportedClassName();
-    CustList<ExecAnnotContent> getAnnotationsOps();
 
 }
