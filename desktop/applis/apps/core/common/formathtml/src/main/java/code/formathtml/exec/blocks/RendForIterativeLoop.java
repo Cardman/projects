@@ -65,12 +65,7 @@ public abstract class RendForIterativeLoop extends RendParentBlock implements Re
         if (l_ == null) {
             return;
         }
-        c_ = l_;
-        if (c_.getContent().isFinished()) {
-            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
-            return;
-        }
-        ip_.getRendReadWrite().setRead(getFirstChild());
+        visitOrFinish(_cont,_stds,_ctx,_rendStack,this,ip_,l_);
     }
 
     private RendLoopBlockStack processLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {

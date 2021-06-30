@@ -36,6 +36,8 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
     private final String className;
     private final int variableOffset;
     private final int valueOffset;
+    private boolean builtEnum;
+    private boolean nullCaseEnum;
     private Argument argument;
     AnaRendCaseCondition(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value, int _offset) {
         super(_offset);
@@ -68,8 +70,9 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             return;
         }
         AnaRendSwitchBlock sw_ = (AnaRendSwitchBlock) par_;
-        if (!sw_.getInstanceTest().isEmpty()) {
+        if (sw_.isInstance()) {
             if (StringUtil.quickEq(value, _page.getKeyWords().getKeyWordNull())) {
+                argument = Argument.createVoid();
                 setImportedClassName("");
                 return;
             }
@@ -101,6 +104,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                     if (!StringUtil.contains(f.getFieldName(), value.trim())) {
                         continue;
                     }
+                    builtEnum = true;
                     _page.setLookLocalClass(id_);
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
                     Delimiters d_ = ElResolver.checkSyntax(value, IndexConstants.FIRST_INDEX, _page);
@@ -113,6 +117,8 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                     checkDuplicateEnumCase(_anaDoc, _page);
                     return;
                 }
+                builtEnum = true;
+                nullCaseEnum = true;
                 root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page);
                 Argument a_ = root.getArgument();
                 argument = a_;
@@ -218,6 +224,14 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
 
     public int getValueOffset() {
         return valueOffset;
+    }
+
+    public boolean isNullCaseEnum() {
+        return nullCaseEnum;
+    }
+
+    public boolean isBuiltEnum() {
+        return builtEnum;
     }
 
     public String getValue() {

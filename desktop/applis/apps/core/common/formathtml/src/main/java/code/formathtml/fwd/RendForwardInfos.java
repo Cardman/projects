@@ -1,5 +1,6 @@
 package code.formathtml.fwd;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
@@ -191,17 +192,14 @@ public final class RendForwardInfos {
             return new RendFinallyEval();
         }
         if (_current instanceof AnaRendSwitchBlock){
-            AnaRendSwitchBlock f_ = (AnaRendSwitchBlock) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendSwitchBlock(f_.getRealLabel(),f_.getValueOffset(),op_,f_.isEnumTest(),f_.getInstanceTest());
+            return buildSwitch((AnaRendSwitchBlock) _current, _forwards);
         }
         if (_current instanceof AnaRendCaseCondition){
-            AnaRendCaseCondition f_ = (AnaRendCaseCondition) _current;
-            return new RendCaseCondition(f_.getImportedClassName(),f_.getVariableName(),f_.getValue(),f_.getArgument());
+            return buildCaseCondition((AnaRendCaseCondition) _current);
+//            return new RendCaseCondition(f_.isBuiltEnum(),f_.getImportedClassName(),f_.getVariableName(),f_.getValue(),f_.getArgument());
         }
         if (_current instanceof AnaRendDefaultCondition){
-            AnaRendDefaultCondition f_ = (AnaRendDefaultCondition) _current;
-            return new RendDefaultCondition(f_.getImportedClassName(),f_.getVariableName());
+            return buildDefaultCondition((AnaRendDefaultCondition) _current);
         }
         if (_current instanceof AnaRendImport){
             AnaRendImport f_ = (AnaRendImport) _current;
@@ -366,6 +364,41 @@ public final class RendForwardInfos {
             return new RendStdElement(f_.getRead(), part_, partText_);
         }
         return null;
+    }
+
+    private static RendParentBlock buildDefaultCondition(AnaRendDefaultCondition _current) {
+        String instanceTest_ = _current.getImportedClassName();
+        if (!instanceTest_.isEmpty()) {
+            return new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getImportedClassName(), false);
+        }
+        return new RendDefaultCondition();
+    }
+
+    private static RendBlock buildCaseCondition(AnaRendCaseCondition _current) {
+        RendBlock exec_;
+        if (!_current.getImportedClassName().isEmpty()) {
+            exec_ = new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getImportedClassName(), true);
+        } else {
+            if (_current.isBuiltEnum()) {
+                if (_current.isNullCaseEnum()) {
+                    exec_ = new RendStdCaseCondition(Argument.createVoid());
+                } else {
+                    exec_ = new RendEnumCaseCondition(_current.getValue());
+                }
+            } else {
+                Argument argument_ = Argument.getNullableValue(_current.getArgument());
+                exec_ = new RendStdCaseCondition(argument_);
+            }
+        }
+        return exec_;
+    }
+
+    private static RendAbsSwitchBlock buildSwitch(AnaRendSwitchBlock _current, Forwards _forwards) {
+        CustList<RendDynOperationNode> op_ = getExecutableNodes(_current.getRoot(), _forwards);
+        if (_current.isInstance()) {
+            return new RendSwitchInstBlock(_current.getRealLabel(), _current.getValueOffset(),op_, _current.getInstanceTest());
+        }
+        return new RendSwitchBlock(_current.getRealLabel(), _current.getValueOffset(),op_, _current.getInstanceTest());
     }
 
     private static RendForIterativeLoop buildItFor(AnaRendForIterativeLoop _f, CustList<RendDynOperationNode> _opInit, CustList<RendDynOperationNode> _opExp, CustList<RendDynOperationNode> _opStep) {

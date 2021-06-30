@@ -9,7 +9,7 @@ public final class RendNullCatchEval extends RendAbstractCatchEval {
 
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        processCatch(_cont, _stds, _ctx, _rendStack);
+        procCatch(_cont, _stds, _ctx, _rendStack);
     }
 
 }

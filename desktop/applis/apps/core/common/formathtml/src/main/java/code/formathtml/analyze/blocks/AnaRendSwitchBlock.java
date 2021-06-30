@@ -26,7 +26,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
     private OperationNode root;
     private AnaClassArgumentMatching result;
 
-    private boolean enumTest;
+    private boolean instance;
     private String instanceTest = "";
     AnaRendSwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, int _offset) {
         super(_offset);
@@ -61,23 +61,20 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
             } else if (type_.startsWith("[")) {
                 final_ = false;
             }
-            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
-                if (!StringUtil.quickEq(id_, _page.getAliasString())) {
-                    if (!(classBody_ instanceof EnumBlock)) {
-                        if (!final_) {
-                            instanceTest = type_;
-                        } else {
-                            FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(_anaDoc.getFileName());
-                            un_.setIndexFile(valueOffset);
-                            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                                    id_);
-                            AnalyzingDoc.addError(un_, _anaDoc, _page);
-                        }
-                    } else {
-                        enumTest = true;
-                    }
+            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page) && !StringUtil.quickEq(id_, _page.getAliasString()) && !(classBody_ instanceof EnumBlock)) {
+                if (!final_) {
+                    instance = true;
+                    instanceTest = type_;
+                } else {
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFileName(_anaDoc.getFileName());
+                    un_.setIndexFile(valueOffset);
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                            id_);
+                    AnalyzingDoc.addError(un_, _anaDoc, _page);
                 }
+            } else {
+                instanceTest = type_;
             }
         }
         AnaRendBlock first_ = getFirstChild();
@@ -123,8 +120,8 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
         return labelOffset;
     }
 
-    public boolean isEnumTest() {
-        return enumTest;
+    public boolean isInstance() {
+        return instance;
     }
 
     public String getInstanceTest() {

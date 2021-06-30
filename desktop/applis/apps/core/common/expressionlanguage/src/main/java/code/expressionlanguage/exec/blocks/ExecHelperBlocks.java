@@ -152,14 +152,14 @@ public final class ExecHelperBlocks {
         }
         if_.setExecBlock(_cond);
         if_.setCurrentVisitedBlock(_cond);
+        ip_.addBlock(if_);
         if (assert_ == ConditionReturn.YES) {
-            ip_.addBlock(if_);
             if_.setEntered(true);
             ip_.setBlock(_cond.getFirstChild());
         } else {
-            ip_.addBlock(if_);
-            if (isNextIfParts(_cond.getNextSibling())) {
-                ip_.setBlock(_cond.getNextSibling());
+            ExecBlock next_ = _cond.getNextSibling();
+            if (isNextIfParts(next_)) {
+                ip_.setBlock(next_);
             }
         }
     }
@@ -215,10 +215,10 @@ public final class ExecHelperBlocks {
         }
         ((LoopBlockStack) l_).getContent().setEvaluatingKeepLoop(true);
         ConditionReturn keep_ = evaluateConditionBas(_cont, _stackCall, _cond, _condition);
+        afterConditLoop(keep_, ((LoopBlockStack) l_).getContent());
         if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
-        afterConditLoop(keep_, ((LoopBlockStack) l_).getContent());
         ip_.setBlock(_cond.getPreviousSibling());
     }
 
@@ -268,13 +268,13 @@ public final class ExecHelperBlocks {
     public static void processLastElementLoopWhile(ContextEl _conf, LoopBlockStack _l, StackCall _stack, ExecWhileCondition _loop, ExecOperationNodeListOff _condition) {
         _l.getContent().setEvaluatingKeepLoop(true);
         ConditionReturn keep_ = evaluateConditionBas(_conf, _stack, _loop, _condition);
-        if (keep_ == ConditionReturn.CALL_EX) {
-            return;
-        }
         afterConditLoop(keep_, _l.getContent());
     }
 
     public static void afterConditLoop(ConditionReturn _keep, LoopBlockStackContent _content) {
+        if (_keep == ConditionReturn.CALL_EX) {
+            return;
+        }
         if (_keep == ConditionReturn.NO) {
             _content.setFinished(true);
         }
@@ -347,9 +347,6 @@ public final class ExecHelperBlocks {
             }
         }
         ConditionReturn keep_ = evaluateCondition(_conf, index_, _stack, _exp, _block);
-        if (keep_ == ConditionReturn.CALL_EX) {
-            return;
-        }
         afterConditLoop(keep_, _l.getContent());
     }
 
@@ -660,14 +657,8 @@ public final class ExecHelperBlocks {
         if (l_ == null) {
             return;
         }
-        c_ = l_;
-        if (c_.getContent().isFinished()) {
-            _cont.getCoverage().passLoop(_block, new Argument(BooleanStruct.of(false)), _stack);
-            processBlockAndRemove(_cont, _block, _stack);
-            return;
-        }
-        _cont.getCoverage().passLoop(_block, new Argument(BooleanStruct.of(true)), _stack);
-        ip_.setBlock(_block.getFirstChild());
+        _cont.getCoverage().passLoop(_block, new Argument(BooleanStruct.of(!l_.getContent().isFinished())), _stack);
+        visitOrFinish(l_,_block,_cont,_stack,ip_);
     }
 
     private static LoopBlockStack processLoop(ContextEl _conf, StackCall _stackCall, String _label, ExecOperationNodeListOff _init, ExecOperationNodeListOff _exp, ExecOperationNodeListOff _step, ExecForIterativeLoop _block) {
@@ -772,6 +763,10 @@ public final class ExecHelperBlocks {
             processLastElementLoop(_context,_stackCall,_bl,_l);
             return;
         }
+        visitOrFinish(_l, _next, _context, _stackCall, _current);
+    }
+
+    private static void visitOrFinish(LoopBlockStack _l, ExecBlock _next, ContextEl _context, StackCall _stackCall, AbstractPageEl _current) {
         if (_l.getContent().isFinished()) {
             processBlockAndRemove(_context, _next, _stackCall);
             return;
@@ -1044,6 +1039,9 @@ public final class ExecHelperBlocks {
         return _step.getList();
     }
 
+    public static boolean setRemovedCallingFinallyToProcessLoop(AbstractPageEl _ip,AbstractStask _vars, MethodCallingFinally _call, Struct _ex) {
+        return _vars == null || setRemovedCallingFinallyToProcess(_ip, _vars, _call, _ex);
+    }
     public static boolean setRemovedCallingFinallyToProcess(AbstractPageEl _ip,AbstractStask _vars, MethodCallingFinally _call, Struct _ex) {
         if (!(_vars instanceof TryBlockStack)) {
             _ip.removeLastBlock();

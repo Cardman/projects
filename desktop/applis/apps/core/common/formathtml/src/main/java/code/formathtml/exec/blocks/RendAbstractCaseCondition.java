@@ -7,7 +7,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 
-public final class RendDefaultCondition extends RendParentBlock implements RendWithEl {
+public abstract class RendAbstractCaseCondition extends RendParentBlock implements RendWithEl {
 
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
@@ -16,5 +16,4 @@ public final class RendDefaultCondition extends RendParentBlock implements RendW
         rw_.setRead(getFirstChild());
         setVisited(ip_,this);
     }
-
 }

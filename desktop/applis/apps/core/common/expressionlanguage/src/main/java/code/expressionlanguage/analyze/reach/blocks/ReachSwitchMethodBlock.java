@@ -8,13 +8,13 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 
 public final class ReachSwitchMethodBlock extends ReachMemberCallingsBlock implements ReachAnalyzedSwitch {
     private final AnaClassArgumentMatching result;
-    private final String instanceTest;
     private final SwitchMethodBlock meta;
+    private final boolean instance;
 
     protected ReachSwitchMethodBlock(SwitchMethodBlock _info) {
         super(_info);
         result = _info.getResult();
-        instanceTest = _info.getInstanceTest();
+        instance = _info.isInstance();
         meta = _info;
     }
 
@@ -31,8 +31,9 @@ public final class ReachSwitchMethodBlock extends ReachMemberCallingsBlock imple
         return result;
     }
 
-    public String getInstanceTest() {
-        return instanceTest;
+    @Override
+    public boolean isInstance() {
+        return instance;
     }
 
     @Override

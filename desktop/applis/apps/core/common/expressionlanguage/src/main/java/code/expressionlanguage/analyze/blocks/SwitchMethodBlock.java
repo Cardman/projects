@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -36,7 +35,7 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
 
     private AnaClassArgumentMatching result = new AnaClassArgumentMatching("");
 
-    private boolean enumTest;
+    private boolean instance;
     private String instanceTest = "";
     private String retType = "";
 
@@ -89,7 +88,13 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
         return instanceTest;
     }
 
-    public void setInstanceTest(String _instanceTest) {
+    public boolean isInstance() {
+        return instance;
+    }
+
+    @Override
+    public void setInstanceTest(boolean _instance, String _instanceTest) {
+        instance = _instance;
         this.instanceTest = _instanceTest;
     }
 
@@ -99,13 +104,6 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
 
     public AnaCache getCache() {
         return anaAnonFctContent.getCache();
-    }
-    public boolean isEnumTest() {
-        return enumTest;
-    }
-
-    public void setEnumTest(boolean _enumTest) {
-        this.enumTest = _enumTest;
     }
 
     public int getConditionNb() {

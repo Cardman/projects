@@ -10,10 +10,12 @@ import code.util.CustList;
 
 public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
     private final String label;
+    private final String instanceTest;
 
     private final ExecOperationNodeListOff value;
 
-    ExecAbstractSwitchBlock(String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
+    ExecAbstractSwitchBlock(String _instanceTest, String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
+        instanceTest = _instanceTest;
         label = _label;
         value = new ExecOperationNodeListOff(_opValue,_valueOffset);
     }
@@ -29,22 +31,6 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         }
         _if.setExecBlock(_braced);
         return children_;
-    }
-
-    protected static ExecBracedBlock nullCase(CustList<ExecBracedBlock> _children) {
-        ExecBracedBlock found_;
-        found_ = null;
-        for (ExecBracedBlock b: _children) {
-            if (!(b instanceof ExecDefaultCondition)) {
-                if (b instanceof ExecNullCaseCondition) {
-                    found_ = b;
-                    break;
-                }
-            } else {
-                found_ = b;
-            }
-        }
-        return found_;
     }
 
     @Override
@@ -72,4 +58,7 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         ip_.addBlock(_if);
     }
 
+    public String getInstanceTest() {
+        return instanceTest;
+    }
 }

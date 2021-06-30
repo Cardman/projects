@@ -44,17 +44,20 @@ public final class DefaultCondition extends SwitchPartBlock {
             _page.addLocError(un_);
             addErrorBlock(un_.getBuiltError());
         } else {
+            boolean instance_;
             String instanceTest_;
             if (b_ instanceof SwitchBlock) {
                 SwitchBlock s_ = (SwitchBlock) b_;
                 setSwitchParent(s_);
                 instanceTest_ = s_.getInstanceTest();
+                instance_ = s_.isInstance();
             } else {
                 SwitchMethodBlock s_ = (SwitchMethodBlock) b_;
                 setSwitchMethod(s_);
                 instanceTest_ = s_.getInstanceTest();
+                instance_ = s_.isInstance();
             }
-            if (instanceTest_.isEmpty()) {
+            if (!instance_) {
                 AbsBk first_ = b_.getFirstChild();
                 while (first_ != this) {
                     if (first_ instanceof DefaultCondition) {

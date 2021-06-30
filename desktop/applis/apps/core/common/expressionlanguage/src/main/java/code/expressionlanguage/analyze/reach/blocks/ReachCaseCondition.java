@@ -42,18 +42,20 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         }
         AnaClassArgumentMatching resSwitch_;
         String type_;
+        boolean instance_;
         String instanceTest_;
         if (par_ instanceof ReachSwitchBlock) {
             ReachSwitchBlock sw_ = (ReachSwitchBlock) par_;
             resSwitch_ = sw_.getResult();
-            instanceTest_ = sw_.getInstanceTest();
+            instance_ = sw_.isInstance();
         } else {
             ReachSwitchMethodBlock sw_ = (ReachSwitchMethodBlock) par_;
             resSwitch_ = sw_.getResult();
-            instanceTest_ = sw_.getInstanceTest();
+            instance_ = sw_.isInstance();
         }
         type_ = resSwitch_.getSingleNameOrEmpty();
-        if (!instanceTest_.isEmpty()) {
+        if (instance_) {
+            meta.setArgument(Argument.createVoid());
             return;
         }
         EnumBlock e_ = getEnumType(type_, _page);
@@ -193,7 +195,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             return;
         }
         ReachSwitchBlock s_ = (ReachSwitchBlock) par_;
-        if (s_.getInstanceTest().isEmpty()) {
+        if (!s_.isInstance()) {
             super.reach(_anEl, _page);
             return;
         }

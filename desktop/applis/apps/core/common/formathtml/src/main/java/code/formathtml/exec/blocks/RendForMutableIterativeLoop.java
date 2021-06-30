@@ -1,20 +1,9 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.stacks.RendLoopBlockStack;
-import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringList;
 
@@ -47,44 +36,31 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
 
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        ImportingPage ip_ = _rendStack.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
-        if (c_ != null) {
-            processVisitedLoop(_cont,_stds,c_,this,_ctx,_rendStack);
-//            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
-            return;
-        }
-        ip_.setOffset(init.getOffset());
-        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrInit());
-        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _ctx);
-        for (String v: variableNames) {
-            LoopVariable lv_ = new LoopVariable();
-            lv_.setIndexClassName(importedClassIndexName);
-            ip_.getVars().put(v, lv_);
-            ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,importedClassName));
-        }
-        if (!init.getList().isEmpty()) {
-            RenderExpUtil.calculateReuse(init.getList(), _stds, _ctx, _rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return;
-            }
-        }
-        ConditionReturn res_ = evaluateCondition(_cont, _stds, _ctx, _rendStack);
-        if (res_ == ConditionReturn.CALL_EX) {
-            return;
-        }
-        RendLoopBlockStack l_ = new RendLoopBlockStack();
-        l_.setLabel(label);
-        l_.setBlock(this);
-        l_.setCurrentVisitedBlock(this);
-        l_.getContent().setFinished(res_ == ConditionReturn.NO);
-        ip_.addBlock(l_);
-        if (l_.getContent().isFinished()) {
-            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
-            return;
-        }
-        rw_.setRead(getFirstChild());
+        processForMutable(_cont, _stds, _ctx, _rendStack, label, this);
+    }
+
+    public RendOperationNodeListOff getInit() {
+        return init;
+    }
+
+    public RendOperationNodeListOff getExp() {
+        return exp;
+    }
+
+    public RendOperationNodeListOff getStep() {
+        return step;
+    }
+
+    public StringList getVariableNames() {
+        return variableNames;
+    }
+
+    public String getImportedClassName() {
+        return importedClassName;
+    }
+
+    public String getImportedClassIndexName() {
+        return importedClassIndexName;
     }
 
     @Override
@@ -98,48 +74,4 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
     }
 
-    private ConditionReturn evaluateCondition(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
-        ImportingPage last_ = _rendStackCall.getLastPage();
-        if (exp.getList().isEmpty()) {
-            return ConditionReturn.YES;
-        }
-        last_.setOffset(exp.getOffset());
-        last_.setProcessingAttribute(_context.getRendKeyWords().getAttrCondition());
-        Argument arg_ = RenderExpUtil.calculateReuse(exp.getList(), _stds, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return ConditionReturn.CALL_EX;
-        }
-        if (BooleanStruct.isTrue(arg_.getStruct())) {
-            return ConditionReturn.YES;
-        }
-        return ConditionReturn.NO;
-    }
-
-    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, RendStackCall _rendStack) {
-        ImportingPage ip_ = _rendStack.getLastPage();
-//        RendReadWrite rw_ = ip_.getRendReadWrite();
-//        RendBlock forLoopLoc_ = _loopBlock.getCurrentVisitedBlock();
-        ip_.setOffset(step.getOffset());
-        ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrStep());
-        if (!step.getList().isEmpty()) {
-            RenderExpUtil.calculateReuse(step.getList(), _advStandards, _ctx, _rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return;
-            }
-        }
-        for (String v: variableNames) {
-            LoopVariable lv_ = ip_.getVars().getVal(v);
-            lv_.setIndex(lv_.getIndex()+1);
-        }
-        ConditionReturn keep_ = evaluateCondition(_conf, _advStandards, _ctx, _rendStack);
-        if (keep_ == ConditionReturn.CALL_EX) {
-            return;
-        }
-        ExecHelperBlocks.afterConditLoop(keep_, _loopBlock.getContent());
-//        if (keep_ == ConditionReturn.NO) {
-//            _loopBlock.getContent().setFinished(true);
-////        } else {
-////            rw_.setRead(forLoopLoc_.getFirstChild());
-//        }
-    }
 }

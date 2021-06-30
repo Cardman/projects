@@ -7,7 +7,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.stacks.*;
 import code.formathtml.util.BeanLgNames;
 
-public final class RendBreakBlock extends RendLeaf implements RendWithEl,RendMethodCallingFinally {
+public final class RendBreakBlock extends RendLeaf implements RendMethodCallingFinally {
 
     private final String label;
     public RendBreakBlock(String _info) {
@@ -25,10 +25,7 @@ public final class RendBreakBlock extends RendLeaf implements RendWithEl,RendMet
         ImportingPage ip_ = _rendStack.getLastPage();
         while (true) {
             RendRemovableVars bl_ = hasBlockBreak(ip_,label);
-            if (bl_ == null) {
-                return;
-            }
-            if (ImportingPage.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
+            if (ImportingPage.setRemovedCallingFinallyToProcessLoop(ip_, bl_, this, null)) {
                 return;
             }
         }

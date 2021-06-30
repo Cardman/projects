@@ -6,8 +6,7 @@ public final class ExecStdCaseCondition extends ExecAbstractCaseCondition {
 
     private final Argument arg;
 
-    public ExecStdCaseCondition(int _valueOffset, Argument _arg) {
-        super(_valueOffset);
+    public ExecStdCaseCondition(Argument _arg) {
         arg = _arg;
     }
 

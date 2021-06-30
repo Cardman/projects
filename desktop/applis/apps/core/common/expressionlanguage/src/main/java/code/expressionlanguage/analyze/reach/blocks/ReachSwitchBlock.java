@@ -14,7 +14,7 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
     private final AnaClassArgumentMatching result;
     private final int valueOffset;
     private final OperationNode root;
-    private final String instanceTest;
+    private final boolean instance;
 
     protected ReachSwitchBlock(SwitchBlock _info) {
         super(_info);
@@ -22,7 +22,7 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
         result = _info.getResult();
         valueOffset = _info.getValueOffset();
         root = _info.getRoot();
-        instanceTest = _info.getInstanceTest();
+        instance = _info.isInstance();
     }
 
     @Override
@@ -86,7 +86,7 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
         boolean def_ = hasDefaultCase(_braced);
         if (!def_) {
             abrupt_ = false;
-        } else if (!_ana.getInstanceTest().isEmpty()) {
+        } else if (_ana.isInstance()) {
             CustList<ReachBlock> group_ = new CustList<ReachBlock>();
             for (ReachBlock b: getDirectChildren(_braced)) {
                 group_.add(b);
@@ -131,7 +131,9 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
         return result;
     }
 
-    public String getInstanceTest() {
-        return instanceTest;
+    @Override
+    public boolean isInstance() {
+        return instance;
     }
+
 }

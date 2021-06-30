@@ -52,10 +52,6 @@ public final class RendLocalThrowing {
         RendBlock n_ = _currentBlock.getNextSibling();
         //process try block
         while (n_ instanceof RendAbstractCatchEval || n_ instanceof RendPossibleEmpty) {
-            if (n_ instanceof RendPossibleEmpty) {
-                n_ = n_.getNextSibling();
-                continue;
-            }
             if (n_ instanceof RendCatchEval) {
                 RendCatchEval ca_ = (RendCatchEval) n_;
                 String name_ = ca_.getImportedClassName();
@@ -65,7 +61,7 @@ public final class RendLocalThrowing {
                     _bkIp.putValueVar(var_, lv_);
                     return ca_;
                 }
-            } else {
+            } else if (n_ instanceof RendNullCatchEval){
                 RendNullCatchEval ca_ = (RendNullCatchEval) n_;
                 if (_str == NullStruct.NULL_VALUE) {
                     return ca_;

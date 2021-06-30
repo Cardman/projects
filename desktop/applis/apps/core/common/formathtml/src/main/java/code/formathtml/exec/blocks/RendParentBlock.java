@@ -6,24 +6,7 @@ import code.util.CustList;
 public abstract class RendParentBlock extends RendBlock {
 
     private RendBlock firstChild;
-    private CustList<RendAbstractDeclareVariable> decl = new CustList<RendAbstractDeclareVariable>();
-    protected RendParentBlock() {
-    }
-    public static boolean isNextIfParts(RendBlock _n) {
-        return isStrictNextIfParts(_n) || _n instanceof RendPossibleEmpty;
-    }
-
-    public static boolean isStrictNextIfParts(RendBlock _n) {
-        return _n instanceof RendElseIfCondition || _n instanceof RendElseCondition;
-    }
-
-    public static boolean isNextTryParts(RendBlock _n) {
-        return isStrictNextTryParts(_n) || _n instanceof RendPossibleEmpty;
-    }
-
-    public static boolean isStrictNextTryParts(RendBlock _n) {
-        return _n instanceof RendAbstractCatchEval || _n instanceof RendFinallyEval;
-    }
+    private final CustList<RendAbstractDeclareVariable> decl = new CustList<RendAbstractDeclareVariable>();
 
     public final void appendChild(RendBlock _child) {
         _child.setParent(this);

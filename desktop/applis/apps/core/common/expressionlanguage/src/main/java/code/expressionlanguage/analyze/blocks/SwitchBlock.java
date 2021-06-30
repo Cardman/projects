@@ -26,7 +26,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
 
     private AnaClassArgumentMatching result;
 
-    private boolean enumTest;
+    private boolean instance;
     private String instanceTest = "";
 
     private final ResultExpression res = new ResultExpression();
@@ -106,25 +106,21 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             } else if (type_.startsWith("#")||type_.startsWith("[")) {
                 final_ = false;
             }
-            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page)) {
-                if (!StringUtil.quickEq(id_, _page.getAliasString())) {
-                    if (!(classBody_ instanceof EnumBlock)) {
-                        if (!final_) {
-                            _braced.setInstanceTest(type_);
-                        } else {
-                            FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(_braced.getFile().getFileName());
-                            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                            //one char => change to first left par
-                            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                                    id_);
-                            _page.addLocError(un_);
-                            _braced.addErrorBlock(un_.getBuiltError());
-                        }
-                    } else {
-                        _braced.setEnumTest(true);
-                    }
+            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _page) && !StringUtil.quickEq(id_, _page.getAliasString()) && !(classBody_ instanceof EnumBlock)) {
+                if (!final_) {
+                    _braced.setInstanceTest(true,type_);
+                } else {
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFileName(_braced.getFile().getFileName());
+                    un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //one char => change to first left par
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                            id_);
+                    _page.addLocError(un_);
+                    _braced.addErrorBlock(un_.getBuiltError());
                 }
+            } else {
+                _braced.setInstanceTest(false,type_);
             }
         }
     }
@@ -169,22 +165,18 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         return err;
     }
 
+    public boolean isInstance() {
+        return instance;
+    }
+
     public String getInstanceTest() {
         return instanceTest;
     }
 
     @Override
-    public void setInstanceTest(String _instanceTest) {
+    public void setInstanceTest(boolean _instance,String _instanceTest) {
+        instance = _instance;
         this.instanceTest = _instanceTest;
-    }
-
-    public boolean isEnumTest() {
-        return enumTest;
-    }
-
-    @Override
-    public void setEnumTest(boolean _enumTest) {
-        this.enumTest = _enumTest;
     }
 
     public int getConditionNb() {

@@ -1,23 +1,23 @@
-package code.expressionlanguage.exec.blocks;
+package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.formathtml.ImportingPage;
 
-public final class ExecAbstractInstanceCaseCondition extends ExecAbstractCaseCondition {
+public final class RendAbstractInstanceCaseCondition extends RendAbstractCaseCondition {
     private final String importedClassName;
     private final boolean specific;
 
     private final String variableName;
 
-    public ExecAbstractInstanceCaseCondition(String _variableName, String _importedClassName, boolean _spec) {
+    public RendAbstractInstanceCaseCondition(String _variableName, String _importedClassName, boolean _spec) {
         variableName = _variableName;
         importedClassName = _importedClassName;
         specific = _spec;
     }
 
     @Override
-    public void removeAllVars(AbstractPageEl _ip) {
+    public void removeAllVars(ImportingPage _ip) {
         super.removeAllVars(_ip);
-        _ip.removeRefVar(variableName);
+        _ip.removeRefVar(getVariableName());
     }
 
     public boolean isSpecific(){

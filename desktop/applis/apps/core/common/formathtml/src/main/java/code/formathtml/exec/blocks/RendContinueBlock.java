@@ -7,7 +7,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.stacks.RendRemovableVars;
 import code.formathtml.util.BeanLgNames;
 
-public final class RendContinueBlock extends RendLeaf implements RendWithEl,RendMethodCallingFinally {
+public final class RendContinueBlock extends RendLeaf implements RendMethodCallingFinally {
 
     private final String label;
 
@@ -26,7 +26,7 @@ public final class RendContinueBlock extends RendLeaf implements RendWithEl,Rend
         ImportingPage ip_ = _rendStack.getLastPage();
         while (true) {
             RendRemovableVars bl_ = hasBlockContinue(_conf,_stds,_ctx,ip_,label, _rendStack);
-            if (bl_ == null || ImportingPage.setRemovedCallingFinallyToProcess(ip_, bl_, this, null)) {
+            if (ImportingPage.setRemovedCallingFinallyToProcessLoop(ip_, bl_, this, null)) {
                 return;
             }
         }

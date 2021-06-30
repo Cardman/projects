@@ -34,8 +34,7 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
             AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else {
             AnaRendSwitchBlock s_ = (AnaRendSwitchBlock) b_;
-            String instanceTest_ = s_.getInstanceTest();
-            if (instanceTest_.isEmpty()) {
+            if (!s_.isInstance()) {
                 AnaRendBlock first_ = b_.getFirstChild();
                 while (first_ != this) {
                     if (first_ instanceof AnaRendDefaultCondition) {
@@ -53,6 +52,7 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
                 }
                 return;
             }
+            String instanceTest_ = s_.getInstanceTest();
             setImportedClassName(instanceTest_);
             if (getNextSibling() != null){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
