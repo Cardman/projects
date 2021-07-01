@@ -38,7 +38,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
+        setRelOffsetPossibleLastPage(off_, _rendStack);
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
         Argument result_ = ExecStandardInstancingOperation.prep(_context,_rendStack.getStackCall(),previous_,formattedType,infos_,instancingCommonContent,instancingStdContent);
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _rendStack);

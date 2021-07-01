@@ -331,8 +331,7 @@ public final class ExecHelperBlocks {
         AbstractPageEl ip_ = _stack.getLastPage();
         _l.getContent().setEvaluatingKeepLoop(true);
         int index_ = 0;
-        ip_.setOffset(0);
-        ip_.setGlobalOffset(_step.getOffset());
+        ip_.globalOffset(_step.getOffset());
         if (!_step.getList().isEmpty()) {
             ExpressionLanguage from_ = ip_.getCurrentEl(_conf, _block, IndexConstants.FIRST_INDEX, 2);
             ExpressionLanguage.tryToCalculate(_conf,from_,0, _stack);
@@ -357,8 +356,7 @@ public final class ExecHelperBlocks {
             processVisitedLoop(c_, _bl, _bl, _cont, _stack, ip_);
             return;
         }
-        ip_.setGlobalOffset(_init.getOffset());
-        ip_.setOffset(0);
+        ip_.globalOffset(_init.getOffset());
         int index_ = 0;
         if (ip_.isEmptyEl()) {
             String formatted_ = _stack.formatVarType(_bl.getImportedClassName());
@@ -389,8 +387,7 @@ public final class ExecHelperBlocks {
             return ConditionReturn.YES;
         }
         ExpressionLanguage exp_ = last_.getCurrentEl(_context, _block, _index, IndexConstants.SECOND_INDEX);
-        last_.setOffset(0);
-        last_.setGlobalOffset(_list.getOffset());
+        last_.globalOffset(_list.getOffset());
         Argument arg_ = ExpressionLanguage.tryToCalculate(_context,exp_,0, _stackCall);
         if (_context.callsOrException(_stackCall)) {
             return ConditionReturn.CALL_EX;
@@ -406,8 +403,7 @@ public final class ExecHelperBlocks {
     public static ConditionReturn evaluateConditionBas(ContextEl _context, StackCall _stackCall, ExecCondition _execCondition, ExecOperationNodeListOff _condition) {
         AbstractPageEl last_ = _stackCall.getLastPage();
         ExpressionLanguage exp_ = last_.getCurrentEl(_context, _execCondition, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        last_.setOffset(0);
-        last_.setGlobalOffset(_condition.getOffset());
+        last_.globalOffset(_condition.getOffset());
         Argument arg_ = ExpressionLanguage.tryToCalculate(_context,exp_,0, _stackCall);
         if (_context.callsOrException(_stackCall)) {
             return ConditionReturn.CALL_EX;
@@ -448,8 +444,7 @@ public final class ExecHelperBlocks {
 
     private static Struct processLoopForEach(ContextEl _conf, StackCall _stackCall, ExecOperationNodeListOff _expression, ExecAbstractForEachLoop _block) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
-        ip_.setGlobalOffset(_expression.getOffset());
-        ip_.setOffset(0);
+        ip_.globalOffset(_expression.getOffset());
         ExpressionLanguage el_ = ip_.getCurrentEl(_conf, _block, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,el_,0, _stackCall);
         if (_conf.callsOrException(_stackCall)) {
@@ -578,8 +573,7 @@ public final class ExecHelperBlocks {
 
     private static Struct processLoop(ExecOperationNodeListOff _expression, ContextEl _conf, StackCall _stackCall, ExecForEachTable _block) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
-        ip_.setGlobalOffset(_expression.getOffset());
-        ip_.setOffset(0);
+        ip_.globalOffset(_expression.getOffset());
         ExpressionLanguage el_ = ip_.getCurrentEl(_conf, _block, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,el_,0, _stackCall);
         if (_conf.callsOrException(_stackCall)) {
@@ -668,8 +662,7 @@ public final class ExecHelperBlocks {
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = _block.getVariableName();
 
-        ip_.setGlobalOffset(_init.getOffset());
-        ip_.setOffset(0);
+        ip_.globalOffset(_init.getOffset());
         ExpressionLanguage from_ = ip_.getCurrentEl(_conf, _block, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         Argument argFrom_ = ExpressionLanguage.tryToCalculate(_conf,from_,0, _stackCall);
         if (_conf.callsOrException(_stackCall)) {
@@ -679,8 +672,7 @@ public final class ExecHelperBlocks {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_, _stackCall)));
             return null;
         }
-        ip_.setGlobalOffset(_exp.getOffset());
-        ip_.setOffset(0);
+        ip_.globalOffset(_exp.getOffset());
         ExpressionLanguage to_ = ip_.getCurrentEl(_conf, _block, IndexConstants.SECOND_INDEX, IndexConstants.SECOND_INDEX);
         Argument argTo_ = ExpressionLanguage.tryToCalculate(_conf,to_,0, _stackCall);
         if (_conf.callsOrException(_stackCall)) {
@@ -690,8 +682,7 @@ public final class ExecHelperBlocks {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, null_, _stackCall)));
             return null;
         }
-        ip_.setGlobalOffset(_step.getOffset());
-        ip_.setOffset(0);
+        ip_.globalOffset(_step.getOffset());
         ExpressionLanguage step_ = ip_.getCurrentEl(_conf, _block, IndexConstants.SECOND_INDEX + 1, IndexConstants.SECOND_INDEX + 1);
         Argument argStep_ = ExpressionLanguage.tryToCalculate(_conf,step_,0, _stackCall);
         if (_conf.callsOrException(_stackCall)) {
@@ -746,8 +737,7 @@ public final class ExecHelperBlocks {
             return;
         }
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont, _bl, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        ip_.setGlobalOffset(_value.getOffset());
-        ip_.setOffset(0);
+        ip_.globalOffset(_value.getOffset());
         Argument arg_ =  ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
         if (_cont.callsOrException(_stack)) {
             return;
@@ -797,8 +787,7 @@ public final class ExecHelperBlocks {
     public static void processLine(ContextEl _cont, StackCall _stack, ExecOperationNodeListOff _exp, ExecLine _block) {
         AbstractPageEl ip_ = _stack.getLastPage();
 
-        ip_.setGlobalOffset(_exp.getOffset());
-        ip_.setOffset(0);
+        ip_.globalOffset(_exp.getOffset());
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont, _block, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
         if (_cont.callsOrException(_stack)) {

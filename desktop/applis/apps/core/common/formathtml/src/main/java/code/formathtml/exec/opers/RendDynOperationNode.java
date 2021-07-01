@@ -80,7 +80,11 @@ public abstract class RendDynOperationNode {
     }
 
     public final void setRelativeOffsetPossibleLastPage(RendStackCall _rendStackCall) {
-        _rendStackCall.setOpOffset(getIndexInEl());
+        setRelativeOffsetPossibleLastPage(getIndexInEl(),_rendStackCall);
+    }
+
+    public final void setRelOffsetPossibleLastPage(int _offset,RendStackCall _rendStackCall) {
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+_offset,_rendStackCall);
     }
 
     public final RendDynOperationNode getNextSibling() {
@@ -97,7 +101,7 @@ public abstract class RendDynOperationNode {
         if ((content.getResultClass().isCheckOnlyNullPe() || unwrapObjectNb_ > -1) && last_.isNull()) {
             LgNames stds_ = _context.getStandards();
             String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStackCall);
+            setRelativeOffsetPossibleLastPage(_rendStackCall);
             _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_context, null_, _rendStackCall.getStackCall())));
             return;
         }

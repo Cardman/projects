@@ -22,6 +22,7 @@ public final class ExecCompoundAffectationNatOperation extends ExecCompoundAffec
 
     @Override
     protected void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
         Argument leftArg_ = getFirstArgument(_nodes,this);
         Argument rightArg_ = getLastArgument(_nodes,this);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
@@ -35,7 +36,6 @@ public final class ExecCompoundAffectationNatOperation extends ExecCompoundAffec
             pairBefore_.setIndexImplicitCompound(processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
             return;
         }
-        setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
         Argument arg_ = calculateCompoundSetting(_nodes, _conf, rightArg_, _stack);
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes, _stack);

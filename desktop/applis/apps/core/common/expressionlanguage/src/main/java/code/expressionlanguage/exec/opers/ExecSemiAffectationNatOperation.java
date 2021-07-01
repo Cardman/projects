@@ -25,6 +25,7 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
 
     @Override
     protected void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
         ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
         int indexImplicit_ = pairBefore_.getIndexImplicitSemiFrom();
         if (ImplicitMethods.isValidIndex(converterFrom,indexImplicit_)) {
@@ -35,7 +36,6 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
             pairBefore_.setIndexImplicitSemiFrom(ExecOperationNode.processConverter(_conf,l_, converterFrom,indexImplicit_, _stack));
             return;
         }
-        setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
         Argument arg_ = calculateSemiChSetting(_nodes, _conf, _stack);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         pair_.setEndCalculate(true);

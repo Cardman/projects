@@ -36,7 +36,7 @@ public final class RendDimensionArrayInstancing extends
         Argument res_;
         CustList<RendDynOperationNode> filter_ = getChildrenNodes();
         int off_ = getMethodName();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
+        setRelOffsetPossibleLastPage(off_, _rendStack);
         String className_ = getClassName();
         className_ = StringExpUtil.getPrettyArrayType(className_, countArrayDims);
 

@@ -27,8 +27,7 @@ public abstract class AbstractInitPageEl extends AbstractPageEl {
     protected void block(StackCall _stack, IdMap<ExecInitBlock, BoolVal> _processedBlocks) {
         ExecBlock en_ = getBlock();
         if (en_ instanceof ExecInitBlock && _processedBlocks.getVal((ExecInitBlock) en_) == BoolVal.FALSE) {
-            setGlobalOffset(((ExecInitBlock) en_).getOffsetTrim());
-            setOffset(0);
+            globalOffset(((ExecInitBlock) en_).getOffsetTrim());
             _processedBlocks.put((ExecInitBlock) en_, BoolVal.TRUE);
             CustomFoundBlock cust_ = new CustomFoundBlock(this, (ExecInitBlock) en_);
             _stack.setCallingState(cust_);

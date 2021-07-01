@@ -27,7 +27,6 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        setRelativeOffsetPossibleLastPage(_rendStack);
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int max_ = chidren_.size();
         if (resultCanBeSet()) {
@@ -37,8 +36,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Struct array_ = getPreviousArgument(_nodes, this).getStruct();
         for (int i = IndexConstants.FIRST_INDEX; i < max_; i++) {
             Struct o_ = getArgument(_nodes, chidren_.get(i)).getStruct();
-            int indexEl_ = chidren_.get(i).getIndexInEl();
-            setRelativeOffsetPossibleLastPage(indexEl_, _rendStack);
+            chidren_.get(i).setRelativeOffsetPossibleLastPage(_rendStack);
             if (o_ instanceof RangeStruct) {
                 array_ = ExecTemplates.getRange(array_, o_, _context, _rendStack.getStackCall());
             } else {
@@ -52,6 +50,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         if (a_ == null) {
             a_ = new Argument(array_);
         }
+        setRelativeOffsetPossibleLastPage(_rendStack);
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(a_, _nodes, _context, _rendStack);
         } else {

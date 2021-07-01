@@ -24,7 +24,7 @@ public final class RendArrayElementOperation extends
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         int off_ = getMethodName();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
+        setRelOffsetPossibleLastPage(off_, _rendStack);
         String className_ = getClassName();
 
         int nbCh_ = arguments_.size();

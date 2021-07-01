@@ -55,8 +55,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     }
 
     public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
-        _last.setGlobalOffset(defaultValueOffset);
-        _last.setOffset(0);
+        _last.globalOffset(defaultValueOffset);
         ExpressionLanguage el_ = _last.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
         setValue(_cont,arg_, _last.getBlockRootType(), _stack);

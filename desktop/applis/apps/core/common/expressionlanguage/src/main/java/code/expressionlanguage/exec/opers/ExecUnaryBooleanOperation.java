@@ -18,7 +18,6 @@ public final class ExecUnaryBooleanOperation extends ExecMethodOperation impleme
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument arg_ = getArgument(_nodes,getFirstChild());
         BooleanStruct o_ = NumParsers.convertToBoolean(arg_.getStruct());
-        setRelativeOffsetPossibleLastPage(_stack);
         Argument a_ = new Argument(o_.neg());
         setSimpleArgument(a_, _conf, _nodes, _stack);
     }

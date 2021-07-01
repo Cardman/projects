@@ -26,7 +26,7 @@ public final class RendDefaultOperation extends RendMethodOperation implements R
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        setRelativeOffsetPossibleLastPage(getIndexInEl() + offset, _rendStack);
+        setRelOffsetPossibleLastPage(offset, _rendStack);
         Argument argres_ = new Argument(ExecClassArgumentMatching.convertWide(ExecHelper.getFirstArgument(arguments_).getStruct(), _context, names));
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }

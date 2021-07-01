@@ -20,7 +20,6 @@ public final class RendUnaryOperation extends RendMethodOperation implements Ren
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument arg_ = getArgument(_nodes,getFirstNode(this));
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStack);
         ExecClassArgumentMatching to_ = getResultClass();
         Argument a_ = ExecUnaryOperation.getArgument(arg_, to_, oper);
         setSimpleArgument(a_, _nodes, _context, _rendStack);

@@ -24,7 +24,7 @@ public final class RendParentInstanceOperation extends RendLeafOperation impleme
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ parentInstanceContent.getOff(), _rendStack);
+        setRelOffsetPossibleLastPage(parentInstanceContent.getOff(), _rendStack);
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         Struct struct_ = previous_.getStruct();
         Argument arg_ = new Argument(ExecClassArgumentMatching.convert(struct_.getParent(), _context, names));

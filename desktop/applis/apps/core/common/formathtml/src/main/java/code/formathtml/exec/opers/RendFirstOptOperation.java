@@ -21,7 +21,7 @@ public final class RendFirstOptOperation extends RendMethodOperation implements 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _rendStack);
+        setRelOffsetPossibleLastPage(offset, _rendStack);
         Argument argres_ = ExecHelper.getFirstArgument(arguments_);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }

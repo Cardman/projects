@@ -23,7 +23,7 @@ public final class RendCloneOperation extends RendInvokingOperation implements R
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
+        setRelOffsetPossibleLastPage(off_, _rendStack);
         Argument argres_ = ExecCloneOperation.cloneArray(previous_, _context, _rendStack.getStackCall());
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }

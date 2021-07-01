@@ -21,6 +21,7 @@ public final class ExecNamedArgumentOperation extends ExecMethodOperation implem
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
+        setRelOffsetPossibleLastPage(namedContent.getOffset(), _stack);
         if (getFirstChild() instanceof ExecWrappOperation) {
             ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
@@ -29,7 +30,6 @@ public final class ExecNamedArgumentOperation extends ExecMethodOperation implem
             return;
         }
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        setRelOffsetPossibleLastPage(namedContent.getOffset(), _stack);
         Argument argres_ = ExecHelper.getFirstArgument(arguments_);
         setSimpleArgument(argres_, _conf, _nodes, _stack);
     }

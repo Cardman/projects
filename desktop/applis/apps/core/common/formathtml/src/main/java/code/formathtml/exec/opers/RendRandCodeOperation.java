@@ -18,7 +18,7 @@ public final class RendRandCodeOperation extends RendMethodOperation implements 
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode opOne_ = getFirstNode(this);
         Argument a_ = getArgument(_nodes,opOne_);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _rendStack);
+        setRelOffsetPossibleLastPage(opOffset, _rendStack);
         setSimpleArgument(processRandCode(a_,_context,_rendStack), _nodes, _context, _rendStack);
     }
 }

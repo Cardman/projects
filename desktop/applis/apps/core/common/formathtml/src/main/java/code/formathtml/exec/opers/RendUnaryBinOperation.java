@@ -17,7 +17,6 @@ public final class RendUnaryBinOperation extends RendMethodOperation implements 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument arg_ = getArgument(_nodes,getFirstNode(this));
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStack);
         Argument a_ = new Argument(NumParsers.negBinNumber(NumParsers.convertToNumber(arg_.getStruct()), getResultClass().getUnwrapObjectNb()));
         setSimpleArgument(a_, _nodes, _context, _rendStack);
     }

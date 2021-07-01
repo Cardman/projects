@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
+import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecRangeOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
@@ -20,25 +21,29 @@ public final class ExecRangeOperation extends ExecMethodOperation implements Ato
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Argument a_ = getFirstArgument(_nodes,this);
+        setRelOffsetPossibleLastPage(opOffset, _stack);
+        CustList<Argument> args_ = getArguments(_nodes, this);
+        Argument r_ = range(_conf, _stack, args_, implicitMiddle);
+        setSimpleArgument(r_, _conf, _nodes, _stack);
+    }
+
+    public static Argument range(ContextEl _conf, StackCall _stack, CustList<Argument> _args, boolean _implicitMiddle) {
+        Argument a_ = ExecHelper.getArgument(_args,0);
         Argument r_;
-        if (getChildrenNodes().size() == 3) {
-            Argument b_ = Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(getChildrenNodes(),1)).getArgument());
-            Argument c_ = getLastArgument(_nodes, this);
-            setRelOffsetPossibleLastPage(opOffset, _stack);
-            r_ = ApplyCoreMethodUtil.range(_conf,_stack,a_.getStruct(),b_.getStruct(),c_.getStruct());
-        } else if (getChildrenNodes().size() == 2) {
-            Argument c_ = getLastArgument(_nodes, this);
-            setRelOffsetPossibleLastPage(opOffset, _stack);
-            if (implicitMiddle) {
-                r_ = ApplyCoreMethodUtil.rangeUnlimitStep(_conf,_stack,a_.getStruct(),c_.getStruct());
+        if (_args.size() == 3) {
+            Argument b_ = ExecHelper.getArgument(_args,1);
+            Argument c_ = ExecHelper.getArgument(_args,2);
+            r_ = ApplyCoreMethodUtil.range(_conf, _stack,a_.getStruct(),b_.getStruct(),c_.getStruct());
+        } else if (_args.size() == 2) {
+            Argument c_ = ExecHelper.getArgument(_args,1);
+            if (_implicitMiddle) {
+                r_ = ApplyCoreMethodUtil.rangeUnlimitStep(_conf, _stack,a_.getStruct(),c_.getStruct());
             } else {
-                r_ = ApplyCoreMethodUtil.range(_conf,_stack,a_.getStruct(),c_.getStruct());
+                r_ = ApplyCoreMethodUtil.range(_conf, _stack,a_.getStruct(),c_.getStruct());
             }
         } else {
-            setRelOffsetPossibleLastPage(opOffset, _stack);
-            r_ = ApplyCoreMethodUtil.range(_conf,_stack,a_.getStruct());
+            r_ = ApplyCoreMethodUtil.range(_conf, _stack,a_.getStruct());
         }
-        setSimpleArgument(r_, _conf, _nodes, _stack);
+        return r_;
     }
 }

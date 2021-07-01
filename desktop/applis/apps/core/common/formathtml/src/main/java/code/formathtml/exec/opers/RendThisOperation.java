@@ -21,7 +21,7 @@ public final class RendThisOperation extends RendLeafOperation implements RendCa
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _rendStack);
+        setRelOffsetPossibleLastPage(off, _rendStack);
         SimplePageEl ip_ = _rendStack.getPageEl();
         Struct struct_ = ip_.getGlobalStruct();
         Argument arg_ = new Argument(struct_);

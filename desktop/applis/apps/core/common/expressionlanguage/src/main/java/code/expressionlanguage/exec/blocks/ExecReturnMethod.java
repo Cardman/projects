@@ -22,8 +22,7 @@ public final class ExecReturnMethod extends ExecAbstractExpressionReturnMethod {
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
-        ip_.setOffset(0);
-        ip_.setGlobalOffset(getExpressionOffset());
+        ip_.globalOffset(getExpressionOffset());
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
         if (_cont.callsOrException(_stack)) {

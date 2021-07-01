@@ -23,6 +23,7 @@ public final class ExecNullSafeOperation extends ExecMethodOperation implements 
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        setRelativeOffsetPossibleLastPage(opOffset, _stack);
         Argument f_ = getFirstArgument(_nodes,this);
         Struct abs_ = f_.getStruct();
         if (abs_ != NullStruct.NULL_VALUE) {
@@ -30,7 +31,6 @@ public final class ExecNullSafeOperation extends ExecMethodOperation implements 
             setQuickConvertSimpleArgument(f_, _conf, _nodes, _stack);
             return;
         }
-        setRelativeOffsetPossibleLastPage(opOffset, _stack);
         Argument a_ = getLastArgument(_nodes,this);
         a_ = new Argument(ExecClassArgumentMatching.convertFormatted(a_.getStruct(),_conf, names, _stack));
         setSimpleArgument(a_, _conf, _nodes, _stack);

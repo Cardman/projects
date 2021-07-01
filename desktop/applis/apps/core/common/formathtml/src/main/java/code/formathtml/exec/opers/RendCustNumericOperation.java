@@ -27,7 +27,7 @@ public final class RendCustNumericOperation extends RendNumericOperation {
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _rendStack);
+        setRelOffsetPossibleLastPage(getOpOffset(), _rendStack);
         checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, staticEltContent.getKind(), _rendStack);
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);

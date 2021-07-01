@@ -21,6 +21,7 @@ public final class RendNamedArgumentOperation extends RendMethodOperation implem
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        setRelOffsetPossibleLastPage(namedContent.getOffset(), _rendStack);
         if (getFirstChild() instanceof RendWrappOperation) {
             ArgumentsPair pairCh_ = getArgumentPair(_nodes, getFirstChild());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
@@ -29,7 +30,6 @@ public final class RendNamedArgumentOperation extends RendMethodOperation implem
             return;
         }
         CustList<Argument> arguments_ = getArguments(_nodes,this);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ namedContent.getOffset(), _rendStack);
         Argument argres_ = ExecHelper.getFirstArgument(arguments_);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }

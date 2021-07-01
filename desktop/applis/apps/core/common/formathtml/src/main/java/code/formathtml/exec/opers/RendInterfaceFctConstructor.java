@@ -31,6 +31,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        setRelOffsetPossibleLastPage(invokingConstructorContent.getOffsetOper(), _rendStack);
         RendDynOperationNode main_ = getMainNode(this);
         ArgumentsPair pair_ = getArgumentPair(_nodes, main_);
         if (getIndexChild() == 1) {
@@ -58,7 +59,6 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
     private void prepareArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, ContextEl _context, RendStackCall _rendStackCall) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ invokingConstructorContent.getOffsetOper(), _rendStackCall);
         ExecFormattedRootBlock superClass_ = invokingConstructorContent.getFormattedType();
         ExecInterfaceFctConstructor.prep(_context,_rendStackCall.getStackCall(),_arguments,superClass_,buildInfos(_all),invokingConstructorContent,pair);
     }

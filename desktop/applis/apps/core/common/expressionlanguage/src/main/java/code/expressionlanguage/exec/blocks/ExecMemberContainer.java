@@ -28,8 +28,7 @@ public abstract class ExecMemberContainer implements BuildingEl {
     }
 
     public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
-        _last.setGlobalOffset(offset);
-        _last.setOffset(0);
+        _last.globalOffset(offset);
         ExpressionLanguage el_ = _last.getCurrentEl(_cont, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
         ExpressionLanguage.tryToCalculate(_cont,el_, trOffset, _stack);
         if (_cont.callsOrException(_stack)) {

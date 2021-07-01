@@ -24,7 +24,7 @@ public final class RendEnumValueOfOperation extends RendMethodOperation implemen
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
 
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ valuesContent.getArgOffset(), _rendStack);
+        setRelOffsetPossibleLastPage(valuesContent.getArgOffset(), _rendStack);
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecInvokingOperation.tryGetEnumValue(_context.getExiting(), _context, valuesContent.getRootBlock(), ClassCategory.ENUM, getArgument(_nodes, getFirstChild()), _rendStack.getStackCall()), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }

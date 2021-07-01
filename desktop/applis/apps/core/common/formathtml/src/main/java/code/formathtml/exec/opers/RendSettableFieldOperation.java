@@ -36,7 +36,7 @@ public final class RendSettableFieldOperation extends
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         int off_ = getOff();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
+        setRelOffsetPossibleLastPage(off_, _rendStack);
         _rendStack.setOffset(off_);
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         Argument result_;

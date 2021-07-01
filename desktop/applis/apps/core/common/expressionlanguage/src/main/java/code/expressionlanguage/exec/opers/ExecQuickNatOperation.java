@@ -21,6 +21,7 @@ public final class ExecQuickNatOperation extends ExecQuickOperation {
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                 ContextEl _conf, StackCall _stack) {
+        setRelativeOffsetPossibleLastPage(opOffset, _stack);
         ExecOperationNode first_ = getFirstChild();
         Argument f_ = getArgument(_nodes,first_);
         Struct abs_ = f_.getStruct();
@@ -28,7 +29,6 @@ public final class ExecQuickNatOperation extends ExecQuickOperation {
             setQuickConvertSimpleArgument(f_, _conf, _nodes, _stack);
             return;
         }
-        setRelativeOffsetPossibleLastPage(opOffset, _stack);
         Argument a_ = getLastArgument(_nodes,this);
         setSimpleArgument(a_, _conf, _nodes, _stack);
     }

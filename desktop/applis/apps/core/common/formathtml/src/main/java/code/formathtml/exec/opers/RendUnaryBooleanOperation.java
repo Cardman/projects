@@ -19,7 +19,6 @@ public final class RendUnaryBooleanOperation extends RendMethodOperation impleme
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument arg_ = getArgument(_nodes,getFirstNode(this));
         BooleanStruct o_ = NumParsers.convertToBoolean(arg_.getStruct());
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStack);
         Argument a_ = new Argument(o_.neg());
         setSimpleArgument(a_, _nodes, _context, _rendStack);
     }

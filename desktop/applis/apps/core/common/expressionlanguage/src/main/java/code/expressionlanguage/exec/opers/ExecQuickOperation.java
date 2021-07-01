@@ -24,6 +24,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
 
     @Override
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
+        setRelativeOffsetPossibleLastPage(_stack);
         ExecOperationNode first_ = getFirstChild();
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, first_);
         if (argumentPair_.isArgumentTest()){
@@ -31,7 +32,6 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
             return;
         }
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        setRelativeOffsetPossibleLastPage(_stack);
         int indexImplicit_ = pair_.getIndexImplicitCompound();
         if (ImplicitMethods.isValidIndex(converter,indexImplicit_)) {
             pair_.setIndexImplicitCompound(processConverter(_conf, _right, converter, indexImplicit_, _stack));

@@ -25,7 +25,7 @@ public final class RendCastOperation extends RendMethodOperation implements Rend
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ typeCheckContent.getOffset(), _rendStack);
+        setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _rendStack);
         Argument objArg_ = new Argument(ExecHelper.getFirstArgument(arguments_).getStruct());
         String paramName_ = typeCheckContent.getClassName();
         ExecCastOperation.wrapFct(paramName_,false, _context, objArg_);

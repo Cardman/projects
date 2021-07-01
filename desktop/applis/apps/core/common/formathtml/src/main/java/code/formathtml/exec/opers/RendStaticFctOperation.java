@@ -28,7 +28,7 @@ public final class RendStaticFctOperation extends RendSettableCallFctOperation i
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
+        setRelOffsetPossibleLastPage(off_, _rendStack);
         String lastType_ = staticFctContent.getLastType();
 //        int naturalVararg_ = staticFctContent.getNaturalVararg();
 //        Argument prev_ = new Argument();

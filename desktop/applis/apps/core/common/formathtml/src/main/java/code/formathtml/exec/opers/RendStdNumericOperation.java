@@ -23,7 +23,7 @@ public abstract class RendStdNumericOperation extends RendNumericOperation {
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument a_ = getArgument(_nodes,getFirstNode(this));
         Argument c_ = getArgument(_nodes,getLastNode(this));
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _rendStack);
+        setRelOffsetPossibleLastPage(getOpOffset(), _rendStack);
         Argument r_ = calculateOper(a_, op, c_, _context, _rendStack);
         setSimpleArgument(r_, _nodes, _context, _rendStack);
     }

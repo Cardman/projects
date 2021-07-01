@@ -52,6 +52,7 @@ public final class ExpressionLanguage {
         int len_ = _nodes.size();
         while (fr_ < len_) {
             ExecOperationNode o = _nodes.getKey(fr_);
+            o.setRelativeOffsetPossibleLastPage(_stackCall);
             ExecMethodOperation parent_ = o.getParent();
             if (parent_ instanceof ExecAbstractInstancingOperation && ((ExecAbstractInstancingOperation) parent_).isInitBefore() && o.getIndexChild() == 0) {
                 ExecRootBlock type_ = ((ExecAbstractInstancingOperation) parent_).getInstancingCommonContent().getPair().getType();

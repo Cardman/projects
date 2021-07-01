@@ -71,11 +71,11 @@ public abstract class ExecOperationNode {
     }
 
     public final void setRelOffsetPossibleLastPage(int _offset, StackCall _stackCall) {
-        _stackCall.setOffset(getIndexInEl()+_offset);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+_offset,_stackCall);
     }
 
     public final void setRelativeOffsetPossibleLastPage(StackCall _stackCall) {
-        _stackCall.setOffset(getIndexInEl());
+        setRelativeOffsetPossibleLastPage(getIndexInEl(),_stackCall);
     }
 
     public static void setRelativeOffsetPossibleLastPage(int _offset, StackCall _stackCall) {

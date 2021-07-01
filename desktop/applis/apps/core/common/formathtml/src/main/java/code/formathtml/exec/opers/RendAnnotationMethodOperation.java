@@ -29,7 +29,7 @@ public final class RendAnnotationMethodOperation extends RendInvokingOperation  
 
     Argument getArgument(Argument _previous, ContextEl _context, RendStackCall _rendStackCall) {
         int off_ = StringUtil.getFirstPrintableCharIndex(callFctAnnotContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStackCall);
+        setRelOffsetPossibleLastPage(off_, _rendStackCall);
         return ExecAnnotationMethodOperation.getAnnotation(_previous, callFctAnnotContent.getClassMethodId(), _context, _rendStackCall.getStackCall());
     }
 }

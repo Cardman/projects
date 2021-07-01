@@ -29,6 +29,7 @@ public final class ExecAffectationOperation extends ExecAbstractAffectOperation 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
+        setRelOffsetPossibleLastPage(opOffset, _stack);
         if (getSettableParent() instanceof ExecSafeDotOperation) {
             ExecOperationNode left_ = getSettableParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
@@ -39,7 +40,6 @@ public final class ExecAffectationOperation extends ExecAbstractAffectOperation 
             }
         }
         Argument rightArg_ = getLastArgument(_nodes, this);
-        setRelOffsetPossibleLastPage(opOffset, _stack);
         if (getSettable() instanceof ExecStdRefVariableOperation && ((ExecStdRefVariableOperation) getSettable()).isDeclare()) {
             CustList<ExecOperationNode> childrenNodes_ = getChildrenNodes();
             ArgumentsPair pairRight_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1));

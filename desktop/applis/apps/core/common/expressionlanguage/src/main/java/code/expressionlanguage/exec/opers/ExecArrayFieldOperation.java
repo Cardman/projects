@@ -23,15 +23,14 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
-        setRelOffsetPossibleLastPage(getOff(), _stack);
         Struct inst_ = previous_.getStruct();
         int len_ = getLength(inst_, _conf);
         Argument arg_;
         if (inst_ instanceof ArrayStruct) {
+            setRelOffsetPossibleLastPage(getOff(), _stack);
             arg_ = new Argument(new IntStruct(len_));
         } else {
             String npe_ = _conf.getStandards().getContent().getCoreNames().getAliasNullPe();
-            setRelativeOffsetPossibleLastPage(_stack);
             _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, npe_, _stack)));
             arg_ = new Argument();
         }

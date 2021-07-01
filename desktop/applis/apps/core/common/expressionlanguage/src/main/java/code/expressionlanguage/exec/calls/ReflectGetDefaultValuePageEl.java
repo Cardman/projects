@@ -50,8 +50,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
             annotMethod = ann_;
             init = true;
         }
-        setOffset(0);
-        setGlobalOffset(ann_.getDefaultValueOffset());
+        globalOffset(ann_.getDefaultValueOffset());
         ExpressionLanguage el_ = getCurrentEl(0,ops);
         Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0, _stack);
         if (_context.callsOrException(_stack)) {

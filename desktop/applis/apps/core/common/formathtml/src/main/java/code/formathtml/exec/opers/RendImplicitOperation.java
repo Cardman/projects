@@ -23,7 +23,7 @@ public final class RendImplicitOperation extends RendMethodOperation implements 
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+ explicitContent.getOffset(), _rendStack);
+        setRelOffsetPossibleLastPage(explicitContent.getOffset(), _rendStack);
         ArgumentListCall list_ = ExecMethodOperation.listNamedArguments(buildInfos(_nodes)).getArguments();
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecImplicitOperation.getArgument(explicitContent.getClassName(), _context, _rendStack.getStackCall(), list_), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);

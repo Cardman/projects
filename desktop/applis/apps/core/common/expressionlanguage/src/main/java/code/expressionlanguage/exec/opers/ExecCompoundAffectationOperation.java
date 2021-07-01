@@ -31,6 +31,7 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
+        setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
         if (getSettableParent() instanceof ExecSafeDotOperation) {
             ExecOperationNode left_ = getSettableParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
@@ -53,7 +54,6 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
                 setSimpleArgument(leftArg_, _conf, _nodes, _stack);
                 return;
             }
-            setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
             Argument arg_ = ExecAffectationOperation.calculateChSetting(getSettable(),_nodes, _conf, leftArg_, _stack);
             pair_.setEndCalculate(true);
             setSimpleArgument(arg_, _conf, _nodes, _stack);

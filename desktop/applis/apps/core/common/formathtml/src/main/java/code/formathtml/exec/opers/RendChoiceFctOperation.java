@@ -30,7 +30,7 @@ public final class RendChoiceFctOperation extends RendSettableCallFctOperation i
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         int off_ = instFctContent.getMethodName();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
+        setRelOffsetPossibleLastPage(off_, _rendStack);
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
         Argument result_ = ExecChoiceFctOperation.prep(_context,_rendStack.getStackCall(),previous_,infos_,instFctContent,pair);
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _rendStack);

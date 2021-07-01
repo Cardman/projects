@@ -185,7 +185,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq("pkg/Ex:3,10:45\n" +
-                "pkg.Ext.static m();pkg/Ex:12,10:218\n" +
+                "pkg.Ext.static m();pkg/Ex:12,14:222\n" +
                 "pkg.Ext.static m($core.Fct<$core.String>);:0,0:0\n" +
                 ".;pkg/Ex:5,23:99\n" +
                 "pkg.Ext.static .1();", getString(ret_));

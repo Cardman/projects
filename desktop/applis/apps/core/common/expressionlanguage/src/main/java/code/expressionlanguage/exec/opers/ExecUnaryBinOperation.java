@@ -17,7 +17,6 @@ public final class ExecUnaryBinOperation extends ExecMethodOperation implements 
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         ExecOperationNode op_ = getFirstChild();
         Argument arg_ = getArgument(_nodes,op_);
-        setRelativeOffsetPossibleLastPage(_stack);
         Argument a_ = new Argument(NumParsers.negBinNumber(NumParsers.convertToNumber(arg_.getStruct()), getResultClass().getUnwrapObjectNb()));
         setSimpleArgument(a_, _conf, _nodes, _stack);
     }

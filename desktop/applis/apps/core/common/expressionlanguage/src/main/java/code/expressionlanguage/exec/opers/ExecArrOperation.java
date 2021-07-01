@@ -26,7 +26,6 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        setRelativeOffsetPossibleLastPage(_stack);
         Argument a_ = null;
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int max_ = chidren_.size();
@@ -37,8 +36,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         for (int i = IndexConstants.FIRST_INDEX; i < max_; i++) {
             ExecOperationNode op_ = chidren_.get(i);
             Struct o_ = getArgument(_nodes,op_).getStruct();
-            int indexEl_ = op_.getIndexInEl();
-            setRelativeOffsetPossibleLastPage(indexEl_, _stack);
+            op_.setRelativeOffsetPossibleLastPage(_stack);
             if (o_ instanceof RangeStruct) {
                 array_ = ExecTemplates.getRange(array_, o_, _conf, _stack);
             } else {
@@ -52,6 +50,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         if (a_ == null) {
             a_ = new Argument(array_);
         }
+        setRelativeOffsetPossibleLastPage(_stack);
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes, _stack);
         } else {

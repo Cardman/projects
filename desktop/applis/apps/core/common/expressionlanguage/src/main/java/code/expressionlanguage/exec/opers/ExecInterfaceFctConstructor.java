@@ -29,6 +29,8 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
+        int off_ = getInvokingConstructorContent().getOffsetOper();
+        setRelOffsetPossibleLastPage(off_, _stack);
         ExecOperationNode main_ = ExecHelper.getMainNode(this);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, main_);
         Argument mainArgument_ = Argument.getNullableValue(pair_.getArgument());
@@ -47,16 +49,12 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
                 return;
             }
             pair_.setArgument(ref_);
-            int off_ = getInvokingConstructorContent().getOffsetOper();
-            setRelOffsetPossibleLastPage(off_, _stack);
             ExecFormattedRootBlock superClass_ = _stack.formatVarType(getFormattedType());
             prep(_conf, _stack, ref_, superClass_, buildInfos(_nodes), getInvokingConstructorContent(), getPair());
             Argument res_ = Argument.createVoid();
             setSimpleArgument(res_, _conf, _nodes, _stack);
             return;
         }
-        int off_ = getInvokingConstructorContent().getOffsetOper();
-        setRelOffsetPossibleLastPage(off_, _stack);
         Argument arg_;
         if (getParent() == null) {
             arg_ = _stack.getLastPage().getGlobalArgument();

@@ -36,7 +36,6 @@ public final class RendQuickCustOperation extends RendQuickOperation implements 
             setQuickConvertSimpleArgument(f_, _nodes, _context, _rendStack);
             return;
         }
-        setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStack);
         checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, staticEltContent.getKind(), _rendStack);
         Argument argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack).getValue();
         if (converter != null) {

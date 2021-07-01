@@ -77,8 +77,7 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         AbstractPageEl abs_ = _stackCall.getLastPage();
 
-        abs_.setGlobalOffset(variableNameOffset);
-        abs_.setOffset(0);
+        abs_.globalOffset(variableNameOffset);
         Argument arg_ = retrieveValue(_conf,_l, _stackCall);
         if (_conf.callsOrException(_stackCall)) {
             return;

@@ -23,15 +23,14 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+getOff(), _rendStack);
         Struct inst_ = previous_.getStruct();
         Argument arg_;
         if (inst_ instanceof ArrayStruct) {
+            setRelOffsetPossibleLastPage(getOff(), _rendStack);
             ArrayStruct arr_ = (ArrayStruct) inst_;
             arg_ = new Argument(new IntStruct(arr_.getLength()));
         } else {
             String npe_ = _context.getStandards().getContent().getCoreNames().getAliasNullPe();
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _rendStack);
             _rendStack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_context, npe_, _rendStack.getStackCall())));
             arg_ = new Argument();
         }

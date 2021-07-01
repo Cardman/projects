@@ -28,7 +28,7 @@ public final class RendEnumMethOperation extends RendSettableCallFctOperation im
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
+        setRelOffsetPossibleLastPage(off_, _rendStack);
         String lastType_ = staticFctContent.getLastType();
         int naturalVararg_ = staticFctContent.getNaturalVararg();
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecInvokingOperation.processEnums(_context.getExiting(), _context, ExecInvokingOperation.fectchArgs(lastType_, naturalVararg_, null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), _rendStack.getStackCall(), type), _context, _rendStack);

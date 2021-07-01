@@ -35,7 +35,6 @@ public final class ExecQuickCustOperation extends ExecQuickOperation {
             setQuickConvertSimpleArgument(f_, _conf, _nodes, _stack);
             return;
         }
-        setRelativeOffsetPossibleLastPage(_stack);
         checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, formattedType, staticEltContent.getKind(), _stack);
     }
 

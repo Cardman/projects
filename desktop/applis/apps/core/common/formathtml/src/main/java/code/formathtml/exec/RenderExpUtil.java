@@ -41,7 +41,7 @@ public final class RenderExpUtil {
         int len_ = _nodes.size();
         while (fr_ < len_) {
             RendDynOperationNode o = arguments_.getKey(fr_);
-            RendDynOperationNode.setRelativeOffsetPossibleLastPage(o.getIndexInEl(), _rendStackCall);
+            o.setRelativeOffsetPossibleLastPage(_rendStackCall);
             ArgumentsPair pair_ = arguments_.getValue(fr_);
             if (!(o instanceof RendCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());

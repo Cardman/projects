@@ -24,7 +24,7 @@ public final class RendRefTernaryOperation extends RendSettableCallFctOperation 
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _rendStack);
+        setRelOffsetPossibleLastPage(offsetLocal, _rendStack);
         ArgumentsPair ch_ = getChosenArgumentsPair(_nodes);
         AbstractWrapper res_ = ch_.getWrapper();
         if (res_ != null) {

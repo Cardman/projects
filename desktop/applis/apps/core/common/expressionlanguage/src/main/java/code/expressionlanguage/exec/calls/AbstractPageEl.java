@@ -269,8 +269,11 @@ public abstract class AbstractPageEl {
 
     public void fileOffset(ExecRootBlock _type) {
         setFile(_type.getFile());
+        globalOffset(_type.getIdRowCol());
+    }
+    public void globalOffset(int _offset) {
         setOffset(0);
-        setGlobalOffset(_type.getIdRowCol());
+        setGlobalOffset(_offset);
     }
 
     public StringMap<LocalVariable> getInternVars() {
