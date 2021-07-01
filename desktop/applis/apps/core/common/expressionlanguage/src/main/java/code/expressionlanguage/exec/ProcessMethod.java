@@ -1,20 +1,11 @@
 package code.expressionlanguage.exec;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
-import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
-import code.expressionlanguage.exec.calls.util.InstancingStep;
-import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.util.CustList;
-import code.util.StringMap;
 
 public final class ProcessMethod {
-    private static final String EMPTY_STRING = "";
 
     private ProcessMethod() {
     }
@@ -30,20 +21,18 @@ public final class ProcessMethod {
         loop(_cont, _stackCall, ExecutingUtil.createInstancingClass(_rootBlock,new ExecFormattedRootBlock(_rootBlock,_class),null));
     }
 
-    public static ArgumentWrapper instanceRecordArgument(ExecFormattedRootBlock _class, ExecTypeFunction _root, StringMap<String> _id, CustList<Argument> _args, ContextEl _cont, StackCall _stackCall) {
-        CustomFoundRecordConstructor found_ = new CustomFoundRecordConstructor(_class, _root,_id, EMPTY_STRING,-1,_args);
-        AbstractPageEl page_ = ExecutingUtil.createRecordInstancing(_cont,found_);
+    public static ArgumentWrapper instanceRecordArgument(ContextEl _cont, StackCall _stackCall, CustomFoundRecordConstructor _found) {
+        AbstractPageEl page_ = ExecutingUtil.createRecordInstancing(_cont,_found);
         return loopAndReturn(_cont, _stackCall, page_);
     }
 
-    public static ArgumentWrapper instanceArgument(ExecFormattedRootBlock _class, ExecTypeFunction _root, Argument _global, Parameters _args, ContextEl _cont, StackCall _stackCall) {
-        CustomFoundConstructor found_ = new CustomFoundConstructor(_class, _root, EMPTY_STRING,-1, _global,_args,InstancingStep.NEWING);
-        AbstractPageEl page_ = ExecutingUtil.createNewInstancing(_cont,found_);
+    public static ArgumentWrapper instanceArgument(ContextEl _cont, StackCall _stackCall, CustomFoundConstructor _found) {
+        AbstractPageEl page_ = ExecutingUtil.createNewInstancing(_cont,_found);
         return loopAndReturn(_cont, _stackCall, page_);
     }
 
-    public static ArgumentWrapper calculateArgument(Argument _global, ExecFormattedRootBlock _class, ExecTypeFunction _method, Parameters _args, ContextEl _cont, StackCall _stackCall) {
-        AbstractPageEl page_ = ExecutingUtil.createCallingMethod(_cont,_global, _class, _method, _args);
+    public static ArgumentWrapper calculateArgument(CustomFoundMethod _custom, ContextEl _cont, StackCall _stackCall) {
+        AbstractPageEl page_ = ExecutingUtil.createCallingMethod(_cont,_custom.getGl(), _custom.getClassName(),_custom.getPair(), _custom.getArguments());
         return loopAndReturn(_cont, _stackCall, page_);
     }
     public static ArgumentWrapper reflectArgument(ContextEl _cont, AbstractReflectElement _ref, StackCall _stackCall) {

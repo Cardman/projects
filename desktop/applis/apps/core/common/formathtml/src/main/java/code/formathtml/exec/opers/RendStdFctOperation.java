@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStdFctContent;
@@ -31,24 +30,12 @@ public final class RendStdFctOperation extends RendSettableCallFctOperation impl
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 
-    public ClassMethodId getClassMethodId() {
-        return stdFctContent.getClassMethodId();
-    }
-
-    public int getNaturalVararg() {
-        return stdFctContent.getNaturalVararg();
-    }
-
-    public String getLastType() {
-        return stdFctContent.getLastType();
+    public ExecStdFctContent getStdFctContent() {
+        return stdFctContent;
     }
 
     public String getMethodName() {
         return stdFctContent.getMethodName();
-    }
-
-    public boolean isStaticMethod() {
-        return stdFctContent.isStaticMethod();
     }
 
 }

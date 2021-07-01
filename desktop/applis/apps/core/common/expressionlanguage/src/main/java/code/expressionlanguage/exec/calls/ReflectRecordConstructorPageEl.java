@@ -33,7 +33,7 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;
-            _stack.setCallingState(new CustomFoundRecordConstructor(className, new ExecTypeFunction(root,null),id, "", -1, arguments));
+            _stack.setCallingState(new CustomFoundRecordConstructor(className, new ExecTypeFunction(root,null),id, arguments));
             return false;
         }
         return true;

@@ -6,12 +6,14 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecChoiceFctOperation extends ExecSettableCallFctOperation {
@@ -31,15 +33,20 @@ public final class ExecChoiceFctOperation extends ExecSettableCallFctOperation {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         int off_ = instFctContent.getMethodName();
         setRelOffsetPossibleLastPage(off_, _stack);
-        ExecFormattedRootBlock formattedType_ = instFctContent.getFormattedType();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), previous_.getStruct(), _conf, _stack));
+        Argument res_ = prep(_conf, _stack, previous_, buildInfos(_nodes), instFctContent, pair);
+        setSimpleArgument(res_, _conf, _nodes, _stack);
+    }
+
+    public static Argument prep(ContextEl _conf, StackCall _stack, Argument _previous, CustList<ExecOperationInfo> _infos, ExecInstFctContent _instFctContent, ExecTypeFunction _pair) {
+        ExecFormattedRootBlock formattedType_ = _instFctContent.getFormattedType();
+        Argument prev_ = new Argument(ExecTemplates.getParent(_instFctContent.getAnc(), _previous.getStruct(), _conf, _stack));
         Argument res_;
         if (_conf.callsOrException(_stack)) {
             res_ = new Argument();
         } else {
-            res_ = new MethodParamChecker(pair, fetchFormattedArgs(_conf,_stack, prev_.getStruct(), pair.getType(), instFctContent, null, buildInfos(_nodes)), MethodAccessKind.INSTANCE).checkParams(formattedType_, prev_, null, _conf, _stack);
+            res_ = new MethodParamChecker(_pair, fetchFormattedArgs(_conf, _stack, prev_.getStruct(), _pair.getType(), _instFctContent, null, _infos), MethodAccessKind.INSTANCE).checkParams(formattedType_, prev_, null, _conf, _stack);
         }
-        setSimpleArgument(res_, _conf, _nodes, _stack);
+        return res_;
     }
 
 }

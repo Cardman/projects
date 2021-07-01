@@ -59,13 +59,13 @@ public abstract class RendDynOperationNode {
         ArgumentWrapper res_;
         if (callingState_ instanceof CustomFoundConstructor) {
             CustomFoundConstructor ctor_ = (CustomFoundConstructor)callingState_;
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(),ctor_.getPair(), ctor_.getCurrentObject(), ctor_.getArguments(), _context, stackCall_);
+            res_ = ProcessMethod.instanceArgument(_context, stackCall_, ctor_);
         } else if (callingState_ instanceof CustomFoundRecordConstructor) {
             CustomFoundRecordConstructor ctor_ = (CustomFoundRecordConstructor)callingState_;
-            res_ = ProcessMethod.instanceRecordArgument(ctor_.getClassName(),ctor_.getPair(), ctor_.getId(), ctor_.getArguments(), _context, stackCall_);
+            res_ = ProcessMethod.instanceRecordArgument(_context, stackCall_, ctor_);
         } else if (callingState_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) callingState_;
-            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _context, stackCall_);
+            res_ = ProcessMethod.calculateArgument(method_, _context, stackCall_);
         } else if (callingState_ instanceof AbstractReflectElement) {
             AbstractReflectElement ref_ = (AbstractReflectElement) callingState_;
             res_ = ProcessMethod.reflectArgument(_context,ref_, stackCall_);
@@ -302,7 +302,7 @@ public abstract class RendDynOperationNode {
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }
-        Argument out_ = ProcessMethod.calculateArgument(Argument.createVoid(),_owner,_c, parameters_, _context, _rend.getStackCall()).getValue();
+        Argument out_ = ProcessMethod.calculateArgument(new CustomFoundMethod(Argument.createVoid(),_owner,_c, parameters_), _context, _rend.getStackCall()).getValue();
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }
@@ -337,7 +337,7 @@ public abstract class RendDynOperationNode {
         CallingState state_ = _stackCall.getStackCall().getCallingState();
         if (state_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) state_;
-            return ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getPair(), method_.getArguments(), _ct, _stackCall.getStackCall()).getValue();
+            return ProcessMethod.calculateArgument(method_, _ct, _stackCall.getStackCall()).getValue();
         }
         return _def;
     }

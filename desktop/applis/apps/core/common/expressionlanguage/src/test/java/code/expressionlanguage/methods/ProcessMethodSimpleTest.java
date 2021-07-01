@@ -3332,7 +3332,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkgtwo.ExClass", id_, args_, cont_);
          assertEq("pkg/Ex:8,11:226\n" +
-                 "pkgtwo.ExClass.$static m()pkg/Ex:1,1:0\n" +
+                 "pkgtwo.ExClass.$static m()pkg/Ex:1,8:7\n" +
                  "pkgtwo.ExClass.pkg/Ex:2,22:45\n" +
                  "pkgtwo.ExClass.pkg/Ex:4,48:95\n" +
                  "pkgtwo.ExClass.0()",getString(ret_));

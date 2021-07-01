@@ -49,6 +49,9 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         access = _access;
     }
 
+    public int getIdRowCol() {
+        return rootBlockContent.getIdRowCol();
+    }
     @Override
     public StringList getParamTypesValues() {
         return rootBlockContent.getParamTypesValues();

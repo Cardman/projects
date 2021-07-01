@@ -128,7 +128,6 @@ public final class ExecutingUtil {
     }
     public static AbstractPageEl createRecordInstancing(ContextEl _context, CustomFoundRecordConstructor _e) {
         ExecFormattedRootBlock cl_ = _e.getClassName();
-        ExecRootBlock type_ = _e.getPair().getType();
         CustList<Argument> args_ = _e.getArguments();
         NewRecordPageEl page_ = new NewRecordPageEl(_e.getId(),args_,cl_);
         Struct str_ = NullStruct.NULL_VALUE;
@@ -137,11 +136,9 @@ public final class ExecutingUtil {
         Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_, fieldName_, ordinal_));
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
-        ExecFileBlock file_ = type_.getFile();
         ReadWrite rw_ = new ReadWrite();
         page_.blockRootTypes(_e.getPair());
         page_.setReadWrite(rw_);
-        page_.setFile(file_);
         return page_;
     }
     public static AbstractPageEl createInstancing(ContextEl _context, CustomFoundConstructor _e) {
@@ -190,14 +187,13 @@ public final class ExecutingUtil {
                                                        StringMap<AnnotationTypeInfo> _id,
                                                        CustList<Argument> _args) {
         NewAnnotationPageEl page_;
-        ExecFileBlock file_ = _type.getFile();
         page_ = new NewAnnotationPageEl(_id,_args,_class);
         Argument argGl_ = new Argument(_context.getInit().processInitAnnot(_context, _class,_type));
         page_.setGlobalArgument(argGl_);
         page_.setReturnedArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
         page_.setReadWrite(rw_);
-        page_.setFile(file_);
+        page_.fileOffset(_type);
         page_.setBlockRootTypes(_type);
         return page_;
     }
@@ -212,8 +208,6 @@ public final class ExecutingUtil {
     }
 
     private static void setInstanciationInfos(ContextEl _context, AbstractCallingInstancingPageEl _page, Parameters _args, ExecTypeFunction _pair) {
-        ExecRootBlock type_ = _pair.getType();
-        ExecFileBlock file_ = type_.getFile();
         ReadWrite rw_ = new ReadWrite();
         _page.blockRootTypes(_pair);
         ExecMemberCallingsBlock ctor_ = _pair.getFct();
@@ -224,7 +218,6 @@ public final class ExecutingUtil {
             rw_.setBlock(firstChild_);
         }
         _page.setReadWrite(rw_);
-        _page.setFile(file_);
     }
     public static FieldInitPageEl createInitFields(ExecRootBlock _type, ExecFormattedRootBlock _class, Argument _current) {
         CustList<ExecBlock> visit_ = _type.getAllInstanceMembers();

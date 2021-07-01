@@ -104,6 +104,13 @@ public abstract class ExecOperationNode {
         }
         return a_;
     }
+    protected static CustList<Argument> getArguments(CustList<ExecOperationInfo> _nodes) {
+        CustList<Argument> a_ = new CustList<Argument>();
+        for (ExecOperationInfo o: _nodes) {
+            a_.add(o.getPair().getArgument());
+        }
+        return a_;
+    }
     protected static Argument getArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
         return Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes,_node).getArgument());
     }

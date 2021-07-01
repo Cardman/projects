@@ -16,11 +16,13 @@ import code.util.CustList;
 
 public final class ArrayCustWrapper implements AbstractWrapper {
     private final Argument previous;
+    private final String previousClass;
     private final CustList<ExecOperationInfo> infos;
     private final ExecInstFctContent instFctContent;
     private final ExecTypeFunctionPair readWrite;
-    public ArrayCustWrapper(Argument _previous, CustList<ExecOperationInfo> _infos, ExecInstFctContent _instFctContent, ExecTypeFunctionPair _readWrite) {
+    public ArrayCustWrapper(Argument _previous, String _previousClass, CustList<ExecOperationInfo> _infos, ExecInstFctContent _instFctContent, ExecTypeFunctionPair _readWrite) {
         previous = _previous;
+        previousClass = _previousClass;
         infos = _infos;
         instFctContent = _instFctContent;
         readWrite = _readWrite;
@@ -38,8 +40,6 @@ public final class ArrayCustWrapper implements AbstractWrapper {
         ExecTypeFunction fct_ = readWrite.getRead();
         ExecRootBlock type_ = fct_.getType();
         ExecNamedFunctionBlock named_ = fct_.getFct();
-        Struct pr_ = previous.getStruct();
-        String argClassName_ = pr_.getClassName(_conf);
-        return ExecTemplates.formatType(_conf, type_, named_.getImportedReturnType(), argClassName_);
+        return ExecTemplates.formatType(_conf, type_, named_.getImportedReturnType(), previousClass);
     }
 }

@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
@@ -2337,7 +2338,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
-        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters(), ctx_, stackCall_).getValue();
+        Argument ret_ = ProcessMethod.calculateArgument(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_, stackCall_).getValue();
         assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
     }
@@ -2373,7 +2374,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
-        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters(), ctx_, stackCall_).getValue();
+        Argument ret_ = ProcessMethod.calculateArgument(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_, stackCall_).getValue();
         assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
     }

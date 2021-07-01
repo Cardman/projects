@@ -5,10 +5,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
-import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.calls.util.NotInitializedFields;
 
-import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -38,7 +36,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
             if (!calledImplicitConstructor && formattedSuperClass_ != null) {
                 calledImplicitConstructor = true;
                 Argument global_ = getGlobalArgument();
-                _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(formattedSuperClass_), emptyCtorPair, EMPTY_STRING, -1, global_, new Parameters(), InstancingStep.USING_SUPER_IMPL));
+                _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(formattedSuperClass_), emptyCtorPair, global_));
                 return false;
             }
             //the super constructor is called here
@@ -79,9 +77,12 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     }
 
     public void blockRootTypes(ExecTypeFunction _pair) {
-        setBlockRootTypes(_pair.getType());
+        ExecRootBlock type_ = _pair.getType();
+        setBlockRootTypes(type_);
         setBlockRoot(_pair.getFct());
+        fileOffset(type_);
     }
+
     public void setBlockRootTypes(ExecRootBlock _blockRootType) {
         setBlockRootType(_blockRootType);
         if (getBlockRootType() instanceof ExecUniqueRootedBlock) {

@@ -19,16 +19,8 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
         formattedType = _invokingConstructorContent.getFormattedType();
     }
 
-    public int getOffsetOper() {
-        return invokingConstructorContent.getOffsetOper();
-    }
-
-    public String getLastType() {
-        return invokingConstructorContent.getLastType();
-    }
-
-    public int getNaturalVararg() {
-        return invokingConstructorContent.getNaturalVararg();
+    public ExecInvokingConstructorContent getInvokingConstructorContent() {
+        return invokingConstructorContent;
     }
 
     public ExecFormattedRootBlock getFormattedType() {

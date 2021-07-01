@@ -25,16 +25,13 @@ public final class RendWrappOperation extends RendMethodOperation implements Ren
         if (chFirst_ instanceof RendSettableFieldOperation) {
             RendSettableFieldOperation ch_ = (RendSettableFieldOperation)chFirst_;
             ExecSettableOperationContent settableFieldContent_ = ch_.getSettableFieldContent();
-            Argument previous_;
             FieldWrapper f_;
             if (!settableFieldContent_.isStaticField()) {
                 Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _rendStack);
-                previous_ = new Argument(ExecTemplates.getParent(settableFieldContent_.getAnc(), previousArgument_.getStruct(), _context, _rendStack.getStackCall()));
-                f_ = new InstanceFieldWrapper(previous_.getStruct(),settableFieldContent_.getRealType(),ch_.getRootBlock(),
+                f_ = new InstanceFieldWrapper(settableFieldContent_.getAnc(), previousArgument_.getStruct(),ExecTemplates.getParent(settableFieldContent_.getAnc(), previousArgument_.getStruct(), _rendStack.getStackCall()).getClassName(_context),settableFieldContent_.getRealType(),ch_.getRootBlock(),
                         settableFieldContent_.getClassField());
             } else {
-                previous_ = new Argument();
-                f_ = new StaticFieldWrapper(previous_.getStruct(),settableFieldContent_.getRealType(),ch_.getRootBlock(),
+                f_ = new StaticFieldWrapper(settableFieldContent_.getRealType(),ch_.getRootBlock(),
                         settableFieldContent_.getClassField());
             }
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
@@ -55,9 +52,8 @@ public final class RendWrappOperation extends RendMethodOperation implements Ren
         if (chFirst_ instanceof RendCustArrOperation) {
             RendCustArrOperation ch_ = (RendCustArrOperation)chFirst_;
             Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _rendStack);
-            Argument previous_ = new Argument(ExecTemplates.getParent(ch_.getInstFctContent().getAnc(), previousArgument_.getStruct(), _context, _rendStack.getStackCall()));
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-            ArrayCustWrapper a_ = new ArrayCustWrapper(previous_,ch_.buildInfos(_nodes),ch_.getInstFctContent(),ch_.getReadWrite());
+            ArrayCustWrapper a_ = new ArrayCustWrapper(previousArgument_,ExecTemplates.getParent(ch_.getInstFctContent().getAnc(), previousArgument_.getStruct(), _rendStack.getStackCall()).getClassName(_context),ch_.buildInfos(_nodes),ch_.getInstFctContent(),ch_.getReadWrite());
             pair_.setWrapper(a_);
             setQuickNoConvertSimpleArgument(getArgumentPair(_nodes,ch_).getArgument(),_nodes,_context, _rendStack);
             return;

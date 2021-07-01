@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -111,7 +112,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     }
     public static Argument invoke(Argument _global, ExecFormattedRootBlock _class, RunnableContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
         Parameters parameters_ = ExecTemplates.wrapAndCall(_pair, _class, _global, _cont, _stackCall, _argList);
-        Argument arg_ = ProcessMethod.calculateArgument(_global, _class, _pair, parameters_, _cont, _stackCall).getValue();
+        Argument arg_ = ProcessMethod.calculateArgument(new CustomFoundMethod(_global, _class, _pair, parameters_), _cont, _stackCall).getValue();
         _cont.getCustInit().prExc(_cont, _stackCall);
         return arg_;
     }

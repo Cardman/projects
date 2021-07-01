@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
+import code.expressionlanguage.fwd.opers.ExecInstancingDirContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.IdMap;
 import code.util.core.StringUtil;
@@ -12,9 +12,9 @@ import code.util.core.StringUtil;
 public final class ExecDirectStandardInstancingOperation extends
         ExecInvokingOperation {
 
-    private final ExecInstancingCommonContent instancingCommonContent;
+    private final ExecInstancingDirContent instancingCommonContent;
 
-    public ExecDirectStandardInstancingOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent) {
+    public ExecDirectStandardInstancingOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingDirContent _instancingCommonContent) {
         super(_opCont, _intermediateDottedOperation);
         instancingCommonContent = _instancingCommonContent;
     }

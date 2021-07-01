@@ -37,7 +37,7 @@ public final class DefaultParamChecker extends AbstractFormatParamChecker {
     public Argument redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
         Parameters parameters_ = _classFormat.getParameters();
         if (state == CallPrepareState.CTOR) {
-            _stackCall.setCallingState(new CustomFoundConstructor(_classNameFound, pair, "", -1, _previous, parameters_, kindCall));
+            _stackCall.setCallingState(new CustomFoundConstructor(_classNameFound, pair, _previous, parameters_, kindCall));
         } else {
             _stackCall.setCallingState(new CustomFoundMethod(_classNameFound, pair, parameters_));
         }

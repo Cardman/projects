@@ -38,7 +38,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         intermediate = _intermediate;
     }
 
-    protected static ArgumentListCall fectchInstFormattedArgs(ExecFormattedRootBlock _formatted, ExecInstancingCommonContent _lastType, ContextEl _conf, StackCall _stack, CustList<ExecOperationInfo> _infos) {
+    public static ArgumentListCall fectchInstFormattedArgs(ExecFormattedRootBlock _formatted, ExecInstancingCommonContent _lastType, ContextEl _conf, StackCall _stack, CustList<ExecOperationInfo> _infos) {
         String lastType_ = ExecInherits.quickFormat(_formatted, _lastType.getLastType());
         return fectchArgs(lastType_, _lastType.getNaturalVararg(), null,_conf,_stack, _infos);
     }

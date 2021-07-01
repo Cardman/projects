@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -130,7 +131,7 @@ public final class CustThreadActions extends AbstractThreadActions {
                     ExecTypeFunction pair_ = new ExecTypeFunction(classBody_, method_);
                     ArgumentListCall argList_ = new ArgumentListCall(args_);
                     Parameters parameters_ = ExecTemplates.wrapAndCall(pair_, new ExecFormattedRootBlock(classBody_, classDbName),arg_, ctx_, rendStackCall_.getStackCall(), argList_);
-                    Argument out_ = ProcessMethod.calculateArgument(arg_, new ExecFormattedRootBlock(classBody_, classDbName), pair_, parameters_, ctx_, rendStackCall_.getStackCall()).getValue();
+                    Argument out_ = ProcessMethod.calculateArgument(new CustomFoundMethod(arg_, new ExecFormattedRootBlock(classBody_, classDbName), pair_, parameters_), ctx_, rendStackCall_.getStackCall()).getValue();
                     if (ctx_.callsOrException(rendStackCall_.getStackCall())) {
                         afterActionWithoutRemove(ctx_, rendStackCall_);
                         return;

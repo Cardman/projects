@@ -1,10 +1,8 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.inherits.MethodParamChecker;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.opers.ExecStaticFctOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -32,10 +30,10 @@ public final class RendStaticFctOperation extends RendSettableCallFctOperation i
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _rendStack);
         String lastType_ = staticFctContent.getLastType();
-        int naturalVararg_ = staticFctContent.getNaturalVararg();
-        Argument prev_ = new Argument();
+//        int naturalVararg_ = staticFctContent.getNaturalVararg();
+//        Argument prev_ = new Argument();
         ExecFormattedRootBlock classNameFound_ = staticFctContent.getFormattedType();
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(new MethodParamChecker(pair, ExecInvokingOperation.fectchArgs(lastType_, naturalVararg_, null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), staticFctContent.getKind()).checkParams(classNameFound_, prev_, null, _context, _rendStack.getStackCall()), _context, _rendStack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecStaticFctOperation.prep(_context,_rendStack.getStackCall(),classNameFound_,lastType_,buildInfos(_nodes),staticFctContent,pair), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

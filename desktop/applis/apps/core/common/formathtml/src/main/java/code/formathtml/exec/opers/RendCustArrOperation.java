@@ -3,7 +3,6 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecCustArrOperation;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
@@ -107,9 +106,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         }
         Argument previous_ = getPreviousArgument(_nodes,this);
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-        Struct argPrev_ = previous_.getStruct();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), argPrev_, _context, _rendStackCall.getStackCall()));
-        Argument result_ = ExecCustArrOperation.redirect(_context,_right,_rendStackCall.getStackCall(),prev_,infos_,instFctContent,readWrite);
+        Argument result_ = ExecCustArrOperation.redirect(_context,_right,_rendStackCall.getStackCall(),previous_,infos_,instFctContent,readWrite);
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _rendStackCall);
         setSimpleArgument(argres_, _nodes, _context, _rendStackCall);
         return argres_.getValue();

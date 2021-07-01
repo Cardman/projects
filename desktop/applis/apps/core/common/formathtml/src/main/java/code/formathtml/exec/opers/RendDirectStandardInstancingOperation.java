@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
+import code.expressionlanguage.fwd.opers.ExecInstancingDirContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
@@ -13,9 +13,9 @@ import code.util.core.StringUtil;
 
 public final class RendDirectStandardInstancingOperation extends RendInvokingOperation implements RendCalculableOperation {
 
-    private final ExecInstancingCommonContent instancingCommonContent;
+    private final ExecInstancingDirContent instancingCommonContent;
 
-    public RendDirectStandardInstancingOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstancingCommonContent _instancingCommonContent) {
+    public RendDirectStandardInstancingOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecInstancingDirContent _instancingCommonContent) {
         super(_content, _intermediateDottedOperation);
         instancingCommonContent = _instancingCommonContent;
     }

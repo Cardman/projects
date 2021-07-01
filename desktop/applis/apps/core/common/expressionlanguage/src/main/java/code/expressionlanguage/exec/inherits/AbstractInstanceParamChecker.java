@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -71,7 +70,7 @@ public abstract class AbstractInstanceParamChecker extends AbstractParamChecker 
         } else {
             needed_ = new Argument(Argument.getNullableValue(_previous).getStruct());
         }
-        _stackCall.setCallingState(new CustomFoundConstructor(_classNameFound, pair, fieldName, blockIndex, needed_, _classFormat.getParameters(), InstancingStep.NEWING));
+        _stackCall.setCallingState(new CustomFoundConstructor(_classNameFound, pair, fieldName, blockIndex, needed_, _classFormat.getParameters()));
         return Argument.createVoid();
     }
 

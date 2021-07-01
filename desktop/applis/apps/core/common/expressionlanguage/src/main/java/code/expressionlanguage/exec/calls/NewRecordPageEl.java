@@ -6,6 +6,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.util.CustList;
 import code.util.StringMap;
@@ -33,7 +34,7 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
             String name_ = names.getKey(i);
             Argument value_ = args.get(i);
             String t_ = names.getValue(i);
-            ExecTemplates.setInstanceField(getBlockRootType(), t_, gl_, value_, _context, _stack, new ClassField(id_, name_));
+            ExecTemplates.setInstanceField(gl_, value_, _context, _stack, new ClassField(id_, name_), new ExecTypeReturn(getBlockRootType(), t_));
             if (_context.callsOrException(_stack)) {
                 return;
             }

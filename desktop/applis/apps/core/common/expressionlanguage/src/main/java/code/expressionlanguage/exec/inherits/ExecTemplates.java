@@ -115,7 +115,16 @@ public final class ExecTemplates {
      use class parent of object
      */
     public static Struct getParent(int _nbAncestors, Struct _current, ContextEl _an, StackCall _stackCall) {
-        LgNames lgNames_ = _an.getStandards();
+        Struct out_ = getParent(_nbAncestors, _current, _stackCall);
+        if (out_ == NullStruct.NULL_VALUE) {
+            String npe_ = _an.getStandards().getContent().getCoreNames().getAliasNullPe();
+            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, npe_, _stackCall)));
+            return _current;
+        }
+        return out_;
+    }
+
+    public static Struct getParent(int _nbAncestors, Struct _current, StackCall _stackCall) {
         Struct arg_ = _current;
         for (int i = 0; i < _nbAncestors; i++) {
             Struct enc_ = arg_;
@@ -123,13 +132,7 @@ public final class ExecTemplates {
             _stackCall.getInitializingTypeInfos().addSensibleField(enc_, par_);
             arg_=par_;
         }
-        Struct out_ = Argument.getNull(arg_);
-        if (out_ == NullStruct.NULL_VALUE) {
-            String npe_ = lgNames_.getContent().getCoreNames().getAliasNullPe();
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_an, npe_, _stackCall)));
-            return _current;
-        }
-        return out_;
+        return Argument.getNull(arg_);
     }
 
     public static String correctClassPartsDynamicWildCard(String _className, ContextEl _context) {
@@ -900,6 +903,13 @@ public final class ExecTemplates {
         return getInstanceField(_previous, _conf, _stackCall, fieldId_);
     }
 
+    public static Argument getSafeInstanceField(int _anc,Argument _previous, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
+        Argument prev_ = new Argument(ExecTemplates.getParent(_anc, _previous.getStruct(), _conf, _stackCall));
+        if (_conf.callsOrException(_stackCall)) {
+            return Argument.createVoid();
+        }
+        return getInstanceField(prev_, _conf, _stackCall, _fieldId);
+    }
     public static Argument getInstanceField(Argument _previous, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
@@ -964,10 +974,17 @@ public final class ExecTemplates {
             }
             return setStaticField(_conf.getExiting(), declaring_, type_, _right, _conf, _stackCall, fieldId_);
         }
-        return setInstanceField(declaring_, type_, _previous, _right, _conf, _stackCall, fieldId_);
+        return setInstanceField(_previous, _right, _conf, _stackCall, fieldId_, new ExecTypeReturn(declaring_, type_));
     }
 
-    public static Argument setInstanceField(ExecRootBlock _rootBlock, String _returnType, Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
+    public static Argument setSafeInstanceField(int _anc,Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId, ExecTypeReturn _ex) {
+        Argument prev_ = new Argument(ExecTemplates.getParent(_anc, _previous.getStruct(), _conf, _stackCall));
+        if (_conf.callsOrException(_stackCall)) {
+            return Argument.createVoid();
+        }
+        return setInstanceField(prev_, _right, _conf, _stackCall, _fieldId, _ex);
+    }
+    public static Argument setInstanceField(Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId, ExecTypeReturn _ex) {
         String className_ = _fieldId.getClassName();
         LgNames stds_ = _conf.getStandards();
         Struct previous_ = _previous.getStruct();
@@ -987,7 +1004,7 @@ public final class ExecTemplates {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, getBadCastMessage(className_, argClassName_), cast_, _stackCall)));
             return Argument.createVoid();
         }
-        String fieldType_ = formatType(_conf,_rootBlock,_returnType,argClassName_);
+        String fieldType_ = formatType(_conf, _ex.getRootBlock(), _ex.getReturnType(),argClassName_);
         if (!checkQuick(fieldType_, _right.getStruct().getClassName(_conf), _conf, _stackCall)) {
             return Argument.createVoid();
         }

@@ -538,8 +538,6 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         setConstructor(_ctorRes.getPair());
         if (_g instanceof RootBlock) {
             setFormattedType(new AnaFormattedRootBlock((RootBlock) _g, _realClassName));
-        } else {
-            setClassName(_realClassName);
         }
         setMemberId(_ctorRes.getMemberId());
         if (_ctorRes.isVarArgToCall()) {
@@ -575,13 +573,6 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         this.constructor = _constructor;
     }
 
-    public String getClassName() {
-        return instancingCommonContent.getClassName();
-    }
-
-    public void setClassName(String _className) {
-        this.instancingCommonContent.setClassName(_className);
-    }
     public AnaFormattedRootBlock getFormattedType() {
         return instancingCommonContent.getFormattedType();
     }

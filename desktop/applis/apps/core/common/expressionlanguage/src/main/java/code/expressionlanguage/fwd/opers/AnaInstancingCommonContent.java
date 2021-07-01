@@ -7,7 +7,6 @@ import code.expressionlanguage.functionid.ConstructorId;
 public final class AnaInstancingCommonContent {
     private final String methodName;
 
-    private String className = "";
     private AnaFormattedRootBlock formattedType;
 
     private int naturalVararg = -1;
@@ -21,14 +20,6 @@ public final class AnaInstancingCommonContent {
     }
     public String getMethodName() {
         return methodName;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String _className) {
-        this.className = _className;
     }
 
     public AnaFormattedRootBlock getFormattedType() {

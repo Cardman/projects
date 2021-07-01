@@ -23,6 +23,13 @@ public final class CustomFoundRecordConstructor implements CallingState {
     public CustomFoundRecordConstructor(ExecFormattedRootBlock _className,
                                         ExecTypeFunction _pair,
                                         StringMap<String> _id,
+                                         CustList<Argument> _arguments) {
+        this(_className,_pair,_id,"",-1,_arguments);
+    }
+
+    public CustomFoundRecordConstructor(ExecFormattedRootBlock _className,
+                                        ExecTypeFunction _pair,
+                                        StringMap<String> _id,
                                         String _fieldName, int _childIndex,
                                         CustList<Argument> _arguments) {
         className = _className;

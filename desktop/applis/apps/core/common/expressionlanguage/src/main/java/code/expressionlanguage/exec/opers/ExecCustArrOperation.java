@@ -110,12 +110,12 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         Argument previous_ = getPreviousArg(this, _nodes, _stackCall);
         setRelativeOffsetPossibleLastPage(_stackCall);
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-        Struct argPrev_ = previous_.getStruct();
-        Argument prev_ = new Argument(ExecTemplates.getParent(instFctContent.getAnc(), argPrev_, _conf, _stackCall));
-        return redirect(_conf, _right, _stackCall, prev_, infos_, instFctContent, readWrite);
+        return redirect(_conf, _right, _stackCall, previous_, infos_, instFctContent, readWrite);
     }
 
     public static Argument redirect(ContextEl _conf, Argument _right, StackCall _stackCall, Argument _previous, CustList<ExecOperationInfo> _infos, ExecInstFctContent _instFctContent, ExecTypeFunctionPair _readWrite) {
+        Struct argPrev_ = _previous.getStruct();
+        Argument prev_ = new Argument(ExecTemplates.getParent(_instFctContent.getAnc(), argPrev_, _conf, _stackCall));
         if (_conf.callsOrException(_stackCall)) {
             return new Argument();
         }
@@ -126,11 +126,11 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             fct_ = _readWrite.getRead();
         }
         ExecRootBlock type_ = fct_.getType();
-        Struct pr_ = _previous.getStruct();
+        Struct pr_ = prev_.getStruct();
         ExecOverrideInfo polymorph_ = polymorphOrSuper(_instFctContent.isStaticChoiceMethod(), _conf,pr_, _instFctContent.getFormattedType(),fct_);
         fct_ = polymorph_.getPair();
         ExecFormattedRootBlock classNameFound_ = polymorph_.getClassName();
-        return new MethodParamChecker(fct_, fetchFormattedArgs(_conf, _stackCall, pr_, type_, _instFctContent, _right, _infos), MethodAccessKind.INSTANCE).checkParams(classNameFound_, _previous, null, _conf, _stackCall);
+        return new MethodParamChecker(fct_, fetchFormattedArgs(_conf, _stackCall, pr_, type_, _instFctContent, _right, _infos), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _conf, _stackCall);
     }
 
     public ExecInstFctContent getInstFctContent() {

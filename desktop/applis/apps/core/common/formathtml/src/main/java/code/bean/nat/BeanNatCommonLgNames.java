@@ -88,7 +88,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     @Override
     public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, RendStackCall _stack) {
         CustList<Argument> firstArgs_ = RendDynOperationNode.getArguments(_all,_rend);
-        ClassMethodId classMethodId_ = _rend.getClassMethodId();
+        ClassMethodId classMethodId_ = _rend.getStdFctContent().getClassMethodId();
         ResultErrorStd res_ = LgNames.invokeMethod(_context, classMethodId_, _previous.getStruct(), null, _stack.getStackCall(), Argument.toArgArray(firstArgs_));
         return new Argument(res_.getResult());
     }

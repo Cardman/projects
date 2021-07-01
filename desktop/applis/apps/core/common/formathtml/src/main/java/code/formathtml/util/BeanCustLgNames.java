@@ -11,6 +11,8 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.inherits.ExecTypeReturn;
+import code.expressionlanguage.exec.opers.ExecStdFctOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
@@ -40,7 +42,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -396,7 +397,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ConstructorId id_ = new ConstructorId(aliasStringMapObject_, new StringList(), false);
         AnaInstancingCommonContent cont_ = new AnaInstancingCommonContent(id_.getName());
         cont_.setConstId(id_);
-        opsMap.add(new RendStandardInstancingOperation(new ExecOperationContent(0, clMatch_, 0), new ExecInstancingCommonContent(cont_, formattedType_), new ExecInstancingStdContent(new AnaInstancingStdContent()), new ExecTypeFunction(formattedType_, null)));
+        ExecTypeFunction pair_ = new ExecTypeFunction(formattedType_, null);
+        opsMap.add(new RendStandardInstancingOperation(new ExecOperationContent(0, clMatch_, 0), new ExecInstancingCustContent(cont_,pair_, formattedType_), new ExecInstancingStdContent(new AnaInstancingStdContent())));
     }
 
     private static String tr(StringList _list) {
@@ -489,14 +491,14 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
             Argument mapArg_ = RenderExpUtil.calculateReuse(opsMap, this, _ctx, _rendStack);
             ExecRootBlock rootBlock_ = _ctx.getClasses().getClassBody(beanAliases.getAliasBean());
-            ExecTemplates.setInstanceField(rootBlock_, beanAliases.getAliasStringMapObject(),
-                    new Argument(strBean_),mapArg_, _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasForms()));
-            ExecTemplates.setInstanceField(rootBlock_, getAliasObject(),
-                    new Argument(strBean_),new Argument(_db), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasDataBaseField()));
-            ExecTemplates.setInstanceField(rootBlock_, getAliasString(),
-                    new Argument(strBean_),new Argument(new StringStruct(_language)), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasLanguage()));
-            ExecTemplates.setInstanceField(rootBlock_, getAliasString(),
-                    new Argument(strBean_),new Argument(new StringStruct(info_.getScope())), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasScope()));
+            ExecTemplates.setInstanceField(
+                    new Argument(strBean_),mapArg_, _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasForms()), new ExecTypeReturn(rootBlock_, beanAliases.getAliasStringMapObject()));
+            ExecTemplates.setInstanceField(
+                    new Argument(strBean_),new Argument(_db), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasDataBaseField()), new ExecTypeReturn(rootBlock_, getAliasObject()));
+            ExecTemplates.setInstanceField(
+                    new Argument(strBean_),new Argument(new StringStruct(_language)), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasLanguage()), new ExecTypeReturn(rootBlock_, getAliasString()));
+            ExecTemplates.setInstanceField(
+                    new Argument(strBean_),new Argument(new StringStruct(info_.getScope())), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasScope()), new ExecTypeReturn(rootBlock_, getAliasString()));
             _rendStack.removeLastPage();
             _conf.getBuiltBeans().setValue(index_,strBean_);
             index_++;
@@ -739,20 +741,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, ContextEl _context, RendStackCall _stack) {
         ClassField fieldId_ = _rend.getClassField();
         boolean staticField_ = _rend.isStaticField();
-        Argument previous_;
-        if (!staticField_) {
-            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), _previous.getStruct(), _context, _stack.getStackCall()));
-        } else {
-            previous_ = new Argument();
-        }
         String fieldType_ = _rend.getRealType();
-        if (_context.callsOrException(_stack.getStackCall())) {
-            return Argument.createVoid();
-        }
         if (staticField_) {
             return ExecTemplates.getStaticField(_context.getExiting(), _rend.getRootBlock(), fieldType_, _context, _stack.getStackCall(), fieldId_);
         }
-        return ExecTemplates.getInstanceField(previous_, _context, _stack.getStackCall(), fieldId_);
+        return ExecTemplates.getSafeInstanceField(_rend.getAnc(), _previous, _context, _stack.getStackCall(), fieldId_);
     }
 
     @Override
@@ -760,39 +753,16 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String fieldType_ = _rend.getRealType();
         boolean isStatic_ = _rend.isStaticField();
         ClassField fieldId_ = _rend.getClassField();
-        Argument previous_;
-        if (!isStatic_) {
-            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), _previous.getStruct(), _context, _stack.getStackCall()));
-        } else {
-            previous_ = new Argument();
-        }
         //Come from code directly so constant static fields can be initialized here
-        if (_context.callsOrException(_stack.getStackCall())) {
-            return Argument.createVoid();
-        }
         if (isStatic_) {
             return ExecTemplates.setStaticField(_context.getExiting(), _rend.getRootBlock(), fieldType_, _right, _context, _stack.getStackCall(), fieldId_);
         }
-        return ExecTemplates.setInstanceField(_rend.getRootBlock(), fieldType_, previous_, _right, _context, _stack.getStackCall(), fieldId_);
+        return ExecTemplates.setSafeInstanceField(_rend.getAnc(), _previous, _right, _context, _stack.getStackCall(), fieldId_, new ExecTypeReturn(_rend.getRootBlock(), fieldType_));
     }
 
     @Override
     public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, RendStackCall _stack) {
-        MethodId methodId_ = _rend.getClassMethodId().getConstraints();
-        String lastType_ = _rend.getLastType();
-        Argument prev_;
-        if (!_rend.isStaticMethod()) {
-            Struct argPrev_ = _previous.getStruct();
-            prev_ = new Argument(ExecTemplates.getParent(0, argPrev_, _context, _stack.getStackCall()));
-            if (_context.callsOrException(_stack.getStackCall())) {
-                return new Argument();
-            }
-        } else {
-            prev_ = new Argument();
-        }
-        String classNameFound_ = _rend.getClassMethodId().getClassName();
-        int naturalVararg_ = _rend.getNaturalVararg();
-        return ExecInvokingOperation.callStd(_context.getExiting(), _context, classNameFound_, methodId_, prev_, ExecInvokingOperation.fectchArgs(lastType_, naturalVararg_, null, _context, _stack.getStackCall(), _rend.buildInfos(_all)), _stack.getStackCall());
+        return ExecStdFctOperation.prep(_context,_stack.getStackCall(),_previous,_rend.buildInfos(_all), _rend.getStdFctContent());
     }
 
     private void forwardMap(Struct _map, Struct _to, Struct _key, ContextEl _ctx, RendStackCall _rendStackCall) {

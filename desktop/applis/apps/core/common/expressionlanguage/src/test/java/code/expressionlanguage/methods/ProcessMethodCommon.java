@@ -10,7 +10,9 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.*;
@@ -50,7 +52,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, method_, p_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        ProcessMethod.calculateArgument(argGlLoc_, new ExecFormattedRootBlock(classBody_,_class), new ExecTypeFunction(classBody_, method_), p_, _cont, stackCall_);
+        ProcessMethod.calculateArgument(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_,_class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_);
         CustomFoundExc excState_ = (CustomFoundExc) stackCall_.getCallingState();
         Struct exc_ = excState_.getStruct();
         assertNotNull(exc_);
@@ -63,7 +65,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, method_, p_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_,new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_, _cont, stackCall_).getValue();
+        Argument arg_ = ProcessMethod.calculateArgument(new CustomFoundMethod(argGlLoc_,new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_).getValue();
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
@@ -79,7 +81,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         assertNull(ctor_);
         Parameters p_ = new Parameters();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        ProcessMethod.instanceArgument(new ExecFormattedRootBlock(type_,_class), new ExecTypeFunction(type_,ctor_), _global, p_, _cont, stackCall_);
+        ProcessMethod.instanceArgument(_cont, stackCall_, new CustomFoundConstructor(new ExecFormattedRootBlock(type_,_class), new ExecTypeFunction(type_,ctor_), _global, p_));
         CustomFoundExc excState_ = (CustomFoundExc) stackCall_.getCallingState();
         Struct exc_ = excState_.getStruct();
         assertNotNull(exc_);
@@ -91,7 +93,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         assertNull(ctor_);
         Parameters p_ = new Parameters();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        Argument arg_ = ProcessMethod.instanceArgument(new ExecFormattedRootBlock(type_,_class), new ExecTypeFunction(type_,ctor_), _global, p_, _cont, stackCall_).getValue();
+        Argument arg_ = ProcessMethod.instanceArgument(_cont, stackCall_, new CustomFoundConstructor(new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), _global, p_)).getValue();
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
@@ -101,7 +103,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Parameters p_ = new Parameters();
         feedParams(_args, _cont, ctor_, p_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
-        Argument arg_ = ProcessMethod.instanceArgument(new ExecFormattedRootBlock(type_,_class), new ExecTypeFunction(type_,ctor_), _global, p_, _cont, stackCall_).getValue();
+        Argument arg_ = ProcessMethod.instanceArgument(_cont, stackCall_, new CustomFoundConstructor(new ExecFormattedRootBlock(type_, _class), new ExecTypeFunction(type_, ctor_), _global, p_)).getValue();
         assertNull(stackCall_.getCallingState());
         return arg_;
     }

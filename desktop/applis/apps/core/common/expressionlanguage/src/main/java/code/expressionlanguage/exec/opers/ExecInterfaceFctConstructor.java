@@ -10,11 +10,13 @@ import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConstructor {
@@ -45,28 +47,31 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
                 return;
             }
             pair_.setArgument(ref_);
-            int off_ = getOffsetOper();
+            int off_ = getInvokingConstructorContent().getOffsetOper();
             setRelOffsetPossibleLastPage(off_, _stack);
             ExecFormattedRootBlock superClass_ = _stack.formatVarType(getFormattedType());
-            String lastType_ = ExecInherits.quickFormat(superClass_, getLastType());
-            new DefaultParamChecker(getPair(), fectchArgs(lastType_, getNaturalVararg(),null,_conf,_stack, buildInfos(_nodes)), MethodAccessKind.INSTANCE, CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, ref_, null, _conf, _stack);
+            prep(_conf, _stack, ref_, superClass_, buildInfos(_nodes), getInvokingConstructorContent(), getPair());
             Argument res_ = Argument.createVoid();
             setSimpleArgument(res_, _conf, _nodes, _stack);
             return;
         }
-        int off_ = getOffsetOper();
+        int off_ = getInvokingConstructorContent().getOffsetOper();
         setRelOffsetPossibleLastPage(off_, _stack);
-        ExecFormattedRootBlock superClass_ = _stack.formatVarType(getFormattedType());
-        String lastType_ = ExecInherits.quickFormat(superClass_, getLastType());
         Argument arg_;
         if (getParent() == null) {
             arg_ = _stack.getLastPage().getGlobalArgument();
         } else {
             arg_ = mainArgument_;
         }
-        new DefaultParamChecker(getPair(), fectchArgs(lastType_, getNaturalVararg(),null,_conf,_stack, buildInfos(_nodes)), MethodAccessKind.INSTANCE, CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(superClass_, arg_, null, _conf, _stack);
+        ExecFormattedRootBlock superClass_ = _stack.formatVarType(getFormattedType());
+        prep(_conf, _stack, arg_, superClass_, buildInfos(_nodes), getInvokingConstructorContent(), getPair());
         Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);
+    }
+
+    public static void prep(ContextEl _conf, StackCall _stack, Argument _arg, ExecFormattedRootBlock _superClass, CustList<ExecOperationInfo> _infos, ExecInvokingConstructorContent _invokingConstructorContent, ExecTypeFunction _pair) {
+        String lastType_ = ExecInherits.quickFormat(_superClass, _invokingConstructorContent.getLastType());
+        new DefaultParamChecker(_pair, fectchArgs(lastType_, _invokingConstructorContent.getNaturalVararg(), null, _conf, _stack, _infos), MethodAccessKind.INSTANCE, CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(_superClass, _arg, null, _conf, _stack);
     }
 
 }
