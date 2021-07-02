@@ -997,20 +997,18 @@ public final class ForwardInfos {
 
     private static ExecBracedBlock buildCaseCondition(Coverage _coverage, Forwards _forwards, AbsBk _en) {
         ExecBracedBlock exec_;
-        if (!((CaseCondition) _en).getImportedType().isEmpty()) {
+        if (((CaseCondition) _en).isBuiltEnum()) {
+            if (((CaseCondition) _en).isNullCaseEnum()) {
+                exec_ = new ExecStdCaseCondition(Argument.createVoid());
+            } else {
+                exec_ = new ExecEnumCaseCondition(((CaseCondition) _en).getValue());
+            }
+        } else if (!((CaseCondition) _en).getImportedType().isEmpty()) {
             exec_ = new ExecAbstractInstanceCaseCondition(((CaseCondition) _en).getVariableName(), ((CaseCondition) _en).getImportedType(), true);
         } else {
             getExecutableNodes(((CaseCondition) _en).getRoot(), _coverage, _forwards, _en);
-            if (((CaseCondition) _en).isBuiltEnum()) {
-                if (((CaseCondition) _en).isNullCaseEnum()) {
-                    exec_ = new ExecStdCaseCondition(Argument.createVoid());
-                } else {
-                    exec_ = new ExecEnumCaseCondition(((CaseCondition) _en).getValue());
-                }
-            } else {
-                Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());
-                exec_ = new ExecStdCaseCondition(argument_);
-            }
+            Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());
+            exec_ = new ExecStdCaseCondition(argument_);
         }
         return exec_;
     }

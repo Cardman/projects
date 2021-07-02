@@ -5928,6 +5928,66 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report852Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  Object t = $null;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case $int v:\n");
+        xml_.append("    t=v+\" int\";\n");
+        xml_.append("   $case 8:\n");
+        xml_.append("    t=\" string\";\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+                " {\n" +
+                "  Object <a name=\"m39\">t</a> = $null;\n" +
+                "  $switch(<a href=\"#m39\">t</a>){\n" +
+                "   $case $int <a name=\"m78\">v</a>:\n" +
+                "    <a href=\"#m39\">t</a>=<a href=\"#m78\">v</a>+<span class=\"s\">\" int\"</span>;\n" +
+                "   <a title=\"The code is unreachable in the function 0()\" class=\"e\">$case</a> 8:\n" +
+                "    <a href=\"#m39\">t</a>=<span class=\"s\">\" string\"</span><a title=\"The code is unreachable in the function 0()\" class=\"e\">;</a>\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report853Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  Object t = $null;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case 8:\n");
+        xml_.append("    t=\" int\";\n");
+        xml_.append("   $case 8:\n");
+        xml_.append("    t=\" string\";\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
+                " {\n" +
+                "  Object <a name=\"m39\">t</a> = $null;\n" +
+                "  $switch(<a href=\"#m39\">t</a>){\n" +
+                "   $case 8:\n" +
+                "    <a href=\"#m39\">t</a>=<span class=\"s\">\" int\"</span>;\n" +
+                "   <a title=\"The $case block with value 8 is duplicated in the parent $switch block.\" class=\"e\">$case</a> 8:\n" +
+                "    <a href=\"#m39\">t</a>=<span class=\"s\">\" string\"</span>;\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportSpecTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

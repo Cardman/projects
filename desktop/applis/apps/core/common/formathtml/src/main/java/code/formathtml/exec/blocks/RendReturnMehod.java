@@ -7,7 +7,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.stacks.RendRemovableVars;
 import code.formathtml.util.BeanLgNames;
 
-public final class RendReturnMehod extends RendLeaf implements RendMethodCallingFinally,RendWithEl {
+public final class RendReturnMehod extends RendLeaf implements RendMethodCallingFinally {
 
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {

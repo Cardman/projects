@@ -969,16 +969,16 @@ public final class LinkageUtil {
         if (_vars.getLastStackElt().noVisited()) {
             _vars.addPart(new PartOffset(tag_, off_));
         }
-        if (!_cond.getImportedType().isEmpty()) {
+        if (_cond.isBuiltEnum()) {
+            int delta_ = _cond.getFieldNameOffset();
+            String typeEnum_ = _cond.getTypeEnum();
+            updateFieldAnchor(_vars,_cond.getEnumBlock(), new StringList(), new ClassField(typeEnum_,_cond.getValue().trim()),off_,Math.max(1, _cond.getValue().length()), delta_);
+        } else if (!_cond.getImportedType().isEmpty()) {
             _vars.addParts(_cond.getPartOffsets());
             String variableName_ = _cond.getVariableName();
             int variableOffset_ = _cond.getVariableOffset();
             _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,variableOffset_+ variableName_.trim().length()));
-        } else if (_cond.isBuiltEnum()) {
-            int delta_ = _cond.getFieldNameOffset();
-            String typeEnum_ = _cond.getTypeEnum();
-            updateFieldAnchor(_vars,_cond.getEnumBlock(), new StringList(), new ClassField(typeEnum_,_cond.getValue().trim()),off_,Math.max(1, _cond.getValue().length()), delta_);
         } else {
             int offsetEndBlock_ = off_ + _cond.getValue().length();
             OperationNode root_ = _cond.getRoot();
@@ -1002,24 +1002,22 @@ public final class LinkageUtil {
 
     private static void processCaseConditionError(VariablesOffsets _vars, CaseCondition _cond) {
         int off_;
-        if (!_cond.getImportedType().isEmpty()) {
-            _vars.addParts(_cond.getPartOffsets());
-            String variableName_ = _cond.getVariableName();
-            int variableOffset_ = _cond.getVariableOffset();
-            if (!variableName_.isEmpty()) {
-                StringList errs_ = _cond.getNameErrors();
-                if (!errs_.isEmpty()) {
-                    _vars.addPart(new PartOffset(ExportCst.anchorNameErr(variableOffset_,StringUtil.join(errs_,ExportCst.JOIN_ERR)), variableOffset_));
-                } else {
-                    _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
-                }
-                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
-            }
-        } else if (_cond.isBuiltEnum()) {
+        if (_cond.isBuiltEnum()) {
             off_ = _cond.getValueOffset();
             String typeEnum_ = _cond.getTypeEnum();
             int delta_ = _cond.getFieldNameOffset();
             updateFieldAnchor(_vars,_cond.getEnumBlock(), new StringList(), new ClassField(typeEnum_,_cond.getValue().trim()),off_,Math.max(1, _cond.getValue().length()), delta_);
+        } else if (!_cond.getImportedType().isEmpty()) {
+            _vars.addParts(_cond.getPartOffsets());
+            String variableName_ = _cond.getVariableName();
+            int variableOffset_ = _cond.getVariableOffset();
+            StringList errs_ = _cond.getNameErrors();
+            if (!errs_.isEmpty()) {
+                _vars.addPart(new PartOffset(ExportCst.anchorNameErr(variableOffset_,StringUtil.join(errs_,ExportCst.JOIN_ERR)), variableOffset_));
+            } else {
+                _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
+            }
+            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
         } else {
             off_ = _cond.getValueOffset();
             OperationNode root_ = _cond.getRoot();

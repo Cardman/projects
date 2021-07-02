@@ -70,30 +70,6 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             return;
         }
         AnaRendSwitchBlock sw_ = (AnaRendSwitchBlock) par_;
-        if (sw_.isInstance()) {
-            if (StringUtil.quickEq(value, _page.getKeyWords().getKeyWordNull())) {
-                argument = Argument.createVoid();
-                setImportedClassName("");
-                return;
-            }
-            _page.setGlobalOffset(classNameOffset);
-            setImportedClassName(ResolvingTypes.resolveCorrectType(className, _page));
-            TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(getVariableName(), _page);
-            if (res_.isError()) {
-                FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(_anaDoc.getFileName());
-                d_.setIndexFile(variableOffset);
-                //variable name
-                d_.setBuiltError(res_.getMessage());
-                AnalyzingDoc.addError(d_, _anaDoc, _page);
-                return;
-            }
-            AnaLocalVariable lv_ = new AnaLocalVariable();
-            lv_.setClassName(getImportedClassName());
-            lv_.setConstType(ConstType.FIX_VAR);
-            _page.getInfosVars().put(getVariableName(), lv_);
-            return;
-        }
         AnaClassArgumentMatching resSwitch_ = sw_.getResult();
         String type_ = resSwitch_.getSingleNameOrEmpty();
         if (!type_.isEmpty()) {
@@ -136,11 +112,42 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 return;
             }
         }
+        boolean instance_ = sw_.isInstance();
+        if (instance_) {
+            if (StringUtil.quickEq(value, _page.getKeyWords().getKeyWordNull())) {
+                argument = Argument.createVoid();
+                setImportedClassName("");
+                return;
+            }
+            if (value.trim().isEmpty()) {
+                String variableName_ = getVariableName();
+                _page.setGlobalOffset(classNameOffset);
+                setImportedClassName(ResolvingTypes.resolveCorrectType(className, _page));
+                TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName_, _page);
+                if (res_.isError()) {
+                    FoundErrorInterpret d_ = new FoundErrorInterpret();
+                    d_.setFileName(_anaDoc.getFileName());
+                    d_.setIndexFile(variableOffset);
+                    //variable name
+                    d_.setBuiltError(res_.getMessage());
+                    AnalyzingDoc.addError(d_, _anaDoc, _page);
+                    return;
+                }
+                AnaLocalVariable lv_ = new AnaLocalVariable();
+                lv_.setClassName(getImportedClassName());
+                lv_.setConstType(ConstType.FIX_VAR);
+                _page.getInfosVars().put(variableName_, lv_);
+                return;
+            }
+        }
+        check(_anaDoc, _page, resSwitch_, instance_);
+    }
+
+    private void check(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, AnaClassArgumentMatching _resSwitch, boolean _instance) {
         root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page);
+        argument = root.getArgument();
         AnaClassArgumentMatching resCase_ = root.getResultClass();
-        Argument arg_ = root.getArgument();
-        argument = arg_;
-        if (arg_ == null) {
+        if (argument == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(valueOffset);
@@ -149,18 +156,18 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                     value);
             AnalyzingDoc.addError(un_, _anaDoc, _page);
         } else {
-            checkDuplicateCase(arg_, _anaDoc, _page);
+            checkDuplicateCase(argument, _anaDoc, _page);
             Mapping m_ = new Mapping();
             m_.setArg(resCase_);
-            m_.setParam(resSwitch_);
-            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
+            m_.setParam(_resSwitch);
+            if (!_instance &&!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_anaDoc.getFileName());
                 un_.setIndexFile(valueOffset);
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseValue(),
                         _page.getKeyWords().getKeyWordCase(),
-                        AnaApplyCoreMethodUtil.getString(arg_, _page),
-                        StringUtil.join(resSwitch_.getNames(),AND_ERR));
+                        AnaApplyCoreMethodUtil.getString(argument, _page),
+                        StringUtil.join(_resSwitch.getNames(),AND_ERR));
                 AnalyzingDoc.addError(un_, _anaDoc, _page);
             }
         }
@@ -172,7 +179,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         while (first_ != this) {
             if (first_ instanceof AnaRendCaseCondition) {
                 AnaRendCaseCondition c_ = (AnaRendCaseCondition) first_;
-                Argument a_ = c_.root.getArgument();
+                Argument a_ = c_.argument;
                 if (a_ != null) {
                     if (_arg.getStruct().sameReference(a_.getStruct())) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();

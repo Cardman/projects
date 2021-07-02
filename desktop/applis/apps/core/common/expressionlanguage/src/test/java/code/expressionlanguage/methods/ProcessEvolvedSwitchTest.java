@@ -971,6 +971,110 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         assertEq("15 int25 int", getString(ret_));
     }
     @Test
+    public void calculateArgument33Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case 8:\n");
+        xml_.append("    t=\"alone\";\n");
+        xml_.append("   $case $int v:\n");
+        xml_.append("    t=v+\" int\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("alone", getString(ret_));
+    }
+    @Test
+    public void calculateArgument34Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case 10:\n");
+        xml_.append("    t=\"alone\";\n");
+        xml_.append("   $case $int v:\n");
+        xml_.append("    t=v+\" int\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("8 int", getString(ret_));
+    }
+    @Test
+    public void calculateArgument35Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case 8:\n");
+        xml_.append("    t=\"alone\";\n");
+        xml_.append("   $case 10:\n");
+        xml_.append("    t=\"sec alone\";\n");
+        xml_.append("   $case $int v:\n");
+        xml_.append("    t=v+\" int\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("alone", getString(ret_));
+    }
+    @Test
+    public void calculateArgument36Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case 10:\n");
+        xml_.append("    t=\"alone\";\n");
+        xml_.append("   $case 8:\n");
+        xml_.append("    t=\"sec alone\";\n");
+        xml_.append("   $case $int v:\n");
+        xml_.append("    t=v+\" int\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("sec alone", getString(ret_));
+    }
+    @Test
     public void calculateArgumentFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

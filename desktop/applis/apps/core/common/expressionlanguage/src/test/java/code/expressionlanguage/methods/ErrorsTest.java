@@ -11520,7 +11520,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   <a title=\"The variable name  is not valid. It must be a word.\" class=\"e\">$case</a> CharSequence:\n" +
+                "   <a title=\"The $case block with expression CharSequence is not constant.\" class=\"e\">$case</a> <a title=\"There is no accessible field named CharSequence from the type pkg.MySub in this context.\" class=\"e\">CharSequence</a>:\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11598,7 +11598,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   $case<a title=\"There must be a type.\" class=\"e\">:</a>\n" +
+                "   <a title=\"There must be an expression.\n" +
+                "\n" +
+                "The $case block with expression  is not constant.\" class=\"e\">$case</a>:\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +

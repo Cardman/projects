@@ -375,19 +375,17 @@ public final class RendForwardInfos {
 
     private static RendBlock buildCaseCondition(AnaRendCaseCondition _current) {
         RendBlock exec_;
-        if (!_current.getImportedClassName().isEmpty()) {
+        if (_current.isBuiltEnum()) {
+            if (_current.isNullCaseEnum()) {
+                exec_ = new RendStdCaseCondition(Argument.createVoid());
+            } else {
+                exec_ = new RendEnumCaseCondition(_current.getValue());
+            }
+        } else if (!_current.getImportedClassName().isEmpty()) {
             exec_ = new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getImportedClassName(), true);
         } else {
-            if (_current.isBuiltEnum()) {
-                if (_current.isNullCaseEnum()) {
-                    exec_ = new RendStdCaseCondition(Argument.createVoid());
-                } else {
-                    exec_ = new RendEnumCaseCondition(_current.getValue());
-                }
-            } else {
-                Argument argument_ = Argument.getNullableValue(_current.getArgument());
-                exec_ = new RendStdCaseCondition(argument_);
-            }
+            Argument argument_ = Argument.getNullableValue(_current.getArgument());
+            exec_ = new RendStdCaseCondition(argument_);
         }
         return exec_;
     }

@@ -7,7 +7,7 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
-public final class RendElseIfCondition extends RendCondition implements RendWithEl {
+public final class RendElseIfCondition extends RendCondition {
 
     public RendElseIfCondition(CustList<RendDynOperationNode> _op, int _offset) {
         super(_op,_offset);

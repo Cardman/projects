@@ -429,7 +429,7 @@ public final class ElResolver {
         String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
         String keyWordValues_ = keyWords_.getKeyWordValues();
         String keyWordVararg_ = keyWords_.getKeyWordVararg();
-        String keyWordDefault_ = keyWords_.getKeyWordDefaultValue();
+        String keyWordDefault_ = keyWords_.getKeyWordDefault();
         String keyWordDefaultValue_ = keyWords_.getKeyWordDefaultValue();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordCast_)) {

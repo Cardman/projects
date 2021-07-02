@@ -22,12 +22,16 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
     private final String value;
     private final String importedType;
     private final CaseCondition meta;
+    private final String impType;
+    private final boolean instance;
 
     protected ReachCaseCondition(CaseCondition _info) {
         super(_info);
         meta = _info;
         root = _info.getRoot();
         value = _info.getValue();
+        impType = _info.getImpType();
+        instance = _info.isInstance();
         importedType = _info.getImportedType();
         valueOffset = _info.getValueOffset();
     }
@@ -42,22 +46,14 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         }
         AnaClassArgumentMatching resSwitch_;
         String type_;
-        boolean instance_;
-        String instanceTest_;
         if (par_ instanceof ReachSwitchBlock) {
             ReachSwitchBlock sw_ = (ReachSwitchBlock) par_;
             resSwitch_ = sw_.getResult();
-            instance_ = sw_.isInstance();
         } else {
             ReachSwitchMethodBlock sw_ = (ReachSwitchMethodBlock) par_;
             resSwitch_ = sw_.getResult();
-            instance_ = sw_.isInstance();
         }
         type_ = resSwitch_.getSingleNameOrEmpty();
-        if (instance_) {
-            meta.setArgument(Argument.createVoid());
-            return;
-        }
         EnumBlock e_ = getEnumType(type_, _page);
         if (e_ != null) {
             for (InnerTypeOrElement f: e_.getEnumBlocks()) {
@@ -74,6 +70,10 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                 meta.setNullCaseEnum(true);
             }
             processNullValue(_page);
+            return;
+        }
+        if (instance) {
+            meta.setArgument(Argument.createVoid());
             return;
         }
         meta.setArgument(ReachOperationUtil.tryCalculate(root, _page));
@@ -200,30 +200,16 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             return;
         }
         if (meta.isNullCase()) {
-            StringList classes_ = new StringList();
-            ReachBlock b_ = getPreviousSibling();
-            while (b_ != null) {
-                if (b_ instanceof ReachCaseCondition) {
-                    classes_.add(((ReachCaseCondition)b_).importedType);
-                }
-                b_ = b_.getPreviousSibling();
-            }
-            if (!StringUtil.contains(classes_,"")) {
+            boolean nullCase_ = nullCase();
+            if (!nullCase_) {
                 _anEl.reach(this);
             } else {
                 _anEl.unreach(this);
             }
             return;
         }
-        StringList classes_ = new StringList();
-        ReachBlock b_ = getPreviousSibling();
-        while (b_ != null) {
-            if (b_ instanceof ReachCaseCondition) {
-                classes_.add(((ReachCaseCondition)b_).importedType);
-            }
-            b_ = b_.getPreviousSibling();
-        }
-        _anEl.setArgMapping(importedType);
+        StringList classes_ = previous();
+        _anEl.setArgMapping(impType);
         boolean reachCatch_ = true;
         for (String c: classes_) {
             _anEl.setParamMapping(c);
@@ -237,6 +223,30 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         } else {
             _anEl.unreach(this);
         }
+    }
+
+    private boolean nullCase() {
+        ReachBlock b_ = getPreviousSibling();
+        boolean nullCase_ = false;
+        while (b_ != null) {
+            if (b_ instanceof ReachCaseCondition && ((ReachCaseCondition) b_).meta.isNullCase()) {
+                nullCase_ = true;
+            }
+            b_ = b_.getPreviousSibling();
+        }
+        return nullCase_;
+    }
+
+    private StringList previous() {
+        StringList classes_ = new StringList();
+        ReachBlock b_ = getPreviousSibling();
+        while (b_ != null) {
+            if (b_ instanceof ReachCaseCondition&&!((ReachCaseCondition)b_).importedType.isEmpty()) {
+                classes_.add(((ReachCaseCondition)b_).importedType);
+            }
+            b_ = b_.getPreviousSibling();
+        }
+        return classes_;
     }
 
     public Argument getArgument() {

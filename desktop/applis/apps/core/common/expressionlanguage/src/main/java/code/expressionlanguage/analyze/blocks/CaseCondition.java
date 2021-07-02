@@ -27,11 +27,13 @@ public final class CaseCondition extends SwitchPartBlock {
     private final ResultExpression res = new ResultExpression();
 
     private boolean builtEnum;
-    private boolean emptyType;
     private boolean nullCase;
     private boolean nullCaseEnum;
 
     private String importedType = EMPTY_STRING;
+    private String impType = EMPTY_STRING;
+
+    private boolean instance;
 
     private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
@@ -79,6 +81,7 @@ public final class CaseCondition extends SwitchPartBlock {
             _page.addLocError(un_);
             addErrorBlock(un_.getBuiltError());
             res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
+            impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
             return;
         }
         String type_;
@@ -95,46 +98,6 @@ public final class CaseCondition extends SwitchPartBlock {
             AnaClassArgumentMatching resSwitch_ = sw_.getResult();
             type_ = resSwitch_.getSingleNameOrEmpty();
             instance_ = sw_.isInstance();
-        }
-        if (instance_) {
-            ParsedType p_ = new ParsedType();
-            p_.parse(value);
-            String declaringType_ = p_.getInstruction().toString();
-            if (StringUtil.quickEq(declaringType_, _page.getKeyWords().getKeyWordNull())) {
-                nullCase = true;
-                return;
-            }
-            _page.setGlobalOffset(valueOffset);
-            _page.zeroOffset();
-            if (declaringType_.trim().isEmpty()) {
-                emptyType = true;
-            }
-            importedType = ResolvingTypes.resolveCorrectType(declaringType_, _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
-            variableOffset = valueOffset + declaringType_.length();
-            String info_ = value.substring(declaringType_.length());
-            variableOffset += StringUtil.getFirstPrintableCharIndex(info_);
-            variableName = info_.trim();
-            TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
-            if (res_.isError()) {
-                FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(getFile().getFileName());
-                d_.setIndexFile(variableOffset);
-                //variable name
-                d_.setBuiltError(res_.getMessage());
-                _page.addLocError(d_);
-                nameErrors.add(d_.getBuiltError());
-                if (!emptyType&&variableName.trim().isEmpty()) {
-                    addErrorBlock(d_.getBuiltError());
-                }
-                return;
-            }
-            AnaLocalVariable lv_ = new AnaLocalVariable();
-            lv_.setClassName(importedType);
-            lv_.setRef(variableOffset);
-            lv_.setConstType(ConstType.FIX_VAR);
-            _page.getInfosVars().put(variableName, lv_);
-            return;
         }
         EnumBlock e_ = getEnumType(type_, _page);
         if (e_ != null) {
@@ -153,19 +116,66 @@ public final class CaseCondition extends SwitchPartBlock {
                 _page.setLookLocalClass(EMPTY_STRING);
                 op_.setOrder(0);
                 res.setRoot(op_);
+                impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
                 builtEnum = true;
                 fieldNameOffset = f.getFieldNameOffset();
                 typeEnum = id_;
                 return;
             }
             res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
+            impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
             String emp_ = _page.getCurrentEmptyPartErr();
             if (!emp_.isEmpty()) {
                 addErrorBlock(emp_);
             }
             return;
         }
+        if (instance_) {
+            ParsedType p_ = new ParsedType();
+            p_.parse(value);
+            String declaringType_ = p_.getInstruction().toString();
+            if (StringUtil.quickEq(declaringType_, _page.getKeyWords().getKeyWordNull())) {
+                nullCase = true;
+                instance = true;
+                return;
+            }
+            _page.setGlobalOffset(valueOffset);
+            _page.zeroOffset();
+            String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
+            String varName_ = "";
+            if (p_.isOk(new CustList<String>(keyWordNew_))) {
+                varName_ = value.substring(declaringType_.length());
+            }
+            String trimVar_ = varName_.trim();
+            if (StringExpUtil.isTypeLeafPart(trimVar_)) {
+                instance = true;
+                importedType = ResolvingTypes.resolveCorrectType(declaringType_, _page);
+                impType = importedType;
+                partOffsets.addAllElts(_page.getCurrentParts());
+                variableOffset = valueOffset + declaringType_.length();
+                variableOffset += StringUtil.getFirstPrintableCharIndex(varName_);
+                variableName = trimVar_;
+                TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
+                if (res_.isError()) {
+                    FoundErrorInterpret d_ = new FoundErrorInterpret();
+                    d_.setFileName(getFile().getFileName());
+                    d_.setIndexFile(variableOffset);
+                    //variable name
+                    d_.setBuiltError(res_.getMessage());
+                    _page.addLocError(d_);
+                    nameErrors.add(d_.getBuiltError());
+                    return;
+                }
+                AnaLocalVariable lv_ = new AnaLocalVariable();
+                lv_.setClassName(importedType);
+                lv_.setRef(variableOffset);
+                lv_.setConstType(ConstType.FIX_VAR);
+                _page.getInfosVars().put(variableName, lv_);
+                return;
+            }
+        }
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
+        impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
         String emp_ = _page.getCurrentEmptyPartErr();
         if (!emp_.isEmpty()) {
             addErrorBlock(emp_);
@@ -244,6 +254,14 @@ public final class CaseCondition extends SwitchPartBlock {
 
     public String getImportedType() {
         return importedType;
+    }
+
+    public boolean isInstance() {
+        return instance;
+    }
+
+    public String getImpType() {
+        return impType;
     }
 
     public StringList getNameErrors() {

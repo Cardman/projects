@@ -1233,6 +1233,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("  t=8;\n");
         xml_.append("  $switch(m()){\n");
         xml_.append("   $case 0:\n");
+        xml_.append("   $case 0:\n");
         xml_.append("   $case 1:\n");
         xml_.append("    t=10;\n");
         xml_.append("  }\n");

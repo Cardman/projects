@@ -379,9 +379,9 @@ public final class SplitExpressionUtil {
                 String varName_ = "";
                 if (p_.isOk(new CustList<String>(keyWordNew_))) {
                     String declaringType_ = p_.getInstruction().toString();
-                    varName_ = value_.substring(declaringType_.length()).trim();
+                    varName_ = value_.substring(declaringType_.length());
                 }
-                if (!StringExpUtil.isTypeLeafPart(varName_)) {
+                if (!StringExpUtil.isTypeLeafPart(varName_.trim())) {
                     _page.setGlobalOffset(((CaseCondition) current_).getValueOffset());
                     _page.zeroOffset();
                     ResultExpression resultExpression_ = ((CaseCondition) current_).getRes();
