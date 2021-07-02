@@ -2,6 +2,8 @@ package aiki.beans;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import code.bean.Bean;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -108,6 +110,13 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
 
     private StringMapObject forms;
     private FacadeGame dataBase;
+
+    public static Rate rateTrue(MonteCarloBoolean _law) {
+        if (_law.isZero()) {
+            return Rate.zero();
+        }
+        return _law.normalizedRate(true);
+    }
 
     public DataBase getDataBase() {
         return db().getData();

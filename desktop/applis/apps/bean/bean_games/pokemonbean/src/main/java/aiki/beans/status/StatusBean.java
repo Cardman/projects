@@ -99,23 +99,7 @@ public class StatusBean extends CommonBean {
         notAttackFoe = false;
         if (status_ instanceof StatusBeginRound) {
             StatusBeginRound statusBegin_ = (StatusBeginRound) status_;
-            if (!statusBegin_.getLawForUsingAMove().isZero()) {
-                rateForUsingAMove = statusBegin_.getLawForUsingAMove().normalizedRate(true);
-                notAttack = rateForUsingAMove.isZero();
-            } else {
-                rateForUsingAMove = Rate.zero();
-            }
-            if (!statusBegin_.getLawForUsingAMoveIfFoe().isZero()) {
-                rateForUsingAMoveIfFoe = statusBegin_.getLawForUsingAMoveIfFoe().normalizedRate(true);
-                notAttackFoe = rateForUsingAMoveIfFoe.isZero();
-            } else {
-                rateForUsingAMoveIfFoe = Rate.zero();
-            }
-            if (!statusBegin_.getLawForFullHealIfMove().isZero()) {
-                rateForFullHealIfMove = statusBegin_.getLawForFullHealIfMove().normalizedRate(true);
-            } else {
-                rateForFullHealIfMove = Rate.zero();
-            }
+            rates(statusBegin_);
             TreeMap<LgInt,Rate> lawForUsingAMoveNbRound_;
             lawForUsingAMoveNbRound_ = new TreeMap<LgInt, Rate>(new ComparatorLgInt());
             for (Rate e: statusBegin_.getLawForUsingAMoveNbRound().events()) {
@@ -139,6 +123,23 @@ public class StatusBean extends CommonBean {
             power = Rate.zero();
         }
     }
+
+    private void rates(StatusBeginRound _statusBegin) {
+        if (!_statusBegin.getLawForUsingAMove().isZero()) {
+            rateForUsingAMove = rateTrue(_statusBegin.getLawForUsingAMove());
+            notAttack = rateForUsingAMove.isZero();
+        } else {
+            rateForUsingAMove = Rate.zero();
+        }
+        if (!_statusBegin.getLawForUsingAMoveIfFoe().isZero()) {
+            rateForUsingAMoveIfFoe = rateTrue(_statusBegin.getLawForUsingAMoveIfFoe());
+            notAttackFoe = rateForUsingAMoveIfFoe.isZero();
+        } else {
+            rateForUsingAMoveIfFoe = Rate.zero();
+        }
+        rateForFullHealIfMove = rateTrue(_statusBegin.getLawForFullHealIfMove());
+    }
+
     public EffectPartnerStatus getEffectPartner() {
         return effectsPartner.first();
     }

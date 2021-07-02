@@ -450,19 +450,11 @@ public class ItemForBattleBean extends ItemBean {
         return CST_POKEMON;
     }
     public Rate rateForAttackFirst() {
-        if (lawForAttackFirst.isZero()) {
-            return Rate.zero();
-        }
-        return lawForAttackFirst.normalizedRate(true);
+        return rateTrue(lawForAttackFirst);
     }
+
     public boolean determinated() {
-        if (lawForAttackFirst.events().isEmpty()) {
-            return false;
-        }
-        if (!lawForAttackFirst.containsEvent(true)) {
-            return false;
-        }
-        return lawForAttackFirst.events().size() == DataBase.ONE_POSSIBLE_CHOICE;
+        return rateForAttackFirst().greaterOrEqualsOne();
     }
 
     public EffectWhileSendingWithStatistic getEffectSending() {
