@@ -116,7 +116,6 @@ public final class AnalyzedPageEl {
     private ForLoopPart forLoopPart;
     private AnalyzingEl analysisAss;
     private boolean annotAnalysis;
-    private String lookLocalClass = "";
     private boolean okNumOp;
     private final CustList<InaccessibleType> currentBadIndexes = new CustList<InaccessibleType>();
     private final StringList initFields = new StringList();
@@ -779,13 +778,6 @@ public final class AnalyzedPageEl {
 
     public void setAnnotAnalysis(boolean _annotAnalysis) {
         annotAnalysis = _annotAnalysis;
-    }
-
-    public String getLookLocalClass() {
-        return lookLocalClass;
-    }
-    public void setLookLocalClass(String _lookLocalClass) {
-        lookLocalClass = _lookLocalClass;
     }
 
     public boolean isOkNumOp() {

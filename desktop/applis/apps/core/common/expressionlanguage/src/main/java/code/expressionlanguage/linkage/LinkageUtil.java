@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.functionid.*;
@@ -19,6 +20,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -923,20 +925,11 @@ public final class LinkageUtil {
 
     private static void processSwitchBlockReport(VariablesOffsets _vars, SwitchBlock _cond, Coverage _cov) {
         if (_vars.getLastStackElt().noVisited()) {
-            int full_ = 0;
-            int count_ = 0;
-            for (AbstractCoverageResult e : _cov.getCoverSwitchs(_cond).values()) {
-                count_ += e.getCovered();
-                full_ += e.getFull();
-            }
             AbstractCoverageResult noDef_ = _cov.getCoverNoDefSwitchs(_cond);
-            if (noDef_ != null) {
-                count_ += noDef_.getCovered();
-                full_ += noDef_.getFull();
-            }
-            String tag_ = headCoverage(full_, count_);
+            IdMap<ExecBlock, CustList<AbstractCoverageResult>> coverSwitchs_ = _cov.getCoverSwitchs(_cond);
+            String part_ = headCoverage(noDef_, coverSwitchs_);
             int off_ = _cond.getOffset();
-            _vars.addPart(new PartOffset(tag_ + ExportCst.anchor(count_ + ExportCst.RATIO_COVERAGE + full_), off_));
+            _vars.addPart(new PartOffset(part_, off_));
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR + ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordSwitch().length()));
         }
         int off_ = _cond.getValueOffset();
@@ -946,6 +939,24 @@ public final class LinkageUtil {
         buildNormalReport(_vars, _cov, root_, in_);
         refLabel(_vars, _cond.getLabel(), _cond.getLabelOffset());
     }
+
+    private static String headCoverage(AbstractCoverageResult _noDef, IdMap<ExecBlock, CustList<AbstractCoverageResult>> _coverSwitchs) {
+        int full_ = 0;
+        int count_ = 0;
+        for (CustList<AbstractCoverageResult> e : _coverSwitchs.values()) {
+            for (AbstractCoverageResult f: e) {
+                count_ += f.getCovered();
+                full_ += f.getFull();
+            }
+        }
+        if (_noDef != null) {
+            count_ += _noDef.getCovered();
+            full_ += _noDef.getFull();
+        }
+        String tag_ = headCoverage(full_, count_);
+        return tag_ + ExportCst.anchor(count_ + ExportCst.RATIO_COVERAGE + full_);
+    }
+
     private static void processSwitchBlockError(VariablesOffsets _vars, SwitchBlock _cond) {
         int off_ = _cond.getValueOffset();
         if (_vars.getLastStackElt().noVisited() && !_cond.getErr().isEmpty()) {
@@ -958,21 +969,30 @@ public final class LinkageUtil {
     }
     private static void processCaseConditionReport(VariablesOffsets _vars, CaseCondition _cond, Coverage _cov) {
         SwitchBlock parent_ = _cond.getSwitchParent();
-        AbstractCoverageResult result_;
+        CustList<AbstractCoverageResult> result_;
         if (parent_ != null) {
             result_ = _cov.getCoverSwitchs(parent_,_cond);
         } else {
             result_ = _cov.getCoverSwitchsMethod(_cond.getSwitchMethod(),_cond);
         }
-        int off_ = _cond.getValueOffset();
         String tag_ = getCaseDefaultTag(result_);
         if (_vars.getLastStackElt().noVisited()) {
+            int off_ = _cond.getOffset();
             _vars.addPart(new PartOffset(tag_, off_));
+            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR+ExportCst.END_SPAN,off_+ _vars.getKeyWords().getKeyWordCase().length()));
         }
         if (_cond.isBuiltEnum()) {
-            int delta_ = _cond.getFieldNameOffset();
+            int off_ = _cond.getValueOffset();
             String typeEnum_ = _cond.getTypeEnum();
-            updateFieldAnchor(_vars,_cond.getEnumBlock(), new StringList(), new ClassField(typeEnum_,_cond.getValue().trim()),off_,Math.max(1, _cond.getValue().length()), delta_);
+            for (IndexStrPart i: _cond.getOffsetsEnum().getValues()) {
+                EnumBlock enumBlock_ = _cond.getEnumBlock();
+                for (InnerTypeOrElement f: enumBlock_.getEnumBlocks()) {
+                    if (StringUtil.contains(f.getFieldName(), i.getPart())) {
+                        updateFieldAnchor(_vars, enumBlock_, new StringList(), new ClassField(typeEnum_,i.getPart()),i.getIndex()+off_,i.getPart().length(), f.getFieldNameOffset());
+                        break;
+                    }
+                }
+            }
         } else if (!_cond.getImportedType().isEmpty()) {
             _vars.addParts(_cond.getPartOffsets());
             String variableName_ = _cond.getVariableName();
@@ -980,24 +1000,21 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,variableOffset_+ variableName_.trim().length()));
         } else {
-            int offsetEndBlock_ = off_ + _cond.getValue().length();
+            int offsetEndBlock_ = _cond.getValueOffset() + _cond.getValue().length();
             OperationNode root_ = _cond.getRoot();
-            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1);
+            LinkageStackElementIn in_ = buildLinkageRep(_cond, _cond.getValueOffset(), offsetEndBlock_, 0, -1);
             buildNormalReport(_vars, _cov, root_, in_);
-        }
-        if (!_vars.goesToProcess()) {
-            _vars.addPart(new PartOffset(ExportCst.END_SPAN,off_+ _cond.getValue().length()));
         }
     }
 
-    private static String getCaseDefaultTag(AbstractCoverageResult _result) {
-        String tag_;
-        if (_result.isFullCovered()) {
-            tag_ = ExportCst.span(FULL);
-        } else {
-            tag_ = ExportCst.span(NONE);
+    private static String getCaseDefaultTag(CustList<AbstractCoverageResult> _result) {
+        int full_ = 0;
+        int count_ = 0;
+        for (AbstractCoverageResult c: _result) {
+            count_ += c.getCovered();
+            full_ += c.getFull();
         }
-        return tag_;
+        return headCoverage(full_,count_) + ExportCst.anchor(count_ + ExportCst.RATIO_COVERAGE + full_);
     }
 
     private static void processCaseConditionError(VariablesOffsets _vars, CaseCondition _cond) {
@@ -1005,8 +1022,15 @@ public final class LinkageUtil {
         if (_cond.isBuiltEnum()) {
             off_ = _cond.getValueOffset();
             String typeEnum_ = _cond.getTypeEnum();
-            int delta_ = _cond.getFieldNameOffset();
-            updateFieldAnchor(_vars,_cond.getEnumBlock(), new StringList(), new ClassField(typeEnum_,_cond.getValue().trim()),off_,Math.max(1, _cond.getValue().length()), delta_);
+            for (IndexStrPart i: _cond.getOffsetsEnum().getValues()) {
+                EnumBlock enumBlock_ = _cond.getEnumBlock();
+                for (InnerTypeOrElement f: enumBlock_.getEnumBlocks()) {
+                    if (StringUtil.contains(f.getFieldName(), i.getPart())) {
+                        updateFieldAnchor(_vars, enumBlock_, new StringList(), new ClassField(typeEnum_,i.getPart()),i.getIndex()+off_,i.getPart().length(), f.getFieldNameOffset());
+                        break;
+                    }
+                }
+            }
         } else if (!_cond.getImportedType().isEmpty()) {
             _vars.addParts(_cond.getPartOffsets());
             String variableName_ = _cond.getVariableName();
@@ -1027,7 +1051,7 @@ public final class LinkageUtil {
 
     private static void processDefaultConditionReport(VariablesOffsets _vars, DefaultCondition _cond, Coverage _cov) {
         SwitchBlock parent_ = _cond.getSwitchParent();
-        AbstractCoverageResult result_;
+        CustList<AbstractCoverageResult> result_;
         if (parent_ != null) {
             result_ = _cov.getCoverSwitchs(parent_,_cond);
         } else {
@@ -1036,7 +1060,7 @@ public final class LinkageUtil {
         String tag_ = getCaseDefaultTag(result_);
         int off_ = _cond.getOffset();
         _vars.addPart(new PartOffset(tag_,off_));
-        _vars.addPart(new PartOffset(ExportCst.END_SPAN,off_+ _vars.getKeyWords().getKeyWordDefault().length()));
+        _vars.addPart(new PartOffset(ExportCst.END_ANCHOR+ExportCst.END_SPAN,off_+ _vars.getKeyWords().getKeyWordDefault().length()));
         if (!_cond.getVariableName().trim().isEmpty()) {
             off_ = _cond.getVariableOffset();
             _vars.addPart(new PartOffset(ExportCst.anchorName(off_,_cond.getInstanceTest()),off_));
@@ -2693,15 +2717,19 @@ public final class LinkageUtil {
         processUnaryLeftOperationsCoversReport(_in,_vars, sum_, _val, _cov);
         if (_val instanceof SwitchOperation) {
             SwitchMethodBlock switchMethod_ = ((SwitchOperation) _val).getSwitchMethod();
-            int full_ = 0;
-            int count_ = 0;
-            for (AbstractCoverageResult e : _cov.getCoverSwitchsMethod(switchMethod_).values()) {
-                count_ += e.getCovered();
-                full_ += e.getFull();
-            }
-            String tag_ = headCoverage(full_, count_);
+//            int full_ = 0;
+//            int count_ = 0;
+//            for (CustList<AbstractCoverageResult> e : _cov.getCoverSwitchsMethod(switchMethod_).values()) {
+//                for (AbstractCoverageResult f: e) {
+//                    count_ += f.getCovered();
+//                    full_ += f.getFull();
+//                }
+//            }
+//            String tag_ = headCoverage(full_, count_);
+            String part_ = headCoverage(null,_cov.getCoverSwitchsMethod(switchMethod_));
+//            part_ = tag_ + ExportCst.anchor(count_ + ExportCst.RATIO_COVERAGE + full_);
             int off_ = sum_ + _val.getIndexInEl() + ((SwitchOperation)_val).getDelta();
-            _vars.addPart(new PartOffset(tag_ + ExportCst.anchor(count_ + ExportCst.RATIO_COVERAGE + full_), off_));
+            _vars.addPart(new PartOffset(part_, off_));
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR + ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordSwitch().length()));
             _vars.addParts(((SwitchOperation)_val).getPartOffsets());
         }

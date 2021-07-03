@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.opers.DeclaringOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -15,6 +16,9 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.linkage.ExportCst;
+import code.maths.litteralcom.IndexStrPart;
+import code.maths.litteralcom.StrTypes;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -24,7 +28,6 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
     private final String value;
     private final String importedType;
     private final CaseCondition meta;
-    private final String impType;
     private final boolean instance;
 
     protected ReachCaseCondition(CaseCondition _info) {
@@ -32,7 +35,6 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         meta = _info;
         root = _info.getRoot();
         value = _info.getValue();
-        impType = _info.getImpType();
         instance = _info.isInstance();
         importedType = _info.getImportedType();
         valueOffset = _info.getValueOffset();
@@ -61,64 +63,182 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         type_ = resSwitch_.getSingleNameOrEmpty();
         EnumBlock e_ = getEnumType(type_, _page);
         if (e_ != null) {
-            for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-                if (!StringUtil.contains(f.getFieldName(), value.trim())) {
-                    continue;
+            CustList<IndexStrPart> values_ = meta.getOffsetsEnum().getValues();
+            for (IndexStrPart v: values_) {
+                boolean added_ = false;
+                if (StringUtil.quickEq(v.getPart(),_page.getKeyWords().getKeyWordNull())) {
+                    checkDuplicateListedValue(_page,Argument.createVoid());
+                    meta.getStdValues().add(Argument.createVoid());
+                    added_ = true;
+                } else {
+                    for (InnerTypeOrElement f: e_.getEnumBlocks()) {
+                        if (StringUtil.contains(f.getFieldName(), v.getPart())) {
+                            ClassField pair_ = new ClassField(f.getImportedClassName(), v.getPart());
+                            checkDuplicateListedEnum(_page, pair_, StringUtil.concat(pair_.getClassName(), ".", pair_.getFieldName()));
+                            meta.getEnumValues().add(pair_);
+                            added_ = true;
+                            break;
+                        }
+                    }
                 }
-                meta.setBuiltEnum(true);
-                checkDuplicateEnumCase(_page);
-                return;
+                if (!added_) {
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(valueOffset);
+                    //key word len
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
+                            _page.getKeyWords().getKeyWordCase(),
+                            value);
+                    _page.addLocError(un_);
+                    addErrorBlock(un_.getBuiltError());
+                    break;
+                }
             }
-            meta.setArgument(ReachOperationUtil.tryCalculate(root, _page));
-            if (Argument.isNullValue(meta.getArgument())) {
-                meta.setBuiltEnum(true);
-                meta.setNullCaseEnum(true);
-            }
-            processNullValue(_page);
+//            for (InnerTypeOrElement f: e_.getEnumBlocks()) {
+//                if (!StringUtil.contains(f.getFieldName(), value.trim())) {
+//                    continue;
+//                }
+//                meta.setBuiltEnum(true);
+//                checkDuplicateEnumCase(_page);
+//                return;
+//            }
+//            meta.setArgument(ReachOperationUtil.tryCalculate(root, _page));
+//            if (Argument.isNullValue(meta.getArgument())) {
+//                meta.setBuiltEnum(true);
+//                meta.setNullCaseEnum(true);
+//            }
+//            processNullValue(_page);
             return;
         }
         if (instance) {
-            meta.setArgument(Argument.createVoid());
+            if (meta.getImportedType().isEmpty()) {
+                meta.getStdValues().add(Argument.createVoid());
+            }
             return;
         }
-        meta.setArgument(ReachOperationUtil.tryCalculate(root, _page));
-        processNumValues(instance_,resSwitch_, root.getResultClass(), _page);
-    }
-    private void processNullValue(AnalyzedPageEl _page) {
-        if (Argument.isNullValue(meta.getArgument())) {
-            checkDuplicateCase(meta.getArgument(), _page);
-            return;
-        }
-        FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setFileName(getFile().getFileName());
-        un_.setIndexFile(valueOffset);
-        //key word len
-        un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                _page.getKeyWords().getKeyWordCase(),
-                value);
-        _page.addLocError(un_);
-        addErrorBlock(un_.getBuiltError());
+        ReachOperationUtil.tryCalculate(root, _page);
+        processNumValues(instance_,resSwitch_, _page);
     }
 
-    private void processNumValues(boolean _instance,AnaClassArgumentMatching _resSwitch, AnaClassArgumentMatching _resCase, AnalyzedPageEl _page) {
-        meta.setQualif(ElUtil.tryGetAccess(root));
-        if (checkDuplicateQualifEnumCase(_page)) {
-            checkInh(_instance, _resSwitch, _resCase, _page, meta.getValue());
-            return;
-        }
-        if (meta.getArgument() == null) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(valueOffset);
-            //key word len
-            un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                    _page.getKeyWords().getKeyWordCase(),
-                    value);
-            _page.addLocError(un_);
-            addErrorBlock(un_.getBuiltError());
+    private void processNumValues(boolean _instance, AnaClassArgumentMatching _resSwitch, AnalyzedPageEl _page) {
+        if (root instanceof DeclaringOperation) {
+            CustList<OperationNode> childrenNodes_ = ((DeclaringOperation) root).getChildrenNodes();
+            StrTypes children_ = ((DeclaringOperation) root).getChildren();
+            int len_ = childrenNodes_.size();
+            for (int i = 0; i < len_; i++) {
+                OperationNode ch_ = childrenNodes_.get(i);
+                String value_ = StrTypes.value(children_, i);
+                checkRetrieve(_instance,_resSwitch,ch_.getResultClass(),_page, ch_, value_);
+            }
         } else {
-            checkDuplicateCase(meta.getArgument(), _page);
-            checkInh(_instance, _resSwitch, _resCase, _page, AnaApplyCoreMethodUtil.getString(meta.getArgument(), _page));
+            checkRetrieve(_instance,_resSwitch,root.getResultClass(),_page, root, meta.getValue());
+        }
+    }
+
+    private void checkRetrieve(boolean _instance,AnaClassArgumentMatching _resSwitch, AnaClassArgumentMatching _resCase, AnalyzedPageEl _page, OperationNode _ch, String _value) {
+        ClassField classField_ = ElUtil.tryGetAccess(_ch);
+        if (classField_ != null) {
+            checkDuplicateListedEnum(_page, classField_, StringUtil.concat(classField_.getClassName(), ".", classField_.getFieldName()));
+            checkInh(_instance, _resSwitch, _resCase, _page, StringUtil.concat(classField_.getClassName(), ".", classField_.getFieldName()));
+            meta.getEnumValues().add(classField_);
+        } else {
+            Argument argument_ = _ch.getArgument();
+            if (argument_ != null) {
+                checkDuplicateListedValue(_page,argument_);
+                checkInh(_instance, _resSwitch, _resCase, _page, AnaApplyCoreMethodUtil.getString(argument_, _page));
+                meta.getStdValues().add(argument_);
+            } else {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(getFile().getFileName());
+                un_.setIndexFile(valueOffset);
+                //key word len
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
+                        _page.getKeyWords().getKeyWordCase(),
+                        _value);
+                _page.addLocError(un_);
+                addErrorBlock(un_.getBuiltError());
+            }
+        }
+    }
+
+    private void checkDuplicateListedEnum(AnalyzedPageEl _page, ClassField _classField, String _display) {
+        ReachBracedBlock par_ = getParent();
+        ReachBlock first_ = par_.getFirstChild();
+        while (first_ != this) {
+            if (first_ instanceof ReachCaseCondition) {
+                ReachCaseCondition c_ = (ReachCaseCondition) first_;
+                for (ClassField p: c_.meta.getEnumValues()) {
+                    if (_classField.eq(p)) {
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
+                        un_.setFileName(getFile().getFileName());
+                        un_.setIndexFile(getValueOffset()+ getOffset());
+                        //key word len
+                        un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
+                                _page.getKeyWords().getKeyWordCase(),
+                                _display,
+                                _page.getKeyWords().getKeyWordSwitch());
+                        _page.addLocError(un_);
+                        addErrorBlock(un_.getBuiltError());
+                        return;
+                    }
+                }
+            }
+            first_ = first_.getNextSibling();
+        }
+        for (ClassField p: meta.getEnumValues()) {
+            if (_classField.eq(p)) {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(getFile().getFileName());
+                un_.setIndexFile(getValueOffset()+ getOffset());
+                //key word len
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
+                        _page.getKeyWords().getKeyWordCase(),
+                        _display,
+                        _page.getKeyWords().getKeyWordSwitch());
+                _page.addLocError(un_);
+                addErrorBlock(un_.getBuiltError());
+                return;
+            }
+        }
+    }
+    private void checkDuplicateListedValue(AnalyzedPageEl _page, Argument _value) {
+        ReachBracedBlock par_ = getParent();
+        ReachBlock first_ = par_.getFirstChild();
+        while (first_ != this) {
+            if (first_ instanceof ReachCaseCondition) {
+                ReachCaseCondition c_ = (ReachCaseCondition) first_;
+                for (Argument p: c_.meta.getStdValues()) {
+                    if (_value.getStruct().sameReference(p.getStruct())) {
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
+                        un_.setFileName(getFile().getFileName());
+                        un_.setIndexFile(getValueOffset()+ getOffset());
+                        //key word len
+                        un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
+                                _page.getKeyWords().getKeyWordCase(),
+                                AnaApplyCoreMethodUtil.getString(_value, _page),
+                                _page.getKeyWords().getKeyWordSwitch());
+                        _page.addLocError(un_);
+                        addErrorBlock(un_.getBuiltError());
+                        return;
+                    }
+                }
+            }
+            first_ = first_.getNextSibling();
+        }
+        for (Argument p: meta.getStdValues()) {
+            if (_value.getStruct().sameReference(p.getStruct())) {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(getFile().getFileName());
+                un_.setIndexFile(getValueOffset()+ getOffset());
+                //key word len
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
+                        _page.getKeyWords().getKeyWordCase(),
+                        AnaApplyCoreMethodUtil.getString(_value, _page),
+                        _page.getKeyWords().getKeyWordSwitch());
+                _page.addLocError(un_);
+                addErrorBlock(un_.getBuiltError());
+                return;
+            }
         }
     }
 
@@ -140,87 +260,6 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         }
     }
 
-    private void checkDuplicateCase(Argument _arg, AnalyzedPageEl _page) {
-        ReachBracedBlock par_ = getParent();
-        ReachBlock first_ = par_.getFirstChild();
-        while (first_ != this) {
-            if (first_ instanceof ReachCaseCondition) {
-                ReachCaseCondition c_ = (ReachCaseCondition) first_;
-                Argument a_ = c_.getArgument();
-                if (a_ != null) {
-                    if (_arg.getStruct().sameReference(a_.getStruct())) {
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(getFile().getFileName());
-                        un_.setIndexFile(getValueOffset()+ getOffset());
-                        //key word len
-                        un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
-                                _page.getKeyWords().getKeyWordCase(),
-                                AnaApplyCoreMethodUtil.getString(_arg, _page),
-                                _page.getKeyWords().getKeyWordSwitch());
-                        _page.addLocError(un_);
-                        addErrorBlock(un_.getBuiltError());
-                        break;
-                    }
-                }
-            }
-            first_ = first_.getNextSibling();
-        }
-    }
-    private void checkDuplicateEnumCase(AnalyzedPageEl _page) {
-        ReachBracedBlock par_ = getParent();
-        ReachBlock first_ = par_.getFirstChild();
-        while (first_ != this) {
-            if (first_ instanceof ReachCaseCondition) {
-                ReachCaseCondition c_ = (ReachCaseCondition) first_;
-                String v_ = c_.value.trim();
-                if (StringUtil.quickEq(v_, value.trim())) {
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(getFile().getFileName());
-                    un_.setIndexFile(getValueOffset()+ getOffset());
-                    //key word len
-                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
-                            _page.getKeyWords().getKeyWordCase(),
-                            value.trim(),
-                            _page.getKeyWords().getKeyWordSwitch());
-                    _page.addLocError(un_);
-                    addErrorBlock(un_.getBuiltError());
-                    break;
-                }
-
-            }
-            first_ = first_.getNextSibling();
-        }
-    }
-    private boolean checkDuplicateQualifEnumCase(AnalyzedPageEl _page) {
-        ClassField qualifIn_ = meta.getQualif();
-        if (qualifIn_ == null) {
-            return false;
-        }
-        ReachBracedBlock par_ = getParent();
-        ReachBlock first_ = par_.getFirstChild();
-        while (first_ != this) {
-            if (first_ instanceof ReachCaseCondition) {
-                ReachCaseCondition c_ = (ReachCaseCondition) first_;
-                ClassField qualif_ = c_.meta.getQualif();
-                if (qualif_ != null && qualif_.eq(qualifIn_)) {
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(getFile().getFileName());
-                    un_.setIndexFile(getValueOffset()+ getOffset());
-                    //key word len
-                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
-                            _page.getKeyWords().getKeyWordCase(),
-                            StringUtil.concat(qualifIn_.getClassName(),".",qualifIn_.getFieldName()),
-                            _page.getKeyWords().getKeyWordSwitch());
-                    _page.addLocError(un_);
-                    addErrorBlock(un_.getBuiltError());
-                    break;
-                }
-
-            }
-            first_ = first_.getNextSibling();
-        }
-        return true;
-    }
     private static EnumBlock getEnumType(String _type, AnalyzedPageEl _page) {
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
         AnaGeneType g_ = _page.getAnaGeneType(id_);
@@ -252,8 +291,45 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             }
             return;
         }
+        if (instance) {
+            processInstance(_anEl, _page);
+            return;
+        }
+        processValues(_anEl, _page);
+    }
+
+    private void processValues(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         StringList classes_ = previous();
-        _anEl.setArgMapping(impType);
+        boolean reachCatch_ = true;
+        CustList<OperationNode> childrenNodes_;
+        if (root instanceof DeclaringOperation) {
+            childrenNodes_ = ((DeclaringOperation) root).getChildrenNodes();
+        } else {
+            childrenNodes_ = new CustList<OperationNode>(root);
+        }
+        for (OperationNode o: childrenNodes_) {
+            _anEl.setArgMapping(o.getResultClass().getSingleNameOrEmpty());
+            for (String c: classes_) {
+                _anEl.setParamMapping(c);
+                if (_anEl.isCorrectMapping(_page)) {
+                    reachCatch_ = false;
+                    break;
+                }
+            }
+            if (!reachCatch_) {
+                break;
+            }
+        }
+        if (reachCatch_) {
+            _anEl.reach(this);
+        } else {
+            _anEl.unreach(this);
+        }
+    }
+
+    private void processInstance(AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        StringList classes_ = previous();
+        _anEl.setArgMapping(importedType);
         boolean reachCatch_ = true;
         for (String c: classes_) {
             _anEl.setParamMapping(c);
@@ -291,10 +367,6 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             b_ = b_.getPreviousSibling();
         }
         return classes_;
-    }
-
-    public Argument getArgument() {
-        return meta.getArgument();
     }
 
     public int getValueOffset() {

@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
-public class ExecOperationNodeListOff {
+public final class ExecOperationNodeListOff {
     private final CustList<ExecOperationNode> list;
     private final int offset;
 

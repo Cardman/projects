@@ -15,23 +15,20 @@ import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class CaseCondition extends SwitchPartBlock {
 
     private final String value;
-    private Argument argument;
     private final ResultExpression res = new ResultExpression();
 
     private boolean builtEnum;
     private boolean nullCase;
-    private boolean nullCaseEnum;
 
     private String importedType = EMPTY_STRING;
-    private String impType = EMPTY_STRING;
 
     private boolean instance;
 
@@ -45,9 +42,10 @@ public final class CaseCondition extends SwitchPartBlock {
     private String typeEnum = EMPTY_STRING;
 
     private final int valueOffset;
-    private int fieldNameOffset=-1;
     private EnumBlock enumBlock;
-    private ClassField qualif;
+    private final StrTypes offsetsEnum = new StrTypes();
+    private final CustList<Argument> stdValues = new CustList<Argument>();
+    private final CustList<ClassField> enumValues = new CustList<ClassField>();
 
     public CaseCondition(OffsetStringInfo _value, int _offset) {
         super(_offset);
@@ -82,7 +80,6 @@ public final class CaseCondition extends SwitchPartBlock {
             _page.addLocError(un_);
             addErrorBlock(un_.getBuiltError());
             res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
-            impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
             return;
         }
         String type_;
@@ -100,35 +97,59 @@ public final class CaseCondition extends SwitchPartBlock {
             type_ = resSwitch_.getSingleNameOrEmpty();
             instance_ = sw_.isInstance();
         }
-        EnumBlock e_ = getEnumType(type_, _page);
-        if (e_ != null) {
-            String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-                if (!StringUtil.contains(f.getFieldName(), value.trim())) {
-                    continue;
+        String id_ = StringExpUtil.getIdFromAllTypes(type_);
+        AnaGeneType g_ = _page.getAnaGeneType(id_);
+        if (g_ instanceof EnumBlock) {
+            builtEnum = true;
+            EnumBlock e_ = (EnumBlock)g_;
+            enumBlock = e_;
+            typeEnum = id_;
+            int sum_ = 0;
+            for (String s: StringUtil.splitChar(value,',')) {
+                boolean added_ = false;
+                if (StringUtil.quickEq(s.trim(),_page.getKeyWords().getKeyWordNull())) {
+                    offsetsEnum.addEntry(sum_+StringExpUtil.getOffset(s),s.trim());
+                    added_ = true;
+                } else {
+                    for (InnerTypeOrElement f: e_.getEnumBlocks()) {
+                        if (StringUtil.contains(f.getFieldName(), s.trim())) {
+                            offsetsEnum.addEntry(sum_+StringExpUtil.getOffset(s),s);
+                            added_ = true;
+                            break;
+                        }
+                    }
                 }
-                enumBlock = e_;
-                _page.setLookLocalClass(id_);
-                _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                Delimiters d_ = ElResolver.checkSyntax(value, IndexConstants.FIRST_INDEX, _page);
-                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, value, d_, _page);
-                OperationNode op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
-                ElUtil.retrieveErrorsAnalyze(op_, _page);
-                _page.setLookLocalClass(EMPTY_STRING);
-                op_.setOrder(0);
-                res.setRoot(op_);
-                impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
-                builtEnum = true;
-                fieldNameOffset = f.getFieldNameOffset();
-                typeEnum = id_;
-                return;
+                if (!added_) {
+                    offsetsEnum.addEntry(sum_+StringExpUtil.getOffset(s),s);
+                }
+                sum_ += s.length() + 1;
             }
-            res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
-            impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
-            String emp_ = _page.getCurrentEmptyPartErr();
-            if (!emp_.isEmpty()) {
-                addErrorBlock(emp_);
-            }
+//            _page.setLookLocalClass(id_);
+//            for (InnerTypeOrElement f: e_.getEnumBlocks()) {
+//                if (!StringUtil.contains(f.getFieldName(), value.trim())) {
+//                    continue;
+//                }
+//                enumBlock = e_;
+//                _page.setAccessStaticContext(MethodAccessKind.STATIC);
+//                Delimiters d_ = ElResolver.checkSyntax(value, IndexConstants.FIRST_INDEX, _page);
+//                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, value, d_, _page);
+//                OperationNode op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
+//                ElUtil.retrieveErrorsAnalyze(op_, _page);
+//                _page.setLookLocalClass(EMPTY_STRING);
+//                op_.setOrder(0);
+//                res.setRoot(op_);
+//                impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
+//                fieldNameOffset = f.getFieldNameOffset();
+//                typeEnum = id_;
+//                return;
+//            }
+//            _page.setLookLocalClass(EMPTY_STRING);
+//            res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
+//            impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
+//            String emp_ = _page.getCurrentEmptyPartErr();
+//            if (!emp_.isEmpty()) {
+//                addErrorBlock(emp_);
+//            }
             return;
         }
         if (instance_) {
@@ -151,7 +172,6 @@ public final class CaseCondition extends SwitchPartBlock {
             if (StringExpUtil.isTypeLeafPart(trimVar_)) {
                 instance = true;
                 importedType = ResolvingTypes.resolveCorrectType(declaringType_, _page);
-                impType = importedType;
                 partOffsets.addAllElts(_page.getCurrentParts());
                 variableOffset = valueOffset + declaringType_.length();
                 variableOffset += StringUtil.getFirstPrintableCharIndex(varName_);
@@ -175,22 +195,13 @@ public final class CaseCondition extends SwitchPartBlock {
                 return;
             }
         }
+        _page.setAcceptCommaInstr(true);
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
-        impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
+        _page.setAcceptCommaInstr(false);
         String emp_ = _page.getCurrentEmptyPartErr();
         if (!emp_.isEmpty()) {
             addErrorBlock(emp_);
         }
-    }
-
-    private static EnumBlock getEnumType(String _type, AnalyzedPageEl _page) {
-        String id_ = StringExpUtil.getIdFromAllTypes(_type);
-        AnaGeneType g_ = _page.getAnaGeneType(id_);
-        if (g_ instanceof EnumBlock) {
-            return (EnumBlock) g_;
-        }
-        return null;
-
     }
 
     @Override
@@ -209,12 +220,16 @@ public final class CaseCondition extends SwitchPartBlock {
         return enumBlock;
     }
 
-    public Argument getArgument() {
-        return argument;
+    public StrTypes getOffsetsEnum() {
+        return offsetsEnum;
     }
 
-    public void setArgument(Argument _argument) {
-        this.argument = _argument;
+    public CustList<Argument> getStdValues() {
+        return stdValues;
+    }
+
+    public CustList<ClassField> getEnumValues() {
+        return enumValues;
     }
 
     public OperationNode getRoot() {
@@ -227,18 +242,6 @@ public final class CaseCondition extends SwitchPartBlock {
 
     public boolean isBuiltEnum() {
         return builtEnum;
-    }
-
-    public void setBuiltEnum(boolean _builtEnum) {
-        this.builtEnum = _builtEnum;
-    }
-
-    public boolean isNullCaseEnum() {
-        return nullCaseEnum;
-    }
-
-    public void setNullCaseEnum(boolean _nullCaseEnum) {
-        this.nullCaseEnum = _nullCaseEnum;
     }
 
     public CustList<PartOffset> getPartOffsets() {
@@ -261,27 +264,12 @@ public final class CaseCondition extends SwitchPartBlock {
         return instance;
     }
 
-    public String getImpType() {
-        return impType;
-    }
-
     public StringList getNameErrors() {
         return nameErrors;
-    }
-
-    public int getFieldNameOffset() {
-        return fieldNameOffset;
     }
 
     public boolean isNullCase() {
         return nullCase;
     }
 
-    public void setQualif(ClassField _qualif) {
-        this.qualif = _qualif;
-    }
-
-    public ClassField getQualif() {
-        return qualif;
-    }
 }

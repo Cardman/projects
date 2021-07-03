@@ -998,21 +998,25 @@ public final class ForwardInfos {
 
     private static ExecBracedBlock buildCaseCondition(Coverage _coverage, Forwards _forwards, AbsBk _en) {
         ExecBracedBlock exec_;
-        if (((CaseCondition) _en).isBuiltEnum()) {
-            if (((CaseCondition) _en).isNullCaseEnum()) {
-                exec_ = new ExecStdCaseCondition(Argument.createVoid());
-            } else {
-                exec_ = new ExecEnumCaseCondition(((CaseCondition) _en).getValue());
-            }
-        } else if (!((CaseCondition) _en).getImportedType().isEmpty()) {
+//        if (((CaseCondition) _en).isBuiltEnum()) {
+//            if (((CaseCondition) _en).isNullCaseEnum()) {
+//                exec_ = new ExecStdCaseCondition(Argument.createVoid());
+//            } else {
+//                exec_ = new ExecEnumCaseCondition(((CaseCondition) _en).getValue());
+//            }
+//        } else
+        if (!((CaseCondition) _en).getImportedType().isEmpty()) {
             exec_ = new ExecAbstractInstanceCaseCondition(((CaseCondition) _en).getVariableName(), ((CaseCondition) _en).getImportedType(), true);
-        } else if (((CaseCondition) _en).getQualif() != null) {
-            ClassField qualif_ = ((CaseCondition) _en).getQualif();
-            exec_ = new ExecQualifEnumCaseCondition(qualif_.getClassName(),qualif_.getFieldName());
+//        } else if (((CaseCondition) _en).isInstance()) {
+//            exec_ = new ExecStdCaseCondition(Argument.createVoid());
+//        } else if (((CaseCondition) _en).getQualif() != null) {
+//            ClassField qualif_ = ((CaseCondition) _en).getQualif();
+//            exec_ = new ExecQualifEnumCaseCondition(qualif_.getClassName(),qualif_.getFieldName());
         } else {
             getExecutableNodes(((CaseCondition) _en).getRoot(), _coverage, _forwards, _en);
-            Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());
-            exec_ = new ExecStdCaseCondition(argument_);
+//            Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());
+            exec_ = new ExecSwitchValuesCondition(((CaseCondition) _en).getStdValues(),((CaseCondition) _en).getEnumValues());
+//            exec_ = new ExecStdCaseCondition(argument_);
         }
         return exec_;
     }

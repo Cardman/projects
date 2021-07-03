@@ -24,12 +24,7 @@ public final class StandardFieldOperation implements AnaSettableAbstractFieldOpe
         if (_settable.isIntermediateDottedOperation()) {
             cl_ = _settable.getPreviousResultClass();
         } else {
-            String look_ = _page.getLookLocalClass();
-            if (look_.isEmpty()) {
-                cl_ = new AnaClassArgumentMatching(_page.getGlobalClass());
-            } else {
-                cl_ = new AnaClassArgumentMatching(look_);
-            }
+            cl_ = new AnaClassArgumentMatching(_page.getGlobalClass());
         }
         return cl_;
     }

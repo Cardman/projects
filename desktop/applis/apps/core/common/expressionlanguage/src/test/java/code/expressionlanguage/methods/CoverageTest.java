@@ -49,6 +49,7 @@ public final class CoverageTest extends ProcessMethodCommon {
         assertTrue(value_.isPartialCovered());
         assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
         assertTrue(!((BooleanCoverageResult)value_).isCoverBcFalse());
+        cont_.getCoverage().passSwitchMethod(null,Argument.createVoid(),null);
     }
     @Test
     public void coverage3Test() {
@@ -276,11 +277,11 @@ public final class CoverageTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getCoverSwitchs(cont_).size());
-        IdMap<ExecBlock, AbstractCoverageResult> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
+        IdMap<ExecBlock, CustList<AbstractCoverageResult>> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
         assertEq(2, map_.size());
-        AbstractCoverageResult value_ = map_.firstValue();
+        AbstractCoverageResult value_ = map_.firstValue().first();
         assertTrue(value_.isFullCovered());
-        value_ = map_.lastValue();
+        value_ = map_.lastValue().first();
         assertTrue(!value_.isFullCovered());
         value_ = getCoverSwitchs(cont_).firstValue().getResultNoDef();
         assertTrue(!value_.isFullCovered());
@@ -308,11 +309,11 @@ public final class CoverageTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getCoverSwitchs(cont_).size());
-        IdMap<ExecBlock, AbstractCoverageResult> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
+        IdMap<ExecBlock, CustList<AbstractCoverageResult>> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
         assertEq(2, map_.size());
-        AbstractCoverageResult value_ = map_.firstValue();
+        AbstractCoverageResult value_ = map_.firstValue().first();
         assertTrue(!value_.isFullCovered());
-        value_ = map_.lastValue();
+        value_ = map_.lastValue().first();
         assertTrue(value_.isFullCovered());
         value_ = getCoverSwitchs(cont_).firstValue().noDefault();
         assertTrue(!value_.isFullCovered());
@@ -340,11 +341,11 @@ public final class CoverageTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getCoverSwitchs(cont_).size());
-        IdMap<ExecBlock, AbstractCoverageResult> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
+        IdMap<ExecBlock, CustList<AbstractCoverageResult>> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
         assertEq(2, map_.size());
-        AbstractCoverageResult value_ = map_.firstValue();
+        AbstractCoverageResult value_ = map_.firstValue().first();
         assertTrue(!value_.isFullCovered());
-        value_ = map_.lastValue();
+        value_ = map_.lastValue().first();
         assertTrue(!value_.isFullCovered());
         value_ = getCoverSwitchs(cont_).firstValue().noDefault();
         assertTrue(value_.isFullCovered());
@@ -374,13 +375,13 @@ public final class CoverageTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getCoverSwitchs(cont_).size());
-        IdMap<ExecBlock, AbstractCoverageResult> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
+        IdMap<ExecBlock, CustList<AbstractCoverageResult>> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
         assertEq(3, map_.size());
-        AbstractCoverageResult value_ = map_.firstValue();
+        AbstractCoverageResult value_ = map_.firstValue().first();
         assertTrue(!value_.isFullCovered());
-        value_ = map_.getValue(1);
+        value_ = map_.getValue(1).first();
         assertTrue(!value_.isFullCovered());
-        value_ = map_.lastValue();
+        value_ = map_.lastValue().first();
         assertTrue(value_.isFullCovered());
     }
 
@@ -408,13 +409,13 @@ public final class CoverageTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getCoverSwitchs(cont_).size());
-        IdMap<ExecBlock, AbstractCoverageResult> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
+        IdMap<ExecBlock, CustList<AbstractCoverageResult>> map_ = getCoverSwitchs(cont_).firstValue().getChildren();
         assertEq(3, map_.size());
-        AbstractCoverageResult value_ = map_.firstValue();
+        AbstractCoverageResult value_ = map_.firstValue().first();
         assertTrue(!value_.isFullCovered());
-        value_ = map_.getValue(1);
+        value_ = map_.getValue(1).first();
         assertTrue(value_.isFullCovered());
-        value_ = map_.lastValue();
+        value_ = map_.lastValue().first();
         assertTrue(!value_.isFullCovered());
     }
 

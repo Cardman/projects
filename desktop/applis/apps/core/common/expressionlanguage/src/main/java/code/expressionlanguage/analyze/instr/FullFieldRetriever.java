@@ -57,18 +57,6 @@ public final class FullFieldRetriever implements FieldRetriever {
             delimiters.getVariables().add(info_);
             return _to;
         }
-        String look_ = ana_.getLookLocalClass();
-        if (!look_.isEmpty()) {
-            VariableInfo info_ = new VariableInfo();
-            ConstType type_;
-            type_ = ConstType.WORD;
-            info_.setKind(type_);
-            info_.setFirstChar(_begin);
-            info_.setLastChar(_to);
-            info_.setName(_word);
-            delimiters.getVariables().add(info_);
-            return _to;
-        }
         if (StringExpUtil.nextPrintCharIs(_to, string.length(), string, DOT_VAR) > -1) {
             return processFieldsStaticAccess(_ctorCall, string, _begin, _word, _to, delimiters, context);
         }
