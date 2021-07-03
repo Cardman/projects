@@ -1,9 +1,7 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AbsBk;
-import code.expressionlanguage.analyze.blocks.FieldBlock;
-import code.expressionlanguage.analyze.blocks.ForLoopPart;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -180,6 +178,24 @@ public final class ElUtil {
         }
     }
 
+    public static ClassField tryGetAccess(OperationNode _op) {
+        OperationNode op_ = _op;
+        if (op_ instanceof DotOperation) {
+            op_ = ((DotOperation)op_).getChildrenNodes().last();
+        }
+        if (op_ instanceof SettableFieldOperation) {
+            SettableFieldOperation set_ = (SettableFieldOperation) op_;
+            RootBlock fieldType_ = set_.getFieldType();
+            if (fieldType_ instanceof EnumBlock) {
+                for (InnerTypeOrElement f:((EnumBlock)fieldType_).getEnumBlocks()) {
+                    if (StringUtil.contains(f.getFieldName(),set_.getFieldName())) {
+                        return new ClassField(set_.getResultClass().getSingleNameOrEmpty(), set_.getFieldName());
+                    }
+                }
+            }
+        }
+        return null;
+    }
     private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, Calculation _calc, AnalyzedPageEl _page) {
         OperationNode next_ = createFirstChild(_current, _calc, _page);
         if (next_ != null) {

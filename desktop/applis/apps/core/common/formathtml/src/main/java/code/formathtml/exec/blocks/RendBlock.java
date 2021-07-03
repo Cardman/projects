@@ -1209,6 +1209,15 @@ public abstract class RendBlock {
                 return _in;
             }
         }
+        if (_in instanceof RendQualifEnumCaseCondition) {
+            Struct struct_ = _arg.getStruct();
+            String name_ = NumParsers.getNameOfEnum(struct_);
+            String className_ = struct_.getClassName(_cont);
+            RendQualifEnumCaseCondition c_ = (RendQualifEnumCaseCondition) _in;
+            if (StringUtil.quickEq(c_.getClassName(),className_)&&StringUtil.quickEq(c_.getName(), name_)) {
+                return _in;
+            }
+        }
         if (_in instanceof RendEnumCaseCondition) {
             String name_ = NumParsers.getNameOfEnum(_arg.getStruct());
             if (StringUtil.quickEq(((RendEnumCaseCondition)_in).getValue(), name_)) {

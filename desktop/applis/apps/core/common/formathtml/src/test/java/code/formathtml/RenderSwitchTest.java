@@ -561,6 +561,72 @@ public final class RenderSwitchTest extends CommonRender {
         files_.put("ex_enum",enum_.toString());
         assertEq("<html><body>10</body></html>", getRes(html_, files_));
     }
+
+    @Test
+    public void process56Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='(java.lang.Object)pkg.ExEnum.ONE'><c:case value='pkg.ExEnum.TWO'>Text</c:case><c:case value='pkg.ExEnum.ONE'>10</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO{};");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        assertEq("<html><body>10</body></html>", getRes(html_, files_));
+    }
+    @Test
+    public void process57Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='(java.lang.Object)pkg.ExEnum.TWO'><c:case value='pkg.ExEnum.TWO'>Text</c:case><c:case value='pkg.ExEnum.ONE'>10</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO{};");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        assertEq("<html><body>Text</body></html>", getRes(html_, files_));
+    }
+    @Test
+    public void process58Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='(java.lang.Object)pkg.ExEnum.TWO'><c:case value='pkg.ExEnum.ONE'>10</c:case><c:case value='pkg.ExEnum.TWO'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO{};");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        assertEq("<html><body>Text</body></html>", getRes(html_, files_));
+    }
+    @Test
+    public void process59Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='(java.lang.Object)pkg.ExEnum.TWO'><c:case value='pkg.ExEnum.ONE'>10</c:case><c:case value='pkg.ExEnum.TWO'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        assertEq("<html><body>Text</body></html>", getRes(html_, files_));
+    }
+    @Test
+    public void process60Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='(java.lang.Object)pkg.ExEnum.TWO'><c:case value='1'>10</c:case><c:case value='pkg.ExEnum.TWO'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        assertEq("<html><body>Text</body></html>", getRes(html_, files_));
+    }
     private String getRes(String _html, StringMap<String> _files) {
         return getCommRes(_html, _files);
     }
@@ -829,6 +895,32 @@ public final class RenderSwitchTest extends CommonRender {
         String html_ = "<html><body><c:switch value='($math)$null'><c:case value='$null'>Text</c:case></c:switch><c:case value='$null'>Text</c:case></body></html>";
         StringBuilder enum_ = new StringBuilder();
         enum_.append("$public $class pkg.ExCl{");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        assertTrue(hasErr(html_, files_));
+    }
+    @Test
+    public void process22FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='(java.lang.Object)pkg.ExEnum.TWO'><c:default/><c:case value='pkg.ExEnum.TWO'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        assertTrue(hasErr(html_, files_));
+    }
+    @Test
+    public void process23FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='(java.lang.Object)pkg.ExEnum.TWO'><c:case value='pkg.ExEnum.TWO'>Text</c:case><c:case value='pkg.ExEnum.TWO'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO;");
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());

@@ -7,10 +7,12 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.linkage.ExportCst;
 import code.util.StringList;
@@ -45,13 +47,16 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             return;
         }
         AnaClassArgumentMatching resSwitch_;
+        boolean instance_;
         String type_;
         if (par_ instanceof ReachSwitchBlock) {
             ReachSwitchBlock sw_ = (ReachSwitchBlock) par_;
             resSwitch_ = sw_.getResult();
+            instance_ = sw_.isInstance();
         } else {
             ReachSwitchMethodBlock sw_ = (ReachSwitchMethodBlock) par_;
             resSwitch_ = sw_.getResult();
+            instance_ = sw_.isInstance();
         }
         type_ = resSwitch_.getSingleNameOrEmpty();
         EnumBlock e_ = getEnumType(type_, _page);
@@ -77,7 +82,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             return;
         }
         meta.setArgument(ReachOperationUtil.tryCalculate(root, _page));
-        processNumValues(resSwitch_, root.getResultClass(), _page);
+        processNumValues(instance_,resSwitch_, root.getResultClass(), _page);
     }
     private void processNullValue(AnalyzedPageEl _page) {
         if (Argument.isNullValue(meta.getArgument())) {
@@ -95,7 +100,12 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         addErrorBlock(un_.getBuiltError());
     }
 
-    private void processNumValues(AnaClassArgumentMatching _resSwitch, AnaClassArgumentMatching _resCase, AnalyzedPageEl _page) {
+    private void processNumValues(boolean _instance,AnaClassArgumentMatching _resSwitch, AnaClassArgumentMatching _resCase, AnalyzedPageEl _page) {
+        meta.setQualif(ElUtil.tryGetAccess(root));
+        if (checkDuplicateQualifEnumCase(_page)) {
+            checkInh(_instance, _resSwitch, _resCase, _page, meta.getValue());
+            return;
+        }
         if (meta.getArgument() == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
@@ -108,21 +118,25 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             addErrorBlock(un_.getBuiltError());
         } else {
             checkDuplicateCase(meta.getArgument(), _page);
-            Mapping m_ = new Mapping();
-            m_.setArg(_resCase);
-            m_.setParam(_resSwitch);
-            if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(getFile().getFileName());
-                un_.setIndexFile(valueOffset);
-                //key word len
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseValue(),
-                        _page.getKeyWords().getKeyWordCase(),
-                        AnaApplyCoreMethodUtil.getString(meta.getArgument(), _page),
-                        StringUtil.join(_resSwitch.getNames(), ExportCst.JOIN_TYPES));
-                _page.addLocError(un_);
-                addErrorBlock(un_.getBuiltError());
-            }
+            checkInh(_instance, _resSwitch, _resCase, _page, AnaApplyCoreMethodUtil.getString(meta.getArgument(), _page));
+        }
+    }
+
+    private void checkInh(boolean _instance, AnaClassArgumentMatching _resSwitch, AnaClassArgumentMatching _resCase, AnalyzedPageEl _page, String _string) {
+        Mapping m_ = new Mapping();
+        m_.setArg(_resCase);
+        m_.setParam(_resSwitch);
+        if (!_instance && !AnaInherits.isCorrectOrNumbers(m_, _page)) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(getFile().getFileName());
+            un_.setIndexFile(valueOffset);
+            //key word len
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseValue(),
+                    _page.getKeyWords().getKeyWordCase(),
+                    _string,
+                    StringUtil.join(_resSwitch.getNames(), ExportCst.JOIN_TYPES));
+            _page.addLocError(un_);
+            addErrorBlock(un_.getBuiltError());
         }
     }
 
@@ -176,6 +190,36 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             }
             first_ = first_.getNextSibling();
         }
+    }
+    private boolean checkDuplicateQualifEnumCase(AnalyzedPageEl _page) {
+        ClassField qualifIn_ = meta.getQualif();
+        if (qualifIn_ == null) {
+            return false;
+        }
+        ReachBracedBlock par_ = getParent();
+        ReachBlock first_ = par_.getFirstChild();
+        while (first_ != this) {
+            if (first_ instanceof ReachCaseCondition) {
+                ReachCaseCondition c_ = (ReachCaseCondition) first_;
+                ClassField qualif_ = c_.meta.getQualif();
+                if (qualif_ != null && qualif_.eq(qualifIn_)) {
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(getValueOffset()+ getOffset());
+                    //key word len
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
+                            _page.getKeyWords().getKeyWordCase(),
+                            StringUtil.concat(qualifIn_.getClassName(),".",qualifIn_.getFieldName()),
+                            _page.getKeyWords().getKeyWordSwitch());
+                    _page.addLocError(un_);
+                    addErrorBlock(un_.getBuiltError());
+                    break;
+                }
+
+            }
+            first_ = first_.getNextSibling();
+        }
+        return true;
     }
     private static EnumBlock getEnumType(String _type, AnalyzedPageEl _page) {
         String id_ = StringExpUtil.getIdFromAllTypes(_type);

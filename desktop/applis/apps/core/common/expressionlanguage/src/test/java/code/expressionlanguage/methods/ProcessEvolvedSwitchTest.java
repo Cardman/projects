@@ -1075,6 +1075,292 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         assertEq("sec alone", getString(ret_));
     }
     @Test
+    public void calculateArgument37Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO{};\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=Ex.ONE;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case Ex.ONE:\n");
+        xml_.append("    t=\"ONE\";\n");
+        xml_.append("   $case Ex.TWO:\n");
+        xml_.append("    t=\"TWO\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ONE", getString(ret_));
+    }
+    @Test
+    public void calculateArgument37_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO{};\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=Ex.ONE;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case Ex.TWO:\n");
+        xml_.append("    t=\"TWO\";\n");
+        xml_.append("   $case Ex.ONE:\n");
+        xml_.append("    t=\"ONE\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ONE", getString(ret_));
+    }
+    @Test
+    public void calculateArgument37__Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO{};\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=Ex.ONE;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case 2:\n");
+        xml_.append("    t=\"TWO\";\n");
+        xml_.append("   $case Ex.ONE:\n");
+        xml_.append("    t=\"ONE\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ONE", getString(ret_));
+    }
+    @Test
+    public void calculateArgument38Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO{};\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=Ex.TWO;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case Ex.ONE:\n");
+        xml_.append("    t=\"ONE\";\n");
+        xml_.append("   $case Ex.TWO:\n");
+        xml_.append("    t=\"TWO\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("TWO", getString(ret_));
+    }
+    @Test
+    public void calculateArgument38_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=Ex.TWO;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case Ex.ONE:\n");
+        xml_.append("    t=\"ONE\";\n");
+        xml_.append("   $case Ex.TWO:\n");
+        xml_.append("    t=\"TWO\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("TWO", getString(ret_));
+    }
+    @Test
+    public void calculateArgument39Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex<T> {\n");
+        xml_.append(" ONE<String>,TWO<Integer>{};\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=Ex.ONE;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case Ex.ONE:\n");
+        xml_.append("    t=\"ONE\";\n");
+        xml_.append("   $case Ex.TWO:\n");
+        xml_.append("    t=\"TWO\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ONE", getString(ret_));
+    }
+    @Test
+    public void calculateArgument40Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex<T> {\n");
+        xml_.append(" ONE<String>,TWO<Integer>{};\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=Ex.TWO;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case Ex.ONE:\n");
+        xml_.append("    t=\"ONE\";\n");
+        xml_.append("   $case Ex.TWO:\n");
+        xml_.append("    t=\"TWO\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("TWO", getString(ret_));
+    }
+    @Test
+    public void calculateArgument41Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO{};\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=Ex.ONE;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case ONE:\n");
+        xml_.append("    t=\"ONE\";\n");
+        xml_.append("   $case TWO:\n");
+        xml_.append("    t=\"TWO\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ONE", getString(ret_));
+    }
+    @Test
+    public void calculateArgument42Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO{};\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=Ex.TWO;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case ONE:\n");
+        xml_.append("    t=\"ONE\";\n");
+        xml_.append("   $case TWO:\n");
+        xml_.append("    t=\"TWO\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("TWO", getString(ret_));
+    }
+    @Test
+    public void calculateArgument43Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex<T> {\n");
+        xml_.append(" ONE<String>,TWO<Integer>{};\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=Ex.ONE;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case ONE:\n");
+        xml_.append("    t=\"ONE\";\n");
+        xml_.append("   $case TWO:\n");
+        xml_.append("    t=\"TWO\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ONE", getString(ret_));
+    }
+    @Test
+    public void calculateArgument44Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex<T> {\n");
+        xml_.append(" ONE<String>,TWO<Integer>{};\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=Ex.TWO;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case ONE:\n");
+        xml_.append("    t=\"ONE\";\n");
+        xml_.append("   $case TWO:\n");
+        xml_.append("    t=\"TWO\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("TWO", getString(ret_));
+    }
+    @Test
     public void calculateArgumentFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -1094,5 +1380,46 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrReadOnly(files_));
     }
-
+    @Test
+    public void calculateArgument0FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO;\n");
+        xml_.append(" $public $static Ex THREE;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=\"8\";\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case THREE:\n");
+        xml_.append("    t=\" int\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
+    @Test
+    public void calculateArgument1FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO;\n");
+        xml_.append(" $public $static Ex THREE;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=\"8\";\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $default:\n");
+        xml_.append("   $case ONE:\n");
+        xml_.append("   $case ONE:\n");
+        xml_.append("    t=\" int\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
 }

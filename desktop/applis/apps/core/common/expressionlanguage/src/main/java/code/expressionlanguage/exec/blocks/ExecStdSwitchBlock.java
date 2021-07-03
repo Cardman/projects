@@ -80,6 +80,15 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
                 return _in;
             }
         }
+        if (_in instanceof ExecQualifEnumCaseCondition) {
+            Struct struct_ = _arg.getStruct();
+            String name_ = NumParsers.getNameOfEnum(struct_);
+            String className_ = struct_.getClassName(_cont);
+            ExecQualifEnumCaseCondition c_ = (ExecQualifEnumCaseCondition) _in;
+            if (StringUtil.quickEq(c_.getClassName(),className_)&&StringUtil.quickEq(c_.getName(), name_)) {
+                return _in;
+            }
+        }
         if (_in instanceof ExecStdCaseCondition) {
             ExecStdCaseCondition c_ = (ExecStdCaseCondition) _in;
             if (c_.getArg().getStruct().sameReference(_arg.getStruct())) {

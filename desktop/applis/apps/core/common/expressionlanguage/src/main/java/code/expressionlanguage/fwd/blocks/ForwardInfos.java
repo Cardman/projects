@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.Members;
 import code.expressionlanguage.common.ConstType;
@@ -1005,6 +1006,9 @@ public final class ForwardInfos {
             }
         } else if (!((CaseCondition) _en).getImportedType().isEmpty()) {
             exec_ = new ExecAbstractInstanceCaseCondition(((CaseCondition) _en).getVariableName(), ((CaseCondition) _en).getImportedType(), true);
+        } else if (((CaseCondition) _en).getQualif() != null) {
+            ClassField qualif_ = ((CaseCondition) _en).getQualif();
+            exec_ = new ExecQualifEnumCaseCondition(qualif_.getClassName(),qualif_.getFieldName());
         } else {
             getExecutableNodes(((CaseCondition) _en).getRoot(), _coverage, _forwards, _en);
             Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());

@@ -47,6 +47,7 @@ public final class CaseCondition extends SwitchPartBlock {
     private final int valueOffset;
     private int fieldNameOffset=-1;
     private EnumBlock enumBlock;
+    private ClassField qualif;
 
     public CaseCondition(OffsetStringInfo _value, int _offset) {
         super(_offset);
@@ -276,4 +277,11 @@ public final class CaseCondition extends SwitchPartBlock {
         return nullCase;
     }
 
+    public void setQualif(ClassField _qualif) {
+        this.qualif = _qualif;
+    }
+
+    public ClassField getQualif() {
+        return qualif;
+    }
 }

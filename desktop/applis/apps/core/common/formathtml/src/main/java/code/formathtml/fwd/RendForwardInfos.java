@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
@@ -383,6 +384,9 @@ public final class RendForwardInfos {
             }
         } else if (!_current.getImportedClassName().isEmpty()) {
             exec_ = new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getImportedClassName(), true);
+        } else if (_current.getQualif() != null) {
+            ClassField qualif_ = _current.getQualif();
+            exec_ = new RendQualifEnumCaseCondition(qualif_.getClassName(),qualif_.getFieldName());
         } else {
             Argument argument_ = Argument.getNullableValue(_current.getArgument());
             exec_ = new RendStdCaseCondition(argument_);
