@@ -107,20 +107,22 @@ public final class CaseCondition extends SwitchPartBlock {
             int sum_ = 0;
             for (String s: StringUtil.splitChar(value,',')) {
                 boolean added_ = false;
-                if (StringUtil.quickEq(s.trim(),_page.getKeyWords().getKeyWordNull())) {
-                    offsetsEnum.addEntry(sum_+StringExpUtil.getOffset(s),s.trim());
+                String trimPart_ = s.trim();
+                int k_ = sum_ + StringExpUtil.getOffset(s);
+                if (StringUtil.quickEq(trimPart_,_page.getKeyWords().getKeyWordNull())) {
+                    offsetsEnum.addEntry(k_, trimPart_);
                     added_ = true;
                 } else {
                     for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-                        if (StringUtil.contains(f.getFieldName(), s.trim())) {
-                            offsetsEnum.addEntry(sum_+StringExpUtil.getOffset(s),s);
+                        if (StringUtil.contains(f.getFieldName(), trimPart_)) {
+                            offsetsEnum.addEntry(k_, trimPart_);
                             added_ = true;
                             break;
                         }
                     }
                 }
                 if (!added_) {
-                    offsetsEnum.addEntry(sum_+StringExpUtil.getOffset(s),s);
+                    offsetsEnum.addEntry(k_, trimPart_);
                 }
                 sum_ += s.length() + 1;
             }

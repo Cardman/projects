@@ -11667,6 +11667,52 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage665Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.ExEnum {\n");
+        xml_.append(" ONE,TWO,THREE,FOUR;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int w = 0;\n");
+        xml_.append("  for(var v:ExEnum.values()){\n");
+        xml_.append("   switch(v){\n");
+        xml_.append("    case TWO,THREE:\n");
+        xml_.append("     w += 2;\n");
+        xml_.append("    case ONE:\n");
+        xml_.append("     w += 1;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  return w;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+                " <span class=\"g\"><a name=\"m26\">ONE</a></span>,<span class=\"g\"><a name=\"m30\">TWO</a></span>,<span class=\"g\"><a name=\"m34\">THREE</a></span>,<span class=\"g\"><a name=\"m40\">FOUR</a></span>;\n" +
+                "}\n" +
+                "public class <a name=\"m61\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m89\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m105\">w</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
+                "  <span class=\"f\">for(<b title=\"pkg.ExEnum\">var</b> <a name=\"m122\">v</a></span>:<span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a></span>.<span class=\"f\">values()</span></span>){\n" +
+                "   <span class=\"f\"><a title=\"4/4\">switch</a></span>(<span class=\"f\"><a href=\"#m122\">v</a></span>){\n" +
+                "    <span class=\"f\"><a title=\"2/2\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>:\n" +
+                "     <span class=\"f\"><span class=\"f\"><a href=\"#m105\">w</a> </span>+=<span class=\"f\"> 2</span></span>;\n" +
+                "    <span class=\"f\"><a title=\"1/1\">case</a></span> <a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a>:\n" +
+                "     <span class=\"f\"><span class=\"f\"><a href=\"#m105\">w</a> </span>+=<span class=\"f\"> 1</span></span>;\n" +
+                "   }\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m105\">w</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
