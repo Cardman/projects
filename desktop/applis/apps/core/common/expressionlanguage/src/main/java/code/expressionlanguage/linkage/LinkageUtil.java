@@ -1001,11 +1001,23 @@ public final class LinkageUtil {
     private static String getCaseDefaultTag(CustList<AbstractCoverageResult> _result) {
         int full_ = 0;
         int count_ = 0;
+        CustList<String> indexes_ = new CustList<String>();
+        int i_ = 0;
         for (AbstractCoverageResult c: _result) {
             count_ += c.getCovered();
             full_ += c.getFull();
+            if (c.isFullCovered()) {
+                indexes_.add(Integer.toString(i_));
+            }
+            i_++;
         }
-        return headCoverage(full_,count_) + ExportCst.anchor(count_ + ExportCst.RATIO_COVERAGE + full_);
+        String supp_;
+        if (!indexes_.isEmpty() && count_ < full_) {
+            supp_ = LINE_RET+StringUtil.join(indexes_,ExportCst.FOUND_COVERAGE);
+        } else {
+            supp_ = "";
+        }
+        return headCoverage(full_,count_) + ExportCst.anchor(count_ + ExportCst.RATIO_COVERAGE + full_ +supp_);
     }
 
     private static void processCaseConditionError(VariablesOffsets _vars, CaseCondition _cond) {

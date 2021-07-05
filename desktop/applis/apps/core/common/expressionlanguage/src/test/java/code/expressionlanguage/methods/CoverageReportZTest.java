@@ -11656,7 +11656,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "public class <a name=\"m56\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m84\">exmeth</a>(){\n" +
                 "  <span class=\"p\"><a title=\"1/4\">switch</a></span>(<span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a></span>.<span class=\"f\"><a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a></span></span>){\n" +
-                "   <span class=\"p\"><a title=\"1/2\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>:\n" +
+                "   <span class=\"p\"><a title=\"1/2\n0\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>:\n" +
                 "    return <span class=\"f\">2</span>;\n" +
                 "   <span class=\"n\"><a title=\"0/1\">case</a></span> <a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a>:\n" +
                 "    return <span class=\"n\">1</span>;\n" +
@@ -11708,6 +11708,46 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "   }\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><a href=\"#m105\">w</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage666Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.ExEnum {\n");
+        xml_.append(" ONE,TWO,THREE;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  switch(ExEnum.THREE){\n");
+        xml_.append("   case TWO,THREE:\n");
+        xml_.append("    return 2;\n");
+        xml_.append("   case ONE:\n");
+        xml_.append("    return 1;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+                " <span class=\"g\"><a name=\"m26\">ONE</a></span>,<span class=\"g\"><a name=\"m30\">TWO</a></span>,<span class=\"g\"><a name=\"m34\">THREE</a></span>;\n" +
+                "}\n" +
+                "public class <a name=\"m56\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m84\">exmeth</a>(){\n" +
+                "  <span class=\"p\"><a title=\"1/4\">switch</a></span>(<span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a></span>.<span class=\"f\"><a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a></span></span>){\n" +
+                "   <span class=\"p\"><a title=\"1/2\n1\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>:\n" +
+                "    return <span class=\"f\">2</span>;\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> <a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a>:\n" +
+                "    return <span class=\"n\">1</span>;\n" +
+                "  }\n" +
+                "  return <span class=\"n\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
