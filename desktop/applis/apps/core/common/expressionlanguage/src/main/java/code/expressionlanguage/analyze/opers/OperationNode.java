@@ -644,7 +644,7 @@ public abstract class OperationNode {
         for (int i = 0; i <= maxAnc_; i++) {
             StringList subClasses_ = new StringList();
             for (EntryCust<String,FieldResult> e: ancestors_.entryList()) {
-                if (e.getValue().getAnc() != i) {
+                if (e.getValue().getContent().getAnc() != i) {
                     continue;
                 }
                 subClasses_.add(e.getKey());
@@ -672,20 +672,20 @@ public abstract class OperationNode {
                 res_.setFieldType(v_.getFieldType());
                 res_.setValOffset(v_.getValueOffset());
                 ClassField classField_ = new ClassField(formatted_, _name);
-                res_.setClassField(classField_);
+                res_.getContent().setClassField(classField_);
                 res_.setDeclaringClass(formatted_);
-                res_.setStaticField(true);
-                res_.setFinalField(finalField_);
+                res_.getContent().setStaticField(true);
+                res_.getContent().setFinalField(finalField_);
                 res_.setType(realType_);
-                res_.setRealType(realType_);
-                res_.setAnc(v_.getImported() +maxAnc_);
+                res_.getContent().setRealType(realType_);
+                res_.getContent().setAnc(v_.getImported() +maxAnc_);
                 res_.setStatus(SearchingMemberStatus.UNIQ);
                 ancestors_.addEntry(e.getKey(),res_);
             }
             for (int i = maxLoc_; i <= max_; i++) {
                 StringList subClasses_ = new StringList();
                 for (EntryCust<String,FieldResult> e: ancestors_.entryList()) {
-                    if (e.getValue().getAnc() != i) {
+                    if (e.getValue().getContent().getAnc() != i) {
                         continue;
                     }
                     subClasses_.add(e.getKey());
@@ -756,13 +756,13 @@ public abstract class OperationNode {
         res_.setMemberId(_fi.getMemberId());
         res_.setFieldType(_formatted.getRootBlock());
         res_.setValOffset(_fi.getValOffset());
-        res_.setClassField(_fi.getClassField());
+        res_.getContent().setClassField(_fi.getClassField());
         res_.setDeclaringClass(_formatted.getFormatted());
-        res_.setStaticField(_fi.isStaticField());
-        res_.setFinalField(_fi.isFinalField());
+        res_.getContent().setStaticField(_fi.isStaticField());
+        res_.getContent().setFinalField(_fi.isFinalField());
         res_.setType(_type);
-        res_.setRealType(_fi.getType());
-        res_.setAnc(_anc);
+        res_.getContent().setRealType(_fi.getType());
+        res_.getContent().setAnc(_anc);
         res_.setStatus(SearchingMemberStatus.UNIQ);
         return res_;
     }

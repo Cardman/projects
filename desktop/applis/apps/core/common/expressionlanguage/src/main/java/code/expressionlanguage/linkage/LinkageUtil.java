@@ -3056,17 +3056,14 @@ public final class LinkageUtil {
 
     private static void processFieldsReport(VariablesOffsets _vars, int _sum, OperationNode _val) {
         if (_val instanceof SettableAbstractFieldOperation) {
-            int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
-            int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
-            RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
-            int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
             if (_val instanceof DeclaredFieldOperation) {
+                int begin_ = beginOff(_sum, _val);
+                int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
                 _vars.addPart(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
-            } else {
-                _vars.addParts(((SettableAbstractFieldOperation) _val).getPartOffsets());
-                ClassField c_ = ((SettableAbstractFieldOperation)_val).getFieldIdReadOnly();
-                updateFieldAnchor(_vars,fieldType_, _val.getErrs(), c_, begin_,((SettableAbstractFieldOperation) _val).getFieldNameLength(), idValueOffset_);
+            }
+            if (_val instanceof SettableFieldOperation) {
+                addFieldRefParts(_vars, _val, _sum);
             }
         }
     }
@@ -3075,12 +3072,9 @@ public final class LinkageUtil {
         if (!(_val instanceof SettableAbstractFieldOperation)) {
             return;
         }
-        int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
-        RootBlock fieldType_ = ((SettableAbstractFieldOperation) _val).getFieldType();
-        int begin_ = _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
-        int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
-        CustList<PartOffset> partOffsets_ = ((SettableAbstractFieldOperation) _val).getPartOffsets();
         if (_val instanceof DeclaredFieldOperation) {
+            int begin_ = beginOff(_sum, _val);
+            int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
             StringList errs_ = ((DeclaredFieldOperation) _val).getErrsField();
             StringList errCst_ = ((DeclaredFieldOperation) _val).getErrCst();
             if (errs_.isEmpty()) {
@@ -3095,11 +3089,22 @@ public final class LinkageUtil {
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(err_),begin_));
             }
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+((SettableAbstractFieldOperation) _val).getFieldNameLength()));
-        } else {
-            _vars.addParts(partOffsets_);
-            ClassField c_ = ((SettableAbstractFieldOperation)_val).getFieldIdReadOnly();
-            updateFieldAnchor(_vars,fieldType_, _val.getErrs(), c_, begin_,((SettableAbstractFieldOperation) _val).getFieldNameLength(), idValueOffset_);
         }
+        if (_val instanceof SettableFieldOperation) {
+            addFieldRefParts(_vars, _val, _sum);
+        }
+    }
+
+    private static int beginOff(int _sum, OperationNode _val) {
+        int delta_ = ((SettableAbstractFieldOperation) _val).getOff();
+        return _sum + delta_ + _val.getIndexInEl() + ((SettableAbstractFieldOperation) _val).getDelta();
+    }
+
+    private static void addFieldRefParts(VariablesOffsets _vars, OperationNode _val, int _sum) {
+        int begin_ = beginOff(_sum, _val);
+        int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
+        _vars.addParts(((SettableFieldOperation) _val).getPartOffsets());
+        updateFieldAnchor(_vars, ((SettableFieldOperation) _val).getFieldType(), _val.getErrs(), ((SettableFieldOperation) _val).getFieldIdReadOnly(), begin_, ((SettableAbstractFieldOperation) _val).getFieldNameLength(), idValueOffset_);
     }
 
     private static void processVariables(VariablesOffsets _vars, int _sum, OperationNode _val) {

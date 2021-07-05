@@ -1,7 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.util.core.IndexConstants;
 

@@ -6,10 +6,8 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
-import code.util.CustList;
 
 public abstract class SettableAbstractFieldOperation extends
         AbstractFieldOperation implements SettableElResult {
@@ -26,7 +24,6 @@ public abstract class SettableAbstractFieldOperation extends
         super(_indexInEl, _indexChild, _m, _op);
         settableFieldContent = new AnaSettableOperationContent();
     }
-    public abstract CustList<PartOffset> getPartOffsets();
     public abstract int getDelta();
 
     @Override

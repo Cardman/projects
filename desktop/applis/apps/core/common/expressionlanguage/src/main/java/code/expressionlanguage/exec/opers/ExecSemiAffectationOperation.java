@@ -28,19 +28,14 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
-        if (getSettableParent() instanceof ExecSafeDotOperation) {
-            ExecOperationNode left_ = getSettableParent().getFirstChild();
-            Argument leftArg_ = getArgument(_nodes,left_);
-            if (leftArg_.isNull()) {
-                ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
-                pairBefore_.setEndCalculate(true);
-                pairBefore_.setIndexImplicitSemiFrom(-1);
-                pairBefore_.setIndexImplicitSemiTo(-1);
-                pairBefore_.setCalledIndexer(true);
-                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, names, _stack));
-                setQuickConvertSimpleArgument(leftArg_, _conf, _nodes, _stack);
-                return;
-            }
+        if (getSettableParent() instanceof ExecSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
+            ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes, this);
+            pairBefore_.setEndCalculate(true);
+            pairBefore_.setIndexImplicitSemiFrom(-1);
+            pairBefore_.setIndexImplicitSemiTo(-1);
+            pairBefore_.setCalledIndexer(true);
+            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _conf, names, _stack)), _conf, _nodes, _stack);
+            return;
         }
         calculateSpec(_nodes, _conf, _stack);
     }

@@ -30,14 +30,9 @@ public final class ExecAffectationOperation extends ExecAbstractAffectOperation 
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(opOffset, _stack);
-        if (getSettableParent() instanceof ExecSafeDotOperation) {
-            ExecOperationNode left_ = getSettableParent().getFirstChild();
-            Argument leftArg_ = getArgument(_nodes,left_);
-            if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, names, _stack));
-                setQuickConvertSimpleArgument(leftArg_, _conf, _nodes, _stack);
-                return;
-            }
+        if (getSettableParent() instanceof ExecSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
+            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _conf, names, _stack)), _conf, _nodes, _stack);
+            return;
         }
         Argument rightArg_ = getLastArgument(_nodes, this);
         if (getSettable() instanceof ExecStdRefVariableOperation && ((ExecStdRefVariableOperation) getSettable()).isDeclare()) {

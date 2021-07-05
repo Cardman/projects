@@ -5,11 +5,9 @@ import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ClassField;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -72,11 +70,6 @@ public final class DeclaredFieldOperation extends
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         return StringUtil.getFirstPrintableCharIndex(originalStr_);
-    }
-
-    @Override
-    public CustList<PartOffset> getPartOffsets() {
-        return new CustList<PartOffset>();
     }
 
     public StringList getErrCst() {

@@ -60,7 +60,6 @@ public final class SettableFieldOperation extends
         }
         ScopeFilter scope_ = new ScopeFilter(null, baseAccess_, superAccess_, false, _page.getGlobalClass());
         FieldResult r_ = resolveDeclaredCustField(isStaticAccess() != MethodAccessKind.INSTANCE, cl_, fieldName_, import_, affect_, _page, scope_);
-        getSettableFieldContent().setAnc(r_.getAnc());
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             FoundErrorInterpret access_ = new FoundErrorInterpret();
             access_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -76,15 +75,15 @@ public final class SettableFieldOperation extends
         }
         setFieldType(r_.getFieldType());
         setValueOffset(r_.getValOffset());
-        getSettableFieldContent().setFinalField(r_.isFinalField());
-        getSettableFieldContent().setStaticField(r_.isStaticField());
-        getSettableFieldContent().setClassField(r_.getClassField());
-        getSettableFieldContent().setRealType(r_.getRealType());
+        getSettableFieldContent().setAnc(r_.getContent().getAnc());
+        getSettableFieldContent().setFinalField(r_.getContent().isFinalField());
+        getSettableFieldContent().setStaticField(r_.getContent().isStaticField());
+        getSettableFieldContent().setClassField(r_.getContent().getClassField());
+        getSettableFieldContent().setRealType(r_.getContent().getRealType());
         String c_ = r_.getType();
         setResultClass(new AnaClassArgumentMatching(c_, _page.getPrimitiveTypes()));
     }
 
-    @Override
     public CustList<PartOffset> getPartOffsets() {
         return interf.getPartOffsets();
     }

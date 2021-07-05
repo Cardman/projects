@@ -1,11 +1,13 @@
 package code.expressionlanguage.fwd.opers;
 
+import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 
 public final class AnaExplicitContent {
     private String className;
     private AnaFormattedRootBlock formattedTypeOwner;
     private int offset;
+    private MemberId memberId = new MemberId();
 
     public String getClassName() {
         return className;
@@ -31,4 +33,11 @@ public final class AnaExplicitContent {
         this.formattedTypeOwner = _formattedTypeOwner;
     }
 
+    public MemberId getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(MemberId _memberId) {
+        this.memberId = _memberId;
+    }
 }

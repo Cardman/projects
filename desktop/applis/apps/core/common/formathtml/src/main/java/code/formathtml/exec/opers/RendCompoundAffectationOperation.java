@@ -23,21 +23,16 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
     private final StringList names;
     protected RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names) {
         super(_content);
+        names = _names;
         operatorContent = _operatorContent;
         converter = _converter;
-        names = _names;
     }
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        if (getSettableParent() instanceof RendSafeDotOperation) {
-            RendDynOperationNode left_ = getSettableParent().getFirstChild();
-            Argument leftArg_ = getArgument(_nodes,left_);
-            if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, names));
-                setQuickConvertSimpleArgument(leftArg_, _nodes, _context, _rendStack);
-                return;
-            }
+        if (getSettableParent() instanceof RendSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
+            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, names)), _nodes, _context, _rendStack);
+            return;
         }
         RendDynOperationNode left_ = getFirstNode(this);
         Argument leftArg_ = getArgument(_nodes,left_);

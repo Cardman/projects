@@ -3,21 +3,17 @@ package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 
 public final class FieldResult {
 
     private SearchingMemberStatus status;
     private String declaringClass;
-    private String realType;
+    private final AnaSettableOperationContent content = new AnaSettableOperationContent();
     private String type;
-    private boolean staticField;
-    private boolean finalField;
     private AnaFormattedRootBlock formattedType;
     private RootBlock fieldType;
-    private ClassField classField;
     private int valOffset;
-    private int anc;
     private String fileName;
     private MemberId memberId = new MemberId();
 
@@ -29,12 +25,8 @@ public final class FieldResult {
         valOffset = _valOffset;
     }
 
-    public ClassField getClassField() {
-        return classField;
-    }
-
-    public void setClassField(ClassField _classField) {
-        this.classField = _classField;
+    public AnaSettableOperationContent getContent() {
+        return content;
     }
 
     public String getDeclaringClass() {
@@ -43,30 +35,6 @@ public final class FieldResult {
 
     public void setDeclaringClass(String _declaringClass) {
         this.declaringClass = _declaringClass;
-    }
-
-    public boolean isStaticField() {
-        return staticField;
-    }
-
-    public void setStaticField(boolean _staticField) {
-        this.staticField = _staticField;
-    }
-
-    public boolean isFinalField() {
-        return finalField;
-    }
-
-    public void setFinalField(boolean _finalField) {
-        this.finalField = _finalField;
-    }
-
-    public String getRealType() {
-        return realType;
-    }
-
-    public void setRealType(String _realType) {
-        this.realType = _realType;
     }
 
     public AnaFormattedRootBlock getFormattedType() {
@@ -99,14 +67,6 @@ public final class FieldResult {
 
     public void setStatus(SearchingMemberStatus _status) {
         status = _status;
-    }
-
-    public int getAnc() {
-        return anc;
-    }
-
-    public void setAnc(int _anc) {
-        anc = _anc;
     }
 
     public String getFileName() {

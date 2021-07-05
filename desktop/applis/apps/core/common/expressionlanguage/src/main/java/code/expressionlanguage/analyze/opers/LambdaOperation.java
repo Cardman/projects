@@ -1790,7 +1790,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 return;
             }
             updateFieldInfos(aff_, r_);
-            boolean static_ = r_.isStaticField();
+            boolean static_ = r_.getContent().isStaticField();
             lambdaCommonContent.setShiftArgument(!static_);
             StringList params_ = buildParamsField(_args, _page, i_, aff_, r_);
             String fct_ = formatFieldReturn(static_, params_, r_, lambdaCommonContent.isShiftArgument(), _page);
@@ -1946,7 +1946,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         updateFieldInfos(aff_, r_);
-        boolean static_ = r_.isStaticField();
+        boolean static_ = r_.getContent().isStaticField();
         StringList params_ = buildParamsField(_args, _page, i_, aff_, r_);
         String fct_ = formatFieldReturn(static_, params_, r_, false, _page);
         lambdaCommonContent.setResult(fct_);
@@ -1958,21 +1958,21 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaMemberNumberContentId = _r.getMemberId();
         valueOffset = _r.getValOffset();
         lambdaFieldContent.setAffField(_aff);
-        fieldId = _r.getClassField();
+        fieldId = _r.getContent().getClassField();
         fieldType = _r.getFieldType();
-        lambdaFieldContent.setStaticField(_r.isStaticField());
-        lambdaFieldContent.setFinalField(_r.isFinalField());
+        lambdaFieldContent.setStaticField(_r.getContent().isStaticField());
+        lambdaFieldContent.setFinalField(_r.getContent().isFinalField());
         String out_ = _r.getType();
         lambdaCommonContent.setReturnFieldType(out_);
         lambdaCommonContent.setFoundFormatted(_r.getFormattedType());
-        lambdaCommonContent.setAncestor(_r.getAnc());
+        lambdaCommonContent.setAncestor(_r.getContent().getAnc());
     }
 
     private StringList buildParamsField(StringList _args, AnalyzedPageEl _page, int _i, boolean _aff, FieldResult _r) {
         String out_ = _r.getType();
         StringList params_ = new StringList();
         if (_aff) {
-            checkFinal(_page, _r.isFinalField(), _r.getClassField());
+            checkFinal(_page, _r.getContent().isFinalField(), _r.getContent().getClassField());
             int offset_ = offset(_args, _i);
             String type_ = _args.get(_i).trim();
             String arg_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, type_, _page);

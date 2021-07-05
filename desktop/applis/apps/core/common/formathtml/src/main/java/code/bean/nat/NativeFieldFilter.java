@@ -29,13 +29,13 @@ public final class NativeFieldFilter implements AbstractFieldFilter {
                 String declaringBaseClass_ = StringExpUtil.getIdFromAllTypes(root_.getFullName());
                 ClassField classField_ = new ClassField(declaringBaseClass_, name_);
                 res_.setValOffset(-1);
-                res_.setClassField(classField_);
+                res_.getContent().setClassField(classField_);
                 res_.setDeclaringClass(root_.getFullName());
-                res_.setStaticField(false);
-                res_.setFinalField(false);
+                res_.getContent().setStaticField(false);
+                res_.getContent().setFinalField(false);
                 res_.setType(type_);
-                res_.setRealType(type_);
-                res_.setAnc(0);
+                res_.getContent().setRealType(type_);
+                res_.getContent().setAnc(0);
                 res_.setStatus(SearchingMemberStatus.UNIQ);
                 _ancestors.addEntry(_scope.getFullName(),res_);
                 return;

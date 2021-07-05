@@ -27,7 +27,6 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
     private CustList<PartOffset> partOffsets;
 
     private AnaTypeFct function;
-    private MemberId memberId = new MemberId();
     public ExplicitOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         explicitContent = new AnaExplicitContent();
@@ -98,7 +97,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             ClassMethodIdReturn resMethod_ = tryGetCast(explicitContent.getClassName(), uniq_, argsClass_, _page, _page.getExplicitCastMethods(), _page.getExplicitIdCastMethods(), _page.getExplicitFromCastMethods());
             if (resMethod_ != null) {
                 explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
-                memberId = resMethod_.getMemberId();
+                explicitContent.setMemberId(resMethod_.getMemberId());
                 function = resMethod_.getPair();
             }
             return;
@@ -133,7 +132,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             ClassMethodIdReturn resMethod_ = tryGetCast(explicitContent.getClassName(), uniq_, argsClass_, _page, _page.getExplicitCastMethods(), _page.getExplicitIdCastMethods(), _page.getExplicitFromCastMethods());
             if (resMethod_ != null) {
                 explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
-                memberId = resMethod_.getMemberId();
+                explicitContent.setMemberId(resMethod_.getMemberId());
                 function = resMethod_.getPair();
                 setResultClass(virtual_);
                 return;
@@ -149,7 +148,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         if (resMethod_ == null) {
             return;
         }
-        memberId = resMethod_.getMemberId();
+        explicitContent.setMemberId(resMethod_.getMemberId());
         explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
         function = resMethod_.getPair();
     }
@@ -184,10 +183,6 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
-    }
-
-    public MemberId getMemberId() {
-        return memberId;
     }
 
 }

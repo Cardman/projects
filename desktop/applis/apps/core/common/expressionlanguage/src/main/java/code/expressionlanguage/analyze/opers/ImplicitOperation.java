@@ -26,7 +26,6 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
     private final AnaExplicitContent explicitContent;
     private CustList<PartOffset> partOffsets;
 
-    private MemberId memberId = new MemberId();
     private AnaTypeFct function;
     public ImplicitOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -98,7 +97,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             ClassMethodIdReturn resMethod_ = tryGetCast(explicitContent.getClassName(), uniq_, argsClass_, _page, _page.getImplicitCastMethods(), _page.getImplicitIdCastMethods(), _page.getImplicitFromCastMethods());
             if (resMethod_ != null) {
                 explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
-                memberId = resMethod_.getMemberId();
+                explicitContent.setMemberId(resMethod_.getMemberId());
                 function = resMethod_.getPair();
             }
             return;
@@ -132,7 +131,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         ClassMethodIdReturn resMethod_ = tryGetCast(explicitContent.getClassName(), uniq_, argsClass_, _page, _page.getImplicitCastMethods(), _page.getImplicitIdCastMethods(), _page.getImplicitFromCastMethods());
         if (resMethod_ != null) {
             explicitContent.setFormattedTypeOwner(resMethod_.getFormattedType());
-            memberId = resMethod_.getMemberId();
+            explicitContent.setMemberId(resMethod_.getMemberId());
             function = resMethod_.getPair();
             setResultClass(virtual_);
             return;
@@ -170,10 +169,6 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
 
     public AnaTypeFct getFunction() {
         return function;
-    }
-
-    public MemberId getMemberId() {
-        return memberId;
     }
 
 }

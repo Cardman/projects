@@ -32,17 +32,12 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
-        if (getSettableParent() instanceof ExecSafeDotOperation) {
-            ExecOperationNode left_ = getSettableParent().getFirstChild();
-            Argument leftArg_ = getArgument(_nodes,left_);
-            if (leftArg_.isNull()) {
-                ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-                pair_.setIndexImplicitCompound(-1);
-                pair_.setEndCalculate(true);
-                leftArg_ = new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE,_conf, names, _stack));
-                setQuickConvertSimpleArgument(leftArg_, _conf, _nodes, _stack);
-                return;
-            }
+        if (getSettableParent() instanceof ExecSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
+            ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
+            pair_.setIndexImplicitCompound(-1);
+            pair_.setEndCalculate(true);
+            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _conf, names, _stack)), _conf, _nodes, _stack);
+            return;
         }
         Argument leftArg_ = getFirstArgument(_nodes,this);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);

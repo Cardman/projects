@@ -1,7 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.analyze.blocks.AnonymousTypeBlock;
-import code.expressionlanguage.analyze.opers.util.MemberId;
 
 public final class AnaInstancingAnonContent {
 

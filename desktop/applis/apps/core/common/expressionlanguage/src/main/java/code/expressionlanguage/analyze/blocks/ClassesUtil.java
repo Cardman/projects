@@ -95,10 +95,7 @@ public final class ClassesUtil {
         anaRed_ = new IdMap<NamedCalledFunctionBlock,StringMap<GeneStringOverridable>>();
         for (RootBlock e: _page.getAllFoundTypes()) {
             for (NamedCalledFunctionBlock o: e.getOverridableBlocks()) {
-                if (o.hiddenInstance()) {
-                    continue;
-                }
-                if (o.isFinalMethod()) {
+                if (o.hiddenInstance() || o.isFinalMethod()) {
                     continue;
                 }
                 MethodId id_ = o.getId();

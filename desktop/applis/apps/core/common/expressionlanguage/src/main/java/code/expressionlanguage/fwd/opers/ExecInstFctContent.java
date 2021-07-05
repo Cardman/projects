@@ -2,7 +2,6 @@ package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 
