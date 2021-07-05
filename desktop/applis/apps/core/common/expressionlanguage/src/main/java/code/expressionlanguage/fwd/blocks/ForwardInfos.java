@@ -1,6 +1,5 @@
 package code.expressionlanguage.fwd.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
@@ -12,7 +11,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.Members;
 import code.expressionlanguage.common.ConstType;
@@ -757,7 +755,7 @@ public final class ForwardInfos {
                 blockToWrite_.appendChild(exec_);
                 _coverage.putBlockOperations(exec_,en_);
             } else if (en_ instanceof CaseCondition) {
-                ExecBracedBlock exec_ = buildCaseCondition(_coverage, _forwards, en_);
+                ExecBracedBlock exec_ = buildCaseCondition(en_);
                 SwitchBlock par_ = ((CaseCondition) en_).getSwitchParent();
                 if (par_ != null) {
                     _coverage.putBlockOperationsSwitchsPart(par_, (CaseCondition) en_, exec_);
@@ -996,7 +994,7 @@ public final class ForwardInfos {
         return exec_;
     }
 
-    private static ExecBracedBlock buildCaseCondition(Coverage _coverage, Forwards _forwards, AbsBk _en) {
+    private static ExecBracedBlock buildCaseCondition(AbsBk _en) {
         ExecBracedBlock exec_;
 //        if (((CaseCondition) _en).isBuiltEnum()) {
 //            if (((CaseCondition) _en).isNullCaseEnum()) {
@@ -1013,7 +1011,7 @@ public final class ForwardInfos {
 //            ClassField qualif_ = ((CaseCondition) _en).getQualif();
 //            exec_ = new ExecQualifEnumCaseCondition(qualif_.getClassName(),qualif_.getFieldName());
         } else {
-            getExecutableNodes(((CaseCondition) _en).getRoot(), _coverage, _forwards, _en);
+//            getExecutableNodes(((CaseCondition) _en).getRoot(), _coverage, _forwards, _en);
 //            Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());
             exec_ = new ExecSwitchValuesCondition(((CaseCondition) _en).getStdValues(),((CaseCondition) _en).getEnumValues());
 //            exec_ = new ExecStdCaseCondition(argument_);

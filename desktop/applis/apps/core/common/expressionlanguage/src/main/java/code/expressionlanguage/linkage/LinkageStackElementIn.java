@@ -1,6 +1,7 @@
 package code.expressionlanguage.linkage;
 
 import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.blocks.CaseCondition;
 
 public final class LinkageStackElementIn {
     private AbsBk block;
@@ -35,6 +36,9 @@ public final class LinkageStackElementIn {
 
     public void offsets(int _begin) {
         setBeginBlock(_begin);
+    }
+    public boolean skipReportElement() {
+        return block instanceof CaseCondition;
     }
     public AbsBk getBlock() {
         return block;

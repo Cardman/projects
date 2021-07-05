@@ -457,15 +457,16 @@ public final class Coverage {
     }
 
     private static void procCase(ExecResultCase _child, Argument _value, StackCall _stackCall, SwitchCoverageResult _sw) {
-        if (_child == null) {
-            AbstractCoverageResult covTwo_ = _sw.getResultNoDef();
-            covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
-            covTwo_.cover(_value);
-            return;
-        }
-        AbstractCoverageResult covTwo_ = _sw.getChildren().getVal(_child.getBlock()).get(_child.getIndex());
+        AbstractCoverageResult covTwo_ = result(_child, _sw);
         covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         covTwo_.cover(_value);
+    }
+
+    private static AbstractCoverageResult result(ExecResultCase _child, SwitchCoverageResult _sw) {
+        if (_child == null) {
+            return _sw.getResultNoDef();
+        }
+        return _sw.getChildren().getVal(_child.getBlock()).get(_child.getIndex());
     }
 
     public void passCatches(ExecBlock _block,StackCall _stackCall) {
@@ -671,29 +672,25 @@ public final class Coverage {
         FunctionCoverageResult fctRes_ = getFctResBl(_exec);
         return fctRes_.getCoversConditionsForMutable().getValue(_exec.getConditionNb());
     }
-    public CustList<AbstractCoverageResult> getCoverSwitchs(SwitchBlock _sw, SwitchPartBlock _child) {
-        return getCoverSwitchs(_sw).getValue(_child.getConditionNb());
-    }
-    public IdMap<ExecBlock, CustList<AbstractCoverageResult>> getCoverSwitchs(SwitchBlock _sw) {
-        FunctionCoverageResult fctRes_ = getFctResBl(_sw);
-        return fctRes_.getCoverSwitchs().getValue(_sw.getConditionNb()).getChildren();
-    }
-    public CustList<AbstractCoverageResult> getCoverSwitchsMethod(MemberCallingsBlock _sw, SwitchPartBlock _child) {
-        return getCoverSwitchsMethod(_sw).getValue(_child.getConditionNb());
-    }
-    public IdMap<ExecBlock, CustList<AbstractCoverageResult>> getCoverSwitchsMethod(MemberCallingsBlock _sw) {
-        FunctionCoverageResult fctRes_ = getFctResBl(_sw);
-        return fctRes_.getCoverSwitchsMethod().getChildren();
+    public CustList<AbstractCoverageResult> getCoverSwitchs(SwitchPartBlock _child) {
+        SwitchBlock switchParent_ = _child.getSwitchParent();
+        SwitchCoverageResult sw_;
+        if (switchParent_ != null) {
+            sw_ = coverSwitchs(switchParent_);
+        } else {
+            sw_ = coverSwitchsMethod(_child.getSwitchMethod());
+        }
+        return sw_.getChildren().getValue(_child.getConditionNb());
     }
 
-    public AbstractCoverageResult getCoverNoDefSwitchsMethod(MemberCallingsBlock _sw) {
+    public SwitchCoverageResult coverSwitchsMethod(MemberCallingsBlock _sw) {
         FunctionCoverageResult fctRes_ = getFctResBl(_sw);
-        return fctRes_.getCoverSwitchsMethod().noDefault();
+        return fctRes_.getCoverSwitchsMethod();
     }
 
-    public AbstractCoverageResult getCoverNoDefSwitchs(SwitchBlock _sw) {
+    public SwitchCoverageResult coverSwitchs(SwitchBlock _sw) {
         FunctionCoverageResult fctRes_ = getFctResBl(_sw);
-        return fctRes_.getCoverSwitchs().getValue(_sw.getConditionNb()).noDefault();
+        return fctRes_.getCoverSwitchs().getValue(_sw.getConditionNb());
     }
 
     public boolean getCatches(AbstractCatchEval _catch) {

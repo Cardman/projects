@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.exec.coverage.SwitchCoverageResult;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
@@ -925,9 +926,7 @@ public final class LinkageUtil {
 
     private static void processSwitchBlockReport(VariablesOffsets _vars, SwitchBlock _cond, Coverage _cov) {
         if (_vars.getLastStackElt().noVisited()) {
-            AbstractCoverageResult noDef_ = _cov.getCoverNoDefSwitchs(_cond);
-            IdMap<ExecBlock, CustList<AbstractCoverageResult>> coverSwitchs_ = _cov.getCoverSwitchs(_cond);
-            String part_ = headCoverage(noDef_, coverSwitchs_);
+            String part_ = headCoverage(_cov, _cond);
             int off_ = _cond.getOffset();
             _vars.addPart(new PartOffset(part_, off_));
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR + ExportCst.END_SPAN, off_ + _vars.getKeyWords().getKeyWordSwitch().length()));
@@ -940,6 +939,15 @@ public final class LinkageUtil {
         refLabel(_vars, _cond.getLabel(), _cond.getLabelOffset());
     }
 
+    private static String headCoverage(Coverage _cov,MemberCallingsBlock _sw) {
+        SwitchCoverageResult sw_ = _cov.coverSwitchsMethod(_sw);
+        return headCoverage(sw_.noDefault(),sw_.getChildren());
+    }
+
+    private static String headCoverage(Coverage _cov,SwitchBlock _sw) {
+        SwitchCoverageResult sw_ = _cov.coverSwitchs(_sw);
+        return headCoverage(sw_.noDefault(),sw_.getChildren());
+    }
     private static String headCoverage(AbstractCoverageResult _noDef, IdMap<ExecBlock, CustList<AbstractCoverageResult>> _coverSwitchs) {
         int full_ = 0;
         int count_ = 0;
@@ -968,13 +976,7 @@ public final class LinkageUtil {
         refLabelError(_vars, _cond, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processCaseConditionReport(VariablesOffsets _vars, CaseCondition _cond, Coverage _cov) {
-        SwitchBlock parent_ = _cond.getSwitchParent();
-        CustList<AbstractCoverageResult> result_;
-        if (parent_ != null) {
-            result_ = _cov.getCoverSwitchs(parent_,_cond);
-        } else {
-            result_ = _cov.getCoverSwitchsMethod(_cond.getSwitchMethod(),_cond);
-        }
+        CustList<AbstractCoverageResult> result_ = _cov.getCoverSwitchs(_cond);
         String tag_ = getCaseDefaultTag(result_);
         if (_vars.getLastStackElt().noVisited()) {
             int off_ = _cond.getOffset();
@@ -1061,13 +1063,7 @@ public final class LinkageUtil {
     }
 
     private static void processDefaultConditionReport(VariablesOffsets _vars, DefaultCondition _cond, Coverage _cov) {
-        SwitchBlock parent_ = _cond.getSwitchParent();
-        CustList<AbstractCoverageResult> result_;
-        if (parent_ != null) {
-            result_ = _cov.getCoverSwitchs(parent_,_cond);
-        } else {
-            result_ = _cov.getCoverSwitchsMethod(_cond.getSwitchMethod(),_cond);
-        }
+        CustList<AbstractCoverageResult> result_ = _cov.getCoverSwitchs(_cond);
         String tag_ = getCaseDefaultTag(result_);
         int off_ = _cond.getOffset();
         _vars.addPart(new PartOffset(tag_,off_));
@@ -2356,15 +2352,11 @@ public final class LinkageUtil {
     }
 
     private static void buildCoverageReport(VariablesOffsets _vars, Coverage _cov, OperationNode _root, LinkageStackElementIn _in) {
-        OperationNode current_ = getCurrent(_vars, _root);
-        AbsBk bl_ = _in.getBlock();
-        boolean addCover_ = !(bl_ instanceof CaseCondition);
-        OperationNode val_ = current_;
+        OperationNode val_ = getCurrent(_vars, _root);
         while (true) {
             if (!_vars.getVisited().containsObj(val_)) {
                 if (!_vars.getVisitedAnnotations().containsObj(val_)) {
-                    AbstractCoverageResult result_ = getCovers(_in, val_, _cov);
-                    getBeginOpReport(_vars,_in, _root, val_, addCover_, result_, _cov);
+                    getBeginOpReport(_vars,_in, _root, val_, _cov);
                     leftReport(_in, _vars, val_, _cov);
                 }
                 OperationNode visitRep_ = visit(_vars, val_, _in);
@@ -2385,13 +2377,11 @@ public final class LinkageUtil {
     }
 
     private static OperationNode loopReport(OperationNode _val, VariablesOffsets _vars, Coverage _cov, OperationNode _root, LinkageStackElementIn _in) {
-        AbsBk bl_ = _in.getBlock();
-        boolean addCover_ = !(bl_ instanceof CaseCondition);
         OperationNode val_ = _val;
         while (true) {
             MethodOperation parent_ = val_.getParent();
             if (parent_ == null || val_ == _root) {
-                getEnd(_vars, addCover_, _in);
+                getEnd(_vars, _in);
                 _vars.getLastStackElt().setNullCurrent();
                 return null;
             }
@@ -2408,7 +2398,7 @@ public final class LinkageUtil {
             int st_ = end(_vars, parent_, _root,_in);
             if (st_ > 0) {
                 if (st_ == 1) {
-                    getEnd(_vars, addCover_, _in);
+                    getEnd(_vars, _in);
                     _vars.getLastStackElt().setNullCurrent();
                 }
                 return null;
@@ -2419,15 +2409,14 @@ public final class LinkageUtil {
     }
 
     private static void getEndTag(VariablesOffsets _vars, LinkageStackElementIn _in, OperationNode _val, MethodOperation _parent) {
+        if (_in.skipReportElement()) {
+            return;
+        }
         int sum_ = _in.getBeginBlock();
-        AbsBk bl_ = _in.getBlock();
-        boolean addCover_ = !(bl_ instanceof CaseCondition);
         int indexChild_ = _val.getIndexChild();
         StrTypes children_ = _parent.getChildren();
         int offsetEnd_ = sum_ + _val.getIndexInEl() + children_.getValue(indexChild_).length();
-        if (addCover_) {
-            _vars.addPart(new PartOffset(ExportCst.END_SPAN, offsetEnd_));
-        }
+        _vars.addPart(new PartOffset(ExportCst.END_SPAN, offsetEnd_));
     }
 
     private static void setAnonState(VariablesOffsets _vars, NamedCalledFunctionBlock _block) {
@@ -2576,23 +2565,27 @@ public final class LinkageUtil {
         }
         return 0;
     }
-    private static void getBeginOpReport(VariablesOffsets _vars, LinkageStackElementIn _in, OperationNode _root, OperationNode _curOp, boolean _addCover, AbstractCoverageResult _result, Coverage _cov) {
-        if (_addCover) {
-            String tag_ = getBeginReport(_in, _root, _curOp, _result, _cov);
-            int suppl_ = 0;
-            if (_root == _curOp) {
-                suppl_ = _in.getTr();
-            }
-            _vars.addPart(new PartOffset(tag_,_in.getBeginBlock() + _curOp.getIndexInEl()+suppl_));
+
+    private static void getBeginOpReport(VariablesOffsets _vars, LinkageStackElementIn _in, OperationNode _root, OperationNode _curOp, Coverage _cov) {
+        if (_in.skipReportElement()) {
+            return;
         }
+        AbstractCoverageResult result_ = getCovers(_in, _curOp, _cov);
+        String tag_ = getBeginReport(_in, _root, _curOp, result_, _cov);
+        int suppl_ = 0;
+        if (_root == _curOp) {
+            suppl_ = _in.getTr();
+        }
+        _vars.addPart(new PartOffset(tag_,_in.getBeginBlock() + _curOp.getIndexInEl()+suppl_));
     }
 
-    private static void getEnd(VariablesOffsets _vars, boolean _addCover, LinkageStackElementIn _in) {
-        if (_addCover) {
-            int endBlock_ = _in.getEndBlock();
-            int suppl_ = _in.getTrEnd();
-            _vars.addPart(new PartOffset(ExportCst.END_SPAN, endBlock_+suppl_));
+    private static void getEnd(VariablesOffsets _vars, LinkageStackElementIn _in) {
+        if (_in.skipReportElement()) {
+            return;
         }
+        int endBlock_ = _in.getEndBlock();
+        int suppl_ = _in.getTrEnd();
+        _vars.addPart(new PartOffset(ExportCst.END_SPAN, endBlock_+suppl_));
     }
 
     private static String getBeginReport(LinkageStackElementIn _in, OperationNode _root, OperationNode _val, AbstractCoverageResult _result, Coverage _cov) {
@@ -2737,7 +2730,7 @@ public final class LinkageUtil {
 //                }
 //            }
 //            String tag_ = headCoverage(full_, count_);
-            String part_ = headCoverage(_cov.getCoverNoDefSwitchsMethod(switchMethod_),_cov.getCoverSwitchsMethod(switchMethod_));
+            String part_ = headCoverage(_cov,switchMethod_);
 //            part_ = tag_ + ExportCst.anchor(count_ + ExportCst.RATIO_COVERAGE + full_);
             int off_ = sum_ + _val.getIndexInEl() + ((SwitchOperation)_val).getDelta();
             _vars.addPart(new PartOffset(part_, off_));
@@ -3389,10 +3382,7 @@ public final class LinkageUtil {
     private static void processUnaryLeftOperationsCoversReport(LinkageStackElementIn _in, VariablesOffsets _vars, int _sum, OperationNode _val, Coverage _cov) {
         if (_val instanceof UnaryBooleanOperation && ((UnaryBooleanOperation)_val).getFct().getFunction() == null) {
             int offsetOp_ = _val.getOperations().getOperators().firstKey();
-            AbstractCoverageResult result_ = getCovers(_in, _val, _cov);
-            if (result_.isStrictPartialCovered()) {
-                safeReport(_vars,result_, _sum + _val.getIndexInEl() + offsetOp_, 1);
-            }
+            safeReport(_in,_vars,_val,_cov,_sum + _val.getIndexInEl() + offsetOp_, 1);
         }
     }
 
@@ -3783,18 +3773,15 @@ public final class LinkageUtil {
     private static void processDotSafeReport(LinkageStackElementIn _in, VariablesOffsets _vars, OperationNode _curOp, MethodOperation _parentOp, Coverage _cov) {
         if (_parentOp instanceof SafeDotOperation) {
             int sum_ = _in.getBeginBlock() + _parentOp.getIndexInEl() + ((SafeDotOperation)_parentOp).getOpOff();
-            AbstractCoverageResult resultFirst_ = getCovers(_in, _curOp, _cov);
-            safeReport(_vars, resultFirst_, sum_, 1);
+            safeReport(_in, _vars, _curOp, _cov, sum_, 1);
         }
     }
     private static void processNullSafeReport(LinkageStackElementIn _in, VariablesOffsets _vars, OperationNode _curOp, OperationNode _nextSiblingOp, MethodOperation _parentOp, Coverage _cov) {
         if (_parentOp instanceof NullSafeOperation) {
             int sum_ = _in.getBeginBlock() + _parentOp.getIndexInEl();
             int begin_ = sum_+((NullSafeOperation)_parentOp).getOpOff();
-            AbstractCoverageResult resultFirst_ = getCovers(_in, _curOp, _cov);
-            AbstractCoverageResult resultLast_ = getCovers(_in, _nextSiblingOp, _cov);
-            safeReport(_vars, resultFirst_, begin_, 1);
-            safeReport(_vars, resultLast_, begin_+1, 1);
+            safeReport(_in, _vars, _curOp, _cov, begin_, 1);
+            safeReport(_in, _vars, _nextSiblingOp, _cov, begin_+1, 1);
         }
     }
 
@@ -3806,8 +3793,7 @@ public final class LinkageUtil {
             int begin_ = sum_+((MiddleSymbolOperation)_parent).getOpOffset();
             int length_ = ((MiddleSymbolOperation)_parent) .getOp().length();
             if (((SymbolOperation)_parent).getFct().getFunction() == null) {
-                AbstractCoverageResult resultLoc_ = getCovers(_in, _parent, _cov);
-                safeReport(_vars, resultLoc_, begin_, length_);
+                safeReport(_in, _vars, _parent, _cov, begin_, length_);
             }
         }
     }
@@ -3857,8 +3843,7 @@ public final class LinkageUtil {
         int len_ = opDelta_;
         if (functionTest_ != null) {
             StringList title_ = new StringList();
-            AbstractCoverageResult resultFirst_ = getCovers(_in, _curOp, _cov);
-            title_.addAllElts(getCoversFoundReport(_vars, resultFirst_));
+            title_.addAllElts(getCoversFoundReport(_in, _vars, _curOp, _cov));
             addParts(_vars, functionTest_,begin_,1, _parentOp.getErrs(),title_);
             begin_++;
             len_--;
@@ -3870,15 +3855,13 @@ public final class LinkageUtil {
         } else if (StringUtil.quickEq(par_.getOper(), AbsBk.AND_LOG_EQ)
                 || StringUtil.quickEq(par_.getOper(), AbsBk.OR_LOG_EQ)
                 || StringUtil.quickEq(par_.getOper(), AbsBk.NULL_EQ)){
-            AbstractCoverageResult resultFirst_ = getCovers(_in, _curOp, _cov);
-            safeReport(_vars, resultFirst_, begin_, 1);
+            safeReport(_in, _vars, _curOp, _cov, begin_, 1);
             begin_++;
             len_--;
         } else if (StringUtil.quickEq(par_.getOper(),AbsBk.AND_LOG_EQ_SHORT)
                 || StringUtil.quickEq(par_.getOper(),AbsBk.OR_LOG_EQ_SHORT)
                 ||StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ_SHORT)){
-            AbstractCoverageResult resultFirst_ = getCovers(_in, _curOp, _cov);
-            safeReport(_vars, resultFirst_, begin_, 1);
+            safeReport(_in, _vars, _curOp, _cov, begin_, 1);
             begin_+=2;
             len_-=2;
         }
@@ -3888,8 +3871,7 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(ExportCst.HEAD_ITALIC, begin_));
             _vars.addPart(new PartOffset(ExportCst.FOOT_ITALIC,begin_+len_));
         } else if (StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ) || StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ_SHORT)||par_.isRightBool()) {
-            AbstractCoverageResult resultLast_ = getCovers(_in, _nextSiblingOp, _cov);
-            safeReport(_vars, resultLast_, begin_, 1);
+            safeReport(_in, _vars, _nextSiblingOp, _cov, begin_, 1);
         }
     }
     private static void processCompoundAffRightOp(LinkageStackElementIn _in, VariablesOffsets _vars, MethodOperation _parentOp) {
@@ -3915,24 +3897,22 @@ public final class LinkageUtil {
         QuickOperation q_ = (QuickOperation) _parentOp;
         int sum_ = _in.getBeginBlock() + _parentOp.getIndexInEl();
         int begin_ = sum_+q_.getOpOff();
-        AbstractCoverageResult resultFirst_ = getCovers(_in, _curOp, _cov);
-        AbstractCoverageResult resultLast_ = getCovers(_in, _nextSiblingOp, _cov);
         StringList errs_ = q_.getErrs();
         AnaTypeFct functionTest_ = q_.getFunctionTest();
         if (functionTest_ != null) {
             StringList title_ = new StringList();
-            title_.addAllElts(getCoversFoundReport(_vars, resultFirst_));
+            title_.addAllElts(getCoversFoundReport(_in, _vars, _curOp, _cov));
             addParts(_vars, functionTest_,begin_,1, errs_,title_);
         } else {
-            safeReport(_vars, resultFirst_, begin_, 1);
+            safeReport(_in,_vars,_curOp,_cov, begin_, 1);
         }
         AnaTypeFct function_ = q_.getFct().getFunction();
         if (function_ != null) {
             StringList title_ = new StringList();
-            title_.addAllElts(getCoversFoundReport(_vars, resultLast_));
+            title_.addAllElts(getCoversFoundReport(_in, _vars, _nextSiblingOp, _cov));
             addParts(_vars, function_,begin_+1,1, errs_,title_);
         } else {
-            safeReport(_vars, resultLast_, begin_+1, 1);
+            safeReport(_in,_vars,_nextSiblingOp,_cov, begin_+1, 1);
         }
         tryAddMergedParts(_vars, q_.getConvert(), begin_+2, new StringList(), new StringList());
     }
@@ -4020,16 +4000,20 @@ public final class LinkageUtil {
         }
     }
 
-    private static void safeReport(VariablesOffsets _vars, AbstractCoverageResult _res, int _offsetEnd, int _delta) {
-        StringList founds_ = getCoversFoundReport(_vars,_res);
+    private static void safeReport(LinkageStackElementIn _in, VariablesOffsets _vars, OperationNode _parent, Coverage _cov, int _begin, int _length) {
+        StringList founds_ = getCoversFoundReport(_in, _vars, _parent, _cov);
         if (founds_.isEmpty()) {
             return;
         }
-        basicValue(_vars,_offsetEnd, _delta, founds_);
+        basicValue(_vars, _begin, _length, founds_);
     }
 
-    private static StringList getCoversFoundReport(VariablesOffsets _vars, AbstractCoverageResult _res) {
-        return _res.getCoversFoundReport(_vars);
+    private static StringList getCoversFoundReport(LinkageStackElementIn _in, VariablesOffsets _vars, OperationNode _parent, Coverage _cov) {
+        if (_in.skipReportElement()) {
+            return new StringList();
+        }
+        AbstractCoverageResult resultLoc_ = getCovers(_in, _parent, _cov);
+        return resultLoc_.getCoversFoundReport(_vars);
     }
 
     private static void basicValue(VariablesOffsets _vars, int _offsetEnd, int _delta, StringList _founds) {
