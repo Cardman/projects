@@ -49,7 +49,6 @@ public final class CoverageTest extends ProcessMethodCommon {
         assertTrue(value_.isPartialCovered());
         assertTrue(((BooleanCoverageResult)value_).isCoverBcTrue());
         assertTrue(!((BooleanCoverageResult)value_).isCoverBcFalse());
-        cont_.getCoverage().passSwitchMethod(null,Argument.createVoid(),null);
     }
     @Test
     public void coverage3Test() {

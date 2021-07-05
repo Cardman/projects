@@ -2737,7 +2737,7 @@ public final class LinkageUtil {
 //                }
 //            }
 //            String tag_ = headCoverage(full_, count_);
-            String part_ = headCoverage(null,_cov.getCoverSwitchsMethod(switchMethod_));
+            String part_ = headCoverage(_cov.getCoverNoDefSwitchsMethod(switchMethod_),_cov.getCoverSwitchsMethod(switchMethod_));
 //            part_ = tag_ + ExportCst.anchor(count_ + ExportCst.RATIO_COVERAGE + full_);
             int off_ = sum_ + _val.getIndexInEl() + ((SwitchOperation)_val).getDelta();
             _vars.addPart(new PartOffset(part_, off_));

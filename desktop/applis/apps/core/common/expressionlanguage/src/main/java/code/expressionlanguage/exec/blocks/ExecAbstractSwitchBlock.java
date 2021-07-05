@@ -47,15 +47,18 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
 
     protected void addStack(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack, ExecResultCase _found) {
         AbstractPageEl ip_ = _stack.getLastPage();
+        _cont.getCoverage().passSwitch(this, _found, _arg, _stack);
+        visit(_if, _found, ip_, this);
+    }
+
+    static void visit(SwitchBlockStack _if, ExecResultCase _found, AbstractPageEl _ip, ExecBracedBlock _bl) {
         if (_found == null) {
-            _cont.getCoverage().passSwitch(this, _arg, _stack);
-            _if.setCurrentVisitedBlock(this);
+            _if.setCurrentVisitedBlock(_bl);
         } else {
-            _cont.getCoverage().passSwitch(this, _found, _arg, _stack);
-            ip_.setBlock(_found.getBlock());
+            _ip.setBlock(_found.getBlock());
             _if.setCurrentVisitedBlock(_found.getBlock());
         }
-        ip_.addBlock(_if);
+        _ip.addBlock(_if);
     }
 
     public String getInstanceTest() {
