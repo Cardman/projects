@@ -130,39 +130,6 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                         break;
                     }
                 }
-//                for (InnerTypeOrElement f: ((EnumBlock) g_).getEnumBlocks()) {
-//                    if (!StringUtil.contains(f.getFieldName(), value.trim())) {
-//                        continue;
-//                    }
-//                    builtEnum = true;
-//                    _page.setLookLocalClass(id_);
-//                    _page.setAccessStaticContext(MethodAccessKind.STATIC);
-//                    Delimiters d_ = ElResolver.checkSyntax(value, IndexConstants.FIRST_INDEX, _page);
-//                    OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, value, d_, _page);
-//                    OperationNode op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
-//                    ElUtil.analyzeInfer(op_,_page);
-//                    _page.setLookLocalClass(EMPTY_STRING);
-//                    op_.setOrder(0);
-//                    root = op_;
-//                    checkDuplicateEnumCase(_anaDoc, _page);
-//                    return;
-//                }
-//                builtEnum = true;
-//                nullCaseEnum = true;
-//                root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page);
-//                Argument a_ = root.getArgument();
-//                argument = a_;
-//                if (Argument.isNullValue(a_)) {
-//                    checkDuplicateCase(a_, _anaDoc, _page);
-//                    return;
-//                }
-//                FoundErrorInterpret un_ = new FoundErrorInterpret();
-//                un_.setFileName(_anaDoc.getFileName());
-//                un_.setIndexFile(valueOffset);
-//                un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-//                        _page.getKeyWords().getKeyWordCase(),
-//                        value);
-//                AnalyzingDoc.addError(un_, _anaDoc, _page);
                 return;
             }
         }

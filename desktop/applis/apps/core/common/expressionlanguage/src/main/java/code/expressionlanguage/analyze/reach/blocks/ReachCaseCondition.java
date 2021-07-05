@@ -12,9 +12,7 @@ import code.expressionlanguage.analyze.opers.DeclaringOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
@@ -48,20 +46,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         if (!(par_ instanceof ReachSwitchBlock)&&!(par_ instanceof ReachSwitchMethodBlock)) {
             return;
         }
-        AnaClassArgumentMatching resSwitch_;
-        boolean instance_;
-        String type_;
-        if (par_ instanceof ReachSwitchBlock) {
-            ReachSwitchBlock sw_ = (ReachSwitchBlock) par_;
-            resSwitch_ = sw_.getResult();
-            instance_ = sw_.isInstance();
-        } else {
-            ReachSwitchMethodBlock sw_ = (ReachSwitchMethodBlock) par_;
-            resSwitch_ = sw_.getResult();
-            instance_ = sw_.isInstance();
-        }
-        type_ = resSwitch_.getSingleNameOrEmpty();
-        EnumBlock e_ = getEnumType(type_, _page);
+        EnumBlock e_ = meta.getEnumBlock();
         if (e_ != null) {
             CustList<IndexStrPart> values_ = meta.getOffsetsEnum().getValues();
             for (IndexStrPart v: values_) {
@@ -94,21 +79,18 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                     break;
                 }
             }
-//            for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-//                if (!StringUtil.contains(f.getFieldName(), value.trim())) {
-//                    continue;
-//                }
-//                meta.setBuiltEnum(true);
-//                checkDuplicateEnumCase(_page);
-//                return;
-//            }
-//            meta.setArgument(ReachOperationUtil.tryCalculate(root, _page));
-//            if (Argument.isNullValue(meta.getArgument())) {
-//                meta.setBuiltEnum(true);
-//                meta.setNullCaseEnum(true);
-//            }
-//            processNullValue(_page);
             return;
+        }
+        AnaClassArgumentMatching resSwitch_;
+        boolean instance_;
+        if (par_ instanceof ReachSwitchBlock) {
+            ReachSwitchBlock sw_ = (ReachSwitchBlock) par_;
+            resSwitch_ = sw_.getResult();
+            instance_ = sw_.isInstance();
+        } else {
+            ReachSwitchMethodBlock sw_ = (ReachSwitchMethodBlock) par_;
+            resSwitch_ = sw_.getResult();
+            instance_ = sw_.isInstance();
         }
         if (instance) {
             if (meta.getImportedType().isEmpty()) {
@@ -258,16 +240,6 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             _page.addLocError(un_);
             addErrorBlock(un_.getBuiltError());
         }
-    }
-
-    private static EnumBlock getEnumType(String _type, AnalyzedPageEl _page) {
-        String id_ = StringExpUtil.getIdFromAllTypes(_type);
-        AnaGeneType g_ = _page.getAnaGeneType(id_);
-        if (g_ instanceof EnumBlock) {
-            return (EnumBlock) g_;
-        }
-        return null;
-
     }
 
     @Override

@@ -25,7 +25,6 @@ public final class CaseCondition extends SwitchPartBlock {
     private final String value;
     private final ResultExpression res = new ResultExpression();
 
-    private boolean builtEnum;
     private boolean nullCase;
 
     private String importedType = EMPTY_STRING;
@@ -100,7 +99,6 @@ public final class CaseCondition extends SwitchPartBlock {
         String id_ = StringExpUtil.getIdFromAllTypes(type_);
         AnaGeneType g_ = _page.getAnaGeneType(id_);
         if (g_ instanceof EnumBlock) {
-            builtEnum = true;
             EnumBlock e_ = (EnumBlock)g_;
             enumBlock = e_;
             typeEnum = id_;
@@ -126,32 +124,6 @@ public final class CaseCondition extends SwitchPartBlock {
                 }
                 sum_ += s.length() + 1;
             }
-//            _page.setLookLocalClass(id_);
-//            for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-//                if (!StringUtil.contains(f.getFieldName(), value.trim())) {
-//                    continue;
-//                }
-//                enumBlock = e_;
-//                _page.setAccessStaticContext(MethodAccessKind.STATIC);
-//                Delimiters d_ = ElResolver.checkSyntax(value, IndexConstants.FIRST_INDEX, _page);
-//                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, value, d_, _page);
-//                OperationNode op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
-//                ElUtil.retrieveErrorsAnalyze(op_, _page);
-//                _page.setLookLocalClass(EMPTY_STRING);
-//                op_.setOrder(0);
-//                res.setRoot(op_);
-//                impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
-//                fieldNameOffset = f.getFieldNameOffset();
-//                typeEnum = id_;
-//                return;
-//            }
-//            _page.setLookLocalClass(EMPTY_STRING);
-//            res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
-//            impType = res.getRoot().getResultClass().getSingleNameOrEmpty();
-//            String emp_ = _page.getCurrentEmptyPartErr();
-//            if (!emp_.isEmpty()) {
-//                addErrorBlock(emp_);
-//            }
             return;
         }
         if (instance_) {
@@ -240,10 +212,6 @@ public final class CaseCondition extends SwitchPartBlock {
 
     public String getTypeEnum() {
         return typeEnum;
-    }
-
-    public boolean isBuiltEnum() {
-        return builtEnum;
     }
 
     public CustList<PartOffset> getPartOffsets() {

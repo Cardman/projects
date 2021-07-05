@@ -981,18 +981,9 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(tag_, off_));
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR+ExportCst.END_SPAN,off_+ _vars.getKeyWords().getKeyWordCase().length()));
         }
-        if (_cond.isBuiltEnum()) {
-            int off_ = _cond.getValueOffset();
-            String typeEnum_ = _cond.getTypeEnum();
-            for (IndexStrPart i: _cond.getOffsetsEnum().getValues()) {
-                EnumBlock enumBlock_ = _cond.getEnumBlock();
-                for (InnerTypeOrElement f: enumBlock_.getEnumBlocks()) {
-                    if (StringUtil.contains(f.getFieldName(), i.getPart())) {
-                        updateFieldAnchor(_vars, enumBlock_, new StringList(), new ClassField(typeEnum_,i.getPart()),i.getIndex()+off_,i.getPart().length(), f.getFieldNameOffset());
-                        break;
-                    }
-                }
-            }
+        EnumBlock enumBlock_ = _cond.getEnumBlock();
+        if (enumBlock_ != null) {
+            addEnumRef(_vars, _cond, enumBlock_);
         } else if (!_cond.getImportedType().isEmpty()) {
             _vars.addParts(_cond.getPartOffsets());
             String variableName_ = _cond.getVariableName();
@@ -1018,19 +1009,9 @@ public final class LinkageUtil {
     }
 
     private static void processCaseConditionError(VariablesOffsets _vars, CaseCondition _cond) {
-        int off_;
-        if (_cond.isBuiltEnum()) {
-            off_ = _cond.getValueOffset();
-            String typeEnum_ = _cond.getTypeEnum();
-            for (IndexStrPart i: _cond.getOffsetsEnum().getValues()) {
-                EnumBlock enumBlock_ = _cond.getEnumBlock();
-                for (InnerTypeOrElement f: enumBlock_.getEnumBlocks()) {
-                    if (StringUtil.contains(f.getFieldName(), i.getPart())) {
-                        updateFieldAnchor(_vars, enumBlock_, new StringList(), new ClassField(typeEnum_,i.getPart()),i.getIndex()+off_,i.getPart().length(), f.getFieldNameOffset());
-                        break;
-                    }
-                }
-            }
+        EnumBlock enumBlock_ = _cond.getEnumBlock();
+        if (enumBlock_ != null) {
+            addEnumRef(_vars, _cond, enumBlock_);
         } else if (!_cond.getImportedType().isEmpty()) {
             _vars.addParts(_cond.getPartOffsets());
             String variableName_ = _cond.getVariableName();
@@ -1043,9 +1024,27 @@ public final class LinkageUtil {
             }
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
         } else {
-            off_ = _cond.getValueOffset();
+            int off_ = _cond.getValueOffset();
             OperationNode root_ = _cond.getRoot();
             buildNormalError(_vars, _cond, -1, root_, off_, 0);
+        }
+    }
+
+    private static void addEnumRef(VariablesOffsets _vars, CaseCondition _cond, EnumBlock _enumBlock) {
+        StringList errs_ = new StringList();
+        int off_ = _cond.getValueOffset();
+        String typeEnum_ = _cond.getTypeEnum();
+        for (IndexStrPart i : _cond.getOffsetsEnum().getValues()) {
+            String part_ = i.getPart();
+            int length_ = part_.length();
+            int begin_ = i.getIndex() + off_;
+            ClassField id_ = new ClassField(typeEnum_, part_);
+            for (InnerTypeOrElement f : _enumBlock.getEnumBlocks()) {
+                if (StringUtil.contains(f.getFieldName(), part_)) {
+                    updateFieldAnchor(_vars, _enumBlock, errs_, id_, begin_, length_, f.getFieldNameOffset());
+                    break;
+                }
+            }
         }
     }
 
