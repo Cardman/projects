@@ -2169,9 +2169,8 @@ public final class LinkageUtil {
     private static LinkageStackElementIn buildAnnotLinkageReport(AbsBk _cond, int _indexAnnotationGroup, Ints _annotationsIndexes, StringList _annotations, int _indexAnnotation) {
         int begin_ = _annotationsIndexes.get(_indexAnnotation);
         int end_ = begin_ + _annotations.get(_indexAnnotation).trim().length();
-        LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, 0,_indexAnnotationGroup, _indexAnnotationGroup, _indexAnnotation,_indexAnnotation);
-        adjust(0,0,begin_, end_, in_);
-        return in_;
+        return new LinkageStackElementIn(_cond, 0,_indexAnnotationGroup, _indexAnnotationGroup, _indexAnnotation,_indexAnnotation,
+                new LinkageStackElementOffsets(0, 0, begin_, end_));
     }
 
     private static void processAnnotationError(VariablesOffsets _vars, RootBlock _cond) {
@@ -2314,9 +2313,8 @@ public final class LinkageUtil {
     }
 
     private static LinkageStackElementIn buildLinkageRep(int _tr, int _trEnd, AbsBk _cond, int _begin, int _end, int _indexLoop, int _indexAnnotationGroup) {
-        LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, _indexLoop, _indexAnnotationGroup,-1, 0,-1);
-        adjust(_tr,_trEnd,_begin, _end, in_);
-        return in_;
+        return new LinkageStackElementIn(_cond, _indexLoop, _indexAnnotationGroup,-1, 0,-1,
+                new LinkageStackElementOffsets(_tr, _trEnd, _begin, _end));
     }
 
     private static void buildNormalReport(VariablesOffsets _vars, Coverage _cov, OperationNode _root, LinkageStackElementIn _in) {
@@ -2333,14 +2331,9 @@ public final class LinkageUtil {
         buildNormalError(_vars, _cond, -1, root_, off_, 0);
     }
 
-    private static void adjust(int _tr, int _trEnd,int _begin, int _end, LinkageStackElementIn _in) {
-        _in.offsets(_tr,_trEnd,_begin, _end);
-    }
-
     private static LinkageStackElementIn buildLinkageErr(AbsBk _cond, int _indexAnnotationGroup, int _indexAnnotationGroupLook, int _indexAnnotation, int _indexLoop, int _begin, int _indexAnnotationLook) {
-        LinkageStackElementIn in_ = new LinkageStackElementIn(_cond, _indexLoop, _indexAnnotationGroup,_indexAnnotationGroupLook, _indexAnnotation, _indexAnnotationLook);
-        in_.offsets(_begin);
-        return in_;
+        return new LinkageStackElementIn(_cond, _indexLoop, _indexAnnotationGroup,_indexAnnotationGroupLook, _indexAnnotation, _indexAnnotationLook,
+                new LinkageStackElementOffsets(_begin));
     }
 
     private static OperationNode getCurrent(VariablesOffsets _vars,OperationNode _root) {

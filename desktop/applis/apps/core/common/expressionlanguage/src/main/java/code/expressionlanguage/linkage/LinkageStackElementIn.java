@@ -4,39 +4,29 @@ import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.CaseCondition;
 
 public final class LinkageStackElementIn {
-    private AbsBk block;
-    private int indexLoop;
-    private int indexAnnotationGroup=-1;
-    private int indexAnnotationGroupLook=-1;
-    private int indexAnnotation;
-    private int indexAnnotationLook;
-    private int tr;
-    private int trEnd;
-    private int beginBlock;
-    private int endBlock;
+    private final AbsBk block;
+    private final int indexLoop;
+    private final int indexAnnotationGroup;
+    private final int indexAnnotationGroupLook;
+    private final int indexAnnotation;
+    private final int indexAnnotationLook;
+    private final LinkageStackElementOffsets offsets;
 
     public LinkageStackElementIn(AbsBk _block, int _indexLoop,
                                  int _indexAnnotationGroup,
                                  int _indexAnnotationGroupLook,
                                  int _indexAnnotation,
-                                 int _indexAnnotationLook) {
-        setBlock(_block);
-        setIndexLoop(_indexLoop);
-        setIndexAnnotationGroup(_indexAnnotationGroup);
-        setIndexAnnotationGroupLook(_indexAnnotationGroupLook);
-        setIndexAnnotation(_indexAnnotation);
-        setIndexAnnotationLook(_indexAnnotationLook);
-    }
-    public void offsets(int _tr, int _trEnd,int _begin, int _end) {
-        setTr(_tr);
-        setTrEnd(_trEnd);
-        setBeginBlock(_begin);
-        setEndBlock(_end);
+                                 int _indexAnnotationLook,
+                                 LinkageStackElementOffsets _offsets) {
+        this.block = _block;
+        this.indexLoop = _indexLoop;
+        this.indexAnnotationGroup = _indexAnnotationGroup;
+        this.indexAnnotationGroupLook = _indexAnnotationGroupLook;
+        this.indexAnnotation = _indexAnnotation;
+        this.indexAnnotationLook = _indexAnnotationLook;
+        this.offsets = _offsets;
     }
 
-    public void offsets(int _begin) {
-        setBeginBlock(_begin);
-    }
     public boolean skipReportElement() {
         return block instanceof CaseCondition;
     }
@@ -44,80 +34,40 @@ public final class LinkageStackElementIn {
         return block;
     }
 
-    public void setBlock(AbsBk _v) {
-        this.block = _v;
-    }
-
     public int getIndexLoop() {
         return indexLoop;
-    }
-
-    public void setIndexLoop(int _v) {
-        this.indexLoop = _v;
     }
 
     public int getIndexAnnotationGroup() {
         return indexAnnotationGroup;
     }
 
-    public void setIndexAnnotationGroup(int _v) {
-        this.indexAnnotationGroup = _v;
-    }
-
     public int getIndexAnnotationGroupLook() {
         return indexAnnotationGroupLook;
-    }
-
-    public void setIndexAnnotationGroupLook(int _v) {
-        this.indexAnnotationGroupLook = _v;
     }
 
     public int getIndexAnnotation() {
         return indexAnnotation;
     }
 
-    public void setIndexAnnotation(int _v) {
-        this.indexAnnotation = _v;
-    }
-
     public int getIndexAnnotationLook() {
         return indexAnnotationLook;
     }
 
-    public void setIndexAnnotationLook(int _v) {
-        this.indexAnnotationLook = _v;
-    }
-
     public int getBeginBlock() {
-        return beginBlock;
-    }
-
-    public void setBeginBlock(int _beginBlock) {
-        this.beginBlock = _beginBlock;
+        return offsets.getBeginBlock();
     }
 
     public int getTr() {
-        return tr;
-    }
-
-    public void setTr(int _tr) {
-        this.tr = _tr;
+        return offsets.getTr();
     }
 
     public int getTrEnd() {
-        return trEnd;
-    }
-
-    public void setTrEnd(int _trEnd) {
-        this.trEnd = _trEnd;
+        return offsets.getTrEnd();
     }
 
     public int getEndBlock() {
-        return endBlock;
-    }
-
-    public void setEndBlock(int _endBlock) {
-        this.endBlock = _endBlock;
+        return offsets.getEndBlock();
     }
 
 }
