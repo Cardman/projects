@@ -5987,6 +5987,27 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void report854Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" static void m(){\n");
+        xml_.append("  Inex<Ext<int>> v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " static void <a name=\"m32\">m</a>(){\n" +
+                "  <a title=\"The type Inex&lt;Ext&lt;int&gt;&gt; is unknown.\" class=\"e\">Inex</a>&lt;<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;&gt; <a name=\"m54\">v</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
     @Test
     public void reportSpecTest() {
         StringMap<String> files_ = new StringMap<String>();
