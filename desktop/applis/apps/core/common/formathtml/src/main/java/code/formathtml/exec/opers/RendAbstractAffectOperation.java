@@ -1,15 +1,37 @@
 package code.formathtml.exec.opers;
 
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.NullStruct;
+import code.formathtml.exec.RendStackCall;
+import code.formathtml.util.BeanLgNames;
+import code.util.IdMap;
+import code.util.StringList;
 
 public abstract class RendAbstractAffectOperation extends RendMethodOperation implements RendCalculableOperation {
 
     private RendDynOperationNode settable;
     private RendMethodOperation settableParent;
-    protected RendAbstractAffectOperation(ExecOperationContent _content) {
+
+    private final StringList names;
+    protected RendAbstractAffectOperation(ExecOperationContent _content, StringList _names) {
         super(_content);
+        names = _names;
     }
 
+    @Override
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+        if (getSettableParent() instanceof RendSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
+            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, names)), _nodes, _context, _rendStack);
+            return;
+        }
+        calculateAffect(_nodes, _advStandards, _context, _rendStack);
+    }
+
+    protected abstract void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
     public void setup() {
         settable = tryGetSettable(this);
         settableParent = tryGetSettableParent(this);
@@ -49,6 +71,10 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
             elt_ = getLastNode((RendMethodOperation) _root);
         }
         return elt_;
+    }
+
+    protected StringList getNames() {
+        return names;
     }
 
     public RendDynOperationNode getSettable() {

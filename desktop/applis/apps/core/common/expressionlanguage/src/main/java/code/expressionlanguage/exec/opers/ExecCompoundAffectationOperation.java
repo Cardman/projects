@@ -5,12 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -19,26 +17,15 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
 
     private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converter;
-    private final StringList names;
 
     protected ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names) {
-        super(_opCont);
+        super(_opCont, _operatorContent.getOpOffset(), _names);
         operatorContent = _operatorContent;
         converter = _converter;
-        names = _names;
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf, StackCall _stack) {
-        setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
-        if (getSettableParent() instanceof ExecSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
-            ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-            pair_.setIndexImplicitCompound(-1);
-            pair_.setEndCalculate(true);
-            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _conf, names, _stack)), _conf, _nodes, _stack);
-            return;
-        }
+    protected void calculateAffect(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument leftArg_ = getFirstArgument(_nodes,this);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
@@ -56,8 +43,6 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
         }
         calculateSpec(_nodes, _conf, _stack);
     }
-
-
 
     protected abstract void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                           ContextEl _conf, StackCall _stack);
@@ -102,10 +87,6 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
 
     protected ExecOperatorContent getOperatorContent() {
         return operatorContent;
-    }
-
-    protected StringList getNames() {
-        return names;
     }
 
     @Override

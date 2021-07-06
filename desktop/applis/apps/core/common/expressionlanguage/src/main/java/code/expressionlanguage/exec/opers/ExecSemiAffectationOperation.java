@@ -4,39 +4,25 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.ArrayCustWrapper;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
 import code.util.StringList;
 
 public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOperation implements CallExecSimpleOperation {
     private final boolean post;
-    private final StringList names;
     private final ExecOperatorContent operatorContent;
 
     protected ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, boolean _post, StringList _names) {
-        super(_opCont);
+        super(_opCont, _operatorContent.getOpOffset(), _names);
         operatorContent = _operatorContent;
         post = _post;
-        names = _names;
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf, StackCall _stack) {
-        if (getSettableParent() instanceof ExecSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
-            ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes, this);
-            pairBefore_.setEndCalculate(true);
-            pairBefore_.setIndexImplicitSemiFrom(-1);
-            pairBefore_.setIndexImplicitSemiTo(-1);
-            pairBefore_.setCalledIndexer(true);
-            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _conf, names, _stack)), _conf, _nodes, _stack);
-            return;
-        }
+    protected void calculateAffect(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         calculateSpec(_nodes, _conf, _stack);
     }
 

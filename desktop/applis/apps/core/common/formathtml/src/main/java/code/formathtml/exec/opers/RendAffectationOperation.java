@@ -4,8 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -14,20 +12,12 @@ import code.util.StringList;
 
 public final class RendAffectationOperation extends RendAbstractAffectOperation {
 
-    private final StringList names;
-
     public RendAffectationOperation(ExecOperationContent _content,StringList _names) {
-        super(_content);
-        names = _names;
+        super(_content, _names);
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        if (getSettableParent() instanceof RendSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
-            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, names)), _nodes, _context, _rendStack);
-            return;
-        }
-        RendDynOperationNode right_ = getLastNode(this);
+    protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         if (getSettable() instanceof RendStdRefVariableOperation && ((RendStdRefVariableOperation) getSettable()).isDeclare()) {
             CustList<RendDynOperationNode> childrenNodes_ = getChildrenNodes();
             ArgumentsPair pairRight_ = getArgumentPair(_nodes, getNode(childrenNodes_, childrenNodes_.size() - 1));
@@ -35,10 +25,12 @@ public final class RendAffectationOperation extends RendAbstractAffectOperation 
             setQuickNoConvertSimpleArgument(new Argument(), _nodes, _context, _rendStack);
             return;
         }
+        RendDynOperationNode right_ = getLastNode(this);
         Argument rightArg_ = getArgument(_nodes,right_);
         Argument arg_ = calculateChSetting(getSettable(),_nodes, rightArg_, _advStandards, _context, _rendStack);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
+
     static Argument calculateChSetting(RendDynOperationNode _set,
                                        IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall){
         Argument arg_ = null;

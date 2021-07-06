@@ -4,12 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
@@ -20,20 +18,15 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
 
     private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converter;
-    private final StringList names;
+
     protected RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names) {
-        super(_content);
-        names = _names;
+        super(_content, _names);
         operatorContent = _operatorContent;
         converter = _converter;
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        if (getSettableParent() instanceof RendSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
-            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convert(NullStruct.NULL_VALUE, _context, names)), _nodes, _context, _rendStack);
-            return;
-        }
+    protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode left_ = getFirstNode(this);
         Argument leftArg_ = getArgument(_nodes,left_);
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, left_);
@@ -77,10 +70,6 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
 
     protected ImplicitMethods getConverter() {
         return converter;
-    }
-
-    protected StringList getNames() {
-        return names;
     }
 
     @Override

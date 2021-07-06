@@ -6,35 +6,20 @@ import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
 public final class ExecAffectationOperation extends ExecAbstractAffectOperation {
 
-    private final StringList names;
-
-    private final int opOffset;
-
     public ExecAffectationOperation(ExecOperationContent _opCont, int _opOffset,StringList _names) {
-        super(_opCont);
-        opOffset = _opOffset;
-        names = _names;
+        super(_opCont, _opOffset, _names);
     }
 
     @Override
-    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf, StackCall _stack) {
-        setRelOffsetPossibleLastPage(opOffset, _stack);
-        if (getSettableParent() instanceof ExecSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
-            setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _conf, names, _stack)), _conf, _nodes, _stack);
-            return;
-        }
-        Argument rightArg_ = getLastArgument(_nodes, this);
+    protected void calculateAffect(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         if (getSettable() instanceof ExecStdRefVariableOperation && ((ExecStdRefVariableOperation) getSettable()).isDeclare()) {
             CustList<ExecOperationNode> childrenNodes_ = getChildrenNodes();
             ArgumentsPair pairRight_ = ExecHelper.getArgumentPair(_nodes, ExecHelper.getNode(childrenNodes_, childrenNodes_.size() - 1));
@@ -43,9 +28,11 @@ public final class ExecAffectationOperation extends ExecAbstractAffectOperation 
             setQuickNoConvertSimpleArgument(new Argument(), _conf, _nodes, _stack);
             return;
         }
+        Argument rightArg_ = getLastArgument(_nodes, this);
         Argument arg_ = calculateChSetting(getSettable(),_nodes, _conf, rightArg_, _stack);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
+
     static Argument calculateChSetting(ExecOperationNode _set,
                                        IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stackCall){
         Argument arg_ = null;
