@@ -7,6 +7,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
+import code.formathtml.util.AbstractConfigurationLoader;
 import code.formathtml.util.DualAnalyzedContext;
 import code.gui.document.PreparedAnalyzed;
 import code.sml.Document;
@@ -35,9 +36,8 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         navigation.setSession(new Configuration());
         navigation.setLanguage(lg);
         navigation.setLanguages(Constants.getAvailableLanguages());
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames, _init);
+        AbstractConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames, _init);
         DualAnalyzedContext du_ = navigation.innerLoad("", beanNatLgNames, DefaultFileBuilder.newInstance(beanNatLgNames.getContent()), nat_,_doc);
-        context = du_.getContext().getContext();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         for (String a : du_.getContext().getAddedFiles()) {
@@ -59,10 +59,10 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         session_.setFirstUrl(realFilePath_);
         navigation.setFiles(files_);
         beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), navigation.getFiles(), du_);
+        context = du_.getForwards().generate(du_.getContext().getOptions());
     }
 
     protected BeanNatLgNames common(StringMap<String> _ms,DualAnalyzedContext _du) {
-        context = _du.getContext().getContext();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         for (String a : _du.getContext().getAddedFiles()) {
@@ -84,6 +84,7 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         session_.setFirstUrl(realFilePath_);
         navigation.setFiles(files_);
         beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), navigation.getFiles(), _du);
+        context = _du.getForwards().generate(_du.getContext().getOptions());
         return beanNatLgNames;
     }
 

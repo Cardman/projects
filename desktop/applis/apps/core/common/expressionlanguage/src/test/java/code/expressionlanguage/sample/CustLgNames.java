@@ -2,8 +2,11 @@ package code.expressionlanguage.sample;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.SingleContextEl;
+import code.expressionlanguage.analyze.AbstractFieldFilter;
+import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.maths.montecarlo.DefaultGenerator;
 
@@ -22,7 +25,12 @@ public final class CustLgNames extends LgNames {
     }
 
     @Override
-    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage) {
-        return new SingleContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),new DefaultInitializer()));
+    public ContextEl newContext(Options _opt,Forwards _options) {
+        return new SingleContextEl(new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
+    }
+
+    @Override
+    public AbstractFieldFilter newFieldFilter() {
+        return new DefaultFieldFilter();
     }
 }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.fwd.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
@@ -22,14 +21,15 @@ import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.opers.*;
+import code.expressionlanguage.structs.ClassMetaInfo;
 import code.util.*;
 import code.util.core.StringUtil;
 
 public final class ForwardInfos {
     private ForwardInfos() {
     }
-    public static void generalForward(AnalyzedPageEl _page, Forwards _forwards, ContextEl _context) {
-        Coverage coverage_ = _context.getCoverage();
+    public static void generalForward(AnalyzedPageEl _page, Forwards _forwards) {
+        Coverage coverage_ = _forwards.getCoverage();
         coverage_.setKeyWords(_page.getKeyWords());
         coverage_.putToStringOwner(_page.getAliasObject());
         coverage_.putRandCodeOwner(_page.getAliasObject());
@@ -45,7 +45,7 @@ public final class ForwardInfos {
         }
         feedExecTypes(_page, _forwards, coverage_, files_);
         innerFetchExecEnd(_forwards);
-        Classes classes_ = _context.getClasses();
+        Classes classes_ = _forwards.getClasses();
         for (RootBlock e: _page.getSorted().values()) {
             ExecRootBlock e_ = _forwards.getMember(e).getRootBlock();
             String fullName_ = e.getFullName();
@@ -62,14 +62,14 @@ public final class ForwardInfos {
         for (OperatorBlock o: _page.getSortedOperators()) {
             classes_.getSortedOperators().add(_forwards.getOperator(o));
         }
-        StringMap<ExecTypeFunction> toStringMethodsToCallBodies_ = _context.getClasses().getToStringMethodsToCallBodies();
+        StringMap<ExecTypeFunction> toStringMethodsToCallBodies_ = classes_.getToStringMethodsToCallBodies();
         for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getToStr().entryList()) {
             ClassMethodIdReturn resDyn_ = e.getValue();
             String fullName_ = e.getKey().getFullName();
             toStringMethodsToCallBodies_.addEntry(fullName_,FetchMemberUtil.fetchOvTypeFunction(resDyn_.getMemberId(), _forwards));
             coverage_.putToStringOwner(fullName_);
         }
-        StringMap<ExecTypeFunction> randCodeMethodsToCallBodies_ = _context.getClasses().getRandCodeMethodsToCallBodies();
+        StringMap<ExecTypeFunction> randCodeMethodsToCallBodies_ = classes_.getRandCodeMethodsToCallBodies();
         for (EntryCust<RootBlock, ClassMethodIdReturn> e: _page.getRandCodes().entryList()) {
             ClassMethodIdReturn resDyn_ = e.getValue();
             String fullName_ = e.getKey().getFullName();
@@ -80,7 +80,7 @@ public final class ForwardInfos {
         feed(_forwards);
         feedParents(_forwards);
         feedInherits(_forwards);
-        feedFunctional(_forwards, _context);
+        feedFunctional(_forwards, _page.getAliasFct());
         feedFct(_page, _forwards, coverage_, files_);
         feedMemberLists(_forwards);
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
@@ -113,6 +113,15 @@ public final class ForwardInfos {
         }
         fwdAnnotated(_forwards, coverage_);
         feedFct(_forwards);
+        endForward(_page, classes_);
+    }
+
+    private static void endForward(AnalyzedPageEl _page, Classes _classes) {
+        for (ClassMetaInfo c: _page.getClassMetaInfos()) {
+            _classes.getClassMetaInfos().add(c);
+        }
+        _page.getClassMetaInfos().clear();
+        _classes.setKeyWordValue(_page.getKeyWords().getKeyWordValue());
     }
 
     private static void feedExecTypes(AnalyzedPageEl _page, Forwards _forwards, Coverage _coverage, StringMap<ExecFileBlock> _files) {
@@ -231,7 +240,7 @@ public final class ForwardInfos {
         }
     }
 
-    private static void feedFunctional(Forwards _forwards, ContextEl _context) {
+    private static void feedFunctional(Forwards _forwards, String _aliasFct) {
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock root_ = e.getKey();
             if (root_.mustImplement()) {
@@ -239,16 +248,16 @@ public final class ForwardInfos {
             }
             CustList<AnaFormattedRootBlock> allSuperClass_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(root_));
             allSuperClass_.addAllElts(root_.getAllGenericSuperTypesInfo());
-            boolean instEltCount_ = instEltCount(_forwards, _context, e, root_, allSuperClass_);
+            boolean instEltCount_ = instEltCount(_forwards, e, root_, allSuperClass_, _aliasFct);
             e.getValue().getRootBlock().setWithInstanceElements(instEltCount_);
         }
     }
 
-    private static boolean instEltCount(Forwards _forwards, ContextEl _context, EntryCust<RootBlock, Members> _e, RootBlock _root, CustList<AnaFormattedRootBlock> _allSuperClass) {
+    private static boolean instEltCount(Forwards _forwards, EntryCust<RootBlock, Members> _e, RootBlock _root, CustList<AnaFormattedRootBlock> _allSuperClass, String _aliasFct) {
         boolean instEltCount_ = false;
         for (AnaFormattedRootBlock s: _allSuperClass) {
             RootBlock superBl_ = s.getRootBlock();
-            feedFunctBodies(_forwards, _context, _e, _root, s, superBl_);
+            feedFunctBodies(_forwards, _e, _root, s, superBl_, _aliasFct);
             for (AbsBk b: ClassesUtil.getDirectChildren(superBl_)) {
                 if ((b instanceof FieldBlock)) {
                     if (((FieldBlock)b).isStaticField()) {
@@ -264,7 +273,7 @@ public final class ForwardInfos {
         return instEltCount_;
     }
 
-    private static void feedFunctBodies(Forwards _forwards, ContextEl _context, EntryCust<RootBlock, Members> _e, RootBlock _root, AnaFormattedRootBlock _s, RootBlock _superBl) {
+    private static void feedFunctBodies(Forwards _forwards, EntryCust<RootBlock, Members> _e, RootBlock _root, AnaFormattedRootBlock _s, RootBlock _superBl, String _aliasFct) {
         for (NamedCalledFunctionBlock b: _superBl.getOverridableBlocks()) {
             if (b.isAbstractMethod()) {
                 Members mem_ = _forwards.getMember(_superBl);
@@ -273,7 +282,7 @@ public final class ForwardInfos {
                 if (val_ == null) {
                     ExecOverridableBlock value_ = mem_.getOvNamed(b);
                     String ret_ = b.getImportedReturnType();
-                    _e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(FetchMemberUtil.formatType(_s,value_.getId()),FetchMemberUtil.formatType(_s,ret_), value_, _context));
+                    _e.getValue().getRootBlock().getFunctionalBodies().add(new ExecFunctionalInfo(FetchMemberUtil.formatType(_s,value_.getId()),FetchMemberUtil.formatType(_s,ret_), value_, _aliasFct));
                 }
             }
         }

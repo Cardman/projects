@@ -1,7 +1,7 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
+import code.expressionlanguage.options.Options;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.ValidatorInfo;
 import code.util.EntryCust;
@@ -24,7 +24,12 @@ public final class DualConfigurationContext {
 
     private StringMap<ValidatorInfo> lateValidators;
     private String filesConfName = "";
-    private ContextEl context;
+    private boolean ko;
+    private final Options options = new Options();
+
+    public Options getOptions() {
+        return options;
+    }
 
     public RendAnalysisMessages getAnalysisMessages() {
         return analysisMessages;
@@ -104,12 +109,11 @@ public final class DualConfigurationContext {
         this.filesConfName = _filesConfName;
     }
 
-    public ContextEl getContext() {
-        return context;
+    public boolean isKo() {
+        return ko;
     }
 
-    public void setContext(ContextEl _context) {
-        this.context = _context;
+    public void setKo(boolean _ko) {
+        this.ko = _ko;
     }
-
 }

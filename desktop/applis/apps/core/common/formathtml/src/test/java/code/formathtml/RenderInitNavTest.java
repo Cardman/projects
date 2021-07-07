@@ -2,12 +2,10 @@ package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -18,7 +16,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.util.*;
 import code.util.CustList;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 import org.junit.Test;
 
 public final class RenderInitNavTest extends CommonRender {
@@ -253,7 +250,8 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, page_));
-        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds(), new RendStackCall(InitPhase.NOTHING,page_.getContext().getContext()));
+        ContextEl generate_ = page_.getForwards().getContext();
+        n_.initializeRendSession(generate_, page_.getStds(), new RendStackCall(InitPhase.NOTHING,generate_));
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
         assertEq(2,page_.getContext().getAddedFiles().size());
         assertEq(0,n_.getLanguages().size());
@@ -340,7 +338,8 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, page_));
-        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds(), new RendStackCall(InitPhase.NOTHING,page_.getContext().getContext()));
+        ContextEl generate_ = page_.getForwards().getContext();
+        n_.initializeRendSession(generate_, page_.getStds(), new RendStackCall(InitPhase.NOTHING,generate_));
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
@@ -432,7 +431,8 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, page_));
-        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds(), new RendStackCall(InitPhase.NOTHING,page_.getContext().getContext()));
+        ContextEl generate_ = page_.getForwards().getContext();
+        n_.initializeRendSession(generate_, page_.getStds(), new RendStackCall(InitPhase.NOTHING,generate_));
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
@@ -528,7 +528,8 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         assertTrue(setupRendClassesInit(n_, lgNames_, page_));
-        n_.initializeRendSession(page_.getContext().getContext(), page_.getStds(), new RendStackCall(InitPhase.NOTHING,page_.getContext().getContext()));
+        ContextEl generate_ = page_.getForwards().getContext();
+        n_.initializeRendSession(generate_, page_.getStds(), new RendStackCall(InitPhase.NOTHING,generate_));
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>content</body></html>",n_.getHtmlText());
     }
     private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {
@@ -650,7 +651,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        assertNull(loadConfiguration(lgNames_, xmlConf_, n_).getContext());
+        assertTrue(loadConfiguration(lgNames_, xmlConf_, n_).getContext().isKo());
     }
     @Test
     public void process2FailTest() {
@@ -685,7 +686,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "";
         Navigation n_ = new Navigation();
-        assertNull(loadConfiguration(lgNames_, xmlConf_, n_).getContext());
+        assertTrue(loadConfiguration(lgNames_, xmlConf_, n_).getContext().isKo());
     }
     @Test
     public void process3FailTest() {
@@ -766,7 +767,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        assertNull(loadConfiguration(lgNames_, xmlConf_, n_).getContext());
+        assertTrue(loadConfiguration(lgNames_, xmlConf_, n_).getContext().isKo());
     }
     @Test
     public void process4FailTest() {
@@ -847,7 +848,7 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        assertNull(loadConfiguration(lgNames_, xmlConf_, n_).getContext());
+        assertTrue(loadConfiguration(lgNames_, xmlConf_, n_).getContext().isKo());
     }
     private static void basicStandards(BeanLgNames _lgNames) {
         _lgNames.getContent().setDefaultPkg("java.lang");
@@ -1247,22 +1248,23 @@ public final class RenderInitNavTest extends CommonRender {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild(IndexConstants.INDEX_NOT_FOUND_ELT, opt_, lgNames_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(lgNames_, a_, kw_, new CustList<CommentDelimiters>(), opt_, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(lgNames_.getNbAlias()), BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_, page_, new DefaultFieldFilter());
+        BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases());
+        Forwards fwd_ = new Forwards(lgNames_, fileBuilder_, opt_);
+        ContextFactory.validatedStds(fwd_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgNames_.getContent(), page_);
         lgNames_.build();
         ValidatorStandard.setupOverrides(page_);
         assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestConfigurationBis(_conf, lgNames_, contextEl_, new DualConfigurationContext(), page_);
+        return new AnalyzedTestConfigurationBis(fwd_,_conf, lgNames_, new DualConfigurationContext(), page_);
     }
     private static boolean setupRendClassesInitStdMess(AnalyzedTestConfigurationBis _a, Navigation _n) {
         DualConfigurationContext d_ = _a.getDual();
-        DualAnalyzedContext dual_ = new DualAnalyzedContext(_a.getAnalyzing(),_a.getAdvStandards(),d_);
+        DualAnalyzedContext dual_ = new DualAnalyzedContext(_a.getFwd(),_a.getAnalyzing(),_a.getAdvStandards(),d_);
         return _a.getAdvStandards().setupAll(_n, _n.getSession(), _n.getFiles(), dual_).isAllEmptyErrors();
     }
 
     private void init(AnalyzedTestConfigurationBis _a, Navigation _n) {
-        _n.initializeRendSession(_a.getContext(), _a.getAdvStandards(), new RendStackCall(InitPhase.NOTHING,_a.getContext()));
+        _n.initializeRendSession(_a.getFwd().getContext(), _a.getAdvStandards(), new RendStackCall(InitPhase.NOTHING,_a.getFwd().getContext()));
     }
 
     private static boolean setupRendClassesInit(Navigation _nav, BeanCustLgNames _stds, DualAnalyzedContext _dual) {

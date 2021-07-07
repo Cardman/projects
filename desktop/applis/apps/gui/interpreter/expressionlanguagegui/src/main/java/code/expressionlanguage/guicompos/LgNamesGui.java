@@ -1,14 +1,16 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
@@ -98,7 +100,11 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     @Override
-    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage) {
-        return new GuiContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_tabWidth, _stack, this, new Classes(new ClassesCommon()), _coverage, new DefaultLockingClass(), new GuiInitializer(getInfos().getThreadFactory().newAtomicLong())));
+    public ContextEl newContext(Options _opt,Forwards _options) {
+        return new GuiContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
+    }
+    @Override
+    public AbstractConstantsCalculator newConstantsCalculator() {
+        return new AdvancedConstantsCalculator(this);
     }
 }

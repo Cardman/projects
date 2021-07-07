@@ -1,11 +1,8 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.fwd.Forwards;
 import code.stream.core.AbstractTextFact;
-import code.stream.core.AbstractZipFact;
 import code.stream.core.TechStreams;
 import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
@@ -31,8 +28,8 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     @Override
-    public void forwardAndClear(AnalyzedPageEl _ana, Forwards _forwards) {
-        super.forwardAndClear(_ana, _forwards);
+    public void forwardAndClear() {
+        super.forwardAndClear();
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) getStandards();
         standards_.forwardAndClear(getClasses());
     }

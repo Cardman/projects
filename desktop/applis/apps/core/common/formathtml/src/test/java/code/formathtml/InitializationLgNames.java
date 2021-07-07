@@ -1,18 +1,14 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
-import code.util.core.IndexConstants;
 import org.junit.Assert;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -29,13 +25,14 @@ public final class InitializationLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild(IndexConstants.INDEX_NOT_FOUND_ELT, _opt, lgNames_, tabWidth_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(lgNames_, a_, kw_, new CustList<CommentDelimiters>(), _opt, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(lgNames_.getNbAlias()), BeanFileBuilder.newInstance(lgNames_.getContent(),lgNames_.getBeanAliases()), lgNames_.getContent(), tabWidth_, page_, new DefaultFieldFilter());
+        BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases());
+        Forwards forwards_ = new Forwards(lgNames_, fileBuilder_, _opt);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), _opt, lgNames_.getContent(), page_);
         lgNames_.build();
         ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(contextEl_, page_, new Forwards(),lgNames_);
+        return new AnalyzedTestContext(_opt,page_, forwards_,lgNames_);
     }
 
     private static BeanCustLgNames getBeanCustLgNames() {

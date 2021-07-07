@@ -2,7 +2,6 @@ package code.formathtml.errors;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.BeanCustLgNamesImpl;
@@ -27,7 +26,6 @@ public final class RendAnalysisMessagesTest extends EquallableExUtil {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        getCtx(lgName_, opts_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setLogErr(lgName_);
         page_.setAnalysisMessages(new AnalysisMessages());
@@ -44,8 +42,5 @@ public final class RendAnalysisMessagesTest extends EquallableExUtil {
         RendAnalysisMessages lgNamesContent_ = new RendAnalysisMessages();
         lgNamesContent_.rendMessages(def_, cust_);
         assertEq("",lgNamesContent_.getEmptyAttr());
-    }
-    private static void getCtx(LgNames _lgName, Options _opts) {
-        _lgName.newContext(4, -1, new Coverage(_opts.isCovering()));
     }
 }

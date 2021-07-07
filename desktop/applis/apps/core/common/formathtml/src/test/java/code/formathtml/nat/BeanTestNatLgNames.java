@@ -3,10 +3,7 @@ package code.formathtml.nat;
 import code.bean.nat.*;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
-import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -17,9 +14,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
@@ -34,6 +29,7 @@ import code.formathtml.exec.opers.RendSettableFieldOperation;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.util.DualAnalyzedContext;
+import code.formathtml.util.DualConfigurationContext;
 import code.formathtml.util.NodeContainer;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -124,7 +120,7 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         page_.setForEachFetch(new NativeTestForEachFetch(this));
         initInstancesPattern(_nav.getSession(),analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
-        RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
+        RendForwardInfos.buildExec(analyzingDoc_, d_, _dual.getForwards(), _conf);
         return page_.getMessages();
     }
     public static void initInstancesPattern(Configuration _conf, AnalyzingDoc _anaDoc) {
@@ -163,14 +159,31 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         return struct_.getClassName(_ctx);
     }
 
-    ContextEl setupNative(AnalyzedPageEl _page) {
+    public Forwards setupNative(AnalyzedPageEl _page, DualConfigurationContext _context) {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        Options options_ = new Options();
         int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, options_, this, tabWidth_);
-        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), options_, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, _page, new NativeTestFieldFilter());
-        return contextEl_;
+        Options options_ = _context.getOptions();
+        Forwards forwards_ = new Forwards(this, _page.getFileBuilder(), options_);
+        _page.setLogErr(forwards_.getGenerator());
+        _page.setOptions(options_);
+        CustList<CommentDelimiters> comments_ = options_.getComments();
+        CommentsUtil.checkAndUpdateComments(comments_,new CustList<CommentDelimiters>());
+        _page.setComments(comments_);
+        _page.setDefaultAccess(options_.getDefaultAccess());
+        _page.setAnalysisMessages(new AnalysisMessages());
+        _page.setKeyWords(new KeyWords());
+        _page.setStandards(forwards_.getGenerator().getContent());
+        _page.setCalculator(forwards_.getConstantsCalculator());
+        _page.setFieldFilter(forwards_.getFieldFilter());
+        _page.setFileBuilder(forwards_.getFileBuilder());
+        _page.setResources(forwards_.getClasses().getResources());
+        _page.setStaticFields(forwards_.getClasses().getStaticFields());
+        _page.setTabWidth(options_.getTabWidth());
+        _page.setGettingErrors(options_.isGettingErrors());
+        build();
+        ValidatorStandard.setupOverrides(_page);
+        return forwards_;
     }
 
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStack) {
@@ -210,4 +223,8 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
 
     public abstract void setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value);
 
+    @Override
+    public AbstractFieldFilter newFieldFilter() {
+        return new NativeTestFieldFilter();
+    }
 }

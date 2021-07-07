@@ -3,12 +3,15 @@ package code.expressionlanguage.utilimpl;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AbstractFieldFilter;
+import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
@@ -110,7 +113,12 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     }
 
     @Override
-    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage) {
-        return new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_tabWidth, _stack, this, new Classes(new ClassesCommon()), _coverage, new DefaultLockingClass(), new CustInitializer(infos.getThreadFactory().newAtomicLong())));
+    public ContextEl newContext(Options _opt,Forwards _options) {
+        return new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
+    }
+
+    @Override
+    public AbstractFieldFilter newFieldFilter() {
+        return new DefaultFieldFilter();
     }
 }

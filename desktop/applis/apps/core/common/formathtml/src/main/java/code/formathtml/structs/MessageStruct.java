@@ -29,7 +29,7 @@ public final class MessageStruct extends WithoutParentIdStruct {
     }
 
     public String getMessage() {
-        return instance.getMessage();
+        return instance.getContent();
     }
 
     public StringList getArgs() {

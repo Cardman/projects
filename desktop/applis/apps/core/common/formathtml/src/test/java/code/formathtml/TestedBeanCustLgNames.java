@@ -2,7 +2,8 @@ package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.Options;
 import code.formathtml.util.BeanCustLgNames;
 import code.maths.montecarlo.AbstractGenerator;
 
@@ -12,8 +13,7 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
     }
 
     @Override
-    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage) {
-        return new TestedContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),new DefaultInitializer()));
+    public ContextEl newContext(Options _opt,Forwards _options) {
+        return new TestedContextEl(new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
     }
-
 }

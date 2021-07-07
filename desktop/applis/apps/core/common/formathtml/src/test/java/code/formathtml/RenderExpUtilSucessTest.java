@@ -1,7 +1,6 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.Delimiters;
@@ -12,7 +11,6 @@ import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -23,13 +21,14 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.fwd.RendForwardInfos;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
-public final class RenderExpUtilSucessTest extends CommonRender {
+public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     private static final String ARR_INT = "[$int";
     private static final String ARR_ARR_INT = "[[$int";
     private static final String ARR_INTEGER = "[java.lang.Integer";
@@ -128,7 +127,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
         context_.getLocalVariables().addEntry("v",LocalVariable.newLocalVariable(str_,"pkg.Ex"));
         Argument arg_ = buildAndCalculate(context_, all_);
@@ -576,7 +575,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
@@ -1083,10 +1082,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = rendOpSeq(0, context_, d_, el_);
         OperationNode op_ = rendOp(0, context_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        Classes.forwardAndClear(context_.getContext(), context_.getAnalyzing(), context_.getForwards());
+        generalForward(context_);
+        CustList<RendDynOperationNode> ex_ = getQuickExecutableNodes(context_, all_);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
         setGlobalArgumentStruct(context_, str_);
-        Argument arg_ = buildAndCalculate(context_, all_);
+        Argument arg_ = buildAndCalculate(context_, ex_);
         assertEq(2, getNumber(arg_));
     }
 
@@ -3116,7 +3116,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("(v)=$this.inst", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v", false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v)=$this.inst", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v", false);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
         setGlobalArgumentStruct(context_, str_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -3138,7 +3138,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("$this.inst=(v)", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("$this.inst=(v)", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v",false);
         Struct str_ = init(context_, "pkg.Ex");
         setGlobalArgumentStruct(context_, str_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -4189,7 +4189,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
         setGlobalType(conf_, "pkg.Ex");
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("(v+=$new pkg.Ex(8)).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v+=$new pkg.Ex(8)).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = init(conf_,"pkg.Ex");
@@ -4226,7 +4226,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
         setGlobalType(conf_, "pkg.Ex");
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("(v++).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v++).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
         LocalVariable lv_ = new LocalVariable();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         Struct value_ = init(conf_,"pkg.Ex");
@@ -4262,7 +4262,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
         setGlobalType(conf_, "pkg.Ex");
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("(++v).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(++v).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
         LocalVariable lv_ = new LocalVariable();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         Struct value_ = init(conf_,"pkg.Ex");
@@ -4871,7 +4871,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.integer-=12i", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.integer-=12i", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -4990,13 +4990,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Ex");
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("$classchoice(pkg.Ex)inst=v", 0, cont_, cont_.getAnalyzingDoc(),cont_.getAliasInteger(),"v",true);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("$classchoice(pkg.Ex)inst=v", 0, cont_, cont_.getAnalyzingDoc(),cont_.getAliasInteger(),"v",true);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
         lv_.setClassName(cont_.getAliasInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_, localVars_);
+        cont_.getForwards().generate(cont_.getOpt());
         buildAndCalculate(cont_, all_);
         Struct arg_ = getStaticField(cont_);
         assertSame(NullStruct.NULL_VALUE,arg_);
@@ -5069,7 +5070,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Composite");
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.integer++", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.integer++", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -5091,7 +5092,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Composite");
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("++v.integer", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("++v.integer", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -5114,7 +5115,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Composite");
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("(v.integer-=12i)", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v.integer-=12i)", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -5549,33 +5550,34 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = rendOpSeq(0, _context, d_, _s);
         OperationNode op_ = rendOp(0, _context, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(_context, op_);
-        Classes.forwardAndClear(_context.getContext(), _context.getAnalyzing(), _context.getForwards());
+        generalForward(_context);
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_context, all_);
         assertTrue(_context.isEmptyErrors());
-        ExecClassesUtil.forwardClassesMetaInfos(_context.getContext());
-        out_ = CommonRender.getReducedNodes(out_.last());
-        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getAnalyzing().getOptions());
+//        ExecClassesUtil.forwardClassesMetaInfos(_context.getContext());
+        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getOpt());
         Argument arg_ = caculateReuse(_context, out_);
         checkNullEx(_context);
         return arg_;
     }
 
-    private static Argument buildAndCalculate(AnalyzedTestConfiguration _context, CustList<OperationNode> _all) {
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(_context, _all);
+    private static void generalForward(AnalyzedTestConfiguration _context) {
+        ForwardInfos.generalForward(_context.getAnalyzing(), _context.getForwards());
+//        Classes.forwardAndClear(_context.getContext());
+    }
+
+    private static Argument buildAndCalculate(AnalyzedTestConfiguration _context, CustList<RendDynOperationNode> _all) {
         assertTrue(_context.isEmptyErrors());
-        out_ = CommonRender.getReducedNodes(out_.last());
-        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getAnalyzing().getOptions());
-        Argument arg_ = caculateReuse(_context, out_);
+        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getOpt());
+        Argument arg_ = caculateReuse(_context, _all);
         checkNullEx(_context);
         return arg_;
     }
 
     private static Argument buildAndCalculateFwd(AnalyzedTestConfiguration _context, CustList<OperationNode> _all) {
-        Classes.forwardAndClear(_context.getContext(), _context.getAnalyzing(), _context.getForwards());
+        generalForward(_context);
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_context, _all);
         assertTrue(_context.isEmptyErrors());
-        out_ = CommonRender.getReducedNodes(out_.last());
-        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getAnalyzing().getOptions());
+        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getOpt());
         Argument arg_ = caculateReuse(_context, out_);
         checkNullEx(_context);
         return arg_;
@@ -5603,7 +5605,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument processElNormalVar2Low(StringMap<String> _files, String _s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(_files);
-        ContextEl cont_ = conf_.getContext();
         conf_.getAnalyzingDoc().setup(conf_.getConfiguration(), conf_.getDual());
         setupAnalyzing(conf_, conf_.getAnalyzingDoc());
         Argument argGl_ = conf_.getArgument();
@@ -5613,11 +5614,12 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = rendOpSeq(0, conf_, d_, _s);
         OperationNode op_ = rendOp(0, conf_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(conf_, op_);
-        conf_.getAdvStandards().forwardAndClear(conf_.getConfiguration(),conf_.getAnalyzing(),conf_.getAnalyzingDoc(),conf_.getForwards(),conf_.getAnalyzed(),cont_);
+        ForwardInfos.generalForward(conf_.getAnalyzing(),conf_.getForwards());
+        RendForwardInfos.buildExec(conf_.getAnalyzingDoc(), conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
+//        conf_.getAdvStandards().forwardAndClear(conf_.getOpt(), conf_.getForwards());
         CustList<RendDynOperationNode> out_ = getExecutableNodes(conf_, all_);
         assertTrue(conf_.isEmptyErrors());
-        ExecClassesUtil.forwardClassesMetaInfos(conf_.getContext());
-        out_ = CommonRender.getReducedNodes(out_.last());
+//        ExecClassesUtil.forwardClassesMetaInfos(conf_.getContext());
         Argument arg_ = caculateReuse(conf_, out_);
         checkNullEx(conf_);
         return arg_;
@@ -5655,7 +5657,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
-        out_ = CommonRender.getReducedNodes(out_.last());
         Argument arg_ = caculateReuse(_an, out_);
         checkNullEx(_an);
         return arg_;
@@ -5707,10 +5708,9 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
-        ForwardInfos.generalForward(context_.getAnalyzing(),context_.getForwards(),context_.getContext());
+        ForwardInfos.generalForward(context_.getAnalyzing(),context_.getForwards());
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
-        out_ = CommonRender.getReducedNodes(out_.last());
-        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(), context_.getAnalyzing().getOptions());
+        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(), context_.getOpt());
         caculateReuse(context_, out_);
         checkNullEx(context_);
         return lv_;
@@ -5777,13 +5777,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo1_ = rendOpSeq(context_, d1_, el1_, 2);
         OperationNode op1_ = rendOp(context_, opTwo1_);
         CustList<OperationNode> all1_ = getSortedDescNodes(context_, op1_);
-        ForwardInfos.generalForward(context_.getAnalyzing(),context_.getForwards(),context_.getContext());
-        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(), context_.getAnalyzing().getOptions());
-        CustList<RendDynOperationNode> out1_ = getExecutableNodes(context_, all1_);
-        assertTrue(isEmptyErrors(context_));
-        out1_ = CommonRender.getReducedNodes(out1_.last());
-        caculateReuse(context_, out1_);
-        checkNullEx(context_);
+        ForwardInfos.generalForward(context_.getAnalyzing(),context_.getForwards());
+        CustList<RendDynOperationNode> out1_ = getQuickExecutableNodes(context_, all1_);
         setupAnalyzing(context_);
         Delimiters d_ = checkDel(_s, _i, context_);
         assertTrue(d_.getBadOffset() < 0);
@@ -5793,9 +5788,12 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = rendOpSeq(_i, context_, d_, el_);
         OperationNode op_ = rendOp(_i, context_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
+        CustList<RendDynOperationNode> out_ = getQuickExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
-        out_ = CommonRender.getReducedNodes(out_.last());
+        context_.getForwards().generate(context_.getOpt());
+        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(), context_.getOpt());
+        caculateReuse(context_, out1_);
+        checkNullEx(context_);
         Argument arg_ = caculateReuse(context_, out_);
         checkNullEx(context_);
         assertEq(_i2, analyzingDoc_.getNextIndex());
@@ -5809,6 +5807,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static Struct init(AnalyzedTestConfiguration _context, String _className) {
+        _context.getForwards().generate(_context.getOpt());
         ExecRootBlock classBody_ = _context.getContext().getClasses().getClassBody(_className);
         return _context.getContext().getInit().processInit(_context.getContext(), NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), "", -1);
     }
@@ -5831,11 +5830,10 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationNode op_ = rendOp(0, context_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
-        Classes.forwardAndClear(context_.getContext(), context_.getAnalyzing(), context_.getForwards());
+        generalForward(context_);
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
-        ExecClassesUtil.forwardClassesMetaInfos(context_.getContext());
-        out_ = CommonRender.getReducedNodes(out_.last());
-        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(),context_.getAnalyzing().getOptions());
+//        ExecClassesUtil.forwardClassesMetaInfos(context_.getContext());
+        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(),context_.getOpt());
         Argument arg_ = caculateReuse(context_, out_);
         checkNullEx(context_);
         return arg_;
@@ -5862,11 +5860,10 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = rendOpSeq(context_, d_, el_, 2);
         OperationNode op_ = rendOp(context_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        ForwardInfos.generalForward(context_.getAnalyzing(),context_.getForwards(),context_.getContext());
-        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(), context_.getAnalyzing().getOptions());
+        ForwardInfos.generalForward(context_.getAnalyzing(),context_.getForwards());
         CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
-        out_ = CommonRender.getReducedNodes(out_.last());
+        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(), context_.getOpt());
         Argument arg_ = caculateReuse(context_, out_);
         checkNullEx(context_);
         assertEq(_i, analyzingDoc_.getNextIndex());
@@ -5884,7 +5881,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static Argument processElNormalField(StringMap<String> _files, ClassField _keyField, String _clasName, IntStruct _value, String _varName, String _init) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(_files);
         setGlobalType(context_, _clasName);
-        CustList<OperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),_clasName,_varName,false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),_clasName,_varName,false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct str_ = initAndSet(context_, _keyField, _value, _init);
@@ -5932,7 +5929,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         a_.setConstType(ConstType.LOC_VAR);
         _analyzing.getInfosVars().put(_varName, a_);
     }
-    private static CustList<OperationNode> getQuickAnalyzedFwd(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc, String _type, String _varName, boolean _static) {
+    private static CustList<RendDynOperationNode> getQuickAnalyzedFwd(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc, String _type, String _varName, boolean _static) {
         _analyzingDoc.setup(_conf.getConfiguration(), _conf.getDual());
         setupAnalyzingOneVar(_conf.getAnalyzing(), _conf.getAnalyzingDoc(), _type, _varName);
         _conf.getAnalyzing().setAccessStaticContext(MethodId.getKind(_static));
@@ -5941,8 +5938,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = rendOpSeq(_index, _conf, d_, el_);
         OperationNode op_ = rendOp(_index, _conf, opTwo_);
         CustList<OperationNode> ops_ = getSortedDescNodes(_conf, op_);
-        Classes.forwardAndClear(_conf.getContext(), _conf.getAnalyzing(), _conf.getForwards());
-        return ops_;
+        generalForward(_conf);
+        return getQuickExecutableNodes(_conf,ops_);
     }
 
     private static void setGlobalType(AnalyzedTestConfiguration _context, String _clasName) {

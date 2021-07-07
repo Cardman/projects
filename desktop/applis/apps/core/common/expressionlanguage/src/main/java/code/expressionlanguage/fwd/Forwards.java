@@ -1,9 +1,19 @@
 package code.expressionlanguage.fwd;
 
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AbstractConstantsCalculator;
+import code.expressionlanguage.analyze.AbstractFieldFilter;
+import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.BuildableLgNames;
+import code.expressionlanguage.structs.Struct;
 import code.util.EntryCust;
 import code.util.IdMap;
+import code.util.StringMap;
 
 public final class Forwards {
     private String aliasPrimBoolean="";
@@ -15,6 +25,66 @@ public final class Forwards {
     private final IdMap<SwitchMethodBlock,ExecAbstractSwitchMethod> mapSwitchMethods = new IdMap<SwitchMethodBlock,ExecAbstractSwitchMethod>();
     private final IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock> mapAnonTypes = new IdMap<AnonymousTypeBlock,ExecAnonymousTypeBlock>();
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFctBodies = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
+
+    private final AbstractFileBuilder fileBuilder;
+    private final AbstractFieldFilter fieldFilter;
+    private final AbstractConstantsCalculator constantsCalculator;
+    private final Coverage coverage;
+    private final Classes classes;
+    private ContextEl context;
+    private final BuildableLgNames generator;
+
+    public Forwards(BuildableLgNames _generator, AbstractFileBuilder _fileBuilder, Options _options) {
+        generator = _generator;
+        fieldFilter = _generator.newFieldFilter();
+        constantsCalculator = _generator.newConstantsCalculator();
+        coverage = new Coverage(_options.isCovering());
+        coverage.setImplicit(_options.isDisplayImplicit());
+        coverage.setDisplayEncode(_options.isEncodeHeader());
+        classes = new Classes();
+        fileBuilder = _fileBuilder;
+    }
+
+    public ContextEl generate(Options _opt) {
+        context = generator.newContext(_opt,this);
+        return context;
+    }
+
+    public BuildableLgNames getGenerator() {
+        return generator;
+    }
+
+    public AbstractConstantsCalculator getConstantsCalculator() {
+        return constantsCalculator;
+    }
+
+    public AbstractFieldFilter getFieldFilter() {
+        return fieldFilter;
+    }
+
+    public AbstractFileBuilder getFileBuilder() {
+        return fileBuilder;
+    }
+
+    public ContextEl getContext() {
+        return context;
+    }
+
+    public Classes getClasses() {
+        return classes;
+    }
+
+    public Coverage getCoverage() {
+        return coverage;
+    }
+
+    public StringMap<String> getResources() {
+        return classes.getCommon().getResources();
+    }
+
+    public StringMap<StringMap<Struct>> getStaticFields() {
+        return classes.getCommon().getStaticFields();
+    }
 
     public void addMember(RootBlock _type, Members _mem) {
         mapMembers.addEntry(_type, _mem);

@@ -188,7 +188,7 @@ public final class RunningTest implements Runnable {
                 String output_ = l.substring("tabWidth=".length());
                 int t_ = NumberUtil.parseInt(output_);
                 if (t_ > 0) {
-                    _exec.setTabWidth(t_);
+                    _options.setTabWidth(t_);
                 }
             }
             if (l.startsWith("invokeDirect=")) {

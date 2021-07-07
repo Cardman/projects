@@ -1,9 +1,7 @@
 package code.formathtml.errors;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -355,12 +353,11 @@ public final class RendKeyWordsTest extends EquallableExUtil {
     }
 
     private static AnalyzedTestContext getCtx(KeyWords _kw, BeanCustLgNames _lgName, Options _opts) {
-        ContextEl s_ =  _lgName.newContext(4, -1, new Coverage(_opts.isCovering()));
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setLogErr(_lgName);
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(_kw);
-        return new AnalyzedTestContext(s_, page_, new Forwards(), _lgName);
+        return new AnalyzedTestContext(_opts,page_, new Forwards(_lgName,null, _opts), _lgName);
     }
 
     private static void validateAttrContents(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {

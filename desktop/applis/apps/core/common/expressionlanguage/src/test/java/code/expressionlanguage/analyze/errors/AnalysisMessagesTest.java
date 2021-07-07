@@ -1,12 +1,9 @@
 package code.expressionlanguage.analyze.errors;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.EquallableElUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.sample.CustLgNames;
-import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import org.junit.Test;
 
@@ -242,8 +239,6 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
         def_.setEmptyPart("");
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        Options opts_ = new Options();
-        getCtx(lgName_, opts_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setLogErr(lgName_);
         page_.setAnalysisMessages(def_);
@@ -251,7 +246,4 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
         assertTrue(!page_.isEmptyMessageError());
     }
 
-    private static ContextEl getCtx(LgNames _lgName, Options _opts) {
-        return _lgName.newContext(4,-1, new Coverage(_opts.isCovering()));
-    }
 }

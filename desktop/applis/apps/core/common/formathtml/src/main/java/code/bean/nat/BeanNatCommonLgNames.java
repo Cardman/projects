@@ -4,18 +4,23 @@ import code.bean.Bean;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AbstractFieldFilter;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
@@ -28,9 +33,7 @@ import code.formathtml.exec.opers.RendSettableFieldOperation;
 import code.formathtml.exec.opers.RendStdFctOperation;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.NodeContainer;
-import code.formathtml.util.NodeInformations;
+import code.formathtml.util.*;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -236,10 +239,38 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     }
 
     @Override
-    public ContextEl newContext(int _tabWidth, int _stack, Coverage _coverage) {
-        return new NativeContextEl(new CommonExecutionInfos(_tabWidth,_stack,this,new Classes(new ClassesCommon()),_coverage,new DefaultLockingClass(),new DefaultInitializer()));
+    public ContextEl newContext(Options _opt,Forwards _options) {
+        return new NativeContextEl(new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this, _options.getClasses(), _options.getCoverage(),new DefaultLockingClass(),new DefaultInitializer()));
     }
 
+    @Override
+    public AbstractFieldFilter newFieldFilter() {
+        return new NativeFieldFilter();
+    }
+
+    public Forwards setupNative(AnalyzedPageEl _page, DualConfigurationContext _context) {
+        Options options_ = _context.getOptions();
+        Forwards forwards_ = new Forwards(this, _page.getFileBuilder(), options_);
+        _page.setLogErr(forwards_.getGenerator());
+        _page.setOptions(options_);
+        CustList<CommentDelimiters> comments_ = options_.getComments();
+        CommentsUtil.checkAndUpdateComments(comments_,new CustList<CommentDelimiters>());
+        _page.setComments(comments_);
+        _page.setDefaultAccess(options_.getDefaultAccess());
+        _page.setAnalysisMessages(new AnalysisMessages());
+        _page.setKeyWords(new KeyWords());
+        _page.setStandards(forwards_.getGenerator().getContent());
+        _page.setCalculator(forwards_.getConstantsCalculator());
+        _page.setFieldFilter(forwards_.getFieldFilter());
+        _page.setFileBuilder(forwards_.getFileBuilder());
+        _page.setResources(forwards_.getClasses().getResources());
+        _page.setStaticFields(forwards_.getClasses().getStaticFields());
+        _page.setTabWidth(options_.getTabWidth());
+        _page.setGettingErrors(options_.isGettingErrors());
+        build();
+        ValidatorStandard.setupOverrides(_page);
+        return forwards_;
+    }
     public void rendRefresh(Navigation _navigation, ContextEl _context, RendStackCall _rendStack) {
         for (Bean b: beans.values()) {
             b.setLanguage(_navigation.getLanguage());

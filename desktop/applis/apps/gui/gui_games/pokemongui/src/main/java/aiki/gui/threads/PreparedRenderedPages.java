@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.bean.nat.BeanNatLgNames;
+import code.formathtml.util.AbstractConfigurationLoader;
 import code.formathtml.util.DualAnalyzedContext;
 import code.gui.document.PreparedAnalyzed;
 import code.sml.Document;
@@ -42,10 +43,9 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         PokemonStandards stds_ = new PokemonStandards();
         beanNatLgNames = stds_;
 //        String content_ = ResourceFiles.ressourceFichier(conf);
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(stds_, init);
+        AbstractConfigurationLoader nat_ = new NativeConfigurationLoader(stds_, init);
         DualAnalyzedContext du_ = navigation.innerLoad("", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_,null);
 //        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_);
-        context = du_.getContext().getContext();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         StringMap<Document> docs_ = new StringMap<Document>();
@@ -73,6 +73,7 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
 //        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
         stds_.setupAll(docs_,navigation, navigation.getSession(), navigation.getFiles(), du_);
+        context = du_.getForwards().generate(du_.getContext().getOptions());
     }
 
     public Navigation getNavigation() {

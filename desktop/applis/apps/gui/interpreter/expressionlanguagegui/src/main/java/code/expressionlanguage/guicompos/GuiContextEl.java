@@ -1,8 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.threads.AbstractThread;
@@ -15,8 +13,8 @@ public final class GuiContextEl extends RunnableContextEl {
     }
 
     @Override
-    public void forwardAndClear(AnalyzedPageEl _ana, Forwards _forwards) {
-        super.forwardAndClear(_ana, _forwards);
+    public void forwardAndClear() {
+        super.forwardAndClear();
         LgNamesGui standards_ = (LgNamesGui) getStandards();
         standards_.getGuiExecutingBlocks().forwardAndClear(standards_.getGuiAliases(),standards_.getContent(), this, getClasses());
     }

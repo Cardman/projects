@@ -188,13 +188,6 @@ public final class MainWindow extends GroupFrame {
                     _exec.setMainThread(StringUtil.replaceBackSlash(output_.substring(lastSep_+1)));
                 }
             }
-            if (l.startsWith("tabWidth=")) {
-                String output_ = l.substring("tabWidth=".length());
-                int t_ = NumberUtil.parseInt(output_);
-                if (t_ > 0) {
-                    _exec.setTabWidth(t_);
-                }
-            }
             if (l.startsWith("lgs=")) {
                 String output_ = l.substring("lgs=".length());
                 for (String s: StringUtil.splitChars(output_,',')) {

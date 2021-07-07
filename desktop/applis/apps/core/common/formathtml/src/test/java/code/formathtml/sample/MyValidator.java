@@ -19,20 +19,20 @@ public class MyValidator implements Validator {
             } else {
                 message_.setArgs(Long.toString(NumParsers.convertToNumber(_value).longStruct()));
             }
-            message_.setMessage(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
+            message_.setContent(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
             return message_;
         }
         if (!Rate.matchesRate(((StringStruct) _value).getInstance())) {
             Message message_ = new Message();
             message_.setArgs(((StringStruct) _value).getInstance());
-            message_.setMessage(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
+            message_.setContent(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
             return message_;
         }
         Rate rate_ = new Rate(((StringStruct)_value).getInstance());
         if (rate_.isZero()) {
             Message message_ = new Message();
             message_.setArgs(((StringStruct) _value).getInstance());
-            message_.setMessage("0 is unacceptable");
+            message_.setContent("0 is unacceptable");
             return message_;
         }
         return null;

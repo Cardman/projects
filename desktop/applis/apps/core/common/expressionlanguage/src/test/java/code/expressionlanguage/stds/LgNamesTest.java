@@ -1,10 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.AbstractConstantsCalculator;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.options.*;
@@ -15,7 +12,6 @@ import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.fwd.Forwards;
@@ -2330,11 +2326,14 @@ public class LgNamesTest extends ProcessMethodCommon {
         Options options_ = new Options();
         AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
         AnalyzedTestContext contextEl_ = getCtx(kw_, lgName_, options_, calculator_);
-        ContextEl ctx_ = contextEl_.getContext();
-        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, ctx_.getClasses().getCommon(), calculator_,DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent());
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        Forwards forwards_ = contextEl_.getForwards();
+        ContextFactory.validateStds(forwards_,contextEl_.getAnalyzing().getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
+        ContextFactory.addResourcesAndValidate(options_, all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
+        ContextEl ctx_ = forwards_.getContext();
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
@@ -2366,11 +2365,14 @@ public class LgNamesTest extends ProcessMethodCommon {
         Options options_ = new Options();
         AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
         AnalyzedTestContext contextEl_ = getCtx(kw_, lgName_, options_, calculator_);
-        ContextEl ctx_ = contextEl_.getContext();
-        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,ctx_,"src", new CustList<CommentDelimiters>(),options_, ctx_.getClasses().getCommon(), calculator_, DefaultFileBuilder.newInstance(lgName_.getContent()), lgName_.getContent());
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        Forwards forwards_ = contextEl_.getForwards();
+        ContextFactory.validateStds(forwards_,contextEl_.getAnalyzing().getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
+        ContextFactory.addResourcesAndValidate(options_, all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
+        ContextEl ctx_ = forwards_.getContext();
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
@@ -2381,17 +2383,17 @@ public class LgNamesTest extends ProcessMethodCommon {
 
     private static AnalyzedTestContext getCtx(KeyWords _kw, LgNames _lgName, Options _options, AbstractConstantsCalculator _calculator) {
         AnalysisMessages mess_ = new AnalysisMessages();
-        ContextEl ctx_ = _lgName.newContext(4,-1, new Coverage(_options.isCovering()));
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(mess_);
         page_.setKeyWords(_kw);
-        page_.setFileBuilder(DefaultFileBuilder.newInstance(_lgName.getContent()));
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(_lgName.getContent());
+        page_.setFileBuilder(fileBuilder_);
         page_.setStandards(_lgName.getContent());
         page_.setLogErr(_lgName);
         page_.setCalculator(_calculator);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
-        return new AnalyzedTestContext(ctx_,page_, new Forwards());
+        return new AnalyzedTestContext(_options,page_, new Forwards(_lgName,fileBuilder_, _options));
     }
 
     private static StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AnalyzedTestContext _lgName) {

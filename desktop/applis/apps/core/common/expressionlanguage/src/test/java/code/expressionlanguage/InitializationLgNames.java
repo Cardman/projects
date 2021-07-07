@@ -57,13 +57,16 @@ public final class InitializationLgNames {
     }
 
     private static AnalyzedTestContext common(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator, AnalysisMessages _a, KeyWords _kw, int _tabWidth) {
-        ContextEl out_ = ContextFactory.simpleBuild(_stack, _opt, _lgNames, _tabWidth);
+        _opt.setTabWidth(_tabWidth);
+        _opt.setStack(_stack);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ContextFactory.validatedStds(_lgNames, _a, _kw, new CustList<CommentDelimiters>(), _opt, out_.getClasses().getCommon(), _calculator, DefaultFileBuilder.newInstance(_lgNames.getContent()), _lgNames.getContent(), _tabWidth, page_, new DefaultFieldFilter());
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(_lgNames.getContent());
+        Forwards forwards_ = new Forwards(_lgNames, fileBuilder_, _opt);
+        ContextFactory.validatedStds(forwards_, _a, _kw, new CustList<CommentDelimiters>(), _opt, _lgNames.getContent(), page_);
         _lgNames.build();
         ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(out_, page_, new Forwards());
+        return new AnalyzedTestContext(_opt,page_, forwards_);
     }
 
     private static AnalyzedTestContext buildToStringAna(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {

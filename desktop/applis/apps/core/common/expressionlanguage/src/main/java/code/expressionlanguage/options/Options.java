@@ -17,6 +17,8 @@ public final class Options {
     private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private final DefaultAccess defaultAccess = new DefaultAccess();
     private char delimiterCase;
+    private int tabWidth = 4;
+    private int stack = -1;
     public Options() {
         setDelimiterCase(':');
     }
@@ -87,5 +89,21 @@ public final class Options {
 
     public DefaultAccess getDefaultAccess() {
         return defaultAccess;
+    }
+
+    public int getTabWidth() {
+        return tabWidth;
+    }
+
+    public void setTabWidth(int _tabWidth) {
+        this.tabWidth = _tabWidth;
+    }
+
+    public int getStack() {
+        return stack;
+    }
+
+    public void setStack(int _stack) {
+        this.stack = _stack;
     }
 }

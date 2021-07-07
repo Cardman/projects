@@ -17,7 +17,6 @@ public final class ExecutingOptions {
     private String outputZip = "out/results.zip";
     private String outputFolder = "";
     private String output = "";
-    private int tabWidth = 4;
     private final AbstractAtomicBoolean interrupt;
     private boolean covering;
     private String coverFolder = "coverage";
@@ -115,14 +114,6 @@ public final class ExecutingOptions {
 
     public void setErrorsFolder(String _errorsFolder) {
         errorsFolder = _errorsFolder;
-    }
-
-    public int getTabWidth() {
-        return tabWidth;
-    }
-
-    public void setTabWidth(int _tabWidth) {
-        tabWidth = _tabWidth;
     }
 
     public boolean isInvokeDirect() {

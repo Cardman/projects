@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.*;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
@@ -17,9 +18,6 @@ import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.fwd.RendForwardInfos;
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
@@ -99,7 +97,8 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
         page_.setForEachFetch(new NativeForEachFetch(this));
         initInstancesPattern(_nav.getSession(),analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(_docs,page_, this, analyzingDoc_, _dual.getContext());
-        RendForwardInfos.buildExec(analyzingDoc_, d_, new Forwards(), _conf);
+        Forwards forwards_ = _dual.getForwards();
+        RendForwardInfos.buildExec(analyzingDoc_, d_, forwards_, _conf);
     }
     @Override
     public String processString(Argument _arg, ContextEl _ctx, RendStackCall _stack) {
@@ -135,16 +134,6 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
     }
     public abstract ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
                                              ClassMethodId _method, Struct... _args);
-
-    public ContextEl setupNative(AnalyzedPageEl _page) {
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kw_ = new KeyWords();
-        Options options_ = new Options();
-        int tabWidth_ = 4;
-        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, options_, this, tabWidth_);
-        ContextFactory.validateStds(a_, kw_, this, new CustList<CommentDelimiters>(), options_, contextEl_.getClasses().getCommon(), new DefaultConstantsCalculator(getNbAlias()), DefaultFileBuilder.newInstance(getContent()), getContent(),tabWidth_, _page, new NativeFieldFilter());
-        return contextEl_;
-    }
 
     public abstract ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val);
 

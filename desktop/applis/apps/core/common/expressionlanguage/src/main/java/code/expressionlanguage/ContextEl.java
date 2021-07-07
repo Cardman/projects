@@ -1,14 +1,10 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.*;
 
 public abstract class ContextEl {
 
@@ -64,13 +60,7 @@ public abstract class ContextEl {
         return executionInfos;
     }
 
-    public void forwardAndClear(AnalyzedPageEl _ana, Forwards _forwards) {
-        ForwardInfos.generalForward(_ana,_forwards, this);
-        for (ClassMetaInfo c: _ana.getClassMetaInfos()) {
-            getClasses().getClassMetaInfos().add(c);
-        }
-        _ana.getClassMetaInfos().clear();
-        getClasses().setKeyWordValue(_ana.getKeyWords().getKeyWordValue());
+    public void forwardAndClear() {
         ExecClassesUtil.buildIterable(getClasses(), this);
     }
 

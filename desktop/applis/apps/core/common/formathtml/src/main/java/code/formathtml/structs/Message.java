@@ -7,7 +7,7 @@ public final class Message {
 
     private static final String EMPTY_STRING = "";
 
-    private String message;
+    private String content;
 
     private String[] args;
 
@@ -17,17 +17,17 @@ public final class Message {
 
     public static Message newStandardMessage(String _message) {
         Message message_ = new Message();
-        message_.setMessage(_message);
+        message_.setContent(_message);
         message_.setArgs();
         return message_;
     }
 
-    public String getMessage() {
-        return message;
+    public String getContent() {
+        return content;
     }
 
-    public void setMessage(String _message) {
-        message = _message;
+    public void setContent(String _message) {
+        content = _message;
     }
 
     public StringList getArgs() {

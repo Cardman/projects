@@ -80,14 +80,7 @@ public final class CustThreadActions extends AbstractThreadActions {
         AbstractFileBuilder fileBuilder_;
         fileBuilder_ = new CustBeanFileBuilder(stds.getContent(), stds.getBeanAliases(), ((LgNamesRenderUtils)stds).getCustAliases());
         DualAnalyzedContext du_ = getPage().getNavigation().loadConfiguration(content_, lgCode, stds, fileBuilder_, def_);
-        DualConfigurationContext dualCtx_ = du_.getContext();
-        if (dualCtx_ == null) {
-            afterActionWithoutRemove(null, null);
-            return;
-        }
-        ContextEl ctx_ = dualCtx_.getContext();
-        getPage().setContext(ctx_);
-        if (ctx_ == null) {
+        if (du_.getContext().isKo()) {
             afterActionWithoutRemove(null, null);
             return;
         }
@@ -101,6 +94,8 @@ public final class CustThreadActions extends AbstractThreadActions {
             finish();
             return;
         }
+        ContextEl ctx_ = du_.getForwards().getContext();
+        getPage().setContext(ctx_);
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         if (fileNames != null) {
             LgNames stds_ = ctx_.getStandards();

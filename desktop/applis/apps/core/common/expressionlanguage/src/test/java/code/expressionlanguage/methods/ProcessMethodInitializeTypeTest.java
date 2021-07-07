@@ -1472,8 +1472,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final StringBuilder inst=$new StringBuilder();\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxMustInitFail(files_);
-        assertTrue(!isSuccessfulInitialized(cont_, "pkg.Ex"));
+        assertTrue(ctxMustInitFail(files_));
     }
     private Boolean getBoolean(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = getStaticField(_cont, new ClassField(_className, _fieldName));

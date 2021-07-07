@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.util.*;
@@ -44,8 +45,8 @@ public final class Classes {
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
     private String keyWordValue = "";
 
-    public Classes(ClassesCommon _common){
-        common = _common;
+    public Classes(){
+        common = new ClassesCommon();
         classesBodies = new StringMap<ExecRootBlock>();
     }
 
@@ -55,21 +56,23 @@ public final class Classes {
 	}
 
     /**Resources are possibly added before analyzing file types*/
-    public static ReportedMessages validateAll(StringMap<String> _files, ContextEl _context, AnalyzedPageEl _page, Forwards _forwards) {
+    public static ReportedMessages validateAll(Options _opt, StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
         validateWithoutInit(_files, _page);
         ReportedMessages messages_ = _page.getMessages();
         if (!_page.isEmptyErrors()) {
             //all errors are logged here
             return messages_;
         }
-        forwardAndClear(_context, _page, _forwards);
+        ForwardInfos.generalForward(_page,_forwards);
+        ContextEl ctx_ = _forwards.generate(_opt);
+        forwardAndClear(ctx_);
         Options options_ = _page.getOptions();
-        ExecClassesUtil.tryInitStaticlyTypes(_context, options_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, options_);
         return messages_;
     }
 
-    public static void forwardAndClear(ContextEl _context, AnalyzedPageEl _analyzing, Forwards _forwards) {
-        _context.forwardAndClear(_analyzing, _forwards);
+    public static void forwardAndClear(ContextEl _context) {
+        _context.forwardAndClear();
     }
 
     public static void validateWithoutInit(StringMap<String> _files, AnalyzedPageEl _page) {

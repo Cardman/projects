@@ -1,6 +1,8 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.AbstractFieldFilter;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -18,6 +20,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -406,8 +409,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
-        Forwards forwards_ = new Forwards();
         AnalyzedPageEl page_ = _dual.getAnalyzed();
+        Forwards forwards_ = _dual.getForwards();
         setupRendClasses(_files, page_, _dual.getContext().getFilesConfName(), _dual.getContext().getAddedResources());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setReducingOperations(new DefaultReducingOperations());
@@ -420,17 +423,24 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (!messages_.isAllEmptyErrors()) {
             return messages_;
         }
-        forwardAndClear(_conf, page_, analyzingDoc_, forwards_, d_, _dual.getContext().getContext());
+        ForwardInfos.generalForward(page_, forwards_);
+        RendForwardInfos.buildExec(analyzingDoc_, d_, forwards_, _conf);
+        forwardAndClear(_dual.getContext().getOptions(), forwards_);
         Options options_ = page_.getOptions();
-        ContextEl context_ = _dual.getContext().getContext();
+        ContextEl context_ = forwards_.getContext();
         ExecClassesUtil.tryInitStaticlyTypes(context_, options_);
         return messages_;
     }
 
-    public void forwardAndClear(Configuration _conf, AnalyzedPageEl _page, AnalyzingDoc _anaDoc, Forwards _forward, StringMap<AnaRendDocumentBlock> _analyzed, ContextEl _context) {
-        Classes.forwardAndClear(_context, _page, _forward);
-        RendForwardInfos.buildExec(_anaDoc, _analyzed, _forward, _conf);
-        buildIterables(_context.getClasses());
+    public void forwardAndClear(Options _options, Forwards _forward) {
+        ContextEl ctx_ = _forward.generate(_options);
+        Classes.forwardAndClear(ctx_);
+        buildIterables(ctx_.getClasses());
+    }
+
+    @Override
+    public AbstractFieldFilter newFieldFilter() {
+        return new DefaultFieldFilter();
     }
 
     private static void setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName, StringList _added) {

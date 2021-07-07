@@ -1,6 +1,8 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AbstractConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.exec.ClassFieldStruct;
@@ -143,6 +145,11 @@ public abstract class LgNames implements BuildableLgNames {
 
     public LgNamesContent getContent() {
         return content;
+    }
+
+    @Override
+    public AbstractConstantsCalculator newConstantsCalculator() {
+        return new DefaultConstantsCalculator(getNbAlias());
     }
 
     protected void setCalculator(AbstractExecConstantsCalculator _calculator) {

@@ -1,15 +1,14 @@
 package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -19,12 +18,11 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 import code.util.EntryCust;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 
 public final class CustContextFactory {
     private CustContextFactory(){}
     public static ResultsRunnableContext buildDefKw(String _lang,
-                                                    Options _options, ExecutingOptions _exec, LgNamesWithNewAliases _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
+                                                    Options _options, ExecutingOptions _exec, LgNamesWithNewAliases _undefinedLgNames, StringMap<String> _files) {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
         if (!_lang.isEmpty()) {
@@ -37,7 +35,7 @@ public final class CustContextFactory {
             _undefinedLgNames.getCustAliases().allAlias(_undefinedLgNames.getContent(),_exec.getAliases(), new StringMap<String>());
         }
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
-        return build(IndexConstants.INDEX_NOT_FOUND_ELT, _options, _exec,mess_,kwl_, _undefinedLgNames, _files, _tabWidth);
+        return build(_options, _exec,mess_,kwl_, _undefinedLgNames, _files);
     }
     public static void executeDefKw(String _lang,
                                     Options _options, ExecutingOptions _exec, StringMap<String> _files, ProgressingTests _progressingTests, LgNamesUtils _stds) {
@@ -53,17 +51,16 @@ public final class CustContextFactory {
             _stds.getCustAliases().allAlias(_stds.getContent(),_exec.getAliases(), new StringMap<String>());
         }
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
-        execute(-1,_options,_exec,mess_,kwl_, _stds,_files,_progressingTests);
+        execute(_options,_exec,mess_,kwl_, _stds,_files,_progressingTests);
     }
-    public static void execute(int _stack,
-                               Options _options, ExecutingOptions _exec,
+    public static void execute(Options _options, ExecutingOptions _exec,
                                AnalysisMessages _mess,
                                KeyWords _definedKw,
                                LgNamesUtils _definedLgNames, StringMap<String> _files,
                                ProgressingTests _progressingTests) {
         _progressingTests.init(_exec);
-        ResultsRunnableContext res_ = build(_stack, _options, _exec, _mess,_definedKw,
-                _definedLgNames, _files, _exec.getTabWidth());
+        ResultsRunnableContext res_ = build(_options, _exec, _mess,_definedKw,
+                _definedLgNames, _files);
         RunnableContextEl rCont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         FileInfos infos_ = _definedLgNames.getInfos();
@@ -108,15 +105,13 @@ public final class CustContextFactory {
             }
         }
     }
-    public static ResultsRunnableContext build(int _stack,
-                                               Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesWithNewAliases _definedLgNames, StringMap<String> _files, int _tabWidth) {
+    public static ResultsRunnableContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesWithNewAliases _definedLgNames, StringMap<String> _files) {
         _definedLgNames.setExecutingOptions(_exec);
-        Coverage coverage_ = new Coverage(_options.isCovering());
-        coverage_.setImplicit(_options.isDisplayImplicit());
-        coverage_.setDisplayEncode(_options.isEncodeHeader());
-        RunnableContextEl r_ = (RunnableContextEl) _definedLgNames.newContext(_tabWidth, _stack, coverage_);
-        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.getCustAliases().defComments(), _options, r_.getClasses().getCommon(),
-                new DefaultConstantsCalculator(_definedLgNames.getContent().getNbAlias()), CustFileBuilder.newInstance(_definedLgNames.getContent(), _definedLgNames.getCustAliases()), _definedLgNames.getContent());
-        return new ResultsRunnableContext(r_,reportedMessages_);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        CustFileBuilder fileBuilder_ = CustFileBuilder.newInstance(_definedLgNames.getContent(), _definedLgNames.getCustAliases());
+        Forwards forwards_ = new Forwards(_definedLgNames, fileBuilder_, _options);
+        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
+        ReportedMessages reportedMessages_ = ContextFactory.addResourcesAndValidate(_options, _files, _exec.getSrcFolder(), page_, forwards_);
+        return new ResultsRunnableContext((RunnableContextEl) forwards_.getContext(),reportedMessages_);
     }
 }

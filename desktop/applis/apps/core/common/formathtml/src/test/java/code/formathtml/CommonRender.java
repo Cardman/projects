@@ -21,6 +21,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.WarningShow;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
@@ -125,15 +126,15 @@ public abstract class CommonRender extends EquallableExUtil {
     }
 
     protected static void tryInitStaticlyTypes(AnalyzedTestConfiguration _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(), page_.getOptions());
+        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(), _context.getOpt());
 //        addInnerPage(_context);
     }
 
     protected static void tryForward(AnalyzedTestConfiguration _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
-        ((BeanCustLgNames)_context.getStandards()).forwardAndClear(_context.getConfiguration(),page_, _context.getAnalyzingDoc(),
-                _context.getForwards(), _context.getAnalyzed(), _context.getContext());
+        ForwardInfos.generalForward(page_,_context.getForwards());
+        RendForwardInfos.buildExec(_context.getAnalyzingDoc(), _context.getAnalyzed(), _context.getForwards(), _context.getConfiguration());
+        _context.getAdvStandards().forwardAndClear(_context.getOpt(), _context.getForwards());
     }
 
     protected static Struct getStruct(Struct _struct, ClassField _cl) {
@@ -175,10 +176,6 @@ public abstract class CommonRender extends EquallableExUtil {
 
     protected static CustList<OperationNode> getSortedDescNodes(AnalyzedTestConfiguration _conf, OperationNode _op) {
         return RenderAnalysis.getSortedDescNodes(_op, _conf.getAnalyzingDoc(), _conf.getAnalyzing());
-    }
-
-    protected static CustList<RendDynOperationNode> getExecutableNodes(AnalyzedTestConfiguration _an, CustList<OperationNode> _ops) {
-        return getExecutableNodes(_ops, _an.getForwards());
     }
 
     protected static OperationsSequence getOperationsSequence(int _offset, String _el, AnalyzedTestConfiguration _ctx, Delimiters _d) {
@@ -1087,11 +1084,6 @@ public abstract class CommonRender extends EquallableExUtil {
     private static void newTwoBean(AnalyzedTestConfiguration _a) {
         newOneBean(_a);
         newBeanInfo(_a, "pkg.BeanTwo", "bean_two");
-    }
-
-    private static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, Forwards _forwards) {
-        OperationNode root_ = _list.last();
-        return RendForwardInfos.getExecutableNodes(root_, _forwards);
     }
 
     private static void addBeanInfo(Navigation _nav, BeanInfo _i, String _bean) {

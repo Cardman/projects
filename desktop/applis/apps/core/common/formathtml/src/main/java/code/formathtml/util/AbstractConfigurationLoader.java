@@ -10,11 +10,10 @@ import code.util.core.StringUtil;
 
 public abstract class AbstractConfigurationLoader {
 
-    public DualConfigurationContext load(Configuration _configuration, String _lgCode, Document _document, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
+    public DualAnalyzedContext load(Configuration _configuration, String _lgCode, Document _document, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page, BeanLgNames _lgNames) {
         DualConfigurationContext d_ = new DualConfigurationContext();
         d_.setFileBuilder(_fileBuilder);
-        specificLoad(_configuration,_lgCode,_document, d_, _page);
-        return d_;
+        return specificLoad(_configuration,_lgCode,_document, _page, _lgNames, d_);
     }
 
     protected void update(Configuration _configuration, Document _document, DualConfigurationContext _d) {
@@ -59,6 +58,6 @@ public abstract class AbstractConfigurationLoader {
         }
     }
 
-    public abstract void specificLoad(Configuration _configuration, String _lgCode, Document _document, DualConfigurationContext _dual, AnalyzedPageEl _page);
+    public abstract DualAnalyzedContext specificLoad(Configuration _configuration, String _lgCode, Document _document, AnalyzedPageEl _page, BeanLgNames _stds, DualConfigurationContext _context);
 
 }

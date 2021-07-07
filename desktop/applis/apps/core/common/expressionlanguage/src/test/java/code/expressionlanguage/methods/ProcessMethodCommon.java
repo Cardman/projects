@@ -41,8 +41,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static final String STRING = "java.lang.String";
     protected static final String BOOLEAN = "java.lang.Boolean";
 
-    protected static ReportedMessages validate(StringMap<String> _files, ContextEl _contextEl, AnalyzedPageEl _page, Forwards _forwards) {
-        return ContextFactory.addResourcesAndValidate(_files,_contextEl,"src", _page, _forwards);
+    protected static ReportedMessages validate(StringMap<String> _files, Options _opt, AnalyzedPageEl _page, Forwards _forwards) {
+        return ContextFactory.addResourcesAndValidate(_opt,_files, "src", _page, _forwards);
     }
 
     protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
@@ -364,15 +364,15 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return InitializationLgNames.buildStdEnumsAna(opt_);
     }
 
-    protected static ContextEl ctxMustInitFail(StringMap<String> _files) {
+    protected static boolean ctxMustInitFail(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElReadOnlyMustInit();
         ReportedMessages reportedMessages_ = validateAll(_files, cont_);
-        assertTrue(reportedMessages_.displayErrors(),!reportedMessages_.isAllEmptyErrors());
-        return cont_.getContext();
+        reportedMessages_.displayErrors();
+        return !reportedMessages_.isAllEmptyErrors();
     }
 
     protected static ReportedMessages validateAll(StringMap<String> _files, AnalyzedTestContext _cont) {
-        return Classes.validateAll(_files, _cont.getContext(), _cont.getAnalyzing(), _cont.getForwards());
+        return Classes.validateAll(_cont.getOpt(), _files, _cont.getAnalyzing(), _cont.getForwards());
     }
 
     protected static ContextEl ctxMustInit(StringMap<String> _files) {
@@ -472,7 +472,9 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static void forwardAndClear(AnalyzedTestContext _cont) {
-        Classes.forwardAndClear(_cont.getContext(), _cont.getAnalyzing(), _cont.getForwards());
+        ForwardInfos.generalForward(_cont.getAnalyzing(),_cont.getForwards());
+        _cont.getForwards().generate(_cont.getOpt());
+        Classes.forwardAndClear(_cont.getContext());
     }
 
     protected static void validateWithoutInit(StringMap<String> _files, AnalyzedTestContext _cont) {
@@ -502,7 +504,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static void postValidation(AnalyzedTestContext _ctx) {
         ClassesUtil.postValidation(_ctx.getAnalyzing());
-        ForwardInfos.generalForward(_ctx.getAnalyzing(), _ctx.getForwards(), _ctx.getContext());
+        ForwardInfos.generalForward(_ctx.getAnalyzing(), _ctx.getForwards());
     }
 
     protected static void validateEl(AnalyzedTestContext _cont) {
@@ -611,13 +613,13 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return _cont.getContext();
     }
 
-    protected ContextEl validateStaticFieldsFail(StringMap<String> _files) {
+    protected StringMap<StringMap<Struct>> validateStaticFieldsFail(StringMap<String> _files) {
         Options opt_ = newOptions();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         validateWithoutInit(_files, cont_);
         assertTrue(!isEmptyErrors(cont_));
-        return cont_.getContext();
+        return cont_.getForwards().getStaticFields();
     }
     protected static AnalyzedTestContext unfullValidateInheriting(StringMap<String> _files) {
         Options opt_ = newOptions();
@@ -756,7 +758,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static ReportedMessages validate(AnalyzedTestContext _c, StringMap<String> _f) {
-        return validate(_f,_c.getContext(), _c.getAnalyzing(), _c.getForwards());
+        return validate(_f,_c.getOpt(), _c.getAnalyzing(), _c.getForwards());
     }
     protected static String getString(Argument _arg) {
         return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();

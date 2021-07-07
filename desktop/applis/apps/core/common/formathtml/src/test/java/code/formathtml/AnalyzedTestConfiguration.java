@@ -9,7 +9,9 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.LgNamesContent;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.DefaultConverterCheck;
 import code.formathtml.analyze.DefaultReducingOperations;
@@ -28,6 +30,7 @@ public final class AnalyzedTestConfiguration {
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private final ContextEl context;
     private final DualConfigurationContext dual;
+    private final Options opt;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
     private final StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
     private final StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
@@ -44,8 +47,12 @@ public final class AnalyzedTestConfiguration {
         analyzingDoc.setConverterCheck(new DefaultConverterCheck(adv.getContent().getPrimTypes().getPrimitiveTypes(), adv.getContent().getCharSeq().getAliasString()));
         context = _analyzing.getContext();
         dual = _analyzing.getDual();
-        dual.setContext(context);
+        opt = _analyzing.getOpt();
         this.analyzing = _analyzing.getAnalyzing();
+    }
+
+    public Options getOpt() {
+        return opt;
     }
 
     public StringMap<LocalVariable> getLocalVariables() {
@@ -101,11 +108,11 @@ public final class AnalyzedTestConfiguration {
     }
 
     public LgNames getStandards() {
-        return context.getStandards();
+        return forwards.getContext().getStandards();
     }
 
     public ContextEl getContext() {
-        return context;
+        return forwards.getContext();
     }
 
     public boolean isEmptyErrors() {
@@ -113,7 +120,7 @@ public final class AnalyzedTestConfiguration {
     }
 
     public Classes getClasses() {
-        return context.getClasses();
+        return forwards.getContext().getClasses();
     }
 
     public String getAliasByte() {

@@ -7,21 +7,19 @@ import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.util.DualConfigurationContext;
 
 class NativeOtherAnalyzedTestContext {
-    private final ContextEl context;
     private final AnalyzedPageEl analyzing;
     private final Forwards forwards;
     private final BeanTestNatLgNames stds;
     private DualConfigurationContext dual = new DualConfigurationContext();
 
-    NativeOtherAnalyzedTestContext(ContextEl _context, AnalyzedPageEl _analyzing, Forwards _forwards, BeanTestNatLgNames _standards) {
-        this.context = _context;
+    NativeOtherAnalyzedTestContext(AnalyzedPageEl _analyzing, Forwards _forwards, BeanTestNatLgNames _standards) {
         this.analyzing = _analyzing;
         stds = _standards;
         forwards = _forwards;
     }
 
     ContextEl getContext() {
-        return context;
+        return forwards.getContext();
     }
 
     Forwards getForwards() {

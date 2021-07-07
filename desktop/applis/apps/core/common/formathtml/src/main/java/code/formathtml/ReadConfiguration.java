@@ -1,19 +1,16 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.structs.BeanInfo;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.DualConfigurationContext;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.util.*;
@@ -25,36 +22,15 @@ public final class ReadConfiguration {
     private ReadConfiguration(){
     }
 
-    public static ContextEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf, RendAnalysisMessages _rend, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page) {
-        AnalysisMessages a_ = new AnalysisMessages();
+    public static boolean loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf, AnalyzedPageEl _page, Forwards _forwards, DualConfigurationContext _context) {
         KeyWords kw_ = new KeyWords();
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        for (Element c: _elt.getChildElements()) {
-            String fieldName_ = c.getAttribute("field");
-            if (StringUtil.quickEq(fieldName_, "options")) {
-                opt_ = loadOptions(c);
-            }
-        }
+        AnalysisMessages a_ = new AnalysisMessages();
         RendKeyWords rkw_ = _conf.getRendKeyWords();
-        _stds.buildAliases(_elt,_lg, rkw_,kw_, _rend,a_);
-        int stack_ = -1;
-        int tab_ = 4;
-        for (Element c: _elt.getChildElements()) {
-            String fieldName_ = c.getAttribute("field");
-            if (StringUtil.quickEq(fieldName_, "stackOverFlow")) {
-                stack_=(NumberUtil.parseInt(c.getAttribute("value")));
-                continue;
-            }
-            if (StringUtil.quickEq(fieldName_, "tabWidth")) {
-                tab_=(NumberUtil.parseInt(c.getAttribute("value")));
-            }
-        }
-        ContextEl context_ = ContextFactory.simpleBuild(stack_, opt_, _stds, tab_);
-        ContextFactory.validateStds(a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_, context_.getClasses().getCommon(), new DefaultConstantsCalculator(_stds.getContent().getNbAlias()), _fileBuilder, _stds.getContent(), tab_, _page, new DefaultFieldFilter());
-        AnalysisMessages.validateMessageContents(_rend.allMessages(), _page);
+        _stds.buildAliases(_elt,_lg, rkw_,kw_, _context.getAnalysisMessages(),a_);
+        ContextFactory.validateStds(_forwards, a_, kw_, new CustList<CommentDelimiters>(), _context.getOptions(), _stds.getContent(), _page);
+        AnalysisMessages.validateMessageContents(_context.getAnalysisMessages().allMessages(), _page);
         if (!_page.isEmptyMessageError()) {
-            return null;
+            return false;
         }
         StringMap<String> allTags_ = rkw_.allTags();
         rkw_.validateTagContents(allTags_, _page);
@@ -75,20 +51,45 @@ public final class ReadConfiguration {
         rkw_.validateStyleUnitContents(allStyleUnits_, _page);
         rkw_.validateDuplicates(allStyleUnits_, _page);
         if (!_page.isEmptyStdError()) {
-            return null;
+            return false;
         }
-        return context_;
+        return true;
     }
-    private static Options loadOptions(Element _elt) {
-        Options options_ = new Options();
-        options_.setReadOnly(true);
+
+    public static Options getOptions(Element _elt, DualConfigurationContext _context) {
+        Options opt_ = _context.getOptions();
+        opt_.setReadOnly(true);
+        for (Element c: _elt.getChildElements()) {
+            String fieldName_ = c.getAttribute("field");
+            if (StringUtil.quickEq(fieldName_, "options")) {
+                loadOptions(c, opt_);
+            }
+        }
+        int stack_ = -1;
+        int tab_ = 4;
+        for (Element c: _elt.getChildElements()) {
+            String fieldName_ = c.getAttribute("field");
+            if (StringUtil.quickEq(fieldName_, "stackOverFlow")) {
+                stack_=(NumberUtil.parseInt(c.getAttribute("value")));
+                continue;
+            }
+            if (StringUtil.quickEq(fieldName_, "tabWidth")) {
+                tab_=(NumberUtil.parseInt(c.getAttribute("value")));
+            }
+        }
+        opt_.setStack(stack_);
+        opt_.setTabWidth(tab_);
+        return opt_;
+    }
+
+    private static void loadOptions(Element _elt, Options _opt) {
+        _opt.setReadOnly(true);
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringUtil.quickEq(fieldName_, "classes")) {
-                options_.getTypesInit().add(c.getAttribute("value"));
+                _opt.getTypesInit().add(c.getAttribute("value"));
             }
         }
-        return options_;
     }
     public static StringMap<BeanInfo> loadBeans(Element _elt) {
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>();

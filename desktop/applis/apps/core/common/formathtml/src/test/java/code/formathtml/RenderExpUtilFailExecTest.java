@@ -20,7 +20,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
-public final class RenderExpUtilFailExecTest extends CommonRender {
+public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
     private static final String ARR_INTEGER = "[java.lang.Integer";
     @Test
     public void processEl7FailTest() {
@@ -2170,12 +2170,12 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         OperationsSequence opTwo_ = rendOpSeq(0, _cont, d_, _el);
         OperationNode op_ = rendOp(0, _cont, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(_cont, op_);
-        Classes.forwardAndClear(_cont.getContext(), _cont.getAnalyzing(), _cont.getForwards());
+        ForwardInfos.generalForward( _cont.getAnalyzing(),_cont.getForwards());
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
+//        Classes.forwardAndClear(_cont.getContext());
         assertTrue(_cont.isEmptyErrors());
-        out_ = CommonRender.getReducedNodes(out_.last());
-        ExecClassesUtil.forwardClassesMetaInfos(_cont.getContext());
-        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getAnalyzing().getOptions());
+//        ExecClassesUtil.forwardClassesMetaInfos(_cont.getContext());
+        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getOpt());
         _cont.getContext().setExiting(new NoExiting());
         calculateReuse(_cont,out_);
         assertTrue(_cont.isEmptyErrors());
@@ -2186,12 +2186,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
         _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
         CustList<OperationNode> all_ = getQuickAnalyzed(_el, 0, _cont, _cont.getAnalyzingDoc());
-        ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards(), _cont.getContext());
+        ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards());
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
         assertTrue(_cont.isEmptyErrors());
-        out_ = CommonRender.getReducedNodes(out_.last());
         ExecClassesUtil.forwardClassesMetaInfos(_cont.getContext());
-        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getAnalyzing().getOptions());
+        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getOpt());
         _cont.getContext().setExiting(new NoExiting());
         calculateReuse(_cont,out_);
         assertTrue(_cont.isEmptyErrors());
@@ -2200,7 +2199,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
 
     private static void calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
-        out_ = CommonRender.getReducedNodes(out_.last());
         _an.getContext().setExiting(new NoExiting());
         calculateReuse(_an,out_);
         assertNotNull(getException(_an));
@@ -2264,11 +2262,10 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
         _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
         CustList<OperationNode> all_ = getQuickAnalyzed(_s, 0, _cont, _cont.getAnalyzingDoc());
-        ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards(), _cont.getContext());
+        ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards());
         CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
         assertTrue(_cont.isEmptyErrors());
-        out_ = CommonRender.getReducedNodes(out_.last());
-        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(), _cont.getAnalyzing().getOptions());
+        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(), _cont.getOpt());
         _cont.getContext().setExiting(new NoExiting());
         calculateReuse(_cont,out_);
         assertTrue(_cont.isEmptyErrors());

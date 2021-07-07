@@ -6,22 +6,27 @@ import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.common.DisplayedStrings;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 
 public final class AnalyzedTestContext {
-    private final ContextEl context;
     private final AnalyzedPageEl analyzing;
     private final Forwards forwards;
     private StackCall stackCall;
+    private Options opt;
 
-    public AnalyzedTestContext(ContextEl _context, AnalyzedPageEl _analyzing, Forwards _forwards) {
-        this.context = _context;
+    public AnalyzedTestContext(Options _opt, AnalyzedPageEl _analyzing, Forwards _forwards) {
         this.analyzing = _analyzing;
         forwards = _forwards;
+        opt = _opt;
+    }
+
+    public Options getOpt() {
+        return opt;
     }
 
     public ContextEl getContext() {
-        return context;
+        return forwards.getContext();
     }
 
     public AnalyzedPageEl getAnalyzing() {
@@ -68,14 +73,14 @@ public final class AnalyzedTestContext {
     }
 
     public Initializer getInit() {
-        return context.getInit();
+        return forwards.getContext().getInit();
     }
 
     public Classes getClasses() {
-        return context.getClasses();
+        return forwards.getContext().getClasses();
     }
 
     public LgNames getStandards() {
-        return context.getStandards();
+        return forwards.getContext().getStandards();
     }
 }

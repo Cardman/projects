@@ -9827,8 +9827,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     protected static void parseFile(AnalyzedTestContext _context, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
         FileBlock fileBlock_ = new FileBlock(0,_predefined, _fileName);
         _page.putFileBlock(_fileName, fileBlock_);
-        ContextEl ctx_ = _context.getContext();
-        ctx_.getCoverage().putFile(fileBlock_);
+        _context.getForwards().getCoverage().putFile(fileBlock_);
         _page.getErrors().putFile(fileBlock_, _context.getAnalyzing());
         fileBlock_.processLinesTabsWithError(_file, _context.getAnalyzing());
         FileResolver.parseFile(fileBlock_, _fileName, _file, _context.getAnalyzing());

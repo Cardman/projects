@@ -71,7 +71,9 @@ public final class Navigation {
     public DualAnalyzedContext loadConfiguration(String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad, Document _doc) {
         if (_doc == null) {
             AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-            return new DualAnalyzedContext(page_,_lgNames,null);
+            DualConfigurationContext context_ = new DualConfigurationContext();
+            context_.setKo(true);
+            return new DualAnalyzedContext(null,page_,_lgNames, context_);
         }
         return innerLoad(_lgCode, _lgNames, _fileBuilder, _confLoad, _doc);
     }
@@ -79,12 +81,11 @@ public final class Navigation {
     public DualAnalyzedContext innerLoad(String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad, Document _doc) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         session = new Configuration();
-        DualConfigurationContext ctx_ = _confLoad.load(session, _lgCode, _doc, _fileBuilder, page_);
-        if (ctx_.getContext() == null) {
-            return new DualAnalyzedContext(page_,_lgNames,null);
+        DualAnalyzedContext ctx_ = _confLoad.load(session, _lgCode, _doc, _fileBuilder, page_,_lgNames);
+        if (!ctx_.getContext().isKo()) {
+            session.init(ctx_.getContext());
         }
-        session.init(ctx_);
-        return new DualAnalyzedContext(page_,_lgNames,ctx_);
+        return ctx_;
     }
 
     public void setLanguage(String _language) {
@@ -285,7 +286,7 @@ public final class Navigation {
                 return;
             }
             if (messageTr_ != null) {
-                errors_.put(id_, messageTr_.getMessage());
+                errors_.put(id_, messageTr_.getContent());
                 errorsArgs_.put(id_, messageTr_.getArgs());
             }
         }

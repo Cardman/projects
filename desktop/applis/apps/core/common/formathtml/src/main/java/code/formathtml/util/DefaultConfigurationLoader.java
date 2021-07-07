@@ -1,7 +1,8 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.Options;
 import code.formathtml.Configuration;
 import code.formathtml.ReadConfiguration;
 import code.sml.Document;
@@ -17,14 +18,23 @@ public final class DefaultConfigurationLoader extends AbstractConfigurationLoade
     }
 
     @Override
-    public void specificLoad(Configuration _configuration, String _lgCode, Document _document, DualConfigurationContext _dual, AnalyzedPageEl _page) {
-        update(_configuration,_document,_dual);
-        ContextEl page_ = null;
+    public DualAnalyzedContext specificLoad(Configuration _configuration, String _lgCode, Document _document, AnalyzedPageEl _page, BeanLgNames _stds, DualConfigurationContext _context) {
+        update(_configuration,_document, _context);
+
+        boolean ok_ = false;
+        for (Element c: _document.getDocumentElement().getChildElements()) {
+            String fieldName_ = c.getAttribute("field");
+            if (StringUtil.quickEq(fieldName_, "context")) {
+                ReadConfiguration.getOptions(c, _context);
+            }
+        }
+        Options options_ = _context.getOptions();
+        Forwards forwards_ = new Forwards(_stds, _context.getFileBuilder(), options_);
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringUtil.quickEq(fieldName_, "lateValidators")) {
-                _dual.setupLateValidators(ReadConfiguration.loadStringMapString(c));
-                _configuration.setLateValidators(_dual.getLateValidators());
+                _context.setupLateValidators(ReadConfiguration.loadStringMapString(c));
+                _configuration.setLateValidators(_context.getLateValidators());
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "tabWidth")) {
@@ -32,13 +42,14 @@ public final class DefaultConfigurationLoader extends AbstractConfigurationLoade
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "filesConfName")) {
-                _dual.setFilesConfName(c.getAttribute("value"));
+                _context.setFilesConfName(c.getAttribute("value"));
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "context")) {
-                page_ = ReadConfiguration.loadContext(c, _lgCode, stds,_configuration, _dual.getAnalysisMessages(), _dual.getFileBuilder(), _page);
+                ok_ = ReadConfiguration.loadContext(c, _lgCode, stds,_configuration, _page, forwards_, _context);
             }
         }
-        _dual.setContext(page_);
+        _context.setKo(!ok_);
+        return new DualAnalyzedContext(forwards_,_page,_stds,_context);
     }
 }
