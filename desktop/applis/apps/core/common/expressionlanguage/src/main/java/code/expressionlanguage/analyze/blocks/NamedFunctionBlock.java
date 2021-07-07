@@ -15,7 +15,7 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;

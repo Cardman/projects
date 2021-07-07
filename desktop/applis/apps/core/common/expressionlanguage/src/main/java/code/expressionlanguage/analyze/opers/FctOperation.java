@@ -262,7 +262,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                 abs_.buildError(
                         _page.getAnalysisMessages().getAbstractMethodRef(),
                         clMeth_.getRealClass(),
-                        clMeth_.getRealId().getSignature(_page));
+                        clMeth_.getRealId().getSignature(_page.getDisplayedStrings()));
                 _page.getLocalizer().addError(abs_);
                 addErr(abs_.getBuiltError());
             }

@@ -28,7 +28,7 @@ public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements E
 
     @Override
     public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana);
+        return getId().getSignature(_ana.getStandards().getDisplayedStrings());
     }
 
 }

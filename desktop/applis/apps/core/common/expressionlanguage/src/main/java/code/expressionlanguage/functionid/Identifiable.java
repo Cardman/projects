@@ -1,7 +1,6 @@
 package code.expressionlanguage.functionid;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.DisplayedStrings;
 
 public interface Identifiable {
 
@@ -11,6 +10,5 @@ public interface Identifiable {
     String getParametersType(int _index);
     int getParametersTypesLength();
     boolean getParametersRef(int _index);
-    String getSignature(ContextEl _ana);
     String getSignature(DisplayedStrings _ana);
 }

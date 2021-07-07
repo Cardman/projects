@@ -145,7 +145,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
             }
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
-                    new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(_page));
+                    new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(_page.getDisplayedStrings()));
             _page.getLocalizer().addError(undefined_);
             addErr(undefined_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));

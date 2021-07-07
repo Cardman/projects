@@ -3,8 +3,10 @@ package code.expressionlanguage.exec.util;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.functionid.MethodAccessKind;
 
 public final class ExecFormattedRootBlock {
     private final ExecRootBlock rootBlock;
@@ -40,6 +42,20 @@ public final class ExecFormattedRootBlock {
 
     public static ExecFormattedRootBlock getFullObject(String _subType, ExecFormattedRootBlock _superType, ContextEl _context) {
         return new ExecFormattedRootBlock(_superType, ExecInherits.getFullObject(_subType,_superType.getFormatted(),_context));
+    }
+
+    public static ExecFormattedRootBlock formatType(ExecFormattedRootBlock _type, MethodAccessKind _kind, StackCall _stackCall) {
+        if (_kind == MethodAccessKind.STATIC_CALL) {
+            return _stackCall.formatVarType(_type);
+        }
+        return _type;
+    }
+
+    public static String formatType(ExecFormattedRootBlock _rootBlock, String _formatted, MethodAccessKind _kind) {
+        if (_kind == MethodAccessKind.STATIC_CALL) {
+            return ExecInherits.quickFormat(_rootBlock, _formatted);
+        }
+        return _formatted;
     }
 
     public ExecRootBlock getRootBlock() {

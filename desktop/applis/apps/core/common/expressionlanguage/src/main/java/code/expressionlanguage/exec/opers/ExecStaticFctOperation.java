@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -35,12 +34,12 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
                           ContextEl _conf, StackCall _stack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
-        ExecFormattedRootBlock classNameFound_ = ClassMethodId.formatType(formattedType, staticFctContent.getKind(), _stack);
+        ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(formattedType, staticFctContent.getKind(), _stack);
         Argument res_;
         if (_conf.getExiting().hasToExit(_stack, classNameFound_.getRootBlock())) {
             res_ = Argument.createVoid();
         } else {
-            String lastType_ = ClassMethodId.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
+            String lastType_ = ExecFormattedRootBlock.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
             res_ = prep(_conf, _stack, classNameFound_, lastType_, buildInfos(_nodes), staticFctContent, pair);
         }
         setResult(res_, _conf, _nodes, _stack);

@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.StringList;

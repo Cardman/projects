@@ -1,4 +1,4 @@
-package code.expressionlanguage.stds;
+package code.expressionlanguage.common;
 
 public final class DisplayedStrings {
     private String trueString;

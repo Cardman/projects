@@ -3,7 +3,6 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -149,7 +148,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         //_name len
         String exp_ = _page.getKeyWords().getKeyWordCast();
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
-                new MethodId(MethodAccessKind.STATIC, exp_, classesNames_).getSignature(_page));
+                new MethodId(MethodAccessKind.STATIC, exp_, classesNames_).getSignature(_page.getDisplayedStrings()));
         _page.getLocalizer().addError(undefined_);
         addErr(undefined_.getBuiltError());
 

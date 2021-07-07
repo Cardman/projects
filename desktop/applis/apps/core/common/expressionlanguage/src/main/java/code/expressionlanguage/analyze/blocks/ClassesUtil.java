@@ -1732,7 +1732,7 @@ public final class ClassesUtil {
                     duplicate_.setFileName(_page.getCurrentBlock().getFile().getFileName());
                     //key word len
                     duplicate_.buildError(_page.getAnalysisMessages().getDuplicateOperator(),
-                            id_.getSignature(_page));
+                            id_.getSignature(_page.getDisplayedStrings()));
                     _page.addLocError(duplicate_);
                     o.addNameErrors(duplicate_);
                 }

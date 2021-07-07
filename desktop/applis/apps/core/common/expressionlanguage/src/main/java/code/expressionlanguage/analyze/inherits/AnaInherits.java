@@ -360,7 +360,7 @@ public final class AnaInherits {
     }
 
     public static String format(AnaFormattedRootBlock _root, String _second) {
-        StringMap<String> varTypes_ = getVarTypes(_root.getRootBlock(),_root.getFormatted());
+        StringMap<String> varTypes_ = getVarTypes(_root);
         return StringExpUtil.getFormattedType(_second, varTypes_);
     }
 
@@ -370,7 +370,7 @@ public final class AnaInherits {
     }
 
     public static String quickFormat(AnaFormattedRootBlock _root, String _second) {
-        StringMap<String> varTypes_ = getVarTypes(_root.getRootBlock(),_root.getFormatted());
+        StringMap<String> varTypes_ = getVarTypes(_root);
         return StringExpUtil.getQuickFormattedType(_second, varTypes_);
     }
     public static String quickFormat(AnaGeneType _root, String _first, String _second) {
@@ -378,6 +378,9 @@ public final class AnaInherits {
         return StringExpUtil.getQuickFormattedType(_second, varTypes_);
     }
 
+    public static StringMap<String> getVarTypes(AnaFormattedRootBlock _root) {
+        return getVarTypes(_root.getRootBlock(),_root.getFormatted());
+    }
     public static StringMap<String> getVarTypes(AnaGeneType _root, String _className) {
         StringMap<String> varTypes_ = new StringMap<String>();
         if (_root == null) {

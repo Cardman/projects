@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -31,8 +30,8 @@ public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOper
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         int off_ = getOffsetOper();
         setRelOffsetPossibleLastPage(off_, _stack);
-        ExecFormattedRootBlock classNameFound_ = ClassMethodId.formatType(formattedType, staticFctContent.getKind(), _stack);
-        String lastType_ = ClassMethodId.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
+        ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(formattedType, staticFctContent.getKind(), _stack);
+        String lastType_ = ExecFormattedRootBlock.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
         checkParametersOperatorsFormatted(_conf.getExiting(), _conf, pair, fectchArgs(lastType_, staticFctContent.getNaturalVararg(),null,_conf,_stack, buildInfos(_nodes)), classNameFound_, staticFctContent.getKind(), _stack);
     }
 

@@ -1,12 +1,11 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultAliasGroups;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
 
 public final class AnalyzedTestContext {

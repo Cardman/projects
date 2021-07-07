@@ -37,7 +37,7 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
     }
     @Override
     public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana);
+        return getId().getSignature(_ana.getStandards().getDisplayedStrings());
     }
 
     public CacheInfo getCacheInfo() {

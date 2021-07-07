@@ -12,7 +12,6 @@ import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.util.InputInfo;
 import code.sml.Element;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -158,7 +157,7 @@ public final class ResultInput {
                     info_.getVarTypes().add(constraints_.getParametersType(i));
                     info_.getRefs().add(constraints_.getParametersRef(i));
                 }
-                String sgn_ = constraints_.getSignature(_page);
+                String sgn_ = constraints_.getSignature(_page.getDisplayedStrings());
                 idName = StringUtil.concat("[]", sgn_);
                 id = StringUtil.concat(idClass,".",idName);
                 String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);

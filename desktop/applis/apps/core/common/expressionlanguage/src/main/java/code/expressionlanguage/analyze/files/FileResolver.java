@@ -278,14 +278,11 @@ public final class FileResolver {
                 if (currentChar_ == END_LINE) {
                     endInstr_ = EndInstruction.NO_DECLARE_TYPE;
                 }
-                if (currentChar_ == ':') {
+                if (currentChar_ == _page.getOptions().getDelimiterCase()) {
                     String str_ = instruction_.toString().trim();
                     if (isCaseDefault(str_, keyWordCase_, keyWordDefault_)) {
                         endInstr_ = EndInstruction.NO_DECLARE_TYPE;
-                    }
-                    if (endInstr_ != EndInstruction.NONE && currentParent_ instanceof SwitchPartBlock) {
-                        addPossibleEmpty(currentParent_);
-                        currentParent_ = currentParent_.getParent();
+                        currentParent_ = possibleGoUp(currentParent_);
                     }
                 }
                 if (currentChar_ == END_BLOCK) {
@@ -1118,13 +1115,9 @@ public final class FileResolver {
                     br_.setLengthHeader(1);
                     currentParent_.appendChild(br_);
                 }
-                currentParent_ = currentParent_.getParent();
+                currentParent_ = possibleEmptyGoUp(currentParent_);
             } else {
-                if (br_ instanceof BracedBlock && _currentChar != END_LINE) {
-                    currentParent_ = (BracedBlock) br_;
-                } else if (br_ instanceof BracedBlock){
-                    addPossibleEmpty((BracedBlock)br_);
-                }
+                currentParent_ = possibleVisit(_currentChar, currentParent_, br_);
             }
         } else if (canHaveElements(currentParent_)) {
             if (!trimmedInstruction_.isEmpty()) {
@@ -1205,7 +1198,7 @@ public final class FileResolver {
                 ((EnumBlock)currentParent_).setCanHaveElements(false);
             }
             if (_currentChar == END_BLOCK) {
-                currentParent_ = currentParent_.getParent();
+                currentParent_ = possibleEmptyGoUp(currentParent_);
             }
         } else if (_currentChar != END_BLOCK) {
             AbsBk bl_ = processInstructionBlock(_offset, instructionTrimLocation_, _i, currentParent_, trimmedInstruction_, _page);
@@ -1305,11 +1298,7 @@ public final class FileResolver {
             } else {
                 br_ = bl_;
             }
-            if (br_ instanceof BracedBlock && _currentChar != END_LINE) {
-                currentParent_ = (BracedBlock) br_;
-            } else if(br_ instanceof BracedBlock) {
-                addPossibleEmpty((BracedBlock)br_);
-            }
+            currentParent_ = possibleVisit(_currentChar, currentParent_, br_);
         } else {
             //currentChar_ == END_BLOCK
             if (!trimmedInstruction_.isEmpty()) {
@@ -1319,18 +1308,40 @@ public final class FileResolver {
                 br_.setLengthHeader(1);
                 currentParent_.appendChild(br_);
             }
-            if (currentParent_ instanceof SwitchPartBlock) {
-                addPossibleEmpty(currentParent_);
-                currentParent_ = currentParent_.getParent();
-            }
-            addPossibleEmpty(currentParent_);
-            currentParent_ = currentParent_.getParent();
+            currentParent_ = possibleGoUpTwice(currentParent_);
         }
         _instruction.delete(0, _instruction.length());
         after_.setIndex(_i);
         after_.setParent(currentParent_);
         after_.setPackageName(packageName_);
         return after_;
+    }
+
+    private static BracedBlock possibleGoUpTwice(BracedBlock _currentParent) {
+        BracedBlock currentParent_ = possibleGoUp(_currentParent);
+        currentParent_ = possibleEmptyGoUp(currentParent_);
+        return currentParent_;
+    }
+
+    private static BracedBlock possibleVisit(char _currentChar, BracedBlock _currentParent, AbsBk _br) {
+        if (_br instanceof BracedBlock && (_br instanceof SwitchPartBlock || _currentChar != END_LINE)) {
+            return (BracedBlock) _br;
+        }
+        if (_br instanceof BracedBlock) {
+            return possibleEmptyGoUp((BracedBlock) _br);
+        }
+        return _currentParent;
+    }
+    private static BracedBlock possibleGoUp(BracedBlock _currentParent) {
+        if (_currentParent instanceof SwitchPartBlock) {
+            return possibleEmptyGoUp(_currentParent);
+        }
+        return _currentParent;
+    }
+
+    private static BracedBlock possibleEmptyGoUp(BracedBlock _currentParent) {
+        addPossibleEmpty(_currentParent);
+        return _currentParent.getParent();
     }
 
     private static void addPossibleEmpty(BracedBlock _en) {

@@ -1,66 +1,31 @@
 package code.expressionlanguage.analyze.util;
-import code.util.CustList;
+import code.expressionlanguage.functionid.IdentifiableUtil;
+import code.expressionlanguage.functionid.MethodId;
 import code.util.core.StringUtil;
 
 public final class FormattedMethodId {
 
+    private final MethodId id;
 
-    private final boolean retRef;
-    private final String name;
-
-    private final CustList<String> classNames;
-    private final CustList<Boolean> refParams;
-    private final boolean vararg;
-
-    public FormattedMethodId(boolean _retRef, String _name, CustList<String> _classNames, CustList<Boolean> _refParam, boolean _vararg) {
-        retRef = _retRef;
-        vararg = _vararg;
-        name = StringUtil.nullToEmpty(_name);
-        refParams = _refParam;
-        classNames = new CustList<String>();
-        feedParamTypes(_classNames);
+    public FormattedMethodId(MethodId _id) {
+        id = _id;
     }
 
-    private void feedParamTypes(CustList<String> _classNames) {
-        for (String s: _classNames) {
-            classNames.add(StringUtil.nullToEmpty(s));
-        }
-    }
-    private boolean getParametersRef(int _index) {
-        return refParams.get(_index);
-    }
     public boolean eq(FormattedMethodId _obj) {
-        if (!StringUtil.quickEq(_obj.name, name)) {
+        if (!StringUtil.quickEq(_obj.id.getName(), id.getName())) {
             return false;
         }
         return eqPartial(_obj);
     }
 
     public boolean eqPartial(FormattedMethodId _other) {
-        if (retRef != _other.retRef) {
+        if (id.isRetRef() != _other.id.isRetRef()) {
             return false;
         }
-        int len_ = classNames.size();
-        if (len_ != _other.classNames.size()) {
-            return false;
-        }
-        if (vararg != _other.vararg) {
-            return false;
-        }
-        for (int i = 0; i < len_; i++) {
-            if (getParametersRef(i) != _other.getParametersRef(i)) {
-                return false;
-            }
-            String param_ = classNames.get(i);
-            String paramOther_ = _other.classNames.get(i);
-            if (!StringUtil.eq(param_,paramOther_)) {
-                return false;
-            }
-        }
-        return true;
+        return IdentifiableUtil.eqPartial(id, _other.id);
     }
 
     public String getName() {
-        return name;
+        return id.getName();
     }
 }

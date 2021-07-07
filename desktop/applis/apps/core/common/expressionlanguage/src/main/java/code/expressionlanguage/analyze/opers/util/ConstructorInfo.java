@@ -6,8 +6,6 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;

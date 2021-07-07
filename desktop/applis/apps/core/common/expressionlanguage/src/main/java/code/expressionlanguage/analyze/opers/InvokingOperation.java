@@ -8,13 +8,11 @@ import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.*;
-import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.common.Matching;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
@@ -849,7 +847,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //_name len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
-                new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
+                new MethodId(_staticContext, _name, classesNames_).getSignature(_page.getDisplayedStrings()));
         _page.getLocalizer().addError(undefined_);
         addErr(undefined_.getBuiltError());
     }
@@ -864,7 +862,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //_name len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
-                new MethodId(_staticContext, _name, classesNames_).getSignature(_page));
+                new MethodId(_staticContext, _name, classesNames_).getSignature(_page.getDisplayedStrings()));
         _page.getLocalizer().addError(undefined_);
         addErr(undefined_.getBuiltError());
     }
@@ -879,7 +877,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //key word len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
-                new ConstructorId(_clCurName, classesNames_, false).getSignature(_page));
+                new ConstructorId(_clCurName, classesNames_, false).getSignature(_page.getDisplayedStrings()));
         _page.getLocalizer().addError(undefined_);
         addErr(undefined_.getBuiltError());
     }

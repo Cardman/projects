@@ -45,7 +45,7 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
 
     @Override
     public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana);
+        return getId().getSignature(_ana.getStandards().getDisplayedStrings());
     }
 
     public ExecMethodKind getKind() {

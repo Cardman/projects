@@ -18,7 +18,7 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.maths.litteralcom.IndexStrPart;

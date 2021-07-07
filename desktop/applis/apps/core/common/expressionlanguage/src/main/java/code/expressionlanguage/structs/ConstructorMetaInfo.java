@@ -204,7 +204,7 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
     }
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        return new StringStruct(StringUtil.concat(formatted.getFormatted(),";",realId.getSignature(_an)));
+        return new StringStruct(StringUtil.concat(formatted.getFormatted(),";", realId.getSignature(_an.getStandards().getDisplayedStrings())));
     }
 
     public boolean isInvokable() {

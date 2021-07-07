@@ -99,7 +99,7 @@ public final class AnaTypeUtil {
                         err_.setIndexFile(supId_.getBlock().getNameOffset());
                         //sub method name len
                         err_.buildError(_page.getAnalysisMessages().getDuplicatedFinal(),
-                                supId_.getBlock().getId().getSignature(_page),
+                                supId_.getBlock().getId().getSignature(_page.getDisplayedStrings()),
                                 supId_.getGeneString());
                         subId_.getBlock().addNameErrors(err_);
                         _page.addLocError(err_);
@@ -113,9 +113,9 @@ public final class AnaTypeUtil {
                         //key word access or method name
                         err_.buildError(_page.getAnalysisMessages().getMethodsAccesses(),
                                 supId_.getGeneString(),
-                                supId_.getBlock().getId().getSignature(_page),
+                                supId_.getBlock().getId().getSignature(_page.getDisplayedStrings()),
                                 subId_.getGeneString(),
-                                subId_.getBlock().getId().getSignature(_page));
+                                subId_.getBlock().getId().getSignature(_page.getDisplayedStrings()));
                         subId_.getBlock().addNameErrors(err_);
                         _page.addLocError(err_);
                         continue;
@@ -129,10 +129,10 @@ public final class AnaTypeUtil {
                             //sub return type len
                             err_.buildError(_page.getAnalysisMessages().getBadReturnTypeIndexer(),
                                     formattedRetBase_,
-                                    supId_.getBlock().getId().getSignature(_page),
+                                    supId_.getBlock().getId().getSignature(_page.getDisplayedStrings()),
                                     supId_.getGeneString(),
                                     formattedRetDer_,
-                                    subId_.getBlock().getId().getSignature(_page),
+                                    subId_.getBlock().getId().getSignature(_page.getDisplayedStrings()),
                                     subId_.getGeneString());
                             subId_.getBlock().addNameErrors(err_);
                             _page.addLocError(err_);
@@ -150,10 +150,10 @@ public final class AnaTypeUtil {
                         //sub return type len
                         err_.buildError(_page.getAnalysisMessages().getBadReturnTypeInherit(),
                                 formattedRetDer_,
-                                subId_.getBlock().getId().getSignature(_page),
+                                subId_.getBlock().getId().getSignature(_page.getDisplayedStrings()),
                                 subId_.getGeneString(),
                                 formattedRetBase_,
-                                supId_.getBlock().getId().getSignature(_page),
+                                supId_.getBlock().getId().getSignature(_page.getDisplayedStrings()),
                                 supId_.getGeneString());
                         subId_.getBlock().addNameErrors(err_);
                         _page.addLocError(err_);
@@ -178,7 +178,7 @@ public final class AnaTypeUtil {
                 continue;
             }
             MethodId m_ = b.getId();
-            OverridingMethodDto o_ = new OverridingMethodDto(MethodId.to(m_));
+            OverridingMethodDto o_ = new OverridingMethodDto(new FormattedMethodId(m_));
             o_.getMethodIds().add(new GeneStringOverridable(new AnaFormattedRootBlock(_r), b));
             map_.add(o_);
         }
@@ -188,7 +188,7 @@ public final class AnaTypeUtil {
                 if (b.hiddenInstance()) {
                     continue;
                 }
-                addDtoClass(map_, b.getId().quickOverrideFormat(s), new GeneStringOverridable(s, b));
+                addDtoClass(map_, new FormattedMethodId(b.getId().quickFormat(AnaInherits.getVarTypes(s))), new GeneStringOverridable(s, b));
             }
         }
         return map_;

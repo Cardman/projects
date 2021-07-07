@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.DisplayedStrings;
 
 public final class FloatStruct extends AbsRealNumberStruct {
 

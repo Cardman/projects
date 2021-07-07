@@ -1,17 +1,11 @@
 package code.expressionlanguage.functionid;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.analyze.util.FormattedMethodId;
-import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.*;
 import code.util.CustList;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class MethodId implements Identifiable {
+public final class MethodId extends AbsractIdentifiableCommon implements Identifiable {
 
     private static final String EMPTY = "";
     private static final String VARARG_DOTS = "...";
@@ -23,75 +17,41 @@ public final class MethodId implements Identifiable {
 
     private final boolean retRef;
 
-    private final String name;
-
-    private final CustList<Boolean> refParams;
-    private final CustList<String> classNames;
-
-    private final boolean vararg;
-
     public MethodId(MethodAccessKind _staticMethod, String _name, CustList<String> _classNames) {
         this(_staticMethod, _name, _classNames, false);
     }
 
     public MethodId(MethodAccessKind _staticMethod, String _name, CustList<String> _classNames, boolean _vararg) {
+        super(StringUtil.nullToEmpty(_name),_vararg);
         retRef = false;
         kind = _staticMethod;
-        vararg = _vararg;
-        name = StringUtil.nullToEmpty(_name);
-        refParams = new CustList<Boolean>();
-        classNames = new CustList<String>();
         feedParamTypes(_classNames);
     }
 
     public MethodId(boolean _retRef, MethodAccessKind _staticMethod, String _name, CustList<String> _classNames, CustList<Boolean> _refParam, boolean _vararg) {
+        super(StringUtil.nullToEmpty(_name),_vararg);
         retRef = _retRef;
         kind = _staticMethod;
-        vararg = _vararg;
-        name = StringUtil.nullToEmpty(_name);
-        refParams = new CustList<Boolean>();
-        classNames = new CustList<String>();
         feedParamTypes(_classNames,_refParam);
     }
 
-    private void feedParamTypes(CustList<String> _classNames) {
-        for (String s: _classNames) {
-            classNames.add(StringUtil.nullToEmpty(s));
-            refParams.add(false);
-        }
-    }
-
-    private void feedParamTypes(CustList<String> _classNames, CustList<Boolean> _refParams) {
-        int min_ = Math.min(_classNames.size(),_refParams.size());
-        for (String s: _classNames.left(min_)) {
-            classNames.add(StringUtil.nullToEmpty(s));
-        }
-        for (boolean s: _refParams.left(min_)) {
-            refParams.add(s);
-        }
-    }
-
-    public static FormattedMethodId to(MethodId _id) {
-        return new FormattedMethodId(_id.retRef, _id.name, _id.classNames,_id.refParams, _id.vararg);
-    }
-
     public static ConstructorId to(String _access,MethodId _id) {
-        return new ConstructorId(_access,_id.classNames,_id.refParams, _id.vararg);
+        return new ConstructorId(_access, _id.getClassNames(), _id.getRefParams(), _id.isVararg());
     }
 
     public static MethodId to(MethodAccessKind _access, CustList<String> _params,MethodId _id) {
-        return new MethodId(_id.retRef, _access, _id.name, _params,_id.refParams, _id.vararg);
+        return new MethodId(_id.retRef, _access, _id.getName(), _params, _id.getRefParams(), _id.isVararg());
     }
 
     public static MethodId to(MethodAccessKind _access, String _name,MethodId _id) {
-        return new MethodId(_id.retRef, _access, _name, _id.classNames,_id.refParams, _id.vararg);
+        return new MethodId(_id.retRef, _access, _name, _id.getClassNames(), _id.getRefParams(), _id.isVararg());
     }
     public MethodId prepend(String _name,String _type, boolean _ref) {
-        CustList<String> types_ = new CustList<String>(classNames);
-        CustList<Boolean> refs_ = new CustList<Boolean>(refParams);
+        CustList<String> types_ = new CustList<String>(getClassNames());
+        CustList<Boolean> refs_ = new CustList<Boolean>(getRefParams());
         types_.add(0,_type);
         refs_.add(0,_ref);
-        return new MethodId(retRef, kind, _name, types_,refs_, vararg);
+        return new MethodId(retRef, kind, _name, types_,refs_, isVararg());
     }
 
     public static MethodAccessKind getKind(MethodAccessKind _context, MethodAccessKind _mod) {
@@ -125,13 +85,6 @@ public final class MethodId implements Identifiable {
         return MethodAccessKind.INSTANCE;
     }
     @Override
-    public String getSignature(ContextEl _ana) {
-        return getSignature(_ana.getStandards().getDisplayedStrings());
-    }
-    public String getSignature(AnalyzedPageEl _ana) {
-        return getSignature(_ana.getDisplayedStrings());
-    }
-    @Override
     public String getSignature(DisplayedStrings _ana) {
         String retRef_ = EMPTY;
         if (retRef) {
@@ -146,26 +99,26 @@ public final class MethodId implements Identifiable {
             }
         }
         String suf_ = EMPTY;
-        if (vararg) {
+        if (isVararg()) {
             suf_ = VARARG_DOTS;
         }
         CustList<String> cls_ = new CustList<String>();
-        int m_ = Math.min(classNames.size(),refParams.size());
+        int m_ = Math.min(getClassNames().size(), getRefParams().size());
         for (int i = 0; i < m_; i++) {
             String s_ = "";
             if (getParametersRef(i)) {
                 s_ = "~";
             }
-            cls_.add(StringUtil.concat(s_,classNames.get(i)));
+            cls_.add(StringUtil.concat(s_, getClassNames().get(i)));
         }
-        return StringUtil.concat(retRef_,pref_,name,LEFT, StringUtil.join(cls_, SEP_TYPE),suf_,RIGHT);
+        return StringUtil.concat(retRef_,pref_, getName(),LEFT, StringUtil.join(cls_, SEP_TYPE),suf_,RIGHT);
     }
 
     public boolean isRef() {
         if (retRef) {
             return true;
         }
-        for (boolean r: refParams) {
+        for (boolean r: getRefParams()) {
             if (r) {
                 return true;
             }
@@ -173,7 +126,7 @@ public final class MethodId implements Identifiable {
         return false;
     }
     public boolean eq(MethodId _obj) {
-        if (!StringUtil.quickEq(_obj.name, name)) {
+        if (!StringUtil.quickEq(_obj.getName(), getName())) {
             return false;
         }
         return eqPartial(_obj);
@@ -189,42 +142,31 @@ public final class MethodId implements Identifiable {
         return IdentifiableUtil.eqPartial(this,_other);
     }
 
-    public MethodId reflectFormat(ExecFormattedRootBlock _genericClass) {
+    public MethodId reflectFormat(StringMap<String> _varTypes) {
         String name_ = getName();
-        int len_ = classNames.size();
+        int len_ = getClassNames().size();
         CustList<String> pTypes_ = new CustList<String>();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            String n_ = classNames.get(i);
-            String formatted_ = ExecInherits.reflectFormat(_genericClass, n_);
+            String n_ = getClassNames().get(i);
+            String formatted_ = StringExpUtil.getReflectFormattedType(n_, _varTypes);
             pTypes_.add(formatted_);
         }
-        return new MethodId(retRef, kind, name_, pTypes_, refParams,isVararg());
+        return new MethodId(retRef, kind, name_, pTypes_, getRefParams(),isVararg());
     }
-    public MethodId quickFormat(AnaFormattedRootBlock _root) {
-        CustList<String> pTypes_ = getFormattedTypes(_root);
-        return new MethodId(retRef, kind, name, pTypes_, refParams,isVararg());
-    }
-
-    public FormattedMethodId quickOverrideFormat(AnaFormattedRootBlock _root) {
-        CustList<String> pTypes_ = getFormattedTypes(_root);
-        return new FormattedMethodId(retRef, name, pTypes_,refParams, isVararg());
+    public MethodId quickFormat(StringMap<String> _varTypes) {
+        CustList<String> pTypes_ = getFormattedTypes(_varTypes);
+        return new MethodId(retRef, kind, getName(), pTypes_, getRefParams(),isVararg());
     }
 
-    private CustList<String> getFormattedTypes(AnaFormattedRootBlock _root) {
-        int len_ = classNames.size();
+    private CustList<String> getFormattedTypes(StringMap<String> _varTypes) {
+        int len_ = getClassNames().size();
         CustList<String> pTypes_ = new CustList<String>();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            String n_ = classNames.get(i);
-            String formatted_ = AnaInherits.quickFormat(_root, n_);
+            String n_ = getClassNames().get(i);
+            String formatted_ = StringExpUtil.getQuickFormattedType(n_, _varTypes);
             pTypes_.add(formatted_);
         }
         return pTypes_;
-    }
-
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     public boolean canAccessParamTypes() {
@@ -245,25 +187,7 @@ public final class MethodId implements Identifiable {
     }
 
     public CustList<String> shiftFirst() {
-        return classNames.mid(1);
-    }
-
-    @Override
-    public int getParametersTypesLength() {
-        return classNames.size();
-    }
-    @Override
-    public boolean getParametersRef(int _index) {
-        return refParams.get(_index);
-    }
-    @Override
-    public String getParametersType(int _index) {
-        return classNames.get(_index);
-    }
-
-    @Override
-    public boolean isVararg() {
-        return vararg;
+        return getClassNames().mid(1);
     }
 
 }

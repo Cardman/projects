@@ -67,7 +67,7 @@ public final class FetchMemberUtil {
         return AnaInherits.quickFormat(_format,_dest);
     }
     public static MethodId formatType(AnaFormattedRootBlock _format, MethodId _dest) {
-        return _dest.quickFormat(_format);
+        return _dest.quickFormat(AnaInherits.getVarTypes(_format));
     }
     public static ExecFormattedRootBlock fwdFormatType(AnaFormattedRootBlock _format,Forwards _forwards) {
         return new ExecFormattedRootBlock(_forwards.getMember(_format.getRootBlock()).getRootBlock(),_format.getFormatted());

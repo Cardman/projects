@@ -19,6 +19,7 @@ import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ExtractedParts;
@@ -30,7 +31,7 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -168,7 +169,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     }
     @Override
     public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page);
+        return getId().getSignature(_page.getDisplayedStrings());
     }
 
     @Override
@@ -280,7 +281,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                 continue;
             }
             CustList<NamedCalledFunctionBlock> methods_ = formattedDestType_.getOverridableBlocks();
-            if (!getId().quickOverrideFormat(formInfo_).eqPartial(MethodId.to(methodIdDest_.quickFormat(formInfoDest_)))) {
+            if (!new FormattedMethodId(getId().quickFormat(AnaInherits.getVarTypes(formInfo_))).eqPartial(new FormattedMethodId(methodIdDest_.quickFormat(AnaInherits.getVarTypes(formInfoDest_))))) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null,null,  0, 0));

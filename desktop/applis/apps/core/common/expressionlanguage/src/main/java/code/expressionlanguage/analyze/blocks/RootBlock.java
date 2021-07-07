@@ -252,9 +252,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         //key word access or method name
                         err_.buildError(_page.getAnalysisMessages().getMethodsAccesses(),
                                 name_,
-                                id_.getSignature(_page),
+                                id_.getSignature(_page.getDisplayedStrings()),
                                 nameCl_,
-                                idCl_.getSignature(_page));
+                                idCl_.getSignature(_page.getDisplayedStrings()));
                         _page.addLocError(err_);
                         supCl_.addNameErrors(err_);
                     }
@@ -271,10 +271,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             //sub return type len
                             err_.buildError(_page.getAnalysisMessages().getBadReturnTypeIndexer(),
                                     formattedRetBase_,
-                                    id_.getSignature(_page),
+                                    id_.getSignature(_page.getDisplayedStrings()),
                                     name_,
                                     formattedRetDer_,
-                                    idCl_.getSignature(_page),
+                                    idCl_.getSignature(_page.getDisplayedStrings()),
                                     nameCl_);
                             _page.addLocError(err_);
                             supCl_.addNameErrors(err_);
@@ -289,10 +289,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         //sub return type len
                         err_.buildError(_page.getAnalysisMessages().getBadReturnTypeInherit(),
                                 formattedRetDer_,
-                                idCl_.getSignature(_page),
+                                idCl_.getSignature(_page.getDisplayedStrings()),
                                 nameCl_,
                                 formattedRetBase_,
-                                id_.getSignature(_page),
+                                id_.getSignature(_page.getDisplayedStrings()),
                                 name_);
                         _page.addLocError(err_);
                         supCl_.addNameErrors(err_);
@@ -922,7 +922,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             duplicate_.setFileName(getFile().getFileName());
                             //method name len
                             duplicate_.buildError(_page.getAnalysisMessages().getReservedCustomMethod(),
-                                    id_.getSignature(_page));
+                                    id_.getSignature(_page.getDisplayedStrings()));
                             _page.addLocError(duplicate_);
                             m_.addNameErrors(duplicate_);
                         }
@@ -934,7 +934,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             duplicate_.setFileName(getFile().getFileName());
                             //method name len
                             duplicate_.buildError(_page.getAnalysisMessages().getReservedCustomMethod(),
-                                    id_.getSignature(_page));
+                                    id_.getSignature(_page.getDisplayedStrings()));
                             _page.addLocError(duplicate_);
                             m_.addNameErrors(duplicate_);
                         }
@@ -948,7 +948,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             duplicate_.setFileName(getFile().getFileName());
                             //method name len
                             duplicate_.buildError(_page.getAnalysisMessages().getDuplicateCustomMethod(),
-                                    id_.getSignature(_page));
+                                    id_.getSignature(_page.getDisplayedStrings()));
                             _page.addLocError(duplicate_);
                             m_.addNameErrors(duplicate_);
                         }
@@ -965,7 +965,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             duplicate_.setFileName(getFile().getFileName());
                             //method name len
                             duplicate_.buildError(_page.getAnalysisMessages().getDuplicateIndexer(),
-                                    id_.getSignature(_page));
+                                    id_.getSignature(_page.getDisplayedStrings()));
                             _page.addLocError(duplicate_);
                             m_.addNameErrors(duplicate_);
                         }
@@ -982,7 +982,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         duplicate_ = new FoundErrorInterpret();
                         duplicate_.setIndexFile(r_);
                         duplicate_.setFileName(getFile().getFileName());
-                        String sgn_ = id_.getSignature(_page);
+                        String sgn_ = id_.getSignature(_page.getDisplayedStrings());
                         //method name len
                         duplicate_.buildError(_page.getAnalysisMessages().getDuplicateCustomMethod(),
                                 sgn_);
@@ -1018,7 +1018,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         duplicate_.setFileName(getFile().getFileName());
                         //left par len
                         duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedCtor(),
-                                idCt_.getSignature(_page));
+                                idCt_.getSignature(_page.getDisplayedStrings()));
                         _page.addLocError(duplicate_);
                         method_.addNameErrors(duplicate_);
                     }
@@ -1364,7 +1364,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             err_.setIndexFile(rootBlockContent.getIdRowCol());
             //original id len
             err_.buildError(_page.getAnalysisMessages().getReturnTypes(),
-                    e.getClassMethodId().getClassMethodId().getSignature(_page),
+                    e.getClassMethodId().getClassMethodId().getSignature(_page.getDisplayedStrings()),
                     StringUtil.join(types_,ExportCst.JOIN_TYPES),
                     StringUtil.join(retClasses_,ExportCst.JOIN_TYPES));
             _page.addLocError(err_);
@@ -1389,10 +1389,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     //original id len
                     err_.buildError(_page.getAnalysisMessages().getFinalNotSubReturnType(),
                             subType_,
-                            subInt_.getConstraints().getSignature(_page),
+                            subInt_.getConstraints().getSignature(_page.getDisplayedStrings()),
                             subInt_.getClassName(),
                             formattedSup_,
-                            s.getConstraints().getSignature(_page),
+                            s.getConstraints().getSignature(_page.getDisplayedStrings()),
                             s.getClassName());
                     _page.addLocError(err_);
                     addNameErrors(err_);
@@ -1414,7 +1414,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             err_.setIndexFile(rootBlockContent.getIdRowCol());
             //original id len
             err_.buildError(_page.getAnalysisMessages().getTwoReturnTypes(),
-                    e.getClassMethodId().getClassMethodId().getSignature(_page),
+                    e.getClassMethodId().getClassMethodId().getSignature(_page.getDisplayedStrings()),
                     StringUtil.join(types_,ExportCst.JOIN_TYPES),
                     StringUtil.join(retClasses_,ExportCst.JOIN_TYPES));
             _page.addLocError(err_);
@@ -1428,7 +1428,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             //original id len
             err_.buildError(_page.getAnalysisMessages().getTwoFinal(),
                     _virtualType,
-                    e.getClassMethodId().getClassMethodId().getSignature(_page));
+                    e.getClassMethodId().getClassMethodId().getSignature(_page.getDisplayedStrings()));
             _page.addLocError(err_);
             addNameErrors(err_);
         }
@@ -1781,7 +1781,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     FoundErrorInterpret cyclic_ = new FoundErrorInterpret();
                     StringList c_ = new StringList();
                     for (ConstructorId c: cycle_) {
-                        c_.add(c.getSignature(_page));
+                        c_.add(c.getSignature(_page.getDisplayedStrings()));
                     }
                     cyclic_.setFileName(getFile().getFileName());
                     cyclic_.setIndexFile(getOffset());

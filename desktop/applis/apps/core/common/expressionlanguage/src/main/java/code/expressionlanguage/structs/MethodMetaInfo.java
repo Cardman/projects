@@ -287,7 +287,7 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
     }
 
     public String getSignature(ContextEl _an) {
-        return pairIds.getRealId().getSignature(_an);
+        return pairIds.getRealId().getSignature(_an.getStandards().getDisplayedStrings());
     }
 
     public boolean isInvokable() {

@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
@@ -1781,7 +1782,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
     private static StringList listOfTypes(CustList<OverridingMethodDto> _map, MethodId _id) {
         StringList l_ = new StringList();
         for (OverridingMethodDto o: _map) {
-            if (o.getFormattedMethodId().eq(MethodId.to(_id))) {
+            if (o.getFormattedMethodId().eq(new FormattedMethodId(_id))) {
                 for (GeneStringOverridable i : o.getMethodIds()) {
                     if (StringUtil.contains(l_,i.getGeneString())) {
                         continue;

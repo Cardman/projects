@@ -65,7 +65,7 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
 
     @Override
     public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page);
+        return getId().getSignature(_page.getDisplayedStrings());
     }
     public MethodId getId() {
         String name_ = getName();

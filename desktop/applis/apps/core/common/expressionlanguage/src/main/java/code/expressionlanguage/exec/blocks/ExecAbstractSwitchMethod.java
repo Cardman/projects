@@ -39,7 +39,7 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
 
     @Override
     public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana);
+        return getId().getSignature(_ana.getStandards().getDisplayedStrings());
     }
 
     public MethodId getId() {

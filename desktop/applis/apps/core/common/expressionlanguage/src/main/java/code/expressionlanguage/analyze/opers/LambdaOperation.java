@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.*;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -1265,7 +1266,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //_name len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
-                new MethodId(_staticContext, _name, _argsClass).getSignature(_page));
+                new MethodId(_staticContext, _name, _argsClass).getSignature(_page.getDisplayedStrings()));
         _page.getLocalizer().addError(undefined_);
         addErr(undefined_.getBuiltError());
     }
@@ -1363,7 +1364,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             abs_.buildError(
                     _page.getAnalysisMessages().getAbstractMethodRef(),
                     _id.getRealClass(),
-                    _id.getRealId().getSignature(_page));
+                    _id.getRealId().getSignature(_page.getDisplayedStrings()));
             _page.getLocalizer().addError(abs_);
             addErr(abs_.getBuiltError());
         }
@@ -1669,7 +1670,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //key word len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
-                new ConstructorId(_clCurName, _args, false).getSignature(_page));
+                new ConstructorId(_clCurName, _args, false).getSignature(_page.getDisplayedStrings()));
         _page.getLocalizer().addError(undefined_);
         addErr(undefined_.getBuiltError());
     }
@@ -2210,7 +2211,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //_name len
                 undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
-                        new MethodId(MethodAccessKind.STATIC, "", methodTypes_).getSignature(_page));
+                        new MethodId(MethodAccessKind.STATIC, "", methodTypes_).getSignature(_page.getDisplayedStrings()));
                 _page.getLocalizer().addError(undefined_);
                 int k_ = _page.getLocalizer().getCurrentLocationIndex()+sum_+1;
                 partOffsets.add(count_,new PartOffset(ExportCst.END_ANCHOR,k_+Math.max(1,operator_.length())));
@@ -2230,7 +2231,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //_name len
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
-                    new MethodId(MethodAccessKind.STATIC, "", methodTypes_).getSignature(_page));
+                    new MethodId(MethodAccessKind.STATIC, "", methodTypes_).getSignature(_page.getDisplayedStrings()));
             _page.getLocalizer().addError(undefined_);
             int k_ = _page.getLocalizer().getCurrentLocationIndex()+sum_+1;
             partOffsets.add(count_,new PartOffset(ExportCst.END_ANCHOR,k_+Math.max(1,operator_.length())));

@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.common.NumParsers;
 
 public final class BooleanStruct extends WithoutParentIdStruct implements DisplayableStruct,AnaDisplayableStruct {
@@ -31,15 +31,15 @@ public final class BooleanStruct extends WithoutParentIdStruct implements Displa
 
     @Override
     public StringStruct getDisplayedString(AnalyzedPageEl _an) {
-        return getDisplayedString(_an.getDisplayedStrings());
+        return getDisplayed(_an.getDisplayedStrings());
     }
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        return getDisplayedString(_an.getStandards().getDisplayedStrings());
+        return getDisplayed(_an.getStandards().getDisplayedStrings());
     }
 
-    private StringStruct getDisplayedString(DisplayedStrings _displayedStrings) {
+    private StringStruct getDisplayed(DisplayedStrings _displayedStrings) {
         if (this == TRUE) {
             return new StringStruct(_displayedStrings.getTrueString());
         }

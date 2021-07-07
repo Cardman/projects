@@ -8,11 +8,10 @@ import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.core.StringUtil;
 

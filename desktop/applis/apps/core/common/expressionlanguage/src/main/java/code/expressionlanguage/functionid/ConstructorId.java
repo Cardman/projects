@@ -1,14 +1,11 @@
 package code.expressionlanguage.functionid;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.*;
 import code.util.CustList;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class ConstructorId implements Identifiable {
+public final class ConstructorId extends AbsractIdentifiableCommon implements Identifiable {
 
     private static final String EMPTY = "";
     private static final String CST_VARARG = "...";
@@ -16,108 +13,58 @@ public final class ConstructorId implements Identifiable {
     private static final String LEFT = "(";
     private static final String RIGHT = ")";
 
-    private final String name;
-
-    private final CustList<String> classNames;
-    private final CustList<Boolean> refParams;
-    private final boolean vararg;
-
     public ConstructorId(String _name, CustList<String> _classNames, boolean _vararg) {
-        name = StringUtil.nullToEmpty(_name);
-        vararg = _vararg;
-        refParams = new CustList<Boolean>();
-        classNames = new CustList<String>();
-        for (String s: _classNames) {
-            classNames.add(StringUtil.nullToEmpty(s));
-            refParams.add(false);
-        }
+        super(StringUtil.nullToEmpty(_name),_vararg);
+        feedParamTypes(_classNames);
     }
     public ConstructorId(String _name, CustList<String> _classNames, CustList<Boolean> _refParams, boolean _vararg) {
-        name = StringUtil.nullToEmpty(_name);
-        vararg = _vararg;
-        refParams = new CustList<Boolean>();
-        classNames = new CustList<String>();
-        int min_ = Math.min(_classNames.size(),_refParams.size());
-        for (String s: _classNames.left(min_)) {
-            classNames.add(StringUtil.nullToEmpty(s));
-        }
-        for (boolean s: _refParams.left(min_)) {
-            refParams.add(s);
-        }
+        super(StringUtil.nullToEmpty(_name),_vararg);
+        feedParamTypes(_classNames, _refParams);
     }
 
     public static MethodId to(ConstructorId _id) {
-        return new MethodId(false, MethodAccessKind.INSTANCE, _id.name, _id.classNames,_id.refParams, _id.vararg);
+        return new MethodId(false, MethodAccessKind.INSTANCE, _id.getName(), _id.getClassNames(), _id.getRefParams(), _id.isVararg());
     }
 
     public static ConstructorId to(String _access, CustList<String> _params,ConstructorId _id) {
-        return new ConstructorId(_access,_params,_id.refParams, _id.vararg);
+        return new ConstructorId(_access,_params, _id.getRefParams(), _id.isVararg());
     }
 
-    public ConstructorId reflectFormat(ExecFormattedRootBlock _genericClass) {
+    public ConstructorId reflectFormat(StringMap<String> _varTypes, String _formatted) {
         int len_ = getParametersTypesLength();
         CustList<String> pTypes_ = new CustList<String>();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = getParametersType(i);
-            String formatted_ = ExecInherits.reflectFormat(_genericClass, n_);
+            String formatted_ = StringExpUtil.getReflectFormattedType(n_, _varTypes);
             pTypes_.add(formatted_);
         }
-        return new ConstructorId(_genericClass.getFormatted(), pTypes_,refParams, isVararg());
+        return new ConstructorId(_formatted, pTypes_, getRefParams(), isVararg());
     }
 
     public ConstructorId copy(String _class) {
-        return new ConstructorId(_class, classNames,refParams, vararg);
+        return new ConstructorId(_class, getClassNames(), getRefParams(), isVararg());
     }
 
     @Override
-    public String getSignature(ContextEl _ana) {
-        return getSignature(_ana.getStandards().getDisplayedStrings());
-    }
-    public String getSignature(AnalyzedPageEl _ana) {
-        return getSignature(_ana.getDisplayedStrings());
-    }
-    @Override
     public String getSignature(DisplayedStrings _ana) {
         String suf_ = EMPTY;
-        if (vararg) {
+        if (isVararg()) {
             suf_ = CST_VARARG;
         }
         CustList<String> cls_ = new CustList<String>();
-        int m_ = Math.min(classNames.size(),refParams.size());
+        int m_ = Math.min(getClassNames().size(), getRefParams().size());
         for (int i = 0; i < m_; i++) {
             String s_ = "";
             if (getParametersRef(i)) {
                 s_ = "~";
             }
-            cls_.add(StringUtil.concat(s_,classNames.get(i)));
+            cls_.add(StringUtil.concat(s_,getClassNames().get(i)));
         }
-        return StringUtil.concat(name,LEFT, StringUtil.join(cls_, SEP_TYPE),suf_,RIGHT);
+        return StringUtil.concat(getName(),LEFT, StringUtil.join(cls_, SEP_TYPE),suf_,RIGHT);
     }
 
     public boolean eq(ConstructorId _obj) {
         return IdentifiableUtil.eqPartial(this,_obj);
-    }
-
-    @Override
-    public int getParametersTypesLength() {
-        return classNames.size();
-    }
-    @Override
-    public boolean getParametersRef(int _index) {
-        return refParams.get(_index);
-    }
-    @Override
-    public String getParametersType(int _index) {
-        return classNames.get(_index);
-    }
-    @Override
-    public boolean isVararg() {
-        return vararg;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     @Override

@@ -13,7 +13,7 @@ public abstract class InitBlock extends MemberCallingsBlock {
     }
 
     public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page);
+        return getId().getSignature(_page.getDisplayedStrings());
     }
     public MethodId getId() {
         String name_ = Long.toString(getNumber());

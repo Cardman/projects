@@ -7,7 +7,7 @@ import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.util.*;
 import code.util.core.IndexConstants;
 
@@ -29,7 +29,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
 
     @Override
     public String getSignature(AnalyzedPageEl _page) {
-        return getId().getSignature(_page);
+        return getId().getSignature(_page.getDisplayedStrings());
     }
 
     @Override

@@ -49,7 +49,7 @@ public abstract class AbsAnnotatedStruct extends WithoutParentStruct implements 
     protected static MethodId tryFormatId(ExecFormattedRootBlock _name, ContextEl _context, MethodId _id) {
         MethodId fid_;
         if (ExecInherits.correctNbParameters(_name.getFormatted(), _context)) {
-            fid_ = _id.reflectFormat(_name);
+            fid_ = _id.reflectFormat(ExecInherits.getVarTypes(_name));
         } else {
             fid_ = _id;
         }
@@ -59,7 +59,7 @@ public abstract class AbsAnnotatedStruct extends WithoutParentStruct implements 
     protected static ConstructorId tryFormatId(ExecFormattedRootBlock _name, ContextEl _context, ConstructorId _id) {
         ConstructorId fid_;
         if (ExecInherits.correctNbParameters(_name.getFormatted(), _context)) {
-            fid_ = _id.reflectFormat(_name);
+            fid_ = reflectFormat(_name, _id);
         } else {
             fid_ = _id;
         }
@@ -67,11 +67,15 @@ public abstract class AbsAnnotatedStruct extends WithoutParentStruct implements 
     }
 
     protected static ConstructorId tryFormatId(ExecFormattedRootBlock _name, ConstructorId _id) {
-        return _id.reflectFormat(_name);
+        return reflectFormat(_name, _id);
+    }
+
+    private static ConstructorId reflectFormat(ExecFormattedRootBlock _name, ConstructorId _id) {
+        return _id.reflectFormat(ExecInherits.getVarTypes(_name), _name.getFormatted());
     }
 
     protected static MethodId tryFormatId(ExecFormattedRootBlock _name, MethodId _id) {
-        return _id.reflectFormat(_name);
+        return _id.reflectFormat(ExecInherits.getVarTypes(_name));
     }
 
     protected static String tryFormatType(ContextEl _cont, ExecFormattedRootBlock _owner, String _type) {

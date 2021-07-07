@@ -47,7 +47,7 @@ public final class OverridesTypeUtil {
                     continue;
                 }
                 //r_, as super interface of c, is a sub type of type input
-                FormattedMethodId l_ = _realId.quickOverrideFormat(v_);
+                FormattedMethodId l_ = new FormattedMethodId(_realId.quickFormat(AnaInherits.getVarTypes(v_)));
                 CustList<OverridingMethodDto> ov_ = i_.getAllOverridingMethods();
                 //r_ inherit the formatted method
                 CustList<GeneStringOverridable> foundSuperClasses_ = new CustList<GeneStringOverridable>();
@@ -75,7 +75,7 @@ public final class OverridesTypeUtil {
             }
             finalMethods_ = new CustList<GeneStringOverridable>();
             methods_ = new CustList<GeneStringOverridable>();
-            FormattedMethodId l_ = _realId.quickOverrideFormat(baseCond_);
+            FormattedMethodId l_ = new FormattedMethodId(_realId.quickFormat(AnaInherits.getVarTypes(baseCond_)));
             CustList<OverridingMethodDto> ov_ = c.getAllOverridingMethods();
             //r_ inherit the formatted method
             CustList<GeneStringOverridable> foundSuperClasses_ = new CustList<GeneStringOverridable>();
@@ -160,7 +160,7 @@ public final class OverridesTypeUtil {
                 continue;
             }
             //r_, as super class of c, is a sub type of type input
-            FormattedMethodId l_ = _realId.quickOverrideFormat(v_);
+            FormattedMethodId l_ = new FormattedMethodId(_realId.quickFormat(AnaInherits.getVarTypes(v_)));
             CustList<OverridingMethodDto> ov_ = r_.getAllOverridingMethods();
             //r_ inherit the formatted method
             boolean found_ = false;

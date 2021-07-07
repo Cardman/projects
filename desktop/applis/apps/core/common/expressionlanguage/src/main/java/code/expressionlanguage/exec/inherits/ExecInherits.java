@@ -113,6 +113,9 @@ public final class ExecInherits {
         return StringExpUtil.getFormattedType(_second, varTypes_);
     }
 
+    public static StringMap<String> getVarTypes(ExecFormattedRootBlock _formatted) {
+        return getVarTypes(_formatted.getFormatted(), _formatted.getRootBlock());
+    }
     static StringMap<String> getVarTypes(String _className, GeneType _root) {
         StringList types_ = StringExpUtil.getAllTypes(_className);
         return getVarTypes(types_,_root);
@@ -165,7 +168,7 @@ public final class ExecInherits {
     }
 
     public static String reflectFormat(ExecFormattedRootBlock _first, String _second) {
-        StringMap<String> varTypes_ = getVarTypes(_first.getFormatted(), _first.getRootBlock());
+        StringMap<String> varTypes_ = getVarTypes(_first);
         return StringExpUtil.getReflectFormattedType(_second, varTypes_);
     }
 
