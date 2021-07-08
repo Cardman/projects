@@ -56,19 +56,18 @@ public final class Classes {
 	}
 
     /**Resources are possibly added before analyzing file types*/
-    public static ReportedMessages validateAll(Options _opt, StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
+    public static ContextEl validateAll(Options _opt, StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
         validateWithoutInit(_files, _page);
-        ReportedMessages messages_ = _page.getMessages();
         if (!_page.isEmptyErrors()) {
             //all errors are logged here
-            return messages_;
+            return null;
         }
         ForwardInfos.generalForward(_page,_forwards);
         ContextEl ctx_ = _forwards.generate(_opt);
         forwardAndClear(ctx_);
         Options options_ = _page.getOptions();
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, options_);
-        return messages_;
+        return ctx_;
     }
 
     public static void forwardAndClear(ContextEl _context) {

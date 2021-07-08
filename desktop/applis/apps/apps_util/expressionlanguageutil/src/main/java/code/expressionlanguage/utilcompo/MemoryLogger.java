@@ -30,7 +30,7 @@ public final class MemoryLogger implements AbstractLogger {
     }
 
     @Override
-    public void logErr(String _folerName, String _fileName, String _content, RunnableContextEl _cont) {
+    public void logErr(String _folerName, String _fileName, String _content) {
         errFile = _fileName;
         errs += _content;
     }

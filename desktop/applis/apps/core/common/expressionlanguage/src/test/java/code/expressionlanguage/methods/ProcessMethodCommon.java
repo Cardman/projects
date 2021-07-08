@@ -41,7 +41,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static final String STRING = "java.lang.String";
     protected static final String BOOLEAN = "java.lang.Boolean";
 
-    protected static ReportedMessages validate(StringMap<String> _files, Options _opt, AnalyzedPageEl _page, Forwards _forwards) {
+    protected static ContextEl validate(StringMap<String> _files, Options _opt, AnalyzedPageEl _page, Forwards _forwards) {
         return ContextFactory.addResourcesAndValidate(_opt,_files, "src", _page, _forwards);
     }
 
@@ -178,25 +178,25 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
-    private static StringMap<String> getErrors(ReportedMessages _report) {
-        return _report.getErrors();
+    private static StringMap<String> getErrors(AnalyzedTestContext _report) {
+        return _report.getAnalyzing().getMessages().getErrors();
     }
 
     private static StringMap<String> validateAndCheckReportErrors(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ReportedMessages report_ = validate(_cont, _files);
+        validate(_cont, _files);
         assertTrue(!isEmptyErrors(_cont));
-        return getErrors(report_);
+        return getErrors(_cont);
     }
 
     private static StringMap<String> validateAndCheckReportWarnings(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ReportedMessages report_ = validate(_cont, _files);
-        return getErrors(report_);
+        validate(_cont, _files);
+        return getErrors(_cont);
     }
 
     private static StringMap<String> validateAndCheckNoReportErrors(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ReportedMessages report_ = validate(_cont, _files);
+        validate(_cont, _files);
         assertTrue(isEmptyErrors(_cont));
-        return getErrors(report_);
+        return getErrors(_cont);
     }
 
     protected static boolean covErr(StringMap<String> _files) {
@@ -366,12 +366,13 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static boolean ctxMustInitFail(StringMap<String> _files) {
         AnalyzedTestContext cont_ = contextElReadOnlyMustInit();
-        ReportedMessages reportedMessages_ = validateAll(_files, cont_);
+        validateAll(_files, cont_);
+        ReportedMessages reportedMessages_ = cont_.getAnalyzing().getMessages();
         reportedMessages_.displayErrors();
         return !reportedMessages_.isAllEmptyErrors();
     }
 
-    protected static ReportedMessages validateAll(StringMap<String> _files, AnalyzedTestContext _cont) {
+    protected static ContextEl validateAll(StringMap<String> _files, AnalyzedTestContext _cont) {
         return Classes.validateAll(_cont.getOpt(), _files, _cont.getAnalyzing(), _cont.getForwards());
     }
 
@@ -461,9 +462,9 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     private static ContextEl validateAndRet(StringMap<String> _files, AnalyzedTestContext _cont) {
-        validateAll(_files, _cont);
+        ContextEl ctx_ = validateAll(_files, _cont);
         assertTrue(isEmptyErrors(_cont));
-        return _cont.getContext();
+        return ctx_;
     }
 
     protected static ContextEl ctxLgOk(String _lg,StringMap<String> _files, String... _types) {
@@ -471,10 +472,10 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return validateAndRet(_files, cont_);
     }
 
-    protected static void forwardAndClear(AnalyzedTestContext _cont) {
-        ForwardInfos.generalForward(_cont.getAnalyzing(),_cont.getForwards());
-        _cont.getForwards().generate(_cont.getOpt());
-        Classes.forwardAndClear(_cont.getContext());
+    protected static ContextEl forwardAndClear(AnalyzedTestContext _cont) {
+        ContextEl ctx_ = _cont.getForwards().generate(_cont.getOpt());
+        Classes.forwardAndClear(ctx_);
+        return ctx_;
     }
 
     protected static void validateWithoutInit(StringMap<String> _files, AnalyzedTestContext _cont) {
@@ -609,8 +610,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl validQuick(StringMap<String> _files, AnalyzedTestContext _cont) {
         validateWithoutInit(_files, _cont);
         assertTrue( isEmptyErrors(_cont));
-        forwardAndClear(_cont);
-        return _cont.getContext();
+        ForwardInfos.generalForward(_cont.getAnalyzing(),_cont.getForwards());
+        return forwardAndClear(_cont);
     }
 
     protected StringMap<StringMap<Struct>> validateStaticFieldsFail(StringMap<String> _files) {
@@ -747,9 +748,9 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     private static ContextEl validateCovAndRet(StringMap<String> _files, AnalyzedTestContext _cont) {
-        validate(_cont,_files);
+        ContextEl ctx_ = validate(_cont, _files);
         assertTrue(isEmptyErrors(_cont));
-        return _cont.getContext();
+        return ctx_;
     }
 
     protected static ContextEl covVal2(StringMap<String> _files) {
@@ -757,7 +758,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return validateAndRet(_files, cont_);
     }
 
-    protected static ReportedMessages validate(AnalyzedTestContext _c, StringMap<String> _f) {
+    protected static ContextEl validate(AnalyzedTestContext _c, StringMap<String> _f) {
         return validate(_f,_c.getOpt(), _c.getAnalyzing(), _c.getForwards());
     }
     protected static String getString(Argument _arg) {
@@ -781,10 +782,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static ContextEl checkWarn(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxAnaWarn();
-        ReportedMessages methodHeaders_ = validateAll(_files, cont_);
+        ContextEl ctx_ = validateAll(_files, cont_);
+        ReportedMessages methodHeaders_ = cont_.getAnalyzing().getMessages();
         assertTrue(isEmptyErrors(cont_));
         assertTrue(methodHeaders_.displayMessageErrors()+methodHeaders_.displayErrors()+methodHeaders_.displayStdErrors()+methodHeaders_.displayWarnings(),!methodHeaders_.isEmptyWarnings());
-        return cont_.getContext();
+        return ctx_;
     }
 
     protected static boolean hasErrReadOnly(StringMap<String> _files) {

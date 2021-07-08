@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.instr.Delimiters;
@@ -2171,13 +2172,14 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         OperationNode op_ = rendOp(0, _cont, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(_cont, op_);
         ForwardInfos.generalForward( _cont.getAnalyzing(),_cont.getForwards());
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
-//        Classes.forwardAndClear(_cont.getContext());
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
+        ContextEl ctx_ = getGenerate(_cont);
+        //        Classes.forwardAndClear(_cont.getContext());
         assertTrue(_cont.isEmptyErrors());
 //        ExecClassesUtil.forwardClassesMetaInfos(_cont.getContext());
-        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getOpt());
-        _cont.getContext().setExiting(new NoExiting());
-        calculateReuse(_cont,out_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_cont.getOpt());
+        ctx_.setExiting(new NoExiting());
+        calculateReuse(ctx_,_cont, executableNodes_);
         assertTrue(_cont.isEmptyErrors());
         assertNotNull(getException(_cont));
     }
@@ -2187,20 +2189,22 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
         CustList<OperationNode> all_ = getQuickAnalyzed(_el, 0, _cont, _cont.getAnalyzingDoc());
         ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards());
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
+        ContextEl ctx_ = getGenerate(_cont);
         assertTrue(_cont.isEmptyErrors());
-        ExecClassesUtil.forwardClassesMetaInfos(_cont.getContext());
-        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(),_cont.getOpt());
-        _cont.getContext().setExiting(new NoExiting());
-        calculateReuse(_cont,out_);
+        ExecClassesUtil.forwardClassesMetaInfos(ctx_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_cont.getOpt());
+        ctx_.setExiting(new NoExiting());
+        calculateReuse(ctx_,_cont, executableNodes_);
         assertTrue(_cont.isEmptyErrors());
         assertNotNull(getException(_cont));
     }
 
     private static void calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
-        _an.getContext().setExiting(new NoExiting());
-        calculateReuse(_an,out_);
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_an, _ops);
+        ContextEl ctx_ = getGenerate(_an);
+        ctx_.setExiting(new NoExiting());
+        calculateReuse(ctx_,_an, executableNodes_);
         assertNotNull(getException(_an));
     }
 
@@ -2259,15 +2263,16 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
 
     private static Struct checkEx3(AnalyzedTestConfiguration _cont, String _s) {
 //        addInnerPage(_cont);
-        String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
+        String gl_ = _cont.getArgumentClass();
         _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
         CustList<OperationNode> all_ = getQuickAnalyzed(_s, 0, _cont, _cont.getAnalyzingDoc());
         ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards());
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(_cont, all_);
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
+        ContextEl ctx_ = getGenerate(_cont);
         assertTrue(_cont.isEmptyErrors());
-        ExecClassesUtil.tryInitStaticlyTypes(_cont.getContext(), _cont.getOpt());
-        _cont.getContext().setExiting(new NoExiting());
-        calculateReuse(_cont,out_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, _cont.getOpt());
+        ctx_.setExiting(new NoExiting());
+        calculateReuse(ctx_,_cont, executableNodes_);
         assertTrue(_cont.isEmptyErrors());
         assertNotNull(getException(_cont));
         return getException(_cont);

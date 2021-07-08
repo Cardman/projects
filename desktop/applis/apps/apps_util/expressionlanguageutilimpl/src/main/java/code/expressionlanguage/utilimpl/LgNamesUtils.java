@@ -114,7 +114,7 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
 
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
-        return new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
+        return new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(infos.getThreadFactory().newAtomicLong())));
     }
 
     @Override

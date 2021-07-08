@@ -27,7 +27,7 @@ class NativeAnalyzedTestConfiguration {
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
     private RendStackCall stackCall;
 
-    NativeAnalyzedTestConfiguration(Configuration _configuration, NativeAnalyzedTestContext _analyzing, Forwards _forwards, BeanNatLgNames _standards) {
+    NativeAnalyzedTestConfiguration(ContextEl _generate, Configuration _configuration, NativeAnalyzedTestContext _analyzing, Forwards _forwards, BeanNatLgNames _standards) {
         this.configuration = _configuration;
         forwards = _forwards;
         adv= _standards;
@@ -37,7 +37,7 @@ class NativeAnalyzedTestConfiguration {
         analyzingDoc.setInputBuilder(new DefaultInputBuilder());
         analyzingDoc.setConverterCheck(new NativeConverterCheck(_standards.getAliasObject()));
         this.analyzing = _analyzing.getAnalyzing();
-        context = _analyzing.getContext();
+        context = _generate;
     }
 
     Configuration getConfiguration() {

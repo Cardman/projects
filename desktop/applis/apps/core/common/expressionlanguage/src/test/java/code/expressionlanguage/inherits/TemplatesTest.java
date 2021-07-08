@@ -967,7 +967,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         validateInheritingClasses(cont_);
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
         postValidation(cont_);
-        cont_.getForwards().generate(cont_.getOpt());
+        cont_.setContext(cont_.generate());
         return cont_;
     }
     private static AnalyzedTestContext unfullValidateOverridingMethods(StringMap<String> _files) {
@@ -977,7 +977,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         validateInheritingClasses(cont_);
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
         postValidation(cont_);
-        cont_.getForwards().generate(cont_.getOpt());
+        cont_.setContext(cont_.generate());
         return cont_;
     }
 
@@ -992,7 +992,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         validateOverridingInherit(cont_);
         validateEl(cont_);
         checkInterfaces(cont_);
-        cont_.getForwards().generate(cont_.getOpt());
+        cont_.setContext(cont_.generate());
         return cont_;
     }
 

@@ -428,8 +428,7 @@ public final class NativeTest extends EquallableExUtil {
     private static NativeAnalyzedTestConfiguration buildNat(Configuration _conf) {
         Options opt_ = new Options();
         NativeAnalyzedTestContext cont_ = buildStdOne(opt_);
-        cont_.getForwards().generate(opt_);
-        return new NativeAnalyzedTestConfiguration(_conf,cont_, cont_.getForwards(), cont_.getStds());
+        return new NativeAnalyzedTestConfiguration(cont_.getForwards().generate(opt_),_conf,cont_, cont_.getForwards(), cont_.getStds());
     }
 
     @Test
@@ -1425,8 +1424,8 @@ public final class NativeTest extends EquallableExUtil {
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, standards_, analyzingDoc_, _conf.getDual());
         _conf.setAnalyzed(d_);
         RendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getForwards(), _conf.getConfiguration());
-        RendStackCall build_ = _conf.build(InitPhase.NOTHING, _conf.getForwards().getContext());
-        _nav.initializeRendSession(_conf.getForwards().getContext(), _conf.getAdv(), build_);
+        RendStackCall build_ = _conf.build(InitPhase.NOTHING, _conf.getContext());
+        _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), build_);
     }
 
     private static void initSessionDoc(NativeAnalyzedTestConfiguration _conf,Navigation _nav) {
@@ -1484,7 +1483,7 @@ public final class NativeTest extends EquallableExUtil {
         RendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
         setFirst(conf_);
         assertTrue(conf_.isEmptyErrors());
-        RendStackCall build_ = conf_.build(InitPhase.NOTHING, conf_.getForwards().getContext());
+        RendStackCall build_ = conf_.build(InitPhase.NOTHING, conf_.getContext());
         return getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), conf_.getContext(), build_);
     }
 

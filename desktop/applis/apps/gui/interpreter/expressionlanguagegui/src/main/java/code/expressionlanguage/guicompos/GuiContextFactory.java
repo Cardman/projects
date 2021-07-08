@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.fwd.Forwards;
@@ -36,7 +37,7 @@ public final class GuiContextFactory {
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames,fileBuilder_, _options);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        ReportedMessages reportedMessages_ = ContextFactory.addResourcesAndValidate(_options, _files, _exec.getSrcFolder(), page_, forwards_);
-        return new ResultsGuiContext((GuiContextEl) forwards_.getContext(),reportedMessages_);
+        ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_options, _files, _exec.getSrcFolder(), page_, forwards_);
+        return new ResultsGuiContext((GuiContextEl) reportedMessages_,page_.getMessages());
     }
 }

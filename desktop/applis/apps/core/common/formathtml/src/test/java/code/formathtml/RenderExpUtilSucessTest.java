@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.Delimiters;
@@ -1085,7 +1086,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         generalForward(context_);
         CustList<RendDynOperationNode> ex_ = getQuickExecutableNodes(context_, all_);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
-        setGlobalArgumentStruct(context_, str_);
+        setGlobalArgumentStruct(context_, str_,"pkg.Ex");
         Argument arg_ = buildAndCalculate(context_, ex_);
         assertEq(2, getNumber(arg_));
     }
@@ -3118,7 +3119,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         setGlobalType(context_, "pkg.Ex");
         CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v)=$this.inst", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v", false);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
-        setGlobalArgumentStruct(context_, str_);
+        setGlobalArgumentStruct(context_, str_, "pkg.Ex");
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(0));
@@ -3140,7 +3141,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         setGlobalType(context_, "pkg.Ex");
         CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("$this.inst=(v)", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v",false);
         Struct str_ = init(context_, "pkg.Ex");
-        setGlobalArgumentStruct(context_, str_);
+        setGlobalArgumentStruct(context_, str_, "pkg.Ex");
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(2));
@@ -4997,7 +4998,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setClassName(cont_.getAliasInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_, localVars_);
-        cont_.getForwards().generate(cont_.getOpt());
+        ContextEl ctx_ = getGenerate(cont_);
         buildAndCalculate(cont_, all_);
         Struct arg_ = getStaticField(cont_);
         assertSame(NullStruct.NULL_VALUE,arg_);
@@ -5540,7 +5541,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
 
     private static Argument calcLow(String _s, AnalyzedTestConfiguration _context) {
-        setGlobalType(_context, _context.getArgument().getStruct().getClassName(_context.getContext()));
+        setGlobalType(_context, _context.getArgumentClass());
         _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
         setupAnalyzing(_context, _context.getAnalyzingDoc());
         Argument argGl_ = _context.getArgument();
@@ -5551,11 +5552,12 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         OperationNode op_ = rendOp(0, _context, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(_context, op_);
         generalForward(_context);
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(_context, all_);
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_context, all_);
+        ContextEl ctx_ = getGenerate(_context);
         assertTrue(_context.isEmptyErrors());
 //        ExecClassesUtil.forwardClassesMetaInfos(_context.getContext());
-        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getOpt());
-        Argument arg_ = caculateReuse(_context, out_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_context.getOpt());
+        Argument arg_ = caculateReuse(ctx_,_context, executableNodes_);
         checkNullEx(_context);
         return arg_;
     }
@@ -5568,17 +5570,18 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     private static Argument buildAndCalculate(AnalyzedTestConfiguration _context, CustList<RendDynOperationNode> _all) {
         assertTrue(_context.isEmptyErrors());
         ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getOpt());
-        Argument arg_ = caculateReuse(_context, _all);
+        Argument arg_ = caculateReuse(_context.getContext(),_context, _all);
         checkNullEx(_context);
         return arg_;
     }
 
     private static Argument buildAndCalculateFwd(AnalyzedTestConfiguration _context, CustList<OperationNode> _all) {
         generalForward(_context);
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(_context, _all);
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_context, _all);
+        ContextEl ctx_ = getGenerate(_context);
         assertTrue(_context.isEmptyErrors());
-        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getOpt());
-        Argument arg_ = caculateReuse(_context, out_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_context.getOpt());
+        Argument arg_ = caculateReuse(ctx_,_context, executableNodes_);
         checkNullEx(_context);
         return arg_;
     }
@@ -5617,10 +5620,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         ForwardInfos.generalForward(conf_.getAnalyzing(),conf_.getForwards());
         RendForwardInfos.buildExec(conf_.getAnalyzingDoc(), conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
 //        conf_.getAdvStandards().forwardAndClear(conf_.getOpt(), conf_.getForwards());
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(conf_, all_);
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(conf_, all_);
+        ContextEl ctx_ = getGenerate(conf_);
         assertTrue(conf_.isEmptyErrors());
 //        ExecClassesUtil.forwardClassesMetaInfos(conf_.getContext());
-        Argument arg_ = caculateReuse(conf_, out_);
+        Argument arg_ = caculateReuse(ctx_,conf_, executableNodes_);
         checkNullEx(conf_);
         return arg_;
     }
@@ -5656,8 +5660,9 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
 
     private static Argument calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
-        Argument arg_ = caculateReuse(_an, out_);
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_an, _ops);
+        ContextEl ctx_ = getGenerate(_an);
+        Argument arg_ = caculateReuse(ctx_,_an, executableNodes_);
         checkNullEx(_an);
         return arg_;
     }
@@ -5709,9 +5714,10 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         ForwardInfos.generalForward(context_.getAnalyzing(),context_.getForwards());
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
-        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(), context_.getOpt());
-        caculateReuse(context_, out_);
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
+        ContextEl ctx_ = getGenerate(context_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getOpt());
+        caculateReuse(ctx_,context_, executableNodes_);
         checkNullEx(context_);
         return lv_;
     }
@@ -5790,11 +5796,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         CustList<RendDynOperationNode> out_ = getQuickExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
-        context_.getForwards().generate(context_.getOpt());
-        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(), context_.getOpt());
-        caculateReuse(context_, out1_);
+        ContextEl ctx_ = getGenerate(context_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getOpt());
+        caculateReuse(ctx_,context_, out1_);
         checkNullEx(context_);
-        Argument arg_ = caculateReuse(context_, out_);
+        Argument arg_ = caculateReuse(ctx_,context_, out_);
         checkNullEx(context_);
         assertEq(_i2, analyzingDoc_.getNextIndex());
         return arg_;
@@ -5807,9 +5813,9 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
 
     private static Struct init(AnalyzedTestConfiguration _context, String _className) {
-        _context.getForwards().generate(_context.getOpt());
-        ExecRootBlock classBody_ = _context.getContext().getClasses().getClassBody(_className);
-        return _context.getContext().getInit().processInit(_context.getContext(), NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), "", -1);
+        ContextEl ctx_ = getGenerate(_context);
+        ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(_className);
+        return ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), "", -1);
     }
 
     private static Argument processElNormal3(String _el, StringMap<String> _files, String... _types) {
@@ -5819,7 +5825,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
     private static Argument processElNormal3Low(String _el, StringMap<String> _files, String... _types) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(_files,_types);
-        setGlobalType(context_, context_.getArgument().getStruct().getClassName(context_.getContext()));
+        setGlobalType(context_, context_.getArgumentClass());
         context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
         setupAnalyzing(context_, context_.getAnalyzingDoc());
         Argument argGl_ = context_.getArgument();
@@ -5831,17 +5837,18 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         generalForward(context_);
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
-//        ExecClassesUtil.forwardClassesMetaInfos(context_.getContext());
-        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(),context_.getOpt());
-        Argument arg_ = caculateReuse(context_, out_);
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
+        ContextEl ctx_ = getGenerate(context_);
+        //        ExecClassesUtil.forwardClassesMetaInfos(context_.getContext());
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_,context_.getOpt());
+        Argument arg_ = caculateReuse(ctx_,context_, executableNodes_);
         checkNullEx(context_);
         return arg_;
     }
 
-    private static Argument caculateReuse(AnalyzedTestConfiguration _conf, CustList<RendDynOperationNode> _out) {
-        _conf.getContext().setExiting(new NoExiting());
-        return new Argument(calculateReuse(_conf,_out));
+    private static Argument caculateReuse(ContextEl _ctx,AnalyzedTestConfiguration _conf, CustList<RendDynOperationNode> _out) {
+        _ctx.setExiting(new NoExiting());
+        return new Argument(calculateReuse(_ctx,_conf,_out));
     }
 
     private static Delimiters checkDel(String _s, int _i, AnalyzedTestConfiguration _context) {
@@ -5861,10 +5868,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         OperationNode op_ = rendOp(context_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         ForwardInfos.generalForward(context_.getAnalyzing(),context_.getForwards());
-        CustList<RendDynOperationNode> out_ = getExecutableNodes(context_, all_);
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
+        ContextEl ctx_ = getGenerate(context_);
         assertTrue(isEmptyErrors(context_));
-        ExecClassesUtil.tryInitStaticlyTypes(context_.getContext(), context_.getOpt());
-        Argument arg_ = caculateReuse(context_, out_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getOpt());
+        Argument arg_ = caculateReuse(ctx_,context_, executableNodes_);
         checkNullEx(context_);
         assertEq(_i, analyzingDoc_.getNextIndex());
         return arg_;
@@ -5915,8 +5923,9 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return NumParsers.getStaticField(new ClassField("pkg.Ex", "inst"), staticFields_);
     }
 
-    private static void setGlobalArgumentStruct(AnalyzedTestConfiguration _context, Struct _str) {
+    private static void setGlobalArgumentStruct(AnalyzedTestConfiguration _context, Struct _str, String _s) {
         _context.setArgument(new Argument(_str));
+        _context.setArgumentClass(_s);
     }
 
     private static void setupAnalyzingOneVar(AnalyzedPageEl _analyzing, AnalyzingDoc _analyzingDoc, String _type, String _varName) {

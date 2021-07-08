@@ -1,5 +1,6 @@
 package code.formathtml.render;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.InitPhase;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -991,11 +992,11 @@ public final class SubmitFormTest extends CommonRender {
         AnalyzingDoc anaDoc_ = a_.getAnalyzingDoc();
         StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), anaDoc_, a_.getDual());
         a_.setAnalyzed(d_);
-        tryForward(a_);
-        tryInitStaticlyTypes(a_);
-        RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
-        nav_.initializeRendSession(a_.getContext(), a_.getAdvStandards(), build_);
-        return new AnalyzedTestNavigation(nav_,a_);
+        simpleForward(a_);
+        ContextEl ctx_ = tryFwdInit(a_);
+        RendStackCall build_ = a_.build(InitPhase.NOTHING, ctx_);
+        nav_.initializeRendSession(ctx_, a_.getAdvStandards(), build_);
+        return new AnalyzedTestNavigation(ctx_, nav_,a_);
     }
     private AnalyzedTestNavigation initWithValidator(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec) {
         StringMap<String> files_ = new StringMap<String>();
@@ -1021,11 +1022,11 @@ public final class SubmitFormTest extends CommonRender {
         AnalyzingDoc anaDoc_ = a_.getAnalyzingDoc();
         StringMap<AnaRendDocumentBlock> d_ = analyzedRenders(nav_, a_.getAnalyzing(), a_.getAdvStandards(), anaDoc_, a_.getDual());
         a_.setAnalyzed(d_);
-        tryForward(a_);
-        tryInitStaticlyTypes(a_);
-        RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
-        nav_.initializeRendSession(a_.getContext(), a_.getAdvStandards(), build_);
-        return new AnalyzedTestNavigation(nav_,a_);
+        simpleForward(a_);
+        ContextEl ctx_ = tryFwdInit(a_);
+        RendStackCall build_ = a_.build(InitPhase.NOTHING, ctx_);
+        nav_.initializeRendSession(ctx_, a_.getAdvStandards(), build_);
+        return new AnalyzedTestNavigation(ctx_, nav_,a_);
     }
 
     private static StringMap<AnaRendDocumentBlock> analyzedRenders(Navigation _nav, AnalyzedPageEl _page, BeanLgNames _stds, AnalyzingDoc _anaDoc, DualConfigurationContext _dual) {

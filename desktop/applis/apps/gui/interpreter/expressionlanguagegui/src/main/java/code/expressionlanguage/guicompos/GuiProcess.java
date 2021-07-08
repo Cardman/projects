@@ -101,10 +101,10 @@ public final class GuiProcess implements Runnable {
         ResultsGuiContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, list_);
         GuiContextEl cont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
-        CustContextFactory.reportErrors(cont_, opt_, exec_, reportedMessages_, stds_.getInfos());
+        CustContextFactory.reportErrors(opt_, exec_, reportedMessages_, stds_.getInfos());
         String time_ = Clock.getDateTimeText("_", "_", "_");
-        if (!reportedMessages_.isAllEmptyErrors()) {
-            MemoryReporter.buildError(cont_,reportedMessages_,exec_,fileInfos_,time_);
+        if (cont_ == null) {
+            MemoryReporter.buildError(reportedMessages_,exec_,fileInfos_,time_);
             AbstractLogger logger_ = fileInfos_.getLogger();
             byte[] bytes_ = fileInfos_.getReporter().exportErrs(exec_, logger_);
             if (bytes_ != null) {
@@ -113,7 +113,7 @@ public final class GuiProcess implements Runnable {
             }
             return null;
         }
-        MemoryReporter.buildWarning(cont_,reportedMessages_,exec_,fileInfos_,time_);
+        MemoryReporter.buildWarning(reportedMessages_,exec_,fileInfos_,time_);
         GuiProcess pr_ = new GuiProcess();
         pr_.executingOptions = exec_;
         pr_.context = cont_;

@@ -18,10 +18,6 @@ class NativeOtherAnalyzedTestContext {
         forwards = _forwards;
     }
 
-    ContextEl getContext() {
-        return forwards.getContext();
-    }
-
     Forwards getForwards() {
         return forwards;
     }

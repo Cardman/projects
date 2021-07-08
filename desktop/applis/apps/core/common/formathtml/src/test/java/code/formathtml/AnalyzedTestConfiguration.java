@@ -28,13 +28,14 @@ public final class AnalyzedTestConfiguration {
     private final Forwards forwards;
     private final BeanCustLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
-    private final ContextEl context;
+    private ContextEl context;
     private final DualConfigurationContext dual;
     private final Options opt;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
     private final StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
     private final StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
     private Argument argument = Argument.createVoid();
+    private String argumentClass = "";
     private RendStackCall rendStackCall;
 
     public AnalyzedTestConfiguration(Configuration _configuration, AnalyzedTestContext _analyzing, Forwards _forwards, BeanCustLgNames _standards) {
@@ -45,7 +46,6 @@ public final class AnalyzedTestConfiguration {
         analyzingDoc.setContent(adv);
         analyzingDoc.setInputBuilder(new DefaultInputBuilder());
         analyzingDoc.setConverterCheck(new DefaultConverterCheck(adv.getContent().getPrimTypes().getPrimitiveTypes(), adv.getContent().getCharSeq().getAliasString()));
-        context = _analyzing.getContext();
         dual = _analyzing.getDual();
         opt = _analyzing.getOpt();
         this.analyzing = _analyzing.getAnalyzing();
@@ -71,6 +71,9 @@ public final class AnalyzedTestConfiguration {
         return analyzing;
     }
 
+    public ContextEl generate(){
+        return forwards.generate(opt);
+    }
     public Forwards getForwards() {
         return forwards;
     }
@@ -108,11 +111,15 @@ public final class AnalyzedTestConfiguration {
     }
 
     public LgNames getStandards() {
-        return forwards.getContext().getStandards();
+        return adv;
     }
 
     public ContextEl getContext() {
-        return forwards.getContext();
+        return context;
+    }
+
+    public void setContext(ContextEl _context) {
+        this.context = _context;
     }
 
     public boolean isEmptyErrors() {
@@ -120,7 +127,7 @@ public final class AnalyzedTestConfiguration {
     }
 
     public Classes getClasses() {
-        return forwards.getContext().getClasses();
+        return forwards.getClasses();
     }
 
     public String getAliasByte() {
@@ -167,4 +174,11 @@ public final class AnalyzedTestConfiguration {
         this.argument = _argument;
     }
 
+    public String getArgumentClass() {
+        return argumentClass;
+    }
+
+    public void setArgumentClass(String _argumentClass) {
+        this.argumentClass = _argumentClass;
+    }
 }

@@ -14,11 +14,14 @@ public final class AnalyzedTestContext {
     private final Forwards forwards;
     private StackCall stackCall;
     private Options opt;
+    private LgNames lgNames;
+    private ContextEl context;
 
-    public AnalyzedTestContext(Options _opt, AnalyzedPageEl _analyzing, Forwards _forwards) {
+    public AnalyzedTestContext(Options _opt, AnalyzedPageEl _analyzing, Forwards _forwards, LgNames _lgNames) {
         this.analyzing = _analyzing;
         forwards = _forwards;
         opt = _opt;
+        lgNames = _lgNames;
     }
 
     public Options getOpt() {
@@ -26,13 +29,20 @@ public final class AnalyzedTestContext {
     }
 
     public ContextEl getContext() {
-        return forwards.getContext();
+        return context;
+    }
+
+    public void setContext(ContextEl _context) {
+        this.context = _context;
     }
 
     public AnalyzedPageEl getAnalyzing() {
         return analyzing;
     }
 
+    public ContextEl generate(){
+        return forwards.generate(opt);
+    }
     public Forwards getForwards() {
         return forwards;
     }
@@ -72,15 +82,11 @@ public final class AnalyzedTestContext {
         stackCall = _stackCall;
     }
 
-    public Initializer getInit() {
-        return forwards.getContext().getInit();
-    }
-
     public Classes getClasses() {
-        return forwards.getContext().getClasses();
+        return forwards.getClasses();
     }
 
     public LgNames getStandards() {
-        return forwards.getContext().getStandards();
+        return lgNames;
     }
 }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.InitPhase;
@@ -64,9 +65,9 @@ public final class CustContextFactory {
         RunnableContextEl rCont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         FileInfos infos_ = _definedLgNames.getInfos();
-        CustContextFactory.reportErrors(rCont_, _options, _exec, reportedMessages_, infos_);
-        if (!reportedMessages_.isAllEmptyErrors()) {
-            _progressingTests.showErrors(rCont_,reportedMessages_,_options,_exec,infos_);
+        CustContextFactory.reportErrors(_options, _exec, reportedMessages_, infos_);
+        if (rCont_ == null) {
+            _progressingTests.showErrors(reportedMessages_,_options,_exec,infos_);
             return;
         }
         _progressingTests.showWarnings(rCont_,reportedMessages_,_options,_exec,infos_);
@@ -90,18 +91,16 @@ public final class CustContextFactory {
                 rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
         showUpdates_.stop();
         if (_options.isCovering()) {
-            String exp_ = _exec.getOutput()+_exec.getCoverFolder();
             for (EntryCust<String,String> f:ExecFileBlock.export(rCont_).entryList()) {
-                infos_.getReporter().coverFile(exp_, f.getKey(), f.getValue(), rCont_);
+                infos_.getReporter().coverFile(_exec, f.getKey(), f.getValue());
             }
         }
         _progressingTests.setResults(rCont_,arg_, _definedLgNames);
     }
-    public static void reportErrors(RunnableContextEl _ctx, Options _options, ExecutingOptions _exec, ReportedMessages _reportedMessages, FileInfos _infos) {
+    public static void reportErrors(Options _options, ExecutingOptions _exec, ReportedMessages _reportedMessages, FileInfos _infos) {
         if (_options.isGettingErrors()) {
-            String exp_ = _exec.getOutput()+_exec.getErrorsFolder();
             for (EntryCust<String,String> f: _reportedMessages.getErrors().entryList()) {
-                _infos.getReporter().errorFile(exp_, f.getKey(), f.getValue(), _ctx);
+                _infos.getReporter().errorFile(_exec, f.getKey(), f.getValue());
             }
         }
     }
@@ -111,7 +110,7 @@ public final class CustContextFactory {
         CustFileBuilder fileBuilder_ = CustFileBuilder.newInstance(_definedLgNames.getContent(), _definedLgNames.getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, fileBuilder_, _options);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        ReportedMessages reportedMessages_ = ContextFactory.addResourcesAndValidate(_options, _files, _exec.getSrcFolder(), page_, forwards_);
-        return new ResultsRunnableContext((RunnableContextEl) forwards_.getContext(),reportedMessages_);
+        ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_options, _files, _exec.getSrcFolder(), page_, forwards_);
+        return new ResultsRunnableContext((RunnableContextEl) reportedMessages_, page_.getMessages());
     }
 }

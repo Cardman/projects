@@ -6642,8 +6642,8 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     private static ContextEl contextEl(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxAna();
-        validateAll(_files, cont_);
+        ContextEl ctx_ = validateAll(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+        return ctx_;
     }
 }

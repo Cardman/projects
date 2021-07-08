@@ -66,7 +66,7 @@ public final class InitializationLgNames {
         _lgNames.build();
         ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(_opt,page_, forwards_);
+        return new AnalyzedTestContext(_opt,page_, forwards_,_lgNames);
     }
 
     private static AnalyzedTestContext buildToStringAna(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {

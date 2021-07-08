@@ -367,6 +367,7 @@ public final class RenderRequestUtilTest extends CommonRender {
 
     private static void setGlobalArgumentStruct(AnalyzedTestConfiguration _conf, Struct _build) {
         _conf.setArgument(new Argument(_build));
+        _conf.setArgumentClass("pkg.BeanOne");
     }
 
 

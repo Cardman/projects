@@ -1,5 +1,6 @@
 package code.expressionlanguage.options;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
@@ -16,7 +17,7 @@ public final class ContextFactory {
 
     private ContextFactory(){}
 
-    public static ReportedMessages addResourcesAndValidate(Options _opt, StringMap<String> _files, String _folder, AnalyzedPageEl _page, Forwards _forwards) {
+    public static ContextEl addResourcesAndValidate(Options _opt, StringMap<String> _files, String _folder, AnalyzedPageEl _page, Forwards _forwards) {
         StringMap<String> srcFiles_ = new StringMap<String>();
         String pref_ = StringUtil.concat(_folder,"/");
         for (EntryCust<String, String> e: _files.entryList()) {

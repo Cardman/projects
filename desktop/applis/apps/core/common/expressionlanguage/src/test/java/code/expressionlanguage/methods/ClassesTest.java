@@ -39,15 +39,16 @@ public final class ClassesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         Options opt_ = new Options();
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        ReportedMessages rep_ = validateAll(files_, cont_);
+        ContextEl ctx_ = validateAll(files_, cont_);
+        ReportedMessages rep_ = cont_.getAnalyzing().getMessages();
         assertTrue(rep_.isAllEmptyErrors());
         assertEq(0, new AssignedVariables().getLastFieldsOrEmpty().size());
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
         assertNull(new Accessed(AccessEnum.PUBLIC,"",null).outerParent());
         ClassesUtil.getDirectChildren(null);
         ContextUtil.getParamTypesMapValues(null);
-        ExecTemplates.getValue(null, cont_.getContext(), null);
-        ExecTemplates.trySetArgument(cont_.getContext(),new Argument(),new ArgumentsPair(), null);
+        ExecTemplates.getValue(null, ctx_, null);
+        ExecTemplates.trySetArgument(ctx_,new Argument(),new ArgumentsPair(), null);
         new ClassMethodId("",new MethodId(null,"",new StringList())).eq(new ClassMethodId(" ",new MethodId(null,"",new StringList())));
         AnaInherits.getOverridingFullTypeByBases(null,null);
     }

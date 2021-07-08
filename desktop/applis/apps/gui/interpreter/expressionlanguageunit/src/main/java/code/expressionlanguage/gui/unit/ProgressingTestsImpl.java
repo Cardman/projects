@@ -9,10 +9,6 @@ import code.gui.Clock;
 import code.stream.AbstractFileCoreStream;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
-import code.stream.core.ContentTime;
-import code.stream.core.StreamZipFile;
-import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public final class ProgressingTestsImpl implements ProgressingTests {
     private TestableFrame mainWindow;
@@ -40,9 +36,9 @@ public final class ProgressingTestsImpl implements ProgressingTests {
     }
 
     @Override
-    public void showErrors(RunnableContextEl _ctx, ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos) {
+    public void showErrors(ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos) {
         String time_ = Clock.getDateTimeText("_", "_", "_");
-        MemoryReporter.buildError(_ctx,_reportedMessages,_exec,_infos,time_);
+        MemoryReporter.buildError(_reportedMessages,_exec,_infos,time_);
         AbstractLogger logger_ = _infos.getLogger();
         byte[] bytes_ = _infos.getReporter().exportErrs(_exec, logger_);
         if (bytes_ != null) {
@@ -54,7 +50,7 @@ public final class ProgressingTestsImpl implements ProgressingTests {
     @Override
     public void showWarnings(RunnableContextEl _ctx, ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos) {
         String time_ = Clock.getDateTimeText("_", "_", "_");
-        MemoryReporter.buildWarning(_ctx,_reportedMessages,_exec,_infos,time_);
+        MemoryReporter.buildWarning(_reportedMessages,_exec,_infos,time_);
     }
 
     @Override

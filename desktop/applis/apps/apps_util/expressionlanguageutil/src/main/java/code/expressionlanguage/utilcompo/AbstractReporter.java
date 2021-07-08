@@ -15,8 +15,8 @@ public interface AbstractReporter {
     String confTxt(String _fileConfOrContent);
     ReadBinFiles getBinFiles(String _archiveOrFolder);
     ReadFiles getFiles(String _archiveOrFolder);
-    void coverFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont);
-    void errorFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont);
+    void coverFile(ExecutingOptions _ex, String _fileName, String _content);
+    void errorFile(ExecutingOptions _ex, String _fileName, String _content);
     byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log);
     byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys,AbstractLogger _log);
 }

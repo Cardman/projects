@@ -31,7 +31,6 @@ public final class Forwards {
     private final AbstractConstantsCalculator constantsCalculator;
     private final Coverage coverage;
     private final Classes classes;
-    private ContextEl context;
     private final BuildableLgNames generator;
 
     public Forwards(BuildableLgNames _generator, AbstractFileBuilder _fileBuilder, Options _options) {
@@ -46,8 +45,7 @@ public final class Forwards {
     }
 
     public ContextEl generate(Options _opt) {
-        context = generator.newContext(_opt,this);
-        return context;
+        return generator.newContext(_opt, this);
     }
 
     public BuildableLgNames getGenerator() {
@@ -64,10 +62,6 @@ public final class Forwards {
 
     public AbstractFileBuilder getFileBuilder() {
         return fileBuilder;
-    }
-
-    public ContextEl getContext() {
-        return context;
     }
 
     public Classes getClasses() {

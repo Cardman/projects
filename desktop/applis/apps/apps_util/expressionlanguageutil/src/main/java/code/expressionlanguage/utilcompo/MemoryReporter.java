@@ -110,14 +110,14 @@ public final class MemoryReporter implements AbstractReporter {
     }
 
     @Override
-    public void coverFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont) {
-        String coversFolder_ = _rCont.getExecutingOptions().getCoverFolder();
+    public void coverFile(ExecutingOptions _ex, String _fileName, String _content) {
+        String coversFolder_ = _ex.getCoverFolder();
         reports.addEntry(coversFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),threadFactory.getThreadFactory().millis()));
     }
 
     @Override
-    public void errorFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont) {
-        String errorsFolder_ = _rCont.getExecutingOptions().getErrorsFolder();
+    public void errorFile(ExecutingOptions _ex, String _fileName, String _content) {
+        String errorsFolder_ = _ex.getErrorsFolder();
         reports.addEntry(errorsFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),threadFactory.getThreadFactory().millis()));
     }
 
@@ -173,25 +173,25 @@ public final class MemoryReporter implements AbstractReporter {
         }
         return out_;
     }
-    public static void buildError(RunnableContextEl _ctx, ReportedMessages _reportedMessages, ExecutingOptions _exec, FileInfos _infos, String _time) {
+    public static void buildError(ReportedMessages _reportedMessages, ExecutingOptions _exec, FileInfos _infos, String _time) {
         AbstractLogger logger_ = _infos.getLogger();
         if (!_reportedMessages.isAllEmptyErrors()) {
             String folder_ = _exec.getOutput()+_exec.getLogFolder();
             String dtPart_ = _time +".txt";
-            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayErrors(),_ctx);
-            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayWarnings(),_ctx);
-            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayStdErrors(),_ctx);
-            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayMessageErrors(),_ctx);
+            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayErrors());
+            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayWarnings());
+            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayStdErrors());
+            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayMessageErrors());
         }
-        buildWarning(_ctx, _reportedMessages, _exec, _infos, _time);
+        buildWarning(_reportedMessages, _exec, _infos, _time);
     }
 
-    public static void buildWarning(RunnableContextEl _ctx, ReportedMessages _reportedMessages, ExecutingOptions _exec, FileInfos _infos, String _time) {
+    public static void buildWarning(ReportedMessages _reportedMessages, ExecutingOptions _exec, FileInfos _infos, String _time) {
         AbstractLogger logger_ = _infos.getLogger();
         if (!_reportedMessages.isEmptyWarnings()) {
             String folder_ = _exec.getOutput()+_exec.getLogFolder();
             String dtPart_ = _time +".txt";
-            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayWarnings(),_ctx);
+            logger_.logErr(folder_,"_"+dtPart_, _time +":"+_reportedMessages.displayWarnings());
         }
     }
 }

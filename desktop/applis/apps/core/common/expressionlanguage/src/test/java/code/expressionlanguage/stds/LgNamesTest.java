@@ -2329,11 +2329,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards forwards_ = contextEl_.getForwards();
         ContextFactory.validateStds(forwards_,contextEl_.getAnalyzing().getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
-        ContextFactory.addResourcesAndValidate(options_, all_, "src", page_, forwards_);
+        ContextEl ctx_ = ContextFactory.addResourcesAndValidate(options_, all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
-        ContextEl ctx_ = forwards_.getContext();
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
@@ -2368,11 +2367,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards forwards_ = contextEl_.getForwards();
         ContextFactory.validateStds(forwards_,contextEl_.getAnalyzing().getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
-        ContextFactory.addResourcesAndValidate(options_, all_, "src", page_, forwards_);
+        ContextEl ctx_ = ContextFactory.addResourcesAndValidate(options_, all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
-        ContextEl ctx_ = forwards_.getContext();
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
         ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
@@ -2393,7 +2391,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         page_.setCalculator(_calculator);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
-        return new AnalyzedTestContext(_options,page_, new Forwards(_lgName,fileBuilder_, _options));
+        return new AnalyzedTestContext(_options,page_, new Forwards(_lgName,fileBuilder_, _options),_lgName);
     }
 
     private static StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AnalyzedTestContext _lgName) {

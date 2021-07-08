@@ -32,7 +32,7 @@ public final class DefaultLogger implements AbstractLogger {
     }
 
     @Override
-    public void logErr(String _folerName, String _fileName, String _content, RunnableContextEl _cont) {
+    public void logErr(String _folerName, String _fileName, String _content) {
         String toFile_ = StringUtil.concat(_folerName,"/",_fileName);
         StreamFolderFile.makeParent(toFile_,list);
         StreamTextFile.logToFile(toFile_, _content,streams);

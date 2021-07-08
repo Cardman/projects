@@ -86,15 +86,15 @@ public final class CustThreadActions extends AbstractThreadActions {
         }
         du_.getAnalyzed().getOptions().setDelimiterCase(';');
         getPage().getNavigation().setFiles(fileNames);
-        ReportedMessages reportedMessages_ = stds.setupAll(getPage().getNavigation(), getPage().getNavigation().getSession(), getPage().getNavigation().getFiles(), du_);
-        if (!reportedMessages_.isAllEmptyErrors()) {
+        ContextEl ctx_ = stds.setupAll(getPage().getNavigation(), getPage().getNavigation().getSession(), getPage().getNavigation().getFiles(), du_);
+        if (ctx_ == null) {
+            ReportedMessages reportedMessages_ = du_.getAnalyzed().getMessages();
             if (getPage().getArea() != null) {
                 getPage().getArea().append(reportedMessages_.displayErrors());
             }
             finish();
             return;
         }
-        ContextEl ctx_ = du_.getForwards().getContext();
         getPage().setContext(ctx_);
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         if (fileNames != null) {

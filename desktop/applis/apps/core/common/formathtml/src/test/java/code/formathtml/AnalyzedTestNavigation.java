@@ -24,7 +24,7 @@ public final class AnalyzedTestNavigation {
     private final StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
     private final AnalyzedTestConfiguration gl;
 
-    public AnalyzedTestNavigation(Navigation _nav, AnalyzedTestConfiguration _analyzing) {
+    public AnalyzedTestNavigation(ContextEl _ctx, Navigation _nav, AnalyzedTestConfiguration _analyzing) {
         nav = _nav;
         gl = _analyzing;
         this.configuration = _analyzing.getConfiguration();
@@ -34,7 +34,7 @@ public final class AnalyzedTestNavigation {
         analyzingDoc.setContent(adv);
         analyzingDoc.setInputBuilder(new DefaultInputBuilder());
         analyzingDoc.setConverterCheck(new DefaultConverterCheck(adv.getContent().getPrimTypes().getPrimitiveTypes(), adv.getContent().getCharSeq().getAliasString()));
-        context = _analyzing.getContext();
+        context = _ctx;
         this.analyzing = _analyzing.getAnalyzing();
     }
 

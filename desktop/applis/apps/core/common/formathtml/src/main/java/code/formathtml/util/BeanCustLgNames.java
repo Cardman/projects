@@ -408,7 +408,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return ValidatorStandard.tr(_list);
     }
 
-    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
+    public ContextEl setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         Forwards forwards_ = _dual.getForwards();
         setupRendClasses(_files, page_, _dual.getContext().getFilesConfName(), _dual.getContext().getAddedResources());
@@ -421,21 +421,21 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
         ReportedMessages messages_ = page_.getMessages();
         if (!messages_.isAllEmptyErrors()) {
-            return messages_;
+            return null;
         }
         ForwardInfos.generalForward(page_, forwards_);
         RendForwardInfos.buildExec(analyzingDoc_, d_, forwards_, _conf);
-        forwardAndClear(_dual.getContext().getOptions(), forwards_);
         Options options_ = page_.getOptions();
-        ContextEl context_ = forwards_.getContext();
+        ContextEl context_ = forwardAndClear(_dual.getContext().getOptions(), forwards_);
         ExecClassesUtil.tryInitStaticlyTypes(context_, options_);
-        return messages_;
+        return context_;
     }
 
-    public void forwardAndClear(Options _options, Forwards _forward) {
+    public ContextEl forwardAndClear(Options _options, Forwards _forward) {
         ContextEl ctx_ = _forward.generate(_options);
         Classes.forwardAndClear(ctx_);
         buildIterables(ctx_.getClasses());
+        return ctx_;
     }
 
     @Override

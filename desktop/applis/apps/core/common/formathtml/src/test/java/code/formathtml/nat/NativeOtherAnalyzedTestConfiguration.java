@@ -20,7 +20,6 @@ class NativeOtherAnalyzedTestConfiguration {
     private final Forwards forwards;
     private final BeanTestNatLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
-    private final ContextEl context;
     private final DualConfigurationContext dual;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
 
@@ -34,7 +33,6 @@ class NativeOtherAnalyzedTestConfiguration {
         analyzingDoc.setReducingOperations(new NativeReducingOperations());
         analyzingDoc.setConverterCheck(new NativeConverterCheck(_standards.getAliasObject()));
         this.analyzing = _analyzing.getAnalyzing();
-        context = _analyzing.getContext();
     }
 
     Configuration getConfiguration() {
@@ -51,10 +49,6 @@ class NativeOtherAnalyzedTestConfiguration {
 
     AnalyzingDoc getAnalyzingDoc() {
         return analyzingDoc;
-    }
-
-    ContextEl getContext() {
-        return context;
     }
 
     boolean isEmptyErrors() {

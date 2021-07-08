@@ -287,9 +287,9 @@ public final class NativeSecondTest extends EquallableExUtil {
         RendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
         setFirst(conf_);
         assertTrue(conf_.isEmptyErrors());
-        RendStackCall built_ = conf_.build(InitPhase.NOTHING, conf_.getContext());
-        conf_.getForwards().generate(new Options());
-        return getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), conf_.getForwards().getContext(), built_);
+        ContextEl generate_ = conf_.getForwards().generate(new Options());
+        RendStackCall built_ = conf_.build(InitPhase.NOTHING, generate_);
+        return getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), generate_, built_);
     }
 
     private NativeOtherAnalyzedTestConfiguration contextElSec() {
@@ -333,7 +333,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, standards_, analyzingDoc_, _conf.getDual());
         _conf.setAnalyzed(d_);
         RendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getForwards(), _conf.getConfiguration());
-        _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), new RendStackCall(InitPhase.NOTHING,_conf.getContext()));
+        _nav.initializeRendSession(null, _conf.getAdv(), new RendStackCall(InitPhase.NOTHING,null));
     }
 
     private static RendDocumentBlock buildRendWithTwoNativeBean(String _html, String _htmlTwo, BeanOne _bean, BeanTwo _beanTwo, NativeOtherAnalyzedTestConfiguration _conf) {
@@ -400,8 +400,8 @@ public final class NativeSecondTest extends EquallableExUtil {
 
     private static void addBeanInfo(NativeOtherAnalyzedTestConfiguration _conf, String _id, Struct _str) {
         BeanInfo b_ = new BeanInfo();
-        b_.setClassName(_str.getClassName(_conf.getContext()));
-        b_.setResolvedClassName(_str.getClassName(_conf.getContext()));
+        b_.setClassName(_str.getClassName(null));
+        b_.setResolvedClassName(_str.getClassName(null));
         _conf.getConfiguration().getBeansInfos().addEntry(_id,b_);
         _conf.getConfiguration().getBuiltBeans().addEntry(_id,_str);
     }
@@ -453,7 +453,7 @@ public final class NativeSecondTest extends EquallableExUtil {
     }
 
     private static String getSampleRes(NativeOtherAnalyzedTestConfiguration _conf, RendDocumentBlock _rendDocumentBlock) {
-        return getSampleRes(_conf.getConfiguration(), _rendDocumentBlock, _conf.getAdv(), _conf.getContext(), null);
+        return getSampleRes(_conf.getConfiguration(), _rendDocumentBlock, _conf.getAdv(), null, null);
     }
 
     private static void preinit(NativeOtherAnalyzedTestConfiguration _conf) {

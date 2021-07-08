@@ -25,10 +25,6 @@ public final class AnalyzedTestContext {
         return opt;
     }
 
-    public ContextEl getContext() {
-        return forwards.getContext();
-    }
-
     public Forwards getForwards() {
         return forwards;
     }
