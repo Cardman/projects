@@ -9,18 +9,18 @@ final class AnaEmptyPartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        //
+    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        setLoc(_loc);
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-       //
+    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        setLoc(_loc);
     }
 
     @Override
-    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
-        //
+    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        setLoc(_loc);
     }
 
 }

@@ -12,21 +12,22 @@ final class AnaInnerPartType extends AnaBinaryType {
     }
 
     @Override
-    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        analyzeType();
+    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        analyzeType(_loc);
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        analyzeType();
+    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        analyzeType(_loc);
     }
 
     @Override
-    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
-        analyzeType();
+    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        analyzeType(_loc);
     }
 
-    private void analyzeType() {
+    private void analyzeType(int _page) {
+        setLoc(_page);
         CustList<AnaPartType> ch_ = new CustList<AnaPartType>();
         AnaPartType f_ = getFirstChild();
         while (f_ != null) {
@@ -41,9 +42,12 @@ final class AnaInnerPartType extends AnaBinaryType {
     }
 
     @Override
-    void buildErrorInexist(AnalyzedPageEl _page) {
-        int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().lastKey();
-        int len_ = getOperators().lastValue().length();
-        buildOffsetPart(begin_,len_);
+    int buildErrorInexistBegin() {
+        return getFullBegin();
+    }
+
+    @Override
+    int buildErrorInexistEnd() {
+        return getOpLen();
     }
 }

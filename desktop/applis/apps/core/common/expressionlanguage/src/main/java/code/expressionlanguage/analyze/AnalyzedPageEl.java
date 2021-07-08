@@ -152,7 +152,6 @@ public final class AnalyzedPageEl {
     private final CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
     private final CustList<SwitchOperation> allSwitchMethods = new CustList<SwitchOperation>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
-    private int localInType = -1;
     private FileBlock refFileName;
     private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
     private final StringMap<ToStringMethodHeader> randCodeMethods = new StringMap<ToStringMethodHeader>();
@@ -1127,14 +1126,6 @@ public final class AnalyzedPageEl {
     }
     public StringMap<FileBlock> getFilesBodies() {
         return filesBodies;
-    }
-
-    public int getLocalInType() {
-        return localInType;
-    }
-
-    public void setLocalInType(int _localInType) {
-        localInType = _localInType;
     }
 
     public FileBlock getRefFileName() {

@@ -1,15 +1,10 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
-import code.util.StringList;
 
 abstract class AnaParentPartType extends AnaPartType {
-    private final CustList<PartOffset> beginOps = new CustList<PartOffset>();
-    private final CustList<PartOffset> endOps = new CustList<PartOffset>();
-    private final CustList<StringList> errsList = new CustList<StringList>();
+    private final CustList<String> errsList = new CustList<String>();
     private final StrTypes strTypes = new StrTypes();
     private AnaPartType firstChild;
     private final StrTypes operators;
@@ -29,14 +24,21 @@ abstract class AnaParentPartType extends AnaPartType {
         p_.setNextSibling(_child);
     }
 
-    abstract void buildErrorInexist(AnalyzedPageEl _page);
+    abstract int buildErrorInexistBegin();
+    abstract int buildErrorInexistEnd();
 
-    CustList<PartOffset> getBeginOps() {
-        return beginOps;
+    int getFullBegin(int _index){
+        return getFull()+getOperators().getKey(_index);
     }
 
-    CustList<PartOffset> getEndOps() {
-        return endOps;
+    int getFullBegin(){
+        return getFull()+getOperators().lastKey();
+    }
+    int getOpLen(int _index){
+        return getOperators().getValue(_index).length();
+    }
+    int getOpLen(){
+        return getOperators().lastValue().length();
     }
 
     @Override
@@ -52,7 +54,7 @@ abstract class AnaParentPartType extends AnaPartType {
         return strTypes;
     }
 
-    CustList<StringList> getErrsList() {
+    CustList<String> getErrsList() {
         return errsList;
     }
 }

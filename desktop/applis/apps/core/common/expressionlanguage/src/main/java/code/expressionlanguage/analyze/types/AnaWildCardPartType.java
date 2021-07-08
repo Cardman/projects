@@ -18,21 +18,22 @@ final class AnaWildCardPartType extends AnaParentPartType {
     }
 
     @Override
-    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        anaWild(_page);
+    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        anaWild(_page,_loc);
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        anaWild(_page);
+    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        anaWild(_page,_loc);
     }
 
     @Override
-    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
-        anaWild(_page);
+    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        anaWild(_page,_loc);
     }
 
-    private void anaWild(AnalyzedPageEl _page) {
+    private void anaWild(AnalyzedPageEl _page, int _loc) {
+        setLoc(_loc);
         String ch_ = getFirstChild().getAnalyzedType();
         if (ch_.isEmpty()) {
             setAlreadyError();
@@ -52,9 +53,12 @@ final class AnaWildCardPartType extends AnaParentPartType {
     }
 
     @Override
-    void buildErrorInexist(AnalyzedPageEl _page) {
-        int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().firstKey();
-        int len_ = getOperators().firstValue().length();
-        buildOffsetPart(begin_,len_);
+    int buildErrorInexistBegin() {
+        return getFullBegin(0);
+    }
+
+    @Override
+    int buildErrorInexistEnd() {
+        return getOpLen(0);
     }
 }

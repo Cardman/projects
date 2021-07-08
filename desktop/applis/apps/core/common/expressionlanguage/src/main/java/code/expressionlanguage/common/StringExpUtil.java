@@ -541,10 +541,10 @@ public final class StringExpUtil {
 
     private static ArrayResult errorOrOk(String _string, StrTypes _values, StrTypes _operators, int _j) {
         String str_ = _string.substring(0, _j);
-        int last_ = StringUtil.getLastPrintableCharIndex(str_);
-        if (last_ < 0) {
-            return ArrayResult.ERROR;
-        }
+//        int last_ = StringUtil.getLastPrintableCharIndex(str_);
+//        if (last_ < 0) {
+//            return ArrayResult.ERROR;
+//        }
         _values.addEntry(IndexConstants.FIRST_INDEX, str_);
         _operators.addEntry(_j, _string.substring(_j));
         return ArrayResult.OK;

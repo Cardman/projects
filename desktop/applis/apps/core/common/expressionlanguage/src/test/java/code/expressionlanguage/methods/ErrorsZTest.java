@@ -6027,6 +6027,50 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void report856Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" Param<ParamCt<int>> v;\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Param<T> {\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Simple {\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.ParamCt<U:Simple> {\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " <a title=\"pkg.Param\" href=\"#m48\">Param</a>&lt;<a title=\"pkg.ParamCt\" href=\"#m92\">ParamCt</a><a title=\"The type pkg.ParamCt&lt;int&gt; is not parameterized correctly.\" class=\"e\">&lt;</a>int&gt;&gt; <a name=\"m37\">v</a>;\n" +
+                "}\n" +
+                "class <a name=\"m48\">pkg.Param</a>&lt;<a name=\"m58\">T</a>&gt; {\n" +
+                "}\n" +
+                "class <a name=\"m71\">pkg.Simple</a> {\n" +
+                "}\n" +
+                "class <a name=\"m92\">pkg.ParamCt</a>&lt;<a name=\"m104\">U</a>:<a title=\"pkg.Simple\" href=\"#m71\">Simple</a>&gt; {\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report857Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" [] v;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " <a title=\"The type [] is unknown.\" class=\"e\">[]</a> <a name=\"m20\">v</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void reportSpecTest() {
         StringMap<String> files_ = new StringMap<String>();

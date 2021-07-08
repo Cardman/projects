@@ -239,9 +239,6 @@ public final class LinkageUtil {
         int i_ = value_.length() - 1;
         for (PartOffset t:_listStr.getParts()) {
             String part_ = t.getPart();
-            if (part_.isEmpty()) {
-                continue;
-            }
             int off_ = t.getOffset();
             while (i_ >= off_) {
                 char ch_ = value_.charAt(i_);

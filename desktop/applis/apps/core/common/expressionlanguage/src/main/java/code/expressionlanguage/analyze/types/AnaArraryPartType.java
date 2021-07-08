@@ -16,21 +16,22 @@ final class AnaArraryPartType extends AnaParentPartType {
     }
 
     @Override
-    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        anaArray();
+    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        anaArray(_loc);
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        anaArray();
+    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        anaArray(_loc);
     }
 
     @Override
-    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
-        anaArray();
+    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        anaArray(_loc);
     }
 
-    private void anaArray() {
+    private void anaArray(int _page) {
+        setLoc(_page);
         String ch_ = getFirstChild().getAnalyzedType();
         if (ch_.isEmpty()) {
             setAlreadyError();
@@ -41,9 +42,12 @@ final class AnaArraryPartType extends AnaParentPartType {
     }
 
     @Override
-    void buildErrorInexist(AnalyzedPageEl _page) {
-        int begin_ = _page.getLocalInType() + getIndexInType() + getOperators().firstKey();
-        int len_ = getOperators().firstValue().length();
-        buildOffsetPart(begin_,len_);
+    int buildErrorInexistBegin() {
+        return getFullBegin(0);
+    }
+
+    @Override
+    int buildErrorInexistEnd() {
+        return getOpLen(0);
     }
 }

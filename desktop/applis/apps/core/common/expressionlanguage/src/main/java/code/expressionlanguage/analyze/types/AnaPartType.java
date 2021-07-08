@@ -5,7 +5,6 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.types.KindPartType;
 import code.util.CustList;
 import code.util.StringList;
@@ -20,14 +19,12 @@ abstract class AnaPartType {
     private final int index;
     private final int indexInType;
     private String analyzedType = EMPTY_STRING;
-    private PartOffset beginOffset;
-    private PartOffset endOffset;
     private final CustList<InaccessibleType> inaccessibleTypes = new CustList<InaccessibleType>();
-    private String titleRef = "";
     private final StringList errs = new StringList();
-    private String href = "";
     private int length;
+    private int loc;
     private boolean alreadyError;
+    private boolean errorNbParam;
 
     AnaPartType(AnaParentPartType _parent, int _index, int _indexInType) {
         parent = _parent;
@@ -100,10 +97,10 @@ abstract class AnaPartType {
         return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
     }
 
-    abstract void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
-    abstract void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page);
+    abstract void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc);
+    abstract void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc);
 
-    abstract void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page);
+    abstract void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page, int _loc);
 
     int getIndex() {
         return index;
@@ -135,24 +132,36 @@ abstract class AnaPartType {
     }
 
     void processBadFormedOffsets(AnalyzedPageEl _page) {
-        if (!_page.isGettingParts()) {
-            return;
-        }
         getErrs().add(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getBadParamerizedType(),getAnalyzedType()));
     }
 
     void processInexistType(String _in, AnalyzedPageEl _page) {
         getErrs().add(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(),_in));
     }
-    void buildOffsetPartDefault(AnalyzedPageEl _page) {
-        int begin_ = _page.getLocalInType() + getIndexInType();
-        buildOffsetPart(begin_,Math.max(1, length));
+
+    String buildOffsetPartDefault(String _href) {
+        return buildOffsetPartDefault(_href, "");
     }
-    void buildOffsetPart(int _offset,int _len) {
+    String buildOffsetPartDefault(String _href, String _titleRef) {
+        return buildOffsetPart(_href, _titleRef);
+    }
+
+    int getFull() {
+        return getLoc() + getIndexInType();
+    }
+
+    String buildOffsetPart() {
+        return buildOffsetPart("", "");
+    }
+    String buildOffsetPart(String _href, String _titleRef) {
         StringBuilder pref_ = new StringBuilder(ExportCst.BEGIN_ANCHOR);
         boolean add_ = false;
-        appendTitleRef(pref_, ExportCst.SEP_ATTR+ExportCst.title(errs,titleRef));
-        appendHref(pref_);
+        if (!errs.isEmpty()||!_titleRef.isEmpty()) {
+            pref_.append(ExportCst.SEP_ATTR).append(ExportCst.title(errs, _titleRef));
+        }
+        if (!_href.isEmpty()) {
+            pref_.append(ExportCst.SEP_ATTR).append(_href);
+        }
         if (!errs.isEmpty()) {
             pref_.append(ExportCst.SEP_ATTR_CLASS_ERR+ExportCst.END);
         } else {
@@ -161,61 +170,28 @@ abstract class AnaPartType {
         if (!errs.isEmpty()) {
             add_ = true;
         }
-        if (!titleRef.isEmpty()) {
+        if (!_titleRef.isEmpty()) {
             add_ = true;
         }
-        if (!href.isEmpty()) {
+        if (!_href.isEmpty()) {
             add_ = true;
         }
         if (!add_) {
-            return;
+            return "";
         }
-        setBeginOffset(new PartOffset(pref_.toString(),_offset));
-        setEndOffset(new PartOffset(ExportCst.END_ANCHOR,_offset+_len));
-    }
-
-    private void appendTitleRef(StringBuilder _pref, String _str) {
-        if (!errs.isEmpty()||!titleRef.isEmpty()) {
-            _pref.append(_str);
-        }
-    }
-
-    private void appendHref(StringBuilder _pref) {
-        if (!href.isEmpty()) {
-            _pref.append(ExportCst.SEP_ATTR).append(href);
-        }
+        return pref_.toString();
     }
 
     StringList getErrs() {
         return errs;
     }
 
-    void setHref(String _href) {
-        href = _href;
-    }
-
-    void setTitleRef(String _titleRef) {
-        titleRef = _titleRef;
-    }
-
-    PartOffset getBeginOffset() {
-        return beginOffset;
-    }
-
-    private void setBeginOffset(PartOffset _beginOffset) {
-        beginOffset = _beginOffset;
-    }
-
-    PartOffset getEndOffset() {
-        return endOffset;
-    }
-
-    private void setEndOffset(PartOffset _endOffset) {
-        endOffset = _endOffset;
-    }
-
     CustList<InaccessibleType> getInaccessibleTypes() {
         return inaccessibleTypes;
+    }
+
+    int getLength() {
+        return Math.max(1, length);
     }
 
     void setLength(int _length) {
@@ -228,5 +204,21 @@ abstract class AnaPartType {
 
     void setAlreadyError() {
         alreadyError = true;
+    }
+
+    boolean isErrorNbParam() {
+        return errorNbParam;
+    }
+
+    void setErrorNbParam() {
+        errorNbParam = true;
+    }
+
+    void setLoc(int _loc) {
+        loc = _loc;
+    }
+
+    int getLoc() {
+        return loc;
     }
 }

@@ -9,6 +9,11 @@ import org.junit.Test;
 
 public final class ParserTypeTest extends ProcessMethodCommon {
     @Test
+    public void getIndexes0_Test(){
+        AnalyzingType a_ = ParserType.analyzeLocal(0, "]", new Ints());
+        assertTrue(a_.isError());
+    }
+    @Test
     public void getIndexes1_Test(){
         Ints indexes_ = ParserType.getIndexes("int", new StringList());
         assertEq(0, indexes_.size());

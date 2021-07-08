@@ -11,21 +11,22 @@ final class AnaEmptyWildCardPart extends AnaLeafPartType {
     }
 
     @Override
-    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        anaEmpty();
+    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        anaEmpty(_loc);
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        anaEmpty();
+    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        anaEmpty(_loc);
     }
 
     @Override
-    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
-        anaEmpty();
+    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        anaEmpty(_loc);
     }
 
-    private void anaEmpty() {
+    private void anaEmpty(int _page) {
+        setLoc(_page);
         if (!(getParent() instanceof AnaTemplatePartType)) {
             return;
         }

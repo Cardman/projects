@@ -175,15 +175,15 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         checkFieldsNames(this, _fieldNames, names_, _page);
         for (PartOffsetAffect n: names_) {
-            PartOffset p_ = n.getPartOffset();
-            String name_ = p_.getPart();
+            FieldPartOffset p_ = n.getPartOffset();
+            String name_ = p_.getName();
             if (n.isAffect()) {
                 assignedDeclaredFields.add(name_);
             }
             StringList errs_ = n.getErrs();
             if (errs_.isEmpty()) {
                 fieldName.add(name_);
-                valuesOffset.add(p_.getOffset());
+                valuesOffset.add(p_.getOff());
                 addCstErrorsFields(new StringList());
             }
             addNameErrorsFields(new StringList(errs_));
@@ -193,8 +193,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     static void checkFieldsNames(AbsBk _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names, AnalyzedPageEl _page) {
         StringList idsField_ = new StringList(_fieldNames);
         for (PartOffsetAffect n: _names) {
-            PartOffset p_ = n.getPartOffset();
-            String trName_ = p_.getPart();
+            FieldPartOffset p_ = n.getPartOffset();
+            String trName_ = p_.getName();
             StringList err_ = new StringList();
             TokenErrorMessage mess_ = ManageTokens.partField(_page).checkToken(trName_, _page);
             if (mess_.isError()) {

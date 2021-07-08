@@ -9,8 +9,6 @@ import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -18,12 +16,19 @@ final class AnaNamePartType extends AnaLeafPartType {
 
     private boolean checkAccessLoop;
     private String owner="";
+    private String titleRef = "";
+    private int value;
+    private boolean buildRef;
+    private FileBlock currentFile;
+    private FileBlock refFileName;
+    private String gl = "";
     AnaNamePartType(AnaParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator) {
         super(_parent, _index, _indexInType, _type, _previousSeparator);
     }
 
     @Override
-    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        setLoc(_loc);
         if (skipGenericInners(_page)) {
             return;
         }
@@ -65,7 +70,8 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        setLoc(_loc);
         if (skipInners(_ready, _page)) {
             return;
         }
@@ -281,7 +287,8 @@ final class AnaNamePartType extends AnaLeafPartType {
             checkAccessLoop = true;
         }
     }
-    void checkAccessGeneral(AnalyzedPageEl _page) {
+    void checkAccessGeneral(String _gl, AnalyzedPageEl _page) {
+        gl = _gl;
         String analyzedType_ = getAnalyzedType();
         int indexInType_ = getIndexInType();
         if (checkAccessLoop) {
@@ -333,7 +340,8 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page) {
+    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
+        setLoc(_loc);
         AnaPartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = StringExpUtil.removeDottedSpaces(type_);
@@ -382,25 +390,47 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     void processOffsets(AccessedBlock _rooted, AnalyzedPageEl _page) {
-        if (!_page.isGettingParts()) {
-            return;
-        }
         String imported_ = getAnalyzedType();
         String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
         AnaGeneType g_ = _page.getAnaGeneType(idCl_);
         if (ContextUtil.isFromCustFile(g_)) {
             int id_ = ((RootBlock) g_).getIdRowCol();
             setTitleRef(idCl_);
-            setHref(ExportCst.href(((AbsBk)_rooted).getFile(),((RootBlock) g_).getFile(),id_));
+            value = id_;
+            buildRef = true;
+            currentFile = ((AbsBk)_rooted).getFile();
+            refFileName = ((RootBlock) g_).getFile();
         }
     }
-    void processInaccessibleOffsets(String _gl, AnalyzedPageEl _page) {
-        if (!_page.isGettingParts()) {
-            return;
-        }
+
+    String getTitleRef() {
+        return titleRef;
+    }
+
+    void setTitleRef(String _titleRef) {
+        titleRef = _titleRef;
+    }
+
+    int getValue() {
+        return value;
+    }
+
+    boolean isBuildRef() {
+        return buildRef;
+    }
+
+    FileBlock getCurrentFile() {
+        return currentFile;
+    }
+
+    FileBlock getRefFileName() {
+        return refFileName;
+    }
+
+    void processInaccessibleOffsets(AnalyzedPageEl _page) {
         for (InaccessibleType i: getInaccessibleTypes()) {
             getErrs().add(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getInaccessibleType(),
-                    i.getType(),_gl));
+                    i.getType(),gl));
         }
     }
     AnaPartType getPreviousPartType() {
