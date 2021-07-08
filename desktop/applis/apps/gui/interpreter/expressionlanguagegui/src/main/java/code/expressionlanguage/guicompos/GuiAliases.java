@@ -3778,7 +3778,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasWindow)) {
-                res_.setResult(_guiEx.getFrame());
+                res_.setResult(Argument.getNull(_guiEx.getFrame()));
                 return res_;
             }
             StringList mainArgs_ = _guiEx.getMainArgs();
