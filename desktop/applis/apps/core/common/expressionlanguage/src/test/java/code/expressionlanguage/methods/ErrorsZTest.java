@@ -6009,6 +6009,25 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void report855Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static void m(){\n");
+        xml_.append("  Inex.i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static void <a name=\"m29\">m</a>(){\n" +
+                "  <a title=\"There is no accessible field named Inex from the type pkg.Ext in this context.\" class=\"e\">Inex</a>.<a title=\"There is no accessible field named i from the type $core.Object in this context.\" class=\"e\">i</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportSpecTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
