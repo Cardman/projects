@@ -30,9 +30,8 @@ public final class GuiContextFactory {
     }
     public static ResultsGuiContext build(StringList _mainArgs, MainWindow _window,
                                           Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
-        GuiInitializer ci_ = new GuiInitializer(_window.getThreadFactory().newAtomicLong());
         _definedLgNames.setExecutingOptions(_exec);
-        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(ci_,_mainArgs,_window);
+        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs,_window);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames,fileBuilder_, _options);

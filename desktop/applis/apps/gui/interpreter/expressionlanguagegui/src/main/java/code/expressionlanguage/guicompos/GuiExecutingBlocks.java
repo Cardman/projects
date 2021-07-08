@@ -66,23 +66,23 @@ public final class GuiExecutingBlocks {
     private ExecTypeFunction pairPaintSet;
     private DefaultClosingMainWindow eventClose;
 
-    public void initApplicationParts(GuiInitializer _guiInit,StringList _mainArgs, MainWindow _window) {
+    public void initApplicationParts(StringList _mainArgs, MainWindow _window) {
         mainArgs = _mainArgs;
         window = _window;
         textLabel = new TextLabel("");
+        confirm = new OtherConfirmDialog(_window.getImageFactory());
+    }
+    private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
+        eventClose = new DefaultClosingMainWindow(this, _context);
         OtherFrame fr_ = new OtherFrame();
         fr_.setMainFrame(true);
         fr_.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame = new FrameStruct(fr_);
         _guiInit.getWindows().add(frame,false);
-        confirm = new OtherConfirmDialog(_window.getImageFactory());
-    }
-    private void initEventParts(GuiContextEl _context) {
-        eventClose = new DefaultClosingMainWindow(this, _context);
         frame.getAbstractWindow().addWindowListener(eventClose);
     }
-    public void forwardAndClear(GuiAliases _guiAliases, LgNamesContent _content, GuiContextEl _ctx, Classes _classes) {
-        initEventParts(_ctx);
+    public void forwardAndClear(GuiInitializer _guiInit, GuiAliases _guiAliases, LgNamesContent _content, GuiContextEl _ctx, Classes _classes) {
+        initEventParts(_guiInit,_ctx);
         String aliasActListener_ = _guiAliases.getAliasActionListener();
         actionListener = _classes.getClassBody(aliasActListener_);
         String actionEvent_ = _guiAliases.getAliasActionEvent();
