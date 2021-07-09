@@ -2,63 +2,20 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.maths.litteralcom.StrTypes;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.util.core.StringUtil;
 
-final class AnaWildCardPartType extends AnaParentPartType {
+final class AnaWildCardPartType extends AnaPrefPartType {
 
-    private final String prefix;
     AnaWildCardPartType(AnaParentPartType _parent, int _index, int _indexInType, String _prefix, StrTypes _operators) {
-        super(_parent, _index, _indexInType,_operators);
-        prefix = _prefix;
-    }
-    String getBegin() {
-        return prefix;
+        super(_parent, _index, _indexInType, _prefix,_operators);
     }
 
     @Override
-    void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
-        anaWild(_page,_loc);
-    }
-
-    @Override
-    void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
-        anaWild(_page,_loc);
-    }
-
-    @Override
-    void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
-        anaWild(_page,_loc);
-    }
-
-    private void anaWild(AnalyzedPageEl _page, int _loc) {
-        setLoc(_loc);
-        String ch_ = getFirstChild().getAnalyzedType();
-        if (ch_.isEmpty()) {
-            setAlreadyError();
+    void anaWildCommon(String _ch, String _base, AnalyzedPageEl _page) {
+        if (StringUtil.quickEq(_base.trim(), _page.getAliasFct())) {
             return;
         }
-        if (!(getParent() instanceof AnaTemplatePartType)) {
-            return;
-        }
-        AnaPartType prev_ = getParent().getFirstChild();
-        String base_ = prev_.getAnalyzedType();
-        base_ = StringExpUtil.getIdFromAllTypes(base_);
-        if (StringUtil.quickEq(base_.trim(), _page.getAliasFct())) {
-            return;
-        }
-        ch_ = StringUtil.concat(getBegin(),ch_);
+        String ch_ = StringUtil.concat(getBegin(),_ch);
         setAnalyzedType(ch_);
-    }
-
-    @Override
-    int buildErrorInexistBegin() {
-        return getFullBegin(0);
-    }
-
-    @Override
-    int buildErrorInexistEnd() {
-        return getOpLen(0);
     }
 }
