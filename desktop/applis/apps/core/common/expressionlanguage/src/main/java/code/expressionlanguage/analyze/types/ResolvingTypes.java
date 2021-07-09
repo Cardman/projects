@@ -24,16 +24,15 @@ public final class ResolvingTypes {
     private ResolvingTypes() {
     }
 
-    public static String resolveAccessibleIdTypeWithoutError(int _loc, String _in, AnalyzedPageEl _page) {
+    public static AnaResultPartType resolveAccessibleIdTypeWithoutError(int _loc, String _in, AnalyzedPageEl _page) {
         String void_ = _page.getAliasVoid();
         if (StringUtil.quickEq(_in.trim(), void_)) {
-            return "";
+            return new AnaResultPartType(_in,_loc,"",null, null);
         }
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
         int rc_ = _page.getLocalizer().getCurrentLocationIndex()+_loc;
         AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
-        CustList<PartOffset> offs_ = _page.getCurrentParts();
-        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_in, a_,r_, rc_, offs_, _page).getResult();
+        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_in, a_,r_, rc_, _page);
     }
 
     public static String resolveCorrectAccessibleType(int _loc, String _in, String _fromType, AnalyzedPageEl _page) {

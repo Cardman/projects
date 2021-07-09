@@ -39,11 +39,10 @@ abstract class AnaPartType {
         StrTypes operators_ = _analyze.getOperators();
         if (operators_.isEmpty()) {
             String str_ = prevOper(_parent, _index);
+            String type_ = _value.trim();
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
-                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _value.trim(),str_);
+                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, type_,str_);
             }
-            String type_ = _value;
-            type_ = type_.trim();
             boolean okVarType_ = false;
             if (_parent == null && !_rootName || _parent instanceof AnaArraryPartType || _parent instanceof AnaWildCardPartType || _parent instanceof AnaRefPartType) {
                 okVarType_ = true;
@@ -65,10 +64,11 @@ abstract class AnaPartType {
         StrTypes operators_ = _analyze.getOperators();
         if (operators_.isEmpty()) {
             String str_ = prevOper(_parent, _index);
+            String type_ = _value.trim();
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
-                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _value.trim(),str_);
+                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, type_,str_);
             }
-            return new AnaNamePartType(_parent, _index, _indexInType, _value.trim(),str_);
+            return new AnaNamePartType(_parent, _index, _indexInType, type_,str_);
         }
         return buildPar(_parent, _index, _indexInType, _analyze);
     }

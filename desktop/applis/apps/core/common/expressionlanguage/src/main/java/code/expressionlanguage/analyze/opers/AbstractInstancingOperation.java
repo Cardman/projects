@@ -8,9 +8,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
@@ -295,11 +293,12 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         String type_;
         if (!isIntermediateDottedOperation()) {
-            type_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
-            partOffsets_.addAllElts(_page.getCurrentParts());
+            AnaResultPartType result_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length() + local_, inferForm_, _page);
+            type_ = result_.getResult();
             if (type_.isEmpty()) {
                 return;
             }
+            AnaPartTypeUtil.processAnalyzeConstraintsRep(result_,partOffsets_,_page);
         } else {
             String idClass_ = StringExpUtil.getIdFromAllTypes(className_).trim();
             String id_ = StringExpUtil.getIdFromAllTypes(sup_);

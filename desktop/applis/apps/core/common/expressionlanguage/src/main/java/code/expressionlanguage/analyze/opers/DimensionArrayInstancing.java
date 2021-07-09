@@ -5,6 +5,8 @@ import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
@@ -185,11 +187,12 @@ public final class DimensionArrayInstancing extends
         int off_ = StringUtil.getFirstPrintableCharIndex(mName_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        type_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length()+local_,inferForm_, _page);
-        partOffsets_.addAllElts(_page.getCurrentParts());
+        AnaResultPartType result_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length() + local_, inferForm_, _page);
+        type_ = result_.getResult();
         if (type_.isEmpty()) {
             return;
         }
+        AnaPartTypeUtil.processAnalyzeConstraintsRep(result_,partOffsets_,_page);
         int chCount_ = getOperations().getValues().size();
         boolean list_ = false;
         if (m_ instanceof ArgumentListInstancing){

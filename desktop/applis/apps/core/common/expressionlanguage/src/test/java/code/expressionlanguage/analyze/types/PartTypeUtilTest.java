@@ -1550,6 +1550,6 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     private static String processAnalyzeLineWithoutErr(String _input, AnalyzedTestContext _an, RootBlock _rooted) {
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setImportingTypes(_rooted);
-        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_input, _rooted, _rooted, 0,null, page_).getResult();
+        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_input, _rooted, _rooted, 0, page_).getResult();
     }
 }

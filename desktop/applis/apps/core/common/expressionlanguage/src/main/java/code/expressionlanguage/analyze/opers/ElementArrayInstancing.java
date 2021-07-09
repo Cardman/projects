@@ -9,9 +9,7 @@ import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.StringExpUtil;
@@ -77,11 +75,12 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             }
             return;
         }
-        type_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(new_.length()+local_,inferForm_, _page);
-        partOffsets_.addAllElts(_page.getCurrentParts());
+        AnaResultPartType result_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(new_.length() + local_, inferForm_, _page);
+        type_ = result_.getResult();
         if (type_.isEmpty()) {
             return;
         }
+        AnaPartTypeUtil.processAnalyzeConstraintsRep(result_,partOffsets_,_page);
 
         int dimArr_ = dim_.getDim();
         if (dimArr_ == 0) {
