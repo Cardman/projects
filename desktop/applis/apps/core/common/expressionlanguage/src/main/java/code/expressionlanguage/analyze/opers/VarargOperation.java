@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
@@ -20,6 +21,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
     private String className;
 
     private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private InfoErrorDto partOffsetsErr = new InfoErrorDto("");
     public VarargOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
@@ -39,8 +41,9 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordVararg());
             _page.getLocalizer().addError(varg_);
-            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
-            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordVararg().length()));
+            partOffsetsErr = new InfoErrorDto(varg_.getBuiltError(),i_,_page.getKeyWords().getKeyWordVararg().length());
+//            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+//            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordVararg().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -54,8 +57,9 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordVararg());
             _page.getLocalizer().addError(varg_);
-            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
-            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordVararg().length()));
+            partOffsetsErr = new InfoErrorDto(varg_.getBuiltError(),i_,_page.getKeyWords().getKeyWordVararg().length());
+//            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+//            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordVararg().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -118,5 +122,10 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
     @Override
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    @Override
+    public InfoErrorDto getPartOffsetsErr() {
+        return partOffsetsErr;
     }
 }

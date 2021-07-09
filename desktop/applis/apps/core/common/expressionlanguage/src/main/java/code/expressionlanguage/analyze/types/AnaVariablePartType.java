@@ -18,31 +18,30 @@ final class AnaVariablePartType extends AnaLeafPartType {
 
     @Override
     void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
-        anaVar(_loc);
+        anaVar(_loc,_page);
     }
 
     @Override
     void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
-        anaVar(_loc);
+        anaVar(_loc,_page);
     }
 
     @Override
     void analyzeAccessibleId(AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
-        anaVar(_loc);
+        anaVar(_loc,_page);
     }
 
-    private void anaVar(int _page) {
-        setLoc(_page);
+    private void anaVar(int _loc, AnalyzedPageEl _page) {
+        setLoc(_loc);
+        refFileName = _page.getRefFileName();
         String type_ = getTypeName();
         String t_ = StringUtil.removeAllSpaces(type_);
         t_ = StringUtil.concat(AnaInherits.PREFIX_VAR_TYPE,t_);
         setAnalyzedType(t_);
     }
 
-    void processOffsets(AccessedBlock _rooted, AnalyzedPageEl _page) {
-        FileBlock refFileName_ = _page.getRefFileName();
-        refFileName = refFileName_;
-        if (refFileName_ != null) {
+    void processOffsets(AccessedBlock _rooted) {
+        if (refFileName != null) {
             currentFile = ((AbsBk)_rooted).getFile();
         }
     }

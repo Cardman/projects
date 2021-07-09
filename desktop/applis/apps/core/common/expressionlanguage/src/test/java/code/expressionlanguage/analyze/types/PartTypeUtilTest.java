@@ -3,9 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -1051,6 +1049,13 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         assertEq("pkgtwo.OuterThree<pkgthree.OuterFour>", solved_);
     }
     @Test
+    public void processAnalyzeLineWithoutErr() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        String solved_ = processAnalyzeLineWithoutErr(",", context_, null);
+        assertEq("", solved_);
+    }
+    @Test
     public void processLine2Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -1525,7 +1530,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     private static String processAnalyze(String _input, String _globalType, AnalyzedTestContext _an, RootBlock _rooted) {
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setImportingTypes(_rooted);
-        AnaResultPartType anaResultPartType_ = AnaPartTypeUtil.processAnalyze(_input, _globalType, _rooted, _rooted, 0, new CustList<PartOffset>(), page_);
+        AnaResultPartType anaResultPartType_ = AnaPartTypeUtil.processAnalyze(_input, _globalType, _rooted, _rooted, 0, page_);
         AnaPartType partType_ = anaResultPartType_.getPartType();
         if (partType_ == null) {
             return "";
@@ -1539,6 +1544,12 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     private static String processAnalyzeLine(String _input, AnalyzedTestContext _an, RootBlock _rooted) {
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setImportingTypes(_rooted);
-        return AnaPartTypeUtil.processAnalyzeLine(_input, "", _rooted, _rooted, 0,new CustList<PartOffset>(), page_).getResult();
+        return AnaPartTypeUtil.processAnalyzeLine(_input, "", _rooted, _rooted, 0, page_).getResult();
+    }
+
+    private static String processAnalyzeLineWithoutErr(String _input, AnalyzedTestContext _an, RootBlock _rooted) {
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        page_.setImportingTypes(_rooted);
+        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_input, _rooted, _rooted, 0,null, page_).getResult();
     }
 }

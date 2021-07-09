@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -49,7 +50,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private ClassField fieldId;
     private final AnaLambdaFieldContent lambdaFieldContent;
     private int valueOffset;
+    private final CustList<PartOffset> partOffsetsPre = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsetsFrom = new CustList<PartOffset>();
     private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<PartOffset> partOffsetsBegin = new CustList<PartOffset>();
+    private InfoErrorDto partOffsetsErrMiddle = new InfoErrorDto("");
+    private InfoErrorDto partOffsetsErrEnd = new InfoErrorDto("");
     private StandardMethod standardMethod;
     private StandardType standardType;
 
@@ -204,8 +210,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         );
                         _page.getLocalizer().addError(badCall_);
                         int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                        partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
-                        partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                        errPart(_page,badCall_, i_, 1);
                         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                         return;
                     }
@@ -241,8 +246,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             );
                             _page.getLocalizer().addError(badCall_);
                             int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                            partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
-                            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                            errPart(_page,badCall_, i_, 1);
                             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                             return;
                         }
@@ -335,8 +339,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         );
                         _page.getLocalizer().addError(badCall_);
                         int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                        partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
-                        partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                        errPart(_page,badCall_, i_, 1);
                         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                         return;
                     }
@@ -356,8 +359,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             );
                             _page.getLocalizer().addError(badCall_);
                             int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                            partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
-                            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                            errPart(_page,badCall_, i_, 1);
                             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                             return;
                         }
@@ -432,8 +434,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             );
                             _page.getLocalizer().addError(badCall_);
                             int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                            partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
-                            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                            errPart(_page,badCall_, i_, 1);
                             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                             return;
                         }
@@ -487,13 +488,16 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             );
             _page.getLocalizer().addError(badCall_);
             int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-            partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
-            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+            errPart(_page,badCall_, i_, 1);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
         tryCheck(_page);
         generalProcess(args_, _page);
+    }
+
+    private void errPart(AnalyzedPageEl _page,FoundErrorInterpret _err, int _begin, int _length) {
+        partOffsetsErrEnd = new InfoErrorDto(_err.getBuiltError(), _begin, _length);
     }
 
     private void initIdMethod(ClassMethodIdReturn _id) {
@@ -623,7 +627,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int offset_ = className.indexOf('(')+1;
             offset_ += StringExpUtil.getOffset(_args.first());
             String type_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_,_args.first().trim(), _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsetsBegin.addAllElts(_page.getCurrentParts());
             if (StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordTrue())
                 || StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordFalse())) {
                 ClassMethodIdReturn resMethod_;
@@ -805,7 +809,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 int offset_ = className.indexOf('(')+1;
                 offset_ += StringExpUtil.getOffset(_args.first());
                 String type_ = resolveCorrectTypeAccessible(staticFlag_ != MethodAccessKind.STATIC, _args.first().trim(), _page, offset_);
-                partOffsets.addAllElts(_page.getCurrentParts());
+                partOffsetsBegin.addAllElts(_page.getCurrentParts());
                 str_ = InvokingOperation.getBounds(type_, _page);
                 String cl_ = StringExpUtil.getIdFromAllTypes(type_);
                 argsRes_ = resolveArguments(retRef_,i_+1, cl_, staticFlag_, _args, _page);
@@ -902,7 +906,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 } else {
                     cl_ = ResolvingTypes.resolveAccessibleIdType(offset_,nameId_, _page);
                 }
-                partOffsets.addAllElts(_page.getCurrentParts());
+                partOffsetsBegin.addAllElts(_page.getCurrentParts());
                 if (cl_.isEmpty()) {
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                     return;
@@ -988,7 +992,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int offset_ = className.indexOf('(')+1;
             offset_ += StringExpUtil.getOffset(_args.first());
             String type_ = resolveCorrectTypeAccessible(stCtx_ != MethodAccessKind.STATIC, _args.first().trim(), _page, offset_);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsetsBegin.addAllElts(_page.getCurrentParts());
             str_ = InvokingOperation.getBounds(type_, _page);
             String cl_ = StringExpUtil.getIdFromAllTypes(type_);
             argsRes_ = resolveArguments(retRef_,i_+1, cl_, stCtx_, _args, _page);
@@ -1381,7 +1385,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int offset_ = className.indexOf('(')+1;
             offset_ += StringExpUtil.getOffset(_args.first());
             clFrom_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_,_args.first().trim(), _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsetsBegin.addAllElts(_page.getCurrentParts());
             if (clFrom_.startsWith(ARR)) {
                 processArray(_args, _len, _page, clFrom_.substring(ARR.length()));
                 return;
@@ -1456,7 +1460,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 int offset_ = className.indexOf('(')+1;
                 offset_ += StringExpUtil.getOffset(_args.first());
                 type_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_,_args.first().trim(), _page);
-                partOffsets.addAllElts(_page.getCurrentParts());
+                partOffsetsFrom.addAllElts(_page.getCurrentParts());
             } else {
                 type_ = clFrom_;
             }
@@ -1581,22 +1585,22 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         String sup_ = ownersMap_.values().first();
         String idSup_ = StringExpUtil.getIdFromAllTypes(sup_);
-        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+//        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         int offset_ = className.indexOf('(')+1;
         offset_ += StringExpUtil.getOffset(_args.first());
-        ContextUtil.appendParts(offset_,offset_+idClass_.length(), StringUtil.concat(idSup_,"..",idClass_),partOffsets_, _page);
+        ContextUtil.appendParts(offset_,offset_+idClass_.length(), StringUtil.concat(idSup_,"..",idClass_),partOffsetsPre, _page);
         offset_ += idClass_.length() + 1;
         StringList partsArgs_ = new StringList();
         for (String a: StringExpUtil.getAllTypes(cl_).mid(1)) {
             int loc_ = StringExpUtil.getOffset(a);
             String res_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_+loc_,a.trim(), _page);
-            partOffsets_.addAllElts(_page.getCurrentParts());
+            partOffsetsPre.addAllElts(_page.getCurrentParts());
             partsArgs_.add(res_);
             offset_ += a.length() + 1;
         }
-        partOffsets_.addAllElts(partOffsets);
-        partOffsets.clear();
-        partOffsets.addAllElts(partOffsets_);
+//        partOffsets_.addAllElts(partOffsets);
+//        partOffsets.clear();
+//        partOffsets.addAllElts(partOffsets_);
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         cl_ = check(StringUtil.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
         processCtor(methodTypes_, vararg_, null, cl_, _page);
@@ -1691,8 +1695,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             );
             _page.getLocalizer().addError(badCall_);
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            partOffsets.add(new PartOffset(ExportCst.anchorErr(badCall_.getBuiltError()),i_));
-            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordLambda().length()));
+            errPart(_page,badCall_, i_, _page.getKeyWords().getKeyWordLambda().length());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -1977,7 +1980,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int offset_ = offset(_args, _i);
             String type_ = _args.get(_i).trim();
             String arg_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, type_, _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsetsBegin.addAllElts(_page.getCurrentParts());
             StringMap<StringList> map_ = new StringMap<StringList>();
             getRefConstraints(map_, _page);
             checkTypes(_page, out_, arg_, map_);
@@ -2051,12 +2054,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 _name,
                 StringUtil.join(_class.getNames(),ExportCst.JOIN_TYPES));
         _page.getLocalizer().addError(access_);
-        addBuiltErr(access_,i_,_name);
+        addBuiltErr(_page,access_,i_,_name);
     }
 
-    private void addBuiltErr(FoundErrorInterpret _err, int _i, String _name) {
-        partOffsets.add(new PartOffset(ExportCst.anchorErr(_err.getBuiltError()),_i));
-        partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,_i+Math.max(1, _name.length())));
+    private void addBuiltErr(AnalyzedPageEl _page,FoundErrorInterpret _err, int _i, String _name) {
+        errPart(_page,_err, _i, Math.max(1, _name.length()));
     }
 
     private static String getParentType(String _converted, AnalyzedPageEl _page) {
@@ -2070,7 +2072,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int offset_ = className.indexOf('(')+1;
         offset_ += StringExpUtil.getOffset(_args.first());
         String type_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
-        partOffsets.addAllElts(_page.getCurrentParts());
+        partOffsetsBegin.addAllElts(_page.getCurrentParts());
         return type_;
     }
 
@@ -2102,8 +2104,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     StringUtil.join(previousResultClass.getNames(),ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(un_);
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            partOffsets.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordLambda().length()));
+            errPart(_page,un_, i_, _page.getKeyWords().getKeyWordLambda().length());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2121,7 +2122,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             sum_ += 1+_args.get(1).length();
             String type_ = resolveCorrectTypeAccessible(true, operator_, _page, offset_);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsetsBegin.addAllElts(_page.getCurrentParts());
             from_ = type_;
             if (_len > i_) {
                 operator_ = _args.get(i_).trim();
@@ -2148,12 +2149,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (!displayErr_) {
                 lenErr_ = 1;
             }
-            partOffsets.add(new PartOffset(ExportCst.anchorErr(badMeth_.getBuiltError()), j_));
-            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR, j_ + lenErr_));
+            errPart(_page,badMeth_, j_, lenErr_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        int count_ = partOffsets.size();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
         int vararg_ = -1;
@@ -2214,8 +2213,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         new MethodId(MethodAccessKind.STATIC, "", methodTypes_).getSignature(_page.getDisplayedStrings()));
                 _page.getLocalizer().addError(undefined_);
                 int k_ = _page.getLocalizer().getCurrentLocationIndex()+sum_+1;
-                partOffsets.add(count_,new PartOffset(ExportCst.END_ANCHOR,k_+Math.max(1,operator_.length())));
-                partOffsets.add(count_,new PartOffset(ExportCst.anchorErr(undefined_.getBuiltError()),k_));
+                partOffsetsErrMiddle = new InfoErrorDto(undefined_.getBuiltError(),k_,Math.max(1,operator_.length()));
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -2234,8 +2232,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     new MethodId(MethodAccessKind.STATIC, "", methodTypes_).getSignature(_page.getDisplayedStrings()));
             _page.getLocalizer().addError(undefined_);
             int k_ = _page.getLocalizer().getCurrentLocationIndex()+sum_+1;
-            partOffsets.add(count_,new PartOffset(ExportCst.END_ANCHOR,k_+Math.max(1,operator_.length())));
-            partOffsets.add(count_,new PartOffset(ExportCst.anchorErr(undefined_.getBuiltError()),k_));
+            partOffsetsErrMiddle = new InfoErrorDto(undefined_.getBuiltError(),k_,Math.max(1,operator_.length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2358,8 +2355,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
                     _page.getLocalizer().addError(varg_);
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                    partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
-                    partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
+//                    ResolvingTypes.errOff(_page,partOffsets,varg_,i_,3);
+                    errPart(_page,varg_,i_,3);
+//                    ResolvingTypes.errOff(_page,partOffsets,varg_,i_,3);
+//                    partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+//                    partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
                     return null;
                 }
                 vararg_ = len_- _from;
@@ -2414,8 +2414,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
                     _page.getLocalizer().addError(varg_);
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                    partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
-                    partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
+                    errPart(_page,varg_,i_,3);
+//                    ResolvingTypes.errOff(_page,partOffsets,varg_,i_,3);
+//                    partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+//                    partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
                     return null;
                 }
                 wrap_ = true;
@@ -2440,7 +2442,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int offset_ = className.indexOf('(')+1;
         offset_ += StringExpUtil.getOffset(_args.first());
         String type_ = resolveCorrectTypeAccessible(_exact, _args.first().trim(), _page, offset_);
-        partOffsets.addAllElts(_page.getCurrentParts());
+        partOffsetsBegin.addAllElts(_page.getCurrentParts());
         return InvokingOperation.getBounds(type_, _page);
     }
 
@@ -2601,6 +2603,26 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public CustList<PartOffset> getPartOffsetsFrom() {
+        return partOffsetsFrom;
+    }
+
+    public CustList<PartOffset> getPartOffsetsPre() {
+        return partOffsetsPre;
+    }
+
+    public CustList<PartOffset> getPartOffsetsBegin() {
+        return partOffsetsBegin;
+    }
+
+    public InfoErrorDto getPartOffsetsErrMiddle() {
+        return partOffsetsErrMiddle;
+    }
+
+    public InfoErrorDto getPartOffsetsErrEnd() {
+        return partOffsetsErrEnd;
     }
 
     public int getClassNameOffset() {

@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.analyze.inherits.*;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -1600,7 +1601,7 @@ public final class ClassesUtil {
             }
             for (TypeVar t: s.getParamTypesMapValues()) {
                 for (AnaResultPartType b: t.getResults()) {
-                    if (!AnaPartTypeUtil.processAnalyzeConstraints(b, map_, true, _page)) {
+                    if (!AnaPartTypeUtil.processAnalyzeConstraintsCore(b, map_, true, _page)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(s.getFile().getFileName());
                         un_.setIndexFile(s.getIdRowCol());
@@ -1613,17 +1614,38 @@ public final class ClassesUtil {
                 }
             }
             for (AnaResultPartType t: s.getResults()) {
-                if (!AnaPartTypeUtil.processAnalyzeConstraints(t, map_, true, _page)) {
+                if (!AnaPartTypeUtil.processAnalyzeConstraintsCore(t, map_, true, _page)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(s.getFile().getFileName());
                     un_.setIndexFile(s.getIdRowCol());
                     // char : before super type
-                    un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
-                            t.getResult());
+                    buildErr(_page, t, un_);
                     _page.addLocError(un_);
                     s.addNameErrors(un_);
                 }
             }
+//            for (AnaResultPartType t: s.getResults()) {
+//                AnaPartTypeUtil.processAnalyzeConstraintsRep(t, s.getSuperTypesParts(), _page);
+//            }
+//                if (!AnaPartTypeUtil.processAnalyzeConstraints(t, map_, true, s.getSuperTypesParts(), _page)) {
+//                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+//                    un_.setFileName(s.getFile().getFileName());
+//                    un_.setIndexFile(s.getIdRowCol());
+//                    // char : before super type
+//                    buildErr(_page, t, un_);
+//                    _page.addLocError(un_);
+//                    s.addNameErrors(un_);
+//                }
+        }
+    }
+
+    private static void buildErr(AnalyzedPageEl _page, AnaResultPartType _t, FoundErrorInterpret _un) {
+        if (_t.getResult().isEmpty()) {
+            _un.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
+                    _page.getAliasObject());
+        } else {
+            _un.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
+                    _t.getResult());
         }
     }
 

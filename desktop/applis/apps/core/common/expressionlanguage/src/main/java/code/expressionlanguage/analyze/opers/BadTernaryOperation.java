@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -35,8 +36,7 @@ public final class BadTernaryOperation extends MethodOperation {
         addErr(badNb_.getBuiltError());
         StringList deep_ = getErrs();
         int i_ = _page.getLocalizer().getCurrentLocationIndex();
-        getPartOffsetsEnd().add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,ExportCst.JOIN_ERR)),i_));
-        getPartOffsetsEnd().add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordBool().length()));
+        setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),i_,_page.getKeyWords().getKeyWordBool().length()));
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 

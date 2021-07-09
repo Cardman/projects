@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -45,10 +46,7 @@ public final class ShiftRightOperation extends NumericOperation {
                 ),ExportCst.JOIN_OPERANDS),
                 getOp());
         _page.getLocalizer().addError(un_);
-        CustList<PartOffset> err_ = new CustList<PartOffset>();
-        err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),index_));
-        err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+getOp().length()));
-        getPartOffsetsChildren().add(err_);
+        getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),index_,getOp().length()));
         AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
         res_.setResult(arg_);
         return res_;

@@ -1,12 +1,12 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
@@ -103,8 +103,7 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     className);
             _page.getLocalizer().addError(un_);
-            getPartOffsetsErr().add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-            getPartOffsetsErr().add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+            setPartOffsetsErr(new InfoErrorDto(un_.getBuiltError(),i_,1));
             setResultClass(new AnaClassArgumentMatching(className));
             return;
         }
@@ -115,7 +114,7 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
             StrTypes operators_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            CustList<PartOffset> parts_ = new CustList<PartOffset>();
+            InfoErrorDto parts_ = new InfoErrorDto("");
             AnaClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
             mapping_.setMapping(map_);
@@ -128,8 +127,7 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
                         StringUtil.join(argType_.getNames(),ExportCst.JOIN_TYPES),
                         eltType_);
                 _page.getLocalizer().addError(cast_);
-                parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
-                parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                parts_=new InfoErrorDto(cast_.getBuiltError(),i_,1);
             }
             if (AnaTypeUtil.isPrimitive(eltType_, _page)) {
                 o.getResultClass().setUnwrapObject(eltType_, _page.getPrimitiveTypes());

@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -53,10 +54,7 @@ public final class MultOperation extends NumericOperation {
         _page.setOkNumOp(false);
         AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
         res_.setResult(arg_);
-        CustList<PartOffset> err_ = new CustList<PartOffset>();
-        err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),index_));
-        err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+1));
-        getPartOffsetsChildren().add(err_);
+        getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),index_,getOp().length()));
         return res_;
     }
 

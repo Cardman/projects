@@ -1,6 +1,7 @@
 package code.expressionlanguage.linkage;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
@@ -15,6 +16,7 @@ public final class VariablesOffsets {
     private final CustList<LinkageStackElement> stack = new CustList<LinkageStackElement>();
     private LinkageStackElement state;
     private FileBlock currentFile;
+    private AnalysisMessages messages;
     private KeyWords keyWords;
     private DisplayedStrings displayedStrings;
     private StringList toStringOwners;
@@ -74,6 +76,13 @@ public final class VariablesOffsets {
         this.keyWords = _v;
     }
 
+    public AnalysisMessages getMessages() {
+        return messages;
+    }
+
+    public void setMessages(AnalysisMessages _messages) {
+        this.messages = _messages;
+    }
     public DisplayedStrings getDisplayedStrings() {
         return displayedStrings;
     }

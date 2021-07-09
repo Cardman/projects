@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -30,6 +31,7 @@ import code.util.core.StringUtil;
 public final class ElementArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation {
 
     private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private InfoErrorDto partOffsetsErr = new InfoErrorDto("");
     private String typeInfer = EMPTY_STRING;
     public ElementArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -269,8 +271,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             StrTypes operators_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.firstKey(), _page);
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            partOffsets.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+            partOffsetsErr = new InfoErrorDto(un_.getBuiltError(),i_,1);
             String obj_ = _page.getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             AnaClassArgumentMatching class_ = new AnaClassArgumentMatching(obj_);
@@ -284,7 +285,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         for (OperationNode o: chidren_) {
             int index_ = getPartOffsetsChildren().size();
             StrTypes operators_ = getOperations().getOperators();
-            CustList<PartOffset> parts_ = new CustList<PartOffset>();
+            InfoErrorDto parts_ = new InfoErrorDto("");
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
             AnaClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
@@ -303,8 +304,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                             StringUtil.join(argType_.getNames(),ExportCst.JOIN_TYPES),
                             eltType_);
                     _page.getLocalizer().addError(cast_);
-                    parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
-                    parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                    parts_=new InfoErrorDto(cast_.getBuiltError(),i_,1);
                 }
             }
             if (AnaTypeUtil.isPrimitive(eltType_, _page)) {
@@ -321,4 +321,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         return partOffsets;
     }
 
+    public InfoErrorDto getPartOffsetsErr() {
+        return partOffsetsErr;
+    }
 }

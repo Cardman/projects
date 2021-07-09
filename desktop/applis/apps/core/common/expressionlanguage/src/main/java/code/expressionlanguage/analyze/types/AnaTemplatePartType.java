@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.DimComp;
@@ -131,12 +132,12 @@ final class AnaTemplatePartType extends AnaBinaryType {
         return indexesChildConstraints.isEmpty();
     }
 
-    void buildBadConstraintsOffsetList(AnalyzedPageEl _page) {
+    void buildBadConstraintsOffsetList(AnalysisMessages _analysisMessages) {
         for (int i = 0; i < countParam; i++) {
             getErrsList().add("");
         }
         for (int i: indexesChildConstraints) {
-            String err_ = FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getBadParamerizedType(), getAnalyzedType());
+            String err_ = FoundErrorInterpret.buildARError(_analysisMessages.getBadParamerizedType(), getAnalyzedType());
             getErrsList().set(i,err_);
         }
     }

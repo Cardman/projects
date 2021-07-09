@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -8,14 +9,12 @@ import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.maths.litteralcom.StrTypes;
@@ -370,7 +369,7 @@ public final class DimensionArrayInstancing extends
         for (OperationNode o: chidren_) {
             int index_ = getPartOffsetsChildren().size();
             StrTypes operators_ = getOperations().getOperators();
-            CustList<PartOffset> parts_ = new CustList<PartOffset>();
+            InfoErrorDto parts_ = new InfoErrorDto("");
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(2*index_), _page);
             AnaClassArgumentMatching resCh_ = o.getResultClass();
             if (!resCh_.isNumericInt(_page)) {
@@ -386,8 +385,7 @@ public final class DimensionArrayInstancing extends
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(resCh_.getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(un_);
-                    parts_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-                    parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                    parts_=new InfoErrorDto(un_.getBuiltError(),i_,1);
                 }
             }
             resCh_.setUnwrapObjectNb(PrimitiveTypes.INT_WRAP);

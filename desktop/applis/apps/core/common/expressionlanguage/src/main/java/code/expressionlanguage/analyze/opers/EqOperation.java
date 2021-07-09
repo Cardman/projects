@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
@@ -39,10 +40,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             badEl_.buildError(_page.getAnalysisMessages().getBadOperatorRef(),
                     oper.trim());
             _page.getLocalizer().addError(badEl_);
-            CustList<PartOffset> err_ = new CustList<PartOffset>();
-            err_.add(new PartOffset(ExportCst.anchorErr(badEl_.getBuiltError()),index_));
-            err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+1));
-            getPartOffsetsChildren().add(err_);
+            getPartOffsetsChildren().add(new InfoErrorDto(badEl_.getBuiltError(),index_,1));
         }
         String custOp_ = oper.trim();
         CustList<OperationNode> chidren_ = getChildrenNodes();

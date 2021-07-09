@@ -4,13 +4,13 @@ import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.DimComp;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.common.Matching;
@@ -10551,12 +10551,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
             page_.getAvailableVariables().addEntry(s.getKey(),0);
         }
         if (_exact) {
-            resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false,"", null,null, -1,new CustList<PartOffset>(), page_);
+            resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false,"", null,null, -1, page_);
         } else {
-            resType_ = AnaPartTypeUtil.processAnalyzeLine(_className, "", null,null, -1,new CustList<PartOffset>(), page_);
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(_className, "", null,null, -1, page_);
         }
         assertTrue(!resType_.getResult().isEmpty());
-        return AnaPartTypeUtil.processAnalyzeConstraints(resType_, _t, _exact,page_);
+        return AnaPartTypeUtil.processAnalyzeConstraintsCore(resType_, _t, _exact, page_);
     }
 
     @Test

@@ -1,18 +1,15 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
@@ -54,13 +51,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             );
             _page.getLocalizer().addError(badNb_);
             for (int i = 0; i < in_;i++) {
-                CustList<PartOffset> err_ = new CustList<PartOffset>();
-                getPartOffsetsChildren().add(err_);
+                getPartOffsetsChildren().add(new InfoErrorDto(""));
             }
-            CustList<PartOffset> err_ = new CustList<PartOffset>();
-            err_.add(new PartOffset(ExportCst.anchorErr(badNb_.getBuiltError()),index_));
-            err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+getOperations().getOperators().getValue(in_).length()));
-            getPartOffsetsChildren().add(err_);
+            getPartOffsetsChildren().add(new InfoErrorDto(badNb_.getBuiltError(),index_,getOperations().getOperators().getValue(in_).length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
@@ -115,10 +108,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
                 ),ExportCst.JOIN_OPERANDS),
                 getOp());
         _page.getLocalizer().addError(un_);
-        CustList<PartOffset> err_ = new CustList<PartOffset>();
-        err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),index_));
-        err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+ operatorContent.getOper().length()));
-        getPartOffsetsChildren().add(err_);
+        getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),index_, operatorContent.getOper().length()));
         setResultClass(new AnaClassArgumentMatching(res_, _page.getPrimitiveTypes()));
     }
     public boolean isStringCompare() {

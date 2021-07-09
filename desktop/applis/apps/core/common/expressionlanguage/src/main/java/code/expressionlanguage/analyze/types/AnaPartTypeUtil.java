@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.linkage.ExportCst;
@@ -86,9 +87,9 @@ public final class AnaPartTypeUtil {
         return StringExpUtil.isDigit(typeName_.charAt(0));
     }
 
-    public static AnaResultPartType processAnalyze(String _input, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
+    public static AnaResultPartType processAnalyze(String _input, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
         _page.setRefFileName(null);
-        AnaResultPartType res_ = processAccessAnalyze(_input, false, _globalType, _local, _rooted, _loc, _offs, _page);
+        AnaResultPartType res_ = processAccessAnalyze(_input, false, _globalType, _local, _rooted, _loc, _page);
         String analyzedType_ = res_.getResult();
         if (analyzedType_.isEmpty()) {
             return res_;
@@ -97,30 +98,29 @@ public final class AnaPartTypeUtil {
         checkAccess(r_,_globalType, _page);
         return res_;
     }
-    public static AnaResultPartType processAccAnalyze(String _input, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
+    public static AnaResultPartType processAccAnalyze(String _input, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
         _page.setRefFileName(null);
-        return processAccessAnalyze(_input, false, _globalType, _local, _rooted, _loc, _offs, _page);
+        return processAccessAnalyze(_input, false, _globalType, _local, _rooted, _loc, _page);
     }
-    public static AnaResultPartType processAnalyzeHeader(String _input, boolean _rootName, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
+    public static AnaResultPartType processAnalyzeHeader(String _input, boolean _rootName, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
         _page.setRefFileName(null);
-        AnaResultPartType res_ = processAccessAnalyze(_input, _rootName, _globalType, _local, _rooted, _loc, _offs, _page);
+        AnaResultPartType res_ = processAccessAnalyze(_input, _rootName, _globalType, _local, _rooted, _loc, _page);
         String analyzedType_ = res_.getResult();
         if (analyzedType_.isEmpty()) {
             return res_;
         }
         AnaPartType r_ = res_.getPartType();
         checkAccess(r_,_globalType, _page);
-        appendParts(r_,_offs, _page);
         return res_;
     }
-    public static AnaResultPartType processAccessAnalyze(String _input, boolean _rootName, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
+    public static AnaResultPartType processAccessAnalyze(String _input, boolean _rootName, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
         String inputTr_ = _input.trim();
         Ints indexes_ = ParserType.getIndexes(inputTr_, _page);
         if (indexes_ == null) {
-            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
-            _offs.add(new PartOffset(pref_, _loc));
-            _offs.add(new PartOffset(ExportCst.END_ANCHOR, _loc + _input.length()));
-            return new AnaResultPartType("",null);
+//            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
+//            _offs.add(new PartOffset(pref_, _loc));
+//            _offs.add(new PartOffset(ExportCst.END_ANCHOR, _loc + _input.length()));
+            return new AnaResultPartType(_input,_loc,"",null, _rooted);
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, inputTr_, indexes_);
         AnaPartType root_ = AnaPartType.createPartType(_rootName,null, 0, 0, loc_, _page, inputTr_);
@@ -159,18 +159,15 @@ public final class AnaPartTypeUtil {
                 break;
             }
         }
-        processAfterAnalyzeLoop(_input,_rooted,_page,root_);
-        if (root_.getAnalyzedType().isEmpty()) {
-            appendQuickParts(root_, _offs, _page);
-            return new AnaResultPartType("",null);
-        }
-        return new AnaResultPartType(root_.getAnalyzedType(),root_);
+//        processAfterAnalyzeLoop(_input,_rooted,_page,root_);
+//        if (root_.getAnalyzedType().isEmpty()) {
+//            appendQuickParts(root_, _offs, _page);
+//            return new AnaResultPartType("",null);
+//        }
+        return new AnaResultPartType(_input,_loc,root_.getAnalyzedType(),root_, _rooted);
     }
 
-    private static void processAfterAnalyzeLoop(String _input, AccessedBlock _rooted, AnalyzedPageEl _page, AnaPartType _root) {
-        if (!_page.isGettingParts()) {
-            return;
-        }
+    private static void processAfterAnalyzeLoop(String _input, AccessedBlock _rooted, AnaPartType _root, AnalysisMessages _analysisMessages) {
         AnaPartType current_ = _root;
         while (current_ != null) {
             AnaPartType child_ = current_.getFirstChild();
@@ -179,7 +176,7 @@ public final class AnaPartTypeUtil {
                 continue;
             }
             while (current_ != null) {
-                processAfterAnalyze(_input, _rooted, _page, current_);
+                processAfterAnalyze(_input, _rooted, current_, _analysisMessages);
                 AnaPartType next_ = current_.getNextSibling();
                 AnaParentPartType par_ = current_.getParent();
                 if (next_ != null) {
@@ -187,7 +184,7 @@ public final class AnaPartTypeUtil {
                     break;
                 }
                 if (par_ == _root) {
-                    processAfterAnalyze(_input,_rooted,_page,par_);
+                    processAfterAnalyze(_input,_rooted, par_, _analysisMessages);
                     current_ = null;
                 } else {
                     current_ = par_;
@@ -195,22 +192,22 @@ public final class AnaPartTypeUtil {
             }
         }
     }
-    private static void processAfterAnalyze(String _input, AccessedBlock _rooted, AnalyzedPageEl _page, AnaPartType _current) {
+    private static void processAfterAnalyze(String _input, AccessedBlock _rooted, AnaPartType _current, AnalysisMessages _analysisMessages) {
         if (_current.getAnalyzedType().isEmpty()) {
-            processInexist(_input, _current, _page);
+            processInexist(_input, _current, _analysisMessages);
         } else {
-            processLeafOffsets(_rooted, _current, _page);
+            processLeafOffsets(_rooted, _current);
         }
     }
 
-    private static void processInexist(String _input, AnaPartType _current, AnalyzedPageEl _page) {
+    private static void processInexist(String _input, AnaPartType _current, AnalysisMessages _analysisMessages) {
         if (_current instanceof AnaEmptyPartType) {
             AnaParentPartType par_ = _current.getParent();
             if (par_ != null) {
                 return;
             }
         }
-        _current.processInexistType(_input, _page);
+        _current.processInexistType(_input, _analysisMessages);
     }
 
     private static String buildOffsetPartDefault(AnaPartType _current) {
@@ -243,22 +240,61 @@ public final class AnaPartTypeUtil {
         }
     }
 
-    public static boolean processAnalyzeConstraints(AnaResultPartType _className, StringMap<StringList> _inherit, boolean _exact, AnalyzedPageEl _page) {
-        return processAnalyzeConstraints(_className,_inherit, _exact,new CustList<PartOffset>(), _page);
-    }
     public static boolean processAnalyzeConstraints(AnaResultPartType _className, StringMap<StringList> _inherit, boolean _exact, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
+        boolean ok_ = processAnalyzeConstraintsCore(_className, _inherit, _exact, _page);
+        processAnalyzeConstraintsRep(_className, _parts, _page);
+        return ok_;
+    }
+    public static boolean processAnalyzeConstraintsCore(AnaResultPartType _className, StringMap<StringList> _inherit, boolean _exact, AnalyzedPageEl _page) {
         AnaPartType root_ = _className.getPartType();
         if (root_ == null) {
             return false;
         }
+        if (root_.getAnalyzedType().isEmpty()) {
+            return false;
+        }
         if (!_exact && !_className.getResult().contains(StringExpUtil.TEMPLATE_BEGIN)) {
-            appendParts(root_,_parts, _page);
             return true;
         }
         boolean res_ = checkParametersCount(root_, _page);
         boolean out_ = checkConstrains(root_, _inherit, _page);
-        appendParts(root_,_parts, _page);
         return res_&&out_;
+    }
+    public static void processAnalyzeConstraintsRep(AnaResultPartType _className, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
+        if (!_page.isGettingParts()) {
+            return;
+        }
+        AnalysisMessages analysisMessages_ = _page.getAnalysisMessages();
+        processAnalyzeConstraintsRep(_className, _parts, analysisMessages_);
+    }
+
+    public static void processAnalyzeConstraintsRep(AnaResultPartType _className, CustList<PartOffset> _parts, AnalysisMessages _analysisMessages) {
+        AnaPartType root_ = _className.getPartType();
+        if (root_ == null) {
+            int loc_ = _className.getLoc();
+            String input_ = _className.getInput();
+            if (input_.isEmpty()) {
+                return;
+            }
+            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_analysisMessages.getUnknownType(), input_));
+            _parts.add(new PartOffset(pref_, loc_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, loc_ + input_.length()));
+            return;
+        }
+        int loc_ = _className.getLoc();
+        String input_ = _className.getInput();
+        if (input_.isEmpty()) {
+            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_analysisMessages.getEmptyType()));
+            _parts.add(new PartOffset(pref_, loc_));
+            _parts.add(new PartOffset(ExportCst.END_ANCHOR, loc_ + 1));
+            return;
+        }
+        processAfterAnalyzeLoop(_className.getInput(), _className.getRooted(), root_, _analysisMessages);
+        if (root_.getAnalyzedType().isEmpty()) {
+            appendQuickParts(root_, _parts);
+            return;
+        }
+        appendParts(root_, _parts, _analysisMessages);
     }
 
     static boolean checkParametersCount(AnaPartType _root, AnalyzedPageEl _page){
@@ -296,7 +332,7 @@ public final class AnaPartTypeUtil {
         return _ok;
     }
 
-    private static void checkParametersCountErr(AnaPartType _root, AnalyzedPageEl _page){
+    private static void checkParametersCountErr(AnaPartType _root, AnalysisMessages _analysisMessages){
         AnaPartType current_ = _root;
         while (current_ != null) {
             AnaPartType child_ = current_.getFirstChild();
@@ -305,7 +341,7 @@ public final class AnaPartTypeUtil {
                 continue;
             }
             while (current_ != null) {
-                processErrorParamCount(current_, _page);
+                processErrorParamCount(current_, _analysisMessages);
                 AnaPartType next_ = current_.getNextSibling();
                 AnaParentPartType par_ = current_.getParent();
                 if (next_ != null) {
@@ -313,7 +349,7 @@ public final class AnaPartTypeUtil {
                     break;
                 }
                 if (par_ == _root) {
-                    processErrorParamCount(par_, _page);
+                    processErrorParamCount(par_, _analysisMessages);
                     current_ = null;
                 } else {
                     current_ = par_;
@@ -322,13 +358,13 @@ public final class AnaPartTypeUtil {
         }
     }
 
-    private static void processErrorParamCount(AnaPartType _current, AnalyzedPageEl _page) {
+    private static void processErrorParamCount(AnaPartType _current, AnalysisMessages _analysisMessages) {
         if (!_current.isErrorNbParam()) {
             return;
         }
         AnaPartType ch_ = _current.getFirstChild();
         if (ch_ != null&&_current instanceof AnaTemplatePartType) {
-            String err_ = FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getBadParamerizedType(), ch_.getAnalyzedType());
+            String err_ = FoundErrorInterpret.buildARError(_analysisMessages.getBadParamerizedType(), ch_.getAnalyzedType());
             _current.getErrs().add(err_);
             return;
         }
@@ -339,11 +375,11 @@ public final class AnaPartTypeUtil {
         }
         if (l_ != null) {
             //inner
-            String err_ = FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getBadParamerizedType(), l_.getAnalyzedType());
+            String err_ = FoundErrorInterpret.buildARError(_analysisMessages.getBadParamerizedType(), l_.getAnalyzedType());
             _current.getErrs().add(err_);
             return;
         }
-        _current.processBadFormedOffsets(_page);
+        _current.processBadFormedOffsets(_analysisMessages);
     }
 
     private static boolean isNotCorrectParam(AnaPartType _current, AnalyzedPageEl _page) {
@@ -421,7 +457,7 @@ public final class AnaPartTypeUtil {
         return _ok;
     }
 
-    private static void checkConstrainsErr(AnaPartType _root, AnalyzedPageEl _page) {
+    private static void checkConstrainsErr(AnaPartType _root, AnalysisMessages _analysisMessages) {
         AnaPartType current_ = _root;
         while (current_ != null) {
             AnaPartType child_ = current_.getFirstChild();
@@ -430,7 +466,7 @@ public final class AnaPartTypeUtil {
                 continue;
             }
             while (current_ != null) {
-                checkIndivCt(_page, current_);
+                checkIndivCt(current_, _analysisMessages);
                 AnaPartType next_ = current_.getNextSibling();
                 AnaParentPartType par_ = current_.getParent();
                 if (next_ != null) {
@@ -438,7 +474,7 @@ public final class AnaPartTypeUtil {
                     break;
                 }
                 if (par_ == _root) {
-                    checkIndivCt(_page, par_);
+                    checkIndivCt(par_, _analysisMessages);
                     current_ = null;
                 } else {
                     current_ = par_;
@@ -447,9 +483,9 @@ public final class AnaPartTypeUtil {
         }
     }
 
-    private static void checkIndivCt(AnalyzedPageEl _page, AnaPartType _current) {
+    private static void checkIndivCt(AnaPartType _current, AnalysisMessages _analysisMessages) {
         if (koTempErr(_current)) {
-            ((AnaTemplatePartType) _current).buildBadConstraintsOffsetList(_page);
+            ((AnaTemplatePartType) _current).buildBadConstraintsOffsetList(_analysisMessages);
         }
     }
 
@@ -461,26 +497,33 @@ public final class AnaPartTypeUtil {
         return _current instanceof AnaTemplatePartType && ((AnaTemplatePartType) _current).isKoConstraints();
     }
 
-    public static AnaResultPartType processAnalyzeLine(String _input, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
+    public static AnaResultPartType processAnalyzeLine(String _input, String _globalType, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
         _page.setRefFileName(null);
-        AnaPartType anaType_ = getAnalyzeLine(_input, new AlwaysReadyTypes(), false, _local, _rooted, _loc, _offs, _page);
-        if (anaType_ == null) {
-            return new AnaResultPartType("",null);
+        AnaResultPartType anaType_ = getAnalyzeLine(_input, new AlwaysReadyTypes(), false, _local, _rooted, _loc, _page);
+        AnaPartType root_ = anaType_.getPartType();
+        if (root_ == null) {
+//            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
+//            _offs.add(new PartOffset(pref_,_loc));
+//            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
+            return new AnaResultPartType(_input,_loc,"",null, _rooted);
         }
-        checkAccess(anaType_,_globalType, _page);
-        return new AnaResultPartType(anaType_.getAnalyzedType(),anaType_);
+        checkAccess(root_,_globalType, _page);
+        return anaType_;
     }
     static AnaResultPartType processAnalyzeLineWithoutErr(String _input, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
         _page.setRefFileName(null);
-        AnaPartType anaType_ = getAnalyzeLine(_input, new AlwaysReadyTypes(), false, _local, _rooted, _loc, _offs, _page);
-        if (anaType_ == null) {
-            return new AnaResultPartType("",null);
+        AnaResultPartType anaType_ = getAnalyzeLine(_input, new AlwaysReadyTypes(), false, _local, _rooted, _loc, _page);
+        AnaPartType root_ = anaType_.getPartType();
+        if (root_ == null) {
+            return new AnaResultPartType(_input,_loc,"",null, _rooted);
         }
-        appendParts(anaType_,_offs, _page);
-        return new AnaResultPartType(anaType_.getAnalyzedType(),anaType_);
+        processAnalyzeConstraintsRep(anaType_,_offs,_page);
+//        processAfterAnalyzeLoop(_input,_rooted,_page,root_);
+//        appendParts(root_,_offs, _page);
+        return anaType_;
     }
     static String processAnalyzeLineInherits(String _input, ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
-        AnaPartType anaType_ = getAnalyzeLine(_input, _ready, true, _local, _rooted, -1, new CustList<PartOffset>(), _page);
+        AnaPartType anaType_ = getAnalyzeLine(_input, _ready, true, _local, _rooted, -1, _page).getPartType();
         if (anaType_ == null) {
             return "";
         }
@@ -490,14 +533,14 @@ public final class AnaPartTypeUtil {
         }
         return ana_;
     }
-    private static AnaPartType getAnalyzeLine(String _input, ReadyTypes _ready, boolean _rootName, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
+    private static AnaResultPartType getAnalyzeLine(String _input, ReadyTypes _ready, boolean _rootName, AccessedBlock _local, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
         String inputTr_ = _input.trim();
         Ints indexes_ = ParserType.getIndexes(inputTr_, _page);
         if (indexes_ == null) {
-            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
-            _offs.add(new PartOffset(pref_,_loc));
-            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
-            return null;
+//            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
+//            _offs.add(new PartOffset(pref_,_loc));
+//            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
+            return new AnaResultPartType(_input,_loc,"",null, _rooted);
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, inputTr_, indexes_);
         AnaPartType root_ = AnaPartType.createPartType(_rootName,null, 0, 0, loc_, _page, inputTr_);
@@ -536,12 +579,12 @@ public final class AnaPartTypeUtil {
                 break;
             }
         }
-        processAfterAnalyzeLoop(_input,_rooted,_page,root_);
-        if (root_.getAnalyzedType().isEmpty()) {
-            appendQuickParts(root_,_offs, _page);
-            return null;
-        }
-        return root_;
+//        processAfterAnalyzeLoop(_input,_rooted,_page,root_);
+//        if (root_.getAnalyzedType().isEmpty()) {
+//            appendQuickParts(root_,_offs, _page);
+//            return null;
+//        }
+        return new AnaResultPartType(_input,_loc,root_.getAnalyzedType(),root_, _rooted);
     }
     private static void checkAccess(AnaPartType _root, String _gl, AnalyzedPageEl _page) {
         AnaPartType current_ = _root;
@@ -568,14 +611,14 @@ public final class AnaPartTypeUtil {
         }
     }
 
-    static AnaResultPartType processAnalyzeAccessibleId(String _input, AccessedBlock _rooted, FileBlock _refFileName, int _loc, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
+    static AnaResultPartType processAnalyzeAccessibleId(String _input, AccessedBlock _rooted, FileBlock _refFileName, int _loc, AnalyzedPageEl _page) {
         _page.setRefFileName(_refFileName);
         Ints indexes_ = ParserType.getIndexes(_input.trim(), _page);
         if (indexes_ == null) {
-            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
-            _offs.add(new PartOffset(pref_,_loc));
-            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
-            return new AnaResultPartType("",null);
+//            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
+//            _offs.add(new PartOffset(pref_,_loc));
+//            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
+            return new AnaResultPartType(_input,_loc,"",null, _rooted);
         }
         AnalyzingType loc_ = ParserType.analyzeLocalId(0, _input.trim(), indexes_);
         AnaPartType root_ = AnaPartType.createPartType(false, null, 0, 0, loc_, _page, _input);
@@ -614,30 +657,27 @@ public final class AnaPartTypeUtil {
                 break;
             }
         }
-        processAfterAnalyzeLoop(_input,_rooted,_page,root_);
-        if (root_.getAnalyzedType().isEmpty()) {
-            appendQuickParts(root_,_offs, _page);
-            return new AnaResultPartType("",null);
-        }
+//        processAfterAnalyzeLoop(_input,_rooted,_page,root_);
+//        if (root_.getAnalyzedType().isEmpty()) {
+//            appendQuickParts(root_,_offs, _page);
+//            return new AnaResultPartType("",null);
+//        }
         String analyzedType_ = root_.getAnalyzedType();
-        return new AnaResultPartType(analyzedType_,root_);
+        return new AnaResultPartType(_input,_loc,analyzedType_,root_, _rooted);
     }
 
-    private static void processLeafOffsets(AccessedBlock _rooted, AnaPartType _current, AnalyzedPageEl _page) {
+    private static void processLeafOffsets(AccessedBlock _rooted, AnaPartType _current) {
         if (_current instanceof AnaNamePartType) {
-            ((AnaNamePartType)_current).processOffsets(_rooted, _page);
+            ((AnaNamePartType)_current).processOffsets(_rooted);
         }
         if (_current instanceof AnaVariablePartType) {
-            ((AnaVariablePartType)_current).processOffsets(_rooted, _page);
+            ((AnaVariablePartType)_current).processOffsets(_rooted);
         }
     }
 
-    private static void appendParts(AnaPartType _root, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
-        if (!_page.isGettingParts()) {
-            return;
-        }
-        checkParametersCountErr(_root, _page);
-        checkConstrainsErr(_root, _page);
+    private static void appendParts(AnaPartType _root, CustList<PartOffset> _offs, AnalysisMessages _analysisMessages) {
+        checkParametersCountErr(_root, _analysisMessages);
+        checkConstrainsErr(_root, _analysisMessages);
         AnaPartType current_ = _root;
         while (current_ != null) {
             AnaPartType child_ = current_.getFirstChild();
@@ -645,7 +685,7 @@ public final class AnaPartTypeUtil {
                 current_ = child_;
                 continue;
             }
-            processInaccessibleOffsets(_page, current_);
+            processInaccessibleOffsets(current_, _analysisMessages);
             String candidate_ = buildOffsetPartDefault(current_);
             appendIntern(candidate_,_offs, current_.getFull(),current_.getLength());
             while (current_ != null) {
@@ -666,9 +706,9 @@ public final class AnaPartTypeUtil {
         }
     }
 
-    private static void processInaccessibleOffsets(AnalyzedPageEl _page, AnaPartType _current) {
+    private static void processInaccessibleOffsets(AnaPartType _current, AnalysisMessages _analysisMessages) {
         if (_current instanceof AnaNamePartType) {
-            ((AnaNamePartType) _current).processInaccessibleOffsets(_page);
+            ((AnaNamePartType) _current).processInaccessibleOffsets(_analysisMessages);
         }
     }
 
@@ -698,10 +738,7 @@ public final class AnaPartTypeUtil {
         }
     }
 
-    private static void appendQuickParts(AnaPartType _root, CustList<PartOffset> _offs, AnalyzedPageEl _page) {
-        if (!_page.isGettingParts()) {
-            return;
-        }
+    private static void appendQuickParts(AnaPartType _root, CustList<PartOffset> _offs) {
         AnaPartType current_ = _root;
         while (current_ != null) {
             appendOffsetBegin(_offs, current_);

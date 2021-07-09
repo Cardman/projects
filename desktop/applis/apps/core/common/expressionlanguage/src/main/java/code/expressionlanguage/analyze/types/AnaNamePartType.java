@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.AnaGeneType;
@@ -19,6 +20,8 @@ final class AnaNamePartType extends AnaLeafPartType {
     private String titleRef = "";
     private int value;
     private boolean buildRef;
+    private boolean voidType;
+    private AnaGeneType foundType;
     private FileBlock currentFile;
     private FileBlock refFileName;
     private String gl = "";
@@ -30,9 +33,11 @@ final class AnaNamePartType extends AnaLeafPartType {
     void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
         setLoc(_loc);
         if (skipGenericInners(_page)) {
+            processFound(_page);
             return;
         }
         tryAnalyzeInnerParts(_local,_rooted, _page);
+        processFound(_page);
     }
 
     private boolean skipGenericInners(AnalyzedPageEl _page) {
@@ -73,9 +78,11 @@ final class AnaNamePartType extends AnaLeafPartType {
     void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
         setLoc(_loc);
         if (skipInners(_ready, _page)) {
+            processFound(_page);
             return;
         }
         tryAnalyzeInnerPartsLine(_ready,_local,_rooted, _page);
+        processFound(_page);
     }
 
     private boolean skipInners(ReadyTypes _ready, AnalyzedPageEl _page) {
@@ -133,6 +140,9 @@ final class AnaNamePartType extends AnaLeafPartType {
 
     private boolean processFctVoid(AnalyzedPageEl _page) {
         AnaParentPartType par_ = getParent();
+        if (StringUtil.quickEq(getTypeName().trim(), _page.getAliasVoid())) {
+            voidType = par_ == null;
+        }
         if (!(par_ instanceof AnaTemplatePartType)) {
             return false;
         }
@@ -146,6 +156,15 @@ final class AnaNamePartType extends AnaLeafPartType {
             return true;
         }
         return false;
+    }
+
+    @Override
+    void processInexistType(String _in, AnalysisMessages _analysisMessages) {
+        if (!voidType) {
+            super.processInexistType(_in, _analysisMessages);
+            return;
+        }
+        getErrs().add(FoundErrorInterpret.buildARError(_analysisMessages.getVoidType(),_in.trim()));
     }
 
     private void tryAnalyzeInnerParts(AccessedBlock _local,
@@ -360,15 +379,21 @@ final class AnaNamePartType extends AnaLeafPartType {
                 return;
             }
             setAnalyzedType(StringUtil.concat(owner_,sep_,type_));
+            processFound(_page);
             return;
         }
         if (_page.getAnaGeneType(type_) != null) {
             setAnalyzedType(type_);
+            processFound(_page);
             return;
         }
         if (AnaTypeUtil.isPrimitive(type_, _page)) {
             setAnalyzedType(type_);
+            processFound(_page);
             return;
+        }
+        if (StringUtil.quickEq(getTypeName().trim(), _page.getAliasVoid())) {
+            voidType = getParent() == null;
         }
         if (getParent() instanceof AnaTemplatePartType) {
             AnaPartType prev_ = getParent().getFirstChild();
@@ -378,6 +403,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                 if (StringUtil.quickEq(base_.trim(), _page.getAliasFct()) && getParent().getStrTypes().size() == getIndex() + 1) {
                     setAnalyzedType(getTypeName().trim());
                 }
+                processFound(_page);
                 return;
             }
         }
@@ -387,20 +413,26 @@ final class AnaNamePartType extends AnaLeafPartType {
             return;
         }
         setAnalyzedType(out_);
+        processFound(_page);
     }
 
-    void processOffsets(AccessedBlock _rooted, AnalyzedPageEl _page) {
-        String imported_ = getAnalyzedType();
-        String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
-        AnaGeneType g_ = _page.getAnaGeneType(idCl_);
-        if (ContextUtil.isFromCustFile(g_)) {
-            int id_ = ((RootBlock) g_).getIdRowCol();
+    void processOffsets(AccessedBlock _rooted) {
+//        AnaGeneType g_ = _page.getAnaGeneType(idCl_);
+        if (ContextUtil.isFromCustFile(foundType)) {
+            int id_ = ((RootBlock) foundType).getIdRowCol();
+            String imported_ = getAnalyzedType();
+            String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
             setTitleRef(idCl_);
             value = id_;
             buildRef = true;
             currentFile = ((AbsBk)_rooted).getFile();
-            refFileName = ((RootBlock) g_).getFile();
+            refFileName = ((RootBlock) foundType).getFile();
         }
+    }
+    void processFound(AnalyzedPageEl _page) {
+        String imported_ = getAnalyzedType();
+        String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
+        foundType = _page.getAnaGeneType(idCl_);
     }
 
     String getTitleRef() {
@@ -427,9 +459,9 @@ final class AnaNamePartType extends AnaLeafPartType {
         return refFileName;
     }
 
-    void processInaccessibleOffsets(AnalyzedPageEl _page) {
+    void processInaccessibleOffsets(AnalysisMessages _analysisMessages) {
         for (InaccessibleType i: getInaccessibleTypes()) {
-            getErrs().add(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getInaccessibleType(),
+            getErrs().add(FoundErrorInterpret.buildARError(_analysisMessages.getInaccessibleType(),
                     i.getType(),gl));
         }
     }

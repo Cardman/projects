@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaTypeCheckContent;
-import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
 
 public final class CastOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
@@ -38,22 +37,6 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         } else {
             beginType = typeCheckContent.getClassName().indexOf(PAR_LEFT) + 1;
             String res_ = typeCheckContent.getClassName().substring(beginType, typeCheckContent.getClassName().lastIndexOf(PAR_RIGHT));
-            if (res_.trim().isEmpty()) {
-                int rc_ = _page.getLocalizer().getCurrentLocationIndex() + typeCheckContent.getClassName().indexOf(PAR_RIGHT);
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_page.getLocalizer().getCurrentFileName());
-                un_.setIndexFile(rc_);
-                //_in len
-                un_.buildError(_page.getAnalysisMessages().getEmptyType());
-                CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-                String err_ = un_.getBuiltError();
-                String pref_ = ExportCst.anchorErr(err_);
-                partOffsets_.add(new PartOffset(pref_,rc_));
-                partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+1));
-                typeCheckContent.setClassName(EMPTY_STRING);
-                partOffsets = partOffsets_;
-                return;
-            }
             CustList<PartOffset> currentParts_ = _page.getCurrentParts();
             res_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(typeCheckContent.getClassName().indexOf(PAR_LEFT)+1+ StringExpUtil.getOffset(res_),res_.trim(),true, currentParts_, _page);
             if (!res_.isEmpty()) {

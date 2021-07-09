@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.*;
@@ -11,8 +11,9 @@ public abstract class MethodOperation extends OperationNode {
     private OperationNode firstChild;
 
     private final StrTypes children;
-    private final CustList<CustList<PartOffset>> partOffsetsChildren = new CustList<CustList<PartOffset>>();
-    private final CustList<PartOffset> partOffsetsEnd = new CustList<PartOffset>();
+    private final CustList<InfoErrorDto> partOffsetsChildren = new CustList<InfoErrorDto>();
+    private final CustList<CustList<InfoErrorDto>> partOffsetsChildrenList = new CustList<CustList<InfoErrorDto>>();
+    private InfoErrorDto partOffsetsEnd = new InfoErrorDto("");
 
 
     protected MethodOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -75,11 +76,19 @@ public abstract class MethodOperation extends OperationNode {
         }
         return _op instanceof BadDottedOperation;
     }
-    public CustList<CustList<PartOffset>> getPartOffsetsChildren() {
+    public CustList<InfoErrorDto> getPartOffsetsChildren() {
         return partOffsetsChildren;
     }
 
-    public CustList<PartOffset> getPartOffsetsEnd() {
+    public CustList<CustList<InfoErrorDto>> getPartOffsetsChildrenList() {
+        return partOffsetsChildrenList;
+    }
+
+    public InfoErrorDto getPartOffsetsEnd() {
         return partOffsetsEnd;
+    }
+
+    public void setPartOffsetsEnd(InfoErrorDto _partOffsetsEnd) {
+        this.partOffsetsEnd = _partOffsetsEnd;
     }
 }

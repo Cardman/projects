@@ -30,20 +30,20 @@ public final class ResolvingSuperTypes {
             un_.buildError(_page.getAnalysisMessages().getEmptyType());
             _page.addLocError(un_);
             _ana.addNameErrors(un_);
-            return new AnaResultPartType(_page.getAliasObject(),null);
+            return new AnaResultPartType(_in,_location,_page.getAliasObject(),null, _ana);
         }
-        String void_ = _page.getAliasVoid();
-        if (StringUtil.quickEq(tr_, void_)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_ana.getFile().getFileName());
-            un_.setIndexFile(_location);
-            //_in len
-            un_.buildError(_page.getAnalysisMessages().getVoidType(),
-                    void_);
-            _page.addLocError(un_);
-            _ana.addNameErrors(un_);
-            return new AnaResultPartType(_page.getAliasObject(),null);
-        }
+//        String void_ = _page.getAliasVoid();
+//        if (StringUtil.quickEq(tr_, void_)) {
+//            FoundErrorInterpret un_ = new FoundErrorInterpret();
+//            un_.setFileName(_ana.getFile().getFileName());
+//            un_.setIndexFile(_location);
+//            //_in len
+//            un_.buildError(_page.getAnalysisMessages().getVoidType(),
+//                    void_);
+//            _page.addLocError(un_);
+//            _ana.addNameErrors(un_);
+//            return new AnaResultPartType(_in,_location,_page.getAliasObject(),null, _ana);
+//        }
         StringMap<Integer> variables_ = new StringMap<Integer>();
         for (RootBlock r: _ana.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
@@ -54,11 +54,11 @@ public final class ResolvingSuperTypes {
         _page.getAvailableVariables().clear();
         _page.getAvailableVariables().putAllMap(variables_);
         String gl_ = _ana.getGenericString();
-        CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
+//        CustList<PartOffset> partOffsets_ = _page.getCurrentParts();
         _page.getCurrentBadIndexes().clear();
         _page.setImportingAcces(new TypeAccessor(_ana.getFullName()));
         _page.setImportingTypes(_ana);
-        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in, false,gl_, _ana,_ana, _location,partOffsets_, _page);
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in, false,gl_, _ana,_ana, _location, _page);
         for (InaccessibleType i: _page.getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
@@ -76,16 +76,16 @@ public final class ResolvingSuperTypes {
             un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     _in);
             _page.addLocError(un_);
-            return new AnaResultPartType(_page.getAliasObject(),null);
+//            return new AnaResultPartType(_in,_location,_page.getAliasObject(),null, _ana);
         }
         return resType_;
     }
     /**Used at building mapping constraints*/
     public static AnaResultPartType resolveTypeInherits(String _in, RootBlock _ana,
-                                                        int _location, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page) {
-        AnaResultPartType resType_ = typeArguments(_in, _ana, _location, _partOffsets, _page);
+                                                        int _location, AnalyzedPageEl _page) {
+        AnaResultPartType resType_ = typeArguments(_in, _ana, _location, _page);
         if (resType_ == null) {
-            return new AnaResultPartType(_page.getAliasObject(),null);
+            return new AnaResultPartType(_in, _location,_page.getAliasObject(),null, _ana);
         }
         for (String p:StringExpUtil.getWildCards(resType_.getResult())){
             FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -101,7 +101,7 @@ public final class ResolvingSuperTypes {
         return resType_;
     }
     public static AnaResultPartType typeArguments(String _in, RootBlock _ana,
-                                                  int _location, CustList<PartOffset> _partOffsets, AnalyzedPageEl _page) {
+                                                  int _location, AnalyzedPageEl _page) {
         String tr_ = _in.trim();
         if (tr_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -113,18 +113,18 @@ public final class ResolvingSuperTypes {
             _ana.addNameErrors(un_);
             return null;
         }
-        String void_ = _page.getAliasVoid();
-        if (StringUtil.quickEq(tr_, void_)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_ana.getFile().getFileName());
-            un_.setIndexFile(_location);
-            //_in len
-            un_.buildError(_page.getAnalysisMessages().getVoidType(),
-                    void_);
-            _page.addLocError(un_);
-            _ana.addNameErrors(un_);
-            return null;
-        }
+//        String void_ = _page.getAliasVoid();
+//        if (StringUtil.quickEq(tr_, void_)) {
+//            FoundErrorInterpret un_ = new FoundErrorInterpret();
+//            un_.setFileName(_ana.getFile().getFileName());
+//            un_.setIndexFile(_location);
+//            //_in len
+//            un_.buildError(_page.getAnalysisMessages().getVoidType(),
+//                    void_);
+//            _page.addLocError(un_);
+//            _ana.addNameErrors(un_);
+//            return null;
+//        }
         StringMap<Integer> variables_ = new StringMap<Integer>();
         for (RootBlock r: _ana.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
@@ -142,7 +142,7 @@ public final class ResolvingSuperTypes {
         _page.getCurrentBadIndexes().clear();
         _page.setImportingAcces(new TypeAccessor(_ana.getFullName()));
         _page.setImportingTypes(_ana);
-        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in,true,gl_, scope_,_ana, _location, _partOffsets, _page);
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in,true,gl_, scope_,_ana, _location, _page);
         for (InaccessibleType i: _page.getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
@@ -160,7 +160,7 @@ public final class ResolvingSuperTypes {
             un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     _in);
             _page.addLocError(un_);
-            return null;
+//            return null;
         }
         return resType_;
     }

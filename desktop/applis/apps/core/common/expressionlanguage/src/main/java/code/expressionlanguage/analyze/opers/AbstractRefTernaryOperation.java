@@ -1,9 +1,9 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
@@ -73,10 +73,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
         StringList deep_ = getErrs();
         if (!deep_.isEmpty()) {
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            CustList<PartOffset> list_ = new CustList<PartOffset>();
-            list_.add(new PartOffset(ExportCst.anchorErr(StringUtil.join(deep_,ExportCst.JOIN_ERR)),i_));
-            list_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
-            getPartOffsetsChildren().add(list_);
+            getPartOffsetsChildren().add(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),i_,1));
         }
         opOne_.getResultClass().setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         opOne_.getResultClass().setCheckOnlyNullPe(true);

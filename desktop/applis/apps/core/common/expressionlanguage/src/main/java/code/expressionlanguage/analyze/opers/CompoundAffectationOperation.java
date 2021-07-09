@@ -1,25 +1,21 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.blocks.AbsBk;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -66,10 +62,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     operatorContent.getOper());
             _page.getLocalizer().addError(un_);
             int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
-            CustList<PartOffset> err_ = new CustList<PartOffset>();
-            err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),opLocat_));
-            err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+ operatorContent.getOper().length()));
-            getPartOffsetsChildren().add(err_);
+            getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),opLocat_,operatorContent.getOper().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -150,10 +143,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                             StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
                             StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
-                    CustList<PartOffset> err_ = new CustList<PartOffset>();
-                    err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
-                    err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+ operatorContent.getOper().length()-1));
-                    getPartOffsetsChildren().add(err_);
+                    getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,operatorContent.getOper().length()-1));
                     return;
                 }
                 concat = true;
@@ -169,10 +159,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                         StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
                         StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
-                CustList<PartOffset> err_ = new CustList<PartOffset>();
-                err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
-                err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+ operatorContent.getOper().length()-1));
-                getPartOffsetsChildren().add(err_);
+                getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,operatorContent.getOper().length()-1));
                 return;
             }
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
@@ -186,10 +173,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                         StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
                         StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
-                CustList<PartOffset> err_ = new CustList<PartOffset>();
-                err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
-                err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+ operatorContent.getOper().length()-1));
-                getPartOffsetsChildren().add(err_);
+                getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,operatorContent.getOper().length()-1));
                 return;
             }
             left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
@@ -214,10 +198,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                         StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
                         StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
-                CustList<PartOffset> err_ = new CustList<PartOffset>();
-                err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
-                err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+ operatorContent.getOper().length()-1));
-                getPartOffsetsChildren().add(err_);
+                getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,operatorContent.getOper().length()-1));
                 return;
             }
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
@@ -237,10 +218,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                         StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
                         StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
-                CustList<PartOffset> err_ = new CustList<PartOffset>();
-                err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
-                err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+ operatorContent.getOper().length()-1));
-                getPartOffsetsChildren().add(err_);
+                getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,operatorContent.getOper().length()-1));
                 return;
             }
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
@@ -268,10 +246,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                             StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
                             StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
-                    CustList<PartOffset> err_ = new CustList<PartOffset>();
-                    err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
-                    err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+ operatorContent.getOper().length()-1));
-                    getPartOffsetsChildren().add(err_);
+                    getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,operatorContent.getOper().length()-1));
                 }
             }
             setResultClass(AnaClassArgumentMatching.copy(clMatchLeft_, _page.getPrimitiveTypes()));
@@ -287,10 +262,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
                     StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(cast_);
-            CustList<PartOffset> err_ = new CustList<PartOffset>();
-            err_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),opLocat_));
-            err_.add(new PartOffset(ExportCst.END_ANCHOR,opLocat_+ operatorContent.getOper().length()-1));
-            getPartOffsetsChildren().add(err_);
+            getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,operatorContent.getOper().length()-1));
         } else {
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
             left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());

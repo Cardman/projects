@@ -1,14 +1,12 @@
 package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -63,10 +61,7 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
                                 _page.getLocalizer().addError(un_);
                                 if (analyzed.getPartOffsetsChildren().isEmpty()) {
                                     int opLocat_ = analyzed.getFoundOffset();
-                                    CustList<PartOffset> err_ = new CustList<PartOffset>();
-                                    err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()), opLocat_));
-                                    err_.add(new PartOffset(ExportCst.END_ANCHOR, opLocat_ + 1));
-                                    analyzed.getPartOffsetsChildren().add(err_);
+                                    analyzed.getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),opLocat_,1));
                                 }
                             }
                         }
@@ -82,10 +77,7 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
                 _page.getLocalizer().addError(un_);
                 if (analyzed.getPartOffsetsChildren().isEmpty()) {
                     int opLocat_ = analyzed.getFoundOffset();
-                    CustList<PartOffset> err_ = new CustList<PartOffset>();
-                    err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()), opLocat_));
-                    err_.add(new PartOffset(ExportCst.END_ANCHOR, opLocat_ + 1));
-                    analyzed.getPartOffsetsChildren().add(err_);
+                    analyzed.getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),opLocat_,1));
                 }
             }
         }

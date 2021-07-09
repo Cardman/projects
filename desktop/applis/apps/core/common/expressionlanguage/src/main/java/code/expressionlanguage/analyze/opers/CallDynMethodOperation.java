@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.FormattedFilter;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -403,7 +404,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
             for (int i = 0; i < nb_; i++) {
                 StrTypes operators_ = getOperations().getOperators();
-                CustList<PartOffset> parts_ = new CustList<PartOffset>();
+                InfoErrorDto parts_ = new InfoErrorDto("");
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(i), _page);
                 AnaClassArgumentMatching a_ = firstArgs_.get(i);
                 String pa_ = param_.get(i);
@@ -422,8 +423,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                                 StringUtil.join(a_.getNames(),ExportCst.JOIN_TYPES),
                                 pa_);
                         _page.getLocalizer().addError(cast_);
-                        parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
-                        parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                        parts_= new InfoErrorDto(cast_.getBuiltError(),i_,1);
                     }
                 } else if (!StringUtil.quickEq("?", pa_)) {
                     if (chidren_.get(i) instanceof WrappOperation) {
@@ -436,8 +436,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                                 StringUtil.join(a_.getNames(),ExportCst.JOIN_TYPES),
                                 pa_);
                         _page.getLocalizer().addError(cast_);
-                        parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
-                        parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                        parts_= new InfoErrorDto(cast_.getBuiltError(),i_,1);
                     } else if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                         ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(pa_, a_, _page);
                         if (res_ != null) {
@@ -452,8 +451,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                                     StringUtil.join(a_.getNames(),ExportCst.JOIN_TYPES),
                                     pa_);
                             _page.getLocalizer().addError(cast_);
-                            parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
-                            parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                            parts_= new InfoErrorDto(cast_.getBuiltError(),i_,1);
                         }
                     }
                 }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
@@ -26,7 +27,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class InferArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation {
-    private final CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
+    private InfoErrorDto partOffsetsErr = new InfoErrorDto("");
     private String typeInfer = EMPTY_STRING;
 
     InferArrayInstancing(int _index, int _indexChild,
@@ -129,8 +130,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     type_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-            partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),i_,1);
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
@@ -147,8 +147,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     n_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-            partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),i_,1);
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
@@ -164,8 +163,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     cp_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-            partOffsetsErr.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),i_,1);
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
@@ -177,7 +175,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         for (OperationNode o: chidren_) {
             int index_ = getPartOffsetsChildren().size();
             StrTypes operators_ = getOperations().getOperators();
-            CustList<PartOffset> parts_ = new CustList<PartOffset>();
+            InfoErrorDto parts_ = new InfoErrorDto("");
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
             AnaClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
@@ -196,8 +194,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                             StringUtil.join(argType_.getNames(),ExportCst.JOIN_TYPES),
                             classNameFinal_);
                     _page.getLocalizer().addError(cast_);
-                    parts_.add(new PartOffset(ExportCst.anchorErr(cast_.getBuiltError()),i_));
-                    parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                    parts_=(new InfoErrorDto(cast_.getBuiltError(),i_,1));
                 }
             }
             if (AnaTypeUtil.isPrimitive(classNameFinal_, _page)) {
@@ -208,7 +205,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         setResultClass(new AnaClassArgumentMatching(cp_));
     }
 
-    public CustList<PartOffset> getPartOffsetsErr() {
+    public InfoErrorDto getPartOffsetsErr() {
         return partOffsetsErr;
     }
 }

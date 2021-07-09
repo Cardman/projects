@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -8,7 +9,6 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.linkage.ExportCst;
@@ -180,7 +180,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             return;
         }
         if (chidren_.size() != 1) {
-            getPartOffsetsChildren().add(new CustList<PartOffset>());
+            getPartOffsetsChildren().add(new InfoErrorDto(""));
             StrTypes operators_ =  getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             int i_ = _page.getLocalizer().getCurrentLocationIndex() + operators_.getKey(1);
@@ -194,10 +194,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                     "[]"
             );
             _page.getLocalizer().addError(badNb_);
-            CustList<PartOffset> list_ = new CustList<PartOffset>();
-            list_.add(new PartOffset(ExportCst.anchorErr(badNb_.getBuiltError()),i_));
-            list_.add(new PartOffset(ExportCst.END_ANCHOR,i_+ 1));
-            getPartOffsetsChildren().add(list_);
+            getPartOffsetsChildren().add(new InfoErrorDto(badNb_.getBuiltError(),i_,1));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }

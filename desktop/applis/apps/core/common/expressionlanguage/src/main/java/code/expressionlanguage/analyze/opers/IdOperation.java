@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -7,9 +8,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.*;
@@ -32,9 +30,8 @@ public final class IdOperation extends AbstractUnaryOperation {
         if (children_.size() > 1) {
             standard = false;
             MethodOperation par_ = getParent();
-            getPartOffsetsChildren().add(new CustList<PartOffset>());
+            getPartOffsetsChildren().add(new InfoErrorDto(""));
             if (!(par_ instanceof CastOperation)) {
-                CustList<PartOffset> parts_ = new CustList<PartOffset>();
                 StrTypes operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -46,9 +43,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                         Long.toString(1),
                         Long.toString(children_.size()));
                 _page.getLocalizer().addError(un_);
-                parts_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-                parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
-                getPartOffsetsChildren().add(parts_);
+                getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),i_,1));
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -56,7 +51,6 @@ public final class IdOperation extends AbstractUnaryOperation {
             String id_ = StringExpUtil.getIdFromAllTypes(base_);
             RootBlock rBase_ = _page.getAnaClassBody(id_);
             if (!(rBase_ instanceof InterfaceBlock)) {
-                CustList<PartOffset> parts_ = new CustList<PartOffset>();
                 StrTypes operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -68,9 +62,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                         Long.toString(1),
                         Long.toString(children_.size()));
                 _page.getLocalizer().addError(un_);
-                parts_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-                parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
-                getPartOffsetsChildren().add(parts_);
+                getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),i_,1));
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -82,7 +74,6 @@ public final class IdOperation extends AbstractUnaryOperation {
                 StrTypes operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
                 int i_ = _page.getLocalizer().getCurrentLocationIndex();
-                CustList<PartOffset> parts_ = new CustList<PartOffset>();
                 OperationNode op_ = children_.get(i);
                 if (!(op_ instanceof InterfaceFctConstructor)){
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -94,9 +85,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                             Long.toString(children_.size()));
                     _page.getLocalizer().addError(un_);
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                    parts_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-                    parts_.add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
-                    getPartOffsetsChildren().add(parts_);
+                    getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),i_,1));
                     return;
                 }
                 ConstructorId cid_ = ((InterfaceFctConstructor) op_).getConstId();
@@ -109,7 +98,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                 }
                 checkInherits(op_,previousInts_, cl_, _page);
                 previousInts_.add(cl_);
-                getPartOffsetsChildren().add(parts_);
+                getPartOffsetsChildren().add(new InfoErrorDto(""));
             }
             if (!existAll_) {
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -130,8 +119,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                         Long.toString(1),
                         Long.toString(children_.size()));
                 _page.getLocalizer().addError(un_);
-                getPartOffsetsEnd().add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),i_));
-                getPartOffsetsEnd().add(new PartOffset(ExportCst.END_ANCHOR,i_+1));
+                setPartOffsetsEnd(new InfoErrorDto(un_.getBuiltError(),i_,1));
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }

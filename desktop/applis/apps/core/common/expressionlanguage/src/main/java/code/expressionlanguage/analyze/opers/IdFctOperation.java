@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -26,6 +27,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
 
     private ClassMethodIdAncestor method;
 
+    private InfoErrorDto partOffsetsErr;
     private CustList<PartOffset> partOffsets;
 
     public IdFctOperation(int _indexInEl, int _indexChild, MethodOperation _m,
@@ -36,6 +38,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
+        partOffsetsErr = new InfoErrorDto("");
         partOffsets = new CustList<PartOffset>();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         MethodOperation m_ = getParent();
@@ -48,8 +51,9 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordId());
             _page.getLocalizer().addError(varg_);
-            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
-            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordId().length()));
+            partOffsetsErr = new InfoErrorDto(varg_.getBuiltError(),i_,_page.getKeyWords().getKeyWordId().length());
+//            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+//            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordId().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -62,8 +66,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordId());
             _page.getLocalizer().addError(varg_);
-            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
-            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordId().length()));
+            partOffsetsErr = new InfoErrorDto(varg_.getBuiltError(),i_,_page.getKeyWords().getKeyWordId().length());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -188,8 +191,9 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
                     //three dots
                     varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
                     _page.getLocalizer().addError(varg_);
-                    _partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
-                    _partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
+                    ResolvingTypes.errOff(_page,_partOffsets,varg_,i_,3);
+//                    _partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
+//                    _partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
                     return null;
                 }
                 vararg_ = len_- _from;
@@ -213,5 +217,10 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
     @Override
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    @Override
+    public InfoErrorDto getPartOffsetsErr() {
+        return partOffsetsErr;
     }
 }

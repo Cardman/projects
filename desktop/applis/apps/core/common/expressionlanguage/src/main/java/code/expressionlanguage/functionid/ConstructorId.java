@@ -5,7 +5,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class ConstructorId extends AbsractIdentifiableCommon implements Identifiable {
+public final class ConstructorId extends AbsractIdentifiableCommon {
 
     private static final String EMPTY = "";
     private static final String CST_VARARG = "...";

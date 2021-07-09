@@ -59,8 +59,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private int nameLength;
 
     private final CustList<Ints> paramTypesConstraintsOffset = new CustList<Ints>();
-    private final CustList<PartOffset> constraintsParts = new CustList<PartOffset>();
-    private final CustList<PartOffset> superTypesParts = new CustList<PartOffset>();
 
 
     private final Ints staticInitInterfacesOffset = new Ints();
@@ -350,14 +348,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     StringList const_ = new StringList();
                     CustList<AnaResultPartType> results_ = new CustList<AnaResultPartType>();
                     Ints ints_ = paramTypesConstraintsOffset.get(j_);
-                    if (t.getErrors().isEmpty()) {
-                        constraintsParts.add(new PartOffset(ExportCst.anchorName(t.getOffset()),
-                                t.getOffset()));
-                    } else {
-                        String err_ = StringUtil.join(t.getErrors(),ExportCst.JOIN_ERR);
-                        constraintsParts.add(new PartOffset(ExportCst.anchorNameErr(t.getOffset(),err_),t.getOffset()));
-                    }
-                    constraintsParts.add(new PartOffset(ExportCst.END_ANCHOR,t.getOffset()+t.getLength()));
+//                    varDef(t, constraintsParts);
                     _page.getCurrentParts().clear();
                     int i_ = 0;
                     for (String c: t.getConstraints()) {
@@ -367,11 +358,12 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         const_.add(res_.getResult());
                         i_++;
                     }
-                    constraintsParts.addAllElts(_page.getCurrentParts());
+//                    constraintsParts.addAllElts(_page.getCurrentParts());
                     j_++;
                     TypeVar t_ = new TypeVar();
                     t_.setOffset(t.getOffset());
                     t_.setLength(t.getLength());
+                    t.getResults().addAllElts(results_);
                     t_.getResults().addAllElts(results_);
                     t_.setConstraints(const_);
                     t_.setName(t.getName());
@@ -1218,7 +1210,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 StringList allTypes_ = StringExpUtil.getAllTypes(value_);
                 for (String p: allTypes_.mid(1)) {
                     int loc_ = StringUtil.getFirstPrintableCharIndex(p);
-                    AnaResultPartType resType_ = ResolvingSuperTypes.typeArguments(p.trim(), this, o_ + loc_, new CustList<PartOffset>(), _page);
+                    AnaResultPartType resType_ = ResolvingSuperTypes.typeArguments(p.trim(), this, o_ + loc_, _page);
                     if (resType_ != null) {
                         j_.add(resType_.getResult());
                     } else {
@@ -1232,12 +1224,12 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 } else {
                     res_ = _page.getAliasObject();
                 }
-                s_ = new AnaResultPartType(res_,null);
+                s_ = new AnaResultPartType(value_,index_,res_,null,null);
             } else if (index_ < 0){
-                s_ = new AnaResultPartType(value_,null);
+                s_ = new AnaResultPartType(value_,index_,value_,null, null);
             } else {
                 int off_ = StringUtil.getFirstPrintableCharIndex(value_);
-                s_ = ResolvingSuperTypes.resolveTypeInherits(value_.trim(), this, off_+index_, getSuperTypesParts(), _page);
+                s_ = ResolvingSuperTypes.resolveTypeInherits(value_.trim(), this, off_+index_, _page);
                 results.add(s_);
             }
             String result_ = s_.getResult();
@@ -1835,10 +1827,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return false;
     }
 
-    public CustList<PartOffset> getConstraintsParts() {
-        return constraintsParts;
-    }
-
     public abstract boolean mustImplement();
 
     public int getNbOperators() {
@@ -1851,10 +1839,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<OperationNode> getRoots() {
         return roots;
-    }
-
-    public CustList<PartOffset> getSuperTypesParts() {
-        return superTypesParts;
     }
 
     public CustList<PartOffset> getPartsStaticInitInterfacesOffset() {

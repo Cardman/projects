@@ -1,12 +1,32 @@
 package code.expressionlanguage.analyze.types;
 
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
+
 public final class AnaResultPartType {
+    private final String input;
+    private final int loc;
     private final String result;
     private final AnaPartType partType;
+    private final AccessedBlock rooted;
 
-    public AnaResultPartType(String _result, AnaPartType _partType) {
+    public AnaResultPartType(String _input, int _loc,String _result, AnaPartType _partType, AccessedBlock _rooted) {
+        input = _input;
+        loc = _loc;
         result = _result;
         partType = _partType;
+        rooted = _rooted;
+    }
+
+    public String getInput() {
+        return input;
+    }
+
+    public int getLoc() {
+        return loc;
+    }
+
+    public AccessedBlock getRooted() {
+        return rooted;
     }
 
     public AnaPartType getPartType() {

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -131,12 +132,12 @@ abstract class AnaPartType {
         analyzedType = _analyzedType;
     }
 
-    void processBadFormedOffsets(AnalyzedPageEl _page) {
-        getErrs().add(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getBadParamerizedType(),getAnalyzedType()));
+    void processBadFormedOffsets(AnalysisMessages _analysisMessages) {
+        getErrs().add(FoundErrorInterpret.buildARError(_analysisMessages.getBadParamerizedType(),getAnalyzedType()));
     }
 
-    void processInexistType(String _in, AnalyzedPageEl _page) {
-        getErrs().add(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(),_in));
+    void processInexistType(String _in, AnalysisMessages _analysisMessages) {
+        getErrs().add(FoundErrorInterpret.buildARError(_analysisMessages.getUnknownType(),_in));
     }
 
     String buildOffsetPartDefault(String _href) {

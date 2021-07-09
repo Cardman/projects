@@ -1,9 +1,9 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
@@ -54,13 +54,9 @@ public final class RangeOperation extends MethodOperation {
             );
             _page.getLocalizer().addError(badNb_);
             for (int i = 0; i < in_;i++) {
-                CustList<PartOffset> err_ = new CustList<PartOffset>();
-                getPartOffsetsChildren().add(err_);
+                getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>());
             }
-            CustList<PartOffset> err_ = new CustList<PartOffset>();
-            err_.add(new PartOffset(ExportCst.anchorErr(badNb_.getBuiltError()),index_));
-            err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+getOperations().getOperators().getValue(in_).length()));
-            getPartOffsetsChildren().add(err_);
+            getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>(new InfoErrorDto(badNb_.getBuiltError(),index_,getOperations().getOperators().getValue(in_).length())));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasRange()));
             return;
         }
@@ -68,7 +64,7 @@ public final class RangeOperation extends MethodOperation {
         AnaClassArgumentMatching clMatchLeft_ = chidren_.first().getResultClass();
         if (chidren_.size() == 3||chidren_.size() == 2) {
             AnaClassArgumentMatching clMatchRight_ = chidren_.get(1).getResultClass();
-            CustList<PartOffset> err_ = new CustList<PartOffset>();
+            CustList<InfoErrorDto> err_ = new CustList<InfoErrorDto>();
             if (!clMatchLeft_.isNumericInt(_page)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), clMatchLeft_, _page);
                 if (res_ != null) {
@@ -89,8 +85,7 @@ public final class RangeOperation extends MethodOperation {
                             ),ExportCst.JOIN_OPERANDS),
                             "???");
                     _page.getLocalizer().addError(un_);
-                    err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),index_));
-                    err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+ 1));
+                    err_.add(new InfoErrorDto(un_.getBuiltError(),index_,1));
                 }
             }
             if (!clMatchRight_.isNumericInt(_page)) {
@@ -113,18 +108,17 @@ public final class RangeOperation extends MethodOperation {
                             ),ExportCst.JOIN_OPERANDS),
                             "???");
                     _page.getLocalizer().addError(un_);
-                    err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),index_ +2));
-                    err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+ 3));
+                    err_.add(new InfoErrorDto(un_.getBuiltError(),index_ +2,1));
                 }
             }
             if (!err_.isEmpty()) {
-                getPartOffsetsChildren().add(err_);
+                getPartOffsetsChildrenList().add(err_);
             }
             clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes());
             clMatchRight_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchRight_, _page), _page.getPrimitiveTypes());
             if (chidren_.size() == 3) {
-                if (getPartOffsetsChildren().isEmpty()) {
-                    getPartOffsetsChildren().add(new CustList<PartOffset>());
+                if (getPartOffsetsChildrenList().isEmpty()) {
+                    getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>());
                 }
                 AnaClassArgumentMatching clMatchStep_ = chidren_.last().getResultClass();
                 if (!clMatchStep_.isNumericInt(_page)) {
@@ -144,10 +138,7 @@ public final class RangeOperation extends MethodOperation {
                                 StringUtil.join(clMatchStep_.getNames(),ExportCst.JOIN_TYPES),
                                 "???");
                         _page.getLocalizer().addError(un_);
-                        CustList<PartOffset> step_ = new CustList<PartOffset>();
-                        step_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),index_ +2));
-                        step_.add(new PartOffset(ExportCst.END_ANCHOR,index_+ 3));
-                        getPartOffsetsChildren().add(step_);
+                        getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>(new InfoErrorDto(un_.getBuiltError(),index_ +2,1)));
                     }
                 }
                 clMatchStep_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchStep_, _page), _page.getPrimitiveTypes());
@@ -170,10 +161,7 @@ public final class RangeOperation extends MethodOperation {
                             StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES),
                             "???");
                     _page.getLocalizer().addError(un_);
-                    CustList<PartOffset> err_ = new CustList<PartOffset>();
-                    err_.add(new PartOffset(ExportCst.anchorErr(un_.getBuiltError()),index_));
-                    err_.add(new PartOffset(ExportCst.END_ANCHOR,index_+ 1));
-                    getPartOffsetsChildren().add(err_);
+                    getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>(new InfoErrorDto(un_.getBuiltError(),index_,1)));
                 }
             }
             clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes());
