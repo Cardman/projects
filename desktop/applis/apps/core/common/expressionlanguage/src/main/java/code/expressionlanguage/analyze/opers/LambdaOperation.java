@@ -1370,74 +1370,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private void processInstance(StringList _args, int _len, AnalyzedPageEl _page) {
         StringList methodTypes_ = new StringList();
-        String clFrom_ = EMPTY_STRING;
-        if (!isIntermediateDottedOperation()) {
-            int offset_ = className.indexOf('(')+1;
-            offset_ += StringExpUtil.getOffset(_args.first());
-            clFrom_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_,_args.first().trim(), _page);
-            partOffsetsBegin.addAllElts(_page.getCurrentParts());
-            if (clFrom_.startsWith(ARR)) {
-                processArray(_args, _len, _page, clFrom_.substring(ARR.length()));
-                return;
-            }
-            AnaFormattedRootBlock form_ = new AnaFormattedRootBlock(_page,clFrom_);
-            String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
-            RootBlock h_ = form_.getRootBlock();
-            if (h_ instanceof RecordBlock) {
-                checkWildCards(clFrom_, _page);
-                StringList names_ = new StringList();
-                StringList types_ = new StringList();
-                int offsetArg_ = className.indexOf('(')+1+_args.first().length()+1+_args.get(1).length()+1-getClassNameOffset();
-                for (int i = 2; i < _len; i++) {
-                    String arg_ = _args.get(i);
-                    String name_ = arg_.trim();
-                    boolean contained_ = false;
-                    for (InfoBlock f: h_.getFieldsBlocks()) {
-                        String par_ = AnaInherits.quickFormat(h_, clFrom_, f.getImportedClassName());
-                        int index_ = AnaTypeUtil.getIndex(f,name_);
-                        if (index_ >= 0) {
-                            contained_ = true;
-                            types_.add(par_);
-                            offsets.add(offsetArg_+StringExpUtil.getOffset(arg_));
-                            named.add(name_);
-                            refs.add(index_);
-                            infos.addEntry(name_,f.getImportedClassName());
-                            break;
-                        }
-                    }
-                    if (!contained_) {
-                        offsets.add(offsetArg_+StringExpUtil.getOffset(arg_));
-                        named.add(name_);
-                        refs.add(-1);
-                    }
-                    if (StringUtil.contains(names_,name_) || !contained_) {
-                        FoundErrorInterpret call_ = new FoundErrorInterpret();
-                        call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                        call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                        //_fromType len
-                        call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
-                                id_);
-                        _page.getLocalizer().addError(call_);
-                        addErr(call_.getBuiltError());
-                    }
-                    names_.add(name_);
-                    offsetArg_ += arg_.length()+1;
-                }
-                lambdaMemberNumberContentId = new MemberId();
-                recordType = h_.getNumberAll();
-                lambdaMemberNumberContentId.setRootNumber(recordType);
-                lambdaCommonContent.setFoundFormatted(form_);
-                types_.add(clFrom_);
-                fieldType = h_;
-                StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
-                fct_.append(StringExpUtil.TEMPLATE_BEGIN);
-                fct_.append(StringUtil.join(types_, StringExpUtil.TEMPLATE_SEP));
-                fct_.append(StringExpUtil.TEMPLATE_END);
-                lambdaCommonContent.setResult(fct_.toString());
-                setResultClass(new AnaClassArgumentMatching(fct_.toString()));
-                return;
-            }
-        }
         int vararg_ = -1;
         MethodId argsRes_;
         ConstructorId feed_ = null;
@@ -1541,6 +1473,71 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         //!isIntermediateDottedOperation()
+        int offset_ = className.indexOf('(')+1;
+        offset_ += StringExpUtil.getOffset(_args.first());
+        String clFrom_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
+        partOffsetsBegin.addAllElts(_page.getCurrentParts());
+        if (clFrom_.startsWith(ARR)) {
+            processArray(_args, _len, _page, clFrom_.substring(ARR.length()));
+            return;
+        }
+        AnaFormattedRootBlock form_ = new AnaFormattedRootBlock(_page,clFrom_);
+        if (form_.getRootBlock() instanceof RecordBlock) {
+            checkWildCards(clFrom_, _page);
+            StringList names_ = new StringList();
+            StringList types_ = new StringList();
+            int offsetArg_ = className.indexOf('(')+1+_args.first().length()+1+_args.get(1).length()+1-getClassNameOffset();
+            RootBlock h_ = form_.getRootBlock();
+            for (int i = 2; i < _len; i++) {
+                String arg_ = _args.get(i);
+                String name_ = arg_.trim();
+                boolean contained_ = false;
+                for (InfoBlock f: h_.getFieldsBlocks()) {
+                    String par_ = AnaInherits.quickFormat(h_, clFrom_, f.getImportedClassName());
+                    int index_ = AnaTypeUtil.getIndex(f,name_);
+                    if (index_ >= 0) {
+                        contained_ = true;
+                        types_.add(par_);
+                        offsets.add(offsetArg_+StringExpUtil.getOffset(arg_));
+                        named.add(name_);
+                        refs.add(index_);
+                        infos.addEntry(name_,f.getImportedClassName());
+                        break;
+                    }
+                }
+                if (!contained_) {
+                    offsets.add(offsetArg_+StringExpUtil.getOffset(arg_));
+                    named.add(name_);
+                    refs.add(-1);
+                }
+                if (StringUtil.contains(names_,name_) || !contained_) {
+                    String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
+                    FoundErrorInterpret call_ = new FoundErrorInterpret();
+                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //_fromType len
+                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
+                            id_);
+                    _page.getLocalizer().addError(call_);
+                    addErr(call_.getBuiltError());
+                }
+                names_.add(name_);
+                offsetArg_ += arg_.length()+1;
+            }
+            lambdaMemberNumberContentId = new MemberId();
+            recordType = h_.getNumberAll();
+            lambdaMemberNumberContentId.setRootNumber(recordType);
+            lambdaCommonContent.setFoundFormatted(form_);
+            types_.add(clFrom_);
+            fieldType = h_;
+            StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
+            fct_.append(StringExpUtil.TEMPLATE_BEGIN);
+            fct_.append(StringUtil.join(types_, StringExpUtil.TEMPLATE_SEP));
+            fct_.append(StringExpUtil.TEMPLATE_END);
+            lambdaCommonContent.setResult(fct_.toString());
+            setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+            return;
+        }
         if (match(_args, _len, keyWordId_, 2)) {
             type_ = clFrom_;
             String cl_ = StringExpUtil.getIdFromAllTypes(type_);
