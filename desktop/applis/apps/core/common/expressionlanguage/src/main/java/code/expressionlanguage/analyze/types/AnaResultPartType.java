@@ -34,6 +34,9 @@ public final class AnaResultPartType {
     }
 
     public String getResult() {
+        if (partType != null) {
+            return partType.getAnalyzedType();
+        }
         return result;
     }
 }

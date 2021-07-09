@@ -4681,6 +4681,47 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void calculateArgument153FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $long t;\n");
+        xml_.append(" $public Ex($int... i){\n");
+        xml_.append("  t=i[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Ex($long... i){\n");
+        xml_.append("  t=i[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $long exmeth(){\n");
+        xml_.append("  $Fct<$int[],Ex> f = $lambda(Ex,$new,$id,$int...,$int);\n");
+        xml_.append("  $return f.call($new $int[]{5}).t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErr(files_));
+    }
+
+    @Test
+    public void calculateArgument154FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $long t;\n");
+        xml_.append(" $public Ex($int... i){\n");
+        xml_.append("  t=i[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Ex($long... i){\n");
+        xml_.append("  t=i[0];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $long exmeth(){\n");
+        xml_.append("  $Fct<$int[],Ex> f = $new Ex().$lambda(Ex,$new,$int...,$int);\n");
+        xml_.append("  $return f.call($new $int[]{5}).t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErr(files_));
+    }
+    @Test
     public void calculateArgument154Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

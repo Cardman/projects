@@ -112,9 +112,6 @@ public final class AnaPartTypeUtil {
         String inputTr_ = _input.trim();
         Ints indexes_ = ParserType.getIndexes(inputTr_, _page);
         if (indexes_ == null) {
-//            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
-//            _offs.add(new PartOffset(pref_, _loc));
-//            _offs.add(new PartOffset(ExportCst.END_ANCHOR, _loc + _input.length()));
             return new AnaResultPartType(_input,_loc,"",null, _rooted);
         }
         AnaPartType root_ = root(_rootName, _page, inputTr_, indexes_);
@@ -143,12 +140,7 @@ public final class AnaPartTypeUtil {
                 }
             }
         }
-//        processAfterAnalyzeLoop(_input,_rooted,_page,root_);
-//        if (root_.getAnalyzedType().isEmpty()) {
-//            appendQuickParts(root_, _offs, _page);
-//            return new AnaResultPartType("",null);
-//        }
-        return new AnaResultPartType(_input,_loc,root_.getAnalyzedType(),root_, _rooted);
+        return new AnaResultPartType(_input,_loc,"",root_, _rooted);
     }
 
     private static void processAfterAnalyzeLoop(String _input, AccessedBlock _rooted, AnaPartType _root, AnalysisMessages _analysisMessages) {
@@ -519,9 +511,6 @@ public final class AnaPartTypeUtil {
         String inputTr_ = _input.trim();
         Ints indexes_ = ParserType.getIndexes(inputTr_, _page);
         if (indexes_ == null) {
-//            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
-//            _offs.add(new PartOffset(pref_,_loc));
-//            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
             return new AnaResultPartType(_input,_loc,"",null, _rooted);
         }
         AnaPartType root_ = root(_rootName, _page, inputTr_, indexes_);
@@ -550,12 +539,7 @@ public final class AnaPartTypeUtil {
                 }
             }
         }
-//        processAfterAnalyzeLoop(_input,_rooted,_page,root_);
-//        if (root_.getAnalyzedType().isEmpty()) {
-//            appendQuickParts(root_,_offs, _page);
-//            return null;
-//        }
-        return new AnaResultPartType(_input,_loc,root_.getAnalyzedType(),root_, _rooted);
+        return new AnaResultPartType(_input,_loc,"",root_, _rooted);
     }
 
     private static AnaPartType root(boolean _rootName, AnalyzedPageEl _page, String _inputTr, Ints _indexes) {
@@ -631,8 +615,7 @@ public final class AnaPartTypeUtil {
 //            appendQuickParts(root_,_offs, _page);
 //            return new AnaResultPartType("",null);
 //        }
-        String analyzedType_ = root_.getAnalyzedType();
-        return new AnaResultPartType(_input,_loc,analyzedType_,root_, _rooted);
+        return new AnaResultPartType(_input,_loc,"",root_, _rooted);
     }
 
     private static AnaPartType rootId(AnalyzedPageEl _page, Ints _indexes, String _trimInput) {

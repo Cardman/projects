@@ -3354,7 +3354,6 @@ public final class LinkageUtil {
         _vars.addParts(((LambdaOperation)_val).getPartOffsetsBegin());
         _vars.addParts(convert(((LambdaOperation)_val).getPartOffsetsErrMiddle()));
         _vars.addParts(((LambdaOperation)_val).getPartOffsetsPre());
-        _vars.addParts(((LambdaOperation)_val).getPartOffsetsFrom());
         _vars.addParts(((LambdaOperation)_val).getPartOffsets());
         _vars.addParts(convert(((LambdaOperation)_val).getPartOffsetsErrEnd()));
         if (((LambdaOperation)_val).getRecordType() >= 0) {
