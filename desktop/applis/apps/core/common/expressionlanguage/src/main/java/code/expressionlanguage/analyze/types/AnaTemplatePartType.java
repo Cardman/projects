@@ -58,7 +58,6 @@ final class AnaTemplatePartType extends AnaBinaryType {
         AnaPartType f_ = getFirstChild();
         while (f_ != null) {
             if (f_.getAnalyzedType().isEmpty()){
-                setAlreadyError();
                 return;
             }
             ch_.add(f_);

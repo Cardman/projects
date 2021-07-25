@@ -34,7 +34,6 @@ abstract class AnaPrefPartType extends AnaParentPartType {
         setLoc(_loc);
         String ch_ = getFirstChild().getAnalyzedType();
         if (ch_.isEmpty()) {
-            setAlreadyError();
             return;
         }
         if (!(getParent() instanceof AnaTemplatePartType)) {

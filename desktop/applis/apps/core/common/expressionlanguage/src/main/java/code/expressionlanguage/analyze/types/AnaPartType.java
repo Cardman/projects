@@ -24,7 +24,6 @@ abstract class AnaPartType {
     private final StringList errs = new StringList();
     private int length;
     private int loc;
-    private boolean alreadyError;
     private boolean errorNbParam;
 
     AnaPartType(AnaParentPartType _parent, int _index, int _indexInType) {
@@ -141,10 +140,7 @@ abstract class AnaPartType {
     }
 
     String buildOffsetPartDefault(String _href) {
-        return buildOffsetPartDefault(_href, "");
-    }
-    String buildOffsetPartDefault(String _href, String _titleRef) {
-        return buildOffsetPart(_href, _titleRef);
+        return buildOffsetPart(_href, "");
     }
 
     int getFull() {
@@ -197,14 +193,6 @@ abstract class AnaPartType {
 
     void setLength(int _length) {
         length = _length;
-    }
-
-    boolean isAlreadyError() {
-        return alreadyError;
-    }
-
-    void setAlreadyError() {
-        alreadyError = true;
     }
 
     boolean isErrorNbParam() {
