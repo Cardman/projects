@@ -683,14 +683,14 @@ public final class AnaPartTypeUtil {
             if (ch_ instanceof AnaEmptyPartType) {
                 hasEmpty_ = true;
             }
-            if (ch_.getAnalyzedType().isEmpty()) {
+            if (!ch_.getErrs().isEmpty()) {
                 alreadyError_ = true;
             }
             ch_ = ch_.getNextSibling();
         }
         if (_l instanceof AnaNamePartType) {
             AnaPartType prev_ = ((AnaNamePartType) _l).getPreviousPartType();
-            if (prev_ == null || !prev_.getAnalyzedType().isEmpty()) {
+            if (prev_ == null || prev_.getErrs().isEmpty()) {
                 appendIntern(_candidate,_offs, _begin,_len);
             }
             return;
