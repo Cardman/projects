@@ -281,6 +281,9 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                     int loc_ = StringUtil.getFirstPrintableCharIndex(a);
                     AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(offset_ + loc_, a.trim(), _page);
                     AnaPartTypeUtil.processAnalyzeConstraintsRep(resType_, partOffsets_, _page);
+                    if (!resType_.isOk()) {
+                        return;
+                    }
                     partsArgs_.add(resType_.getResult());
                     offset_ += a.length() + 1;
                 }

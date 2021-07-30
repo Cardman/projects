@@ -3758,4 +3758,45 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrLg(files_,"en"));
     }
+    @Test
+    public void calculateArgument26FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("public class pkg.Outer<C>: OuterTwo<C> {\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" public class InnerTwo:OuterTwo<C>.InnerThree<C> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterTwo<B>:OuterThree<B> {\n");
+        xml_.append(" public class InnerThree<F>:OuterThree<B>.InnerFive<F> {\n");
+        xml_.append(" }\n");
+        xml_.append(" public class InnerFour:InnerThree<B> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterThree<A> {\n");
+        xml_.append(" public class InnerFive<E> {\n");
+        xml_.append("  public class InnerInner<G> {\n");
+        xml_.append("   public InnerInner(){\n");
+        xml_.append("    InnerInner.this.field = static(Class).getClass(this).getName();\n");
+        xml_.append("   }\n");
+        xml_.append("   public normal String get(){\n");
+        xml_.append("    return field;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  public final String field = static(Class).getClass(this).getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkgtwo.App {\n");
+        xml_.append(" Object v = new OuterThree<App>().new InnerFive<Inex>();\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        assertTrue(hasErrLg(files_,"en"));
+    }
 }
