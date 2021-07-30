@@ -263,10 +263,11 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         if (inferForm_ == null) {
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             if (!isIntermediateDottedOperation()) {
-                String res_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(newKeyWord_.length()+local_,className_,true,partOffsets_, _page);
-                if (!res_.isEmpty()) {
+                AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(newKeyWord_.length() + local_, className_, _page);
+                AnaPartTypeUtil.processAnalyzeConstraintsRep(resType_, partOffsets_, _page);
+                if (resType_.isOk()) {
                     partOffsets.addAllElts(partOffsets_);
-                    typeInfer = res_;
+                    typeInfer = resType_.getResult();
                 }
             } else {
                 int offset_ = newKeyWord_.length()+local_+ StringUtil.getFirstPrintableCharIndex(className_);
@@ -278,7 +279,9 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 StringList partsArgs_ = new StringList();
                 for (String a: StringExpUtil.getAllTypes(className_).mid(1)) {
                     int loc_ = StringUtil.getFirstPrintableCharIndex(a);
-                    partsArgs_.add(ResolvingTypes.resolveCorrectTypeWithoutErrors(offset_+loc_,a.trim(),true,partOffsets_, _page));
+                    AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(offset_ + loc_, a.trim(), _page);
+                    AnaPartTypeUtil.processAnalyzeConstraintsRep(resType_, partOffsets_, _page);
+                    partsArgs_.add(resType_.getResult());
                     offset_ += a.length() + 1;
                 }
                 StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();

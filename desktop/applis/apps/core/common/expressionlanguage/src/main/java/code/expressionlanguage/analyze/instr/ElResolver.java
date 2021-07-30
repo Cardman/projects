@@ -3,6 +3,8 @@ package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.options.KeyWords;
@@ -2473,16 +2475,17 @@ public final class ElResolver {
                 return _from;
             }
         }
-        CustList<PartOffset> curr_ = _page.getCurrentParts();
-        String typeOut_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from + 1 + off_, subTrim_, true, curr_, _page);
-        if (!typeOut_.isEmpty()) {
+        CustList<PartOffset> curr_ = new CustList<PartOffset>();
+        AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(_from + 1 + off_, subTrim_, _page);
+        if (resType_.isOk()) {
             _d.getDelCast().add(_from);
             _d.getDelCast().add(indexParRight_);
+            String typeOut_ = resType_.getResult();
             _d.getDelCastExtract().add(typeOut_);
+            AnaPartTypeUtil.processAnalyzeConstraintsRep(resType_, curr_, _page);
             _d.getCastParts().add(new CustList<PartOffset>(curr_));
             return indexParRight_ + 1;
         }
-        curr_.clear();
         return _from;
     }
 

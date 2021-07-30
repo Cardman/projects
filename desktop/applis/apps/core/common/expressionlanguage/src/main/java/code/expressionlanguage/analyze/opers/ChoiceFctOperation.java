@@ -3,6 +3,8 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
@@ -59,8 +61,10 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         className_ = className_.substring(lenPref_);
         int loc_ = StringUtil.getFirstPrintableCharIndex(className_)-off_;
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        className_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(lenPref_+loc_,className_.trim(),true,partOffsets_, _page);
-        if (!className_.isEmpty()) {
+        AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(lenPref_ + loc_, className_.trim(), _page);
+        AnaPartTypeUtil.processAnalyzeConstraintsRep(resType_, partOffsets_, _page);
+        className_ = resType_.getResult();
+        if (resType_.isOk()) {
             partOffsets.addAllElts(partOffsets_);
             typeInfer = className_;
         }

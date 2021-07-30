@@ -3,9 +3,7 @@ package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
@@ -163,9 +161,12 @@ public final class FullFieldRetriever implements FieldRetriever {
             ContextUtil.appendParts(_from, _from +inns_.first().length(),trim_,partOffsets_, _page);
             nextOff_ += inns_.first().length() + 1;
         } else {
-            CustList<PartOffset> currentParts_ = _page.getCurrentParts();
-            start_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from+StringExpUtil.getOffset(inns_.first()),trim_, false, currentParts_, _page);
-            if (start_.isEmpty()) {
+            CustList<PartOffset> currentParts_ = new CustList<PartOffset>();
+            AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from + StringExpUtil.getOffset(inns_.first()), trim_, _page);
+            AnaPartTypeUtil.processAnalyzeConstraintsRep(resType_, currentParts_, _page);
+            start_ = resType_.getResult();
+            if (!resType_.isOk()) {
+                start_ = "";
                 currentParts_.clear();
             }
             partOffsets_.addAllElts(currentParts_);

@@ -229,19 +229,23 @@ public final class AnaPartTypeUtil {
         AnaPartType root_ = _className.getPartType();
         if (root_ == null) {
             processAnalyzeConstraintsRepErrs(_className, _page.getAnalysisMessages(), _page);
+            _className.setOk(false);
             return false;
         }
         if (root_.getAnalyzedType().isEmpty()) {
             processAnalyzeConstraintsRepErrs(_className, _page.getAnalysisMessages(), _page);
+            _className.setOk(false);
             return false;
         }
         if (!_exact && !_className.getResult().contains(StringExpUtil.TEMPLATE_BEGIN)) {
             processAnalyzeConstraintsRepErrs(_className, _page.getAnalysisMessages(), _page);
+            _className.setOk(true);
             return true;
         }
         boolean res_ = checkParametersCount(root_, _page);
         boolean out_ = checkConstrains(root_, _inherit, _page);
         processAnalyzeConstraintsRepErrs(_className, _page.getAnalysisMessages(), _page);
+        _className.setOk(res_&&out_);
         return res_&&out_;
     }
     public static void processAnalyzeConstraintsRep(AnaResultPartType _className, CustList<PartOffset> _parts, AnalyzedPageEl _page) {

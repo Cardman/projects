@@ -10,6 +10,7 @@ public final class AnaResultPartType {
     private final AnaPartType partType;
     private final AccessedBlock rooted;
     private final StringList errs = new StringList();
+    private boolean ok;
 
     public AnaResultPartType(String _input, int _loc,String _result, AnaPartType _partType, AccessedBlock _rooted) {
         input = _input;
@@ -44,5 +45,13 @@ public final class AnaResultPartType {
 
     public StringList getErrs() {
         return errs;
+    }
+
+    public boolean isOk() {
+        return ok;
+    }
+
+    public void setOk(boolean _ok) {
+        this.ok = _ok;
     }
 }
