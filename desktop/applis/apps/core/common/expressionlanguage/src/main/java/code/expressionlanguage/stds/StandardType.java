@@ -104,5 +104,7 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
         }
         return StringUtil.contains(getAllSuperTypes(),_fullName);
     }
-    public abstract StringList getAllGenericSuperTypes();
+    public StringList getAllGenericSuperTypes() {
+        return getAllSuperTypes();
+    }
 }

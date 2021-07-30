@@ -140,7 +140,9 @@ public final class AnaPartTypeUtil {
                 }
             }
         }
-        return new AnaResultPartType(_input,_loc,"",root_, _rooted);
+        AnaResultPartType out_ = new AnaResultPartType(_input, _loc, "", root_, _rooted);
+        lookForTypes(out_, _page);
+        return out_;
     }
 
     private static void processAfterAnalyzeLoop(String _input, AccessedBlock _rooted, AnaPartType _root, AnalysisMessages _analysisMessages) {
@@ -270,6 +272,43 @@ public final class AnaPartTypeUtil {
         }
         processAfterAnalyzeLoop(_className.getInput(), _className.getRooted(), root_, _analysisMessages);
         appendParts(root_, _parts);
+    }
+
+    static void lookForTypes(AnaResultPartType _className, AnalyzedPageEl _page){
+        if (!_page.isGettingParts()) {
+            return;
+        }
+        AnaPartType root_ = _className.getPartType();
+        AnaPartType current_ = root_;
+        while (current_ != null) {
+            AnaPartType child_ = current_.getFirstChild();
+            if (child_ != null) {
+                current_ = child_;
+                continue;
+            }
+            while (current_ != null) {
+                lookForTypes(_page,current_);
+                AnaPartType next_ = current_.getNextSibling();
+                AnaParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    lookForTypes(_page,root_);
+                    current_ = null;
+                } else {
+                    current_ = par_;
+                }
+            }
+        }
+    }
+
+    private static void lookForTypes(AnalyzedPageEl _page, AnaPartType _current) {
+        if (!(_current instanceof AnaNamePartType)) {
+            return;
+        }
+        ((AnaNamePartType)_current).processFound(_page);
     }
 
     static boolean checkParametersCount(AnaPartType _root, AnalyzedPageEl _page){
@@ -486,7 +525,9 @@ public final class AnaPartTypeUtil {
                 }
             }
         }
-        return new AnaResultPartType(_input,_loc,"",root_, _rooted);
+        AnaResultPartType out_ = new AnaResultPartType(_input, _loc, "", root_, _rooted);
+        lookForTypes(out_, _page);
+        return out_;
     }
 
     private static AnaPartType root(boolean _rootName, AnalyzedPageEl _page, String _inputTr, Ints _indexes) {
@@ -562,7 +603,9 @@ public final class AnaPartTypeUtil {
 //            appendQuickParts(root_,_offs, _page);
 //            return new AnaResultPartType("",null);
 //        }
-        return new AnaResultPartType(_input,_loc,"",root_, _rooted);
+        AnaResultPartType out_ = new AnaResultPartType(_input, _loc, "", root_, _rooted);
+        lookForTypes(out_, _page);
+        return out_;
     }
 
     private static AnaPartType rootId(AnalyzedPageEl _page, Ints _indexes, String _trimInput) {

@@ -26,11 +26,6 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     public StringList getDirectSuperTypes() {
         return getDirectInterfaces();
     }
-
-    @Override
-    public StringList getAllGenericSuperTypes() {
-        return allSuperTypes;
-    }
     @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;

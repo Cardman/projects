@@ -33,11 +33,9 @@ final class AnaNamePartType extends AnaLeafPartType {
     void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
         setLoc(_loc);
         if (skipGenericInners(_page)) {
-            processFound(_page);
             return;
         }
         tryAnalyzeInnerParts(_local,_rooted, _page);
-        processFound(_page);
     }
 
     private boolean skipGenericInners(AnalyzedPageEl _page) {
@@ -78,11 +76,9 @@ final class AnaNamePartType extends AnaLeafPartType {
     void analyzeLine(ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc) {
         setLoc(_loc);
         if (skipInners(_ready, _page)) {
-            processFound(_page);
             return;
         }
         tryAnalyzeInnerPartsLine(_ready,_local,_rooted, _page);
-        processFound(_page);
     }
 
     private boolean skipInners(ReadyTypes _ready, AnalyzedPageEl _page) {
@@ -379,17 +375,14 @@ final class AnaNamePartType extends AnaLeafPartType {
                 return;
             }
             setAnalyzedType(StringUtil.concat(owner_,sep_,type_));
-            processFound(_page);
             return;
         }
         if (_page.getAnaGeneType(type_) != null) {
             setAnalyzedType(type_);
-            processFound(_page);
             return;
         }
         if (AnaTypeUtil.isPrimitive(type_, _page)) {
             setAnalyzedType(type_);
-            processFound(_page);
             return;
         }
         if (StringUtil.quickEq(getTypeName().trim(), _page.getAliasVoid())) {
@@ -403,7 +396,6 @@ final class AnaNamePartType extends AnaLeafPartType {
                 if (StringUtil.quickEq(base_.trim(), _page.getAliasFct()) && getParent().getStrTypes().size() == getIndex() + 1) {
                     setAnalyzedType(getTypeName().trim());
                 }
-                processFound(_page);
                 return;
             }
         }
@@ -413,7 +405,6 @@ final class AnaNamePartType extends AnaLeafPartType {
             return;
         }
         setAnalyzedType(out_);
-        processFound(_page);
     }
 
     void processOffsets(AccessedBlock _rooted) {

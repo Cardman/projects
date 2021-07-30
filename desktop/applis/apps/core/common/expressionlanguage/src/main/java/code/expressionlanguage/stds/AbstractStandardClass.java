@@ -68,11 +68,6 @@ public abstract class AbstractStandardClass extends StandardType implements Gene
     }
 
     @Override
-    public StringList getAllGenericSuperTypes() {
-        return allSuperTypes;
-    }
-
-    @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
     }
