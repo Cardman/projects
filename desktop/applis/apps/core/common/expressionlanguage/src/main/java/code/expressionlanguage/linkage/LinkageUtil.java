@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -86,7 +85,6 @@ public final class LinkageUtil {
     public static StringMap<String> errors(AnalyzedPageEl _analyzing) {
         StringMap<String> files_ = new StringMap<String>();
         KeyWords keyWords_ = _analyzing.getKeyWords();
-        AnalysisMessages analysisMessages_ = _analyzing.getAnalysisMessages();
         boolean implicit_ = _analyzing.isImplicit();
         DisplayedStrings displayedStrings_ = _analyzing.getDisplayedStrings();
         StringList toStringOwners_ = _analyzing.getToStringOwners();
@@ -97,7 +95,7 @@ public final class LinkageUtil {
             }
             String value_ = f.getContent();
             String fileExp_ = f.getRenderFileName();
-            VariablesOffsets listStr_ = processError(toStringOwners_,randCodeOwners_,f, keyWords_, analysisMessages_, displayedStrings_, implicit_);
+            VariablesOffsets listStr_ = processError(toStringOwners_,randCodeOwners_,f, keyWords_, displayedStrings_, implicit_);
             StringBuilder xml_ = build(f, value_, listStr_);
             String cssPart_ = BEGIN_HEAD + encode(_analyzing.isEncodeHeader()) +
                     link(f) +
@@ -304,12 +302,11 @@ public final class LinkageUtil {
         return DEF_SPACE;
     }
 
-    private static VariablesOffsets processError(StringList _toStringOwers, StringList _randCodeOwners, FileBlock _ex, KeyWords _keyWords, AnalysisMessages _analysisMessages, DisplayedStrings _displayedStrings, boolean _implicit){
+    private static VariablesOffsets processError(StringList _toStringOwers, StringList _randCodeOwners, FileBlock _ex, KeyWords _keyWords, DisplayedStrings _displayedStrings, boolean _implicit){
         VariablesOffsets vars_ = new VariablesOffsets();
         vars_.addPart(new PartOffset(ExportCst.span(TYPE),0));
         vars_.addStackElt(new LinkageStackElement(_ex.getLength()));
         vars_.setKeyWords(_keyWords);
-        vars_.setMessages(_analysisMessages);
         vars_.setImplicit(_implicit);
         vars_.setDisplayedStrings(_displayedStrings);
         vars_.setToStringOwners(_toStringOwers);
@@ -526,7 +523,6 @@ public final class LinkageUtil {
         vars_.addPart(new PartOffset(ExportCst.span(TYPE),0));
         vars_.addStackElt(new LinkageStackElement(_ex.getLength()));
         vars_.setKeyWords(_keyWords);
-        vars_.setMessages(_coverage.getMessages());
         vars_.setImplicit(_coverage.isImplicit());
         vars_.setDisplayedStrings(_standards.getDisplayedStrings());
         vars_.setToStringOwners(_toStringOwers);
@@ -2026,7 +2022,7 @@ public final class LinkageUtil {
         contraints(_vars,_cond);
         for (AnaResultPartType t: _cond.getResults()) {
             CustList<PartOffset> list_ = new CustList<PartOffset>();
-            AnaPartTypeUtil.processAnalyzeConstraintsRep(t, list_, _vars.getMessages());
+            AnaPartTypeUtil.processAnalyzeConstraintsRepParts(t, list_);
             _vars.addParts(list_);
         }
     }
@@ -2037,7 +2033,7 @@ public final class LinkageUtil {
             for (TypeVar t: _s.getParamTypes()) {
                 varDef(t, list_);
                 for (AnaResultPartType b: t.getResults()) {
-                    AnaPartTypeUtil.processAnalyzeConstraintsRep(b, list_, _vars.getMessages());
+                    AnaPartTypeUtil.processAnalyzeConstraintsRepParts(b, list_);
                 }
             }
             _vars.addParts(list_);

@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.coverage;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -38,7 +37,6 @@ public final class Coverage {
     private final IdMap<ExecBlock,MemberCallingsBlock> mappingSwitchMethods = new IdMap<ExecBlock,MemberCallingsBlock>();
     private final IdMap<ExecBlock,RootBlock> mappingTypes = new IdMap<ExecBlock,RootBlock>();
     private KeyWords keyWords;
-    private AnalysisMessages messages;
     private final boolean covering;
     private boolean implicit;
     private boolean displayEncode;
@@ -730,17 +728,6 @@ public final class Coverage {
             return;
         }
         this.keyWords = _keyWords;
-    }
-
-    public AnalysisMessages getMessages() {
-        return messages;
-    }
-
-    public void setMessages(AnalysisMessages _messages) {
-        if (!isCovering()) {
-            return;
-        }
-        this.messages = _messages;
     }
 
     public boolean isCovering() {

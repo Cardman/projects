@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.util.StringList;
 
 public final class AnaResultPartType {
     private final String input;
@@ -8,6 +9,7 @@ public final class AnaResultPartType {
     private final String result;
     private final AnaPartType partType;
     private final AccessedBlock rooted;
+    private final StringList errs = new StringList();
 
     public AnaResultPartType(String _input, int _loc,String _result, AnaPartType _partType, AccessedBlock _rooted) {
         input = _input;
@@ -38,5 +40,9 @@ public final class AnaResultPartType {
             return partType.getAnalyzedType();
         }
         return result;
+    }
+
+    public StringList getErrs() {
+        return errs;
     }
 }

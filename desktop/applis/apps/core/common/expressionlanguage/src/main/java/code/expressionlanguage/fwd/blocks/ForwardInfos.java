@@ -31,7 +31,6 @@ public final class ForwardInfos {
     public static void generalForward(AnalyzedPageEl _page, Forwards _forwards) {
         Coverage coverage_ = _forwards.getCoverage();
         coverage_.setKeyWords(_page.getKeyWords());
-        coverage_.setMessages(_page.getAnalysisMessages());
         coverage_.putToStringOwner(_page.getAliasObject());
         coverage_.putRandCodeOwner(_page.getAliasObject());
         _forwards.setAliasBoolean(_page.getAliasBoolean());
