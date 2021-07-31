@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
@@ -31,7 +32,7 @@ public final class CaseCondition extends SwitchPartBlock {
 
     private boolean instance;
 
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
 
     private final StringList nameErrors = new StringList();
 
@@ -145,8 +146,8 @@ public final class CaseCondition extends SwitchPartBlock {
             String trimVar_ = varName_.trim();
             if (StringExpUtil.isTypeLeafPart(trimVar_)) {
                 instance = true;
-                importedType = ResolvingTypes.resolveCorrectType(declaringType_, _page);
-                partOffsets.addAllElts(_page.getCurrentParts());
+                partOffsets = ResolvingTypes.resolveCorrectType(declaringType_, _page);
+                importedType = partOffsets.getResult(_page);
                 variableOffset = valueOffset + declaringType_.length();
                 variableOffset += StringUtil.getFirstPrintableCharIndex(varName_);
                 variableName = trimVar_;
@@ -214,7 +215,7 @@ public final class CaseCondition extends SwitchPartBlock {
         return typeEnum;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 

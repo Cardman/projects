@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
@@ -10,7 +11,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.linkage.ExportCst;
@@ -25,7 +25,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     private final int offsetOper;
     private String from;
 
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
 
@@ -48,8 +48,8 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (args_.size() > 1) {
             int off_ = StringUtil.getFirstPrintableCharIndex(args_.get(1));
             String fromType_ = args_.get(1).trim();
-            from = ResolvingTypes.resolveCorrectTypeAccessible(off_+ callFctContent.getMethodName().indexOf(',')+1,fromType_, _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsets = ResolvingTypes.resolveCorrectTypeAccessibleQuick(off_ + callFctContent.getMethodName().indexOf(',') + 1, fromType_, _page);
+            from = partOffsets.getResult(_page);
         }
         if (from.isEmpty()) {
             methodFound = op_;
@@ -165,7 +165,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         return from;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 

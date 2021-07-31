@@ -3,14 +3,15 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public final class StaticAccessOperation extends LeafOperation {
-    private CustList<PartOffset> partOffsets;
+    private CustList<AnaResultPartType> partOffsets;
     public StaticAccessOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
@@ -35,11 +36,12 @@ public final class StaticAccessOperation extends LeafOperation {
         String glClass_ = _page.getGlobalClass();
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
-            classStr_ = ResolvingTypes.resolveAccessibleIdType(str_.indexOf(PAR_LEFT)+1,realCl_, _page);
-            partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
+            ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(str_.indexOf(PAR_LEFT) + 1, realCl_, _page);
+            classStr_ = resolvedIdType_.getFullName();
+            partOffsets = resolvedIdType_.getDels();
         } else {
             classStr_ = glClass_;
-            partOffsets = new CustList<PartOffset>();
+            partOffsets = new CustList<AnaResultPartType>();
         }
         classStr_ = emptyToObject(classStr_, _page);
         checkClassAccess(glClass_, classStr_, _page);
@@ -48,7 +50,7 @@ public final class StaticAccessOperation extends LeafOperation {
         setResultClass(new AnaClassArgumentMatching(classStr_));
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public CustList<AnaResultPartType> getPartOffsets() {
         return partOffsets;
     }
 }

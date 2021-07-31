@@ -2,11 +2,10 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
-import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -14,7 +13,7 @@ public final class StaticInfoOperation extends LeafOperation {
 
     private String className;
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
 
     public StaticInfoOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -37,8 +36,8 @@ public final class StaticInfoOperation extends LeafOperation {
         }
         int off_ = StringUtil.getFirstPrintableCharIndex(realCl_);
         String classStr_;
-        classStr_ = ResolvingTypes.resolveCorrectType(afterLeftPar_ + off_, realCl_, realCl_.contains(StringExpUtil.TEMPLATE_BEGIN), _page);
-        partOffsets.addAllElts(_page.getCurrentParts());
+        partOffsets = ResolvingTypes.resolveCorrectType(afterLeftPar_ + off_, realCl_, realCl_.contains(StringExpUtil.TEMPLATE_BEGIN), _page);
+        classStr_ = partOffsets.getResult(_page);
         className = classStr_;
         setResultClass(new AnaClassArgumentMatching(_page.getAliasClassType()));
     }
@@ -47,7 +46,7 @@ public final class StaticInfoOperation extends LeafOperation {
         return className;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 }

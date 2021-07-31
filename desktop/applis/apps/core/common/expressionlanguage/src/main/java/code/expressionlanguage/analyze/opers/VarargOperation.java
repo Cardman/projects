@@ -8,11 +8,10 @@ import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -20,7 +19,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
 
     private String className;
 
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
     private InfoErrorDto partOffsetsErr = new InfoErrorDto("");
     public VarargOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -67,8 +66,9 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
         int afterLeftPar_ = className.indexOf(PAR_LEFT) + 1;
         String str_ = className.substring(afterLeftPar_, className.lastIndexOf(PAR_RIGHT));
         int off_ = StringUtil.getFirstPrintableCharIndex(str_);
-        str_ = ResolvingTypes.resolveCorrectTypeAccessible(afterLeftPar_+off_,str_.trim(), _page);
-        partOffsets.addAllElts(_page.getCurrentParts());
+        AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessibleQuick(afterLeftPar_ + off_, str_.trim(), _page);
+        str_ = result_.getResult(_page);
+        partOffsets.add(result_);
         setResultClass(new AnaClassArgumentMatching(str_));
         className = str_;
         if (m_ instanceof RetrieveMethod) {
@@ -120,7 +120,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
     }
 
     @Override
-    public CustList<PartOffset> getPartOffsets() {
+    public CustList<AnaResultPartType> getPartOffsets() {
         return partOffsets;
     }
 

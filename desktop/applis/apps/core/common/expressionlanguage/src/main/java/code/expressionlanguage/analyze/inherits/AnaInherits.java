@@ -509,8 +509,8 @@ public final class AnaInherits {
         return new DimComp(0,"");
     }
 
-    public static String check(StringList _errs, String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
-        String res_ = tryGetAllInners(_className, _parts, _inherit, _page);
+    public static String check(StringList _errs, RootBlock _root, String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
+        String res_ = tryGetAllInners(_root,_className, _parts, _inherit, _page);
         if (res_.isEmpty()) {
             int rc_ = _page.getLocalizer().getCurrentLocationIndex();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -527,9 +527,9 @@ public final class AnaInherits {
         return res_;
     }
 
-    public static String tryGetAllInners(String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
+    public static String tryGetAllInners(RootBlock _root, String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
         String realClassName_ = getRealClassName(_className, _parts);
-        return getCorrectTemplateAll(realClassName_, _parts, _inherit, _page);
+        return getCorrectTemplateAll(_root, realClassName_, _parts, _inherit, _page);
     }
 
     public static String getRealClassName(String _className, CustList<String> _parts) {
@@ -542,14 +542,12 @@ public final class AnaInherits {
         return realClassName_;
     }
 
-    public static String getCorrectTemplateAll(String _realClassName, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
-        String id_ = StringExpUtil.getIdFromAllTypes(_realClassName);
-        RootBlock g_ = _page.getAnaClassBody(id_);
-        if (g_ == null) {
+    public static String getCorrectTemplateAll(RootBlock _type, String _realClassName,StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
+        if (_type == null) {
             return "";
         }
-        CustList<StringList> bounds_ = g_.getBoundAll();
-        return check(_realClassName, _parts, _inherit, _page, g_, bounds_);
+        CustList<StringList> bounds_ = _type.getBoundAll();
+        return check(_realClassName, _parts, _inherit, _page, _type, bounds_);
     }
 
     public static String getCorrectTemplateAllAll(String _realClassName, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {

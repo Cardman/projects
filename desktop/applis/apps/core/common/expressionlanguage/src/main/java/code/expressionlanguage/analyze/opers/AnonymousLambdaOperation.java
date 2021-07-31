@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -15,7 +16,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaLambdaCommonContent;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -267,7 +267,7 @@ public final class AnonymousLambdaOperation extends
                     } else {
                         feed_.add(modifiedArgCandidates_.get(i));
                     }
-                    block.getPartOffsetsParams().add(new CustList<PartOffset>());
+                    block.getPartOffsetsParams().add(new AnaResultPartType());
                 } else {
                     feed_.add(block.buildInternParam(offestsTypes_.get(i),before_, _page));
                 }

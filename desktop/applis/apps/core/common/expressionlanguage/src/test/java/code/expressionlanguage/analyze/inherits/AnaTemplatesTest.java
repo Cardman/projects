@@ -10769,7 +10769,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static String getCorrectTemplateAll(AnalyzedTestContext _cont, StringMap<StringList> _t) {
-        return AnaInherits.getCorrectTemplateAll("",new StringList(),_t, _cont.getAnalyzing());
+        return AnaInherits.getCorrectTemplateAll(null,"",new StringList(),_t, _cont.getAnalyzing());
     }
 
 

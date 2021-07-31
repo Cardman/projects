@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.opers.ErrorPartOperation;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
@@ -16,7 +17,6 @@ import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -65,7 +65,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private AnaTypeFct functionImpl;
     private AnaTypeFct function;
     private int testOffset;
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
     private String errInf = EMPTY_STRING;
 
     private int conditionNb;
@@ -235,7 +235,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private void processVariables(AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
         _page.zeroOffset();
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
@@ -254,8 +254,8 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
             } else {
-                importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
-                partOffsets.addAllElts(_page.getCurrentParts());
+                partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
+                importedClassName = partOffsets.getResult(_page);
             }
             _page.setMerged(true);
             _page.setRefVariable(refVariable);
@@ -343,7 +343,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         return importedClassName;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 

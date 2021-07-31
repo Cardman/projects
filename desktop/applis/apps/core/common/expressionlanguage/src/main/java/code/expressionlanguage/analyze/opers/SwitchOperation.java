@@ -5,9 +5,9 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -25,7 +25,7 @@ import code.util.core.StringUtil;
 public final class SwitchOperation extends AbstractUnaryOperation implements PreAnalyzableOperation,SettableElResult {
     private final SwitchMethodBlock switchMethod;
     private final String methodName;
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
     private String retType = EMPTY_STRING;
     private final AnaArrContent arrContent;
     private final int delta;
@@ -236,9 +236,8 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
                 k_++;
             }
             if (!defined_) {
-                String res_ = ResolvingTypes.resolveCorrectType(switchWord_.length()+start_+delta_,suppType_, _page);
-                partOffsets.addAllElts(_page.getCurrentParts());
-                retType = res_;
+                partOffsets = ResolvingTypes.resolveCorrectType(switchWord_.length() + start_ + delta_, suppType_, _page);
+                retType = partOffsets.getResult(_page);
             }
         }
         if (retType.isEmpty()) {
@@ -307,7 +306,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         return switchMethod;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 

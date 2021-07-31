@@ -3,16 +3,15 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -27,7 +26,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
     private boolean accessSuperTypes = true;
     private boolean baseAccess = true;
 
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
     private int length;
     ForwardOperation(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
@@ -68,8 +67,8 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
             int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-            classType = ResolvingTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsets = ResolvingTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
+            classType = partOffsets.getResult(_page);
             Mapping map_ = new Mapping();
             map_.setParam(classType);
             map_.setArg(getResultClass());
@@ -94,8 +93,8 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
             int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-            classType = ResolvingTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsets = ResolvingTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
+            classType = partOffsets.getResult(_page);
             setResultClass(new AnaClassArgumentMatching(classType));
             accessSuperTypes = false;
             staticChoiceMethod = true;
@@ -106,8 +105,8 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
             int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-            className_ = ResolvingTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsets = ResolvingTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
+            className_ = partOffsets.getResult(_page);
             classType = className_;
             Mapping map_ = new Mapping();
             map_.setParam(classType);
@@ -176,7 +175,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
         return classType;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 

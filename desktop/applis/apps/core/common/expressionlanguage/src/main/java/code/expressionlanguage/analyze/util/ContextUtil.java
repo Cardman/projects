@@ -9,8 +9,6 @@ import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.*;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -191,38 +189,6 @@ public final class ContextUtil {
             }
         }
         return vars_;
-    }
-
-    public static void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
-        if (!_page.isGettingParts()) {
-            return;
-        }
-        AnaGeneType g_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(_in));
-        if (!isFromCustFile(g_)) {
-            return;
-        }
-        AccessedBlock r_ = _page.getImporting();
-        int rc_ = _page.getTraceIndex();
-        int id_ = ((RootBlock) g_).getIdRowCol();
-        _parts.add(new PartOffset(ExportCst.anchorRef(g_.getFullName(),((AbsBk)r_).getFile(),((RootBlock) g_).getFile(),id_),rc_+_begin));
-        _parts.add(new PartOffset(ExportCst.END_ANCHOR,rc_+_end));
-    }
-
-    public static void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
-        if (!_page.isGettingParts()) {
-            return;
-        }
-        int rc_ = _page.getTraceIndex();
-        _parts.add(new PartOffset(ExportCst.anchor(_in),rc_+_begin));
-        _parts.add(new PartOffset(ExportCst.END_ANCHOR,rc_+_end));
-    }
-
-    public static void appendTitlePartsAbs(int _begin, int _end, String _in, CustList<PartOffset> _parts, AnalyzedPageEl _page) {
-        if (!_page.isGettingParts()) {
-            return;
-        }
-        _parts.add(new PartOffset(ExportCst.anchor(_in),_begin));
-        _parts.add(new PartOffset(ExportCst.END_ANCHOR,_end));
     }
 
     public static boolean isFromCustFile(AnaGeneType _g) {

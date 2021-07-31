@@ -10,7 +10,6 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -18,7 +17,6 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.opers.AnaInstancingCommonContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.Ints;
@@ -32,7 +30,8 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
     private AnaTypeFct constructor;
     private MemberId memberId = new MemberId();
     private String typeInfer = EMPTY_STRING;
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private ResolvedInstance resolvedInstance = new ResolvedInstance();
+//    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private boolean newBefore = true;
 
     private StringList staticInitInterfaces = new StringList();
@@ -261,12 +260,12 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
         String inferForm_ = AnaTemplates.getInferForm(className_);
         if (inferForm_ == null) {
-            CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+//            CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             if (!isIntermediateDottedOperation()) {
                 AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(newKeyWord_.length() + local_, className_, _page);
-                AnaPartTypeUtil.processAnalyzeConstraintsRep(resType_, partOffsets_, _page);
                 if (resType_.isOk()) {
-                    partOffsets.addAllElts(partOffsets_);
+                    resolvedInstance = new ResolvedInstance(resType_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
+//                    partOffsets.addAllElts(partOffsets_);
                     typeInfer = resType_.getResult();
                 }
             } else {
@@ -274,29 +273,32 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 int begin_ = offset_;
                 className_ = className_.trim();
                 String idClass_ = StringExpUtil.getIdFromAllTypes(className_);
-                ContextUtil.appendParts(begin_,begin_ + idClass_.length(), StringUtil.concat(sup_, "..", idClass_),partOffsets_, _page);
+                String inner_ = StringUtil.concat(sup_, "..", idClass_);
+                RootBlock root_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(inner_));
                 offset_ += idClass_.length() + 1;
+                CustList<AnaResultPartType> results_ = new CustList<AnaResultPartType>();
                 StringList partsArgs_ = new StringList();
                 for (String a: StringExpUtil.getAllTypes(className_).mid(1)) {
                     int loc_ = StringUtil.getFirstPrintableCharIndex(a);
                     AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(offset_ + loc_, a.trim(), _page);
-                    AnaPartTypeUtil.processAnalyzeConstraintsRep(resType_, partOffsets_, _page);
                     if (!resType_.isOk()) {
                         return;
                     }
+                    results_.add(resType_);
                     partsArgs_.add(resType_.getResult());
                     offset_ += a.length() + 1;
                 }
                 StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
-                String res_ = AnaInherits.tryGetAllInners(StringUtil.concat(sup_, "..", idClass_), partsArgs_, currVars_, _page);
+                String res_ = AnaInherits.tryGetAllInners(root_,inner_, partsArgs_, currVars_, _page);
                 if (!res_.isEmpty()) {
-                    partOffsets.addAllElts(partOffsets_);
+                    resolvedInstance = new ResolvedInstance(new AnaResultPartType(),new TypeMainDelimiters(root_,_page.getTraceIndex()+begin_,_page.getTraceIndex()+begin_ + idClass_.length()),results_);
+//                    partOffsets.addAllElts(partOffsets_);
                     typeInfer = res_;
                 }
             }
             return;
         }
-        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+//        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         String type_;
         if (!isIntermediateDottedOperation()) {
             AnaResultPartType result_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length() + local_, inferForm_, _page);
@@ -304,13 +306,14 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             if (type_.isEmpty()) {
                 return;
             }
-            AnaPartTypeUtil.processAnalyzeConstraintsRep(result_,partOffsets_,_page);
+            resolvedInstance = new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
         } else {
             String idClass_ = StringExpUtil.getIdFromAllTypes(className_).trim();
             String id_ = StringExpUtil.getIdFromAllTypes(sup_);
             type_ = StringUtil.concat(id_,"..",idClass_);
+            RootBlock root_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(type_));
             int begin_ = newKeyWord_.length()+local_;
-            ContextUtil.appendParts(begin_,begin_+inferForm_.length(),type_,partOffsets_, _page);
+            resolvedInstance = new ResolvedInstance(new AnaResultPartType(),new TypeMainDelimiters(root_,_page.getTraceIndex()+begin_,_page.getTraceIndex()+begin_+inferForm_.length()),new CustList<AnaResultPartType>());
         }
         int lt_ = newKeyWord_.length() + local_ + className_.indexOf('<');
         int gt_ = newKeyWord_.length() + local_ + className_.indexOf('>') + 1;
@@ -345,8 +348,8 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 }
                 if (candidates_.onlyOneElt()) {
                     String infer_ = candidates_.first();
-                    partOffsets.addAllElts(partOffsets_);
-                    ContextUtil.appendTitleParts(lt_, gt_,infer_,partOffsets, _page);
+//                    partOffsets.addAllElts(partOffsets_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+lt_, _page.getTraceIndex()+gt_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -370,8 +373,8 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 methodInfos_.addAllElts(newList_);
                 if (candidates_.onlyOneElt()) {
                     String infer_ = candidates_.first();
-                    partOffsets.addAllElts(partOffsets_);
-                    ContextUtil.appendTitleParts(lt_, gt_,infer_,partOffsets, _page);
+//                    partOffsets.addAllElts(partOffsets_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+lt_, _page.getTraceIndex()+gt_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -401,8 +404,8 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             }
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
-                partOffsets.addAllElts(partOffsets_);
-                ContextUtil.appendTitleParts(lt_, gt_,infer_,partOffsets, _page);
+//                partOffsets.addAllElts(partOffsets_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+lt_, _page.getTraceIndex()+gt_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -429,8 +432,8 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             methodInfos_.addAllElts(newList_);
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
-                partOffsets.addAllElts(partOffsets_);
-                ContextUtil.appendTitleParts(lt_, gt_,infer_,partOffsets, _page);
+//                partOffsets.addAllElts(partOffsets_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+lt_, _page.getTraceIndex()+gt_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -446,8 +449,8 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         if (infer_ == null) {
             return;
         }
-        partOffsets.addAllElts(partOffsets_);
-        ContextUtil.appendTitleParts(lt_, gt_,infer_,partOffsets, _page);
+//        partOffsets.addAllElts(partOffsets_);
+        resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+lt_, _page.getTraceIndex()+gt_,infer_);
         typeInfer = infer_;
     }
     protected static String tryParamFormatEmpInst(AbstractInstancingOperation _current,NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer, AnalyzedPageEl _page) {
@@ -614,8 +617,12 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         this.newBefore = _newBefore;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
-        return partOffsets;
+    public ResolvedInstance getResolvedInstance() {
+        return resolvedInstance;
+    }
+
+    public void setResolvedInstance(ResolvedInstance _resolvedInstance) {
+        resolvedInstance = _resolvedInstance;
     }
 
     public StringList getStaticInitInterfaces() {

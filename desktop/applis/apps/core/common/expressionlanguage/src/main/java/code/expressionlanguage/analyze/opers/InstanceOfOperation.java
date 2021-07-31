@@ -3,21 +3,20 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.fwd.opers.AnaTypeCheckContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.util.*;
 import code.util.core.StringUtil;
 
 public final class InstanceOfOperation extends AbstractUnaryOperation {
 
     private AnaTypeCheckContent typeCheckContent;
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
     public InstanceOfOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -48,8 +47,8 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
-        sub_ = ResolvingTypes.resolveCorrectType(begin_ + off_, sub_, exact_, _page);
-        partOffsets.addAllElts(_page.getCurrentParts());
+        partOffsets = ResolvingTypes.resolveCorrectType(begin_ + off_, sub_, exact_, _page);
+        sub_ = partOffsets.getResult(_page);
         if (!exact_) {
             RootBlock r_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(sub_));
             if (r_ != null) {
@@ -64,7 +63,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         return typeCheckContent.getOffset();
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 

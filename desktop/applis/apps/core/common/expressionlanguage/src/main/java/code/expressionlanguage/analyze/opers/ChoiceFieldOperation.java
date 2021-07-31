@@ -3,16 +3,15 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class ChoiceFieldOperation implements AnaSettableAbstractFieldOperation {
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
     private OperationsSequence operations;
 
     public ChoiceFieldOperation(OperationsSequence _op) {
@@ -31,8 +30,8 @@ public final class ChoiceFieldOperation implements AnaSettableAbstractFieldOpera
         int lenPref_ = className_.indexOf(OperationNode.PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
         int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-        className_ = ResolvingTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
-        partOffsets.addAllElts(_page.getCurrentParts());
+        partOffsets = ResolvingTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
+        className_ = partOffsets.getResult(_page);
         return new AnaClassArgumentMatching(className_);
     }
 
@@ -64,7 +63,7 @@ public final class ChoiceFieldOperation implements AnaSettableAbstractFieldOpera
     }
 
     @Override
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 }

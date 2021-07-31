@@ -30,8 +30,6 @@ public final class DefaultCurrentGlobalBlock implements AbstractCurrentGlobalBlo
 
     @Override
     public AccessedBlock getCurrentGlobalBlock(AccessedBlock _bl) {
-        CustList<PartOffset> offs_ = page.getCurrentParts();
-        offs_.clear();
         return _bl;
     }
 }

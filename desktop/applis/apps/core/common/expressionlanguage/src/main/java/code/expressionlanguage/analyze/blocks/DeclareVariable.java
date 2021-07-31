@@ -2,10 +2,9 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.options.KeyWords;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -22,7 +21,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
     private final boolean finalVariable;
 
     private final int finalVariableOffset;
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
     private String errInf = EMPTY_STRING;
     private final boolean refVariable;
 
@@ -59,8 +58,8 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
         if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;
         } else {
-            importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
+            importedClassName = partOffsets.getResult(_page);
         }
         _page.setMerged(true);
         _page.setRefVariable(refVariable);
@@ -92,7 +91,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
         return importedClassName;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 

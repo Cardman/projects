@@ -1,4 +1,5 @@
 package code.expressionlanguage.analyze.instr;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.common.NumberInfos;
 import code.util.CustList;
 import code.util.Ints;
@@ -20,11 +21,11 @@ public final class Delimiters {
     private final Ints delKeyWordStatic = new Ints();
     private final Ints delKeyWordStaticCall = new Ints();
     private final StringList delKeyWordStaticExtract = new StringList();
-    private final CustList<CustList<PartOffset>> staticParts = new CustList<CustList<PartOffset>>();
+    private final CustList<CustList<AnaResultPartType>> staticParts = new CustList<CustList<AnaResultPartType>>();
     private final Ints delExplicit = new Ints();
     private final Ints delCast = new Ints();
     private final StringList delCastExtract = new StringList();
-    private final CustList<CustList<PartOffset>> castParts = new CustList<CustList<PartOffset>>();
+    private final CustList<CustList<AnaResultPartType>> castParts = new CustList<CustList<AnaResultPartType>>();
     private final Ints delInstanceof = new Ints();
     private final Ints delLambda = new Ints();
     private final Ints delIds = new Ints();
@@ -90,7 +91,7 @@ public final class Delimiters {
         return delKeyWordStaticExtract;
     }
 
-    public CustList<CustList<PartOffset>> getStaticParts() {
+    public CustList<CustList<AnaResultPartType>> getStaticParts() {
         return staticParts;
     }
 
@@ -106,7 +107,7 @@ public final class Delimiters {
         return delCastExtract;
     }
 
-    public CustList<CustList<PartOffset>> getCastParts() {
+    public CustList<CustList<AnaResultPartType>> getCastParts() {
         return castParts;
     }
 

@@ -1,11 +1,12 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.types.*;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -144,32 +145,33 @@ public final class FullFieldRetriever implements FieldRetriever {
             }
             partFieldIndex_++;
         }
-        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+        CustList<AnaResultPartType> partOffsets_ = new CustList<AnaResultPartType>();
         String join_ = StringUtil.join(partsFieldsBisFields_, "");
         StringList inns_ = AnaInherits.getAllInnerTypes(join_, _page);
         String trim_ = inns_.first().trim();
         int nextOff_ = _from;
         int nb_ = 0;
         String start_;
-        if (_page.getAnaGeneType(trim_) != null) {
+        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AnaGeneType startType_ = _page.getAnaGeneType(trim_);
+        if (startType_ != null) {
             for (char c: trim_.toCharArray()) {
                 if (c == '.') {
                     nb_++;
                 }
             }
             start_ = trim_;
-            ContextUtil.appendParts(_from, _from +inns_.first().length(),trim_,partOffsets_, _page);
+            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inns_.first(),start_,r_,_from+_page.getTraceIndex(),_page));
             nextOff_ += inns_.first().length() + 1;
         } else {
-            CustList<PartOffset> currentParts_ = new CustList<PartOffset>();
             AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from + StringExpUtil.getOffset(inns_.first()), trim_, _page);
-            AnaPartTypeUtil.processAnalyzeConstraintsRep(resType_, currentParts_, _page);
             start_ = resType_.getResult();
             if (!resType_.isOk()) {
                 start_ = "";
-                currentParts_.clear();
+            } else {
+                partOffsets_.add(resType_);
             }
-            partOffsets_.addAllElts(currentParts_);
+            startType_ = _page.getAnaGeneType(start_);
             nb_ = 0;
             nextOff_ += inns_.first().length() + 1;
         }
@@ -186,7 +188,8 @@ public final class FullFieldRetriever implements FieldRetriever {
                     break;
                 }
                 start_ = StringUtil.concat(res_.first(),"-",p_);
-                ContextUtil.appendParts(nextOff_+1+locOff_,nextOff_+1+locOff_+p_.length(),start_,partOffsets_, _page);
+                startType_ = _page.getAnaGeneType(start_);
+                partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,start_,r_,nextOff_+1+locOff_+_page.getTraceIndex(),_page));
                 nextOff_ += fullPart_.length() + 1;
                 nb_++;
                 iPart_+=2;
@@ -201,7 +204,8 @@ public final class FullFieldRetriever implements FieldRetriever {
                 break;
             }
             start_ = res_.first();
-            ContextUtil.appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_, _page);
+            startType_ = _page.getAnaGeneType(start_);
+            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,start_,r_,nextOff_+locOff_+_page.getTraceIndex(),_page));
             nextOff_ += fullPart_.length() + 1;
             nb_++;
             iPart_+=2;
@@ -212,7 +216,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         } else {
             n_ = k_;
         }
-        if (_page.getAnaGeneType(start_) == null) {
+        if (startType_ == null) {
             ConstType type_ = ConstType.WORD;
             VariableInfo infoLoc_ = new VariableInfo();
             infoLoc_.setKind(type_);

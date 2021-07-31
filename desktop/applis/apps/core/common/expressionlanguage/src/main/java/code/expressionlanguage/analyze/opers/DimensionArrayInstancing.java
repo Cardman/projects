@@ -5,15 +5,12 @@ import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.linkage.ExportCst;
@@ -29,7 +26,7 @@ public final class DimensionArrayInstancing extends
         AbstractArrayInstancingOperation implements PreAnalyzableOperation {
     private final int countArrayDims;
     private String typeInfer = EMPTY_STRING;
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private ResolvedInstance resolvedInstance = new ResolvedInstance();
 
     public DimensionArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -186,13 +183,12 @@ public final class DimensionArrayInstancing extends
         String mName_ = getMethodName();
         int off_ = StringUtil.getFirstPrintableCharIndex(mName_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         AnaResultPartType result_ = ResolvingTypes.resolveAccessibleIdTypeWithoutError(newKeyWord_.length() + local_, inferForm_, _page);
         type_ = result_.getResult();
         if (type_.isEmpty()) {
             return;
         }
-        AnaPartTypeUtil.processAnalyzeConstraintsRep(result_,partOffsets_,_page);
+        resolvedInstance = new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
         int chCount_ = getOperations().getValues().size();
         boolean list_ = false;
         if (m_ instanceof ArgumentListInstancing){
@@ -225,10 +221,9 @@ public final class DimensionArrayInstancing extends
                 }
                 if (candidates_.onlyOneElt()) {
                     String infer_ = candidates_.first();
-                    partOffsets.addAllElts(partOffsets_);
                     int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                     int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -252,10 +247,9 @@ public final class DimensionArrayInstancing extends
                 methodInfos_.addAllElts(newList_);
                 if (candidates_.onlyOneElt()) {
                     String infer_ = candidates_.first();
-                    partOffsets.addAllElts(partOffsets_);
                     int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                     int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -285,10 +279,9 @@ public final class DimensionArrayInstancing extends
             }
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
-                partOffsets.addAllElts(partOffsets_);
                 int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                 int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
+                resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -315,10 +308,9 @@ public final class DimensionArrayInstancing extends
             methodInfos_.addAllElts(newList_);
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
-                partOffsets.addAllElts(partOffsets_);
                 int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                 int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
+                resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -335,10 +327,9 @@ public final class DimensionArrayInstancing extends
         if (infer_ == null) {
             return;
         }
-        partOffsets.addAllElts(partOffsets_);
         int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
         int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-        ContextUtil.appendTitleParts(begin_,end_,infer_,partOffsets, _page);
+        resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
         typeInfer = infer_;
     }
     private static String tryParamFormatEmp(NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer) {
@@ -364,8 +355,9 @@ public final class DimensionArrayInstancing extends
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
             int local_ = StringUtil.getFirstPrintableCharIndex(className_);
-            className_ = ResolvingTypes.resolveCorrectType(new_.length()+local_,className_, _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(new_.length() + local_, className_, _page);
+            className_ = result_.getResult(_page);
+            resolvedInstance = new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
         } else {
             className_ = typeInfer;
         }
@@ -398,11 +390,15 @@ public final class DimensionArrayInstancing extends
         setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(className_, chidren_.size()+countArrayDims)));
     }
 
+    public String getTypeInfer() {
+        return typeInfer;
+    }
+
     public int getCountArrayDims() {
         return countArrayDims;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
-        return partOffsets;
+    public ResolvedInstance getPartOffsets() {
+        return resolvedInstance;
     }
 }

@@ -5,17 +5,20 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
+import code.expressionlanguage.analyze.opers.util.TypeMainDelimiters;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public final class StaticCallAccessOperation extends LeafOperation {
-    private CustList<PartOffset> partOffsets;
+    private ResolvedInstance partOffsets;
     private String stCall = "";
     private boolean implicit;
     private int lt;
@@ -43,8 +46,11 @@ public final class StaticCallAccessOperation extends LeafOperation {
                 lt = rel_ + realCl_.indexOf('<');
                 gt = rel_ + realCl_.indexOf('>') + 1;
                 if (!form_.trim().isEmpty()) {
-                    String solved_ = ResolvingTypes.resolveAccessibleIdType(str_.indexOf(PAR_LEFT) + 1, form_, _page);
-                    partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
+                    ResolvedIdType resolved_ = ResolvingTypes.resolveAccessibleIdTypeBlock(str_.indexOf(PAR_LEFT) + 1, form_, _page);
+                    String solved_ = resolved_.getFullName();
+//                    String solved_ = ResolvingTypes.resolveAccessibleIdType(str_.indexOf(PAR_LEFT) + 1, form_, _page);
+                    partOffsets = new ResolvedInstance(new AnaResultPartType(),new TypeMainDelimiters(null,0,0), resolved_.getDels());
+//                    partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
                     stCall =solved_;
                     RootBlock r_ = _page.getAnaClassBody(solved_);
                     if (r_ != null) {
@@ -54,16 +60,17 @@ public final class StaticCallAccessOperation extends LeafOperation {
                 } else {
                     stCall = "<>";
                     classStr_ = emptyToObject("",_page);
-                    partOffsets = new CustList<PartOffset>();
+                    partOffsets = new ResolvedInstance();
                 }
             } else {
-                classStr_ = ResolvingTypes.resolveCorrectType(str_.indexOf(PAR_LEFT)+1+StringExpUtil.getOffset(realCl_),realCl_, _page);
-                partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
+                AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(str_.indexOf(PAR_LEFT) + 1 + StringExpUtil.getOffset(realCl_), realCl_, _page);
+                classStr_ = result_.getResult(_page);
+                partOffsets = new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
             }
         } else {
             implicit = true;
             classStr_ = glClass_;
-            partOffsets = new CustList<PartOffset>();
+            partOffsets = new ResolvedInstance();
         }
         checkClassAccess(glClass_, classStr_, _page);
         Argument a_ = new Argument();
@@ -108,8 +115,12 @@ public final class StaticCallAccessOperation extends LeafOperation {
         return implicit;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public ResolvedInstance getPartOffsets() {
         return partOffsets;
+    }
+
+    public void setPartOffsets(ResolvedInstance _partOffsets) {
+        partOffsets = _partOffsets;
     }
 
     public String getStCall() {

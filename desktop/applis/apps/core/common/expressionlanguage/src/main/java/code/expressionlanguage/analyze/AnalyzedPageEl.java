@@ -123,8 +123,6 @@ public final class AnalyzedPageEl {
     private final StringList initFieldsCtors = new StringList();
     private final StringList assignedDeclaredFields = new StringList();
     private final StringList allDeclaredFields = new StringList();
-
-    private final CustList<PartOffset> currentParts = new CustList<PartOffset>();
     private String currentEmptyPartErr = "";
     private final Errors errors = new Errors();
     private final MethodHeaders headers = new MethodHeaders();
@@ -978,10 +976,6 @@ public final class AnalyzedPageEl {
 
     public void setTokenValidation(AbstractTokenValidation _tokenValidation) {
         this.tokenValidation = _tokenValidation;
-    }
-
-    public CustList<PartOffset> getCurrentParts() {
-        return currentParts;
     }
 
     public String getCurrentEmptyPartErr() {

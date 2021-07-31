@@ -99,7 +99,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         putVariable(_page);
     }
     public OperationNode buildEl(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
@@ -120,7 +120,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         _page.setGlobalOffset(classNameOffset);
         _page.zeroOffset();
         if (!toInfer(_page)) {
-            importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
+            importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
         } else {
             importedClassName = EMPTY_STRING;
         }

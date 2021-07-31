@@ -232,6 +232,7 @@ public final class AnaTypeUtil {
                 _page.addLocError(enum_);
                 c.addNameErrors(enum_);
             }
+            CustList<ResolvedIdType> resolvedIdTypes_ = new CustList<ResolvedIdType>();
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
                 _page.setCurrentBlock(c);
@@ -239,8 +240,10 @@ public final class AnaTypeUtil {
                 _page.zeroOffset();
                 _page.getMappingLocal().clear();
                 _page.getMappingLocal().putAllMap(c.getMappings());
-                String base_ = ResolvingTypes.resolveAccessibleIdType(0, ints_.get(i), _page);
-                c.getPartsStaticInitInterfacesOffset().addAllElts(_page.getCurrentParts());
+                ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(0, ints_.get(i), _page);
+                resolvedIdTypes_.add(resolvedIdType_);
+                String base_ = resolvedIdType_.getFullName();
+                c.getPartsStaticInitInterfacesOffset().addAllElts(resolvedIdType_.getDels());
                 RootBlock r_ = _page.getAnaClassBody(base_);
                 if (!(r_ instanceof InterfaceBlock)) {
                     FoundErrorInterpret enum_;
@@ -265,7 +268,7 @@ public final class AnaTypeUtil {
                 ClassesUtil.globalType(_page,c);
                 _page.setGlobalOffset(offsetSup_);
                 _page.zeroOffset();
-                String sup_ = ResolvingTypes.resolveAccessibleIdType(0, ints_.get(i), _page);
+                String sup_ = resolvedIdTypes_.get(i).getFullName();
                 RootBlock rs_ = _page.getAnaClassBody(sup_);
                 if (rs_ == null) {
                     continue;
@@ -277,7 +280,7 @@ public final class AnaTypeUtil {
                     ClassesUtil.globalType(_page,c);
                     _page.setGlobalOffset(offsetSub_);
                     _page.zeroOffset();
-                    String sub_ = ResolvingTypes.resolveAccessibleIdType(0, ints_.get(j), _page);
+                    String sub_ = resolvedIdTypes_.get(j).getFullName();
                     rs_ = _page.getAnaClassBody(sub_);
                     if (rs_ == null) {
                         continue;

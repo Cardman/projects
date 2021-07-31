@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaTypeCheckContent;
 import code.util.CustList;
@@ -14,7 +13,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     private final String originalClassName;
     private final AnaTypeCheckContent typeCheckContent;
     private int beginType;
-    private CustList<PartOffset> partOffsets;
+    private CustList<AnaResultPartType> partOffsets;
     private boolean found;
     public CastOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -35,16 +34,14 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         } else {
             beginType = typeCheckContent.getClassName().indexOf(PAR_LEFT) + 1;
             String res_ = typeCheckContent.getClassName().substring(beginType, typeCheckContent.getClassName().lastIndexOf(PAR_RIGHT));
-            CustList<PartOffset> currentParts_ = new CustList<PartOffset>();
             AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(typeCheckContent.getClassName().indexOf(PAR_LEFT) + 1 + StringExpUtil.getOffset(res_), res_.trim(), _page);
-            AnaPartTypeUtil.processAnalyzeConstraintsRep(resType_, currentParts_, _page);
             if (resType_.isOk()) {
                 res_ = resType_.getResult();
             } else {
                 res_ = "";
             }
             typeCheckContent.setClassName(res_);
-            partOffsets = new CustList<PartOffset>(currentParts_);
+            partOffsets = new CustList<AnaResultPartType>(resType_);
         }
     }
 
@@ -86,7 +83,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         return typeCheckContent;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public CustList<AnaResultPartType> getPartOffsets() {
         return partOffsets;
     }
 

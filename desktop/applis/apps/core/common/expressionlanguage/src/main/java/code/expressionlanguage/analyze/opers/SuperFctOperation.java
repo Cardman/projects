@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
@@ -13,7 +12,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.linkage.ExportCst;
@@ -34,7 +32,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
     private int lengthMethod;
     private boolean trueFalse;
     private boolean errLeftValue;
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
     private String typeInfer = EMPTY_STRING;
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
@@ -61,12 +59,10 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         int lenPref_ = callFctContent.getMethodName().indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
         int loc_ = StringUtil.getFirstPrintableCharIndex(className_)-off_;
-        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(lenPref_ + loc_, className_.trim(), _page);
-        AnaPartTypeUtil.processAnalyzeConstraintsRep(resType_, partOffsets_, _page);
         className_ = resType_.getResult();
         if (resType_.isOk()) {
-            partOffsets.addAllElts(partOffsets_);
+            partOffsets = resType_;
             typeInfer = className_;
         }
         String clCurName_ = className_;
@@ -104,8 +100,8 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         className_ = className_.substring(lenPref_);
         int loc_ = StringUtil.getFirstPrintableCharIndex(className_)-off_;
         if (typeInfer.isEmpty()) {
-            className_ = ResolvingTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsets = ResolvingTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
+            className_ = partOffsets.getResult(_page);
         } else {
             className_ = typeInfer;
         }
@@ -222,7 +218,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         return delta;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 

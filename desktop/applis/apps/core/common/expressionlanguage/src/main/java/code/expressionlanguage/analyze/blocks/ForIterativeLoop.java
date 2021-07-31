@@ -235,7 +235,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
     private boolean processVariableNames(AnalyzedPageEl _page) {
         _page.setGlobalOffset(classIndexNameOffset);
         _page.zeroOffset();
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
@@ -248,7 +248,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
         }
         _page.setGlobalOffset(classNameOffset);
         _page.zeroOffset();
-        importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
+        importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
         String cl_ = importedClassName;
         AnaClassArgumentMatching elementClass_ = new AnaClassArgumentMatching(cl_);
         if (!AnaTypeUtil.isIntOrderClass(elementClass_, _page)) {

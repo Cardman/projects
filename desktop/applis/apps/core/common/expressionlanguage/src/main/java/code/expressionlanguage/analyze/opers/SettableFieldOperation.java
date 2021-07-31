@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
@@ -84,7 +85,7 @@ public final class SettableFieldOperation extends
         setResultClass(new AnaClassArgumentMatching(c_, _page.getPrimitiveTypes()));
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return interf.getPartOffsets();
     }
 

@@ -4,10 +4,8 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.types.GeneStringOverridable;
-import code.expressionlanguage.analyze.types.OverridingMethodDto;
-import code.expressionlanguage.analyze.types.ResolvedIdType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.opers.util.ResolvedId;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.StringExpUtil;
@@ -67,15 +65,17 @@ public final class InternOverrideBlock extends Leaf {
                 typesKeys_ = new StringList();
             }
             String idCurrent_ = _root.getFullName();
-            CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+            CustList<AnaResultPartType> partOffsets_ = new CustList<AnaResultPartType>();
             boolean retRefMain_ = false;
             if (name_.startsWith("~")) {
                 retRefMain_ = true;
                 name_ = name_.substring(1);
             }
-            MethodId methodId_ = IdFctOperation.resolveArguments(0, retRefMain_, idCurrent_, name_, MethodAccessKind.INSTANCE, typesKeys_, key_, partOffsets_, _page);
+            ResolvedId resolved_ = IdFctOperation.resolveArguments(0, retRefMain_, idCurrent_, name_, MethodAccessKind.INSTANCE, typesKeys_, key_, _page);
+            partOffsets_.addAllElts(resolved_.getResults());
+            MethodId methodId_ = resolved_.getId();
             if (methodId_ == null) {
-                allPartsTypes.add(new PartOffsetsClassMethodIdList(partOffsets_,new CustList<PartOffsetsClassMethodId>()));
+                allPartsTypes.add(new PartOffsetsClassMethodIdList(partOffsets_,new CustList<PartOffsetsClassMethodId>(),resolved_.getInfo()));
                 sum_ += o.length()+1;
                 continue;
             }
@@ -95,15 +95,15 @@ public final class InternOverrideBlock extends Leaf {
                 String firstFull_ = args_.first();
                 int off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
                 String fromType_ = firstFull_.trim();
-                CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
+                CustList<AnaResultPartType> superPartOffsets_ = new CustList<AnaResultPartType>();
                 int firstPar_ = extValue_.getFirst().length();
                 ResolvedIdType resolvedIdTypeDest_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_+firstPar_+1,fromType_, _page);
                 String cl_ = resolvedIdTypeDest_.getFullName();
-                superPartOffsets_.addAllElts(_page.getCurrentParts());
+                superPartOffsets_.addAllElts(resolvedIdTypeDest_.getDels());
                 AnaFormattedRootBlock formInfoDest_ = AnaInherits.getOverridingFullTypeByBases(_root, resolvedIdTypeDest_.getGeneType());
                 if (formInfoDest_ == null) {
                     localSum_ += s.length()+1;
-                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, null, 0, 0));
+                    listPart_.add(new PartOffsetsClassMethodId(new CustList<AnaResultPartType>(),superPartOffsets_,null, null, 0, 0));
                     continue;
                 }
                 RootBlock formattedType_ = formInfoDest_.getRootBlock();
@@ -113,15 +113,17 @@ public final class InternOverrideBlock extends Leaf {
                     retRef_ = true;
                     nameLocId_ = nameLoc_.substring(1);
                 }
-                MethodId superMethodId_ = IdFctOperation.resolveArguments(1, retRef_, cl_,nameLocId_,MethodAccessKind.INSTANCE,args_,s, superPartOffsets_, _page);
+                ResolvedId resolvedSuper_ = IdFctOperation.resolveArguments(1, retRef_, cl_,nameLocId_,MethodAccessKind.INSTANCE,args_,s, _page);
+                superPartOffsets_.addAllElts(resolvedSuper_.getResults());
+                MethodId superMethodId_ = resolvedSuper_.getId();
                 if (superMethodId_ == null) {
                     localSum_ += s.length()+1;
-                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, null, 0, 0));
+                    listPart_.add(new PartOffsetsClassMethodId(new CustList<AnaResultPartType>(),superPartOffsets_,null, null, 0, 0,resolvedSuper_.getInfo()));
                     continue;
                 }
                 if (!formattedMethodId_.eqPartial(new FormattedMethodId(superMethodId_.quickFormat(AnaInherits.getVarTypes(formInfoDest_))))) {
                     localSum_ += s.length()+1;
-                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, null, 0, 0));
+                    listPart_.add(new PartOffsetsClassMethodId(new CustList<AnaResultPartType>(),superPartOffsets_,null, null, 0, 0));
                     continue;
                 }
                 CustList<NamedCalledFunctionBlock> methods_ = formattedType_.getOverridableBlocks();
@@ -140,7 +142,7 @@ public final class InternOverrideBlock extends Leaf {
                         break;
                     }
                 }
-                listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,id_,fct_, rc_,nameLoc_.length()));
+                listPart_.add(new PartOffsetsClassMethodId(new CustList<AnaResultPartType>(),superPartOffsets_,id_,fct_, rc_,nameLoc_.length()));
                 CustList<GeneStringOverridable> methodIds_ = ov_.getMethodIds();
                 methodIds_.addAllElts(list_);
                 localSum_ += s.length()+1;

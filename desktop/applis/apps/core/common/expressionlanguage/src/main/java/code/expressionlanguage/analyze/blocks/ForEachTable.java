@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -17,7 +18,6 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
@@ -58,9 +58,9 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
     private final int expressionOffset;
 
     private final ResultExpression res = new ResultExpression();
-    private final CustList<PartOffset> partOffsetsFirst = new CustList<PartOffset>();
+    private AnaResultPartType partOffsetsFirst = new AnaResultPartType();
 
-    private final CustList<PartOffset> partOffsetsSecond = new CustList<PartOffset>();
+    private AnaResultPartType partOffsetsSecond = new AnaResultPartType();
 
     private final StringList nameErrorsFirst = new StringList();
     private final StringList nameErrorsSecond = new StringList();
@@ -164,7 +164,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         _page.setGlobalOffset(classIndexNameOffset);
         _page.zeroOffset();
         MemberCallingsBlock f_ = _page.getCurrentFct();
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
@@ -205,16 +205,16 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         _page.setGlobalOffset(classNameOffsetFirst);
         _page.zeroOffset();
         if (!StringUtil.quickEq(classNameFirst.trim(), keyWordVar_)) {
-            importedClassNameFirst = ResolvingTypes.resolveCorrectType(classNameFirst, _page);
-            partOffsetsFirst.addAllElts(_page.getCurrentParts());
+            partOffsetsFirst = ResolvingTypes.resolveCorrectType(classNameFirst, _page);
+            importedClassNameFirst = partOffsetsFirst.getResult(_page);
         } else {
             importedClassNameFirst = "";
         }
         _page.setGlobalOffset(classNameOffsetSecond);
         _page.zeroOffset();
         if (!StringUtil.quickEq(classNameSecond.trim(), keyWordVar_)) {
-            importedClassNameSecond = ResolvingTypes.resolveCorrectType(classNameSecond, _page);
-            partOffsetsSecond.addAllElts(_page.getCurrentParts());
+            partOffsetsSecond = ResolvingTypes.resolveCorrectType(classNameSecond, _page);
+            importedClassNameSecond = partOffsetsSecond.getResult(_page);
         } else {
             importedClassNameSecond = "";
         }
@@ -417,11 +417,11 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         return res.getRoot();
     }
 
-    public CustList<PartOffset> getPartOffsetsFirst() {
+    public AnaResultPartType getPartOffsetsFirst() {
         return partOffsetsFirst;
     }
 
-    public CustList<PartOffset> getPartOffsetsSecond() {
+    public AnaResultPartType getPartOffsetsSecond() {
         return partOffsetsSecond;
     }
 

@@ -45,7 +45,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
             return;
         }
         _page.setGlobalOffset(classNameOffset);
-        importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
+        importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
         lv_.setConstType(ConstType.FIX_VAR);

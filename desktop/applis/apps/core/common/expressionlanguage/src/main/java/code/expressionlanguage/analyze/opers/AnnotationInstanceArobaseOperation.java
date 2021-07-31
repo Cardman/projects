@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
@@ -21,6 +22,7 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public class AnnotationInstanceArobaseOperation extends AnnotationInstanceOperation {
+    private AnaResultPartType partOffsets = new AnaResultPartType();
 
     private final AnaInstancingAnnotContent instancingAnnotContent;
 
@@ -38,8 +40,8 @@ public class AnnotationInstanceArobaseOperation extends AnnotationInstanceOperat
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         String realClassName_ = instancingAnnotContent.getMethodName().trim().substring(AROBASE.length());
-        realClassName_ = ResolvingTypes.resolveCorrectType(1+StringExpUtil.getOffset(realClassName_),realClassName_, _page);
-        getPartOffsets().addAllElts(_page.getCurrentParts());
+        partOffsets = ResolvingTypes.resolveCorrectType(1 + StringExpUtil.getOffset(realClassName_), realClassName_, _page);
+        realClassName_ = partOffsets.getResult(_page);
         AnaFormattedRootBlock form_ = new AnaFormattedRootBlock(_page,realClassName_);
         RootBlock g_ = form_.getRootBlock();
         if (!(g_ instanceof AnnotationBlock)) {
@@ -50,6 +52,10 @@ public class AnnotationInstanceArobaseOperation extends AnnotationInstanceOperat
         rootNumber = g_.getNumberAll();
         instancingAnnotContent.setClassName(realClassName_);
         instancingAnnotContent.setFormattedType(form_);
+    }
+
+    public AnaResultPartType getPartOffsets() {
+        return partOffsets;
     }
 
     public String getClassName() {

@@ -19,7 +19,6 @@ import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.blocks.AnaRootBlockContent;
 import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.linkage.ExportCst;
@@ -62,7 +61,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
 
     private final Ints staticInitInterfacesOffset = new Ints();
-    private final CustList<PartOffset> partsStaticInitInterfacesOffset = new CustList<PartOffset>();
+    private final CustList<AnaResultPartType> partsStaticInitInterfacesOffset = new CustList<AnaResultPartType>();
 
 
     private String importedDirectSuperClass = "";
@@ -349,7 +348,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     CustList<AnaResultPartType> results_ = new CustList<AnaResultPartType>();
                     Ints ints_ = paramTypesConstraintsOffset.get(j_);
 //                    varDef(t, constraintsParts);
-                    _page.getCurrentParts().clear();
                     int i_ = 0;
                     for (String c: t.getConstraints()) {
                         int d_ = ints_.get(i_);
@@ -1841,7 +1839,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return roots;
     }
 
-    public CustList<PartOffset> getPartsStaticInitInterfacesOffset() {
+    public CustList<AnaResultPartType> getPartsStaticInitInterfacesOffset() {
         return partsStaticInitInterfacesOffset;
     }
 

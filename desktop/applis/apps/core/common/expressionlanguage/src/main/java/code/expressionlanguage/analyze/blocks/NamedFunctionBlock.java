@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.AccessEnum;
@@ -11,7 +12,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -55,8 +55,8 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private final CustList<StringList> annotationsParams = new CustList<StringList>();
     private final CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
 
-    private final CustList<CustList<PartOffset>> partOffsetsParams = new CustList<CustList<PartOffset>>();
-    private final CustList<PartOffset> partOffsetsReturn = new CustList<PartOffset>();
+    private final CustList<AnaResultPartType> partOffsetsParams = new CustList<AnaResultPartType>();
+    private AnaResultPartType partOffsetsReturn = new AnaResultPartType();
 
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
@@ -228,12 +228,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         buildImportedReturnTypes(_page);
     }
     public final String buildInternParam(int _offset, String _param, AnalyzedPageEl _page) {
-        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         _page.setGlobalOffset(_offset);
         _page.zeroOffset();
-        String res_ = ResolvingTypes.resolveCorrectType(_param, _page);
-        partOffsets_.addAllElts(_page.getCurrentParts());
-        partOffsetsParams.add(partOffsets_);
+        AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(_param, _page);
+        String res_ = result_.getResult(_page);
+        partOffsetsParams.add(result_);
         return res_;
     }
 
@@ -248,9 +247,8 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public final String buildInternRet(int _offset, String _param, AnalyzedPageEl _page) {
         _page.setGlobalOffset(_offset);
         _page.zeroOffset();
-        String res_ = ResolvingTypes.resolveCorrectType(_param, _page);
-        partOffsetsReturn.addAllElts(_page.getCurrentParts());
-        return res_;
+        partOffsetsReturn = ResolvingTypes.resolveCorrectType(_param, _page);
+        return partOffsetsReturn.getResult(_page);
     }
 
     public CustList<Boolean> getParametersRef() {
@@ -305,11 +303,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return annotationsIndexesParams;
     }
 
-    public CustList<CustList<PartOffset>> getPartOffsetsParams() {
+    public CustList<AnaResultPartType> getPartOffsetsParams() {
         return partOffsetsParams;
     }
 
-    public CustList<PartOffset> getPartOffsetsReturn() {
+    public AnaResultPartType getPartOffsetsReturn() {
         return partOffsetsReturn;
     }
 

@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.ResolvedId;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.*;
@@ -226,9 +227,9 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_, key_, _page);
             AnaGeneType bl_ = resolvedIdType_.getGeneType();
             String clKey_ = resolvedIdType_.getFullName();
-            CustList<PartOffset> allPartTypes_ = new CustList<PartOffset>();
-            CustList<PartOffset> allPartSuperTypes_ = new CustList<PartOffset>();
-            allPartTypes_.addAllElts(_page.getCurrentParts());
+            CustList<AnaResultPartType> allPartTypes_ = new CustList<AnaResultPartType>();
+            CustList<AnaResultPartType> allPartSuperTypes_ = new CustList<AnaResultPartType>();
+            allPartTypes_.addAllElts(resolvedIdType_.getDels());
             if (!(bl_ instanceof RootBlock)) {
                 sum_ += o.length()+1;
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
@@ -257,8 +258,8 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             int firstPar_ = extr_.getFirst().length();
             ResolvedIdType resolvedIdTypeDest_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_ + firstPar_ + 1, fromType_, _page);
             String clDest_ = resolvedIdTypeDest_.getFullName();
-            CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
-            superPartOffsets_.addAllElts(_page.getCurrentParts());
+            CustList<AnaResultPartType> superPartOffsets_ = new CustList<AnaResultPartType>();
+            superPartOffsets_.addAllElts(resolvedIdTypeDest_.getDels());
             AnaFormattedRootBlock formInfoDest_ = AnaInherits.getOverridingFullTypeByBases(root_, resolvedIdTypeDest_.getGeneType());
             if (formInfoDest_ == null) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
@@ -273,11 +274,13 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                 retRef_ = true;
                 nameLocId_ = nameLoc_.substring(1);
             }
-            MethodId methodIdDest_ = IdFctOperation.resolveArguments(1, retRef_, clDest_,nameLocId_,MethodAccessKind.INSTANCE,args_,sgn_, superPartOffsets_, _page);
+            ResolvedId resolved_ = IdFctOperation.resolveArguments(1, retRef_, clDest_,nameLocId_,MethodAccessKind.INSTANCE,args_,sgn_, _page);
+            superPartOffsets_.addAllElts(resolved_.getResults());
+            MethodId methodIdDest_ = resolved_.getId();
             if (methodIdDest_ == null) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
-                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null,null,  0, 0));
+                allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null,null,  0, 0,resolved_.getInfo()));
                 continue;
             }
             CustList<NamedCalledFunctionBlock> methods_ = formattedDestType_.getOverridableBlocks();

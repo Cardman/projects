@@ -6,7 +6,10 @@ import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
+import code.expressionlanguage.analyze.opers.util.TypeMainDelimiters;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -85,8 +88,9 @@ public final class AnonymousInstancingOperation extends
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else  {
-                realClassName_ = ResolvingTypes.resolveCorrectType(0,realClassName_, _page);
-                getPartOffsets().addAllElts(_page.getCurrentParts());
+                AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(0, realClassName_, _page);
+                realClassName_ = result_.getResult(_page);
+                setResolvedInstance(new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>()));
             }
             type = realClassName_;
             checkInstancingType(realClassName_, isStaticAccess(), _page);

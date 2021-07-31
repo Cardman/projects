@@ -43,7 +43,7 @@ public final class AnaRendDeclareVariable extends AnaRendLeaf {
         if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;
         } else {
-            importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
+            importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
         }
         _page.setMerged(true);
         _page.setRefVariable(refVariable);

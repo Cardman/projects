@@ -143,7 +143,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             if (value.trim().isEmpty()) {
                 String variableName_ = getVariableName();
                 _page.setGlobalOffset(classNameOffset);
-                setImportedClassName(ResolvingTypes.resolveCorrectType(className, _page));
+                setImportedClassName(ResolvingTypes.resolveCorrectType(className, _page).getResult(_page));
                 TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName_, _page);
                 if (res_.isError()) {
                     FoundErrorInterpret d_ = new FoundErrorInterpret();

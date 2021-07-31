@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
@@ -55,7 +56,7 @@ final class AfterUnaryParts {
     private final StackOperators parsBrackets = new StackOperators();
     private int prio = ElResolver.FCT_OPER_PRIO;
     private String extracted = "";
-    private final CustList<PartOffset> partsOffs = new CustList<PartOffset>();
+    private final CustList<AnaResultPartType> partsOffs = new CustList<AnaResultPartType>();
     private int index;
 
     private boolean enPars = true;
@@ -704,7 +705,7 @@ final class AfterUnaryParts {
         return index;
     }
 
-    CustList<PartOffset> getPartsOffs() {
+    CustList<AnaResultPartType> getPartsOffs() {
         return partsOffs;
     }
 

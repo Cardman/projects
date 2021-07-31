@@ -4,13 +4,13 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetAffect;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -25,7 +25,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     private String importedClassName;
 
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
     private int trOffset;
     private final ResultExpression res = new ResultExpression();
     private int fieldNumber;
@@ -155,16 +155,18 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         _page.setCurrentBlock(this);
         int i_ = 1;
         StringList j_ = new StringList();
-        String fullName_ = elementContent.getParentEnum().getFullName();
+        EnumBlock parentEnum_ = elementContent.getParentEnum();
+        String fullName_ = parentEnum_.getFullName();
         for (String p: StringExpUtil.getAllTypes(StringUtil.concat(fullName_, elementContent.getTempClass())).mid(1)) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(p);
-            j_.add(ResolvingTypes.resolveCorrectType(i_+loc_,p, _page));
-            partOffsets.addAllElts(_page.getCurrentParts());
+            AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(i_ + loc_, p, _page);
+            j_.add(result_.getResult(_page));
+            partOffsets.add(result_);
             i_ += p.length() + 1;
         }
         StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
         StringList errs_ = new StringList();
-        importedClassName = AnaInherits.check(errs_,fullName_,j_,varsCt_, _page);
+        importedClassName = AnaInherits.check(errs_,parentEnum_,fullName_,j_,varsCt_, _page);
         for (String e: errs_) {
             addNameErrors(e);
         }
@@ -175,7 +177,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
-    public CustList<PartOffset> getTypePartOffsets() {
+    public CustList<AnaResultPartType> getTypePartOffsets() {
         return partOffsets;
     }
 

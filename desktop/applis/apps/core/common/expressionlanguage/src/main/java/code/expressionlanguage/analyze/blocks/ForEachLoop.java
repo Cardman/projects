@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -17,7 +18,6 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.linkage.ExportCst;
@@ -52,7 +52,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
 
     private final ResultExpression res = new ResultExpression();
 
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
 
     private final StringList nameErrors = new StringList();
     private final StringList sepErrors = new StringList();
@@ -140,7 +140,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
         _page.setGlobalOffset(classIndexNameOffset);
         _page.zeroOffset();
         MemberCallingsBlock f_ = _page.getCurrentFct();
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
@@ -170,8 +170,8 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (!StringUtil.quickEq(className.trim(), keyWordVar_)) {
-            importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
-            partOffsets.addAllElts(_page.getCurrentParts());
+            partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
+            importedClassName = partOffsets.getResult(_page);
         } else {
             importedClassName = "";
         }
@@ -363,7 +363,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
         return res.getRoot();
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 

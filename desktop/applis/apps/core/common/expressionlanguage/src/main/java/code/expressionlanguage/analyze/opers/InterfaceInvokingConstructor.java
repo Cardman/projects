@@ -4,12 +4,13 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
@@ -17,7 +18,7 @@ import code.util.StringList;
 
 public final class InterfaceInvokingConstructor extends AbstractInvokingConstructor {
 
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
     public InterfaceInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -28,8 +29,9 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         String cl_ = getMethodName();
         int leftPar_ = cl_.indexOf(PAR_LEFT) + 1;
         cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
-        cl_ = ResolvingTypes.resolveAccessibleIdType(leftPar_,cl_, _page);
-        partOffsets.addAllElts(_page.getCurrentParts());
+        ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(leftPar_, cl_, _page);
+        cl_ = resolvedIdType_.getFullName();
+        partOffsets.addAllElts(resolvedIdType_.getDels());
         RootBlock candidate_ = _page.getAnaClassBody(cl_);
         if (!(candidate_ instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -153,7 +155,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         }
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public CustList<AnaResultPartType> getPartOffsets() {
         return partOffsets;
     }
 }

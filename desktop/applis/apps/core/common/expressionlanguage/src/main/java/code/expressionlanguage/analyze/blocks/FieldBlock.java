@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -13,7 +14,6 @@ import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetAffect;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -45,7 +45,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private final StringList annotations = new StringList();
 
     private final Ints annotationsIndexes = new Ints();
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
     private final StringList assignedDeclaredFields = new StringList();
     private final ResultExpression res = new ResultExpression();
     private CustList<OperationNode> roots = new CustList<OperationNode>();
@@ -149,12 +149,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         _page.setGlobalOffset(getClassNameOffset());
         _page.zeroOffset();
         _page.setCurrentBlock(this);
-        importedClassName = ResolvingTypes.resolveCorrectType(className, _page);
-        partOffsets.addAllElts(_page.getCurrentParts());
+        partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
+        importedClassName = partOffsets.getResult(_page);
     }
 
-    @Override
-    public CustList<PartOffset> getTypePartOffsets() {
+    public AnaResultPartType getTypePartOffsets() {
         return partOffsets;
     }
     @Override

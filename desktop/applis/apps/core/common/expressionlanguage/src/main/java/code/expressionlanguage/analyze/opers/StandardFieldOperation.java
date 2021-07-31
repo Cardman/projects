@@ -3,8 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
-import code.util.CustList;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -53,8 +52,8 @@ public final class StandardFieldOperation implements AnaSettableAbstractFieldOpe
     }
 
     @Override
-    public CustList<PartOffset> getPartOffsets() {
-        return new CustList<PartOffset>();
+    public AnaResultPartType getPartOffsets() {
+        return new AnaResultPartType();
     }
 
 }

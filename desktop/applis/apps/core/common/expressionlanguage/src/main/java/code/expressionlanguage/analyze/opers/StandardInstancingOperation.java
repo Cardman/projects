@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
@@ -97,8 +98,10 @@ public final class StandardInstancingOperation extends
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else if (innerElt == null) {
-                realClassName_ = ResolvingTypes.resolveCorrectType(0,realClassName_, _page);
-                getPartOffsets().addAllElts(_page.getCurrentParts());
+                AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(0, realClassName_, _page);
+                realClassName_ = result_.getResult(_page);
+//                getPartOffsets().addAllElts(_page.getCurrentParts());
+                setResolvedInstance(new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>()));
             } else {
                 realClassName_ = realClassName_.trim();
             }
@@ -167,15 +170,20 @@ public final class StandardInstancingOperation extends
         }
         String sup_ = ownersMap_.values().first();
         StringList partsArgs_ = new StringList();
-        ContextUtil.appendParts(0,idClass_.length(),StringExpUtil.getIdFromAllTypes(StringUtil.concat(sup_, "..", idClass_)),getPartOffsets(),_page);
+        String inner_ = StringExpUtil.getIdFromAllTypes(StringUtil.concat(sup_, "..", idClass_));
+        RootBlock root_ = _page.getAnaClassBody(inner_);
+        CustList<AnaResultPartType> results_ = new CustList<AnaResultPartType>();
         for (String a: StringExpUtil.getAllTypes(realClassName_).mid(1)) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(a);
-            partsArgs_.add(ResolvingTypes.resolveCorrectType(offset_+loc_,a, _page));
-            getPartOffsets().addAllElts(_page.getCurrentParts());
+            AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(offset_ + loc_, a, _page);
+            partsArgs_.add(result_.getResult(_page));
+            results_.add(result_);
+//            getPartOffsets().addAllElts(_page.getCurrentParts());
             offset_ += a.length() + 1;
         }
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-        realClassName_ = check(StringUtil.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
+        setResolvedInstance(new ResolvedInstance(new AnaResultPartType(),new TypeMainDelimiters(root_,_page.getTraceIndex(),_page.getTraceIndex()+idClass_.length()),results_));
+        realClassName_ = check(root_,StringUtil.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
         analyzeCtor(realClassName_, varargParam_, _page);
     }
 

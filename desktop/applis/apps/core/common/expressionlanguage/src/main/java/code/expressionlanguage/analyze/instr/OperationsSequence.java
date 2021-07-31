@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.maths.litteralcom.StrTypes;
@@ -40,7 +41,7 @@ public final class OperationsSequence {
 
     private String extractType = "";
 
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
     private int countArrays;
     private final Ints errorParts = new Ints();
     private boolean instance;
@@ -375,11 +376,11 @@ public final class OperationsSequence {
         extractType = _extractType;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public CustList<AnaResultPartType> getPartOffsets() {
         return partOffsets;
     }
 
-    public void setPartOffsets(CustList<PartOffset> _partOffsets) {
+    public void setPartOffsets(CustList<AnaResultPartType> _partOffsets) {
         partOffsets = _partOffsets;
     }
 

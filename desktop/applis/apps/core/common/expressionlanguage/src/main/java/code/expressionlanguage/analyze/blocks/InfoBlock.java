@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -20,7 +19,6 @@ public interface InfoBlock extends AnnotableBlock {
     String getRealImportedClassName();
     void buildImportedType(AnalyzedPageEl _page);
     void retrieveNames(StringList _fieldNames, AnalyzedPageEl _page);
-    CustList<PartOffset> getTypePartOffsets();
 
     boolean isFinalField();
 

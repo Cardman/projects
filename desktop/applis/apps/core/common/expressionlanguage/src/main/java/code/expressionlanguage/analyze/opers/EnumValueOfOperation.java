@@ -5,12 +5,13 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.fwd.opers.AnaValuesContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
@@ -23,7 +24,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
     private int argOffset;
     private final AnaValuesContent valuesContent;
 
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
 
     public EnumValueOfOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -53,8 +54,9 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         firstArgs_.add(getFirstChild().getResultClass());
         String glClass_ = _page.getGlobalClass();
         String clName_;
-        clName_ = ResolvingTypes.resolveAccessibleIdType(0,className, _page);
-        partOffsets.addAllElts(_page.getCurrentParts());
+        ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(0, className, _page);
+        clName_ = resolvedIdType_.getFullName();
+        partOffsets.addAllElts(resolvedIdType_.getDels());
         RootBlock r_ = _page.getAnaClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -99,7 +101,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         setResultClass(new AnaClassArgumentMatching(className));
     }
 
-    public CustList<PartOffset> getPartOffsets() {
+    public CustList<AnaResultPartType> getPartOffsets() {
         return partOffsets;
     }
 

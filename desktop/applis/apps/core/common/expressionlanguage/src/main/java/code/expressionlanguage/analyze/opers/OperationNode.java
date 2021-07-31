@@ -2488,7 +2488,7 @@ public abstract class OperationNode {
         StaticCallAccessOperation staticCallOp_ = _filter.getStaticCallOp();
         if (staticCallOp_ != null) {
             if (!_filter.getStaticCall().isEmpty()) {
-                ContextUtil.appendTitlePartsAbs(staticCallOp_.getLt(), staticCallOp_.getGt(), m_.getClassName(), staticCallOp_.getPartOffsets(), _page);
+                staticCallOp_.setPartOffsets(new ResolvedInstance(staticCallOp_.getPartOffsets(),staticCallOp_.getLt(), staticCallOp_.getGt(), m_.getClassName()));
             }
         }
         CustList<CustList<ClassMethodIdReturn>> implicits_ = m_.getImplicits();
@@ -3610,8 +3610,9 @@ public abstract class OperationNode {
     protected void processEmptyErrorChild() {
         MethodOperation.processEmptyError(getFirstChild(),errs);
     }
-    protected String check(String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
-        return AnaInherits.check(errs,_className,_parts,_inherit,_page);
+
+    protected String check(RootBlock _root, String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
+        return AnaInherits.check(errs,_root,_className,_parts,_inherit,_page);
     }
     public void mergeErrs(OperationNode _err) {
         errs.addAllElts(_err.errs);

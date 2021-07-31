@@ -120,7 +120,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
     }
 
     public void buildEl(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page);
+        importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
@@ -150,14 +150,14 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         _page.setGlobalOffset(classNameOffsetFirst);
         _page.zeroOffset();
         if (!toInferFirst(_page)) {
-            importedClassNameFirst = ResolvingTypes.resolveCorrectType(classNameFirst, _page);
+            importedClassNameFirst = ResolvingTypes.resolveCorrectType(classNameFirst, _page).getResult(_page);
         } else {
             importedClassNameFirst = EMPTY_STRING;
         }
         _page.setGlobalOffset(classNameOffsetSecond);
         _page.zeroOffset();
         if (!toInferSecond(_page)) {
-            importedClassNameSecond = ResolvingTypes.resolveCorrectType(classNameSecond, _page);
+            importedClassNameSecond = ResolvingTypes.resolveCorrectType(classNameSecond, _page).getResult(_page);
         } else {
             importedClassNameSecond = EMPTY_STRING;
         }

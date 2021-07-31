@@ -6,10 +6,9 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.linkage.ExportCst;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -18,7 +17,7 @@ import code.util.core.StringUtil;
 public final class SuperFromFieldOperation implements AnaSettableAbstractFieldOperation {
     private OperationsSequence operations;
 
-    private final CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
 
     public SuperFromFieldOperation(OperationsSequence _op) {
         operations = _op;
@@ -36,8 +35,8 @@ public final class SuperFromFieldOperation implements AnaSettableAbstractFieldOp
         int lenPref_ = className_.indexOf(OperationNode.PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
         int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
-        className_ = ResolvingTypes.resolveCorrectType(lenPref_+loc_,className_, _page);
-        partOffsets.addAllElts(_page.getCurrentParts());
+        partOffsets = ResolvingTypes.resolveCorrectType(lenPref_ + loc_, className_, _page);
+        className_ = partOffsets.getResult(_page);
         AnaClassArgumentMatching clCur_;
         if (!_settable.isIntermediateDottedOperation()) {
             clCur_ = new AnaClassArgumentMatching(_page.getGlobalClass());
@@ -92,7 +91,7 @@ public final class SuperFromFieldOperation implements AnaSettableAbstractFieldOp
     }
 
     @Override
-    public CustList<PartOffset> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 }
