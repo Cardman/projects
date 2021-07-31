@@ -66,7 +66,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
         int afterLeftPar_ = className.indexOf(PAR_LEFT) + 1;
         String str_ = className.substring(afterLeftPar_, className.lastIndexOf(PAR_RIGHT));
         int off_ = StringUtil.getFirstPrintableCharIndex(str_);
-        AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessibleQuick(afterLeftPar_ + off_, str_.trim(), _page);
+        AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(afterLeftPar_ + off_, str_.trim(), _page);
         str_ = result_.getResult(_page);
         partOffsets.add(result_);
         setResultClass(new AnaClassArgumentMatching(str_));

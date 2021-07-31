@@ -48,7 +48,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (args_.size() > 1) {
             int off_ = StringUtil.getFirstPrintableCharIndex(args_.get(1));
             String fromType_ = args_.get(1).trim();
-            partOffsets = ResolvingTypes.resolveCorrectTypeAccessibleQuick(off_ + callFctContent.getMethodName().indexOf(',') + 1, fromType_, _page);
+            partOffsets = ResolvingTypes.resolveCorrectTypeAccessible(off_ + callFctContent.getMethodName().indexOf(',') + 1, fromType_, _page);
             from = partOffsets.getResult(_page);
         }
         if (from.isEmpty()) {

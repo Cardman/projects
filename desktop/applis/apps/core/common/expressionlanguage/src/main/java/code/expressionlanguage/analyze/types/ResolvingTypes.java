@@ -124,7 +124,7 @@ public final class ResolvingTypes {
                     i.getType(),gl_);
             _page.getLocalizer().addError(un_);
         }
-        return checkResTypeQuick(_in, _exact, rc_, varsCt_, resType_, _page);
+        return checkResType(_in, _exact, rc_, varsCt_, resType_, _page);
     }
 
     public static AnaResultPartType resolveCorrectTypeAccessible(int _loc, String _in, AnalyzedPageEl _page) {
@@ -170,24 +170,10 @@ public final class ResolvingTypes {
         AnaResultPartType resType_;
         _page.getCurrentBadIndexes().clear();
         resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, gl_, a_,r_, rc_, _page);
-        return checkResTypeQuick(_in, true, rc_, varsCt_, resType_, _page);
+        return checkResType(_in, true, rc_, varsCt_, resType_, _page);
     }
 
-    public static AnaResultPartType resolveCorrectTypeAccessibleQuick(int _loc, String _in, AnalyzedPageEl _page) {
-        int rc_ = _page.getLocalizer().getCurrentLocationIndex() + _loc;
-        String tr_ = _in.trim();
-        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
-        StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
-        _page.getBuildingConstraints().buildCurrentConstraintsFull();
-        AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
-        String gl_ = _page.getGlobalClass();
-        AnaResultPartType resType_;
-        _page.getCurrentBadIndexes().clear();
-        resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, gl_, a_,r_, rc_, _page);
-        return checkResTypeQuick(_in, true, rc_, varsCt_, resType_, _page);
-    }
-
-    private static AnaResultPartType checkResTypeQuick(String _in, boolean _exact, int _rc, StringMap<StringList> _varsCt, AnaResultPartType _resType, AnalyzedPageEl _page) {
+    private static AnaResultPartType checkResType(String _in, boolean _exact, int _rc, StringMap<StringList> _varsCt, AnaResultPartType _resType, AnalyzedPageEl _page) {
         boolean ok_ = AnaPartTypeUtil.processAnalyzeConstraintsCore(_resType, _varsCt, _exact, _page);
         if (!ok_) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
