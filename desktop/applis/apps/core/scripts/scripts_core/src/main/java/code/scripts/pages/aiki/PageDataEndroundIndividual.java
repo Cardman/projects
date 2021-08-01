@@ -106,7 +106,7 @@ ad(elt8_,elt9_);
 ad(elt0_,elt8_);
 Element elt11_=el(_doc,"c:if");
 CustList<Attr> attrs10_=al(1);
-attrs10_.add(at("condition","!userStatusEndRound.isEmpty()"));
+attrs10_.add(at("condition","!isEmpty(userStatusEndRound)"));
 at(elt11_,attrs10_);
 Element elt12_=el(_doc,"c:message");
 CustList<Attr> attrs11_=al(1);

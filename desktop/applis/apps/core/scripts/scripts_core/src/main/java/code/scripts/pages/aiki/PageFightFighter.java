@@ -200,7 +200,7 @@ ad(_body,elt0_);
 static void build5(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!usedBallCatching.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(usedBallCatching)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -456,7 +456,7 @@ ad(_body,elt0_);
 static void build23(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!currentAbility.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(currentAbility)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -473,7 +473,7 @@ ad(_body,elt0_);
 static void build24(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","currentAbility.isEmpty()"));
+attrs0_.add(at("condition","isEmpty(currentAbility)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -509,7 +509,7 @@ ad(_body,elt0_);
 static void build27(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!lastUsedItem.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(lastUsedItem)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -526,7 +526,7 @@ ad(_body,elt0_);
 static void build28(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","lastUsedItem.isEmpty()"));
+attrs0_.add(at("condition","isEmpty(lastUsedItem)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -538,7 +538,7 @@ ad(_body,elt0_);
 static void build29(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!item.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(item)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -555,7 +555,7 @@ ad(_body,elt0_);
 static void build30(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","item.isEmpty()"));
+attrs0_.add(at("condition","isEmpty(item)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -567,7 +567,7 @@ ad(_body,elt0_);
 static void build31(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!expItem.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(expItem)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -584,7 +584,7 @@ ad(_body,elt0_);
 static void build32(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","expItem.isEmpty()"));
+attrs0_.add(at("condition","isEmpty(expItem)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -1363,7 +1363,7 @@ ad(_body,elt0_);
 static void build58(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!lastSuccessfulMove.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(lastSuccessfulMove)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -1380,7 +1380,7 @@ ad(_body,elt0_);
 static void build59(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!lastUsedMove.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(lastUsedMove)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -1397,7 +1397,7 @@ ad(_body,elt0_);
 static void build60(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!usedMoveLastRound.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(usedMoveLastRound)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -1463,7 +1463,7 @@ ad(_body,elt0_);
 static void build64(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!lastSufferedMove.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(lastSufferedMove)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);

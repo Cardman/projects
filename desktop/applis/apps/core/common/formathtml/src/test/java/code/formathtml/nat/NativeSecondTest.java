@@ -42,7 +42,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"strings()\" className='java.lang.String'><li>{s.length()}</li></c:for></ul></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"strings()\" className='java.lang.String'><li>{length(s)}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         SimpleOne bean_ = BeanTestNatLgNamesImpl.newBeanOne();

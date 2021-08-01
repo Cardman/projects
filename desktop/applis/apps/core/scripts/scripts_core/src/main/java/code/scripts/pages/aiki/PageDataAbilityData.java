@@ -1312,7 +1312,7 @@ ad(_body,elt0_);
 static void build48(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!typeForMoves.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(typeForMoves)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -1334,7 +1334,7 @@ ad(_body,elt0_);
 static void build49(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","typeForMoves.isEmpty()"));
+attrs0_.add(at("condition","isEmpty(typeForMoves)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:if");
 CustList<Attr> attrs1_=al(1);
@@ -1410,7 +1410,7 @@ ad(_body,elt0_);
 static void build50(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!multPower.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(multPower)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -1427,7 +1427,7 @@ ad(_body,elt0_);
 static void build51(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!multDamage.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(multDamage)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);

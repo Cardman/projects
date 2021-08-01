@@ -78,7 +78,7 @@ ad(elt7_,elt8_);
 ad(elt0_,elt7_);
 Element elt10_=el(_doc,"c:if");
 CustList<Attr> attrs9_=al(1);
-attrs9_.add(at("condition","!restoredHp.isEmpty()"));
+attrs9_.add(at("condition","!isEmpty(restoredHp)"));
 at(elt10_,attrs9_);
 Element elt11_=el(_doc,"c:message");
 CustList<Attr> attrs10_=al(1);

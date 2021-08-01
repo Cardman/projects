@@ -157,7 +157,7 @@ ad(_body,elt0_);
 static void build7(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!usedBallCatching.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(usedBallCatching)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -174,7 +174,7 @@ ad(_body,elt0_);
 static void build8(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!item.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(item)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);
@@ -191,7 +191,7 @@ ad(_body,elt0_);
 static void build9(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","item.isEmpty()"));
+attrs0_.add(at("condition","isEmpty(item)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);

@@ -2,6 +2,7 @@ package code.bean.nat;
 
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -128,6 +129,10 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         if (_instance instanceof ArrayStruct) {
             res_.setResult(BooleanStruct.of(ExecArrayFieldOperation.getArray(_instance,_cont).getLength()==0));
+            return res_;
+        }
+        if (StringUtil.quickEq(_method.getConstraints().getName(),_cont.getStandards().getCharSeq().getAliasIsEmpty())) {
+            res_.setResult(BooleanStruct.of(NumParsers.getString(_args[0]).getInstance().isEmpty()));
             return res_;
         }
         return getOtherResultBean(_cont, _instance, _method, _args);

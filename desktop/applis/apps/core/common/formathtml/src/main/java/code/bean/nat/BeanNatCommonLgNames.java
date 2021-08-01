@@ -133,6 +133,9 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         StandardMethod method_;
         constructors_ = new CustList<StandardConstructor>();
         std_ = new SpecialNatClass(TYPE_BEAN, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        params_ = new StringList(getAliasString());
+        method_ = new StandardMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
+        methods_.add(method_);
         getStandards().addEntry(TYPE_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<StandardMethod>();

@@ -143,7 +143,7 @@ at(elt24_,attrs15_);
 ad(elt23_,elt24_);
 Element elt25_=el(_doc,"param");
 CustList<Attr> attrs16_=al(1);
-attrs16_.add(at("value","l.statut"));
+attrs16_.add(at("value","l.status"));
 at(elt25_,attrs16_);
 ad(elt23_,elt25_);
 ad(elt22_,elt23_);

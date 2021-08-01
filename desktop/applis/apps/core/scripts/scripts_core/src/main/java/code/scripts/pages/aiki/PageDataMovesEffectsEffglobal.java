@@ -571,7 +571,7 @@ ad(elt123_,elt128_);
 ad(elt0_,elt123_);
 Element elt129_=el(_doc,"c:if");
 CustList<Attr> attrs75_=al(1);
-attrs75_.add(at("condition","!invokedMoveTerrain.isEmpty()"));
+attrs75_.add(at("condition","!isEmpty(invokedMoveTerrain)"));
 at(elt129_,attrs75_);
 Element elt130_=el(_doc,"c:message");
 CustList<Attr> attrs76_=al(1);

@@ -63,7 +63,7 @@ ad(elt2_,elt6_);
 ad(elt0_,elt2_);
 Element elt7_=el(_doc,"c:if");
 CustList<Attr> attrs6_=al(1);
-attrs6_.add(at("condition","!enabledWeather.isEmpty()"));
+attrs6_.add(at("condition","!isEmpty(enabledWeather)"));
 at(elt7_,attrs6_);
 Element elt8_=el(_doc,"c:message");
 CustList<Attr> attrs7_=al(1);

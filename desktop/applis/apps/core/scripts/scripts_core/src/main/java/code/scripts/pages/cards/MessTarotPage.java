@@ -60,7 +60,7 @@ f+="exp_rate=This rate is applied on taker''s score\n";
 f+="exp_score=This score belongs to a linear relationship with taker''s score and the rate\n";
 f+="variant_table_1=Steps of calculation of players'' ranking by criteria\n";
 f+="variant_table_1_1=Player\n";
-f+="variant_table_1_2=Ranking in relationship with the difference of points<\n";
+f+="variant_table_1_2=Ranking in relationship with the difference of points\n";
 f+="variant_table_1_3=Ranking in relationship with the number of oudlers\n";
 f+="variant_table_1_4=Ranking in relationship with the number of characters\n";
 f+="variant_table_1_5=Ranking in relationship with the strength of characters\n";

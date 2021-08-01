@@ -201,7 +201,7 @@ ad(_body,elt0_);
 static void build17(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!pokemon.getItem().isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(pokemon.getItem())"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"a");
 CustList<Attr> attrs1_=al(1);
@@ -217,7 +217,7 @@ ad(_body,elt0_);
 static void build18(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","pokemon.getItem().isEmpty()"));
+attrs0_.add(at("condition","isEmpty(pokemon.getItem())"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"c:message");
 CustList<Attr> attrs1_=al(1);

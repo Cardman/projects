@@ -105,7 +105,7 @@ ad(_body,elt0_);
 static void build5(Element _body,Document _doc){
 Element elt0_=el(_doc,"c:if");
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!namePk.isEmpty()"));
+attrs0_.add(at("condition","!isEmpty(namePk)"));
 at(elt0_,attrs0_);
 Element elt1_=el(_doc,"br");
 ad(elt0_,elt1_);

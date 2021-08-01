@@ -13,10 +13,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
@@ -73,6 +70,10 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
                 }
                 if (StringUtil.quickEq(name_, TYPED_STRINGS)) {
                     res_.setResult(((SimpleOne) bean_).getTypedStrings(_cont));
+                    return res_;
+                }
+                if (StringUtil.quickEq(name_,"length")) {
+                    res_.setResult(new IntStruct(NumParsers.getString(_args[0]).getInstance().length()));
                     return res_;
                 }
                 if (StringUtil.quickEq(name_, TREE)) {
@@ -142,6 +143,9 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(TREE,params_, TYPE_MAP, false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        params_ = new StringList(getAliasObject());
+        method_ = new StandardMethod("length",params_, getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(TYPED_STRING,params_, getAliasString(), false, MethodModifier.NORMAL);
