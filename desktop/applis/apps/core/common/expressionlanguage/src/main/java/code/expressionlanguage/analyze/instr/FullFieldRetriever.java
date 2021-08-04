@@ -12,6 +12,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -149,11 +150,11 @@ public final class FullFieldRetriever implements FieldRetriever {
         String join_ = StringUtil.join(partsFieldsBisFields_, "");
         StringList inns_ = AnaInherits.getAllInnerTypes(join_, _page);
         String trim_ = inns_.first().trim();
-        int nextOff_ = _from;
         int nb_ = 0;
         String start_;
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
         AnaGeneType startType_ = _page.getAnaGeneType(trim_);
+        int loc_ = _from + _page.getLocalizer().getCurrentLocationIndex();
         if (startType_ != null) {
             for (char c: trim_.toCharArray()) {
                 if (c == '.') {
@@ -161,8 +162,7 @@ public final class FullFieldRetriever implements FieldRetriever {
                 }
             }
             start_ = trim_;
-            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inns_.first(),start_,r_,_from+_page.getTraceIndex(),_page));
-            nextOff_ += inns_.first().length() + 1;
+            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inns_.first(),start_,r_, loc_,0,_page));
         } else {
             AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from + StringExpUtil.getOffset(inns_.first()), trim_, _page);
             start_ = resType_.getResult();
@@ -173,14 +173,16 @@ public final class FullFieldRetriever implements FieldRetriever {
             }
             startType_ = _page.getAnaGeneType(start_);
             nb_ = 0;
-            nextOff_ += inns_.first().length() + 1;
         }
+        int rootOff_ = inns_.first().length() + 1;
+        StrTypes operators_ = new StrTypes();
         int iPart_ = 2;
         int lenPart_ = inns_.size();
         while (iPart_ < lenPart_) {
             String fullPart_ = inns_.get(iPart_);
             int locOff_ = StringUtil.getFirstPrintableCharIndex(fullPart_);
             String p_ = fullPart_.trim();
+            operators_.addEntry(rootOff_-1,inns_.get(iPart_-1));
             if (StringUtil.quickEq("..",inns_.get(iPart_-1))) {
                 StringList res_;
                 res_ = AnaTypeUtil.getEnumOwners(start_, p_, _page);
@@ -189,8 +191,8 @@ public final class FullFieldRetriever implements FieldRetriever {
                 }
                 start_ = StringUtil.concat(res_.first(),"-",p_);
                 startType_ = _page.getAnaGeneType(start_);
-                partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,start_,r_,nextOff_+1+locOff_+_page.getTraceIndex(),_page));
-                nextOff_ += fullPart_.length() + 1;
+                partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,start_,r_, loc_,rootOff_+1+locOff_,_page));
+                rootOff_ += fullPart_.length() + 1;
                 nb_++;
                 iPart_+=2;
                 continue;
@@ -205,8 +207,8 @@ public final class FullFieldRetriever implements FieldRetriever {
             }
             start_ = res_.first();
             startType_ = _page.getAnaGeneType(start_);
-            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,start_,r_,nextOff_+locOff_+_page.getTraceIndex(),_page));
-            nextOff_ += fullPart_.length() + 1;
+            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,start_,r_, loc_,rootOff_+locOff_,_page));
+            rootOff_ += fullPart_.length() + 1;
             nb_++;
             iPart_+=2;
         }
@@ -232,7 +234,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         _d.getDelKeyWordStatic().add(_from);
         _d.getDelKeyWordStatic().add(n_);
         _d.getDelKeyWordStaticExtract().add(start_);
-        _d.getStaticParts().add(partOffsets_);
+        _d.getStaticParts().add(PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(join_,partOffsets_,operators_,r_, loc_,_page));
         return n_;
     }
 

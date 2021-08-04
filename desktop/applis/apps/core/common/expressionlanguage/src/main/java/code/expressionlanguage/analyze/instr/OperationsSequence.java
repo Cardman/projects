@@ -41,7 +41,7 @@ public final class OperationsSequence {
 
     private String extractType = "";
 
-    private CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
+    private AnaResultPartType partOffsets = new AnaResultPartType();
     private int countArrays;
     private final Ints errorParts = new Ints();
     private boolean instance;
@@ -376,11 +376,11 @@ public final class OperationsSequence {
         extractType = _extractType;
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 
-    public void setPartOffsets(CustList<AnaResultPartType> _partOffsets) {
+    public void setPartOffsets(AnaResultPartType _partOffsets) {
         partOffsets = _partOffsets;
     }
 

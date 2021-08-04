@@ -56,7 +56,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         String clName_;
         ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(0, className, _page);
         clName_ = resolvedIdType_.getFullName();
-        partOffsets.addAllElts(resolvedIdType_.getDels());
+        partOffsets.add(resolvedIdType_.getDels());
         RootBlock r_ = _page.getAnaClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

@@ -6,14 +6,13 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaTypeCheckContent;
-import code.util.CustList;
 
 public final class CastOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
 
     private final String originalClassName;
     private final AnaTypeCheckContent typeCheckContent;
     private int beginType;
-    private CustList<AnaResultPartType> partOffsets;
+    private AnaResultPartType partOffsets;
     private boolean found;
     public CastOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -41,7 +40,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
                 res_ = "";
             }
             typeCheckContent.setClassName(res_);
-            partOffsets = new CustList<AnaResultPartType>(resType_);
+            partOffsets = resType_;
         }
     }
 
@@ -83,7 +82,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         return typeCheckContent;
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 

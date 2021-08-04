@@ -899,7 +899,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 } else {
                     ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(offset_, nameId_, _page);
                     cl_ = resolvedIdType_.getFullName();
-                    partOffsetsBegin.addAllElts(resolvedIdType_.getDels());
+                    partOffsetsBegin.add(resolvedIdType_.getDels());
                 }
                 if (cl_.isEmpty()) {
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -1458,7 +1458,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String inner_ = StringUtil.concat(idSup_, "..", idClass_);
             RootBlock root_ = _page.getAnaClassBody(inner_);
             AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
-            partOffsetsPre.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,inner_,r_,_page.getTraceIndex()+offset_,_page));
+            partOffsetsPre.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,inner_,r_,_page.getLocalizer().getCurrentLocationIndex()+offset_,_page));
             offset_ += idClass_.length() + 1;
             StringList partsArgs_ = new StringList();
             for (String a: StringExpUtil.getAllTypes(cl_).mid(1)) {
@@ -2126,8 +2126,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 offset_--;
             }
             sum_ += 1+_args.get(1).length();
-            String type_ = resolveCorrectTypeAccessible(true, operator_, _page, offset_,partOffsetsBegin);
-            from_ = type_;
+            from_ = resolveCorrectTypeAccessible(true, operator_, _page, offset_,partOffsetsBegin);
             if (_len > i_) {
                 operator_ = _args.get(i_).trim();
                 sum_ += StringExpUtil.getOffset(_args.get(i_));
@@ -2455,14 +2454,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return InvokingOperation.getBounds(type_, _page);
     }
 
-    private String resolveCorrectTypeAccessible(boolean _exact, String _type, AnalyzedPageEl _page, int _offset, CustList<AnaResultPartType> _dest) {
+    private static String resolveCorrectTypeAccessible(boolean _exact, String _type, AnalyzedPageEl _page, int _offset, CustList<AnaResultPartType> _dest) {
         if (_exact) {
             AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(_offset, _type, _page);
             _dest.add(result_);
             return result_.getResult(_page);
         }
         ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(_offset, _type, _page);
-        _dest.addAllElts(resolvedIdType_.getDels());
+        _dest.add(resolvedIdType_.getDels());
         return resolvedIdType_.getFullName();
     }
 

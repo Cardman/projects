@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
-import code.expressionlanguage.analyze.opers.util.TypeMainDelimiters;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvedIdType;
@@ -49,7 +48,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
                     ResolvedIdType resolved_ = ResolvingTypes.resolveAccessibleIdTypeBlock(str_.indexOf(PAR_LEFT) + 1, form_, _page);
                     String solved_ = resolved_.getFullName();
 //                    String solved_ = ResolvingTypes.resolveAccessibleIdType(str_.indexOf(PAR_LEFT) + 1, form_, _page);
-                    partOffsets = new ResolvedInstance(new AnaResultPartType(),new TypeMainDelimiters(null,0,0), resolved_.getDels());
+                    partOffsets = new ResolvedInstance(resolved_.getDels());
 //                    partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
                     stCall =solved_;
                     RootBlock r_ = _page.getAnaClassBody(solved_);
@@ -65,7 +64,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             } else {
                 AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(str_.indexOf(PAR_LEFT) + 1 + StringExpUtil.getOffset(realCl_), realCl_, _page);
                 classStr_ = result_.getResult(_page);
-                partOffsets = new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
+                partOffsets = new ResolvedInstance(result_);
             }
         } else {
             implicit = true;

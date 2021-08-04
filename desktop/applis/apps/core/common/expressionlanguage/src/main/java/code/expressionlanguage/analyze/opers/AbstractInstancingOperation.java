@@ -259,12 +259,13 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             return;
         }
         String inferForm_ = AnaTemplates.getInferForm(className_);
+        int rc_ = _page.getLocalizer().getCurrentLocationIndex();
         if (inferForm_ == null) {
 //            CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             if (!isIntermediateDottedOperation()) {
                 AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(newKeyWord_.length() + local_, className_, _page);
                 if (resType_.isOk()) {
-                    resolvedInstance = new ResolvedInstance(resType_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
+                    resolvedInstance = new ResolvedInstance(resType_);
 //                    partOffsets.addAllElts(partOffsets_);
                     typeInfer = resType_.getResult();
                 }
@@ -291,7 +292,8 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 String res_ = AnaInherits.tryGetAllInners(root_,inner_, partsArgs_, currVars_, _page);
                 if (!res_.isEmpty()) {
-                    resolvedInstance = new ResolvedInstance(new AnaResultPartType(),new TypeMainDelimiters(root_,_page.getTraceIndex()+begin_,_page.getTraceIndex()+begin_ + idClass_.length()),results_);
+                    AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+                    resolvedInstance = new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,StringExpUtil.getIdFromAllTypes(inner_),r_, rc_ +begin_,_page), results_);
 //                    partOffsets.addAllElts(partOffsets_);
                     typeInfer = res_;
                 }
@@ -306,14 +308,14 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             if (type_.isEmpty()) {
                 return;
             }
-            resolvedInstance = new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
+            resolvedInstance = new ResolvedInstance(result_);
         } else {
             String idClass_ = StringExpUtil.getIdFromAllTypes(className_).trim();
             String id_ = StringExpUtil.getIdFromAllTypes(sup_);
             type_ = StringUtil.concat(id_,"..",idClass_);
-            RootBlock root_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(type_));
             int begin_ = newKeyWord_.length()+local_;
-            resolvedInstance = new ResolvedInstance(new AnaResultPartType(),new TypeMainDelimiters(root_,_page.getTraceIndex()+begin_,_page.getTraceIndex()+begin_+inferForm_.length()),new CustList<AnaResultPartType>());
+            AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+            resolvedInstance = new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inferForm_,StringExpUtil.getIdFromAllTypes(type_),r_, rc_ +begin_,_page));
         }
         int lt_ = newKeyWord_.length() + local_ + className_.indexOf('<');
         int gt_ = newKeyWord_.length() + local_ + className_.indexOf('>') + 1;
@@ -349,7 +351,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 if (candidates_.onlyOneElt()) {
                     String infer_ = candidates_.first();
 //                    partOffsets.addAllElts(partOffsets_);
-                    resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+lt_, _page.getTraceIndex()+gt_,infer_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -374,7 +376,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 if (candidates_.onlyOneElt()) {
                     String infer_ = candidates_.first();
 //                    partOffsets.addAllElts(partOffsets_);
-                    resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+lt_, _page.getTraceIndex()+gt_,infer_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -405,7 +407,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
 //                partOffsets.addAllElts(partOffsets_);
-                resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+lt_, _page.getTraceIndex()+gt_,infer_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -433,7 +435,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
 //                partOffsets.addAllElts(partOffsets_);
-                resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+lt_, _page.getTraceIndex()+gt_,infer_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -450,7 +452,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             return;
         }
 //        partOffsets.addAllElts(partOffsets_);
-        resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+lt_, _page.getTraceIndex()+gt_,infer_);
+        resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,infer_);
         typeInfer = infer_;
     }
     protected static String tryParamFormatEmpInst(AbstractInstancingOperation _current,NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer, AnalyzedPageEl _page) {

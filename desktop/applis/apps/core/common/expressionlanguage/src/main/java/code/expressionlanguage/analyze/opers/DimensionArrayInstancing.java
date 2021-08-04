@@ -188,13 +188,14 @@ public final class DimensionArrayInstancing extends
         if (type_.isEmpty()) {
             return;
         }
-        resolvedInstance = new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
+        resolvedInstance = new ResolvedInstance(result_);
         int chCount_ = getOperations().getValues().size();
         boolean list_ = false;
         if (m_ instanceof ArgumentListInstancing){
             m_ = m_.getParent().getParent();
             list_ = true;
         }
+        int rc_ = _page.getLocalizer().getCurrentLocationIndex();
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
             String name_ = n_.getName();
@@ -223,7 +224,7 @@ public final class DimensionArrayInstancing extends
                     String infer_ = candidates_.first();
                     int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                     int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -249,7 +250,7 @@ public final class DimensionArrayInstancing extends
                     String infer_ = candidates_.first();
                     int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                     int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -281,7 +282,7 @@ public final class DimensionArrayInstancing extends
                 String infer_ = candidates_.first();
                 int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                 int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -310,7 +311,7 @@ public final class DimensionArrayInstancing extends
                 String infer_ = candidates_.first();
                 int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                 int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -329,7 +330,7 @@ public final class DimensionArrayInstancing extends
         }
         int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
         int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-        resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
+        resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
         typeInfer = infer_;
     }
     private static String tryParamFormatEmp(NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer) {
@@ -357,7 +358,7 @@ public final class DimensionArrayInstancing extends
             int local_ = StringUtil.getFirstPrintableCharIndex(className_);
             AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(new_.length() + local_, className_, _page);
             className_ = result_.getResult(_page);
-            resolvedInstance = new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
+            resolvedInstance = new ResolvedInstance(result_);
         } else {
             className_ = typeInfer;
         }

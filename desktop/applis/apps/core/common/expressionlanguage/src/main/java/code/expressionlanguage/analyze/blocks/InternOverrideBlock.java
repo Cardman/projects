@@ -99,7 +99,7 @@ public final class InternOverrideBlock extends Leaf {
                 int firstPar_ = extValue_.getFirst().length();
                 ResolvedIdType resolvedIdTypeDest_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_+firstPar_+1,fromType_, _page);
                 String cl_ = resolvedIdTypeDest_.getFullName();
-                superPartOffsets_.addAllElts(resolvedIdTypeDest_.getDels());
+                superPartOffsets_.add(resolvedIdTypeDest_.getDels());
                 AnaFormattedRootBlock formInfoDest_ = AnaInherits.getOverridingFullTypeByBases(_root, resolvedIdTypeDest_.getGeneType());
                 if (formInfoDest_ == null) {
                     localSum_ += s.length()+1;
@@ -128,7 +128,7 @@ public final class InternOverrideBlock extends Leaf {
                 }
                 CustList<NamedCalledFunctionBlock> methods_ = formattedType_.getOverridableBlocks();
                 CustList<GeneStringOverridable> list_ = new CustList<GeneStringOverridable>();
-                int rc_ = _page.getTraceIndex();
+                int rc_ = _page.getLocalizer().getCurrentLocationIndex();
                 ClassMethodId id_ = null;
                 AnaTypeFct fct_ = null;
                 for (NamedCalledFunctionBlock m: methods_) {

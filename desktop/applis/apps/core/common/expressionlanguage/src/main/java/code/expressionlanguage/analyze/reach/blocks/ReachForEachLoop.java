@@ -31,7 +31,7 @@ public final class ReachForEachLoop extends ReachBracedBlock implements ReachLoo
         if (Argument.isNullValue(argument_)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_page.getCurrentBlock().getFile().getFileName());
-            static_.setIndexFile(_page.getTraceIndex());
+            static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //separator char
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
                     _page.getAliasNullPe());

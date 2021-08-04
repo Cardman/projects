@@ -21,11 +21,11 @@ public final class Delimiters {
     private final Ints delKeyWordStatic = new Ints();
     private final Ints delKeyWordStaticCall = new Ints();
     private final StringList delKeyWordStaticExtract = new StringList();
-    private final CustList<CustList<AnaResultPartType>> staticParts = new CustList<CustList<AnaResultPartType>>();
+    private final CustList<AnaResultPartType> staticParts = new CustList<AnaResultPartType>();
     private final Ints delExplicit = new Ints();
     private final Ints delCast = new Ints();
     private final StringList delCastExtract = new StringList();
-    private final CustList<CustList<AnaResultPartType>> castParts = new CustList<CustList<AnaResultPartType>>();
+    private final CustList<AnaResultPartType> castParts = new CustList<AnaResultPartType>();
     private final Ints delInstanceof = new Ints();
     private final Ints delLambda = new Ints();
     private final Ints delIds = new Ints();
@@ -91,7 +91,7 @@ public final class Delimiters {
         return delKeyWordStaticExtract;
     }
 
-    public CustList<CustList<AnaResultPartType>> getStaticParts() {
+    public CustList<AnaResultPartType> getStaticParts() {
         return staticParts;
     }
 
@@ -107,7 +107,7 @@ public final class Delimiters {
         return delCastExtract;
     }
 
-    public CustList<CustList<AnaResultPartType>> getCastParts() {
+    public CustList<AnaResultPartType> getCastParts() {
         return castParts;
     }
 

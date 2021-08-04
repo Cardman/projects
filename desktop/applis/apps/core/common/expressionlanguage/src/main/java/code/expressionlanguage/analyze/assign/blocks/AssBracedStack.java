@@ -112,7 +112,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             cst_.setRelativeOffsetPossibleAnalyzable(_page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_page.getTraceIndex());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             un_.buildError(_page.getAnalysisMessages().getFinalField(),
                     str_);
             _page.addLocError(un_);
@@ -137,7 +137,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             cst_.setRelativeOffsetPossibleAnalyzable(_page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_page.getTraceIndex());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             un_.buildError(_page.getAnalysisMessages().getFinalField(),
                     _field);
             _page.addLocError(un_);

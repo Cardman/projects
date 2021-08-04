@@ -33,7 +33,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
         ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(leftPar_, cl_, _page);
         cl_ = resolvedIdType_.getFullName();
-        partOffsets.addAllElts(resolvedIdType_.getDels());
+        partOffsets.add(resolvedIdType_.getDels());
         RootBlock candidate_ = _page.getAnaClassBody(cl_);
         if (!(candidate_ instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();

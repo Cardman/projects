@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
-import code.expressionlanguage.analyze.opers.util.TypeMainDelimiters;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.LinkagePartTypeUtil;
@@ -2448,10 +2447,10 @@ public final class LinkageUtil {
     }
 
     private static void setAnnotState(VariablesOffsets _vars, OperationNode _val) {
-        _vars.setState(prepareAnnot(_vars,_val));
+        _vars.setState(prepareAnnot(_val));
     }
 
-    private static LinkageStackElement prepareAnnot(VariablesOffsets _vars, OperationNode _val) {
+    private static LinkageStackElement prepareAnnot(OperationNode _val) {
         if (_val instanceof AnonymousInstancingOperation) {
             AnonymousInstancingOperation val_ = (AnonymousInstancingOperation) _val;
             AnonymousTypeBlock block_ = val_.getBlock();
@@ -2460,7 +2459,7 @@ public final class LinkageUtil {
             for (AnaResultPartType a: val_.getBlock().getPartsStaticInitInterfacesOffset()) {
                 state_.getPartsAfter().addAllElts(export(a));
             }
-            state_.getPartsAfter().addAllElts(buildByInst(val_,_vars.getCurrentFile()));
+            state_.getPartsAfter().addAllElts(buildByInst(val_));
             return state_;
         }
         SwitchOperation val_ = (SwitchOperation) _val;
@@ -3274,7 +3273,7 @@ public final class LinkageUtil {
                     addParts(_vars, constructor_,
                             beginInst_, lengthInst_,
                             errs_, errs_);
-                    _vars.addParts(buildByInst(inst_,_vars.getCurrentFile()));
+                    _vars.addParts(buildByInst(inst_));
                 } else {
                     StringList mergedErrs_ = new StringList(instStd_.getErrorsFields());
                     mergedErrs_.addAllElts(errs_);
@@ -3284,10 +3283,10 @@ public final class LinkageUtil {
             }
         }
         if (_val instanceof DimensionArrayInstancing) {
-            _vars.addParts(buildByInst(_vars.getCurrentFile(), ((DimensionArrayInstancing)_val).getPartOffsets(),((DimensionArrayInstancing)_val).getTypeInfer()));
+            _vars.addParts(buildByInst(((DimensionArrayInstancing)_val).getPartOffsets(),((DimensionArrayInstancing)_val).getTypeInfer()));
         }
         if (_val instanceof ElementArrayInstancing) {
-            _vars.addParts(buildByInst(_vars.getCurrentFile(), ((ElementArrayInstancing)_val).getPartOffsets(), ((ElementArrayInstancing)_val).getTypeInfer()));
+            _vars.addParts(buildByInst(((ElementArrayInstancing)_val).getPartOffsets(), ((ElementArrayInstancing)_val).getTypeInfer()));
             _vars.addParts(convert(((ElementArrayInstancing)_val).getPartOffsetsErr()));
         }
     }
@@ -3297,22 +3296,20 @@ public final class LinkageUtil {
         LinkagePartTypeUtil.processAnalyzeConstraintsRepParts(_analyzed,out_);
         return out_;
     }
-    private static CustList<PartOffset> buildByInst(AbstractInstancingOperation _inst, FileBlock _file) {
-        return buildByInst(_file, _inst.getResolvedInstance(), _inst.getTypeInfer());
+    private static CustList<PartOffset> buildByInst(AbstractInstancingOperation _inst) {
+        return buildByInst(_inst.getResolvedInstance(), _inst.getTypeInfer());
     }
 
-    private static CustList<PartOffset> buildByInst(FileBlock _file, ResolvedInstance _resolvedInstance, String _typeInfer) {
+    private static CustList<PartOffset> buildByInst(ResolvedInstance _resolvedInstance, String _typeInfer) {
         CustList<PartOffset> out_ = new CustList<PartOffset>();
         AnaResultPartType result_ = _resolvedInstance.getResult();
         LinkagePartTypeUtil.processAnalyzeConstraintsRepParts(result_,out_);
-        TypeMainDelimiters del_ = _resolvedInstance.getInterType();
-        AnaGeneType interType_ = del_.getInterType();
-        appendParts(del_.getBegin(),del_.getEnd(),interType_,out_, _file);
-        for (AnaResultPartType p: _resolvedInstance.getParts()) {
-            LinkagePartTypeUtil.processAnalyzeConstraintsRepParts(p,out_);
-        }
         if (!_typeInfer.isEmpty() && _resolvedInstance.isInferred()) {
             appendTitleParts(_resolvedInstance.getLt(), _resolvedInstance.getGt(), _resolvedInstance.getInfer(),out_);
+        } else {
+            for (AnaResultPartType p: _resolvedInstance.getParts()) {
+                LinkagePartTypeUtil.processAnalyzeConstraintsRepParts(p,out_);
+            }
         }
         return out_;
     }
@@ -3343,7 +3340,7 @@ public final class LinkageUtil {
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),begin_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordStatic().length()));
             }
-            addTypes(_vars,((StaticAccessOperation)_val).getPartOffsets());
+            _vars.addParts(export(((StaticAccessOperation)_val).getPartOffsets()));
         }
         if (_val instanceof StaticCallAccessOperation) {
             if (!_val.getErrs().isEmpty()) {
@@ -3351,7 +3348,7 @@ public final class LinkageUtil {
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),begin_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+ _vars.getKeyWords().getKeyWordStaticCall().length()));
             }
-            _vars.addParts(buildByInst(_vars.getCurrentFile(), ((StaticCallAccessOperation)_val).getPartOffsets(), ((StaticCallAccessOperation)_val).getStCall()));
+            _vars.addParts(buildByInst(((StaticCallAccessOperation)_val).getPartOffsets(), ((StaticCallAccessOperation)_val).getStCall()));
         }
         if (_val instanceof ThisOperation && !_val.getErrs().isEmpty()) {
             int begin_ = _sum + _val.getIndexInEl();
@@ -3678,7 +3675,7 @@ public final class LinkageUtil {
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)),i_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,i_+l_));
             }
-            addTypes(_vars,((CastOperation) _val).getPartOffsets());
+            _vars.addParts(export(((CastOperation) _val).getPartOffsets()));
         }
         if (_val instanceof ExplicitOperation) {
             int offsetOp_ = _val.getOperations().getOperators().firstKey();
@@ -4342,15 +4339,6 @@ public final class LinkageUtil {
         }
         list_.add(new PartOffset(ExportCst.END_ANCHOR,_info.getBegin()+_info.getLength()));
         return list_;
-    }
-
-    private static void appendParts(int _begin, int _end, AnaGeneType _in, CustList<PartOffset> _parts, FileBlock _curBl) {
-        if (!ContextUtil.isFromCustFile(_in)) {
-            return;
-        }
-        int id_ = ((RootBlock) _in).getIdRowCol();
-        _parts.add(new PartOffset(ExportCst.anchorRef(_in.getFullName(), _curBl,((RootBlock) _in).getFile(),id_),_begin));
-        _parts.add(new PartOffset(ExportCst.END_ANCHOR,_end));
     }
 
     private static void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {

@@ -81,11 +81,6 @@ public final class ExportCst {
                 +title(_title)
                 +END;
     }
-    public static String anchorRef(String _title, FileBlock _currentFileName, FileBlock _file, int _offset) {
-        return BEGIN_ANCHOR+SEP_ATTR
-                +title(_title)+SEP_ATTR
-                + href(_currentFileName, _file, _offset)+END;
-    }
 
     public static String anchorRef(int _ref) {
         return BEGIN_ANCHOR+SEP_ATTR

@@ -2,18 +2,12 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InterfacesPart;
-import code.expressionlanguage.analyze.blocks.InfoBlock;
-import code.expressionlanguage.analyze.blocks.InnerTypeOrElement;
-import code.expressionlanguage.analyze.blocks.RecordBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
@@ -101,7 +95,7 @@ public final class StandardInstancingOperation extends
                 AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(0, realClassName_, _page);
                 realClassName_ = result_.getResult(_page);
 //                getPartOffsets().addAllElts(_page.getCurrentParts());
-                setResolvedInstance(new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>()));
+                setResolvedInstance(new ResolvedInstance(result_));
             } else {
                 realClassName_ = realClassName_.trim();
             }
@@ -182,7 +176,8 @@ public final class StandardInstancingOperation extends
             offset_ += a.length() + 1;
         }
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-        setResolvedInstance(new ResolvedInstance(new AnaResultPartType(),new TypeMainDelimiters(root_,_page.getTraceIndex(),_page.getTraceIndex()+idClass_.length()),results_));
+        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        setResolvedInstance(new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,inner_,r_,_page.getLocalizer().getCurrentLocationIndex(),_page), results_));
         realClassName_ = check(root_,StringUtil.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
         analyzeCtor(realClassName_, varargParam_, _page);
     }

@@ -56,7 +56,7 @@ final class AfterUnaryParts {
     private final StackOperators parsBrackets = new StackOperators();
     private int prio = ElResolver.FCT_OPER_PRIO;
     private String extracted = "";
-    private final CustList<AnaResultPartType> partsOffs = new CustList<AnaResultPartType>();
+    private AnaResultPartType partsOffs = new AnaResultPartType();
     private int index;
 
     private boolean enPars = true;
@@ -106,7 +106,7 @@ final class AfterUnaryParts {
             operators.addEntry(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             int ext_ = min_ / 2;
             extracted = _d.getDelCastExtract().get(ext_);
-            partsOffs.addAllElts(_d.getCastParts().get(ext_));
+            partsOffs = _d.getCastParts().get(ext_);
             index = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
             return;
         }
@@ -705,7 +705,7 @@ final class AfterUnaryParts {
         return index;
     }
 
-    CustList<AnaResultPartType> getPartsOffs() {
+    AnaResultPartType getPartsOffs() {
         return partsOffs;
     }
 

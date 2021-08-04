@@ -225,7 +225,7 @@ public final class AnaTypeUtil {
                 FoundErrorInterpret enum_;
                 enum_ = new FoundErrorInterpret();
                 enum_.setFileName(d_);
-                enum_.setIndexFile(_page.getTraceIndex());
+                enum_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //original id len
                 enum_.buildError(_page.getAnalysisMessages().getCallIntNoNeed(),
                         c.getFullName());
@@ -243,13 +243,13 @@ public final class AnaTypeUtil {
                 ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(0, ints_.get(i), _page);
                 resolvedIdTypes_.add(resolvedIdType_);
                 String base_ = resolvedIdType_.getFullName();
-                c.getPartsStaticInitInterfacesOffset().addAllElts(resolvedIdType_.getDels());
+                c.getPartsStaticInitInterfacesOffset().add(resolvedIdType_.getDels());
                 RootBlock r_ = _page.getAnaClassBody(base_);
                 if (!(r_ instanceof InterfaceBlock)) {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
                     enum_.setFileName(d_);
-                    enum_.setIndexFile(_page.getTraceIndex());
+                    enum_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //interface len
                     enum_.buildError(_page.getAnalysisMessages().getCallIntOnly(),
                             base_);

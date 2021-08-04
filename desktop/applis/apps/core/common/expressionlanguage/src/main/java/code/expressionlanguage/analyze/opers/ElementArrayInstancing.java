@@ -67,7 +67,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             String res_ = resType_.getResult();
             String comp_ = StringExpUtil.getQuickComponentType(res_);
             if (comp_ != null) {
-                resolvedInstance = new ResolvedInstance(resType_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
+                resolvedInstance = new ResolvedInstance(resType_);
                 typeInfer = res_;
                 setClassName(comp_);
             }
@@ -78,7 +78,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         if (type_.isEmpty()) {
             return;
         }
-        resolvedInstance = new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0),new CustList<AnaResultPartType>());
+        resolvedInstance = new ResolvedInstance(result_);
 
         int dimArr_ = dim_.getDim();
         if (dimArr_ == 0) {
@@ -90,6 +90,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             list_ = true;
             m_ = m_.getParent().getParent();
         }
+        int rc_ = _page.getLocalizer().getCurrentLocationIndex();
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
             String name_ = n_.getName();
@@ -118,7 +119,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                     String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
                     int begin_ = new_.length()+local_+className_.indexOf('<');
                     int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                    resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
                     typeInfer = infer_;
                     setClassName(StringExpUtil.getQuickComponentType(infer_));
                 }
@@ -145,7 +146,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                     String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
                     int begin_ = new_.length()+local_+className_.indexOf('<');
                     int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                    resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
                     typeInfer = infer_;
                     setClassName(StringExpUtil.getQuickComponentType(infer_));
                 }
@@ -178,7 +179,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
                 int begin_ = new_.length()+local_+className_.indexOf('<');
                 int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
                 typeInfer = infer_;
                 setClassName(StringExpUtil.getQuickComponentType(infer_));
             }
@@ -208,7 +209,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dimArr_);
                 int begin_ = new_.length()+local_+className_.indexOf('<');
                 int end_ = new_.length()+local_+className_.indexOf('>')+1;
-                resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,infer_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
                 typeInfer = infer_;
                 setClassName(StringExpUtil.getQuickComponentType(infer_));
             }
@@ -229,7 +230,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         String arr_ = StringExpUtil.getPrettyArrayType(infer_, dimArr_);
         int begin_ = new_.length()+local_+className_.indexOf('<');
         int end_ = new_.length()+local_+className_.indexOf('>')+1;
-        resolvedInstance = new ResolvedInstance(resolvedInstance,_page.getTraceIndex()+begin_,_page.getTraceIndex()+end_,arr_);
+        resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,arr_);
         typeInfer = arr_;
         setClassName(StringExpUtil.getQuickComponentType(arr_));
     }
@@ -247,7 +248,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         if (typeInfer.isEmpty()) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(className_);
             AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(new_.length() + loc_, className_, _page);
-            resolvedInstance = new ResolvedInstance(result_,new TypeMainDelimiters(null,0,0), new CustList<AnaResultPartType>());
+            resolvedInstance = new ResolvedInstance(result_);
             className_ = result_.getResult(_page);
         } else {
             className_ = typeInfer;

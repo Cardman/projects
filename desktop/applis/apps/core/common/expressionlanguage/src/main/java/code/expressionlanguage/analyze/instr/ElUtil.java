@@ -248,7 +248,7 @@ public final class ElUtil {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
                     b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
-                    b_.setIndexFile(_page.getTraceIndex());
+                    b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
                     _page.addLocError(b_);
                     _current.addErr(b_.getBuiltError());
@@ -259,7 +259,7 @@ public final class ElUtil {
                         FoundErrorInterpret b_;
                         b_ = new FoundErrorInterpret();
                         b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
-                        b_.setIndexFile(_page.getTraceIndex());
+                        b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                         b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
                         _page.addLocError(b_);
                         _current.addErr(b_.getBuiltError());

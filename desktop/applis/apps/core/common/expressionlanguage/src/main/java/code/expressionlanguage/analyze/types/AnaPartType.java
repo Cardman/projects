@@ -56,16 +56,6 @@ abstract class AnaPartType {
         }
         return buildPar(_parent, _index, _indexInType, _analyze);
     }
-    static AnaPartType createRootAnalyzedNamedPartType(String _value, String _solved) {
-        AnaPartType named_ = createRootAnalyzedNamedPartType(_value);
-        named_.setAnalyzedType(_solved);
-        return named_;
-    }
-    static AnaPartType createRootAnalyzedNamedPartType(String _value) {
-        String str_ = ".";
-        String type_ = _value.trim();
-        return new AnaNamePartType(null, 0, 0, type_, str_);
-    }
     static AnaPartType createPartType(AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, String _value) {
         if (_analyze.isError()) {
             return new AnaEmptyPartType(_parent, _index, _indexInType, _value,"");
@@ -191,6 +181,13 @@ abstract class AnaPartType {
 
     StringList getErrs() {
         return errs;
+    }
+    void errs(AnaPartType _part) {
+        errs(_part.errs);
+    }
+    void errs(StringList _errs) {
+        errs.clear();
+        errs.addAllElts(_errs);
     }
 
     CustList<InaccessibleType> getInaccessibleTypes() {

@@ -7,11 +7,10 @@ import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public final class StaticAccessOperation extends LeafOperation {
-    private CustList<AnaResultPartType> partOffsets;
+    private AnaResultPartType partOffsets;
     public StaticAccessOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
@@ -41,7 +40,7 @@ public final class StaticAccessOperation extends LeafOperation {
             partOffsets = resolvedIdType_.getDels();
         } else {
             classStr_ = glClass_;
-            partOffsets = new CustList<AnaResultPartType>();
+            partOffsets = new AnaResultPartType();
         }
         classStr_ = emptyToObject(classStr_, _page);
         checkClassAccess(glClass_, classStr_, _page);
@@ -50,7 +49,7 @@ public final class StaticAccessOperation extends LeafOperation {
         setResultClass(new AnaClassArgumentMatching(classStr_));
     }
 
-    public CustList<AnaResultPartType> getPartOffsets() {
+    public AnaResultPartType getPartOffsets() {
         return partOffsets;
     }
 }

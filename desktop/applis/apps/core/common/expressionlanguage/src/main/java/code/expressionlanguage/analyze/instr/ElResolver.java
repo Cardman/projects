@@ -448,7 +448,7 @@ public final class ElResolver {
             _d.getDelCast().add(i_);
             _d.getDelCast().add(indexParRight_);
             _d.getDelCastExtract().add(EMPTY_STRING);
-            _d.getCastParts().add(new CustList<AnaResultPartType>());
+            _d.getCastParts().add(new AnaResultPartType());
             i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
             return;
@@ -634,7 +634,7 @@ public final class ElResolver {
             }
             if (isKeySt_) {
                 _d.getDelKeyWordStaticExtract().add(EMPTY_STRING);
-                _d.getStaticParts().add(new CustList<AnaResultPartType>());
+                _d.getStaticParts().add(new AnaResultPartType());
             }
             _out.setNextIndex(i_);
             return;
@@ -1594,7 +1594,7 @@ public final class ElResolver {
                     _dout.getDelCast().add(j_);
                     _dout.getDelCast().add(indexParRight_);
                     _dout.getDelCastExtract().add(EMPTY_STRING);
-                    _dout.getCastParts().add(new CustList<AnaResultPartType>());
+                    _dout.getCastParts().add(new AnaResultPartType());
                     j_ = indexParRight_ + 1;
                     continue;
                 }
@@ -2084,7 +2084,7 @@ public final class ElResolver {
         op_.setupValues(_string, is_, instance_, laterIndexesDouble_);
         String extracted_ = af_.getExtracted();
         op_.setExtractType(extracted_);
-        CustList<AnaResultPartType> partsOffs_ = af_.getPartsOffs();
+        AnaResultPartType partsOffs_ = af_.getPartsOffs();
         op_.setPartOffsets(partsOffs_);
         op_.setDelimiter(_d);
         return op_;
@@ -2177,7 +2177,7 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STATIC_CALL_ACCESS);
-            op_.setPartOffsets(new CustList<AnaResultPartType>());
+            op_.setPartOffsets(new AnaResultPartType());
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
@@ -2481,7 +2481,7 @@ public final class ElResolver {
             _d.getDelCast().add(indexParRight_);
             String typeOut_ = resType_.getResult();
             _d.getDelCastExtract().add(typeOut_);
-            _d.getCastParts().add(new CustList<AnaResultPartType>(resType_));
+            _d.getCastParts().add(resType_);
             return indexParRight_ + 1;
         }
         return _from;

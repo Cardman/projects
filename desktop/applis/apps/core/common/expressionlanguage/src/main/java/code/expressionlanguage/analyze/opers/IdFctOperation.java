@@ -79,7 +79,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
             String fromType_ = firstFull_.trim();
             ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_ + className.indexOf('(') + 1, fromType_, _page);
             cl_ = resolvedIdType_.getFullName();
-            partOffsets.addAllElts(resolvedIdType_.getDels());
+            partOffsets.add(resolvedIdType_.getDels());
             if (cl_.isEmpty()) {
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;

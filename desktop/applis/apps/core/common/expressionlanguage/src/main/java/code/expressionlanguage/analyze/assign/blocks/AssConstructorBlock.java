@@ -55,7 +55,7 @@ public final class AssConstructorBlock extends AssNamedFunctionBlock {
             //error
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_page.getCurrentBlock().getFile().getFileName());
-            un_.setIndexFile(_page.getTraceIndex());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                     name_,cl_);
             _page.addLocError(un_);
