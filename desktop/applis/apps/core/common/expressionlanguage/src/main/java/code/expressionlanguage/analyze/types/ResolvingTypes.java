@@ -24,10 +24,6 @@ public final class ResolvingTypes {
     }
 
     public static AnaResultPartType resolveAccessibleIdTypeWithoutError(int _loc, String _in, AnalyzedPageEl _page) {
-        String void_ = _page.getAliasVoid();
-        if (StringUtil.quickEq(_in.trim(), void_)) {
-            return new AnaResultPartType(_in,_loc, _page.getAnalysisMessages(), null);
-        }
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
         int rc_ = _page.getLocalizer().getCurrentLocationIndex()+_loc;
         AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);

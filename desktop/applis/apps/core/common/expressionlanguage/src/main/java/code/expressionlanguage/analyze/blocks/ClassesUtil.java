@@ -1599,7 +1599,7 @@ public final class ClassesUtil {
             for (TypeVar t: s.getParamTypesMapValues()) {
                 map_.put(t.getName(), t.getConstraints());
             }
-            for (TypeVar t: s.getParamTypesMapValues()) {
+            for (TypeVar t: s.getParamTypes()) {
                 for (AnaResultPartType b: t.getResults()) {
                     if (!AnaPartTypeUtil.processAnalyzeConstraintsCore(b, map_, true, _page)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();

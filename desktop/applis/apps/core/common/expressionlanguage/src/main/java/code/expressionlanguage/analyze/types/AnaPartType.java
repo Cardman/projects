@@ -153,7 +153,7 @@ abstract class AnaPartType {
     void processFound(AnalyzedPageEl _page) {
         String imported_ = getAnalyzedType();
         String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
-        foundType = _page.getAnaGeneType(idCl_);
+        setFoundType(_page.getAnaGeneType(idCl_));
     }
 
     void foundType(AnaPartType _part) {
@@ -161,6 +161,10 @@ abstract class AnaPartType {
     }
     AnaGeneType getFoundType() {
         return foundType;
+    }
+
+    void setFoundType(AnaGeneType _foundType) {
+        this.foundType = _foundType;
     }
 
     AnalysisMessages getMessages() {

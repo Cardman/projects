@@ -351,7 +351,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     int i_ = 0;
                     for (String c: t.getConstraints()) {
                         int d_ = ints_.get(i_);
-                        AnaResultPartType res_ = ResolvingSuperTypes.resolveTypeMapping(c.trim(), this, 1 + d_, _page);
+                        AnaResultPartType res_ = ResolvingSuperTypes.processAnalyzeHeader(c.trim(), this, 1 + d_, _page, false);
                         results_.add(res_);
                         const_.add(res_.getResult());
                         i_++;
@@ -1235,9 +1235,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 result_ = value_;
             } else {
                 int off_ = StringUtil.getFirstPrintableCharIndex(value_);
-                AnaResultPartType s_ = ResolvingSuperTypes.resolveTypeInherits(value_.trim(), this, off_ + index_, _page);
-                result_ = s_.getResult();
-                results.add(s_);
+                AnaResultPartType resType_ = ResolvingSuperTypes.processAnalyzeHeader(value_.trim(), this, off_ + index_, _page, true);
+                ResolvingSuperTypes.loopWildCards(this, off_ + index_, _page, resType_);
+                result_ = resType_.getResult();
+                results.add(resType_);
             }
             String base_ = StringExpUtil.getIdFromAllTypes(result_);
             RootBlock r_ = _page.getAnaClassBody(base_);
