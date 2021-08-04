@@ -36,8 +36,8 @@ public final class LinkagePartTypeUtil {
     }
 
     public static void processAnalyzeConstraintsRepParts(AnaResultPartType _className, CustList<PartOffset> _parts) {
-        AnaPartType root_ = _className.getPartType();
-        if (root_ == null) {
+        PreLinkagePartTypeUtil.processAnalyzeConstraintsRepErrs(_className);
+        if (_className.isGenerated()) {
             int loc_ = _className.getLoc();
             String input_ = _className.getInput();
             if (input_.isEmpty()) {
@@ -56,6 +56,7 @@ public final class LinkagePartTypeUtil {
             _parts.add(new PartOffset(ExportCst.END_ANCHOR, loc_ + 1));
             return;
         }
+        AnaPartType root_ = _className.getPartType();
         appendParts(root_, _parts);
     }
 

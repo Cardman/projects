@@ -1609,7 +1609,7 @@ public final class ClassesUtil {
                         un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
                                 b.getResult());
                         _page.addLocError(un_);
-                        s.addNameErrors(un_);
+//                        s.addNameErrors(un_);
                     }
                 }
             }
@@ -1621,7 +1621,7 @@ public final class ClassesUtil {
                     // char : before super type
                     buildErr(_page, t, un_);
                     _page.addLocError(un_);
-                    s.addNameErrors(un_);
+//                    s.addNameErrors(un_);
                 }
             }
 //            for (AnaResultPartType t: s.getResults()) {

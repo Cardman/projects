@@ -2,13 +2,14 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 
 final class AnaInnerPartType extends AnaBinaryType {
 
-    AnaInnerPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators) {
-        super(_parent, _index, _indexInType,_operators);
+    AnaInnerPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators, AnalysisMessages _messages) {
+        super(_parent, _index, _indexInType,_operators, _messages);
     }
 
     @Override

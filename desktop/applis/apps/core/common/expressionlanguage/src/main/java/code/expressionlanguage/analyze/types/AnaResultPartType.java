@@ -2,26 +2,32 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.util.StringList;
 
 public final class AnaResultPartType {
     private final String input;
     private final int loc;
-    private final String result;
     private final AnaPartType partType;
     private final AccessedBlock rooted;
-    private final StringList errs = new StringList();
+    private final boolean generated;
     private boolean ok;
 
     public AnaResultPartType() {
-        this("",0,"",null,null);
+        this("",0, AnaPartType.createErrorType(),null, true);
     }
 
-    public AnaResultPartType(String _input, int _loc,String _result, AnaPartType _partType, AccessedBlock _rooted) {
+    public AnaResultPartType(String _input, int _loc, AnalysisMessages _page, AccessedBlock _rooted) {
+        this(_input, _loc, AnaPartType.createErrorType(_input, _page), _rooted, true);
+    }
+    public AnaResultPartType(String _input, int _loc, AnaPartType _partType, AccessedBlock _rooted) {
+        this(_input,_loc, _partType,_rooted,false);
+    }
+    public AnaResultPartType(String _input, int _loc, AnaPartType _partType, AccessedBlock _rooted, boolean _generated) {
         input = _input;
         loc = _loc;
-        result = _result;
         partType = _partType;
+        generated = _generated;
         rooted = _rooted;
     }
 
@@ -37,6 +43,10 @@ public final class AnaResultPartType {
         return rooted;
     }
 
+    public boolean isGenerated() {
+        return generated;
+    }
+
     public AnaPartType getPartType() {
         return partType;
     }
@@ -48,14 +58,15 @@ public final class AnaResultPartType {
         return getResult();
     }
     public String getResult() {
-        if (partType != null) {
-            return partType.getAnalyzedType();
-        }
-        return result;
+        return partType.getAnalyzedType();
     }
 
     public StringList getErrs() {
-        return errs;
+        return partType.getErrs();
+    }
+
+    public void errs(StringList _errs) {
+        partType.errs(_errs);
     }
 
     public boolean isOk() {

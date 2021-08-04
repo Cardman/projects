@@ -1200,7 +1200,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (int i = 0; i < len_; i++) {
             int index_ = rcs_.getKey(i);
             String value_ = rcs_.getValue(i);
-            AnaResultPartType s_;
+            String result_;
             if (this instanceof InnerElementBlock) {
                 int o_ = 1;
                 boolean ok_ = true;
@@ -1208,10 +1208,18 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 StringList allTypes_ = StringExpUtil.getAllTypes(value_);
                 for (String p: allTypes_.mid(1)) {
                     int loc_ = StringUtil.getFirstPrintableCharIndex(p);
-                    AnaResultPartType resType_ = ResolvingSuperTypes.typeArguments(p.trim(), this, o_ + loc_, _page);
-                    if (resType_ != null) {
+                    String trim_ = p.trim();
+                    if (!trim_.isEmpty()) {
+                        AnaResultPartType resType_ = ResolvingSuperTypes.processAnalyzeHeader(trim_,this, o_ + loc_, _page,true);
                         j_.add(resType_.getResult());
                     } else {
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
+                        un_.setFileName(getFile().getFileName());
+                        un_.setIndexFile(o_ + loc_);
+                        //_in len
+                        un_.buildError(_page.getAnalysisMessages().getEmptyType());
+                        _page.addLocError(un_);
+                        addNameErrors(un_);
                         ok_ =  false;
                     }
                     o_ += p.length() + 1;
@@ -1222,15 +1230,15 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 } else {
                     res_ = _page.getAliasObject();
                 }
-                s_ = new AnaResultPartType(value_,index_,res_,null,null);
+                result_ = res_;
             } else if (index_ < 0){
-                s_ = new AnaResultPartType(value_,index_,value_,null, null);
+                result_ = value_;
             } else {
                 int off_ = StringUtil.getFirstPrintableCharIndex(value_);
-                s_ = ResolvingSuperTypes.resolveTypeInherits(value_.trim(), this, off_+index_, _page);
+                AnaResultPartType s_ = ResolvingSuperTypes.resolveTypeInherits(value_.trim(), this, off_ + index_, _page);
+                result_ = s_.getResult();
                 results.add(s_);
             }
-            String result_ = s_.getResult();
             String base_ = StringExpUtil.getIdFromAllTypes(result_);
             RootBlock r_ = _page.getAnaClassBody(base_);
             if (this instanceof AnnotationBlock||r_ instanceof InterfaceBlock) {

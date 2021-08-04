@@ -368,9 +368,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type cannot be the key word $void.\n" +
-                "\n" +
-                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type cannot be the key word $void.\" class=\"e\">pkg.MyClass</a>:<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a> {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -564,9 +562,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The super types of the type pkg.MyClass could not be found.\n" +
-                "\n" +
-                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"The type MySupOne,MySupTwo is unknown.\" class=\"e\">MySupOne,MySupTwo</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The super types of the type pkg.MyClass could not be found.\" class=\"e\">pkg.MyClass</a>:<a title=\"The type MySupOne,MySupTwo is unknown.\" class=\"e\">MySupOne,MySupTwo</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m64\">pkg.MySupOne</a> {\n" +
                 "}\n" +
@@ -585,7 +581,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MySup is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"The type pkg.MySup is not parameterized correctly.\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a>:<a title=\"The type pkg.MySup is not parameterized correctly.\n" +
                 "\n" +
                 "pkg.MySup\" href=\"#m52\" class=\"e\">MySup</a> {\n" +
                 "}\n" +
@@ -606,7 +602,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MySup&lt;java.lang.Integer&gt; is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"pkg.MySup\" href=\"#m61\">MySup</a><a title=\"The type pkg.MySup&lt;java.lang.Integer&gt; is not parameterized correctly.\" class=\"e\">&lt;</a>Integer&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a>:<a title=\"pkg.MySup\" href=\"#m61\">MySup</a><a title=\"The type pkg.MySup&lt;java.lang.Integer&gt; is not parameterized correctly.\" class=\"e\">&lt;</a>Integer&gt; {\n" +
                 "}\n" +
                 "$public $class <a name=\"m61\">pkg.MySup</a>&lt;<a name=\"m71\">T</a>:<a title=\"pkg.MyCl\" href=\"#m98\">MyCl</a>&gt; {\n" +
                 "}\n" +
@@ -687,11 +683,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "\n" +
                 "The super types of the type pkg.MySub could not be found.\n" +
                 "\n" +
-                "The generic super types pkg.MyInt&lt;java.lang.String&gt;&amp;pkg.MyInt&lt;java.lang.Object&gt; are duplicated.\n" +
-                "\n" +
-                "The type pkg.MyInt&lt;java.lang.String&gt; is not parameterized correctly.\n" +
-                "\n" +
-                "The type pkg.MyInt&lt;java.lang.Object&gt; is not parameterized correctly.\" class=\"e\">pkg.MySub</a>:<a title=\"pkg.MyInt\" href=\"#m76\">MyInt</a>&lt;String<a title=\"The type pkg.MyInt is not parameterized correctly.\" class=\"e\">&gt;</a>:<a title=\"pkg.MyInt\" href=\"#m76\">MyInt</a>&lt;Object<a title=\"The type pkg.MyInt is not parameterized correctly.\" class=\"e\">&gt;</a> {\n" +
+                "The generic super types pkg.MyInt&lt;java.lang.String&gt;&amp;pkg.MyInt&lt;java.lang.Object&gt; are duplicated.\" class=\"e\">pkg.MySub</a>:<a title=\"pkg.MyInt\" href=\"#m76\">MyInt</a>&lt;String<a title=\"The type pkg.MyInt is not parameterized correctly.\" class=\"e\">&gt;</a>:<a title=\"pkg.MyInt\" href=\"#m76\">MyInt</a>&lt;Object<a title=\"The type pkg.MyInt is not parameterized correctly.\" class=\"e\">&gt;</a> {\n" +
                 "}\n" +
                 "$public $interface <a name=\"m76\">pkg.MyInt</a> {\n" +
                 "}\n" +
@@ -747,7 +739,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MySub</a>:<a title=\"pkg.MyInt\" href=\"#m56\">MyInt</a><a title=\"The type MyInt&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a>:<a title=\"pkg.MyInt\" href=\"#m56\">MyInt</a><a title=\"The type MyInt&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt; {\n" +
                 "}\n" +
                 "$public $interface <a name=\"m56\">pkg.MyInt</a>&lt;<a name=\"m66\">T</a>&gt; {\n" +
                 "}\n" +
@@ -763,7 +755,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MySub</a>:<a title=\"pkg.MyInt\" href=\"#m57\">MyInt</a><a title=\"The type MyInt&lt;!&gt; is unknown.\" class=\"e\">&lt;</a>!&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a>:<a title=\"pkg.MyInt\" href=\"#m57\">MyInt</a><a title=\"The type MyInt&lt;!&gt; is unknown.\" class=\"e\">&lt;</a>!&gt; {\n" +
                 "}\n" +
                 "$public $interface <a name=\"m57\">pkg.MyInt</a>&lt;<a name=\"m67\">T</a>&gt; {\n" +
                 "}\n" +
@@ -5046,9 +5038,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"There must be a type.\n" +
-                "\n" +
-                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>&lt;<a name=\"m27\">T</a>:&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"There must be a type.\" class=\"e\">pkg.MyClass</a>&lt;<a name=\"m27\">T</a>:&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -5064,11 +5054,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "\n" +
                 "There must be a type.\n" +
                 "\n" +
-                "There must be a type.\n" +
-                "\n" +
-                "The type java.lang.Object is not parameterized correctly.\n" +
-                "\n" +
-                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:: {\n" +
+                "There must be a type.\" class=\"e\">pkg.MyClass</a>:: {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -5082,9 +5068,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The super types of the type pkg.MyClass could not be found.\n" +
                 "\n" +
-                "There must be a type.\n" +
-                "\n" +
-                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>: {\n" +
+                "There must be a type.\" class=\"e\">pkg.MyClass</a>: {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -12204,7 +12188,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a>&lt;<a name=\"m27\">T</a>&gt;{\n" +
                 " $public $class <a name=\"m47\">Inner</a>{\n" +
                 " }\n" +
-                " $public $class <a name=\"m73\" title=\"The type pkg.MyClass..Inner is not parameterized correctly.\" class=\"e\">InnerTwo</a>:<a title=\"pkg.MyClass\" href=\"#m15\">MyClass</a><a title=\"The type pkg.MyClass..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyClass..Inner\" href=\"#m47\">Inner</a>{\n" +
+                " $public $class <a name=\"m73\">InnerTwo</a>:<a title=\"pkg.MyClass\" href=\"#m15\">MyClass</a><a title=\"The type pkg.MyClass..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyClass..Inner\" href=\"#m47\">Inner</a>{\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

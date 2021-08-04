@@ -21,12 +21,11 @@ final class AnaNamePartType extends AnaLeafPartType {
     private int value;
     private boolean buildRef;
     private boolean voidType;
-    private AnaGeneType foundType;
     private FileBlock currentFile;
     private FileBlock refFileName;
     private String gl = "";
-    AnaNamePartType(AnaParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator) {
-        super(_parent, _index, _indexInType, _type, _previousSeparator);
+    AnaNamePartType(AnaParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator, AnalysisMessages _messages) {
+        super(_parent, _index, _indexInType, _type, _previousSeparator, _messages);
     }
 
     @Override
@@ -155,12 +154,12 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void processInexistType(String _in, AnalysisMessages _analysisMessages) {
+    void processInexistType(String _in, StringList _errs) {
         if (!voidType) {
-            super.processInexistType(_in, _analysisMessages);
+            super.processInexistType(_in, _errs);
             return;
         }
-        getErrs().add(FoundErrorInterpret.buildARError(_analysisMessages.getVoidType(),_in.trim()));
+        _errs.add(FoundErrorInterpret.buildARError(getMessages().getVoidType(),_in.trim()));
     }
 
     private void tryAnalyzeInnerParts(AccessedBlock _local,
@@ -407,23 +406,22 @@ final class AnaNamePartType extends AnaLeafPartType {
         setAnalyzedType(out_);
     }
 
+    void setVoidType(boolean _voidType) {
+        this.voidType = _voidType;
+    }
+
     void processOffsets(AccessedBlock _rooted) {
 //        AnaGeneType g_ = _page.getAnaGeneType(idCl_);
-        if (ContextUtil.isFromCustFile(foundType)) {
-            int id_ = ((RootBlock) foundType).getIdRowCol();
+        if (ContextUtil.isFromCustFile(getFoundType())) {
+            int id_ = ((RootBlock) getFoundType()).getIdRowCol();
             String imported_ = getAnalyzedType();
             String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
             setTitleRef(idCl_);
             value = id_;
             buildRef = true;
             currentFile = ((AbsBk)_rooted).getFile();
-            refFileName = ((RootBlock) foundType).getFile();
+            refFileName = ((RootBlock) getFoundType()).getFile();
         }
-    }
-    void processFound(AnalyzedPageEl _page) {
-        String imported_ = getAnalyzedType();
-        String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
-        foundType = _page.getAnaGeneType(idCl_);
     }
 
     String getTitleRef() {
@@ -450,9 +448,9 @@ final class AnaNamePartType extends AnaLeafPartType {
         return refFileName;
     }
 
-    void processInaccessibleOffsets(AnalysisMessages _analysisMessages) {
+    void processInaccessibleOffsets(StringList _errs) {
         for (InaccessibleType i: getInaccessibleTypes()) {
-            getErrs().add(FoundErrorInterpret.buildARError(_analysisMessages.getInaccessibleType(),
+            _errs.add(FoundErrorInterpret.buildARError(getMessages().getInaccessibleType(),
                     i.getType(),gl));
         }
     }

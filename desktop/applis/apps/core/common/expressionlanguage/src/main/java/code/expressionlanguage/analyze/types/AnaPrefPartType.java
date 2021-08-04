@@ -2,14 +2,15 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.maths.litteralcom.StrTypes;
 
 abstract class AnaPrefPartType extends AnaParentPartType {
 
     private final String prefix;
-    AnaPrefPartType(AnaParentPartType _parent, int _index, int _indexInType, String _prefix, StrTypes _operators) {
-        super(_parent, _index, _indexInType,_operators);
+    AnaPrefPartType(AnaParentPartType _parent, int _index, int _indexInType, String _prefix, StrTypes _operators, AnalysisMessages _messages) {
+        super(_parent, _index, _indexInType,_operators, _messages);
         prefix = _prefix;
     }
     String getBegin() {

@@ -1,13 +1,14 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.maths.litteralcom.StrTypes;
 import code.util.core.StringUtil;
 
 final class AnaRefPartType extends AnaPrefPartType {
 
-    AnaRefPartType(AnaParentPartType _parent, int _index, int _indexInType, String _prefix, StrTypes _operators) {
-        super(_parent, _index, _indexInType, _prefix,_operators);
+    AnaRefPartType(AnaParentPartType _parent, int _index, int _indexInType, String _prefix, StrTypes _operators, AnalysisMessages _messages) {
+        super(_parent, _index, _indexInType, _prefix,_operators, _messages);
     }
 
     @Override

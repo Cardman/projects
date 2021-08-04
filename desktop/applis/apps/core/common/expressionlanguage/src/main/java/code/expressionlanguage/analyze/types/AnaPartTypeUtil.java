@@ -108,7 +108,7 @@ public final class AnaPartTypeUtil {
         String inputTr_ = _input.trim();
         Ints indexes_ = ParserType.getIndexes(inputTr_, _page);
         if (indexes_ == null) {
-            return new AnaResultPartType(_input,_loc,"",null, _rooted);
+            return new AnaResultPartType(_input,_loc, _page.getAnalysisMessages(), _rooted);
         }
         AnaPartType root_ = root(_rootName, _page, inputTr_, indexes_);
         AnaPartType current_ = root_;
@@ -136,7 +136,7 @@ public final class AnaPartTypeUtil {
                 }
             }
         }
-        AnaResultPartType out_ = new AnaResultPartType(_input, _loc, "", root_, _rooted);
+        AnaResultPartType out_ = new AnaResultPartType(_input, _loc, root_, _rooted);
         PreLinkagePartTypeUtil.lookForTypes(out_, _page);
         return out_;
     }
@@ -149,26 +149,21 @@ public final class AnaPartTypeUtil {
 
     public static boolean processAnalyzeConstraintsCore(AnaResultPartType _className, StringMap<StringList> _inherit, boolean _exact, AnalyzedPageEl _page) {
         AnaPartType root_ = _className.getPartType();
-        if (root_ == null) {
-            PreLinkagePartTypeUtil.processAnalyzeConstraintsRepErrs(_className, _page.getAnalysisMessages(), _page);
-            _className.setOk(false);
-            return false;
-        }
         if (root_.getAnalyzedType().isEmpty()) {
-            PreLinkagePartTypeUtil.processAnalyzeConstraintsRepErrs(_className, _page.getAnalysisMessages(), _page);
+            checkParametersCount(root_, _page);
+            checkConstrains(root_, _inherit, _page);
             _className.setOk(false);
             return false;
         }
         if (!_exact && !_className.getResult().contains(StringExpUtil.TEMPLATE_BEGIN)) {
-            PreLinkagePartTypeUtil.processAnalyzeConstraintsRepErrs(_className, _page.getAnalysisMessages(), _page);
             _className.setOk(true);
             return true;
         }
         boolean res_ = checkParametersCount(root_, _page);
         boolean out_ = checkConstrains(root_, _inherit, _page);
-        PreLinkagePartTypeUtil.processAnalyzeConstraintsRepErrs(_className, _page.getAnalysisMessages(), _page);
-        _className.setOk(res_&&out_);
-        return res_&&out_;
+        boolean ok_ = res_ && out_;
+        _className.setOk(ok_);
+        return ok_;
     }
 
     static boolean checkParametersCount(AnaPartType _root, AnalyzedPageEl _page){
@@ -289,12 +284,12 @@ public final class AnaPartTypeUtil {
         _page.setRefFileName(null);
         AnaResultPartType anaType_ = getAnalyzeLine(_input, new AlwaysReadyTypes(), false, _local, _rooted, _loc, _page);
         AnaPartType root_ = anaType_.getPartType();
-        if (root_ == null) {
-//            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
-//            _offs.add(new PartOffset(pref_,_loc));
-//            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
-            return new AnaResultPartType(_input,_loc,"",null, _rooted);
-        }
+//        if (root_ == null) {
+////            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
+////            _offs.add(new PartOffset(pref_,_loc));
+////            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
+//            return new AnaResultPartType(_input,_loc,"",_page.getAnalysisMessages(), _rooted);
+//        }
         checkAccess(root_,_globalType, _page);
         return anaType_;
     }
@@ -302,7 +297,7 @@ public final class AnaPartTypeUtil {
         _page.setRefFileName(null);
         AnaResultPartType anaType_ = getAnalyzeLine(_input, new AlwaysReadyTypes(), false, _local, _rooted, _loc, _page);
         if (anaType_.getResult().isEmpty()) {
-            return new AnaResultPartType(_input,_loc,"",null, _rooted);
+            return new AnaResultPartType(_input,_loc, _page.getAnalysisMessages(), _rooted);
         }
 //        processAfterAnalyzeLoop(_input,_rooted,_page,root_);
 //        appendParts(root_,_offs, _page);
@@ -310,9 +305,9 @@ public final class AnaPartTypeUtil {
     }
     static String processAnalyzeLineInherits(String _input, ReadyTypes _ready, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page) {
         AnaPartType anaType_ = getAnalyzeLine(_input, _ready, true, _local, _rooted, -1, _page).getPartType();
-        if (anaType_ == null) {
-            return "";
-        }
+//        if (anaType_ == null) {
+//            return "";
+//        }
         String ana_ = anaType_.getAnalyzedType();
         if (!_ready.isReady(ana_)) {
             return "";
@@ -323,7 +318,7 @@ public final class AnaPartTypeUtil {
         String inputTr_ = _input.trim();
         Ints indexes_ = ParserType.getIndexes(inputTr_, _page);
         if (indexes_ == null) {
-            return new AnaResultPartType(_input,_loc,"",null, _rooted);
+            return new AnaResultPartType(_input,_loc, _page.getAnalysisMessages(), _rooted);
         }
         AnaPartType root_ = root(_rootName, _page, inputTr_, indexes_);
         AnaPartType current_ = root_;
@@ -351,7 +346,7 @@ public final class AnaPartTypeUtil {
                 }
             }
         }
-        AnaResultPartType out_ = new AnaResultPartType(_input, _loc, "", root_, _rooted);
+        AnaResultPartType out_ = new AnaResultPartType(_input, _loc, root_, _rooted);
         PreLinkagePartTypeUtil.lookForTypes(out_, _page);
         return out_;
     }
@@ -396,7 +391,7 @@ public final class AnaPartTypeUtil {
 //            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
 //            _offs.add(new PartOffset(pref_,_loc));
 //            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
-            return new AnaResultPartType(_input,_loc,"",null, _rooted);
+            return new AnaResultPartType(_input,_loc, _page.getAnalysisMessages(), _rooted);
         }
         AnaPartType root_ = rootId(_page, indexes_, _input.trim());
         AnaPartType current_ = root_;
@@ -429,7 +424,7 @@ public final class AnaPartTypeUtil {
 //            appendQuickParts(root_,_offs, _page);
 //            return new AnaResultPartType("",null);
 //        }
-        AnaResultPartType out_ = new AnaResultPartType(_input, _loc, "", root_, _rooted);
+        AnaResultPartType out_ = new AnaResultPartType(_input, _loc, root_, _rooted);
         PreLinkagePartTypeUtil.lookForTypes(out_, _page);
         return out_;
     }

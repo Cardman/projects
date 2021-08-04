@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.util.core.StringUtil;
@@ -11,8 +12,8 @@ final class AnaVariablePartType extends AnaLeafPartType {
     private final int value;
     private FileBlock currentFile;
     private FileBlock refFileName;
-    AnaVariablePartType(AnaParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator, int _value) {
-        super(_parent, _index, _indexInType, _type, _previousSeparator);
+    AnaVariablePartType(AnaParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator, int _value, AnalysisMessages _messages) {
+        super(_parent, _index, _indexInType, _type, _previousSeparator, _messages);
         value = _value;
     }
 

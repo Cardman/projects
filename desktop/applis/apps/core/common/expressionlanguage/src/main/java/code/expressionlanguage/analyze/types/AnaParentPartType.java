@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 
@@ -8,8 +9,8 @@ abstract class AnaParentPartType extends AnaPartType {
     private final StrTypes strTypes = new StrTypes();
     private AnaPartType firstChild;
     private final StrTypes operators;
-    AnaParentPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators) {
-        super(_parent, _index, _indexInType);
+    AnaParentPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators, AnalysisMessages _messages) {
+        super(_parent, _index, _indexInType, _messages);
         operators = _operators;
     }
     void appendChild(AnaPartType _child) {

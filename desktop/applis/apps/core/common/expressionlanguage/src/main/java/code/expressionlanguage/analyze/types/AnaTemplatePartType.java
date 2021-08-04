@@ -19,8 +19,8 @@ final class AnaTemplatePartType extends AnaBinaryType {
     private int countParam;
     private boolean koConstraints;
 
-    AnaTemplatePartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators) {
-        super(_parent, _index, _indexInType,_operators);
+    AnaTemplatePartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators, AnalysisMessages _messages) {
+        super(_parent, _index, _indexInType,_operators, _messages);
     }
 
     String getBegin() {
@@ -131,12 +131,13 @@ final class AnaTemplatePartType extends AnaBinaryType {
         return indexesChildConstraints.isEmpty();
     }
 
-    void buildBadConstraintsOffsetList(AnalysisMessages _analysisMessages) {
+    void buildBadConstraintsOffsetList() {
+        getErrsList().clear();
         for (int i = 0; i < countParam; i++) {
             getErrsList().add("");
         }
         for (int i: indexesChildConstraints) {
-            String err_ = FoundErrorInterpret.buildARError(_analysisMessages.getBadParamerizedType(), getAnalyzedType());
+            String err_ = FoundErrorInterpret.buildARError(getMessages().getBadParamerizedType(), getAnalyzedType());
             getErrsList().set(i,err_);
         }
     }
