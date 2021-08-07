@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 public abstract class AnaRendParentBlock extends AnaRendBlock {
 
     private AnaRendBlock firstChild;
-    AnaRendParentBlock(int _offset) {
+    protected AnaRendParentBlock(int _offset) {
         super(_offset);
     }
 

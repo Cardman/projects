@@ -5,10 +5,10 @@ import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendImport;
@@ -74,7 +74,7 @@ public abstract class BeanLgNames extends LgNames {
         if (!ops_.isEmpty()) {
             String varNameConvert_ = _container.getVarNameConvert();
             LocalVariable lv_ = newLocVar(_container);
-            _rendStackCall.getLastPage().putValueVar(varNameConvert_, lv_);
+            _rendStackCall.getLastPage().putValueVar(varNameConvert_, new VariableWrapper(lv_));
             _rendStackCall.getLastPage().setGlobalArgumentStruct(_container.getBean());
             Argument res_ = RenderExpUtil.calculateReuse(ops_, this, _context, _rendStackCall);
             _rendStackCall.getLastPage().removeRefVar(varNameConvert_);

@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -35,7 +36,7 @@ final class RendRequestUtil {
         int s_ = _varNames.size();
         for (int i = 0; i< s_; i++) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(NumberUtil.parseLongZero(_args.get(i))), _advStandards.getAliasPrimLong());
-            ip_.putValueVar(_varNames.get(i), locVar_);
+            ip_.putValueVar(_varNames.get(i), new VariableWrapper(locVar_));
         }
         Argument arg_ = RenderExpUtil.calculateReuse(_exps, _bean, _advStandards, _context, _rendStackCall);
         for (String n: _varNames) {
@@ -61,7 +62,7 @@ final class RendRequestUtil {
         CustList<RendDynOperationNode> wr_ = _nodeContainer.getOpsWrite();
         ImportingPage ip_ = _rendStackCall.getLastPage();
         LocalVariable lv_ = LocalVariable.newLocalVariable(obj_, _nodeContainer.getUpdatedClass());
-        ip_.putValueVar(prev_, lv_);
+        ip_.putValueVar(prev_, new VariableWrapper(lv_));
         CustList<Struct> structParam_ = _nodeContainer.getStructParam();
         CustList<String> structParamClass_ = _nodeContainer.getStructParamClass();
         InputInfo info_ = _nodeContainer.getVarParamName();
@@ -80,7 +81,7 @@ final class RendRequestUtil {
                     locVars_.add(p);
                     Struct arg_ = structParam_.get(k_);
                     lv_ = LocalVariable.newLocalVariable(arg_, structParamClass_.get(k_));
-                    ip_.putValueVar(p, lv_);
+                    ip_.putValueVar(p, new VariableWrapper(lv_));
                     k_++;
                 }
                 j_++;
@@ -91,13 +92,13 @@ final class RendRequestUtil {
                 locVars_.add(p);
                 Struct arg_ = structParam_.get(i_);
                 lv_ = LocalVariable.newLocalVariable(arg_, structParamClass_.get(i_));
-                ip_.putValueVar(p, lv_);
+                ip_.putValueVar(p, new VariableWrapper(lv_));
                 i_++;
             }
         }
         String wrap_ = ExecInherits.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), _context.getStandards());
         lv_ = LocalVariable.newLocalVariable(_attribute,wrap_);
-        ip_.putValueVar(attrName_, lv_);
+        ip_.putValueVar(attrName_, new VariableWrapper(lv_));
         RenderExpUtil.calculateReuse(wr_, _advStandards, _context, _rendStackCall);
         ip_.removeRefVar(prev_);
         for (String p: locVars_) {

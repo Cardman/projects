@@ -91,7 +91,7 @@ attrs4_.add(at("condition","!isMultiLayer(([p]))"));
 at(elt9_,attrs4_);
 Element elt10_=el(_doc,"a");
 CustList<Attr> attrs5_=al(1);
-attrs5_.add(at("c:command","$clickLevel({p.index},0)"));
+attrs5_.add(at("c:command","$clickLevelZero({p.index})"));
 at(elt10_,attrs5_);
 Element elt11_=el(_doc,"c:message");
 CustList<Attr> attrs6_=al(1);

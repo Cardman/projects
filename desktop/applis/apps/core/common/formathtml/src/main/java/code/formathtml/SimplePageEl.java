@@ -26,8 +26,8 @@ public final class SimplePageEl {
         return content.getRefParams();
     }
 
-    public void putValueVar(String _key, LocalVariable _var) {
-        content.getRefParams().put(_key, new VariableWrapper(_var));
+    public void putValueVar(String _key, AbstractWrapper _var) {
+        content.getRefParams().put(_key, _var);
     }
     public StringMap<LoopVariable> getVars() {
         return content.getVars();

@@ -2,6 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
@@ -33,7 +34,7 @@ public final class RendDeclareVariable extends RendAbstractDeclareVariable {
         Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _ctx);
         for (String v: getVariableNames()) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,importedClassName);
-            ip_.putValueVar(v, lv_);
+            ip_.putValueVar(v, new VariableWrapper(lv_));
         }
         processBlock(_cont, _stds, _ctx, _rendStack);
     }

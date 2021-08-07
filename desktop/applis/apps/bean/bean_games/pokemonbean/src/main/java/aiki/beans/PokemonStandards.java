@@ -671,9 +671,9 @@ public final class PokemonStandards extends BeanNatLgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_POKEMON, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.ABSTRACT);
-        params_ = new StringList();
+        /*params_ = new StringList();
         method_ = new StandardMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
-        methods_.add( method_);
+        methods_.add( method_);*/
         _std.getStandards().addEntry(TYPE_POKEMON, type_);
     }
     private static void buildAreaApparition(PokemonStandards _std) {
@@ -809,6 +809,9 @@ public final class PokemonStandards extends BeanNatLgNames {
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_HAPPINESS,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_POKEMON_PLAYER, type_);
     }
@@ -2844,6 +2847,10 @@ public final class PokemonStandards extends BeanNatLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_WON_EXP_SINCE_LAST_LEVEL)) {
             res_.setResult(new RateStruct(_inst.getWonExpSinceLastLevel(),PokemonStandards.TYPE_RATE));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
+            res_.setResult(new StringStruct(_inst.getItem()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_HAPPINESS)) {

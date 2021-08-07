@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
@@ -30,7 +31,7 @@ public final class RendForEachArray extends RendAbstractForEachLoop {
     protected void putVar(ContextEl _ctx, RendStackCall _rendStack, RendLoopBlockStack _l) {
         ImportingPage ip_ = _rendStack.getLastPage();
         Struct struct_ = ExecClassArgumentMatching.defaultValue(getImportedClassName(), _ctx);
-        ip_.putValueVar(getVariableName(), LocalVariable.newLocalVariable(struct_, getImportedClassName()));
+        ip_.putValueVar(getVariableName(), new VariableWrapper(LocalVariable.newLocalVariable(struct_, getImportedClassName())));
     }
 
     @Override

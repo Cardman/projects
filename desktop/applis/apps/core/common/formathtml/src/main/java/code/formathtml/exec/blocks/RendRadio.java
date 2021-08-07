@@ -2,6 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -42,7 +43,7 @@ public final class RendRadio extends RendInput {
         Struct res_ = arg_.getStruct();
         if (!opsConverterFieldValue.isEmpty()) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
-            _rendStack.getLastPage().putValueVar(varNameConverterFieldValue, locVar_);
+            _rendStack.getLastPage().putValueVar(varNameConverterFieldValue, new VariableWrapper(locVar_));
             Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _stds, _ctx, _rendStack);
             _rendStack.getLastPage().removeRefVar(varNameConverterFieldValue);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {

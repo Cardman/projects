@@ -46,6 +46,7 @@ public final class AikiBeansMapStd {
     private static final String IS_MULTI_LAYER = "isMultiLayer";
     private static final String LAYERS = "layers";
     private static final String CLICK_LEVEL = "clickLevel";
+    private static final String CLICK_LEVEL_ZERO = "clickLevelZero";
     private static final String POSSIBLE_MULTI_LAYER = "possibleMultiLayer";
     private static final String PLACE_NAME = "placeName";
     private static final String LEVEL_INDEX = "levelIndex";
@@ -83,6 +84,9 @@ public final class AikiBeansMapStd {
         methods_.add( method_);
         params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_LEVEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        params_ = new StringList(_std.getAliasPrimInteger());
+        method_ = new StandardMethod(CLICK_LEVEL_ZERO,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStandards().addEntry(TYPE_MAP_BEAN, type_);
     }
@@ -246,6 +250,10 @@ public final class AikiBeansMapStd {
         }
         if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
             res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,CLICK_LEVEL_ZERO)) {
+            res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),0)));
             return res_;
         }
         return res_;

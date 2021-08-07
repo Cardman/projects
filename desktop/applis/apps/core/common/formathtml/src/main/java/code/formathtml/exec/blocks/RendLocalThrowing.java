@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -58,7 +59,7 @@ public final class RendLocalThrowing {
                 if (_str != NullStruct.NULL_VALUE && ExecInherits.safeObject(name_, Argument.getNull(_str).getClassName(_ctx), _ctx) == ErrorType.NOTHING) {
                     String var_ = ca_.getVariableName();
                     LocalVariable lv_ = LocalVariable.newLocalVariable(_str, name_);
-                    _bkIp.putValueVar(var_, lv_);
+                    _bkIp.putValueVar(var_, new VariableWrapper(lv_));
                     return ca_;
                 }
             } else if (n_ instanceof RendNullCatchEval){

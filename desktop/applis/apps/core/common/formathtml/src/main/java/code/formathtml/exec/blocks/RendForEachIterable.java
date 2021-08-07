@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -52,7 +53,7 @@ public final class RendForEachIterable extends RendAbstractForEachLoop {
     protected void putVar(ContextEl _ctx, RendStackCall _rendStack, RendLoopBlockStack _l) {
         ImportingPage ip_ = _rendStack.getLastPage();
         Struct struct_ = ExecClassArgumentMatching.defaultValue(getImportedClassName(), _ctx);
-        ip_.putValueVar(getVariableName(), LocalVariable.newLocalVariable(struct_, getImportedClassName()));
+        ip_.putValueVar(getVariableName(), new VariableWrapper(LocalVariable.newLocalVariable(struct_, getImportedClassName())));
     }
 
     @Override

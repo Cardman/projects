@@ -2,6 +2,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -270,7 +271,7 @@ public final class ImportingPage {
         enabledOp = _enabledOp;
     }
 
-    public void putValueVar(String _var, LocalVariable _local) {
+    public void putValueVar(String _var, AbstractWrapper _local) {
         pageEl.putValueVar(_var,_local);
     }
 

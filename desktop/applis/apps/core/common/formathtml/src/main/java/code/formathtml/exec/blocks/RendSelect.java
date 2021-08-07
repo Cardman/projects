@@ -2,6 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -216,7 +217,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
             return getStringKey(_arg, _advStandards, _ctx, _rendStackCall);
         }
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
-        _rendStackCall.getLastPage().putValueVar(varNameConverterField, locVar_);
+        _rendStackCall.getLastPage().putValueVar(varNameConverterField, new VariableWrapper(locVar_));
         Argument arg_ = RenderExpUtil.calculateReuse(opsConverterField, _advStandards, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().removeRefVar(varNameConverterField);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
@@ -229,7 +230,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
             return _advStandards.processString(_arg, _ctx, _rendStackCall);
         }
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg.getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
-        _rendStackCall.getLastPage().putValueVar(varNameConverterFieldValue, locVar_);
+        _rendStackCall.getLastPage().putValueVar(varNameConverterFieldValue, new VariableWrapper(locVar_));
         Argument arg_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _advStandards, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().removeRefVar(varNameConverterFieldValue);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {

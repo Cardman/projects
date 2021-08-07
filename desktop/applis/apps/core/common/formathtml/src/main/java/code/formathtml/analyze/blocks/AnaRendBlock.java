@@ -541,7 +541,7 @@ public abstract class AnaRendBlock {
         _block.buildExpressionLanguage(_doc, _analyzingDoc, _page);
     }
 
-    protected void setEscapedChars(StringMap<IntTreeMap<Integer>> _escapedChars) {
+    public void setEscapedChars(StringMap<IntTreeMap<Integer>> _escapedChars) {
         escapedChars = _escapedChars;
     }
     protected static String getProperty(String _key, AnalyzingDoc _anaDoc) {

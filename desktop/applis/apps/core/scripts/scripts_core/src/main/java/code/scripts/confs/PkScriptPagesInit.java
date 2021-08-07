@@ -393,6 +393,7 @@ public final class PkScriptPagesInit {
         NavBuilder.buildNav(nav_,"help_fight.clickStatusMultStat()",new EntryNav("status","web/html/status/data.html"));
         NavBuilder.buildNav(nav_,"help_fight.clickComboMultStat()",new EntryNav("combo","web/html/combo/combos.html"));
         NavBuilder.buildNav(nav_,"help_fight.clickComboEvtStat()",new EntryNav("combo","web/html/combo/combos.html"));
+        NavBuilder.buildNav(nav_,"game_map.clickLevelZero()",new EntryNav("level","web/html/map/level.html"));
         NavBuilder.buildNav(nav_,"game_map.clickLevel(,)",new EntryNav("level","web/html/map/level.html"));
         NavBuilder.buildNav(nav_,"game_map.clickBuilding(,)",new EntryNav("level","web/html/map/level.html"));
         NavBuilder.buildNav(nav_,"pk_team.clickName(,)",new EntryNav("pokemon","web/html/pokemon/data.html"));
@@ -425,12 +426,14 @@ public final class PkScriptPagesInit {
         NavBuilder.buildNav(nav_,"level_map.clickLink",new EntryNav("level","web/html/map/level.html"));
         NavBuilder.buildNav(nav_,"level_map.seeArea",new EntryNav("area","web/html/map/elements/area.html"));
         NavBuilder.buildNav(nav_,"trainer_fight.clickMove",new EntryNav("move","web/html/moves/data.html"));
+        NavBuilder.buildNav(nav_,"pokemon.clickLevelZero()",new EntryNav("level","web/html/map/level.html"));
         NavBuilder.buildNav(nav_,"pokemon.clickLevel(,)",new EntryNav("level","web/html/map/level.html"));
         NavBuilder.buildNav(nav_,"eff_team.clickDisableFoeTeamStatus(,)",new EntryNav("status","web/html/status/data.html"));
         NavBuilder.buildNav(nav_,"move.clickRequiredStatus()",new EntryNav("status","web/html/status/data.html"));
         NavBuilder.buildNav(nav_,"move.clickDeletedStatus()",new EntryNav("status","web/html/status/data.html"));
         NavBuilder.buildNav(nav_,"move.clickAbility()",new EntryNav("ability","web/html/ability/data.html"));
         NavBuilder.buildNav(nav_,"welcome.clickSimulation",new EntryNav("simulation","web/html/simulation/simulation.html"));
+        NavBuilder.buildNav(nav_,"simulation.clickLevelZero()",new EntryNav("level","web/html/simulation/simulationlevel.html"));
         NavBuilder.buildNav(nav_,"simulation.clickLevel(,)",new EntryNav("level","web/html/simulation/simulationlevel.html"));
         NavBuilder.buildNav(nav_,"simulation.quit",new EntryNav("level","web/html/index.html"));
         NavBuilder.buildNav(nav_,"level_simu.clickTile()",new EntryNav("simulation","web/html/simulation/simulation.html"));

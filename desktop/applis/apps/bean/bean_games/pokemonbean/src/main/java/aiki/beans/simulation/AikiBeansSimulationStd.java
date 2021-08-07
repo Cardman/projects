@@ -78,6 +78,7 @@ public final class AikiBeansSimulationStd {
     private static final String IS_MULTI_LAYER = "isMultiLayer";
     private static final String LAYERS = "layers";
     private static final String CLICK_LEVEL = "clickLevel";
+    private static final String CLICK_LEVEL_ZERO = "clickLevelZero";
     private static final String GET_TRAINER_NAME = "getTrainerName";
     private static final String CANCEL_DIFF_CHOICE = "cancelDiffChoice";
     private static final String VALIDATE_FOE_CHOICE_FREE = "validateFoeChoiceFree";
@@ -670,6 +671,9 @@ public final class AikiBeansSimulationStd {
         methods_.add( method_);
         params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_LEVEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        params_ = new StringList(_std.getAliasPrimInteger());
+        method_ = new StandardMethod(CLICK_LEVEL_ZERO,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_TRAINER_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
@@ -2170,6 +2174,10 @@ public final class AikiBeansSimulationStd {
         }
         if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
             res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,CLICK_LEVEL_ZERO)) {
+            res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),0)));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TRAINER_NAME)) {

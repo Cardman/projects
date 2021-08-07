@@ -2,7 +2,6 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ErrorType;
@@ -13,11 +12,8 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.AdvancedFullStack;
@@ -32,15 +28,15 @@ import code.util.core.StringUtil;
 
 public abstract class RendBlock {
     public static final String SPACE = " ";
-    static final String RETURN_LINE = "\n";
-    static final String CALL_METHOD = "$";
-    static final String EMPTY_STRING = "";
-    static final String TMP_BLOCK_TAG = "tmp";
-    static final String LT_END_TAG = "</";
-    static final char GT_TAG = '>';
-    static final char LT_BEGIN_TAG = '<';
+    public static final String RETURN_LINE = "\n";
+    public static final String CALL_METHOD = "$";
+    public static final String EMPTY_STRING = "";
+    public static final String TMP_BLOCK_TAG = "tmp";
+    public static final String LT_END_TAG = "</";
+    public static final char GT_TAG = '>';
+    public static final char LT_BEGIN_TAG = '<';
 
-    static final String DOT = ".";
+    public static final String DOT = ".";
     private static final char RIGHT_EL = '}';
     private static final char LEFT_EL = '{';
     private static final char QUOTE = 39;
@@ -146,7 +142,7 @@ public abstract class RendBlock {
         parent = _b;
     }
 
-    protected static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, ExecTextPart _textPart, CustList<RendDynOperationNode> _anc, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, ExecTextPart _textPart, CustList<RendDynOperationNode> _anc, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         _rendStackCall.getFormParts().getCallsExps().add(_anc);
         _rendStackCall.getFormParts().getAnchorsVars().add(_varNames);
@@ -176,7 +172,7 @@ public abstract class RendBlock {
         incrAncNb(_cont, _nextWrite, _rendStackCall);
     }
 
-    protected static void incrAncNb(Configuration _cont, Element _nextEltWrite, RendStackCall _rendStackCall) {
+    public static void incrAncNb(Configuration _cont, Element _nextEltWrite, RendStackCall _rendStackCall) {
         if (StringUtil.quickEq(_nextEltWrite.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())
                 && (_nextEltWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))
                 || !_nextEltWrite.getAttribute(_cont.getRendKeyWords().getAttrHref()).isEmpty() )) {
@@ -187,7 +183,7 @@ public abstract class RendBlock {
         }
     }
 
-    protected static void appendText(String _fileContent, Document _ownerDocument, Element _eltStyle) {
+    public static void appendText(String _fileContent, Document _ownerDocument, Element _eltStyle) {
         CustList<Node> chNode_ = _eltStyle.getChildNodes();
         if (chNode_.isEmpty()) {
             Text text_ = _ownerDocument.createTextNode(_fileContent);
@@ -197,7 +193,7 @@ public abstract class RendBlock {
             text_.appendData(_fileContent);
         }
     }
-    static String getCssHref(Configuration _cont,Element _link) {
+    public static String getCssHref(Configuration _cont,Element _link) {
         if (!StringUtil.quickEq(_link.getAttribute(_cont.getRendKeyWords().getAttrRel()),_cont.getRendKeyWords().getValueStyle())) {
             return null;
         }
@@ -207,10 +203,10 @@ public abstract class RendBlock {
         return _link.getAttribute(_cont.getRendKeyWords().getAttrHref());
     }
 
-    static Element appendChild(Document _doc, RendReadWrite _rw, Element _read) {
+    public static Element appendChild(Document _doc, RendReadWrite _rw, Element _read) {
         return appendChild(_doc,_rw.getWrite(),_read);
     }
-    static Element appendChild(Document _doc, Element _parent, Element _read) {
+    public static Element appendChild(Document _doc, Element _parent, Element _read) {
         String tagName_ = _read.getTagName();
         Element currentNode_ = _doc.createElement(tagName_);
         setNormalAttributes(_read, currentNode_);
@@ -218,16 +214,16 @@ public abstract class RendBlock {
         return currentNode_;
     }
 
-    static Element appendChild(Document _doc, RendReadWrite _rw, String _read) {
+    public static Element appendChild(Document _doc, RendReadWrite _rw, String _read) {
         Element currentNode_ = _doc.createElement(_read);
         simpleAppendChild(_doc, _rw.getWrite(), currentNode_);
         return currentNode_;
     }
 
-    static void simpleAppendChild(Document _doc, RendReadWrite _rw, Node _currentNode) {
+    public static void simpleAppendChild(Document _doc, RendReadWrite _rw, Node _currentNode) {
         simpleAppendChild(_doc,_rw.getWrite(),_currentNode);
     }
-    static void simpleAppendChild(Document _doc, Element _parent, Node _currentNode) {
+    public static void simpleAppendChild(Document _doc, Element _parent, Node _currentNode) {
         if (_parent == null) {
             _doc.appendChild(_currentNode);
         } else {
@@ -493,7 +489,7 @@ public abstract class RendBlock {
         Struct o_ = _o.getStruct();
         if (!_opsConv.isEmpty()) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(o_, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
-            _rendStackCall.getLastPage().putValueVar(_varNameConv, locVar_);
+            _rendStackCall.getLastPage().putValueVar(_varNameConv, new VariableWrapper(locVar_));
             Argument arg_ = RenderExpUtil.calculateReuse(_opsConv, _advStandards, _ctx, _rendStackCall);
             _rendStackCall.getLastPage().removeRefVar(_varNameConv);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
@@ -1064,7 +1060,7 @@ public abstract class RendBlock {
             LoopVariable lv_ = new LoopVariable();
             lv_.setIndexClassName(_bl.getImportedClassIndexName());
             ip_.getVars().put(v, lv_);
-            ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_, _bl.getImportedClassName()));
+            ip_.putValueVar(v, new VariableWrapper(LocalVariable.newLocalVariable(struct_, _bl.getImportedClassName())));
         }
         if (!_bl.getInit().getList().isEmpty()) {
             RenderExpUtil.calculateReuse(_bl.getInit().getList(), _stds, _ctx, _rendStack);
@@ -1174,9 +1170,9 @@ public abstract class RendBlock {
             String var_ = ((RendAbstractInstanceCaseCondition) found_).getVariableName();
             Struct struct_ = _arg.getStruct();
             if (((RendAbstractInstanceCaseCondition) found_).isSpecific()) {
-                ip_.putValueVar(var_, LocalVariable.newLocalVariable(struct_, ((RendAbstractInstanceCaseCondition) found_).getImportedClassName()));
+                ip_.putValueVar(var_, new VariableWrapper(LocalVariable.newLocalVariable(struct_, ((RendAbstractInstanceCaseCondition) found_).getImportedClassName())));
             } else {
-                ip_.putValueVar(var_, LocalVariable.newLocalVariable(struct_, _bl.getInstanceTest()));
+                ip_.putValueVar(var_, new VariableWrapper(LocalVariable.newLocalVariable(struct_, _bl.getInstanceTest())));
             }
             rw_.setRead(found_);
             _if.setCurrentVisitedBlock(found_);

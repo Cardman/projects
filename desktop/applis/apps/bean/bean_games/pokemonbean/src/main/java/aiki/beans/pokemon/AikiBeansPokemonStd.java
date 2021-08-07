@@ -47,7 +47,9 @@ public final class AikiBeansPokemonStd {
     private static final String IS_MULTI_LAYER = "isMultiLayer";
     private static final String LAYERS = "layers";
     private static final String IS_APPEARING = "isAppearing";
+    private static final String IS_APPEARING_ZERO = "isAppearingZero";
     private static final String CLICK_LEVEL = "clickLevel";
+    private static final String CLICK_LEVEL_ZERO = "clickLevelZero";
     private static final String GET_MAP_WIDTH = "getMapWidth";
     private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String GET_PLACE_NAME = "getPlaceName";
@@ -222,8 +224,14 @@ public final class AikiBeansPokemonStd {
         params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(IS_APPEARING,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
+        params_ = new StringList(_std.getAliasPrimInteger());
+        method_ = new StandardMethod(IS_APPEARING_ZERO,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
         method_ = new StandardMethod(CLICK_LEVEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        params_ = new StringList(_std.getAliasPrimInteger());
+        method_ = new StandardMethod(CLICK_LEVEL_ZERO,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(GET_MAP_WIDTH,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
@@ -533,8 +541,16 @@ public final class AikiBeansPokemonStd {
             res_.setResult(BooleanStruct.of(instance_.isAppearing(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
+        if (StringUtil.quickEq(methodName_,IS_APPEARING_ZERO)) {
+            res_.setResult(BooleanStruct.of(instance_.isAppearing(NumParsers.convertToNumber(_args[0]).intStruct(),0)));
+            return res_;
+        }
         if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
             res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,CLICK_LEVEL_ZERO)) {
+            res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),0)));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MAP_WIDTH)) {

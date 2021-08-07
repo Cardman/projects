@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -86,13 +87,13 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         Struct defFirst_ = ExecClassArgumentMatching.defaultValue(importedClassNameFirst, _ctx);
         lv_.setIndexClassName(importedClassIndexName);
         varsLoop_.put(variableNameFirst, lv_);
-        ip_.putValueVar(variableNameFirst, LocalVariable.newLocalVariable(defFirst_,importedClassNameFirst));
+        ip_.putValueVar(variableNameFirst, new VariableWrapper(LocalVariable.newLocalVariable(defFirst_,importedClassNameFirst)));
         lv_ = new LoopVariable();
         lv_.setIndex(-1);
         Struct defSecond_ = ExecClassArgumentMatching.defaultValue(importedClassNameSecond, _ctx);
         lv_.setIndexClassName(importedClassIndexName);
         varsLoop_.put(variableNameSecond, lv_);
-        ip_.putValueVar(variableNameSecond, LocalVariable.newLocalVariable(defSecond_,importedClassNameSecond));
+        ip_.putValueVar(variableNameSecond, new VariableWrapper(LocalVariable.newLocalVariable(defSecond_,importedClassNameSecond)));
         processLastElementLoop(_cont, _stds, _ctx, l_, _rendStack);
     }
 

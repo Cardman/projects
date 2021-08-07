@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.common.ClassArgumentMatching;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -127,7 +128,7 @@ public abstract class RendForIterativeLoop extends RendParentBlock implements Re
         lv_.setIndexClassName(importedClassIndexName);
         Struct struct_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _ctx.getStandards().getPrimTypes()), new LongStruct(fromValue_));
         varsLoop_.put(var_, lv_);
-        ip_.putValueVar(var_, LocalVariable.newLocalVariable(struct_,importedClassName));
+        ip_.putValueVar(var_, new VariableWrapper(LocalVariable.newLocalVariable(struct_,importedClassName)));
         return l_;
     }
 

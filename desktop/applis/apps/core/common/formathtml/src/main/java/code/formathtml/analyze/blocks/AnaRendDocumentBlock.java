@@ -23,7 +23,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private String beanName;
     private final CustList<AnaRendBlock> bodies = new CustList<AnaRendBlock>();
     private StringList imports = new StringList();
-    AnaRendDocumentBlock(Element _elt, String _file, int _offset, String _fileName) {
+    public AnaRendDocumentBlock(Element _elt, String _file, int _offset, String _fileName) {
         super(_offset);
         elt = _elt;
         file = _file;
