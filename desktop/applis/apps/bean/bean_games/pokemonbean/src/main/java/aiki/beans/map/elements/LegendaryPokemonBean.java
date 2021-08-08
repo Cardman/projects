@@ -18,6 +18,7 @@ import aiki.fight.items.ItemForBattle;
 import aiki.fight.items.Repel;
 import aiki.fight.items.SellingItem;
 import aiki.map.pokemon.Pokemon;
+import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.images.BaseSixtyFourUtil;
 import code.util.EnumMap;
@@ -25,11 +26,11 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class LegendaryPokemonBean extends CommonBean {
-    private Pokemon pokemon;
+    private WildPk pokemon;
 
     @Override
     public void beforeDisplaying() {
-        pokemon = getForms().getValPk(CST_LEG_PK);
+        pokemon = (WildPk)getForms().getValPk(CST_LEG_PK);
     }
     public String getImage() {
         DataBase data_ = getDataBase();
@@ -148,7 +149,7 @@ public class LegendaryPokemonBean extends CommonBean {
         return moves_;
     }
 
-    public Pokemon getPokemon() {
+    public WildPk getPokemon() {
         return pokemon;
     }
 }

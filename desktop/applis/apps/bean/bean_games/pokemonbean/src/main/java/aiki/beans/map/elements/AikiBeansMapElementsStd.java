@@ -139,7 +139,7 @@ public final class AikiBeansMapElementsStd {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_LEGENDARY_POKEMON_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        fields_.add(new StandardField(POKEMON,PokemonStandards.TYPE_POKEMON,false,false,type_));
+        fields_.add(new StandardField(POKEMON,PokemonStandards.TYPE_WILD_PK,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
@@ -193,7 +193,7 @@ public final class AikiBeansMapElementsStd {
         LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,POKEMON)) {
-            res_.setResult(new PkStruct(instance_.getPokemon(),PokemonStandards.TYPE_POKEMON));
+            res_.setResult(new PkStruct(instance_.getPokemon(),PokemonStandards.TYPE_WILD_PK));
             return res_;
         }
         return res_;
