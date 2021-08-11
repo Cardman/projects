@@ -237,7 +237,7 @@ attrs3_.add(at("name","EffectWhileSendingBean"));
 at(elt3_,attrs3_);
 Element elt4_=el(_doc,"c:field");
 CustList<Attr> attrs4_=al(1);
-attrs4_.add(at("prepare","$intern.effect=getEffectSending() "));
+attrs4_.add(at("prepare","$intern.effect=getEffectSending()"));
 at(elt4_,attrs4_);
 ad(elt3_,elt4_);
 ad(elt2_,elt3_);
