@@ -6,6 +6,7 @@ import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.VariableWrapper;
@@ -52,20 +53,10 @@ public abstract class BeanLgNames extends LgNames {
     public abstract void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack);
     public abstract String processString(Argument _arg, ContextEl _ctx, RendStackCall _stack);
 
-    public abstract Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack);
-    public abstract Argument hasNextPair(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack);
-    public abstract Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack);
-    public abstract Argument first(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack);
-    public abstract Argument second(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack);
-    public abstract Argument iteratorList(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack);
-    public abstract Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack);
-    public abstract Argument nextList(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack);
-
-    public abstract String getStringKey(Struct _instance, ContextEl _ctx, RendStackCall _stack);
-
     public abstract void preInitBeans(Configuration _conf);
     public abstract void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, RendStackCall _rendStack);
 
+    public abstract AbstractWrapper newWrapper(LocalVariable _local);
     public String getInputClass(Element _write, Configuration _conf) {
         return _write.getAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrClassName()));
     }
@@ -74,7 +65,7 @@ public abstract class BeanLgNames extends LgNames {
         if (!ops_.isEmpty()) {
             String varNameConvert_ = _container.getVarNameConvert();
             LocalVariable lv_ = newLocVar(_container);
-            _rendStackCall.getLastPage().putValueVar(varNameConvert_, new VariableWrapper(lv_));
+            _rendStackCall.getLastPage().putValueVar(varNameConvert_, newWrapper(lv_));
             _rendStackCall.getLastPage().setGlobalArgumentStruct(_container.getBean());
             Argument res_ = RenderExpUtil.calculateReuse(ops_, this, _context, _rendStackCall);
             _rendStackCall.getLastPage().removeRefVar(varNameConvert_);
@@ -168,13 +159,6 @@ public abstract class BeanLgNames extends LgNames {
         }
         return new StringStruct(_element);
     }
-
-    public abstract boolean setBeanForms(Configuration _conf, Struct _mainBean,
-                                         RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack);
-
-    public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, ContextEl _context, RendStackCall _stack);
-    public abstract Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Argument _right, ContextEl _context, RendStackCall _stack);
-    public abstract Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, RendStackCall _stack);
 
 
     public abstract String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStack);

@@ -39,8 +39,12 @@ public final class RendLink extends RendElement {
             }
             fileContent_ = StringUtil.simpleStringsFormat(fileContent_, objects_);
         }
-        ElementList heads_ = ownerDocument_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordHead());
-        if (fileContent_ != null && heads_.getLength() == IndexConstants.ONE_ELEMENT) {
+        procLink(_cont, fileContent_, ownerDocument_);
+    }
+
+    public static void procLink(Configuration _cont, String _fileContent, Document _ownerDocument) {
+        ElementList heads_ = _ownerDocument.getElementsByTagName(_cont.getRendKeyWords().getKeyWordHead());
+        if (_fileContent != null && heads_.getLength() == IndexConstants.ONE_ELEMENT) {
             Element head_ = heads_.item(IndexConstants.FIRST_INDEX);
             CustList<Element> children_ = new CustList<Element>();
             for (Element c: head_.getChildElements()) {
@@ -52,10 +56,10 @@ public final class RendLink extends RendElement {
             boolean successAdd_ = children_.isEmpty();
             if (!successAdd_) {
                 Element eltStyle_ = children_.last();
-                appendText(fileContent_, ownerDocument_, eltStyle_);
+                appendText(_fileContent, _ownerDocument, eltStyle_);
             } else {
-                Element eltStyle_ = ownerDocument_.createElement(_cont.getRendKeyWords().getKeyWordStyle());
-                Text text_ = ownerDocument_.createTextNode(fileContent_);
+                Element eltStyle_ = _ownerDocument.createElement(_cont.getRendKeyWords().getKeyWordStyle());
+                Text text_ = _ownerDocument.createTextNode(_fileContent);
                 eltStyle_.appendChild(text_);
                 head_.appendChild(eltStyle_);
             }

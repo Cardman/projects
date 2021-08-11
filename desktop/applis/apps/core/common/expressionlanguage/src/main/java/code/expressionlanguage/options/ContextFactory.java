@@ -49,7 +49,6 @@ public final class ContextFactory {
         _page.setKeyWords(_definedKw);
         _page.setStandards(_content);
         _page.setCalculator(_fwd.getConstantsCalculator());
-        _page.setFieldFilter(_fwd.getFieldFilter());
         _page.setFileBuilder(_fwd.getFileBuilder());
         _page.setResources(_fwd.getResources());
         _page.setStaticFields(_fwd.getStaticFields());

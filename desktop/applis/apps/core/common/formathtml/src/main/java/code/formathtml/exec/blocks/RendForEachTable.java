@@ -66,7 +66,7 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         }
         Struct iterStr_;
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-        Argument arg_ = iteratorMultTable(its_,_cont, _stds, _ctx, _rendStack);
+        Argument arg_ = iteratorMultTable(its_, _stds, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -94,7 +94,7 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         lv_.setIndexClassName(importedClassIndexName);
         varsLoop_.put(variableNameSecond, lv_);
         ip_.putValueVar(variableNameSecond, new VariableWrapper(LocalVariable.newLocalVariable(defSecond_,importedClassNameSecond)));
-        processLastElementLoop(_cont, _stds, _ctx, l_, _rendStack);
+        processLastElementLoop(_stds, _ctx, l_, _rendStack);
     }
 
     Struct processLoopTable(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
@@ -124,32 +124,32 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         _ip.removeRefVar(variableNameSecond);
     }
 
-    public void processLastElementLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, RendStackCall _rendStack) {
+    public void processLastElementLoop(BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _loopBlock, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
         StringMap<AbstractWrapper> varsInfos_ = ip_.getRefParams();
-        ConditionReturn has_ = iteratorHasNext(_conf, _advStandards, _ctx, _loopBlock, _rendStack);
+        ConditionReturn has_ = iteratorHasNext(_advStandards, _ctx, _loopBlock, _rendStack);
         if (has_ == ConditionReturn.CALL_EX) {
             return;
         }
         boolean hasNext_ = has_ == ConditionReturn.YES;
         if (hasNext_) {
-            incrementLoop(_conf, _loopBlock, vars_,varsInfos_, _advStandards, _ctx, _rendStack);
+            incrementLoop(_loopBlock, vars_,varsInfos_, _advStandards, _ctx, _rendStack);
         } else {
             _loopBlock.getContent().setFinished(true);
         }
     }
-    public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
+    public void incrementLoop(RendLoopBlockStack _l,
                               StringMap<LoopVariable> _vars, StringMap<AbstractWrapper> _varsInfos, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         Struct iterator_ = _l.getContent().getStructIterator();
         ImportingPage call_ = _rendStackCall.getLastPage();
-        Argument nextPair_ = nextPair(iterator_,_conf, _advStandards, _ctx, _rendStackCall);
+        Argument nextPair_ = nextPair(iterator_, _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
         Struct value_ = nextPair_.getStruct();
-        Argument arg_ = first(value_,_conf, _advStandards, _ctx, _rendStackCall);
+        Argument arg_ = first(value_, _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
@@ -160,7 +160,7 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         AbstractWrapper lInfo_ = _varsInfos.getVal(variableNameFirst);
         lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);
         lv_.setIndex(lv_.getIndex() + 1);
-        arg_ = second(value_,_conf, _advStandards, _ctx, _rendStackCall);
+        arg_ = second(value_, _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
@@ -173,9 +173,9 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         lv_.setIndex(lv_.getIndex() + 1);
         call_.getRendReadWrite().setRead(getFirstChild());
     }
-    private static ConditionReturn iteratorHasNext(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _rendLastStack, RendStackCall _rendStackCall) {
+    private static ConditionReturn iteratorHasNext(BeanLgNames _advStandards, ContextEl _ctx, RendLoopBlockStack _rendLastStack, RendStackCall _rendStackCall) {
         Struct strIter_ = _rendLastStack.getContent().getStructIterator();
-        Argument arg_ = hasNextPair(strIter_,_conf, _advStandards, _ctx, _rendStackCall);
+        Argument arg_ = hasNextPair(strIter_, _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return ConditionReturn.CALL_EX;
         }

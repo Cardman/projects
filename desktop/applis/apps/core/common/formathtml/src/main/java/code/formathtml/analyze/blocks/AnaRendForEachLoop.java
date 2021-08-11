@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -166,7 +167,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         }
     }
     public StringList getInferredIterable(StringList _types, AnalyzedPageEl _page) {
-        IterableAnalysisResult it_ = _page.getForEachFetch().getCustomType(_types,importedClassName);
+        IterableAnalysisResult it_ = ContextUtil.getCustomTypeBase(_types,_page);
         return it_.getClassName();
     }
     public void checkIterableCandidates(StringList _types, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {

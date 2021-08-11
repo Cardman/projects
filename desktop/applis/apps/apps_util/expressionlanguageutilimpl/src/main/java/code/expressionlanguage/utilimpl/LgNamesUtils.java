@@ -3,8 +3,6 @@ package code.expressionlanguage.utilimpl;
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AbstractFieldFilter;
-import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -117,8 +115,4 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         return new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(infos.getThreadFactory().newAtomicLong())));
     }
 
-    @Override
-    public AbstractFieldFilter newFieldFilter() {
-        return new DefaultFieldFilter();
-    }
 }

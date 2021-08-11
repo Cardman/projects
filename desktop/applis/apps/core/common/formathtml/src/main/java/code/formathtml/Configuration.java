@@ -85,7 +85,7 @@ public final class Configuration {
             AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(_analyzingDoc.getPrefix(), document_, file_, _page.getPrimTypes(), link_, _analyzingDoc.getRendKeyWords());
             d_.addEntry(link_,anaDoc_);
         }
-        buildDocs(_analyzingDoc, _page, d_);
+        buildDocs(_analyzingDoc, _page, d_, _analyzingDoc.getBeansInfosBefore());
         String currentUrl_ = getFirstUrl();
         String realFilePath_ = getRealFilePath(currentLanguage, currentUrl_);
         if (d_.getVal(realFilePath_) == null) {
@@ -99,28 +99,9 @@ public final class Configuration {
         return d_;
     }
 
-    public StringMap<AnaRendDocumentBlock> analyzedDocs(StringMap<Document> _docs, StringMap<String> _files,AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, DualConfigurationContext _dual) {
-        renders.clear();
-        setFiles(_files);
-        _analyzingDoc.setup(this, _dual);
-        AnalyzingDoc.setupInts(_page, _analyzingDoc);
-
-
-        StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
-        for (EntryCust<String, Document> s: _docs.entryList()) {
-            String link_ = s.getKey();
-            Document document_ = s.getValue();
-            String file_ = document_.export();
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(_analyzingDoc.getPrefix(), document_, file_, _page.getPrimTypes(), link_, _analyzingDoc.getRendKeyWords());
-            d_.addEntry(link_,anaDoc_);
-        }
-        buildDocs(_analyzingDoc, _page, d_);
-        return d_;
-    }
-
-    private static void buildDocs(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, StringMap<AnaRendDocumentBlock> _d) {
+    private static void buildDocs(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, StringMap<AnaRendDocumentBlock> _d, StringMap<BeanInfo> _beansInfosBefore) {
         for (AnaRendDocumentBlock v : _d.values()) {
-            v.buildFctInstructions(_analyzingDoc, _page);
+            v.buildFctInstructions(_analyzingDoc, _page, _beansInfosBefore);
         }
     }
 

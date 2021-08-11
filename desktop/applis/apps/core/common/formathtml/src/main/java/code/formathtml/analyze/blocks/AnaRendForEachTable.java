@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
@@ -116,7 +117,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
     }
 
     private StringList getCustomType(StringList _names, AnalyzedPageEl _page) {
-        return _page.getForEachFetch().getCustomTableType(_names, importedClassNameFirst,importedClassNameSecond).getClassName();
+        return ContextUtil.getCustomTableType(_names, _page).getClassName();
     }
 
     public void buildEl(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {

@@ -3,6 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.opers.ExecStdFctOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -26,7 +27,7 @@ public final class RendStdFctOperation extends RendSettableCallFctOperation impl
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(_advStandards.getCommonFctArgument(this, previous_, _nodes, _context, _rendStack), _context, _rendStack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecStdFctOperation.prep(_context,_rendStack.getStackCall(),previous_,buildInfos(_nodes), getStdFctContent()), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

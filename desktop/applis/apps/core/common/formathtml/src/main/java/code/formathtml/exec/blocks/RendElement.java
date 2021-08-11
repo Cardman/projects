@@ -11,7 +11,7 @@ import code.sml.*;
 import code.util.EntryCust;
 import code.util.StringMap;
 
-public abstract class RendElement extends RendParentBlock implements RendWithEl {
+public abstract class RendElement extends RendParentBlock implements RendElem {
     private final Element read;
     private final StringMap<ExecTextPart> execAttributes;
     private final StringMap<ExecTextPart> execAttributesText;

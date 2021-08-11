@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
@@ -153,7 +154,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
 //        }
     }
     private StringList getCustomType(StringList _names, AnalyzedPageEl _page) {
-         return _page.getForEachFetch().getCustomTableType(_names, "","").getClassName();
+         return ContextUtil.getCustomTableType(_names,_page).getClassName();
     }
 
     public String getClassIndexName() {

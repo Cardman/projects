@@ -27,7 +27,6 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.WarningShow;
@@ -48,7 +47,6 @@ public final class AnalyzedPageEl {
 
     private final StringList predefinedInterfacesInitOrder = new StringList();
     private AbstractConstantsCalculator calculator;
-    private AbstractFieldFilter fieldFilter;
     private AbstractFileBuilder fileBuilder;
     private StringMap<String> resources;
     private StringMap<StringMap<Struct>> staticFields;
@@ -132,7 +130,6 @@ public final class AnalyzedPageEl {
 
     private final StringMap<MappingLocalType> mappingLocal = new StringMap<MappingLocalType>();
     private AbstractProcessKeyWord processKeyWord;
-    private AbstractForEachFetch forEachFetch;
     private AbstractHiddenTypes hiddenTypes;
     private AbstractCurrentConstraints currentConstraints;
     private AbstractAnnotationAnalysis annotationAnalysis;
@@ -170,7 +167,6 @@ public final class AnalyzedPageEl {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
         page_.setProcessKeyWord(new DefaultProcessKeyWord(page_));
         page_.setHiddenTypes(new DefaultHiddenTypes(page_));
-        page_.setForEachFetch(new DefaultForEachFetch(page_));
         page_.setCurrentConstraints(new DefaultCurrentConstraints(page_));
         page_.setAnnotationAnalysis(new DefaultAnnotationAnalysis(page_));
         page_.setCurrentGlobalBlock(new DefaultCurrentGlobalBlock(page_));
@@ -906,14 +902,6 @@ public final class AnalyzedPageEl {
         this.hiddenTypes = _hiddenTypes;
     }
 
-    public AbstractForEachFetch getForEachFetch() {
-        return forEachFetch;
-    }
-
-    public void setForEachFetch(AbstractForEachFetch _forEachFetch) {
-        this.forEachFetch = _forEachFetch;
-    }
-
     public AbstractCurrentConstraints getCurrentConstraints() {
         return currentConstraints;
     }
@@ -1337,14 +1325,6 @@ public final class AnalyzedPageEl {
 
     public void setCalculator(AbstractConstantsCalculator _calculator) {
         this.calculator = _calculator;
-    }
-
-    public AbstractFieldFilter getFieldFilter() {
-        return fieldFilter;
-    }
-
-    public void setFieldFilter(AbstractFieldFilter _fieldFilter) {
-        this.fieldFilter = _fieldFilter;
     }
 
     public AbstractFileBuilder getFileBuilder() {

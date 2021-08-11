@@ -188,6 +188,7 @@ import aiki.map.util.PlaceLevel;
 import aiki.util.Point;
 import code.bean.Bean;
 import code.bean.nat.*;
+import code.bean.nat.exec.blocks.NatRendImport;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -1008,6 +1009,13 @@ public final class PokemonStandards extends BeanNatLgNames {
         beanForms(_conf, _mainBean, _node, _keepField, _beanName, _ctx, _rendStack);
         return true;
     }
+
+    @Override
+    public boolean setBeanForms(Configuration _conf, Struct _mainBean, NatRendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
+        beanForms(_conf, _mainBean, _keepField, _beanName, _ctx, _rendStack);
+        return true;
+    }
+
     private void beanForms(Configuration _conf, Struct _mainBean,
                            RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
         if (_mainBean == null) {
@@ -1020,7 +1028,23 @@ public final class PokemonStandards extends BeanNatLgNames {
         gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx, _rendStack);
     }
 
+    private void beanForms(Configuration _conf, Struct _mainBean,
+                           boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
+        if (_mainBean == null) {
+            return;
+        }
+        Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
+        if (bean_ == null) {
+            return;
+        }
+        gearFw(_conf, _mainBean, _keepField, bean_, _ctx, _rendStack);
+    }
     protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
+        StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct)_bean).getBean()).getForms();
+        StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct)_mainBean).getBean()).getForms();
+        forms_.putAllMap(formsMap_);
+    }
+    protected void gearFw(Configuration _conf, Struct _mainBean, boolean _keepField, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
         StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct)_bean).getBean()).getForms();
         StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct)_mainBean).getBean()).getForms();
         forms_.putAllMap(formsMap_);

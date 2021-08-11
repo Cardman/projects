@@ -28,8 +28,8 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-            <groupId>formathtml</groupId>
-            <artifactId>formathtml</artifactId>
+            <groupId>bean_core</groupId>
+            <artifactId>bean_core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 		<dependency>

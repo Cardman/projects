@@ -8,7 +8,7 @@ import code.sml.Element;
 import code.sml.Node;
 import code.util.StringMap;
 
-public final class RendStdElement extends RendElement {
+public final class RendStdElement extends RendElement implements RendStdEl {
 
     public RendStdElement(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
         super(_read, _execAttributes, _execAttributesText);

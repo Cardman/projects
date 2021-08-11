@@ -89,21 +89,26 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 return;
             }
         }
+        injectDoc(_cont, _rendStack, anchorArg_, docLoc_, callsExps, varNames);
+        processBlock(_cont, _stds, _ctx, _rendStack);
+    }
+
+    public static void injectDoc(Configuration _cont, RendStackCall _rendStack, StringList _anchorArg, Document _docLoc, StringMap<CustList<CustList<RendDynOperationNode>>> _callsExps, StringList _varNames) {
         ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         Element write_ = rw_.getWrite();
-        Node root_ = docLoc_.getDocumentElement();
+        Node root_ = _docLoc.getDocumentElement();
         Node read_ = root_.getFirstChild();
         Document ownerDocument_ = rw_.getDocument();
-        _rendStack.getFormParts().getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
+        _rendStack.getFormParts().getCallsExps().addAllElts(_callsExps.getVal(_cont.getCurrentLanguage()));
         while (true) {
             if (read_ instanceof Element) {
                 Element eltRead_ = (Element) read_;
                 Element created_ = appendChild(ownerDocument_, write_, eltRead_);
                 processImportedNode(_cont,ip_, created_);
                 if (StringUtil.quickEq(created_.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())){
-                    _rendStack.getFormParts().getAnchorsArgs().add(anchorArg_);
-                    _rendStack.getFormParts().getAnchorsVars().add(varNames);
+                    _rendStack.getFormParts().getAnchorsArgs().add(_anchorArg);
+                    _rendStack.getFormParts().getAnchorsVars().add(_varNames);
                 }
                 incrAncNb(_cont, created_, _rendStack);
                 Node firstChild_ = read_.getFirstChild();
@@ -136,10 +141,9 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 break;
             }
         }
-        processBlock(_cont, _stds, _ctx, _rendStack);
     }
 
-    private void processImportedNode(Configuration _conf,
+    private static void processImportedNode(Configuration _conf,
                                             ImportingPage _ip, Element _tag) {
         String beanName_ = _ip.getBeanName();
         if (StringUtil.quickEq(_tag.getTagName(),_conf.getRendKeyWords().getKeyWordAnchor())) {

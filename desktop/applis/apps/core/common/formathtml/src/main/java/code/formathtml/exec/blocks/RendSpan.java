@@ -28,12 +28,16 @@ public final class RendSpan extends RendElement {
             ((Element)_nextWrite).removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
             return;
         }
-        ((Element)_nextWrite).setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()),txt_);
+        setupTxt(_cont, _nextWrite, _rendStack, txt_, formatted);
+    }
+
+    public static void setupTxt(Configuration _cont, Node _nextWrite, RendStackCall _rendStack, String txt_, StringMap<String> _formatted) {
+        ((Element)_nextWrite).setAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrFor()), txt_);
         CustList<StringList> stack_ = _rendStack.getFormParts().getFormatIdMapStack();
         if (stack_.isEmpty()) {
             return;
         }
-        stack_.last().add(formatted.getVal(_cont.getCurrentLanguage()));
+        stack_.last().add(_formatted.getVal(_cont.getCurrentLanguage()));
     }
 
 }

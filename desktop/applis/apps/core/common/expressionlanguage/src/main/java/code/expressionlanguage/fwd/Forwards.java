@@ -2,7 +2,6 @@ package code.expressionlanguage.fwd;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
-import code.expressionlanguage.analyze.AbstractFieldFilter;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.Classes;
@@ -27,7 +26,6 @@ public final class Forwards {
     private final IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFctBodies = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
 
     private final AbstractFileBuilder fileBuilder;
-    private final AbstractFieldFilter fieldFilter;
     private final AbstractConstantsCalculator constantsCalculator;
     private final Coverage coverage;
     private final Classes classes;
@@ -35,7 +33,6 @@ public final class Forwards {
 
     public Forwards(BuildableLgNames _generator, AbstractFileBuilder _fileBuilder, Options _options) {
         generator = _generator;
-        fieldFilter = _generator.newFieldFilter();
         constantsCalculator = _generator.newConstantsCalculator();
         coverage = new Coverage(_options.isCovering());
         coverage.setImplicit(_options.isDisplayImplicit());
@@ -54,10 +51,6 @@ public final class Forwards {
 
     public AbstractConstantsCalculator getConstantsCalculator() {
         return constantsCalculator;
-    }
-
-    public AbstractFieldFilter getFieldFilter() {
-        return fieldFilter;
     }
 
     public AbstractFileBuilder getFileBuilder() {

@@ -717,7 +717,11 @@ public abstract class OperationNode {
 
     private static void fetchFieldsType(StringMap<FieldResult> _ancestors,
                                         AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {
-        _page.getFieldFilter().tryAddField(_scope, _scopeField, _ancestors, _page);
+        FieldInfo fi_ = ContextUtil.getFieldInfo(_scope.getTypeInfo().getRoot(), _scopeField.getRootName(), _scopeField.getName());
+        if (fi_ == null) {
+            return;
+        }
+        OperationNode.tryAddField(fi_, _ancestors, _page, _scope, _scopeField);
     }
 
     public static void tryAddField(FieldInfo _fi, StringMap<FieldResult> _ancestors, AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {
@@ -1913,7 +1917,7 @@ public abstract class OperationNode {
             CustList<MethodInfo> methods_ = new CustList<MethodInfo>();
             for (TypeInfo t: g) {
                 ScopeFilterType scType_ = new ScopeFilterType(_sc,t,t.getScope(), baseTypes_,superTypesBaseAncBis_, _formattedFilter);
-                _page.getFieldFilter().fetchParamClassMethods(scType_, methods_, _page);
+                OperationNode.fetchParamClassMethods(scType_, methods_, _page);
             }
             _methods.add(methods_);
         }

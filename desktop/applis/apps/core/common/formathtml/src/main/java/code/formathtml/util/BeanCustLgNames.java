@@ -1,8 +1,6 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.analyze.AbstractFieldFilter;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -14,9 +12,9 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
-import code.expressionlanguage.exec.opers.ExecStdFctOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -27,7 +25,6 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.DefaultConverterCheck;
-import code.formathtml.analyze.DefaultReducingOperations;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
@@ -413,7 +410,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         Forwards forwards_ = _dual.getForwards();
         setupRendClasses(_files, page_, _dual.getContext().getFilesConfName(), _dual.getContext().getAddedResources());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        analyzingDoc_.setReducingOperations(new DefaultReducingOperations());
         analyzingDoc_.setContent(this);
         analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
         analyzingDoc_.setConverterCheck(new DefaultConverterCheck(getContent().getPrimTypes().getPrimitiveTypes(), getContent().getCharSeq().getAliasString()));
@@ -436,11 +432,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         Classes.forwardAndClear(ctx_);
         buildIterables(ctx_.getClasses());
         return ctx_;
-    }
-
-    @Override
-    public AbstractFieldFilter newFieldFilter() {
-        return new DefaultFieldFilter();
     }
 
     private static void setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName, StringList _added) {
@@ -528,6 +519,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
     }
 
+    @Override
+    public AbstractWrapper newWrapper(LocalVariable _local){
+        return new VariableWrapper(_local);
+    }
     @Override
     public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
@@ -747,34 +742,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return beanAliases;
     }
 
-    @Override
-    public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, ContextEl _context, RendStackCall _stack) {
-        ClassField fieldId_ = _rend.getClassField();
-        boolean staticField_ = _rend.isStaticField();
-        String fieldType_ = _rend.getRealType();
-        if (staticField_) {
-            return ExecTemplates.getStaticField(_context.getExiting(), _rend.getRootBlock(), fieldType_, _context, _stack.getStackCall(), fieldId_);
-        }
-        return ExecTemplates.getSafeInstanceField(_rend.getAnc(), _previous, _context, _stack.getStackCall(), fieldId_);
-    }
-
-    @Override
-    public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Argument _right, ContextEl _context, RendStackCall _stack) {
-        String fieldType_ = _rend.getRealType();
-        boolean isStatic_ = _rend.isStaticField();
-        ClassField fieldId_ = _rend.getClassField();
-        //Come from code directly so constant static fields can be initialized here
-        if (isStatic_) {
-            return ExecTemplates.setStaticField(_context.getExiting(), _rend.getRootBlock(), fieldType_, _right, _context, _stack.getStackCall(), fieldId_);
-        }
-        return ExecTemplates.setSafeInstanceField(_rend.getAnc(), _previous, _right, _context, _stack.getStackCall(), fieldId_, new ExecTypeReturn(_rend.getRootBlock(), fieldType_));
-    }
-
-    @Override
-    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, ContextEl _context, RendStackCall _stack) {
-        return ExecStdFctOperation.prep(_context,_stack.getStackCall(),_previous,_rend.buildInfos(_all), _rend.getStdFctContent());
-    }
-
     private void forwardMap(Struct _map, Struct _to, Struct _key, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getLastPage().putInternVars(getValVar, _map, _ctx);
         _rendStackCall.getLastPage().putInternVars(getValVarArg, _key, _ctx);
@@ -797,47 +764,47 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _rendStackCall.getLastPage().clearInternVars();
     }
 
-    private String getIteratorVar() {
+    public String getIteratorVar() {
         return iteratorVar;
     }
 
-    private String getHasNextVar() {
+    public String getHasNextVar() {
         return hasNextVar;
     }
 
-    private String getNextVar() {
+    public String getNextVar() {
         return nextVar;
     }
 
-    private CustList<RendDynOperationNode> getExpsIterator() {
+    public CustList<RendDynOperationNode> getExpsIterator() {
         return expsIterator;
     }
 
-    private CustList<RendDynOperationNode> getExpsHasNext() {
+    public CustList<RendDynOperationNode> getExpsHasNext() {
         return expsHasNext;
     }
 
-    private CustList<RendDynOperationNode> getExpsNext() {
+    public CustList<RendDynOperationNode> getExpsNext() {
         return expsNext;
     }
 
-    private String getIteratorTableVarCust() {
+    public String getIteratorTableVarCust() {
         return iteratorTableVarCust;
     }
 
-    private String getHasNextPairVarCust() {
+    public String getHasNextPairVarCust() {
         return hasNextPairVarCust;
     }
 
-    private String getNextPairVarCust() {
+    public String getNextPairVarCust() {
         return nextPairVarCust;
     }
 
-    private String getFirstVarCust() {
+    public String getFirstVarCust() {
         return firstVarCust;
     }
 
-    private String getSecondVarCust() {
+    public String getSecondVarCust() {
         return secondVarCust;
     }
 
@@ -845,23 +812,23 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return beforeDisplayingVar;
     }
 
-    private CustList<RendDynOperationNode> getExpsIteratorTableCust() {
+    public CustList<RendDynOperationNode> getExpsIteratorTableCust() {
         return expsIteratorTableCust;
     }
 
-    private CustList<RendDynOperationNode> getExpsHasNextPairCust() {
+    public CustList<RendDynOperationNode> getExpsHasNextPairCust() {
         return expsHasNextPairCust;
     }
 
-    private CustList<RendDynOperationNode> getExpsNextPairCust() {
+    public CustList<RendDynOperationNode> getExpsNextPairCust() {
         return expsNextPairCust;
     }
 
-    private CustList<RendDynOperationNode> getExpsFirstCust() {
+    public CustList<RendDynOperationNode> getExpsFirstCust() {
         return expsFirstCust;
     }
 
-    private CustList<RendDynOperationNode> getExpsSecondCust() {
+    public CustList<RendDynOperationNode> getExpsSecondCust() {
         return expsSecondCust;
     }
 
@@ -905,13 +872,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return null;
         }
         return DefaultBeanAliases.getMessageStruct(arg_.getStruct(), beanAliases.getAliasMessage()).getInstance();
-    }
-    @Override
-    public String getStringKey(Struct _instance, ContextEl _ctx, RendStackCall _stack) {
-        if (_instance instanceof EnumerableStruct) {
-            return ((EnumerableStruct) _instance).getName();
-        }
-        return processString(new Argument(_instance), _ctx, _stack);
     }
 
     @Override
@@ -957,94 +917,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         RenderExpUtil.calculateReuse(expsSetLanguage, this, _ctx, _rendStackCall);
         _rendStackCall.getLastPage().setEnabledOp(true);
         _rendStackCall.getLastPage().clearInternVars();
-    }
-
-    @Override
-    public Argument iteratorMultTable(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
-        String locName_ = getIteratorTableVarCust();
-        _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
-        _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsIteratorTableCust(), this, _ctx, _rendStack);
-        _rendStack.getLastPage().clearInternVars();
-        _rendStack.getLastPage().setEnabledOp(true);
-        return arg_;
-    }
-
-    @Override
-    public Argument hasNextPair(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
-        String locName_ = getHasNextPairVarCust();
-        _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
-        _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsHasNextPairCust(), this, _ctx, _rendStack);
-        _rendStack.getLastPage().clearInternVars();
-        _rendStack.getLastPage().setEnabledOp(true);
-        return arg_;
-    }
-
-    @Override
-    public Argument nextPair(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
-        String locName_ = getNextPairVarCust();
-        _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
-        _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsNextPairCust(), this, _ctx, _rendStack);
-        _rendStack.getLastPage().clearInternVars();
-        _rendStack.getLastPage().setEnabledOp(true);
-        return arg_;
-    }
-
-    @Override
-    public Argument first(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
-        String locName_ = getFirstVarCust();
-        _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
-        _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsFirstCust(), this, _ctx, _rendStack);
-        _rendStack.getLastPage().clearInternVars();
-        _rendStack.getLastPage().setEnabledOp(true);
-        return arg_;
-    }
-
-    @Override
-    public Argument second(Struct _arg, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
-        String locName_ = getSecondVarCust();
-        _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
-        _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsSecondCust(), this, _ctx, _rendStack);
-        _rendStack.getLastPage().clearInternVars();
-        _rendStack.getLastPage().setEnabledOp(true);
-        return arg_;
-    }
-
-    @Override
-    public Argument iteratorList(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
-        String locName_ = getIteratorVar();
-        _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
-        _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsIterator(), this, _ctx, _rendStack);
-        _rendStack.getLastPage().clearInternVars();
-        _rendStack.getLastPage().setEnabledOp(true);
-        return arg_;
-    }
-
-    @Override
-    public Argument nextList(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
-        String locName_ = getNextVar();
-        _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
-        _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsNext(), this, _ctx, _rendStack);
-        _rendStack.getLastPage().clearInternVars();
-        _rendStack.getLastPage().setEnabledOp(true);
-        return arg_;
-    }
-
-    @Override
-    public Argument hasNext(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
-        String locName_ = getHasNextVar();
-        _rendStack.getLastPage().putInternVars(locName_, _arg, _ctx);
-        _rendStack.getLastPage().setEnabledOp(false);
-        Argument arg_ = RenderExpUtil.calculateReuse(getExpsHasNext(), this, _ctx, _rendStack);
-        _rendStack.getLastPage().clearInternVars();
-        _rendStack.getLastPage().setEnabledOp(true);
-        return arg_;
     }
 
     @Override

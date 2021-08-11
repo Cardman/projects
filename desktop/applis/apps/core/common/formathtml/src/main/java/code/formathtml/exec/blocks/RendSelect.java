@@ -117,20 +117,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        Longs stack_ = _rendStack.getFormParts().getFormsNb();
-        if (!stack_.isEmpty()) {
-            FormInputCoords inputs_ = new FormInputCoords();
-            inputs_.setForm(stack_.last());
-            inputs_.setInput(_rendStack.getFormParts().getIndexes().getNb());
-            StringList allOptions_ = new StringList();
-            ElementList elts_ = docElementSelect_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordOption());
-            int nbElts_ = elts_.getLength();
-            for (int i = 0; i < nbElts_; i++) {
-                Element opt_ = elts_.item(i);
-                allOptions_.add(opt_.getAttribute(_cont.getRendKeyWords().getAttrValue()));
-            }
-            _rendStack.getHtmlPage().getSelects().put(inputs_, allOptions_);
-        }
+        possibleSelect(_cont, _rendStack, docElementSelect_);
         for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
             String txt_ = RenderingText.render(res_, _stds, _ctx, _rendStack);
@@ -140,6 +127,23 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
             docElementSelect_.setAttribute(e.getKey(),txt_);
         }
         processBlock(_cont, _stds, _ctx, _rendStack);
+    }
+
+    public static void possibleSelect(Configuration _cont, RendStackCall _rendStack, Element _docElementSelect) {
+        Longs stack_ = _rendStack.getFormParts().getFormsNb();
+        if (!stack_.isEmpty()) {
+            FormInputCoords inputs_ = new FormInputCoords();
+            inputs_.setForm(stack_.last());
+            inputs_.setInput(_rendStack.getFormParts().getIndexes().getNb());
+            StringList allOptions_ = new StringList();
+            ElementList elts_ = _docElementSelect.getElementsByTagName(_cont.getRendKeyWords().getKeyWordOption());
+            int nbElts_ = elts_.getLength();
+            for (int i = 0; i < nbElts_; i++) {
+                Element opt_ = elts_.item(i);
+                allOptions_.add(opt_.getAttribute(_cont.getRendKeyWords().getAttrValue()));
+            }
+            _rendStack.getHtmlPage().getSelects().put(inputs_, allOptions_);
+        }
     }
 
     private void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
@@ -153,11 +157,11 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
 
     private void processOptionsMapEnumName(Configuration _conf, Struct _extractedMap,
                                            Document _docSelect, Element _docElementSelect, Struct _returnedVarValue, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
-        CustList<Struct> obj_ = values(_conf,_returnedVarValue, _advStandards, _ctx, _rendStackCall);
+        CustList<Struct> obj_ = values(_returnedVarValue, _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
-        Argument arg_ = iteratorMultTable(_extractedMap,_conf, _advStandards, _ctx, _rendStackCall);
+        Argument arg_ = iteratorMultTable(_extractedMap, _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
@@ -168,19 +172,19 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
 
     private void processOptions(Configuration _conf, Document _docSelect, Element _docElementSelect, CustList<Struct> _obj, Struct _l, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         while (true) {
-            Argument hasNext_ = hasNextPair(_l, _conf, _advStandards, _ctx, _rendStackCall);
+            Argument hasNext_ = hasNextPair(_l, _advStandards, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
             if (BooleanStruct.isFalse(hasNext_.getStruct())) {
                 break;
             }
-            Argument nextPair_ = nextPair(_l, _conf, _advStandards, _ctx, _rendStackCall);
+            Argument nextPair_ = nextPair(_l, _advStandards, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
             Struct entry_ = nextPair_.getStruct();
-            Argument first_ = first(entry_, _conf, _advStandards, _ctx, _rendStackCall);
+            Argument first_ = first(entry_, _advStandards, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
@@ -200,7 +204,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
                     break;
                 }
             }
-            Argument second_ = second(entry_, _conf, _advStandards, _ctx, _rendStackCall);
+            Argument second_ = second(entry_, _advStandards, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
@@ -239,23 +243,23 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         return _advStandards.processString(arg_, _ctx, _rendStackCall);
     }
 
-    private CustList<Struct> values(Configuration _conf, Struct _returnedVarValue, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private CustList<Struct> values(Struct _returnedVarValue, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
         IdList<Struct> obj_ = new IdList<Struct>();
         if (multiple) {
-            Argument arg_ = iterator(_returnedVarValue,_conf, _stds, _ctx, _rendStackCall);
+            Argument arg_ = iterator(_returnedVarValue, _stds, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return obj_;
             }
             Struct it_ = arg_.getStruct();
             while (true) {
-                Argument hasNext_ = hasNext(it_, _conf, _stds, _ctx, _rendStackCall);
+                Argument hasNext_ = hasNext(it_, _stds, _ctx, _rendStackCall);
                 if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                     return obj_;
                 }
                 if (BooleanStruct.isFalse(hasNext_.getStruct())) {
                     break;
                 }
-                Argument next_ = next(it_, _conf, _stds, _ctx, _rendStackCall);
+                Argument next_ = next(it_, _stds, _ctx, _rendStackCall);
                 if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                     return obj_;
                 }

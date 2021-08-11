@@ -23,12 +23,16 @@ public final class RendImg extends RendElement {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
+        prImg(_cont, (Element) _nextWrite, pageName_);
+    }
+
+    public static void prImg(Configuration _cont, Element _nextWrite, String _pageName) {
         String lg_ = _cont.getCurrentLanguage();
-        String link_ = Configuration.getRealFilePath(lg_,pageName_);
+        String link_ = Configuration.getRealFilePath(lg_, _pageName);
         String file_ = _cont.getFiles().getVal(link_);
         if (file_ == null) {
             return;
         }
-        ((Element)_nextWrite).setAttribute(_cont.getRendKeyWords().getAttrSrc(),file_);
+        _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrSrc(),file_);
     }
 }

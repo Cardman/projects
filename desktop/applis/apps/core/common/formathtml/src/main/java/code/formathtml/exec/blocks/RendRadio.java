@@ -58,11 +58,15 @@ public final class RendRadio extends RendInput {
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
-            if (StringUtil.quickEq(elt_.getAttribute(_cont.getRendKeyWords().getAttrValue()),strObj_)) {
-                elt_.setAttribute(_cont.getRendKeyWords().getAttrChecked(), _cont.getRendKeyWords().getAttrChecked());
-            } else {
-                elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
-            }
+            procDefValue(_cont, elt_, strObj_);
+        }
+    }
+
+    public static void procDefValue(Configuration _cont, Element _elt, String _strObj) {
+        if (StringUtil.quickEq(_elt.getAttribute(_cont.getRendKeyWords().getAttrValue()), _strObj)) {
+            _elt.setAttribute(_cont.getRendKeyWords().getAttrChecked(), _cont.getRendKeyWords().getAttrChecked());
+        } else {
+            _elt.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
         }
     }
 }

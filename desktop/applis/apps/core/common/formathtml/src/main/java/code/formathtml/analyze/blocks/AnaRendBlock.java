@@ -356,7 +356,7 @@ public abstract class AnaRendBlock {
         }
         return _link.getAttribute(_rendKeyWords.getAttrHref());
     }
-    private static IntTreeMap< Integer> getIndexesSpecChars(String _html, boolean _realAttr, AttributePart _att, int _beginNode) {
+    public static IntTreeMap< Integer> getIndexesSpecChars(String _html, boolean _realAttr, AttributePart _att, int _beginNode) {
         int begin_ = _att.getBegin();
         int end_ = _att.getEnd();
         int i_ = begin_;
@@ -382,7 +382,7 @@ public abstract class AnaRendBlock {
     private static StringMap<AttributePart> getAttributes(String _html, int _from, int _to) {
         return DocumentAttribute.getAttributes(_html, _from, _to);
     }
-    private static int indexOfBeginNode(Node _node, String _html, int _from) {
+    public static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {
             return _html.indexOf(StringUtil.concat(Character.toString(LT_BEGIN_TAG),((Element) _node).getTagName()), _from) + 1;
         }
@@ -451,7 +451,7 @@ public abstract class AnaRendBlock {
         return StringUtil.replaceMultiple(_arg, rep_);
     }
 
-    private static OffsetStringInfo newOffsetStringInfo(Element _elt, String _key, StringMap<AttributePart> _attr) {
+    public static OffsetStringInfo newOffsetStringInfo(Element _elt, String _key, StringMap<AttributePart> _attr) {
         AttributePart val_ = _attr.getVal(_key);
         int begin_;
         if (val_ == null) {

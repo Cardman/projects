@@ -11,7 +11,7 @@ import code.sml.Node;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class RendForm extends RendElement {
+public final class RendForm extends RendElement implements RendFormInt {
     private final CustList<RendDynOperationNode> opForm;
 
     private final StringList varNames;
@@ -38,21 +38,12 @@ public final class RendForm extends RendElement {
         _rendStack.getFormParts().getFormsVars().add(varNames);
         Element elt_ = (Element) _nextWrite;
         if (!href_.startsWith(CALL_METHOD)) {
-            _rendStack.getFormParts().getFormsArgs().add(new StringList());
-            if (elt_.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))) {
-                elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
-            }
-            _rendStack.getFormParts().getFormsNames().add(EMPTY_STRING);
-            currentForm_ = _rendStack.getFormParts().getCurrentForm();
-            elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
+            procCstRef(_cont, _rendStack, elt_);
             return;
         }
         StringList alt_ = RenderingText.renderAltList(textPart, _stds, _ctx, _rendStack);
         StringList arg_ = new StringList();
-        int len_ = alt_.size();
-        for (int i = 1; i < len_; i += 2) {
-            arg_.add(alt_.get(i));
-        }
+        feedList(alt_, arg_);
         String render_ = StringUtil.join(alt_,"");
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             _rendStack.getFormParts().getFormsArgs().add(new StringList());
@@ -68,6 +59,24 @@ public final class RendForm extends RendElement {
         elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
         currentForm_ = _rendStack.getFormParts().getCurrentForm();
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
+    }
+
+    public static void feedList(StringList _alt, StringList _arg) {
+        int len_ = _alt.size();
+        for (int i = 1; i < len_; i += 2) {
+            _arg.add(_alt.get(i));
+        }
+    }
+
+    public static void procCstRef(Configuration _cont, RendStackCall _rendStack, Element _elt) {
+        long currentForm_;
+        _rendStack.getFormParts().getFormsArgs().add(new StringList());
+        if (_elt.hasAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()))) {
+            _elt.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
+        }
+        _rendStack.getFormParts().getFormsNames().add(EMPTY_STRING);
+        currentForm_ = _rendStack.getFormParts().getCurrentForm();
+        _elt.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
     }
 
 }

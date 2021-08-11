@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.StringExpUtil;
@@ -107,7 +108,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
             }
             StringList names_ = r_.getOpsValueRoot().getResultClass().getNames();
             if (!r_.getOpsValueRoot().getResultClass().isVariable()) {
-                IterableAnalysisResult it_ = _page.getForEachFetch().getCustomType(names_,"");
+                IterableAnalysisResult it_ = ContextUtil.getCustomTypeBase(names_,_page);
                 StringList candidates_ = it_.getClassName();
                 if (!candidates_.onlyOneElt()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -282,7 +283,7 @@ public final class AnaRendSelect extends AnaRendParentBlock {
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             } else {
-                IterableAnalysisResult it_ = _page.getForEachFetch().getCustomType(rootDefault.getResultClass().getNames(),"");
+                IterableAnalysisResult it_ = ContextUtil.getCustomTypeBase(rootDefault.getResultClass().getNames(),_page);
                 StringList candidates_ = it_.getClassName();
                 if (!candidates_.onlyOneElt()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();

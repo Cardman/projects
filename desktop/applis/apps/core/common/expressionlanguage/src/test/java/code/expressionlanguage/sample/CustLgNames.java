@@ -2,8 +2,6 @@ package code.expressionlanguage.sample;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.SingleContextEl;
-import code.expressionlanguage.analyze.AbstractFieldFilter;
-import code.expressionlanguage.analyze.DefaultFieldFilter;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
@@ -29,8 +27,4 @@ public final class CustLgNames extends LgNames {
         return new SingleContextEl(new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
     }
 
-    @Override
-    public AbstractFieldFilter newFieldFilter() {
-        return new DefaultFieldFilter();
-    }
 }

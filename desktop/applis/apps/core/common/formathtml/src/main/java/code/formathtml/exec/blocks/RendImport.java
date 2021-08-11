@@ -10,6 +10,7 @@ import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.util.CustList;
@@ -56,7 +57,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
         boolean keepField_ = elt.hasAttribute(_cont.getRendKeyWords().getAttrKeepFields());
         Struct mainBean_ = _rendStack.getMainBean();
-        if (!_stds.setBeanForms(_cont, mainBean_, this, keepField_,
+        if (!((BeanCustLgNames)_stds).setBeanForms(_cont, mainBean_, this, keepField_,
                 beanName_, _ctx, _rendStack)) {
             return;
         }

@@ -174,10 +174,10 @@ public final class ImportingPage {
         RendAbstractStask last_ = rendBlockStacks.last();
         last_.getCurrentVisitedBlock().removeAllVars(this);
         if (last_ instanceof RendIfStack) {
-            if (((RendIfStack)last_).getBlock() instanceof RendElement) {
+            if (((RendIfStack)last_).getBlock() instanceof RendElem) {
                 rendReadWrite.setWrite(RendBlock.getParentNode(rendReadWrite));
             }
-            if (((RendIfStack)last_).getBlock() instanceof RendForm) {
+            if (((RendIfStack)last_).getBlock() instanceof RendFormInt) {
                 CustList<LongTreeMap<NodeContainer>> map_ = rendReadWrite.getConf().getContainersMapStack();
                 Longs formsNb_ = rendReadWrite.getConf().getFormsNb();
                 Long nb_ = formsNb_.last();

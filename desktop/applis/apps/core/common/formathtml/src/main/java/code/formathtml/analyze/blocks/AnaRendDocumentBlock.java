@@ -9,9 +9,11 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.structs.BeanInfo;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlock,AccessingImportingBlock {
@@ -30,7 +32,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         fileName = _fileName;
     }
 
-    public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, StringMap<BeanInfo> _beansInfosBefore) {
         beanName = elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
         imports = StringUtil.splitChar(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrAlias())),';');
         _page.setGlobalOffset(getOffset());
@@ -38,9 +40,9 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
         _page.setCurrentPkg("");
         _page.setCurrentFile(null);
-        if (_anaDoc.getBeansInfosBefore().contains(beanName)) {
+        if (_beansInfosBefore.contains(beanName)) {
             _page.setAccessStaticContext(MethodAccessKind.INSTANCE);
-            String clName_ = _anaDoc.getBeansInfosBefore().getVal(beanName).getResolvedClassName();
+            String clName_ = _beansInfosBefore.getVal(beanName).getResolvedClassName();
             AnaFormattedRootBlock globalType_ = new AnaFormattedRootBlock(_page, clName_);
             _page.setGlobalType(globalType_);
             _page.setImporting(globalType_.getRootBlock());

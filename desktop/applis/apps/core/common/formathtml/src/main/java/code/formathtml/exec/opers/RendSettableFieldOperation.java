@@ -4,6 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
@@ -43,7 +45,14 @@ public final class RendSettableFieldOperation extends
         if (resultCanBeSet()) {
             result_ = Argument.createVoid();
         } else {
-            result_ = _advStandards.getCommonArgument(this, previous_, _context, _rendStack);
+            ClassField fieldId_ = getClassField();
+            boolean staticField_ = isStaticField();
+            String fieldType_ = getRealType();
+            if (staticField_) {
+                result_ = ExecTemplates.getStaticField(_context.getExiting(), getRootBlock(), fieldType_, _context, _rendStack.getStackCall(), fieldId_);
+            } else {
+                result_ = ExecTemplates.getSafeInstanceField(getAnc(), previous_, _context, _rendStack.getStackCall(), fieldId_);
+            }
         }
         Argument arg_ = RendDynOperationNode.processCall(result_, _context, _rendStack).getValue();
         if (_context.callsOrException(_rendStack.getStackCall())) {
@@ -120,7 +129,16 @@ public final class RendSettableFieldOperation extends
         Argument prev_ = getPreviousArg(this, _nodes, _rendStackCall);
         int off_ = getOff();
         _rendStackCall.setOffset(off_);
-        Argument arg_ = _advStandards.getCommonSetting(this, prev_, _right, _context, _rendStackCall);
+        String fieldType_ = getRealType();
+        boolean isStatic_ = isStaticField();
+        ClassField fieldId_ = getClassField();
+        //Come from code directly so constant static fields can be initialized here
+        Argument arg_;
+        if (isStatic_) {
+            arg_ = ExecTemplates.setStaticField(_context.getExiting(), getRootBlock(), fieldType_, _right, _context, _rendStackCall.getStackCall(), fieldId_);
+        } else {
+            arg_ = ExecTemplates.setSafeInstanceField(getAnc(), prev_, _right, _context, _rendStackCall.getStackCall(), fieldId_, new ExecTypeReturn(getRootBlock(), fieldType_));
+        }
         return RendDynOperationNode.processCall(arg_,_context,_rendStackCall).getValue();
     }
 

@@ -1008,7 +1008,7 @@ public abstract class CommonRender extends EquallableExUtil {
         }
         setLocalFiles(_a, _analyzingDoc);
         for (AnaRendDocumentBlock v: d_.values()) {
-            v.buildFctInstructions(_analyzingDoc, _a.getAnalyzing());
+            v.buildFctInstructions(_analyzingDoc, _a.getAnalyzing(), _analyzingDoc.getBeansInfosBefore());
         }
         return d_;
     }

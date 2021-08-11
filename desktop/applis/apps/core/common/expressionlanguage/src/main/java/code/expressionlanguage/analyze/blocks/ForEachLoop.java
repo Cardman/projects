@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
@@ -274,7 +275,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
     }
 
     public StringList getInferredIterable(StringList _types, AnalyzedPageEl _page) {
-        IterableAnalysisResult it_ = _page.getForEachFetch().getCustomType(_types,"");
+        IterableAnalysisResult it_ = ContextUtil.getCustomTypeBase(_types,_page);
         return it_.getClassName();
     }
 

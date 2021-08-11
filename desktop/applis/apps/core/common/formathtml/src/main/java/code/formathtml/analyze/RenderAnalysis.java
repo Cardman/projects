@@ -7,6 +7,8 @@ import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.reach.opers.ReachMethodOperation;
+import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ConstType;
@@ -89,9 +91,14 @@ public final class RenderAnalysis {
             preAnalyze(_page, c_);
             c_ = getAnalyzedNext(c_, _root, list_, _analyzingDoc, _page);
         }
-        return _analyzingDoc.getReducingOperations().reduced(list_,_page);
+        return reduced(list_,_page);
     }
 
+    static CustList<OperationNode> reduced(CustList<OperationNode> _list, AnalyzedPageEl _page) {
+        CustList<ReachMethodOperation> reach_ = ReachOperationUtil.getExecutableNodes(_list);
+        ReachOperationUtil.tryCalculate(_page, reach_);
+        return _list;
+    }
     private static void preAnalyze(AnalyzedPageEl _page, OperationNode _c) {
         if (_c instanceof PreAnalyzableOperation) {
             ((PreAnalyzableOperation) _c).preAnalyze(_page);
