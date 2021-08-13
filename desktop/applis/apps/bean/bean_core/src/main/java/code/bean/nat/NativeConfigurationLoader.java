@@ -20,13 +20,16 @@ public final class NativeConfigurationLoader extends AbstractConfigurationLoader
 
     @Override
     public DualAnalyzedContext specificLoad(Configuration _configuration, String _lgCode, Document _document, AnalyzedPageEl _page, BeanLgNames _stds, DualConfigurationContext _context) {
+        specificLoadBegin(_configuration,_document, _context);
+        Forwards forwards_ = stds.setupNative(_page, _context);
+        return new DualAnalyzedContext(forwards_,_page,_stds,_context);
+    }
+    public void specificLoadBegin(Configuration _configuration, Document _document, DualConfigurationContext _context) {
         if (init != null) {
             init.initConf(_configuration);
             init.initAna(_context);
         } else {
             update(_configuration,_document, _context);
         }
-        Forwards forwards_ = stds.setupNative(_page, _context);
-        return new DualAnalyzedContext(forwards_,_page,_stds,_context);
     }
 }
