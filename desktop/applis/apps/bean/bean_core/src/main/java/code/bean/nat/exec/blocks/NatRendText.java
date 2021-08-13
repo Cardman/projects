@@ -6,12 +6,11 @@ import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendLeaf;
-import code.formathtml.exec.blocks.RendWithEl;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
 
-public final class NatRendText extends RendLeaf implements RendWithEl {
+public final class NatRendText extends RendLeaf {
 
     private final ExecTextPart textPart;
 

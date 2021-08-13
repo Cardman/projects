@@ -100,7 +100,7 @@ public final class RendBlockHelp {
         }
     }
 
-    protected static void processVisitedLoop(RendLoopBlockStack _l, RendBlock _next, ContextEl _context, RendStackCall _stackCall) {
+    static void processVisitedLoop(RendBlock _next, ContextEl _context, RendStackCall _stackCall) {
         processBlockAndRemove(_context,_stackCall, _next);
 //        if (_l.getContent().isFinished()) {
 //            processBlockAndRemove(_context,_stackCall, _next);
@@ -205,7 +205,7 @@ public final class RendBlockHelp {
         return ConditionReturn.NO;
     }
 
-    protected static Argument fetchName(Configuration _cont, Element _read, Element _write, FieldUpdates _f, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    static Argument fetchName(Configuration _cont, Element _read, Element _write, FieldUpdates _f, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (name_.isEmpty()) {
             return Argument.createVoid();
@@ -235,7 +235,7 @@ public final class RendBlockHelp {
         return RendBlock.prStack(_cont,_write,_f,_advStandards,_rendStackCall,name_,obj_,allObj_,wrap_,objClasses_,stack_,arg_, false);
     }
 
-    protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (name_.isEmpty()) {
             return;
@@ -268,48 +268,37 @@ public final class RendBlockHelp {
         return new Argument(o_);
     }
 
-    protected static Argument iteratorMultTable(Struct _arg, ContextEl _ctx) {
+    static Argument iteratorMultTable(Struct _arg, ContextEl _ctx) {
         ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
         return new Argument(new SimpleItrStruct(StringUtil.concat(BeanNatCommonLgNames.TYPE_ITERATOR,StringExpUtil.TEMPLATE_BEGIN, BeanNatCommonLgNames.TYPE_ENTRY,StringExpUtil.TEMPLATE_BEGIN, "?,?",StringExpUtil.TEMPLATE_END,StringExpUtil.TEMPLATE_END),array_));
     }
 
-    protected static Argument hasNextPair(Struct _arg, ContextEl _ctx) {
+    static Argument nasNextCom(Struct _arg, ContextEl _ctx) {
         SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg, _ctx);
         return new Argument(BooleanStruct.of(simpleItrStruct_.hasNext()));
     }
 
-    protected static Argument nextPair(Struct _arg, ContextEl _ctx) {
+    static Argument nextCom(Struct _arg, ContextEl _ctx) {
         SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg, _ctx);
         Struct resObj_ = simpleItrStruct_.next();
         return new Argument(resObj_);
     }
 
-    protected static Argument first(Struct _arg, ContextEl _ctx) {
+    static Argument first(Struct _arg, ContextEl _ctx) {
         PairStruct pairStruct_ = BeanNatCommonLgNames.getPairStruct(_arg, _ctx);
         Struct resObj_ = pairStruct_.getFirst();
         return new Argument(resObj_);
     }
 
-    protected static Argument second(Struct _arg, ContextEl _ctx) {
+    static Argument second(Struct _arg, ContextEl _ctx) {
         PairStruct pairStruct_ = BeanNatCommonLgNames.getPairStruct(_arg, _ctx);
         Struct resObj_ = pairStruct_.getSecond();
         return new Argument(resObj_);
     }
 
-    protected static Argument iterator(Struct _arg, ContextEl _ctx) {
+    static Argument iterator(Struct _arg, ContextEl _ctx) {
         ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
         return new Argument(new SimpleItrStruct(StringUtil.concat(BeanNatCommonLgNames.TYPE_ITERATOR, StringExpUtil.TEMPLATE_BEGIN,"?",StringExpUtil.TEMPLATE_END),array_));
-    }
-
-    protected static Argument hasNext(Struct _arg, ContextEl _ctx) {
-        SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg, _ctx);
-        return new Argument(BooleanStruct.of(simpleItrStruct_.hasNext()));
-    }
-
-    protected static Argument next(Struct _arg, ContextEl _ctx) {
-        SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg, _ctx);
-        Struct resObj_ = simpleItrStruct_.next();
-        return new Argument(resObj_);
     }
 
     static String getStringKey(Struct _instance, BeanLgNames _advStandards, ContextEl _ctx) {

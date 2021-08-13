@@ -3,7 +3,6 @@ package code.bean.nat.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.bean.nat.exec.variables.VariableWrapperNat;
@@ -47,7 +46,7 @@ public final class NatRendForEachTable extends RendParentBlock implements RendWi
         ImportingPage ip_ = _rendStack.getLastPage();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            RendBlockHelp.processVisitedLoop(c_,this,_ctx,_rendStack);
+            RendBlockHelp.processVisitedLoop(this,_ctx,_rendStack);
 //            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
@@ -116,7 +115,7 @@ public final class NatRendForEachTable extends RendParentBlock implements RendWi
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         Struct iterator_ = _l.getContent().getStructIterator();
         ImportingPage call_ = _rendStackCall.getLastPage();
-        Argument nextPair_ = RendBlockHelp.nextPair(iterator_, _ctx);
+        Argument nextPair_ = RendBlockHelp.nextCom(iterator_, _ctx);
         Struct value_ = nextPair_.getStruct();
         Argument arg_ = RendBlockHelp.first(value_, _ctx);
         LoopVariable lv_ = _vars.getVal(variableNameFirst);
@@ -132,7 +131,7 @@ public final class NatRendForEachTable extends RendParentBlock implements RendWi
     }
     private static ConditionReturn iteratorHasNext(ContextEl _ctx, RendLoopBlockStack _rendLastStack) {
         Struct strIter_ = _rendLastStack.getContent().getStructIterator();
-        Argument arg_ = RendBlockHelp.hasNextPair(strIter_, _ctx);
+        Argument arg_ = RendBlockHelp.nasNextCom(strIter_, _ctx);
         if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;
         }

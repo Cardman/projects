@@ -48,7 +48,7 @@ public abstract class NatOperationNode {
 
     public abstract void analyze(AnalyzedPageEl _page);
 
-    public final void setRelativeOffsetPossibleAnalyzable(int _offset, AnalyzedPageEl _page) {
+    public static void setRelativeOffsetPossibleAnalyzable(int _offset, AnalyzedPageEl _page) {
         _page.setOffset(_offset);
     }
 

@@ -52,7 +52,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     private final StringMap<Bean> beans = new StringMap<Bean>();
     private final StringMap<Validator> validators = new StringMap<Validator>();
 
-    public BeanNatCommonLgNames() {
+    protected BeanNatCommonLgNames() {
         super(new DefaultGenerator());
     }
 
@@ -85,16 +85,16 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     }
     public abstract ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
                                                       ClassMethodId _method, Struct... _args);
-    public boolean setBeanForms(Configuration _conf, Struct _mainBean,
-                                NatRendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
-        return true;
+    public void setBeanForms(Configuration _conf, Struct _mainBean,
+                             NatRendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
+        //
     }
 
-    protected Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
+    protected static Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
         return getBean(_conf,_currentBeanName);
     }
 
-    private Struct getBean(Configuration _conf,String _beanName) {
+    private static Struct getBean(Configuration _conf,String _beanName) {
         return _conf.getBuiltBeans().getVal(_beanName);
     }
     @Override

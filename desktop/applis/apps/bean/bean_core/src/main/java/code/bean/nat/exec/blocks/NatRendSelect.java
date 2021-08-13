@@ -18,40 +18,21 @@ import code.sml.*;
 import code.util.*;
 
 public final class NatRendSelect extends RendParentBlock implements RendWithEl {
-    private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
-    private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
-    private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
-    private CustList<RendDynOperationNode> opsMap = new CustList<RendDynOperationNode>();
-    private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
-    private String varName = RendBlockHelp.EMPTY_STRING;
-    private InputInfo varNames = new InputInfo();
-    private String id = RendBlockHelp.EMPTY_STRING;
-    private String idClass = RendBlockHelp.EMPTY_STRING;
-    private String idName = RendBlockHelp.EMPTY_STRING;
+    private final CustList<RendDynOperationNode> opsValue;
+    private final CustList<RendDynOperationNode> opsMap;
     private final Element elt;
-    private String varNameConverter = RendBlockHelp.EMPTY_STRING;
-    private String className = RendBlockHelp.EMPTY_STRING;
-    private final boolean arrayConverter;
+    private final FieldUpdates fieldUpdates;
 
     public NatRendSelect(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                          CustList<RendDynOperationNode> _opsMap,
-                         String _varName, String _id, String _idClass, String _idName, Element _elt,
-                         String _varNameConverter,
-                         String _className, boolean _arrayConverter, InputInfo _list) {
-        this.opsRead = _opsRead;
+                         Element _elt,
+                         FieldUpdates _init) {
+        fieldUpdates = _init;
+        fieldUpdates.setOpsRead(_opsRead);
+        fieldUpdates.setOpsWrite(_opsWrite);
         this.opsValue = _opsValue;
-        this.opsWrite = _opsWrite;
         this.opsMap = _opsMap;
-        this.opsConverter = new CustList<RendDynOperationNode>();
-        this.varName = _varName;
-        this.id = _id;
-        this.idClass = _idClass;
-        this.idName = _idName;
         this.elt = _elt;
-        this.varNameConverter = _varNameConverter;
-        this.className = _className;
-        this.arrayConverter = _arrayConverter;
-        varNames = _list;
     }
 
     @Override
@@ -82,11 +63,11 @@ public final class NatRendSelect extends RendParentBlock implements RendWithEl {
 
     private static void processOptions(Configuration _conf, Document _docSelect, Element _docElementSelect, CustList<Struct> _obj, Struct _l, BeanLgNames _advStandards, ContextEl _ctx) {
         while (true) {
-            Argument hasNext_ = RendBlockHelp.hasNextPair(_l, _ctx);
+            Argument hasNext_ = RendBlockHelp.nasNextCom(_l, _ctx);
             if (BooleanStruct.isFalse(hasNext_.getStruct())) {
                 break;
             }
-            Argument nextPair_ = RendBlockHelp.nextPair(_l, _ctx);
+            Argument nextPair_ = RendBlockHelp.nextCom(_l, _ctx);
             Struct entry_ = nextPair_.getStruct();
             Argument first_ = RendBlockHelp.first(entry_, _ctx);
             Struct o_ = first_.getStruct();
@@ -112,19 +93,7 @@ public final class NatRendSelect extends RendParentBlock implements RendWithEl {
         return obj_;
     }
     private void processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
-        FieldUpdates f_ = new FieldUpdates();
-        f_.setId(id);
-        f_.setIdClass(idClass);
-        f_.setIdName(idName);
-        f_.setOpsRead(opsRead);
-        f_.setOpsWrite(opsWrite);
-        f_.setVarName(varName);
-        f_.setVarNames(varNames);
-        f_.setVarNameConverter(varNameConverter);
-        f_.setOpsConverter(opsConverter);
-        f_.setArrayConverter(arrayConverter);
-        f_.setClassName(className);
-        RendBlockHelp.fetchName(_cont, _read, _write, f_, _advStandards, _ctx, _rendStackCall);
+        RendBlockHelp.fetchName(_cont, _read, _write, fieldUpdates, _advStandards, _ctx, _rendStackCall);
         RendBlockHelp.fetchValue(_cont,_read,_write,opsValue, _advStandards, _ctx, _rendStackCall);
     }
 }

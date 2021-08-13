@@ -8,7 +8,6 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
-import code.util.StringList;
 
 public final class NatAffectationOperation extends NatAbstractAffectOperation {
 

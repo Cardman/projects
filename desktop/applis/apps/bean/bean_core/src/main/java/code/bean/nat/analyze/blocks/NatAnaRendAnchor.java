@@ -22,7 +22,7 @@ public final class NatAnaRendAnchor extends NatAnaRendElement {
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        NatResultText res_ = NatResultText.buildAnchor(this, _read, _list, _anaDoc, _page);
+        NatResultText res_ = NatResultText.buildAnchor(_read, _list, _anaDoc, _page);
         varNames = res_.getVarNames();
         root = res_.getOpExpAnchorRoot();
         roots = res_.getOpExpRoot();

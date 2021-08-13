@@ -6,7 +6,7 @@ import code.maths.litteralcom.StrTypes;
 
 public abstract class AbstractUnaryNatOperation extends MethodNatOperation {
 
-    public AbstractUnaryNatOperation(int _index, int _indexChild,
+    protected AbstractUnaryNatOperation(int _index, int _indexChild,
                                      MethodNatOperation _m, NatOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }

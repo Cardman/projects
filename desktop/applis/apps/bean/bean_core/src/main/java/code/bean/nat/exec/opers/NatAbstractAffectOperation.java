@@ -9,7 +9,6 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendMethodOperation;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
-import code.util.StringList;
 
 public abstract class NatAbstractAffectOperation extends RendMethodOperation implements RendCalculableOperation {
 

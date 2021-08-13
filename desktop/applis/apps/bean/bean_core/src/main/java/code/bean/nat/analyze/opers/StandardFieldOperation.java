@@ -14,7 +14,7 @@ public final class StandardFieldOperation {
         return operations;
     }
 
-    public NatAnaClassArgumentMatching getFrom(AnalyzedPageEl _page, SettableAbstractFieldNatOperation _settable) {
+    public static NatAnaClassArgumentMatching getFrom(AnalyzedPageEl _page, SettableAbstractFieldNatOperation _settable) {
         NatAnaClassArgumentMatching cl_;
         if (_settable.isIntermediateDottedOperation()) {
             cl_ = _settable.getPreviousResultClass();

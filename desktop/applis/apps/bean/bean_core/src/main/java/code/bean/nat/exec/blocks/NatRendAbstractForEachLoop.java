@@ -49,7 +49,7 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
         ImportingPage ip_ = _rendStack.getLastPage();
         RendLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
-            RendBlockHelp.processVisitedLoop(c_,this,_ctx,_rendStack);
+            RendBlockHelp.processVisitedLoop(this,_ctx,_rendStack);
             return;
         }
         Struct its_ = processLoop(_cont, _stds, _ctx, _rendStack);
@@ -120,7 +120,7 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
         return l_;
     }
     protected Argument retrieveValue(ContextEl _ctx, RendLoopBlockStack _l) {
-        return RendBlockHelp.next(_l.getContent().getStructIterator(), _ctx);
+        return RendBlockHelp.nextCom(_l.getContent().getStructIterator(), _ctx);
     }
 
     protected ConditionReturn hasNext(ContextEl _ctx, RendLoopBlockStack _l) {
@@ -129,7 +129,7 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
 
     private static ConditionReturn iteratorHasNext(ContextEl _ctx, RendLoopBlockStack _rendLastStack) {
         Struct strIter_ = _rendLastStack.getContent().getStructIterator();
-        Argument arg_ = RendBlockHelp.hasNext(strIter_, _ctx);
+        Argument arg_ = RendBlockHelp.nasNextCom(strIter_, _ctx);
         if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;
         }

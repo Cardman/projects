@@ -885,7 +885,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     }
 
     @Override
-    public boolean setBeanForms(Configuration _conf, Struct _mainBean, NatRendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
+    public void setBeanForms(Configuration _conf, Struct _mainBean, NatRendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
         Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
         StringMapObject forms_ = new StringMapObject();
         StringMapObject formsMap_ = new StringMapObject();
@@ -908,7 +908,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             formsMap_ = ((BeanFive) ((BeanStruct) _mainBean).getBean()).getForms();
         }
         forms_.putAllMap(formsMap_);
-        return super.setBeanForms(_conf, _mainBean, _node, _keepField, _beanName, _ctx, _rendStack);
+        super.setBeanForms(_conf, _mainBean, _node, _keepField, _beanName, _ctx, _rendStack);
     }
 
     @Override

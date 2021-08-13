@@ -2,13 +2,10 @@ package code.bean.nat;
 
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
-import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -21,15 +18,13 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
 import code.formathtml.structs.BeanInfo;
-import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.DualAnalyzedContext;
 import code.sml.Document;
 import code.util.*;
-import code.util.core.StringUtil;
 
 public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
 
-    public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
+    public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, DualAnalyzedContext _dual) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
@@ -60,8 +55,7 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
             v.buildFctInstructions(analyzingDoc_, page_, beansInfos_);
         }
 //        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(_docs,page_, this, analyzingDoc_, _dual.getContext());
-        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf, lateValidators_);
+        NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf);
     }
 
     @Override

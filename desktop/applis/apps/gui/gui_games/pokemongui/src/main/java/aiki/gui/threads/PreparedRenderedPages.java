@@ -72,7 +72,7 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         docs_.addEntry(realFilePath_,built.getVal(rel_));
 //        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        stds_.setupAll(docs_,navigation, navigation.getSession(), navigation.getFiles(), du_);
+        stds_.setupAll(docs_,navigation, navigation.getSession(), du_);
         context = du_.getForwards().generate(du_.getContext().getOptions());
     }
 

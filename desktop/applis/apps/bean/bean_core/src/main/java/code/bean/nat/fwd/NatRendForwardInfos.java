@@ -17,7 +17,8 @@ import code.formathtml.analyze.*;
 import code.formathtml.analyze.blocks.*;
 import code.formathtml.exec.blocks.*;
 import code.formathtml.exec.opers.*;
-import code.formathtml.structs.ValidatorInfo;
+import code.formathtml.util.FieldUpdates;
+import code.formathtml.util.InputInfo;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -162,7 +163,6 @@ public final class NatRendForwardInfos {
             return new NatRendForm(f_.getRead(),part_,partText_,opForm_,f_.getVarNames(),partSub_);
         }
         if (_current instanceof NatAnaRendClass){
-            NatAnaRendClass f_ = (NatAnaRendClass) _current;
             return new NatRendClass();
         }
         if (_current instanceof NatAnaRendField){
@@ -191,8 +191,8 @@ public final class NatRendForwardInfos {
             CustList<RendDynOperationNode> opMap_ = getExecutableNodes(f_.getRootMap());
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
             return new NatRendSelect(opRead_,opValue_,opsWrite_,opMap_,
-                    f_.getVarName(),f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getElt(), "",
-                    f_.getClassName(), false, f_.getVarNames());
+                    f_.getElt(),
+                    initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
         }
         if (_current instanceof NatAnaRendRadio){
             NatAnaRendRadio f_ = (NatAnaRendRadio) _current;
@@ -203,8 +203,7 @@ public final class NatRendForwardInfos {
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
             return new NatRendRadio(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
-                    f_.getVarName(),f_.getVarNameConverter(), f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getClassName(),
-                    f_.getVarNames());
+                    initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
         }
         if (_current instanceof NatAnaRendStdInput){
             NatAnaRendStdInput f_ = (NatAnaRendStdInput) _current;
@@ -215,7 +214,7 @@ public final class NatRendForwardInfos {
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
             return new NatRendStdInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
-                    f_.getVarName(),f_.getVarNameConverter(), f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getClassName(),f_.getVarNames());
+                    initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
         }
         if (_current instanceof NatAnaRendSpan){
             NatAnaRendSpan f_ = (NatAnaRendSpan) _current;
@@ -452,7 +451,7 @@ public final class NatRendForwardInfos {
         return w_;
     }
 
-    private static void initValidatorsInstance(IdMap<NatOperationNode, ValidatorInfo> _lateValidators) {
+    private static void initValidatorsInstance() {
 //        for (EntryCust<NatOperationNode, ValidatorInfo> e: _lateValidators.entryList()) {
 //            ValidatorInfo v_ = e.getValue();
 //            NatOperationNode root_ = e.getKey();
@@ -461,10 +460,10 @@ public final class NatRendForwardInfos {
 //        }
     }
 
-    public static void buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> _d, Configuration _conf, IdMap<NatOperationNode, ValidatorInfo> _lateValidators) {
+    public static void buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> _d, Configuration _conf) {
         buildExec(_d, _conf, _analyzingDoc);
 
-        initValidatorsInstance(_lateValidators);
+        initValidatorsInstance();
     }
 
     private static void buildExec(StringMap<AnaRendDocumentBlock> _d, Configuration _conf, AnalyzingDoc _anaDoc) {
@@ -475,5 +474,18 @@ public final class NatRendForwardInfos {
         String currentUrl2_ = _conf.getFirstUrl();
         String realFilePath2_ = Configuration.getRealFilePath(_conf.getCurrentLanguage(), currentUrl2_);
         _conf.setRendDocumentBlock(_conf.getRenders().getVal(realFilePath2_));
+    }
+
+    private static FieldUpdates initIn(String _id, String _idClass, String _idName, String _className, String _varName, InputInfo _varNames) {
+        FieldUpdates fieldUpdates_ = new FieldUpdates();
+        fieldUpdates_.setId(_id);
+        fieldUpdates_.setIdClass(_idClass);
+        fieldUpdates_.setIdName(_idName);
+        fieldUpdates_.setClassName(_className);
+        fieldUpdates_.setVarName(_varName);
+        fieldUpdates_.setVarNames(_varNames);
+        fieldUpdates_.setVarNameConverter("");
+        fieldUpdates_.setOpsConverter(new CustList<RendDynOperationNode>());
+        return fieldUpdates_;
     }
 }

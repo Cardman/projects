@@ -1,7 +1,6 @@
 package code.bean.nat.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.bean.nat.fwd.opers.NatAnaVariableContent;

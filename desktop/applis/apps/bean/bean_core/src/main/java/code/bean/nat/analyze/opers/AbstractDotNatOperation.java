@@ -6,7 +6,7 @@ import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 
 public abstract class AbstractDotNatOperation extends MethodNatOperation {
-    public AbstractDotNatOperation(int _index, int _indexChild, MethodNatOperation _m, NatOperationsSequence _op) {
+    protected AbstractDotNatOperation(int _index, int _indexChild, MethodNatOperation _m, NatOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 

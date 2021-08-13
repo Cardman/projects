@@ -9,7 +9,7 @@ public abstract class InvokingNatOperation extends MethodNatOperation implements
     private MethodAccessKind staticAccess;
     private boolean intermediate;
 
-    public InvokingNatOperation(int _index, int _indexChild, MethodNatOperation _m,
+    protected InvokingNatOperation(int _index, int _indexChild, MethodNatOperation _m,
                                 NatOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         previousResultClass = new NatAnaClassArgumentMatching(EMPTY_STRING);

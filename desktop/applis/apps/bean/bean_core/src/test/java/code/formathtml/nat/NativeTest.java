@@ -55,7 +55,7 @@ public final class NativeTest extends EquallableExUtil {
         AnalyzingDoc analyzingDoc_ = conf_.getAnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getConfiguration(), lateValidators_);
+        NatRendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getConfiguration());
         setFirst(conf_);
         assertTrue(conf_.isEmptyErrors());
         assertNotNull(BeanNatCommonLgNames.getPairStruct(null,conf_.getContext()));
@@ -712,7 +712,7 @@ public final class NativeTest extends EquallableExUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
-        lgNames_.setupAll(docs_,n_, n_.getSession(), n_.getFiles(), du_);
+        lgNames_.setupAll(docs_,n_, n_.getSession(), du_);
         ContextEl generate_ = du_.getForwards().generate(new Options());
         n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
@@ -785,7 +785,7 @@ public final class NativeTest extends EquallableExUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
-        lgNames_.setupAll(docs_,n_, n_.getSession(), n_.getFiles(), du_);
+        lgNames_.setupAll(docs_,n_, n_.getSession(), du_);
         ContextEl generate_ = du_.getForwards().generate(new Options());
         n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.composite.string\" n-i=\"0\" value=\"\"/></form></body></html>", n_.getHtmlText());
@@ -858,7 +858,7 @@ public final class NativeTest extends EquallableExUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, null);
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
-        lgNames_.setupAll(docs_,n_, n_.getSession(), n_.getFiles(), du_);
+        lgNames_.setupAll(docs_,n_, n_.getSession(), du_);
         ContextEl generate_ = du_.getForwards().generate(new Options());
         n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
@@ -896,7 +896,7 @@ public final class NativeTest extends EquallableExUtil {
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        a_.getAdv().setupAll(docs_,n_, n_.getSession(), n_.getFiles(), new DualAnalyzedContext(a_.getForwards(),a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
+        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
         RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
         n_.initializeRendSession(a_.getContext(), a_.getAdv(), build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
@@ -935,7 +935,7 @@ public final class NativeTest extends EquallableExUtil {
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        a_.getAdv().setupAll(docs_,n_, n_.getSession(), n_.getFiles(), new DualAnalyzedContext(a_.getForwards(),a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
+        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
         RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
         n_.initializeRendSession(a_.getContext(), a_.getAdv(), build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
@@ -1956,7 +1956,7 @@ public final class NativeTest extends EquallableExUtil {
 //        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, standards_, analyzingDoc_, _conf.getDual());
         _conf.setAnalyzed(d_);
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getConfiguration(), lateValidators_);
+        NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getConfiguration());
         RendStackCall build_ = _conf.build(InitPhase.NOTHING, _conf.getContext());
         _conf.getAdv().preInitBeans(_conf.getConfiguration());
         _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), build_);
@@ -2002,7 +2002,7 @@ public final class NativeTest extends EquallableExUtil {
 //        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(docs_,page_, standards_, analyzingDoc_, _conf.getDual(), analyzingDoc_.getBeansInfosBefore());
         _conf.setAnalyzed(d_);
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getConfiguration(), lateValidators_);
+        NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getConfiguration());
         RendStackCall build_ = _conf.build(InitPhase.NOTHING, _conf.getContext());
         _conf.getAdv().preInitBeans(_conf.getConfiguration());
         _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), build_);
@@ -2035,7 +2035,7 @@ public final class NativeTest extends EquallableExUtil {
         beansInfosBefore_.addAllEntries(beansInfos_);
         analyzeInner(conf_.getConfiguration(),conf_, beansInfosBefore_, _html);
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getConfiguration(), lateValidators_);
+        NatRendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getConfiguration());
         setFirst(conf_);
         assertTrue(conf_.isEmptyErrors());
         RendStackCall build_ = conf_.build(InitPhase.NOTHING, conf_.getContext());
@@ -2054,7 +2054,7 @@ public final class NativeTest extends EquallableExUtil {
         beansInfosBefore_.addAllEntries(beansInfos_);
         analyzeInner(conf_.getConfiguration(),conf_, beansInfosBefore_, _html);
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getConfiguration(), lateValidators_);
+        NatRendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getConfiguration());
         setFirst(conf_);
         assertTrue(conf_.isEmptyErrors());
         RendStackCall build_ = conf_.build(InitPhase.NOTHING, conf_.getContext());
@@ -2076,7 +2076,7 @@ public final class NativeTest extends EquallableExUtil {
         beansInfosBefore_.addAllEntries(beansInfos_);
         analyzeInner(c_,_conf, beansInfosBefore_, _html,_htmlTwo);
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(_conf.getAnalyzingDoc(), _conf.getAnalyzed(), _conf.getConfiguration(), lateValidators_);
+        NatRendForwardInfos.buildExec(_conf.getAnalyzingDoc(), _conf.getAnalyzed(), _conf.getConfiguration());
         setFirst(_conf);
         return _conf.getConfiguration().getRenders().getVal("page1.html");
     }

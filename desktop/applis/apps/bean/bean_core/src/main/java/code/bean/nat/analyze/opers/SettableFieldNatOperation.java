@@ -19,7 +19,7 @@ public final class SettableFieldNatOperation extends
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String fieldName_ = interf.getFieldName();
-        NatAnaClassArgumentMatching cl_ = interf.getFrom(_page,this);
+        NatAnaClassArgumentMatching cl_ = StandardFieldOperation.getFrom(_page,this);
         NatFieldResult r_ = resolveDeclaredCustField(cl_, fieldName_, _page);
 //        getSettableFieldContent().setAnc(r_.getContent().getAnc());
 //        getSettableFieldContent().setFinalField(r_.getContent().isFinalField());

@@ -11,88 +11,25 @@ import code.util.core.IndexConstants;
 
 public final class NatElResolver {
 
-    public static final int CONST_PRIO = 0;
-    public static final int NAME_PRIO = 1;
-    public static final int DECL_PRIO = 2;
     public static final int AFF_PRIO = 3;
-    public static final int TERNARY_PRIO = 4;
-    public static final int NULL_SAFE_PRIO = 5;
-    public static final int OR_PRIO = 6;
-    public static final int AND_PRIO = 7;
-    public static final int RANGE = 8;
-    public static final int BIT_OR_PRIO = 9;
-    public static final int BIT_XOR_PRIO = 10;
-    public static final int BIT_AND_PRIO = 11;
-    public static final int EQ_PRIO = 12;
-    public static final int CMP_PRIO = 13;
-    public static final int SHIFT_PRIO = 14;
-    public static final int ADD_PRIO = 15;
-    public static final int MULT_PRIO = 16;
     public static final int UNARY_PRIO = 17;
-    public static final int POST_INCR_PRIO = 18;
     public static final int FCT_OPER_PRIO = 19;
-    static final byte UNICODE_SIZE = 4;
 
-    static final String EMPTY_STRING = "";
-    static final char LINE_RETURN = '\n';
-    static final char FORM_FEED = '\f';
-    static final char BOUND = '\b';
-    static final char LINE_FEED = '\r';
-    static final char SPACE = ' ';
-    static final char TAB = '\t';
-    static final char ESCAPE_META_CHAR = '\\';
-    static final char DELIMITER_CHAR = 39;
-    static final char DELIMITER_STRING = 34;
     static final char ARR_LEFT = '[';
     static final char ARR_RIGHT = ']';
-    static final char ANN_ARR_LEFT = '{';
     static final char ANN_ARR_RIGHT = '}';
     static final char PAR_LEFT = '(';
     static final char PAR_RIGHT = ')';
     static final char SEP_ARG = ',';
-    static final char DOT_VAR = '.';
-    static final char DOUBLE = 'd';
 
-    static final char INTEGER = 'i';
-    static final char NB_INTERN_SP = '_';
-
-    static final char ANNOT = '@';
-
-    static final char MIN_ENCODE_DIGIT = '0';
-    static final char MIN_ENCODE_LOW_LETTER = 'a';
-    static final char MAX_ENCODE_LOW_LETTER = 'f';
-    static final char MIN_ENCODE_UPP_LETTER = 'A';
-    static final char MAX_ENCODE_UPP_LETTER = 'F';
 
     static final String ARR = "[";
-    static final String ARR_END = "]";
 
     static final char NEG_BOOL_CHAR = '!';
 
-    static final char MULT_CHAR = '*';
-
-    static final char DIV_CHAR = '/';
-
-    static final char MOD_CHAR = '%';
-
-    static final char PLUS_CHAR = '+';
-
-    static final char MINUS_CHAR = '-';
-
-    static final char LOWER_CHAR = '<';
-
-    static final char GREATER_CHAR = '>';
-
     static final char EQ_CHAR = '=';
 
-    static final char AND_CHAR = '&';
 
-    static final char OR_CHAR = '|';
-    static final char XOR_CHAR = '^';
-    static final char NEG_BOOL = '~';
-    static final char BEGIN_TERNARY = '?';
-    static final char DELIMITER_TEXT = '`';
-    static final char END_TERNARY = ':';
 
     private NatElResolver() {
     }
@@ -100,14 +37,14 @@ public final class NatElResolver {
     public static Delimiters checkSyntaxDelimiters(String _string, int _minIndex, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
         d_.setPartOfString(true);
-        NatFullFieldRetriever ret_ = new NatFullFieldRetriever(d_, _string, _page);
+        NatFullFieldRetriever ret_ = new NatFullFieldRetriever(d_, _page);
         return commonCheck(_string, _minIndex, ret_, d_,_anaDoc, _page);
     }
 
     public static Delimiters checkSyntax(String _string, int _elOffest, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
         d_.setLength(_string.length());
-        NatFullFieldRetriever ret_ = new NatFullFieldRetriever(d_, _string, _page);
+        NatFullFieldRetriever ret_ = new NatFullFieldRetriever(d_, _page);
         return commonCheck(_string, _elOffest, ret_, d_,_anaDoc, _page);
     }
 
@@ -141,39 +78,39 @@ public final class NatElResolver {
             if (nextInd_ > i_) {
                 i_ = nextInd_;
                 ctorCall_ = resKeyWords_.isCallCtor();
-                continue;
-            }
-            if (StringExpUtil.isTypeLeafChar(curChar_)) {
-                resWords_.setNextIndex(i_);
-                resWords_.setLastDoubleDot(lastDoubleDot_);
-                resWords_.setCallCtor(ctorCall_);
-                processWords(_string, _d, _ret,resWords_);
-                nextInd_ = resWords_.getNextIndex();
-                lastDoubleDot_ = resWords_.getLastDoubleDot();
-            }
-            if (nextInd_ > i_) {
-                i_ = nextInd_;
-                continue;
-            }
-            resOpers_.setPartOfString(partOfString_);
-            resOpers_.setBeginOrEnd(beginOrEnd_);
-            resOpers_.setConstTextChar(false);
-            resOpers_.setConstTextString(false);
-            resOpers_.setConstChar(false);
-            resOpers_.setConstString(false);
-            resOpers_.setConstText(false);
-            resOpers_.setNbChars(nbChars_);
-            resOpers_.getDoubleDotted().setNextIndex(i_);
-            resOpers_.getDoubleDotted().setLastDoubleDot(lastDoubleDot_);
-            resOpers_.getDoubleDotted().setCallCtor(ctorCall_);
-            processOperators(_string, _d, resOpers_);
-            beginOrEnd_ = resOpers_.isBeginOrEnd();
-            nbChars_ = resOpers_.getNbChars();
-            partOfString_ = resOpers_.isPartOfString();
+            } else {
+                if (StringExpUtil.isTypeLeafChar(curChar_)) {
+                    resWords_.setNextIndex(i_);
+                    resWords_.setLastDoubleDot(lastDoubleDot_);
+                    resWords_.setCallCtor(ctorCall_);
+                    processWords(_string, _d, _ret,resWords_);
+                    nextInd_ = resWords_.getNextIndex();
+                    lastDoubleDot_ = resWords_.getLastDoubleDot();
+                }
+                if (nextInd_ > i_) {
+                    i_ = nextInd_;
+                } else {
+                    resOpers_.setPartOfString(partOfString_);
+                    resOpers_.setBeginOrEnd(beginOrEnd_);
+                    resOpers_.setConstTextChar(false);
+                    resOpers_.setConstTextString(false);
+                    resOpers_.setConstChar(false);
+                    resOpers_.setConstString(false);
+                    resOpers_.setConstText(false);
+                    resOpers_.setNbChars(nbChars_);
+                    resOpers_.getDoubleDotted().setNextIndex(i_);
+                    resOpers_.getDoubleDotted().setLastDoubleDot(lastDoubleDot_);
+                    resOpers_.getDoubleDotted().setCallCtor(ctorCall_);
+                    processOperators(_string, _d, resOpers_);
+                    beginOrEnd_ = resOpers_.isBeginOrEnd();
+                    nbChars_ = resOpers_.getNbChars();
+                    partOfString_ = resOpers_.isPartOfString();
 
-            i_ = resOpers_.getDoubleDotted().getNextIndex();
-            lastDoubleDot_ = resOpers_.getDoubleDotted().getLastDoubleDot();
-            ctorCall_ = resOpers_.getDoubleDotted().isCallCtor();
+                    i_ = resOpers_.getDoubleDotted().getNextIndex();
+                    lastDoubleDot_ = resOpers_.getDoubleDotted().getLastDoubleDot();
+                    ctorCall_ = resOpers_.getDoubleDotted().isCallCtor();
+                }
+            }
         }
         return _d;
     }
@@ -297,7 +234,7 @@ public final class NatElResolver {
         NatExpPartDelimiters del_ = new NatExpPartDelimiters(_string);
         int lastPrintChar_ = del_.getLastPrintIndex();
         int len_ = lastPrintChar_ + 1;
-        NatAfterUnaryParts af_ = new NatAfterUnaryParts(_string,del_,_d);
+        NatAfterUnaryParts af_ = new NatAfterUnaryParts(_string);
         int i_ = af_.getIndex();
         while (i_ < len_) {
             af_.setState(_offset,_string,_d);

@@ -58,7 +58,7 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         docs_.addEntry(realFilePath_,doc_);
         session_.setFirstUrl(realFilePath_);
         navigation.setFiles(files_);
-        beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), navigation.getFiles(), du_);
+        beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), du_);
         context = du_.getForwards().generate(du_.getContext().getOptions());
     }
 
@@ -83,7 +83,7 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
 //        files_.put(realFilePath_, ResourceFiles.ressourceFichier(realFilePath_));
         session_.setFirstUrl(realFilePath_);
         navigation.setFiles(files_);
-        beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), navigation.getFiles(), _du);
+        beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), _du);
         context = _du.getForwards().generate(_du.getContext().getOptions());
         return beanNatLgNames;
     }

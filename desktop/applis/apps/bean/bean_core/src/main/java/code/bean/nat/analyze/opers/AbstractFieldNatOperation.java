@@ -1,17 +1,14 @@
 package code.bean.nat.analyze.opers;
 
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.bean.nat.fwd.opers.NatAnaFieldOperationContent;
 
 public abstract class AbstractFieldNatOperation extends LeafNatOperation implements NatPossibleIntermediateDotted {
 
     private NatAnaClassArgumentMatching previousResultClass;
-    private NatAnaFieldOperationContent fieldContent;
-//    private boolean intermediate;
-//
-//    private int off;
-    public AbstractFieldNatOperation(int _indexInEl, int _indexChild, MethodNatOperation _m,
+    private final NatAnaFieldOperationContent fieldContent;
+
+    protected AbstractFieldNatOperation(int _indexInEl, int _indexChild, MethodNatOperation _m,
                                      NatOperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
         fieldContent = new NatAnaFieldOperationContent(_op.getOffset());

@@ -8,27 +8,8 @@ import code.util.core.IndexConstants;
 final class NatAfterUnaryParts {
     private static final String EMPTY_STRING = "";
 
-    private static final String ARR = "[";
-    private static final String ANN_ARR = "{";
-
     private static final char NEG_BOOL_CHAR = '!';
 
-    private static final char PLUS_CHAR = '+';
-
-    private static final char MINUS_CHAR = '-';
-
-    private static final char LOWER_CHAR = '<';
-
-    private static final char GREATER_CHAR = '>';
-
-    private static final char XOR_CHAR = '^';
-    private static final char NEG_BOOL = '~';
-    private static final char BEGIN_TERNARY = '?';
-    private static final char END_TERNARY = ':';
-    private static final char ARR_LEFT = '[';
-    private static final char ARR_RIGHT = ']';
-    private static final char ANN_ARR_LEFT = '{';
-    private static final char ANN_ARR_RIGHT = '}';
     private static final char PAR_LEFT = '(';
     private static final char PAR_RIGHT = ')';
     private static final char SEP_ARG = ',';
@@ -42,7 +23,7 @@ final class NatAfterUnaryParts {
     private boolean enPars = true;
     private String fctName = EMPTY_STRING;
 
-    NatAfterUnaryParts(String _string, NatExpPartDelimiters _del, Delimiters _d) {
+    NatAfterUnaryParts(String _string) {
         int firstPrintChar_ = 0;
         if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR) {
             prio = NatElResolver.UNARY_PRIO;
@@ -86,14 +67,14 @@ final class NatAfterUnaryParts {
             index++;
             return;
         }
-        addNumOperators(_offset, _string, _d, curChar_);
+        addNumOperators(curChar_);
     }
 
     private boolean en(int _i) {
         return parsBrackets.size() == _i && prio == NatElResolver.FCT_OPER_PRIO && enPars;
     }
 
-    private void addNumOperators(int _offset, String _string, Delimiters _d, char _curChar) {
+    private void addNumOperators(char _curChar) {
         boolean foundOperator_ = false;
         StringBuilder builtOperator_ = new StringBuilder();
         if (_curChar == DOT_VAR) {

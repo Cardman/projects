@@ -17,7 +17,6 @@ import code.util.core.StringUtil;
 public final class NatAnaRendForEachLoop extends AnaRendParentBlock {
 
     private final String label;
-    private final int labelOffset;
 
     private final String className;
 
@@ -26,8 +25,6 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock {
     private final int classNameOffset;
 
     private final String variableName;
-
-    private final int variableNameOffset;
 
     private final String expression;
 
@@ -38,16 +35,14 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock {
     private final BeanNatLgNames caller;
 
     NatAnaRendForEachLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
-                          OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset, BeanNatLgNames _caller) {
+                          OffsetStringInfo _expression, OffsetStringInfo _label, int _offset, BeanNatLgNames _caller) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
         variableName = _variable.getInfo();
-        variableNameOffset = _variable.getOffset();
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
         label = _label.getInfo();
-        labelOffset = _label.getOffset();
         caller = _caller;
     }
 

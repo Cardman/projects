@@ -4,7 +4,6 @@ import code.bean.nat.analyze.opers.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -59,7 +58,7 @@ public final class NatRenderAnalysis {
         NatOperationNode current_ = _current;
         while (true) {
             _page.setOkNumOp(true);
-            processAnalyze(current_, _anaDoc, _page);
+            processAnalyze(current_, _page);
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
             next_ = createNextSibling(current_, _anaDoc, _page);
@@ -76,7 +75,7 @@ public final class NatRenderAnalysis {
             }
             if (par_ == _root) {
                 _page.setOkNumOp(true);
-                processAnalyze(par_, _anaDoc, _page);
+                processAnalyze(par_, _page);
                 par_.setOrder(_sortedNodes.size());
                 _sortedNodes.add(par_);
                 return null;
@@ -88,7 +87,7 @@ public final class NatRenderAnalysis {
         }
     }
 
-    private static void processAnalyze(NatOperationNode _current, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    private static void processAnalyze(NatOperationNode _current, AnalyzedPageEl _page) {
         _current.analyze(_page);
 
     }
@@ -136,15 +135,13 @@ public final class NatRenderAnalysis {
         int lastPrintChar_ = len_ - 1;
         len_ = lastPrintChar_+1;
         String sub_ = _string.substring(i_, len_);
-        if (_anaDoc.isInternGlobal()) {
-            if (StringUtil.quickEq(sub_, keyWordIntern_)) {
-                NatOperationsSequence op_ = new NatOperationsSequence();
-                op_.setConstType(ConstType.WORD);
-                op_.setOperators(new StrTypes());
-                op_.setValue(_string, i_);
-                op_.setDelimiter(_d);
-                return op_;
-            }
+        if (_anaDoc.isInternGlobal() && StringUtil.quickEq(sub_, keyWordIntern_)) {
+            NatOperationsSequence op_ = new NatOperationsSequence();
+            op_.setConstType(ConstType.WORD);
+            op_.setOperators(new StrTypes());
+            op_.setValue(_string, i_);
+            op_.setDelimiter(_d);
+            return op_;
         }
         return NatElResolver.getOperationsSequence(_offset, _string, _d);
     }

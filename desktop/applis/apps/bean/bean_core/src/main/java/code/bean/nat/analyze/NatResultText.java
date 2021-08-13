@@ -16,8 +16,6 @@ import code.util.core.StringUtil;
 public final class NatResultText {
 
     private static final String CALL_METHOD = "$";
-    private static final char ESCAPED = '\\';
-    private static final char RIGHT_EL = '}';
     private static final char LEFT_EL = '{';
     private static final char QUOTE = 39;
     private CustList<NatOperationNode> opExpRoot;
@@ -39,9 +37,7 @@ public final class NatResultText {
                 str_.append(QUOTE);
                 i_++;
                 i_++;
-                continue;
-            }
-            if (cur_ == LEFT_EL) {
+            } else if (cur_ == LEFT_EL) {
                 texts.add(str_.toString());
                 str_.delete(0,str_.length());
                 expOffsets.add(i_);
@@ -50,10 +46,10 @@ public final class NatResultText {
                 opExpRoot.add(root_);
                 i_ = _anaDoc.getNextIndex();
                 expEnds.add(i_);
-                continue;
+            } else {
+                str_.append(cur_);
+                i_++;
             }
-            str_.append(cur_);
-            i_++;
         }
         texts.add(str_.toString());
     }
@@ -83,7 +79,7 @@ public final class NatResultText {
         texts.add(str_.toString());
     }
 
-    public static NatResultText buildAnchor(AnaRendBlock _r, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public static NatResultText buildAnchor(Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));

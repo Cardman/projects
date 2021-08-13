@@ -8,10 +8,7 @@ import code.formathtml.exec.blocks.RendSpan;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.Node;
-import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public final class NatRendSpan extends NatRendElement {
     private final ExecTextPart result;

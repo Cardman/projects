@@ -5,20 +5,14 @@ import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.VariableInfo;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.StringExpUtil;
 
 public final class NatFullFieldRetriever {
 
-    private static final char PAR_LEFT = '(';
-    private static final char DOT_VAR = '.';
-
     private final Delimiters delimiters;
-    private final String string;
     private final AnalyzedPageEl context;
 
-    public NatFullFieldRetriever(Delimiters _delimiters, String _string, AnalyzedPageEl _context) {
+    public NatFullFieldRetriever(Delimiters _delimiters, AnalyzedPageEl _context) {
         this.delimiters = _delimiters;
-        this.string = _string;
         this.context = _context;
     }
 

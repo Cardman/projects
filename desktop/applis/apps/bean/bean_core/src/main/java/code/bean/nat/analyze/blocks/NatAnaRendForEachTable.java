@@ -1,13 +1,11 @@
 package code.bean.nat.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.ImportForEachTable;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.stds.PrimitiveTypes;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
@@ -16,7 +14,6 @@ import code.formathtml.analyze.blocks.AnaRendParentBlock;
 public final class NatAnaRendForEachTable extends AnaRendParentBlock {
 
     private final String label;
-    private final int labelOffset;
 
     private final String classNameFirst;
 
@@ -32,11 +29,7 @@ public final class NatAnaRendForEachTable extends AnaRendParentBlock {
 
     private final String variableNameFirst;
 
-    private final int variableNameOffsetFirst;
-
     private final String variableNameSecond;
-
-    private final int variableNameOffsetSecond;
 
     private final String expression;
 
@@ -46,20 +39,17 @@ public final class NatAnaRendForEachTable extends AnaRendParentBlock {
 
     NatAnaRendForEachTable(OffsetStringInfo _className, OffsetStringInfo _variable,
                            OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
-                           OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, int _offset) {
+                           OffsetStringInfo _expression, OffsetStringInfo _label, int _offset) {
         super(_offset);
         classNameFirst = _className.getInfo();
         classNameOffsetFirst = _className.getOffset();
         variableNameFirst = _variable.getInfo();
-        variableNameOffsetFirst = _variable.getOffset();
         classNameSecond = _classNameSec.getInfo();
         classNameOffsetSecond = _classNameSec.getOffset();
         variableNameSecond = _variableSec.getInfo();
-        variableNameOffsetSecond = _variableSec.getOffset();
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
         label = _label.getInfo();
-        labelOffset = _label.getOffset();
     }
 
     @Override

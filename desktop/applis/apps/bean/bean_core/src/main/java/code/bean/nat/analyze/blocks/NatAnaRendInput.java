@@ -13,7 +13,6 @@ public abstract class NatAnaRendInput extends NatAnaRendElement {
     private NatOperationNode rootValue;
     private String varName = AnaRendBlockHelp.EMPTY_STRING;
     private InputInfo varNames = new InputInfo();
-    private String varNameConverter = AnaRendBlockHelp.EMPTY_STRING;
     private String id = AnaRendBlockHelp.EMPTY_STRING;
     private String idClass = AnaRendBlockHelp.EMPTY_STRING;
     private String idName = AnaRendBlockHelp.EMPTY_STRING;
@@ -59,10 +58,6 @@ public abstract class NatAnaRendInput extends NatAnaRendElement {
 
     public String getId() {
         return id;
-    }
-
-    public String getVarNameConverter() {
-        return varNameConverter;
     }
 
     public String getVarName() {

@@ -19,7 +19,7 @@ public abstract class NatRendElement extends RendParentBlock implements RendElem
     private final StringMap<ExecTextPart> execAttributes;
     private final StringMap<ExecTextPart> execAttributesText;
 
-    public NatRendElement(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
+    protected NatRendElement(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
         this.read = _read;
         this.execAttributes = _execAttributes;
         this.execAttributesText = _execAttributesText;

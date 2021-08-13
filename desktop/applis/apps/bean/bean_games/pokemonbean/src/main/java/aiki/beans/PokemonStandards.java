@@ -204,7 +204,6 @@ import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
-import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.structs.BeanInfo;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -1004,28 +1003,9 @@ public final class PokemonStandards extends BeanNatLgNames {
         return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
     }
 
-    public boolean setBeanForms(Configuration _conf, Struct _mainBean,
-                                RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
-        beanForms(_conf, _mainBean, _node, _keepField, _beanName, _ctx, _rendStack);
-        return true;
-    }
-
     @Override
-    public boolean setBeanForms(Configuration _conf, Struct _mainBean, NatRendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
+    public void setBeanForms(Configuration _conf, Struct _mainBean, NatRendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
         beanForms(_conf, _mainBean, _keepField, _beanName, _ctx, _rendStack);
-        return true;
-    }
-
-    private void beanForms(Configuration _conf, Struct _mainBean,
-                           RendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
-        if (_mainBean == null) {
-            return;
-        }
-        Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
-        if (bean_ == null) {
-            return;
-        }
-        gearFw(_conf, _mainBean, _node, _keepField, bean_, _ctx, _rendStack);
     }
 
     private void beanForms(Configuration _conf, Struct _mainBean,
@@ -1039,11 +1019,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         }
         gearFw(_conf, _mainBean, _keepField, bean_, _ctx, _rendStack);
     }
-    protected void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
-        StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct)_bean).getBean()).getForms();
-        StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct)_mainBean).getBean()).getForms();
-        forms_.putAllMap(formsMap_);
-    }
+
     protected void gearFw(Configuration _conf, Struct _mainBean, boolean _keepField, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
         StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct)_bean).getBean()).getForms();
         StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct)_mainBean).getBean()).getForms();

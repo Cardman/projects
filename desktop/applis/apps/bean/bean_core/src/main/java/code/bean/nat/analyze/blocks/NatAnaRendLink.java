@@ -1,7 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.bean.nat.analyze.NatResultText;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.sml.Element;

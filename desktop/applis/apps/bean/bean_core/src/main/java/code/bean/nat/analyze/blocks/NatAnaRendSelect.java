@@ -20,7 +20,6 @@ public final class NatAnaRendSelect extends AnaRendParentBlock {
     private String idClass = AnaRendBlockHelp.EMPTY_STRING;
     private String idName = AnaRendBlockHelp.EMPTY_STRING;
     private final Element elt;
-    private boolean multiple;
     private String className = AnaRendBlockHelp.EMPTY_STRING;
     private NatResultInput resultInput;
 
