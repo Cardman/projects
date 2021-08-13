@@ -27,7 +27,7 @@ public final class AnaRendBlockHelp {
     private AnaRendBlockHelp() {
     }
 
-    static StringMap<String> getPre(String _value, AnalyzingDoc _analyzingDoc) {
+    public static StringMap<String> getPre(String _value, AnalyzingDoc _analyzingDoc) {
         StringList elts_ = StringUtil.splitStrings(_value, AnaRendBlock.COMMA);
         String var_ = elts_.first();
         String fileName_ = getProperty(var_, _analyzingDoc);
@@ -37,7 +37,7 @@ public final class AnaRendBlockHelp {
             String content_ = tryGetContent(l, fileName_, files_, _analyzingDoc);
             StringMap<String> messages_ = AnaRendBlock.getMessages(content_);
             String key_ = elts_.last();
-            String format_ = getQuickFormat(messages_, key_);
+            String format_ = messages_.getVal(key_);
             pres_.addEntry(l,format_);
         }
         return pres_;
@@ -106,25 +106,24 @@ public final class AnaRendBlockHelp {
     }
 
     private static AnaRendBlock newRendBlockEsc(int _begin, String _prefix, Node _elt, String _docText, RendKeyWords _rendKeyWords, BeanNatLgNames _caller) {
-        AnaRendBlock bl_ = newRendBlock(_begin, _prefix, _elt, _docText, _rendKeyWords, _caller);
+        AnaRendBlock bl_;
         if (_elt instanceof Text) {
+            Text t_ = (Text) _elt;
+            bl_ = new NatAnaRendText(new OffsetStringInfo(_begin, t_.getTextContent()), _begin);
             int endHeader_ = _docText.indexOf(LT_BEGIN_TAG, _begin);
             AttributePart attrPart_ = new AttributePart();
             attrPart_.setBegin(_begin);
             attrPart_.setEnd(endHeader_);
             IntTreeMap<Integer> esc_ = AnaRendBlock.getIndexesSpecChars(_docText, false, attrPart_, _begin);
             StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
-            infos_.addEntry(EMPTY_STRING,esc_);
+            infos_.addEntry(EMPTY_STRING, esc_);
             bl_.setEscapedChars(infos_);
         } else {
             Element elt_ = (Element) _elt;
-            String tagName_ = elt_.getTagName();
-            int endHeader_ = _docText.indexOf(GT_TAG, _begin);
-            int beginHeader_ = _begin + tagName_.length();
-            StringMap<AttributePart> attr_;
-            attr_ = getAttributes(_docText, beginHeader_, endHeader_);
+            StringMap<AttributePart> attributes_ = getAttributes(_docText, _begin + elt_.getTagName().length(), _docText.indexOf(GT_TAG, _begin));
+            bl_ = element(_begin, _prefix, (Element) _elt, _rendKeyWords, _caller, attributes_);
             StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
-            for (EntryCust<String, AttributePart> e: attr_.entryList()) {
+            for (EntryCust<String, AttributePart> e : attributes_.entryList()) {
                 infos_.put(e.getKey(), AnaRendBlock.getIndexesSpecChars(_docText, true, e.getValue(), _begin));
             }
             bl_.setEscapedChars(infos_);
@@ -132,36 +131,24 @@ public final class AnaRendBlockHelp {
         return bl_;
     }
 
-    private static AnaRendBlock newRendBlock(int _begin, String _prefix, Node _elt, String _docText, RendKeyWords _rendKeyWords, BeanNatLgNames _caller) {
-        if (_elt instanceof Text) {
-            Text t_ = (Text) _elt;
-            return new NatAnaRendText(new OffsetStringInfo(_begin,t_.getTextContent()),_begin);
-        }
-        return element(_begin, _prefix, (Element) _elt, _docText, _rendKeyWords, _caller);
-    }
-
-    private static AnaRendParentBlock element(int _begin, String _prefix, Element _elt, String _docText, RendKeyWords _rendKeyWords, BeanNatLgNames _caller) {
+    private static AnaRendParentBlock element(int _begin, String _prefix, Element _elt, RendKeyWords _rendKeyWords, BeanNatLgNames _caller, StringMap<AttributePart> _attributes) {
         String tagName_ = _elt.getTagName();
-        int endHeader_ = _docText.indexOf(GT_TAG, _begin);
-        int beginHeader_ = _begin + tagName_.length();
-        StringMap<AttributePart> attr_;
-        attr_ = getAttributes(_docText, beginHeader_, endHeader_);
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordFor()))) {
-            return collection(_begin, _rendKeyWords, _caller, _elt, attr_);
+            return collection(_begin, _rendKeyWords, _caller, _elt, _attributes);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordIf()))) {
-            return new NatAnaRendIfCondition(newOffsetStringInfo(_elt, _rendKeyWords.getAttrCondition(), attr_),
-                    newOffsetStringInfo(_elt, _rendKeyWords.getAttrLabel(), attr_), _begin);
+            return new NatAnaRendIfCondition(newOffsetStringInfo(_elt, _rendKeyWords.getAttrCondition(), _attributes),
+                    newOffsetStringInfo(_elt, _rendKeyWords.getAttrLabel(), _attributes), _begin);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordElseif()))) {
-            return new NatAnaRendElseIfCondition(newOffsetStringInfo(_elt, _rendKeyWords.getAttrCondition(), attr_),
+            return new NatAnaRendElseIfCondition(newOffsetStringInfo(_elt, _rendKeyWords.getAttrCondition(), _attributes),
                     _begin);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordElse()))) {
             return new NatAnaRendElseCondition(_begin);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordImport()))) {
-            return new NatAnaRendImport(_elt,newOffsetStringInfo(_elt, _rendKeyWords.getAttrPage(), attr_), _begin);
+            return new NatAnaRendImport(_elt,newOffsetStringInfo(_elt, _rendKeyWords.getAttrPage(), _attributes), _begin);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordSubmit()))) {
             return new NatAnaRendSubmit(_elt, _begin);
@@ -179,17 +166,17 @@ public final class AnaRendBlockHelp {
             return new NatAnaRendEscImg(_elt, _begin);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordPackage()))) {
-            return new NatAnaRendPackage(newOffsetStringInfo(_elt, _rendKeyWords.getAttrName(), attr_),
+            return new NatAnaRendPackage(newOffsetStringInfo(_elt, _rendKeyWords.getAttrName(), _attributes),
                     _begin);
         }
         if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordForm())) {
             return new NatAnaRendForm(_elt, _begin);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordClass()))) {
-            return new NatAnaRendClass(newOffsetStringInfo(_elt, _rendKeyWords.getAttrName(), attr_), _begin);
+            return new NatAnaRendClass(newOffsetStringInfo(_elt, _rendKeyWords.getAttrName(), _attributes), _begin);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordField()))) {
-            return new NatAnaRendField(newOffsetStringInfo(_elt, _rendKeyWords.getAttrPrepare(), attr_), _begin);
+            return new NatAnaRendField(newOffsetStringInfo(_elt, _rendKeyWords.getAttrPrepare(), _attributes), _begin);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordMessage()))) {
             return new NatAnaRendMessage(_elt, _begin);
@@ -259,15 +246,7 @@ public final class AnaRendBlockHelp {
     public static String tryGetContent(String _loc, String _relative, StringMap<String> _files, AnalyzingDoc _anaDoc) {
         String folder_ = _anaDoc.getMessagesFolder();
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
-        return getContentFile(_files, fileName_);
-    }
-
-    private static String getContentFile(StringMap<String> _files, String _fileName) {
-        return _files.getVal(_fileName);
-    }
-
-    public static String getQuickFormat(StringMap<String> _messages, String _key) {
-        return _messages.getVal(_key);
+        return _files.getVal(fileName_);
     }
 
     static String getCssHref(Element _link, RendKeyWords _rendKeyWords) {

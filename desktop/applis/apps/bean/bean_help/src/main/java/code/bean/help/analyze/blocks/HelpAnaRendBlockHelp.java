@@ -12,12 +12,9 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class HelpAnaRendBlockHelp {
-    static final String CALL_METHOD = "$";
-    static final String TMP_BLOCK_TAG = "tmp";
     static final String EMPTY_STRING = "";
     static final char GT_TAG = '>';
     static final char LT_BEGIN_TAG = '<';
-    static final String LT_END_TAG = "</";
 
     private HelpAnaRendBlockHelp() {
     }
@@ -81,38 +78,33 @@ public final class HelpAnaRendBlockHelp {
     }
 
     private static AnaRendBlock newRendBlockEsc(int _begin, String _prefix, Node _elt, String _docText, RendKeyWords _rendKeyWords) {
-        AnaRendBlock bl_ = newRendBlock(_begin, _prefix, _elt, _rendKeyWords);
+        AnaRendBlock bl_;
         if (_elt instanceof Text) {
+            Text t_ = (Text) _elt;
+            bl_ = new HelpAnaRendText(new OffsetStringInfo(_begin, t_.getTextContent()), _begin);
             int endHeader_ = _docText.indexOf(LT_BEGIN_TAG, _begin);
             AttributePart attrPart_ = new AttributePart();
             attrPart_.setBegin(_begin);
             attrPart_.setEnd(endHeader_);
             IntTreeMap<Integer> esc_ = AnaRendBlock.getIndexesSpecChars(_docText, false, attrPart_, _begin);
             StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
-            infos_.addEntry(EMPTY_STRING,esc_);
+            infos_.addEntry(EMPTY_STRING, esc_);
             bl_.setEscapedChars(infos_);
         } else {
             Element elt_ = (Element) _elt;
+            bl_ = element(_begin, _prefix, elt_, _rendKeyWords);
             String tagName_ = elt_.getTagName();
             int endHeader_ = _docText.indexOf(GT_TAG, _begin);
             int beginHeader_ = _begin + tagName_.length();
             StringMap<AttributePart> attr_;
             attr_ = getAttributes(_docText, beginHeader_, endHeader_);
             StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
-            for (EntryCust<String, AttributePart> e: attr_.entryList()) {
+            for (EntryCust<String, AttributePart> e : attr_.entryList()) {
                 infos_.put(e.getKey(), AnaRendBlock.getIndexesSpecChars(_docText, true, e.getValue(), _begin));
             }
             bl_.setEscapedChars(infos_);
         }
         return bl_;
-    }
-
-    private static AnaRendBlock newRendBlock(int _begin, String _prefix, Node _elt, RendKeyWords _rendKeyWords) {
-        if (_elt instanceof Text) {
-            Text t_ = (Text) _elt;
-            return new HelpAnaRendText(new OffsetStringInfo(_begin,t_.getTextContent()),_begin);
-        }
-        return element(_begin, _prefix, (Element) _elt, _rendKeyWords);
     }
 
     private static AnaRendParentBlock element(int _begin, String _prefix, Element _elt, RendKeyWords _rendKeyWords) {

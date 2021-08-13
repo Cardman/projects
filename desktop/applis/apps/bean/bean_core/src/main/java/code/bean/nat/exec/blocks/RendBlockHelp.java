@@ -102,13 +102,6 @@ public final class RendBlockHelp {
 
     static void processVisitedLoop(RendBlock _next, ContextEl _context, RendStackCall _stackCall) {
         processBlockAndRemove(_context,_stackCall, _next);
-//        if (_l.getContent().isFinished()) {
-//            processBlockAndRemove(_context,_stackCall, _next);
-//            return;
-//        }
-//        ImportingPage ip_ = _stackCall.getLastPage();
-//        RendReadWrite rw_ = ip_.getRendReadWrite();
-//        rw_.setRead(_l.getCurrentVisitedBlock().getFirstChild());
     }
     private static void removeLocalVarsLoop(ImportingPage _ip, RendParentBlock _par) {
         if (_par instanceof NatRendAbstractForEachLoop) {
@@ -329,23 +322,6 @@ public final class RendBlockHelp {
     }
 
     public static void setupOverrides(AnalyzedPageEl _page) {
-        StringList pkgs_ = new StringList();
-        StringList pkgsBase_ = new StringList();
-        for (StandardType r: _page.getStandardsTypes().values()) {
-            String pkg_ = r.getPackageName();
-            int until_ = Math.max(0, pkg_.indexOf('.'));
-            pkgsBase_.add(pkg_.substring(0,until_));
-            StringBuilder id_ = new StringBuilder();
-            for (String p: StringUtil.splitChars(pkg_, '.')) {
-                id_.append(p);
-                pkgs_.add(id_.toString());
-                id_.append('.');
-            }
-        }
-        pkgs_.removeDuplicates();
-        pkgsBase_.removeDuplicates();
-        _page.getHeaders().getPackagesFound().addAllElts(pkgs_);
-        _page.getHeaders().getBasePackagesFound().addAllElts(pkgsBase_);
         buildInherits(_page);
     }
 

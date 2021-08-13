@@ -38,8 +38,6 @@ public final class PreparedRenderPagesCards {
         DualConfigurationContext contextConf_ = new DualConfigurationContext();
         nat_.specificLoadBegin(navigation.getSession(), document,contextConf_);
         RendStackCall rendStackCall_ = textSt(contextConf_, getNavigation(), realPath(getNavigation()), built.getVal(realPath(getNavigation())), ms);
-
-//        getNavigation().initializeRendSession(getContext(), prepared_, rendStackCall_);
         Document doc_ = rendStackCall_.getDocument();
         metaDocument = MetaDocument.newInstance(doc_, getNavigation().getSession().getRendKeyWords());
     }
