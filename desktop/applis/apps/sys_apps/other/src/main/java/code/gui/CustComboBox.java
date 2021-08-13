@@ -51,7 +51,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
 
     @Override
     public ListSelection[] getListeners() {
-        return listeners.list().stream().map(LocalItemListener::getListener).toArray(ListSelection[]::new);
+        return listeners.list().stream().map(AbstractSelectionListener::getListener).toArray(ListSelection[]::new);
     }
 
     @Override
@@ -66,7 +66,8 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     }
     @Override
     public void removeListener(ListSelection _listener) {
-        Optional<LocalItemListener> result_ = listeners.list().stream().filter(l -> l.getListener().equals(_listener)).findFirst();
+        ListSelectionWrapper lsw_ = new ListSelectionWrapper(_listener);
+        Optional<LocalItemListener> result_ = listeners.list().stream().filter(lsw_::match).findFirst();
         result_.ifPresent(this::remove);
     }
     private void remove(LocalItemListener _listener) {

@@ -3,8 +3,6 @@ package code.gui;
 import code.gui.images.AbstractImage;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.image.BufferedImage;
 
 public final class LabelButtonUtil {
 
@@ -14,7 +12,11 @@ public final class LabelButtonUtil {
     private LabelButtonUtil(){
     }
 
-//    public static BufferedImage paintButton(PreparedLabel _label, String _text,
+    public static boolean match(AbstractSelectionListener _wrapper, ListSelection _list) {
+        return _wrapper.getListener() == _list;
+    }
+
+    //    public static BufferedImage paintButton(PreparedLabel _label, String _text,
 //                                            boolean _enabled) {
 //        return paintButton(_label, _text, _enabled, DEFAULT_FOREGROUND, DISABLED, Color.WHITE);
 //    }

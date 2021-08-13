@@ -33,7 +33,7 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     }
 
     public ListSelection[] getListeners() {
-        return listeners.list().stream().map(LocalListSelectionListener::getListener).toArray(ListSelection[]::new);
+        return listeners.list().stream().map(AbstractSelectionListener::getListener).toArray(ListSelection[]::new);
     }
 
     public void addListener(ListSelection _listener) {
@@ -47,7 +47,8 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     }
 
     public void removeListener(ListSelection _listener) {
-        Optional<LocalListSelectionListener> result_ = listeners.list().stream().filter(l -> l.getListener().equals(_listener)).findFirst();
+        ListSelectionWrapper lsw_ = new ListSelectionWrapper(_listener);
+        Optional<LocalListSelectionListener> result_ = listeners.list().stream().filter(lsw_::match).findFirst();
         result_.ifPresent(this::remove);
     }
     private void remove(LocalListSelectionListener _listener) {

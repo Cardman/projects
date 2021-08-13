@@ -6,7 +6,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JComboBox;
 
-public class LocalItemListener implements ItemListener {
+public class LocalItemListener implements ItemListener, AbstractSelectionListener {
 	private final JComboBox<String> combo;
 	private final ListSelection listener;
 	LocalItemListener(JComboBox<String> _combo,ListSelection _listener){

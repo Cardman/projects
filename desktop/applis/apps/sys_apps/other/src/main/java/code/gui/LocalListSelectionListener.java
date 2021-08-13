@@ -2,7 +2,7 @@ package code.gui;
 import code.adv.ValueChangingUtil;
 
 import javax.swing.event.*;
-public class LocalListSelectionListener implements ListSelectionListener {
+public class LocalListSelectionListener implements ListSelectionListener, AbstractSelectionListener {
 	private final ListSelection listener;
 
 	public LocalListSelectionListener(ListSelection _listener){
