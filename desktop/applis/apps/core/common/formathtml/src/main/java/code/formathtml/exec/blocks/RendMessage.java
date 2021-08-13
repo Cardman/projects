@@ -94,13 +94,17 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
     }
 
     public static void injectDoc(Configuration _cont, RendStackCall _rendStack, StringList _anchorArg, Document _docLoc, StringMap<CustList<CustList<RendDynOperationNode>>> _callsExps, StringList _varNames) {
+        _rendStack.getFormParts().getCallsExps().addAllElts(_callsExps.getVal(_cont.getCurrentLanguage()));
+        injectDoc(_cont, _rendStack, _anchorArg, _docLoc, _varNames);
+    }
+
+    public static void injectDoc(Configuration _cont, RendStackCall _rendStack, StringList _anchorArg, Document _docLoc, StringList _varNames) {
         ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         Element write_ = rw_.getWrite();
         Node root_ = _docLoc.getDocumentElement();
         Node read_ = root_.getFirstChild();
         Document ownerDocument_ = rw_.getDocument();
-        _rendStack.getFormParts().getCallsExps().addAllElts(_callsExps.getVal(_cont.getCurrentLanguage()));
         while (true) {
             if (read_ instanceof Element) {
                 Element eltRead_ = (Element) read_;
