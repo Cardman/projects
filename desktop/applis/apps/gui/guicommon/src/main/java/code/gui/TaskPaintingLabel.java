@@ -1,10 +1,8 @@
 package code.gui;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import code.util.core.StringUtil;
 
-public class TaskPaintingLabel implements ActionListener {
+public class TaskPaintingLabel implements Runnable {
 
     private static final int DELTA = 100;
 
@@ -35,7 +33,7 @@ public class TaskPaintingLabel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _event) {
+    public void run() {
 //        if (isPainting()) {
 //            return;
 //        }

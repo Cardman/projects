@@ -1,6 +1,5 @@
 package code.bean.nat;
 
-import code.bean.Bean;
 import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.variables.VariableWrapperNat;
@@ -28,7 +27,6 @@ import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
-import code.formathtml.Navigation;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
@@ -49,7 +47,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public static final String TYPE_COUNTABLE = "code.util.ints.Countable";
     private static final String TYPE_ENTRIES = "$custentries";
     private final StringMap<String> iterables = new StringMap<String>();
-    private final StringMap<Bean> beans = new StringMap<Bean>();
     private final StringMap<Validator> validators = new StringMap<Validator>();
 
     protected BeanNatCommonLgNames() {
@@ -274,17 +271,13 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         RendBlockHelp.setupOverrides(_page);
         return forwards_;
     }
-    public void rendRefresh(Navigation _navigation, ContextEl _context, RendStackCall _rendStack) {
-        for (Bean b: beans.values()) {
-            b.setLanguage(_navigation.getLanguage());
-        }
-        _navigation.getSession().setCurrentLanguage(_navigation.getLanguage());
-        _navigation.processRendAnchorRequest(_navigation.getCurrentUrl(), this, _context, _rendStack);
-    }
-
-    public StringMap<Bean> getBeans() {
-        return beans;
-    }
+//    public void rendRefresh(Navigation _navigation, ContextEl _context, RendStackCall _rendStack) {
+//        for (Bean b: beans.values()) {
+//            b.setLanguage(_navigation.getLanguage());
+//        }
+//        _navigation.getSession().setCurrentLanguage(_navigation.getLanguage());
+//        _navigation.processRendAnchorRequest(_navigation.getCurrentUrl(), this, _context, _rendStack);
+//    }
 
     public StringMap<Validator> getValidators() {
         return validators;

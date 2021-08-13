@@ -156,6 +156,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     private static final String TYPE_STRING_LIST_SEC = "code.util.StringList2";
     private static final String ALIAS_LS = "ls";
     private static final String ALIAS_LSE = "lse";
+    private final StringMap<Bean> beansForTest = new StringMap<Bean>();
     private Composite dataBase;
     public CustBeanLgNames() {
         CustList<StandardField> fields_;
@@ -2109,9 +2110,11 @@ public final class CustBeanLgNames extends BeanNatLgNames {
 //        bean_.setDataBase(dataBase);
         if (bean_ instanceof BeanOne) {
             ((BeanOne) bean_).setForms(new StringMapObject());
+            beansForTest.addEntry("bean_one",bean_);
         }
         if (bean_ instanceof BeanTwo) {
             ((BeanTwo) bean_).setForms(new StringMapObject());
+            beansForTest.addEntry("bean_two",bean_);
         }
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
@@ -2129,5 +2132,8 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             i_++;
         }
         return arr_;
+    }
+    public StringMap<Bean> beansForTest() {
+        return beansForTest;
     }
 }

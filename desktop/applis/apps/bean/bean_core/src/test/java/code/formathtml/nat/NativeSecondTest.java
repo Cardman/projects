@@ -320,30 +320,30 @@ public final class NativeSecondTest extends EquallableExUtil {
     }
 
     private static void cleanBeans(NativeOtherAnalyzedTestConfiguration _conf) {
-        _conf.getAdv().getBeans().clear();
+//        _conf.getAdv().getBeans().clear();
     }
 
-    private static void initSessionNat(NativeOtherAnalyzedTestConfiguration _conf,Navigation _nav) {
-        StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
-        BeanTestNatLgNames standards_ = _conf.getAdv();
-        for (EntryCust<String, Bean> e: standards_.getBeans().entryList()) {
-            BeanInfo i_ = new BeanInfo();
-            i_.setClassName(e.getValue().getClassName());
-            i_.setScope(e.getValue().getScope());
-            map_.addEntry(e.getKey(),i_);
-        }
-        _nav.getSession().setBeansInfos(map_);
-        _nav.setLanguages(new StringList(_nav.getLanguage()));
-        AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
-        analyzingDoc_.setup(_conf.getConfiguration(), _conf.getDual());
-        setupAna(analyzingDoc_, _conf.getAnalyzing());
-        BeanTestNatLgNames.initInstancesPattern(_conf.getConfiguration(), analyzingDoc_);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, standards_, analyzingDoc_, _conf.getDual());
-        _conf.setAnalyzed(d_);
-        RendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getForwards(), _conf.getConfiguration());
-        _nav.initializeRendSession(null, _conf.getAdv(), new RendStackCall(InitPhase.NOTHING,null));
-    }
+//    private static void initSessionNat(NativeOtherAnalyzedTestConfiguration _conf,Navigation _nav) {
+//        StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
+//        BeanTestNatLgNames standards_ = _conf.getAdv();
+//        for (EntryCust<String, Bean> e: standards_.getBeans().entryList()) {
+//            BeanInfo i_ = new BeanInfo();
+//            i_.setClassName(e.getValue().getClassName());
+//            i_.setScope(e.getValue().getScope());
+//            map_.addEntry(e.getKey(),i_);
+//        }
+//        _nav.getSession().setBeansInfos(map_);
+//        _nav.setLanguages(new StringList(_nav.getLanguage()));
+//        AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
+//        analyzingDoc_.setup(_conf.getConfiguration(), _conf.getDual());
+//        setupAna(analyzingDoc_, _conf.getAnalyzing());
+//        BeanTestNatLgNames.initInstancesPattern(_conf.getConfiguration(), analyzingDoc_);
+//        AnalyzedPageEl page_ = _conf.getAnalyzing();
+//        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, standards_, analyzingDoc_, _conf.getDual());
+//        _conf.setAnalyzed(d_);
+//        RendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getForwards(), _conf.getConfiguration());
+//        _nav.initializeRendSession(null, _conf.getAdv(), new RendStackCall(InitPhase.NOTHING,null));
+//    }
 
     private static RendDocumentBlock buildRendWithTwoNativeBean(String _html, String _htmlTwo, BeanOne _bean, BeanTwo _beanTwo, NativeOtherAnalyzedTestConfiguration _conf) {
         Configuration c_ = _conf.getConfiguration();
@@ -424,7 +424,7 @@ public final class NativeSecondTest extends EquallableExUtil {
     }
 
     private static void putBean(Bean _beanTwo, String _key, LgNames _stds) {
-        ((BeanTestNatLgNames) _stds).getBeans().put(_key, _beanTwo);
+//        ((BeanTestNatLgNames) _stds).getBeans().put(_key, _beanTwo);
     }
 
     private static void setupNative(String _folder, String _relative, NativeOtherAnalyzedTestConfiguration _context) {
@@ -449,9 +449,9 @@ public final class NativeSecondTest extends EquallableExUtil {
         _nav.setSession(_conf.getConfiguration());
     }
 
-    private static Bean getBean(NativeOtherAnalyzedTestConfiguration _conf, String _key) {
-        return _conf.getAdv().getBeans().getVal(_key);
-    }
+//    private static Bean getBean(NativeOtherAnalyzedTestConfiguration _conf, String _key) {
+//        return _conf.getAdv().getBeans().getVal(_key);
+//    }
 
     private static void putBean(Bean _beanTwo, NativeOtherAnalyzedTestConfiguration _conf, String _key) {
         putBean(_beanTwo, _key, _conf.getAdv());

@@ -14,22 +14,14 @@ import code.formathtml.render.MetaDocument;
 import code.gui.CustComponent;
 import code.sml.Document;
 
-import javax.swing.*;
-
 public abstract class AbstractThreadActions implements Runnable {
 
     private final RenderedPage page;
 
-    private final Timer timer;
-
     protected AbstractThreadActions(RenderedPage _page) {
         page = _page;
-        timer = null;
     }
-    protected AbstractThreadActions(RenderedPage _page, Timer _timer) {
-        page = _page;
-        timer = _timer;
-    }
+
     protected void afterAction(ContextEl _ctx, RendStackCall _stackCall) {
         if (_ctx == null || _stackCall == null) {
             finish();
@@ -74,9 +66,6 @@ public abstract class AbstractThreadActions implements Runnable {
     }
 
     protected void finish() {
-        if (timer != null) {
-            timer.stop();
-        }
         page.finish();
     }
 

@@ -7,6 +7,7 @@ public interface AbstractThreadFactory {
     void newStartedThread(Runnable _runnable);
     AbstractThread newThread(Runnable _runnable);
     AbstractThread newThread();
+    AbstractScheduledExecutorService newScheduledExecutorService();
     AbstractAtomicBoolean newAtomicBoolean();
     AbstractAtomicBoolean newAtomicBoolean(boolean _value);
     AbstractAtomicInteger newAtomicInteger();

@@ -2,10 +2,10 @@ package aiki.gui.listeners;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.Timer;
-
 import aiki.gui.MainWindow;
 import aiki.map.enums.Direction;
+import code.threads.AbstractFuture;
+import code.threads.AbstractScheduledExecutorService;
 
 public class MouseTask extends MouseAdapter {
 
@@ -13,11 +13,12 @@ public class MouseTask extends MouseAdapter {
 
     private Task task;
 
-    private Timer timer;
+    private final AbstractScheduledExecutorService timer;
+    private AbstractFuture future;
 
     private MainWindow window;
 
-    public MouseTask(Direction _dir, Task _task, Timer _timer, MainWindow _window) {
+    public MouseTask(Direction _dir, Task _task, AbstractScheduledExecutorService _timer, MainWindow _window) {
         dir = _dir;
         task = _task;
         timer = _timer;
@@ -34,7 +35,7 @@ public class MouseTask extends MouseAdapter {
         }
         window.setEnabledMove(true);
         task.setDir(dir);
-        timer.start();
+        future = timer.scheduleAtFixedRate(task,0,0);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class MouseTask extends MouseAdapter {
         if (window.isClickButtonsPad()) {
             return;
         }
-        timer.stop();
+        future.cancel(true);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class MouseTask extends MouseAdapter {
         }
         window.setEnabledMove(true);
         task.setDir(dir);
-        timer.start();
+        future = timer.scheduleAtFixedRate(task,0,0);
     }
 
     @Override
@@ -69,6 +70,7 @@ public class MouseTask extends MouseAdapter {
         if (!window.isClickButtonsPad()) {
             return;
         }
-        timer.stop();
+        future.cancel(true);
     }
+
 }

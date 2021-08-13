@@ -1,15 +1,12 @@
 package aiki.gui.listeners;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.walk.Scene;
 import aiki.gui.threads.Painting;
 import aiki.map.enums.Direction;
-import code.gui.CustComponent;
 
-public class Task implements ActionListener {
+public class Task implements Runnable {
 
     private Painting painting;
 
@@ -28,7 +25,7 @@ public class Task implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void run() {
         if (!window.isEnabledMove()) {
             return;
         }

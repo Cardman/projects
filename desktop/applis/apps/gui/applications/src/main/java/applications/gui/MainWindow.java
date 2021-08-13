@@ -104,15 +104,15 @@ public final class MainWindow extends GroupFrame {
         buttonApps.addMouseListener(new AppsEvent(this,at_, _guiFact));
         lineApp_.add(buttonApps);
         panel_.add(lineApp_);
-        panel_.add(new Clock());
-        for (String l: Constants.getAvailableLanguages()) {
-            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
-            radio_.addActionListener(new SetLanguage(l, getFrames()));
-            radio_.setSelected(StringUtil.quickEq(l,_lg));
-            group.add(radio_);
-            panel_.add(radio_);
-            radios.add(radio_);
-        }
+        panel_.add(new Clock(_list.getThreadFactory()));
+//        for (String l: Constants.getAvailableLanguages()) {
+//            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
+//            radio_.addActionListener(new SetLanguage(l, getFrames()));
+//            radio_.setSelected(StringUtil.quickEq(l,_lg));
+//            group.add(radio_);
+//            panel_.add(radio_);
+//            radios.add(radio_);
+//        }
         panel_.setPreferredSize(new Dimension(256, 192));
         setContentPane(panel_);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

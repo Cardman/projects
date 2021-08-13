@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
@@ -84,6 +83,7 @@ import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.stream.StreamFolderFile;
 import code.threads.AbstractAtomicBoolean;
+import code.threads.AbstractScheduledExecutorService;
 import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -433,7 +433,8 @@ public class ScenePanel {
             scene.addKeyListener(keyPadListener);
 
             Task task_ = new Task(scene, facade, window);
-            Timer t_ = new Timer(0, task_);
+            AbstractScheduledExecutorService t_ = window.getThreadFactory().newScheduledExecutorService();
+//            Timer t_ = new Timer(0, task_);
             pad.getUp().addMouseListener(new MouseTask(Direction.UP,task_, t_, window));
             pad.getDown().addMouseListener(new MouseTask(Direction.DOWN, task_, t_, window));
             pad.getLeft().addMouseListener(new MouseTask(Direction.LEFT, task_, t_, window));

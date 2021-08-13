@@ -21,8 +21,8 @@ public final class ThreadRefresh implements Runnable {
 
     @Override
     public void run() {
-        RendStackCall rendStack_ = new RendStackCall(InitPhase.NOTHING,page.getContext());
-        stds.rendRefresh(page.getNavigation(), page.getContext(), rendStack_);
+//        RendStackCall rendStack_ = new RendStackCall(InitPhase.NOTHING,page.getContext());
+//        stds.rendRefresh(page.getNavigation(), page.getContext(), rendStack_);
         afterAction();
     }
     private void afterAction() {

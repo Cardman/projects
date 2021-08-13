@@ -286,7 +286,7 @@ public final class MainWindow extends NetGroupFrame {
         battle.setVisibleFrontBattle(false);
         mainPanel.add(battle);
         mainPanel.add(scenePanel.getComponent());
-        time = new Clock();
+        time = new Clock(_list.getThreadFactory());
         mainPanel.add(time);
         lastSavedGameDate = new TextLabel("");
         mainPanel.add(lastSavedGameDate);

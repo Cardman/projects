@@ -1,8 +1,9 @@
 package code.minirts.events;
 
 import code.minirts.rts.RtsDirection;
+import code.threads.AbstractFuture;
+import code.threads.AbstractScheduledExecutorService;
 
-import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -12,11 +13,12 @@ public class RtsMouseTask extends MouseAdapter {
 
     private final RtsTask task;
 
-    private final Timer timer;
+    private final AbstractScheduledExecutorService timer;
+    private AbstractFuture future;
 
 //    private MainWindow window;
 
-    public RtsMouseTask(RtsDirection _dir, RtsTask _task, Timer _timer) {
+    public RtsMouseTask(RtsDirection _dir, RtsTask _task, AbstractScheduledExecutorService _timer) {
 //    , MainWindow _window
         dir = _dir;
         task = _task;
@@ -51,12 +53,15 @@ public class RtsMouseTask extends MouseAdapter {
     @Override
     public void mouseEntered(MouseEvent _e) {
         task.setDir(dir);
-        timer.start();
+        future = timer.scheduleAtFixedRate(task, 0, 100);
+//        timer.start();
     }
 
     @Override
     public void mouseExited(MouseEvent _e) {
-        timer.stop();
+        future.cancel(true);
+//        timer.shutdown();
+//        timer.stop();
     }
 
 //    @Override

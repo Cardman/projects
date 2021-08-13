@@ -663,51 +663,7 @@ public final class NativeTest extends EquallableExUtil {
         files_.put("page2.html", htmlTwo_);
         docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
         docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
-        String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page2.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<java.lang.String field='dataBaseClassName' value='java.lang.Object'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
-                "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
-                "\t\t</sm>\n" +
-                "\t</sm>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
-                "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='code.formathtml.classes.BeanOne'/>\n" +
-                "\t\t</b>\n" +
-                "\t\t<java.lang.String key='' value='bean_two'/>\n" +
-                "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='code.formathtml.classes.BeanTwo'/>\n" +
-                "\t\t</b>\n" +
-                "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
-                "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
-                "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
-                "\t</sl>\n" +
-                "\t<sm field='validators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='code.formathtml.classes.MyValidator'/>\n" +
-                "\t</sm>\n" +
-                "\t<i field='inex'/>\n" +
-                "</cfg>\n" +
-                "\n";
+        String xmlConf_ = confCom();
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
@@ -736,51 +692,7 @@ public final class NativeTest extends EquallableExUtil {
         files_.put("page2.html", htmlTwo_);
         docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
         docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
-        String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page2.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<java.lang.String field='dataBaseClassName' value='java.lang.Object'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
-                "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
-                "\t\t</sm>\n" +
-                "\t</sm>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
-                "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='code.formathtml.classes.BeanOne'/>\n" +
-                "\t\t</b>\n" +
-                "\t\t<java.lang.String key='' value='bean_two'/>\n" +
-                "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='code.formathtml.classes.BeanTwo'/>\n" +
-                "\t\t</b>\n" +
-                "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
-                "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
-                "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
-                "\t</sl>\n" +
-                "\t<sm field='validators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='code.formathtml.classes.MyValidator'/>\n" +
-                "\t</sm>\n" +
-                "\t<i field='inex'/>\n" +
-                "</cfg>\n" +
-                "\n";
+        String xmlConf_ = confCom();
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
@@ -809,51 +721,7 @@ public final class NativeTest extends EquallableExUtil {
         files_.put("page2.html", htmlTwo_);
         docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
         docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
-        String xmlConf_ = "<cfg>\n" +
-                "\t<java.lang.String field='firstUrl' value='page2.html'/>\n" +
-                "\t<java.lang.String field='prefix' value='c'/>\n" +
-                "\t<java.lang.String field='dataBaseClassName' value='java.lang.Object'/>\n" +
-                "\t<sm field='navigation'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
-                "\t\t<sm>\n" +
-                "\t\t\t<java.lang.String key='' value='res'/>\n" +
-                "\t\t\t<java.lang.String value='page2.html'/>\n" +
-                "\t\t</sm>\n" +
-                "\t</sm>\n" +
-                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
-                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
-                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
-                "\t<sm field='beans'>\n" +
-                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
-                "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='code.formathtml.classes.BeanOne'/>\n" +
-                "\t\t</b>\n" +
-                "\t\t<java.lang.String key='' value='bean_two'/>\n" +
-                "\t\t<b>\n" +
-                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
-                "\t\t\t<java.lang.String field='className' value='code.formathtml.classes.BeanTwo'/>\n" +
-                "\t\t</b>\n" +
-                "\t</sm>\n" +
-                "\t<sm field='properties'>\n" +
-                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
-                "\t\t<java.lang.String value='sample/file'/>\n" +
-                "\t</sm>\n" +
-                "\t<sl field='addedFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
-                "\t</sl>\n" +
-                "\t<sl field='renderFiles'>\n" +
-                "\t\t<str value='page1.html'/>\n" +
-                "\t\t<str value='page2.html'/>\n" +
-                "\t</sl>\n" +
-                "\t<sm field='validators'>\n" +
-                "\t\t<str key='' value='my_val'/>\n" +
-                "\t\t<str value='code.formathtml.classes.MyValidator'/>\n" +
-                "\t</sm>\n" +
-                "\t<i field='inex'/>\n" +
-                "</cfg>\n" +
-                "\n";
+        String xmlConf_ = confCom();
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, null);
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
@@ -947,27 +815,72 @@ public final class NativeTest extends EquallableExUtil {
         return new NativeAnalyzedTestConfiguration(cont_.getForwards().generate(opt_),_conf,cont_, cont_.getForwards(), cont_.getStds());
     }
 
+//    @Test
+//    public void processNav1Test() {
+//        String locale_ = "en";
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+//        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"></form></body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+//        files_.put("page1.html", html_);
+//        files_.put("page2.html", htmlTwo_);
+//        BeanOne bean_ = new BeanOne();
+//        BeanFive beanTwo_ = new BeanFive();
+//        NativeAnalyzedTestConfiguration conf_ = contextElSec();
+//
+//
+//        putBean(bean_, "bean_one", conf_.getAdv().getBeans());
+//        putBean(beanTwo_, "bean_two", conf_.getAdv().getBeans());
+//        setupNative2(folder_, relative_, conf_);
+//
+//
+//        conf_.setNavigation(new StringMap<StringMap<String>>());
+//        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
+//        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
+//        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+//        Navigation nav_ = newNavigation(conf_);
+//        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
+//        nav_.setLanguage(locale_);
+//        setSess(conf_, nav_);
+//        nav_.setFiles(files_);
+//        conf_.getDual().getRenderFiles().add("page1.html");
+//        conf_.getDual().getRenderFiles().add("page2.html");
+//        initSessionNat(conf_,nav_);
+//        assertEq("page2.html", nav_.getCurrentUrl());
+//        nav_.getHtmlPage().setUrl(0);
+//        form(conf_, nav_);
+//        setupBeansAfter(conf_);
+//        assertEq("page1.html", nav_.getCurrentUrl());
+//        assertEq("bean_one", nav_.getCurrentBeanName());
+//        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+//        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
+//        assertEq("",nav_.getTitle());
+//        assertEq("",nav_.getReferenceScroll());
+//
+//    }
+
     @Test
-    public void processNav1Test() {
+    public void processNav_1Test() {
         String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
-        bean_.setScope("request");
-        BeanFive beanTwo_ = new BeanFive();
-        beanTwo_.setScope("request");
+//        BeanFive beanTwo_ = new BeanFive();
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
 
         putBean(bean_, conf_, "bean_one");
-        putBean(beanTwo_, conf_, "bean_two");
+//        putBean(beanTwo_, conf_, "bean_two");
         setupNative2(folder_, relative_, conf_);
 
 
@@ -983,68 +896,61 @@ public final class NativeTest extends EquallableExUtil {
         conf_.getDual().getRenderFiles().add("page1.html");
         conf_.getDual().getRenderFiles().add("page2.html");
         initSessionNat(conf_,nav_);
-        assertEq("page2.html", nav_.getCurrentUrl());
-        nav_.getHtmlPage().setUrl(0);
-        form(conf_, nav_);
-        setupBeansAfter(conf_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-//        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
-        assertEq("",nav_.getTitle());
-        assertEq("",nav_.getReferenceScroll());
+        assertEq("page2.html", nav_.getCurrentUrl());
 
     }
 
 
-    @Test
-    public void processNav1_Test() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"></form></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        files_.put("page2.html", htmlTwo_);
-        BeanOne bean_ = new BeanOne();
-        bean_.setScope("request");
-        BeanFive beanTwo_ = new BeanFive();
-        beanTwo_.setScope("request");
-        NativeAnalyzedTestConfiguration conf_ = contextElSec();
-
-
-        putBean(bean_, conf_, "bean_one");
-        putBean(beanTwo_, conf_, "bean_two");
-        setupNative2(folder_, relative_, conf_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
-        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
-        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = newNavigation(conf_);
-        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
-        nav_.setLanguage(locale_);
-        setSess(conf_, nav_);
-        nav_.setFiles(files_);
-        conf_.getDual().getRenderFiles().add("page1.html");
-        conf_.getDual().getRenderFiles().add("page2.html");
-        initSessionDoc(conf_,nav_);
-        assertEq("page2.html", nav_.getCurrentUrl());
-        nav_.getHtmlPage().setUrl(0);
-        form(conf_, nav_);
-        setupBeansAfter(conf_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_one", nav_.getCurrentBeanName());
-        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+//    @Test
+//    public void processNav1_Test() {
+//        String locale_ = "en";
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+//        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"></form></body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+//        files_.put("page1.html", html_);
+//        files_.put("page2.html", htmlTwo_);
+//        BeanOne bean_ = new BeanOne();
+//        BeanFive beanTwo_ = new BeanFive();
+//        NativeAnalyzedTestConfiguration conf_ = contextElSec();
+//
+//
+//        StringMap<String> beans_ = new StringMap<String>();
+//        beans_.addEntry("bean_one","code.formathtml.classes.BeanOne");
+//        beans_.addEntry("bean_two","code.formathtml.classes.BeanFive");
+////        putBean(bean_, "bean_one", beans_);
+////        putBean(beanTwo_, "bean_two", beans_);
+//        setupNative2(folder_, relative_, conf_);
+//
+//
+//        conf_.setNavigation(new StringMap<StringMap<String>>());
+//        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
+//        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
+//        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+//        Navigation nav_ = newNavigation(conf_);
+//        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
+//        nav_.setLanguage(locale_);
+//        setSess(conf_, nav_);
+//        nav_.setFiles(files_);
+//        conf_.getDual().getRenderFiles().add("page1.html");
+//        conf_.getDual().getRenderFiles().add("page2.html");
+//        initSessionDoc(conf_,nav_, beans_);
+//        assertEq("page2.html", nav_.getCurrentUrl());
+//        nav_.getHtmlPage().setUrl(0);
+//        form(conf_, nav_);
+//        setupBeansAfter(conf_);
+//        assertEq("page1.html", nav_.getCurrentUrl());
+//        assertEq("bean_one", nav_.getCurrentBeanName());
+//        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
 //        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
-        assertEq("",nav_.getTitle());
-        assertEq("",nav_.getReferenceScroll());
-
-    }
+//        assertEq("",nav_.getTitle());
+//        assertEq("",nav_.getReferenceScroll());
+//
+//    }
 
 
     @Test
@@ -1124,20 +1030,19 @@ public final class NativeTest extends EquallableExUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "err={0} is not a no zero rate";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form c:command=\"$goToPage\"><input id=\"txt\" type=\"text\" name=\"selectedString\" c:varValue=\"selectedString\" c:validator=\"rate_val\"/><span c:for=\"txt\" c:valueMessage='msg_example,err'/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_one\"><body><form c:command=\"$goToPage\"><input id=\"txt\" type=\"text\" name=\"selectedString\" c:varValue=\"selectedString\" c:validator=\"rate_val\"/><span c:for=\"txt\" c:valueMessage='msg_example,err'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
         BeanOne beanTwo_ = new BeanOne();
-        beanTwo_.setScope("request");
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
 
-        putBean(beanTwo_, conf_, "bean_two");
+        putBean(beanTwo_, conf_, "bean_one");
         setupVal(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
-        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        conf_.getNavigation().put("bean_one.go", new StringMap<String>());
+        conf_.getNavigation().getVal("bean_one.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
@@ -1161,12 +1066,12 @@ public final class NativeTest extends EquallableExUtil {
         form(conf_, nav_);
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_two", nav_.getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_two.goToPage\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"text\" name=\"bean_two.selectedString\" c:validator=\"rate_val\" n-i=\"0\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,err\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = getBean(conf_, "bean_two");
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><form c:command=\"$bean_one.goToPage\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"text\" name=\"bean_one.selectedString\" c:validator=\"rate_val\" n-i=\"0\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,err\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
+        beanTwo_ = getBean(conf_, "bean_one");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
-        assertEq(0, getBean(conf_, "bean_two").getForms().size());
+        assertEq(0, getBean(conf_, "bean_one").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1183,7 +1088,6 @@ public final class NativeTest extends EquallableExUtil {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
         BeanTwo beanTwo_ = new BeanTwo();
-        beanTwo_.setScope("request");
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
 
@@ -1237,7 +1141,6 @@ public final class NativeTest extends EquallableExUtil {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
         BeanTwo beanTwo_ = new BeanTwo();
-        beanTwo_.setScope("request");
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
 
@@ -1299,9 +1202,7 @@ public final class NativeTest extends EquallableExUtil {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         BeanOne beanOne_ = new BeanOne();
-        beanOne_.setScope("request");
         BeanTwo beanTwo_ = new BeanTwo();
-        beanTwo_.setScope("request");
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
 
@@ -1363,7 +1264,6 @@ public final class NativeTest extends EquallableExUtil {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
-        bean_.setScope("request");
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
 
@@ -1385,100 +1285,97 @@ public final class NativeTest extends EquallableExUtil {
     }
 
 //    @Test
-    public void processNav9Test() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String htmlTwo_ = "<html c:bean=\"bean_one\"><body>{invokeMethod(0)}</body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page2.html", htmlTwo_);
-        BeanOne bean_ = new BeanOne();
-        bean_.setScope("request");
-        NativeAnalyzedTestConfiguration conf_ = contextElSec();
-
-
-        putBean(bean_, conf_, "bean_one");
-        setupNative2(folder_, relative_, conf_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Navigation nav_ = newNavigation(conf_);
-        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
-        nav_.setLanguage(locale_);
-        setSess(conf_, nav_);
-        nav_.setFiles(files_);
-        conf_.getDual().getRenderFiles().add("page2.html");
-        initSessionNat(conf_,nav_);
-        assertEq("page2.html", nav_.getCurrentUrl());
-        assertEq("<html><body>returned value</body></html>", nav_.getHtmlText());
-
-    }
-
-//    @Test
-    public void processNav10Test() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String htmlTwo_ = "<html c:bean=\"bean_one\"><body>{invokeMethod(0)}</body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page2.html", htmlTwo_);
-        BeanOne bean_ = new BeanOne();
-        bean_.setScope("request");
-        NativeAnalyzedTestConfiguration conf_ = contextElSec();
-
-
-        putBean(bean_, conf_, "bean_one");
-        setupNative2(folder_, relative_, conf_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Navigation nav_ = newNavigation(conf_);
-        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
-        nav_.setLanguage(locale_);
-        setSess(conf_, nav_);
-        nav_.setFiles(files_);
-        conf_.getDual().getRenderFiles().add("page2.html");
-        initSessionNat(conf_,nav_);
-        assertEq("page2.html", nav_.getCurrentUrl());
-        assertEq("<html><body>returned value</body></html>", nav_.getHtmlText());
-
-    }
+//    public void processNav9Test() {
+//        String locale_ = "en";
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+//        String htmlTwo_ = "<html c:bean=\"bean_one\"><body>{invokeMethod(0)}</body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+//        files_.put("page2.html", htmlTwo_);
+//        BeanOne bean_ = new BeanOne();
+//        NativeAnalyzedTestConfiguration conf_ = contextElSec();
+//
+//
+//        putBean(bean_, "bean_one", conf_.getAdv().getBeans());
+//        setupNative2(folder_, relative_, conf_);
+//
+//
+//        conf_.setNavigation(new StringMap<StringMap<String>>());
+//        Navigation nav_ = newNavigation(conf_);
+//        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
+//        nav_.setLanguage(locale_);
+//        setSess(conf_, nav_);
+//        nav_.setFiles(files_);
+//        conf_.getDual().getRenderFiles().add("page2.html");
+//        initSessionNat(conf_,nav_);
+//        assertEq("page2.html", nav_.getCurrentUrl());
+//        assertEq("<html><body>returned value</body></html>", nav_.getHtmlText());
+//
+//    }
 
 //    @Test
-    public void processNav11Test() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String htmlTwo_ = "<html c:bean=\"bean_one\"><body>{getList(5)}</body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page2.html", htmlTwo_);
-        BeanOne bean_ = new BeanOne();
-        bean_.setScope("request");
-        NativeAnalyzedTestConfiguration conf_ = contextElSec();
+//    public void processNav10Test() {
+//        String locale_ = "en";
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+//        String htmlTwo_ = "<html c:bean=\"bean_one\"><body>{invokeMethod(0)}</body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+//        files_.put("page2.html", htmlTwo_);
+//        BeanOne bean_ = new BeanOne();
+//        NativeAnalyzedTestConfiguration conf_ = contextElSec();
+//
+//
+//        putBean(bean_, "bean_one", conf_.getAdv().getBeans());
+//        setupNative2(folder_, relative_, conf_);
+//
+//
+//        conf_.setNavigation(new StringMap<StringMap<String>>());
+//        Navigation nav_ = newNavigation(conf_);
+//        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
+//        nav_.setLanguage(locale_);
+//        setSess(conf_, nav_);
+//        nav_.setFiles(files_);
+//        conf_.getDual().getRenderFiles().add("page2.html");
+//        initSessionNat(conf_,nav_);
+//        assertEq("page2.html", nav_.getCurrentUrl());
+//        assertEq("<html><body>returned value</body></html>", nav_.getHtmlText());
+//
+//    }
 
-
-        putBean(bean_, conf_, "bean_one");
-        setupNative2(folder_, relative_, conf_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        Navigation nav_ = newNavigation(conf_);
-        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
-        nav_.setLanguage(locale_);
-        setSess(conf_, nav_);
-        nav_.setFiles(files_);
-        conf_.getDual().getRenderFiles().add("page2.html");
-        initSessionNat(conf_,nav_);
-        assertEq("page2.html", nav_.getCurrentUrl());
-        assertEq("<html><body>5</body></html>", nav_.getHtmlText());
-
-    }
+//    @Test
+//    public void processNav11Test() {
+//        String locale_ = "en";
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+//        String htmlTwo_ = "<html c:bean=\"bean_one\"><body>{getList(5)}</body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+//        files_.put("page2.html", htmlTwo_);
+//        BeanOne bean_ = new BeanOne();
+//        NativeAnalyzedTestConfiguration conf_ = contextElSec();
+//
+//
+//        putBean(bean_, "bean_one", conf_.getAdv().getBeans());
+//        setupNative2(folder_, relative_, conf_);
+//
+//
+//        conf_.setNavigation(new StringMap<StringMap<String>>());
+//        Navigation nav_ = newNavigation(conf_);
+//        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
+//        nav_.setLanguage(locale_);
+//        setSess(conf_, nav_);
+//        nav_.setFiles(files_);
+//        conf_.getDual().getRenderFiles().add("page2.html");
+//        initSessionNat(conf_,nav_);
+//        assertEq("page2.html", nav_.getCurrentUrl());
+//        assertEq("<html><body>5</body></html>", nav_.getHtmlText());
+//
+//    }
 
     @Test
     public void processNav12Test() {
@@ -1491,7 +1388,6 @@ public final class NativeTest extends EquallableExUtil {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
         BeanTwo beanTwo_ = new BeanTwo();
-        beanTwo_.setScope("session");
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
 
@@ -1527,8 +1423,8 @@ public final class NativeTest extends EquallableExUtil {
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.nullableInt\" n-i=\"0\" value=\"10\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = getBeanTwo(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
-//        assertEq(8, map_.size());
-//        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
+        assertEq(8, map_.size());
+        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1545,7 +1441,6 @@ public final class NativeTest extends EquallableExUtil {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
         BeanTwo beanTwo_ = new BeanTwo();
-        beanTwo_.setScope("session");
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
 
@@ -1581,8 +1476,8 @@ public final class NativeTest extends EquallableExUtil {
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.nullableInt\" n-i=\"0\" value=\"\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = getBeanTwo(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
-//        assertEq(8, map_.size());
-//        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
+        assertEq(8, map_.size());
+        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1599,7 +1494,6 @@ public final class NativeTest extends EquallableExUtil {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
         BeanTwo beanTwo_ = new BeanTwo();
-        beanTwo_.setScope("session");
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
 
@@ -1635,66 +1529,65 @@ public final class NativeTest extends EquallableExUtil {
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_two.checked\" n-i=\"0\" checked=\"checked\"/></form></body></html>", nav_.getHtmlText());
         beanTwo_ = getBeanTwo(conf_, "bean_two");
         StringMapObject map_ = beanTwo_.getForms();
-//        assertEq(8, map_.size());
-//        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
+        assertEq(8, map_.size());
+        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
     }
 
 //    @Test
-    public void processNav15Test() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form c:command=\"$go\"><input c:className='code.formathtml.classes.Rate' type=\"text\" name=\"rate\" c:varValue=\"rate\"/></form></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", htmlTwo_);
-        BeanTwo beanTwo_ = new BeanTwo();
-        beanTwo_.setScope("session");
-        NativeAnalyzedTestConfiguration conf_ = contextElSec();
-
-
-        putBean(beanTwo_, conf_, "bean_two");
-        setupVal(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
-        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        setSess(conf_, nav_);
-        nav_.setFiles(files_);
-        conf_.getDual().getRenderFiles().add("page1.html");
-        initSessionNat(conf_,nav_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
-        containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
-        NodeContainer nc_;
-        NodeInformations ni_;
-        StringList values_;
-        nc_ = containers_.getVal(0L);
-        nc_.setEnabled(true);
-        ni_ = nc_.getNodeInformation();
-        values_ = new StringList();
-        values_.add("1/2");
-        ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
-        form(conf_, nav_);
-        setupBeansAfter(conf_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_two", nav_.getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input c:className=\"code.formathtml.classes.Rate\" type=\"text\" name=\"bean_two.rate\" n-i=\"0\" value=\"1/2\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = getBeanTwo(conf_, "bean_two");
-        StringMapObject map_ = beanTwo_.getForms();
-        assertEq(8, map_.size());
-        assertEq(8, getBean(conf_, "bean_two").getForms().size());
-        assertEq("",nav_.getTitle());
-        assertEq("",nav_.getReferenceScroll());
-
-    }
+//    public void processNav15Test() {
+//        String locale_ = "en";
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form c:command=\"$go\"><input c:className='code.formathtml.classes.Rate' type=\"text\" name=\"rate\" c:varValue=\"rate\"/></form></body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+//        files_.put("page1.html", htmlTwo_);
+//        BeanTwo beanTwo_ = new BeanTwo();
+//        NativeAnalyzedTestConfiguration conf_ = contextElSec();
+//
+//
+//        putBean(beanTwo_, "bean_two", conf_.getAdv().getBeans());
+//        setupVal(folder_, relative_, conf_);
+//        conf_.setNavigation(new StringMap<StringMap<String>>());
+//        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
+//        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+//        Navigation nav_ = newNavigation(conf_);
+//        nav_.setLanguage(locale_);
+//        setSess(conf_, nav_);
+//        nav_.setFiles(files_);
+//        conf_.getDual().getRenderFiles().add("page1.html");
+//        initSessionNat(conf_,nav_);
+//        HtmlPage htmlPage_ = nav_.getHtmlPage();
+//        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+//        containersMap_ = htmlPage_.getContainers();
+//        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+//        NodeContainer nc_;
+//        NodeInformations ni_;
+//        StringList values_;
+//        nc_ = containers_.getVal(0L);
+//        nc_.setEnabled(true);
+//        ni_ = nc_.getNodeInformation();
+//        values_ = new StringList();
+//        values_.add("1/2");
+//        ni_.setValue(values_);
+//        nav_.getHtmlPage().setUrl(0);
+//        form(conf_, nav_);
+//        setupBeansAfter(conf_);
+//        assertEq("page1.html", nav_.getCurrentUrl());
+//        assertEq("bean_two", nav_.getCurrentBeanName());
+//        assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input c:className=\"code.formathtml.classes.Rate\" type=\"text\" name=\"bean_two.rate\" n-i=\"0\" value=\"1/2\"/></form></body></html>", nav_.getHtmlText());
+//        beanTwo_ = getBeanTwo(conf_, "bean_two");
+//        StringMapObject map_ = beanTwo_.getForms();
+//        assertEq(8, map_.size());
+//        assertEq(8, getBean(conf_, "bean_two").getForms().size());
+//        assertEq("",nav_.getTitle());
+//        assertEq("",nav_.getReferenceScroll());
+//
+//    }
 
     @Test
     public void processNav16Test() {
@@ -1707,7 +1600,6 @@ public final class NativeTest extends EquallableExUtil {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
         BeanTwo beanTwo_ = new BeanTwo();
-        beanTwo_.setScope("session");
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
 
@@ -1751,34 +1643,33 @@ public final class NativeTest extends EquallableExUtil {
     }
 
 //    @Test
-    public void processNav17Test() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body>{$new $int[]{}}{$this}</body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", htmlTwo_);
-        BeanTwo beanTwo_ = new BeanTwo();
-        beanTwo_.setScope("session");
-        NativeAnalyzedTestConfiguration conf_ = contextElSec();
-
-
-        putBean(beanTwo_, conf_, "bean_two");
-        setupVal(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
-        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = newNavigation(conf_);
-        nav_.setLanguage(locale_);
-        setSess(conf_, nav_);
-        nav_.setFiles(files_);
-        conf_.getDual().getRenderFiles().add("page1.html");
-        initSessionNat(conf_,nav_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-
-    }
+//    public void processNav17Test() {
+//        String locale_ = "en";
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\"><body>{$new $int[]{}}{$this}</body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+//        files_.put("page1.html", htmlTwo_);
+//        BeanTwo beanTwo_ = new BeanTwo();
+//        NativeAnalyzedTestConfiguration conf_ = contextElSec();
+//
+//
+//        putBean(beanTwo_, "bean_two", conf_.getAdv().getBeans());
+//        setupVal(folder_, relative_, conf_);
+//        conf_.setNavigation(new StringMap<StringMap<String>>());
+//        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
+//        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+//        Navigation nav_ = newNavigation(conf_);
+//        nav_.setLanguage(locale_);
+//        setSess(conf_, nav_);
+//        nav_.setFiles(files_);
+//        conf_.getDual().getRenderFiles().add("page1.html");
+//        initSessionNat(conf_,nav_);
+//        assertEq("page1.html", nav_.getCurrentUrl());
+//
+//    }
 
     @Test
     public void processNav18Test() {
@@ -1791,7 +1682,6 @@ public final class NativeTest extends EquallableExUtil {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page2.html", htmlTwo_);
         BeanOne bean_ = new BeanOne();
-        bean_.setScope("request");
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
 
@@ -1811,119 +1701,111 @@ public final class NativeTest extends EquallableExUtil {
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select name=\"bean_one.chosenNumber\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
 
     }
-    @Test
-    public void refreshTest() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"></form></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        files_.put("page2.html", htmlTwo_);
-        BeanOne bean_ = new BeanOne();
-        bean_.setScope("request");
-        BeanFive beanTwo_ = new BeanFive();
-        beanTwo_.setScope("request");
-        NativeAnalyzedTestConfiguration conf_ = contextElSec();
-
-
-        putBean(bean_, conf_, "bean_one");
-        putBean(beanTwo_, conf_, "bean_two");
-        setupNative2(folder_, relative_, conf_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
-        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
-        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = newNavigation(conf_);
-        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
-        nav_.setLanguage(locale_);
-        setSess(conf_, nav_);
-        nav_.setFiles(files_);
-        conf_.getDual().getRenderFiles().add("page1.html");
-        conf_.getDual().getRenderFiles().add("page2.html");
-        initSessionNat(conf_,nav_);
-        assertEq("page2.html", nav_.getCurrentUrl());
-        nav_.getHtmlPage().setUrl(0);
-        form(conf_, nav_);
-        setupBeansAfter(conf_);
-        ((BeanNatLgNames)conf_.getContext().getStandards()).rendRefresh(nav_, conf_.getContext(), conf_.getStackCall());
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_one", nav_.getCurrentBeanName());
-        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+//    @Test
+//    public void refreshTest() {
+//        String locale_ = "en";
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+//        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+//        String htmlTwo_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+//        files_.put("page1.html", html_);
+//        files_.put("page2.html", htmlTwo_);
+//        BeanOne bean_ = new BeanOne();
+////        BeanFive beanTwo_ = new BeanFive();
+//        NativeAnalyzedTestConfiguration conf_ = contextElSec();
+//
+//
+//        putBean(bean_, conf_, "bean_one");
+////        putBean(beanTwo_, conf_, "bean_two");
+//        setupNative2(folder_, relative_, conf_);
+//
+//
+//        conf_.setNavigation(new StringMap<StringMap<String>>());
+//        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
+//        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
+//        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+//        Navigation nav_ = newNavigation(conf_);
+//        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
+//        nav_.setLanguage(locale_);
+//        setSess(conf_, nav_);
+//        nav_.setFiles(files_);
+//        conf_.getDual().getRenderFiles().add("page1.html");
+//        conf_.getDual().getRenderFiles().add("page2.html");
+//        initSessionNat(conf_,nav_);
+////        assertEq("page2.html", nav_.getCurrentUrl());
+////        nav_.getHtmlPage().setUrl(0);
+////        form(conf_, nav_);
+////        setupBeansAfter(conf_);
+//        ((BeanNatLgNames)conf_.getContext().getStandards()).rendRefresh(nav_, conf_.getContext(), conf_.getStackCall());
+//        assertEq("page2.html", nav_.getCurrentUrl());
+//        assertEq("bean_one", nav_.getCurrentBeanName());
+//        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+////        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
+//        assertEq("",nav_.getTitle());
+//        assertEq("",nav_.getReferenceScroll());
+//
+//    }
+//    @Test
+//    public void processNavNullDbTest() {
+//        String locale_ = "en";
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+//        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"></form></body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+//        files_.put("page1.html", html_);
+//        files_.put("page2.html", htmlTwo_);
+//        BeanOne bean_ = new BeanOne();
+//        BeanFive beanTwo_ = new BeanFive();
+//        NativeAnalyzedTestConfiguration conf_ = contextElSec();
+//
+//
+//        putBean(bean_, "bean_one", conf_.getAdv().getBeans());
+//        putBean(beanTwo_, "bean_two", conf_.getAdv().getBeans());
+//        setupNative2(folder_, relative_, conf_);
+//
+//
+//        conf_.setNavigation(new StringMap<StringMap<String>>());
+//        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
+//        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
+//        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+//        Navigation nav_ = newNavigation(conf_);
+//        ((CustBeanLgNames)conf_.getAdv()).setDataBase(null);
+//        nav_.setLanguage(locale_);
+//        setSess(conf_, nav_);
+//        nav_.setFiles(files_);
+//        conf_.getDual().getRenderFiles().add("page1.html");
+//        conf_.getDual().getRenderFiles().add("page2.html");
+//        initSessionNat(conf_,nav_);
+//        assertEq("page2.html", nav_.getCurrentUrl());
+//        nav_.getHtmlPage().setUrl(0);
+//        form(conf_, nav_);
+//        setupBeansAfter(conf_);
+//        assertEq("page1.html", nav_.getCurrentUrl());
+//        assertEq("bean_one", nav_.getCurrentBeanName());
+//        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
 //        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
-        assertEq("",nav_.getTitle());
-        assertEq("",nav_.getReferenceScroll());
-
-    }
-    @Test
-    public void processNavNullDbTest() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"></form></body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        files_.put("page2.html", htmlTwo_);
-        BeanOne bean_ = new BeanOne();
-        bean_.setScope("request");
-        BeanFive beanTwo_ = new BeanFive();
-        beanTwo_.setScope("request");
-        NativeAnalyzedTestConfiguration conf_ = contextElSec();
-
-
-        putBean(bean_, conf_, "bean_one");
-        putBean(beanTwo_, conf_, "bean_two");
-        setupNative2(folder_, relative_, conf_);
-
-
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getNavigation().put("bean_two.go", new StringMap<String>());
-        conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
-        conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
-        Navigation nav_ = newNavigation(conf_);
-        ((CustBeanLgNames)conf_.getAdv()).setDataBase(null);
-        nav_.setLanguage(locale_);
-        setSess(conf_, nav_);
-        nav_.setFiles(files_);
-        conf_.getDual().getRenderFiles().add("page1.html");
-        conf_.getDual().getRenderFiles().add("page2.html");
-        initSessionNat(conf_,nav_);
-        assertEq("page2.html", nav_.getCurrentUrl());
-        nav_.getHtmlPage().setUrl(0);
-        form(conf_, nav_);
-        setupBeansAfter(conf_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_one", nav_.getCurrentBeanName());
-        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-//        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
-        assertEq("",nav_.getTitle());
-        assertEq("",nav_.getReferenceScroll());
-
-    }
+//        assertEq("",nav_.getTitle());
+//        assertEq("",nav_.getReferenceScroll());
+//
+//    }
 
     private static void setupBeansAfter(NativeAnalyzedTestConfiguration _conf) {
-        cleanBeans(_conf);
-        for (EntryCust<String, Struct> e: _conf.getConfiguration().getBuiltBeans().entryList()) {
-            putBean(((BeanStruct) e.getValue()).getInstance(), _conf, e.getKey());
-        }
-    }
-
-    private static void cleanBeans(NativeAnalyzedTestConfiguration _conf) {
-        _conf.getAdv().getBeans().clear();
+//        cleanBeans(_conf);
+//        for (EntryCust<String, Struct> e: _conf.getConfiguration().getBuiltBeans().entryList()) {
+//            putBean(((BeanStruct) e.getValue()).getInstance(), e.getKey(), _conf.getAdv().getBeans());
+//        }
     }
 
     private static void initSessionNat(NativeAnalyzedTestConfiguration _conf,Navigation _nav) {
         StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
         BeanNatLgNames standards_ = _conf.getAdv();
-        for (EntryCust<String, Bean> e: standards_.getBeans().entryList()) {
+        for (EntryCust<String, Bean> e: ((CustBeanLgNames)standards_).beansForTest().entryList()) {
             BeanInfo i_ = new BeanInfo();
             i_.setClassName(e.getValue().getClassName());
             i_.setScope(e.getValue().getScope());
@@ -1953,72 +1835,12 @@ public final class NativeTest extends EquallableExUtil {
         for (AnaRendDocumentBlock v : d_.values()) {
             v.buildFctInstructions(analyzingDoc_, page_, map_);
         }
-//        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, standards_, analyzingDoc_, _conf.getDual());
         _conf.setAnalyzed(d_);
-        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getConfiguration());
         RendStackCall build_ = _conf.build(InitPhase.NOTHING, _conf.getContext());
         _conf.getAdv().preInitBeans(_conf.getConfiguration());
+        ((CustBeanLgNames)standards_).beansForTest().clear();
         _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), build_);
-    }
-
-    private static void initSessionDoc(NativeAnalyzedTestConfiguration _conf,Navigation _nav) {
-        StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
-        BeanNatLgNames standards_ = _conf.getAdv();
-        for (EntryCust<String, Bean> e: standards_.getBeans().entryList()) {
-            BeanInfo i_ = new BeanInfo();
-            i_.setClassName(e.getValue().getClassName());
-            i_.setScope(e.getValue().getScope());
-            map_.addEntry(e.getKey(),i_);
-        }
-        _nav.getSession().setBeansInfos(map_);
-        _nav.setLanguages(new StringList(_nav.getLanguage()));
-        AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
-        BeanNatLgNames.initInstancesPattern(_conf.getConfiguration(), map_);
-        _conf.getConfiguration().getBeansInfos().addAllEntries(map_);
-        analyzingDoc_.setup(_conf.getConfiguration(), _conf.getDual());
-        setupAna(analyzingDoc_, _conf.getAnalyzing());
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
-        StringMap<Document> docs_ = new StringMap<Document>();
-        for (EntryCust<String, String> e: _nav.getFiles().entryList()) {
-            Document val_ = DocumentBuilder.parseSax(e.getValue());
-            if (val_ != null) {
-                docs_.addEntry(e.getKey(), val_);
-            }
-        }
-        StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
-        for (EntryCust<String, Document> s: docs_.entryList()) {
-            String link_ = s.getKey();
-            Document document_ = s.getValue();
-            String file_ = document_.export();
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), document_, file_, link_, analyzingDoc_.getRendKeyWords(), standards_);
-            d_.addEntry(link_,anaDoc_);
-        }
-        analyzingDoc_.setLanguages(_nav.getLanguages());
-        _conf.getConfiguration().setCurrentLanguage(_nav.getLanguage());
-        for (AnaRendDocumentBlock v : d_.values()) {
-            v.buildFctInstructions(analyzingDoc_, page_, map_);
-        }
-//        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(docs_,page_, standards_, analyzingDoc_, _conf.getDual(), analyzingDoc_.getBeansInfosBefore());
-        _conf.setAnalyzed(d_);
-        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getConfiguration());
-        RendStackCall build_ = _conf.build(InitPhase.NOTHING, _conf.getContext());
-        _conf.getAdv().preInitBeans(_conf.getConfiguration());
-        _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), build_);
-    }
-
-    private boolean hasNatErr(String _folder, String _relative, String _html, BeanOne _bean) {
-        NativeAnalyzedTestConfiguration context_ = contextElSec();
-
-        setupNative(_folder, _relative, context_.getDual());
-        putBean(_bean, "bean_one", context_.getAdv());
-        StringMap<BeanInfo> beansInfos_ = context_.getConfiguration().getBeansInfos();
-        addBeanInfo(context_,"bean_one",new BeanStruct(_bean), beansInfos_);
-        StringMap<BeanInfo> beansInfosBefore_ = context_.getAnalyzingDoc().getBeansInfosBefore();
-        beansInfosBefore_.addAllEntries(beansInfos_);
-        analyzeInner(context_.getConfiguration(),context_, beansInfosBefore_, _html);
-        return !context_.isEmptyErrors();
     }
 
     private String getNatRes(String _folder, String _relative, String _html, BeanOne _bean, StringMap<String> _files) {
@@ -2150,7 +1972,7 @@ public final class NativeTest extends EquallableExUtil {
     }
 
     private static void putBean(Bean _beanTwo, String _key, LgNames _stds) {
-        ((BeanNatLgNames) _stds).getBeans().put(_key, _beanTwo);
+        ((CustBeanLgNames) _stds).beansForTest().put(_key, _beanTwo);
     }
 
     private static void setupNative(String _folder, String _relative, NativeAnalyzedTestConfiguration _context) {
@@ -2176,14 +1998,14 @@ public final class NativeTest extends EquallableExUtil {
     }
 
     private static BeanOne getBean(NativeAnalyzedTestConfiguration _conf, String _key) {
-        return (BeanOne)_conf.getAdv().getBeans().getVal(_key);
+        return (BeanOne)((CustBeanLgNames)_conf.getAdv()).beansForTest().getVal(_key);
     }
-    private static BeanFive getBeanFive(NativeAnalyzedTestConfiguration _conf, String _key) {
-        return (BeanFive)_conf.getAdv().getBeans().getVal(_key);
-    }
+//    private static BeanFive getBeanFive(NativeAnalyzedTestConfiguration _conf, String _key) {
+//        return (BeanFive)_conf.getAdv().getBeans().getVal(_key);
+//    }
 
     private static BeanTwo getBeanTwo(NativeAnalyzedTestConfiguration _conf, String _key) {
-        return (BeanTwo)_conf.getAdv().getBeans().getVal(_key);
+        return (BeanTwo)((CustBeanLgNames)_conf.getAdv()).beansForTest().getVal(_key);
     }
 
     private static void putBean(Bean _beanTwo, NativeAnalyzedTestConfiguration _conf, String _key) {
@@ -2234,6 +2056,54 @@ public final class NativeTest extends EquallableExUtil {
 
     private static void form(NativeAnalyzedTestConfiguration _conf, Navigation _nav) {
         _nav.processRendFormRequest((BeanNatLgNames) _conf.getContext().getStandards(), _conf.getContext(), _conf.getStackCall());
+    }
+
+    private static String confCom() {
+        return "<cfg>\n" +
+                "\t<java.lang.String field='firstUrl' value='page2.html'/>\n" +
+                "\t<java.lang.String field='prefix' value='c'/>\n" +
+                "\t<java.lang.String field='dataBaseClassName' value='java.lang.Object'/>\n" +
+                "\t<sm field='navigation'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one.method'/>\n" +
+                "\t\t<sm>\n" +
+                "\t\t\t<java.lang.String key='' value='res'/>\n" +
+                "\t\t\t<java.lang.String value='page2.html'/>\n" +
+                "\t\t</sm>\n" +
+                "\t</sm>\n" +
+                "\t<java.lang.Integer field='tabWidth' value='4'/>\n" +
+                "\t<java.lang.String field='messagesFolder' value='messages'/>\n" +
+                "\t<java.lang.String field='filesConfName' value='conf'/>\n" +
+                "\t<sm field='beans'>\n" +
+                "\t\t<java.lang.String key='' value='bean_one'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='code.formathtml.classes.BeanOne'/>\n" +
+                "\t\t</b>\n" +
+                "\t\t<java.lang.String key='' value='bean_two'/>\n" +
+                "\t\t<b>\n" +
+                "\t\t\t<java.lang.String field='scope' value='session'/>\n" +
+                "\t\t\t<java.lang.String field='className' value='code.formathtml.classes.BeanTwo'/>\n" +
+                "\t\t</b>\n" +
+                "\t</sm>\n" +
+                "\t<sm field='properties'>\n" +
+                "\t\t<java.lang.String key='' value='msg_cust'/>\n" +
+                "\t\t<java.lang.String value='sample/file'/>\n" +
+                "\t</sm>\n" +
+                "\t<sl field='addedFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t\t<str value='page2.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sl field='renderFiles'>\n" +
+                "\t\t<str value='page1.html'/>\n" +
+                "\t\t<str value='page2.html'/>\n" +
+                "\t</sl>\n" +
+                "\t<sm field='validators'>\n" +
+                "\t\t<str key='' value='my_val'/>\n" +
+                "\t\t<str value='code.formathtml.classes.MyValidator'/>\n" +
+                "\t</sm>\n" +
+                "\t<i field='inex'/>\n" +
+                "</cfg>\n" +
+                "\n";
     }
 
 }

@@ -1,15 +1,11 @@
 package code.gui;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JProgressBar;
-import javax.swing.Timer;
 
 import code.gui.animations.AnimatedImage;
 import code.gui.images.AbstractImage;
+import code.threads.AbstractFuture;
+import code.threads.AbstractScheduledExecutorService;
 import code.util.CustList;
 
 public abstract class ProgressingDialog extends Dialog implements ProgressDialog {
@@ -28,7 +24,8 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
 
     private ProgressBar bar;
 
-    private Timer timer;
+    private AbstractScheduledExecutorService timer;
+    private AbstractFuture future;
 
     private String perCent = PER_CENT;
 
@@ -62,10 +59,12 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
         contentPane_.add(bar);
         setContentPane(contentPane_);
         pack();
-        TaskPaintingLabel task_ = new TaskPaintingLabel(this);
-        timer = new Timer(0, task_);
-        timer.setDelay(DELTA);
-        timer.start();
+        timer = _window.getThreadFactory().newScheduledExecutorService();
+        future = timer.scheduleAtFixedRate(new TaskPaintingLabel(this),0,DELTA);
+//        TaskPaintingLabel task_ = new TaskPaintingLabel(this);
+//        timer = new Timer(0, task_);
+//        timer.setDelay(DELTA);
+//        timer.start();
         if (_setVisibility) {
             setVisible(true);
         }
@@ -93,7 +92,8 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
     }
 
     public void stopTimer() {
-        timer.stop();
+        future.cancel(true);
+//        timer.stop();
     }
 
     public void setTitleDialog(String _titleDialog) {

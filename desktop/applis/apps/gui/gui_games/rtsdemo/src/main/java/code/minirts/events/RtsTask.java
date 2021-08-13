@@ -8,10 +8,8 @@ import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class RtsTask implements ActionListener {
+public class RtsTask implements Runnable {
 
     private final Facade facade;
 
@@ -28,7 +26,7 @@ public class RtsTask implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void run() {
         if (window.isDragged()) {
             return;
         }

@@ -551,7 +551,7 @@ public final class MainWindow extends NetGroupFrame {
         requestFocus();
         setFocusableWindowState(true);
         setImageIconFrame(LaunchingCards.getIcon(getImageFactory()));
-        clock = new Clock();
+        clock = new Clock(_list.getThreadFactory());
         lastSavedGameDate = new TextLabel("");
         reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE),getFileCoreStream(),getStreams()));
         if (!reglesBelote.isValidRules()) {

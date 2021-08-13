@@ -2,7 +2,6 @@ package code.player.gui;
 import java.awt.Dimension;
 
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 import code.gui.*;
@@ -19,11 +18,11 @@ import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.sml.util.ResourcesMessagesUtil;
+import code.threads.AbstractScheduledExecutorService;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -77,7 +76,7 @@ public class MainWindow extends GroupFrame implements LineShortListenable {
     private final StringMap<String> messagesFiles = MessPlayerGr.ms();
     private StringMap<String> messages = new StringMap<String>();
 
-    private Timer timer;
+    private AbstractScheduledExecutorService timer;
     private final TextLabel songsLabel = new TextLabel("");
     private AbsClipStream clipStream;
     private int noSong = -1;
@@ -132,15 +131,15 @@ public class MainWindow extends GroupFrame implements LineShortListenable {
         pane_.add(currentNoSong);
         pane_.add(currentSong);
         pane_.add(elapsedTime);
-        pane_.add(new Clock());
-        for (String l: Constants.getAvailableLanguages()) {
-            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
-            radio_.addActionListener(new SetLanguage(l, getFrames()));
-            radio_.setSelected(StringUtil.quickEq(l,_lg));
-            group.add(radio_);
-            pane_.add(radio_);
-            radios.add(radio_);
-        }
+        pane_.add(new Clock(_list.getThreadFactory()));
+//        for (String l: Constants.getAvailableLanguages()) {
+//            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
+//            radio_.addActionListener(new SetLanguage(l, getFrames()));
+//            radio_.setSelected(StringUtil.quickEq(l,_lg));
+//            group.add(radio_);
+//            pane_.add(radio_);
+//            radios.add(radio_);
+//        }
         setContentPane(pane_);
         pack();
         setVisible(true);
@@ -322,8 +321,10 @@ public class MainWindow extends GroupFrame implements LineShortListenable {
             String strBegin_ = getStringTime(0);
             elapsedTime.setText(strBegin_+REL_SEP+getStringTime(clipStream.getMicrosecondLength()));
             if (timer == null) {
-                timer = new Timer(SECOND_MILLIS, new UpdateTimeEvent(this));
-                timer.start();
+                timer = getThreadFactory().newScheduledExecutorService();
+                timer.scheduleAtFixedRate(new UpdateSongTimeEvent(this),0,1000);
+//                timer = new Timer(SECOND_MILLIS, new UpdateTimeEvent(this));
+//                timer.start();
             }
         } else {
             if (clipStream.isRunning()) {

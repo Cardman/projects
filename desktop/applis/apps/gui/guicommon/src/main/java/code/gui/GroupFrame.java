@@ -154,14 +154,15 @@ public abstract class GroupFrame extends CommonFrame {
     }
 
     protected boolean canChangeLanguageAll() {
-        boolean canChange_ = true;
-        for (GroupFrame g: frames.getFrames()) {
-            if (!g.canChangeLanguage()) {
-                canChange_ = false;
-                break;
-            }
-        }
-        return canChange_;
+        return false;
+//        boolean canChange_ = true;
+//        for (GroupFrame g: frames.getFrames()) {
+//            if (!g.canChangeLanguage()) {
+//                canChange_ = false;
+//                break;
+//            }
+//        }
+//        return canChange_;
     }
 
     public abstract void changeLanguage(String _language);

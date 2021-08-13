@@ -3,9 +3,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.Calendar;
 
-import javax.swing.Timer;
-
 import code.gui.events.UpdateTimeEvent;
+import code.threads.AbstractScheduledExecutorService;
+import code.threads.AbstractThreadFactory;
 import code.util.core.StringUtil;
 
 public class Clock {
@@ -20,16 +20,17 @@ public class Clock {
     private static final int DEFAULT_NB_CHARS = 10;
     private static final int HEIGHT_TIME = 15;
 
-    private Timer timer;
-    private TextField component;
+    private final TextField component;
 
-    public Clock() {
+    public Clock(AbstractThreadFactory _fact) {
         component = new TextField(DEFAULT_NB_CHARS);
         component.setEditable(false);
         component.setFont(new Font(ARIAL,Font.PLAIN,HEIGHT_TIME));
         component.setForeground(new Color(0,0,255));
-        timer = new Timer(SECOND_MILLIS, new UpdateTimeEvent(this));
-        timer.start();
+        AbstractScheduledExecutorService timer_ = _fact.newScheduledExecutorService();
+        timer_.scheduleAtFixedRate(new UpdateTimeEvent(this),0,SECOND_MILLIS);
+//        timer = new Timer(SECOND_MILLIS, new UpdateTimeEvent(this));
+//        timer.start();
     }
 
     public void setTimeText() {

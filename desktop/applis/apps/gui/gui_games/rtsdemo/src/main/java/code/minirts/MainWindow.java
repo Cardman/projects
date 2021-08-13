@@ -16,12 +16,12 @@ import code.minirts.rts.Facade;
 import code.scripts.messages.gui.MessPlayerGr;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractAtomicLong;
+import code.threads.AbstractScheduledExecutorService;
 import code.threads.AbstractThread;
 import code.util.StringMap;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.awt.image.MemoryImageSource;
 
 public final class MainWindow extends GroupFrame {
@@ -88,8 +88,10 @@ public final class MainWindow extends GroupFrame {
         RtsKeyPad up_ = new RtsKeyPad(RtsDirection.UP);
         RtsKeyPad down_ = new RtsKeyPad(RtsDirection.DOWN);
         RtsTask task_ = new RtsTask(battleground, this, facade);
-        Timer t_ = new Timer(0, task_);
-        t_.setDelay(100);
+        AbstractScheduledExecutorService t_ = getThreadFactory().newScheduledExecutorService();
+//        t_.scheduleAtFixedRate(task_,0,100, TimeUnit.MILLISECONDS);
+//        ScheduledExecutorService t_ = new Timer(0, task_);
+//        t_.setDelay(100);
         up_.addMouseListener(new RtsMouseTask(RtsDirection.UP,task_, t_));
         down_.addMouseListener(new RtsMouseTask(RtsDirection.DOWN, task_, t_));
         left_.addMouseListener(new RtsMouseTask(RtsDirection.LEFT, task_, t_));
