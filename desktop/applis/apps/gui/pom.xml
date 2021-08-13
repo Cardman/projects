@@ -18,6 +18,5 @@
 		<module>gui_games</module>
 		<module>gui_util</module>
 		<module>applications</module>
-		<module>other</module>
 	</modules>
 </project>
