@@ -200,6 +200,9 @@ public final class RenderedPage implements ProcessingSession {
         return processing.get();
     }
     void setFinding(MetaDocument _document) {
+        if (finding == null) {
+            return;
+        }
         finding.setFinding(_document);
     }
 

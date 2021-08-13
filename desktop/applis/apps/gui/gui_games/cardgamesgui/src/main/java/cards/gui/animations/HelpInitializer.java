@@ -3,7 +3,6 @@ package cards.gui.animations;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
-import cards.gui.dialogs.help.beans.GeneralHelpLgNames;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.confs.HelpScriptPages;
 import code.scripts.pages.cards.CardsInit;
@@ -51,7 +50,7 @@ public final class HelpInitializer implements Runnable {
                     element_.getTagName(), FileConst.XML_EXT));
             Document docBase_ = docs_.getVal(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l, StreamTextFile.SEPARATEUR,
                     element_.getTagName(), FileConst.XML_EXT));
-            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(l, new GeneralHelpLgNames(), docBase_, built_, ms_);
+            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(l, docBase_, built_, ms_);
             prep_.run();
             elementRacine_.setMetaDocument(prep_.getMetaDocument());
             elementRacine_.setNavigation(prep_.getNavigation());
@@ -82,7 +81,7 @@ public final class HelpInitializer implements Runnable {
                                     .parseInt(e2_.getAttribute(
                                             POSITION)));
                             nouveauxCheminsNum_.add(cheminNumCourantBis_);
-                            prep_ = new PreparedRenderPagesCards(l, new GeneralHelpLgNames(), docGene_, built_, ms_);
+                            prep_ = new PreparedRenderPagesCards(l, docGene_, built_, ms_);
                             prep_.run();
                             noeud_.setMetaDocument(prep_.getMetaDocument());
                             noeud_.setNavigation(prep_.getNavigation());

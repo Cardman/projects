@@ -62,33 +62,7 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         context = du_.getForwards().generate(du_.getContext().getOptions());
     }
 
-    protected BeanNatLgNames common(StringMap<String> _ms,DualAnalyzedContext _du) {
-        StringMap<String> files_ = new StringMap<String>();
-        Configuration session_ = navigation.getSession();
-        for (String a : _du.getContext().getAddedFiles()) {
-            files_.put(a, _ms.getVal(a));
-//            files_.put(a, ResourceFiles.ressourceFichier(a));
-        }
-//        for (String l : navigation.getLanguages()) {
-//            for (String a : _du.getContext().getProperties().values()) {
-//                String folder_ = _du.getContext().getMessagesFolder();
-//                String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_, l, a);
-//                files_.put(fileName_, ResourceFiles.ressourceFichier(fileName_));
-//            }
-//        }
-        String realFilePath_ = getRealFilePath(lg, session_.getFirstUrl());
-        StringMap<Document> docs_ = new StringMap<Document>();
-        Document doc_ = built.getVal(realFilePath_);
-        docs_.addEntry(realFilePath_,doc_);
-//        files_.put(realFilePath_, ResourceFiles.ressourceFichier(realFilePath_));
-        session_.setFirstUrl(realFilePath_);
-        navigation.setFiles(files_);
-        beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), _du);
-        context = _du.getForwards().generate(_du.getContext().getOptions());
-        return beanNatLgNames;
-    }
-
-    private static String getRealFilePath(String _lg, String _link) {
+    static String getRealFilePath(String _lg, String _link) {
         return StringUtil.replace(_link, IMPLICIT_LANGUAGE, StringUtil.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
     @Override
