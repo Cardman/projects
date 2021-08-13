@@ -193,6 +193,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -3834,7 +3835,8 @@ public final class PokemonStandards extends BeanNatLgNames {
     }
     protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
-        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_ctx, id_, _stackCall, Argument.toArgArray(new CustList<Argument>()));
+        Struct[] args_ = ExecHelper.getObjects(Argument.toArgArray(new CustList<Argument>()));
+        ResultErrorStd res_ = getOtherResultBean(_ctx, id_, args_);
         Struct strBean_ = res_.getResult();
         PokemonBeanStruct str_ = (PokemonBeanStruct) strBean_;
         Bean bean_ = str_.getBean();

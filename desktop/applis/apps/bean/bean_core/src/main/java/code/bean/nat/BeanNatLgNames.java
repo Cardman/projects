@@ -5,7 +5,6 @@ import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -65,12 +64,6 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
 
     public static String processString(Argument _arg, ContextEl _ctx) {
         return ExecCatOperation.getDisplayable(_arg, _ctx).getInstance();
-    }
-
-    @Override
-    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont,
-                                         ConstructorId _method, Struct... _args) {
-        return getOtherResultBean(_cont, _method, _args);
     }
 
     public abstract ResultErrorStd getOtherResultBean(ContextEl _cont,

@@ -61,57 +61,57 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         return bean_;
     }
 
-    @Override
-    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String name_ = _method.getConstraints().getName();
-        if (_instance instanceof BeanStruct) {
-            BeanStruct instance_ = (BeanStruct) _instance;
-            Bean bean_ = instance_.getBean();
-            if (bean_ instanceof SimpleOne) {
-                if (StringUtil.quickEq(name_, STRINGS)) {
-                    res_.setResult(((SimpleOne) bean_).getList(_cont));
-                    return res_;
-                }
-                if (StringUtil.quickEq(name_, TYPED_STRINGS)) {
-                    res_.setResult(((SimpleOne) bean_).getTypedStrings(_cont));
-                    return res_;
-                }
-                if (StringUtil.quickEq(name_,"length")) {
-                    res_.setResult(new IntStruct(NumParsers.getString(_args[0]).getInstance().length()));
-                    return res_;
-                }
-                if (StringUtil.quickEq(name_, TREE)) {
-                    res_.setResult(((SimpleOne) bean_).getTree(_cont));
-                    return res_;
-                }
-                if (StringUtil.quickEq(name_, TYPED_STRING)) {
-                    if (_method.getConstraints().getParametersTypesLength() == 1) {
-                        ((SimpleOne) bean_).setTypedString(NumParsers.getString(_args[0]).toStringInstance());
-                        res_.setResult(NullStruct.NULL_VALUE);
-                        return res_;
-                    } else {
-                        res_.setResult(new StringStruct(((SimpleOne) bean_).getTypedString()));
-                        return res_;
-                    }
-                }
-            }
-        }
-        if (_instance instanceof SampleInputStruct) {
-            if (StringUtil.quickEq(name_, TYPED_STRING)) {
-                if (_method.getConstraints().getParametersTypesLength() == 1) {
-                    ((SampleInputStruct) _instance).setTypedString(NumParsers.getString(_args[0]).toStringInstance());
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                } else {
-                    res_.setResult(new StringStruct(((SampleInputStruct) _instance).getTypedString()));
-                    return res_;
-                }
-            }
-        }
-        res_.setResult(BooleanStruct.of(ExecArrayFieldOperation.getArray(_instance,_cont).getLength()==0));
-        return res_;
-    }
+//    @Override
+//    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+//        ResultErrorStd res_ = new ResultErrorStd();
+//        String name_ = _method.getConstraints().getName();
+//        if (_instance instanceof BeanStruct) {
+//            BeanStruct instance_ = (BeanStruct) _instance;
+//            Bean bean_ = instance_.getBean();
+//            if (bean_ instanceof SimpleOne) {
+//                if (StringUtil.quickEq(name_, STRINGS)) {
+//                    res_.setResult(((SimpleOne) bean_).getList(_cont));
+//                    return res_;
+//                }
+//                if (StringUtil.quickEq(name_, TYPED_STRINGS)) {
+//                    res_.setResult(((SimpleOne) bean_).getTypedStrings(_cont));
+//                    return res_;
+//                }
+//                if (StringUtil.quickEq(name_,"length")) {
+//                    res_.setResult(new IntStruct(NumParsers.getString(_args[0]).getInstance().length()));
+//                    return res_;
+//                }
+//                if (StringUtil.quickEq(name_, TREE)) {
+//                    res_.setResult(((SimpleOne) bean_).getTree(_cont));
+//                    return res_;
+//                }
+//                if (StringUtil.quickEq(name_, TYPED_STRING)) {
+//                    if (_method.getConstraints().getParametersTypesLength() == 1) {
+//                        ((SimpleOne) bean_).setTypedString(NumParsers.getString(_args[0]).toStringInstance());
+//                        res_.setResult(NullStruct.NULL_VALUE);
+//                        return res_;
+//                    } else {
+//                        res_.setResult(new StringStruct(((SimpleOne) bean_).getTypedString()));
+//                        return res_;
+//                    }
+//                }
+//            }
+//        }
+//        if (_instance instanceof SampleInputStruct) {
+//            if (StringUtil.quickEq(name_, TYPED_STRING)) {
+//                if (_method.getConstraints().getParametersTypesLength() == 1) {
+//                    ((SampleInputStruct) _instance).setTypedString(NumParsers.getString(_args[0]).toStringInstance());
+//                    res_.setResult(NullStruct.NULL_VALUE);
+//                    return res_;
+//                } else {
+//                    res_.setResult(new StringStruct(((SampleInputStruct) _instance).getTypedString()));
+//                    return res_;
+//                }
+//            }
+//        }
+//        res_.setResult(BooleanStruct.of(ExecArrayFieldOperation.getArray(_instance,_cont).getLength()==0));
+//        return res_;
+//    }
     @Override
     public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
         ((BeanStruct)_arg).getBean().beforeDisplaying();
