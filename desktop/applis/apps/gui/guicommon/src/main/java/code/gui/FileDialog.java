@@ -104,7 +104,7 @@ public abstract class FileDialog extends Dialog {
                 }
             }
         }
-        fileModel = new FileTable(lg_);
+        fileModel = new FileTable(lg_,superFrame.getThreadFactory());
         currentTitle = messages.getVal(FILES);
         if (currentFolderRoot) {
             currentTitle = StringUtil.concat(currentTitle, SPACE, currentFolder);

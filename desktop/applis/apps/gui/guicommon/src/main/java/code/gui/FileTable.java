@@ -1,10 +1,11 @@
 package code.gui;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
+import code.threads.AbstractDate;
+import code.threads.AbstractDateFactory;
+import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -58,8 +59,10 @@ public final class FileTable {
     private boolean increasing;
 
     private final TableGui table;
+    private final AbstractThreadFactory threadFactory;
 
-    public FileTable(String _lg) {
+    public FileTable(String _lg, AbstractThreadFactory _threadFactory) {
+        threadFactory = _threadFactory;
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _lg, ACCESS);
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
@@ -135,8 +138,9 @@ public final class FileTable {
             }
             return currentFile_.getName();
         } else if(_columnIndex == DATE_INDEX) {
-            return new SimpleDateFormat(DATE_FORMAT).format(
-                    new Date(currentFile_.lastModified()));
+            AbstractDateFactory dateFactory_ = threadFactory.getDateFactory();
+            AbstractDate date_ = dateFactory_.newDate(currentFile_.lastModified());
+            return date_.format(DATE_FORMAT);
         } else if(_columnIndex == SIZE_INDEX) {
             return Long.toString(currentFile_.length());
         } else if(_columnIndex == PATH_INDEX) {
