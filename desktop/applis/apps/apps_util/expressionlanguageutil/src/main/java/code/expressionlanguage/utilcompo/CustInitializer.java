@@ -15,7 +15,6 @@ import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.threads.AbstractAtomicLong;
 import code.threads.AbstractThread;
-import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -79,7 +78,7 @@ public class CustInitializer extends DefaultInitializer {
     }
 
     private static void log(RunnableContextEl _cont, String _txt) {
-        String text_ = StringUtil.concat(CustAliases.getDateTimeText("_", "_", "_"),":",_txt);
+        String text_ = StringUtil.concat(CustAliases.getDateTimeText(_cont.getCurrentThreadFactory()),":",_txt);
         ((LgNamesWithNewAliases)_cont.getStandards()).getCustAliases().log(text_,_cont);
     }
 

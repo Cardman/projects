@@ -4,6 +4,13 @@ import code.threads.*;
 
 public final class DefaultThreadFactory implements AbstractThreadFactory {
 
+    private final AbstractDateFactory dateFactory = new DefaultDateFactory();
+
+    @Override
+    public AbstractDateFactory getDateFactory() {
+        return dateFactory;
+    }
+
     @Override
     public long nanos() {
         return System.nanoTime();

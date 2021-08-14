@@ -37,8 +37,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-import java.util.Calendar;
-
 public final class CustAliases {
     public static final String RUN = "Run";
     private static final String ILLEGAL_THREAD_STATE_EXCEPTION = "IllegalThreadStateException";
@@ -2942,7 +2940,7 @@ public final class CustAliases {
             return;
         }
         String stringAppFile_ = buildLog(_cont, _args);
-        stringAppFile_ = StringUtil.concat(getDateTimeText("_", "_", "_"),":",stringAppFile_);
+        stringAppFile_ = StringUtil.concat(getDateTimeText(_cont.getCurrentThreadFactory()),":",stringAppFile_);
         log(stringAppFile_,_cont);
     }
     void log(String _content, RunnableContextEl _cont){
@@ -2969,39 +2967,10 @@ public final class CustAliases {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, aliasConcurrentError, _stackCall)));
         }
     }
-    static String getDateTimeText(String _separatorDate, String _sep, String _separatorTime) {
-        Calendar now_ = Calendar.getInstance();
-        int y_ = now_.get(Calendar.YEAR);
-        int m_ = now_.get(Calendar.MONTH) + 1;
-        int d_ = now_.get(Calendar.DAY_OF_MONTH);
-        int h_ = now_.get(Calendar.HOUR_OF_DAY);
-        int mi_ = now_.get(Calendar.MINUTE);
-        int s_ = now_.get(Calendar.SECOND);
-        int ms_ = now_.get(Calendar.MILLISECOND);
-        String strMonth_ = lpadZero(m_);
-        String strDay_ = lpadZero(d_);
-        String strHour_ = lpadZero(h_);
-        String strMinute_ = lpadZero(mi_);
-        String strSecond_ = lpadZero(s_);
-        String strMs_ = lpadZeroMillis(ms_);
-        return StringUtil.concat(Long.toString(y_),_separatorDate,strMonth_,
-                _separatorDate,strDay_,_sep,strHour_,
-                _separatorTime,strMinute_,_separatorTime,strSecond_,_separatorTime,strMs_);
-    }
-    private static String lpadZero(int _nb) {
-        if (_nb < 10) {
-            return StringUtil.concat("0",Long.toString(_nb));
-        }
-        return Long.toString(_nb);
-    }
-    private static String lpadZeroMillis(int _millis) {
-        if (_millis < 10) {
-            return StringUtil.concat("00",Long.toString(_millis));
-        }
-        if (_millis < 100) {
-            return StringUtil.concat("0",Long.toString(_millis));
-        }
-        return Long.toString(_millis);
+    static String getDateTimeText(AbstractThreadFactory _fact) {
+        AbstractDateFactory dateFactory_ = _fact.getDateFactory();
+        AbstractDate date_ = dateFactory_.newDate(_fact.millis());
+        return date_.format("yyyy_MM_dd_HH_mm_ss_SSS");
     }
 
     public CustList<CommentDelimiters> defComments() {

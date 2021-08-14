@@ -789,7 +789,7 @@ public final class MainWindow extends NetGroupFrame {
                 if (!file_.isEmpty()) {
                     loadingConf.setLastSavedGame(file_);
                     save(file_);
-                    dateLastSaved = Clock.getDateTimeText();
+                    dateLastSaved = Clock.getDateTimeText(getThreadFactory());
                     lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
                     savedGame = true;
                 }
@@ -833,7 +833,7 @@ public final class MainWindow extends NetGroupFrame {
                 if (!file_.isEmpty()) {
                     loadingConf.setLastSavedGame(file_);
                     save(file_);
-                    dateLastSaved = Clock.getDateTimeText();
+                    dateLastSaved = Clock.getDateTimeText(getThreadFactory());
 //                    lastSavedGameDate.setText(MessageFormat.format(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
                     lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
                     savedGame = true;
@@ -899,7 +899,7 @@ public final class MainWindow extends NetGroupFrame {
         save(fileName_);
         fileName_ = StringUtil.replaceBackSlash(fileName_);
         loadingConf.setLastSavedGame(fileName_);
-        dateLastSaved = Clock.getDateTimeText();
+        dateLastSaved = Clock.getDateTimeText(getThreadFactory());
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
         savedGame = true;
     }

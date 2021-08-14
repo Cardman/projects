@@ -1315,7 +1315,7 @@ public final class MainWindow extends NetGroupFrame {
 
             if(!fichier_.isEmpty()) {
                 containerGame.saveCurrentGame(fichier_);
-                dateLastSaved = Clock.getDateTimeText();
+                dateLastSaved = Clock.getDateTimeText(getThreadFactory());
                 lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
                 partieSauvegardee=true;
             }

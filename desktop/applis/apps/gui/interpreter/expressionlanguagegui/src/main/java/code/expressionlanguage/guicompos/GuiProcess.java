@@ -102,7 +102,7 @@ public final class GuiProcess implements Runnable {
         GuiContextEl cont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(opt_, exec_, reportedMessages_, stds_.getInfos());
-        String time_ = Clock.getDateTimeText("_", "_", "_");
+        String time_ = Clock.getDateTimeText("_", "_", "_", _window.getThreadFactory());
         if (cont_ == null) {
             MemoryReporter.buildError(reportedMessages_,exec_,fileInfos_,time_);
             AbstractLogger logger_ = fileInfos_.getLogger();

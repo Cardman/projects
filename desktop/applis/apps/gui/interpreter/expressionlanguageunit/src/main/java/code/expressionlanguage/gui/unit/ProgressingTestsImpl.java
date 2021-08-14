@@ -37,7 +37,7 @@ public final class ProgressingTestsImpl implements ProgressingTests {
 
     @Override
     public void showErrors(ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos) {
-        String time_ = Clock.getDateTimeText("_", "_", "_");
+        String time_ = Clock.getDateTimeText("_", "_", "_", mainWindow.getInfos().getThreadFactory());
         MemoryReporter.buildError(_reportedMessages,_exec,_infos,time_);
         AbstractLogger logger_ = _infos.getLogger();
         byte[] bytes_ = _infos.getReporter().exportErrs(_exec, logger_);
@@ -49,7 +49,7 @@ public final class ProgressingTestsImpl implements ProgressingTests {
 
     @Override
     public void showWarnings(RunnableContextEl _ctx, ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos) {
-        String time_ = Clock.getDateTimeText("_", "_", "_");
+        String time_ = Clock.getDateTimeText("_", "_", "_", mainWindow.getInfos().getThreadFactory());
         MemoryReporter.buildWarning(_reportedMessages,_exec,_infos,time_);
     }
 

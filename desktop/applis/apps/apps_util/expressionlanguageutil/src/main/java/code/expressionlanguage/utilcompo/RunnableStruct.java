@@ -124,7 +124,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     public static long setupThread(RunnableContextEl _r) {
         long nb_ = _r.getCustInit().increment();
         StringBuilder dtPart_ = new StringBuilder();
-        dtPart_.append(CustAliases.getDateTimeText("_", "_", "_"));
+        dtPart_.append(CustAliases.getDateTimeText(_r.getCurrentThreadFactory()));
         dtPart_.append("__");
         dtPart_.append(nb_);
         dtPart_.append(".txt");

@@ -1,6 +1,7 @@
 package code.threads;
 
 public interface AbstractThreadFactory {
+    AbstractDateFactory getDateFactory();
     long nanos();
     long millis();
     boolean sleep(long _time);
