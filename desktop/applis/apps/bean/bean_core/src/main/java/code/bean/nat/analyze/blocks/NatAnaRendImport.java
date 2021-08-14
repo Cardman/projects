@@ -1,5 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.AbstractNatImpLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.bean.nat.analyze.opers.NatOperationNode;
@@ -19,10 +20,12 @@ public final class NatAnaRendImport extends AnaRendParentBlock {
     private StringList texts = new StringList();
 
     private final int pageOffset;
-    NatAnaRendImport(Element _elt, OffsetStringInfo _page, int _offset) {
+    private final AbstractNatImpLgNames natImpLgNames;
+    NatAnaRendImport(Element _elt, OffsetStringInfo _page, int _offset, AbstractNatImpLgNames _natImpLgNames) {
         super(_offset);
         pageOffset = _page.getOffset();
         elt = _elt;
+        natImpLgNames = _natImpLgNames;
     }
 
     @Override
@@ -34,6 +37,10 @@ public final class NatAnaRendImport extends AnaRendParentBlock {
         res_.buildAna(pageName_, _anaDoc, _page);
         roots = res_.getOpExpRoot();
         texts = res_.getTexts();
+    }
+
+    public AbstractNatImpLgNames getNatImpLgNames() {
+        return natImpLgNames;
     }
 
     public int getPageOffset() {

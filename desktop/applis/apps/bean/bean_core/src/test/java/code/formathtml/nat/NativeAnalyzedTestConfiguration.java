@@ -10,6 +10,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.fwd.DefaultInputBuilder;
+import code.formathtml.sample.CustBeanLgNames;
 import code.formathtml.util.DualConfigurationContext;
 import code.util.StringMap;
 
@@ -17,14 +18,14 @@ class NativeAnalyzedTestConfiguration {
     private final Configuration configuration;
     private final AnalyzedPageEl analyzing;
     private final Forwards forwards;
-    private final BeanNatLgNames adv;
+    private final CustBeanLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private final ContextEl context;
     private final DualConfigurationContext dual;
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
     private RendStackCall stackCall;
 
-    NativeAnalyzedTestConfiguration(ContextEl _generate, Configuration _configuration, NativeAnalyzedTestContext _analyzing, Forwards _forwards, BeanNatLgNames _standards) {
+    NativeAnalyzedTestConfiguration(ContextEl _generate, Configuration _configuration, NativeAnalyzedTestContext _analyzing, Forwards _forwards, CustBeanLgNames _standards) {
         this.configuration = _configuration;
         forwards = _forwards;
         adv= _standards;
@@ -67,7 +68,7 @@ class NativeAnalyzedTestConfiguration {
         return configuration.getNavigation();
     }
 
-    BeanNatLgNames getAdv() {
+    CustBeanLgNames getAdv() {
         return adv;
     }
 

@@ -26,7 +26,7 @@ import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class CustBeanLgNames extends BeanNatLgNames {
+public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNatImpLgNames {
 
     private static final String TYPE_INTS = "code.formathtml.classes.Ints";
     private static final String TYPE_RATE = "code.formathtml.classes.Rate";
@@ -910,7 +910,6 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             formsMap_ = ((BeanFive) ((BeanStruct) _mainBean).getBean()).getForms();
         }
         forms_.putAllMap(formsMap_);
-        super.setBeanForms(_conf, _mainBean, _node, _keepField, _beanName, _ctx, _rendStack);
     }
 
     @Override

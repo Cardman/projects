@@ -212,7 +212,7 @@ import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
 import code.util.core.StringUtil;
 
-public final class PokemonStandards extends BeanNatLgNames {
+public final class PokemonStandards extends BeanNatLgNames implements AbstractNatImpLgNames {
     public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
     public static final String TYPE_MOVE_TARGET = "aiki.game.fight.util.MoveTarget";
     public static final String TYPE_TARGET_COORDS = "aiki.game.fight.TargetCoords";

@@ -8,7 +8,7 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class NatAnaRendStdElement extends NatAnaRendElement {
-    NatAnaRendStdElement(Element _elt, int _offset) {
+    public NatAnaRendStdElement(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 

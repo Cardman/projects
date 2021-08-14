@@ -1,6 +1,6 @@
 package code.bean.nat.exec.blocks;
 
-import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.AbstractNatImpLgNames;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
@@ -21,11 +21,12 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
     private final ExecTextPart textPart;
 
     private final int pageOffset;
-
-    public NatRendImport(Element _elt, ExecTextPart _textPart, int _pageOffset) {
+    private final AbstractNatImpLgNames natImpLgNames;
+    public NatRendImport(Element _elt, ExecTextPart _textPart, int _pageOffset, AbstractNatImpLgNames _natImpLgNames) {
         this.elt = _elt;
         this.textPart = _textPart;
         this.pageOffset = _pageOffset;
+        natImpLgNames = _natImpLgNames;
     }
 
     @Override
@@ -46,7 +47,7 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
         Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
         boolean keepField_ = elt.hasAttribute(_cont.getRendKeyWords().getAttrKeepFields());
         Struct mainBean_ = _rendStack.getMainBean();
-        ((BeanNatCommonLgNames)_stds).setBeanForms(_cont, mainBean_, this, keepField_,
+        natImpLgNames.setBeanForms(_cont, mainBean_, this, keepField_,
                 beanName_, _ctx, _rendStack);
         for (RendBlock p: getDirectChildren(this)) {
             for (RendBlock c: getDirectChildren(p)) {

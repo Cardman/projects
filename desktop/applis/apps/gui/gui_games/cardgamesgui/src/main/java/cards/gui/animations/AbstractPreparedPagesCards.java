@@ -3,6 +3,7 @@ package cards.gui.animations;
 import code.bean.nat.AbstractNativeInit;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.NativeConfigurationLoader;
+import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.formathtml.Configuration;
@@ -58,7 +59,7 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         docs_.addEntry(realFilePath_,doc_);
         session_.setFirstUrl(realFilePath_);
         navigation.setFiles(files_);
-        beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), du_);
+        beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), du_, new DefNatBlockBuilder());
         context = du_.getForwards().generate(du_.getContext().getOptions());
     }
 

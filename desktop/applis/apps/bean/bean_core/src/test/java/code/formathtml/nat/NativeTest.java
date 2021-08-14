@@ -7,6 +7,8 @@ import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.opers.NatStdRefVariableOperation;
 import code.bean.nat.exec.variables.VariableWrapperNat;
+import code.bean.nat.fwd.AdvNatBlockBuilder;
+import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
@@ -24,7 +26,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.*;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.sample.BeanFive;
 import code.formathtml.sample.BeanOne;
 import code.formathtml.sample.BeanTwo;
 import code.formathtml.sample.Composite;
@@ -655,7 +656,7 @@ public final class NativeTest extends EquallableExUtil {
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
-        BeanNatLgNames lgNames_ = new CustBeanLgNames();
+        CustBeanLgNames lgNames_ = new CustBeanLgNames();
         lgNames_.getValidators().addEntry("my_val",new MyValidator());
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -668,7 +669,7 @@ public final class NativeTest extends EquallableExUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
-        lgNames_.setupAll(docs_,n_, n_.getSession(), du_);
+        lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
         ContextEl generate_ = du_.getForwards().generate(new Options());
         n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
@@ -684,7 +685,7 @@ public final class NativeTest extends EquallableExUtil {
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"composite.string\" c:varValue=\"composite.string\"/></form></body></html>";
         StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
-        BeanNatLgNames lgNames_ = new CustBeanLgNames();
+        CustBeanLgNames lgNames_ = new CustBeanLgNames();
         lgNames_.getValidators().addEntry("my_val",new MyValidator());
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -697,7 +698,7 @@ public final class NativeTest extends EquallableExUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
-        lgNames_.setupAll(docs_,n_, n_.getSession(), du_);
+        lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
         ContextEl generate_ = du_.getForwards().generate(new Options());
         n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.composite.string\" n-i=\"0\" value=\"\"/></form></body></html>", n_.getHtmlText());
@@ -713,7 +714,7 @@ public final class NativeTest extends EquallableExUtil {
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
-        BeanNatLgNames lgNames_ = new CustBeanLgNames();
+        CustBeanLgNames lgNames_ = new CustBeanLgNames();
         lgNames_.getValidators().addEntry("my_val",new MyValidator());
         basicStandards(lgNames_);
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -726,7 +727,7 @@ public final class NativeTest extends EquallableExUtil {
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, null);
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
-        lgNames_.setupAll(docs_,n_, n_.getSession(), du_);
+        lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
         ContextEl generate_ = du_.getForwards().generate(new Options());
         n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
@@ -764,7 +765,7 @@ public final class NativeTest extends EquallableExUtil {
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
+        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),a_.getAnalyzing(),a_.getAdv(),a_.getDual()), new DefNatBlockBuilder());
         RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
         n_.initializeRendSession(a_.getContext(), a_.getAdv(), build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
@@ -803,7 +804,7 @@ public final class NativeTest extends EquallableExUtil {
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),a_.getAnalyzing(),a_.getAdv(),a_.getDual()));
+        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),a_.getAnalyzing(),a_.getAdv(),a_.getDual()), new DefNatBlockBuilder());
         RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
         n_.initializeRendSession(a_.getContext(), a_.getAdv(), build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
@@ -889,7 +890,7 @@ public final class NativeTest extends EquallableExUtil {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
-        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
+        conf_.getAdv().setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1273,7 +1274,7 @@ public final class NativeTest extends EquallableExUtil {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
+        conf_.getAdv().setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1691,7 +1692,7 @@ public final class NativeTest extends EquallableExUtil {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        ((CustBeanLgNames)conf_.getAdv()).setDataBase(new Composite());
+        conf_.getAdv().setDataBase(new Composite());
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1804,8 +1805,8 @@ public final class NativeTest extends EquallableExUtil {
 
     private static void initSessionNat(NativeAnalyzedTestConfiguration _conf,Navigation _nav) {
         StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
-        BeanNatLgNames standards_ = _conf.getAdv();
-        for (EntryCust<String, Bean> e: ((CustBeanLgNames)standards_).beansForTest().entryList()) {
+        CustBeanLgNames standards_ = _conf.getAdv();
+        for (EntryCust<String, Bean> e: standards_.beansForTest().entryList()) {
             BeanInfo i_ = new BeanInfo();
             i_.setClassName(e.getValue().getClassName());
             i_.setScope(e.getValue().getScope());
@@ -1827,7 +1828,7 @@ public final class NativeTest extends EquallableExUtil {
             String file_ = _nav.getFiles().getVal(link_);
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
             Document document_ = res_.getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), document_, file_, link_, analyzingDoc_.getRendKeyWords(), standards_);
+            AnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), document_, file_, link_, analyzingDoc_.getRendKeyWords(), standards_, new AdvNatBlockBuilder(standards_));
             d_.addEntry(link_,anaDoc_);
         }
         analyzingDoc_.setLanguages(_nav.getLanguages());
@@ -1839,7 +1840,7 @@ public final class NativeTest extends EquallableExUtil {
         NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getConfiguration());
         RendStackCall build_ = _conf.build(InitPhase.NOTHING, _conf.getContext());
         _conf.getAdv().preInitBeans(_conf.getConfiguration());
-        ((CustBeanLgNames)standards_).beansForTest().clear();
+        standards_.beansForTest().clear();
         _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), build_);
     }
 
@@ -1925,7 +1926,7 @@ public final class NativeTest extends EquallableExUtil {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock("c:", doc_, h, "page1.html", _conf.getRendKeyWords(), _a.getAdv());
+            AnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock("c:", doc_, h, "page1.html", _conf.getRendKeyWords(), _a.getAdv(), new AdvNatBlockBuilder(_a.getAdv()));
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
@@ -1941,7 +1942,7 @@ public final class NativeTest extends EquallableExUtil {
     }
 
     private static NativeAnalyzedTestContext buildStdOne(Options _opt) {
-        BeanNatLgNames lgNames_ = new CustBeanLgNames();
+        CustBeanLgNames lgNames_ = new CustBeanLgNames();
         basicStandards(lgNames_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
@@ -1998,14 +1999,14 @@ public final class NativeTest extends EquallableExUtil {
     }
 
     private static BeanOne getBean(NativeAnalyzedTestConfiguration _conf, String _key) {
-        return (BeanOne)((CustBeanLgNames)_conf.getAdv()).beansForTest().getVal(_key);
+        return (BeanOne) _conf.getAdv().beansForTest().getVal(_key);
     }
 //    private static BeanFive getBeanFive(NativeAnalyzedTestConfiguration _conf, String _key) {
 //        return (BeanFive)_conf.getAdv().getBeans().getVal(_key);
 //    }
 
     private static BeanTwo getBeanTwo(NativeAnalyzedTestConfiguration _conf, String _key) {
-        return (BeanTwo)((CustBeanLgNames)_conf.getAdv()).beansForTest().getVal(_key);
+        return (BeanTwo) _conf.getAdv().beansForTest().getVal(_key);
     }
 
     private static void putBean(Bean _beanTwo, NativeAnalyzedTestConfiguration _conf, String _key) {

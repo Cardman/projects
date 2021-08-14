@@ -1,6 +1,5 @@
 package code.bean.nat;
 
-import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.bean.validator.Validator;
@@ -82,10 +81,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     }
     public abstract ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
                                                       ClassMethodId _method, Struct... _args);
-    public void setBeanForms(Configuration _conf, Struct _mainBean,
-                             NatRendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
-        //
-    }
 
     protected static Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
         return getBean(_conf,_currentBeanName);

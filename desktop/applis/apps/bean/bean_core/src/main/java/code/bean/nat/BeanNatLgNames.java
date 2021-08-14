@@ -2,6 +2,7 @@ package code.bean.nat;
 
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
+import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.common.ClassField;
@@ -23,7 +24,7 @@ import code.util.*;
 
 public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
 
-    public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, DualAnalyzedContext _dual) {
+    public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, DualAnalyzedContext _dual, AbstractNatBlockBuilder _builder) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
@@ -47,7 +48,7 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
             String link_ = s.getKey();
             Document document_ = s.getValue();
             String file_ = document_.export();
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), document_, file_, link_, analyzingDoc_.getRendKeyWords(), this);
+            AnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), document_, file_, link_, analyzingDoc_.getRendKeyWords(), this, _builder);
             d_.addEntry(link_,anaDoc_);
         }
         for (AnaRendDocumentBlock v : d_.values()) {

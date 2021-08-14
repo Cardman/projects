@@ -3,6 +3,7 @@ package aiki.gui.threads;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.AbstractNativeInit;
 import code.bean.nat.NativeConfigurationLoader;
+import code.bean.nat.fwd.AdvNatBlockBuilder;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.formathtml.Configuration;
@@ -72,7 +73,7 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         docs_.addEntry(realFilePath_,built.getVal(rel_));
 //        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        stds_.setupAll(docs_,navigation, navigation.getSession(), du_);
+        stds_.setupAll(docs_,navigation, navigation.getSession(), du_, new AdvNatBlockBuilder(stds_));
         context = du_.getForwards().generate(du_.getContext().getOptions());
     }
 
