@@ -16,20 +16,8 @@ public final class Options {
     private boolean encodeHeader = true;
     private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private final DefaultAccess defaultAccess = new DefaultAccess();
-    private char delimiterCase;
     private int tabWidth = 4;
     private int stack = -1;
-    public Options() {
-        setDelimiterCase(':');
-    }
-
-    public char getDelimiterCase() {
-        return delimiterCase;
-    }
-
-    public void setDelimiterCase(char _delimiterCase) {
-        delimiterCase = _delimiterCase;
-    }
 
     public StringList getTypesInit() {
         return typesInit;

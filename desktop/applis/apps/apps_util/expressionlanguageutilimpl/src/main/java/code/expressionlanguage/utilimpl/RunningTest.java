@@ -80,7 +80,6 @@ public final class RunningTest implements Runnable {
         }
         ExecutingOptions exec_ = new ExecutingOptions(_infos.getThreadFactory().newAtomicBoolean());
         Options opt_ = new Options();
-        opt_.setDelimiterCase(';');
         if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
             lg_ = "";
             setupOptionals(1, opt_, exec_,linesFiles_);

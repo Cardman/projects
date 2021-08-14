@@ -186,8 +186,8 @@ public final class ProcessMethodDefaultTest extends ProcessMethodCommon {
         xml_.append(" public static int exmeth(){\n");
         xml_.append("  int i = 0;\n");
         xml_.append("  switch(i){\n");
-        xml_.append("   case 5:default(1);\n");
-        xml_.append("   default:\n");
+        xml_.append("   case 5;default(1);\n");
+        xml_.append("   default;\n");
         xml_.append("  }\n");
         xml_.append("  return 1;\n");
         xml_.append(" }\n");

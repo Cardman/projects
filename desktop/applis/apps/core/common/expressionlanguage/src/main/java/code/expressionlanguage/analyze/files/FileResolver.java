@@ -277,11 +277,8 @@ public final class FileResolver {
             if (parentheses_ == 0) {
                 if (currentChar_ == END_LINE) {
                     endInstr_ = EndInstruction.NO_DECLARE_TYPE;
-                }
-                if (currentChar_ == _page.getOptions().getDelimiterCase()) {
                     String str_ = instruction_.toString().trim();
                     if (isCaseDefault(str_, keyWordCase_, keyWordDefault_)) {
-                        endInstr_ = EndInstruction.NO_DECLARE_TYPE;
                         currentParent_ = possibleGoUp(currentParent_);
                     }
                 }

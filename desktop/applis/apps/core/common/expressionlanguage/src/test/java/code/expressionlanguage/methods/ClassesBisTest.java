@@ -800,7 +800,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append("$class pkgtwo.ExClass {\n");
         xml_.append(" $static {\n");
         xml_.append("  $switch (value) {\n");
-        xml_.append("   $case 0:\n");
+        xml_.append("   $case 0;\n");
         xml_.append("   \\\\comment\n");
         files_.put("pkg/ExTwo", xml_.toString());
         assertTrue(hasErrDefCom(files_));
@@ -812,7 +812,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append("$class pkgtwo.ExClass {\n");
         xml_.append(" $static {\n");
         xml_.append("  $switch (value) {\n");
-        xml_.append("   $case 0:\n");
+        xml_.append("   $case 0;\n");
         xml_.append("   /");
         files_.put("pkg/ExTwo", xml_.toString());
         assertTrue(hasErr(files_));
@@ -824,7 +824,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append("$class pkgtwo.ExClass {\n");
         xml_.append(" $static {\n");
         xml_.append("  $switch (value) {\n");
-        xml_.append("   $case 0:\n");
+        xml_.append("   $case 0;\n");
         xml_.append("   /\\\n");
         files_.put("pkg/ExTwo", xml_.toString());
         assertTrue(hasErr(files_));
@@ -836,7 +836,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append("$class pkgtwo.ExClass {\n");
         xml_.append(" $static {\n");
         xml_.append("  $switch (value) {\n");
-        xml_.append("   $case 0:\n");
+        xml_.append("   $case 0;\n");
         xml_.append("   /* *");
         files_.put("pkg/ExTwo", xml_.toString());
         assertTrue(hasErr(files_));
@@ -939,7 +939,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" switch (){\n");
-        xml_.append("  case 1:\n");
+        xml_.append("  case 1;\n");
         xml_.append("  default\n");
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrLg(files_, "en"));
@@ -950,7 +950,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" switch (){\n");
-        xml_.append("  case 1:\n");
+        xml_.append("  case 1;\n");
         xml_.append("  default");
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrLg(files_, "en"));

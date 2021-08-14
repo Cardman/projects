@@ -417,10 +417,10 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append("  $long i;\n");
         xml_.append("  i=9;\n");
         xml_.append("  $switch(i)label{\n");
-        xml_.append("   $default:\n");
+        xml_.append("   $default;\n");
         xml_.append("    t=12;\n");
-        xml_.append("   $case(10):\n");
-        xml_.append("   $case(8):\n");
+        xml_.append("   $case(10);\n");
+        xml_.append("   $case(8);\n");
         xml_.append("    t=16;\n");
         xml_.append("    $break label;\n");
         xml_.append("  }\n");

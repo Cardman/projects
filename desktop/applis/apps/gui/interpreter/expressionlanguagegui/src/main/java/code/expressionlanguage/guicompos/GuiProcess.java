@@ -83,7 +83,6 @@ public final class GuiProcess implements Runnable {
 
         ExecutingOptions exec_ = new ExecutingOptions(_window.getThreadFactory().newAtomicBoolean());
         Options opt_ = new Options();
-        opt_.setDelimiterCase(';');
         RunningTest.setupOptionals(3, opt_, exec_,linesFiles_);
         if (exec_.isHasArg()) {
             mainArgs_ = exec_.getArgs();

@@ -131,7 +131,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;\n");
         xml_.append("  $int r = 0i;\n");
         xml_.append("  $switch(var){\n");
-        xml_.append("   $case ONE:\n");
+        xml_.append("   $case ONE;\n");
         xml_.append("    r = 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return $values(pkg.Ex).length+r;\n");
@@ -174,7 +174,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;\n");
         xml_.append("  $int r = 6i;\n");
         xml_.append("  $switch(var){\n");
-        xml_.append("   $case TWO:\n");
+        xml_.append("   $case TWO;\n");
         xml_.append("    r = 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return $values(pkg.Ex).length+r;\n");
@@ -217,7 +217,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("  pkg.Ex var = $null;\n");
         xml_.append("  $int r = 0i;\n");
         xml_.append("  $switch(var){\n");
-        xml_.append("   $case $null:\n");
+        xml_.append("   $case $null;\n");
         xml_.append("    r = 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return $values(pkg.Ex).length+r;\n");
@@ -260,7 +260,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;\n");
         xml_.append("  $int r = 6i;\n");
         xml_.append("  $switch(var){\n");
-        xml_.append("   $case $null:\n");
+        xml_.append("   $case $null;\n");
         xml_.append("    r = 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return $values(pkg.Ex).length+r;\n");
@@ -303,7 +303,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("  $int var = 1;\n");
         xml_.append("  $int r = 0i;\n");
         xml_.append("  $switch(var){\n");
-        xml_.append("   $case 1:\n");
+        xml_.append("   $case 1;\n");
         xml_.append("    r = 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return $values(pkg.Ex).length+r;\n");
@@ -347,7 +347,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("  $int var = 2;\n");
         xml_.append("  $int r = 6;\n");
         xml_.append("  $switch(var){\n");
-        xml_.append("   $case 1:\n");
+        xml_.append("   $case 1;\n");
         xml_.append("    r = 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return $values(pkg.Ex).length+r;\n");
@@ -468,9 +468,9 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append("  $int var = 2;\n");
         xml_.append("  $int r = 0;\n");
         xml_.append("  $switch(var){\n");
-        xml_.append("   $case 1:\n");
+        xml_.append("   $case 1;\n");
         xml_.append("    r = 1i;\n");
-        xml_.append("   $default:\n");
+        xml_.append("   $default;\n");
         xml_.append("    r = 6i;\n");
         xml_.append("  }\n");
         xml_.append("  $return $values(pkg.Ex).length+r;\n");

@@ -1266,7 +1266,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
         xml_.append(" $public $int method() {\n");
-        xml_.append("  $case 1:{}\n");
+        xml_.append("  $case 1;{}\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1275,7 +1275,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>() {\n" +
-                "  <a title=\"The $case block with expression 1 must be child of a block $switch.\" class=\"e\">$case</a> 1:{}\n" +
+                "  <a title=\"The $case block with expression 1 must be child of a block $switch.\" class=\"e\">$case</a> 1;{}\n" +
                 "  $return 1;\n" +
                 " }\n" +
                 "}\n" +
@@ -1310,7 +1310,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" MyEnum e;\n");
         xml_.append(" $public $int method() {\n");
         xml_.append("  $switch (e){\n");
-        xml_.append("   $case:\n");
+        xml_.append("   $case;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -1324,7 +1324,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m64\">e</a>;\n" +
                 " $public $int <a name=\"m81\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m64\">e</a>){\n" +
-                "   <a title=\"The $case block with expression  is not constant.\" class=\"e\">$case</a>:\n" +
+                "   <a title=\"The $case block with expression  is not constant.\" class=\"e\">$case</a>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1341,8 +1341,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" MyEnum e;\n");
         xml_.append(" $public $int method() {\n");
         xml_.append("  $switch (e){\n");
-        xml_.append("   $case ONE:\n");
-        xml_.append("   $case TWO:\n");
+        xml_.append("   $case ONE;\n");
+        xml_.append("   $case TWO;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -1357,8 +1357,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m69\">e</a>;\n" +
                 " $public $int <a name=\"m86\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m69\">e</a>){\n" +
-                "   <a title=\"The $case block with expression ONE is not constant.\" class=\"e\">$case</a> ONE:\n" +
-                "   $case <a title=\"pkg.MyEnum.TWO\" href=\"#m28\">TWO</a>:\n" +
+                "   <a title=\"The $case block with expression ONE is not constant.\" class=\"e\">$case</a> ONE;\n" +
+                "   $case <a title=\"pkg.MyEnum.TWO\" href=\"#m28\">TWO</a>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1372,8 +1372,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $int e;\n");
         xml_.append(" $public $int method() {\n");
         xml_.append("  $switch (e){\n");
-        xml_.append("   $case 1:\n");
-        xml_.append("   $case 1:\n");
+        xml_.append("   $case 1;\n");
+        xml_.append("   $case 1;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -1385,8 +1385,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $int <a name=\"m33\">e</a>;\n" +
                 " $public $int <a name=\"m50\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m33\">e</a>){\n" +
-                "   $case 1:\n" +
-                "   <a title=\"The $case block with value 1 is duplicated in the parent $switch block.\" class=\"e\">$case</a> 1:\n" +
+                "   $case 1;\n" +
+                "   <a title=\"The $case block with value 1 is duplicated in the parent $switch block.\" class=\"e\">$case</a> 1;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1400,8 +1400,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" Integer e;\n");
         xml_.append(" $public $int method() {\n");
         xml_.append("  $switch (e){\n");
-        xml_.append("   $case $null:\n");
-        xml_.append("   $case $null:\n");
+        xml_.append("   $case $null;\n");
+        xml_.append("   $case $null;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -1413,8 +1413,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " Integer <a name=\"m36\">e</a>;\n" +
                 " $public $int <a name=\"m53\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m36\">e</a>){\n" +
-                "   $case $null:\n" +
-                "   <a title=\"The $case block with value  is duplicated in the parent $switch block.\" class=\"e\">$case</a> $null:\n" +
+                "   $case $null;\n" +
+                "   <a title=\"The $case block with value  is duplicated in the parent $switch block.\" class=\"e\">$case</a> $null;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1428,7 +1428,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $int e;\n");
         xml_.append(" $public $int method() {\n");
         xml_.append("  $switch (e){\n");
-        xml_.append("   $case \"\":\n");
+        xml_.append("   $case \"\";\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -1440,7 +1440,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $int <a name=\"m33\">e</a>;\n" +
                 " $public $int <a name=\"m50\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m33\">e</a>){\n" +
-                "   <a title=\"The $case block with value  is not a sub type of $int.\" class=\"e\">$case</a> <span class=\"s\">\"\"</span>:\n" +
+                "   <a title=\"The $case block with value  is not a sub type of $int.\" class=\"e\">$case</a> <span class=\"s\">\"\"</span>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1456,8 +1456,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" MyEnum e;\n");
         xml_.append(" $public $int method() {\n");
         xml_.append("  $switch (e){\n");
-        xml_.append("   $case $null:\n");
-        xml_.append("   $case $null:\n");
+        xml_.append("   $case $null;\n");
+        xml_.append("   $case $null;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -1471,8 +1471,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m64\">e</a>;\n" +
                 " $public $int <a name=\"m81\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m64\">e</a>){\n" +
-                "   $case $null:\n" +
-                "   <a title=\"The $case block with value  is duplicated in the parent $switch block.\" class=\"e\">$case</a> $null:\n" +
+                "   $case $null;\n" +
+                "   <a title=\"The $case block with value  is duplicated in the parent $switch block.\" class=\"e\">$case</a> $null;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1484,7 +1484,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
         xml_.append(" $public $int method() {\n");
-        xml_.append("  $default:{}\n");
+        xml_.append("  $default;{}\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1493,7 +1493,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>() {\n" +
-                "  <a title=\"The $default block with expression  must be child of a block $switch.\" class=\"e\">$default</a>:{}\n" +
+                "  <a title=\"The $default block with expression  must be child of a block $switch.\" class=\"e\">$default</a>;{}\n" +
                 "  $return 1;\n" +
                 " }\n" +
                 "}\n" +
@@ -1508,9 +1508,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" MyEnum e;\n");
         xml_.append(" $public $int method() {\n");
         xml_.append("  $switch (e){\n");
-        xml_.append("   $case $null:\n");
-        xml_.append("   $case $null:\n");
-        xml_.append("   $default:\n");
+        xml_.append("   $case $null;\n");
+        xml_.append("   $case $null;\n");
+        xml_.append("   $default;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -1524,9 +1524,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m64\">e</a>;\n" +
                 " $public $int <a name=\"m81\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m64\">e</a>){\n" +
-                "   $case $null:\n" +
-                "   <a title=\"The $case block with value  is duplicated in the parent $switch block.\" class=\"e\">$case</a> $null:\n" +
-                "   $default:\n" +
+                "   $case $null;\n" +
+                "   <a title=\"The $case block with value  is duplicated in the parent $switch block.\" class=\"e\">$case</a> $null;\n" +
+                "   $default;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1542,9 +1542,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" MyEnum e;\n");
         xml_.append(" $public $int method() {\n");
         xml_.append("  $switch (e){\n");
-        xml_.append("   $case $null:\n");
-        xml_.append("   $default:\n");
-        xml_.append("   $default:\n");
+        xml_.append("   $case $null;\n");
+        xml_.append("   $default;\n");
+        xml_.append("   $default;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -1558,9 +1558,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m64\">e</a>;\n" +
                 " $public $int <a name=\"m81\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m64\">e</a>){\n" +
-                "   $case $null:\n" +
-                "   $default:\n" +
-                "   <a title=\"The $default block is duplicated in the parent $switch block.\" class=\"e\">$default</a>:\n" +
+                "   $case $null;\n" +
+                "   $default;\n" +
+                "   <a title=\"The $default block is duplicated in the parent $switch block.\" class=\"e\">$default</a>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1574,7 +1574,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $int e;\n");
         xml_.append(" $public $int method() {\n");
         xml_.append("  $switch (e){\n");
-        xml_.append("   $case :\n");
+        xml_.append("   $case ;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -1588,7 +1588,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m33\">e</a>){\n" +
                 "   <a title=\"There must be an expression.\n" +
                 "\n" +
-                "The $case block with expression  is not constant.\" class=\"e\">$case</a> :\n" +
+                "The $case block with expression  is not constant.\" class=\"e\">$case</a> ;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11382,7 +11382,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $public $int method() {\n");
         xml_.append("  Object v = $null;\n");
         xml_.append("  $switch (v){\n");
-        xml_.append("   $case CharSequence #v:\n");
+        xml_.append("   $case CharSequence #v;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -11394,7 +11394,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   $case CharSequence <a name=\"m109\" title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>:\n" +
+                "   $case CharSequence <a name=\"m109\" title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11408,8 +11408,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $public $int method() {\n");
         xml_.append("  Object v = $null;\n");
         xml_.append("  $switch (v){\n");
-        xml_.append("   $case CharSequence w:\n");
-        xml_.append("   $case String w:\n");
+        xml_.append("   $case CharSequence w;\n");
+        xml_.append("   $case String w;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -11421,8 +11421,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   $case CharSequence <a name=\"m109\">w</a>:\n" +
-                "   <a title=\"The code is unreachable in the function method()\" class=\"e\">$case</a> String <a name=\"m128\">w</a>:\n" +
+                "   $case CharSequence <a name=\"m109\">w</a>;\n" +
+                "   <a title=\"The code is unreachable in the function method()\" class=\"e\">$case</a> String <a name=\"m128\">w</a>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11436,7 +11436,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $public $int method() {\n");
         xml_.append("  Object v = $null;\n");
         xml_.append("  $switch (v){\n");
-        xml_.append("   $default #w:\n");
+        xml_.append("   $default #w;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -11448,7 +11448,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   $default <a name=\"m99\" title=\"The variable name #w is not valid. It must be a word.\" class=\"e\">#w</a>:\n" +
+                "   $default <a name=\"m99\" title=\"The variable name #w is not valid. It must be a word.\" class=\"e\">#w</a>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11462,8 +11462,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $public $int method() {\n");
         xml_.append("  Object v = $null;\n");
         xml_.append("  $switch (v){\n");
-        xml_.append("   $default w:\n");
-        xml_.append("   $case $int x:\n");
+        xml_.append("   $default w;\n");
+        xml_.append("   $case $int x;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -11475,8 +11475,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   <a title=\"The $default block is duplicated in the parent $switch block.\" class=\"e\">$default</a> <a title=\"java.lang.Object\" name=\"m99\">w</a>:\n" +
-                "   $case $int <a name=\"m116\">x</a>:\n" +
+                "   <a title=\"The $default block is duplicated in the parent $switch block.\" class=\"e\">$default</a> <a title=\"java.lang.Object\" name=\"m99\">w</a>;\n" +
+                "   $case $int <a name=\"m116\">x</a>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11490,7 +11490,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $public $int method() {\n");
         xml_.append("  Object v = $null;\n");
         xml_.append("  $switch (v){\n");
-        xml_.append("   $case CharSequence:\n");
+        xml_.append("   $case CharSequence;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -11502,7 +11502,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   <a title=\"The $case block with expression CharSequence is not constant.\" class=\"e\">$case</a> <a title=\"There is no accessible field named CharSequence from the type pkg.MySub in this context.\" class=\"e\">CharSequence</a>:\n" +
+                "   <a title=\"The $case block with expression CharSequence is not constant.\" class=\"e\">$case</a> <a title=\"There is no accessible field named CharSequence from the type pkg.MySub in this context.\" class=\"e\">CharSequence</a>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11516,7 +11516,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $public $int method() {\n");
         xml_.append("  Object v = $null;\n");
         xml_.append("  $switch (v){\n");
-        xml_.append("   $default:\n");
+        xml_.append("   $default;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -11528,7 +11528,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   <a title=\"The variable name  is not valid. It must be a word.\" class=\"e\">$default</a>:\n" +
+                "   <a title=\"The variable name  is not valid. It must be a word.\" class=\"e\">$default</a>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11542,7 +11542,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $public $int method() {\n");
         xml_.append("  Object v = $null;\n");
         xml_.append("  $switch (v){\n");
-        xml_.append("   $case CharSeq w:\n");
+        xml_.append("   $case CharSeq w;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -11554,7 +11554,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   $case <a title=\"The type CharSeq is unknown.\" class=\"e\">CharSeq</a> <a name=\"m104\">w</a>:\n" +
+                "   $case <a title=\"The type CharSeq is unknown.\" class=\"e\">CharSeq</a> <a name=\"m104\">w</a>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11568,7 +11568,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $public $int method() {\n");
         xml_.append("  Object v = $null;\n");
         xml_.append("  $switch (v){\n");
-        xml_.append("   $case:\n");
+        xml_.append("   $case;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -11582,7 +11582,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
                 "   <a title=\"There must be an expression.\n" +
                 "\n" +
-                "The $case block with expression  is not constant.\" class=\"e\">$case</a>:\n" +
+                "The $case block with expression  is not constant.\" class=\"e\">$case</a>;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11596,8 +11596,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $public $int method() {\n");
         xml_.append("  Object v = $null;\n");
         xml_.append("  $switch (v){\n");
-        xml_.append("   $case $null:\n");
-        xml_.append("   $case $null:\n");
+        xml_.append("   $case $null;\n");
+        xml_.append("   $case $null;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -11609,8 +11609,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   $case $null:\n" +
-                "   <a title=\"The code is unreachable in the function method()\" class=\"e\">$case</a> $null:\n" +
+                "   $case $null;\n" +
+                "   <a title=\"The code is unreachable in the function method()\" class=\"e\">$case</a> $null;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -11622,7 +11622,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
         xml_.append(" $public $int method() {\n");
-        xml_.append("  $case 1:$default\n");
+        xml_.append("  $case 1;$default\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
@@ -11630,7 +11630,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>() {\n" +
                 "  <a title=\"Bad index by parsing.\n" +
                 "\n" +
-                "The $case block with expression 1 must be child of a block $switch.\" class=\"e\">$case</a> 1:$default\n" +
+                "The $case block with expression 1 must be child of a block $switch.\" class=\"e\">$case</a> 1;$default\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
@@ -11638,22 +11638,22 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
         xml_.append(" $public $int method() {\n");
-        xml_.append("  $case 1:$default:");
+        xml_.append("  $case 1;$default;");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>() {\n" +
-                "  <a title=\"The $case block with expression 1 must be child of a block $switch.\" class=\"e\">$case</a> 1:<a title=\"Bad index by parsing.\n" +
+                "  <a title=\"The $case block with expression 1 must be child of a block $switch.\" class=\"e\">$case</a> 1;<a title=\"Bad index by parsing.\n" +
                 "\n" +
-                "The $default block with expression  must be child of a block $switch.\" class=\"e\">$default</a>:</span></pre></body></html>", filesExp_.firstValue());
+                "The $default block with expression  must be child of a block $switch.\" class=\"e\">$default</a>;</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report607Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
         xml_.append(" $public $int method() {\n");
-        xml_.append("  $case 1:$default v");
+        xml_.append("  $case 1;$default v");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
@@ -11661,7 +11661,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>() {\n" +
                 "  <a title=\"Bad index by parsing.\n" +
                 "\n" +
-                "The $case block with expression 1 must be child of a block $switch.\" class=\"e\">$case</a> 1:$default v</span></pre></body></html>", filesExp_.firstValue());
+                "The $case block with expression 1 must be child of a block $switch.\" class=\"e\">$case</a> 1;$default v</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report608Test() {
@@ -11670,8 +11670,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" $public $int method() {\n");
         xml_.append("  Object v = $null;\n");
         xml_.append("  $switch (v){\n");
-        xml_.append("   $default v:\n");
-        xml_.append("   $case $null:\n");
+        xml_.append("   $default v;\n");
+        xml_.append("   $case $null;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1;\n");
         xml_.append(" }\n");
@@ -11683,8 +11683,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
-                "   <a title=\"The $default block is duplicated in the parent $switch block.\" class=\"e\">$default</a> <a name=\"m99\" title=\"The variable name v is not valid. It must not be the name of an other variable of the scope.\" class=\"e\">v</a>:\n" +
-                "   $case $null:\n" +
+                "   <a title=\"The $default block is duplicated in the parent $switch block.\" class=\"e\">$default</a> <a name=\"m99\" title=\"The variable name v is not valid. It must not be the name of an other variable of the scope.\" class=\"e\">v</a>;\n" +
+                "   $case $null;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -12413,14 +12413,14 @@ public final class ErrorsTest extends ProcessMethodCommon {
     public void report646Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MyEnum {\n");
-        xml_.append(" $default:\n");
+        xml_.append(" $default;\n");
         xml_.append("  $int i;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
-                " <a title=\"The block is unexpected.\" class=\"e\">$default</a>:\n" +
+                " <a title=\"The block is unexpected.\" class=\"e\">$default</a>;\n" +
                 "  $int i;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -12429,14 +12429,14 @@ public final class ErrorsTest extends ProcessMethodCommon {
     public void report647Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MyEnum {\n");
-        xml_.append(" $case 1:\n");
+        xml_.append(" $case 1;\n");
         xml_.append("  $int i;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
-                " <a title=\"The block is unexpected.\" class=\"e\">$case</a> 1:\n" +
+                " <a title=\"The block is unexpected.\" class=\"e\">$case</a> 1;\n" +
                 "  $int i;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

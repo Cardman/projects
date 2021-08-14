@@ -850,7 +850,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append("  String res = \"\";\n");
         xml_.append("  int i = 0;\n");
         xml_.append("  switch (new Int(){}.field){\n");
-        xml_.append("   case 1:\n");
+        xml_.append("   case 1;\n");
         xml_.append("   res+=',';\n");
         xml_.append("   i++;\n");
         xml_.append("  }\n");
@@ -871,7 +871,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "  String <span class=\"f\"><span class=\"f\"><a name=\"m77\">res</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m93\">i</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
                 "  <span class=\"p\"><a title=\"1/2\">switch</a></span> (<span class=\"f\"><span class=\"f\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m119\">{</a>}</span></span>.<span class=\"f\"><a title=\"pkg.Int.field\" href=\"#m21\">field</a></span></span>){\n" +
-                "   <span class=\"f\"><a title=\"1/1\">case</a></span> 1:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> 1;\n" +
                 "   <span class=\"f\"><span class=\"f\"><a href=\"#m77\">res</a></span>+=<span class=\"f\"><span class=\"s\">','</span></span></span>;\n" +
                 "   <span class=\"f\"><span class=\"f\"><a href=\"#m93\">i</a></span>++</span>;\n" +
                 "  }\n" +
@@ -1205,7 +1205,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append(" static String m(){\n");
         xml_.append("  String res = \"\";\n");
         xml_.append("  switch(1){\n");
-        xml_.append("   case new Int(){}.CST:\n");
+        xml_.append("   case new Int(){}.CST;\n");
         xml_.append("    res += 1;\n");
         xml_.append("  }\n");
         xml_.append("  return res;\n");
@@ -1224,7 +1224,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " static String <a name=\"m76\">m</a>(){\n" +
                 "  String <span class=\"f\"><span class=\"f\"><a name=\"m90\">res</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
                 "  <span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\">1</span>){\n" +
-                "   <span class=\"f\"><a title=\"1/1\">case</a></span> new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m130\">{</a>}</span>.<a title=\"pkg.Int.CST\" href=\"#m34\">CST</a>:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m130\">{</a>}</span>.<a title=\"pkg.Int.CST\" href=\"#m34\">CST</a>;\n" +
                 "    <span class=\"f\"><span class=\"f\"><a href=\"#m90\">res</a> </span>+=<span class=\"f\"> 1</span></span>;\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><a href=\"#m90\">res</a></span>;\n" +
@@ -1242,7 +1242,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append(" static String m(){\n");
         xml_.append("  String res = \"\";\n");
         xml_.append("  switch(2){\n");
-        xml_.append("   case CST+CST:\n");
+        xml_.append("   case CST+CST;\n");
         xml_.append("    res += 1;\n");
         xml_.append("  }\n");
         xml_.append("  return res;\n");
@@ -1259,7 +1259,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " static String <a name=\"m58\">m</a>(){\n" +
                 "  String <span class=\"f\"><span class=\"f\"><a name=\"m72\">res</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
                 "  <span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\">2</span>){\n" +
-                "   <span class=\"f\"><a title=\"1/1\">case</a></span> <a title=\"pkg.Ext.CST\" href=\"#m34\">CST</a>+<a title=\"pkg.Ext.CST\" href=\"#m34\">CST</a>:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> <a title=\"pkg.Ext.CST\" href=\"#m34\">CST</a>+<a title=\"pkg.Ext.CST\" href=\"#m34\">CST</a>;\n" +
                 "    <span class=\"f\"><span class=\"f\"><a href=\"#m72\">res</a> </span>+=<span class=\"f\"> 1</span></span>;\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><a href=\"#m72\">res</a></span>;\n" +
@@ -10272,9 +10272,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append(" public static int m(){\n");
         xml_.append("  int a = 10;\n");
         xml_.append("  int t = switch(a) {\n");
-        xml_.append("   case 10:\n");
+        xml_.append("   case 10;\n");
         xml_.append("    return 5;\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return 1;\n");
         xml_.append("  };\n");
         xml_.append("  return t;\n");
@@ -10290,9 +10290,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " public static int <a name=\"m42\">m</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m53\">a</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m67\">t</a> </span>=<span class=\"f\"> <span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\"><a href=\"#m53\">a</a></span>) <span class=\"t\">{\n" +
-                "   <span class=\"f\"><a title=\"1/1\">case</a></span> 10:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> 10;\n" +
                 "    return <span class=\"f\">5</span>;\n" +
-                "   <span class=\"n\"><a title=\"0/1\">default</a></span>:\n" +
+                "   <span class=\"n\"><a title=\"0/1\">default</a></span>;\n" +
                 "    return <span class=\"n\">1</span>;\n" +
                 "  }</span></span></span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m67\">t</a></span>;\n" +
@@ -10309,9 +10309,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append(" public static int m(){\n");
         xml_.append("  int a = 9;\n");
         xml_.append("  int t = switch(a) {\n");
-        xml_.append("   case 10:\n");
+        xml_.append("   case 10;\n");
         xml_.append("    return 5;\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return 1;\n");
         xml_.append("  };\n");
         xml_.append("  return t;\n");
@@ -10327,9 +10327,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " public static int <a name=\"m42\">m</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m53\">a</a> </span>=<span class=\"f\"> 9</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m66\">t</a> </span>=<span class=\"f\"> <span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\"><a href=\"#m53\">a</a></span>) <span class=\"t\">{\n" +
-                "   <span class=\"n\"><a title=\"0/1\">case</a></span> 10:\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> 10;\n" +
                 "    return <span class=\"n\">5</span>;\n" +
-                "   <span class=\"f\"><a title=\"1/1\">default</a></span>:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">default</a></span>;\n" +
                 "    return <span class=\"f\">1</span>;\n" +
                 "  }</span></span></span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m66\">t</a></span>;\n" +
@@ -10347,9 +10347,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append("  int t = 0;\n");
         xml_.append("  for (int a: {9,10}) {\n");
         xml_.append("   t += switch[int](a) {\n");
-        xml_.append("    case 10:\n");
+        xml_.append("    case 10;\n");
         xml_.append("     return 5;\n");
-        xml_.append("    default:\n");
+        xml_.append("    default;\n");
         xml_.append("     return 1;\n");
         xml_.append("   };\n");
         xml_.append("  }\n");
@@ -10367,9 +10367,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m53\">t</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
                 "  <span class=\"f\">for (int <a name=\"m71\">a</a></span>: <span class=\"f\">{<span class=\"f\">9</span>,<span class=\"f\">10</span>}</span>) {\n" +
                 "   <span class=\"f\"><span class=\"f\"><a href=\"#m53\">t</a> </span>+=<span class=\"f\"> <span class=\"f\"><a title=\"2/2\">switch</a></span>[int](<span class=\"f\"><a href=\"#m71\">a</a></span>) <span class=\"t\">{\n" +
-                "    <span class=\"f\"><a title=\"1/1\">case</a></span> 10:\n" +
+                "    <span class=\"f\"><a title=\"1/1\">case</a></span> 10;\n" +
                 "     return <span class=\"f\">5</span>;\n" +
-                "    <span class=\"f\"><a title=\"1/1\">default</a></span>:\n" +
+                "    <span class=\"f\"><a title=\"1/1\">default</a></span>;\n" +
                 "     return <span class=\"f\">1</span>;\n" +
                 "   }</span></span></span>;\n" +
                 "  }\n" +
@@ -10388,9 +10388,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append("  int t = 0;\n");
         xml_.append("  for (int a: {}) {\n");
         xml_.append("   t += switch[int](a) {\n");
-        xml_.append("    case 10:\n");
+        xml_.append("    case 10;\n");
         xml_.append("     return 5;\n");
-        xml_.append("    default:\n");
+        xml_.append("    default;\n");
         xml_.append("     return 1;\n");
         xml_.append("   };\n");
         xml_.append("  }\n");
@@ -10408,9 +10408,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m53\">t</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
                 "  <span class=\"p\">for (int <a name=\"m71\">a</a></span>: <span class=\"f\">{}</span>) {\n" +
                 "   <span class=\"n\"><span class=\"n\"><a href=\"#m53\">t</a> </span>+=<span class=\"n\"> <span class=\"n\"><a title=\"0/2\">switch</a></span>[int](<span class=\"n\"><a href=\"#m71\">a</a></span>) <span class=\"t\">{\n" +
-                "    <span class=\"n\"><a title=\"0/1\">case</a></span> 10:\n" +
+                "    <span class=\"n\"><a title=\"0/1\">case</a></span> 10;\n" +
                 "     return <span class=\"n\">5</span>;\n" +
-                "    <span class=\"n\"><a title=\"0/1\">default</a></span>:\n" +
+                "    <span class=\"n\"><a title=\"0/1\">default</a></span>;\n" +
                 "     return <span class=\"n\">1</span>;\n" +
                 "   }</span></span></span>;\n" +
                 "  }\n" +
@@ -10428,7 +10428,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append(" public static Compo field = new Compo(7);\n");
         xml_.append(" public static int m(){\n");
         xml_.append("  (switch[Compo](10) {\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return that(field);\n");
         xml_.append("  } += new Compo(8));\n");
         xml_.append("  return field.f;\n");
@@ -10453,7 +10453,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " public static <a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\"m44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m232\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
                 " public static int <a name=\"m85\">m</a>(){\n" +
                 "  <span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"1/1\">switch</a></span>[<a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a>](<span class=\"f\">10</span>) <span class=\"t\">{\n" +
-                "   <span class=\"f\"><a title=\"1/1\">default</a></span>:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">default</a></span>;\n" +
                 "    return <span class=\"f\">that(<span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>)</span>;\n" +
                 "  }</span> </span><a title=\"pkg.Ext..Compo.static +(pkg.Ext..Compo,pkg.Ext..Compo)\" href=\"#m277\">+</a>=<span class=\"f\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m232\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m206\">Compo</a>(<span class=\"f\">8</span>)</span></span>)</span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m227\">f</a></span></span>;\n" +
@@ -10479,7 +10479,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append(" public static Compo field = new Compo(7);\n");
         xml_.append(" public static int m(){\n");
         xml_.append("  (switch [ Compo](10) {\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return that(field);\n");
         xml_.append("  } += new Compo(8));\n");
         xml_.append("  return field.f;\n");
@@ -10504,7 +10504,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " public static <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\"m44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
                 " public static int <a name=\"m85\">m</a>(){\n" +
                 "  <span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"1/1\">switch</a></span> [ <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>](<span class=\"f\">10</span>) <span class=\"t\">{\n" +
-                "   <span class=\"f\"><a title=\"1/1\">default</a></span>:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">default</a></span>;\n" +
                 "    return <span class=\"f\">that(<span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>)</span>;\n" +
                 "  }</span> </span><a title=\"pkg.Ext..Compo.static +(pkg.Ext..Compo,pkg.Ext..Compo)\" href=\"#m279\">+</a>=<span class=\"f\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"f\">8</span>)</span></span>)</span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span>;\n" +
@@ -10530,7 +10530,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append(" public static Compo field = new Compo(7);\n");
         xml_.append(" public static int m(){\n");
         xml_.append("  (switch [  Compo](10) {\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return that(field);\n");
         xml_.append("  } +=new Compo(8));\n");
         xml_.append("  return field.f;\n");
@@ -10555,7 +10555,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " public static <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\"m44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
                 " public static int <a name=\"m85\">m</a>(){\n" +
                 "  <span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"1/1\">switch</a></span> [  <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>](<span class=\"f\">10</span>) <span class=\"t\">{\n" +
-                "   <span class=\"f\"><a title=\"1/1\">default</a></span>:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">default</a></span>;\n" +
                 "    return <span class=\"f\">that(<span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>)</span>;\n" +
                 "  }</span> </span><a title=\"pkg.Ext..Compo.static +(pkg.Ext..Compo,pkg.Ext..Compo)\" href=\"#m279\">+</a>=<span class=\"f\"><a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"f\">8</span>)</span></span>)</span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span>;\n" +
@@ -10581,7 +10581,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append(" public static Compo field = new Compo(7);\n");
         xml_.append(" public static int m(){\n");
         xml_.append("  (switch  [ Compo](10) {\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return that(field);\n");
         xml_.append("  } +=new Compo(8));\n");
         xml_.append("  return field.f;\n");
@@ -10606,7 +10606,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " public static <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a> <span class=\"g\"><span class=\"g\"><a name=\"m44\">field</a> </span>=<span class=\"g\"> <a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"g\">7</span>)</span></span>;\n" +
                 " public static int <a name=\"m85\">m</a>(){\n" +
                 "  <span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"1/1\">switch</a></span>  [ <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>](<span class=\"f\">10</span>) <span class=\"t\">{\n" +
-                "   <span class=\"f\"><a title=\"1/1\">default</a></span>:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">default</a></span>;\n" +
                 "    return <span class=\"f\">that(<span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>)</span>;\n" +
                 "  }</span> </span><a title=\"pkg.Ext..Compo.static +(pkg.Ext..Compo,pkg.Ext..Compo)\" href=\"#m279\">+</a>=<span class=\"f\"><a title=\"pkg.Ext..Compo.pkg.Ext..Compo(int)\" href=\"#m234\">new</a> <a title=\"pkg.Ext..Compo\" href=\"#m208\">Compo</a>(<span class=\"f\">8</span>)</span></span>)</span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext.field\" href=\"#m44\">field</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Compo.f\" href=\"#m229\">f</a></span></span>;\n" +
@@ -10636,9 +10636,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append(" public static int m(){\n");
         xml_.append("  int a = 10;\n");
         xml_.append("  int t = switch[int:@Annot:@AnnotTwo](a) {\n");
-        xml_.append("   case 10:\n");
+        xml_.append("   case 10;\n");
         xml_.append("    return 5;\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return 1;\n");
         xml_.append("  };\n");
         xml_.append("  return class(Ext).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotations().length+\n");
@@ -10659,9 +10659,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " public static int <a name=\"m109\">m</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m120\">a</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m134\">t</a> </span>=<span class=\"f\"> <span class=\"p\"><a title=\"1/2\">switch</a></span>[int:<span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m18\">Annot</a></span>:<span class=\"f2\">@<a title=\"pkg.AnnotTwo\" href=\"#m50\">AnnotTwo</a></span>](<span class=\"f\"><a href=\"#m120\">a</a></span>) <span class=\"t\">{\n" +
-                "   <span class=\"f\"><a title=\"1/1\">case</a></span> 10:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> 10;\n" +
                 "    return <span class=\"f\">5</span>;\n" +
-                "   <span class=\"n\"><a title=\"0/1\">default</a></span>:\n" +
+                "   <span class=\"n\"><a title=\"0/1\">default</a></span>;\n" +
                 "    return <span class=\"n\">1</span>;\n" +
                 "  }</span></span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">class(<a title=\"pkg.Ext\" href=\"#m80\">Ext</a>)</span>.<span class=\"f\">getDeclaredMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getDeclaredSwitchMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>+<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">\n" +
@@ -10688,9 +10688,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append(" public static int m(){\n");
         xml_.append("  int a = 10;\n");
         xml_.append("  int t = switch[int:@Annot(new Int(){}.field()):@AnnotTwo(new Int(){}.field())](a) {\n");
-        xml_.append("   case 10:\n");
+        xml_.append("   case 10;\n");
         xml_.append("    return 5;\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return 1;\n");
         xml_.append("  };\n");
         xml_.append("  return class(Ext).getDeclaredMethods()[0].getDeclaredSwitchMethods()[0].getAnnotations().length+\n");
@@ -10716,9 +10716,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " public static int <a name=\"m197\">m</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m208\">a</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m222\">t</a> </span>=<span class=\"f\"> <span class=\"p\"><a title=\"1/2\">switch</a></span>[int:<span class=\"f2\">@<a title=\"pkg.Annot\" href=\"#m18\">Annot</a>(<span class=\"f2\"><span class=\"f2\">new <a title=\"pkg.Int\" href=\"#m112\">Int</a>()<span class=\"t\"><a name=\"m253\">{</a>}</span></span>.<span class=\"f2\"><a title=\"pkg.Int.field()\" href=\"#m134\">field</a>()</span></span>)</span>:<span class=\"f2\">@<a title=\"pkg.AnnotTwo\" href=\"#m64\">AnnotTwo</a>(<span class=\"f2\"><span class=\"f2\">new <a title=\"pkg.Int\" href=\"#m112\">Int</a>()<span class=\"t\"><a name=\"m284\">{</a>}</span></span>.<span class=\"f2\"><a title=\"pkg.Int.field()\" href=\"#m134\">field</a>()</span></span>)</span>](<span class=\"f\"><a href=\"#m208\">a</a></span>) <span class=\"t\">{\n" +
-                "   <span class=\"f\"><a title=\"1/1\">case</a></span> 10:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> 10;\n" +
                 "    return <span class=\"f\">5</span>;\n" +
-                "   <span class=\"n\"><a title=\"0/1\">default</a></span>:\n" +
+                "   <span class=\"n\"><a title=\"0/1\">default</a></span>;\n" +
                 "    return <span class=\"n\">1</span>;\n" +
                 "  }</span></span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">class(<a title=\"pkg.Ext\" href=\"#m168\">Ext</a>)</span>.<span class=\"f\">getDeclaredMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getDeclaredSwitchMethods()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>.<span class=\"f\">getAnnotations()</span></span>.<span class=\"f\"><b>length</b></span></span>+<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\">\n" +
@@ -11007,7 +11007,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("operator+ pkg.Ex(pkg.Ex a, pkg.Ex b) {\n");
         xml_.append(" return new pkg.Ex(a.f+b.f+switch[int](0){\n");
-        xml_.append("  default:\n");
+        xml_.append("  default;\n");
         xml_.append("   public class Loc : pkg.Int {public int field(){return 0;}}\n");
         xml_.append("   return new Loc(){public int field(){return 0;}}.field();\n");
         xml_.append(" });\n");
@@ -11035,7 +11035,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">operator<a name=\"m8\">+</a> <a title=\"pkg.Ex\" href=\"#m278\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m278\">pkg.Ex</a> <a name=\"m24\">a</a>, <a title=\"pkg.Ex\" href=\"#m278\">pkg.Ex</a> <a name=\"m34\">b</a>) {\n" +
                 " return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m303\">new</a> <a title=\"pkg.Ex\" href=\"#m278\">pkg.Ex</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m24\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.f\" href=\"#m299\">f</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m34\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.f\" href=\"#m299\">f</a></span></span></span>+<span class=\"f\"><span class=\"f\"><a title=\"1/1\">switch</a></span>[int](<span class=\"f\">0</span>)<span class=\"t\">{\n" +
-                "  <span class=\"f\"><a title=\"1/1\">default</a></span>:\n" +
+                "  <span class=\"f\"><a title=\"1/1\">default</a></span>;\n" +
                 "   public class <a name=\"m109\">Loc</a> : <a title=\"pkg.Int\" href=\"#m239\">pkg.Int</a> {public int <a name=\"m135\">field</a>(){return <span class=\"n\">0</span>;}}\n" +
                 "   return <span class=\"f\"><span class=\"f\">new <a title=\"$core.Loc+1\" href=\"#m109\">Loc</a>()<span class=\"t\"><a name=\"m174\">{</a>public int <a name=\"m186\">field</a>(){return <span class=\"f\">0</span>;}}</span></span>.<span class=\"f\"><a title=\"$core.Loc+1.field()\" href=\"#m135\">field</a>()</span></span>;\n" +
                 " }</span></span></span>)</span>;\n" +
@@ -11595,9 +11595,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static int exmeth(){\n");
         xml_.append("  switch(ExEnum.ONE){\n");
-        xml_.append("   case TWO,THREE:\n");
+        xml_.append("   case TWO,THREE;\n");
         xml_.append("    return 2;\n");
-        xml_.append("   case ONE:\n");
+        xml_.append("   case ONE;\n");
         xml_.append("    return 1;\n");
         xml_.append("  }\n");
         xml_.append("  return 0;\n");
@@ -11616,9 +11616,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "public class <a name=\"m56\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m84\">exmeth</a>(){\n" +
                 "  <span class=\"p\"><a title=\"1/4\">switch</a></span>(<span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a></span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a></span></span>){\n" +
-                "   <span class=\"n\"><a title=\"0/2\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>:\n" +
+                "   <span class=\"n\"><a title=\"0/2\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>;\n" +
                 "    return <span class=\"n\">2</span>;\n" +
-                "   <span class=\"f\"><a title=\"1/1\">case</a></span> <a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a>:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> <a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a>;\n" +
                 "    return <span class=\"f\">1</span>;\n" +
                 "  }\n" +
                 "  return <span class=\"n\">0</span>;\n" +
@@ -11635,9 +11635,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static int exmeth(){\n");
         xml_.append("  switch(ExEnum.TWO){\n");
-        xml_.append("   case TWO,THREE:\n");
+        xml_.append("   case TWO,THREE;\n");
         xml_.append("    return 2;\n");
-        xml_.append("   case ONE:\n");
+        xml_.append("   case ONE;\n");
         xml_.append("    return 1;\n");
         xml_.append("  }\n");
         xml_.append("  return 0;\n");
@@ -11656,9 +11656,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "public class <a name=\"m56\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m84\">exmeth</a>(){\n" +
                 "  <span class=\"p\"><a title=\"1/4\">switch</a></span>(<span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a></span>.<span class=\"f\"><a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a></span></span>){\n" +
-                "   <span class=\"p\"><a title=\"1/2\n0\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>:\n" +
+                "   <span class=\"p\"><a title=\"1/2\n0\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>;\n" +
                 "    return <span class=\"f\">2</span>;\n" +
-                "   <span class=\"n\"><a title=\"0/1\">case</a></span> <a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a>:\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> <a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a>;\n" +
                 "    return <span class=\"n\">1</span>;\n" +
                 "  }\n" +
                 "  return <span class=\"n\">0</span>;\n" +
@@ -11677,9 +11677,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append("  int w = 0;\n");
         xml_.append("  for(var v:ExEnum.values()){\n");
         xml_.append("   switch(v){\n");
-        xml_.append("    case TWO,THREE:\n");
+        xml_.append("    case TWO,THREE;\n");
         xml_.append("     w += 2;\n");
-        xml_.append("    case ONE:\n");
+        xml_.append("    case ONE;\n");
         xml_.append("     w += 1;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -11701,9 +11701,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m105\">w</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
                 "  <span class=\"f\">for(<b title=\"pkg.ExEnum\">var</b> <a name=\"m122\">v</a></span>:<span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a></span>.<span class=\"f\">values()</span></span>){\n" +
                 "   <span class=\"f\"><a title=\"4/4\">switch</a></span>(<span class=\"f\"><a href=\"#m122\">v</a></span>){\n" +
-                "    <span class=\"f\"><a title=\"2/2\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>:\n" +
+                "    <span class=\"f\"><a title=\"2/2\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>;\n" +
                 "     <span class=\"f\"><span class=\"f\"><a href=\"#m105\">w</a> </span>+=<span class=\"f\"> 2</span></span>;\n" +
-                "    <span class=\"f\"><a title=\"1/1\">case</a></span> <a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a>:\n" +
+                "    <span class=\"f\"><a title=\"1/1\">case</a></span> <a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a>;\n" +
                 "     <span class=\"f\"><span class=\"f\"><a href=\"#m105\">w</a> </span>+=<span class=\"f\"> 1</span></span>;\n" +
                 "   }\n" +
                 "  }\n" +
@@ -11721,9 +11721,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static int exmeth(){\n");
         xml_.append("  switch(ExEnum.THREE){\n");
-        xml_.append("   case TWO,THREE:\n");
+        xml_.append("   case TWO,THREE;\n");
         xml_.append("    return 2;\n");
-        xml_.append("   case ONE:\n");
+        xml_.append("   case ONE;\n");
         xml_.append("    return 1;\n");
         xml_.append("  }\n");
         xml_.append("  return 0;\n");
@@ -11742,9 +11742,9 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "public class <a name=\"m56\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m84\">exmeth</a>(){\n" +
                 "  <span class=\"p\"><a title=\"1/4\">switch</a></span>(<span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a></span>.<span class=\"f\"><a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a></span></span>){\n" +
-                "   <span class=\"p\"><a title=\"1/2\n1\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>:\n" +
+                "   <span class=\"p\"><a title=\"1/2\n1\">case</a></span> <a title=\"pkg.ExEnum.TWO\" href=\"#m30\">TWO</a>,<a title=\"pkg.ExEnum.THREE\" href=\"#m34\">THREE</a>;\n" +
                 "    return <span class=\"f\">2</span>;\n" +
-                "   <span class=\"n\"><a title=\"0/1\">case</a></span> <a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a>:\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> <a title=\"pkg.ExEnum.ONE\" href=\"#m26\">ONE</a>;\n" +
                 "    return <span class=\"n\">1</span>;\n" +
                 "  }\n" +
                 "  return <span class=\"n\">0</span>;\n" +
@@ -11758,7 +11758,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static int exmeth(){\n");
         xml_.append("  switch(1){\n");
-        xml_.append("   case 1??2:\n");
+        xml_.append("   case 1??2;\n");
         xml_.append("    return 2;\n");
         xml_.append("  }\n");
         xml_.append("  return 0;\n");
@@ -11774,7 +11774,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\">1</span>){\n" +
-                "   <span class=\"f\"><a title=\"1/1\">case</a></span> 1??2:\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> 1??2;\n" +
                 "    return <span class=\"f\">2</span>;\n" +
                 "  }\n" +
                 "  return <span class=\"n\">0</span>;\n" +

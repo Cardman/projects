@@ -153,7 +153,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static Interface test(){\n");
-        xml_.append("  $return (Interface) ($switch[$Fct<$int,$int,$int>](0){$default:$return fct();},$interfaces(Interface)());\n");
+        xml_.append("  $return (Interface) ($switch[$Fct<$int,$int,$int>](0){$default;$return fct();},$interfaces(Interface)());\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $Fct<$int,$int,$int> fct(){\n");
         xml_.append("  $return $static().$lambda($math,plus,$int,$int);\n");

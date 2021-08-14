@@ -300,7 +300,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("  String res = \"\";\n");
         xml_.append("  int i = 0;\n");
         xml_.append("  switch (new Int(){}.field){\n");
-        xml_.append("   case 1:\n");
+        xml_.append("   case 1;\n");
         xml_.append("   res+=',';\n");
         xml_.append("   i++;\n");
         xml_.append("  }\n");
@@ -318,7 +318,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  String <a name=\"m77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
                 "  int <a name=\"m93\">i</a> = 0;\n" +
                 "  switch (new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m119\">{</a>}</span>.<a title=\"pkg.Int.field\" href=\"#m21\">field</a>){\n" +
-                "   case 1:\n" +
+                "   case 1;\n" +
                 "   <a href=\"#m77\">res</a>+=<span class=\"s\">','</span>;\n" +
                 "   <a href=\"#m93\">i</a>++;\n" +
                 "  }\n" +
@@ -658,7 +658,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append(" static String m(){\n");
         xml_.append("  String res = \"\";\n");
         xml_.append("  switch(1){\n");
-        xml_.append("   case new Int(){}.CST:\n");
+        xml_.append("   case new Int(){}.CST;\n");
         xml_.append("    res += 1;\n");
         xml_.append("  }\n");
         xml_.append("  return res;\n");
@@ -673,7 +673,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 " static String <a name=\"m63\">m</a>(){\n" +
                 "  String <a name=\"m77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
                 "  switch(1){\n" +
-                "   <a title=\"The case block with expression new Int(){}.CST is not constant.\" class=\"e\">case</a> new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m117\">{</a>}</span>.<a title=\"pkg.Int.CST\" href=\"#m21\">CST</a>:\n" +
+                "   <a title=\"The case block with expression new Int(){}.CST is not constant.\" class=\"e\">case</a> new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m117\">{</a>}</span>.<a title=\"pkg.Int.CST\" href=\"#m21\">CST</a>;\n" +
                 "    <a href=\"#m77\">res</a> += 1;\n" +
                 "  }\n" +
                 "  return <a href=\"#m77\">res</a>;\n" +
@@ -5233,9 +5233,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append(" static int m(){\n");
         xml_.append("  int a = 10;\n");
         xml_.append("  int t = switch(a) {\n");
-        xml_.append("   case 10:\n");
+        xml_.append("   case 10;\n");
         xml_.append("    return 5;\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return 1;\n");
         xml_.append("  };\n");
         xml_.append("  return 0;\n");
@@ -5248,9 +5248,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">a</a> = 10;\n" +
                 "  int <a name=\"m53\">t</a> = switch(<a href=\"#m39\">a</a>) <span class=\"t\">{\n" +
-                "   case 10:\n" +
+                "   case 10;\n" +
                 "    return 5;\n" +
-                "   default:\n" +
+                "   default;\n" +
                 "    return 1;\n" +
                 "  }</span>;\n" +
                 "  return 0;\n" +
@@ -5268,7 +5268,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append(" static int m(){\n");
         xml_.append("  int a = 10;\n");
         xml_.append("  int t = switch(a) {\n");
-        xml_.append("   case 10:\n");
+        xml_.append("   case 10;\n");
         xml_.append("    return 5;\n");
         xml_.append("  };\n");
         xml_.append("  return 0;\n");
@@ -5280,7 +5280,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">a</a> = 10;\n" +
                 "  int <a name=\"m53\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(<a href=\"#m39\">a</a>) <span class=\"t\">{\n" +
-                "   case 10:\n" +
+                "   case 10;\n" +
                 "    return 5;\n" +
                 "  }</span>;\n" +
                 "  return 0;\n" +
@@ -5297,9 +5297,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append(" static int m(){\n");
         xml_.append("  int a = 10;\n");
         xml_.append("  int t = switch(a) {\n");
-        xml_.append("   case 10:\n");
+        xml_.append("   case 10;\n");
         xml_.append("    break;\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return 1;\n");
         xml_.append("  };\n");
         xml_.append("  return 0;\n");
@@ -5311,9 +5311,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">a</a> = 10;\n" +
                 "  int <a name=\"m53\">t</a> = switch(<a href=\"#m39\">a</a>) <span class=\"t\">{\n" +
-                "   case 10:\n" +
+                "   case 10;\n" +
                 "    <a title=\"The break block must be inner of the blocks switch|for|foreach|do|iter|while.\" class=\"e\">break</a>;\n" +
-                "   default:\n" +
+                "   default;\n" +
                 "    return 1;\n" +
                 "  }</span>;\n" +
                 "  return 0;\n" +
@@ -5352,7 +5352,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("class pkg.Ext {\n");
         xml_.append(" static int m(){\n");
         xml_.append("  int t = switch(0) {\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("  };\n");
         xml_.append("  return 0;\n");
         xml_.append(" }\n");
@@ -5362,7 +5362,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">switch</a>(0) <span class=\"t\">{\n" +
-                "   default:\n" +
+                "   default;\n" +
                 "  }</span>;\n" +
                 "  return 0;\n" +
                 " }\n" +
@@ -5377,7 +5377,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("class pkg.Ext {\n");
         xml_.append(" static int m(){\n");
         xml_.append("  int t = switch((Object)null) {\n");
-        xml_.append("   default d:\n");
+        xml_.append("   default d;\n");
         xml_.append("  };\n");
         xml_.append("  return 0;\n");
         xml_.append(" }\n");
@@ -5387,7 +5387,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">t</a> = <a title=\"A throw block or a return block is missing for the method static .1($core.Object).\" class=\"e\">switch</a>((Object)null) <span class=\"t\">{\n" +
-                "   default <a title=\"$core.Object\" name=\"m77\">d</a>:\n" +
+                "   default <a title=\"$core.Object\" name=\"m77\">d</a>;\n" +
                 "  }</span>;\n" +
                 "  return 0;\n" +
                 " }\n" +
@@ -5427,7 +5427,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("class pkg.Ext {\n");
         xml_.append(" static int m(){\n");
         xml_.append("  (switch(0) {\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return 0;\n");
         xml_.append("  })=1;\n");
         xml_.append("  return 0;\n");
@@ -5438,7 +5438,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  (switch(0) <span class=\"t\">{\n" +
-                "   default:\n" +
+                "   default;\n" +
                 "    <a title=\"The type int cannot be implicitly cast to $core.Object\" class=\"e\">return</a> 0;\n" +
                 "  }</span>)=1;\n" +
                 "  return 0;\n" +
@@ -5454,7 +5454,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("class pkg.Ext {\n");
         xml_.append(" static int m(){\n");
         xml_.append("  (switch[String](0) {\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return that(0);\n");
         xml_.append("  })=\"1\";\n");
         xml_.append("  return 0;\n");
@@ -5465,7 +5465,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  (switch[String](0) <span class=\"t\">{\n" +
-                "   default:\n" +
+                "   default;\n" +
                 "    <a title=\"The type $core.Object cannot be implicitly cast to $core.String\" class=\"e\">return</a> <a title=\"The key word that is unexpected here.\" class=\"e\">that</a>(0);\n" +
                 "  }</span>)=<span class=\"s\">\"1\"</span>;\n" +
                 "  return 0;\n" +
@@ -5482,9 +5482,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append(" public static int m(){\n");
         xml_.append("  int a = 10;\n");
         xml_.append("  int t = switch[int:@Annot:@AnnotTwo](a) {\n");
-        xml_.append("   case 10:\n");
+        xml_.append("   case 10;\n");
         xml_.append("    return 5;\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return 1;\n");
         xml_.append("  };\n");
         xml_.append("  return 0;\n");
@@ -5496,9 +5496,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 " public static int <a name=\"m42\">m</a>(){\n" +
                 "  int <a name=\"m53\">a</a> = 10;\n" +
                 "  int <a name=\"m67\">t</a> = switch[int:<a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>:<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>](<a href=\"#m53\">a</a>) <span class=\"t\">{\n" +
-                "   case 10:\n" +
+                "   case 10;\n" +
                 "    return 5;\n" +
-                "   default:\n" +
+                "   default;\n" +
                 "    return 1;\n" +
                 "  }</span>;\n" +
                 "  return 0;\n" +
@@ -5518,9 +5518,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append(" public static int m(){\n");
         xml_.append("  int a = 10;\n");
         xml_.append("  int t = switch[int:@Annot(new Int(){}.field()):@AnnotTwo(new Int(){}.field())](a) {\n");
-        xml_.append("   case 10:\n");
+        xml_.append("   case 10;\n");
         xml_.append("    return 5;\n");
-        xml_.append("   default:\n");
+        xml_.append("   default;\n");
         xml_.append("    return 1;\n");
         xml_.append("  };\n");
         xml_.append("  return 0;\n");
@@ -5535,9 +5535,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 " public static int <a name=\"m102\">m</a>(){\n" +
                 "  int <a name=\"m113\">a</a> = 10;\n" +
                 "  int <a name=\"m127\">t</a> = switch[int:<a title=\"After @ the type Annot is not an annotation.\" class=\"e\">@</a><a title=\"The type Annot is unknown.\" class=\"e\">Annot</a>(new <a title=\"pkg.Int\" href=\"#m17\">Int</a>()<span class=\"t\"><a name=\"m158\">{</a>}</span>.<a title=\"pkg.Int.field()\" href=\"#m39\">field</a>()):<a title=\"After @ the type AnnotTwo is not an annotation.\" class=\"e\">@</a><a title=\"The type AnnotTwo is unknown.\" class=\"e\">AnnotTwo</a>(new <a title=\"pkg.Int\" href=\"#m17\">Int</a>()<span class=\"t\"><a name=\"m189\">{</a>}</span>.<a title=\"pkg.Int.field()\" href=\"#m39\">field</a>())](<a href=\"#m113\">a</a>) <span class=\"t\">{\n" +
-                "   case 10:\n" +
+                "   case 10;\n" +
                 "    return 5;\n" +
-                "   default:\n" +
+                "   default;\n" +
                 "    return 1;\n" +
                 "  }</span>;\n" +
                 "  return 0;\n" +
@@ -5934,9 +5934,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append(" {\n");
         xml_.append("  Object t = $null;\n");
         xml_.append("  $switch(t){\n");
-        xml_.append("   $case $int v:\n");
+        xml_.append("   $case $int v;\n");
         xml_.append("    t=v+\" int\";\n");
-        xml_.append("   $case 8:\n");
+        xml_.append("   $case 8;\n");
         xml_.append("    t=\" string\";\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
@@ -5948,9 +5948,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 " {\n" +
                 "  Object <a name=\"m39\">t</a> = $null;\n" +
                 "  $switch(<a href=\"#m39\">t</a>){\n" +
-                "   $case $int <a name=\"m78\">v</a>:\n" +
+                "   $case $int <a name=\"m78\">v</a>;\n" +
                 "    <a href=\"#m39\">t</a>=<a href=\"#m78\">v</a>+<span class=\"s\">\" int\"</span>;\n" +
-                "   <a title=\"The code is unreachable in the function 0()\" class=\"e\">$case</a> 8:\n" +
+                "   <a title=\"The code is unreachable in the function 0()\" class=\"e\">$case</a> 8;\n" +
                 "    <a href=\"#m39\">t</a>=<span class=\"s\">\" string\"</span><a title=\"The code is unreachable in the function 0()\" class=\"e\">;</a>\n" +
                 "  }\n" +
                 " }\n" +
@@ -5964,9 +5964,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append(" {\n");
         xml_.append("  Object t = $null;\n");
         xml_.append("  $switch(t){\n");
-        xml_.append("   $case 8:\n");
+        xml_.append("   $case 8;\n");
         xml_.append("    t=\" int\";\n");
-        xml_.append("   $case 8:\n");
+        xml_.append("   $case 8;\n");
         xml_.append("    t=\" string\";\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
@@ -5978,9 +5978,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 " {\n" +
                 "  Object <a name=\"m39\">t</a> = $null;\n" +
                 "  $switch(<a href=\"#m39\">t</a>){\n" +
-                "   $case 8:\n" +
+                "   $case 8;\n" +
                 "    <a href=\"#m39\">t</a>=<span class=\"s\">\" int\"</span>;\n" +
-                "   <a title=\"The $case block with value 8 is duplicated in the parent $switch block.\" class=\"e\">$case</a> 8:\n" +
+                "   <a title=\"The $case block with value 8 is duplicated in the parent $switch block.\" class=\"e\">$case</a> 8;\n" +
                 "    <a href=\"#m39\">t</a>=<span class=\"s\">\" string\"</span>;\n" +
                 "  }\n" +
                 " }\n" +

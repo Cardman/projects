@@ -84,7 +84,6 @@ public final class CustThreadActions extends AbstractThreadActions {
             afterActionWithoutRemove(null, null);
             return;
         }
-        du_.getAnalyzed().getOptions().setDelimiterCase(';');
         getPage().getNavigation().setFiles(fileNames);
         ContextEl ctx_ = stds.setupAll(getPage().getNavigation(), getPage().getNavigation().getSession(), getPage().getNavigation().getFiles(), du_);
         if (ctx_ == null) {
