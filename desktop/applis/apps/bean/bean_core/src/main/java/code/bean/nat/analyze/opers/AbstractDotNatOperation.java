@@ -13,7 +13,7 @@ public abstract class AbstractDotNatOperation extends MethodNatOperation {
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<NatOperationNode> chidren_ = getChildrenNodes();
-        setResultClass(NatAnaClassArgumentMatching.copy(chidren_.last().getResultClass()));
+        setResultClass(chidren_.last().getNames());
     }
     @Override
     void calculateChildren() {

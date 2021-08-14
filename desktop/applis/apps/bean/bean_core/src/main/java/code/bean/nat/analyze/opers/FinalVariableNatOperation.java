@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.ConstType;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.bean.nat.fwd.opers.NatAnaVariableContent;
+import code.expressionlanguage.stds.StandardType;
 import code.util.core.IndexConstants;
 
 public final class FinalVariableNatOperation extends LeafNatOperation {
@@ -34,11 +35,11 @@ public final class FinalVariableNatOperation extends LeafNatOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ variableContent.getOff(), _page);
         if (!className.isEmpty()) {
             variableContent.setVariableName(str_);
-            setResultClass(new NatAnaClassArgumentMatching(className));
+            setResultClass(className);
             return;
         }
         variableContent.setVariableName(str_);
-        setResultClass(new NatAnaClassArgumentMatching("$int"));
+        setResultClass("$int");
     }
 
     public ConstType getType() {

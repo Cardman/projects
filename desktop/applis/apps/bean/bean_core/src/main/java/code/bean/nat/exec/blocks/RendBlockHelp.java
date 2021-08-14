@@ -1,9 +1,6 @@
 package code.bean.nat.exec.blocks;
 
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.PairStruct;
-import code.bean.nat.SimpleItrStruct;
+import code.bean.nat.*;
 import code.bean.nat.exec.opers.NatAbstractAffectOperation;
 import code.bean.nat.exec.opers.NatSettableFieldOperation;
 import code.expressionlanguage.Argument;
@@ -327,31 +324,32 @@ public final class RendBlockHelp {
 
     public static void buildInherits(AnalyzedPageEl _page){
         for (EntryCust<String, StandardType> s: _page.getStandardsTypes().entryList()) {
-            buildInherits(s.getValue(), _page);
+            buildInherits((SpecialNatClass) s.getValue(), _page);
         }
     }
 
-    private static void buildInherits(StandardType _type, AnalyzedPageEl _page) {
+    private static void buildInherits(SpecialNatClass _type, AnalyzedPageEl _page) {
         feedSupers(_type, _type.getAllSuperTypes(), _page);
     }
 
-    private static void feedSupers(StandardType _type, StringList _types, AnalyzedPageEl _page) {
-        StringList currentSuperTypes_ = new StringList(_type.getDirectSuperTypes());
+    private static void feedSupers(SpecialNatClass _type, StringList _types, AnalyzedPageEl _page) {
+        StringList currentSuperTypes_ = new StringList(_type.getSuperClass());
         _types.addAllElts(currentSuperTypes_);
         while (true) {
             StringList newSuperTypes_ = new StringList();
             for (String c: currentSuperTypes_) {
-                StandardType st_ = _page.getStandardsTypes().getVal(c);
-                for (String s: st_.getDirectSuperTypes()) {
-                    newSuperTypes_.add(s);
-                    _types.add(s);
+                SpecialNatClass st_ = (SpecialNatClass) _page.getStandardsTypes().getVal(c);
+                if (st_ == null) {
+                    continue;
                 }
+                String superClass_ = st_.getSuperClass();
+                newSuperTypes_.add(superClass_);
+                _types.add(superClass_);
             }
             if (newSuperTypes_.isEmpty()) {
                 break;
             }
             currentSuperTypes_ = newSuperTypes_;
         }
-        _types.removeDuplicates();
     }
 }

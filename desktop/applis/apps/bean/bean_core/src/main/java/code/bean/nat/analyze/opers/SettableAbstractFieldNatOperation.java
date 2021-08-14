@@ -21,7 +21,7 @@ public abstract class SettableAbstractFieldNatOperation extends
     }
 
     @Override
-    public void setPreviousResultClass(NatAnaClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
+    public void setPreviousResultClass(String _previousResultClass, MethodAccessKind _staticAccess) {
         setPreviousResultClass(_previousResultClass);
     }
 

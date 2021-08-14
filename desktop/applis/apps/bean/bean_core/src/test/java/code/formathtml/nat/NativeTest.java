@@ -1951,8 +1951,9 @@ public final class NativeTest extends EquallableExUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgNames_.getContent());
         Forwards forwards_ = new Forwards(lgNames_, fileBuilder_, _opt);
         ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), _opt, lgNames_.getContent(), page_);
-        lgNames_.build();
-        ValidatorStandard.setupOverrides(page_);
+        lgNames_.buildBeans();
+        lgNames_.buildOther();
+        RendBlockHelp.setupOverrides(page_);
         return new NativeAnalyzedTestContext(page_, forwards_, lgNames_);
     }
 

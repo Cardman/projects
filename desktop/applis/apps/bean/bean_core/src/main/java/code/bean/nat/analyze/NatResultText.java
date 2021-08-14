@@ -101,7 +101,7 @@ public final class NatResultText {
             int i_ = 0;
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(opExpRoot_.get(i_).getResultClass().getSingleNameOrEmpty());
+                lv_.setClassName(opExpRoot_.get(i_).getNames());
                 _page.getInfosVars().addEntry(v,lv_);
                 formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
                 i_++;

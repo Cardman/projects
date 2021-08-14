@@ -14,12 +14,12 @@ public final class StandardFieldOperation {
         return operations;
     }
 
-    public static NatAnaClassArgumentMatching getFrom(AnalyzedPageEl _page, SettableAbstractFieldNatOperation _settable) {
-        NatAnaClassArgumentMatching cl_;
+    public static String getFrom(AnalyzedPageEl _page, SettableAbstractFieldNatOperation _settable) {
+        String cl_;
         if (_settable.isIntermediateDottedOperation()) {
             cl_ = _settable.getPreviousResultClass();
         } else {
-            cl_ = new NatAnaClassArgumentMatching(_page.getGlobalClass());
+            cl_ = _page.getGlobalClass();
         }
         return cl_;
     }

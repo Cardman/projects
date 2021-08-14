@@ -24,7 +24,7 @@ public final class AffectationNatOperation extends MethodNatOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         NatSettableElResult elt_ = tryGetSettable(this);
         NatOperationNode settableOp_ = (SettableAbstractFieldNatOperation) elt_;
-        setResultClass(NatAnaClassArgumentMatching.copy(settableOp_.getResultClass()));
+        setResultClass(settableOp_.getNames());
         elt_.setVariable(true);
     }
 

@@ -14,7 +14,7 @@ public final class IdNatOperation extends AbstractUnaryNatOperation {
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         CustList<NatOperationNode> children_ = getChildrenNodes();
-        setResultClass(NatAnaClassArgumentMatching.copy(children_.first().getResultClass()));
+        setResultClass(children_.first().getNames());
     }
 
     @Override

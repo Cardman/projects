@@ -4,12 +4,10 @@ import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.blocks.*;
 import code.bean.nat.analyze.opers.*;
-import code.bean.nat.analyze.opers.NatAnaClassArgumentMatching;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.opers.*;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.*;
@@ -420,12 +418,12 @@ public final class NatRendForwardInfos {
         return cont_;
     }
 
-    public static ExecClassArgumentMatching toExec(NatAnaClassArgumentMatching _cl) {
-        return new ExecClassArgumentMatching(_cl.getNames(), (byte) -1, false, false);
+    public static ExecClassArgumentMatching toExec(String _cl) {
+        return new ExecClassArgumentMatching(new StringList(_cl), (byte) -1, false, false);
     }
     private static CustList<RendDynOperationNode> buildWritePartField(NatResultInput _resultInput, SettableFieldNatOperation _settable) {
         CustList<RendDynOperationNode> w_ = new CustList<RendDynOperationNode>();
-        String cl_ = NumParsers.getSingleNameOrEmpty(_resultInput.getResult().getNames());
+        String cl_ = _resultInput.getResult();
         ExecClassArgumentMatching pr_ = toExec(_resultInput.getPreviousResult());
         NatAffectationOperation rendAff_ = new NatAffectationOperation(new ExecOperationContent(0, pr_, 4));
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);

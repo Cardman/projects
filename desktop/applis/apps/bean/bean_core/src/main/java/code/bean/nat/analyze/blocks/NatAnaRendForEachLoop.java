@@ -61,7 +61,7 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock {
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrList());
         root = NatRenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
         NatOperationNode root_ = root;
-        StringList names_ = root_.getNames();
+        String names_ = root_.getNames();
         String last_ = getInferredIt(names_);
         if (toInfer_) {
             importedClassName = last_;
@@ -78,8 +78,8 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock {
         _page.getInfosVars().put(variableName, lInfo_);
     }
 
-    private String getInferredIt(StringList _names) {
-        String it_ = caller.getIterables().getVal(_names.first());
+    private String getInferredIt(String _names) {
+        String it_ = caller.getIterables().getVal(_names);
         it_ = StringUtil.nullToEmpty(it_);
         if (StringUtil.quickEq(it_, caller.getAliasObject())) {
             it_ = importedClassName;

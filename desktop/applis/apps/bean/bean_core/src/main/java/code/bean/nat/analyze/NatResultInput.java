@@ -5,8 +5,6 @@ import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.opers.NatSettableElResult;
 import code.bean.nat.analyze.opers.SettableAbstractFieldNatOperation;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.bean.nat.analyze.opers.NatAnaClassArgumentMatching;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.ClassField;
 import code.bean.nat.fwd.opers.NatAnaSettableOperationContent;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -24,8 +22,8 @@ public final class NatResultInput {
     private NatOperationNode opsReadRoot;
     private NatOperationNode opsValueRoot;
     private String varName = EMPTY_STRING;
-    private NatAnaClassArgumentMatching result;
-    private NatAnaClassArgumentMatching previousResult;
+    private String result;
+    private String previousResult;
     private StringList varNames = new StringList();
     private InputInfo varNamesParams = new InputInfo();
     private String id = EMPTY_STRING;
@@ -49,21 +47,21 @@ public final class NatResultInput {
         opsReadRoot = NatRenderAnalysis.getRootAnalyzedOperations(_name, 0, _anaDoc, _page);
         NatOperationNode res_ = opsReadRoot;
         NatSettableElResult settable_ = AffectationNatOperation.castDottedTo(res_);
-        setClassName(NumParsers.getSingleNameOrEmpty(((NatOperationNode) settable_).getNames()));
+        setClassName(((NatOperationNode) settable_).getNames());
         setSettable((NatOperationNode) settable_);
         NatAnaSettableOperationContent settableFieldContent_ = ((SettableAbstractFieldNatOperation) settable_).getSettableFieldContent();
         ClassField clField_ = settableFieldContent_.getClassField();
         idClass = clField_.getClassName();
         idName = clField_.getFieldName();
         id = StringUtil.concat(idClass,".",idName);
-        setResult(((NatOperationNode) settable_).getResultClass());
+        setResult(((NatOperationNode) settable_).getNames());
         InputInfo info_ = new InputInfo();
-        info_.getVarTypes().add(NumParsers.getSingleNameOrEmpty(result.getNames()));
-        NatAnaClassArgumentMatching pr_;
+        info_.getVarTypes().add(result);
+        String pr_;
         if (((SettableAbstractFieldNatOperation) settable_).isIntermediateDottedOperation()) {
             pr_ = ((SettableAbstractFieldNatOperation) settable_).getPreviousResultClass();
         } else {
-            pr_ = new NatAnaClassArgumentMatching(_page.getGlobalClass());
+            pr_ = _page.getGlobalClass();
         }
         setPreviousResult(pr_);
         StringList varNames_ = new StringList();
@@ -120,19 +118,19 @@ public final class NatResultInput {
         settable = _settable;
     }
 
-    public NatAnaClassArgumentMatching getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(NatAnaClassArgumentMatching _result) {
+    public void setResult(String _result) {
         this.result = _result;
     }
 
-    public NatAnaClassArgumentMatching getPreviousResult() {
+    public String getPreviousResult() {
         return previousResult;
     }
 
-    public void setPreviousResult(NatAnaClassArgumentMatching _previousResult) {
+    public void setPreviousResult(String _previousResult) {
         previousResult = _previousResult;
     }
 

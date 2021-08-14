@@ -68,7 +68,7 @@ public final class NatRenderAnalysis {
                     NatPossibleIntermediateDotted possible_ = (NatPossibleIntermediateDotted) next_;
                     MethodAccessKind static_ = MethodId.getKind(false);
                     possible_.setIntermediateDotted();
-                    possible_.setPreviousResultClass(current_.getResultClass(), static_);
+                    possible_.setPreviousResultClass(current_.getNames(), static_);
                 }
                 par_.appendChild(next_);
                 return next_;

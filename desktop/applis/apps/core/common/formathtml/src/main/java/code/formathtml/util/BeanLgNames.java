@@ -111,6 +111,10 @@ public abstract class BeanLgNames extends LgNames {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
+        return getStructToBeValidatedPrim(_values, _className, _ctx, _stack, res_);
+    }
+
+    public ResultErrorStd getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack, ResultErrorStd res_) {
         byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_className, this);
         if (cast_ == PrimitiveTypes.BOOL_WRAP) {
             res_.setResult(BooleanStruct.of(StringUtil.quickEq(_values.first(),ON)));

@@ -7,6 +7,6 @@ public interface NatPossibleIntermediateDotted {
     void setIntermediateDotted();
     boolean isIntermediateDottedOperation();
 
-    void setPreviousResultClass(NatAnaClassArgumentMatching _previousResultClass, MethodAccessKind _static);
+    void setPreviousResultClass(String _previousResultClass, MethodAccessKind _static);
 
 }

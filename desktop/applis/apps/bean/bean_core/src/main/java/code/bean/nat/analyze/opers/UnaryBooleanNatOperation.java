@@ -15,7 +15,7 @@ public final class UnaryBooleanNatOperation extends AbstractUnaryNatOperation {
         String booleanPrimType_ = _page.getAliasPrimBoolean();
         int opOffset_ = getOperations().getOperators().firstKey();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset_, _page);
-        setResultClass(new NatAnaClassArgumentMatching(booleanPrimType_));
+        setResultClass(booleanPrimType_);
     }
 
 }

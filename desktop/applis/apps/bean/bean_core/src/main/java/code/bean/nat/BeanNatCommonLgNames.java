@@ -9,13 +9,12 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
-import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.instr.Delimiters;
-import code.expressionlanguage.common.CstFieldInfo;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -108,7 +107,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
 
     public abstract ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance);
 
-    protected void buildBeans() {
+    public void buildBeans() {
         CustList<StandardField> fields_;
         fields_ = new CustList<StandardField>();
         SpecialNatClass std_;
@@ -129,32 +128,30 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_LIST, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
+        params_ = new StringList();
+        method_ = new StandardMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
+        methods_.add(method_);
         getIterables().put(TYPE_LIST, getAliasObject());
         getStandards().addEntry(TYPE_LIST, cl_);
         methods_ = new CustList<StandardMethod>();
         cl_ = new SpecialNatClass(TYPE_MAP, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        params_ = new StringList();
+        method_ = new StandardMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
+        methods_.add(method_);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         cl_.getDirectInterfaces().add(TYPE_ENTRIES);
         getIterables().put(TYPE_MAP, getAliasObject());
         getStandards().addEntry(TYPE_MAP, cl_);
-        params_ = new StringList();
         methods_ = new CustList<StandardMethod>();
-        StandardInterface stdi_ = new StandardInterface(TYPE_COUNTABLE, methods_, params_);
         params_ = new StringList();
         method_ = new StandardMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
         methods_.add(method_);
-        getStandards().addEntry(TYPE_COUNTABLE, stdi_);
-        methods_ = new CustList<StandardMethod>();
-        stdi_ = new StandardInterface(TYPE_ENTRIES, methods_, new StringList());
-        getStandards().addEntry(TYPE_ENTRIES, stdi_);
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<StandardMethod>();
         std_ = new SpecialNatClass(TYPE_ITERATOR, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         getStandards().addEntry(TYPE_ITERATOR, std_);
         methods_ = new CustList<StandardMethod>();
-        stdi_ = new StandardInterface(TYPE_DISPLAYABLE, methods_, new StringList());
-        getStandards().addEntry(TYPE_DISPLAYABLE, stdi_);
         cl_ = new SpecialNatClass(TYPE_VALIDATOR, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
         getStandards().addEntry(TYPE_VALIDATOR, cl_);
     }
@@ -207,6 +204,22 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
         return arr_;
     }
+
+    @Override
+    public ResultErrorStd getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack, ResultErrorStd res_) {
+        if (StringUtil.quickEq(_className,getAliasPrimBoolean())) {
+            res_.setResult(BooleanStruct.of(StringUtil.quickEq(_values.first(),ON)));
+            return res_;
+        }
+        LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
+        if (!val_.isValid()) {
+            _stack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack.getStackCall())));
+            return res_;
+        }
+        res_.setResult(NumParsers.convertToInt((byte) -1,new LongStruct(val_.getValue())));
+        return res_;
+    }
+
     public static void initInstancesPattern(Configuration _conf, StringMap<BeanInfo> _beansInfos) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
@@ -247,18 +260,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         _page.setStaticFields(cls_.getStaticFields());
         _page.setTabWidth(options_.getTabWidth());
         _page.setGettingErrors(options_.isGettingErrors());
-        StringMap<StandardType> standards_ = getStandards();
-        CustList<CstFieldInfo> fields_;
-        CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        StandardType std_;
-        StandardClass stdcl_;
-        stdcl_ = new StandardClass(getCoreNames().getAliasObject(), fields_, constructors_, methods_, "", MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards_.addEntry(getCoreNames().getAliasObject(), std_);
+        //        standards_.addEntry(getCoreNames().getAliasObject(), std_);
         buildBeans();
         buildOther();
         _page.setStandards(getContent());

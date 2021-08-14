@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.bean.nat.fwd.opers.NatAnaCallFctContent;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.expressionlanguage.stds.StandardMethod;
-import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class FctNatOperation extends InvokingNatOperation {
@@ -24,21 +23,21 @@ public final class FctNatOperation extends InvokingNatOperation {
     public void analyze(AnalyzedPageEl _page) {
         int off_ = StringUtil.getFirstPrintableCharIndex(callFctContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-        NatAnaClassArgumentMatching clCur_;
+        String clCur_;
         if (isIntermediateDottedOperation()) {
             clCur_ = getPreviousResultClass();
         } else {
-            clCur_ = new NatAnaClassArgumentMatching(_page.getGlobalClass());
+            clCur_ = _page.getGlobalClass();
             setStaticAccess(_page.getStaticContext());
         }
 
         String trimMeth_ = callFctContent.getMethodName().trim();
-        StringList l_ = clCur_.getNames();
+        String l_ = clCur_;
         ClassMethodIdReturn clMeth_;
         clMeth_ = tryGetDeclaredCustMethod(isStaticAccess(), l_, trimMeth_, _page);
         callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();
-        setResultClass(voidToObject(new NatAnaClassArgumentMatching(clMeth_.getReturnType()), _page));
+        setResultClass(voidToObject(clMeth_.getReturnType(), _page));
     }
 
     public NatAnaCallFctContent getCallFctContent() {

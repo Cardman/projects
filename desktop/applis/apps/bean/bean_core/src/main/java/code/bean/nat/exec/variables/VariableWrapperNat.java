@@ -11,7 +11,7 @@ public final class VariableWrapperNat extends NatAbstractVariableWrapper {
     }
 
     @Override
-    public String getClassName(StackCall stackCall, ContextEl contextEl) {
+    public String getClassName(StackCall _stackCall, ContextEl _contextEl) {
         return "";
     }
 }
