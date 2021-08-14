@@ -28,13 +28,12 @@ public final class FctNatOperation extends InvokingNatOperation {
             clCur_ = getPreviousResultClass();
         } else {
             clCur_ = _page.getGlobalClass();
-            setStaticAccess(_page.getStaticContext());
         }
 
         String trimMeth_ = callFctContent.getMethodName().trim();
         String l_ = clCur_;
         ClassMethodIdReturn clMeth_;
-        clMeth_ = tryGetDeclaredCustMethod(isStaticAccess(), l_, trimMeth_, _page);
+        clMeth_ = tryGetDeclaredCustMethod(l_, trimMeth_, _page);
         callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();
         setResultClass(voidToObject(clMeth_.getReturnType(), _page));

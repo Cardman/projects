@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.ConstType;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.bean.nat.fwd.opers.NatAnaVariableContent;
-import code.expressionlanguage.stds.StandardType;
 import code.util.core.IndexConstants;
 
 public final class FinalVariableNatOperation extends LeafNatOperation {

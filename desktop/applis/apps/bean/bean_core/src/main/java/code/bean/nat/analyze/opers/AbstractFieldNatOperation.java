@@ -2,7 +2,6 @@ package code.bean.nat.analyze.opers;
 
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.bean.nat.fwd.opers.NatAnaFieldOperationContent;
-import code.expressionlanguage.stds.StandardType;
 
 public abstract class AbstractFieldNatOperation extends LeafNatOperation implements NatPossibleIntermediateDotted {
 

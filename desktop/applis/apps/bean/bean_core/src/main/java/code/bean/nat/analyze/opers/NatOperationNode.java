@@ -116,47 +116,31 @@ public abstract class NatOperationNode {
     }
     private static NatFieldResult getDeclaredCustFieldByContext(String _class,
                                                                 String _name, AnalyzedPageEl _page) {
-        StringMap<NatFieldResult> ancestors_ = new StringMap<NatFieldResult>();
-        CustList<TypeInfo> typesGroup_= typeLists(_class, MethodAccessKind.INSTANCE, _page);
-        StringList baseTypes_ = new StringList();
-        StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
-        feedTypes(typesGroup_, baseTypes_, superTypesBaseAncBis_);
-        for (TypeInfo t: typesGroup_) {
+        CustList<NatFieldResult> ancestors_ = new CustList<NatFieldResult>();
+        CustList<AnaGeneType> typesGroup_= typeLists(_class, _page);
+        for (AnaGeneType t: typesGroup_) {
             fetchFieldsType(ancestors_,
-                    new NatScopeFilterType(t),
-                    new NatScopeFilterField(_name));
+                    t,
+                    _name);
         }
-        return ancestors_.firstValue();
+        return ancestors_.first();
     }
 
-    private static void feedTypes(CustList<TypeInfo> _list, StringList _baseTypes, StringMap<String> _superTypesBaseAnc) {
-        for (TypeInfo t: _list) {
-            if (t.isBase()) {
-                String id_ = t.getTypeId();
-                _baseTypes.add(id_);
-                _superTypesBaseAnc.put(id_, id_);
-                for (String m: t.getSuperTypes()) {
-                    _superTypesBaseAnc.put(m, id_);
-                }
-            }
+    private static void fetchFieldsType(CustList<NatFieldResult> _ancestors,
+                                        AnaGeneType _scope, String _scopeField) {
+        if (!(_scope instanceof SpecialNatClass)) {
+            return;
         }
-    }
-
-    private static void fetchFieldsType(StringMap<NatFieldResult> _ancestors,
-                                        NatScopeFilterType _scope, NatScopeFilterField _scopeField) {
-        AnaGeneType root_ = _scope.getTypeInfo().getRoot();
-        String name_ = _scopeField.getName();
-        for (StandardField f: ((SpecialNatClass) root_).getFields()) {
-            if (StringUtil.quickEq(f.getFieldName(), name_)) {
+        for (StandardField f: ((SpecialNatClass) _scope).getFields()) {
+            if (StringUtil.quickEq(f.getFieldName(), _scopeField)) {
                 String type_ = f.getImportedClassName();
                 NatFieldResult res_ = new NatFieldResult();
-                String declaringBaseClass_ = getIdFromAllTypes(root_.getFullName());
-                ClassField classField_ = new ClassField(declaringBaseClass_, name_);
+                String declaringBaseClass_ = getIdFromAllTypes(_scope.getFullName());
+                ClassField classField_ = new ClassField(declaringBaseClass_, _scopeField);
                 res_.getContent().setClassField(classField_);
-                root_.getFullName();
+                _scope.getFullName();
                 res_.setType(type_);
-//                res_.getContent().setRealType(type_);
-                _ancestors.addEntry(_scope.getFullName(),res_);
+                _ancestors.add(res_);
                 return;
             }
         }
@@ -169,57 +153,46 @@ public abstract class NatOperationNode {
         return _original;
     }
 
-    protected static ClassMethodIdReturn tryGetDeclaredCustMethod(MethodAccessKind _staticContext,
-                                                                  String _classes, String _name,
+    protected static ClassMethodIdReturn tryGetDeclaredCustMethod(String _classes, String _name,
                                                                   AnalyzedPageEl _page) {
-        CustList<NatMethodInfo> methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _page);
+        CustList<NatMethodInfo> methods_ = getDeclaredCustMethodByType(_classes, _page);
         return getCustResult(methods_, _name);
     }
 
 
     protected static CustList<NatMethodInfo>
-    getDeclaredCustMethodByType(MethodAccessKind _staticContext,
-                                String _fromClasses, AnalyzedPageEl _page) {
+    getDeclaredCustMethodByType(String _fromClasses, AnalyzedPageEl _page) {
         CustList<NatMethodInfo> methods_;
         methods_ = new CustList<NatMethodInfo>();
-        fetchParamClassAncMethods(_fromClasses,_staticContext, methods_, _page);
+        fetchParamClassAncMethods(_fromClasses, methods_, _page);
         return methods_;
     }
 
 
-    private static void fetchParamClassAncMethods(String _fromClasses, MethodAccessKind _staticContext,
+    private static void fetchParamClassAncMethods(String _fromClasses,
                                                   CustList<NatMethodInfo> _methods, AnalyzedPageEl _page) {
-        CustList<TypeInfo> typeInfosGroups_ = typeLists(_fromClasses,_staticContext, _page);
-        StringList baseTypes_ = new StringList();
-        StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
-        feedTypes(typeInfosGroups_, baseTypes_, superTypesBaseAncBis_);
-        for (TypeInfo t: typeInfosGroups_) {
-            NatScopeFilterType scType_ = new NatScopeFilterType(t);
-            for (StandardMethod e: ((StandardType) scType_.getTypeInfo().getRoot()).getMethods()) {
-                _methods.add(NatOperationNode.getMethodInfo(e, 0, scType_.getFormatted().getFormatted(), e.getId(), e.getImportedReturnType()));
+        CustList<AnaGeneType> typeInfosGroups_ = typeLists(_fromClasses, _page);
+        for (AnaGeneType t: typeInfosGroups_) {
+            if(!(t instanceof SpecialNatClass)) {
+                continue;
+            }
+            SpecialNatClass root_ = (SpecialNatClass) t;
+            for (StandardMethod e: root_.getMethods()) {
+                _methods.add(NatOperationNode.getMethodInfo(e, 0, root_.getFullName(), e.getId(), e.getImportedReturnType()));
             }
         }
     }
 
-    public static CustList<TypeInfo> typeLists(String _fromClasses, MethodAccessKind _staticContext, AnalyzedPageEl _page) {
-        CustList<TypeInfo> typeInfos_ = new CustList<TypeInfo>();
+    public static CustList<AnaGeneType> typeLists(String _fromClasses, AnalyzedPageEl _page) {
+        CustList<AnaGeneType> typeInfos_ = new CustList<AnaGeneType>();
         String baseCurName_ = getIdFromAllTypes(_fromClasses);
         StandardType root_ = _page.getStandardsTypes().getVal(baseCurName_);
-        String gene_ = root_.getGenericString();
-        addToList(typeInfos_,_staticContext, root_,gene_, true);
-        for (String m : root_.getAllGenericSuperTypes()) {
+        typeInfos_.add(root_);
+        for (String m : root_.getAllSuperTypes()) {
             StandardType sup_ = _page.getStandardsTypes().getVal(m);
-            addToList(typeInfos_,_staticContext, sup_,m, false);
+            typeInfos_.add(sup_);
         }
         return typeInfos_;
-    }
-
-    private static void addToList(CustList<TypeInfo> _list, MethodAccessKind _k, StandardType _secondType, String _second, boolean _base) {
-        if (_secondType == null) {
-            return;
-        }
-        TypeInfo t_ = new TypeInfo(_secondType, _second, _k,_base);
-        _list.add(t_);
     }
 
     public static NatMethodInfo getMethodInfo(StandardMethod _m, int _anc, String _formattedClass, MethodId _id, String _importedReturnType) {
