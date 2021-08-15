@@ -1,7 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.BeanNatLgNames;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -9,21 +8,18 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
-import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements AnaRendBuildEl {
+public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements NatRendBuildEl {
 
     private final String label;
 
     private final String className;
 
     private String importedClassName;
-
-    private final int classNameOffset;
 
     private final String variableName;
 
@@ -39,7 +35,6 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements A
                           OffsetStringInfo _expression, OffsetStringInfo _label, int _offset, BeanNatLgNames _caller) {
         super(_offset);
         className = _className.getInfo();
-        classNameOffset = _className.getOffset();
         variableName = _variable.getInfo();
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
@@ -48,17 +43,13 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements A
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(classNameOffset);
-        _page.zeroOffset();
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         boolean toInfer_ = toInfer();
         if (!toInfer_) {
             importedClassName = className;
         } else {
             importedClassName = AnaRendBlockHelp.EMPTY_STRING;
         }
-        _page.setGlobalOffset(expressionOffset);
-        _page.zeroOffset();
         _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrList());
         root = NatRenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
         NatOperationNode root_ = root;
@@ -103,11 +94,9 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements A
         return className.trim().isEmpty();
     }
 
-    @Override
-    public void removeAllVars(AnalyzedPageEl _ip) {
-        super.removeAllVars(_ip);
-        _ip.getInfosVars().removeKey(variableName);
-        _ip.getLoopsVars().removeKey(variableName);
+    public void removeVars(StringMap<AnaLocalVariable> _infosVars, StringMap<AnaLoopVariable> _loopsVars) {
+        _infosVars.removeKey(variableName);
+        _loopsVars.removeKey(variableName);
     }
     public String getRealLabel() {
         return label;

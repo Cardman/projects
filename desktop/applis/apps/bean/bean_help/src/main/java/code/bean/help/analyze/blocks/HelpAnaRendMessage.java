@@ -1,15 +1,15 @@
 package code.bean.help.analyze.blocks;
 
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
+import code.bean.nat.analyze.blocks.NatRendBuildEl;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.sml.Element;
 import code.util.*;
 
-public final class HelpAnaRendMessage extends AnaRendParentBlock implements AnaRendBuildEl {
+public final class HelpAnaRendMessage extends AnaRendParentBlock implements NatRendBuildEl {
 
     private final Element elt;
 
@@ -22,7 +22,7 @@ public final class HelpAnaRendMessage extends AnaRendParentBlock implements AnaR
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         String value_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
         preformatted = AnaRendBlockHelp.getPre(value_, _anaDoc);
 //        for (Element n: elt.getChildElements()) {

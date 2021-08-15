@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.opers;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.maths.litteralcom.StrTypes;
 
@@ -11,7 +11,7 @@ public abstract class AbstractUnaryNatOperation extends MethodNatOperation {
         super(_index, _indexChild, _m, _op);
     }
     @Override
-    public final void analyze(AnalyzedPageEl _page) {
+    public final void analyze(NatAnalyzedCode _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         analyzeUnary(_page);
     }
@@ -21,7 +21,7 @@ public abstract class AbstractUnaryNatOperation extends MethodNatOperation {
         StrTypes vs_ = getOperations().getValues();
         getChildren().addAllEntries(vs_);
     }
-    public abstract void analyzeUnary(AnalyzedPageEl _page);
+    public abstract void analyzeUnary(NatAnalyzedCode _page);
 
 
 }

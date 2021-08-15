@@ -1,17 +1,15 @@
 package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.analyze.NatResultInput;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.formathtml.util.InputInfo;
 import code.sml.Element;
 
-public final class NatAnaRendSelect extends AnaRendParentBlock implements AnaRendBuildEl {
+public final class NatAnaRendSelect extends AnaRendParentBlock implements NatRendBuildEl {
     private NatOperationNode rootRead;
     private NatOperationNode rootValue;
     private NatOperationNode rootMap;
@@ -30,7 +28,7 @@ public final class NatAnaRendSelect extends AnaRendParentBlock implements AnaRen
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatResultInput r_ = new NatResultInput();
         r_.build(elt,_anaDoc.getRendKeyWords().getAttrVarValue(), _anaDoc, _page);
         varNames = r_.getVarNamesParams();

@@ -1,22 +1,20 @@
 package code.formathtml.nat;
 
-import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.fwd.DefaultInputBuilder;
 import code.formathtml.sample.CustBeanLgNames;
 import code.formathtml.util.DualConfigurationContext;
 import code.util.StringMap;
 
 class NativeAnalyzedTestConfiguration {
     private final Configuration configuration;
-    private final AnalyzedPageEl analyzing;
+    private final NatAnalyzedCode analyzing;
     private final Forwards forwards;
     private final CustBeanLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
@@ -31,7 +29,6 @@ class NativeAnalyzedTestConfiguration {
         adv= _standards;
         dual = _analyzing.getDual();
         analyzingDoc.setContent(adv);
-        analyzingDoc.setInputBuilder(new DefaultInputBuilder());
         this.analyzing = _analyzing.getAnalyzing();
         context = _generate;
     }
@@ -40,7 +37,7 @@ class NativeAnalyzedTestConfiguration {
         return configuration;
     }
 
-    AnalyzedPageEl getAnalyzing() {
+    NatAnalyzedCode getAnalyzing() {
         return analyzing;
     }
 
@@ -54,10 +51,6 @@ class NativeAnalyzedTestConfiguration {
 
     ContextEl getContext() {
         return context;
-    }
-
-    boolean isEmptyErrors() {
-        return analyzing.isEmptyErrors();
     }
 
     void setNavigation(StringMap<StringMap<String>> _stringMapStringMap) {

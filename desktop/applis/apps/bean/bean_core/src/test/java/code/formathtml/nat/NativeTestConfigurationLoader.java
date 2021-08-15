@@ -20,7 +20,7 @@ public final class NativeTestConfigurationLoader extends AbstractConfigurationLo
     @Override
     public DualAnalyzedContext specificLoad(Configuration _configuration, String _lgCode, Document _document, AnalyzedPageEl _page, BeanLgNames _stds, DualConfigurationContext _context) {
         update(_configuration,_document, _context);
-        Forwards forwards_ = stds.setupNative(_page, _context);
+        Forwards forwards_ = stds.setupNative(null, _context);
         return new DualAnalyzedContext(forwards_,_page,_stds,_context);
     }
 }

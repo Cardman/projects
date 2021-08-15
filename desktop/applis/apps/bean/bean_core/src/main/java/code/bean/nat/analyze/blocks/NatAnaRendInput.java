@@ -1,14 +1,15 @@
 package code.bean.nat.analyze.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.NatResultInput;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.util.InputInfo;
 import code.sml.Element;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
-public abstract class NatAnaRendInput extends NatAnaRendElement {
+public final class NatAnaRendInput extends NatAnaRendElement {
     private NatOperationNode rootRead;
     private NatOperationNode rootValue;
     private String varName = AnaRendBlockHelp.EMPTY_STRING;
@@ -18,11 +19,29 @@ public abstract class NatAnaRendInput extends NatAnaRendElement {
     private String idName = AnaRendBlockHelp.EMPTY_STRING;
     private String className = AnaRendBlockHelp.EMPTY_STRING;
     private NatResultInput resultInput;
-    NatAnaRendInput(Element _elt, int _offset) {
+    private final boolean radio;
+    NatAnaRendInput(Element _elt, int _offset, boolean _radio) {
         super(_elt, _offset);
+        radio = _radio;
     }
 
-    protected void processAnaInput(Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    @Override
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+        processAnaInput(_read, _anaDoc, _page);
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrChecked());
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrValue());
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrName());
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrClassName()));
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrNi());
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValidator()));
+        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrType());
+    }
+
+    void processAnaInput(Element _read, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatResultInput r_ = new NatResultInput();
         r_.build(_read, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
         varNames = r_.getVarNamesParams();
@@ -66,6 +85,10 @@ public abstract class NatAnaRendInput extends NatAnaRendElement {
 
     public NatResultInput getResultInput() {
         return resultInput;
+    }
+
+    public boolean isRadio() {
+        return radio;
     }
 
     public InputInfo getVarNames() {

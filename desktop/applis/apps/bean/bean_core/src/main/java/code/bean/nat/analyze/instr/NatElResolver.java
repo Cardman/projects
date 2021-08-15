@@ -1,9 +1,9 @@
 package code.bean.nat.analyze.instr;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.bean.nat.analyze.NatRenderAnalysis;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.options.KeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.maths.litteralcom.StrTypes;
 import code.util.core.IndexConstants;
@@ -34,21 +34,21 @@ public final class NatElResolver {
     private NatElResolver() {
     }
 
-    public static Delimiters checkSyntaxDelimiters(String _string, int _minIndex, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public static Delimiters checkSyntaxDelimiters(String _string, int _minIndex, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         Delimiters d_ = new Delimiters();
         d_.setPartOfString(true);
         NatFullFieldRetriever ret_ = new NatFullFieldRetriever(d_, _page);
-        return commonCheck(_string, _minIndex, ret_, d_,_anaDoc, _page);
+        return commonCheck(_string, _minIndex, ret_, d_,_anaDoc);
     }
 
-    public static Delimiters checkSyntax(String _string, int _elOffest, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public static Delimiters checkSyntax(String _string, int _elOffest, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         Delimiters d_ = new Delimiters();
         d_.setLength(_string.length());
         NatFullFieldRetriever ret_ = new NatFullFieldRetriever(d_, _page);
-        return commonCheck(_string, _elOffest, ret_, d_,_anaDoc, _page);
+        return commonCheck(_string, _elOffest, ret_, d_,_anaDoc);
     }
 
-    private static Delimiters commonCheck(String _string, int _minIndex, NatFullFieldRetriever _ret, Delimiters _d, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    private static Delimiters commonCheck(String _string, int _minIndex, NatFullFieldRetriever _ret, Delimiters _d, AnalyzingDoc _anaDoc) {
         boolean partOfString_ = _d.isPartOfString();
 
         StackOperators parsBrackets_;
@@ -73,7 +73,7 @@ public final class NatElResolver {
             char curChar_ = _string.charAt(i_);
             resKeyWords_.setNextIndex(i_);
             resKeyWords_.setCallCtor(ctorCall_);
-            processAfterInstuctionKeyWord(_string, resKeyWords_, _anaDoc, _page);
+            processAfterInstuctionKeyWord(_string, resKeyWords_, _anaDoc);
             int nextInd_ = resKeyWords_.getNextIndex();
             if (nextInd_ > i_) {
                 i_ = nextInd_;
@@ -115,12 +115,10 @@ public final class NatElResolver {
         return _d;
     }
 
-    private static void processAfterInstuctionKeyWord(String _string, ResultAfterInstKeyWord _out, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    private static void processAfterInstuctionKeyWord(String _string, ResultAfterInstKeyWord _out, AnalyzingDoc _anaDoc) {
         int i_ = _out.getNextIndex();
-        KeyWords keyWords_ = _page.getKeyWords();
-        String keyWordIntern_ = keyWords_.getKeyWordIntern();
-        if (_anaDoc.isInternGlobal() && StringExpUtil.startsWithKeyWord(_string, i_, keyWordIntern_)) {
-            int afterSuper_ = i_ + keyWordIntern_.length();
+        if (_anaDoc.isInternGlobal() && StringExpUtil.startsWithKeyWord(_string, i_, NatRenderAnalysis.INTERN)) {
+            int afterSuper_ = i_ + NatRenderAnalysis.INTERN.length();
             _out.setNextIndex(_string.indexOf('.', afterSuper_));
         }
     }

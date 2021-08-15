@@ -2,6 +2,7 @@ package code.formathtml.nat;
 
 import code.bean.Bean;
 import code.bean.nat.DefaultInitialization;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
@@ -296,7 +297,6 @@ public final class NativeSecondTest extends EquallableExUtil {
         analyzeInner(conf_.getConfiguration(),conf_, _html);
         RendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
         setFirst(conf_);
-        assertTrue(conf_.isEmptyErrors());
         ContextEl generate_ = conf_.getForwards().generate(new Options());
         RendStackCall built_ = conf_.build(InitPhase.NOTHING, generate_);
         return getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), generate_, built_);
@@ -361,14 +361,14 @@ public final class NativeSecondTest extends EquallableExUtil {
     }
 
     private static void setLocalFiles(NativeOtherAnalyzedTestConfiguration _context, AnalyzingDoc _analyzingDoc) {
-        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
+        NatAnalyzedCode analyzing_ = _context.getAnalyzing();
         Configuration conf_ = _context.getConfiguration();
         conf_.setCurrentLanguage("en");
         _analyzingDoc.setup(conf_, _context.getDual());
         setInnerLocalFiles(_analyzingDoc, analyzing_);
     }
 
-    private static void setInnerLocalFiles(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
+    private static void setInnerLocalFiles(AnalyzingDoc _analyzingDoc, NatAnalyzedCode _analyzing) {
         _analyzingDoc.setLanguages(new StringList("en"));
         setupAna(_analyzingDoc, _analyzing);
     }
@@ -377,13 +377,13 @@ public final class NativeSecondTest extends EquallableExUtil {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, _a.getAnalyzing().getPrimTypes(), "page1.html", _conf.getRendKeyWords());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, null, "page1.html", _conf.getRendKeyWords());
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
         setLocalFiles(_a, _analyzingDoc);
         for (AnaRendDocumentBlock v: d_.values()) {
-            v.buildFctInstructions(_analyzingDoc, _a.getAnalyzing(), _analyzingDoc.getBeansInfosBefore());
+            v.buildFctInstructions(_analyzingDoc, null, _analyzingDoc.getBeansInfosBefore());
         }
         return d_;
     }
@@ -404,7 +404,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), _opt, lgNames_.getContent(), page_);
         lgNames_.build();
         ValidatorStandard.setupOverrides(page_);
-        return new NativeOtherAnalyzedTestContext(page_, forwards_, lgNames_);
+        return new NativeOtherAnalyzedTestContext(null, forwards_, lgNames_);
     }
 
     private static void addBeanInfo(NativeOtherAnalyzedTestConfiguration _conf, String _id, Struct _str) {
@@ -494,8 +494,8 @@ public final class NativeSecondTest extends EquallableExUtil {
         _conf.setProperties(new StringMap<String>());
     }
 
-    private static void setupAna(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
-        AnalyzingDoc.setupInts(_page, _analyzingDoc);
+    private static void setupAna(AnalyzingDoc _analyzingDoc, NatAnalyzedCode _page) {
+//        AnalyzingDoc.setupInts(_page, _analyzingDoc);
     }
 
 }

@@ -192,26 +192,25 @@ public final class NatRendForwardInfos {
                     f_.getElt(),
                     initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
         }
-        if (_current instanceof NatAnaRendRadio){
-            NatAnaRendRadio f_ = (NatAnaRendRadio) _current;
+        if (_current instanceof NatAnaRendInput){
+            NatAnaRendInput f_ = (NatAnaRendInput) _current;
+            if (f_.isRadio()) {
+                NatResultInput resultInput_ = f_.getResultInput();
+                CustList<RendDynOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
+                CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
+                CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
+                StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes());
+                StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
+                return new NatRendInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
+                        initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
+            }
             NatResultInput resultInput_ = f_.getResultInput();
             CustList<RendDynOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
             CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
-            return new NatRendRadio(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
-                    initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
-        }
-        if (_current instanceof NatAnaRendStdInput){
-            NatAnaRendStdInput f_ = (NatAnaRendStdInput) _current;
-            NatResultInput resultInput_ = f_.getResultInput();
-            CustList<RendDynOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
-            CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
-            CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
-            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes());
-            StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
-            return new NatRendStdInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
+            return new NatRendInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
                     initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
         }
         if (_current instanceof NatAnaRendSpan){

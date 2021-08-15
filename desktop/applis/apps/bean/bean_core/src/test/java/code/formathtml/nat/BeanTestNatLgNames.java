@@ -1,10 +1,11 @@
 package code.formathtml.nat;
 
 import code.bean.nat.*;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
+import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.*;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
@@ -57,7 +58,6 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
     public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
-        analyzingDoc_.setInputBuilder(new NatInputBuilder());
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         initInstancesPattern(_nav.getSession(),analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
@@ -93,29 +93,14 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         return struct_.getClassName(_ctx);
     }
 
-    public Forwards setupNative(AnalyzedPageEl _page, DualConfigurationContext _context) {
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
+    public Forwards setupNative(NatAnalyzedCode _page, DualConfigurationContext _context) {
         Options options_ = _context.getOptions();
-        Forwards forwards_ = new Forwards(this, _page.getFileBuilder(), options_);
-        _page.setLogErr(forwards_.getGenerator());
-        _page.setOptions(options_);
+        Forwards forwards_ = new Forwards(this, null, options_);
         CustList<CommentDelimiters> comments_ = options_.getComments();
         CommentsUtil.checkAndUpdateComments(comments_,new CustList<CommentDelimiters>());
-        _page.setComments(comments_);
-        _page.setDefaultAccess(options_.getDefaultAccess());
-        _page.setAnalysisMessages(new AnalysisMessages());
-        _page.setKeyWords(new KeyWords());
         _page.setStandards(forwards_.getGenerator().getContent());
-        _page.setCalculator(forwards_.getConstantsCalculator());
-        _page.setFileBuilder(forwards_.getFileBuilder());
-        _page.setResources(forwards_.getClasses().getResources());
-        _page.setStaticFields(forwards_.getClasses().getStaticFields());
-        _page.setTabWidth(options_.getTabWidth());
-        _page.setGettingErrors(options_.isGettingErrors());
         build();
-        ValidatorStandard.setupOverrides(_page);
+        RendBlockHelp.setupOverrides(_page.getStandardsTypes());
         return forwards_;
     }
 

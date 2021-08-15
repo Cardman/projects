@@ -36,7 +36,7 @@ public final class ResultInput {
     public void build(AnaRendBlock _bl, Element _read, String _varValue, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         String name_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
-            _anaDoc.getInputBuilder().tryBuildInputResult(name_, this,_bl, _anaDoc, _page);
+            tryBuildInputResult(name_, _bl, _anaDoc, _page);
         } else {
             String type_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrType());
             if (!StringUtil.quickEq(type_,_anaDoc.getRendKeyWords().getValueSubmit())) {

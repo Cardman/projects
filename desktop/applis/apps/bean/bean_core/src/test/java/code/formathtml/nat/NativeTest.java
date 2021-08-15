@@ -3,6 +3,7 @@ package code.formathtml.nat;
 import code.bean.Bean;
 import code.bean.nat.*;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.opers.NatStdRefVariableOperation;
@@ -11,16 +12,12 @@ import code.bean.nat.fwd.AdvNatBlockBuilder;
 import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.*;
@@ -58,7 +55,6 @@ public final class NativeTest extends EquallableExUtil {
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getConfiguration());
         setFirst(conf_);
-        assertTrue(conf_.isEmptyErrors());
         assertNotNull(BeanNatCommonLgNames.getPairStruct(null,conf_.getContext()));
         assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(null,conf_.getContext()));
         assertNotNull(((BeanNatLgNames)conf_.getContext().getStandards()).getLongsArray(new CustList<Longs>(new Longs(0L))));
@@ -765,7 +761,7 @@ public final class NativeTest extends EquallableExUtil {
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),a_.getAnalyzing(),a_.getAdv(),a_.getDual()), new DefNatBlockBuilder());
+        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),null,a_.getAdv(),a_.getDual()), new DefNatBlockBuilder());
         RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
         n_.initializeRendSession(a_.getContext(), a_.getAdv(), build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
@@ -804,7 +800,7 @@ public final class NativeTest extends EquallableExUtil {
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),a_.getAnalyzing(),a_.getAdv(),a_.getDual()), new DefNatBlockBuilder());
+        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),null,a_.getAdv(),a_.getDual()), new DefNatBlockBuilder());
         RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
         n_.initializeRendSession(a_.getContext(), a_.getAdv(), build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
@@ -983,7 +979,6 @@ public final class NativeTest extends EquallableExUtil {
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean(html_, htmlTwo_, bean_, beanTwo_, conf_);
-        assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a></body></html>", getSampleRes(conf_, rendDocumentBlock_));
         assertEq(1, beanTwo_.getForms().size());
         assertEq("key", beanTwo_.getForms().getKeys().first());
@@ -1017,7 +1012,6 @@ public final class NativeTest extends EquallableExUtil {
         setFiles(files_, conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean(html_, htmlTwo_, bean_, beanTwo_, conf_);
-        assertTrue(conf_.isEmptyErrors());
         String render_ = getSampleRes(conf_, rendDocumentBlock_);
         assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a>Description <a c:command=\"$bean_two.go\" href=\"\" n-a=\"1\">two</a></body></html>", render_);
         assertEq(1, beanTwo_.getForms().size());
@@ -1820,7 +1814,7 @@ public final class NativeTest extends EquallableExUtil {
         setupAna(analyzingDoc_, _conf.getAnalyzing());
         BeanNatLgNames.initInstancesPattern(_conf.getConfiguration(), map_);
         _conf.getConfiguration().getBeansInfos().addAllEntries(map_);
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        NatAnalyzedCode page_ = _conf.getAnalyzing();
 
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String s: _conf.getDual().getRenderFiles()) {
@@ -1834,7 +1828,7 @@ public final class NativeTest extends EquallableExUtil {
         analyzingDoc_.setLanguages(_nav.getLanguages());
         _conf.getConfiguration().setCurrentLanguage(_nav.getLanguage());
         for (AnaRendDocumentBlock v : d_.values()) {
-            v.buildFctInstructions(analyzingDoc_, page_, map_);
+            AnaRendBlockHelp.buildFctInstructions(v,analyzingDoc_, page_, map_);
         }
         _conf.setAnalyzed(d_);
         NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getConfiguration());
@@ -1860,7 +1854,6 @@ public final class NativeTest extends EquallableExUtil {
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getConfiguration());
         setFirst(conf_);
-        assertTrue(conf_.isEmptyErrors());
         RendStackCall build_ = conf_.build(InitPhase.NOTHING, conf_.getContext());
         return getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), conf_.getContext(), build_);
     }
@@ -1879,7 +1872,6 @@ public final class NativeTest extends EquallableExUtil {
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getConfiguration());
         setFirst(conf_);
-        assertTrue(conf_.isEmptyErrors());
         RendStackCall build_ = conf_.build(InitPhase.NOTHING, conf_.getContext());
         return getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), conf_.getContext(), build_);
     }
@@ -1910,14 +1902,14 @@ public final class NativeTest extends EquallableExUtil {
     }
 
     private static void setLocalFiles(NativeAnalyzedTestConfiguration _context, AnalyzingDoc _analyzingDoc) {
-        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
+        NatAnalyzedCode analyzing_ = _context.getAnalyzing();
         Configuration conf_ = _context.getConfiguration();
         conf_.setCurrentLanguage("en");
         _analyzingDoc.setup(conf_, _context.getDual());
         setInnerLocalFiles(_analyzingDoc, analyzing_);
     }
 
-    private static void setInnerLocalFiles(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
+    private static void setInnerLocalFiles(AnalyzingDoc _analyzingDoc, NatAnalyzedCode _analyzing) {
         _analyzingDoc.setLanguages(new StringList("en"));
         setupAna(_analyzingDoc, _analyzing);
     }
@@ -1932,7 +1924,7 @@ public final class NativeTest extends EquallableExUtil {
         }
         setLocalFiles(_a, _analyzingDoc);
         for (AnaRendDocumentBlock v: d_.values()) {
-            v.buildFctInstructions(_analyzingDoc, _a.getAnalyzing(), _beansInfosBefore);
+            AnaRendBlockHelp.buildFctInstructions(v,_analyzingDoc, _a.getAnalyzing(), _beansInfosBefore);
         }
         return d_;
     }
@@ -1947,13 +1939,14 @@ public final class NativeTest extends EquallableExUtil {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         int tabWidth_ = 4;
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        NatAnalyzedCode page_ = NatAnalyzedCode.setInnerAnalyzing();
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgNames_.getContent());
         Forwards forwards_ = new Forwards(lgNames_, fileBuilder_, _opt);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), _opt, lgNames_.getContent(), page_);
+//        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), _opt, lgNames_.getContent(), page_);
         lgNames_.buildBeans();
         lgNames_.buildOther();
-        RendBlockHelp.setupOverrides(page_);
+        page_.setStandards(lgNames_.getContent());
+        RendBlockHelp.setupOverrides(page_.getStandardsTypes());
         return new NativeAnalyzedTestContext(page_, forwards_, lgNames_);
     }
 
@@ -2052,8 +2045,8 @@ public final class NativeTest extends EquallableExUtil {
         _conf.setProperties(new StringMap<String>());
     }
 
-    private static void setupAna(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
-        AnalyzingDoc.setupInts(_page, _analyzingDoc);
+    private static void setupAna(AnalyzingDoc _analyzingDoc, NatAnalyzedCode _page) {
+
     }
 
     private static void form(NativeAnalyzedTestConfiguration _conf, Navigation _nav) {

@@ -11,7 +11,6 @@ import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
-import code.formathtml.fwd.AbstractInputBuilder;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanLgNames;
@@ -42,8 +41,6 @@ public final class AnalyzingDoc {
     private String messagesFolder = "";
     private StringMap<String> files = new StringMap<String>();
     private StringMap<BeanInfo> beansInfosBefore = new StringMap<BeanInfo>();
-    private AbstractInputBuilder inputBuilder;
-    private AbstractConverterCheck converterCheck;
 
 
     public static void addWarning(FoundWarningInterpret _warning, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
@@ -246,22 +243,6 @@ public final class AnalyzingDoc {
 
     public StringMap<BeanInfo> getBeansInfosBefore() {
         return beansInfosBefore;
-    }
-
-    public AbstractInputBuilder getInputBuilder() {
-        return inputBuilder;
-    }
-
-    public void setInputBuilder(AbstractInputBuilder _inputBuilder) {
-        inputBuilder = _inputBuilder;
-    }
-
-    public AbstractConverterCheck getConverterCheck() {
-        return converterCheck;
-    }
-
-    public void setConverterCheck(AbstractConverterCheck _converterCheck) {
-        this.converterCheck = _converterCheck;
     }
 
 }

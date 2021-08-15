@@ -1,6 +1,5 @@
 package code.bean.nat.analyze.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.NatResultText;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -21,7 +20,7 @@ public final class NatAnaRendAnchor extends NatAnaRendElement {
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatResultText res_ = NatResultText.buildAnchor(_read, _list, _anaDoc, _page);
         varNames = res_.getVarNames();
         root = res_.getOpExpAnchorRoot();

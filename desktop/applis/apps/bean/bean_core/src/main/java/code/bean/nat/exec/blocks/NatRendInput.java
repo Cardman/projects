@@ -2,24 +2,27 @@ package code.bean.nat.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
+import code.formathtml.exec.blocks.RendRadio;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FieldUpdates;
 import code.sml.Element;
+import code.sml.Node;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public abstract class NatRendInput extends NatRendElement {
+public final class NatRendInput extends NatRendElement {
     private final CustList<RendDynOperationNode> opsValue;
     private final FieldUpdates fieldUpdates;
 
-    protected NatRendInput(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
-                           CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
-                           FieldUpdates _init) {
+    public NatRendInput(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+                        CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
+                        FieldUpdates _init) {
         super(_read, _execAttributes, _execAttributesText);
         fieldUpdates = _init;
         fieldUpdates.setOpsRead(_opsRead);
@@ -27,7 +30,18 @@ public abstract class NatRendInput extends NatRendElement {
         this.opsValue = _opsValue;
     }
 
-    protected Argument processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    @Override
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+        Element elt_ = (Element) _nextWrite;
+        Argument arg_ = processIndexes(_cont, _read, elt_, _stds, _ctx, _rendStack);
+        if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()), _cont.getRendKeyWords().getValueRadio())) {
+            Struct res_ = arg_.getStruct();
+            String strObj_ = RendBlockHelp.getStringKey(res_, _stds, _ctx);
+            RendRadio.procDefValue(_cont,elt_,strObj_);
+        }
+    }
+
+    Argument processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         Argument arg_ = RendBlockHelp.fetchName(_cont, _read, _write, fieldUpdates, _advStandards, _ctx, _rendStackCall);
         RendBlockHelp.fetchValue(_cont,_read,_write,opsValue, _advStandards, _ctx, _rendStackCall);
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));

@@ -1,6 +1,5 @@
 package code.bean.nat.analyze.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.NatResultText;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -21,7 +20,7 @@ public final class NatAnaRendSpan extends NatAnaRendElement {
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
         String id_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));

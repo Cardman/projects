@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.opers;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.util.core.IndexConstants;
 
@@ -14,7 +14,7 @@ public final class StandardFieldOperation {
         return operations;
     }
 
-    public static String getFrom(AnalyzedPageEl _page, SettableAbstractFieldNatOperation _settable) {
+    public static String getFrom(NatAnalyzedCode _page, SettableAbstractFieldNatOperation _settable) {
         String cl_;
         if (_settable.isIntermediateDottedOperation()) {
             cl_ = _settable.getPreviousResultClass();

@@ -1,7 +1,5 @@
 package code.bean.nat.analyze.blocks;
 
-
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.sml.Element;
@@ -14,7 +12,7 @@ public final class NatAnaRendEscImg extends NatAnaRendElement {
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         //
     }
 }

@@ -1,5 +1,6 @@
 package code.formathtml.nat;
 
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.InitPhase;
@@ -13,7 +14,7 @@ import code.util.StringMap;
 
 class NativeOtherAnalyzedTestConfiguration {
     private final Configuration configuration;
-    private final AnalyzedPageEl analyzing;
+    private final NatAnalyzedCode analyzing;
     private final Forwards forwards;
     private final BeanTestNatLgNames adv;
     private final AnalyzingDoc analyzingDoc = new AnalyzingDoc();
@@ -26,7 +27,6 @@ class NativeOtherAnalyzedTestConfiguration {
         adv= _standards;
         dual = _analyzing.getDual();
         analyzingDoc.setContent(adv);
-        analyzingDoc.setInputBuilder(new NatInputBuilder());
         this.analyzing = _analyzing.getAnalyzing();
     }
 
@@ -34,7 +34,7 @@ class NativeOtherAnalyzedTestConfiguration {
         return configuration;
     }
 
-    AnalyzedPageEl getAnalyzing() {
+    NatAnalyzedCode getAnalyzing() {
         return analyzing;
     }
 
@@ -44,10 +44,6 @@ class NativeOtherAnalyzedTestConfiguration {
 
     AnalyzingDoc getAnalyzingDoc() {
         return analyzingDoc;
-    }
-
-    boolean isEmptyErrors() {
-        return analyzing.isEmptyErrors();
     }
 
     void setNavigation(StringMap<StringMap<String>> _stringMapStringMap) {

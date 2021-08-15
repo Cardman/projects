@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
@@ -79,7 +80,7 @@ public abstract class AnaRendInput extends AnaRendElement {
         } else {
             String clName_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
             if (!clName_.isEmpty()) {
-                if (!_anaDoc.getConverterCheck().isConveritble(clName_)) {
+                if (isNotConvertible(_page, clName_)) {
                     int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
@@ -90,7 +91,7 @@ public abstract class AnaRendInput extends AnaRendElement {
                     AnalyzingDoc.addError(badEl_, _anaDoc, _page);
                 }
             } else if (rootRead != null) {
-                if (!_anaDoc.getConverterCheck().isConveritble(r_.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
+                if (isNotConvertible(_page, r_.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
                     int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
@@ -132,7 +133,13 @@ public abstract class AnaRendInput extends AnaRendElement {
             }
         }
     }
+    private static boolean isNotConvertible(AnalyzedPageEl _lgNames, String _className) {
+        if (StringUtil.quickEq(_className, _lgNames.getAliasString())) {
+            return false;
+        }
 
+        return !AnaTypeUtil.isPrimitiveOrWrapper(_className, _lgNames.getPrimitiveTypes());
+    }
     public OperationNode getRootConverter() {
         return rootConverter;
     }

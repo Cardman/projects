@@ -1,6 +1,6 @@
 package code.bean.nat.analyze;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -26,7 +26,7 @@ public final class NatResultText {
     private final Ints expOffsets = new Ints();
     private final Ints expEnds = new Ints();
 
-    public void buildAna(String _expression, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildAna(String _expression, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         opExpRoot = new CustList<NatOperationNode>();
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
@@ -54,7 +54,7 @@ public final class NatResultText {
         texts.add(str_.toString());
     }
 
-    public void buildIdAna(String _expression, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildIdAna(String _expression, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         opExpRoot = new CustList<NatOperationNode>();
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
@@ -79,7 +79,7 @@ public final class NatResultText {
         texts.add(str_.toString());
     }
 
-    public static NatResultText buildAnchor(Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public static NatResultText buildAnchor(Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));

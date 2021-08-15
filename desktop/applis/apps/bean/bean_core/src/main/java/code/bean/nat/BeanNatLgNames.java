@@ -1,10 +1,9 @@
 package code.bean.nat;
 
-import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
-import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -12,7 +11,6 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.fwd.DefaultInputBuilder;
 import code.expressionlanguage.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -23,12 +21,10 @@ import code.sml.Document;
 import code.util.*;
 
 public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
-
+    private final NatAnalyzedCode natCode = NatAnalyzedCode.setInnerAnalyzing();
     public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, DualAnalyzedContext _dual, AbstractNatBlockBuilder _builder) {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
-        analyzingDoc_.setInputBuilder(new DefaultInputBuilder());
-        AnalyzedPageEl page_ = _dual.getAnalyzed();
         StringMap<BeanInfo> beansInfos_ = new StringMap<BeanInfo>();
         initInstancesPattern(_nav.getSession(), beansInfos_);
         _conf.getBeansInfos().addAllEntries(beansInfos_);
@@ -40,9 +36,9 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
         _nav.getSession().getRenders().clear();
         _nav.getSession().setFiles(_nav.getFiles());
         analyzingDoc_.setup(_nav.getSession(), _dual.getContext());
-        NatRenderAnalysis.setupInts(page_, analyzingDoc_);
 
 
+        natCode.setStandards(getContent());
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (EntryCust<String, Document> s: _docs.entryList()) {
             String link_ = s.getKey();
@@ -52,7 +48,7 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
             d_.addEntry(link_,anaDoc_);
         }
         for (AnaRendDocumentBlock v : d_.values()) {
-            v.buildFctInstructions(analyzingDoc_, page_, beansInfos_);
+            AnaRendBlockHelp.buildFctInstructions(v,analyzingDoc_, natCode, beansInfos_);
         }
 //        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(_docs,page_, this, analyzingDoc_, _dual.getContext());
         NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf);
@@ -75,4 +71,7 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
 
     public abstract ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val);
 
+    public NatAnalyzedCode getNatCode() {
+        return natCode;
+    }
 }

@@ -2,7 +2,7 @@ package code.bean.nat.analyze.opers;
 
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
@@ -46,14 +46,13 @@ public abstract class NatOperationNode {
         return StringExpUtil.getAllTypes(_type).first();
     }
 
-    public abstract void analyze(AnalyzedPageEl _page);
+    public abstract void analyze(NatAnalyzedCode _page);
 
-    public static void setRelativeOffsetPossibleAnalyzable(int _offset, AnalyzedPageEl _page) {
-        _page.setOffset(_offset);
+    public static void setRelativeOffsetPossibleAnalyzable(int _offset, NatAnalyzedCode _page) {
     }
 
     public static NatOperationNode createOperationNode(int _index,
-                                                       int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, AnalyzedPageEl _page) {
+                                                       int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
         NatOperationNode res_ = createOperationNodeBis(_index, _indexChild, _m, _op, _page);
         if (res_ instanceof MethodNatOperation) {
             ((MethodNatOperation)res_).calculateChildren();
@@ -61,7 +60,7 @@ public abstract class NatOperationNode {
         return res_;
     }
     private static NatOperationNode createOperationNodeBis(int _index,
-                                                           int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, AnalyzedPageEl _page) {
+                                                           int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
         if (_op.getOperators().isEmpty()) {
             return createLeaf(_index, _indexChild, _m, _op, _page);
         }
@@ -81,7 +80,7 @@ public abstract class NatOperationNode {
         return new AffectationNatOperation(_index, _indexChild, _m, _op);
     }
 
-    private static NatOperationNode createLeaf(int _index, int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, AnalyzedPageEl _page) {
+    private static NatOperationNode createLeaf(int _index, int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
         ConstType ct_ = _op.getConstType();
         String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
@@ -111,11 +110,11 @@ public abstract class NatOperationNode {
         nextSibling = _nextSibling;
     }
 
-    public static NatFieldResult resolveDeclaredCustField(String _class, String _name, AnalyzedPageEl _page) {
+    public static NatFieldResult resolveDeclaredCustField(String _class, String _name, NatAnalyzedCode _page) {
         return getDeclaredCustFieldByContext(_class, _name, _page);
     }
     private static NatFieldResult getDeclaredCustFieldByContext(String _class,
-                                                                String _name, AnalyzedPageEl _page) {
+                                                                String _name, NatAnalyzedCode _page) {
         CustList<NatFieldResult> ancestors_ = new CustList<NatFieldResult>();
         CustList<AnaGeneType> typesGroup_= typeLists(_class, _page);
         for (AnaGeneType t: typesGroup_) {
@@ -146,22 +145,19 @@ public abstract class NatOperationNode {
         }
     }
 
-    protected static String voidToObject(String _original, AnalyzedPageEl _page) {
-        if (StringUtil.quickEq(_original, _page.getAliasVoid())) {
-            return _page.getAliasObject();
-        }
+    protected static String voidToObject(String _original) {
         return _original;
     }
 
     protected static ClassMethodIdReturn tryGetDeclaredCustMethod(String _classes, String _name,
-                                                                  AnalyzedPageEl _page) {
+                                                                  NatAnalyzedCode _page) {
         CustList<NatMethodInfo> methods_ = getDeclaredCustMethodByType(_classes, _page);
         return getCustResult(methods_, _name);
     }
 
 
     protected static CustList<NatMethodInfo>
-    getDeclaredCustMethodByType(String _fromClasses, AnalyzedPageEl _page) {
+    getDeclaredCustMethodByType(String _fromClasses, NatAnalyzedCode _page) {
         CustList<NatMethodInfo> methods_;
         methods_ = new CustList<NatMethodInfo>();
         fetchParamClassAncMethods(_fromClasses, methods_, _page);
@@ -170,7 +166,7 @@ public abstract class NatOperationNode {
 
 
     private static void fetchParamClassAncMethods(String _fromClasses,
-                                                  CustList<NatMethodInfo> _methods, AnalyzedPageEl _page) {
+                                                  CustList<NatMethodInfo> _methods, NatAnalyzedCode _page) {
         CustList<AnaGeneType> typeInfosGroups_ = typeLists(_fromClasses, _page);
         for (AnaGeneType t: typeInfosGroups_) {
             if(!(t instanceof SpecialNatClass)) {
@@ -183,7 +179,7 @@ public abstract class NatOperationNode {
         }
     }
 
-    public static CustList<AnaGeneType> typeLists(String _fromClasses, AnalyzedPageEl _page) {
+    public static CustList<AnaGeneType> typeLists(String _fromClasses, NatAnalyzedCode _page) {
         CustList<AnaGeneType> typeInfos_ = new CustList<AnaGeneType>();
         String baseCurName_ = getIdFromAllTypes(_fromClasses);
         StandardType root_ = _page.getStandardsTypes().getVal(baseCurName_);

@@ -1,12 +1,12 @@
 package code.bean.nat.analyze.opers;
 
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.formathtml.analyze.AnalyzingDoc;
 
 public final class InternGlobalNatOperation extends LeafNatOperation {
-    private int off;
-    private AnalyzingDoc analyzingDoc;
+    private final int off;
+    private final AnalyzingDoc analyzingDoc;
 
     public InternGlobalNatOperation(int _indexInEl, int _indexChild,
                                     MethodNatOperation _m, NatOperationsSequence _op, AnalyzingDoc _analyzingDoc) {
@@ -16,7 +16,7 @@ public final class InternGlobalNatOperation extends LeafNatOperation {
     }
 
     @Override
-    public void analyze(AnalyzedPageEl _page) {
+    public void analyze(NatAnalyzedCode _page) {
         NatOperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);

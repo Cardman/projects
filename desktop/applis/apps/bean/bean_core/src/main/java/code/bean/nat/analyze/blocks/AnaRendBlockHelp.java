@@ -3,12 +3,15 @@ package code.bean.nat.analyze.blocks;
 import code.bean.nat.AbstractNatImpLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendBlock;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.analyze.blocks.AnaRendParentBlock;
+import code.formathtml.analyze.blocks.*;
 import code.formathtml.errors.RendKeyWords;
+import code.formathtml.structs.BeanInfo;
 import code.sml.*;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.EntryCust;
@@ -29,6 +32,53 @@ public final class AnaRendBlockHelp {
     private AnaRendBlockHelp() {
     }
 
+    public static void buildFctInstructions(AnaRendDocumentBlock _doc,AnalyzingDoc _anaDoc, NatAnalyzedCode _page, StringMap<BeanInfo> _beansInfosBefore) {
+        _doc.setBeanName(_doc.getElt().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean())));
+        String clName_ = _beansInfosBefore.getVal(_doc.getBeanName()).getResolvedClassName();
+        AnaFormattedRootBlock globalType_ = new AnaFormattedRootBlock((RootBlock) null, clName_);
+        _page.setGlobalType(globalType_);
+        loop(_doc, _anaDoc, _page);
+    }
+
+    public static void loop(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+        AnaRendBlock en_ = _doc;
+        _anaDoc.setFileName(_doc.getFileName());
+        _anaDoc.setCurrentDoc(_doc);
+        while (true) {
+            _anaDoc.setCurrentBlock(en_);
+            AnaRendBlock n_ = en_.getFirstChild();
+            if (en_ instanceof NatRendBuildEl) {
+                ((NatRendBuildEl)en_).buildExpressionLanguage(_doc, _anaDoc, _page);
+            }
+            if (n_ != null) {
+                en_ = n_;
+                continue;
+            }
+            while (true) {
+                n_ = en_.getNextSibling();
+                if (n_ != null) {
+                    en_ = n_;
+                    break;
+                }
+                AnaRendParentBlock par_;
+                par_ = en_.getParent();
+                removeAllVars(par_, _page.getInfosVars(), _page.getLoopsVars());
+                if (par_ == _doc) {
+                    return;
+                }
+                en_ = par_;
+            }
+        }
+    }
+
+    private static void removeAllVars(AnaRendParentBlock _par, StringMap<AnaLocalVariable> _infosVars, StringMap<AnaLoopVariable> _loopsVars) {
+        if (_par instanceof NatAnaRendForEachLoop) {
+            ((NatAnaRendForEachLoop)_par).removeVars(_infosVars, _loopsVars);
+        }
+        if (_par instanceof NatAnaRendForEachTable) {
+            ((NatAnaRendForEachTable)_par).removeVars(_infosVars, _loopsVars);
+        }
+    }
     public static StringMap<String> getPre(String _value, AnalyzingDoc _analyzingDoc) {
         StringList elts_ = StringUtil.splitStrings(_value, AnaRendBlock.COMMA);
         String var_ = elts_.first();
@@ -201,9 +251,9 @@ public final class AnaRendBlockHelp {
         }
         if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordInput())) {
             if (StringUtil.quickEq(_elt.getAttribute(_rendKeyWords.getAttrType()), _rendKeyWords.getValueRadio())) {
-                return new NatAnaRendRadio(_elt,_begin);
+                return new NatAnaRendInput(_elt,_begin, true);
             }
-            return new NatAnaRendStdInput(_elt,_begin);
+            return new NatAnaRendInput(_elt,_begin, false);
         }
         if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordSpan()) && !_elt.getAttribute(StringUtil.concat(_prefix, _rendKeyWords.getAttrFor())).isEmpty()) {
             return new NatAnaRendSpan(_elt,_begin);

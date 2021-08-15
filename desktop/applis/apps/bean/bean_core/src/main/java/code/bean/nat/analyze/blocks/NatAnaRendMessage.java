@@ -1,12 +1,10 @@
 package code.bean.nat.analyze.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendBlock;
-import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.sml.Document;
@@ -17,7 +15,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class NatAnaRendMessage extends AnaRendParentBlock implements AnaRendBuildEl {
+public final class NatAnaRendMessage extends AnaRendParentBlock implements NatRendBuildEl {
 
     private final Element elt;
     private CustList<NatOperationNode> roots;
@@ -33,7 +31,7 @@ public final class NatAnaRendMessage extends AnaRendParentBlock implements AnaRe
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         roots = new CustList<NatOperationNode>();
         String value_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
         preformatted = AnaRendBlockHelp.getPre(value_, _anaDoc);

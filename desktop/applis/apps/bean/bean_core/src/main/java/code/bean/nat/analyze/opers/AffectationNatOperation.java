@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.opers;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 
 import code.maths.litteralcom.StrTypes;
@@ -19,7 +19,7 @@ public final class AffectationNatOperation extends MethodNatOperation {
     }
 
     @Override
-    public void analyze(AnalyzedPageEl _page) {
+    public void analyze(NatAnalyzedCode _page) {
         StrTypes ops_ = getOperations().getOperators();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         NatSettableElResult elt_ = tryGetSettable(this);

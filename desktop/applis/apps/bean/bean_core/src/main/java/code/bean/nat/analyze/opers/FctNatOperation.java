@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.opers;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.bean.nat.fwd.opers.NatAnaCallFctContent;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
@@ -20,7 +20,7 @@ public final class FctNatOperation extends InvokingNatOperation {
     }
 
     @Override
-    public void analyze(AnalyzedPageEl _page) {
+    public void analyze(NatAnalyzedCode _page) {
         int off_ = StringUtil.getFirstPrintableCharIndex(callFctContent.getMethodName());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         String clCur_;
@@ -36,7 +36,7 @@ public final class FctNatOperation extends InvokingNatOperation {
         clMeth_ = tryGetDeclaredCustMethod(l_, trimMeth_, _page);
         callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();
-        setResultClass(voidToObject(clMeth_.getReturnType(), _page));
+        setResultClass(voidToObject(clMeth_.getReturnType()));
     }
 
     public NatAnaCallFctContent getCallFctContent() {

@@ -5,7 +5,6 @@ import code.bean.nat.exec.opers.NatAbstractAffectOperation;
 import code.bean.nat.exec.opers.NatSettableFieldOperation;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
@@ -318,27 +317,27 @@ public final class RendBlockHelp {
         _rendStackCall.getFormParts().getAnchorsVars().add(_varNames);
     }
 
-    public static void setupOverrides(AnalyzedPageEl _page) {
-        buildInherits(_page);
+    public static void setupOverrides(StringMap<StandardType> _standardsTypes) {
+        buildInherits(_standardsTypes);
     }
 
-    public static void buildInherits(AnalyzedPageEl _page){
-        for (EntryCust<String, StandardType> s: _page.getStandardsTypes().entryList()) {
-            buildInherits((SpecialNatClass) s.getValue(), _page);
+    public static void buildInherits(StringMap<StandardType> _standardsTypes){
+        for (EntryCust<String, StandardType> s: _standardsTypes.entryList()) {
+            buildInherits((SpecialNatClass) s.getValue(), _standardsTypes);
         }
     }
 
-    private static void buildInherits(SpecialNatClass _type, AnalyzedPageEl _page) {
-        feedSupers(_type, _type.getAllSuperTypes(), _page);
+    private static void buildInherits(SpecialNatClass _type, StringMap<StandardType> _standardsTypes) {
+        feedSupers(_type, _type.getAllSuperTypes(), _standardsTypes);
     }
 
-    private static void feedSupers(SpecialNatClass _type, StringList _types, AnalyzedPageEl _page) {
+    private static void feedSupers(SpecialNatClass _type, StringList _types, StringMap<StandardType> _standardsTypes) {
         StringList currentSuperTypes_ = new StringList(_type.getSuperClass());
         _types.addAllElts(currentSuperTypes_);
         while (true) {
             StringList newSuperTypes_ = new StringList();
             for (String c: currentSuperTypes_) {
-                SpecialNatClass st_ = (SpecialNatClass) _page.getStandardsTypes().getVal(c);
+                SpecialNatClass st_ = (SpecialNatClass) _standardsTypes.getVal(c);
                 if (st_ == null) {
                     continue;
                 }

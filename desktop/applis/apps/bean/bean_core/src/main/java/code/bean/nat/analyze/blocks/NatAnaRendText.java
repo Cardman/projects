@@ -1,21 +1,17 @@
 package code.bean.nat.analyze.blocks;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.NatResultText;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendLeaf;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class NatAnaRendText extends AnaRendLeaf implements AnaRendBuildEl {
+public final class NatAnaRendText extends AnaRendLeaf implements NatRendBuildEl {
 
     private final String expression;
-
-    private final int expressionOffset;
 
     private CustList<NatOperationNode> roots;
 
@@ -23,13 +19,10 @@ public final class NatAnaRendText extends AnaRendLeaf implements AnaRendBuildEl 
     NatAnaRendText(OffsetStringInfo _left, int _offset) {
         super(_offset);
         expression = _left.getInfo();
-        expressionOffset = _left.getOffset();
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(expressionOffset);
-        _page.zeroOffset();
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatResultText res_ = new NatResultText();
         res_.buildAna(expression, _anaDoc, _page);
         roots = res_.getOpExpRoot();

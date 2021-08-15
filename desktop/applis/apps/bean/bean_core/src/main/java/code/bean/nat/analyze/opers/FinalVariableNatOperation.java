@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.opers;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.common.ConstType;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.bean.nat.fwd.opers.NatAnaVariableContent;
@@ -27,7 +27,7 @@ public final class FinalVariableNatOperation extends LeafNatOperation {
     }
 
     @Override
-    public void analyze(AnalyzedPageEl _page) {
+    public void analyze(NatAnalyzedCode _page) {
         NatOperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();

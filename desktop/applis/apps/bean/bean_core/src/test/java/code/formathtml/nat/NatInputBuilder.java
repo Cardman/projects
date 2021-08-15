@@ -16,14 +16,13 @@ import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.exec.opers.*;
-import code.formathtml.fwd.AbstractInputBuilder;
 import code.formathtml.util.InputInfo;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class NatInputBuilder implements AbstractInputBuilder {
-    @Override
+public final class NatInputBuilder {
+
     public void tryBuildInputResult(String _name, ResultInput _resultInput, AnaRendBlock _bl, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _resultInput.setOpsReadRoot(RenderAnalysis.getRootAnalyzedOperations(_name+"()", 0, _anaDoc, _page));
         OperationNode settable_ = _resultInput.getOpsReadRoot();
@@ -52,7 +51,6 @@ public final class NatInputBuilder implements AbstractInputBuilder {
         _resultInput.setVarName(StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA,varLoc_));
     }
 
-    @Override
     public CustList<RendDynOperationNode> buildWritePart(ResultInput _resultInput, Forwards _forwards) {
         FctOperation settable_ = (FctOperation) _resultInput.getSettable();
         CustList<RendDynOperationNode> w_ = new CustList<RendDynOperationNode>();

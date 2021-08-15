@@ -1,19 +1,17 @@
 package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.AbstractNatImpLgNames;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.NatResultText;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class NatAnaRendImport extends AnaRendParentBlock implements AnaRendBuildEl {
+public final class NatAnaRendImport extends AnaRendParentBlock implements NatRendBuildEl {
     private final Element elt;
 
     private CustList<NatOperationNode> roots;
@@ -30,10 +28,8 @@ public final class NatAnaRendImport extends AnaRendParentBlock implements AnaRen
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatResultText res_ = new NatResultText();
-        _page.setGlobalOffset(pageOffset);
-        _page.zeroOffset();
         String pageName_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrPage());
         res_.buildAna(pageName_, _anaDoc, _page);
         roots = res_.getOpExpRoot();

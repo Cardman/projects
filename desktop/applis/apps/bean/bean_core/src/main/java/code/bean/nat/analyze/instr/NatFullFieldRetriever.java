@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.instr;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.VariableInfo;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -9,9 +9,9 @@ import code.expressionlanguage.common.ConstType;
 public final class NatFullFieldRetriever {
 
     private final Delimiters delimiters;
-    private final AnalyzedPageEl context;
+    private final NatAnalyzedCode context;
 
-    public NatFullFieldRetriever(Delimiters _delimiters, AnalyzedPageEl _context) {
+    public NatFullFieldRetriever(Delimiters _delimiters, NatAnalyzedCode _context) {
         this.delimiters = _delimiters;
         this.context = _context;
     }

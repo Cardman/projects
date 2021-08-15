@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.opers;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 
 public final class SettableFieldNatOperation extends
@@ -14,7 +14,7 @@ public final class SettableFieldNatOperation extends
         interf = _interf;
     }
     @Override
-    public void analyze(AnalyzedPageEl _page) {
+    public void analyze(NatAnalyzedCode _page) {
         NatOperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);

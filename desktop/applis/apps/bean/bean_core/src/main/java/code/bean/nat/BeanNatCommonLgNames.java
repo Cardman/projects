@@ -1,12 +1,10 @@
 package code.bean.nat;
 
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AbstractFileBuilder;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.*;
@@ -241,30 +239,18 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return new NativeContextEl(new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this, _options.getClasses(), _options.getCoverage(),new DefaultLockingClass(),new DefaultInitializer()));
     }
 
-    public Forwards setupNative(AnalyzedPageEl _page, DualConfigurationContext _context) {
+    public Forwards setupNative(NatAnalyzedCode _page, DualConfigurationContext _context) {
         Options options_ = _context.getOptions();
-        AbstractFileBuilder fileBuilder_ = _page.getFileBuilder();
-        Classes cls_ = new Classes();
-        Forwards forwards_ = new Forwards(this, fileBuilder_, options_);
-        _page.setLogErr(this);
-        _page.setOptions(options_);
-        CustList<CommentDelimiters> comments_ = options_.getComments();
-        _page.setComments(comments_);
-        _page.setKeyWords(new KeyWords());
+        Forwards forwards_ = new Forwards(this, null, options_);
         _page.setStandards(getContent());
         //
 
-        _page.setFileBuilder(fileBuilder_);
-        _page.setResources(cls_.getResources());
-        _page.setStaticFields(cls_.getStaticFields());
-        _page.setTabWidth(options_.getTabWidth());
-        _page.setGettingErrors(options_.isGettingErrors());
         //        standards_.addEntry(getCoreNames().getAliasObject(), std_);
         buildBeans();
         buildOther();
         _page.setStandards(getContent());
 
-        RendBlockHelp.setupOverrides(_page);
+        RendBlockHelp.setupOverrides(getStandards());
         return forwards_;
     }
 //    public void rendRefresh(Navigation _navigation, ContextEl _context, RendStackCall _rendStack) {
