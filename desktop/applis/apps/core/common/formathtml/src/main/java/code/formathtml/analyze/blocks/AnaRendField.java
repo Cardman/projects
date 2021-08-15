@@ -7,7 +7,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 
-public final class AnaRendField extends AnaRendParentBlock {
+public final class AnaRendField extends AnaRendParentBlock implements AnaRendBuildEl {
     private final String prepare;
     private final int prepareOffset;
     private OperationNode root;

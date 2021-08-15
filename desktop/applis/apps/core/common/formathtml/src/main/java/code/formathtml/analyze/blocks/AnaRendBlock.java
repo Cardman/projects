@@ -533,12 +533,8 @@ public abstract class AnaRendBlock {
         return content_;
     }
 
-    public abstract void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page);
     private static OffsetBooleanInfo newOffsetBooleanInfo(Element _elt, String _key) {
         return new OffsetBooleanInfo(0,_elt.hasAttribute(_key));
-    }
-    protected static void tryBuildExpressionLanguage(AnaRendBlock _block, AnaRendDocumentBlock _doc, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
-        _block.buildExpressionLanguage(_doc, _analyzingDoc, _page);
     }
 
     public void setEscapedChars(StringMap<IntTreeMap<Integer>> _escapedChars) {

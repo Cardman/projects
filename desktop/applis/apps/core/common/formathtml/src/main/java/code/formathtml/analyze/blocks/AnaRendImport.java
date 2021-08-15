@@ -9,7 +9,7 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class AnaRendImport extends AnaRendParentBlock {
+public final class AnaRendImport extends AnaRendParentBlock implements AnaRendBuildEl {
     private final Element elt;
 
     private CustList<OperationNode> roots;

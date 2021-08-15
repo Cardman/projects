@@ -9,7 +9,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class AnaRendDeclareVariable extends AnaRendLeaf {
+public final class AnaRendDeclareVariable extends AnaRendLeaf implements AnaRendBuildEl {
 
     private final StringList variableNames = new StringList();
 

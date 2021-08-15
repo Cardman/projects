@@ -3,6 +3,7 @@ package code.bean.help.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.bean.help.analyze.HelpResultText;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.sml.Element;
@@ -11,7 +12,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public abstract class HelpAnaRendElement extends AnaRendParentBlock {
+public abstract class HelpAnaRendElement extends AnaRendParentBlock implements AnaRendBuildEl {
     private final Element read;
     private final StringMap<HelpResultText> attributes = new StringMap<HelpResultText>();
 

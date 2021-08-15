@@ -9,7 +9,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public abstract class AnaRendElement extends AnaRendParentBlock {
+public abstract class AnaRendElement extends AnaRendParentBlock implements AnaRendBuildEl {
     private final Element read;
     private final StringMap<ResultText> attributes = new StringMap<ResultText>();
     private final StringMap<ResultText> attributesText = new StringMap<ResultText>();

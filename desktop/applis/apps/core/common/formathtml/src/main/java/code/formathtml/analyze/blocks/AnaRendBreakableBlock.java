@@ -1,5 +1,5 @@
 package code.formathtml.analyze.blocks;
 
-public interface AnaRendBreakableBlock {
+public interface AnaRendBreakableBlock extends AnaRendBuildEl {
     String getRealLabel();
 }

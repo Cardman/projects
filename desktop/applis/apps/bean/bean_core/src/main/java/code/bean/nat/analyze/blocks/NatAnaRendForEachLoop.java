@@ -9,12 +9,13 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class NatAnaRendForEachLoop extends AnaRendParentBlock {
+public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements AnaRendBuildEl {
 
     private final String label;
 

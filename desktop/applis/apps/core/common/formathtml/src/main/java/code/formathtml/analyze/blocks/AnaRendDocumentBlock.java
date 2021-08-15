@@ -11,7 +11,6 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.structs.BeanInfo;
 import code.sml.Element;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -23,7 +22,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private final String file;
     private final String fileName;
     private String beanName;
-    private final CustList<AnaRendBlock> bodies = new CustList<AnaRendBlock>();
     private StringList imports = new StringList();
     public AnaRendDocumentBlock(Element _elt, String _file, int _offset, String _fileName) {
         super(_offset);
@@ -33,7 +31,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     }
 
     public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, StringMap<BeanInfo> _beansInfosBefore) {
-        beanName = elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
+        setBeanName(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean())));
         imports = StringUtil.splitChar(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrAlias())),';');
         _page.setGlobalOffset(getOffset());
         _page.zeroOffset();
@@ -51,10 +49,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             _page.setImporting(null);
         }
         AnaRendBlock en_ = this;
-        CustList<AnaRendParentBlock> parents_ = new CustList<AnaRendParentBlock>();
-        CustList<AnaRendLocBreakableBlock> parentsBreakables_ = new CustList<AnaRendLocBreakableBlock>();
-        CustList<AnaRendLoop> parentsContinuable_ = new CustList<AnaRendLoop>();
-        CustList<AnaRendEval> parentsReturnable_ = new CustList<AnaRendEval>();
         StringList labels_ = new StringList();
         _anaDoc.setFileName(fileName);
         _anaDoc.setCurrentDoc(this);
@@ -70,37 +64,11 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             } else {
                 _page.setCurrentAnaBlockForEachTable(null);
             }
-            if (en_ instanceof AnaRendStdElement) {
-                if (StringUtil.quickEq(((AnaRendStdElement)en_).getRead().getTagName(),_anaDoc.getRendKeyWords().getKeyWordBody())) {
-                    bodies.add(en_);
-                }
-            }
             checkBreakable(en_, labels_, _anaDoc, _page);
-            if (en_ instanceof AnaRendParentBlock) {
-                if (en_ instanceof AnaRendLocBreakableBlock) {
-                    parentsBreakables_.add((AnaRendLocBreakableBlock) en_);
-                }
-                if (en_ instanceof AnaRendLoop) {
-                    parentsContinuable_.add((AnaRendLoop) en_);
-                }
-                if (en_ instanceof AnaRendEval && !(en_ instanceof AnaRendFinallyEval)) {
-                    AnaRendBlock ne_ = en_;
-                    boolean fin_ = false;
-                    while (ne_ instanceof AnaRendEval) {
-                        if (ne_ instanceof AnaRendFinallyEval) {
-                            fin_ = true;
-                            break;
-                        }
-                        ne_ = ne_.getNextSibling();
-                    }
-                    if (fin_) {
-                        parentsReturnable_.add((AnaRendEval) en_);
-                    }
-                }
-                parents_.add((AnaRendParentBlock) en_);
-            }
             AnaRendBlock n_ = en_.getFirstChild();
-            tryBuildExpressionLanguage(en_, this, _anaDoc, _page);
+            if (en_ instanceof AnaRendBuildEl) {
+                ((AnaRendBuildEl)en_).buildExpressionLanguage(this, _anaDoc, _page);
+            }
             if (n_ != null) {
                 en_ = n_;
                 continue;
@@ -116,27 +84,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
                 if (par_ == this) {
                     par_.removeAllVars(_page);
                     return;
-                }
-                parents_.removeLast();
-                if (par_ instanceof AnaRendLocBreakableBlock) {
-                    parentsBreakables_.removeLast();
-                }
-                if (par_ instanceof AnaRendLoop) {
-                    parentsContinuable_.removeLast();
-                }
-                if (par_ instanceof AnaRendEval && !(par_ instanceof AnaRendFinallyEval)) {
-                    AnaRendBlock ne_ = par_;
-                    boolean fin_ = false;
-                    while (ne_ instanceof AnaRendEval) {
-                        if (ne_ instanceof AnaRendFinallyEval) {
-                            fin_ = true;
-                            break;
-                        }
-                        ne_ = ne_.getNextSibling();
-                    }
-                    if (fin_) {
-                        parentsReturnable_.removeLast();
-                    }
                 }
                 par_.removeAllVars(_page);
                 if (par_ instanceof AnaRendLocBreakableBlock && !((AnaRendLocBreakableBlock)par_).getRealLabel().isEmpty()) {
@@ -159,11 +106,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     @Override
     public StringList getImports() {
         return imports;
-    }
-
-    @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        //
     }
 
     private static void checkBreakable(AnaRendBlock _block, StringList _labels, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
@@ -203,6 +145,10 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
 
     public String getBeanName() {
         return beanName;
+    }
+
+    public void setBeanName(String _beanName) {
+        this.beanName = _beanName;
     }
 
     public String getFile() {

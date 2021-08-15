@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.formathtml.analyze.AnalyzingDoc;
 
-public final class AnaRendImportForm extends AnaRendParentBlock {
+public final class AnaRendImportForm extends AnaRendParentBlock implements AnaRendBuildEl {
     private final String name;
     AnaRendImportForm(OffsetStringInfo _name, int _offset) {
         super(_offset);

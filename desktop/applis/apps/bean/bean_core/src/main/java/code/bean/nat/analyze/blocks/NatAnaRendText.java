@@ -5,12 +5,13 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.NatResultText;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendLeaf;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class NatAnaRendText extends AnaRendLeaf {
+public final class NatAnaRendText extends AnaRendLeaf implements AnaRendBuildEl {
 
     private final String expression;
 

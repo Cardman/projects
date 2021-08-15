@@ -16,7 +16,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AnaRendTextArea extends AnaRendParentBlock {
+public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRendBuildEl {
     private OperationNode rootRead;
     private OperationNode rootValue;
     private OperationNode rootConverter;

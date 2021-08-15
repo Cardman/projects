@@ -14,7 +14,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class AnaRendMessage extends AnaRendParentBlock {
+public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendBuildEl {
 
     private final Element elt;
     private CustList<OperationNode> roots;

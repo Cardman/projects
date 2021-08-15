@@ -7,7 +7,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.core.StringUtil;
 
-public final class AnaRendClass  extends AnaRendParentBlock {
+public final class AnaRendClass  extends AnaRendParentBlock implements AnaRendBuildEl {
     private final String name;
     private String fullName=EMPTY_STRING;
     AnaRendClass(OffsetStringInfo _name, int _offset) {

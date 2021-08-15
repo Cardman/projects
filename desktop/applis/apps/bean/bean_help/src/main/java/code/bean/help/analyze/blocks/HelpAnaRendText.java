@@ -4,11 +4,12 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.bean.help.analyze.HelpResultText;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendLeaf;
 import code.util.StringList;
 
-public final class HelpAnaRendText extends AnaRendLeaf {
+public final class HelpAnaRendText extends AnaRendLeaf implements AnaRendBuildEl {
 
     private final String expression;
 

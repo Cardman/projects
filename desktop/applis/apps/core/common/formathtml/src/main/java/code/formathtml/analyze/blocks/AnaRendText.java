@@ -8,7 +8,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class AnaRendText extends AnaRendLeaf {
+public final class AnaRendText extends AnaRendLeaf implements AnaRendBuildEl {
 
     private final String expression;
 

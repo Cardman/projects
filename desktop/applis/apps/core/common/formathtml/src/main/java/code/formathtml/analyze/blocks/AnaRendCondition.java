@@ -11,7 +11,7 @@ import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.core.StringUtil;
 
-public abstract class AnaRendCondition extends AnaRendParentBlock {
+public abstract class AnaRendCondition extends AnaRendParentBlock implements AnaRendBuildEl {
 
     private final String condition;
 
@@ -24,7 +24,6 @@ public abstract class AnaRendCondition extends AnaRendParentBlock {
         conditionOffset = _condition.getOffset();
     }
 
-    @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         buildConditions(_anaDoc, _page);
     }

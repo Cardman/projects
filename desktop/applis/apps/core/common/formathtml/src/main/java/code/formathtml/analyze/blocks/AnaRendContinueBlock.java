@@ -7,7 +7,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class AnaRendContinueBlock extends AnaRendLeaf {
+public final class AnaRendContinueBlock extends AnaRendLeaf implements AnaRendBuildEl {
     private final String label;
     private final int labelOffset;
     AnaRendContinueBlock(OffsetStringInfo _label, int _offset) {

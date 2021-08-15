@@ -5,12 +5,13 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.formathtml.util.InputInfo;
 import code.sml.Element;
 
-public final class NatAnaRendSelect extends AnaRendParentBlock {
+public final class NatAnaRendSelect extends AnaRendParentBlock implements AnaRendBuildEl {
     private NatOperationNode rootRead;
     private NatOperationNode rootValue;
     private NatOperationNode rootMap;

@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.formathtml.analyze.AnalyzingDoc;
 
-public final class AnaRendEmptyText extends AnaRendLeaf {
+public final class AnaRendEmptyText extends AnaRendLeaf implements AnaRendBuildEl {
 
     private final String expression;
 

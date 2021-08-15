@@ -8,7 +8,7 @@ import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 
-public final class AnaRendLine extends AnaRendLeaf {
+public final class AnaRendLine extends AnaRendLeaf implements AnaRendBuildEl {
 
     private final String expression;
 

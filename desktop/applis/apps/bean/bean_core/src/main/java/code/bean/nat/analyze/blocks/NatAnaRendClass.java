@@ -4,11 +4,12 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.util.core.StringUtil;
 
-public final class NatAnaRendClass extends AnaRendParentBlock {
+public final class NatAnaRendClass extends AnaRendParentBlock implements AnaRendBuildEl {
     private final String name;
     private String fullName= AnaRendBlockHelp.EMPTY_STRING;
     NatAnaRendClass(OffsetStringInfo _name, int _offset) {

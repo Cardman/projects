@@ -5,10 +5,11 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 
-public abstract class NatAnaRendCondition extends AnaRendParentBlock {
+public abstract class NatAnaRendCondition extends AnaRendParentBlock implements AnaRendBuildEl {
 
     private final String condition;
 

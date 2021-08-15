@@ -1,6 +1,6 @@
 package code.formathtml.analyze.blocks;
 
-public abstract class AnaRendSwitchPartCondition extends AnaRendParentBlock {
+public abstract class AnaRendSwitchPartCondition extends AnaRendParentBlock implements AnaRendBuildEl {
 
     private String importedClassName = "";
     private String variableName;

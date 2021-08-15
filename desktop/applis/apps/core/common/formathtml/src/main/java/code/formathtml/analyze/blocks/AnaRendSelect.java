@@ -19,7 +19,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AnaRendSelect extends AnaRendParentBlock {
+public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBuildEl {
     private OperationNode rootRead;
     private OperationNode rootValue;
     private OperationNode rootMap;

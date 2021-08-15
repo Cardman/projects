@@ -3,14 +3,13 @@ package code.bean.help.analyze.blocks;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.sml.Element;
-import code.sml.util.ResourcesMessagesUtil;
 import code.util.*;
-import code.util.core.StringUtil;
 
-public final class HelpAnaRendMessage extends AnaRendParentBlock {
+public final class HelpAnaRendMessage extends AnaRendParentBlock implements AnaRendBuildEl {
 
     private final Element elt;
 

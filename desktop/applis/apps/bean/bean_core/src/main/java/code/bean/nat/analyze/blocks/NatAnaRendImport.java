@@ -6,13 +6,14 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.NatResultText;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendBuildEl;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class NatAnaRendImport extends AnaRendParentBlock {
+public final class NatAnaRendImport extends AnaRendParentBlock implements AnaRendBuildEl {
     private final Element elt;
 
     private CustList<NatOperationNode> roots;
