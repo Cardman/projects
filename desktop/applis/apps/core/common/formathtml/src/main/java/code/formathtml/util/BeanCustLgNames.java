@@ -2,13 +2,12 @@ package code.formathtml.util;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
@@ -734,6 +733,34 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return true;
     }
 
+    @Override
+    public ResultErrorStd getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack, ResultErrorStd _res) {
+        byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_className, this);
+        if (cast_ == PrimitiveTypes.BOOL_WRAP) {
+            _res.setResult(BooleanStruct.of(StringUtil.quickEq(_values.first(),ON)));
+            return _res;
+        }
+        if (cast_ == PrimitiveTypes.CHAR_WRAP) {
+            _res.setResult(new CharStruct(_values.first().trim().charAt(0)));
+            return _res;
+        }
+        if (cast_ > PrimitiveTypes.LONG_WRAP) {
+            DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
+            if (!doubleInfo_.isValid()) {
+                _stack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack.getStackCall())));
+                return _res;
+            }
+            _res.setResult(NumParsers.convertToFloat(cast_,new DoubleStruct(doubleInfo_.getValue())));
+            return _res;
+        }
+        LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
+        if (!val_.isValid()) {
+            _stack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack.getStackCall())));
+            return _res;
+        }
+        _res.setResult(NumParsers.convertToInt(cast_,new LongStruct(val_.getValue())));
+        return _res;
+    }
     public DefaultBeanAliases getBeanAliases() {
         return beanAliases;
     }

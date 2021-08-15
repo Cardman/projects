@@ -13,8 +13,6 @@ public final class UnaryBooleanNatOperation extends AbstractUnaryNatOperation {
     @Override
     public void analyzeUnary(NatAnalyzedCode _page) {
         String booleanPrimType_ = _page.getAliasPrimBoolean();
-        int opOffset_ = getOperations().getOperators().firstKey();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset_, _page);
         setResultClass(booleanPrimType_);
     }
 

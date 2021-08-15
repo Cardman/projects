@@ -12,7 +12,6 @@ public abstract class AbstractUnaryNatOperation extends MethodNatOperation {
     }
     @Override
     public final void analyze(NatAnalyzedCode _page) {
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         analyzeUnary(_page);
     }
 

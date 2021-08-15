@@ -48,9 +48,6 @@ public abstract class NatOperationNode {
 
     public abstract void analyze(NatAnalyzedCode _page);
 
-    public static void setRelativeOffsetPossibleAnalyzable(int _offset, NatAnalyzedCode _page) {
-    }
-
     public static NatOperationNode createOperationNode(int _index,
                                                        int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
         NatOperationNode res_ = createOperationNodeBis(_index, _indexChild, _m, _op, _page);
@@ -143,10 +140,6 @@ public abstract class NatOperationNode {
                 return;
             }
         }
-    }
-
-    protected static String voidToObject(String _original) {
-        return _original;
     }
 
     protected static ClassMethodIdReturn tryGetDeclaredCustMethod(String _classes, String _name,

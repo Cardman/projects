@@ -114,33 +114,7 @@ public abstract class BeanLgNames extends LgNames {
         return getStructToBeValidatedPrim(_values, _className, _ctx, _stack, res_);
     }
 
-    public ResultErrorStd getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack, ResultErrorStd res_) {
-        byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_className, this);
-        if (cast_ == PrimitiveTypes.BOOL_WRAP) {
-            res_.setResult(BooleanStruct.of(StringUtil.quickEq(_values.first(),ON)));
-            return res_;
-        }
-        if (cast_ == PrimitiveTypes.CHAR_WRAP) {
-            res_.setResult(new CharStruct(_values.first().trim().charAt(0)));
-            return res_;
-        }
-        if (cast_ > PrimitiveTypes.LONG_WRAP) {
-            DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
-            if (!doubleInfo_.isValid()) {
-                _stack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack.getStackCall())));
-                return res_;
-            }
-            res_.setResult(NumParsers.convertToFloat(cast_,new DoubleStruct(doubleInfo_.getValue())));
-            return res_;
-        }
-        LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
-        if (!val_.isValid()) {
-            _stack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack.getStackCall())));
-            return res_;
-        }
-        res_.setResult(NumParsers.convertToInt(cast_,new LongStruct(val_.getValue())));
-        return res_;
-    }
+    public abstract ResultErrorStd getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack, ResultErrorStd _res);
 
     public String getAliasPrimBoolean() {
         return getContent().getPrimTypes().getAliasPrimBoolean();

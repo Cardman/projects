@@ -21,7 +21,7 @@ public final class AffectationNatOperation extends MethodNatOperation {
     @Override
     public void analyze(NatAnalyzedCode _page) {
         StrTypes ops_ = getOperations().getOperators();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
+        ops_.firstKey();
         NatSettableElResult elt_ = tryGetSettable(this);
         NatOperationNode settableOp_ = (SettableAbstractFieldNatOperation) elt_;
         setResultClass(settableOp_.getNames());

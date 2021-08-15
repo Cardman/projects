@@ -17,9 +17,6 @@ public final class InternGlobalNatOperation extends LeafNatOperation {
 
     @Override
     public void analyze(NatAnalyzedCode _page) {
-        NatOperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String arg_ = analyzingDoc.getInternGlobalClass();
         setResultClass(arg_);
     }

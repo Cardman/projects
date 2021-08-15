@@ -15,9 +15,6 @@ public final class SettableFieldNatOperation extends
     }
     @Override
     public void analyze(NatAnalyzedCode _page) {
-        NatOperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String fieldName_ = interf.getFieldName();
         String cl_ = StandardFieldOperation.getFrom(_page,this);
         NatFieldResult r_ = resolveDeclaredCustField(cl_, fieldName_, _page);

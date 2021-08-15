@@ -31,7 +31,6 @@ public final class FinalVariableNatOperation extends LeafNatOperation {
         NatOperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ variableContent.getOff(), _page);
         if (!className.isEmpty()) {
             variableContent.setVariableName(str_);
             setResultClass(className);

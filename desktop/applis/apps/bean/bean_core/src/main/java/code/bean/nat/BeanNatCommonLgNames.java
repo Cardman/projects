@@ -203,18 +203,18 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     }
 
     @Override
-    public ResultErrorStd getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack, ResultErrorStd res_) {
+    public ResultErrorStd getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack, ResultErrorStd _res) {
         if (StringUtil.quickEq(_className,getAliasPrimBoolean())) {
-            res_.setResult(BooleanStruct.of(StringUtil.quickEq(_values.first(),ON)));
-            return res_;
+            _res.setResult(BooleanStruct.of(StringUtil.quickEq(_values.first(),ON)));
+            return _res;
         }
         LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
         if (!val_.isValid()) {
             _stack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack.getStackCall())));
-            return res_;
+            return _res;
         }
-        res_.setResult(NumParsers.convertToInt((byte) -1,new LongStruct(val_.getValue())));
-        return res_;
+        _res.setResult(new LongStruct(val_.getValue()));
+        return _res;
     }
 
     public static void initInstancesPattern(Configuration _conf, StringMap<BeanInfo> _beansInfos) {
