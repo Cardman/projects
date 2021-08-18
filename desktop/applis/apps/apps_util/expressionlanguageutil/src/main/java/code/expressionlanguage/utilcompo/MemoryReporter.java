@@ -14,7 +14,7 @@ import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class MemoryReporter implements AbstractReporter {
@@ -156,7 +156,7 @@ public final class MemoryReporter implements AbstractReporter {
         StringMap<ContentTime> out_ = exportErr(_log,_threadFact);
         if (_log instanceof MemoryLogger) {
             ConcurrentHashMap<String, FileStruct> logs_ = ((MemoryLogger) _log).getLogs();
-            for (Map.Entry<String, FileStruct> e: logs_.entrySet()) {
+            for (Entry<String, FileStruct> e: logs_.entrySet()) {
                 String key_ = e.getKey();
                 String toFile_ = StringUtil.concat(_ex.getLogFolder(),"/",key_);
                 FileStruct value_ = e.getValue();

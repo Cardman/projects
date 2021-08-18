@@ -5,11 +5,11 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.*;
 
-import java.util.Map;
+import java.util.Map.Entry;
 
 public final class EntryMapStringStruct extends WithoutParentIdStruct implements Struct {
-    private final Map.Entry<String,Struct> entry;
-    EntryMapStringStruct(Map.Entry<String,Struct> _entry) {
+    private final Entry<String,Struct> entry;
+    EntryMapStringStruct(Entry<String,Struct> _entry) {
         entry = _entry;
     }
 

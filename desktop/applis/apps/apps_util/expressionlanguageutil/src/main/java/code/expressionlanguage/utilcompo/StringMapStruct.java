@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class StringMapStruct extends WithoutParentIdStruct implements Struct {
@@ -34,7 +34,7 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
             return NullStruct.NULL_VALUE;
         }
         CustList<EntryMapStringStruct> instantKeys_ = new CustList<EntryMapStringStruct>();
-        for (Map.Entry<String, Struct> s: elementSet.entrySet()) {
+        for (Entry<String, Struct> s: elementSet.entrySet()) {
             instantKeys_.add(new EntryMapStringStruct(s));
         }
         CustList<String> instantKeysStr_ = new CustList<String>();
@@ -91,7 +91,7 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
     }
     public ArrayStruct toSnapshot(ContextEl _contextEl, StackCall _stackCall) {
         CustList<Struct> instantValues_ = new CustList<Struct>();
-        for (Map.Entry<String, Struct> s: elementSet.entrySet()) {
+        for (Entry<String, Struct> s: elementSet.entrySet()) {
             instantValues_.add(new EntryMapStringStruct(s));
         }
         String thClass_ = ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasEntryStringObject();
