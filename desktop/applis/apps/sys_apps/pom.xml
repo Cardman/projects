@@ -12,6 +12,7 @@
 	<artifactId>sys_apps</artifactId>
 	<packaging>pom</packaging>
 	<modules>
+		<module>random</module>
 		<module>other</module>
 		<module>infos</module>
 		<module>def_fact</module>

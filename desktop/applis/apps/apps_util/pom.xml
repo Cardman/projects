@@ -14,7 +14,6 @@
 	<modules>
 		<module>streamcore</module>
 		<module>threads</module>
-		<module>random</module>
 		<module>stream</module>
 		<module>expressionlanguageint</module>
 		<module>expressionlanguageutil</module>
