@@ -8,6 +8,8 @@ import code.formathtml.analyze.*;
 import code.formathtml.analyze.blocks.*;
 import code.formathtml.exec.blocks.*;
 import code.formathtml.exec.opers.*;
+import code.formathtml.fwd.RendAnaExec;
+import code.formathtml.fwd.RendForwardInfos;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -16,30 +18,11 @@ public final class HelpRendForwardInfos {
     }
     private static RendDocumentBlock build(AnaRendDocumentBlock _ana, AnalyzingDoc _anaDoc) {
         RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getElt(), _ana.getFile(), _ana.getFileName(), _ana.getBeanName());
-        RendParentBlock curPar_ = rendDoc_;
-        AnaRendBlock en_ = _ana;
-        while (en_ != null) {
-            RendBlock loc_ = newRendBlock(en_);
-            curPar_ = complete(_anaDoc, rendDoc_, curPar_, en_, loc_);
-            AnaRendBlock n_ = en_.getFirstChild();
-            if (n_ != null) {
-                en_ = n_;
-                continue;
-            }
-            while (en_ != null) {
-                n_ = en_.getNextSibling();
-                if (n_ != null) {
-                    en_ = n_;
-                    break;
-                }
-                AnaRendParentBlock parent_ = en_.getParent();
-                curPar_ = curPar_.getParent();
-                if (curPar_ == null) {
-                    en_ = null;
-                } else {
-                    en_ = parent_;
-                }
-            }
+        RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
+        while (pair_.getRead() != null) {
+            RendBlock loc_ = newRendBlock(pair_.getRead());
+            pair_.setWrite(complete(_anaDoc, rendDoc_, pair_.getWrite(), pair_.getRead(), loc_));
+            RendForwardInfos.nextPair(pair_);
         }
         return rendDoc_;
     }

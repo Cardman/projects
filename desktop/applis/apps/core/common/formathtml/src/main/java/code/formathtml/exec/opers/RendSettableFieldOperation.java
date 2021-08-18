@@ -67,7 +67,7 @@ public final class RendSettableFieldOperation extends
 
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        return processField(_nodes, _right,_advStandards,_context, _rendStack);
+        return processField(_nodes, _right, _context, _rendStack);
     }
 
     @Override
@@ -76,7 +76,7 @@ public final class RendSettableFieldOperation extends
         Struct store_ = current_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_ = ExecCatOperation.localSumDiff(left_, _right, _context);
-        return processField(_nodes, res_,_advStandards,_context, _rendStack);
+        return processField(_nodes, res_, _context, _rendStack);
     }
 
     @Override
@@ -86,7 +86,7 @@ public final class RendSettableFieldOperation extends
         Argument left_ = new Argument(store_);
 
         Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context);
-        return processField(_nodes, res_,_advStandards,_context, _rendStack);
+        return processField(_nodes, res_, _context, _rendStack);
     }
 
     @Override
@@ -96,7 +96,7 @@ public final class RendSettableFieldOperation extends
         Argument left_ = new Argument(store_);
 
         Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, _cl, _context, _rendStack);
-        return processField(_nodes, res_,_advStandards,_context, _rendStack);
+        return processField(_nodes, res_, _context, _rendStack);
     }
 
     @Override
@@ -106,23 +106,23 @@ public final class RendSettableFieldOperation extends
         Argument left_ = new Argument(store_);
 
         Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        processField(_nodes, res_,_advStandards,_context, _rendStack);
+        processField(_nodes, res_, _context, _rendStack);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        processField(_nodes, _right, _advStandards, _context, _rendStack);
+        processField(_nodes, _right, _context, _rendStack);
         return _right;
     }
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        processField(_nodes, _right, _advStandards, _context, _rendStack);
+        processField(_nodes, _right, _context, _rendStack);
         return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
-    private Argument processField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
+    private Argument processField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStackCall) {
         if (_context.callsOrException(_rendStackCall.getStackCall())) {
             return _right;
         }

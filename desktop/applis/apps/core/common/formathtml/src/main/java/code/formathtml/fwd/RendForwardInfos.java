@@ -36,32 +36,35 @@ public final class RendForwardInfos {
     }
     private static RendDocumentBlock build(AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
         RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getElt(), _ana.getFile(), _ana.getFileName(), _ana.getBeanName());
-        RendParentBlock curPar_ = rendDoc_;
-        AnaRendBlock en_ = _ana;
-        while (en_ != null) {
-            RendBlock loc_ = newRendBlock(en_, _forwards);
-            curPar_ = complete(_anaDoc, rendDoc_, curPar_, en_, loc_);
-            AnaRendBlock n_ = en_.getFirstChild();
-            if (n_ != null) {
-                en_ = n_;
-                continue;
-            }
-            while (en_ != null) {
-                n_ = en_.getNextSibling();
-                if (n_ != null) {
-                    en_ = n_;
-                    break;
-                }
-                AnaRendParentBlock parent_ = en_.getParent();
-                curPar_ = curPar_.getParent();
-                if (curPar_ == null) {
-                    en_ = null;
-                } else {
-                    en_ = parent_;
-                }
-            }
+        RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
+        while (pair_.getRead() != null) {
+            RendBlock loc_ = newRendBlock(pair_.getRead(), _forwards);
+            pair_.setWrite(complete(_anaDoc, rendDoc_, pair_.getWrite(), pair_.getRead(), loc_));
+            nextPair(pair_);
         }
         return rendDoc_;
+    }
+
+    public static void nextPair(RendAnaExec _pair) {
+        AnaRendBlock n_ = _pair.getRead().getFirstChild();
+        if (n_ != null) {
+            _pair.setRead(n_);
+            return;
+        }
+        while (_pair.getRead() != null) {
+            n_ = _pair.getRead().getNextSibling();
+            if (n_ != null) {
+                _pair.setRead(n_);
+                break;
+            }
+            AnaRendParentBlock parent_ = _pair.getRead().getParent();
+            _pair.setWrite(_pair.getWrite().getParent());
+            if (_pair.getWrite() == null) {
+                _pair.setRead(null);
+            } else {
+                _pair.setRead(parent_);
+            }
+        }
     }
 
     private static RendParentBlock complete(AnalyzingDoc _anaDoc, RendDocumentBlock _rendDoc, RendParentBlock _curPar, AnaRendBlock _en, RendBlock _loc) {
