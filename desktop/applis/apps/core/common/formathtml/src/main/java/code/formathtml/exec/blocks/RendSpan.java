@@ -31,8 +31,8 @@ public final class RendSpan extends RendElement {
         setupTxt(_cont, _nextWrite, _rendStack, txt_, formatted);
     }
 
-    public static void setupTxt(Configuration _cont, Node _nextWrite, RendStackCall _rendStack, String txt_, StringMap<String> _formatted) {
-        ((Element)_nextWrite).setAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrFor()), txt_);
+    public static void setupTxt(Configuration _cont, Node _nextWrite, RendStackCall _rendStack, String _txt, StringMap<String> _formatted) {
+        ((Element)_nextWrite).setAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrFor()), _txt);
         CustList<StringList> stack_ = _rendStack.getFormParts().getFormatIdMapStack();
         if (stack_.isEmpty()) {
             return;
