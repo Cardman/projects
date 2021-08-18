@@ -27,15 +27,15 @@ public final class ResolvingSuperTypes {
         _page.getAvailableVariables().putAllMap(variables_);
     }
 
-    public static void loopWildCards(RootBlock _ana, int _location, AnalyzedPageEl _page, AnaResultPartType resType_) {
-        for (String p:StringExpUtil.getWildCards(resType_.getResult())){
+    public static void loopWildCards(RootBlock _ana, int _location, AnalyzedPageEl _page, AnaResultPartType _resType) {
+        for (String p:StringExpUtil.getWildCards(_resType.getResult())){
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_ana.getFile().getFileName());
             call_.setIndexFile(_location);
             //_in len
             call_.buildError(_page.getAnalysisMessages().getIllegalGenericSuperTypeBound(),
                     p,
-                    resType_.getResult());
+                    _resType.getResult());
             _page.addLocError(call_);
             _ana.addNameErrors(call_);
         }
