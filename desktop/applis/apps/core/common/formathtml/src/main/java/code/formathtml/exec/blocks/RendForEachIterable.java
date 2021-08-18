@@ -37,14 +37,18 @@ public final class RendForEachIterable extends RendAbstractForEachLoop {
         if (_cont.callsOrException(_rendStack.getStackCall())) {
             return null;
         }
-        Struct iterStr_ = arg_.getStruct();
+        return newRendLoopBlockStack(_label, _its, length_, arg_, this);
+    }
+
+    public static RendLoopBlockStack newRendLoopBlockStack(String _label, Struct _its, long _length, Argument _arg, RendParentBlock _block) {
+        Struct iterStr_ = _arg.getStruct();
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setLabel(_label);
         l_.getContent().setIndex(-1);
-        l_.setBlock(this);
-        l_.setCurrentVisitedBlock(this);
+        l_.setBlock(_block);
+        l_.setCurrentVisitedBlock(_block);
         l_.getContent().setStructIterator(iterStr_);
-        l_.getContent().setMaxIteration(length_);
+        l_.getContent().setMaxIteration(_length);
         l_.getContent().setContainer(_its);
         return l_;
     }

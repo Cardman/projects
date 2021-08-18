@@ -20,14 +20,14 @@ public final class HelpRendForwardInfos {
         RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getElt(), _ana.getFile(), _ana.getFileName(), _ana.getBeanName());
         RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
         while (pair_.getRead() != null) {
-            RendBlock loc_ = newRendBlock(pair_.getRead());
-            pair_.setWrite(complete(_anaDoc, rendDoc_, pair_.getWrite(), pair_.getRead(), loc_));
+            RendBlock loc_ = newHelpRendBlock(pair_.getRead());
+            pair_.setWrite(completeHelp(_anaDoc, rendDoc_, pair_.getWrite(), pair_.getRead(), loc_));
             RendForwardInfos.nextPair(pair_);
         }
         return rendDoc_;
     }
 
-    private static RendParentBlock complete(AnalyzingDoc _anaDoc, RendDocumentBlock _rendDoc, RendParentBlock _curPar, AnaRendBlock _en, RendBlock _loc) {
+    private static RendParentBlock completeHelp(AnalyzingDoc _anaDoc, RendDocumentBlock _rendDoc, RendParentBlock _curPar, AnaRendBlock _en, RendBlock _loc) {
         if (_loc != null) {
             if (_loc instanceof HelpRendStdElement && StringUtil.quickEq(((HelpRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
                 _rendDoc.getBodies().add(_loc);
@@ -41,7 +41,7 @@ public final class HelpRendForwardInfos {
         return _curPar;
     }
 
-    private static RendBlock newRendBlock(AnaRendBlock _current) {
+    private static RendBlock newHelpRendBlock(AnaRendBlock _current) {
         if (_current instanceof HelpAnaRendText){
             HelpAnaRendText t_ = (HelpAnaRendText) _current;
             ExecTextPart part_ = build(t_.getTexts());

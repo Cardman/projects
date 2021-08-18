@@ -12,6 +12,7 @@ import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
+import code.formathtml.exec.blocks.RendForEachIterable;
 import code.formathtml.exec.blocks.RendOperationNodeListOff;
 import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.exec.blocks.RendWithEl;
@@ -39,8 +40,8 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
     @Override
     public void removeAllVars(ImportingPage _ip) {
         super.removeAllVars(_ip);
-        StringMap<LoopVariable> v_ = _ip.getVars();
-        v_.removeKey(variableName);
+        StringMap<LoopVariable> vNat_ = _ip.getVars();
+        vNat_.removeKey(variableName);
         _ip.removeRefVar(variableName);
     }
 
@@ -108,16 +109,7 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
     protected RendLoopBlockStack newLoopBlockStack(ContextEl _cont, String _label, Struct _its) {
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         Argument arg_ = RendBlockHelp.iterator(_its, _cont);
-        Struct iterStr_ = arg_.getStruct();
-        RendLoopBlockStack l_ = new RendLoopBlockStack();
-        l_.setLabel(_label);
-        l_.getContent().setIndex(-1);
-        l_.setBlock(this);
-        l_.setCurrentVisitedBlock(this);
-        l_.getContent().setStructIterator(iterStr_);
-        l_.getContent().setMaxIteration(length_);
-        l_.getContent().setContainer(_its);
-        return l_;
+        return RendForEachIterable.newRendLoopBlockStack(_label,_its,length_,arg_,this);
     }
     protected Argument retrieveValue(ContextEl _ctx, RendLoopBlockStack _l) {
         return RendBlockHelp.nextCom(_l.getContent().getStructIterator(), _ctx);

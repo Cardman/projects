@@ -26,16 +26,9 @@ public final class RendForm extends RendElement implements RendFormInt {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        long currentForm_ = _rendStack.getFormParts().getCurrentForm();
-        _rendStack.getFormParts().getContainersMapStack().add(new LongTreeMap< NodeContainer>());
-        _rendStack.getFormParts().getFormatIdMapStack().add(new StringList());
-        _rendStack.getFormParts().getFormsNb().add(currentForm_);
-        _rendStack.getFormParts().getInputs().add(0L);
-        currentForm_++;
-        _rendStack.getFormParts().setCurrentForm(currentForm_);
+        feedFormParts(_rendStack, opForm, varNames);
+        long currentForm_;
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-        _rendStack.getFormParts().getCallsFormExps().add(opForm);
-        _rendStack.getFormParts().getFormsVars().add(varNames);
         Element elt_ = (Element) _nextWrite;
         if (!href_.startsWith(CALL_METHOD)) {
             procCstRef(_cont, _rendStack, elt_);
@@ -59,6 +52,18 @@ public final class RendForm extends RendElement implements RendFormInt {
         elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
         currentForm_ = _rendStack.getFormParts().getCurrentForm();
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
+    }
+
+    public static void feedFormParts(RendStackCall _rendStack, CustList<RendDynOperationNode> _opForm, StringList _varNames) {
+        long currentForm_ = _rendStack.getFormParts().getCurrentForm();
+        _rendStack.getFormParts().getContainersMapStack().add(new LongTreeMap< NodeContainer>());
+        _rendStack.getFormParts().getFormatIdMapStack().add(new StringList());
+        _rendStack.getFormParts().getFormsNb().add(currentForm_);
+        _rendStack.getFormParts().getInputs().add(0L);
+        currentForm_++;
+        _rendStack.getFormParts().setCurrentForm(currentForm_);
+        _rendStack.getFormParts().getCallsFormExps().add(_opForm);
+        _rendStack.getFormParts().getFormsVars().add(_varNames);
     }
 
     public static void feedList(StringList _alt, StringList _arg) {

@@ -16,7 +16,7 @@ public abstract class RendElement extends RendParentBlock implements RendElem {
     private final StringMap<ExecTextPart> execAttributes;
     private final StringMap<ExecTextPart> execAttributesText;
 
-    public RendElement(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
+    protected RendElement(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
         this.read = _read;
         this.execAttributes = _execAttributes;
         this.execAttributesText = _execAttributesText;
@@ -56,15 +56,19 @@ public abstract class RendElement extends RendParentBlock implements RendElem {
             }
             created_.setAttribute(e.getKey(),txt_);
         }
+        addEltStack(ip_, rw_, created_, this);
+    }
+
+    public static void addEltStack(ImportingPage _ip, RendReadWrite _rw, Element _created, RendParentBlock _block) {
         RendIfStack if_ = new RendIfStack();
         if_.setLabel("");
-        if_.setLastBlock(this);
-        if_.setBlock(this);
-        if_.setCurrentVisitedBlock(this);
-        ip_.addBlock(if_);
+        if_.setLastBlock(_block);
+        if_.setBlock(_block);
+        if_.setCurrentVisitedBlock(_block);
+        _ip.addBlock(if_);
         if_.setEntered(true);
-        rw_.setRead(getFirstChild());
-        rw_.setWrite(created_);
+        _rw.setRead(_block.getFirstChild());
+        _rw.setWrite(_created);
     }
 
     protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack);

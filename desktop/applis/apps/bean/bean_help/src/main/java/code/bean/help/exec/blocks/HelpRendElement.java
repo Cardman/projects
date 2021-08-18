@@ -6,8 +6,8 @@ import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendElem;
+import code.formathtml.exec.blocks.RendElement;
 import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
@@ -16,11 +16,11 @@ import code.util.StringMap;
 
 public abstract class HelpRendElement extends RendParentBlock implements RendElem {
     private final Element read;
-    private final StringMap<ExecTextPart> execAttributes;
+    private final StringMap<ExecTextPart> helpAttributes;
 
     protected HelpRendElement(Element _read, StringMap<ExecTextPart> _execAttributes) {
         this.read = _read;
-        this.execAttributes = _execAttributes;
+        this.helpAttributes = _execAttributes;
     }
 
     public final Element getRead() {
@@ -38,20 +38,12 @@ public abstract class HelpRendElement extends RendParentBlock implements RendEle
         Document ownerDocument_ = rw_.getDocument();
         Element created_ = appendChild(ownerDocument_, rw_, read);
         processExecAttr(_cont,created_,read, _stds, _ctx, _rendStack);
-        for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
+        for (EntryCust<String, ExecTextPart> e: helpAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
             String txt_ = HelpRenderingText.render(res_);
             created_.setAttribute(e.getKey(),txt_);
         }
-        RendIfStack if_ = new RendIfStack();
-        if_.setLabel("");
-        if_.setLastBlock(this);
-        if_.setBlock(this);
-        if_.setCurrentVisitedBlock(this);
-        ip_.addBlock(if_);
-        if_.setEntered(true);
-        rw_.setRead(getFirstChild());
-        rw_.setWrite(created_);
+        RendElement.addEltStack(ip_,rw_,created_,this);
     }
 
     protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack);

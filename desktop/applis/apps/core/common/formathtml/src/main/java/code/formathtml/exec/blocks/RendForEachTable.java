@@ -64,23 +64,12 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        Struct iterStr_;
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         Argument arg_ = iteratorMultTable(its_, _stds, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        iterStr_ = arg_.getStruct();
-        RendLoopBlockStack l_ = new RendLoopBlockStack();
-        l_.setLabel(label);
-        l_.getContent().setIndex(-1);
-        l_.getContent().setFinished(false);
-        l_.setBlock(this);
-        l_.setCurrentVisitedBlock(this);
-        l_.getContent().setStructIterator(iterStr_);
-        l_.getContent().setMaxIteration(length_);
-        l_.getContent().setContainer(its_);
-        ip_.addBlock(l_);
+        RendLoopBlockStack l_ = addedStack(ip_, its_, length_, arg_, label, this);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
@@ -95,6 +84,21 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         varsLoop_.put(variableNameSecond, lv_);
         ip_.putValueVar(variableNameSecond, new VariableWrapper(LocalVariable.newLocalVariable(defSecond_,importedClassNameSecond)));
         processLastElementLoop(_stds, _ctx, l_, _rendStack);
+    }
+
+    public static RendLoopBlockStack addedStack(ImportingPage _ip, Struct _its, long _length, Argument _arg, String _label, RendParentBlock _block) {
+        Struct iterStr_ = _arg.getStruct();
+        RendLoopBlockStack l_ = new RendLoopBlockStack();
+        l_.setLabel(_label);
+        l_.getContent().setIndex(-1);
+        l_.getContent().setFinished(false);
+        l_.setBlock(_block);
+        l_.setCurrentVisitedBlock(_block);
+        l_.getContent().setStructIterator(iterStr_);
+        l_.getContent().setMaxIteration(_length);
+        l_.getContent().setContainer(_its);
+        _ip.addBlock(l_);
+        return l_;
     }
 
     Struct processLoopTable(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {

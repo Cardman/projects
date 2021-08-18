@@ -96,19 +96,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        ImportingPage newIp_ = new ImportingPage();
-        newIp_.setTabWidth(_cont.getTabWidth());
-        newIp_.setOffset(0);
-        newIp_.setFile(val_.getFile());
-        newIp_.setReadUrl(link_);
-        newIp_.setBeanName(beanName_);
-        RendReadWrite rwLoc_ = new RendReadWrite();
-        rwLoc_.setConf(_rendStack.getFormParts());
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        rwLoc_.setDocument(rw_.getDocument());
-        rwLoc_.setWrite(rw_.getWrite());
-        rwLoc_.setRead(val_.getBodies().first().getFirstChild());
-        newIp_.setRendReadWrite(rwLoc_);
+        ImportingPage newIp_ = newImportingPage(_cont, _rendStack, ip_, link_, val_, beanName_);
         if (newBean_ != null) {
             newIp_.setGlobalArgumentStruct(newBean_);
         }
@@ -120,5 +108,22 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         ip_.addBlock(if_);
         if_.setEntered(true);
         _rendStack.addPage(newIp_);
+    }
+
+    public static ImportingPage newImportingPage(Configuration _cont, RendStackCall _rendStack, ImportingPage _ip, String _link, RendDocumentBlock _val, String _beanName) {
+        ImportingPage newIp_ = new ImportingPage();
+        newIp_.setTabWidth(_cont.getTabWidth());
+        newIp_.setOffset(0);
+        newIp_.setFile(_val.getFile());
+        newIp_.setReadUrl(_link);
+        newIp_.setBeanName(_beanName);
+        RendReadWrite rwLoc_ = new RendReadWrite();
+        rwLoc_.setConf(_rendStack.getFormParts());
+        RendReadWrite rw_ = _ip.getRendReadWrite();
+        rwLoc_.setDocument(rw_.getDocument());
+        rwLoc_.setWrite(rw_.getWrite());
+        rwLoc_.setRead(_val.getBodies().first().getFirstChild());
+        newIp_.setRendReadWrite(rwLoc_);
+        return newIp_;
     }
 }

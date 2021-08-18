@@ -22,7 +22,7 @@ public final class NatRendSpan extends NatRendElement {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        String txt_ = NatRenderingText.render(result, _stds, _ctx, _rendStack);
+        String txt_ = NatRenderingText.renderNat(result, _stds, _ctx, _rendStack);
         RendSpan.setupTxt(_cont,_nextWrite,_rendStack,txt_,formatted);
     }
 

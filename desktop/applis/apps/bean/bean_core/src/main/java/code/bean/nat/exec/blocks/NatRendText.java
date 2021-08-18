@@ -25,7 +25,7 @@ public final class NatRendText extends RendLeaf {
         Document doc_ = rend_.getDocument();
         Text t_ = doc_.createTextNode(RendBlockHelp.EMPTY_STRING);
         simpleAppendChild(doc_,rend_,t_);
-        t_.appendData(NatRenderingText.render(textPart, _stds, _ctx, _rendStack));
+        t_.appendData(NatRenderingText.renderNat(textPart, _stds, _ctx, _rendStack));
         RendBlockHelp.processBlock(_ctx, _rendStack, this);
     }
 }

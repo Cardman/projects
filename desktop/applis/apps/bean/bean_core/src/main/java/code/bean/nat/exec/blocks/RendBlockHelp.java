@@ -302,7 +302,7 @@ public final class RendBlockHelp {
             RendBlock.procCstAnc(_cont, _nextWrite, _rendStackCall);
             return;
         }
-        StringList alt_ = NatRenderingText.renderAltList(_textPart, _advStandards, _ctx, _rendStackCall);
+        StringList alt_ = NatRenderingText.renderAltListNat(_textPart, _advStandards, _ctx, _rendStackCall);
         StringList arg_ = RendBlock.arg(alt_);
         _rendStackCall.getFormParts().getAnchorsArgs().add(arg_);
         String render_ = StringUtil.join(alt_,"");
