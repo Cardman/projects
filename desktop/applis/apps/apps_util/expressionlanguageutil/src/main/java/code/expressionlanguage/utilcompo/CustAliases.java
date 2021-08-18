@@ -2970,7 +2970,7 @@ public final class CustAliases {
     static String getDateTimeText(AbstractThreadFactory _fact) {
         AbstractDateFactory dateFactory_ = _fact.getDateFactory();
         AbstractDate date_ = dateFactory_.newDate(_fact.millis());
-        return date_.format("yyyy_MM_dd_HH_mm_ss_SSS");
+        return date_.format(dateFactory_,"yyyy_MM_dd_HH_mm_ss_SSS");
     }
 
     public CustList<CommentDelimiters> defComments() {

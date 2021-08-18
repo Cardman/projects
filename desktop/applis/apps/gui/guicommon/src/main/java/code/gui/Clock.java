@@ -39,19 +39,19 @@ public class Clock {
     public static String getDateTimeText(String _separatorDate, String _sep, String _separatorTime, AbstractThreadFactory _fact) {
         AbstractDateFactory dateFactory_ = _fact.getDateFactory();
         AbstractDate date_ = dateFactory_.newDate(_fact.millis());
-        return date_.format(date(_separatorDate) + _sep + time(_separatorTime));
+        return date_.format(dateFactory_,date(_separatorDate) + _sep + time(_separatorTime));
     }
 
     public static String getDateTimeText(AbstractThreadFactory _fact) {
         AbstractDateFactory dateFactory_ = _fact.getDateFactory();
         AbstractDate date_ = dateFactory_.newDate(_fact.millis());
-        return date_.format(date(SEPARATOR_DATE) + SEPARATOR_DATE_TIME + time(SEPARATOR));
+        return date_.format(dateFactory_,date(SEPARATOR_DATE) + SEPARATOR_DATE_TIME + time(SEPARATOR));
     }
 
     public static String getTimeText(AbstractThreadFactory _fact) {
         AbstractDateFactory dateFactory_ = _fact.getDateFactory();
         AbstractDate date_ = dateFactory_.newDate(_fact.millis());
-        return date_.format(time(SEPARATOR));
+        return date_.format(dateFactory_,time(SEPARATOR));
     }
 
     private static String date(String _separatorDate) {

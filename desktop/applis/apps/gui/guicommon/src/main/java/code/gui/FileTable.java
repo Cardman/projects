@@ -140,7 +140,7 @@ public final class FileTable {
         } else if(_columnIndex == DATE_INDEX) {
             AbstractDateFactory dateFactory_ = threadFactory.getDateFactory();
             AbstractDate date_ = dateFactory_.newDate(currentFile_.lastModified());
-            return date_.format(DATE_FORMAT);
+            return date_.format(dateFactory_,DATE_FORMAT);
         } else if(_columnIndex == SIZE_INDEX) {
             return Long.toString(currentFile_.length());
         } else if(_columnIndex == PATH_INDEX) {
