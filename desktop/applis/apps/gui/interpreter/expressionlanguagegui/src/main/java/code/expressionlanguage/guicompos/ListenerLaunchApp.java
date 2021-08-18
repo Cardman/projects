@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public final class ListenerLaunchApp implements ActionListener {
-    private MainWindow mainWindow;
+    private WindowFull mainWindow;
 
-    public ListenerLaunchApp(MainWindow _mainWindow) {
+    public ListenerLaunchApp(WindowFull _mainWindow) {
         mainWindow = _mainWindow;
     }
 

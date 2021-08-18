@@ -2,7 +2,6 @@ package aiki.gui.components.fight;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
@@ -18,7 +17,7 @@ import aiki.game.fight.Fighter;
 import aiki.game.fight.animations.AnimationInt;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.FightState;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.AbilityLabel;
 import aiki.gui.components.checks.MoveFighterCheckBox;
 import aiki.gui.components.fight.events.CancelCatchKoPokemonEvent;
@@ -124,7 +123,7 @@ public class Battle extends ChildFrame {
 
     private StringMap<String> messages = new StringMap<String>();
 
-    private final MainWindow window;
+    private final WindowAiki window;
 
 //    private JSplitPane splitter;
 
@@ -230,7 +229,7 @@ public class Battle extends ChildFrame {
     private final Panel comments = Panel.newPageBox();
     private final Panel forms = Panel.newLineBox();
     private final Panel team = Panel.newPageBox();
-    public Battle(MainWindow _window, FacadeGame _facade, FrontBattle _frontBattle) {
+    public Battle(WindowAiki _window, FacadeGame _facade, FrontBattle _frontBattle) {
         super(_window.getLanguageKey(),_window);
 //        super(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
@@ -261,7 +260,7 @@ public class Battle extends ChildFrame {
 
     public void initMessages() {
         String lg_ = window.getLanguageKey();
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, BATTLE);
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, BATTLE);
     }
 
     public void setMessages() {
@@ -372,7 +371,7 @@ public class Battle extends ChildFrame {
 //        c_.gridwidth = GridBagConstraints.REMAINDER;
 //        grid.setConstraints(fleeWeb, c_);
         if (!facade.getFight().getFightType().isExisting()) {
-            validateActions = new LabelButton(MainWindow.OK);
+            validateActions = new LabelButton(WindowAiki.OK);
             validateActions.addMouseListener(new EndFightEvent(this));
             //fleeWeb.add(validateActions);
             //upper.add(fleeWeb);
@@ -421,7 +420,7 @@ public class Battle extends ChildFrame {
             fleeWeb.add(web);
             fleeWeb.add(nicknameLabel);
             fleeWeb.add(nickname);
-            LabelButton ok_ = new LabelButton(MainWindow.OK);
+            LabelButton ok_ = new LabelButton(WindowAiki.OK);
             ok_.addMouseListener(new ValidateCaughtPokemonNicknameEvent(this));
             fleeWeb.add(ok_);
 //            UPPER.add(fleeWeb);
@@ -435,7 +434,7 @@ public class Battle extends ChildFrame {
             fleeWeb.add(nicknameLabel);
             fleeWeb.add(nickname);
             addBalls();
-            LabelButton ok_ = new LabelButton(MainWindow.OK);
+            LabelButton ok_ = new LabelButton(WindowAiki.OK);
             ok_.addMouseListener(new CatchKoPokemonEvent(this));
             fleeWeb.add(ok_);
             cancelCatch = new LabelButton();
@@ -1548,7 +1547,7 @@ public class Battle extends ChildFrame {
         return htmlDialogs.first().isVisible();
     }
 
-    public MainWindow getWindow() {
+    public WindowAiki getWindow() {
         return window;
     }
 }

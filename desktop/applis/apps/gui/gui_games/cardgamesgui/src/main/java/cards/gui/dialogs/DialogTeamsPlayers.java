@@ -1,6 +1,6 @@
 package cards.gui.dialogs;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.network.common.select.TeamsPlayers;
 import code.gui.Panel;
 import code.gui.TextLabel;
@@ -19,10 +19,10 @@ public final class DialogTeamsPlayers extends DialogCards {
     public DialogTeamsPlayers() {
         setAccessFile(DIALOG_ACCESS);
     }
-    public static void initDialogTeamsPlayers(MainWindow _fenetre) {
+    public static void initDialogTeamsPlayers(WindowCards _fenetre) {
         _fenetre.getDialogTeamsPlayers().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogTeamsPlayers().messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogTeamsPlayers().getAccessFile());
+        _fenetre.getDialogTeamsPlayers().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogTeamsPlayers().getAccessFile());
         _fenetre.getDialogTeamsPlayers().setTitle(_fenetre.getDialogTeamsPlayers().messages.getVal(TITLE));
         _fenetre.getDialogTeamsPlayers().setLocationRelativeTo(_fenetre);
     }

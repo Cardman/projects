@@ -1,16 +1,16 @@
 package aiki.gui.threads;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
 public final class AfterLoadingThread implements Runnable {
 
-    private MainWindow window;
+    private WindowAiki window;
 
     private String fileName;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    AfterLoadingThread(MainWindow _window, String _fileName) {
+    AfterLoadingThread(WindowAiki _window, String _fileName) {
         window = _window;
         fileName = _fileName;
     }

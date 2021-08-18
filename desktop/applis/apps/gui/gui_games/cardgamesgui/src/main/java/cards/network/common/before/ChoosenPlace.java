@@ -2,7 +2,7 @@ package cards.network.common.before;
 import code.util.*;
 
 
-public final class ChoosenPlace extends PlayerActionBeforeGame {
+public final class ChoosenPlace extends PlayerActionBeforeGameCards {
 
     private int place;
 

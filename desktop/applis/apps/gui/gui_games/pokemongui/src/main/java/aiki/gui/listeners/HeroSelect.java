@@ -3,15 +3,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import aiki.game.player.enums.Sex;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 
 public class HeroSelect extends MouseAdapter {
 
-    private MainWindow window;
+    private WindowAiki window;
 
     private Sex sex;
 
-    public HeroSelect(MainWindow _window, Sex _sex) {
+    public HeroSelect(WindowAiki _window, Sex _sex) {
         window = _window;
         sex = _sex;
     }

@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.president.enumerations.CardPresident;
 import code.gui.*;
 import code.gui.images.AbstractImage;
@@ -16,8 +16,8 @@ import code.util.core.NumberUtil;
 public class CardPresidentCellRenderer extends CustCellRender<CardPresident> {
     private CardPresident card;
     private boolean selectionne;
-    private final MainWindow window;
-    public CardPresidentCellRenderer(MainWindow _window) {
+    private final WindowCards window;
+    public CardPresidentCellRenderer(WindowCards _window) {
         window = _window;
     }
     @Override

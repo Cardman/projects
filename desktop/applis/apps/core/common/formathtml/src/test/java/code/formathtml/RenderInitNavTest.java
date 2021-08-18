@@ -38,11 +38,11 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfigurationBis a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         a_.getDual().setFilesConfName("conf");
@@ -79,11 +79,11 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfigurationBis a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         a_.getDual().setFilesConfName("conf");
@@ -117,11 +117,11 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file2");
         files_.put("conf",file_.toString());
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfigurationBis a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         a_.getDual().setFilesConfName("conf");
@@ -154,11 +154,11 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfigurationBis a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         a_.getDual().setFilesConfName("conf2");
@@ -203,7 +203,7 @@ public final class RenderInitNavTest extends CommonRender {
 
         BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
@@ -281,7 +281,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
@@ -372,7 +372,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
@@ -464,7 +464,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         files_.put("res.txt", "content");
@@ -552,11 +552,11 @@ public final class RenderInitNavTest extends CommonRender {
         file_ = new StringBuilder();
         file_.append("my_file");
         files_.put("conf",file_.toString());
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
         AnalyzedTestConfigurationBis a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         a_.getDual().setFilesConfName("conf");
@@ -603,7 +603,7 @@ public final class RenderInitNavTest extends CommonRender {
 
         BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
@@ -677,7 +677,7 @@ public final class RenderInitNavTest extends CommonRender {
 
         BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
         basicStandards(lgNames_);
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "";
@@ -710,7 +710,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         BeanCustLgNames lgNames_ = new BeanCustLgNamesFailImpl();
         basicStandards(lgNames_);
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
@@ -791,7 +791,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         BeanCustLgNames lgNames_ = new BeanCustLgNamesFailMessImpl();
         basicStandards(lgNames_);
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
@@ -1239,7 +1239,7 @@ public final class RenderInitNavTest extends CommonRender {
         lgNames_.getBeanAliases().setAliasMessageFormat("format");
         lgNames_.getBeanAliases().setAliasMessageGetArgs("getArgs");
         lgNames_.getBeanAliases().setAliasMessageSetArgs("setArgs");
-        InitializationLgNames.basicStandards(lgNames_);
+        InitializationLgNamesRender.basicStandards(lgNames_);
         lgNames_.getContent().getMathRef().setAliasMath("java.lang.$math");
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();

@@ -3,7 +3,7 @@ import java.awt.Dimension;
 
 import javax.swing.WindowConstants;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.panels.PanelTricksHandsTarot;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.TricksHandsTarot;
@@ -12,7 +12,7 @@ import code.util.StringList;
 
 public final class DialogTricksTarot extends DialogCards {
 
-    public static void setDialogTricksTarot(String _titre, MainWindow _fenetre) {
+    public static void setDialogTricksTarot(String _titre, WindowCards _fenetre) {
         _fenetre.getDialogTricksTarot().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogTricksTarot().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogTricksTarot().setTitle(_titre);
@@ -20,11 +20,11 @@ public final class DialogTricksTarot extends DialogCards {
         _fenetre.getDialogTricksTarot().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
     public static void init(TricksHandsTarot _tricksHands, byte _numberPlayers,
-            StringList _pseudos, DisplayingTarot _displayingTarot, MainWindow _window) {
+            StringList _pseudos, DisplayingTarot _displayingTarot, WindowCards _window) {
         _window.getDialogTricksTarot().setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingTarot,_window);
     }
     private void setDialogue(TricksHandsTarot _tricksHands, byte _numberPlayers,
-            StringList _pseudos, DisplayingTarot _displayingTarot, MainWindow _window) {
+            StringList _pseudos, DisplayingTarot _displayingTarot, WindowCards _window) {
 
         _tricksHands.sortHands(_displayingTarot, _numberPlayers);
         ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsTarot(this,

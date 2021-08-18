@@ -8,7 +8,7 @@ import cards.belote.DisplayingBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.events.AddSuitEvent;
 import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
@@ -46,7 +46,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     public DialogDisplayingBelote() {
         setAccessFile(DIALOG_ACCESS);
     }
-    public static void setDialogDisplayingBelote(String _titre, MainWindow _fenetre) {
+    public static void setDialogDisplayingBelote(String _titre, WindowCards _fenetre) {
         //super(_titre, _fenetre, true);
         _fenetre.getDialogDisplayingBelote().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogDisplayingBelote().setMain(_fenetre);
@@ -58,16 +58,16 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         _fenetre.getDialogDisplayingBelote().setDialogue(_fenetre);
     }
 
-    private void initMessageName(MainWindow _parent) {
+    private void initMessageName(WindowCards _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile());
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile());
     }
     public static DisplayingBelote getDisplaying(DialogDisplayingBelote _dialog) {
         _dialog.setVisible(true);
         return _dialog.displayingBelote;
     }
 
-    public void setDialogue(MainWindow _window) {
+    public void setDialogue(WindowCards _window) {
         initMessageName(_window);
         Panel container_=Panel.newBorder();
         Panel panneau_=Panel.newGrid(0,2);
@@ -142,7 +142,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     }
 
     @Override
-    public void removeSuit(MainWindow _window) {
+    public void removeSuit(WindowCards _window) {
         String lg_ = _window.getLanguageKey();
         //Retirer du tri
         if(orderedSuits.nombreDeCouleurs()<4||listeChoix.getItemCount()<4) {

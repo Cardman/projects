@@ -2,15 +2,15 @@ package cards.gui.dialogs.events;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.DialogDisplaying;
 
 public class RemoveSuitEvent extends MouseAdapter {
 
     private DialogDisplaying dialog;
-    private MainWindow window;
+    private WindowCards window;
 
-    public RemoveSuitEvent(DialogDisplaying _dialog, MainWindow _window) {
+    public RemoveSuitEvent(DialogDisplaying _dialog, WindowCards _window) {
         dialog = _dialog;
         window = _window;
     }

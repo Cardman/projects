@@ -5,11 +5,9 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.renders.LaunchingRenders;
 import code.threads.AbstractAtomicInteger;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public final class RenderEvent extends AbstractEvent {
 
-    RenderEvent(MainWindow _window, AbstractAtomicInteger _at) {
+    RenderEvent(WindowApps _window, AbstractAtomicInteger _at) {
         super(_window,_at);
     }
 
@@ -19,7 +17,7 @@ public final class RenderEvent extends AbstractEvent {
     }
 
     @Override
-    protected void launch(MainWindow _window) {
+    protected void launch(WindowApps _window) {
         String lg_ = _window.getLanguageKey();
         LaunchingRenders l_;
         l_ = new LaunchingRenders(_window.getFrames());

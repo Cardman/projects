@@ -5723,7 +5723,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
 
     private static AnalyzedTestConfiguration getConfigurationQuick(StringMap<String> _files,String... _types) {
-        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Configuration conf_ = EquallableRenderUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_,_types);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));

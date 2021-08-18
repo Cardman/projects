@@ -131,16 +131,16 @@ public final class DocumentReaderAikiMultiUtil {
         }
     }
 
-    private static Bye getBye(Element _element) {
+    private static ByeAiki getBye(Element _element) {
         ElementList childElements_ = _element.getChildElements();
-        Bye object_ = new Bye();
+        ByeAiki object_ = new ByeAiki();
         for (Element c: childElements_) {
             getBye(object_,c.getAttribute(ATTR_FIELD),c);
         }
         return object_;
     }
 
-    private static void getBye(Bye _object, String _fieldName, Element _element) {
+    private static void getBye(ByeAiki _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_FORCED)) {
             _object.setForced(DocumentReaderCoreUtil.getBoolean(_element));
             return;
@@ -203,7 +203,7 @@ public final class DocumentReaderAikiMultiUtil {
         }
     }
 
-    private static void getNewPlayer(NewPlayer _object, String _fieldName, Element _element) {
+    private static void getNewPlayer(NewPlayerAiki _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_PSEUDO)) {
             _object.setPseudo(DocumentReaderCoreUtil.getString(_element));
             return;
@@ -223,26 +223,26 @@ public final class DocumentReaderAikiMultiUtil {
         getPlayerActionBeforeGame(_object, _fieldName, _element);
     }
 
-    private static PlayerActionBeforeGame getPlayerActionBeforeGame(Element _element) {
+    private static PlayerActionBeforeGameAiki getPlayerActionBeforeGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
         if (StringUtil.quickEq(tagName_,TYPE_INDEX_OF_ARRIVING)) {
-            IndexOfArriving object_ = new IndexOfArriving();
+            IndexOfArrivingAiki object_ = new IndexOfArrivingAiki();
             for (Element c: childElements_) {
                 getPlayerActionBeforeGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_NEW_PLAYER)) {
-            NewPlayer object_ = new NewPlayer();
+            NewPlayerAiki object_ = new NewPlayerAiki();
             for (Element c: childElements_) {
                 getNewPlayer(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_READY)) {
-            Ready object_ = new Ready();
+            ReadyAiki object_ = new ReadyAiki();
             for (Element c: childElements_) {
                 getReady(object_,c.getAttribute(ATTR_FIELD),c);
             }
@@ -251,19 +251,19 @@ public final class DocumentReaderAikiMultiUtil {
         return null;
     }
 
-    private static void getPlayerActionBeforeGame(PlayerActionBeforeGame _object, String _fieldName, Element _element) {
+    private static void getPlayerActionBeforeGame(PlayerActionBeforeGameAiki _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_INDEX)) {
             _object.setIndex(DocumentReaderCoreUtil.getInteger(_element));
             return;
         }
     }
 
-    private static PlayerActionGame getPlayerActionGame(Element _element) {
+    private static PlayerActionGameAiki getPlayerActionGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
         if (StringUtil.quickEq(tagName_,TYPE_QUIT)) {
-            Quit object_ = new Quit();
+            QuitAiki object_ = new QuitAiki();
             for (Element c: childElements_) {
                 getQuit(object_,c.getAttribute(ATTR_FIELD),c);
             }
@@ -272,7 +272,7 @@ public final class DocumentReaderAikiMultiUtil {
         return null;
     }
 
-    private static void getPlayerActionGame(PlayerActionGame _object, String _fieldName, Element _element) {
+    private static void getPlayerActionGame(PlayerActionGameAiki _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_PLACE)) {
             _object.setPlace(DocumentReaderCoreUtil.getByte(_element));
             return;
@@ -283,7 +283,7 @@ public final class DocumentReaderAikiMultiUtil {
         }
     }
 
-    private static void getQuit(Quit _object, String _fieldName, Element _element) {
+    private static void getQuit(QuitAiki _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_CLOSING)) {
             _object.setClosing(DocumentReaderCoreUtil.getBoolean(_element));
             return;
@@ -295,7 +295,7 @@ public final class DocumentReaderAikiMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static void getReady(Ready _object, String _fieldName, Element _element) {
+    private static void getReady(ReadyAiki _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_READY)) {
             _object.setReady(DocumentReaderCoreUtil.getBoolean(_element));
             return;

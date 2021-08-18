@@ -1,7 +1,7 @@
 package cards.network.threads;
 
 import cards.facade.Games;
-import cards.network.common.Bye;
+import cards.network.common.ByeCards;
 import cards.network.common.DelegateServer;
 import cards.network.common.Quit;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
@@ -36,7 +36,7 @@ public final class Net {
 
     private IntMap<String> nicknames =new IntMap<String>();
 
-    private IntMap<SendReceiveServer> connectionsServer =new IntMap<SendReceiveServer>();
+    private IntMap<SendReceiveServerCards> connectionsServer =new IntMap<SendReceiveServerCards>();
 
     private IntMap<String> playersLocales = new IntMap<String>();
 
@@ -232,7 +232,7 @@ public final class Net {
             Net.sendObject(Net.getSocketByPlace(p, _instance),d_);
             return true;
         }
-        Bye forcedBye_ = new Bye();
+        ByeCards forcedBye_ = new ByeCards();
         forcedBye_.setForced(false);
         forcedBye_.setServer(false);
         forcedBye_.setClosing(_bye.isClosing());
@@ -246,7 +246,7 @@ public final class Net {
         return false;
     }
 
-    static void removePlayer(int _player, Bye _bye, Net _instance) {
+    static void removePlayer(int _player, ByeCards _bye, Net _instance) {
         AbstractSocket socket_ = Net.getSockets(_instance).getVal(_player);
         Net.getSockets(_instance).removeKey(_player);
         Net.getConnectionsServer(_instance).removeKey(_player);
@@ -257,7 +257,7 @@ public final class Net {
 
     /**server
      * @param _instance*/
-    public static IntMap<SendReceiveServer> getConnectionsServer(Net _instance) {
+    public static IntMap<SendReceiveServerCards> getConnectionsServer(Net _instance) {
         return _instance.connectionsServer;
     }
 

@@ -3,7 +3,7 @@ import cards.belote.beans.BeloteStandards;
 import cards.belote.beans.DetailsBeloteLoader;
 import cards.belote.beans.ResultsBeloteLoader;
 import cards.belote.beans.RulesBeloteLoader;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.animations.HelpInitializer;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
@@ -54,7 +54,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> belote_ = generateAnalyzedBelote(built_);
         StringMap<StringMap<PreparedPagesCards>> president_ = generateAnalyzedPresident(built_);
         StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot(built_);
-        MainWindow window_ = new MainWindow(language, list, belote_,president_,tarot_,cardFactories);
+        WindowCards window_ = new WindowCards(language, list, belote_,president_,tarot_,cardFactories);
 
         SoftApplicationCore.setLocation(window_, topLeft);
         window_.pack();

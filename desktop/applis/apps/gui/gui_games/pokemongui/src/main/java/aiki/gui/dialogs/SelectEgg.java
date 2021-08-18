@@ -5,7 +5,7 @@ import javax.swing.WindowConstants;
 
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorEgg;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.*;
@@ -30,13 +30,13 @@ public final class SelectEgg extends SelectDialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setSelectEgg(MainWindow _parent, FacadeGame _facade, SelectEgg _dialog) {
+    public static void setSelectEgg(WindowAiki _parent, FacadeGame _facade, SelectEgg _dialog) {
         _dialog.init(_parent, _facade);
     }
 
-    private void init(MainWindow _parent, FacadeGame _facade) {
+    private void init(WindowAiki _parent, FacadeGame _facade) {
         setDialogIcon(_parent.getImageFactory(),_parent);
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setTitle(messages.getVal(TITLE));
         facade = _facade;
         initOk();
@@ -45,7 +45,7 @@ public final class SelectEgg extends SelectDialog {
         Panel pag_ = Panel.newPageBox();
         contentPane_.add(new ScrollPane(new PaginatorEgg(_parent,pag_, this, _facade).getContainer()), BorderLayout.CENTER);
         Panel buttons_ = Panel.newLineBox();
-        LabelButton ok_ = new LabelButton(MainWindow.OK);
+        LabelButton ok_ = new LabelButton(WindowAiki.OK);
         ok_.addMouseListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);
         LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL));

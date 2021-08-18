@@ -7,7 +7,7 @@ import aiki.facade.PaginationMove;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.TmLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.components.listeners.ChangedNbResultsEvent;
@@ -104,7 +104,7 @@ public final class PaginatorMove extends Paginator {
 
     private final boolean buy;
 
-    public PaginatorMove(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d, boolean _buy) {
+    public PaginatorMove(WindowAiki _window, Panel _p, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
         super(_window, ACCESS_MOVE,_p);
         cmpNamePrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
         cmpDamagingPrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());

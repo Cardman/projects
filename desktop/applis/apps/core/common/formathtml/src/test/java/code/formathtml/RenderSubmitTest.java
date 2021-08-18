@@ -14,7 +14,7 @@ public final class RenderSubmitTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html><body><c:submit message=\"msg_example,three\" param0=\"text\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         assertEq("<html><body><input value=\"desc &amp;lt;text&amp;gt;\" type=\"submit\"/></body></html>", getRes(folder_, relative_, html_, files_));
     }
@@ -27,7 +27,7 @@ public final class RenderSubmitTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:submit message=\"msg_example,three\" param0=\"{typedString}\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -49,7 +49,7 @@ public final class RenderSubmitTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html><body><c:submit message=\"msg_example,three\" param0=\"{1/0}\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         assertNotNull(getEx(folder_, relative_, html_, files_, new StringMap<String>()));
     }
@@ -71,7 +71,7 @@ public final class RenderSubmitTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:submit message=\"msg_example,five\" param0=\"{typedString}\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -93,7 +93,7 @@ public final class RenderSubmitTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:submit message=\"msg_example_bis,three\" param0=\"text\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -115,7 +115,7 @@ public final class RenderSubmitTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:submit message=\"msg_example,three\" param0=\"text\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();

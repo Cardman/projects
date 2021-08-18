@@ -2,7 +2,7 @@ package aiki.gui.components.labels;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.components.Paginator;
@@ -66,7 +66,7 @@ public class HealingItemLabel extends SelectableLabel {
     }
 
     public void initMessages(String _lg) {
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, HEALING_ITEM_LABEL);
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, HEALING_ITEM_LABEL);
     }
 
     public void setImagesResults(AbstractImageFactory _fact, FacadeGame _facade, int _thirdColumn, int _fourthColumn, int _fifthColumn) {

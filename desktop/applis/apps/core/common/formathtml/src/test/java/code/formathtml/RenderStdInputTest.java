@@ -13,7 +13,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -32,7 +32,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -50,7 +50,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"checkbox\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -68,7 +68,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"checkbox\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -86,7 +86,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input id='myId{0}' type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -104,7 +104,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:groupId='myId\\{0\\}\\\\' type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -122,7 +122,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:groupId='myId{1/0}' type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -140,7 +140,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"text\" name=\"textField\" c:varValue=\"textField\" c:convertValue='conv'/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -161,7 +161,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"text\" name=\"textField\" c:varValue=\"textField\" c:convertField='convertField'/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -182,7 +182,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"text\" name=\"textField\" c:varValue=\"textField\" c:convertField='convertField'/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -203,7 +203,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"number\" name=\"numberField\" c:varValue=\"numberField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -221,7 +221,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"range\" name=\"numberField\" c:varValue=\"numberField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -239,7 +239,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><input type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -257,7 +257,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=$new $int[]{1}'/><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"number\" name=\"a[0]\" c:varValue=\"a[0]\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -275,7 +275,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=$new $int[]{1}'/><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"number\" name=\"a[0]\" c:varValue=\"a[0]\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -293,7 +293,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=$new $int[]{1}'/><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"number\" name=\"a[0]\" c:varValue=\"a[0]\"/><input type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -311,7 +311,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"text\" name=\"textField[0]\" c:varValue=\"textField[0]\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -343,7 +343,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:groupId='myId{}' type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -361,7 +361,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:groupId='myId}' type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -379,7 +379,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:groupId='myId\\e' type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -397,7 +397,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:groupId='myId{' type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -415,7 +415,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"text\" name=\"textField\" c:varValue=\"textField\" c:convertField='convertField'/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -437,7 +437,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:className='Object' type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -456,7 +456,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"text\" name=\"textField\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -474,7 +474,7 @@ public final class RenderStdInputTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"text\" c:varValue=\"textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();

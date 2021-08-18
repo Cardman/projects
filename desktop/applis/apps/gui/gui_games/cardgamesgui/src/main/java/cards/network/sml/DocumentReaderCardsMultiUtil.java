@@ -14,9 +14,9 @@ import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.*;
 import cards.network.common.before.ChoosenPlace;
-import cards.network.common.before.IndexOfArriving;
-import cards.network.common.before.NewPlayer;
-import cards.network.common.before.PlayerActionBeforeGame;
+import cards.network.common.before.IndexOfArrivingCards;
+import cards.network.common.before.NewPlayerCards;
+import cards.network.common.before.PlayerActionBeforeGameCards;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
 import cards.network.common.displaying.Pause;
@@ -646,16 +646,16 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static Bye getBye(Element _element) {
+    private static ByeCards getBye(Element _element) {
         ElementList childElements_ = _element.getChildElements();
-        Bye object_ = new Bye();
+        ByeCards object_ = new ByeCards();
         for (Element c: childElements_) {
             getBye(object_,c.getAttribute(ATTR_FIELD),c);
         }
         return object_;
     }
 
-    private static void getBye(Bye _object, String _fieldName, Element _element) {
+    private static void getBye(ByeCards _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_FORCED)) {
             _object.setForced(DocumentReaderCoreUtil.getBoolean(_element));
             return;
@@ -953,7 +953,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionBeforeGame(_object, _fieldName, _element);
     }
 
-    private static void getNewPlayer(NewPlayer _object, String _fieldName, Element _element) {
+    private static void getNewPlayer(NewPlayerCards _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_PSEUDO)) {
             _object.setPseudo(DocumentReaderCoreUtil.getString(_element));
             return;
@@ -973,7 +973,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionBeforeGame(_object, _fieldName, _element);
     }
 
-    private static PlayerActionBeforeGame getPlayerActionBeforeGame(Element _element) {
+    private static PlayerActionBeforeGameCards getPlayerActionBeforeGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
@@ -985,14 +985,14 @@ public final class DocumentReaderCardsMultiUtil {
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_INDEX_OF_ARRIVING)) {
-            IndexOfArriving object_ = new IndexOfArriving();
+            IndexOfArrivingCards object_ = new IndexOfArrivingCards();
             for (Element c: childElements_) {
                 getPlayerActionBeforeGame(object_,c.getAttribute(ATTR_FIELD),c);
             }
             return object_;
         }
         if (StringUtil.quickEq(tagName_,TYPE_NEW_PLAYER)) {
-            NewPlayer object_ = new NewPlayer();
+            NewPlayerCards object_ = new NewPlayerCards();
             for (Element c: childElements_) {
                 getNewPlayer(object_,c.getAttribute(ATTR_FIELD),c);
             }
@@ -1008,7 +1008,7 @@ public final class DocumentReaderCardsMultiUtil {
         return null;
     }
 
-    private static void getPlayerActionBeforeGame(PlayerActionBeforeGame _object, String _fieldName, Element _element) {
+    private static void getPlayerActionBeforeGame(PlayerActionBeforeGameCards _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_INDEX)) {
             _object.setIndex(DocumentReaderCoreUtil.getInteger(_element));
             return;

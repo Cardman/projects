@@ -9,7 +9,7 @@ import javax.swing.SwingConstants;
 import cards.consts.GameType;
 import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.events.ChangePlaceEvent;
 import cards.gui.containers.events.ChangeRulesEvent;
 import cards.gui.containers.events.GiveCardsEvent;
@@ -79,7 +79,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private final TextLabel canPlayLabel = new TextLabel("");
     private int nbCardsDiscard;
 
-    public ContainerMultiPresident(MainWindow _window, boolean _hasCreatedServer, int _nbPlayers) {
+    public ContainerMultiPresident(WindowCards _window, boolean _hasCreatedServer, int _nbPlayers) {
         super(_window);
         hasCreatedServer = _hasCreatedServer;
         if (hasCreatedServer) {
@@ -100,7 +100,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         nbChoosenPlayers = _players.getNbPlayers();
         Panel container_ = Panel.newPageBox();
         Panel panel_ = Panel.newGrid(0, 2);
-        panel_.add(new TextLabel(getMessages().getVal(MainWindow.PLACE)));
+        panel_.add(new TextLabel(getMessages().getVal(WindowCards.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getImageFactory(),getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
@@ -110,7 +110,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         indexInGame = choiceOfPlaceForPlayingGame.getCurrent().byteValue();
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
         panel_.add(choiceOfPlaceForPlayingGame.self());
-        ready = new CustCheckBox(getMessages().getVal(MainWindow.READY));
+        ready = new CustCheckBox(getMessages().getVal(WindowCards.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         container_.add(panel_);
@@ -154,10 +154,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
             playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i));
         }
         if (hasCreatedServer) {
-            LabelButton buttonRules_ = new LabelButton(getMessages().getVal(MainWindow.SELECT_RULES));
+            LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
             buttonRules_.addMouseListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
-            LabelButton button_ = new LabelButton(getMessages().getVal(MainWindow.PLAY_PRESIDENT));
+            LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
             button_.addMouseListener(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
@@ -246,7 +246,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void canDiscardPresident(AllowDiscarding _allow) {
         setCanDiscard(true);
         nbCardsDiscard = _allow.getReceivedCards().total();
-        setGivingCardsOk(new LabelButton(MainWindow.OK));
+        setGivingCardsOk(new LabelButton(WindowCards.OK));
         getGivingCardsOk().setEnabledLabel(false);
         getGivingCardsOk().addMouseListener(new GiveCardsEvent(this));
 //        getPanneauBoutonsJeu().add(getGivingCardsOk());
@@ -321,14 +321,14 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void canPlayPresident(AllowPlayingPresident _readObject) {
         setRaisonCourante(EMPTY);
         setCanPlay(true);
-        canPlayLabel.setText(getMessages().getVal(MainWindow.CAN_PLAY));
+        canPlayLabel.setText(getMessages().getVal(WindowCards.CAN_PLAY));
         updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, _readObject.isReversed());
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().add(assemble());
         if (_readObject.getStatus() == Playing.HAS_TO_EQUAL) {
-            getNoPlay().setTextAndSize(getMessages().getVal(MainWindow.NO_PLAY_NOW));
+            getNoPlay().setTextAndSize(getMessages().getVal(WindowCards.NO_PLAY_NOW));
         } else {
-            getNoPlay().setTextAndSize(getMessages().getVal(MainWindow.PASS_TRICK));
+            getNoPlay().setTextAndSize(getMessages().getVal(WindowCards.PASS_TRICK));
         }
         getNoPlay().setEnabledLabel(_readObject.isEnabledPass());
         getNoPlay().setVisibleButton(true);
@@ -343,12 +343,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         setCanPlay(true);
         if (_readObject.isPassIssue()) {
-            String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
+            String title_ = getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
             ConfirmDialog.showMessage(getOwner(), _readObject.getReason(), title_, lg_, JOptionPane.ERROR_MESSAGE);
         } else {
-            String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(_readObject.getCard(),lg_));
+            String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CANT_PLAY_CARD), Games.toString(_readObject.getCard(),lg_));
             String finalMessage_ = StringUtil.concat(mes_,RETURN_LINE,_readObject.getReason());
-            String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
+            String title_ = getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
             ConfirmDialog.showMessage(getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -454,9 +454,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
             pseudos_.put(p, getPseudoByPlace(p));
         }
         StringList list_ = new StringList(pseudos_.values());
-        MainWindow ow_ = getOwner();
+        WindowCards ow_ = getOwner();
         DialogTricksPresident.setDialogTricksPresident(
-                getMessages().getVal(MainWindow.HANDS_TRICKS_PRESIDENT), ow_);
+                getMessages().getVal(WindowCards.HANDS_TRICKS_PRESIDENT), ow_);
         DialogTricksPresident.init(_tricks, (byte) nbChoosenPlayers, list_,
                 getDisplayingPresident(),ow_);
     }
@@ -473,7 +473,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     private void placerIhmPresidentMulti(ByteMap<Playing> _status, int _nbMax) {
         Panel container_ = Panel.newBorder();
-        container_.add(new TextLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),
+        container_.add(new TextLabel(getMessages().getVal(WindowCards.HELP_GO_MENU),
                 SwingConstants.CENTER), BorderLayout.NORTH);
         String lg_ = getOwner().getLanguageKey();
         CarpetPresident tapis_ = new CarpetPresident();
@@ -512,12 +512,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
         Panel panelCards_ = Panel.newLineBox();
         Panel panelDiscard_;
         panelDiscard_= Panel.newLineBox();
-        panelDiscard_.setTitledBorder(getMessages().getVal(MainWindow.GIVEN_CARDS));
+        panelDiscard_.setTitledBorder(getMessages().getVal(WindowCards.GIVEN_CARDS));
         panelCards_.add(panelDiscard_);
         setPanelGivenCards(panelDiscard_);
         Panel panelRec_;
         panelRec_= Panel.newLineBox();
-        panelRec_.setTitledBorder(getMessages().getVal(MainWindow.RECEIVED_CARDS));
+        panelRec_.setTitledBorder(getMessages().getVal(WindowCards.RECEIVED_CARDS));
         panelCards_.add(panelRec_);
         setPanelReceivedCards(panelRec_);
         sousPanneau_.add(panelCards_);
@@ -646,11 +646,11 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
         editor_.initialize(stds_);
         scroll_.setPreferredSize(new Dimension(300,300));
-        onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
+        onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
         container_.add(onglets_,BorderLayout.CENTER);
         Panel panneau_=Panel.newPageBox();
         readyToPlay = false;
-        ready = new CustCheckBox(getMessages().getVal(MainWindow.READY));
+        ready = new CustCheckBox(getMessages().getVal(WindowCards.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 
@@ -663,7 +663,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         panneau_.add(panel_);
         if (hasCreatedServer) {
-            LabelButton button_ = new LabelButton(getMessages().getVal(MainWindow.PLAY_PRESIDENT));
+            LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
             button_.addMouseListener(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }
@@ -717,10 +717,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         hasCreatedServer = true;
         if (!Net.isProgressingGame(getOwner().getNet())) {
             Panel container_ = getPane();
-            LabelButton buttonRules_ = new LabelButton(getMessages().getVal(MainWindow.SELECT_RULES));
+            LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
             buttonRules_.addMouseListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
-            LabelButton button_ = new LabelButton(getMessages().getVal(MainWindow.PLAY_PRESIDENT));
+            LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
             button_.addMouseListener(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();

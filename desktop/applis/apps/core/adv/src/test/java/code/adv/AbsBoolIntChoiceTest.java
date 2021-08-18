@@ -2,7 +2,7 @@ package code.adv;
 
 import org.junit.Test;
 
-public final class AbsBoolIntChoiceTest extends EquallableExUtil {
+public final class AbsBoolIntChoiceTest extends EquallableAdvUtil {
     @Test
     public void choice1() {
         BoolIntChoiceImpl b_ = new BoolIntChoiceImpl(true);

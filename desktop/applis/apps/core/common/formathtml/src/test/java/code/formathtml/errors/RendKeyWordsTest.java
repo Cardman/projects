@@ -12,7 +12,7 @@ import code.util.StringMap;
 import org.junit.Test;
 
 
-public final class RendKeyWordsTest extends EquallableExUtil {
+public final class RendKeyWordsTest extends EquallableRenderUtil {
 
     @Test
     public void fail1() {
@@ -21,7 +21,7 @@ public final class RendKeyWordsTest extends EquallableExUtil {
         
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
-        InitializationLgNames.basicStandards(lgName_);
+        InitializationLgNamesRender.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
@@ -47,7 +47,7 @@ public final class RendKeyWordsTest extends EquallableExUtil {
         
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
-        InitializationLgNames.basicStandards(lgName_);
+        InitializationLgNamesRender.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
@@ -69,7 +69,7 @@ public final class RendKeyWordsTest extends EquallableExUtil {
         
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
-        InitializationLgNames.basicStandards(lgName_);
+        InitializationLgNamesRender.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
@@ -93,7 +93,7 @@ public final class RendKeyWordsTest extends EquallableExUtil {
         
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
-        InitializationLgNames.basicStandards(lgName_);
+        InitializationLgNamesRender.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
@@ -118,7 +118,7 @@ public final class RendKeyWordsTest extends EquallableExUtil {
         
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
-        InitializationLgNames.basicStandards(lgName_);
+        InitializationLgNamesRender.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
@@ -139,7 +139,7 @@ public final class RendKeyWordsTest extends EquallableExUtil {
         
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
-        InitializationLgNames.basicStandards(lgName_);
+        InitializationLgNamesRender.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
@@ -159,7 +159,7 @@ public final class RendKeyWordsTest extends EquallableExUtil {
         
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
-        InitializationLgNames.basicStandards(lgName_);
+        InitializationLgNamesRender.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
@@ -178,7 +178,7 @@ public final class RendKeyWordsTest extends EquallableExUtil {
         
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
-        InitializationLgNames.basicStandards(lgName_);
+        InitializationLgNamesRender.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
 
@@ -347,17 +347,17 @@ public final class RendKeyWordsTest extends EquallableExUtil {
     }
 
     private static AnalyzedTestConfiguration build(KeyWords _kw, BeanCustLgNames _lgName, Options _opts) {
-        AnalyzedTestContext s_ = getCtx(_kw, _lgName, _opts);
+        AnalyzedTestContextRender s_ = getCtx(_kw, _lgName, _opts);
         Configuration conf_ = new Configuration();
         return new AnalyzedTestConfiguration(conf_,s_, s_.getForwards(), _lgName);
     }
 
-    private static AnalyzedTestContext getCtx(KeyWords _kw, BeanCustLgNames _lgName, Options _opts) {
+    private static AnalyzedTestContextRender getCtx(KeyWords _kw, BeanCustLgNames _lgName, Options _opts) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setLogErr(_lgName);
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(_kw);
-        return new AnalyzedTestContext(_opts,page_, new Forwards(_lgName,null, _opts), _lgName);
+        return new AnalyzedTestContextRender(_opts,page_, new Forwards(_lgName,null, _opts), _lgName);
     }
 
     private static void validateAttrContents(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {

@@ -1,5 +1,5 @@
 package cards.gui.dialogs;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import code.gui.Dialog;
 import code.gui.TabbedPane;
 /**
@@ -8,13 +8,13 @@ import code.gui.TabbedPane;
 abstract class DialogCards extends Dialog {
 
     private TabbedPane jt=new TabbedPane();
-    private MainWindow main;
+    private WindowCards main;
     protected DialogCards() {
     }
-    public void setMain(MainWindow _main) {
+    public void setMain(WindowCards _main) {
         main = _main;
     }
-    public MainWindow getMain() {
+    public WindowCards getMain() {
         return main;
     }
     @Override

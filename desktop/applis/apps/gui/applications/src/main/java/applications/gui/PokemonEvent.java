@@ -6,13 +6,11 @@ import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicInteger;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public final class PokemonEvent extends AbstractEvent {
 
     private final AikiFactory aikiFactory;
 
-    PokemonEvent(MainWindow _window, AbstractAtomicInteger _at, AikiFactory _aikiFactory) {
+    PokemonEvent(WindowApps _window, AbstractAtomicInteger _at, AikiFactory _aikiFactory) {
         super(_window,_at);
         aikiFactory = _aikiFactory;
     }
@@ -23,7 +21,7 @@ public final class PokemonEvent extends AbstractEvent {
     }
 
     @Override
-    protected void launch(MainWindow _window) {
+    protected void launch(WindowApps _window) {
         String lg_ = _window.getLanguageKey();
         LaunchingPokemon l_;
         l_ = new LaunchingPokemon(_window.getFrames(), aikiFactory);

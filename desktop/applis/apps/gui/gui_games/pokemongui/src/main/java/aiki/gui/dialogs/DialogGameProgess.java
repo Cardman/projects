@@ -7,7 +7,7 @@ import aiki.beans.PokemonStandards;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
@@ -27,14 +27,14 @@ public final class DialogGameProgess extends Dialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setGameProgress(MainWindow _window, String _title, FacadeGame _facade,PreparedRenderedPages _pre) {
+    public static void setGameProgress(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
         _window.getDialogGameProgess().init(_window, _title, _facade,_pre);
     }
 
-    private void init(MainWindow _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
+    private void init(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
         //super(_window, true);
         setDialogIcon(_window.getImageFactory(),_window);
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
         setModal(true);
         setTitle(_title);
         setLocationRelativeTo(_window);

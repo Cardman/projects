@@ -1,17 +1,9 @@
 package code.minirts.events;
 
-import code.gui.images.AbstractImage;
-import code.gui.images.ConverterGraphicBufferedImage;
-import code.images.BaseSixtyFourUtil;
-import code.minirts.MainWindow;
-import code.stream.StreamTextFile;
-import code.util.core.StringUtil;
+import code.minirts.WindowRts;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.awt.image.MemoryImageSource;
 
 public class ImageTask implements ActionListener {
 
@@ -19,11 +11,11 @@ public class ImageTask implements ActionListener {
 
     private static final String EXT = ".";
 
-    private final MainWindow window;
+    private final WindowRts window;
 
     private int noImg;
 
-    public ImageTask(MainWindow _window) {
+    public ImageTask(WindowRts _window) {
         window = _window;
     }
 

@@ -5,7 +5,7 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;
@@ -41,18 +41,18 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
 
     private final byte numberPlayers;
     private final DisplayingTarot displayingTarot;
-    private final MainWindow window;
+    private final WindowCards window;
     private final Panel container;
     public PanelTricksHandsTarot(ChangeableTitle _parent,
             TricksHandsTarot _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
-            DisplayingTarot _displayingTarot, MainWindow _window) {
+            DisplayingTarot _displayingTarot, WindowCards _window) {
         window = _window;
         String lg_ = window.getLanguageKey();
         numberPlayers = _numberPlayers;
         displayingTarot = _displayingTarot;
-        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
         parent = _parent;
         tricksHands = _tricksHands;
         DealTarot dealt_ = tricksHands.getDistribution();

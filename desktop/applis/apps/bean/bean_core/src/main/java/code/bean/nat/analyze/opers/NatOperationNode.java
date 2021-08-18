@@ -84,7 +84,7 @@ public abstract class NatOperationNode {
         if (_m instanceof AbstractDotNatOperation) {
             NatOperationNode ch_ = _m.getFirstChild();
             if (ch_ != null) {
-                return new SettableFieldNatOperation(_index, _indexChild, _m, _op,new StandardFieldOperation(_op));
+                return new SettableFieldNatOperation(_index, _indexChild, _m, _op,new NatStandardFieldOperation(_op));
             }
         }
         if (ct_ == ConstType.LOOP_INDEX) {
@@ -95,7 +95,7 @@ public abstract class NatOperationNode {
             val_.setUsed(true);
             return new FinalVariableNatOperation(_index, _indexChild, _m, _op,val_.getClassName());
         }
-        return new SettableFieldNatOperation(_index, _indexChild, _m, _op,new StandardFieldOperation(_op));
+        return new SettableFieldNatOperation(_index, _indexChild, _m, _op,new NatStandardFieldOperation(_op));
     }
 
     public abstract NatOperationNode getFirstChild();

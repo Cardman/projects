@@ -3,15 +3,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.walk.Scene;
 import aiki.gui.threads.Painting;
 import aiki.map.enums.Direction;
-import code.gui.CustComponent;
 
 public class KeyPadListener implements KeyListener {
 
-    private final MainWindow window;
+    private final WindowAiki window;
 
     private final FacadeGame facade;
 
@@ -19,7 +18,7 @@ public class KeyPadListener implements KeyListener {
 
     private Painting thread;
 
-    public KeyPadListener(MainWindow _window, FacadeGame _facade) {
+    public KeyPadListener(WindowAiki _window, FacadeGame _facade) {
         window = _window;
         facade = _facade;
     }

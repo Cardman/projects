@@ -2,13 +2,13 @@ package aiki.gui.events;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 
 public class ConfirmNewGameEvent extends MouseAdapter {
 
-    private MainWindow window;
+    private WindowAiki window;
 
-    public ConfirmNewGameEvent(MainWindow _window) {
+    public ConfirmNewGameEvent(WindowAiki _window) {
         window = _window;
     }
 

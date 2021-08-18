@@ -24,7 +24,7 @@ public class LaunchingDemo extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindow(_language, getFrames()));
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRts(_language, getFrames()));
     }
 
 

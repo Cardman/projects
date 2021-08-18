@@ -65,32 +65,32 @@ public final class DocumentWriterAikiMultiUtil {
             doc_.appendChild(setExchangedData((ExchangedData)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof Bye) {
-            doc_.appendChild(setBye((Bye)_object, "", doc_));
+        if (_object instanceof ByeAiki) {
+            doc_.appendChild(setBye((ByeAiki)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof CheckCompatibility) {
             doc_.appendChild(setCheckCompatibility((CheckCompatibility)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof IndexOfArriving) {
-            doc_.appendChild(setPlayerActionBeforeGame((IndexOfArriving)_object, "", doc_));
+        if (_object instanceof IndexOfArrivingAiki) {
+            doc_.appendChild(setPlayerActionBeforeGame((IndexOfArrivingAiki)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof NetPokemon) {
             doc_.appendChild(setNetPokemon((NetPokemon)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof NewPlayer) {
-            doc_.appendChild(setPlayerActionBeforeGame((NewPlayer)_object, "", doc_));
+        if (_object instanceof NewPlayerAiki) {
+            doc_.appendChild(setPlayerActionBeforeGame((NewPlayerAiki)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof PlayerActionBeforeGame) {
-            doc_.appendChild(setPlayerActionBeforeGame((PlayerActionBeforeGame)_object, "", doc_));
+        if (_object instanceof PlayerActionBeforeGameAiki) {
+            doc_.appendChild(setPlayerActionBeforeGame((PlayerActionBeforeGameAiki)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof PlayerActionGame) {
-            doc_.appendChild(setPlayerActionGame((PlayerActionGame)_object, "", doc_));
+        if (_object instanceof PlayerActionGameAiki) {
+            doc_.appendChild(setPlayerActionGame((PlayerActionGameAiki)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof SentPokemon) {
@@ -115,14 +115,14 @@ public final class DocumentWriterAikiMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIndexTeam(),FIELD_INDEX_TEAM,_document));
     }
 
-    private static Element setBye(Bye _object, String _fieldName, Document _document) {
+    private static Element setBye(ByeAiki _object, String _fieldName, Document _document) {
         Element element_ = _document.createElement(TYPE_BYE);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setBye(_object,element_,_document);
         return element_;
     }
 
-    private static void setBye(Bye _object, Element _element, Document _document) {
+    private static void setBye(ByeAiki _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isForced(),FIELD_FORCED,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isClosing(),FIELD_CLOSING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isServer(),FIELD_SERVER,_document));
@@ -154,7 +154,7 @@ public final class DocumentWriterAikiMultiUtil {
         _element.appendChild(DocumentWriterAikiCoreUtil.setMapBytePokemonPlayer(_object.getTradablePokemon(),FIELD_TRADABLE_POKEMON,_document));
     }
 
-    private static void setNewPlayer(NewPlayer _object, Element _element, Document _document) {
+    private static void setNewPlayer(NewPlayerAiki _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getPseudo(),FIELD_PSEUDO,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isArriving(),FIELD_ARRIVING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLanguage(),FIELD_LANGUAGE,_document));
@@ -162,54 +162,54 @@ public final class DocumentWriterAikiMultiUtil {
         setPlayerActionBeforeGame(_object, _element, _document);
     }
 
-    private static Element setPlayerActionBeforeGame(PlayerActionBeforeGame _object, String _fieldName, Document _document) {
-        if (_object instanceof IndexOfArriving) {
+    private static Element setPlayerActionBeforeGame(PlayerActionBeforeGameAiki _object, String _fieldName, Document _document) {
+        if (_object instanceof IndexOfArrivingAiki) {
             Element element_ = _document.createElement(TYPE_INDEX_OF_ARRIVING);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionBeforeGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof NewPlayer) {
+        if (_object instanceof NewPlayerAiki) {
             Element element_ = _document.createElement(TYPE_NEW_PLAYER);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setNewPlayer((NewPlayer)_object,element_,_document);
+            setNewPlayer((NewPlayerAiki)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof Ready) {
+        if (_object instanceof ReadyAiki) {
             Element element_ = _document.createElement(TYPE_READY);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setReady((Ready)_object,element_,_document);
+            setReady((ReadyAiki)_object,element_,_document);
             return element_;
         }
         return _document.createElement(TYPE_PLAYER_ACTION_BEFORE_GAME);
     }
 
-    private static void setPlayerActionBeforeGame(PlayerActionBeforeGame _object, Element _element, Document _document) {
+    private static void setPlayerActionBeforeGame(PlayerActionBeforeGameAiki _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIndex(),FIELD_INDEX,_document));
     }
 
-    private static Element setPlayerActionGame(PlayerActionGame _object, String _fieldName, Document _document) {
-        if (_object instanceof Quit) {
+    private static Element setPlayerActionGame(PlayerActionGameAiki _object, String _fieldName, Document _document) {
+        if (_object instanceof QuitAiki) {
             Element element_ = _document.createElement(TYPE_QUIT);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setQuit((Quit)_object,element_,_document);
+            setQuit((QuitAiki)_object,element_,_document);
             return element_;
         }
         return _document.createElement(TYPE_PLAYER_ACTION_GAME);
     }
 
-    private static void setPlayerActionGame(PlayerActionGame _object, Element _element, Document _document) {
+    private static void setPlayerActionGame(PlayerActionGameAiki _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getPlace(),FIELD_PLACE,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLocale(),FIELD_LOCALE,_document));
     }
 
-    private static void setQuit(Quit _object, Element _element, Document _document) {
+    private static void setQuit(QuitAiki _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isClosing(),FIELD_CLOSING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isServer(),FIELD_SERVER,_document));
         setPlayerActionGame(_object, _element, _document);
     }
 
-    private static void setReady(Ready _object, Element _element, Document _document) {
+    private static void setReady(ReadyAiki _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isReady(),FIELD_READY,_document));
         setPlayerActionBeforeGame(_object, _element, _document);
     }

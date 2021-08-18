@@ -1,7 +1,7 @@
 package aiki.gui.threads;
 
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.walk.Scene;
 import aiki.map.enums.Direction;
 import code.gui.CustComponent;
@@ -18,14 +18,14 @@ public final class Painting implements Runnable {
 
     private Direction dir;
 
-    private MainWindow window;
+    private WindowAiki window;
 
     private int side;
 
     private int pause;
 
     /**This class thread is independant from EDT*/
-    public Painting(Scene _scene, FacadeGame _facade, Direction _dir, MainWindow _window) {
+    public Painting(Scene _scene, FacadeGame _facade, Direction _dir, WindowAiki _window) {
         scene = _scene;
         facade = _facade;
         dir = _dir;

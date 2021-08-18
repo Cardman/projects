@@ -2,7 +2,7 @@ package cards.gui.dialogs;
 import java.awt.BorderLayout;
 
 import cards.belote.RulesBelote;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import code.gui.LabelButton;
 import code.gui.Panel;
@@ -16,7 +16,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     public DialogRulesBelote(){
         setAccessFile(DIALOG_ACCESS);
     }
-    public static void initDialogRulesBelote(String _titre, MainWindow _fenetre, RulesBelote _rulesBelote) {
+    public static void initDialogRulesBelote(String _titre, WindowCards _fenetre, RulesBelote _rulesBelote) {
         _fenetre.getDialogRulesBelote().setMain(_fenetre);
         _fenetre.getDialogRulesBelote().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogRulesBelote().setTitle(_titre);
@@ -27,7 +27,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     }
 
     @Override
-    public void setDialogue(MainWindow _parent) {
+    public void setDialogue(WindowCards _parent) {
         validated = false;
         Panel container_=Panel.newBorder();
         initMessageName(_parent);

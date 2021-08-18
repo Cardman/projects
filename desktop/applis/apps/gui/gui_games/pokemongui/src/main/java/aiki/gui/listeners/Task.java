@@ -1,7 +1,7 @@
 package aiki.gui.listeners;
 
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.walk.Scene;
 import aiki.gui.threads.Painting;
 import aiki.map.enums.Direction;
@@ -16,9 +16,9 @@ public class Task implements Runnable {
 
     private FacadeGame facade;
 
-    private MainWindow window;
+    private WindowAiki window;
 
-    public Task(Scene _scene, FacadeGame _facade, MainWindow _window) {
+    public Task(Scene _scene, FacadeGame _facade, WindowAiki _window) {
         scene = _scene;
         facade = _facade;
         window = _window;

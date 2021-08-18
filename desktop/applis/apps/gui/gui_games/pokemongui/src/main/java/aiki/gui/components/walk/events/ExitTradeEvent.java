@@ -2,20 +2,20 @@ package aiki.gui.components.walk.events;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import aiki.gui.MainWindow;
-import aiki.network.stream.Quit;
+import aiki.gui.WindowAiki;
+import aiki.network.stream.QuitAiki;
 
 public class ExitTradeEvent extends MouseAdapter {
 
-    private MainWindow window;
+    private WindowAiki window;
 
-    public ExitTradeEvent(MainWindow _window) {
+    public ExitTradeEvent(WindowAiki _window) {
         window = _window;
     }
 
     @Override
     public void mouseReleased(MouseEvent _e) {
-        Quit quit_ = new Quit();
+        QuitAiki quit_ = new QuitAiki();
         quit_.setClosing(false);
         quit_.setPlace(window.getIndexInGame());
         quit_.setLocale(window.getLanguageKey());

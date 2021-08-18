@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.containers.ContainerSinglePresident;
@@ -42,19 +42,19 @@ public class ListenerCardPresidentSingleGame extends
             GamePresident game_ = container.partiePresident();
             boolean allow_ = game_.allowPlaying(DealPresident.NUMERO_UTILISATEUR, getCarteVerif());
             if (!allow_) {
-                StringBuilder mes_ = new StringBuilder(StringUtil.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_)));
+                StringBuilder mes_ = new StringBuilder(StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_)));
                 mes_.append(ContainerGame.RETURN_LINE);
                 mes_.append(Games.autorisePresident(game_,DealPresident.NUMERO_UTILISATEUR, getCarteVerif(), getIndexVerif(), lg_));
                 String finalMessage_ = mes_.toString();
-                String title_ = container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
+                String title_ = container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
                 ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
             } else {
                 container.setaJoueCarte(true);
                 container.finPliPresident(getCarteVerif(), getIndexVerif());
             }
         }else{
-            String finalMessage_ = StringUtil.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());
-            String title_ = container.getMessages().getVal(MainWindow.TOO_GAME);
+            String finalMessage_ = StringUtil.concat(container.getMessages().getVal(WindowCards.CANT_PLAY),container.getRaisonCourante());
+            String title_ = container.getMessages().getVal(WindowCards.TOO_GAME);
             ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
         }
     }

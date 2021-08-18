@@ -1,7 +1,7 @@
 package cards.network.common.before;
 
 
-public final class Ready extends PlayerActionBeforeGame {
+public final class Ready extends PlayerActionBeforeGameCards {
 
     private boolean ready;
 

@@ -6,7 +6,7 @@ import javax.swing.WindowConstants;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.events.AddSuitEvent;
 import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
@@ -43,7 +43,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     public DialogDisplayingTarot() {
         setAccessFile(DIALOG_ACCESS);
     }
-    public static void setDialogDisplayingTarot(String _titre, MainWindow _fenetre) {
+    public static void setDialogDisplayingTarot(String _titre, WindowCards _fenetre) {
         //super(_titre, _fenetre, true);
         _fenetre.getDialogDisplayingTarot().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogDisplayingTarot().setMain(_fenetre);
@@ -55,16 +55,16 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         _fenetre.getDialogDisplayingTarot().setDialogue(_fenetre);
     }
 
-    private void initMessageName(MainWindow _parent) {
+    private void initMessageName(WindowCards _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile());
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile());
     }
     public static DisplayingTarot getDisplaying(DialogDisplayingTarot _dialog) {
         _dialog.setVisible(true);
         return _dialog.displayingTarot;
     }
 
-    public void setDialogue(MainWindow _window) {
+    public void setDialogue(WindowCards _window) {
         initMessageName(_window);
         Panel container_=Panel.newBorder();
         Panel panneau_=Panel.newGrid(0,2);
@@ -136,7 +136,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         listeChoix.removeItem(listeChoix.getSelectedIndex());
     }
     @Override
-    public void removeSuit(MainWindow _window) {
+    public void removeSuit(WindowCards _window) {
         String lg_ = _window.getLanguageKey();
         //Retirer du tri
         if(orderedSuits.nombreDeCouleurs()<5||listeChoix.getItemCount()<5) {

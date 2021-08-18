@@ -2,7 +2,7 @@ package code.adv;
 
 import org.junit.Test;
 
-public final class ValueChangingTest extends EquallableExUtil {
+public final class ValueChangingTest extends EquallableAdvUtil {
     @Test
     public void act1() {
         ValChangingImpl v_ = new ValChangingImpl(false);

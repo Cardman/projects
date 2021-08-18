@@ -2,14 +2,14 @@ package aiki.gui.events;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 
 public class LoadZipEvent implements ActionListener {
 
-    private MainWindow window;
+    private WindowAiki window;
     private boolean folder;
 
-    public LoadZipEvent(MainWindow _window, boolean _folder) {
+    public LoadZipEvent(WindowAiki _window, boolean _folder) {
         window = _window;
         folder = _folder;
     }

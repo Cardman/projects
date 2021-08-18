@@ -1,6 +1,6 @@
 package code.minirts.events;
 
-import code.minirts.MainWindow;
+import code.minirts.WindowRts;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -8,8 +8,8 @@ import java.awt.event.MouseEvent;
 
 public class InteractClick extends MouseAdapter {
 
-    private MainWindow fenetre;
-    public InteractClick(MainWindow _fenetre) {
+    private WindowRts fenetre;
+    public InteractClick(WindowRts _fenetre) {
         fenetre = _fenetre;
     }
 

@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
@@ -44,11 +44,11 @@ public final class DialogSoft extends DialogCards {
     public DialogSoft() {
         setAccessFile(DIALOG_ACCESS);
     }
-    public static void initDialogSoft(String _titre, MainWindow _fenetre) {
+    public static void initDialogSoft(String _titre, WindowCards _fenetre) {
         _fenetre.getDialogSoft().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogSoft().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogSoft().messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogSoft().getAccessFile());
+        _fenetre.getDialogSoft().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogSoft().getAccessFile());
         _fenetre.getDialogSoft().parametres = _fenetre.getParametresLogiciel();
         _fenetre.getDialogSoft().setLocationRelativeTo(_fenetre);
     }
@@ -58,14 +58,14 @@ public final class DialogSoft extends DialogCards {
         return _dialog.parametres;
     }
 
-    public static void setDialogSoft(String _menu, MainWindow _fenetre) {
+    public static void setDialogSoft(String _menu, WindowCards _fenetre) {
         _fenetre.getDialogSoft().setDialogue(_menu, _fenetre);
     }
-    private void setDialogue(String _menu, MainWindow _fenetre) {
+    private void setDialogue(String _menu, WindowCards _fenetre) {
         menu = _menu;
         String lg_ = _fenetre.getLanguageKey();
         Panel container_=Panel.newBorder();
-        if(StringUtil.quickEq(menu,MainWindow.CST_LAUNCHING)) {
+        if(StringUtil.quickEq(menu, WindowCards.CST_LAUNCHING)) {
             //Lancement du logiciel
             Panel panneau_=Panel.newPageBox();
             list = new ComboBox<GameEnum>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1));
@@ -86,7 +86,7 @@ public final class DialogSoft extends DialogCards {
             saveHomeFolder = new CustCheckBox(messages.getVal(SELECT_HOME_PATH));
             panneau_.add(saveHomeFolder);
             container_.add(panneau_,BorderLayout.CENTER);
-        } else if(StringUtil.quickEq(menu,MainWindow.CST_TIMING)) {
+        } else if(StringUtil.quickEq(menu, WindowCards.CST_TIMING)) {
             Panel panneau_=Panel.newGrid(0,1);
             TextLabel label_;
             int valeur_=0;
@@ -152,7 +152,7 @@ public final class DialogSoft extends DialogCards {
 
     /**Enregistre les_ informations_ dans_ une_ variable_ et_ ferme_ la_ boite_ de_ dialogue_*/
     public void validateParams() {
-        if(StringUtil.quickEq(menu,MainWindow.CST_LAUNCHING)) {
+        if(StringUtil.quickEq(menu, WindowCards.CST_LAUNCHING)) {
 //            Object rep_ = liste.getSelectedItem();
             GameEnum rep_ = list.getCurrent();
             EnumList<GameEnum> lancement_ = new EnumList<GameEnum>();
@@ -163,7 +163,7 @@ public final class DialogSoft extends DialogCards {
             parametres.setLancement(lancement_);
             parametres.setSaveHomeFolder(saveHomeFolder.isSelected());
             closeWindow();
-        } else if(StringUtil.quickEq(menu,MainWindow.CST_TIMING)) {
+        } else if(StringUtil.quickEq(menu, WindowCards.CST_TIMING)) {
 //            JPanel panneau_=(JPanel)getContentPane().getComponent(0);
 //            JSlider slide_=null;
 //            int indiceInfo_=1;

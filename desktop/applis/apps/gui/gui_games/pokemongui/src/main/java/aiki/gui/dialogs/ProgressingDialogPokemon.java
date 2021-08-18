@@ -1,12 +1,12 @@
 package aiki.gui.dialogs;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import code.gui.ProgressingDialog;
 
 public final class ProgressingDialogPokemon extends ProgressingDialog {
 
-    private MainWindow mainWindow;
+    private WindowAiki mainWindow;
 
-    public ProgressingDialogPokemon(MainWindow _mainWindow) {
+    public ProgressingDialogPokemon(WindowAiki _mainWindow) {
         mainWindow = _mainWindow;
     }
 

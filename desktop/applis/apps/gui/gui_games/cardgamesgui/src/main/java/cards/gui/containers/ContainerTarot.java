@@ -1,10 +1,9 @@
 package cards.gui.containers;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.SwingConstants;
 
 import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;
@@ -67,7 +66,7 @@ public class ContainerTarot extends ContainerGame{
     private LabelButton slamButton;
 
 
-    ContainerTarot(MainWindow _window) {
+    ContainerTarot(WindowCards _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
     }

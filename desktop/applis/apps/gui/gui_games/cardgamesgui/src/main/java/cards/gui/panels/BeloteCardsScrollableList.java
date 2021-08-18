@@ -8,10 +8,9 @@ import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.labels.selection.CardBeloteCellRenderer;
 import code.gui.AbsGraphicList;
-import code.gui.GraphicList;
 import code.gui.TextLabel;
 import code.util.EnumList;
 import code.util.core.IndexConstants;
@@ -40,7 +39,7 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
         getContainer().setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
 
-    public void initSelectionCarteBelote(MainWindow _window) {
+    public void initSelectionCarteBelote(WindowCards _window) {
         liste.setRender(new CardBeloteCellRenderer(_window));
     }
 

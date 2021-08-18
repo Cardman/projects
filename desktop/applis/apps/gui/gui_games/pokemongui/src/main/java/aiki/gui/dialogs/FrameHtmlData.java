@@ -7,7 +7,7 @@ import aiki.beans.PokemonStandards;
 import aiki.facade.FacadeGame;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
@@ -28,10 +28,10 @@ public final class FrameHtmlData extends ChildFrame {
 
     private final ProgressingWebDialog dialog;
 
-    public FrameHtmlData(MainWindow _parent, String _title, RenderedPage _session) {
+    public FrameHtmlData(WindowAiki _parent, String _title, RenderedPage _session) {
         super(_parent.getLanguageKey(),_parent);
         setAccessFile(DIALOG_ACCESS);
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setDialogIcon(_parent);
         setLocationRelativeTo(_parent);
         setTitle(_title);
@@ -75,10 +75,10 @@ public final class FrameHtmlData extends ChildFrame {
         return dialog;
     }
 
-    public void refresh(MainWindow _window) {
+    public void refresh(WindowAiki _window) {
         String key_ = _window.getLanguageKey();
         setLanguageKey(key_);
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
         search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         session.setLanguage(key_);
         session.refresh();

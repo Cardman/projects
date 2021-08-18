@@ -22,13 +22,13 @@ public class MyValidator implements Validator {
             message_.setContent(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
             return message_;
         }
-        if (!Rate.matchesRate(((StringStruct) _value).getInstance())) {
+        if (!RateSample.matchesRate(((StringStruct) _value).getInstance())) {
             Message message_ = new Message();
             message_.setArgs(((StringStruct) _value).getInstance());
             message_.setContent(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
             return message_;
         }
-        Rate rate_ = new Rate(((StringStruct)_value).getInstance());
+        RateSample rate_ = new RateSample(((StringStruct)_value).getInstance());
         if (rate_.isZero()) {
             Message message_ = new Message();
             message_.setArgs(((StringStruct) _value).getInstance());

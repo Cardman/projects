@@ -3,7 +3,7 @@ package cards.gui.animations;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.containers.ContainerSimuPresident;
@@ -97,7 +97,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         String lg_ = container.getOwner().getLanguageKey();
         Panel contentPane_ = Panel.newPageBox();
         Panel container_=Panel.newBorder();
-        container_.add(new TextLabel(container.getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
+        container_.add(new TextLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosSimuleePresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
@@ -150,7 +150,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     @Override
     public void beginDemo() {
         String event_;
-        event_ = StringUtil.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE);
+        event_ = StringUtil.concat(container.getMessages().getVal(WindowCards.BEGIN_DEMO),ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }
 
@@ -221,7 +221,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     @Override
     public void displayTrickLeader(byte _player) {
         StringList nicknames_=pseudosSimuleePresident();
-        String mess_ = container.getMessages().getVal(MainWindow.TRICK_WINNER);
+        String mess_ = container.getMessages().getVal(WindowCards.TRICK_WINNER);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, nicknames_.get(_player)),ContainerGame.RETURN_LINE,ContainerGame.RETURN_LINE);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
     }

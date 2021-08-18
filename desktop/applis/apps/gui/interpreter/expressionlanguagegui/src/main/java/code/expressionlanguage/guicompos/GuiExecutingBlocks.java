@@ -26,7 +26,7 @@ public final class GuiExecutingBlocks {
     private FrameStruct frame;
     private StringList mainArgs;
     private OtherConfirmDialog confirm;
-    private MainWindow window;
+    private WindowFull window;
     private ExecRootBlock actionListener;
     private ExecNamedFunctionBlock actionPerformed;
     private ExecRootBlock mouseListener;
@@ -66,7 +66,7 @@ public final class GuiExecutingBlocks {
     private ExecTypeFunction pairPaintSet;
     private DefaultClosingMainWindow eventClose;
 
-    public void initApplicationParts(StringList _mainArgs, MainWindow _window) {
+    public void initApplicationParts(StringList _mainArgs, WindowFull _window) {
         mainArgs = _mainArgs;
         window = _window;
         textLabel = new TextLabel("");
@@ -532,7 +532,7 @@ public final class GuiExecutingBlocks {
         return mainArgs;
     }
 
-    public MainWindow getWindow() {
+    public WindowFull getWindow() {
         return window;
     }
 

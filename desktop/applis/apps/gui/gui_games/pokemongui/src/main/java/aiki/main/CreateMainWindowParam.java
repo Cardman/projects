@@ -3,7 +3,7 @@ package aiki.main;
 import aiki.db.DataBase;
 import aiki.db.PerCent;
 import aiki.sml.LoadingGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.threads.PerCentIncr;
 import code.gui.CustComponent;
 import code.stream.AbstractFile;
@@ -15,7 +15,7 @@ import code.util.core.StringUtil;
 Thread safe class*/
 public final class CreateMainWindowParam implements Runnable {
 
-    private MainWindow window;
+    private WindowAiki window;
 
     private LoadingGame load;
 
@@ -24,7 +24,7 @@ public final class CreateMainWindowParam implements Runnable {
     private StringMap<Object> files;
 
     /**This class thread is independant from EDT*/
-    public CreateMainWindowParam(MainWindow _window, LoadingGame _load, String _path, StringMap<Object> _files) {
+    public CreateMainWindowParam(WindowAiki _window, LoadingGame _load, String _path, StringMap<Object> _files) {
         window = _window;
         load = _load;
         path = _path;
@@ -66,7 +66,7 @@ public final class CreateMainWindowParam implements Runnable {
         CustComponent.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
     }
 
-    public MainWindow getWindow() {
+    public WindowAiki getWindow() {
         return window;
     }
 }

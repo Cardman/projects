@@ -5,14 +5,14 @@ import javax.swing.WindowConstants;
 
 import cards.belote.DisplayingBelote;
 import cards.belote.TricksHandsBelote;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.panels.PanelTricksHandsBelote;
 import code.gui.ScrollPane;
 import code.util.StringList;
 
 public final class DialogTricksBelote extends DialogCards {
 
-    public static void setDialogTricksBelote(String _titre, MainWindow _fenetre) {
+    public static void setDialogTricksBelote(String _titre, WindowCards _fenetre) {
         //super(_titre, _fenetre, true);
         _fenetre.getDialogTricksBelote().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogTricksBelote().setLocationRelativeTo(_fenetre);
@@ -23,13 +23,13 @@ public final class DialogTricksBelote extends DialogCards {
 
     public static void init(TricksHandsBelote _tricksHands,
             byte _numberPlayers, StringList _pseudos,
-            DisplayingBelote _displayingBelote, MainWindow _ow) {
+            DisplayingBelote _displayingBelote, WindowCards _ow) {
         _ow.getDialogTricksBelote().setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow);
     }
 
     private void setDialogue(TricksHandsBelote _tricksHands,
             byte _numberPlayers, StringList _pseudos,
-            DisplayingBelote _displayingBelote, MainWindow _ow) {
+            DisplayingBelote _displayingBelote, WindowCards _ow) {
         _tricksHands.sortHands(_displayingBelote, _numberPlayers);
         ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsBelote(this,
                 _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow).getContainer());

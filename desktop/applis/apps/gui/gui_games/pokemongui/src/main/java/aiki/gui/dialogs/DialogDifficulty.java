@@ -7,7 +7,7 @@ import aiki.beans.PokemonStandards;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -20,7 +20,7 @@ public final class DialogDifficulty extends Dialog {
 
     private static final String SEARCH_LABEL = "searchLabel";
 
-    private MainWindow window;
+    private WindowAiki window;
 
     private StringMap<String> messages;
 
@@ -32,16 +32,16 @@ public final class DialogDifficulty extends Dialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setDialogDifficulty(MainWindow _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
+    public static void setDialogDifficulty(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
         _window.getDialogDifficulty().init(_window, _title, _facade,_pre);
     }
 
-    private void init(MainWindow _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
+    private void init(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
         setDialogIcon(_window.getImageFactory(),_window);
         facade = _facade;
         window = _window;
         //super(_window, true);
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
         setModal(true);
         setTitle(_title);
         setLocationRelativeTo(_window);

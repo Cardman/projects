@@ -2209,7 +2209,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
     }
 
     private static AnalyzedTestConfiguration getConfigurationQuick(StringMap<String> _files, String... _types) {
-        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Configuration conf_ = EquallableRenderUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_,_types);
         Classes.validateWithoutInit(_files, a_.getAnalyzing());
         assertTrue(isEmptyErrors(a_));

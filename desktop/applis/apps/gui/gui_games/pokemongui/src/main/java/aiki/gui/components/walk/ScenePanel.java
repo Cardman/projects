@@ -15,7 +15,7 @@ import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.StorageActions;
 import aiki.game.enums.InterfaceType;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.AbilityLabel;
 import aiki.gui.components.checks.MoveEvoCheckBox;
 import aiki.gui.components.checks.MoveTutorCheckBox;
@@ -40,7 +40,7 @@ import aiki.gui.components.walk.events.HostPokemonEvent;
 import aiki.gui.components.walk.events.InteractSceneEvent;
 import aiki.gui.components.walk.events.ManageNetworkEvent;
 import aiki.gui.components.walk.events.ManageTeamEvent;
-import aiki.gui.components.walk.events.ReadyEvent;
+import aiki.gui.components.walk.events.ReadyEventAiki;
 import aiki.gui.components.walk.events.ReceiveFromHostEvent;
 import aiki.gui.components.walk.events.RemoveTmEvent;
 import aiki.gui.components.walk.events.SeePokemonDetailEvent;
@@ -55,7 +55,7 @@ import aiki.gui.components.walk.events.TakeItemFromTeamEvent;
 import aiki.gui.components.walk.events.ValidateMtEvent;
 import aiki.gui.components.walk.events.ValidateTradingEvent;
 import aiki.gui.dialogs.DialogHtmlData;
-import aiki.gui.dialogs.DialogServer;
+import aiki.gui.dialogs.DialogServerAiki;
 import aiki.gui.dialogs.SelectEgg;
 import aiki.gui.dialogs.SelectHealedMove;
 import aiki.gui.dialogs.SelectHealingItem;
@@ -72,7 +72,7 @@ import aiki.gui.listeners.Task;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import aiki.network.Net;
+import aiki.network.NetAiki;
 import aiki.network.stream.SentPokemon;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -229,7 +229,7 @@ public class ScenePanel {
 
     private StringMap<String> messages = new StringMap<String>();
 
-    private final MainWindow window;
+    private final WindowAiki window;
 
     private Panel panelMenu;
 
@@ -340,7 +340,7 @@ public class ScenePanel {
 
     private final Panel component = Panel.newLineBox();
 
-    public ScenePanel(MainWindow _window, FacadeGame _facade) {
+    public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         paintingScene = _window.getThreadFactory().newAtomicBoolean();
         facade = _facade;
         window = _window;
@@ -377,8 +377,8 @@ public class ScenePanel {
     }
 
     public void initMessages(String _lg) {
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg,SCENE_PANEL);
-        messagesTeamPanel = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, TeamPanel.TEAM_PANEL);
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg,SCENE_PANEL);
+        messagesTeamPanel = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, TeamPanel.TEAM_PANEL);
     }
 
     public void setMessages() {
@@ -652,25 +652,25 @@ public class ScenePanel {
 
     public void manageNetwork() {
         String lg_ = window.getLanguageKey();
-        DialogServer.setDialogServer(window);
-        String ip_ = DialogServer.getIpOrHostName(window.getDialogServer());
+        DialogServerAiki.setDialogServer(window);
+        String ip_ = DialogServerAiki.getIpOrHostName(window.getDialogServer());
         if (ip_ == null || ip_.isEmpty()) {
-            if (DialogServer.getIpType(window.getDialogServer()) == IpType.IP_V6) {
+            if (DialogServerAiki.getIpType(window.getDialogServer()) == IpType.IP_V6) {
                 ip_ = LOCALHOST_NEW_IP;
             } else {
                 ip_ = LOCALHOST_OLD_IP;
             }
         }
-        if (!DialogServer.isChoosen(window.getDialogServer())) {
+        if (!DialogServerAiki.isChoosen(window.getDialogServer())) {
             return;
         }
         String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(window.getFileCoreStream()), Resources.PORT_INI);
-        int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(), window.getFileCoreStream(), window.getStreams());
-        if (DialogServer.isCreate(window.getDialogServer())) {
-            window.createServer(ip_, DialogServer.getIpType(window.getDialogServer()), port_);
+        int port_ = NetCreate.tryToGetPort(fileName_, NetAiki.getPort(), window.getFileCoreStream(), window.getStreams());
+        if (DialogServerAiki.isCreate(window.getDialogServer())) {
+            window.createServer(ip_, DialogServerAiki.getIpType(window.getDialogServer()), port_);
             return;
         }
-        SocketResults connected_ = window.createClient(ip_, DialogServer.getIpType(window.getDialogServer()), false, port_);
+        SocketResults connected_ = window.createClient(ip_, DialogServerAiki.getIpType(window.getDialogServer()), false, port_);
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
                 String formatted_ = messages.getVal(UNKNOWN_HOST);
@@ -710,7 +710,7 @@ public class ScenePanel {
         line_.add(mapPanel.getContainer());
         line_.add(new TextLabel(DataBase.EMPTY_STRING));
         box_.add(line_);
-        LabelButton ok_ = new LabelButton(MainWindow.OK);
+        LabelButton ok_ = new LabelButton(WindowAiki.OK);
         ok_.addMouseListener(new ChoosePlaceEvent(this));
         box_.add(ok_);
         panelOptions.add(box_, BorderLayout.CENTER);
@@ -784,7 +784,7 @@ public class ScenePanel {
         enabledReady = false;
         readyCheck = new CustCheckBox(messages.getVal(READY));
         readyCheck.setEnabled(enabledReady);
-        readyCheck.addActionListener(new ReadyEvent(window, readyCheck));
+        readyCheck.addActionListener(new ReadyEventAiki(window, readyCheck));
         panelNetWork.add(readyCheck);
     }
 
@@ -1468,7 +1468,7 @@ public class ScenePanel {
         fish.setEnabledLabel(facade.isFishArea());
     }
 
-    private void showHtmlDialog(MainWindow _parent, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    private void showHtmlDialog(WindowAiki _parent, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
         DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
     }

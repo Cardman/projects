@@ -3068,7 +3068,7 @@ public final class GuiAliases {
             return new Argument(new TextLabelStruct(aliasTextLabel));
         }
         if (StringUtil.quickEq(_id,aliasImageLabel)) {
-            MainWindow window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
+            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
             return new Argument(new PreparedLabelStruct(window_.getImageFactory(),aliasImageLabel));
         }
         if (StringUtil.quickEq(_id,aliasRender)) {
@@ -3297,7 +3297,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            MainWindow window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
+            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
             if (_method.getParametersTypesLength() == 1) {
                 r_.setResult(new PreparedLabelStruct(window_.getImageFactory(),_args[0],aliasImageLabel));
             } else {
@@ -4277,7 +4277,7 @@ public final class GuiAliases {
                 return res_;
             }
             PreparedLabelStruct txt_ = (PreparedLabelStruct) _instance;
-            MainWindow window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
+            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
             txt_.setImage(window_.getImageFactory(),_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;

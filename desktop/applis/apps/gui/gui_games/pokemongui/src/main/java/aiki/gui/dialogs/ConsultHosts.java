@@ -5,7 +5,7 @@ import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.game.HostPokemonDuo;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.listeners.SelectHostedPokemon;
 import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
@@ -36,19 +36,19 @@ public final class ConsultHosts extends Dialog {
     private StringMap<String> messages;
 
 //    private MainWindow window;
-    private MainWindow window;
+    private WindowAiki window;
     public ConsultHosts() {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setConsultHosts(MainWindow _frame, FacadeGame _facade) {
+    public static void setConsultHosts(WindowAiki _frame, FacadeGame _facade) {
         _frame.getConsultHosts().init(_frame, _facade);
     }
 
-    private void init(MainWindow _frame, FacadeGame _facade) {
+    private void init(WindowAiki _frame, FacadeGame _facade) {
         setDialogIcon(_frame.getImageFactory(),_frame);
         window = _frame;
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _frame.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _frame.getLanguageKey(), getAccessFile());
         //super(_frame, true);
 //        window = _frame;
         setTitle(messages.getVal(TITLE));

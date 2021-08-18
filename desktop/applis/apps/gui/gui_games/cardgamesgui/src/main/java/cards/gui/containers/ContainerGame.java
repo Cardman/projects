@@ -1,5 +1,4 @@
 package cards.gui.containers;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import cards.belote.DisplayingBelote;
 import cards.belote.RulesBelote;
@@ -8,7 +7,7 @@ import cards.facade.Games;
 import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.panels.Carpet;
 import cards.gui.panels.MiniCarpet;
@@ -43,7 +42,7 @@ public class ContainerGame implements Containable {
     private Panel actionsHistory;
     private Panel panneauBoutonsJeu;
     private Panel panelHand;
-    private MainWindow window;
+    private WindowCards window;
     /**Parametres d'informations sur
     des pseudonymes*/
     private Nicknames pseudosJoueurs;
@@ -72,7 +71,7 @@ public class ContainerGame implements Containable {
     private ByteMap<Panel> declaredHandfuls = new ByteMap<Panel>();
     private Carpet tapis = new Carpet();
     private boolean changerPileFin;
-    public ContainerGame(MainWindow _window) {
+    public ContainerGame(WindowCards _window) {
         pseudosJoueurs=new Nicknames(_window.getLanguageKey());
         pause = _window.getThreadFactory().newAtomicBoolean();
         passe = _window.getThreadFactory().newAtomicBoolean();
@@ -149,7 +148,7 @@ public class ContainerGame implements Containable {
         getWindow().pack();
     }
 
-    public final MainWindow getOwner() {
+    public final WindowCards getOwner() {
         return getWindow();
     }
     protected Panel getPane() {
@@ -361,10 +360,10 @@ public class ContainerGame implements Containable {
     public void setPanneauBoutonsJeu(Panel _panneauBoutonsJeu) {
         panneauBoutonsJeu = _panneauBoutonsJeu;
     }
-    public MainWindow getWindow() {
+    public WindowCards getWindow() {
         return window;
     }
-    protected void setWindow(MainWindow _window) {
+    protected void setWindow(WindowCards _window) {
         window = _window;
     }
     public Nicknames getPseudosJoueurs() {

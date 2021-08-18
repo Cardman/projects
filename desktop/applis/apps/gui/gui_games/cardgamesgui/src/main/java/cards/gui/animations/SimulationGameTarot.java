@@ -3,7 +3,7 @@ package cards.gui.animations;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuTarot;
 import cards.tarot.*;
 import code.gui.*;
@@ -30,7 +30,7 @@ public final class SimulationGameTarot implements Runnable,SimulationGame {
         donne_.initDonne(regles_,container.getWindow().getGenerator());
         GameTarot gt_ = new GameTarot(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerTarot(gt_);
-        stopButton=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));
+        stopButton=new LabelButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
         stopButton.addMouseListener(new StopEvent(this));
         DisplayingTarot dis_ = container.getDisplayingTarot();
         simulatingTarot = new SimulatingTarotImpl(container,partieSimulee,dis_,stopButton);

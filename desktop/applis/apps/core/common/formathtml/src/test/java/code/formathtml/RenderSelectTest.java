@@ -18,7 +18,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select name='choice' default=\"\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -57,7 +57,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -95,7 +95,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select id='5' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -133,7 +133,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select groupId='5' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -171,7 +171,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertField='convertField'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -212,7 +212,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertFieldValue='convertField'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -253,7 +253,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -300,7 +300,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv' convertField='convertField'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -350,7 +350,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv' convertFieldValue='convertField'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -400,7 +400,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv' rows=\"4\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -447,7 +447,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv' rows=\"{1/0}\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -494,7 +494,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"TWO\" convert='idStr' name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -535,7 +535,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select multiple='' convert='idStr' default=\"TWO\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -589,7 +589,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -636,7 +636,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -683,7 +683,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -727,7 +727,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"$null\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -771,7 +771,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -819,7 +819,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -866,7 +866,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -913,7 +913,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -960,7 +960,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1007,7 +1007,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $enum pkg.ExEnum{ONE,TWO}");
@@ -1049,7 +1049,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $enum pkg.ExEnum{ONE,TWO}");
@@ -1097,7 +1097,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"TWO\" convert='idStr' name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1139,7 +1139,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"TWO\" convert='idStr' name=\"choice\" map=\"combo\" varValue=\"custChoice()\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1184,7 +1184,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"TWO\" convert='idStr' name=\"choice\" map=\"custChoice()\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1223,7 +1223,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select id='{1/0}' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1261,7 +1261,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertField='convertField'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1302,7 +1302,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertFieldValue='convertField'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1344,7 +1344,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/><c:select default=\"\" name=\"choice2\" map=\"combo2\" varValue=\"choice2\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1373,7 +1373,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></form><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice2\" map=\"combo2\" varValue=\"choice2\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1402,7 +1402,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1449,7 +1449,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"0\" convertValue='conv'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1486,7 +1486,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"TWO\" convert='inex' name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1527,7 +1527,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"TWO\" convert='idStr' name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1568,7 +1568,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"TWO\" multiple='' convert='idStr' name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1609,7 +1609,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"TWO\" multiple='' name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1784,7 +1784,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertField='convertField'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1825,7 +1825,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertFieldValue='convertField'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -1866,7 +1866,7 @@ public final class RenderSelectTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");

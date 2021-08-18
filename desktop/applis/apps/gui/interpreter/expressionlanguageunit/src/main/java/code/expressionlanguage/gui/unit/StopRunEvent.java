@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public final class StopRunEvent implements ActionListener {
-    private MainWindow mainWindow;
+    private WindowUnit mainWindow;
 
-    public StopRunEvent(MainWindow _mainWindow) {
+    public StopRunEvent(WindowUnit _mainWindow) {
         mainWindow = _mainWindow;
     }
 

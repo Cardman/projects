@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorPokemon;
 import aiki.gui.dialogs.events.SeePkDetailEvent;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
@@ -35,21 +35,21 @@ public final class SelectPokemon extends SelectDialog {
 //    private boolean ok;
 
     private StringMap<String> messages;
-    private MainWindow window;
+    private WindowAiki window;
 
     public SelectPokemon() {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setSelectPokemon(MainWindow _parent, FacadeGame _facade, boolean _storage, SelectPokemon _dialog) {
+    public static void setSelectPokemon(WindowAiki _parent, FacadeGame _facade, boolean _storage, SelectPokemon _dialog) {
         _dialog.init(_parent, _facade, _storage);
     }
 
-    private void init(MainWindow _parent, FacadeGame _facade, boolean _storage) {
+    private void init(WindowAiki _parent, FacadeGame _facade, boolean _storage) {
         //super(_parent, true);
         setDialogIcon(_parent.getImageFactory(),_parent);
         window = _parent;
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
 //        window = _parent;
         setTitle(messages.getVal(TITLE));
         facade = _facade;
@@ -63,7 +63,7 @@ public final class SelectPokemon extends SelectDialog {
         LabelButton detail_ = new LabelButton(messages.getVal(DETAIL));
         detail_.addMouseListener(new SeePkDetailEvent(this));
         buttons_.add(detail_);
-        LabelButton ok_ = new LabelButton(MainWindow.OK);
+        LabelButton ok_ = new LabelButton(WindowAiki.OK);
         ok_.addMouseListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);
         LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL));

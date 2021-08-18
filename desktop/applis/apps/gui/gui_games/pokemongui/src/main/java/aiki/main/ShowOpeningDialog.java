@@ -1,14 +1,14 @@
 package aiki.main;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
 public final class ShowOpeningDialog implements Runnable {
 
-    private MainWindow window;
+    private WindowAiki window;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public ShowOpeningDialog(MainWindow _window) {
+    public ShowOpeningDialog(WindowAiki _window) {
         window = _window;
     }
 

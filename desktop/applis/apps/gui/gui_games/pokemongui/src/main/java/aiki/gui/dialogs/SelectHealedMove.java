@@ -6,7 +6,7 @@ import javax.swing.WindowConstants;
 import aiki.comparators.TrMovesComparator;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.walk.HealedMoveEvent;
 import code.gui.Dialog;
 import code.gui.LabelButton;
@@ -35,13 +35,13 @@ public final class SelectHealedMove extends Dialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setSelectHealedMove(MainWindow _parent, FacadeGame _facade) {
+    public static void setSelectHealedMove(WindowAiki _parent, FacadeGame _facade) {
         _parent.getSelectHealedMove().init(_parent, _facade);
     }
 
-    private void init(MainWindow _parent, FacadeGame _facade) {
+    private void init(WindowAiki _parent, FacadeGame _facade) {
         setDialogIcon(_parent.getImageFactory(),_parent);
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setTitle(messages.getVal(TITLE));
         facade = _facade;
         Panel contentPane_ = Panel.newBorder();

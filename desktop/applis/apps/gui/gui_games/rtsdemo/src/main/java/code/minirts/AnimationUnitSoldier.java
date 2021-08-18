@@ -9,7 +9,6 @@ import code.threads.AbstractAtomicBoolean;
 import code.threads.ThreadUtil;
 
 import java.awt.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**AnimationBalle permet de deplacer
@@ -18,13 +17,13 @@ public final class AnimationUnitSoldier implements Runnable {
 
     private PanelBattle battleground;
 
-    private MainWindow window;
+    private WindowRts window;
 
     private AbstractAtomicBoolean paused;
 
     private AbstractAtomicBoolean stop;
 
-    public AnimationUnitSoldier(PanelBattle _conteneur,MainWindow _window) {
+    public AnimationUnitSoldier(PanelBattle _conteneur, WindowRts _window) {
         window = _window;
         battleground = _window.getBattleground();
         stop = _window.getStopped();

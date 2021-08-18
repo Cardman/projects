@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public final class LogErrEvent implements ActionListener {
-    private MainWindow mainWindow;
+    private WindowUnit mainWindow;
 
-    public LogErrEvent(MainWindow _mainWindow) {
+    public LogErrEvent(WindowUnit _mainWindow) {
         mainWindow = _mainWindow;
     }
 

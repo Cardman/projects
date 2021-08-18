@@ -1,17 +1,17 @@
 package aiki.main;
 import aiki.db.PerCent;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import code.gui.ThreadInvoker;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
 public final class LoadGame implements Runnable {
 
-    private MainWindow frame;
+    private WindowAiki frame;
 
     private PerCent perCent;
     /**This class thread is independant from EDT*/
-    public LoadGame(MainWindow _frame, PerCent _p) {
+    public LoadGame(WindowAiki _frame, PerCent _p) {
         frame = _frame;
         VideoLoading video_ = frame.getVideoLoading();
         frame.getDialog().init(frame, video_.getVideo(frame.getGenerator(),frame.getFileCoreStream(), frame.getFrames()), false);

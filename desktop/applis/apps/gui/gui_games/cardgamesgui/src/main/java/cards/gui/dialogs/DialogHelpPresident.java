@@ -3,7 +3,7 @@ package cards.gui.dialogs;
 import cards.consts.CardChar;
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.president.enumerations.CardPresident;
 import code.gui.Dialog;
 import code.gui.Panel;
@@ -31,7 +31,7 @@ public final class DialogHelpPresident extends Dialog {
         setResizable(false);
         setVisible(true);
     }
-    public static void setTitleDialog(MainWindow _fenetre,String _title) {
+    public static void setTitleDialog(WindowCards _fenetre, String _title) {
         _fenetre.getDialogHelpPresident().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogHelpPresident().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogHelpPresident().setTitle(_title);
@@ -72,9 +72,9 @@ public final class DialogHelpPresident extends Dialog {
         _dialog.voir();
     }
 
-    private void initMessageName(MainWindow _parent) {
+    private void initMessageName(WindowCards _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile());
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile());
     }
 
 }

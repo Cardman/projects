@@ -1,6 +1,6 @@
 package code.formathtml.sample;
 import code.bean.Bean;
-import code.formathtml.nat.StringMapObject;
+import code.formathtml.nat.StringMapObjectSample;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -18,7 +18,7 @@ public class BeanTwo extends Bean {
     private int typedInt;
     private short typedShort;
 
-    private Rate rate;
+    private RateSample rate;
 
     private Boolean nullableCheckbox;
 
@@ -29,17 +29,17 @@ public class BeanTwo extends Bean {
     private String field;
 
     private String choose;
-    private StringMapObject forms = new StringMapObject();
+    private StringMapObjectSample forms = new StringMapObjectSample();
 
     public BeanTwo() {
         setClassName("code.formathtml.classes.BeanTwo");
     }
 
-    public StringMapObject getForms() {
+    public StringMapObjectSample getForms() {
         return forms;
     }
 
-    public void setForms(StringMapObject _forms) {
+    public void setForms(StringMapObjectSample _forms) {
         forms = _forms;
     }
     @Override
@@ -152,11 +152,11 @@ public class BeanTwo extends Bean {
         return chosenNumber;
     }
 
-    public void setRate(Rate _rate) {
+    public void setRate(RateSample _rate) {
         rate = _rate;
     }
 
-    public Rate getRate() {
+    public RateSample getRate() {
         return rate;
     }
 

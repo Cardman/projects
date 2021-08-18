@@ -1,10 +1,9 @@
 package cards.gui.containers;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.SwingConstants;
 
 import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicPresidentCard;
@@ -65,7 +64,7 @@ public class ContainerPresident extends ContainerGame {
 
     private int nbStacks = 1;
 
-    ContainerPresident(MainWindow _window) {
+    ContainerPresident(WindowCards _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
     }

@@ -5,11 +5,9 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.minirts.LaunchingDemo;
 import code.threads.AbstractAtomicInteger;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public final class DemoEvent extends AbstractEvent {
 
-    DemoEvent(MainWindow _window, AbstractAtomicInteger _at) {
+    DemoEvent(WindowApps _window, AbstractAtomicInteger _at) {
         super(_window,_at);
     }
 
@@ -19,7 +17,7 @@ public final class DemoEvent extends AbstractEvent {
     }
 
     @Override
-    protected void launch(MainWindow _window) {
+    protected void launch(WindowApps _window) {
         String lg_ = _window.getLanguageKey();
         LaunchingDemo l_;
         l_ = new LaunchingDemo(_window.getFrames());

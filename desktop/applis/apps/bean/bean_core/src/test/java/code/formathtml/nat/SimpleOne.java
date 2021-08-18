@@ -20,13 +20,13 @@ public class SimpleOne extends Bean {
 
     private String typedString = "";
     private final CustList<SampleInput> typedStrings = new CustList<SampleInput>();
-    private StringMapObject forms = new StringMapObject();
+    private StringMapObjectSample forms = new StringMapObjectSample();
 
-    public StringMapObject getForms() {
+    public StringMapObjectSample getForms() {
         return forms;
     }
 
-    public void setForms(StringMapObject _forms) {
+    public void setForms(StringMapObjectSample _forms) {
         forms = _forms;
     }
     @Override

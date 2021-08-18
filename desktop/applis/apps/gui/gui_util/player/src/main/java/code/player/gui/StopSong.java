@@ -4,9 +4,9 @@ import java.awt.event.MouseEvent;
 
 public class StopSong extends MouseAdapter {
 
-    private MainWindow window;
+    private WindowPlayer window;
 
-    public StopSong(MainWindow _window) {
+    public StopSong(WindowPlayer _window) {
         window = _window;
     }
 

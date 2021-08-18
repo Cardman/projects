@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
 import code.gui.images.AbstractImage;
@@ -16,8 +16,8 @@ import code.util.core.NumberUtil;
 public class CardTarotCellRenderer extends CustCellRender<CardTarot>{
     private CardTarot card;
     private boolean selectionne;
-    private final MainWindow window;
-    public CardTarotCellRenderer(MainWindow _window) {
+    private final WindowCards window;
+    public CardTarotCellRenderer(WindowCards _window) {
         window = _window;
     }
 

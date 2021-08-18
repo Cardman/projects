@@ -13,7 +13,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param value='&quot;Text&quot;'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -36,7 +36,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param value='&quot;Text&quot;'/><c:param value='2'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -61,7 +61,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"link\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param value='&quot;Text&quot;'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -85,7 +85,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<br/>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param value='&quot;Text&quot;'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -109,7 +109,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<br/>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message escaped='escaped' value=\"msg_example,three\"><c:param value='&quot;Text&quot;'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -133,7 +133,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a name=\"link\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param value='&quot;Text&quot;'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -157,7 +157,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a href=\"link\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param value='&quot;Text&quot;'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -181,7 +181,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc {0}<a href=\"link\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param quoted='' value='&lt;Text/&gt;'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -205,7 +205,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc {0}<a href=\"link\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param quoted='' escaped='' value='{Text}'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -229,7 +229,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc {0}<a href=\"link\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param escaped='' value=\"&quot;&quot;+'{'+2+'}'\"/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -254,7 +254,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='tmpLoc=0'/><c:message value=\"msg_example,three\"><c:param value='&quot;Text&quot;'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -277,7 +277,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='tmpLoc=0'/><c:message value=\"msg_example,three\"><c:param value='1/0'/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -300,7 +300,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc {0}<a href=\"link\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param escaped='' value=\"&quot;&quot;+$new pkg.MyInt(2)\"/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -335,7 +335,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc {0}<a href=\"link\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"><c:param escaped='' value=\"$new pkg.MyInt(2)\"/></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -370,7 +370,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:set className='code.bean.Message' value='m=code.bean.Message.newStandardMessage()'/>{m==m};{m==code.bean.Message.newStandardMessage()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -403,7 +403,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After<\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -426,7 +426,7 @@ public final class RenderMessageTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After<\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,five\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();

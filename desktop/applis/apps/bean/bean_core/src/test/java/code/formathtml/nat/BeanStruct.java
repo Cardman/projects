@@ -8,7 +8,7 @@ public final class BeanStruct extends WithoutParentIdStruct {
 
     private final Bean bean;
 
-    private StringMapObject forms = new StringMapObject();
+    private StringMapObjectSample forms = new StringMapObjectSample();
 
     public BeanStruct(Bean _bean) {
         bean = _bean;
@@ -19,11 +19,11 @@ public final class BeanStruct extends WithoutParentIdStruct {
         return bean.getClassName();
     }
 
-    public StringMapObject getForms() {
+    public StringMapObjectSample getForms() {
         return forms;
     }
 
-    public void setForms(StringMapObject _forms) {
+    public void setForms(StringMapObjectSample _forms) {
         forms = _forms;
     }
 

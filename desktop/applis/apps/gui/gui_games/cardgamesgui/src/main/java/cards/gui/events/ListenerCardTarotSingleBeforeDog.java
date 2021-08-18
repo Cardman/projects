@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.GameTarot;
@@ -39,8 +39,8 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
                 if (partie_.getPliEnCours().total() != partie_.getDistribution().derniereMain().total()) {
                     int remove_ = partie_.getDistribution().derniereMain().total();
                     remove_ -= partie_.getPliEnCours().total();
-                    String mesCard_ = StringUtil.simpleNumberFormat(container.getMessages().getVal(MainWindow.HAS_TO_DISCARD), remove_);
-                    ConfirmDialog.showMessage(container.getOwner(), mesCard_, container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
+                    String mesCard_ = StringUtil.simpleNumberFormat(container.getMessages().getVal(WindowCards.HAS_TO_DISCARD), remove_);
+                    ConfirmDialog.showMessage(container.getOwner(), mesCard_, container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             } else {
@@ -79,7 +79,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
                 container.getSlamButton().setEnabledLabel(true);
                 container.getSlamButton().setVisibleButton(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
-                container.addButtonNextTrickTarot(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);
+                container.addButtonNextTrickTarot(container.getMessages().getVal(WindowCards.GO_CARD_GAME), true);
                 container.pack();
             } else {
                 container.debutPliTarot();

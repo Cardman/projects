@@ -5,7 +5,7 @@ import aiki.main.AikiFactory;
 import aiki.main.LaunchingPokemon;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import aiki.sml.LoadingGame;
-import applications.gui.MainWindow;
+import applications.gui.WindowApps;
 import cards.belote.GameBelote;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.main.CardFactories;
@@ -34,8 +34,6 @@ import code.util.StringMap;
 import code.converterimages.main.LaunchingConverter;
 import code.util.core.StringUtil;
 
-import java.awt.image.BufferedImage;
-
 public class LaunchingApplications extends SoftApplicationCore {
 
     public static final String COORDS = "applications.coords";
@@ -57,8 +55,8 @@ public class LaunchingApplications extends SoftApplicationCore {
         LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
-    private static MainWindow getWindow(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, GuiFactroy _guiFact) {
-        return new MainWindow(_lg, _list, _cardFactories, _aikiFactory, _guiFact);
+    private static WindowApps getWindow(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, GuiFactroy _guiFact) {
+        return new WindowApps(_lg, _list, _cardFactories, _aikiFactory, _guiFact);
     }
 
     @Override
@@ -136,7 +134,7 @@ public class LaunchingApplications extends SoftApplicationCore {
 
     private static void launchWindow(String _language, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, GuiFactroy _guiFact) {
         TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream(), _list.getStreams());
-        MainWindow w_ = getWindow(_language, _list, _cardFactories, _aikiFactory, _guiFact);
+        WindowApps w_ = getWindow(_language, _list, _cardFactories, _aikiFactory, _guiFact);
         setLocation(w_, topLeft_);
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {

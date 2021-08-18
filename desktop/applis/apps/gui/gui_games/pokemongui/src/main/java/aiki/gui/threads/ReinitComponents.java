@@ -1,11 +1,11 @@
 package aiki.gui.threads;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 
 public final class ReinitComponents implements Runnable {
 
-    private MainWindow window;
+    private WindowAiki window;
 
-    public ReinitComponents(MainWindow _window) {
+    public ReinitComponents(WindowAiki _window) {
         window = _window;
     }
 

@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.SetterSelectedCardList;
 import cards.gui.dialogs.enums.SaveDealMode;
 import code.gui.ConfirmDialog;
@@ -16,8 +16,8 @@ public class SavingDealEvent extends MouseAdapter {
 
     private SaveDealMode mode;
 
-    private MainWindow window;
-    public SavingDealEvent(SetterSelectedCardList _dialog, SaveDealMode _mode, MainWindow _window) {
+    private WindowCards window;
+    public SavingDealEvent(SetterSelectedCardList _dialog, SaveDealMode _mode, WindowCards _window) {
         dialog = _dialog;
         mode = _mode;
         window = _window;

@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.ComparatorListSizeElement;
 import cards.gui.dialogs.help.ElementHelp;
@@ -55,7 +55,7 @@ public final class FrameGeneralHelp extends ChildFrame {
     private SplitPane separateur;
     private LabelButton search;
 
-    public FrameGeneralHelp(String _titre, MainWindow _fenetre) {
+    public FrameGeneralHelp(String _titre, WindowCards _fenetre) {
         super(_fenetre.getLanguageKey(),_fenetre);
         setAccessFile(DIALOG_ACCESS);
         setDialogIcon(_fenetre);
@@ -79,8 +79,8 @@ public final class FrameGeneralHelp extends ChildFrame {
 //        window = null;
 //    }
 
-    public void initialize(MainWindow _w) {
-        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _w.getLanguageKey(), getAccessFile());
+    public void initialize(WindowCards _w) {
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _w.getLanguageKey(), getAccessFile());
         String lg_ = _w.getLanguageKey();
         elementsBis = _w.getHelpInitializerTask().getTrees().getVal(lg_);
         setFocusable(true);

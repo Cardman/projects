@@ -3,7 +3,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.RadioButton;
@@ -38,7 +38,7 @@ public class ListenerHandfulTarot extends MouseAdapter {
             r.setSelected(false);
         }
         String lg_ = container.getOwner().getLanguageKey();
-        String mes_ = container.getMessages().getVal(MainWindow.REMOVE_TRUMPS_HANDFUL);
+        String mes_ = container.getMessages().getVal(WindowCards.REMOVE_TRUMPS_HANDFUL);
         int exces_ = container.getCurrentIncludedTrumps().total()-requiredTrumps;
         container.getInfoCurrentHandful().setText(StringUtil.simpleStringsFormat(mes_, Long.toString(exces_), Games.toString(handful,lg_)));
         container.setChoosenHandful(handful);

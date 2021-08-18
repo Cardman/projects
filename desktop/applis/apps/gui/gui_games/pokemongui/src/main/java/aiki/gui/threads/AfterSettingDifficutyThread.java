@@ -2,16 +2,16 @@ package aiki.gui.threads;
 import javax.swing.JOptionPane;
 
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 
 /**Thread safe class*/
 public final class AfterSettingDifficutyThread implements Runnable {
 
-    private MainWindow window;
+    private WindowAiki window;
 
     private FacadeGame facade;
 
-    public AfterSettingDifficutyThread(MainWindow _window, FacadeGame _facade) {
+    public AfterSettingDifficutyThread(WindowAiki _window, FacadeGame _facade) {
         window = _window;
         facade = _facade;
     }

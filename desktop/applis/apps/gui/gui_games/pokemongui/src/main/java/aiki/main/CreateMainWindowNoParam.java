@@ -3,7 +3,7 @@ package aiki.main;
 import aiki.db.DataBase;
 import aiki.db.PerCent;
 import aiki.sml.LoadingGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.threads.PerCentIncr;
 import code.gui.CustComponent;
 import code.stream.AbstractFile;
@@ -15,14 +15,14 @@ import code.util.core.StringUtil;
 Thread safe class*/
 public final class CreateMainWindowNoParam implements Runnable {
 
-    private MainWindow window;
+    private WindowAiki window;
 
     private LoadingGame load;
 
     private String path;
 
     /**This class thread is independant from EDT*/
-    public CreateMainWindowNoParam(MainWindow _window, LoadingGame _load, String _path) {
+    public CreateMainWindowNoParam(WindowAiki _window, LoadingGame _load, String _path) {
         window = _window;
         load = _load;
         path = _path;

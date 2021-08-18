@@ -2,7 +2,7 @@ package code.adv;
 
 import org.junit.Test;
 
-public class SafeRemoveAdvTest extends EquallableExUtil {
+public class SafeRemoveAdvTest extends EquallableAdvUtil {
     @Test
     public void test1() {
         SafeRemAdvImpl s_ = new SafeRemAdvImpl();

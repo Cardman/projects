@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationEgg;
 import aiki.facade.enums.SelectedBoolean;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.EggLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.components.listeners.ChangedNbResultsEvent;
@@ -54,7 +54,7 @@ public final class PaginatorEgg extends Paginator {
 
     private final NumComboBox cmpStepsPrio;
 
-    public PaginatorEgg(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d) {
+    public PaginatorEgg(WindowAiki _window, Panel _p, ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_EGG,_p);
         cmpNamePrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
         cmpStepsPrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());

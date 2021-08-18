@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodId;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringMap;
@@ -282,7 +281,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     }
 
     private static boolean hasEr(StringMap<String> _files, String _s) {
-        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Configuration conf_ = EquallableRenderUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_);
 
         getHeaders(_files, a_);
@@ -292,7 +291,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     }
 
     private static AnalyzedPageEl getCheckedConfigurationVar(String _intType, String _s, StringMap<String> _files) {
-        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Configuration conf_ = EquallableRenderUtil.newConfiguration();
         AnalyzedTestConfiguration a_ = build(conf_);
 
         getHeaders(_files, a_);

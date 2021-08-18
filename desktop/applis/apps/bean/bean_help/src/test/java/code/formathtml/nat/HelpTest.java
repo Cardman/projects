@@ -10,7 +10,7 @@ import code.sml.DocumentBuilder;
 import code.util.*;
 import org.junit.Test;
 
-public final class HelpTest extends EquallableExUtil {
+public final class HelpTest extends EquallableBeanHelpUtil {
 
     @Test
     public void process___1Test() {
@@ -21,7 +21,7 @@ public final class HelpTest extends EquallableExUtil {
         String html_ = "<html><body><img value='val'/></body></html>";
 //        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer'/></c:message></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanHelpUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
@@ -37,7 +37,7 @@ public final class HelpTest extends EquallableExUtil {
         String html_ = "<html><body><ul>ONE</ul></body></html>";
 //        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer'/></c:message></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanHelpUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
@@ -53,7 +53,7 @@ public final class HelpTest extends EquallableExUtil {
         String html_ = "<html><body><ul><c:message value='msg_example,one'/></ul></body></html>";
 //        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer'/></c:message></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanHelpUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
@@ -69,7 +69,7 @@ public final class HelpTest extends EquallableExUtil {
         String html_ = "<html><body><ul><c:message value='msg_example,one'/><br/><c:message value='msg_example,two'/></ul></body></html>";
 //        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer'/></c:message></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanHelpUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
@@ -85,7 +85,7 @@ public final class HelpTest extends EquallableExUtil {
         String html_ = "<html><body><ul value='val'/></body></html>";
 //        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer'/></c:message></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanHelpUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
@@ -102,7 +102,7 @@ public final class HelpTest extends EquallableExUtil {
         String html_ = "<html><body>Esc''ape</body></html>";
 //        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer'/></c:message></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanHelpUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> pr_ = new StringMap<String>();
         pr_.put("msg_example", relative_);
 //        HelpRendBlockHelp.text("","page1.html",html_,files_,folder_,pr_);
@@ -118,7 +118,7 @@ public final class HelpTest extends EquallableExUtil {
         String html_ = "<html><body><img src='added'/></body></html>";
 //        String html_ = "<html c:bean='bean_one'><body><ul><c:message value='msg_example,one'><param value='composite.integer'/></c:message></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanHelpUtil.formatFile(folder_,locale_,relative_), content_);
         StringList add_ = new StringList();
         add_.add("added");
         StringMap<String> pr_ = new StringMap<String>();

@@ -1,7 +1,6 @@
 package cards.gui.dialogs;
-import javax.swing.JLabel;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.panels.CardsScrollableList;
 import code.gui.Panel;
 import code.gui.TextLabel;
@@ -16,8 +15,8 @@ public interface SetterSelectedCardList {
     Panel getPanelsCards();
     TextLabel getLabelSelectCards();
     CustList<CardsScrollableList> getHands(boolean _addStack);
-    void validateRulesDeal(MainWindow _parent);
-    void backToRules(MainWindow _parent);
+    void validateRulesDeal(WindowCards _parent);
+    void backToRules(WindowCards _parent);
     void deplacerCartes();
     void cancelDeal();
     void setPartie();

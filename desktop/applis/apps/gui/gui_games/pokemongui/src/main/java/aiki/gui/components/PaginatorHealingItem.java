@@ -5,7 +5,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationHealingItem;
 import aiki.fight.enums.Statistic;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.HealingItemLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.components.listeners.ChangedNbResultsEvent;
@@ -145,7 +145,7 @@ public final class PaginatorHealingItem extends Paginator {
 
     private final NumComboBox cmpNbStatusPrio;
 
-    public PaginatorHealingItem(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d) {
+    public PaginatorHealingItem(WindowAiki _window, Panel _p, ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_HEALING_ITEM,_p);
         cmpNamePrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
         cmpDescriptionPrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());

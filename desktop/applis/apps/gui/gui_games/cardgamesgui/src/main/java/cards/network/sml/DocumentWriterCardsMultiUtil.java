@@ -15,9 +15,9 @@ import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
 import cards.network.common.*;
 import cards.network.common.before.ChoosenPlace;
-import cards.network.common.before.IndexOfArriving;
-import cards.network.common.before.NewPlayer;
-import cards.network.common.before.PlayerActionBeforeGame;
+import cards.network.common.before.IndexOfArrivingCards;
+import cards.network.common.before.NewPlayerCards;
+import cards.network.common.before.PlayerActionBeforeGameCards;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
 import cards.network.common.displaying.Pause;
@@ -250,8 +250,8 @@ public final class DocumentWriterCardsMultiUtil {
             doc_.appendChild(setAllowPlayingBelote((AllowPlayingBelote)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof Bye) {
-            doc_.appendChild(setBye((Bye)_object, "", doc_));
+        if (_object instanceof ByeCards) {
+            doc_.appendChild(setBye((ByeCards)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof DelegateServer) {
@@ -262,12 +262,12 @@ public final class DocumentWriterCardsMultiUtil {
             doc_.appendChild(setPlayerActionBeforeGame((ChoosenPlace)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof IndexOfArriving) {
-            doc_.appendChild(setPlayerActionBeforeGame((IndexOfArriving)_object, "", doc_));
+        if (_object instanceof IndexOfArrivingCards) {
+            doc_.appendChild(setPlayerActionBeforeGame((IndexOfArrivingCards)_object, "", doc_));
             return doc_.export();
         }
-        if (_object instanceof NewPlayer) {
-            doc_.appendChild(setPlayerActionBeforeGame((NewPlayer)_object, "", doc_));
+        if (_object instanceof NewPlayerCards) {
+            doc_.appendChild(setPlayerActionBeforeGame((NewPlayerCards)_object, "", doc_));
             return doc_.export();
         }
         if (_object instanceof PlayersNamePresent) {
@@ -472,14 +472,14 @@ public final class DocumentWriterCardsMultiUtil {
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
     }
 
-    private static Element setBye(Bye _object, String _fieldName, Document _document) {
+    private static Element setBye(ByeCards _object, String _fieldName, Document _document) {
         Element element_ = _document.createElement(TYPE_BYE);
         DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
         setBye(_object,element_,_document);
         return element_;
     }
 
-    private static void setBye(Bye _object, Element _element, Document _document) {
+    private static void setBye(ByeCards _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isForced(),FIELD_FORCED,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isClosing(),FIELD_CLOSING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isServer(),FIELD_SERVER,_document));
@@ -706,7 +706,7 @@ public final class DocumentWriterCardsMultiUtil {
         setPlayerActionBeforeGame(_object, _element, _document);
     }
 
-    private static void setNewPlayer(NewPlayer _object, Element _element, Document _document) {
+    private static void setNewPlayer(NewPlayerCards _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getPseudo(),FIELD_PSEUDO,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isArriving(),FIELD_ARRIVING,_document));
         _element.appendChild(DocumentWriterCoreUtil.setString(_object.getLanguage(),FIELD_LANGUAGE,_document));
@@ -714,23 +714,23 @@ public final class DocumentWriterCardsMultiUtil {
         setPlayerActionBeforeGame(_object, _element, _document);
     }
 
-    private static Element setPlayerActionBeforeGame(PlayerActionBeforeGame _object, String _fieldName, Document _document) {
+    private static Element setPlayerActionBeforeGame(PlayerActionBeforeGameCards _object, String _fieldName, Document _document) {
         if (_object instanceof ChoosenPlace) {
             Element element_ = _document.createElement(TYPE_CHOOSEN_PLACE);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setChoosenPlace((ChoosenPlace)_object,element_,_document);
             return element_;
         }
-        if (_object instanceof IndexOfArriving) {
+        if (_object instanceof IndexOfArrivingCards) {
             Element element_ = _document.createElement(TYPE_INDEX_OF_ARRIVING);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
             setPlayerActionBeforeGame(_object,element_,_document);
             return element_;
         }
-        if (_object instanceof NewPlayer) {
+        if (_object instanceof NewPlayerCards) {
             Element element_ = _document.createElement(TYPE_NEW_PLAYER);
             DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-            setNewPlayer((NewPlayer)_object,element_,_document);
+            setNewPlayer((NewPlayerCards)_object,element_,_document);
             return element_;
         }
         if (_object instanceof Ready) {
@@ -742,7 +742,7 @@ public final class DocumentWriterCardsMultiUtil {
         return _document.createElement(TYPE_PLAYER_ACTION_BEFORE_GAME);
     }
 
-    private static void setPlayerActionBeforeGame(PlayerActionBeforeGame _object, Element _element, Document _document) {
+    private static void setPlayerActionBeforeGame(PlayerActionBeforeGameCards _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterCoreUtil.setInteger(_object.getIndex(),FIELD_INDEX,_document));
     }
 

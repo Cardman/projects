@@ -4,9 +4,9 @@ import java.awt.event.MouseEvent;
 
 public final class ExportEvent extends MouseAdapter {
 
-    private MainWindow window;
+    private WindowConverter window;
 
-    public ExportEvent(MainWindow _window) {
+    public ExportEvent(WindowConverter _window) {
         window = _window;
     }
 

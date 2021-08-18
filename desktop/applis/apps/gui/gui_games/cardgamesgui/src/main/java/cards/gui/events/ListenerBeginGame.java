@@ -3,12 +3,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 
 public class ListenerBeginGame extends MouseAdapter {
     private GameEnum jeuBouton;
-    private MainWindow window;
-    public ListenerBeginGame(GameEnum _pj, MainWindow _window){
+    private WindowCards window;
+    public ListenerBeginGame(GameEnum _pj, WindowCards _window){
         jeuBouton=_pj;
         window = _window;
     }

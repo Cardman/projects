@@ -5,7 +5,7 @@ import javax.swing.*;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.events.AddSuitEvent;
 import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
@@ -44,7 +44,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     public DialogDisplayingPresident() {
         setAccessFile(DIALOG_ACCESS);
     }
-    public static void setDialogDisplayingPresident(String _titre, MainWindow _fenetre) {
+    public static void setDialogDisplayingPresident(String _titre, WindowCards _fenetre) {
         //super(_titre, _fenetre, true);
         _fenetre.getDialogDisplayingPresident().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogDisplayingPresident().setMain(_fenetre);
@@ -56,16 +56,16 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         _fenetre.getDialogDisplayingPresident().setDialogue(_fenetre);
     }
 
-    private void initMessageName(MainWindow _parent) {
+    private void initMessageName(WindowCards _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile());
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile());
     }
     public static DisplayingPresident getDisplaying(DialogDisplayingPresident _dialog) {
         _dialog.setVisible(true);
         return _dialog.displayingPresident;
     }
 
-    public void setDialogue(MainWindow _window) {
+    public void setDialogue(WindowCards _window) {
         initMessageName(_window);
         Panel container_=Panel.newBorder();
         Panel panneau_=Panel.newGrid(0,2);
@@ -141,7 +141,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     }
 
     @Override
-    public void removeSuit(MainWindow _window) {
+    public void removeSuit(WindowCards _window) {
         String lg_ = _window.getLanguageKey();
         //Retirer du tri
         if(orderedSuits.nombreDeCouleurs()<4||listeChoix.getItemCount()<4) {

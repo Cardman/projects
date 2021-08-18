@@ -2,7 +2,7 @@ package cards.gui.events;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 
 public abstract class AbstractListenerCard extends MouseAdapter {
@@ -63,7 +63,7 @@ public abstract class AbstractListenerCard extends MouseAdapter {
             return;
         }
         if(container.isaJoueCarte()&&clicCarte()) {
-            container.setRaisonCourante(container.getMessages().getVal(MainWindow.ALREADY_PLAYED));
+            container.setRaisonCourante(container.getMessages().getVal(WindowCards.ALREADY_PLAYED));
             container.setaJoueCarte(false);
         }
     }

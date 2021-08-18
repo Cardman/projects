@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.*;
 import code.util.CustList;
@@ -36,11 +36,11 @@ public final class DialogNicknames extends DialogCards {
     public DialogNicknames() {
         setAccessFile(DIALOG_ACCESS);
     }
-    public static void initDialogNicknames(String _titre, MainWindow _fenetre) {
+    public static void initDialogNicknames(String _titre, WindowCards _fenetre) {
         _fenetre.getDialogNicknames().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogNicknames().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogNicknames().messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogNicknames().getAccessFile());
+        _fenetre.getDialogNicknames().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogNicknames().getAccessFile());
         _fenetre.getDialogNicknames().pseudos = _fenetre.getPseudosJoueurs();
         _fenetre.getDialogNicknames().setMain(_fenetre);
         _fenetre.getDialogNicknames().setLocationRelativeTo(_fenetre);
@@ -53,7 +53,7 @@ public final class DialogNicknames extends DialogCards {
 
     /**Met en place le contenu de la boite de dialogue
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
-    public void setDialogue(MainWindow _fenetre) {
+    public void setDialogue(WindowCards _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
         getJt().removeAll();
         Panel container_=Panel.newBorder();

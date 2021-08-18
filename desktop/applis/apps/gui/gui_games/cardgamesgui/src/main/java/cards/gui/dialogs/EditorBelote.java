@@ -11,7 +11,7 @@ import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.GameType;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.comboboxes.StringComboBox;
 import cards.gui.dialogs.enums.SaveDealMode;
 import cards.gui.dialogs.events.BackToRulesEvent;
@@ -67,13 +67,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private Nicknames nickNames;
     private StringComboBox listeTwo;
     private DisplayingBelote displayingBelote = new DisplayingBelote();
-    private MainWindow window;
+    private WindowCards window;
     private boolean setToNullGame;
 
     public EditorBelote() {
         setAccessFile(DIALOG_ACCESS);
     }
-    public static void initEditorBelote(MainWindow _fenetre) {
+    public static void initEditorBelote(WindowCards _fenetre) {
         //super(GameEnum.BELOTE.toString(),_fenetre,_fenetre.getReglesBelote());
         String lg_ = _fenetre.getLanguageKey();
         _fenetre.getEditorBelote().setMain(_fenetre);
@@ -119,7 +119,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         erreur(stack);
     }
     @Override
-    public void setDialogue(MainWindow _parent) {
+    public void setDialogue(WindowCards _parent) {
         getJt().removeAll();
         Panel container_=Panel.newBorder();
         initMessageName(_parent);
@@ -136,7 +136,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         pack();
     }
     @Override
-    public void validateRulesDeal(MainWindow _parent) {
+    public void validateRulesDeal(WindowCards _parent) {
         validateRules();
         getReglesBelote().setNombreParties(getNbGames().getValue());
         distribuer(_parent);
@@ -162,7 +162,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         return _dialog.partie;
     }
 
-    private void distribuer(MainWindow _parent) {
+    private void distribuer(WindowCards _parent) {
         setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=Panel.newBorder();
         Panel panneau_=Panel.newLineBox();
@@ -267,7 +267,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         pack();
     }
     @Override
-    public void backToRules(MainWindow _parent) {
+    public void backToRules(WindowCards _parent) {
         nombreCartesSelectionnees=0;
         nombreCartesSelectionneesPrecedent=0;
         partieSauvegardee=false;

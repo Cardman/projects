@@ -2,7 +2,7 @@ package aiki.gui.listeners;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.map.enums.Direction;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
@@ -16,9 +16,9 @@ public class MouseTask extends MouseAdapter {
     private final AbstractScheduledExecutorService timer;
     private AbstractFuture future;
 
-    private MainWindow window;
+    private WindowAiki window;
 
-    public MouseTask(Direction _dir, Task _task, AbstractScheduledExecutorService _timer, MainWindow _window) {
+    public MouseTask(Direction _dir, Task _task, AbstractScheduledExecutorService _timer, WindowAiki _window) {
         dir = _dir;
         task = _task;
         timer = _timer;

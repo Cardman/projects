@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.Dialog;
@@ -28,7 +28,7 @@ public final class DialogHelpTarot extends Dialog {
     private static final String SPACE=" ";
     private static final String TAB="\t";
 
-    public static void setTitleDialog(MainWindow _fenetre,String _title) {
+    public static void setTitleDialog(WindowCards _fenetre, String _title) {
         _fenetre.getDialogHelpTarot().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogHelpTarot().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogHelpTarot().setTitle(_title);

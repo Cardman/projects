@@ -5,7 +5,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationPokemonPlayer;
 import aiki.facade.enums.SelectedBoolean;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.PokemonLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.components.listeners.ChangedNbResultsEvent;
@@ -101,7 +101,7 @@ public final class PaginatorPokemon extends Paginator {
 
     private final NumComboBox cmpPossEvosPrio;
 
-    public PaginatorPokemon(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d) {
+    public PaginatorPokemon(WindowAiki _window, Panel _p, ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_POKEMON,_p);
         cmpNamePrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
         cmpAbilityPrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());

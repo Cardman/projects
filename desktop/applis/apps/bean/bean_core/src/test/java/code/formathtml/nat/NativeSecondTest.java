@@ -17,7 +17,7 @@ import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.EquallableExUtil;
+import code.formathtml.EquallableBeanCoreUtil;
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -36,7 +36,7 @@ import code.sml.DocumentBuilder;
 import code.util.*;
 import org.junit.Test;
 
-public final class NativeSecondTest extends EquallableExUtil {
+public final class NativeSecondTest extends EquallableBeanCoreUtil {
     @Test
     public void process00Test() {
         assertEq(0,db(0));
@@ -56,7 +56,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><ul><c:for var=\"s\" list=\"strings()\" className='java.lang.String'><li>{length(s)}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         SimpleOne bean_ = BeanTestNatLgNamesImpl.newBeanOne();
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getNatRes(folder_, relative_, html_, bean_));
     }
@@ -68,7 +68,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean='bean_one'><body><c:if condition='!strings().isEmpty()'>Not Empty</c:if></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         SimpleOne bean_ = BeanTestNatLgNamesImpl.newBeanOne();
         assertEq("<html><body>Not Empty</body></html>", getNatRes(folder_, relative_, html_, bean_));
     }
@@ -80,7 +80,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\"><body><table><c:for key=\"k\" keyClassName=\"java.lang.String\" value=\"v\" varClassName=\"$int\" map=\"tree()\"><tr><td>{k}</td><td>{v}</td></tr></c:for></table></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         SimpleOne bean_ = BeanTestNatLgNamesImpl.newBeanOne();
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, bean_));
     }
@@ -94,7 +94,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         StringMap<String> files_ = new StringMap<String>();
         BeanTestNatLgNames lgNames_ = new BeanTestNatLgNamesImpl();
         basicStandards(lgNames_);
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
                 "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
@@ -144,7 +144,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         StringMap<String> files_ = new StringMap<String>();
         BeanTestNatLgNames lgNames_ = new BeanTestNatLgNamesImpl();
         basicStandards(lgNames_);
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
                 "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
@@ -202,7 +202,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         assertEq("bean_one", n_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"page1.html\" n-f=\"0\"><input type=\"text\" name=\"bean_one.typedString\" n-i=\"0\" value=\"ONE_TWO\"/></form></body></html>", n_.getHtmlText());
         SimpleOne beanTwo_ = (SimpleOne) lgNames_.getBean("bean_one").getBean();
-        StringMapObject map_ = beanTwo_.getForms();
+        StringMapObjectSample map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq("ONE_TWO", beanTwo_.getTypedString());
     }
@@ -216,7 +216,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         StringMap<String> files_ = new StringMap<String>();
         BeanTestNatLgNames lgNames_ = new BeanTestNatLgNamesImpl();
         basicStandards(lgNames_);
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", htmlTwo_);
         String xmlConf_ = "<cfg>\n" +
                 "\t<java.lang.String field='firstUrl' value='page1.html'/>\n" +
@@ -281,7 +281,7 @@ public final class NativeSecondTest extends EquallableExUtil {
         assertEq("bean_one", n_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"page1.html\" n-f=\"0\"><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"0\" value=\"ONE_\"/><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"1\" value=\"TWO_\"/></form></body></html>", n_.getHtmlText());
         SimpleOne beanTwo_ = (SimpleOne) lgNames_.getBean("bean_one").getBean();
-        StringMapObject map_ = beanTwo_.getForms();
+        StringMapObjectSample map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
         assertEq("ONE_", beanTwo_.getTypedStrings().first().getTypedString());
         assertEq("TWO_", beanTwo_.getTypedStrings().last().getTypedString());
@@ -303,7 +303,7 @@ public final class NativeSecondTest extends EquallableExUtil {
     }
 
     private NativeOtherAnalyzedTestConfiguration contextElSec() {
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        Configuration conf_ =  EquallableBeanCoreUtil.newConfiguration();
         conf_.setPrefix("c:");
         return buildNat(conf_);
     }

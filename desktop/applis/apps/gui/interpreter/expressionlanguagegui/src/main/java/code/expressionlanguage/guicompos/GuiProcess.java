@@ -43,9 +43,9 @@ public final class GuiProcess implements Runnable {
     private ExecutingOptions executingOptions;
     private String clName;
     private String mName;
-    private MainWindow window;
+    private WindowFull window;
 
-    public static GuiProcess build(String _conf, MainWindow _window, String _content) {
+    public static GuiProcess build(String _conf, WindowFull _window, String _content) {
         StringList mainArgs_ = new StringList(_conf);
         StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();

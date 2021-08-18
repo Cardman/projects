@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 
 import cards.consts.Suit;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.selection.SuitCellRenderer;
 import code.gui.AbsGraphicList;
@@ -21,9 +21,9 @@ public class SuitsScrollableList extends ScrollableList {
     private StringMap<String> messages = new StringMap<String>();
 //    private EnumList<Suit> suits;
     private final AbsGraphicList<Suit> liste;
-    public SuitsScrollableList(EnumList<Suit> _couleurs, int _nb, MainWindow _window, AbsGraphicList<Suit> _liste) {
+    public SuitsScrollableList(EnumList<Suit> _couleurs, int _nb, WindowCards _window, AbsGraphicList<Suit> _liste) {
         String lg_ = _window.getLanguageKey();
-        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
         TextLabel titrePanneau_ = new TextLabel(messages.getVal(SUITS), SwingConstants.CENTER);
         getContainer().add(titrePanneau_, BorderLayout.NORTH);
 //        suits = _couleurs;

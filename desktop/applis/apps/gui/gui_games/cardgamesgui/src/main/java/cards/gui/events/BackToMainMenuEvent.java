@@ -2,13 +2,13 @@ package cards.gui.events;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 
 public class BackToMainMenuEvent extends MouseAdapter {
 
-    private MainWindow window;
+    private WindowCards window;
 
-    public BackToMainMenuEvent(MainWindow _window) {
+    public BackToMainMenuEvent(WindowCards _window) {
         window = _window;
     }
 

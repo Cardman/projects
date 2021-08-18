@@ -12,7 +12,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class GuiContextFactory {
-    public static ResultsGuiContext buildDefKw(String _lang, StringList _mainArgs, MainWindow _window,
+    public static ResultsGuiContext buildDefKw(String _lang, StringList _mainArgs, WindowFull _window,
                                                Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files) {
         AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
@@ -28,7 +28,7 @@ public final class GuiContextFactory {
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
         return build(_mainArgs,_window, _options, _exec,mess_,kwl_, _undefinedLgNames, _files);
     }
-    public static ResultsGuiContext build(StringList _mainArgs, MainWindow _window,
+    public static ResultsGuiContext build(StringList _mainArgs, WindowFull _window,
                                           Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
         _definedLgNames.setExecutingOptions(_exec);
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs,_window);

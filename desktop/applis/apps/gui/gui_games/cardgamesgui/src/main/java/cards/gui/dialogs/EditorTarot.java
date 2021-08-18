@@ -6,7 +6,7 @@ import javax.swing.*;
 import cards.consts.GameType;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.comboboxes.StringComboBox;
 import cards.gui.dialogs.enums.SaveDealMode;
 import cards.gui.dialogs.events.BackToRulesEvent;
@@ -69,11 +69,11 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private boolean setToNullGame;
 
     private DisplayingTarot displayingTarot = new DisplayingTarot();
-    private MainWindow window;
+    private WindowCards window;
     public EditorTarot() {
         setAccessFile(DIALOG_ACCESS);
     }
-    public static void initEditorTarot(MainWindow _fenetre) {
+    public static void initEditorTarot(WindowCards _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
         _fenetre.getEditorTarot().setMain(_fenetre);
         _fenetre.getEditorTarot().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
@@ -120,7 +120,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         erreur(stack);
     }
     @Override
-    public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, MainWindow _window) {
+    public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window) {
         getJt().removeAll();
         Panel container_=Panel.newBorder();
         initMessageName(_window);
@@ -136,12 +136,12 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         pack();
     }
     @Override
-    public void validateRulesDeal(MainWindow _parent) {
+    public void validateRulesDeal(WindowCards _parent) {
         validateRules();
         getReglesTarot().setNbDeals(getNbGames().getValue());
         distribuer(_parent);
     }
-    private void distribuer(MainWindow _parent) {
+    private void distribuer(WindowCards _parent) {
 
         setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=Panel.newBorder();
@@ -251,7 +251,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
     }
     @Override
-    public void backToRules(MainWindow _parent) {
+    public void backToRules(WindowCards _parent) {
         nombreCartesSelectionneesPrecedent=0;
         nombreCartesSelectionnees = 0;
         partieSauvegardee=false;

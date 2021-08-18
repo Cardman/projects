@@ -1,6 +1,6 @@
 package cards.gui.dialogs;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 
 public interface DialogDisplaying {
 
@@ -8,5 +8,5 @@ public interface DialogDisplaying {
 
     void addSuit();
 
-    void removeSuit(MainWindow _window);
+    void removeSuit(WindowCards _window);
 }

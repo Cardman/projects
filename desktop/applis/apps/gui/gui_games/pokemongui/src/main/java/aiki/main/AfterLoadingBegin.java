@@ -1,11 +1,11 @@
 package aiki.main;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
 public final class AfterLoadingBegin implements Runnable {
 
-    private MainWindow window;
+    private WindowAiki window;
 
     private boolean stopLoading;
 
@@ -14,8 +14,8 @@ public final class AfterLoadingBegin implements Runnable {
     private String fileName;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public AfterLoadingBegin(MainWindow _window, boolean _stopLoading,
-            boolean _error, String _fileName) {
+    public AfterLoadingBegin(WindowAiki _window, boolean _stopLoading,
+                             boolean _error, String _fileName) {
         window = _window;
         stopLoading = _stopLoading;
         error = _error;

@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.gui.labels.GraphicTarotCard;
@@ -45,11 +45,11 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
             if(reason_ == ReasonDiscard.NOTHING){
                 container.ajouterUneCarteAuChien(getCarteVerif());
             }else{
-                String mesCard_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_DISCARD), Games.toString(getCarteVerif(),lg_));
-                String mesReason_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(MainWindow.REASON), Games.autoriseMessEcartDe(partie_,reason_,getCarteVerif(),lg_).toString());
+                String mesCard_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.CANT_DISCARD), Games.toString(getCarteVerif(),lg_));
+                String mesReason_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.REASON), Games.autoriseMessEcartDe(partie_,reason_,getCarteVerif(),lg_).toString());
                 ConfirmDialog.showMessage(container.getOwner(),
                         StringUtil.concat(mesCard_,ContainerGame.RETURN_LINE,mesReason_),
-                        container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
+                        container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
             }
         } else {
             container.retirerUneCarteDuChien(getCarteVerif());

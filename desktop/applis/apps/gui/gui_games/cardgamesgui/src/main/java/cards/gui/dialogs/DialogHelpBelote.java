@@ -8,7 +8,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import code.gui.Dialog;
 import code.gui.Panel;
 import code.gui.ScrollPane;
@@ -34,7 +34,7 @@ public final class DialogHelpBelote extends Dialog {
         setResizable(false);
         setVisible(true);
     }
-    public static void setTitleDialog(MainWindow _fenetre,String _title) {
+    public static void setTitleDialog(WindowCards _fenetre, String _title) {
         _fenetre.getDialogHelpBelote().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogHelpBelote().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogHelpBelote().setTitle(_title);

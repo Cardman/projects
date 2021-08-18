@@ -10,7 +10,7 @@ import cards.belote.DisplayingBelote;
 import cards.belote.TrickBelote;
 import cards.belote.TricksHandsBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicBeloteCard;
@@ -40,7 +40,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     private final ChangeableTitle parent;
     private final byte numberPlayers;
     private final DisplayingBelote displayingBelote;
-    private final MainWindow window;
+    private final WindowCards window;
     private final Panel container;
 
     public PanelTricksHandsBelote(ChangeableTitle _parent,
@@ -48,12 +48,12 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             byte _numberPlayers,
             StringList _pseudos,
             DisplayingBelote _displayingBelote,
-                                  MainWindow _window) {
+                                  WindowCards _window) {
         window= _window;
         numberPlayers = _numberPlayers;
         displayingBelote = _displayingBelote;
         String lg_ = window.getLanguageKey();
-        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_,ACCESS);
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_,ACCESS);
         parent = _parent;
         tricksHands = _tricksHands;
         DealBelote dealt_ = tricksHands.getDistribution();

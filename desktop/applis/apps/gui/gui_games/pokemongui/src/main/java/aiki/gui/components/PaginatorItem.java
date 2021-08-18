@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationItem;
 import aiki.facade.enums.SelectedBoolean;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.ItemLabel;
 import aiki.gui.components.listeners.ChangedModeEvent;
 import aiki.gui.components.listeners.ChangedNbResultsEvent;
@@ -72,7 +72,7 @@ public final class PaginatorItem extends Paginator {
 
     private final boolean buy;
 
-    public PaginatorItem(MainWindow _window, Panel _p,ChangeableTitle _w, FacadeGame _d, boolean _buy) {
+    public PaginatorItem(WindowAiki _window, Panel _p, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
         super(_window, ACCESS_ITEM,_p);
         cmpNamePrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
         cmpNumberPrio = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());

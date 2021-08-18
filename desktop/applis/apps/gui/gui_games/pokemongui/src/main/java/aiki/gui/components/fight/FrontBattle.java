@@ -8,7 +8,7 @@ import aiki.game.fight.Fighter;
 import aiki.game.fight.TargetCoords;
 import aiki.game.fight.animations.*;
 import aiki.game.fight.enums.FightState;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.FrameHtmlData;
 import code.gui.PaintableLabel;
 import code.gui.images.AbstractImage;
@@ -94,7 +94,7 @@ public class FrontBattle extends PaintableLabel {
 
     private Battle battle;
 
-    public FrontBattle(MainWindow _window, FacadeGame _facade) {
+    public FrontBattle(WindowAiki _window, FacadeGame _facade) {
         facade = _facade;
         battle = new Battle(_window, _facade, this);
     }

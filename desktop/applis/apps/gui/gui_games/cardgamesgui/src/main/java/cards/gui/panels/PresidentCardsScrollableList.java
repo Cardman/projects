@@ -5,12 +5,11 @@ import java.awt.Dimension;
 import javax.swing.SwingConstants;
 
 import cards.consts.Suit;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.labels.selection.CardPresidentCellRenderer;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import code.gui.AbsGraphicList;
-import code.gui.GraphicList;
 import code.gui.TextLabel;
 import code.util.EnumList;
 import code.util.core.IndexConstants;
@@ -38,7 +37,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
         getContainer().setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
 
-    public void initSelectionCartePresident(MainWindow _window) {
+    public void initSelectionCartePresident(WindowCards _window) {
         liste.setRender(new CardPresidentCellRenderer(_window));
     }
 

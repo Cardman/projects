@@ -1,15 +1,13 @@
 package code.expressionlanguage.gui.unit;
 
-import code.threads.ThreadUtil;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public final class FileSelectEvent implements ActionListener {
-    private MainWindow mainWindow;
+    private WindowUnit mainWindow;
     private SimpleFilesFrame tested;
 
-    public FileSelectEvent(MainWindow _mainWindow, SimpleFilesFrame _tested) {
+    public FileSelectEvent(WindowUnit _mainWindow, SimpleFilesFrame _tested) {
         mainWindow = _mainWindow;
         tested = _tested;
     }

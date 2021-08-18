@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -16,8 +16,8 @@ import code.util.core.NumberUtil;
 public class SuitCellRenderer extends CustCellRender<Suit> {
     private Suit couleur;
     private boolean selectionne;
-    private final MainWindow window;
-    public SuitCellRenderer(MainWindow _window) {
+    private final WindowCards window;
+    public SuitCellRenderer(WindowCards _window) {
         window = _window;
     }
     /**Donne la facon de presenter une couleur dans une liste avec un symbole et un nom*/

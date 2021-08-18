@@ -5,7 +5,7 @@ import javax.swing.WindowConstants;
 
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.PaginatorItem;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.*;
@@ -38,13 +38,13 @@ public final class SelectItem extends SelectDialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setSelectItem(MainWindow _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
+    public static void setSelectItem(WindowAiki _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
         _parent.getSelectItem().init(_parent, _facade, _buy, _sell);
     }
 
-    private void init(MainWindow _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
+    private void init(WindowAiki _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
         setDialogIcon(_parent.getImageFactory(),_parent);
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
         setTitle(messages.getVal(TITLE));
         facade = _facade;
         initOk();
@@ -63,7 +63,7 @@ public final class SelectItem extends SelectDialog {
 //            });
             buttons_.add(giveCheckBox);
         }
-        LabelButton ok_ = new LabelButton(MainWindow.OK);
+        LabelButton ok_ = new LabelButton(WindowAiki.OK);
         ok_.addMouseListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);
         LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL));

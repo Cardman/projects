@@ -4,9 +4,9 @@ import java.awt.event.MouseEvent;
 
 public class PreviousSong extends MouseAdapter {
 
-    private MainWindow window;
+    private WindowPlayer window;
 
-    public PreviousSong(MainWindow _window) {
+    public PreviousSong(WindowPlayer _window) {
         window = _window;
     }
 

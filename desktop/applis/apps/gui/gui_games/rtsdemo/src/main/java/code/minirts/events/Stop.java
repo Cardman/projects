@@ -1,15 +1,15 @@
 package code.minirts.events;
 
-import code.minirts.MainWindow;
+import code.minirts.WindowRts;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Stop implements ActionListener {
 
-    private MainWindow window;
+    private WindowRts window;
 
-    public Stop(MainWindow _window) {
+    public Stop(WindowRts _window) {
         window = _window;
     }
 

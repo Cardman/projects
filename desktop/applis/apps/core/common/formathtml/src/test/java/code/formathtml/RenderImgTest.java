@@ -13,7 +13,7 @@ public final class RenderImgTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:img src=\"{info}\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
@@ -37,7 +37,7 @@ public final class RenderImgTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><img src=\"{info}\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("img.txt", "content");
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -63,7 +63,7 @@ public final class RenderImgTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><img src=\"{info}\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("img.txt", "content");
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -88,7 +88,7 @@ public final class RenderImgTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><img name=\"\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("img.txt", "content");
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -113,7 +113,7 @@ public final class RenderImgTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><img src=\"{info/0}\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("img.txt", "content");
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -138,7 +138,7 @@ public final class RenderImgTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><img name=\"{info/0}\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("img.txt", "content");
         StringMap<String> filesSec_ = new StringMap<String>();

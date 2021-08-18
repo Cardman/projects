@@ -2,13 +2,13 @@ package aiki.gui.components.walk.events;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 
 public class ShowGameProgressingEvent extends MouseAdapter {
 
-    private MainWindow window;
+    private WindowAiki window;
 
-    public ShowGameProgressingEvent(MainWindow _window) {
+    public ShowGameProgressingEvent(WindowAiki _window) {
         window = _window;
     }
 

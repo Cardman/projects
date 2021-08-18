@@ -4,9 +4,8 @@ import cards.belote.*;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuBelote;
-import code.gui.CustComponent;
 import code.gui.LabelButton;
 
 /**This class thread is independant from EDT,
@@ -27,7 +26,7 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
         donne_.initDonne(regles_,container.getDisplayingBelote(),container.getWindow().getGenerator());
         GameBelote gb_ = new GameBelote(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerBelote(gb_);
-        stopButton=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));
+        stopButton=new LabelButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
         stopButton.addMouseListener(new StopEvent(this));
         DisplayingBelote dis_ = container.getDisplayingBelote();
         simulatingBelote = new SimulatingBeloteImpl(container,partieSimulee,dis_,stopButton);

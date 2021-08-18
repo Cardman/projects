@@ -1,15 +1,15 @@
 package code.minirts.events;
 
-import code.minirts.MainWindow;
+import code.minirts.WindowRts;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RtsPause implements ActionListener {
 
-    private final MainWindow window;
+    private final WindowRts window;
 
-    public RtsPause(MainWindow _window) {
+    public RtsPause(WindowRts _window) {
         window = _window;
     }
 

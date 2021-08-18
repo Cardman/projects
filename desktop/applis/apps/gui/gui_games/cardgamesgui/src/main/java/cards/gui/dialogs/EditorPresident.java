@@ -7,7 +7,7 @@ import javax.swing.*;
 import cards.consts.GameType;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.comboboxes.StringComboBox;
 import cards.gui.dialogs.enums.SaveDealMode;
 import cards.gui.dialogs.events.BackToRulesEvent;
@@ -66,14 +66,14 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private Nicknames nickNames;
     private StringComboBox listeTwo;
     private DisplayingPresident displayingPresident = new DisplayingPresident();
-    private MainWindow window;
+    private WindowCards window;
     private boolean setToNullGame;
 
     public EditorPresident() {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void initEditorPresident(MainWindow _fenetre) {
+    public static void initEditorPresident(WindowCards _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
         _fenetre.getEditorPresident().setMain(_fenetre);
         _fenetre.getEditorPresident().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
@@ -113,7 +113,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers, MainWindow _window) {
+    public void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {
         getJt().removeAll();
         Panel container_=Panel.newBorder();
         initMessageName(_window);
@@ -130,13 +130,13 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public void validateRulesDeal(MainWindow _parent) {
+    public void validateRulesDeal(WindowCards _parent) {
         validateRules();
         getReglesPresident().setNbDeals(getNbGames().getValue());
         distribuer(_parent);
     }
 
-    private void distribuer(MainWindow _parent) {
+    private void distribuer(WindowCards _parent) {
         setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=Panel.newBorder();
         Panel panneau_=Panel.newLineBox();
@@ -253,7 +253,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public void backToRules(MainWindow _parent) {
+    public void backToRules(WindowCards _parent) {
         nombreCartesSelectionneesPrecedent=0;
         nombreCartesSelectionnees = 0;
         partieSauvegardee=false;

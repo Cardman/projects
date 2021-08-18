@@ -24,7 +24,7 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindow(_language,_args, getFrames()));
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRenders(_language,_args, getFrames()));
     }
 
     @Override

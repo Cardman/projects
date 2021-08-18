@@ -1,6 +1,6 @@
 package aiki.main;
 import aiki.db.PerCent;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import code.gui.ThreadInvoker;
 import code.threads.ThreadUtil;
 
@@ -10,11 +10,11 @@ public final class OpeningGame implements Runnable {
 
     private static final int WAIT_VIDEO = 1000;
 
-    private MainWindow window;
+    private WindowAiki window;
     private PerCent perCent;
 
     /**This class thread is independant from EDT*/
-    public OpeningGame(MainWindow _window, PerCent _p) {
+    public OpeningGame(WindowAiki _window, PerCent _p) {
         window = _window;
         perCent = _p;
     }

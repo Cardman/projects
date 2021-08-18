@@ -1,5 +1,4 @@
 package cards.gui.containers;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.SwingConstants;
 
@@ -11,7 +10,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicBeloteCard;
@@ -61,7 +60,7 @@ public class ContainerBelote extends ContainerGame {
     private BidBelote bidType = BidBelote.FOLD;
     private LabelButton bidOk;
     private CardBelote carteSurvoleeBelote;
-    ContainerBelote(MainWindow _window) {
+    ContainerBelote(WindowCards _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
     }

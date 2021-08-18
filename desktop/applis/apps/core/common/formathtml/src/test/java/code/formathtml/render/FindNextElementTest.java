@@ -1,7 +1,7 @@
 package code.formathtml.render;
 
 
-import code.formathtml.EquallableExUtil;
+import code.formathtml.EquallableRenderUtil;
 import code.formathtml.errors.RendKeyWords;
 import code.util.CustList;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import code.sml.DocumentResult;
 import code.util.IdMap;
 
 
-public final class FindNextElementTest extends EquallableExUtil {
+public final class FindNextElementTest extends EquallableRenderUtil {
 
     @Test
     public void next1Test() {

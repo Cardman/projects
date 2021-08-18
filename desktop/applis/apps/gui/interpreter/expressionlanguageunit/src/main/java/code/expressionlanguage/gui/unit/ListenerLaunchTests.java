@@ -4,10 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public final class ListenerLaunchTests implements ActionListener {
-    private MainWindow mainWindow;
+    private WindowUnit mainWindow;
     private TestableFrame tested;
 
-    public ListenerLaunchTests(MainWindow _mainWindow, TestableFrame _tested) {
+    public ListenerLaunchTests(WindowUnit _mainWindow, TestableFrame _tested) {
         mainWindow = _mainWindow;
         tested = _tested;
     }

@@ -48,7 +48,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public abstract class CommonRender extends EquallableExUtil {
+public abstract class CommonRender extends EquallableRenderUtil {
 
     protected static void addInnerPage(AnalyzedTestConfiguration _conf) {
         _conf.getRendStackCall().addPage(new ImportingPage());
@@ -267,7 +267,7 @@ public abstract class CommonRender extends EquallableExUtil {
         return getStruct(a_);
     }
 
-    private static AnalyzedTestContext buildStd(String... _types) {
+    private static AnalyzedTestContextRender buildStd(String... _types) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         WarningShow warningShow_ = new WarningShow();
@@ -275,7 +275,7 @@ public abstract class CommonRender extends EquallableExUtil {
         opt_.setWarningShow(warningShow_);
         opt_.getTypesInit().addAllElts(new StringList(_types));
 
-        return InitializationLgNames.buildStdThree(opt_);
+        return InitializationLgNamesRender.buildStdThree(opt_);
     }
 
     private static Options newOptions() {
@@ -550,7 +550,7 @@ public abstract class CommonRender extends EquallableExUtil {
     protected static AnalyzedTestNavigation initSession2(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec, String _scope, String _className) {
         AnalyzedTestConfiguration a_ = validateBase(_filesSec);
         StringMap<String> filesThree_ = new StringMap<String>();
-        filesThree_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        filesThree_.put(EquallableRenderUtil.formatFile(_folder, _locale, _relative), _content);
         filesThree_.put("page1.html", _html);
         setFirst(a_, "page1.html");
         setup(_folder, _relative, a_);
@@ -572,7 +572,7 @@ public abstract class CommonRender extends EquallableExUtil {
     protected static AnalyzedTestNavigation initSession3(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec, String _scope, String _className) {
         AnalyzedTestConfiguration a_ = validateBase(_filesSec);
         StringMap<String> filesThree_ = new StringMap<String>();
-        filesThree_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        filesThree_.put(EquallableRenderUtil.formatFile(_folder, _locale, _relative), _content);
         filesThree_.put("page1.html", _html);
         setFirst(a_, "page1.html");
         setup(_folder, _relative, a_);
@@ -608,7 +608,7 @@ public abstract class CommonRender extends EquallableExUtil {
     protected static AnalyzedTestNavigation initSession4(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec, String _scope, String _className) {
         AnalyzedTestConfiguration a_ = validateBase(_filesSec);
         StringMap<String> filesThree_ = new StringMap<String>();
-        filesThree_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        filesThree_.put(EquallableRenderUtil.formatFile(_folder, _locale, _relative), _content);
         filesThree_.put("page1.html", _html);
         filesThree_.put("page2.html", _html);
         setFirst(a_, "page1.html");
@@ -631,7 +631,7 @@ public abstract class CommonRender extends EquallableExUtil {
     protected static AnalyzedTestNavigation initSession44(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec, String _scope, String _className) {
         AnalyzedTestConfiguration a_ = validateBase(_filesSec);
         StringMap<String> filesThree_ = new StringMap<String>();
-        filesThree_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        filesThree_.put(EquallableRenderUtil.formatFile(_folder, _locale, _relative), _content);
         filesThree_.put("page1.html", _html);
         filesThree_.put("page2.html", _html);
         setFirst(a_, "page1.html");
@@ -673,7 +673,7 @@ public abstract class CommonRender extends EquallableExUtil {
     protected static AnalyzedTestNavigation initSessionSim2(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec, String _scope, String _className) {
         AnalyzedTestConfiguration a_ = validateBase(_filesSec);
         StringMap<String> filesThree_ = new StringMap<String>();
-        filesThree_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        filesThree_.put(EquallableRenderUtil.formatFile(_folder, _locale, _relative), _content);
         filesThree_.put("page1.html", _html);
         setFirst(a_, "page1.html");
         setup(_folder, _relative, a_);
@@ -703,7 +703,7 @@ public abstract class CommonRender extends EquallableExUtil {
     protected static AnalyzedTestNavigation initSession55(String _locale, String _folder, String _relative, String _content, String _html, String _htmlTwo, String _htmlThree, StringMap<String> _filesSec, String _s, String _s2, String _s3, String _session, String _s4) {
         AnalyzedTestConfiguration a_ = validateBase(_filesSec);
         StringMap<String> filesThree_ = new StringMap<String>();
-        filesThree_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        filesThree_.put(EquallableRenderUtil.formatFile(_folder, _locale, _relative), _content);
         filesThree_.put("page1.html", _html);
         filesThree_.put("page2.html", _htmlTwo);
         filesThree_.put("page3.html", _htmlThree);
@@ -730,14 +730,14 @@ public abstract class CommonRender extends EquallableExUtil {
     }
 
     protected static AnalyzedTestConfiguration build(Configuration _conf,String... _types) {
-        AnalyzedTestContext cont_ = buildStd(_types);
+        AnalyzedTestContextRender cont_ = buildStd(_types);
         return new AnalyzedTestConfiguration(_conf, cont_, cont_.getForwards(), cont_.getStds());
     }
 
     protected static AnalyzedTestNavigation initSession56(String _locale, String _folder, String _relative, String _content, String _html, String _htmlTwo, String _htmlThree, StringMap<String> _filesSec) {
         AnalyzedTestConfiguration a_ = validateBase(_filesSec);
         StringMap<String> filesThree_ = new StringMap<String>();
-        filesThree_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        filesThree_.put(EquallableRenderUtil.formatFile(_folder, _locale, _relative), _content);
         filesThree_.put("page1.html", _html);
         filesThree_.put("page2.html", _htmlTwo);
         filesThree_.put("page3.html", _htmlThree);
@@ -825,7 +825,7 @@ public abstract class CommonRender extends EquallableExUtil {
     protected static Navigation getStdNavigation3(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec) {
         AnalyzedTestConfiguration a_ = validateBase(_filesSec);
         StringMap<String> filesThree_ = new StringMap<String>();
-        filesThree_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        filesThree_.put(EquallableRenderUtil.formatFile(_folder, _locale, _relative), _content);
         filesThree_.put("page1.html", _html);
         setFirst(a_, "page1.html");
         setup(_folder, _relative, a_);
@@ -1092,7 +1092,7 @@ public abstract class CommonRender extends EquallableExUtil {
     }
 
     private static AnalyzedTestConfiguration build(String[] _types) {
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c:");
         return build(conf_,_types);
     }

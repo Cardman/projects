@@ -4,7 +4,7 @@ import javax.swing.WindowConstants;
 
 import aiki.sml.Resources;
 import aiki.sml.LoadingGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ValidateSoftParams;
 import code.gui.*;
 import code.util.StringMap;
@@ -49,13 +49,13 @@ public final class DialogSoftParams extends Dialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setSoftParams(MainWindow _window, LoadingGame _loading) {
+    public static void setSoftParams(WindowAiki _window, LoadingGame _loading) {
         _window.getSoftParams().init(_window, _loading);
     }
 
-    private void init(MainWindow _window, LoadingGame _loading) {
+    private void init(WindowAiki _window, LoadingGame _loading) {
         setDialogIcon(_window.getImageFactory(),_window);
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
         ok = false;
         setTitle(messages.getVal(TITLE));
         setLocationRelativeTo(_window);
@@ -145,7 +145,7 @@ public final class DialogSoftParams extends Dialog {
 //            }
 //        });
         panel_.add(selectHomePathZip);
-        LabelButton ok_ = new LabelButton(MainWindow.OK);
+        LabelButton ok_ = new LabelButton(WindowAiki.OK);
         ok_.addMouseListener(new ValidateSoftParams(this));
         panel_.add(ok_);
         setContentPane(panel_);

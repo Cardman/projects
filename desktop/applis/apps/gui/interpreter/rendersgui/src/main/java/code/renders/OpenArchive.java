@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 
 public final class OpenArchive implements ActionListener {
 
-    private MainWindow mainWindow;
+    private WindowRenders mainWindow;
 
-    public OpenArchive(MainWindow _mainWindow) {
+    public OpenArchive(WindowRenders _mainWindow) {
         mainWindow = _mainWindow;
     }
 

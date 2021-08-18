@@ -33,7 +33,7 @@ public final class AnalyzedTestConfiguration {
     private String argumentClass = "";
     private RendStackCall rendStackCall;
 
-    public AnalyzedTestConfiguration(Configuration _configuration, AnalyzedTestContext _analyzing, Forwards _forwards, BeanCustLgNames _standards) {
+    public AnalyzedTestConfiguration(Configuration _configuration, AnalyzedTestContextRender _analyzing, Forwards _forwards, BeanCustLgNames _standards) {
         this.configuration = _configuration;
         forwards = _forwards;
         adv= _standards;

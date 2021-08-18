@@ -2,7 +2,7 @@ package code.minirts.events;
 
 import code.gui.CustComponent;
 import code.maths.geo.CustPoint;
-import code.minirts.MainWindow;
+import code.minirts.WindowRts;
 import code.minirts.PanelBattle;
 import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
@@ -17,9 +17,9 @@ public class RtsTask implements Runnable {
 
     private final PanelBattle scene;
 
-    private final MainWindow window;
+    private final WindowRts window;
 
-    public RtsTask(PanelBattle _scene, MainWindow _window, Facade _facade) {
+    public RtsTask(PanelBattle _scene, WindowRts _window, Facade _facade) {
         scene = _scene;
         window = _window;
         facade = _facade;

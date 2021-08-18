@@ -2,13 +2,13 @@ package cards.gui.menus;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 
 public class DisplayHelpGameEvent implements ActionListener {
 
-    private MainWindow window;
+    private WindowCards window;
 
-    public DisplayHelpGameEvent(MainWindow _window) {
+    public DisplayHelpGameEvent(WindowCards _window) {
         window = _window;
     }
 

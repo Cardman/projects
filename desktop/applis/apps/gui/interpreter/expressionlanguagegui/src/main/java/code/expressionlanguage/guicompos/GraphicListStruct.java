@@ -15,7 +15,7 @@ public final class GraphicListStruct extends InputStruct {
 
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         super(_className);
-        MainWindow window_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getWindow();
+        WindowFull window_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getWindow();
         grList = window_.getFact().getGraphicListGenerator().create(_simple, new AdvGraphicListPainter(window_.getImageFactory(),_ctx.getExecutionInfos()));
         init(_ctx);
     }
@@ -174,7 +174,7 @@ public final class GraphicListStruct extends InputStruct {
             Struct paint_ = rend_.getPaint();
             if (paint_ instanceof LambdaStruct) {
                 String aliasImageLabel_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasImageLabel();
-                MainWindow window_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getWindow();
+                WindowFull window_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getWindow();
                 PreparedLabelStruct im_ = new PreparedLabelStruct(window_.getImageFactory(),aliasImageLabel_);
                 PreparedLabel lab_ = im_.getTextLabel();
                 grList.setCustCell(this, lab_, im_,

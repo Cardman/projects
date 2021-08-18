@@ -17,7 +17,7 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.nat.BeanStruct;
-import code.formathtml.nat.StringMapObject;
+import code.formathtml.nat.StringMapObjectSample;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
@@ -855,7 +855,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
-        StringMapObject forms_ = new StringMapObject();
+        StringMapObjectSample forms_ = new StringMapObjectSample();
         if (_bean instanceof BeanStruct) {
             if (((BeanStruct)_bean).getBean() instanceof BeanOne) {
                 forms_ = ((BeanOne) ((BeanStruct) _bean).getBean()).getForms();
@@ -889,8 +889,8 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     @Override
     public void setBeanForms(Configuration _conf, Struct _mainBean, NatRendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
         Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
-        StringMapObject forms_ = new StringMapObject();
-        StringMapObject formsMap_ = new StringMapObject();
+        StringMapObjectSample forms_ = new StringMapObjectSample();
+        StringMapObjectSample formsMap_ = new StringMapObjectSample();
         if (((BeanStruct)bean_).getBean() instanceof BeanOne) {
             forms_ = ((BeanOne) ((BeanStruct) bean_).getBean()).getForms();
         }
@@ -2027,7 +2027,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         if (_struct instanceof BeanEight) {
             return TYPE_BEAN_EIGHT;
         }
-        if (_struct instanceof Rate) {
+        if (_struct instanceof RateSample) {
             return TYPE_RATE;
         }
         if (_struct instanceof RateEq) {
@@ -2059,10 +2059,10 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
                                                  String _className, Configuration _context, ContextEl _ctx, RendStackCall _stack) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_className, TYPE_RATE)) {
-            if (!Rate.matchesRate(_values.first())) {
+            if (!RateSample.matchesRate(_values.first())) {
                 return res_;
             }
-            res_.setResult(new StdStruct(new Rate(_values.first()), _className));
+            res_.setResult(new StdStruct(new RateSample(_values.first()), _className));
             return res_;
         }
         if (StringUtil.quickEq(_className, TYPE_ENUM_NUMBER)) {
@@ -2108,11 +2108,11 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         Bean bean_ = str_.getBean();
 //        bean_.setDataBase(dataBase);
         if (bean_ instanceof BeanOne) {
-            ((BeanOne) bean_).setForms(new StringMapObject());
+            ((BeanOne) bean_).setForms(new StringMapObjectSample());
             beansForTest.addEntry("bean_one",bean_);
         }
         if (bean_ instanceof BeanTwo) {
-            ((BeanTwo) bean_).setForms(new StringMapObject());
+            ((BeanTwo) bean_).setForms(new StringMapObjectSample());
             beansForTest.addEntry("bean_two",bean_);
         }
         bean_.setLanguage(_language);

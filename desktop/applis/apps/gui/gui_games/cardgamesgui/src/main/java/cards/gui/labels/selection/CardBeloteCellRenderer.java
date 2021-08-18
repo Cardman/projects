@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -16,8 +16,8 @@ import code.util.core.NumberUtil;
 public class CardBeloteCellRenderer extends CustCellRender<CardBelote>{
     private CardBelote card;
     private boolean selectionne;
-    private final MainWindow window;
-    public CardBeloteCellRenderer(MainWindow _window) {
+    private final WindowCards window;
+    public CardBeloteCellRenderer(WindowCards _window) {
         window = _window;
     }
     @Override

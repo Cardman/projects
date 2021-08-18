@@ -3,7 +3,7 @@ package aiki.gui.components;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.components.labels.Header;
 import aiki.gui.components.labels.SelectableLabel;
 import aiki.gui.components.listeners.BeginEvent;
@@ -87,9 +87,9 @@ public abstract class Paginator {
 
     private final LabelButton end;
 
-    private final MainWindow main;
+    private final WindowAiki main;
 
-    public Paginator(MainWindow _window, String _access, Panel _dest) {
+    public Paginator(WindowAiki _window, String _access, Panel _dest) {
         main = _window;
         pages = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
         container = _dest;
@@ -109,15 +109,15 @@ public abstract class Paginator {
         end.addMouseListener(new EndEvent(this));
     }
 
-    public MainWindow getMain() {
+    public WindowAiki getMain() {
         return main;
     }
 
     protected void initMessages(String _access) {
         String lg_ = main.getLanguageKey();
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS);
-        messages.putAllMap(MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access));
-        StringMap<String> map_ = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS);
+        messages.putAllMap(WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access));
+        StringMap<String> map_ = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
         messagesSearchMode.clear();
         for (String k: map_.getKeys()) {
             messagesSearchMode.put(DocumentReaderAikiCoreUtil.getSearchingModeByName(k), map_.getVal(k));

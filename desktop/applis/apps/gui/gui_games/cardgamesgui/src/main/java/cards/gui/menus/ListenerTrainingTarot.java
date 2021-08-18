@@ -2,16 +2,16 @@ package cards.gui.menus;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.tarot.enumerations.ChoiceTarot;
 
 public class ListenerTrainingTarot implements ActionListener {
 
-    private MainWindow window;
+    private WindowCards window;
 
     private ChoiceTarot choiceTarot;
 
-    public ListenerTrainingTarot(MainWindow _window, ChoiceTarot _choiceTarot) {
+    public ListenerTrainingTarot(WindowCards _window, ChoiceTarot _choiceTarot) {
         window = _window;
         choiceTarot = _choiceTarot;
     }

@@ -1,15 +1,15 @@
 package code.minirts.events;
 
-import code.minirts.MainWindow;
+import code.minirts.WindowRts;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Animate implements ActionListener {
 
-    private MainWindow window;
+    private WindowRts window;
 
-    public Animate(MainWindow _window) {
+    public Animate(WindowRts _window) {
         window = _window;
     }
 

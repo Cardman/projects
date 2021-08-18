@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.GameTarotCommonPlaying;
@@ -42,13 +42,13 @@ public class ListenerCardTarotMultiHandful extends AbstractListenerCardTarot {
             }
             container.displayTrumpsForHandfulMulti(GameTarotCommonPlaying.atoutsPoignee(container.getPlayerHand().couleurs()));
             if (container.getChoosenHandful() != Handfuls.NO) {
-                String mes_ = container.getMessages().getVal(MainWindow.REMOVE_TRUMPS_HANDFUL);
+                String mes_ = container.getMessages().getVal(WindowCards.REMOVE_TRUMPS_HANDFUL);
                 int exces_ = container.getCurrentIncludedTrumps().total()-container.getRequiredTrumps().getVal(container.getChoosenHandful());
                 container.getInfoCurrentHandful().setText(StringUtil.simpleStringsFormat(mes_, Long.toString(exces_), Games.toString(container.getChoosenHandful(),lg_)));
             }
         }else{
-            String finalMessage_ = StringUtil.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());
-            String title_ = container.getMessages().getVal(MainWindow.TOO_GAME);
+            String finalMessage_ = StringUtil.concat(container.getMessages().getVal(WindowCards.CANT_PLAY),container.getRaisonCourante());
+            String title_ = container.getMessages().getVal(WindowCards.TOO_GAME);
             ConfirmDialog.showMessage(container.getOwner(), finalMessage_,title_, lg_, JOptionPane.ERROR_MESSAGE);
         }
     }

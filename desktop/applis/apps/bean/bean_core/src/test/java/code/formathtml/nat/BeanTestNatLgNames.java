@@ -80,7 +80,7 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
     protected abstract BeanStruct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx);
 
 
-    private static void setStoredForms(BeanStruct _bean, StringMapObject _storedForms) {
+    private static void setStoredForms(BeanStruct _bean, StringMapObjectSample _storedForms) {
         _bean.setForms(_storedForms);
     }
 
@@ -108,7 +108,7 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
         BeanStruct val_ = beansStructs.getVal(_beanName);
-        StringMapObject stringMapObject_ = new StringMapObject();
+        StringMapObjectSample stringMapObject_ = new StringMapObjectSample();
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
         String currentBeanName_ = rendDocumentBlock_.getBeanName();
         BeanStruct bean_ = getBeanOrNull(currentBeanName_);

@@ -16,7 +16,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
 
@@ -28,7 +28,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='$var'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
@@ -39,7 +39,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.Integer[]{$null}\" className='$int'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         Struct exc_ = getEx(html_, new StringMap<String>());
         assertNotNull(exc_);
     }
@@ -68,7 +68,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\"><body><ul><c:for var=\"s\" list=\"array\" className='$int'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -89,7 +89,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.Integer[]{}\" className='$int'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul/></body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
@@ -100,7 +100,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.Integer[]{0}\" className='$int'><c:for var=\"t\" list=\"$new java.lang.Integer[]{1}\" className='$int'><li>{s}-{t}</li></c:for></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>0-1</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
 
@@ -112,7 +112,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:if condition='$true'><li><ol><c:for var=\"t\" list=\"$new java.lang.Integer[]{1}\" className='$int'><li>{t}</li></c:for></ol></li></c:if></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li><ol><li>1</li></ol></li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
@@ -123,7 +123,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:set className='$int[]' value='arr'/><c:for var=\"s\" list=\"arr\" className='$int'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         Struct exc_ = getEx(html_, new StringMap<String>());
         assertNotNull(exc_);
     }
@@ -193,7 +193,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\"><body><ul><c:for var=\"s\" list=\"array\" className='$int'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -213,7 +213,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\"><body><ul><c:for var=\"s\" list=\"array\" className='$var'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -232,7 +232,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
@@ -261,7 +261,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String' label='lab'><li>{s.length()}</li><c:break label='lab'/></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>5</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
     private Struct getEx(String _html, StringMap<String> _files) {
@@ -284,7 +284,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"0\" className='java.lang.Integer'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
 
@@ -337,7 +337,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:for var=\"#s\" list=\"0\" className='java.lang.Integer'>0</c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
     @Test
@@ -348,7 +348,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:for var=\"#s\" list=\"0\" className='java.lang.Integer'><c:for var=\"#s\" list=\"0\" className='java.lang.Integer'>0</c:for></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
     @Test
@@ -359,7 +359,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:for className=\"$int\" init=\"s=0\" condition=\"\" step=\"i;++\"><c:for var=\"s\" list=\"0\" className='java.lang.Integer' indexClassName='java.lang.String'>0</c:for></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
     @Test
@@ -379,7 +379,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html c:bean=\"bean_one\"><body><ul><c:for var=\"s\" list=\"array\" className='java.lang.String'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");

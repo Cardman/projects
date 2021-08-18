@@ -5,12 +5,11 @@ import code.threads.AbstractAtomicInteger;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class AbstractEvent extends MouseAdapter {
-    private MainWindow window;
+    private WindowApps window;
     private AbstractAtomicInteger lock;
-    AbstractEvent(MainWindow _window, AbstractAtomicInteger _lock) {
+    AbstractEvent(WindowApps _window, AbstractAtomicInteger _lock) {
         window = _window;
         lock = _lock;
     }
@@ -26,7 +25,7 @@ public abstract class AbstractEvent extends MouseAdapter {
         launch(window);
     }
     protected abstract boolean tryToReopen(AbstractProgramInfos _list);
-    protected abstract void launch(MainWindow _window);
+    protected abstract void launch(WindowApps _window);
     public AbstractAtomicInteger getLock() {
         return lock;
     }

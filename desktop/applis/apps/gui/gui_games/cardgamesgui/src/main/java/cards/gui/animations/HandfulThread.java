@@ -1,5 +1,5 @@
 package cards.gui.animations;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.labels.MiniTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -12,10 +12,10 @@ public final class HandfulThread implements Runnable {
     private HandTarot poignee;
 
     private Panel panelToSet;
-    private MainWindow window;
+    private WindowCards window;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public HandfulThread(HandTarot _poignee, Panel _panelToSet, MainWindow _window) {
+    public HandfulThread(HandTarot _poignee, Panel _panelToSet, WindowCards _window) {
         poignee = _poignee;
         panelToSet = _panelToSet;
         window = _window;

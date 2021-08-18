@@ -2,7 +2,7 @@ package cards.gui.labels;
 import java.awt.Color;
 import java.awt.Font;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.dialogs.FileConst;
 import code.gui.PaintableLabel;
 import code.gui.images.AbstractImage;
@@ -19,7 +19,7 @@ public class GraphicKey extends PaintableLabel {
     public GraphicKey(StringList _ppseudos,CustList<Color> _pcouleurs, String _lg) {
         pseudos=_ppseudos;
         couleurs=_pcouleurs;
-        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _lg, GRAPHIC_KEY);
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _lg, GRAPHIC_KEY);
     }
     @Override
     public void paintComponent(AbstractImage _g) {

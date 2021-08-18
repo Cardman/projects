@@ -1,20 +1,20 @@
 package aiki.gui.threads;
 
 import aiki.db.PerCent;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import code.gui.CustComponent;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
 public final class LoadingThread implements Runnable {
 
-    private MainWindow window;
+    private WindowAiki window;
 
     private String fileName;
 
     private PerCent perCent;
     /**This class thread is independant from EDT*/
-    public LoadingThread(MainWindow _window, String _fileName, PerCent _p) {
+    public LoadingThread(WindowAiki _window, String _fileName, PerCent _p) {
         window = _window;
         fileName = _fileName;
         perCent = _p;

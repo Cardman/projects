@@ -14,7 +14,7 @@ public final class RenderForEachRefLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:set className='$int[]' value='arr={0,0,0,0}'/><c:set className='$int' value='v=1'/><c:for href='' var=\"s\" list=\"arr\" className='$int'><c:set value='s=v++'/></c:for><c:for var=\"s\" list=\"arr\" className='$int'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul><li>1</li><li>2</li><li>3</li><li>4</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
 
@@ -26,7 +26,7 @@ public final class RenderForEachRefLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:set className='$int[]' value='arr={}'/><c:set className='$int' value='v=1'/><c:for href='' var=\"s\" list=\"arr\" className='$int'><c:set value='s=v++'/></c:for><c:for var=\"s\" list=\"arr\" className='$int'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><ul/></body></html>", getRes(html_, new StringMap<String>()));
     }
 
@@ -38,7 +38,7 @@ public final class RenderForEachRefLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><ul><c:set className='$int[]' value='arr=$null'/><c:set className='$int' value='v=1'/><c:for href='' var=\"s\" list=\"arr\" className='$int'><c:set value='s=v++'/></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertNotNull(getEx(html_,new StringMap<String>()));
     }
 
@@ -50,7 +50,7 @@ public final class RenderForEachRefLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><c:set className='$int' value='v=0'/><c:set className='$int' value='s=0'/><c:for href='' className=\"$int\" init=\"e = $that(v)\" condition=\"e&lt;4\" step=\"e++\"><c:set value='s+=e'/></c:for>{s}-{v}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body>6-4</body></html>", getRes(html_, new StringMap<String>()));
     }
 
@@ -62,7 +62,7 @@ public final class RenderForEachRefLoopTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
         String html_ = "<html><body><c:set className='$int[]' value='arr={0,0,0,0}'/><c:set className='$int' value='v=0'/><c:set className='$int' value='s=0'/><c:for href='' className=\"java.lang.Object\" init=\"e = $that(v)\" condition=\"e&lt;4\" step=\"e++\"><c:set value='s+=e'/></c:for>{s}-{vv}<c:for href='' var=\"s\" list=\"$new $iterable&lt;$int&gt;()\" className='$int'/><c:for href='' var=\"s\" list=\"arr\" className='java.lang.Object'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertTrue(hasErr(html_, new StringMap<String>()));
     }
 

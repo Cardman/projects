@@ -971,7 +971,7 @@ public final class SubmitFormTest extends CommonRender {
 
     private AnalyzedTestNavigation initWithoutValidator(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        files_.put(EquallableRenderUtil.formatFile(_folder, _locale, _relative), _content);
         files_.put("page1.html", _html);
 
 
@@ -1000,7 +1000,7 @@ public final class SubmitFormTest extends CommonRender {
     }
     private AnalyzedTestNavigation initWithValidator(String _locale, String _folder, String _relative, String _content, String _html, StringMap<String> _filesSec) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(_folder, _locale, _relative), _content);
+        files_.put(EquallableRenderUtil.formatFile(_folder, _locale, _relative), _content);
         files_.put("page1.html", _html);
 
 

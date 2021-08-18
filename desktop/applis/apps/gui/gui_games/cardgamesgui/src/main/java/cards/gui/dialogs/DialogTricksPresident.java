@@ -3,7 +3,7 @@ import java.awt.Dimension;
 
 import javax.swing.WindowConstants;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.panels.PanelTricksHandsPresident;
 import cards.president.DisplayingPresident;
 import cards.president.TricksHandsPresident;
@@ -12,7 +12,7 @@ import code.util.StringList;
 
 public final class DialogTricksPresident extends DialogCards {
 
-    public static void setDialogTricksPresident(String _titre, MainWindow _fenetre) {
+    public static void setDialogTricksPresident(String _titre, WindowCards _fenetre) {
         //super(_titre, _fenetre, true);
         _fenetre.getDialogTricksPresident().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         _fenetre.getDialogTricksPresident().setLocationRelativeTo(_fenetre);
@@ -23,13 +23,13 @@ public final class DialogTricksPresident extends DialogCards {
 
     public static void init(TricksHandsPresident _tricksHands,
             byte _numberPlayers, StringList _pseudos,
-            DisplayingPresident _displayingPresident, MainWindow _window) {
+            DisplayingPresident _displayingPresident, WindowCards _window) {
         _window.getDialogTricksPresident().setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window);
     }
 
     private void setDialogue(TricksHandsPresident _tricksHands,
             byte _numberPlayers, StringList _pseudos,
-            DisplayingPresident _displayingPresident, MainWindow _window) {
+            DisplayingPresident _displayingPresident, WindowCards _window) {
         _tricksHands.sortHands(_displayingPresident, _numberPlayers);
         ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsPresident(this,
                 _tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window).getContainer());

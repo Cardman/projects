@@ -280,7 +280,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         filesSec_.put(CUST_ITER_PATH, getCustomIterator());
         filesSec_.put(CUST_LIST_PATH, getCustomList());
@@ -309,7 +309,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
         filesSec_.put(CUST_ITER_PATH, getCustomIterator());
         filesSec_.put(CUST_LIST_PATH, getCustomList());

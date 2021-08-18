@@ -5,10 +5,8 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.player.main.LaunchingPlayer;
 import code.threads.AbstractAtomicInteger;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public final class PlayerEvent extends AbstractEvent {
-    PlayerEvent(MainWindow _window, AbstractAtomicInteger _at) {
+    PlayerEvent(WindowApps _window, AbstractAtomicInteger _at) {
         super(_window,_at);
     }
 
@@ -18,7 +16,7 @@ public final class PlayerEvent extends AbstractEvent {
     }
 
     @Override
-    protected void launch(MainWindow _window) {
+    protected void launch(WindowApps _window) {
         String lg_ = _window.getLanguageKey();
         LaunchingPlayer l_;
         l_ = new LaunchingPlayer(_window.getFrames());

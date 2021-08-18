@@ -4,7 +4,7 @@ import code.formathtml.structs.BeanInfo;
 import code.util.StringMap;
 import org.junit.Test;
 
-public final class NavBuilderTest extends EquallableExUtil {
+public final class NavBuilderTest extends EquallableScriptsUtil {
     @Test
     public void test1(){
         StringMap<StringMap<String>> n_ = new StringMap<StringMap<String>>();

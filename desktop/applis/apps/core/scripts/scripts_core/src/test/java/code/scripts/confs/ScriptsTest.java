@@ -7,7 +7,7 @@ import code.scripts.pages.cards.HelpCards;
 import code.scripts.pages.cards.PageCards;
 import org.junit.Test;
 
-public final class ScriptsTest extends EquallableExUtil {
+public final class ScriptsTest extends EquallableScriptsUtil {
     @Test
     public void belote(){
 //        assertNotNull(BeloteScriptPages.infos());

@@ -6,9 +6,7 @@ import code.bean.nat.StandardField;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -19,7 +17,6 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
 
@@ -175,7 +172,7 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         BeanStruct res_ = getOtherResultBean(_ctx, id_);
         Bean bean_ = res_.getBean();
-        res_.setForms(new StringMapObject());
+        res_.setForms(new StringMapObjectSample());
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
         return res_;

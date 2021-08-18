@@ -2,13 +2,13 @@ package cards.gui.menus;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 
 public class ManageNicknameEvent implements ActionListener {
 
-    private MainWindow window;
+    private WindowCards window;
 
-    public ManageNicknameEvent(MainWindow _window) {
+    public ManageNicknameEvent(WindowCards _window) {
         window = _window;
     }
 

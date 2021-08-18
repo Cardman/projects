@@ -7,7 +7,7 @@ import aiki.beans.PokemonStandards;
 import aiki.facade.FacadeGame;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
@@ -39,7 +39,7 @@ public final class DialogHtmlData extends Dialog {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(MainWindow _window, Dialog _parent, String _title, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    public static void setDialogHtmlData(WindowAiki _window, Dialog _parent, String _title, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
         _window.getDialogHtmlData().setDialogIcon(_window.getImageFactory(),_parent);
         _window.getDialogHtmlData().setTitle(_title);
@@ -54,7 +54,7 @@ public final class DialogHtmlData extends Dialog {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(MainWindow _parent, String _title, RenderedPage _session,FacadeGame _dataBase,PreparedRenderedPages _pre, String _lg) {
+    public static void setDialogHtmlData(WindowAiki _parent, String _title, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
         _parent.getDialogHtmlData().setDialogIcon(_parent.getImageFactory(),_parent);
         _parent.getDialogHtmlData().setTitle(_title);
@@ -62,14 +62,14 @@ public final class DialogHtmlData extends Dialog {
         _parent.getDialogHtmlData().initSession(_dataBase,_pre,_lg);
     }
 
-    private void init(MainWindow _window,Dialog _parent, RenderedPage _session) {
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
+    private void init(WindowAiki _window, Dialog _parent, RenderedPage _session) {
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
         setLocationRelativeTo(_parent);
         initSession(_session);
     }
 
-    private void init(MainWindow _window,MainWindow _parent, RenderedPage _session) {
-        messages = MainWindow.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
+    private void init(WindowAiki _window, WindowAiki _parent, RenderedPage _session) {
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
         setLocationRelativeTo(_parent);
         initSession(_session);
     }

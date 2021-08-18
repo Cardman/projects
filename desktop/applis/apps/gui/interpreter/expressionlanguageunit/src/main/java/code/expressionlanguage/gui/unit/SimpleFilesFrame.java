@@ -53,7 +53,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private final TextArea results;
     private final ProgressBar progressBar;
     private final StringMap<String> messages;
-    private final MainWindow parent;
+    private final WindowUnit parent;
     private byte[] confFile;
     private byte[] src;
     private byte[] files;
@@ -62,7 +62,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private final CommonExecution commonExecution;
     private String filePath = "";
 
-    public SimpleFilesFrame(MainWindow _parent, String _title) {
+    public SimpleFilesFrame(WindowUnit _parent, String _title) {
         super(_parent.getLanguageKey(),_parent);
         parent =_parent;
         setAccessFile(DIALOG_ACCESS);

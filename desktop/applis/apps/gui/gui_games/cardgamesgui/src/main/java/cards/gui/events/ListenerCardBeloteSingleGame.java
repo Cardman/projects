@@ -7,7 +7,7 @@ import cards.belote.GameBelote;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.facade.Games;
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
@@ -55,7 +55,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                     for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow().getImageFactory(),lg_,cartesBeloteRebelote_)) {
                         panneau_.add(c);
                     }
-                    ConfirmDialog.showComponent(container.getOwner(), panneau_, container.getMessages().getVal(MainWindow.HAVE_TO_PLAY), lg_, JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showComponent(container.getOwner(), panneau_, container.getMessages().getVal(WindowCards.HAVE_TO_PLAY), lg_, JOptionPane.ERROR_MESSAGE);
                     return;
                     //il ne faut pas afficher deux boites de dialgue
                 }
@@ -64,14 +64,14 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                 container.setaJoueCarte(true);
                 container.finPliBelote(getCarteVerif());
             }else{
-                String mes_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_));
+                String mes_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.CANT_PLAY_CARD), Games.toString(getCarteVerif(),lg_));
                 String finalMessage_ = StringUtil.concat(mes_,ContainerGame.RETURN_LINE,Games.autoriseBelote(partie_,lg_));
-                String title_ = container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
+                String title_ = container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
                 ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
             }
         }else{
-            String finalMessage_ = StringUtil.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());
-            String title_ = container.getMessages().getVal(MainWindow.TOO_GAME);
+            String finalMessage_ = StringUtil.concat(container.getMessages().getVal(WindowCards.CANT_PLAY),container.getRaisonCourante());
+            String title_ = container.getMessages().getVal(WindowCards.TOO_GAME);
             ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
         }
     }

@@ -3,16 +3,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import aiki.facade.FacadeGame;
-import aiki.gui.MainWindow;
+import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.SelectEgg;
 
 public class ConsultEggEvent extends MouseAdapter {
 
-    private MainWindow window;
+    private WindowAiki window;
 
     private FacadeGame facade;
 
-    public ConsultEggEvent(MainWindow _window, FacadeGame _facade) {
+    public ConsultEggEvent(WindowAiki _window, FacadeGame _facade) {
         window = _window;
         facade = _facade;
     }

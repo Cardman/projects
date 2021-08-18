@@ -52,7 +52,7 @@ public final class RenderInitStdsTest extends CommonRender {
         basicStandards(b_);
         AnalysisMessages am_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
         Options options_ = new Options();
         int tabWidth_ = 4;
@@ -62,7 +62,7 @@ public final class RenderInitStdsTest extends CommonRender {
         ContextFactory.validatedStds(forwards_, am_, k_, new CustList<CommentDelimiters>(), options_, b_.getContent(), page_);
         b_.build();
         ValidatorStandard.setupOverrides(page_);
-        AnalyzedTestContext an_ = new AnalyzedTestContext(options_,page_, forwards_, b_);
+        AnalyzedTestContextRender an_ = new AnalyzedTestContextRender(options_,page_, forwards_, b_);
         ContextEl generate_ = an_.getForwards().generate(options_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, an_, an_.getForwards(), b_);
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, generate_);
@@ -91,7 +91,7 @@ public final class RenderInitStdsTest extends CommonRender {
         return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw, _calculator);
     }
     private boolean contextEl(StringMap<String> _files, Options _opt, BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
@@ -100,7 +100,7 @@ public final class RenderInitStdsTest extends CommonRender {
         ContextFactory.validatedStds(forwards_, _mess, _kw, new CustList<CommentDelimiters>(), _opt, _beanLgNames.getContent(), page_);
         _beanLgNames.build();
         ValidatorStandard.setupOverrides(page_);
-        AnalyzedTestContext an_ = new AnalyzedTestContext(_opt,page_, forwards_, _beanLgNames);
+        AnalyzedTestContextRender an_ = new AnalyzedTestContextRender(_opt,page_, forwards_, _beanLgNames);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_, an_, an_.getForwards(), _beanLgNames);
         CommonRender.getHeaders(_files, a_);
         return isEmptyErrors(a_);

@@ -3,15 +3,14 @@ package code.formathtml.errors;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
 import code.formathtml.BeanCustLgNamesImpl;
-import code.formathtml.EquallableExUtil;
-import code.formathtml.InitializationLgNames;
+import code.formathtml.EquallableRenderUtil;
+import code.formathtml.InitializationLgNamesRender;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import org.junit.Test;
 
-public final class RendAnalysisMessagesTest extends EquallableExUtil {
+public final class RendAnalysisMessagesTest extends EquallableRenderUtil {
     @Test
     public void fail() {
         RendAnalysisMessages def_ = new RendAnalysisMessages();
@@ -24,7 +23,7 @@ public final class RendAnalysisMessagesTest extends EquallableExUtil {
         def_.setInexistantKey("");
         def_.setBadDocument("");
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
-        InitializationLgNames.basicStandards(lgName_);
+        InitializationLgNamesRender.basicStandards(lgName_);
         Options opts_ = new Options();
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setLogErr(lgName_);

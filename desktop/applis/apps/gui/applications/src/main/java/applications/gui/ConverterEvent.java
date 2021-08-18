@@ -5,11 +5,9 @@ import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicInteger;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public final class ConverterEvent extends AbstractEvent {
 
-    ConverterEvent(MainWindow _window, AbstractAtomicInteger _at) {
+    ConverterEvent(WindowApps _window, AbstractAtomicInteger _at) {
         super(_window,_at);
     }
 
@@ -19,7 +17,7 @@ public final class ConverterEvent extends AbstractEvent {
     }
 
     @Override
-    protected void launch(MainWindow _window) {
+    protected void launch(WindowApps _window) {
         String lg_ = _window.getLanguageKey();
         LaunchingConverter l_;
         l_ = new LaunchingConverter(_window.getFrames());

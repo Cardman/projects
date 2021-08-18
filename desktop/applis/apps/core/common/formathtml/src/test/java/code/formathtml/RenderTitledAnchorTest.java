@@ -1,6 +1,5 @@
 package code.formathtml;
 
-import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -14,7 +13,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html><body><c:a value=\"msg_example,three\" param0=\"TITLE\">Content</c:a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertEq("<html><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", getRes(folder_, relative_, html_, files_, new StringMap<String>()));
     }
 
@@ -26,7 +25,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html><body><c:a value=\"msg_example,three\" param0=\"{1/0}\">Content</c:a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertNotNull(getEx(folder_, relative_, html_, files_, new StringMap<String>()));
     }
 
@@ -38,7 +37,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html><body><c:a value=\"msg_example,five\">Content</c:a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         assertTrue(hasErr(folder_, relative_, html_, files_, new StringMap<String>()));
     }
 

@@ -6,7 +6,7 @@ import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
-import code.player.gui.CreateMainWindow;
+import code.player.gui.CreateMainWindowPlayer;
 import code.scripts.messages.gui.MessPlayerGr;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
@@ -33,7 +33,7 @@ public class LaunchingPlayer extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindow(_language,_args, getFrames()));
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowPlayer(_language,_args, getFrames()));
     }
 
     @Override

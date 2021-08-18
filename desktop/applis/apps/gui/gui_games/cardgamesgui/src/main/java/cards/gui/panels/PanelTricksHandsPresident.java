@@ -5,7 +5,7 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
-import cards.gui.MainWindow;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicPresidentCard;
@@ -44,19 +44,19 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
     private final ChangeableTitle parent;
     private final byte numberPlayers;
     private final DisplayingPresident displayingPresident;
-    private final MainWindow window;
+    private final WindowCards window;
     private final Panel container;
 
     public PanelTricksHandsPresident(ChangeableTitle _parent,
             TricksHandsPresident _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
-            DisplayingPresident _displayingPresident, MainWindow _window) {
+            DisplayingPresident _displayingPresident, WindowCards _window) {
         window = _window;
         String lg_ = window.getLanguageKey();
         numberPlayers = _numberPlayers;
         displayingPresident = _displayingPresident;
-        messages = MainWindow.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
         parent = _parent;
         tricksHands = _tricksHands;
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, (byte) -1);
