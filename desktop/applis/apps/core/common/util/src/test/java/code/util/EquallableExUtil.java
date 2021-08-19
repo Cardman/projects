@@ -1,6 +1,4 @@
 package code.util;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import code.util.classestest.MyCmp;
 import org.junit.Assert;
@@ -55,15 +53,6 @@ public abstract class EquallableExUtil {
         Assert.assertEquals(_expected, _result);
     }
     public static void assertEq(long _expected, char _result) {
-        Assert.assertEquals(_expected, _result);
-    }
-    public static void assertEq(BigInteger _expected, BigInteger _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertEquals(_expected, _result);
-    }
-
-    public static void assertEq(BigDecimal _expected, BigDecimal _result) {
-        Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);
     }
 

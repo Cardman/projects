@@ -3,9 +3,6 @@ package code.adv;
 import code.util.StringList;
 import org.junit.Assert;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 public abstract class EquallableAdvUtil {
 
     public static void assertNotNull(Object _value) {
@@ -54,15 +51,6 @@ public abstract class EquallableAdvUtil {
         Assert.assertEquals(_expected, _result);
     }
     public static void assertEq(long _expected, char _result) {
-        Assert.assertEquals(_expected, _result);
-    }
-    public static void assertEq(BigInteger _expected, BigInteger _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertEquals(_expected, _result);
-    }
-
-    public static void assertEq(BigDecimal _expected, BigDecimal _result) {
-        Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);
     }
 

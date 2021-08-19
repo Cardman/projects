@@ -9,9 +9,6 @@ import code.maths.geo.CustPoint;
 import code.maths.geo.CustPointThreeDims;
 import code.util.*;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 public abstract class EquallableMathUtil {
 
     private static final String DIFF = " != ";
@@ -35,14 +32,6 @@ public abstract class EquallableMathUtil {
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);
-    }
-
-    public static void assertEq(long _expected, BigDecimal _result) {
-        Assert.assertEquals(_expected, _result.longValue());
-    }
-
-    public static void assertEq(long _expected, BigInteger _result) {
-        Assert.assertEquals(_expected, _result.longValue());
     }
     public static void assertEq(long _expected, long _result) {
         Assert.assertEquals(_expected, _result);
@@ -80,11 +69,6 @@ public abstract class EquallableMathUtil {
         Assert.assertNotNull(_result);
         assertEq(_expected.getImag(),_result.getImag());
         assertEq(_expected.getReal(),_result.getReal());
-    }
-
-    public static void assertEq(BigDec _expected, BigDec _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringUtil.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
     }
 
     public static void assertEq(CustPoint _expected, CustPoint _result) {
