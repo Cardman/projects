@@ -4,6 +4,7 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.PathUtil;
 import code.stream.core.ReadBinFiles;
 import code.threads.AbstractThreadFactory;
+import code.threads.FileStruct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;

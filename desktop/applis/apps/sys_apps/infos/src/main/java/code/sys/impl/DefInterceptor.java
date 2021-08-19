@@ -12,6 +12,8 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
+import code.threads.AbstractConcurrentMap;
+import code.threads.AbstractThread;
 
 public final class DefInterceptor implements AbstractInterceptor {
     @Override
@@ -33,4 +35,19 @@ public final class DefInterceptor implements AbstractInterceptor {
             return new ResultErrorStd();
         }
     }
+    @Override
+    public AbstractConcurrentMap<String, Struct> newMapStringStruct() {
+        return new DefConcurrentMap<String, Struct>();
+    }
+
+    @Override
+    public AbstractConcurrentMap<AbstractThread, Struct> newMapAbstractThreadStruct() {
+        return new DefConcurrentMap<AbstractThread, Struct>();
+    }
+
+    @Override
+    public AbstractConcurrentMap<Struct, Struct> newMapStructStruct() {
+        return new DefConcurrentMap<Struct, Struct>();
+    }
+
 }

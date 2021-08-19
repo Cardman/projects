@@ -3032,7 +3032,7 @@ public final class GuiAliases {
             return new Argument(new FontStruct());
         }
         if (StringUtil.quickEq(_id,aliasWindowSet)) {
-            WindowSetStruct set_ = new WindowSetStruct(true);
+            WindowSetStruct set_ = new WindowSetStruct(true,_custAliases.getInterceptor());
             return new Argument(set_);
         }
         if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
@@ -3096,7 +3096,7 @@ public final class GuiAliases {
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasWindowSet)) {
-            WindowSetStruct set_ = new WindowSetStruct(true);
+            WindowSetStruct set_ = new WindowSetStruct(true,_custAliases.getInterceptor());
             r_.setResult(set_);
             return r_;
         }

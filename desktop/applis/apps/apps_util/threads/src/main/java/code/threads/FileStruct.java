@@ -1,6 +1,4 @@
-package code.expressionlanguage.utilcompo;
-
-import code.threads.AbstractThreadFactory;
+package code.threads;
 
 public final class FileStruct {
     private byte[] content;

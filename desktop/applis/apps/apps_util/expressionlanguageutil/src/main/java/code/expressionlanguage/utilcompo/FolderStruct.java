@@ -3,6 +3,7 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.filenames.PathUtil;
 import code.stream.core.ContentTime;
 import code.threads.AbstractThreadFactory;
+import code.threads.FileStruct;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;

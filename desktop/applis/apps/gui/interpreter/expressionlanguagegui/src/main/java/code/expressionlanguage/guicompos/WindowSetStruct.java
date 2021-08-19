@@ -4,17 +4,18 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.AbstractInterceptor;
+import code.threads.AbstractConcurrentMap;
 import code.util.CustList;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 public final class WindowSetStruct extends WithoutParentIdStruct {
-    private final ConcurrentHashMap<Struct,Struct> elementSet = new ConcurrentHashMap<Struct,Struct>();
+    private final AbstractConcurrentMap<Struct,Struct> elementSet;
 
     private final boolean writable;
 
-    public WindowSetStruct(boolean _writable) {
+    public WindowSetStruct(boolean _writable, AbstractInterceptor _concurrent) {
         writable = _writable;
+        elementSet = _concurrent.newMapStructStruct();
     }
 
     public ArrayStruct toSnapshotArray(ContextEl _contextEl, StackCall _stackCall) {

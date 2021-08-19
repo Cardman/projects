@@ -1984,7 +1984,7 @@ public final class CustAliases {
             return Argument.createVoid();
         }
         if (StringUtil.quickEq(_id,aliasThreadSet)) {
-            ThreadSetStruct std_ = new ThreadSetStruct();
+            ThreadSetStruct std_ = new ThreadSetStruct(getInterceptor());
             return new Argument(std_);
         }
         if (StringUtil.quickEq(_id,aliasReentrantLock)) {
@@ -2018,7 +2018,7 @@ public final class CustAliases {
             return res_;
         }
         if (StringUtil.quickEq(name_,aliasThreadSet)) {
-            ThreadSetStruct std_ = new ThreadSetStruct();
+            ThreadSetStruct std_ = new ThreadSetStruct(getInterceptor());
             res_.setResult(std_);
             return res_;
         }
@@ -2101,7 +2101,7 @@ public final class CustAliases {
             return res_;
         }
         if (StringUtil.quickEq(name_,aliasTableStringObject)) {
-            res_.setResult(new StringMapStruct());
+            res_.setResult(new StringMapStruct(getInterceptor()));
             return res_;
         }
         return res_;

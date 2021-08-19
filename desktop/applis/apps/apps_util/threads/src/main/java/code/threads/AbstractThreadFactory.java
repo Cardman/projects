@@ -1,6 +1,7 @@
 package code.threads;
 
 public interface AbstractThreadFactory {
+    AbstractConcurrentMap<String, FileStruct> newMapStringFileStruct();
     AbstractDateFactory getDateFactory();
     long nanos();
     long millis();

@@ -1,13 +1,13 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThreadFactory;
+import code.threads.FileStruct;
 import code.util.core.StringUtil;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 public final class MemoryLogger implements AbstractLogger {
-    private final ConcurrentHashMap<String,FileStruct> logs = new ConcurrentHashMap<String,FileStruct>();
+    private final AbstractConcurrentMap<String, FileStruct> logs;
     private final AbstractNameValidating nameValidating;
     private String errFile = "";
     private String errs = "";
@@ -18,6 +18,7 @@ public final class MemoryLogger implements AbstractLogger {
         nameValidating = _nameValidating;
         issuer = _issuer;
         threadFactory = _threadFact;
+        logs = _threadFact.newMapStringFileStruct();
     }
 
     public AbstractIssuer getIssuer() {
@@ -67,7 +68,7 @@ public final class MemoryLogger implements AbstractLogger {
         return errs;
     }
 
-    public ConcurrentHashMap<String, FileStruct> getLogs() {
+    public AbstractConcurrentMap<String, FileStruct> getLogs() {
         return logs;
     }
 }

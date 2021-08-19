@@ -21,11 +21,14 @@ import code.util.core.StringUtil;
 public class CustInitializer extends DefaultInitializer {
 
 	/**Used map in order that the user can easily log when a few thread is used (depends on Thread class implementation)*/
-	private final ThreadSetStruct threadSet = new ThreadSetStruct();
-    private final ThreadSetStruct hooks = new ThreadSetStruct();
+	private final ThreadSetStruct threadSet;
+    private final ThreadSetStruct hooks;
 	private final AbstractAtomicLong countThreads;
-	public CustInitializer(AbstractAtomicLong _value) {
+
+    public CustInitializer(AbstractAtomicLong _value,AbstractInterceptor _concurrent) {
         countThreads = _value;
+        threadSet = new ThreadSetStruct(_concurrent);
+        hooks = new ThreadSetStruct(_concurrent);
     }
     @Override
     protected Struct init(ContextEl _context, Struct _parent,

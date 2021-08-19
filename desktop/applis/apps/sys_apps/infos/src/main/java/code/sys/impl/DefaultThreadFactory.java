@@ -7,6 +7,11 @@ public final class DefaultThreadFactory implements AbstractThreadFactory {
     private final AbstractDateFactory dateFactory = new DefaultDateFactory();
 
     @Override
+    public AbstractConcurrentMap<String, FileStruct> newMapStringFileStruct() {
+        return new DefConcurrentMap<String, FileStruct>();
+    }
+
+    @Override
     public AbstractDateFactory getDateFactory() {
         return dateFactory;
     }

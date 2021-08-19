@@ -5,15 +5,18 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.*;
+import code.threads.AbstractConcurrentMap;
 import code.util.CustList;
 
 import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 
 public final class StringMapStruct extends WithoutParentIdStruct implements Struct {
 
-    private final ConcurrentHashMap<String,Struct> elementSet = new ConcurrentHashMap<String,Struct>();
+    private final AbstractConcurrentMap<String,Struct> elementSet;
 
+    public StringMapStruct(AbstractInterceptor _concurrentFactory) {
+        elementSet = _concurrentFactory.newMapStringStruct();
+    }
     public ArrayStruct toSnapshotKeys(ContextEl _contextEl) {
         CustList<String> instantKeys_ = new CustList<String>();
         for (String s: elementSet.keySet()) {
@@ -185,7 +188,9 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
             return;
         }
         StringMapStruct map_=(StringMapStruct)_map;
-        elementSet.putAll(map_.elementSet);
+        for (Entry<String, Struct> s: map_.elementSet.entrySet()) {
+            elementSet.put(s.getKey(),s.getValue());
+        }
     }
     @Override
     public String getClassName(ContextEl _contextEl) {

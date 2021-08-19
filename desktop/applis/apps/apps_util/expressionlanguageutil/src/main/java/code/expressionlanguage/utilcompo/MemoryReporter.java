@@ -6,7 +6,9 @@ import code.stream.core.ContentTime;
 import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
 import code.stream.core.StreamZipFile;
+import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThreadFactory;
+import code.threads.FileStruct;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -15,7 +17,6 @@ import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
 import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 
 public final class MemoryReporter implements AbstractReporter {
     private final byte[] conf;
@@ -155,7 +156,7 @@ public final class MemoryReporter implements AbstractReporter {
     public static StringMap<ContentTime> exportSysLoggs(ExecutingOptions _ex, AbstractFileSystem _sys, AbstractLogger _log, AbstractThreadFactory _threadFact) {
         StringMap<ContentTime> out_ = exportErr(_log,_threadFact);
         if (_log instanceof MemoryLogger) {
-            ConcurrentHashMap<String, FileStruct> logs_ = ((MemoryLogger) _log).getLogs();
+            AbstractConcurrentMap<String, FileStruct> logs_ = ((MemoryLogger) _log).getLogs();
             for (Entry<String, FileStruct> e: logs_.entrySet()) {
                 String key_ = e.getKey();
                 String toFile_ = StringUtil.concat(_ex.getLogFolder(),"/",key_);
