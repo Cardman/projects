@@ -8,8 +8,8 @@ import code.util.CustList;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class WindowSetStruct extends WithoutParentIdStruct implements Struct {
-    private final ConcurrentHashMap<WindowStruct,Struct> elementSet = new ConcurrentHashMap<WindowStruct,Struct>();
+public final class WindowSetStruct extends WithoutParentIdStruct {
+    private final ConcurrentHashMap<Struct,Struct> elementSet = new ConcurrentHashMap<Struct,Struct>();
 
     private final boolean writable;
 
@@ -18,8 +18,8 @@ public final class WindowSetStruct extends WithoutParentIdStruct implements Stru
     }
 
     public ArrayStruct toSnapshotArray(ContextEl _contextEl, StackCall _stackCall) {
-        CustList<WindowStruct> instantKeys_ = new CustList<WindowStruct>();
-        for (WindowStruct s: elementSet.keySet()) {
+        CustList<Struct> instantKeys_ = new CustList<Struct>();
+        for (Struct s: elementSet.keySet()) {
             instantKeys_.add(s);
         }
         String thClass_ = ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasWindow();
@@ -39,7 +39,7 @@ public final class WindowSetStruct extends WithoutParentIdStruct implements Stru
         if (!(_key instanceof WindowStruct)) {
             return;
         }
-        elementSet.put((WindowStruct) _key,NullStruct.NULL_VALUE);
+        elementSet.put(_key,NullStruct.NULL_VALUE);
     }
     public void remove(Struct _key, boolean _ch) {
         if (!writable && _ch) {
