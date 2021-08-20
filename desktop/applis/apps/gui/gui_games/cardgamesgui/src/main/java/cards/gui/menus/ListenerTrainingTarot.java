@@ -1,11 +1,10 @@
 package cards.gui.menus;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import cards.gui.WindowCards;
 import cards.tarot.enumerations.ChoiceTarot;
+import code.gui.AbsActionListener;
 
-public class ListenerTrainingTarot implements ActionListener {
+public class ListenerTrainingTarot implements AbsActionListener {
 
     private WindowCards window;
 
@@ -17,7 +16,7 @@ public class ListenerTrainingTarot implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _arg0) {
+    public void action() {
         window.trainingTarot(choiceTarot);
     }
 }

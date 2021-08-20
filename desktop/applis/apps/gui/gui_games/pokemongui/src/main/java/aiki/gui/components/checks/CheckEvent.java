@@ -1,8 +1,10 @@
 package aiki.gui.components.checks;
+import code.gui.AbsActionListener;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public final class CheckEvent implements ActionListener {
+public final class CheckEvent implements AbsActionListener {
 
     private CheckBox checkBox;
 
@@ -11,7 +13,7 @@ public final class CheckEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         checkBox.processKey(checkBox.getKey());
     }
 

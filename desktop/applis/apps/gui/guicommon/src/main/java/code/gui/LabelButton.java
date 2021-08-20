@@ -25,8 +25,6 @@ public class LabelButton extends CustComponent {
 
     private String text = "";
 
-    private MouseAdapaterCore adapterCore;
-
     public LabelButton(String _text) {
         this(_text, true);
     }
@@ -62,8 +60,7 @@ public class LabelButton extends CustComponent {
         label.setEnabled(_enabled);
     }
     public void addMouseListener(MouseAdapter _l) {
-        adapterCore = new MouseAdapaterCore(_l, this);
-        label.addMouseListener(adapterCore);
+        label.addMouseListener(new MouseAdapaterCore(_l, this));
     }
 
     public boolean isEnabledLabel() {

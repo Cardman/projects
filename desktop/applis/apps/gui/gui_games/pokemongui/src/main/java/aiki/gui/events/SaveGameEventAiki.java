@@ -3,8 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import aiki.gui.WindowAiki;
+import code.gui.AbsActionListener;
 
-public class SaveGameEventAiki implements ActionListener {
+public class SaveGameEventAiki implements AbsActionListener {
 
     private WindowAiki window;
 
@@ -13,7 +14,7 @@ public class SaveGameEventAiki implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         window.saveGame();
     }
 

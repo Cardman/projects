@@ -13,7 +13,6 @@ import code.util.ObjectMap;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 
@@ -163,11 +162,11 @@ public class PanelBattle {
         facade.setNewLocation(_x, _y);
     }
 
-    public void moveCamera(AbstractImageFactory _fact,Point _pt) {
+    public void moveCamera(CustPoint _p, AbstractImageFactory _fact, int _x, int _y) {
         CustComponent parent_ = container.getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
-        facade.moveCamera(_pt.x, _pt.y, w_, h_);
+        facade.moveCamera(_p.getXcoords()+ _x, _p.getYcoords()+ _y, w_, h_);
         CustPoint curTopLeft_ = facade.getTopLeftPoint();
         container.setLocation(-curTopLeft_.getXcoords(),-curTopLeft_.getYcoords());
 //        setLocation(curTopLeft_);

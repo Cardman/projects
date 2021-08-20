@@ -11,15 +11,18 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableFunctionalInstance;
 import code.gui.*;
+import code.gui.events.AbsMouseListener;
+import code.gui.events.AbsMouseMotionListener;
+import code.gui.events.AbsMouseWheelListener;
 import code.util.CustList;
 
 import javax.swing.event.*;
 import java.awt.event.*;
 
 public final class EventFunctionalInstance extends AbstractFunctionalInstanceImpl implements
-        ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
+        AbsActionListener,Runnable, AbsMouseListener,WindowListener,ListSelection,
         KeyListener,ChangeListener,AbsShortListTree,ListSelectionListener,
-        MouseMotionListener,MouseWheelListener,FieldableStruct {
+        AbsMouseMotionListener, AbsMouseWheelListener,FieldableStruct {
 
     private final CustList<ClassFieldStruct> fields;
     private final CommonExecutionInfos executionInfos;
@@ -38,7 +41,7 @@ public final class EventFunctionalInstance extends AbstractFunctionalInstanceImp
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasActionEvent();
         ActionEventStruct a_ = new ActionEventStruct(actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
@@ -70,65 +73,51 @@ public final class EventFunctionalInstance extends AbstractFunctionalInstanceImp
     }
 
     @Override
-    public void mouseClicked(MouseEvent _e) {
+    public void mouseDragged(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        mouseFct(_location, _keyState, _buttons);
+    }
+
+    @Override
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        mouseFct(_location, _keyState, _buttons);
+    }
+
+    @Override
+    public void mousePressed(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        mouseFct(_location, _keyState, _buttons);
+    }
+
+    @Override
+    public void mouseExited(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        mouseFct(_location, _keyState, _buttons);
+    }
+
+    @Override
+    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        mouseFct(_location, _keyState, _buttons);
+    }
+
+    @Override
+    public void mouseClicked(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        mouseFct(_location, _keyState, _buttons);
+    }
+
+    @Override
+    public void mouseMoved(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        mouseFct(_location, _keyState, _buttons);
+    }
+
+    private void mouseFct(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
-        MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
+        MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 
     @Override
-    public void mousePressed(MouseEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
-        MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
-        MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
-        MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
-    }
-
-    @Override
-    public void mouseExited(MouseEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
-        MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
-        MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
-        MouseEventStruct a_ = new MouseEventStruct(_e,actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
-    }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent _e) {
+    public void mouseWheelMoved(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons, AbsMouseWheel _wheel) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWheelEvent();
-        MouseWheelEventStruct a_ = new MouseWheelEventStruct(_e,actEv_);
+        MouseWheelEventStruct a_ = new MouseWheelEventStruct(actEv_, _location, _keyState, _buttons, _wheel);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }

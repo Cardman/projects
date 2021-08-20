@@ -6,11 +6,16 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
+import code.gui.events.*;
 import code.util.CustList;
+import code.util.IdMap;
 
 public abstract class CustComponent {
 
     private CustComponent parent;
+    private final IdMap<AbsMouseListener, WrMouseListener> mapMouse = new IdMap<AbsMouseListener, WrMouseListener>();
+    private final IdMap<AbsMouseMotionListener, WrMouseMotionListener> mapMouseMotion = new IdMap<AbsMouseMotionListener, WrMouseMotionListener>();
+    private final IdMap<AbsMouseWheelListener, WrMouseWheelListener> mapMouseWheel = new IdMap<AbsMouseWheelListener, WrMouseWheelListener>();
     private final CustList<CustComponent> children = new CustList<CustComponent>();
     protected abstract JComponent getComponent();
     public static void invokeLater(Runnable _r) {
@@ -27,8 +32,20 @@ public abstract class CustComponent {
         return new Thread(_r);
     }
 
+    public void addMouseListener(AbsMouseListener _mouseListener) {
+        WrMouseListener wr_ = new WrMouseListener(_mouseListener);
+        getComponent().addMouseListener(wr_);
+        mapMouse.addEntry(_mouseListener,wr_);
+    }
+
     public void addMouseListener(MouseListener _mouseListener) {
         getComponent().addMouseListener(_mouseListener);
+    }
+
+    public void addMouseMotionListener(AbsMouseMotionListener _mouseListener) {
+        WrMouseMotionListener wr_ = new WrMouseMotionListener(_mouseListener);
+        getComponent().addMouseMotionListener(wr_);
+        mapMouseMotion.addEntry(_mouseListener,wr_);
     }
 
     public void addMouseMotionListener(MouseMotionListener _mouseListener) {
@@ -38,34 +55,46 @@ public abstract class CustComponent {
     public void addMouseWheelListener(MouseWheelListener _l) {
         getComponent().addMouseWheelListener(_l);
     }
+
+    public void addMouseWheelListener(AbsMouseWheelListener _l) {
+        WrMouseWheelListener wr_ = new WrMouseWheelListener(_l);
+        getComponent().addMouseWheelListener(wr_);
+        mapMouseWheel.addEntry(_l,wr_);
+    }
     public void addKeyListener(KeyListener _l) {
         getComponent().addKeyListener(_l);
     }
-    public void removeMouseListener(MouseListener _mouseListener) {
-        getComponent().removeMouseListener(_mouseListener);
+    public void removeMouseListener(AbsMouseListener _mouseListener) {
+        WrMouseListener wr_ = mapMouse.getVal(_mouseListener);
+        getComponent().removeMouseListener(wr_);
+        mapMouse.removeKey(_mouseListener);
     }
 
-    public void removeMouseMotionListener(MouseMotionListener _mouseListener) {
-        getComponent().removeMouseMotionListener(_mouseListener);
+    public void removeMouseMotionListener(AbsMouseMotionListener _mouseListener) {
+        WrMouseMotionListener wr_ = mapMouseMotion.getVal(_mouseListener);
+        getComponent().removeMouseMotionListener(wr_);
+        mapMouseMotion.removeKey(_mouseListener);
     }
 
-    public void removeMouseWheelListener(MouseWheelListener _l) {
-        getComponent().removeMouseWheelListener(_l);
+    public void removeMouseWheelListener(AbsMouseWheelListener _l) {
+        WrMouseWheelListener wr_ = mapMouseWheel.getVal(_l);
+        getComponent().removeMouseWheelListener(wr_);
+        mapMouseWheel.removeKey(_l);
     }
     public void removeKeyListener(KeyListener _l) {
         getComponent().removeKeyListener(_l);
     }
 
-    public MouseListener[] getMouseListeners() {
-        return getComponent().getMouseListeners();
+    public CustList<AbsMouseListener> getMouseListeners() {
+        return mapMouse.getKeys();
     }
 
-    public MouseMotionListener[] getMouseMotionListeners() {
-        return getComponent().getMouseMotionListeners();
+    public CustList<AbsMouseMotionListener> getMouseMotionListeners() {
+        return mapMouseMotion.getKeys();
     }
 
-    public MouseWheelListener[] getMouseWheelListeners() {
-        return getComponent().getMouseWheelListeners();
+    public CustList<AbsMouseWheelListener> getMouseWheelListeners() {
+        return mapMouseWheel.getKeys();
     }
 
     public KeyListener[] getKeyListeners() {

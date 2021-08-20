@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.gui.events.WrActionListener;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
@@ -30,6 +32,10 @@ public final class PlainButton extends CustComponent {
 
     public void addActionListener(ActionListener _l) {
         button.addActionListener(_l);
+    }
+
+    public void addActionListener(AbsActionListener _l) {
+        button.addActionListener(new WrActionListener(_l));
     }
 
     public boolean isEnabled() {

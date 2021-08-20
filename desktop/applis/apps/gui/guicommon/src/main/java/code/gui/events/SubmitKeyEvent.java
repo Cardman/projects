@@ -1,10 +1,9 @@
 package code.gui.events;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+import code.gui.AbsActionListener;
 import code.gui.SingleFileSelection;
 
-public class SubmitKeyEvent implements ActionListener {
+public class SubmitKeyEvent implements AbsActionListener {
 
     private SingleFileSelection dialog;
 
@@ -13,7 +12,7 @@ public class SubmitKeyEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         dialog.submitIfVisible();
     }
 }

@@ -4,9 +4,10 @@ import java.awt.event.ActionListener;
 
 import aiki.gui.WindowAiki;
 import aiki.network.stream.ReadyAiki;
+import code.gui.AbsActionListener;
 import code.gui.CustCheckBox;
 
-public class ReadyEventAiki implements ActionListener {
+public class ReadyEventAiki implements AbsActionListener {
 
     private WindowAiki window;
 
@@ -18,7 +19,7 @@ public class ReadyEventAiki implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         ReadyAiki choice_ = new ReadyAiki();
         choice_.setIndex(window.getIndexInGame());
         choice_.setReady(ready.isSelected());

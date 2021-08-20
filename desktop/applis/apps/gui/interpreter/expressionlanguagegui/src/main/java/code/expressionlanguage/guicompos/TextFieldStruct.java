@@ -4,10 +4,9 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsActionListener;
 import code.gui.CustComponent;
 import code.gui.TextField;
-
-import java.awt.event.ActionListener;
 
 public final class TextFieldStruct extends InputStruct {
     private TextField textField;
@@ -61,8 +60,8 @@ public final class TextFieldStruct extends InputStruct {
     }
 
     public void addActionListener(Struct _arg) {
-        if (_arg instanceof ActionListener) {
-            textField.addActionListener((ActionListener) _arg);
+        if (_arg instanceof AbsActionListener) {
+            textField.addActionListener((AbsActionListener)_arg);
         }
     }
 }

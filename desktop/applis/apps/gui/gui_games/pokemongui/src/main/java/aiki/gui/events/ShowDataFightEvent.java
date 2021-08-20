@@ -3,8 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import aiki.gui.WindowAiki;
+import code.gui.AbsActionListener;
 
-public class ShowDataFightEvent implements ActionListener {
+public class ShowDataFightEvent implements AbsActionListener {
 
     private WindowAiki window;
 
@@ -13,7 +14,7 @@ public class ShowDataFightEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         window.showFightData();
     }
 

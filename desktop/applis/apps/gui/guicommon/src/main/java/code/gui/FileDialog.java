@@ -165,6 +165,11 @@ public abstract class FileDialog extends Dialog {
         fileModel.setSorting(col_);
     }
 
+    public void clickHeader(AbsMouseLocation _e) {
+        int col_ = fileTable.columnAtPoint(_e.getXcoord(),_e.getYcoord());
+        fileModel.setSorting(col_);
+    }
+
     public void clickRow() {
         // do some actions here, for example
         // print first column value from selected row

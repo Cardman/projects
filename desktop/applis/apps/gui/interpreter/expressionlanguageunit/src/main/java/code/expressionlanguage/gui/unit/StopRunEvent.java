@@ -1,9 +1,8 @@
 package code.expressionlanguage.gui.unit;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import code.gui.AbsActionListener;
 
-public final class StopRunEvent implements ActionListener {
+public final class StopRunEvent implements AbsActionListener {
     private WindowUnit mainWindow;
 
     public StopRunEvent(WindowUnit _mainWindow) {
@@ -11,7 +10,7 @@ public final class StopRunEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         mainWindow.stop();
     }
 }

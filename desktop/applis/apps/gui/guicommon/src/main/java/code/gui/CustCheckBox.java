@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.gui.events.WrActionListener;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
@@ -82,6 +84,10 @@ public final class CustCheckBox extends CustComponent {
 
     public void addActionListener(ActionListener _l) {
         checkBox.addActionListener(_l);
+    }
+
+    public void addActionListener(AbsActionListener _l) {
+        checkBox.addActionListener(new WrActionListener(_l));
     }
 
     public void removeActionListener(ActionListener _l) {

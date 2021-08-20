@@ -1,10 +1,11 @@
 package code.gui;
 
+import code.gui.events.WrActionListener;
+
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.text.Document;
 import java.awt.Cursor;
-import java.awt.event.ActionListener;
 
 public final class TextField extends CustComponent {
 
@@ -27,8 +28,8 @@ public final class TextField extends CustComponent {
         textField.setDocument(_doc);
     }
 
-    public void addActionListener(ActionListener _l) {
-        textField.addActionListener(_l);
+    public void addActionListener(AbsActionListener _l) {
+        textField.addActionListener(new WrActionListener(_l));
     }
 
     Document getDocument() {

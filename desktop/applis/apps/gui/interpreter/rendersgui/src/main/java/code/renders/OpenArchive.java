@@ -1,9 +1,8 @@
 package code.renders;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import code.gui.AbsActionListener;
 
-public final class OpenArchive implements ActionListener {
+public final class OpenArchive implements AbsActionListener {
 
     private WindowRenders mainWindow;
 
@@ -12,7 +11,7 @@ public final class OpenArchive implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         mainWindow.load();
     }
 }

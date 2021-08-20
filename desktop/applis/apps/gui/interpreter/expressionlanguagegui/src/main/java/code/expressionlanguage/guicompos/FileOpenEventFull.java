@@ -1,9 +1,8 @@
 package code.expressionlanguage.guicompos;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import code.gui.AbsActionListener;
 
-public final class FileOpenEventFull implements ActionListener {
+public final class FileOpenEventFull implements AbsActionListener {
     private WindowFull mainWindow;
 
     public FileOpenEventFull(WindowFull _mainWindow) {
@@ -11,7 +10,7 @@ public final class FileOpenEventFull implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         mainWindow.selectFile();
     }
 }

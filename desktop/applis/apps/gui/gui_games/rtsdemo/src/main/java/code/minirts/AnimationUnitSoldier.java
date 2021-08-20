@@ -8,8 +8,6 @@ import code.minirts.rts.UnitMapKey;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.ThreadUtil;
 
-import java.awt.*;
-
 
 /**AnimationBalle permet de deplacer
 un petit carre de 10 pixels noir en haut vers la droite*/
@@ -49,8 +47,8 @@ public final class AnimationUnitSoldier implements Runnable {
         battleground.setNewLocation(_x, _y);
     }
 
-    public void moveCamera(Point _pt) {
-        battleground.moveCamera(window.getImageFactory(), _pt);
+    public void moveCamera(CustPoint _p, int _x, int _y) {
+        battleground.moveCamera(_p,window.getImageFactory(), _x, _y);
     }
 
     public void pause() {

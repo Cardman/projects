@@ -1,9 +1,8 @@
 package code.expressionlanguage.gui.unit;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import code.gui.AbsActionListener;
 
-public final class FileOpenEventUnit implements ActionListener {
+public final class FileOpenEventUnit implements AbsActionListener {
     private WindowUnit mainWindow;
     private TestableFrame tested;
 
@@ -13,7 +12,7 @@ public final class FileOpenEventUnit implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         mainWindow.selectFile(tested);
     }
 }

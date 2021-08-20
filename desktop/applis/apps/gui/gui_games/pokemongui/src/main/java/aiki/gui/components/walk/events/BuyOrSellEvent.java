@@ -3,8 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import aiki.gui.components.walk.ScenePanel;
+import code.gui.AbsActionListener;
 
-public class BuyOrSellEvent implements ActionListener {
+public class BuyOrSellEvent implements AbsActionListener {
 
     private ScenePanel scene;
 
@@ -13,7 +14,7 @@ public class BuyOrSellEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         scene.clearItemList();
     }
 

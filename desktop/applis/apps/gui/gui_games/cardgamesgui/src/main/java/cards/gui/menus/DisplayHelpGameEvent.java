@@ -1,10 +1,9 @@
 package cards.gui.menus;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import cards.gui.WindowCards;
+import code.gui.AbsActionListener;
 
-public class DisplayHelpGameEvent implements ActionListener {
+public class DisplayHelpGameEvent implements AbsActionListener {
 
     private WindowCards window;
 
@@ -13,7 +12,7 @@ public class DisplayHelpGameEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         window.displayHelpGame();
     }
 }

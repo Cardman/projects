@@ -3,16 +3,15 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-
-import java.awt.event.MouseWheelEvent;
+import code.gui.*;
 
 public final class MouseWheelEventStruct extends MouseEventStruct {
 
     private int rotated;
 
-    public MouseWheelEventStruct(MouseWheelEvent _action, String _className) {
-        super(_action,_className);
-        rotated = _action.getWheelRotation();
+    public MouseWheelEventStruct(String _className, AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons, AbsMouseWheel _wheel) {
+        super(_className, _location, _keyState, _buttons);
+        rotated = _wheel.getWheelRotation();
     }
     public MouseWheelEventStruct(String _className) {
         super(_className);

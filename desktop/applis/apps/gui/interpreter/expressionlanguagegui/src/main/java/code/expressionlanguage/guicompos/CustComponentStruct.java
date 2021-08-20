@@ -5,13 +5,13 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.structs.*;
 import code.gui.CustComponent;
+import code.gui.events.AbsMouseListener;
+import code.gui.events.AbsMouseMotionListener;
+import code.gui.events.AbsMouseWheelListener;
 import code.util.CustList;
 
 import java.awt.*;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelListener;
 
 public abstract class CustComponentStruct extends WithoutParentIdStruct implements Struct {
 
@@ -170,16 +170,16 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         getVisibleComponent().requestFocus();
     }
     public void addMouse(Struct _mouseListener) {
-        if (_mouseListener instanceof MouseListener) {
-            getVisibleComponent().addMouseListener((MouseListener) _mouseListener);
+        if (_mouseListener instanceof AbsMouseListener) {
+            getVisibleComponent().addMouseListener((AbsMouseListener) _mouseListener);
         }
-        if (_mouseListener instanceof MouseMotionListener) {
-            getVisibleComponent().addMouseMotionListener((MouseMotionListener) _mouseListener);
+        if (_mouseListener instanceof AbsMouseMotionListener) {
+            getVisibleComponent().addMouseMotionListener((AbsMouseMotionListener) _mouseListener);
         }
     }
     public void addWheel(Struct _wheelListener) {
-        if (_wheelListener instanceof MouseWheelListener) {
-            getVisibleComponent().addMouseWheelListener((MouseWheelListener) _wheelListener);
+        if (_wheelListener instanceof AbsMouseWheelListener) {
+            getVisibleComponent().addMouseWheelListener((AbsMouseWheelListener) _wheelListener);
         }
     }
     public void addKeyListener(Struct _l) {
@@ -189,16 +189,16 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
 
     }
     public void removeMouse(Struct _mouseListener) {
-        if (_mouseListener instanceof MouseListener) {
-            getVisibleComponent().removeMouseListener((MouseListener) _mouseListener);
+        if (_mouseListener instanceof AbsMouseListener) {
+            getVisibleComponent().removeMouseListener((AbsMouseListener) _mouseListener);
         }
-        if (_mouseListener instanceof MouseMotionListener) {
-            getVisibleComponent().removeMouseMotionListener((MouseMotionListener) _mouseListener);
+        if (_mouseListener instanceof AbsMouseMotionListener) {
+            getVisibleComponent().removeMouseMotionListener((AbsMouseMotionListener) _mouseListener);
         }
     }
     public void removeWheel(Struct _wheelListener) {
-        if (_wheelListener instanceof MouseWheelListener) {
-            getVisibleComponent().removeMouseWheelListener((MouseWheelListener) _wheelListener);
+        if (_wheelListener instanceof AbsMouseWheelListener) {
+            getVisibleComponent().removeMouseWheelListener((AbsMouseWheelListener) _wheelListener);
         }
     }
     public void removeKeyListener(Struct _l) {
@@ -209,31 +209,31 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     }
     public ArrayStruct getMouses(ContextEl _ctx) {
         String aliasMouseListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasMouseListener();
-        MouseListener[] mouseListeners_ = getVisibleComponent().getMouseListeners();
-        MouseMotionListener[] mouseMotionListeners_ = getVisibleComponent().getMouseMotionListeners();
-        ArrayStruct arr_ = new ArrayStruct(mouseListeners_.length+mouseMotionListeners_.length, StringExpUtil.getPrettyArrayType(aliasMouseListener_));
-        int lenBase_ = mouseListeners_.length;
+        CustList<AbsMouseListener> mouseListeners_ = getVisibleComponent().getMouseListeners();
+        CustList<AbsMouseMotionListener> mouseMotionListeners_ = getVisibleComponent().getMouseMotionListeners();
+        ArrayStruct arr_ = new ArrayStruct(mouseListeners_.size()+mouseMotionListeners_.size(), StringExpUtil.getPrettyArrayType(aliasMouseListener_));
+        int lenBase_ = mouseListeners_.size();
         for (int i = 0; i < lenBase_; i++) {
-            if (mouseListeners_[i] instanceof Struct) {
-                arr_.set(i,(Struct)mouseListeners_[i]);
+            if (mouseListeners_.get(i) instanceof Struct) {
+                arr_.set(i,(Struct)mouseListeners_.get(i));
             }
         }
-        int lenAdv_ = mouseMotionListeners_.length;
+        int lenAdv_ = mouseMotionListeners_.size();
         for (int i = 0; i < lenAdv_; i++) {
-            if (mouseMotionListeners_[i] instanceof Struct) {
-                arr_.set(i+lenBase_,(Struct)mouseMotionListeners_[i]);
+            if (mouseMotionListeners_.get(i) instanceof Struct) {
+                arr_.set(i+lenBase_,(Struct)mouseMotionListeners_.get(i));
             }
         }
         return arr_;
     }
     public ArrayStruct getWheels(ContextEl _ctx) {
         String aliasWheelListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasWheelListener();
-        MouseWheelListener[] mouseWheelListeners_ = getVisibleComponent().getMouseWheelListeners();
-        ArrayStruct arr_ = new ArrayStruct(mouseWheelListeners_.length, StringExpUtil.getPrettyArrayType(aliasWheelListener_));
-        int lenBase_ = mouseWheelListeners_.length;
+        CustList<AbsMouseWheelListener> mouseWheelListeners_ = getVisibleComponent().getMouseWheelListeners();
+        ArrayStruct arr_ = new ArrayStruct(mouseWheelListeners_.size(), StringExpUtil.getPrettyArrayType(aliasWheelListener_));
+        int lenBase_ = mouseWheelListeners_.size();
         for (int i = 0; i < lenBase_; i++) {
-            if (mouseWheelListeners_[i] instanceof Struct) {
-                arr_.set(i,(Struct)mouseWheelListeners_[i]);
+            if (mouseWheelListeners_.get(i) instanceof Struct) {
+                arr_.set(i,(Struct)mouseWheelListeners_.get(i));
             }
         }
         return arr_;

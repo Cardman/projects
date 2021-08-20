@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.gui.events.AbsMouseListener;
+import code.gui.events.WrMouseListener;
 import code.util.core.StringUtil;
 
 import javax.swing.JComponent;
@@ -118,8 +120,8 @@ public final class TableGui extends CustComponent {
         getTableHeader().setReorderingAllowed(_b);
     }
 
-    public void addHeaderListener(MouseListener _list) {
-        getTableHeader().addMouseListener(_list);
+    public void addHeaderListener(AbsMouseListener _list) {
+        getTableHeader().addMouseListener(new WrMouseListener(_list));
     }
 
     public void addListSelectionListener(ListSelectionListener _select) {

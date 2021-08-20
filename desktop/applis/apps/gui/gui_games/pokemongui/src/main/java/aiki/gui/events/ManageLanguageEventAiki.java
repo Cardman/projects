@@ -3,8 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import aiki.gui.WindowAiki;
+import code.gui.AbsActionListener;
 
-public class ManageLanguageEventAiki implements ActionListener {
+public class ManageLanguageEventAiki implements AbsActionListener {
 
     private WindowAiki window;
 
@@ -13,7 +14,7 @@ public class ManageLanguageEventAiki implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         window.manageLanguage();
     }
 

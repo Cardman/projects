@@ -35,7 +35,7 @@ public final class WindowRts extends GroupFrame {
     private static final String SELECT = "select";
     private final StringMap<String> messagesFiles = MessPlayerGr.ms();
 
-    private final Cursor currentCursor = Cursor.getDefaultCursor();
+//    private final Cursor currentCursor = Cursor.getDefaultCursor();
 
     private final PlainButton animate = new PlainButton("Animate");
 
@@ -108,7 +108,6 @@ public final class WindowRts extends GroupFrame {
         buttons_.add(pause);
         stop.addActionListener(new Stop(this));
         buttons_.add(stop);
-        Toolkit tool_ = Toolkit.getDefaultToolkit();
         String note_ = messagesFiles.getVal("resources_player/player.txt");
         noteFile = note_;
         AbstractImage or_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(note_));
@@ -123,9 +122,7 @@ public final class WindowRts extends GroupFrame {
                 pixels_[j * wCurs_ + i] = or_.getRGB(i, j);
             }
         }
-        Image b_ = tool_.createImage(new MemoryImageSource(wCurs_, hCurs_, pixels_, 0, wCurs_));
-        Cursor c_ = tool_.createCustomCursor(b_, new Point(0, 0),SELECT);
-        battlegroundWrapper_.setCursor(c_);
+        setCursor(battlegroundWrapper_, wCurs_, hCurs_, pixels_);
         scene_.add(buttons_, BorderLayout.SOUTH);
         contentPane_.add(scene_, BorderLayout.CENTER);
         battlegroundWrapper_.repaintSecondChildren(getImageFactory());
@@ -136,6 +133,13 @@ public final class WindowRts extends GroupFrame {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
+    }
+
+    private static void setCursor(Panel _battlegroundWrapper, int _wCurs, int _hCurs, int[] _pixels) {
+        Toolkit tool_ = Toolkit.getDefaultToolkit();
+        Image b_ = tool_.createImage(new MemoryImageSource(_wCurs, _hCurs, _pixels, 0, _wCurs));
+        Cursor c_ = tool_.createCustomCursor(b_, new Point(0, 0),SELECT);
+        _battlegroundWrapper.setCursor(c_);
     }
 
     @Override
@@ -151,11 +155,11 @@ public final class WindowRts extends GroupFrame {
         return addSoldier.isSelected();
     }
 
-    public void moveCamera(Point _pt) {
+    public void moveCamera(CustPoint _p, int _x, int _y) {
         if (!threadLau.isAlive()) {
             return;
         }
-        thread.moveCamera(_pt);
+        thread.moveCamera(_p, _x, _y);
     }
 
     public void pause() {
@@ -247,9 +251,9 @@ public final class WindowRts extends GroupFrame {
         return paused;
     }
 
-    public Cursor getCurrentCursor() {
-        return currentCursor;
-    }
+//    public Cursor getCurrentCursor() {
+//        return currentCursor;
+//    }
 
     @Override
     public void quit() {

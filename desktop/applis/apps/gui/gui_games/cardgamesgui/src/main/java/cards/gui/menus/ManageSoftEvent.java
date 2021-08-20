@@ -1,10 +1,9 @@
 package cards.gui.menus;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import cards.gui.WindowCards;
+import code.gui.AbsActionListener;
 
-public class ManageSoftEvent implements ActionListener {
+public class ManageSoftEvent implements AbsActionListener {
 
     private WindowCards window;
 
@@ -16,7 +15,7 @@ public class ManageSoftEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         window.manageSoft(key);
     }
 }

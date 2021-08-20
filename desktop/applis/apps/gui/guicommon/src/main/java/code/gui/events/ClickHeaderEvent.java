@@ -1,10 +1,10 @@
 package code.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
 import code.gui.FileDialog;
 
-public class ClickHeaderEvent extends MouseAdapter {
+public class ClickHeaderEvent implements AbsMouseListener {
 
     private FileDialog dialog;
 
@@ -13,7 +13,28 @@ public class ClickHeaderEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseClicked(MouseEvent _e) {
-        dialog.clickHeader(_e);
+    public void mouseClicked(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        dialog.clickHeader(_location);
     }
+
+    @Override
+    public void mousePressed(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
+    }
+
+    @Override
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
+    }
+
+    @Override
+    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
+    }
+
+    @Override
+    public void mouseExited(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
+    }
+
 }

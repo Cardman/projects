@@ -1,9 +1,8 @@
 package code.expressionlanguage.gui.unit;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import code.gui.AbsActionListener;
 
-public final class LogErrEvent implements ActionListener {
+public final class LogErrEvent implements AbsActionListener {
     private WindowUnit mainWindow;
 
     public LogErrEvent(WindowUnit _mainWindow) {
@@ -11,7 +10,7 @@ public final class LogErrEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         mainWindow.logErr();
     }
 }

@@ -2,9 +2,9 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
-
-import javax.swing.*;
-import java.awt.event.MouseEvent;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
 
 public class MouseEventStruct extends WithoutParentIdStruct implements Struct {
 
@@ -18,16 +18,16 @@ public class MouseEventStruct extends WithoutParentIdStruct implements Struct {
     private boolean right;
     private int clicks;
     private String className;
-    public MouseEventStruct(MouseEvent _action, String _className) {
-        first = _action.getX();
-        second = _action.getY();
-        ctrl = _action.isControlDown();
-        alt = _action.isAltDown();
-        shift = _action.isShiftDown();
-        left = SwingUtilities.isLeftMouseButton(_action);
-        middle = SwingUtilities.isMiddleMouseButton(_action);
-        right = SwingUtilities.isRightMouseButton(_action);
-        clicks = _action.getClickCount();
+    public MouseEventStruct(String _className, AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        first = _location.getXcoord();
+        second = _location.getYcoord();
+        ctrl = _keyState.isControlDown();
+        alt = _keyState.isAltDown();
+        shift = _keyState.isShiftDown();
+        left = _buttons.isLeftMouseButton();
+        middle = _buttons.isMiddleMouseButton();
+        right = _buttons.isRightMouseButton();
+        clicks = _buttons.getClickCount();
         className = _className;
     }
     public MouseEventStruct(String _className) {

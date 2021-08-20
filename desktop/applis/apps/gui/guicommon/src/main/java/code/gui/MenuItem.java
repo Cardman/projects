@@ -1,4 +1,5 @@
 package code.gui;
+import code.gui.events.WrActionListener;
 import code.gui.images.AbstractImage;
 
 import java.awt.event.ActionListener;
@@ -66,6 +67,10 @@ public final class MenuItem implements EnabledMenu {
 
     public void addActionListener(ActionListener _showDataFightEvent) {
         menu.addActionListener(_showDataFightEvent);
+    }
+
+    public void addActionListener(AbsActionListener _showDataFightEvent) {
+        menu.addActionListener(new WrActionListener(_showDataFightEvent));
     }
 
     public boolean isEnabled() {

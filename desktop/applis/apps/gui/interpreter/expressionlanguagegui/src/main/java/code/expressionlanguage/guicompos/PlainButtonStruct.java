@@ -4,10 +4,9 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsActionListener;
 import code.gui.CustComponent;
 import code.gui.PlainButton;
-
-import java.awt.event.ActionListener;
 
 public final class PlainButtonStruct extends InputStruct {
     private PlainButton plainButton;
@@ -46,8 +45,8 @@ public final class PlainButtonStruct extends InputStruct {
         plainButton.setEnabled(BooleanStruct.isTrue(_b));
     }
     public void addActionListener(Struct _list) {
-        if (_list instanceof ActionListener) {
-            plainButton.addActionListener((ActionListener)_list);
+        if (_list instanceof AbsActionListener) {
+            plainButton.addActionListener((AbsActionListener)_list);
         }
     }
     @Override

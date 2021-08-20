@@ -3,8 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import aiki.gui.WindowAiki;
+import code.gui.AbsActionListener;
 
-public class LoadZipEvent implements ActionListener {
+public class LoadZipEvent implements AbsActionListener {
 
     private WindowAiki window;
     private boolean folder;
@@ -15,7 +16,7 @@ public class LoadZipEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         window.loadZip(folder);
     }
 

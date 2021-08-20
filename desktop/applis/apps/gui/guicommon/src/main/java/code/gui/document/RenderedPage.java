@@ -251,9 +251,6 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     public void addFinder() {
-        if (find.getMouseListeners().length > 0) {
-            return;
-        }
         finding = new FindEvent(field, this);
         find.addMouseListener(finding);
     }

@@ -1,4 +1,5 @@
 package code.gui;
+import code.gui.events.WrActionListener;
 import code.gui.images.AbstractImage;
 
 import java.awt.event.ActionListener;
@@ -80,6 +81,9 @@ public class CheckBoxMenuItem implements EnabledMenu {
     }
     public void addActionListener(ActionListener _pauseEvent) {
         menu.addActionListener(_pauseEvent);
+    }
+    public void addActionListener(AbsActionListener _pauseEvent) {
+        menu.addActionListener(new WrActionListener(_pauseEvent));
     }
 
     public void setAccelerator(KeyStroke _keyStroke) {

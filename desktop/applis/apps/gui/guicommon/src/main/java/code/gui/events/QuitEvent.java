@@ -1,11 +1,9 @@
 package code.gui.events;
 
+import code.gui.AbsActionListener;
 import code.gui.GroupFrame;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class QuitEvent implements ActionListener {
+public class QuitEvent implements AbsActionListener {
 
     private final GroupFrame frame;
 
@@ -14,7 +12,7 @@ public class QuitEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         frame.quit();
     }
 }

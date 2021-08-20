@@ -1,11 +1,10 @@
 package cards.gui.menus;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
+import code.gui.AbsActionListener;
 
-public class SimulationEvent implements ActionListener {
+public class SimulationEvent implements AbsActionListener {
 
     private WindowCards window;
 
@@ -17,7 +16,7 @@ public class SimulationEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         window.simulateGame(gameEnum);
     }
 }

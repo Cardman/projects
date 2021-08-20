@@ -5,9 +5,9 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.*;
 import code.gui.CustComponent;
 import code.gui.TableGui;
+import code.gui.events.AbsMouseListener;
 
 import javax.swing.event.ListSelectionListener;
-import java.awt.event.MouseListener;
 
 public final class TableStruct extends CustComponentStruct {
     private TableGui table;
@@ -133,8 +133,8 @@ public final class TableStruct extends CustComponentStruct {
     }
 
     public void addHeaderListener(Struct _list) {
-        if (_list instanceof MouseListener) {
-            table.addHeaderListener((MouseListener) _list);
+        if (_list instanceof AbsMouseListener) {
+            table.addHeaderListener((AbsMouseListener) _list);
         }
     }
 

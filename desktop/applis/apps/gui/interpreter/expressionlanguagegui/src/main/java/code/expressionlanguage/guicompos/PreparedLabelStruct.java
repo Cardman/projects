@@ -6,9 +6,6 @@ import code.gui.PreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-
 public final class PreparedLabelStruct extends CustComponentStruct {
     private final PreparedLabel textLabel;
 
@@ -32,12 +29,6 @@ public final class PreparedLabelStruct extends CustComponentStruct {
         return img_;
     }
 
-    public void addMouseListener(MouseListener _mouseListener) {
-        if (_mouseListener != null) {
-            textLabel.addMouseListener(_mouseListener);
-        }
-    }
-
     public PreparedLabel getTextLabel() {
         return textLabel;
     }
@@ -57,8 +48,4 @@ public final class PreparedLabelStruct extends CustComponentStruct {
         return textLabel.getHeight();
     }
 
-    public void addKeyListener(KeyListener _i) {
-        textLabel.addKeyListener(_i);
-
-    }
 }

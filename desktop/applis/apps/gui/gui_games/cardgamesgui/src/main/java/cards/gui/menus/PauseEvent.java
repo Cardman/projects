@@ -1,10 +1,9 @@
 package cards.gui.menus;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import cards.gui.WindowCards;
+import code.gui.AbsActionListener;
 
-public class PauseEvent implements ActionListener {
+public class PauseEvent implements AbsActionListener {
 
     private WindowCards window;
 
@@ -13,7 +12,7 @@ public class PauseEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         window.pause();
     }
 }

@@ -1,9 +1,8 @@
 package code.expressionlanguage.guicompos;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import code.gui.AbsActionListener;
 
-public final class ListenerLaunchApp implements ActionListener {
+public final class ListenerLaunchApp implements AbsActionListener {
     private WindowFull mainWindow;
 
     public ListenerLaunchApp(WindowFull _mainWindow) {
@@ -11,7 +10,7 @@ public final class ListenerLaunchApp implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         mainWindow.process();
     }
 }
