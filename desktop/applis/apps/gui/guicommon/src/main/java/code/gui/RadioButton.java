@@ -1,11 +1,15 @@
 package code.gui;
 
+import code.gui.events.AbsActionListener;
+import code.gui.events.WrActionListener;
+import code.util.IdMap;
+
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
-import java.awt.event.ActionListener;
 
 public final class RadioButton extends CustComponent {
     private JRadioButton radioButton;
+    private final IdMap<AbsActionListener, WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
     private CustButtonGroup buttonGroup;
     public RadioButton() {
         radioButton = new JRadioButton();
@@ -42,8 +46,10 @@ public final class RadioButton extends CustComponent {
         return radioButton;
     }
 
-    public void addActionListener(ActionListener _list) {
-        radioButton.addActionListener(_list);
+    public void addActionListener(AbsActionListener _list) {
+        WrActionListener wr_ = new WrActionListener(_list);
+        radioButton.addActionListener(wr_);
+        mapAction.addEntry(_list,wr_);
     }
 
     public void setEnabled(boolean _b) {

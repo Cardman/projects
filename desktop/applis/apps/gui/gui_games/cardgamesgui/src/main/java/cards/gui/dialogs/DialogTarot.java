@@ -125,7 +125,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         nbAtoutsPoignee = new Spinner(valeur_,0,nbCartesJoueur_,1);
         sousPanneau_.add(nbAtoutsPoignee);
         LabelButton boutonPoignees_ = new LabelButton(getMessages().getVal(VALIDATE_HANDFUL));
-        boutonPoignees_.addMouseListener(new ListenerHandful(this));
+        boutonPoignees_.addMouseList(new ListenerHandful(this));
         sousPanneau_.add(boutonPoignees_);
         declaring_.add(sousPanneau_);
         //Panneau Miseres

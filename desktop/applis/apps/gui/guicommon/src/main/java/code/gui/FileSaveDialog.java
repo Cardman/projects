@@ -2,7 +2,6 @@ package code.gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JOptionPane;
-import javax.swing.tree.TreePath;
 
 import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.CreateFolderEvent;
@@ -72,17 +71,17 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         getFileName().addActionListener(new SubmitKeyEvent(this));
         LabelButton action_ = new LabelButton(messages.getVal(SAVE));
-        action_.addMouseListener(new SubmitMouseEvent(this));
+        action_.addMouseList(new SubmitMouseEvent(this));
         getButtons().add(action_);
         action_ = new LabelButton(messages.getVal(CANCEL));
-        action_.addMouseListener(new CancelSelectFileEvent(this));
+        action_.addMouseList(new CancelSelectFileEvent(this));
         getButtons().add(action_);
         if (StringUtil.quickEq(getFolder(), _homePath)) {
             searchingPanel.removeAll();
             TextLabel label_;
             label_ = new TextLabel(messages.getVal(FOLDER_NAME));
             LabelButton search_ = new LabelButton(CREATE);
-            search_.addMouseListener(new CreateFolderEvent(this));
+            search_.addMouseList(new CreateFolderEvent(this));
             searchingPanel.add(label_);
             searchingPanel.add(typedString);
             searchingPanel.add(search_);

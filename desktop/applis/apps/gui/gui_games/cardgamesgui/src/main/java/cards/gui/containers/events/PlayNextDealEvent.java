@@ -1,10 +1,12 @@
 package cards.gui.containers.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.gui.containers.ContainerMulti;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class PlayNextDealEvent extends MouseAdapter {
+public class PlayNextDealEvent extends AbsMouseListenerRel {
 
     private ContainerMulti container;
 
@@ -13,7 +15,7 @@ public class PlayNextDealEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         container.dealNext();
     }
 }

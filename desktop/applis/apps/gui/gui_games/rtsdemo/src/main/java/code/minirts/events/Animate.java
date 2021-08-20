@@ -1,11 +1,9 @@
 package code.minirts.events;
 
+import code.gui.events.AbsActionListener;
 import code.minirts.WindowRts;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class Animate implements ActionListener {
+public class Animate implements AbsActionListener {
 
     private WindowRts window;
 
@@ -14,7 +12,7 @@ public class Animate implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         window.animate();
     }
 

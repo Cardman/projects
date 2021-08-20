@@ -1,9 +1,8 @@
 package code.gui;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import code.gui.events.AbsMouseListenerRel;
 
-public final class Popup extends MouseAdapter {
+public final class Popup extends AbsMouseListenerRel {
 
     private WithPopup grInt;
 
@@ -12,7 +11,7 @@ public final class Popup extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         grInt.popup();
     }
 }

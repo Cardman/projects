@@ -1,9 +1,7 @@
 package code.gui;
+import code.gui.events.AbsActionListener;
 import code.gui.events.WrActionListener;
-import code.gui.images.AbstractImage;
-
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
+import code.util.IdMap;
 
 import javax.swing.*;
 
@@ -11,6 +9,7 @@ public class CheckBoxMenuItem implements EnabledMenu {
 
     private Menu parentMenu;
     private JCheckBoxMenuItem menu;
+    private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
 
     public CheckBoxMenuItem() {
         menu = new JCheckBoxMenuItem();
@@ -79,11 +78,11 @@ public class CheckBoxMenuItem implements EnabledMenu {
     public void setSelected(boolean _selected) {
         menu.setSelected(_selected);
     }
-    public void addActionListener(ActionListener _pauseEvent) {
-        menu.addActionListener(_pauseEvent);
-    }
+
     public void addActionListener(AbsActionListener _pauseEvent) {
-        menu.addActionListener(new WrActionListener(_pauseEvent));
+        WrActionListener wr_ = new WrActionListener(_pauseEvent);
+        menu.addActionListener(wr_);
+        mapAction.addEntry(_pauseEvent,wr_);
     }
 
     public void setAccelerator(KeyStroke _keyStroke) {

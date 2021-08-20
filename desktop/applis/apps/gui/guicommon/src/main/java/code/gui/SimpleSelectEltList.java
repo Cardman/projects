@@ -1,11 +1,8 @@
 package code.gui;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import code.gui.events.AbsMouseListenerRel;
 
-import javax.swing.*;
-
-public final class SimpleSelectEltList extends MouseAdapter implements IndexableListener {
+public final class SimpleSelectEltList extends AbsMouseListenerRel implements IndexableListener {
 
     private final AbsGraphicListDefBase grList;
 
@@ -21,8 +18,8 @@ public final class SimpleSelectEltList extends MouseAdapter implements Indexable
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
-        boolean sel_ = SwingUtilities.isLeftMouseButton(_e);
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        boolean sel_ = _buttons.isLeftMouseButton();
         graphicListPainter.selectPaint(grList,sel_,index);
         GraphicList.selectEvent(index, index, false, selection);
     }

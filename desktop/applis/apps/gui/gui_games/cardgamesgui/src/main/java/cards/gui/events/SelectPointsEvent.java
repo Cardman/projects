@@ -1,10 +1,12 @@
 package cards.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.gui.containers.ContainerBelote;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class SelectPointsEvent extends MouseAdapter {
+public class SelectPointsEvent extends AbsMouseListenerRel {
 
     private ContainerBelote container;
 
@@ -16,7 +18,7 @@ public class SelectPointsEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         container.setPoints(points);
     }
 }

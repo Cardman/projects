@@ -1,6 +1,5 @@
 package code.gui.events;
 
-import code.gui.AbsActionListener;
 import code.gui.GroupFrame;
 
 public class QuitEvent implements AbsActionListener {

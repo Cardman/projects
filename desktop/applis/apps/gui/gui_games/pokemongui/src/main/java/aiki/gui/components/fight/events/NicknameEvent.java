@@ -1,10 +1,12 @@
 package aiki.gui.components.fight.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.gui.components.fight.Battle;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class NicknameEvent extends MouseAdapter {
+public class NicknameEvent extends AbsMouseListenerRel {
 
     private Battle battle;
 
@@ -13,7 +15,7 @@ public class NicknameEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         battle.nicknamePokemon();
     }
 }

@@ -490,14 +490,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratTarot(_action));
-        bouton_.addMouseListener(new ListenerBidTarotSingle(this,_action));
+        bouton_.addMouseList(new ListenerBidTarotSingle(this,_action));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     private void initSlamButtonTarot() {
         String lg_ = getOwner().getLanguageKey();
         LabelButton bouton_=new LabelButton(Games.toString(BidTarot.SLAM,lg_));
-        bouton_.addMouseListener(new SlamEvent(this));
+        bouton_.addMouseList(new SlamEvent(this));
         setSlamButton(bouton_);
     }
 //    public void ajouterBoutonJeuChelemTarot(String _texte,boolean _apte) {
@@ -515,20 +515,20 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void addButtonSeeDogTarot(String _texte,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new SeeDogEvent(this));
+        bouton_.addMouseList(new SeeDogEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonTakeDogCardsTarot(String _texte,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new TakeDogEvent(this));
+        bouton_.addMouseList(new TakeDogEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     private void initButtonValidateDogTarot() {
         LabelButton bouton_=new LabelButton(getMessages().getVal(WindowCards.GO_CARD_GAME));
-        bouton_.addMouseListener(new ValidateDogEvent(this));
+        bouton_.addMouseList(new ValidateDogEvent(this));
         setValidateDog(bouton_);
     }
     @Override
@@ -607,35 +607,35 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     public void addButtonEndDealTarot(String _texte,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new EndDealEvent(this));
+        bouton_.addMouseList(new EndDealEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonNextTrickTarot(String _texte,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new NextTrickEvent(this));
+        bouton_.addMouseList(new NextTrickEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonKeepPlayingDealTarot(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new KeepPlayingRandomEvent(this));
+        bouton_.addMouseList(new KeepPlayingRandomEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonKeepPlayingEditedDealTarot(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new KeepPlayingEditedEvent(this));
+        bouton_.addMouseList(new KeepPlayingEditedEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonStopPlayingTarot(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new StopPlayingEvent(this));
+        bouton_.addMouseList(new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonReplayDealTarot(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new ReplayEvent(this));
+        bouton_.addMouseList(new ReplayEvent(this));
         _panneau.add(bouton_);
     }
     private void setChien(HandTarot _main,boolean _ecouteur) {

@@ -110,7 +110,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratTarotMulti(_action));
-        bouton_.addMouseListener(new ListenerBidTarotMulti(this,_action));
+        bouton_.addMouseList(new ListenerBidTarotMulti(this,_action));
         panneau_.add(bouton_);
     }
 
@@ -118,7 +118,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         String lg_ = getOwner().getLanguageKey();
         LabelButton bouton_=new LabelButton(Games.toString(BidTarot.SLAM,lg_));
 //        bouton_.addActionListener(new EcouteurBoutonJeuAnnonceChelemTarotMulti());
-        bouton_.addMouseListener(new SlamEvent(this));
+        bouton_.addMouseList(new SlamEvent(this));
         setSlamButton(bouton_);
     }
 
@@ -137,14 +137,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void addButtonTakeDogCardsTarotMulti(String _texte,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new TakeDogEvent(this));
+        bouton_.addMouseList(new TakeDogEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
 
     private void initButtonValidateDogTarotMulti() {
         LabelButton bouton_=new LabelButton(getMessages().getVal(WindowCards.GO_CARD_GAME));
-        bouton_.addMouseListener(new ValidateDogEvent(this));
+        bouton_.addMouseList(new ValidateDogEvent(this));
         setValidateDog(bouton_);
     }
 
@@ -265,10 +265,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         if (hasCreatedServer) {
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
-            buttonRules_.addMouseListener(new ChangeRulesEvent(this));
+            buttonRules_.addMouseList(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
             LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_TAROT));
-            button_.addMouseListener(new PlayFirstDealEvent(this));
+            button_.addMouseList(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
 
@@ -1101,7 +1101,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         if (hasCreatedServer) {
             LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_TAROT));
-            button_.addMouseListener(new PlayNextDealEvent(this));
+            button_.addMouseList(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }
         panneau_.add(getWindow().getClock());
@@ -1154,10 +1154,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!Net.isProgressingGame(getOwner().getNet())) {
             Panel container_ = getPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
-            buttonRules_.addMouseListener(new ChangeRulesEvent(this));
+            buttonRules_.addMouseList(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
             LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_TAROT));
-            button_.addMouseListener(new PlayFirstDealEvent(this));
+            button_.addMouseList(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();
             //PackingWindowAfter.pack(this, true);

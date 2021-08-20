@@ -1,5 +1,4 @@
 package cards.gui.events;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
@@ -11,6 +10,7 @@ import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.ReasonDiscard;
+import code.gui.AbsMouseLocation;
 import code.gui.ConfirmDialog;
 import code.util.core.StringUtil;
 
@@ -30,11 +30,11 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
         return container.isCanDiscard();
     }
     @Override
-    protected boolean playCardExited(MouseEvent _event) {
+    protected boolean playCardExited(AbsMouseLocation _event) {
         if (inHand) {
-            return _event.getY() < 0;
+            return _event.getYcoord() < 0;
         }
-        return _event.getY() > component.getHeight();
+        return _event.getYcoord() > component.getHeight();
     }
     @Override
     protected void verifierRegles() {

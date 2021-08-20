@@ -1,8 +1,9 @@
 package code.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
 
-public class LanguageChoice extends MouseAdapter {
+public class LanguageChoice extends AbsMouseListenerRel {
 
     private String locale;
 
@@ -14,7 +15,7 @@ public class LanguageChoice extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _event) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         window.setLanguage(locale);
     }
 

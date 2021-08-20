@@ -493,37 +493,37 @@ public class ScenePanel {
         useKeyPad = new TextLabel("");
         menus_.add(useKeyPad);
         team = new LabelButton();
-        team.addMouseListener(new ManageTeamEvent(this));
+        team.addMouseList(new ManageTeamEvent(this));
         menus_.add(team);
         items = new LabelButton();
-        items.addMouseListener(new SelectItemForPokemonEvent(this));
+        items.addMouseList(new SelectItemForPokemonEvent(this));
         menus_.add(items);
         tm = new LabelButton();
-        tm.addMouseListener(new SelectTmToLearnEvent(this));
+        tm.addMouseList(new SelectTmToLearnEvent(this));
         menus_.add(tm);
         Separator sep_ = new Separator();
         menus_.add(sep_);
         seeBoxes = new LabelButton();
-        seeBoxes.addMouseListener(new ConsultPokemonEvent(window, facade));
+        seeBoxes.addMouseList(new ConsultPokemonEvent(window, facade));
         menus_.add(seeBoxes);
         seeEggs = new LabelButton();
-        seeEggs.addMouseListener(new ConsultEggEvent(window, facade));
+        seeEggs.addMouseList(new ConsultEggEvent(window, facade));
         menus_.add(seeEggs);
         host = new LabelButton();
-        host.addMouseListener(new ConsultHostEvent(window, facade));
+        host.addMouseList(new ConsultHostEvent(window, facade));
         menus_.add(host);
         game = new LabelButton();
-        game.addMouseListener(new ShowGameProgressingEvent(window));
+        game.addMouseList(new ShowGameProgressingEvent(window));
         menus_.add(game);
         sep_ = new Separator();
         menus_.add(sep_);
         goBack = new LabelButton();
-        goBack.addMouseListener(new SetPlacesEvent(this));
+        goBack.addMouseList(new SetPlacesEvent(this));
         menus_.add(goBack);
         sep_ = new Separator();
         menus_.add(sep_);
         server = new LabelButton();
-        server.addMouseListener(new ManageNetworkEvent(this));
+        server.addMouseList(new ManageNetworkEvent(this));
         menus_.add(server);
         panelMenu.add(menus_);
         pad = new Pad();
@@ -711,7 +711,7 @@ public class ScenePanel {
         line_.add(new TextLabel(DataBase.EMPTY_STRING));
         box_.add(line_);
         LabelButton ok_ = new LabelButton(WindowAiki.OK);
-        ok_.addMouseListener(new ChoosePlaceEvent(this));
+        ok_.addMouseList(new ChoosePlaceEvent(this));
         box_.add(ok_);
         panelOptions.add(box_, BorderLayout.CENTER);
         //panelOptions
@@ -748,11 +748,11 @@ public class ScenePanel {
         panelNetWork = Panel.newPageBox();
         panelOptions.add(panelNetWork, BorderLayout.CENTER);
         LabelButton exit_ = new LabelButton(messages.getVal(EXIT));
-        exit_.addMouseListener(new ExitTradeEvent(window));
+        exit_.addMouseList(new ExitTradeEvent(window));
         if (window.getIndexInGame() == IndexConstants.FIRST_INDEX) {
             Panel panel_ = Panel.newLineBox();
             LabelButton trade_ = new LabelButton(messages.getVal(TRADE));
-            trade_.addMouseListener(new ValidateTradingEvent(window));
+            trade_.addMouseList(new ValidateTradingEvent(window));
             panel_.add(trade_);
             panel_.add(exit_);
             panelOptions.add(panel_, BorderLayout.SOUTH);
@@ -834,10 +834,10 @@ public class ScenePanel {
         }
         interaction = Panel.newLineBox();
         buttonInteract = new LabelButton(messages.getVal(INTERACT));
-        buttonInteract.addMouseListener(new InteractSceneEvent(this));
+        buttonInteract.addMouseList(new InteractSceneEvent(this));
         interaction.add(buttonInteract);
         fish = new LabelButton(messages.getVal(CST_FISH));
-        fish.addMouseListener(new FishingEvent(this));
+        fish.addMouseList(new FishingEvent(this));
         interaction.add(fish);
     }
 
@@ -872,38 +872,38 @@ public class ScenePanel {
             selectedForSwitch = new TextLabel("");
             Panel storage_ = Panel.newGrid(0, 1);
             selectPkBox = new LabelButton(messages.getVal(SELECT_PK_BOX));
-            selectPkBox.addMouseListener(new SelectPokemonBoxEvent(this));
+            selectPkBox.addMouseList(new SelectPokemonBoxEvent(this));
             storage_.add(selectPkBox);
             selectEggBox = new LabelButton(messages.getVal(SELECT_EGG_BOX));
-            selectEggBox.addMouseListener(new SelectEggBoxEvent(this));
+            selectEggBox.addMouseList(new SelectEggBoxEvent(this));
             storage_.add(selectEggBox);
             Separator sep_ = new Separator();
             storage_.add(sep_);
             takeItem = new LabelButton(messages.getVal(TAKE_ITEM));
             takeItem.setEnabledLabel(false);
-            takeItem.addMouseListener(new GearStorageEvent(this, StorageActions.TAKE_ITEM_BOX));
+            takeItem.addMouseList(new GearStorageEvent(this, StorageActions.TAKE_ITEM_BOX));
             storage_.add(takeItem);
             store = new LabelButton(messages.getVal(CST_STORE));
             store.setEnabledLabel(false);
-            store.addMouseListener(new GearStorageEvent(this, StorageActions.STORE));
+            store.addMouseList(new GearStorageEvent(this, StorageActions.STORE));
             storage_.add(store);
             withdraw = new LabelButton(messages.getVal(WITHDRAW_PK));
             withdraw.setEnabledLabel(false);
-            withdraw.addMouseListener(new GearStorageEvent(this, StorageActions.WIDRAW_PK));
+            withdraw.addMouseList(new GearStorageEvent(this, StorageActions.WIDRAW_PK));
             storage_.add(withdraw);
             withdrawEgg = new LabelButton(messages.getVal(WITHDRAW_EGG));
             withdrawEgg.setEnabledLabel(false);
-            withdrawEgg.addMouseListener(new GearStorageEvent(this, StorageActions.WIDRAW_EGG));
+            withdrawEgg.addMouseList(new GearStorageEvent(this, StorageActions.WIDRAW_EGG));
             storage_.add(withdrawEgg);
             switchPk = new LabelButton(messages.getVal(SWITCH_PK_EGG));
             switchPk.setEnabledLabel(false);
-            switchPk.addMouseListener(new GearStorageEvent(this, StorageActions.SWITCH_TEAM_BOX));
+            switchPk.addMouseList(new GearStorageEvent(this, StorageActions.SWITCH_TEAM_BOX));
             storage_.add(switchPk);
             sep_ = new Separator();
             storage_.add(sep_);
             release = new LabelButton(messages.getVal(CST_RELEASE));
             release.setEnabledLabel(false);
-            release.addMouseListener(new GearStorageEvent(this, StorageActions.RELEASE));
+            release.addMouseList(new GearStorageEvent(this, StorageActions.RELEASE));
             storage_.add(release);
             storage_.add(selectedForSwitch);
             Panel set_ = Panel.newLineBox();
@@ -929,14 +929,14 @@ public class ScenePanel {
             tmPanel = new TmPanel(window.getImageFactory(),5, messages.getVal(TM_TITLE), facade, window.getAikiFactory().getGeneTmPanel().create(window.getImageFactory(),true));
             Panel set_ = Panel.newPageBox();
             LabelButton selectItem_ = new LabelButton(messages.getVal(TM_SELECT));
-            selectItem_.addMouseListener(new AddTmEvent(this));
+            selectItem_.addMouseList(new AddTmEvent(this));
             set_.add(selectItem_);
             LabelButton removeItem_ = new LabelButton(messages.getVal(TM_REMOVE));
-            removeItem_.addMouseListener(new RemoveTmEvent(this));
+            removeItem_.addMouseList(new RemoveTmEvent(this));
             set_.add(removeItem_);
             set_.add(tmPanel.getContainer());
             LabelButton changeInv_ = new LabelButton(messages.getVal(TM_BUY));
-            changeInv_.addMouseListener(new BuyTmEvent(this));
+            changeInv_.addMouseList(new BuyTmEvent(this));
             set_.add(changeInv_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
@@ -949,17 +949,17 @@ public class ScenePanel {
             set_.add(buy);
             itemsPan = new ItemsPanel(window.getImageFactory(), 2, messages.getVal(ITEM_TITLE), facade, window.getAikiFactory().getGeneItPanel().create(window.getImageFactory(),true));
             LabelButton selectItem_ = new LabelButton(messages.getVal(ITEM_SELECT));
-            selectItem_.addMouseListener(new SelectItemForListEvent(this));
+            selectItem_.addMouseList(new SelectItemForListEvent(this));
             set_.add(selectItem_);
             LabelButton addItem_ = new LabelButton(messages.getVal(ITEM_ADD));
-            addItem_.addMouseListener(new ChangeItemListEvent(this, true));
+            addItem_.addMouseList(new ChangeItemListEvent(this, true));
             set_.add(addItem_);
             LabelButton removeItem_ = new LabelButton(messages.getVal(ITEM_REMOVE));
-            removeItem_.addMouseListener(new ChangeItemListEvent(this, false));
+            removeItem_.addMouseList(new ChangeItemListEvent(this, false));
             set_.add(removeItem_);
             set_.add(itemsPan.getContainer());
             LabelButton changeInv_ = new LabelButton(messages.getVal(ITEM_BUY_SELL));
-            changeInv_.addMouseListener(new BuyItemsEvent(this));
+            changeInv_.addMouseList(new BuyItemsEvent(this));
             set_.add(changeInv_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
@@ -978,14 +978,14 @@ public class ScenePanel {
             int nbRemSteps_ = facade.getRemaingingSteps();
             String buttonText_= StringUtil.simpleNumberFormat(messages.getVal(GET_EGG), nbRemSteps_);
             LabelButton receiveEgg_ = new LabelButton(buttonText_);
-            receiveEgg_.addMouseListener(new ReceiveFromHostEvent(this, true));
+            receiveEgg_.addMouseList(new ReceiveFromHostEvent(this, true));
             form_.add(receiveEgg_);
             buttonText_= StringUtil.simpleNumberFormat(messages.getVal(GET_EGG_PARENT), nbRemSteps_);
             LabelButton receiveParents_ = new LabelButton(buttonText_);
-            receiveParents_.addMouseListener(new ReceiveFromHostEvent(this, false));
+            receiveParents_.addMouseList(new ReceiveFromHostEvent(this, false));
             form_.add(receiveParents_);
             LabelButton hostPk_ = new LabelButton(messages.getVal(HOST_PK));
-            hostPk_.addMouseListener(new HostPokemonEvent(this));
+            hostPk_.addMouseList(new HostPokemonEvent(this));
             form_.add(hostPk_);
             set_.add(form_);
             panelOptions.add(set_, BorderLayout.CENTER);
@@ -1255,19 +1255,19 @@ public class ScenePanel {
         teamMenu_.add(switchUsable);
         takeItemTeam = new LabelButton(messages.getVal(TAKE_ITEM_TEAM));
         takeItemTeam.setEnabledLabel(false);
-        takeItemTeam.addMouseListener(new TakeItemFromTeamEvent(this));
+        takeItemTeam.addMouseList(new TakeItemFromTeamEvent(this));
         teamMenu_.add(takeItemTeam);
         detailPk = new LabelButton(messages.getVal(DETAIL_TEAM));
         detailPk.setEnabledLabel(false);
-        detailPk.addMouseListener(new SeePokemonDetailEvent(this));
+        detailPk.addMouseList(new SeePokemonDetailEvent(this));
         teamMenu_.add(detailPk);
         healPk = new LabelButton(messages.getVal(HEAL_PK));
         healPk.setEnabledLabel(false);
-        healPk.addMouseListener(new HealPokemonEvent(this));
+        healPk.addMouseList(new HealPokemonEvent(this));
         teamMenu_.add(healPk);
         nicknamePk = new LabelButton(messages.getVal(NICKNAME));
         nicknamePk.setEnabledLabel(false);
-        nicknamePk.addMouseListener(new ChangeNicknameEvent(this));
+        nicknamePk.addMouseList(new ChangeNicknameEvent(this));
         teamMenu_.add(nicknamePk);
         set_.add(teamPan.getContainer());
         set_.add(teamMenu_);
@@ -1367,10 +1367,10 @@ public class ScenePanel {
             movesLearnt.add(check_.getComponent());
         }
         LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL_MT));
-        cancel_.addMouseListener(new CancelMtEvent(this));
+        cancel_.addMouseList(new CancelMtEvent(this));
         movesLearnt.add(cancel_);
         LabelButton ok_ = new LabelButton(messages.getVal(VALIDATE_MT));
-        ok_.addMouseListener(new ValidateMtEvent(this));
+        ok_.addMouseList(new ValidateMtEvent(this));
         movesLearnt.add(ok_);
         window.pack();
     }
@@ -1441,7 +1441,7 @@ public class ScenePanel {
 
     private void addExit() {
         LabelButton exit_ = new LabelButton(messages.getVal(EXIT));
-        exit_.addMouseListener(new ExitInteractionEvent(this));
+        exit_.addMouseList(new ExitInteractionEvent(this));
         panelOptions.add(exit_, BorderLayout.SOUTH);
     }
 
@@ -1564,7 +1564,7 @@ public class ScenePanel {
             abilities.add(new Separator());
         }
         LabelButton ok_ = new LabelButton(messages.getVal(EVOLVE));
-        ok_.addMouseListener(new EvolvePokemonEvent(this));
+        ok_.addMouseList(new EvolvePokemonEvent(this));
         abilities.add(ok_);
     }
 
@@ -1597,7 +1597,7 @@ public class ScenePanel {
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
             LabelButton check_ = new LabelButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
-            check_.addMouseListener(new HealMoveEvent(this, m));
+            check_.addMouseList(new HealMoveEvent(this, m));
             check_.setBackground(Color.WHITE);
             movesLearnt.add(check_);
         }
@@ -1620,7 +1620,7 @@ public class ScenePanel {
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
             LabelButton check_ = new LabelButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
-            check_.addMouseListener(new BoostMoveEvent(this, m));
+            check_.addMouseList(new BoostMoveEvent(this, m));
             check_.setBackground(Color.WHITE);
             movesLearnt.add(check_);
         }
@@ -1685,7 +1685,7 @@ public class ScenePanel {
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
             LabelButton check_ = new LabelButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
-            check_.addMouseListener(new LearntMoveEvent(this, m));
+            check_.addMouseList(new LearntMoveEvent(this, m));
             check_.setBackground(Color.WHITE);
             movesLearnt.add(check_);
         }

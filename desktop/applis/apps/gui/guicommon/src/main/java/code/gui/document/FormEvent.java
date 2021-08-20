@@ -1,12 +1,13 @@
 package code.gui.document;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import code.formathtml.render.SubmitForm;
-import code.gui.CustComponent;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public final class FormEvent extends MouseAdapter {
+public final class FormEvent extends AbsMouseListenerRel {
 
     private DualButton current;
 
@@ -18,7 +19,7 @@ public final class FormEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         DualForm form_ = current.getParentForm();
         if (form_ == null) {
             return;

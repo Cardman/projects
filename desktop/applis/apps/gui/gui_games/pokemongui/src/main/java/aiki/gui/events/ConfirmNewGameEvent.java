@@ -1,10 +1,12 @@
 package aiki.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.gui.WindowAiki;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class ConfirmNewGameEvent extends MouseAdapter {
+public class ConfirmNewGameEvent extends AbsMouseListenerRel {
 
     private WindowAiki window;
 
@@ -13,7 +15,7 @@ public class ConfirmNewGameEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         window.confirmNewGame();
     }
 }

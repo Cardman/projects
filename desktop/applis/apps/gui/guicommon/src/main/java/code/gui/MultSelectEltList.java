@@ -1,11 +1,8 @@
 package code.gui;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import code.gui.events.AbsMouseListenerRel;
 
-import javax.swing.*;
-
-public final class MultSelectEltList extends MouseAdapter implements IndexableListener {
+public final class MultSelectEltList extends AbsMouseListenerRel implements IndexableListener {
 
     private final AbsGraphicListDefBase grList;
 
@@ -21,9 +18,9 @@ public final class MultSelectEltList extends MouseAdapter implements IndexableLi
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
-        boolean sel_ = SwingUtilities.isLeftMouseButton(_e);
-        if (!_e.isShiftDown()) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        boolean sel_ = _buttons.isLeftMouseButton();
+        if (!_keyState.isShiftDown()) {
             boolean selected_ = painter.selectOneAmongIntervalPaint(grList, sel_, index);
             if (!selected_) {
                 return;

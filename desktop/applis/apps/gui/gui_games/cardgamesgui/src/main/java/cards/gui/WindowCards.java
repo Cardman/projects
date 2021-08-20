@@ -622,7 +622,7 @@ public final class WindowCards extends NetGroupFrame {
     private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,Panel _container) {
         LabelButton bouton_=new LabelButton(_texte);
 //        bouton_.addMouseListener(new EcouteurBoutonPrincipal(_nomJeu));
-        bouton_.addMouseListener(new ListenerBeginGame(_nomJeu, this));
+        bouton_.addMouseList(new ListenerBeginGame(_nomJeu, this));
         _container.add(bouton_);
     }
     public void clearHelpDialogs() {
@@ -1089,7 +1089,7 @@ public final class WindowCards extends NetGroupFrame {
             ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_,container_);
         }
         LabelButton button_ = new LabelButton(getMessages().getVal(CST_MAIN_MENU));
-        button_.addMouseListener(new BackToMainMenuEvent(this));
+        button_.addMouseList(new BackToMainMenuEvent(this));
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
@@ -1127,7 +1127,7 @@ public final class WindowCards extends NetGroupFrame {
             ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_,container_);
         }
         LabelButton button_ = new LabelButton(getMessages().getVal(CST_MAIN_MENU));
-        button_.addMouseListener(new BackToMainMenuEvent(this));
+        button_.addMouseList(new BackToMainMenuEvent(this));
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
@@ -1170,10 +1170,10 @@ public final class WindowCards extends NetGroupFrame {
         pane_.add(welcomeLabel,SwingConstants.CENTER);
         /*Cree les boutons de jeu*/
         singleModeButton = new LabelButton(getMessages().getVal(CST_SINGLE_MODE));
-        singleModeButton.addMouseListener(new ChooseModeEvent(this, true));
+        singleModeButton.addMouseList(new ChooseModeEvent(this, true));
         pane_.add(singleModeButton);
         multiModeButton = new LabelButton(getMessages().getVal(CST_MULTI_MODE));
-        multiModeButton.addMouseListener(new ChooseModeEvent(this, false));
+        multiModeButton.addMouseList(new ChooseModeEvent(this, false));
         pane_.add(multiModeButton);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {

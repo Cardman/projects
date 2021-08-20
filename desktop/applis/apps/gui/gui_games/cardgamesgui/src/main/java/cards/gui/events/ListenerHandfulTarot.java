@@ -1,16 +1,17 @@
 package cards.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
 import code.gui.RadioButton;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
-public class ListenerHandfulTarot extends MouseAdapter {
+public class ListenerHandfulTarot extends AbsListenerHandfulTarot {
 
     private int requiredTrumps;
 
@@ -30,7 +31,7 @@ public class ListenerHandfulTarot extends MouseAdapter {
     }
 
     @Override
-    public void mouseEntered(MouseEvent _e) {
+    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (!radio.isEnabled()) {
             return;
         }

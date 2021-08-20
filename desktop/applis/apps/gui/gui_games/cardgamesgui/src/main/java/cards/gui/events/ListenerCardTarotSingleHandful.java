@@ -1,5 +1,4 @@
 package cards.gui.events;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
@@ -12,6 +11,7 @@ import cards.tarot.GameTarotCommonPlaying;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
+import code.gui.AbsMouseLocation;
 import code.gui.ConfirmDialog;
 import code.util.core.StringUtil;
 
@@ -29,8 +29,8 @@ public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
         return container.isCanExcludeTrumps();
     }
     @Override
-    protected boolean playCardExited(MouseEvent _event) {
-        return _event.getY() < 0;
+    protected boolean playCardExited(AbsMouseLocation _event) {
+        return _event.getYcoord() < 0;
     }
     @Override
     protected void verifierRegles() {

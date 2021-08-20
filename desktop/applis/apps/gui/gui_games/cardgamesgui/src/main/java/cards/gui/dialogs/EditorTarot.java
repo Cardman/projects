@@ -129,7 +129,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         container_.add(getJt(),BorderLayout.CENTER);
         Panel panneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
-        bouton_.addMouseListener(new ValidateRulesDealEvent(this, window));
+        bouton_.addMouseList(new ValidateRulesDealEvent(this, window));
         panneau_.add(bouton_);
         container_.add(panneau_,BorderLayout.SOUTH);
         setContentPane(container_);
@@ -209,7 +209,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         panneau_.add(panelsCards,BorderLayout.CENTER);
         Panel sousPanneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
-        bouton_.addMouseListener(new MoveCardsEvent(this));
+        bouton_.addMouseList(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
         listeTwo=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0));
         listeTwo.addItem(getMessages().getVal(DEALING_STACK));
@@ -231,19 +231,19 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
         panneau_=Panel.newLineBox();
         bouton_=new LabelButton(getMessages().getVal(BACK));
-        bouton_.addMouseListener(new BackToRulesEvent(this, _parent));
+        bouton_.addMouseList(new BackToRulesEvent(this, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_WITHOUT_CLOSING));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
+        bouton_.addMouseList(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_THEN_PLAY));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
+        bouton_.addMouseList(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(PLAY_WITHOUT_SAVING));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
+        bouton_.addMouseList(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_THEN_CLOSE));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
+        bouton_.addMouseList(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
         panneau_.add(bouton_);
         c.add(panneau_,BorderLayout.SOUTH);
         setContentPane(c);

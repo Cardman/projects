@@ -29,7 +29,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
         partieSimulee.jouerPresident(gp_);
 //        partieSimulee.sauvegarderPartieEnCours("demos/deal10.cdgame");
         LabelButton stopButton_ = new LabelButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
-        stopButton_.addMouseListener(new StopEvent(this));
+        stopButton_.addMouseList(new StopEvent(this));
         DisplayingPresident dis_ = container.getDisplayingPresident();
         simulatingPresident = new SimulatingPresidentImpl(container,partieSimulee,dis_, stopButton_);
     }

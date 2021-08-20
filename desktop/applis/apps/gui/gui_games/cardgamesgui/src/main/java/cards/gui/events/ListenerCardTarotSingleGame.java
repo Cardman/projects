@@ -1,5 +1,4 @@
 package cards.gui.events;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
@@ -14,6 +13,7 @@ import cards.tarot.GameTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
+import code.gui.AbsMouseLocation;
 import code.gui.ConfirmDialog;
 import code.gui.Panel;
 import code.util.EnumList;
@@ -31,8 +31,8 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
         return container.isCanPlay();
     }
     @Override
-    protected boolean playCardExited(MouseEvent _event) {
-        return _event.getY() < 0;
+    protected boolean playCardExited(AbsMouseLocation _event) {
+        return _event.getYcoord() < 0;
     }
     @Override
     protected void verifierRegles() {

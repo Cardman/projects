@@ -1,10 +1,12 @@
 package aiki.gui.dialogs.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.gui.dialogs.SelectDialog;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class ValidateSelectionEvent extends MouseAdapter {
+public class ValidateSelectionEvent extends AbsMouseListenerRel {
 
     private SelectDialog dialog;
 
@@ -13,7 +15,7 @@ public class ValidateSelectionEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         dialog.validateChoice();
     }
 }

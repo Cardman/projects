@@ -1,10 +1,12 @@
 package cards.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.gui.WindowCards;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class ChooseModeEvent extends MouseAdapter {
+public class ChooseModeEvent extends AbsMouseListenerRel {
 
     private WindowCards window;
 
@@ -16,7 +18,7 @@ public class ChooseModeEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         window.setSingle(single);
         if (single) {
             window.menuSoloGames();

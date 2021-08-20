@@ -31,7 +31,7 @@ public final class SimulationGameTarot implements Runnable,SimulationGame {
         GameTarot gt_ = new GameTarot(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerTarot(gt_);
         stopButton=new LabelButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
-        stopButton.addMouseListener(new StopEvent(this));
+        stopButton.addMouseList(new StopEvent(this));
         DisplayingTarot dis_ = container.getDisplayingTarot();
         simulatingTarot = new SimulatingTarotImpl(container,partieSimulee,dis_,stopButton);
     }

@@ -1,10 +1,12 @@
 package aiki.gui.listeners;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.gui.components.fight.Battle;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class SelectPlayerTarget extends MouseAdapter {
+public class SelectPlayerTarget extends AbsMouseListenerRel {
 
     private Battle battle;
 
@@ -19,7 +21,7 @@ public class SelectPlayerTarget extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _arg0) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         battle.choosePlayerTarget(number, index);
     }
 }

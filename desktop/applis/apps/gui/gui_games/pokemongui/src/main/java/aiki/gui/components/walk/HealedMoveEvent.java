@@ -1,11 +1,13 @@
 package aiki.gui.components.walk;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.dialogs.SelectHealedMove;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class HealedMoveEvent extends MouseAdapter {
+public class HealedMoveEvent extends AbsMouseListenerRel {
 
     private SelectHealedMove dialog;
 
@@ -20,7 +22,7 @@ public class HealedMoveEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _arg0) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         facade.healMove(key);
         dialog.closeWindow();
     }

@@ -1,10 +1,12 @@
 package aiki.gui.listeners;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.gui.components.walk.ScenePanel;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class LearntMoveEvent extends MouseAdapter {
+public class LearntMoveEvent extends AbsMouseListenerRel {
 
     private ScenePanel scene;
 
@@ -16,7 +18,7 @@ public class LearntMoveEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _arg0) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         scene.learntMove(move);
     }
 }

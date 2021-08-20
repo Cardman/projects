@@ -1,11 +1,11 @@
 package cards.gui.events;
-import java.awt.event.MouseEvent;
 
 import cards.gui.containers.ContainerMultiPresident;
 import cards.network.president.actions.PlayingCardPresident;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
+import code.gui.AbsMouseLocation;
 import code.util.*;
 
 public class ListenerCardPresidentMultiGame extends
@@ -25,8 +25,8 @@ public class ListenerCardPresidentMultiGame extends
     }
 
     @Override
-    protected boolean playCardExited(MouseEvent _event) {
-        return _event.getY() < 0;
+    protected boolean playCardExited(AbsMouseLocation _event) {
+        return _event.getYcoord() < 0;
     }
 
     @Override

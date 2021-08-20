@@ -1,11 +1,7 @@
 package code.gui.document;
 
-import java.awt.image.BufferedImage;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.formathtml.exec.RendStackCall;
@@ -14,7 +10,6 @@ import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
-import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
@@ -252,7 +247,7 @@ public final class RenderedPage implements ProcessingSession {
 
     public void addFinder() {
         finding = new FindEvent(field, this);
-        find.addMouseListener(finding);
+        find.addMouseList(finding);
     }
 
     public ContextEl getContext() {

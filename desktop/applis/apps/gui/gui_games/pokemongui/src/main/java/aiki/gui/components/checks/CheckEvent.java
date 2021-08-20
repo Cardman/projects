@@ -1,8 +1,5 @@
 package aiki.gui.components.checks;
-import code.gui.AbsActionListener;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import code.gui.events.AbsActionListener;
 
 public final class CheckEvent implements AbsActionListener {
 

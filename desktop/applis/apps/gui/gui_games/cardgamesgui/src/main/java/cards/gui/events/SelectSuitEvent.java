@@ -1,11 +1,13 @@
 package cards.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.belote.BidBeloteSuit;
 import cards.gui.containers.ContainerBelote;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class SelectSuitEvent extends MouseAdapter {
+public class SelectSuitEvent extends AbsMouseListenerRel {
 
     private ContainerBelote container;
 
@@ -17,7 +19,7 @@ public class SelectSuitEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _arg0) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         container.setBid(suit);
     }
 }

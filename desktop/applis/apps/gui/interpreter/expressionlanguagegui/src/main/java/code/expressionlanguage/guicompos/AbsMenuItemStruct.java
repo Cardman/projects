@@ -1,7 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.structs.Struct;
-import code.gui.AbsActionListener;
+import code.gui.events.AbsActionListener;
 import code.gui.CheckBoxMenuItem;
 import code.gui.EnabledMenu;
 import code.gui.MenuItem;

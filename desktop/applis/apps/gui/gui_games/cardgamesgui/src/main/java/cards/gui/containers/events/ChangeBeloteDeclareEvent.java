@@ -1,10 +1,9 @@
 package cards.gui.containers.events;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import cards.gui.containers.ContainerBelote;
+import code.gui.events.AbsActionListener;
 
-public class ChangeBeloteDeclareEvent implements ActionListener {
+public class ChangeBeloteDeclareEvent implements AbsActionListener {
 
     private ContainerBelote container;
 
@@ -13,7 +12,7 @@ public class ChangeBeloteDeclareEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         container.invertBeloteDeclare();
     }
 }

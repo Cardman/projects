@@ -1,11 +1,13 @@
 package cards.gui.dialogs.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.gui.WindowCards;
 import cards.gui.dialogs.DialogDisplaying;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class RemoveSuitEvent extends MouseAdapter {
+public class RemoveSuitEvent extends AbsMouseListenerRel {
 
     private DialogDisplaying dialog;
     private WindowCards window;
@@ -16,7 +18,7 @@ public class RemoveSuitEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         dialog.removeSuit(window);
     }
 }

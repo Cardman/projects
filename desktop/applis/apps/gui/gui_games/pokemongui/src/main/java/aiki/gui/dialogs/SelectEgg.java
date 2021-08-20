@@ -46,10 +46,10 @@ public final class SelectEgg extends SelectDialog {
         contentPane_.add(new ScrollPane(new PaginatorEgg(_parent,pag_, this, _facade).getContainer()), BorderLayout.CENTER);
         Panel buttons_ = Panel.newLineBox();
         LabelButton ok_ = new LabelButton(WindowAiki.OK);
-        ok_.addMouseListener(new ValidateSelectionEvent(this));
+        ok_.addMouseList(new ValidateSelectionEvent(this));
         buttons_.add(ok_);
         LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL));
-        cancel_.addMouseListener(new ClosingDialogEvent(this));
+        cancel_.addMouseList(new ClosingDialogEvent(this));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, BorderLayout.SOUTH);
         setContentPane(contentPane_);

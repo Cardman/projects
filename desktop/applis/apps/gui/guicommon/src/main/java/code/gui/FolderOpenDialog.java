@@ -39,10 +39,10 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         initByFrame(_w, _language, _currentFolderRoot, false, EMPTY_STRING, EMPTY_STRING,"jre");
         LabelButton action_ = new LabelButton(messages.getVal(OPEN));
-        action_.addMouseListener(new SubmitMouseEvent(this));
+        action_.addMouseList(new SubmitMouseEvent(this));
         getButtons().add(action_);
         action_ = new LabelButton(messages.getVal(CANCEL));
-        action_.addMouseListener(new CancelSelectFileEvent(this));
+        action_.addMouseList(new CancelSelectFileEvent(this));
         getButtons().add(action_);
         pack();
     }

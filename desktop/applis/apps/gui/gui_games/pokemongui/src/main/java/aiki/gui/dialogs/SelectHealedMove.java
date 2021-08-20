@@ -60,7 +60,7 @@ public final class SelectHealedMove extends Dialog {
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
             LabelButton check_ = new LabelButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
-            check_.addMouseListener(new HealedMoveEvent(this,facade, m));
+            check_.addMouseList(new HealedMoveEvent(this,facade, m));
             movesLearnt.add(check_);
         }
         contentPane_.add(movesLearnt, BorderLayout.CENTER);
@@ -68,7 +68,7 @@ public final class SelectHealedMove extends Dialog {
         //contentPane_.add(new JScrollPane(new PaginatorHealingItem(this, _facade)), BorderLayout.CENTER);
         Panel buttons_ = Panel.newLineBox();
         LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL));
-        cancel_.addMouseListener(new ClosingDialogEvent(this));
+        cancel_.addMouseList(new ClosingDialogEvent(this));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, BorderLayout.SOUTH);
         setContentPane(contentPane_);

@@ -155,10 +155,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         if (hasCreatedServer) {
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
-            buttonRules_.addMouseListener(new ChangeRulesEvent(this));
+            buttonRules_.addMouseList(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
             LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
-            button_.addMouseListener(new PlayFirstDealEvent(this));
+            button_.addMouseList(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
         container_.add(getWindow().getClock());
@@ -248,7 +248,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         nbCardsDiscard = _allow.getReceivedCards().total();
         setGivingCardsOk(new LabelButton(WindowCards.OK));
         getGivingCardsOk().setEnabledLabel(false);
-        getGivingCardsOk().addMouseListener(new GiveCardsEvent(this));
+        getGivingCardsOk().addMouseList(new GiveCardsEvent(this));
 //        getPanneauBoutonsJeu().add(getGivingCardsOk());
         getActionsHistory().add(getGivingCardsOk());
         getReceivedCards().supprimerCartes();
@@ -522,7 +522,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         setPanelReceivedCards(panelRec_);
         sousPanneau_.add(panelCards_);
         setNoPlay(new LabelButton(EMPTY));
-        getNoPlay().addMouseListener(new NoPlayPresidentEvent(this));
+        getNoPlay().addMouseList(new NoPlayPresidentEvent(this));
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(new ScrollPane(sousPanneau_));
         getNoPlay().setVisibleButton(false);
@@ -664,7 +664,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         panneau_.add(panel_);
         if (hasCreatedServer) {
             LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
-            button_.addMouseListener(new PlayNextDealEvent(this));
+            button_.addMouseList(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }
         panneau_.add(getWindow().getClock());
@@ -718,10 +718,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         if (!Net.isProgressingGame(getOwner().getNet())) {
             Panel container_ = getPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
-            buttonRules_.addMouseListener(new ChangeRulesEvent(this));
+            buttonRules_.addMouseList(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
             LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
-            button_.addMouseListener(new PlayFirstDealEvent(this));
+            button_.addMouseList(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();
             //PackingWindowAfter.pack(this, true);

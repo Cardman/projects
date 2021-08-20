@@ -1,9 +1,9 @@
 package cards.gui.events;
-import java.awt.event.MouseEvent;
 
 import cards.gui.containers.ContainerPresident;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.president.enumerations.CardPresident;
+import code.gui.AbsMouseLocation;
 
 public class ListenerCardPresidentDiscard extends
         AbstractListenerCardPresident {
@@ -26,11 +26,11 @@ public class ListenerCardPresidentDiscard extends
     }
 
     @Override
-    protected boolean playCardExited(MouseEvent _event) {
+    protected boolean playCardExited(AbsMouseLocation _event) {
         if (inHand) {
-            return _event.getY() < 0;
+            return _event.getYcoord() < 0;
         }
-        return _event.getY() > component.getHeight();
+        return _event.getYcoord() > component.getHeight();
     }
 
     @Override

@@ -1,10 +1,10 @@
 package cards.gui.events;
-import java.awt.event.MouseEvent;
 
 import cards.gui.containers.ContainerMultiTarot;
 import cards.gui.labels.GraphicTarotCard;
 import cards.network.tarot.actions.DiscardedCard;
 import cards.tarot.enumerations.CardTarot;
+import code.gui.AbsMouseLocation;
 
 public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
 
@@ -22,11 +22,11 @@ public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
         return container.isCanDiscard();
     }
     @Override
-    protected boolean playCardExited(MouseEvent _event) {
+    protected boolean playCardExited(AbsMouseLocation _event) {
         if (inHand) {
-            return _event.getY() < 0;
+            return _event.getYcoord() < 0;
         }
-        return _event.getY() > component.getHeight();
+        return _event.getYcoord() > component.getHeight();
     }
     @Override
     protected void verifierRegles() {

@@ -1,12 +1,14 @@
 package code.gui;
 
+import code.gui.events.AbsActionListener;
 import code.gui.events.WrActionListener;
+import code.util.IdMap;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 public final class PlainButton extends CustComponent {
     private JButton button;
+    private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
     public PlainButton() {
         button = new JButton();
     }
@@ -30,12 +32,10 @@ public final class PlainButton extends CustComponent {
         button.setText(_text);
     }
 
-    public void addActionListener(ActionListener _l) {
-        button.addActionListener(_l);
-    }
-
     public void addActionListener(AbsActionListener _l) {
-        button.addActionListener(new WrActionListener(_l));
+        WrActionListener wr_ = new WrActionListener(_l);
+        button.addActionListener(wr_);
+        mapAction.addEntry(_l,wr_);
     }
 
     public boolean isEnabled() {

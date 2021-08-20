@@ -571,10 +571,10 @@ public final class PaginatorHealingItem extends Paginator {
         top_ = Panel.newLineBox();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
-        button_.addMouseListener(new SearchEvent(this));
+        button_.addMouseList(new SearchEvent(this));
         top_.add(button_);
         button_ = new LabelButton(getMessages().getVal(NEW_SEARCH));
-        button_.addMouseListener(new NewSearchEvent(this));
+        button_.addMouseList(new NewSearchEvent(this));
         top_.add(button_);
         _p.add(top_);
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));

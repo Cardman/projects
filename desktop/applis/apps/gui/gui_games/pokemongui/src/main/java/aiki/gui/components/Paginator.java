@@ -96,17 +96,17 @@ public abstract class Paginator {
         initMessages(_access);
         header = new Header();
         begin = new LabelButton(CST_BEGIN);
-        begin.addMouseListener(new BeginEvent(this));
+        begin.addMouseList(new BeginEvent(this));
         previousDelta = new LabelButton(CST_PREVIOUS_DELTA);
-        previousDelta.addMouseListener(new PreviousDeltaEvent(this));
+        previousDelta.addMouseList(new PreviousDeltaEvent(this));
         previous = new LabelButton(CST_PREVIOUS);
-        previous.addMouseListener(new PreviousEvent(this));
+        previous.addMouseList(new PreviousEvent(this));
         next = new LabelButton(CST_NEXT);
-        next.addMouseListener(new NextEvent(this));
+        next.addMouseList(new NextEvent(this));
         nextDelta = new LabelButton(CST_NEXT_DELTA);
-        nextDelta.addMouseListener(new NextDeltaEvent(this));
+        nextDelta.addMouseList(new NextDeltaEvent(this));
         end = new LabelButton(messages.getVal(CST_END));
-        end.addMouseListener(new EndEvent(this));
+        end.addMouseList(new EndEvent(this));
     }
 
     public WindowAiki getMain() {

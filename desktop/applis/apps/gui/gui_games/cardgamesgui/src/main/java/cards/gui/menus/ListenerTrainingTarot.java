@@ -2,7 +2,7 @@ package cards.gui.menus;
 
 import cards.gui.WindowCards;
 import cards.tarot.enumerations.ChoiceTarot;
-import code.gui.AbsActionListener;
+import code.gui.events.AbsActionListener;
 
 public class ListenerTrainingTarot implements AbsActionListener {
 

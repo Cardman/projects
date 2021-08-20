@@ -1,14 +1,13 @@
 package code.gui;
+import code.gui.events.AbsActionListener;
 import code.gui.events.WrActionListener;
-import code.gui.images.AbstractImage;
-
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
+import code.util.IdMap;
 
 import javax.swing.*;
 
 public final class MenuItem implements EnabledMenu {
 
+    private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
     private Menu parentMenu;
 
     private JMenuItem menu;
@@ -65,12 +64,10 @@ public final class MenuItem implements EnabledMenu {
         menu.setText(_val);
     }
 
-    public void addActionListener(ActionListener _showDataFightEvent) {
-        menu.addActionListener(_showDataFightEvent);
-    }
-
     public void addActionListener(AbsActionListener _showDataFightEvent) {
-        menu.addActionListener(new WrActionListener(_showDataFightEvent));
+        WrActionListener wr_ = new WrActionListener(_showDataFightEvent);
+        menu.addActionListener(wr_);
+        mapAction.addEntry(_showDataFightEvent,wr_);
     }
 
     public boolean isEnabled() {

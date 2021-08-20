@@ -1,9 +1,8 @@
 package code.gui;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import code.gui.events.AbsMouseListener;
 
-public final class SimpleSelectCombo extends MouseAdapter implements IndexableListener {
+public final class SimpleSelectCombo implements AbsMouseListener,IndexableListener {
 
     private final GraphicStringList grList;
 
@@ -15,22 +14,32 @@ public final class SimpleSelectCombo extends MouseAdapter implements IndexableLi
     }
 
     @Override
-    public void mouseExited(MouseEvent _e) {
+    public void mouseExited(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         grList.repaintSelect(index,false);
     }
 
     @Override
-    public void mouseEntered(MouseEvent _e) {
+    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         grList.repaintSelect(index,true);
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         grList.setFirstIndex(index);
         grList.setLastIndex(index);
         grList.clearAllRange();
         grList.addRange();
         grList.selectEvent(index, index, false);
+    }
+
+    @Override
+    public void mouseClicked(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
+    }
+
+    @Override
+    public void mousePressed(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
     }
 
     @Override

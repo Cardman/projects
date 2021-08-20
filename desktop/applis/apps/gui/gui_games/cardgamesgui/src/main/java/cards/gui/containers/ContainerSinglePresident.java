@@ -175,7 +175,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        clickedDiscard = false;
         setGivingCardsOk(new LabelButton(WindowCards.OK));
         getGivingCardsOk().setEnabledLabel(false);
-        getGivingCardsOk().addMouseListener(new GiveCardsEvent(this));
+        getGivingCardsOk().addMouseList(new GiveCardsEvent(this));
 //        getPanneauBoutonsJeu().add(getGivingCardsOk());
         getActionsHistory().add(getGivingCardsOk());
     }
@@ -216,35 +216,35 @@ public class ContainerSinglePresident extends ContainerPresident implements
     public void addButtonNextTrickPresident(String _texte,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new NextTrickEvent(this));
+        bouton_.addMouseList(new NextTrickEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonEndDealPresident(String _texte,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new EndDealEvent(this));
+        bouton_.addMouseList(new EndDealEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonKeepPlayingDealPresident(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new KeepPlayingRandomEvent(this));
+        bouton_.addMouseList(new KeepPlayingRandomEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonKeepPlayingEditedDealPresident(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new KeepPlayingEditedEvent(this));
+        bouton_.addMouseList(new KeepPlayingEditedEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonStopPlayingPresident(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new StopPlayingEvent(this));
+        bouton_.addMouseList(new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonReplayDealPresident(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new ReplayEvent(this));
+        bouton_.addMouseList(new ReplayEvent(this));
         _panneau.add(bouton_);
     }
 
@@ -345,7 +345,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setPanelReceivedCards(panelRec_);
         sousPanneau_.add(panelCards_);
         setNoPlay(new LabelButton(EMPTY));
-        getNoPlay().addMouseListener(new NoPlayPresidentEvent(this));
+        getNoPlay().addMouseList(new NoPlayPresidentEvent(this));
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(new ScrollPane(sousPanneau_));
         getNoPlay().setVisibleButton(false);

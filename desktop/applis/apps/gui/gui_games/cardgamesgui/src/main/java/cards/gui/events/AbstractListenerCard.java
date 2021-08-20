@@ -1,11 +1,13 @@
 package cards.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListener;
 
-public abstract class AbstractListenerCard extends MouseAdapter {
+public abstract class AbstractListenerCard implements AbsMouseListener {
 
     private ContainerGame container;
 
@@ -21,7 +23,7 @@ public abstract class AbstractListenerCard extends MouseAdapter {
     protected abstract void jeuCarte(boolean _carteSurvolee);
     protected abstract void verifierRegles();
     protected abstract boolean canListen();
-    protected abstract boolean playCardExited(MouseEvent _event);
+    protected abstract boolean playCardExited(AbsMouseLocation _event);
     protected void testEntreeSortie() {
         if(!container.isThreadAnime()&&container.isCarteSortie()&&!container.isCarteEntree()) {
             jeuCarte(true);
@@ -31,7 +33,7 @@ public abstract class AbstractListenerCard extends MouseAdapter {
         return container.getParametres().getJeuCarteClic();
     }
     @Override
-    public void mouseEntered(MouseEvent _event) {
+    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (!canListen()) {
             return;
         }
@@ -42,13 +44,14 @@ public abstract class AbstractListenerCard extends MouseAdapter {
             testEntreeSortie();
         }
     }
+
     @Override
-    public void mouseExited(MouseEvent _event) {
+    public void mouseExited(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (!canListen()) {
             return;
         }
         if(!clicCarte()) {
-            if (!playCardExited(_event)) {
+            if (!playCardExited(_location)) {
                 return;
             }
             container.setCarteSortie(true);
@@ -57,8 +60,9 @@ public abstract class AbstractListenerCard extends MouseAdapter {
             testEntreeSortie();
         }
     }
+
     @Override
-    public void mouseReleased(MouseEvent _event) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (!canListen()) {
             return;
         }
@@ -67,13 +71,19 @@ public abstract class AbstractListenerCard extends MouseAdapter {
             container.setaJoueCarte(false);
         }
     }
+
     @Override
-    public void mousePressed(MouseEvent _event) {
+    public void mousePressed(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (!canListen()) {
             return;
         }
         if(clicCarte()) {
             jeuCarte(false);
         }
+    }
+
+    @Override
+    public void mouseClicked(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
     }
 }

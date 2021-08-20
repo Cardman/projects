@@ -1,5 +1,4 @@
 package aiki.gui.threads;
-import javax.swing.SwingUtilities;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;

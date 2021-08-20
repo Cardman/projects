@@ -1,9 +1,9 @@
 package code.expressionlanguage.gui.unit;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import code.gui.events.AbsActionListener;
 
-public final class ListenerLaunchTests implements ActionListener {
+
+public final class ListenerLaunchTests implements AbsActionListener {
     private WindowUnit mainWindow;
     private TestableFrame tested;
 
@@ -13,7 +13,7 @@ public final class ListenerLaunchTests implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         mainWindow.process(tested);
     }
 }

@@ -1,16 +1,14 @@
 package cards.gui.dialogs.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
 import cards.gui.WindowCards;
 import cards.gui.dialogs.SetterSelectedCardList;
 import cards.gui.dialogs.enums.SaveDealMode;
-import code.gui.ConfirmDialog;
-import code.gui.Dialog;
+import code.gui.*;
+import code.gui.events.AbsMouseListenerRel;
 
-public class SavingDealEvent extends MouseAdapter {
+public class SavingDealEvent extends AbsMouseListenerRel {
 
     private SetterSelectedCardList dialog;
 
@@ -24,7 +22,7 @@ public class SavingDealEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (mode == SaveDealMode.SAVE_WITHOUT_CLOSING) {
             /*Si on veut sauvegarder une partie et on veut en creer une autre*/
             if(!dialog.isPartieSauvegardee()) {

@@ -5,10 +5,7 @@ import code.gui.RadioButton;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public final class ChangeRadioEvent implements ActionListener {
+public final class ChangeRadioEvent implements AbsActionListener {
     private CustButtonGroup group;
     private RadioButton radio;
     private boolean hasValue;
@@ -26,7 +23,7 @@ public final class ChangeRadioEvent implements ActionListener {
         value = _value;
     }
     @Override
-    public void actionPerformed(ActionEvent _arg) {
+    public void action() {
         CustList<RadioButton> g_ = group.getGroup();
         for (RadioButton r: g_) {
             r.setSelected(false);

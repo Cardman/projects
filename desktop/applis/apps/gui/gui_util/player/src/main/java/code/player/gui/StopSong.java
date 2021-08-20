@@ -1,8 +1,11 @@
 package code.player.gui;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class StopSong extends MouseAdapter {
+
+public class StopSong extends AbsMouseListenerRel {
 
     private WindowPlayer window;
 
@@ -11,7 +14,7 @@ public class StopSong extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         window.stopSong();
     }
 

@@ -2,8 +2,6 @@ package code.gui;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 
-import java.awt.image.BufferedImage;
-
 import javax.swing.*;
 
 public abstract class PaintableLabel extends CustComponent {

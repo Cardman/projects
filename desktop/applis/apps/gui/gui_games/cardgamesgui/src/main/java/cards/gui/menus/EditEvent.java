@@ -2,7 +2,7 @@ package cards.gui.menus;
 
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
-import code.gui.AbsActionListener;
+import code.gui.events.AbsActionListener;
 
 public class EditEvent implements AbsActionListener {
 

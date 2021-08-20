@@ -1,14 +1,16 @@
 package aiki.gui.components.walk;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import aiki.comparators.ComparatorScreenCoords;
 import aiki.facade.FacadeGame;
 import aiki.map.enums.Direction;
 import aiki.map.util.ScreenCoords;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
 import code.gui.PaintableLabel;
+import code.gui.events.AbsMouseListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -16,7 +18,7 @@ import code.util.CustList;
 import code.util.TreeMap;
 import code.util.core.IndexConstants;
 
-public class Scene extends PaintableLabel implements MouseListener {
+public class Scene extends PaintableLabel implements AbsMouseListener {
 
     private int sideLength;
 
@@ -256,27 +258,27 @@ public class Scene extends PaintableLabel implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent _e) {
+    public void mouseClicked(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         //
     }
 
     @Override
-    public void mouseEntered(MouseEvent _e) {
+    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         //
     }
 
     @Override
-    public void mouseExited(MouseEvent _e) {
+    public void mouseExited(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         //
     }
 
     @Override
-    public void mousePressed(MouseEvent _e) {
+    public void mousePressed(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         //
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         setFocus();
     }
 

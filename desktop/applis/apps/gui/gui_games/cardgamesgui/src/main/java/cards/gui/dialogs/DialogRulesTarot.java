@@ -36,7 +36,7 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
         initJt(null,_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
         LabelButton bouton_=new LabelButton(getMessages().getVal(VALIDATE));
-        bouton_.addMouseListener(new ValidateRulesEvent(this));
+        bouton_.addMouseList(new ValidateRulesEvent(this));
         container_.add(bouton_,BorderLayout.SOUTH);
         setContentPane(container_);
         pack();

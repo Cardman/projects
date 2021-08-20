@@ -33,15 +33,10 @@ public final class PreparedLabel extends CustComponent {
         return new PreparedLabel(_img,new JLabel());
     }
 
-    public Icon getIcon() {
-        return label.getIcon();
-    }
-
     public void setIcon(AbstractImageFactory _fact,AbstractImage _icon) {
-        Icon icon_ = buildIcon(_fact,_icon);
-        label.setIcon(icon_);
-        width = icon_.getIconWidth();
-        height = icon_.getIconHeight();
+        label.setIcon(buildIcon(_fact,_icon));
+        width = _icon.getWidth();
+        height = _icon.getHeight();
     }
 
     public static Icon buildIcon(AbstractImageFactory _fact,AbstractImage _icon) {

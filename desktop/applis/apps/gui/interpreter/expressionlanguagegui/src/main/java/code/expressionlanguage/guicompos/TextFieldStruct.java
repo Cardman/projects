@@ -4,7 +4,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.AbsActionListener;
+import code.gui.events.AbsActionListener;
 import code.gui.CustComponent;
 import code.gui.TextField;
 

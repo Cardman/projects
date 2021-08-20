@@ -499,7 +499,7 @@ public final class WindowAiki extends NetGroupFrame {
         nickname_.add(nickname);
         beginGame.add(nickname_);
         LabelButton ok_ = new LabelButton(OK);
-        ok_.addMouseListener(new ConfirmNewGameEvent(this));
+        ok_.addMouseList(new ConfirmNewGameEvent(this));
         beginGame.add(ok_);
         beginGame.repaintSecondChildren(getImageFactory());
         scenePanel.addBeginGame(beginGame);

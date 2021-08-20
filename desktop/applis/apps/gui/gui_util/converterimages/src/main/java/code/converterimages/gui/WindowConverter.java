@@ -1,5 +1,4 @@
 package code.converterimages.gui;
-import java.awt.image.BufferedImage;
 
 import javax.swing.WindowConstants;
 
@@ -56,10 +55,10 @@ public final class WindowConverter extends GroupFrame {
         pathExport.setText(EMPTY_STRING);
         content_.add(pathExport);
         LabelButton read_ = new LabelButton(READ);
-        read_.addMouseListener(new ReadEvent(this));
+        read_.addMouseList(new ReadEvent(this));
         content_.add(read_);
         LabelButton ok_ = new LabelButton(OK);
-        ok_.addMouseListener(new ExportEvent(this));
+        ok_.addMouseList(new ExportEvent(this));
         content_.add(ok_);
         setContentPane(content_);
         pack();

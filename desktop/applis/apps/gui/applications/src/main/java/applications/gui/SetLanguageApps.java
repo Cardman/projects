@@ -1,12 +1,10 @@
 package applications.gui;
 
+import code.gui.events.AbsActionListener;
 import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-class SetLanguageApps implements ActionListener {
+class SetLanguageApps implements AbsActionListener {
 
     private String language;
     private AbstractProgramInfos list;
@@ -17,7 +15,7 @@ class SetLanguageApps implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _arg) {
+    public void action() {
         GroupFrame.changeStaticLanguage(language, list);
     }
 }

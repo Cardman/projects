@@ -1,10 +1,11 @@
 package code.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
 import code.gui.SingleFileSelection;
 
-public class SubmitMouseEvent extends MouseAdapter {
+public class SubmitMouseEvent extends AbsMouseListenerRel {
 
     private SingleFileSelection dialog;
 
@@ -13,7 +14,7 @@ public class SubmitMouseEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         dialog.submitIfVisible();
     }
 }

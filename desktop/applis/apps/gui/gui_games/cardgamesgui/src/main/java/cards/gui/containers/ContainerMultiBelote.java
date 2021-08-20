@@ -125,14 +125,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
             LabelPoints label_ = new LabelPoints(p_);
             label_.setEnabledLabel(_pts < p_);
             label_.setToolTipText(Long.toString(p_));
-            label_.addMouseListener(new SelectPointsEvent(this, p_));
+            label_.addMouseList(new SelectPointsEvent(this, p_));
             getPointsButtons().add(label_);
             getPanneauBoutonsJeuPoints().add(label_);
         }
         getPanneauBoutonsJeu().add(getPanneauBoutonsJeuPoints());
         setBidOk(new LabelButton(WindowCards.OK));
         getBidOk().setEnabledLabel(false);
-        getBidOk().addMouseListener(new BidEvent(this));
+        getBidOk().addMouseList(new BidEvent(this));
         Panel panel_ = Panel.newPageBox();
         Panel panelSuits_ = Panel.newLineBox();
         getBidsButtons().clear();
@@ -176,7 +176,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         panel_.add(panelBids_);
         Panel panelOk_ = Panel.newLineBox();
         LabelButton buttonSuit_ = new LabelButton(Games.toString(BidBelote.FOLD,lg_));
-        buttonSuit_.addMouseListener(new FoldEvent(this));
+        buttonSuit_.addMouseList(new FoldEvent(this));
         panelOk_.add(buttonSuit_);
         panelOk_.add(getBidOk());
         panel_.add(panelOk_);
@@ -221,7 +221,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         Panel panneau_ = getPanneauBoutonsJeu();
         LabelButton bouton_ = new LabelButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratBeloteMulti(_action));
-        bouton_.addMouseListener(new ListenerBidBeloteMulti(this,_action));
+        bouton_.addMouseList(new ListenerBidBeloteMulti(this,_action));
         panneau_.add(bouton_);
     }
 
@@ -291,10 +291,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         if (hasCreatedServer) {
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
-            buttonRules_.addMouseListener(new ChangeRulesEvent(this));
+            buttonRules_.addMouseList(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
             LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_BELOTE));
-            button_.addMouseListener(new PlayFirstDealEvent(this));
+            button_.addMouseList(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
         container_.add(getWindow().getClock());
@@ -863,7 +863,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         panneau_.add(panel_);
         if (hasCreatedServer) {
             LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_BELOTE));
-            button_.addMouseListener(new PlayNextDealEvent(this));
+            button_.addMouseList(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }
         panneau_.add(getWindow().getClock());
@@ -916,10 +916,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (!Net.isProgressingGame(getOwner().getNet())) {
             Panel container_ = getPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
-            buttonRules_.addMouseListener(new ChangeRulesEvent(this));
+            buttonRules_.addMouseList(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
             LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_BELOTE));
-            button_.addMouseListener(new PlayFirstDealEvent(this));
+            button_.addMouseList(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();
             //PackingWindowAfter.pack(this, true);

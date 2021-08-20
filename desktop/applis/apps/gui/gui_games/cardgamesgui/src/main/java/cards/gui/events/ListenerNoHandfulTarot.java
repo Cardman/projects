@@ -1,14 +1,15 @@
 package cards.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
 import code.gui.RadioButton;
 import code.util.CustList;
 
-public class ListenerNoHandfulTarot extends MouseAdapter {
+public class ListenerNoHandfulTarot extends AbsListenerHandfulTarot {
 
     private ContainerTarot container;
     private RadioButton radio;
@@ -23,7 +24,7 @@ public class ListenerNoHandfulTarot extends MouseAdapter {
     }
 
     @Override
-    public void mouseEntered(MouseEvent _e) {
+    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         for (RadioButton r: list) {
             r.setSelected(false);
         }

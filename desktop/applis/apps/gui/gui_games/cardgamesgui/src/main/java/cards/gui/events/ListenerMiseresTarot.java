@@ -1,14 +1,11 @@
 package cards.gui.events;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JCheckBox;
 
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Miseres;
+import code.gui.events.AbsActionListener;
 import code.gui.CustCheckBox;
 
-public class ListenerMiseresTarot implements ActionListener {
+public class ListenerMiseresTarot implements AbsActionListener {
 
     private ContainerTarot container;
     private CustCheckBox check;
@@ -20,7 +17,7 @@ public class ListenerMiseresTarot implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         container.getSelectedMiseres().put(miseres, check.isSelected());
     }
 }

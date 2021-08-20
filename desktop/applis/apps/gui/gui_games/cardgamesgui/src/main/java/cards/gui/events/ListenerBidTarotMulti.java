@@ -1,12 +1,14 @@
 package cards.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.BiddingTarot;
 import cards.tarot.enumerations.BidTarot;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class ListenerBidTarotMulti extends MouseAdapter {
+public class ListenerBidTarotMulti extends AbsMouseListenerRel {
 
     private ContainerMultiTarot container;
     private BidTarot enchere;
@@ -17,7 +19,7 @@ public class ListenerBidTarotMulti extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (!container.isCanBid()) {
             return;
         }

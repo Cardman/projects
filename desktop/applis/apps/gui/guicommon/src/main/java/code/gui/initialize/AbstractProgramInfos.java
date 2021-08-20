@@ -14,8 +14,6 @@ import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringMap;
 
-import java.awt.image.BufferedImage;
-
 public interface AbstractProgramInfos {
     String getHomePath();
     String getTmpUserFolder();

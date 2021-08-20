@@ -1,11 +1,13 @@
 package aiki.gui.components.walk.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.gui.WindowAiki;
 import aiki.network.stream.Ok;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class ValidateTradingEvent extends MouseAdapter {
+public class ValidateTradingEvent extends AbsMouseListenerRel {
 
     private WindowAiki window;
 
@@ -14,7 +16,7 @@ public class ValidateTradingEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         window.sendObject(Ok.INSTANCE);
     }
 }

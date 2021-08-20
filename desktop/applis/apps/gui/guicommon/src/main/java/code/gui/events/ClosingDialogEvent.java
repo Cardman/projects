@@ -1,10 +1,11 @@
 package code.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
 import code.gui.Dialog;
 
-public class ClosingDialogEvent extends MouseAdapter {
+public class ClosingDialogEvent extends AbsMouseListenerRel {
 
     private Dialog dialog;
 
@@ -13,7 +14,7 @@ public class ClosingDialogEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         dialog.closeWindow();
     }
 }

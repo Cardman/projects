@@ -1,9 +1,9 @@
 package code.expressionlanguage.gui.unit;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import code.gui.events.AbsActionListener;
 
-public final class FileSelectEvent implements ActionListener {
+
+public final class FileSelectEvent implements AbsActionListener {
     private WindowUnit mainWindow;
     private SimpleFilesFrame tested;
 
@@ -13,7 +13,7 @@ public final class FileSelectEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         mainWindow.getThreadFactory().newStartedThread(new LoadConf(tested,mainWindow.selectedFile()));
     }
 }

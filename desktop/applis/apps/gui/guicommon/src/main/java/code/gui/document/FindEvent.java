@@ -1,23 +1,15 @@
 package code.gui.document;
 
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-
 import code.formathtml.render.FindNextElement;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.render.MetaSearchableLabel;
 import code.formathtml.render.SegmentPart;
-import code.gui.ScrollPane;
-import code.gui.TextField;
+import code.gui.*;
+import code.gui.events.AbsMouseListenerRel;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 
-public final class FindEvent extends MouseAdapter {
+public final class FindEvent extends AbsMouseListenerRel {
 
     private RenderedPage page;
 
@@ -35,7 +27,7 @@ public final class FindEvent extends MouseAdapter {
         finding = new FindNextElement(_document);
     }
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (page.isProcessing()) {
             return;
         }

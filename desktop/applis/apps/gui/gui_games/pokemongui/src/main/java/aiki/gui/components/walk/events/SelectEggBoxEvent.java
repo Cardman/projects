@@ -1,10 +1,12 @@
 package aiki.gui.components.walk.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.gui.components.walk.ScenePanel;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class SelectEggBoxEvent extends MouseAdapter {
+public class SelectEggBoxEvent extends AbsMouseListenerRel {
 
     private ScenePanel scene;
 
@@ -13,7 +15,7 @@ public class SelectEggBoxEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         scene.selectEggBox();
     }
 }

@@ -1,10 +1,12 @@
 package aiki.gui.listeners;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.gui.components.walk.ScenePanel;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class AbilityWalkEvent extends MouseAdapter {
+public class AbilityWalkEvent extends AbsMouseListenerRel {
 
     private ScenePanel window;
 
@@ -16,7 +18,7 @@ public class AbilityWalkEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         window.getAbility(ability);
     }
 }

@@ -1,11 +1,13 @@
 package aiki.gui.listeners;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.gui.dialogs.ConsultHosts;
 import aiki.util.Coords;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class SelectHostedPokemon extends MouseAdapter {
+public class SelectHostedPokemon extends AbsMouseListenerRel {
 
     private ConsultHosts consult;
 
@@ -21,7 +23,7 @@ public class SelectHostedPokemon extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         consult.seeHostedPokemon(first, coords);
     }
 }

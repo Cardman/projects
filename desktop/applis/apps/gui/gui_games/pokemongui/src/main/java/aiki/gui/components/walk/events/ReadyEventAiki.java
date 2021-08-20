@@ -1,10 +1,8 @@
 package aiki.gui.components.walk.events;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import aiki.gui.WindowAiki;
 import aiki.network.stream.ReadyAiki;
-import code.gui.AbsActionListener;
+import code.gui.events.AbsActionListener;
 import code.gui.CustCheckBox;
 
 public class ReadyEventAiki implements AbsActionListener {

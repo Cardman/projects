@@ -36,7 +36,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
 
         container_.add(getJt(),BorderLayout.CENTER);
         LabelButton bouton_=new LabelButton(getMessages().getVal(VALIDATE));
-        bouton_.addMouseListener(new ValidateRulesEvent(this));
+        bouton_.addMouseList(new ValidateRulesEvent(this));
         container_.add(bouton_,BorderLayout.SOUTH);
         setContentPane(container_);
         pack();

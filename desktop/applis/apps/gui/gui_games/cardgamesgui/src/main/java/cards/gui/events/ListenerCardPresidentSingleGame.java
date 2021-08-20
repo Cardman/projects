@@ -1,5 +1,4 @@
 package cards.gui.events;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
@@ -11,6 +10,7 @@ import cards.gui.containers.ContainerSinglePresident;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
 import cards.president.enumerations.CardPresident;
+import code.gui.AbsMouseLocation;
 import code.gui.ConfirmDialog;
 import code.util.core.StringUtil;
 
@@ -31,8 +31,8 @@ public class ListenerCardPresidentSingleGame extends
     }
 
     @Override
-    protected boolean playCardExited(MouseEvent _event) {
-        return _event.getY() < 0;
+    protected boolean playCardExited(AbsMouseLocation _event) {
+        return _event.getYcoord() < 0;
     }
 
     @Override

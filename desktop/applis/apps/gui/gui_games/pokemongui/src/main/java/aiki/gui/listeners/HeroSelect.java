@@ -1,11 +1,13 @@
 package aiki.gui.listeners;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.game.player.enums.Sex;
 import aiki.gui.WindowAiki;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class HeroSelect extends MouseAdapter {
+public class HeroSelect extends AbsMouseListenerRel {
 
     private WindowAiki window;
 
@@ -17,7 +19,7 @@ public class HeroSelect extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         window.changeSex(sex);
     }
 }

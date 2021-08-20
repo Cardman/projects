@@ -146,7 +146,7 @@ public final class DialogSoftParams extends Dialog {
 //        });
         panel_.add(selectHomePathZip);
         LabelButton ok_ = new LabelButton(WindowAiki.OK);
-        ok_.addMouseListener(new ValidateSoftParams(this));
+        ok_.addMouseList(new ValidateSoftParams(this));
         panel_.add(ok_);
         setContentPane(panel_);
         pack();

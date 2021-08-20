@@ -1,12 +1,11 @@
 package code.gui;
+import code.gui.events.AbsMouseListener;
+import code.gui.events.WrMouseListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
@@ -59,8 +58,9 @@ public class LabelButton extends CustComponent {
         label.setText(_text);
         label.setEnabled(_enabled);
     }
-    public void addMouseListener(MouseAdapter _l) {
-        label.addMouseListener(new MouseAdapaterCore(_l, this));
+
+    public void addMouseList(AbsMouseListener _l) {
+        label.addMouseListener(new WrMouseListener(new MouseListenerCore(_l, this)));
     }
 
     public boolean isEnabledLabel() {

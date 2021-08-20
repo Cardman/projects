@@ -235,7 +235,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             LabelPoints label_ = new LabelPoints(p_);
             label_.setEnabledLabel(_partie.getContrat().getPoints() < p_);
             label_.setToolTipText(Long.toString(p_));
-            label_.addMouseListener(new SelectPointsEvent(this, p_));
+            label_.addMouseList(new SelectPointsEvent(this, p_));
             getPointsButtons().add(label_);
             getPanneauBoutonsJeuPoints().add(label_);
         }
@@ -244,7 +244,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         clickedPass = false;
         setBidOk(new LabelButton(WindowCards.OK));
         getBidOk().setEnabledLabel(false);
-        getBidOk().addMouseListener(new BidEvent(this));
+        getBidOk().addMouseList(new BidEvent(this));
         Panel panel_ = Panel.newPageBox();
         Panel panelSuits_ = Panel.newLineBox();
         getBidsButtons().clear();
@@ -280,7 +280,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         Panel panelOk_ = Panel.newLineBox();
         LabelButton buttonSuit_ = new LabelButton(Games.toString(BidBelote.FOLD,lg_));
         //clickedTwo = false;
-        buttonSuit_.addMouseListener(new FoldEvent(this));
+        buttonSuit_.addMouseList(new FoldEvent(this));
         panelOk_.add(buttonSuit_);
         panelOk_.add(getBidOk());
         panel_.add(panelOk_);
@@ -321,42 +321,42 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratBelote(_action));
-        bouton_.addMouseListener(new ListenerBidBeloteSingle(this,_action));
+        bouton_.addMouseList(new ListenerBidBeloteSingle(this,_action));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonNextTrickBelote(String _texte,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new NextTrickEvent(this));
+        bouton_.addMouseList(new NextTrickEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonEndDealBelote(String _texte,boolean _apte) {
         Panel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new EndDealEvent(this));
+        bouton_.addMouseList(new EndDealEvent(this));
         bouton_.setEnabledLabel(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonKeepPlayingDealBelote(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new KeepPlayingRandomEvent(this));
+        bouton_.addMouseList(new KeepPlayingRandomEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonKeepPlayingEditedDealBelote(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new KeepPlayingEditedEvent(this));
+        bouton_.addMouseList(new KeepPlayingEditedEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonStopPlayingBelote(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new StopPlayingEvent(this));
+        bouton_.addMouseList(new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonReplayDealBelote(Panel _panneau,String _texte) {
         LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseListener(new ReplayEvent(this));
+        bouton_.addMouseList(new ReplayEvent(this));
         _panneau.add(bouton_);
     }
     public void placerBoutonsAvantJeuUtilisateurBelote(boolean _premierTour) {

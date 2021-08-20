@@ -144,7 +144,7 @@ public final class DialogSoft extends DialogCards {
             container_.add(panneau_,BorderLayout.CENTER);
         }
         LabelButton bouton_=new LabelButton(messages.getVal(VALIDATE));
-        bouton_.addMouseListener(new ListenerParameters(this));
+        bouton_.addMouseList(new ListenerParameters(this));
         container_.add(bouton_,BorderLayout.SOUTH);
         setContentPane(container_);
         pack();

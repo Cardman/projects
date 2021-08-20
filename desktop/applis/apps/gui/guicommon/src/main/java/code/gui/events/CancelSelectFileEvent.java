@@ -1,10 +1,11 @@
 package code.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
 import code.gui.FileDialog;
 
-public class CancelSelectFileEvent extends MouseAdapter {
+public class CancelSelectFileEvent extends AbsMouseListenerRel {
 
     private FileDialog dialog;
 
@@ -13,7 +14,7 @@ public class CancelSelectFileEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (!dialog.isVisible()) {
             return;
         }

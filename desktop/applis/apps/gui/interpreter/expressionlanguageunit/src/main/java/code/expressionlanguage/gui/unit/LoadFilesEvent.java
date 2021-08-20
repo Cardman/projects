@@ -1,11 +1,8 @@
 package code.expressionlanguage.gui.unit;
 
-import code.threads.ThreadUtil;
+import code.gui.events.AbsActionListener;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public final class LoadFilesEvent implements ActionListener {
+public final class LoadFilesEvent implements AbsActionListener {
     private final SimpleFilesFrame filesFrame;
 
     public LoadFilesEvent(SimpleFilesFrame _filesFrame) {
@@ -13,7 +10,7 @@ public final class LoadFilesEvent implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         filesFrame.getInfos().getThreadFactory().newStartedThread(new LoadFiles(filesFrame));
     }
 }

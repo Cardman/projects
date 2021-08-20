@@ -1,20 +1,22 @@
 package applications.gui;
 
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicInteger;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-public abstract class AbstractEvent extends MouseAdapter {
+public abstract class AbstractEvent extends AbsMouseListenerRel {
     private WindowApps window;
     private AbstractAtomicInteger lock;
     AbstractEvent(WindowApps _window, AbstractAtomicInteger _lock) {
         window = _window;
         lock = _lock;
     }
+
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (getLock().get() > 0) {
             return;
         }

@@ -10,7 +10,7 @@ public final class ComboBox<T> extends AbsComboBox {
 
     private final EnumList<T> order = new EnumList<T>();
 
-    private TreeMap<T,String> elements;
+    private TreeMap<T,String> elements = new TreeMap<T,String>(new ComparatorIndexes<T>(order));
 
     private boolean withDefaultValue;
 

@@ -112,13 +112,13 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         pane_.add(panel_);
         panel_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(messages.getVal(CREATE_SERVER));
-        button_.addMouseListener(new CreateServerEvent(this));
+        button_.addMouseList(new CreateServerEvent(this));
         panel_.add(button_);
         button_ = new LabelButton(messages.getVal(JOIN_SERVER));
-        button_.addMouseListener(new JoinServerEvent(this));
+        button_.addMouseList(new JoinServerEvent(this));
         panel_.add(button_);
         button_ = new LabelButton(messages.getVal(CANCEL));
-        button_.addMouseListener(new ClosingDialogEvent(this));
+        button_.addMouseList(new ClosingDialogEvent(this));
         panel_.add(button_);
         pane_.add(panel_);
         setContentPane(pane_);

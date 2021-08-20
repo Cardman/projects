@@ -116,13 +116,13 @@ public class WindowPlayer extends GroupFrame implements LineShortListenable {
         Panel actions_ = Panel.newLineBox();
 //        playPrevious.setTextAndSize(PREVIOUS);
 //        playPrevious.repaint();
-        playPrevious.addMouseListener(new PreviousSong(this));
+        playPrevious.addMouseList(new PreviousSong(this));
         actions_.add(playPrevious);
-        play.addMouseListener(new ReadSong(this));
+        play.addMouseList(new ReadSong(this));
         actions_.add(play);
-        playNext.addMouseListener(new NextSong(this));
+        playNext.addMouseList(new NextSong(this));
         actions_.add(playNext);
-        stop.addMouseListener(new StopSong(this));
+        stop.addMouseList(new StopSong(this));
         actions_.add(stop);
         pane_.add(actions_);
         scroll = new ScrollPane(songRend);

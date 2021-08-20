@@ -1,12 +1,15 @@
 package code.gui;
 
+import code.gui.events.AbsActionListener;
 import code.gui.events.WrActionListener;
+import code.util.CustList;
+import code.util.IdMap;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 
 public final class CustCheckBox extends CustComponent {
 
+    private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
     private JCheckBox checkBox;
     public CustCheckBox() {
         checkBox = new JCheckBox();
@@ -82,20 +85,20 @@ public final class CustCheckBox extends CustComponent {
         return checkBox.getMultiClickThreshhold();
     }
 
-    public void addActionListener(ActionListener _l) {
-        checkBox.addActionListener(_l);
-    }
-
     public void addActionListener(AbsActionListener _l) {
-        checkBox.addActionListener(new WrActionListener(_l));
+        WrActionListener wr_ = new WrActionListener(_l);
+        checkBox.addActionListener(wr_);
+        mapAction.addEntry(_l,wr_);
     }
 
-    public void removeActionListener(ActionListener _l) {
-        checkBox.removeActionListener(_l);
+    public void removeActionListener(AbsActionListener _l) {
+        WrActionListener wr_ = mapAction.getVal(_l);
+        checkBox.removeActionListener(wr_);
+        mapAction.removeKey(_l);
     }
 
-    public ActionListener[] getActionListeners() {
-        return checkBox.getActionListeners();
+    public CustList<AbsActionListener> getActionListeners() {
+        return mapAction.getKeys();
     }
 
     public boolean isEnabled() {

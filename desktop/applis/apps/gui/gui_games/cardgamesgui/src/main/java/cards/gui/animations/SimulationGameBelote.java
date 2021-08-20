@@ -27,7 +27,7 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
         GameBelote gb_ = new GameBelote(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerBelote(gb_);
         stopButton=new LabelButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
-        stopButton.addMouseListener(new StopEvent(this));
+        stopButton.addMouseList(new StopEvent(this));
         DisplayingBelote dis_ = container.getDisplayingBelote();
         simulatingBelote = new SimulatingBeloteImpl(container,partieSimulee,dis_,stopButton);
     }

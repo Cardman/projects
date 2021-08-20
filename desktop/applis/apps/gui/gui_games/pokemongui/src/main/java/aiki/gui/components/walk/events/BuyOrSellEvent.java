@@ -1,9 +1,7 @@
 package aiki.gui.components.walk.events;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import aiki.gui.components.walk.ScenePanel;
-import code.gui.AbsActionListener;
+import code.gui.events.AbsActionListener;
 
 public class BuyOrSellEvent implements AbsActionListener {
 

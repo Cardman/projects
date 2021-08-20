@@ -1,10 +1,12 @@
 package cards.gui.dialogs.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.gui.dialogs.DialogDisplaying;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class ValidateDisplayingEvent extends MouseAdapter {
+public class ValidateDisplayingEvent extends AbsMouseListenerRel {
 
     private DialogDisplaying dialog;
 
@@ -13,7 +15,7 @@ public class ValidateDisplayingEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         dialog.validateDisplaying();
     }
 }

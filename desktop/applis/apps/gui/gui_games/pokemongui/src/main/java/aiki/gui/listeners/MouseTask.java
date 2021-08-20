@@ -1,13 +1,15 @@
 package aiki.gui.listeners;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.gui.WindowAiki;
 import aiki.map.enums.Direction;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListener;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 
-public class MouseTask extends MouseAdapter {
+public class MouseTask implements AbsMouseListener {
 
     private Direction dir;
 
@@ -26,7 +28,7 @@ public class MouseTask extends MouseAdapter {
     }
 
     @Override
-    public void mouseEntered(MouseEvent _e) {
+    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (window.isEnabledKeyPad()) {
             return;
         }
@@ -39,7 +41,7 @@ public class MouseTask extends MouseAdapter {
     }
 
     @Override
-    public void mouseExited(MouseEvent _e) {
+    public void mouseExited(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (window.isEnabledKeyPad()) {
             return;
         }
@@ -50,7 +52,7 @@ public class MouseTask extends MouseAdapter {
     }
 
     @Override
-    public void mousePressed(MouseEvent _e) {
+    public void mousePressed(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (window.isEnabledKeyPad()) {
             return;
         }
@@ -63,7 +65,7 @@ public class MouseTask extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         if (window.isEnabledKeyPad()) {
             return;
         }
@@ -73,4 +75,8 @@ public class MouseTask extends MouseAdapter {
         future.cancel(true);
     }
 
+    @Override
+    public void mouseClicked(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
+    }
 }

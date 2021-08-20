@@ -1,11 +1,11 @@
 package cards.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
+import code.gui.*;
+import code.gui.events.AbsMouseListenerRel;
 
-public class ListenerBeginGame extends MouseAdapter {
+public class ListenerBeginGame extends AbsMouseListenerRel {
     private GameEnum jeuBouton;
     private WindowCards window;
     public ListenerBeginGame(GameEnum _pj, WindowCards _window){
@@ -13,7 +13,7 @@ public class ListenerBeginGame extends MouseAdapter {
         window = _window;
     }
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         window.beginGame(jeuBouton);
     }
 }

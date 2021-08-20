@@ -1,6 +1,6 @@
 package code.expressionlanguage.gui.unit;
 
-import code.gui.AbsActionListener;
+import code.gui.events.AbsActionListener;
 
 public final class SimpleFilesFrameOpen implements AbsActionListener {
     private WindowUnit mainWindow;

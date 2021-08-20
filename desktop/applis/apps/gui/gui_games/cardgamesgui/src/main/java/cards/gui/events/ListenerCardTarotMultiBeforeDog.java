@@ -1,10 +1,10 @@
 package cards.gui.events;
-import java.awt.event.MouseEvent;
 
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.CalledCards;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.gui.AbsMouseLocation;
 
 public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
 
@@ -15,8 +15,8 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
         container = _container;
     }
     @Override
-    protected boolean playCardExited(MouseEvent _event) {
-        return _event.getY() < 0;
+    protected boolean playCardExited(AbsMouseLocation _event) {
+        return _event.getYcoord() < 0;
     }
     @Override
     protected boolean canListen() {

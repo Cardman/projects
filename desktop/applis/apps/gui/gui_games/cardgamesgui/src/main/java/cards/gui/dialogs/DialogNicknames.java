@@ -103,7 +103,7 @@ public final class DialogNicknames extends DialogCards {
         nickname.setText(pseudos.getPseudo());
         sousPanneau_.add(nickname);
         LabelButton bouton_=new LabelButton(messages.getVal(VALIDATE));
-        bouton_.addMouseListener(new ListenerNicknames(this));
+        bouton_.addMouseList(new ListenerNicknames(this));
         sousPanneau_.add(bouton_);
         container_.add(sousPanneau_,BorderLayout.SOUTH);
         setContentPane(container_);

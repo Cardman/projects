@@ -1,5 +1,4 @@
 package cards.gui.events;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
@@ -12,6 +11,7 @@ import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
 import cards.gui.labels.GraphicBeloteCard;
+import code.gui.AbsMouseLocation;
 import code.gui.ConfirmDialog;
 import code.gui.Panel;
 import code.util.core.StringUtil;
@@ -31,8 +31,8 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
         return container.isCanPlay();
     }
     @Override
-    protected boolean playCardExited(MouseEvent _event) {
-        return _event.getY() < 0;
+    protected boolean playCardExited(AbsMouseLocation _event) {
+        return _event.getYcoord() < 0;
     }
     @Override
     protected void verifierRegles(){

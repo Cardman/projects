@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.gui.AbsActionListener;
+import code.gui.events.AbsActionListener;
 
 public final class FileOpenEventFull implements AbsActionListener {
     private WindowFull mainWindow;

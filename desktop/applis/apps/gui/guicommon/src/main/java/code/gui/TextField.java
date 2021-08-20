@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.events.AbsActionListener;
 import code.gui.events.WrActionListener;
 
 import javax.swing.JComponent;
@@ -74,10 +75,6 @@ public final class TextField extends CustComponent {
 
     public int getY() {
         return textField.getY();
-    }
-
-    public Cursor getCursor() {
-        return textField.getCursor();
     }
 
     public void add(PopupMenu _popup) {

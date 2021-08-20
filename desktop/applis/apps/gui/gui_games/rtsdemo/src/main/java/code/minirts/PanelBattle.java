@@ -2,6 +2,8 @@ package code.minirts;
 
 import code.gui.CustComponent;
 import code.gui.Panel;
+import code.gui.events.AbsMouseMotionListener;
+import code.gui.events.AbsMouseWheelListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.maths.geo.CustPoint;
@@ -13,8 +15,6 @@ import code.util.ObjectMap;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelListener;
 
 public class PanelBattle {
 
@@ -38,11 +38,11 @@ public class PanelBattle {
         container.add(content);
     }
 
-    public void addMouseMotionListener(MouseMotionListener _l) {
+    public void addMouseMotionListener(AbsMouseMotionListener _l) {
         content.addMouseMotionListener(_l);
     }
 
-    public void addMouseWheelListener(MouseWheelListener _l) {
+    public void addMouseWheelListener(AbsMouseWheelListener _l) {
         content.addMouseWheelListener(_l);
     }
 

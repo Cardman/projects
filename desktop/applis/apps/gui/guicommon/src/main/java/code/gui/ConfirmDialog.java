@@ -117,7 +117,7 @@ public final class ConfirmDialog extends Dialog {
             buttons_.add(new PreparedLabel(UIManager.getIcon(WARNING_ICON)));
         }
         LabelButton button_ = new LabelButton(messages_.getVal(OK));
-        button_.addMouseListener(new ClosingDialogEvent(this));
+        button_.addMouseList(new ClosingDialogEvent(this));
         buttons_.add(button_);
         content_.add(buttons_);
         setContentPane(content_);
@@ -146,7 +146,7 @@ public final class ConfirmDialog extends Dialog {
             buttons_.add(new PreparedLabel(UIManager.getIcon(WARNING_ICON)));
         }
         LabelButton button_ = new LabelButton(messages_.getVal(OK));
-        button_.addMouseListener(new ClosingDialogEvent(this));
+        button_.addMouseList(new ClosingDialogEvent(this));
         buttons_.add(button_);
         content_.add(buttons_);
         setContentPane(content_);
@@ -171,26 +171,26 @@ public final class ConfirmDialog extends Dialog {
             answer = JOptionPane.NO_OPTION;
             buttons_.add(new PreparedLabel(UIManager.getIcon(QUESTION_ICON)));
             LabelButton button_ = new LabelButton(messages_.getVal(YES));
-            button_.addMouseListener(new AnswerEvent(this, JOptionPane.YES_OPTION));
+            button_.addMouseList(new AnswerEvent(this, JOptionPane.YES_OPTION));
             buttons_.add(button_);
             button_ = new LabelButton(messages_.getVal(NO));
-            button_.addMouseListener(new AnswerEvent(this, JOptionPane.NO_OPTION));
+            button_.addMouseList(new AnswerEvent(this, JOptionPane.NO_OPTION));
             buttons_.add(button_);
         } else if (_option == JOptionPane.YES_NO_CANCEL_OPTION) {
             answer = JOptionPane.CANCEL_OPTION;
             buttons_.add(new PreparedLabel(UIManager.getIcon(QUESTION_ICON)));
             LabelButton button_ = new LabelButton(messages_.getVal(YES));
-            button_.addMouseListener(new AnswerEvent(this, JOptionPane.YES_OPTION));
+            button_.addMouseList(new AnswerEvent(this, JOptionPane.YES_OPTION));
             buttons_.add(button_);
             button_ = new LabelButton(messages_.getVal(NO));
-            button_.addMouseListener(new AnswerEvent(this, JOptionPane.NO_OPTION));
+            button_.addMouseList(new AnswerEvent(this, JOptionPane.NO_OPTION));
             buttons_.add(button_);
             button_ = new LabelButton(messages_.getVal(CANCEL));
-            button_.addMouseListener(new AnswerEvent(this, JOptionPane.CANCEL_OPTION));
+            button_.addMouseList(new AnswerEvent(this, JOptionPane.CANCEL_OPTION));
             buttons_.add(button_);
         } else {
             LabelButton button_ = new LabelButton(messages_.getVal(OK));
-            button_.addMouseListener(new AnswerEvent(this, JOptionPane.OK_OPTION));
+            button_.addMouseList(new AnswerEvent(this, JOptionPane.OK_OPTION));
             buttons_.add(button_);
         }
         content_.add(buttons_);
@@ -219,10 +219,10 @@ public final class ConfirmDialog extends Dialog {
         answer = JOptionPane.NO_OPTION;
         Panel buttons_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(messages_.getVal(OK));
-        button_.addMouseListener(new AnswerTextEvent(this, JOptionPane.YES_OPTION));
+        button_.addMouseList(new AnswerTextEvent(this, JOptionPane.YES_OPTION));
         buttons_.add(button_);
         button_ = new LabelButton(messages_.getVal(CANCEL));
-        button_.addMouseListener(new AnswerTextEvent(this, JOptionPane.NO_OPTION));
+        button_.addMouseList(new AnswerTextEvent(this, JOptionPane.NO_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
         setContentPane(content_);

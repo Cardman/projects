@@ -1,11 +1,13 @@
 package cards.gui.dialogs.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.gui.dialogs.DialogNicknames;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
 /**Classe d'ecouteur speciale a ce type de boite de dialogue*/
-public class ListenerNicknames extends MouseAdapter {
+public class ListenerNicknames extends AbsMouseListenerRel {
 
     private DialogNicknames dialog;
 
@@ -14,7 +16,7 @@ public class ListenerNicknames extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         dialog.validateNicknames();
     }
 }

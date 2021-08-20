@@ -1,12 +1,13 @@
 package code.minirts.events;
 
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListener;
+import code.gui.events.AbsMouseMotionListener;
 import code.minirts.WindowRts;
 
-import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-public class InteractClick extends MouseAdapter {
+public class InteractClick implements AbsMouseListener, AbsMouseMotionListener {
 
     private WindowRts fenetre;
     public InteractClick(WindowRts _fenetre) {
@@ -14,9 +15,9 @@ public class InteractClick extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
-        if (!SwingUtilities.isLeftMouseButton(_e)) {
-            fenetre.setNewLocation(_e.getX(), _e.getY());
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        if (!_buttons.isLeftMouseButton()) {
+            fenetre.setNewLocation(_location.getXcoord(), _location.getYcoord());
             return;
         }
         if (fenetre.isDragged()) {
@@ -24,25 +25,44 @@ public class InteractClick extends MouseAdapter {
             return;
         }
         if (fenetre.isAddingSoldier()) {
-            fenetre.addNewSoldier(_e.getX(), _e.getY());
+            fenetre.addNewSoldier(_location.getXcoord(), _location.getYcoord());
             return;
         }
-        fenetre.selectOrDeselect(_e.getX(), _e.getY());
+        fenetre.selectOrDeselect(_location.getXcoord(), _location.getYcoord());
     }
 
     @Override
-    public void mousePressed(MouseEvent _e) {
-        fenetre.setFirst(_e.getX(), _e.getY());
+    public void mousePressed(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        fenetre.setFirst(_location.getXcoord(), _location.getYcoord());
     }
 
-
     @Override
-    public void mouseDragged(MouseEvent _e) {
-        if (!SwingUtilities.isLeftMouseButton(_e)) {
+    public void mouseDragged(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        if (!_buttons.isLeftMouseButton()) {
             return;
         }
         fenetre.setDragged(true);
-        fenetre.setLast(_e.getX(), _e.getY());
+        fenetre.setLast(_location.getXcoord(), _location.getYcoord());
         fenetre.selectOrDeselectMulti();
+    }
+
+    @Override
+    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
+    }
+
+    @Override
+    public void mouseExited(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
+    }
+
+    @Override
+    public void mouseClicked(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
+    }
+
+    @Override
+    public void mouseMoved(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
     }
 }

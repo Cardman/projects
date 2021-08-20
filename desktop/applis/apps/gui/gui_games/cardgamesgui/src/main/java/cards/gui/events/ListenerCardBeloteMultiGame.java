@@ -1,10 +1,10 @@
 package cards.gui.events;
-import java.awt.event.MouseEvent;
 
 import cards.belote.DeclareHandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.containers.ContainerMultiBelote;
 import cards.network.belote.actions.PlayingCardBelote;
+import code.gui.AbsMouseLocation;
 
 public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
 
@@ -22,8 +22,8 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
     }
 
     @Override
-    protected boolean playCardExited(MouseEvent _event) {
-        return _event.getY() < 0;
+    protected boolean playCardExited(AbsMouseLocation _event) {
+        return _event.getYcoord() < 0;
     }
 
     @Override

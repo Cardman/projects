@@ -86,12 +86,12 @@ public final class ConsultHosts extends Dialog {
                 pk_ = host_.getFirstPokemon();
                 gender_ = facade.translateGenders(pk_.getGender());
                 LabelButton first_ = new LabelButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
-                first_.addMouseListener(new SelectHostedPokemon(this, true, c));
+                first_.addMouseList(new SelectHostedPokemon(this, true, c));
                 hostingLoc_.add(first_);
                 pk_ = host_.getSecondPokemon();
                 gender_ = facade.translateGenders(pk_.getGender());
                 LabelButton second_ = new LabelButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
-                second_.addMouseListener(new SelectHostedPokemon(this, false, c));
+                second_.addMouseList(new SelectHostedPokemon(this, false, c));
                 hostingLoc_.add(second_);
                 hosting_.add(hostingLoc_);
             }

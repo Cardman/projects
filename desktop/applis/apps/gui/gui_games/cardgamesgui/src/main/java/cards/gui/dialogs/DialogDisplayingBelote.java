@@ -96,10 +96,10 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         panneau_.add(listeChoix.self());
         Panel sousPanneauTwo_=Panel.newGrid(0,1);
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
-        bouton_.addMouseListener(new AddSuitEvent(this));
+        bouton_.addMouseList(new AddSuitEvent(this));
         sousPanneauTwo_.add(bouton_);
         bouton_=new LabelButton(messages.getVal(REMOVE_SUIT));
-        bouton_.addMouseListener(new RemoveSuitEvent(this, _window));
+        bouton_.addMouseList(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
         sortByDecreasing=new CustCheckBox(messages.getVal(SORT_DECREASING));
         sortByDecreasing.setSelected(displayingBelote.isDecreasing());
@@ -122,7 +122,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
 
         container_.add(getJt(),BorderLayout.CENTER);
         bouton_=new LabelButton(messages.getVal(VALIDATE));
-        bouton_.addMouseListener(new ValidateDisplayingEvent(this));
+        bouton_.addMouseList(new ValidateDisplayingEvent(this));
         container_.add(bouton_,BorderLayout.SOUTH);
         setContentPane(container_);
         pack();

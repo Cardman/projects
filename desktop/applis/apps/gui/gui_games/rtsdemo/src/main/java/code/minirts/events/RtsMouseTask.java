@@ -1,13 +1,14 @@
 package code.minirts.events;
 
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListener;
 import code.minirts.rts.RtsDirection;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-public class RtsMouseTask extends MouseAdapter {
+public class RtsMouseTask implements AbsMouseListener {
 
     private final RtsDirection dir;
 
@@ -51,17 +52,32 @@ public class RtsMouseTask extends MouseAdapter {
 //    }
 
     @Override
-    public void mouseEntered(MouseEvent _e) {
+    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         task.setDir(dir);
         future = timer.scheduleAtFixedRate(task, 0, 100);
 //        timer.start();
     }
 
     @Override
-    public void mouseExited(MouseEvent _e) {
+    public void mouseExited(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         future.cancel(true);
 //        timer.shutdown();
 //        timer.stop();
+    }
+
+    @Override
+    public void mousePressed(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
+    }
+
+    @Override
+    public void mouseClicked(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
+    }
+
+    @Override
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+        //
     }
 
 //    @Override

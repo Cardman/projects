@@ -1,12 +1,14 @@
 package aiki.gui.components.walk.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.ConsultHosts;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class ConsultHostEvent extends MouseAdapter {
+public class ConsultHostEvent extends AbsMouseListenerRel {
 
     private WindowAiki window;
 
@@ -18,7 +20,7 @@ public class ConsultHostEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         ConsultHosts.setConsultHosts(window, facade);
     }
 }

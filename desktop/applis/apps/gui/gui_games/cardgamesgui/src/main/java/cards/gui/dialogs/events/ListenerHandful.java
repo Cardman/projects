@@ -1,10 +1,12 @@
 package cards.gui.dialogs.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.gui.dialogs.DialogTarot;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class ListenerHandful extends MouseAdapter {
+public class ListenerHandful extends AbsMouseListenerRel {
 
     private DialogTarot dialog;
 
@@ -13,7 +15,7 @@ public class ListenerHandful extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         dialog.validateHandfulTrumps();
     }
 }

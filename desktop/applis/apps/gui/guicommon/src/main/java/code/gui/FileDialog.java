@@ -1,13 +1,11 @@
 package code.gui;
 import java.awt.BorderLayout;
-import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
 import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
 import code.gui.events.DeployTreeEvent;
-import code.gui.initialize.AbstractGraphicStringListGenerator;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
@@ -158,11 +156,6 @@ public abstract class FileDialog extends Dialog {
         }
         auto.setDictionary(list_);
         fileModel.setupFiles(_filesList, currentFolder, extension);
-    }
-
-    public void clickHeader(MouseEvent _e) {
-        int col_ = fileTable.columnAtPoint(_e.getX(),_e.getY());
-        fileModel.setSorting(col_);
     }
 
     public void clickHeader(AbsMouseLocation _e) {

@@ -1,10 +1,11 @@
 package code.gui.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
 import code.gui.ConfirmDialog;
 
-public class AnswerTextEvent extends MouseAdapter {
+public class AnswerTextEvent extends AbsMouseListenerRel {
 
     private ConfirmDialog dialog;
 
@@ -16,7 +17,7 @@ public class AnswerTextEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         dialog.closeWindowText(answer);
     }
 }

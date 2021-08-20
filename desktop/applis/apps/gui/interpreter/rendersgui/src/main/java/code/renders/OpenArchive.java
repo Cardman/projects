@@ -1,6 +1,6 @@
 package code.renders;
 
-import code.gui.AbsActionListener;
+import code.gui.events.AbsActionListener;
 
 public final class OpenArchive implements AbsActionListener {
 

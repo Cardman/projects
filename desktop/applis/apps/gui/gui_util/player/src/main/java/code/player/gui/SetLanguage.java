@@ -1,11 +1,10 @@
 package code.player.gui;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import code.gui.GroupFrame;
+import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 
-class SetLanguage implements ActionListener {
+class SetLanguage implements AbsActionListener {
 
     private String language;
     private AbstractProgramInfos list;
@@ -16,7 +15,7 @@ class SetLanguage implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         GroupFrame.changeStaticLanguage(language, list);
     }
 }

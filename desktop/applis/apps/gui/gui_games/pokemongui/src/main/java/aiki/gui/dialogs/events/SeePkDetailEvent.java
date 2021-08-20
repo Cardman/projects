@@ -1,10 +1,12 @@
 package aiki.gui.dialogs.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import aiki.gui.dialogs.SelectPokemon;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class SeePkDetailEvent extends MouseAdapter {
+public class SeePkDetailEvent extends AbsMouseListenerRel {
 
     private SelectPokemon dialog;
 
@@ -13,7 +15,7 @@ public class SeePkDetailEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         dialog.seePkDetail();
     }
 }

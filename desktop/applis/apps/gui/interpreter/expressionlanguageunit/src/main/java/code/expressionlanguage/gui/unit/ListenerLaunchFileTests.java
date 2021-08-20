@@ -1,9 +1,8 @@
 package code.expressionlanguage.gui.unit;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import code.gui.events.AbsActionListener;
 
-public final class ListenerLaunchFileTests implements ActionListener {
+public final class ListenerLaunchFileTests implements AbsActionListener {
     private WindowUnit mainWindow;
     private SimpleFilesFrame tested;
 
@@ -13,7 +12,7 @@ public final class ListenerLaunchFileTests implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         mainWindow.launchFileConf(tested.getFilePath(),tested);
     }
 }

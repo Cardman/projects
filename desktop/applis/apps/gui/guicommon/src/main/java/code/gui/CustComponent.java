@@ -1,7 +1,9 @@
 package code.gui;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentListener;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -38,22 +40,10 @@ public abstract class CustComponent {
         mapMouse.addEntry(_mouseListener,wr_);
     }
 
-    public void addMouseListener(MouseListener _mouseListener) {
-        getComponent().addMouseListener(_mouseListener);
-    }
-
     public void addMouseMotionListener(AbsMouseMotionListener _mouseListener) {
         WrMouseMotionListener wr_ = new WrMouseMotionListener(_mouseListener);
         getComponent().addMouseMotionListener(wr_);
         mapMouseMotion.addEntry(_mouseListener,wr_);
-    }
-
-    public void addMouseMotionListener(MouseMotionListener _mouseListener) {
-        getComponent().addMouseMotionListener(_mouseListener);
-    }
-
-    public void addMouseWheelListener(MouseWheelListener _l) {
-        getComponent().addMouseWheelListener(_l);
     }
 
     public void addMouseWheelListener(AbsMouseWheelListener _l) {

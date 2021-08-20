@@ -1,11 +1,9 @@
 package code.minirts.events;
 
+import code.gui.events.AbsActionListener;
 import code.minirts.WindowRts;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class ImageTask implements ActionListener {
+public class ImageTask implements AbsActionListener {
 
     private static final String PNG = "png";
 
@@ -20,7 +18,7 @@ public class ImageTask implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent _e) {
+    public void action() {
         noImg++;
 //        BufferedImage b_ = window.printAll();
 //        Image tmpImg_;

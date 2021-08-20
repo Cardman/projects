@@ -1,10 +1,12 @@
 package cards.gui.containers.events;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import cards.gui.containers.ContainerSingleTarot;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 
-public class SeeDogEvent extends MouseAdapter {
+public class SeeDogEvent extends AbsMouseListenerRel {
 
     private ContainerSingleTarot container;
 
@@ -13,7 +15,7 @@ public class SeeDogEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         container.voirChien();
     }
 }

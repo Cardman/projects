@@ -1,16 +1,16 @@
 package code.gui.document;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
-import code.gui.CustComponent;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseKeyState;
+import code.gui.AbsMouseLocation;
+import code.gui.events.AbsMouseListenerRel;
 import code.sml.Element;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
-public final class AnchorEvent extends MouseAdapter {
+public final class AnchorEvent extends AbsMouseListenerRel {
 
     private Element anchor;
 
@@ -25,7 +25,7 @@ public final class AnchorEvent extends MouseAdapter {
     }
 
     @Override
-    public void mouseReleased(MouseEvent _e) {
+    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         for (DualAnimatedImage d: page.getAnims()) {
             d.getImageThread().setAnimated(false);
         }
