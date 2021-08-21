@@ -1,16 +1,12 @@
 package code.bean.nat.analyze.opers;
 
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.bean.nat.fwd.opers.NatAnaCallFctContent;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-import code.expressionlanguage.stds.StandardMethod;
 
 public final class FctNatOperation extends InvokingNatOperation {
 
     private final NatAnaCallFctContent callFctContent;
-
-    private StandardMethod standardMethod;
 
     public FctNatOperation(int _index,
                            int _indexChild, MethodNatOperation _m, NatOperationsSequence _op) {
@@ -29,19 +25,14 @@ public final class FctNatOperation extends InvokingNatOperation {
 
         String trimMeth_ = callFctContent.getMethodName().trim();
         String l_ = clCur_;
-        ClassMethodIdReturn clMeth_;
+        NatClassMethodIdReturn clMeth_;
         clMeth_ = tryGetDeclaredCustMethod(l_, trimMeth_, _page);
         callFctContent.update(clMeth_);
-        standardMethod = clMeth_.getStandardMethod();
         setResultClass(clMeth_.getReturnType());
     }
 
     public NatAnaCallFctContent getCallFctContent() {
         return callFctContent;
-    }
-
-    public StandardMethod getStandardMethod() {
-        return standardMethod;
     }
 
 }

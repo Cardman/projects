@@ -1,23 +1,29 @@
 package code.bean.nat.fwd.opers;
 
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.stds.StandardMethod;
 
 public final class NatExecStdFctContent {
 
     private final String methodName;
 
-    private final ClassMethodId classMethodId;
+    private final StandardMethod standardMethod;
 
+    private final String foundClass;
     public NatExecStdFctContent(NatAnaCallFctContent _cont) {
         methodName = _cont.getMethodName();
-        classMethodId = _cont.getClassMethodId();
+        standardMethod = _cont.getStandardMethod();
+        foundClass = _cont.getFoundClass();
     }
 
     public String getMethodName() {
         return methodName;
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public StandardMethod getStandardMethod() {
+        return standardMethod;
+    }
+
+    public String getFoundClass() {
+        return foundClass;
     }
 }

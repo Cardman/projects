@@ -1,35 +1,34 @@
 package code.bean.nat.fwd.opers;
 
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
+import code.bean.nat.analyze.opers.NatClassMethodIdReturn;
+import code.expressionlanguage.stds.StandardMethod;
 
 public final class NatAnaCallFctContent {
 
     private final String methodName;
 
-    private ClassMethodId classMethodId;
+    private StandardMethod standardMethod;
+    private String foundClass = "";
 
     public NatAnaCallFctContent(String _methodName) {
         this.methodName = _methodName;
     }
 
-    public void update(ClassMethodIdReturn _res) {
-        String foundClass_ = _res.getRealClass();
-        MethodId realId_ = _res.getRealId();
-        setClassMethodId(new ClassMethodId(foundClass_, realId_));
+    public void update(NatClassMethodIdReturn _res) {
+        foundClass = _res.getRealClass();
+        standardMethod = _res.getStandardMethod();
     }
 
     public String getMethodName() {
         return methodName;
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public String getFoundClass() {
+        return foundClass;
     }
 
-    public void setClassMethodId(ClassMethodId _classMethodId) {
-        this.classMethodId = _classMethodId;
+    public StandardMethod getStandardMethod() {
+        return standardMethod;
     }
 
 }

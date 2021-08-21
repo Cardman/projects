@@ -3,10 +3,8 @@ package code.bean.nat.analyze.opers;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
-import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.functionid.*;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
@@ -140,7 +138,7 @@ public abstract class NatOperationNode {
         }
     }
 
-    protected static ClassMethodIdReturn tryGetDeclaredCustMethod(String _classes, String _name,
+    protected static NatClassMethodIdReturn tryGetDeclaredCustMethod(String _classes, String _name,
                                                                   NatAnalyzedCode _page) {
         CustList<NatMethodInfo> methods_ = getDeclaredCustMethodByType(_classes, _page);
         return getCustResult(methods_, _name);
@@ -165,12 +163,12 @@ public abstract class NatOperationNode {
             }
             SpecialNatClass root_ = (SpecialNatClass) t;
             for (StandardMethod e: root_.getMethods()) {
-                _methods.add(NatOperationNode.getMethodInfo(e, 0, root_.getFullName(), e.getId(), e.getImportedReturnType()));
+                _methods.add(getMethodInfo(e, root_.getFullName(), e.getImportedReturnType()));
             }
         }
     }
 
-    public static CustList<AnaGeneType> typeLists(String _fromClasses, NatAnalyzedCode _page) {
+    private static CustList<AnaGeneType> typeLists(String _fromClasses, NatAnalyzedCode _page) {
         CustList<AnaGeneType> typeInfos_ = new CustList<AnaGeneType>();
         String baseCurName_ = getIdFromAllTypes(_fromClasses);
         StandardType root_ = _page.getStandardsTypes().getVal(baseCurName_);
@@ -182,44 +180,33 @@ public abstract class NatOperationNode {
         return typeInfos_;
     }
 
-    public static NatMethodInfo getMethodInfo(StandardMethod _m, int _anc, String _formattedClass, MethodId _id, String _importedReturnType) {
+    private static NatMethodInfo getMethodInfo(StandardMethod _m, String _formattedClass, String _importedReturnType) {
         NatMethodInfo mloc_ = new NatMethodInfo();
         mloc_.types(_importedReturnType);
         mloc_.setStandardMethod(_m);
-        mloc_.classMethodId(_formattedClass,_id);
-        mloc_.setAncestor(_anc);
-        mloc_.format(false);
+        mloc_.classMethodId(_formattedClass);
         return mloc_;
     }
 
-    private static ClassMethodIdReturn getCustResult(CustList<NatMethodInfo> _methods,
+    private static NatClassMethodIdReturn getCustResult(CustList<NatMethodInfo> _methods,
                                                      String _name) {
         CustList<NatMethodInfo> signatures_ = new CustList<NatMethodInfo>();
         for (NatMethodInfo e: _methods) {
-            MethodId id_ = e.getConstraints();
-            if (!StringUtil.quickEq(id_.getName(), _name)) {
+            if (!StringUtil.quickEq(e.getStandardMethod().getName(), _name)) {
                 continue;
             }
             signatures_.add(e);
         }
         NatMethodInfo m_ = signatures_.first();
-        MethodId id_ = m_.getFormatted();
-        return buildResult(m_, id_);
+        return buildResult(m_);
     }
 
-    public static ClassMethodIdReturn buildResult(NatMethodInfo _m, MethodId _id) {
-        ClassMethodIdReturn res_ = new ClassMethodIdReturn();
-        MethodId constraints_ = _m.getConstraints();
+    private static NatClassMethodIdReturn buildResult(NatMethodInfo _m) {
+        NatClassMethodIdReturn res_ = new NatClassMethodIdReturn();
         String baseClassName_ = _m.getClassName();
-        res_.setId(new ClassMethodId(baseClassName_, _id));
-        res_.setRealId(constraints_);
         res_.setRealClass(baseClassName_);
         res_.setReturnType(_m.getReturnType());
-        res_.setOriginalReturnType(_m.getOriginalReturnType());
-        res_.setFileName("");
         res_.setStandardMethod(_m.getStandardMethod());
-        res_.setAncestor(_m.getAncestor());
-        res_.setAbstractMethod(false);
         return res_;
     }
 

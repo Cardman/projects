@@ -336,7 +336,6 @@ public final class NatRendForwardInfos {
     private static RendDynOperationNode procOperand6(NatOperationNode _anaNode) {
         if (_anaNode instanceof FctNatOperation) {
             FctNatOperation i_ = (FctNatOperation) _anaNode;
-            i_.getStandardMethod().getName();
             return new NatStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new NatExecStdFctContent(i_.getCallFctContent()));
         }
         return procOperands5(_anaNode);

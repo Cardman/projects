@@ -21,10 +21,12 @@ import code.util.core.StringUtil;
 public final class NatStdFctOperation extends NatSettableCallFctOperation implements RendCalculableOperation {
 
     private final NatExecStdFctContent stdFctContent;
+    private final ClassMethodId classMethodId;
 
     public NatStdFctOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, NatExecStdFctContent _stdFctContent) {
         super(_content, _intermediateDottedOperation);
         stdFctContent = _stdFctContent;
+        classMethodId = new ClassMethodId(_stdFctContent.getFoundClass(), _stdFctContent.getStandardMethod().getId());
     }
 
     @Override
@@ -33,14 +35,9 @@ public final class NatStdFctOperation extends NatSettableCallFctOperation implem
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);
         CustList<Argument> firstArgs_ = RendDynOperationNode.getArguments(_nodes,this);
-        ClassMethodId classMethodId_ = getStdFctContent().getClassMethodId();
         Struct[] args_ = ExecHelper.getObjects(Argument.toArgArray(firstArgs_));
-        ArgumentWrapper argres_ = new ArgumentWrapper(new Argument(((BeanNatCommonLgNames)_advStandards).getOtherResultLoc( _context, previous_.getStruct(),classMethodId_, args_)), null);
+        ArgumentWrapper argres_ = new ArgumentWrapper(new Argument(((BeanNatCommonLgNames)_advStandards).getOtherResultLoc( _context, previous_.getStruct(),classMethodId, args_)), null);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
-    }
-
-    public NatExecStdFctContent getStdFctContent() {
-        return stdFctContent;
     }
 
     public String getMethodName() {
