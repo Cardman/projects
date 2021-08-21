@@ -1,6 +1,8 @@
 package code.minirts;
 
+import code.gui.CustCheckBox;
 import code.gui.CustComponent;
+import code.gui.PlainButton;
 import code.maths.geo.CustPoint;
 import code.minirts.rts.Facade;
 import code.minirts.rts.Soldier;
@@ -17,14 +19,20 @@ public final class AnimationUnitSoldier implements Runnable {
 
     private WindowRts window;
 
+    private CustCheckBox pause;
     private AbstractAtomicBoolean paused;
 
-    private AbstractAtomicBoolean stop;
+    private PlainButton stop;
+    private AbstractAtomicBoolean stopped;
+    private PlainButton animate;
 
-    public AnimationUnitSoldier(PanelBattle _conteneur, WindowRts _window) {
+    public AnimationUnitSoldier(PlainButton _animate, CustCheckBox _pause, PlainButton _stop, PanelBattle _conteneur, WindowRts _window) {
         window = _window;
+        animate = _animate;
+        pause = _pause;
+        stop = _stop;
         battleground = _window.getBattleground();
-        stop = _window.getStopped();
+        stopped = _window.getStopped();
         paused = _window.getPaused();
     }
 
@@ -59,19 +67,27 @@ public final class AnimationUnitSoldier implements Runnable {
     }
 
     public void stopGame() {
-        stop.set(true);
+        stopped.set(true);
+    }
+
+    public void reset() {
+        stopped.set(false);
     }
 
     @Override
     public void run() {
-        while (true) {
-            if (stop.get()) {
-                break;
-            }
+        while (!isStopped()) {
             pause(100);
             loop();
             moving();
         }
+        animate.setEnabled(true);
+        pause.setEnabled(false);
+        stop.setEnabled(false);
+    }
+
+    public boolean isStopped() {
+        return stopped.get();
     }
 
     void loop() {

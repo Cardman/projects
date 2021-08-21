@@ -49,7 +49,7 @@ public final class WindowRts extends GroupFrame {
     private final AbstractAtomicBoolean stopped;
     private final AbstractAtomicBoolean paused;
     private final AbstractAtomicLong count;
-    private AnimationUnitSoldier thread = new AnimationUnitSoldier(battleground,this);
+    private AnimationUnitSoldier thread;
     private AbstractThread threadLau;
 
     private final CustCheckBox addSoldier = new CustCheckBox("Add soldier");
@@ -64,10 +64,10 @@ public final class WindowRts extends GroupFrame {
     public WindowRts(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         stopped = _list.getThreadFactory().newAtomicBoolean();
+        stopped.set(true);
         paused = _list.getThreadFactory().newAtomicBoolean();
         dragged = _list.getThreadFactory().newAtomicBoolean();
         count = _list.getThreadFactory().newAtomicLong();
-        threadLau = getThreadFactory().newThread(thread);
         Panel contentPane_ = Panel.newBorder();
         Panel scene_ = Panel.newBorder();
         InteractClick i_ = new InteractClick(this);
@@ -104,8 +104,10 @@ public final class WindowRts extends GroupFrame {
         Panel buttons_ = Panel.newLineBox();
         buttons_.add(animate);
         buttons_.add(addSoldier);
+        pause.setEnabled(false);
         pause.addActionListener(new RtsPause(this));
         buttons_.add(pause);
+        stop.setEnabled(false);
         stop.addActionListener(new Stop(this));
         buttons_.add(stop);
         String note_ = messagesFiles.getVal("resources_player/player.txt");
@@ -133,6 +135,8 @@ public final class WindowRts extends GroupFrame {
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
+        thread = new AnimationUnitSoldier(animate,pause,stop, battleground,this);
+        threadLau = getThreadFactory().newThread(thread);
     }
 
     private static void setCursor(Panel _battlegroundWrapper, int _wCurs, int _hCurs, int[] _pixels) {
@@ -156,49 +160,43 @@ public final class WindowRts extends GroupFrame {
     }
 
     public void moveCamera(CustPoint _p, int _x, int _y) {
-        if (!threadLau.isAlive()) {
+        if (thread.isStopped()) {
             return;
         }
         thread.moveCamera(_p, _x, _y);
     }
 
     public void pause() {
-        if (!threadLau.isAlive()) {
-            return;
-        }
         thread.pause();
     }
 
     public void stopGame() {
-        if (!threadLau.isAlive()) {
-            return;
-        }
         thread.stopGame();
     }
 
     public void addNewSoldier(int _x, int _y) {
-        if (!threadLau.isAlive()) {
+        if (thread.isStopped()) {
             return;
         }
         thread.addNewSoldier(_x, _y,count.getAndIncrement());
     }
 
     public void setNewLocation(int _x, int _y) {
-        if (!threadLau.isAlive()) {
+        if (thread.isStopped()) {
             return;
         }
         thread.setNewLocation(_x, _y);
     }
 
     public void selectOrDeselect(int _x, int _y) {
-        if (!threadLau.isAlive()) {
+        if (thread.isStopped()) {
             return;
         }
         thread.selectOrDeselect(_x, _y);
     }
 
     public void selectOrDeselectMulti() {
-        if (!threadLau.isAlive()) {
+        if (thread.isStopped()) {
             return;
         }
         thread.selectOrDeselect(first, last);
@@ -207,12 +205,13 @@ public final class WindowRts extends GroupFrame {
     public void animate() {
         //Un seul thread peut affecter l'objet de la classe Balle
         //Si un thread est en train d'executer, on empeche les autres de passer
-        if (threadLau.isAlive()) {
-            return;
-        }
-        thread = new AnimationUnitSoldier(battleground,this);
+        animate.setEnabled(false);
+        thread = new AnimationUnitSoldier(animate,pause,stop,battleground,this);
+        thread.reset();
         threadLau = getThreadFactory().newThread(thread);
         threadLau.start();
+        pause.setEnabled(true);
+        stop.setEnabled(true);
     }
 
     public boolean isDragged() {
