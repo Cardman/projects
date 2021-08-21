@@ -1,9 +1,13 @@
 package code.gui;
+import code.gui.events.AbsWindowListener;
+import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
+import code.util.CustList;
+import code.util.IdMap;
 
 import java.awt.*;
-import java.awt.event.WindowListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 
@@ -17,6 +21,7 @@ public abstract class CommonFrame implements ChangeableTitle {
     private final JFrame frame = new JFrame();
     private MenuBar menuBar;
     private String languageKey;
+    private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
     protected CommonFrame(String _languageKey) {
         languageKey = _languageKey;
     }
@@ -68,10 +73,24 @@ public abstract class CommonFrame implements ChangeableTitle {
         frame.setFocusable(_focusable);
     }
 
-    public void addWindowListener(WindowListener _l) {
-        frame.addWindowListener(_l);
+    public void addWindowListener(AbsWindowListener _l) {
+        WrWindowListener wr_ = new WrWindowListener(_l);
+        frame.addWindowListener(wr_);
+        mapWindow.addEntry(_l,wr_);
+    }
+    public void removeWindowListener(AbsWindowListener _l) {
+        WrWindowListener wr_ = mapWindow.getVal(_l);
+        frame.removeWindowListener(wr_);
+        mapWindow.removeKey(_l);
     }
 
+    public CustList<AbsWindowListener> getWindowListeners() {
+        return mapWindow.getKeys();
+    }
+    public void dispatchExit() {
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+    }
     public void setDefaultCloseOperation(int _operation) {
         frame.setDefaultCloseOperation(_operation);
     }
@@ -132,7 +151,7 @@ public abstract class CommonFrame implements ChangeableTitle {
     }
 
     public void setLocationRelativeTo(CommonFrame _c) {
-        frame.setLocationRelativeTo(_c.getFrame());
+        frame.setLocationRelativeTo(_c.frame);
     }
 
     public void setLocationRelativeToNull() {

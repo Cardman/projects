@@ -15,17 +15,14 @@ import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.common.NumParsers;
 import code.gui.*;
-import code.gui.events.AbsActionListener;
-import code.gui.events.AbsMouseListener;
-import code.gui.events.AbsMouseMotionListener;
-import code.gui.events.AbsMouseWheelListener;
+import code.gui.events.*;
 import code.util.CustList;
 
 import javax.swing.event.*;
 import java.awt.event.*;
 
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
-        AbsActionListener,Runnable, AbsMouseListener,WindowListener,ListSelection,
+        AbsActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
         KeyListener,ChangeListener,AbsShortListTree,ListSelectionListener,
         AbsMouseMotionListener, AbsMouseWheelListener{
 
@@ -189,7 +186,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void windowOpened(WindowEvent _e) {
+    public void windowOpened() {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
@@ -198,7 +195,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void windowClosing(WindowEvent _e) {
+    public void windowClosing() {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
@@ -207,7 +204,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void windowClosed(WindowEvent _e) {
+    public void windowClosed() {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
@@ -216,7 +213,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void windowIconified(WindowEvent _e) {
+    public void windowIconified() {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
@@ -225,7 +222,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void windowDeiconified(WindowEvent _e) {
+    public void windowDeiconified() {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
@@ -234,7 +231,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void windowActivated(WindowEvent _e) {
+    public void windowActivated() {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
@@ -243,7 +240,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void windowDeactivated(WindowEvent _e) {
+    public void windowDeactivated() {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();

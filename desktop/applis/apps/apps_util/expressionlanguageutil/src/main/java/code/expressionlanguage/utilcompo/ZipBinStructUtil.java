@@ -40,7 +40,7 @@ public final class ZipBinStructUtil {
     }
 
     public static CustList<EntryBinaryStruct> getEntryBinaryStructs(byte[] _bytes, RunnableContextEl _ctx) {
-        StringMap<ContentTime> unzip_ = _ctx.getTechStreams().getZipFact().zippedBinaryFiles(_bytes);
+        StringMap<ContentTime> unzip_ = _ctx.getZipFact().zippedBinaryFiles(_bytes);
         if (unzip_ == null) {
             return null;
         }
@@ -63,7 +63,7 @@ public final class ZipBinStructUtil {
     }
 
     public static Struct zipBinFiles(Struct _files, RunnableContextEl _ctx) {
-        byte[] exp_ = getZipBinFileAsArray(_files,_ctx.getTechStreams().getZipFact());
+        byte[] exp_ = getZipBinFileAsArray(_files,_ctx.getZipFact());
         if (exp_ == null) {
             return NullStruct.NULL_VALUE;
         }

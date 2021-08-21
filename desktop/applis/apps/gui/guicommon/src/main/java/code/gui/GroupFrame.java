@@ -1,12 +1,10 @@
 package code.gui;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
+import code.gui.events.AbsWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
@@ -122,11 +120,10 @@ public abstract class GroupFrame extends CommonFrame {
     }
 
     protected void nativeExit() {
-        for (WindowListener l: getFrame().getWindowListeners()) {
-            getFrame().removeWindowListener(l);
+        for (AbsWindowListener l: getWindowListeners()) {
+            removeWindowListener(l);
         }
-        getFrame().setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        getFrame().dispatchEvent(new WindowEvent(getFrame(), WindowEvent.WINDOW_CLOSING));
+        dispatchExit();
     }
 
     @Override

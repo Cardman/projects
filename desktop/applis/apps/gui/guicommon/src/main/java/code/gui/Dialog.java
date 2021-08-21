@@ -1,11 +1,10 @@
 package code.gui;
 import java.awt.*;
-import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
 import code.gui.events.CrossClosingDialogEvent;
+import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 
@@ -22,7 +21,7 @@ public abstract class Dialog implements ChangeableTitle {
     protected Dialog() {
         dialog.setModal(true);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        dialog.addWindowListener(new CrossClosingDialogEvent(this));
+        dialog.addWindowListener(new WrWindowListener(new CrossClosingDialogEvent(this)));
     }
 
 
@@ -30,16 +29,8 @@ public abstract class Dialog implements ChangeableTitle {
         dialog.setResizable(_resizable);
     }
 
-    public void addWindowListener(WindowListener _l) {
-        dialog.addWindowListener(_l);
-    }
-
     public void setDefaultCloseOperation(int _operation) {
         dialog.setDefaultCloseOperation(_operation);
-    }
-
-    protected Window getComponent() {
-        return dialog;
     }
 
     public void setLocationRelativeTo(CommonFrame _onwer) {
@@ -47,11 +38,7 @@ public abstract class Dialog implements ChangeableTitle {
     }
 
     public void setLocationRelativeTo(Dialog _onwer) {
-        dialog.setLocationRelativeTo(_onwer.getComponent());
-    }
-
-    public void setLocationRelativeTo(OtherDialog _onwer) {
-        dialog.setLocationRelativeTo(_onwer.getComponent());
+        dialog.setLocationRelativeTo(_onwer.dialog);
     }
 
     public void setLocationRelativeToWindow(Iconifiable _i) {

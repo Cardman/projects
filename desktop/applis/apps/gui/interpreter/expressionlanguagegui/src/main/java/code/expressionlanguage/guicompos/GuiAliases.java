@@ -25,6 +25,7 @@ import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.ExecutingBlocks;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.*;
+import code.gui.events.AbsWindowListener;
 import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.scripts.messages.gui.MessCdmGuiGr;
 import code.util.CustList;
@@ -3636,7 +3637,7 @@ public final class GuiAliases {
             }
             if (StringUtil.quickEq(name_, aliasGetWindowListeners)) {
                 CustList<Struct> user_ = new CustList<Struct>();
-                for (WindowListener w: inst_.getWindowListeners()) {
+                for (AbsWindowListener w: inst_.getWindowListeners()) {
                     if (w instanceof Struct) {
                         user_.add((Struct)w);
                     }

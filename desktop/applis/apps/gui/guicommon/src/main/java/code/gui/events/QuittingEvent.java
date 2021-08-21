@@ -1,10 +1,8 @@
 package code.gui.events;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import code.gui.GroupFrame;
 
-public class QuittingEvent extends WindowAdapter {
+public class QuittingEvent extends AbsWindowListenerClosing {
 
     private GroupFrame frame;
 
@@ -13,7 +11,7 @@ public class QuittingEvent extends WindowAdapter {
     }
 
     @Override
-    public void windowClosing(WindowEvent _event) {
+    public void windowClosing() {
         frame.quit();
     }
 }

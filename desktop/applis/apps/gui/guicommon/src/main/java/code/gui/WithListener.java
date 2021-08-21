@@ -1,11 +1,14 @@
 package code.gui;
 
-import java.awt.event.WindowListener;
+import code.gui.events.AbsWindowListener;
+import code.util.CustList;
 
 public interface WithListener {
-    void addWindowListener(WindowListener _l);
-    void removeWindowListener(WindowListener _l);
-    WindowListener[] getWindowListeners();
+    void addWindowListener(AbsWindowListener _l);
+
+    void removeWindowListener(AbsWindowListener _l);
+
+    CustList<AbsWindowListener> getWindowListeners();
 
     void setDefaultCloseOperation(int _option);
 

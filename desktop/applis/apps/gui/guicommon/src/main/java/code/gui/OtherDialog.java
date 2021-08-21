@@ -1,16 +1,20 @@
 package code.gui;
 
+import code.gui.events.AbsWindowListener;
+import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.util.CustList;
+import code.util.IdMap;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowListener;
 
 public final class OtherDialog implements ChangeableTitle,WithListener {
     private final JDialog dialog = new JDialog();
     private Ownable owner;
     private AbstractImage image;
+    private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
 
     @Override
     public String getTitle() {
@@ -88,21 +92,26 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
         dialog.pack();
     }
 
-    public void addWindowListener(WindowListener _l) {
-        dialog.addWindowListener(_l);
+    @Override
+    public void addWindowListener(AbsWindowListener _l) {
+        WrWindowListener wr_ = new WrWindowListener(_l);
+        mapWindow.addEntry(_l,wr_);
+        dialog.addWindowListener(wr_);
     }
 
     @Override
-    public void removeWindowListener(WindowListener _l) {
-        dialog.removeWindowListener(_l);
+    public void removeWindowListener(AbsWindowListener _l) {
+        WrWindowListener wr_ = mapWindow.getVal(_l);
+        dialog.removeWindowListener(wr_);
+        mapWindow.removeKey(_l);
     }
 
     public void setContentPane(Panel _contentPane) {
         dialog.setContentPane(_contentPane.getComponent());
     }
     @Override
-    public WindowListener[] getWindowListeners() {
-        return dialog.getWindowListeners();
+    public CustList<AbsWindowListener> getWindowListeners() {
+        return mapWindow.getKeys();
     }
     public void setDefaultCloseOperation(int _operation) {
         dialog.setDefaultCloseOperation(_operation);

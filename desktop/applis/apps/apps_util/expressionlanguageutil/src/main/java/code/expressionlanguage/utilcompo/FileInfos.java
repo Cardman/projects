@@ -2,7 +2,6 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.maths.montecarlo.AbstractGenerator;
-import code.stream.core.AbstractTextFact;
 import code.stream.core.AbstractZipFact;
 import code.stream.core.TechStreams;
 import code.threads.AbstractThreadFactory;
@@ -55,7 +54,4 @@ public final class FileInfos {
         return threadFactory.getZipFact();
     }
 
-    public AbstractTextFact getTextFact() {
-        return threadFactory.getTextFact();
-    }
 }

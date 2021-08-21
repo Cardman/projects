@@ -1,10 +1,8 @@
 package code.gui.events;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import code.gui.Dialog;
 
-public class CrossClosingDialogEvent extends WindowAdapter {
+public class CrossClosingDialogEvent extends AbsWindowListenerClosing {
 
     private Dialog dialog;
 
@@ -13,7 +11,7 @@ public class CrossClosingDialogEvent extends WindowAdapter {
     }
 
     @Override
-    public void windowClosing(WindowEvent _e) {
+    public void windowClosing() {
         dialog.closeWindow();
     }
 }

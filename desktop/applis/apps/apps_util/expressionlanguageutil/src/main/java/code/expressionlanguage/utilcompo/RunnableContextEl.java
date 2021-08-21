@@ -2,8 +2,7 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.exec.*;
-import code.stream.core.AbstractTextFact;
-import code.stream.core.TechStreams;
+import code.stream.core.AbstractZipFact;
 import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
@@ -12,8 +11,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
 
     private final ThreadStruct thread;
     private final AbstractThreadFactory threadFactory;
-    private final TechStreams zipFact;
-    private final AbstractTextFact textFact;
+    private final AbstractZipFact zipFact;
     private String idDate;
     private String currentDir;
 
@@ -21,10 +19,9 @@ public class RunnableContextEl extends ContextEl implements Locking {
         super(_executionInfos);
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
         threadFactory = standards_.getInfos().getThreadFactory();
-        zipFact = standards_.getInfos().getTechStreams();
-        textFact = standards_.getInfos().getTextFact();
         thread = new ThreadStruct(threadFactory.newThread(), threadFactory.newAtomicBoolean());
         currentDir = standards_.getExecutingOptions().getBaseFiles();
+        zipFact = standards_.getInfos().getZipFact();
     }
 
     @Override
@@ -93,7 +90,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
         ((LgNamesWithNewAliases) getStandards()).getExecutingOptions().getInterrupt().set(true);
     }
 
-    public TechStreams getTechStreams() {
+    public AbstractZipFact getZipFact() {
         return zipFact;
     }
 

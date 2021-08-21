@@ -2,10 +2,7 @@ package code.gui.events;
 
 import code.gui.OtherConfirmDialog;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-public class OtherCrossClosingDialogEvent extends WindowAdapter {
+public class OtherCrossClosingDialogEvent extends AbsWindowListenerClosing {
 
     private OtherConfirmDialog dialog;
 
@@ -14,7 +11,7 @@ public class OtherCrossClosingDialogEvent extends WindowAdapter {
     }
 
     @Override
-    public void windowClosing(WindowEvent _e) {
+    public void windowClosing() {
         dialog.closeWindow();
     }
 }

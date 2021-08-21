@@ -15,6 +15,7 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.OtherConfirmDialog;
 import code.gui.OtherFrame;
 import code.gui.TextLabel;
+import code.gui.events.AbsWindowListener;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -496,18 +497,18 @@ public final class GuiExecutingBlocks {
         return "";
     }
     public void addWindowListener(WindowStruct _frame,Struct _event) {
-        if (_event instanceof WindowListener) {
+        if (_event instanceof AbsWindowListener) {
             _frame.removeWindowListener(eventClose);
-            _frame.addWindowListener((WindowListener)_event);
+            _frame.addWindowListener((AbsWindowListener)_event);
             _frame.getAbstractWindow().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         }
     }
 
     public void removeWindowListener(WindowStruct _inst, Struct _event) {
-        if (_event instanceof WindowListener) {
-            _inst.removeWindowListener((WindowListener)_event);
+        if (_event instanceof AbsWindowListener) {
+            _inst.removeWindowListener((AbsWindowListener)_event);
             CustList<Struct> user_ = new CustList<Struct>();
-            for (WindowListener w: _inst.getWindowListeners()) {
+            for (AbsWindowListener w: _inst.getWindowListeners()) {
                 if (w instanceof Struct) {
                     user_.add((Struct)w);
                 }

@@ -4,20 +4,22 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.gui.Panel;
 import code.gui.WithListener;
+import code.gui.events.AbsWindowListener;
+import code.util.CustList;
 
 import java.awt.event.WindowListener;
 
 public abstract class WindowStruct extends WithoutParentIdStruct implements Struct {
 
-    public void addWindowListener(WindowListener _l) {
+    public void addWindowListener(AbsWindowListener _l) {
         getAbstractWindow().addWindowListener(_l);
     }
 
-    public void removeWindowListener(WindowListener _l) {
+    public void removeWindowListener(AbsWindowListener _l) {
         getAbstractWindow().removeWindowListener(_l);
     }
 
-    public WindowListener[] getWindowListeners() {
+    public CustList<AbsWindowListener> getWindowListeners() {
         return getAbstractWindow().getWindowListeners();
     }
     protected abstract WithListener getAbstractWindow();

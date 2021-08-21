@@ -1,10 +1,8 @@
 package code.gui.events;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import code.gui.ChildFrame;
 
-public class ClosingChildFrameEvent extends WindowAdapter {
+public class ClosingChildFrameEvent extends AbsWindowListenerClosing {
 
     private ChildFrame frame;
 
@@ -13,7 +11,7 @@ public class ClosingChildFrameEvent extends WindowAdapter {
     }
 
     @Override
-    public void windowClosing(WindowEvent _arg0) {
+    public void windowClosing() {
         frame.closeWindow();
     }
 }

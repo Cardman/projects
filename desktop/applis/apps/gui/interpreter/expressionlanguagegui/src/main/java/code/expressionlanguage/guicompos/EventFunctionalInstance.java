@@ -11,17 +11,14 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableFunctionalInstance;
 import code.gui.*;
-import code.gui.events.AbsActionListener;
-import code.gui.events.AbsMouseListener;
-import code.gui.events.AbsMouseMotionListener;
-import code.gui.events.AbsMouseWheelListener;
+import code.gui.events.*;
 import code.util.CustList;
 
 import javax.swing.event.*;
 import java.awt.event.*;
 
 public final class EventFunctionalInstance extends AbstractFunctionalInstanceImpl implements
-        AbsActionListener,Runnable, AbsMouseListener,WindowListener,ListSelection,
+        AbsActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
         KeyListener,ChangeListener,AbsShortListTree,ListSelectionListener,
         AbsMouseMotionListener, AbsMouseWheelListener,FieldableStruct {
 
@@ -124,55 +121,41 @@ public final class EventFunctionalInstance extends AbstractFunctionalInstanceImp
     }
 
     @Override
-    public void windowOpened(WindowEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
+    public void windowOpened() {
+        window();
     }
 
     @Override
-    public void windowClosing(WindowEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
+    public void windowIconified() {
+        window();
     }
 
     @Override
-    public void windowClosed(WindowEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
+    public void windowDeiconified() {
+        window();
     }
 
     @Override
-    public void windowIconified(WindowEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
+    public void windowDeactivated() {
+        window();
     }
 
     @Override
-    public void windowDeiconified(WindowEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
+    public void windowClosing() {
+        window();
     }
 
     @Override
-    public void windowActivated(WindowEvent _e) {
-        String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
-        WindowEventStruct a_ = new WindowEventStruct(actEv_);
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
+    public void windowClosed() {
+        window();
     }
 
     @Override
-    public void windowDeactivated(WindowEvent _e) {
+    public void windowActivated() {
+        window();
+    }
+
+    private void window() {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWindowEvent();
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));

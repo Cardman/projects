@@ -24,7 +24,7 @@ public final class OtherConfirmDialog {
 
     public OtherConfirmDialog(AbstractImageFactory _fact) {
         fact = _fact;
-        dialog.addWindowListener(new OtherCrossClosingDialogEvent(this));
+        dialog.addWindowListener(new WrWindowListener(new OtherCrossClosingDialogEvent(this)));
     }
 
     public String showTextField(WithListener _frame, String _value, String _message, String _title, String _ok, String _cancel) {

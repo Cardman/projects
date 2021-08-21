@@ -2,11 +2,9 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
+import code.gui.events.AbsWindowListenerClosing;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-public final class DefaultClosingMainWindow extends WindowAdapter {
+public final class DefaultClosingMainWindow extends AbsWindowListenerClosing {
 
     private final GuiExecutingBlocks executingBlocks;
     private final GuiContextEl context;
@@ -17,7 +15,7 @@ public final class DefaultClosingMainWindow extends WindowAdapter {
     }
 
     @Override
-    public void windowClosing(WindowEvent _e) {
+    public void windowClosing() {
         context.disposeAll(executingBlocks, StackCall.newInstance(InitPhase.NOTHING,context));
     }
 }

@@ -1,11 +1,14 @@
 package code.gui;
 
+import code.gui.events.AbsWindowListener;
+import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.util.CustList;
+import code.util.IdMap;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowListener;
 
 public final class OtherFrame implements ChangeableTitle,WithListener {
 
@@ -15,6 +18,7 @@ public final class OtherFrame implements ChangeableTitle,WithListener {
 
     private Ownable owner;
     private final JFrame frame = new JFrame();
+    private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
 
     public void setMainFrame(boolean _mainFrame) {
         mainFrame = _mainFrame;
@@ -66,18 +70,23 @@ public final class OtherFrame implements ChangeableTitle,WithListener {
         frame.setIconImage(((ImageIcon)PreparedLabel.buildIcon(_fact,_group)).getImage());
     }
 
-    public void addWindowListener(WindowListener _l) {
-        frame.addWindowListener(_l);
+    @Override
+    public void addWindowListener(AbsWindowListener _l) {
+        WrWindowListener wr_ = new WrWindowListener(_l);
+        mapWindow.addEntry(_l,wr_);
+        frame.addWindowListener(wr_);
     }
 
     @Override
-    public void removeWindowListener(WindowListener _l) {
-        frame.removeWindowListener(_l);
+    public void removeWindowListener(AbsWindowListener _l) {
+        WrWindowListener wr_ = mapWindow.getVal(_l);
+        frame.removeWindowListener(wr_);
+        mapWindow.removeKey(_l);
     }
 
     @Override
-    public WindowListener[] getWindowListeners() {
-        return frame.getWindowListeners();
+    public CustList<AbsWindowListener> getWindowListeners() {
+        return mapWindow.getKeys();
     }
 
     @Override
