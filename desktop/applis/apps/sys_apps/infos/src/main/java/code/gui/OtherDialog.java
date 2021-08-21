@@ -14,7 +14,7 @@ public final class OtherDialog implements AbsOtherDialog,ChangeableTitle,WithLis
     private Ownable owner;
     private AbstractImage image;
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
-    private Panel contentPane;
+    private Panel contentPane = Panel.newGrid(0,1);
 
     @Override
     public String getTitle() {
