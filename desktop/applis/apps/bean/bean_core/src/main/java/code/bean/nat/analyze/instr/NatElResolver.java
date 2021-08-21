@@ -1,11 +1,11 @@
 package code.bean.nat.analyze.instr;
 
 import code.bean.nat.analyze.NatRenderAnalysis;
-import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.common.*;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.maths.litteralcom.StrTypes;
+import code.util.Ints;
 import code.util.core.IndexConstants;
 
 
@@ -34,160 +34,89 @@ public final class NatElResolver {
     private NatElResolver() {
     }
 
-    public static Delimiters checkSyntaxDelimiters(String _string, int _minIndex, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        Delimiters d_ = new Delimiters();
-        d_.setPartOfString(true);
-        NatFullFieldRetriever ret_ = new NatFullFieldRetriever(d_, _page);
-        return commonCheck(_string, _minIndex, ret_, d_,_anaDoc);
+    public static NatDelimiters checkSyntax(String _string, int _elOffest, AnalyzingDoc _anaDoc) {
+        NatDelimiters d_ = new NatDelimiters();
+        return commonCheck(_string, _elOffest, d_,_anaDoc);
     }
 
-    public static Delimiters checkSyntax(String _string, int _elOffest, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        Delimiters d_ = new Delimiters();
-        d_.setLength(_string.length());
-        NatFullFieldRetriever ret_ = new NatFullFieldRetriever(d_, _page);
-        return commonCheck(_string, _elOffest, ret_, d_,_anaDoc);
-    }
-
-    private static Delimiters commonCheck(String _string, int _minIndex, NatFullFieldRetriever _ret, Delimiters _d, AnalyzingDoc _anaDoc) {
-        boolean partOfString_ = _d.isPartOfString();
+    private static NatDelimiters commonCheck(String _string, int _minIndex, NatDelimiters _d, AnalyzingDoc _anaDoc) {
 
         StackOperators parsBrackets_;
         parsBrackets_ = new StackOperators();
-        ResultAfterOperators resOpers_ = new ResultAfterOperators();
-        resOpers_.setParsBrackets(parsBrackets_);
-        resOpers_.setPartOfString(partOfString_);
         int len_ = _string.length();
         int i_ = _minIndex;
-        int lastDoubleDot_ = i_;
-        boolean beginOrEnd_ = false;
-        boolean ctorCall_ = false;
-        int nbChars_ = 0;
-        ResultAfterInstKeyWord resKeyWords_ = new ResultAfterInstKeyWord();
-        resKeyWords_.setNextIndex(i_);
-        ResultAfterDoubleDotted resWords_ = new ResultAfterDoubleDotted();
-        resWords_.setNextIndex(i_);
-        resWords_.setLastDoubleDot(i_);
-        resWords_.setCallCtor(false);
-        resOpers_.setDoubleDotted(resWords_);
+        Ints callings_ = new Ints();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
-            resKeyWords_.setNextIndex(i_);
-            resKeyWords_.setCallCtor(ctorCall_);
-            processAfterInstuctionKeyWord(_string, resKeyWords_, _anaDoc);
-            int nextInd_ = resKeyWords_.getNextIndex();
+            int nextInd_ = processAfterInstuctionKeyWord(_string, _anaDoc, i_);
             if (nextInd_ > i_) {
                 i_ = nextInd_;
-                ctorCall_ = resKeyWords_.isCallCtor();
             } else {
                 if (StringExpUtil.isTypeLeafChar(curChar_)) {
-                    resWords_.setNextIndex(i_);
-                    resWords_.setLastDoubleDot(lastDoubleDot_);
-                    resWords_.setCallCtor(ctorCall_);
-                    processWords(_string, _d, _ret,resWords_);
-                    nextInd_ = resWords_.getNextIndex();
-                    lastDoubleDot_ = resWords_.getLastDoubleDot();
+                    nextInd_ = processWords(_string, _d, i_, callings_);
                 }
                 if (nextInd_ > i_) {
                     i_ = nextInd_;
                 } else {
-                    resOpers_.setPartOfString(partOfString_);
-                    resOpers_.setBeginOrEnd(beginOrEnd_);
-                    resOpers_.setConstTextChar(false);
-                    resOpers_.setConstTextString(false);
-                    resOpers_.setConstChar(false);
-                    resOpers_.setConstString(false);
-                    resOpers_.setConstText(false);
-                    resOpers_.setNbChars(nbChars_);
-                    resOpers_.getDoubleDotted().setNextIndex(i_);
-                    resOpers_.getDoubleDotted().setLastDoubleDot(lastDoubleDot_);
-                    resOpers_.getDoubleDotted().setCallCtor(ctorCall_);
-                    processOperators(_string, _d, resOpers_);
-                    beginOrEnd_ = resOpers_.isBeginOrEnd();
-                    nbChars_ = resOpers_.getNbChars();
-                    partOfString_ = resOpers_.isPartOfString();
-
-                    i_ = resOpers_.getDoubleDotted().getNextIndex();
-                    lastDoubleDot_ = resOpers_.getDoubleDotted().getLastDoubleDot();
-                    ctorCall_ = resOpers_.getDoubleDotted().isCallCtor();
+                    i_ = processOperators(_string, _d, i_, parsBrackets_, callings_);
                 }
             }
         }
         return _d;
     }
 
-    private static void processAfterInstuctionKeyWord(String _string, ResultAfterInstKeyWord _out, AnalyzingDoc _anaDoc) {
-        int i_ = _out.getNextIndex();
-        if (_anaDoc.isInternGlobal() && StringExpUtil.startsWithKeyWord(_string, i_, NatRenderAnalysis.INTERN)) {
-            int afterSuper_ = i_ + NatRenderAnalysis.INTERN.length();
-            _out.setNextIndex(_string.indexOf('.', afterSuper_));
+    private static int processAfterInstuctionKeyWord(String _string, AnalyzingDoc _anaDoc, int _nextIndex) {
+        if (_anaDoc.isInternGlobal() && StringExpUtil.startsWithKeyWord(_string, _nextIndex, NatRenderAnalysis.INTERN)) {
+            int afterSuper_ = _nextIndex + NatRenderAnalysis.INTERN.length();
+            return _string.indexOf('.', afterSuper_);
         }
+        return _nextIndex;
     }
 
-    private static void processWords(String _string, Delimiters _d, NatFullFieldRetriever _ret, ResultAfterDoubleDotted _out) {
+    private static int processWords(String _string, NatDelimiters _d, int _nextIndex, Ints _callings) {
         int len_ = _string.length();
-        int i_ = _out.getNextIndex();
+        int i_ = _nextIndex;
         ResultAfterInstKeyWord resTmp_ = new ResultAfterInstKeyWord();
         resTmp_.setNextIndex(i_);
         int beginWord_ = i_;
-        while (i_ < len_) {
-            char locChar_ = _string.charAt(i_);
-            if (!StringExpUtil.isTypeLeafChar(locChar_)) {
-                break;
-            }
-            i_++;
-        }
+        i_ = ElResolver.incrAfterWord(i_,_string);
         String word_ = _string.substring(beginWord_, i_);
         int nextPar_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, PAR_LEFT);
         if (nextPar_ > -1) {
-            _d.getStack().getCallings().add(nextPar_);
-            _out.setNextIndex(i_);
-            return;
-        }
-        int bk_ = StringExpUtil.getBackPrintChar(_string, beginWord_);
-        if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
-            ConstType type_;
-            type_ = ConstType.WORD;
-            VariableInfo info_ = new VariableInfo();
-            info_.setKind(type_);
-            info_.setFirstChar(beginWord_);
-            info_.setLastChar(i_);
+            _callings.add(nextPar_);
+        } else {
+            NatVariableInfo info_ = new NatVariableInfo();
+            info_.setFirstNatChar(beginWord_);
+            info_.setLastNatChar(i_);
             info_.setName(word_);
             _d.getVariables().add(info_);
-            _out.setNextIndex(i_);
-            return;
         }
-        _ret.processFieldsStaticAccess(beginWord_, word_, i_);
-        _out.setNextIndex(i_);
+        return i_;
     }
 
-    private static void processOperators(String _string,
-                                         Delimiters _dout, ResultAfterOperators _out) {
+    private static int processOperators(String _string,
+                                        NatDelimiters _dout, int _nextIndex, StackOperators _parsBrackets, Ints _callings) {
         StackOperators parsBrackets_;
-        parsBrackets_ = _out.getParsBrackets();
+        parsBrackets_ = _parsBrackets;
 
         int len_ = _string.length();
-        ResultAfterDoubleDotted doubleDotted_ = _out.getDoubleDotted();
-        int i_ = doubleDotted_.getNextIndex();
+        int i_ = _nextIndex;
         char curChar_ = _string.charAt(i_);
-        StackDelimiters stack_ = _dout.getStack();
         if (curChar_ == PAR_LEFT) {
-            int j_ = indexAfterPossibleCast(_string, i_, _dout);
+            int j_ = indexAfterPossibleCast(_string, i_, _dout, _callings);
             if (j_ > i_) {
                 i_ = j_;
-                doubleDotted_.setNextIndex(i_);
-                return;
+                return i_;
             }
-            stack_.getCallings().add(i_);
+            _callings.add(i_);
             parsBrackets_.addEntry(i_, curChar_);
         }
         if (curChar_ == PAR_RIGHT) {
             parsBrackets_.removeLast();
         }
         if (curChar_ == ANN_ARR_RIGHT) {
-            _out.setPartOfString(false);
             _dout.setIndexEnd(i_-1);
-            doubleDotted_.setNextIndex(len_);
-            return;
+            return len_;
         }
         boolean escapeOpers_ = false;
         boolean addOp_ = true;
@@ -206,25 +135,24 @@ public final class NatElResolver {
         }
         if (escapeOpers_) {
             int j_ = i_ + 1;
-            int k_ = indexAfterPossibleCast(_string, j_, _dout);
+            int k_ = indexAfterPossibleCast(_string, j_, _dout, _callings);
             if (k_ == j_) {
-                stack_.getCallings().add(k_);
+                _callings.add(k_);
             }
             j_ = k_;
             if (addOp_) {
                 _dout.getAllowedOperatorsIndexes().add(i_);
             }
             i_ = j_;
-            doubleDotted_.setNextIndex(i_);
-            return;
+            return i_;
         }
         _dout.getAllowedOperatorsIndexes().add(i_);
         i_++;
-        doubleDotted_.setNextIndex(i_);
+        return i_;
     }
 
     public static NatOperationsSequence getOperationsSequence(int _offset, String _string,
-                                                              Delimiters _d) {
+                                                              NatDelimiters _d) {
         NatOperationsSequence seq_ = tryGetSequence(_offset, _string, _d);
         if (seq_ != null) {
             return seq_;
@@ -243,30 +171,29 @@ public final class NatElResolver {
         operators_ = af_.getOperators();
         String fctName_ = af_.getFctName();
         NatOperationsSequence op_ = new NatOperationsSequence();
-        op_.setPriority(prio_);
-        op_.setOperators(operators_);
+        op_.setPrioNat(prio_);
+        op_.setOpersNat(operators_);
         op_.setFctName(fctName_);
         op_.setupValues(_string);
-        op_.setDelimiter(_d);
+        op_.setDelimiterNat(_d);
         return op_;
     }
 
     private static NatOperationsSequence tryGetSequence(int _offset, String _string,
-                                                        Delimiters _d) {
+                                                        NatDelimiters _d) {
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
         int lastPrintChar_ = len_ - 1;
-        for (VariableInfo v: _d.getVariables()) {
-            if (v.getFirstChar() == _offset + i_) {
-                int iVar_ = v.getLastChar();
+        for (NatVariableInfo v: _d.getVariables()) {
+            if (v.getFirstNatChar() == _offset + i_) {
+                int iVar_ = v.getLastNatChar();
                 if (iVar_ != _offset + lastPrintChar_ + 1) {
                     break;
                 }
                 NatOperationsSequence op_ = new NatOperationsSequence();
-                op_.setConstType(v.getKind());
-                op_.setOperators(new StrTypes());
+                op_.setOpersNat(new StrTypes());
                 op_.setValue(v.getName(), i_);
-                op_.setDelimiter(_d);
+                op_.setDelimiterNat(_d);
                 return op_;
             }
         }
@@ -277,10 +204,10 @@ public final class NatElResolver {
             int indexRightArr_ = _string.lastIndexOf(ARR_RIGHT);
             String name_ = _string.substring(indexLeftArr_+1, indexRightArr_);
             NatOperationsSequence op_ = new NatOperationsSequence();
-            op_.setConstType(ConstType.LOOP_INDEX);
-            op_.setOperators(new StrTypes());
+            op_.setVarIndex(true);
+            op_.setOpersNat(new StrTypes());
             op_.setValue(name_, i_);
-            op_.setDelimiter(_d);
+            op_.setDelimiterNat(_d);
             return op_;
         }
         return null;
@@ -290,9 +217,9 @@ public final class NatElResolver {
         return _begin + 1 == _end;
     }
 
-    private static int indexAfterPossibleCast(String _string, int _from, Delimiters _d) {
+    private static int indexAfterPossibleCast(String _string, int _from, NatDelimiters _d, Ints _callings) {
         int indexParRight_ = _string.indexOf(PAR_RIGHT, _from +1);
-        if (_d.getStack().getCallings().containsObj(_from)||indexParRight_ <0) {
+        if (_callings.containsObj(_from)||indexParRight_ <0) {
             return _from;
         }
 

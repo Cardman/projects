@@ -5,17 +5,13 @@ import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.*;
@@ -220,11 +216,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public static void initInstancesPattern(Configuration _conf, StringMap<BeanInfo> _beansInfos) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
-            OperationsSequence seq_ = new OperationsSequence();
-            seq_.setValue("",0);
-            seq_.setDelimiter(new Delimiters());
-            StandardInstancingOperation root_ = new StandardInstancingOperation(0,0,null,seq_);
-            root_.setConstId(new ConstructorId(info_.getClassName(), new StringList(), false));
             info_.setResolvedClassName(info_.getClassName());
             _beansInfos.addEntry(e.getKey(),info_);
         }

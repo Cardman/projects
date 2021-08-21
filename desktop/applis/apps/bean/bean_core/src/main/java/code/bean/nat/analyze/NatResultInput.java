@@ -29,7 +29,7 @@ public final class NatResultInput {
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
-    private String className = EMPTY_STRING;
+    private String classNameNat = EMPTY_STRING;
     private NatOperationNode settable;
 
     public void build(Element _read, String _varValue, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
@@ -47,7 +47,7 @@ public final class NatResultInput {
         opsReadRoot = NatRenderAnalysis.getRootAnalyzedOperations(_name, 0, _anaDoc, _page);
         NatOperationNode res_ = opsReadRoot;
         NatSettableElResult settable_ = AffectationNatOperation.castDottedTo(res_);
-        setClassName(((NatOperationNode) settable_).getNames());
+        setClassNameNat(((NatOperationNode) settable_).getNames());
         setSettable((NatOperationNode) settable_);
         NatAnaSettableOperationContent settableFieldContent_ = ((SettableAbstractFieldNatOperation) settable_).getSettableFieldContent();
         ClassField clField_ = settableFieldContent_.getClassField();
@@ -82,10 +82,6 @@ public final class NatResultInput {
         this.varName = _varName;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public String getIdClass() {
         return idClass;
     }
@@ -94,12 +90,16 @@ public final class NatResultInput {
         return idName;
     }
 
-    public String getClassName() {
-        return className;
+    public String getClassNameNat() {
+        return classNameNat;
     }
 
-    public void setClassName(String _className) {
-        className = _className;
+    public void setClassNameNat(String _className) {
+        classNameNat = _className;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public NatOperationNode getOpsReadRoot() {

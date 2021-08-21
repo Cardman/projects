@@ -14,13 +14,13 @@ public final class AffectationNatOperation extends MethodNatOperation {
 
     @Override
     void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
+        StrTypes vs_ = getOperations().getValNat();
         getChildren().addAllEntries(vs_);
     }
 
     @Override
     public void analyze(NatAnalyzedCode _page) {
-        StrTypes ops_ = getOperations().getOperators();
+        StrTypes ops_ = getOperations().getOpersNat();
         ops_.firstKey();
         NatSettableElResult elt_ = tryGetSettable(this);
         NatOperationNode settableOp_ = (SettableAbstractFieldNatOperation) elt_;

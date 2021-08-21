@@ -19,7 +19,7 @@ public final class NatAnaRendSelect extends AnaRendParentBlock implements NatRen
     private String idClass = AnaRendBlockHelp.EMPTY_STRING;
     private String idName = AnaRendBlockHelp.EMPTY_STRING;
     private final Element elt;
-    private String className = AnaRendBlockHelp.EMPTY_STRING;
+    private String classNameNat = AnaRendBlockHelp.EMPTY_STRING;
     private NatResultInput resultInput;
 
     NatAnaRendSelect(Element _elt, int _offset) {
@@ -39,7 +39,7 @@ public final class NatAnaRendSelect extends AnaRendParentBlock implements NatRen
         id = r_.getId();
         idClass = r_.getIdClass();
         idName = r_.getIdName();
-        className = r_.getClassName();
+        classNameNat = r_.getClassNameNat();
         String map_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrMap());
         rootMap = NatRenderAnalysis.getRootAnalyzedOperations(map_, 0, _anaDoc, _page);
     }
@@ -56,10 +56,6 @@ public final class NatAnaRendSelect extends AnaRendParentBlock implements NatRen
         return varName;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public String getIdName() {
         return idName;
     }
@@ -68,8 +64,12 @@ public final class NatAnaRendSelect extends AnaRendParentBlock implements NatRen
         return idClass;
     }
 
-    public String getClassName() {
-        return className;
+    public String getClassNameNat() {
+        return classNameNat;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Element getElt() {

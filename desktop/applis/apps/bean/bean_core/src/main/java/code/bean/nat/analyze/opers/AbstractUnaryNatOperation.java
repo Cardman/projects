@@ -17,7 +17,7 @@ public abstract class AbstractUnaryNatOperation extends MethodNatOperation {
 
     @Override
     void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
+        StrTypes vs_ = getOperations().getValNat();
         getChildren().addAllEntries(vs_);
     }
     public abstract void analyzeUnary(NatAnalyzedCode _page);

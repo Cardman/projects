@@ -19,7 +19,7 @@ public final class IdNatOperation extends AbstractUnaryNatOperation {
 
     @Override
     void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
+        StrTypes vs_ = getOperations().getValNat();
         vs_.remove(0);
         getChildren().addAllEntries(vs_);
     }

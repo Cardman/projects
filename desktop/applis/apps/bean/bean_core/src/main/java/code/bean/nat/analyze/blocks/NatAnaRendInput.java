@@ -28,17 +28,21 @@ public final class NatAnaRendInput extends NatAnaRendElement {
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         processAnaInput(_read, _anaDoc, _page);
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrChecked());
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrValue());
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrName());
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrClassName()));
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrNi());
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()));
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValidator()));
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrType());
+        removeAttrs(_list, _anaDoc);
+    }
+
+    private static void removeAttrs(StringList _ls, AnalyzingDoc _anaDoc) {
+        _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrChecked());
+        _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrValue());
+        _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrName());
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
+        _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrNi());
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertValue()));
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertField()));
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrVarValue()));
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrValidator()));
+        _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrType());
     }
 
     void processAnaInput(Element _read, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
@@ -52,7 +56,7 @@ public final class NatAnaRendInput extends NatAnaRendElement {
         id = r_.getId();
         idClass = r_.getIdClass();
         idName = r_.getIdName();
-        className = r_.getClassName();
+        className = r_.getClassNameNat();
     }
 
     public NatOperationNode getRootRead() {

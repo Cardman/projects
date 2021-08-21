@@ -16,7 +16,7 @@ public abstract class InvokingNatOperation extends MethodNatOperation implements
 
     @Override
     final void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
+        StrTypes vs_ = getOperations().getValNat();
         vs_.remove(0);
         getChildren().addAllEntries(vs_);
     }

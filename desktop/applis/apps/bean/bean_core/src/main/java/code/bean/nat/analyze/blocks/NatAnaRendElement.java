@@ -22,13 +22,7 @@ public abstract class NatAnaRendElement extends AnaRendParentBlock implements Na
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         String prefixWrite_ = _anaDoc.getPrefix();
-        StringList attributesNames_ = new StringList();
-        NamedNodeMap mapAttr_ = read.getAttributes();
-        int nbAttrs_ = mapAttr_.getLength();
-        for (int i = 0; i < nbAttrs_; i++) {
-            attributesNames_.add(mapAttr_.item(i).getName());
-        }
-        attributesNames_.removeAllString(_anaDoc.getRendKeyWords().getAttrId());
+        StringList attributesNames_ = buildAttrNames(_anaDoc, read);
         String id_ = read.getAttribute(_anaDoc.getRendKeyWords().getAttrId());
         if (!id_.isEmpty()) {
             NatResultText r_ = new NatResultText();
@@ -50,6 +44,17 @@ public abstract class NatAnaRendElement extends AnaRendParentBlock implements Na
             r_.buildIdAna(attr_, _anaDoc, _page);
             attributes.addEntry(a,r_);
         }
+    }
+
+    public static StringList buildAttrNames(AnalyzingDoc _anaDoc, Element _read) {
+        StringList attributesNames_ = new StringList();
+        NamedNodeMap mapAttr_ = _read.getAttributes();
+        int nbAttrs_ = mapAttr_.getLength();
+        for (int i = 0; i < nbAttrs_; i++) {
+            attributesNames_.add(mapAttr_.item(i).getName());
+        }
+        attributesNames_.removeAllString(_anaDoc.getRendKeyWords().getAttrId());
+        return attributesNames_;
     }
 
     protected abstract void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page);

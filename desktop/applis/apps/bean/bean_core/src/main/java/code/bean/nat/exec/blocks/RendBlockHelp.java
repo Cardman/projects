@@ -50,21 +50,21 @@ public final class RendBlockHelp {
     public static void processBlock(ContextEl _ctx, RendStackCall _rendStackCall, RendBlock _rendBlock) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendBlock nextSibling_ = _rendBlock.getNextSibling();
-        if (nextSibling_ != null) {
-            rw_.setRead(nextSibling_);
+        RendBlock nextSiblingNat_ = _rendBlock.getNextSibling();
+        if (nextSiblingNat_ != null) {
+            rw_.setRead(nextSiblingNat_);
             return;
         }
         RendParentBlock par_ = _rendBlock.getParent();
-        RendAbstractStask lastStack_ = ip_.tryGetRendLastStack();
-        if (lastStack_ != null) {
+        RendAbstractStask lastStackNat_ = ip_.tryGetRendLastStack();
+        if (lastStackNat_ != null) {
             rw_.setRead(par_);
-            if (lastStack_ instanceof RendLoopBlockStack) {
+            if (lastStackNat_ instanceof RendLoopBlockStack) {
                 removeLocalVarsLoop(ip_, par_);
-                processLastElementLoop(_ctx, _rendStackCall, par_, (RendLoopBlockStack) lastStack_);
+                processLastElementLoop(_ctx, _rendStackCall, par_, (RendLoopBlockStack) lastStackNat_);
             }
-            if (lastStack_ instanceof RendIfStack) {
-                nextIfStack(ip_, rw_, par_, (RendIfStack) lastStack_);
+            if (lastStackNat_ instanceof RendIfStack) {
+                nextIfStack(ip_, rw_, par_, (RendIfStack) lastStackNat_);
             }
             return;
         }
@@ -115,7 +115,7 @@ public final class RendBlockHelp {
             processBlockAndRemove(_ctx, _rendStack, _cond);
             return;
         }
-        ConditionReturn assert_ = evaluateCondition(_cont, _stds, _ctx, _rendStack, _cond.getCondition());
+        ConditionReturn toEnter_ = evaluateCondition(_cont, _stds, _ctx, _rendStack, _cond.getCondition());
         RendIfStack if_ = new RendIfStack();
         if_.setLabel(_label);
         if_.setLastBlock(_cond);
@@ -127,7 +127,7 @@ public final class RendBlockHelp {
         if_.setBlock(_cond);
         if_.setCurrentVisitedBlock(_cond);
         ip_.addBlock(if_);
-        if (assert_ == ConditionReturn.YES) {
+        if (toEnter_ == ConditionReturn.YES) {
             if_.setEntered(true);
             rw_.setRead(_cond.getFirstChild());
         } else {
@@ -169,14 +169,14 @@ public final class RendBlockHelp {
 
     public static void processEnt(ContextEl _cont, RendParentBlock _cond, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
-        RendAbstractStask if_ = ip_.tryGetRendLastStack();
-        if (!(if_ instanceof RendEnteredStack)) {
+        RendAbstractStask ifNat_ = ip_.tryGetRendLastStack();
+        if (!(ifNat_ instanceof RendEnteredStack)) {
             ip_.setNullRendReadWrite();
             return;
         }
-        if_.setCurrentVisitedBlock(_cond);
-        if (!((RendEnteredStack)if_).isEntered()) {
-            ((RendEnteredStack)if_).setEntered(true);
+        ifNat_.setCurrentVisitedBlock(_cond);
+        if (!((RendEnteredStack)ifNat_).isEntered()) {
+            ((RendEnteredStack)ifNat_).setEntered(true);
             ip_.getRendReadWrite().setRead(_cond.getFirstChild());
             return;
         }

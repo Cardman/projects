@@ -1,6 +1,5 @@
 package code.bean.nat.analyze.instr;
 
-import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.StackOperators;
 import code.maths.litteralcom.StrTypes;
 import code.util.core.IndexConstants;
@@ -32,7 +31,7 @@ final class NatAfterUnaryParts {
         }
     }
 
-    void setState(int _offset, String _string, Delimiters _d) {
+    void setState(int _offset, String _string, NatDelimiters _d) {
         char curChar_ = _string.charAt(index);
         if (!_d.getAllowedOperatorsIndexes().containsObj((long)index+_offset)) {
             index++;

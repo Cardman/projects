@@ -7,7 +7,6 @@ import code.bean.nat.analyze.opers.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.opers.*;
-import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.*;
@@ -173,7 +172,7 @@ public final class NatRendForwardInfos {
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
             return new NatRendSelect(opRead_,opValue_,opsWrite_,opMap_,
                     f_.getElt(),
-                    initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
+                    initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassNameNat(), f_.getVarName(), f_.getVarNames()));
         }
         if (_current instanceof NatAnaRendInput){
             NatAnaRendInput f_ = (NatAnaRendInput) _current;
@@ -272,41 +271,41 @@ public final class NatRendForwardInfos {
         return getExecutableNodesStd(_root);
     }
 
-    private static CustList<RendDynOperationNode> getExecutableNodesStd(NatOperationNode _root) {
+    private static CustList<RendDynOperationNode> getExecutableNodesStd(NatOperationNode _rootNat) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
-        NatOperationNode current_ = _root;
-        RendDynOperationNode exp_ = createExecOperationNode(current_);
-        while (current_ != null) {
-            NatOperationNode op_ = current_.getFirstChild();
-            if (exp_ instanceof RendMethodOperation &&op_ != null) {
-                RendDynOperationNode loc_ = createExecOperationNode(op_);
+        NatOperationNode currentNat_ = _rootNat;
+        RendDynOperationNode exp_ = createNatOperationNode(currentNat_);
+        while (currentNat_ != null) {
+            NatOperationNode opNat_ = currentNat_.getFirstChild();
+            if (exp_ instanceof RendMethodOperation &&opNat_ != null) {
+                RendDynOperationNode loc_ = createNatOperationNode(opNat_);
                 ((RendMethodOperation) exp_).appendChild(loc_);
                 exp_ = loc_;
-                current_ = op_;
+                currentNat_ = opNat_;
                 continue;
             }
-            while (current_ != null) {
+            while (currentNat_ != null) {
                 trySetup(exp_);
                 out_.add(exp_);
-                op_ = current_.getNextSibling();
+                opNat_ = currentNat_.getNextSibling();
                 RendMethodOperation par_ = exp_.getParent();
-                if (op_ != null) {
-                    RendDynOperationNode loc_ = createExecOperationNode(op_);
+                if (opNat_ != null) {
+                    RendDynOperationNode loc_ = createNatOperationNode(opNat_);
                     par_.appendChild(loc_);
-                    setSiblingSet(exp_, op_, loc_);
+                    setSiblingSet(exp_, opNat_, loc_);
                     exp_ = loc_;
-                    current_ = op_;
+                    currentNat_ = opNat_;
                     break;
                 }
-                op_ = current_.getParent();
-                if (op_ == null) {
-                    current_ = null;
-                } else if (op_ == _root) {
+                opNat_ = currentNat_.getParent();
+                if (opNat_ == null) {
+                    currentNat_ = null;
+                } else if (opNat_ == _rootNat) {
                     trySetup(par_);
                     out_.add(par_);
-                    current_ = null;
+                    currentNat_ = null;
                 } else {
-                    current_ = op_;
+                    currentNat_ = opNat_;
                     exp_ = par_;
                 }
             }
@@ -326,7 +325,7 @@ public final class NatRendForwardInfos {
         }
     }
 
-    private static RendDynOperationNode createExecOperationNode(NatOperationNode _anaNode) {
+    private static RendDynOperationNode createNatOperationNode(NatOperationNode _anaNode) {
         if (_anaNode instanceof InternGlobalNatOperation) {
             InternGlobalNatOperation m_ = (InternGlobalNatOperation) _anaNode;
             return new RendInternGlobalOperation(new ExecOperationContent(m_.getContent()), m_.getOff());
@@ -379,7 +378,7 @@ public final class NatRendForwardInfos {
     }
 
     private static RendLeafOperation finalVariable(FinalVariableNatOperation _anaNode) {
-        if (_anaNode.getType() == ConstType.LOOP_INDEX) {
+        if (_anaNode.isVarIndex()) {
             return new NatFinalVariableOperation(new ExecOperationContent(_anaNode.getContent()), new NatExecVariableContent(_anaNode.getVariableContent()));
         }
         return new NatStdRefVariableOperation(new ExecOperationContent(_anaNode.getContent()), new NatExecVariableContent(_anaNode.getVariableContent()));

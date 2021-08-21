@@ -26,7 +26,7 @@ public final class NatStandardFieldOperation {
 
     public String getFieldName() {
         NatOperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        String originalStr_ = op_.getValNat().getValue(IndexConstants.FIRST_INDEX);
         return originalStr_.trim();
     }
 

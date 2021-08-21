@@ -1,5 +1,6 @@
 package code.bean.help.analyze.blocks;
 
+import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
@@ -48,7 +49,7 @@ public final class HelpAnaRendBlockHelp {
                     curNode_ = nextSibling_;
                     break;
                 }
-                Element parentNode_ = tryGetParent(documentElement_, curNode_);
+                Element parentNode_ = AnaRendBlockHelp.tryGetParent(documentElement_, curNode_);
                 if (parentNode_ == null) {
                     curWrite_ = null;
                 } else {
@@ -59,14 +60,6 @@ public final class HelpAnaRendBlockHelp {
             }
         }
         return out_;
-    }
-
-    private static Element tryGetParent(Element _documentElement, Node _curNode) {
-        Element parentNode_ = _curNode.getParentNode();
-        if (parentNode_ == _documentElement) {
-            parentNode_ = null;
-        }
-        return parentNode_;
     }
 
     private static void tryAppendEmptyBlock(AnaRendBlock _curWrite) {

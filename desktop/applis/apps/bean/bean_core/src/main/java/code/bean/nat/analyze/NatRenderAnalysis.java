@@ -1,11 +1,10 @@
 package code.bean.nat.analyze;
 
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
+import code.bean.nat.analyze.instr.NatDelimiters;
 import code.bean.nat.analyze.opers.*;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.formathtml.analyze.*;
@@ -22,7 +21,7 @@ public final class NatRenderAnalysis {
     }
 
     public static NatOperationNode getRootAnalyzedOperationsDel(String _el, int _minIndex, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        Delimiters d_ = NatElResolver.checkSyntaxDelimiters(_el, _minIndex,_anaDoc, _page);
+        NatDelimiters d_ = NatElResolver.checkSyntax(_el, _minIndex,_anaDoc);
         int end_ = d_.getIndexEnd();
         _anaDoc.setNextIndex(end_+2);
         String el_ = _el.substring(_minIndex,end_+1);
@@ -33,7 +32,7 @@ public final class NatRenderAnalysis {
     }
 
     public static NatOperationNode getRootAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        Delimiters d_ = NatElResolver.checkSyntax(_el, _index,_anaDoc, _page);
+        NatDelimiters d_ = NatElResolver.checkSyntax(_el, _index,_anaDoc);
         String el_ = _el.substring(_index);
         NatOperationsSequence opTwo_ = getOperationsSequence(_index, el_, d_, _anaDoc);
         NatOperationNode op_ = createOperationNode(_index, IndexConstants.FIRST_INDEX, null, opTwo_, _anaDoc, _page);
@@ -99,12 +98,7 @@ public final class NatRenderAnalysis {
         if (block_.getChildren().isEmpty()) {
             return null;
         }
-        String value_ = block_.getChildren().getValue(0);
-        Delimiters d_ = block_.getOperations().getDelimiter();
-        int curKey_ = block_.getChildren().getKey(0);
-        int offset_ = block_.getIndexInEl()+curKey_;
-        NatOperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc);
-        return createOperationNode(offset_, 0, block_, r_, _anaDoc, _page);
+        return build(block_, _anaDoc, _page, block_, 0);
     }
 
     private static NatOperationNode createNextSibling(NatOperationNode _block, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
@@ -117,16 +111,21 @@ public final class NatRenderAnalysis {
         if (del_ >= children_.size()) {
             return null;
         }
-        String value_ = children_.getValue(del_);
-        Delimiters d_ = _block.getOperations().getDelimiter();
-        int curKey_ = children_.getKey(del_);
-        int offset_ = p_.getIndexInEl()+curKey_;
+        return build(_block, _anaDoc, _page, p_, del_);
+    }
+
+    private static NatOperationNode build(NatOperationNode _block, AnalyzingDoc _anaDoc, NatAnalyzedCode _page, MethodNatOperation _p, int _del) {
+        StrTypes children_ = _p.getChildren();
+        String value_ = children_.getValue(_del);
+        NatDelimiters d_ = _block.getOperations().getDelimiterNat();
+        int curKey_ = children_.getKey(_del);
+        int offset_ = _p.getIndexInEl() + curKey_;
         NatOperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc);
-        return createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _anaDoc, _page);
+        return createOperationNode(offset_, _del, _p, r_, _anaDoc, _page);
     }
 
     public static NatOperationsSequence getOperationsSequence(int _offset, String _string,
-                                                              Delimiters _d, AnalyzingDoc _anaDoc) {
+                                                              NatDelimiters _d, AnalyzingDoc _anaDoc) {
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
         int lastPrintChar_ = len_ - 1;
@@ -134,10 +133,9 @@ public final class NatRenderAnalysis {
         String sub_ = _string.substring(i_, len_);
         if (_anaDoc.isInternGlobal() && StringUtil.quickEq(sub_, INTERN)) {
             NatOperationsSequence op_ = new NatOperationsSequence();
-            op_.setConstType(ConstType.WORD);
-            op_.setOperators(new StrTypes());
+            op_.setOpersNat(new StrTypes());
             op_.setValue(_string, i_);
-            op_.setDelimiter(_d);
+            op_.setDelimiterNat(_d);
             return op_;
         }
         return NatElResolver.getOperationsSequence(_offset, _string, _d);
@@ -145,8 +143,8 @@ public final class NatRenderAnalysis {
 
     public static NatOperationNode createOperationNode(int _index,
                                                        int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, AnalyzingDoc _analyzingDoc, NatAnalyzedCode _page) {
-        if (_op.getOperators().isEmpty()) {
-            String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
+        if (_op.getOpersNat().isEmpty()) {
+            String originalStr_ = _op.getValNat().getValue(IndexConstants.FIRST_INDEX);
             String str_ = originalStr_.trim();
             if (_analyzingDoc.isInternGlobal() && StringUtil.quickEq(str_, INTERN)) {
                 return new InternGlobalNatOperation(_index, _indexChild, _m, _op, _analyzingDoc);

@@ -41,32 +41,32 @@ public final class AnaRendBlockHelp {
     }
 
     public static void loop(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        AnaRendBlock en_ = _doc;
+        AnaRendBlock enNat_ = _doc;
         _anaDoc.setFileName(_doc.getFileName());
         _anaDoc.setCurrentDoc(_doc);
         while (true) {
-            _anaDoc.setCurrentBlock(en_);
-            AnaRendBlock n_ = en_.getFirstChild();
-            if (en_ instanceof NatRendBuildEl) {
-                ((NatRendBuildEl)en_).buildExpressionLanguage(_doc, _anaDoc, _page);
+            _anaDoc.setCurrentBlock(enNat_);
+            AnaRendBlock n_ = enNat_.getFirstChild();
+            if (enNat_ instanceof NatRendBuildEl) {
+                ((NatRendBuildEl)enNat_).buildExpressionLanguage(_doc, _anaDoc, _page);
             }
             if (n_ != null) {
-                en_ = n_;
+                enNat_ = n_;
                 continue;
             }
             while (true) {
-                n_ = en_.getNextSibling();
+                n_ = enNat_.getNextSibling();
                 if (n_ != null) {
-                    en_ = n_;
+                    enNat_ = n_;
                     break;
                 }
                 AnaRendParentBlock par_;
-                par_ = en_.getParent();
+                par_ = enNat_.getParent();
                 removeAllVars(par_, _page.getInfosVars(), _page.getLoopsVars());
                 if (par_ == _doc) {
                     return;
                 }
-                en_ = par_;
+                enNat_ = par_;
             }
         }
     }
@@ -104,35 +104,35 @@ public final class AnaRendBlockHelp {
         Node curNode_ = documentElement_;
         int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
         AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_,_docText,0, _currentUrl);
-        AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_, _prefix, curNode_,_docText, _rendKeyWords, _caller, _builder);
-        out_.appendChild(curWrite_);
-        while (curWrite_ != null) {
+        AnaRendBlock curWriteNat_ = newRendBlockEsc(indexGlobal_, _prefix, curNode_,_docText, _rendKeyWords, _caller, _builder);
+        out_.appendChild(curWriteNat_);
+        while (curWriteNat_ != null) {
             Node firstChild_ = curNode_.getFirstChild();
-            if (curWrite_ instanceof AnaRendParentBlock &&firstChild_ != null) {
+            if (curWriteNat_ instanceof AnaRendParentBlock &&firstChild_ != null) {
                 indexGlobal_ = AnaRendBlock.indexOfBeginNode(firstChild_, _docText, indexGlobal_);
                 AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_, _prefix, firstChild_,_docText, _rendKeyWords, _caller, _builder);
-                ((AnaRendParentBlock) curWrite_).appendChild(rendBlock_);
-                curWrite_ = rendBlock_;
+                ((AnaRendParentBlock) curWriteNat_).appendChild(rendBlock_);
+                curWriteNat_ = rendBlock_;
                 curNode_ = firstChild_;
                 continue;
             }
-            tryAppendEmptyBlock(curWrite_);
-            while (curWrite_ != null) {
+            tryAppendEmptyBlock(curWriteNat_);
+            while (curWriteNat_ != null) {
                 Node nextSibling_ = curNode_.getNextSibling();
-                AnaRendParentBlock par_ = curWrite_.getParent();
+                AnaRendParentBlock par_ = curWriteNat_.getParent();
                 if (nextSibling_ != null) {
                     indexGlobal_ = AnaRendBlock.indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
                     AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_, _prefix, nextSibling_,_docText, _rendKeyWords, _caller, _builder);
                     par_.appendChild(rendBlock_);
-                    curWrite_ = rendBlock_;
+                    curWriteNat_ = rendBlock_;
                     curNode_ = nextSibling_;
                     break;
                 }
                 Element parentNode_ = tryGetParent(documentElement_, curNode_);
                 if (parentNode_ == null) {
-                    curWrite_ = null;
+                    curWriteNat_ = null;
                 } else {
-                    curWrite_ = par_;
+                    curWriteNat_ = par_;
                     curNode_ = parentNode_;
                 }
 
@@ -141,7 +141,7 @@ public final class AnaRendBlockHelp {
         return out_;
     }
 
-    private static Element tryGetParent(Element _documentElement, Node _curNode) {
+    public static Element tryGetParent(Element _documentElement, Node _curNode) {
         Element parentNode_ = _curNode.getParentNode();
         if (parentNode_ == _documentElement) {
             parentNode_ = null;
@@ -163,10 +163,10 @@ public final class AnaRendBlockHelp {
             Text t_ = (Text) _elt;
             bl_ = new NatAnaRendText(new OffsetStringInfo(_begin, t_.getTextContent()), _begin);
             int endHeader_ = _docText.indexOf(LT_BEGIN_TAG, _begin);
-            AttributePart attrPart_ = new AttributePart();
-            attrPart_.setBegin(_begin);
-            attrPart_.setEnd(endHeader_);
-            IntTreeMap<Integer> esc_ = AnaRendBlock.getIndexesSpecChars(_docText, false, attrPart_, _begin);
+            AttributePart attrPartNat_ = new AttributePart();
+            attrPartNat_.setBegin(_begin);
+            attrPartNat_.setEnd(endHeader_);
+            IntTreeMap<Integer> esc_ = AnaRendBlock.getIndexesSpecChars(_docText, false, attrPartNat_, _begin);
             StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
             infos_.addEntry(EMPTY_STRING, esc_);
             bl_.setEscapedChars(infos_);

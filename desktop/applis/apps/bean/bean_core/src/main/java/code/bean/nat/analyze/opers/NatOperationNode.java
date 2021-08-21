@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.common.ConstType;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
@@ -58,28 +57,27 @@ public abstract class NatOperationNode {
     }
     private static NatOperationNode createOperationNodeBis(int _index,
                                                            int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
-        if (_op.getOperators().isEmpty()) {
+        if (_op.getOpersNat().isEmpty()) {
             return createLeaf(_index, _indexChild, _m, _op, _page);
         }
-        if (_op.getPriority() == NatElResolver.FCT_OPER_PRIO && _op.isCallDbArray()) {
+        if (_op.getPrioNat() == NatElResolver.FCT_OPER_PRIO && _op.isCallDbArray()) {
             String fctName_ = _op.getFctName().trim();
             if (fctName_.isEmpty()) {
                 return new IdNatOperation(_index, _indexChild, _m, _op);
             }
             return new FctNatOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == NatElResolver.FCT_OPER_PRIO) {
+        if (_op.getPrioNat() == NatElResolver.FCT_OPER_PRIO) {
             return new DotNatOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == NatElResolver.UNARY_PRIO) {
+        if (_op.getPrioNat() == NatElResolver.UNARY_PRIO) {
             return new UnaryBooleanNatOperation(_index, _indexChild, _m, _op);
         }
         return new AffectationNatOperation(_index, _indexChild, _m, _op);
     }
 
     private static NatOperationNode createLeaf(int _index, int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
-        ConstType ct_ = _op.getConstType();
-        String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
+        String originalStr_ = _op.getValNat().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
         if (_m instanceof AbstractDotNatOperation) {
             NatOperationNode ch_ = _m.getFirstChild();
@@ -87,13 +85,13 @@ public abstract class NatOperationNode {
                 return new SettableFieldNatOperation(_index, _indexChild, _m, _op,new NatStandardFieldOperation(_op));
             }
         }
-        if (ct_ == ConstType.LOOP_INDEX) {
-            return new FinalVariableNatOperation(_index, _indexChild, _m, _op);
+        if (_op.isVarIndex()) {
+            return new FinalVariableNatOperation(_index, _indexChild, _m, _op, true);
         }
         AnaLocalVariable val_ = _page.getInfosVars().getVal(str_);
         if (val_ != null) {
             val_.setUsed(true);
-            return new FinalVariableNatOperation(_index, _indexChild, _m, _op,val_.getClassName());
+            return new FinalVariableNatOperation(_index, _indexChild, _m, _op,val_.getClassName(), false);
         }
         return new SettableFieldNatOperation(_index, _indexChild, _m, _op,new NatStandardFieldOperation(_op));
     }

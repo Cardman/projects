@@ -1186,13 +1186,7 @@ public final class ElResolver {
             return;
         }
         int beginWord_ = i_;
-        while (i_ < len_) {
-            char locChar_ = _string.charAt(i_);
-            if (!StringExpUtil.isTypeLeafChar(locChar_)) {
-                break;
-            }
-            i_++;
-        }
+        i_ = incrAfterWord(i_,_string);
         String word_ = _string.substring(beginWord_, i_);
         int nextPar_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, PAR_LEFT);
         if (nextPar_ > -1) {
@@ -1224,6 +1218,18 @@ public final class ElResolver {
         _out.setNextIndex(i_);
     }
 
+    public static int incrAfterWord(int _i, String _string) {
+        int len_ = _string.length();
+        int i_ = _i;
+        while (i_ < len_) {
+            char locChar_ = _string.charAt(i_);
+            if (!StringExpUtil.isTypeLeafChar(locChar_)) {
+                break;
+            }
+            i_++;
+        }
+        return i_;
+    }
     private static void processOperators(int _beginIndex, String _string, boolean _delimiters,
                                          Delimiters _dout, ResultAfterOperators _out, AnalyzedPageEl _page) {
         StackOperators parsBrackets_;

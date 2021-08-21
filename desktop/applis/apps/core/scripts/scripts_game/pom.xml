@@ -22,6 +22,9 @@
     </dependencies>
     <properties>
         <sonar.exclusions>src/main/java/aiki/sml/imgs/**/*,src/main/java/aiki/sml/init/**/*,src/main/java/aiki/sml/trs/**/*</sonar.exclusions>
+        <!--sonar.issue.ignore.multicriteria>e8,e9</sonar.issue.ignore.multicriteria>
+		<sonar.issue.ignore.multicriteria.e9.ruleKey>squid:S1481</sonar.issue.ignore.multicriteria.e9.ruleKey>
+		<sonar.issue.ignore.multicriteria.e9.resourceKey>src/main/java/aiki/sml/imgs/**/*,src/main/java/aiki/sml/init/**/*,src/main/java/aiki/sml/trs/**/*</sonar.issue.ignore.multicriteria.e9.resourceKey-->
     </properties>
 
 </project>
