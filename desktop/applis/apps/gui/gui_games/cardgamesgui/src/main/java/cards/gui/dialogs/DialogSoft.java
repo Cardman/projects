@@ -8,6 +8,7 @@ import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -41,20 +42,21 @@ public final class DialogSoft extends DialogCards {
     private Slider delayWaitBids;
     private CustCheckBox clickCard;
 
-    public DialogSoft() {
-        setAccessFile(DIALOG_ACCESS);
+    public DialogSoft(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
+        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogSoft(String _titre, WindowCards _fenetre) {
-        _fenetre.getDialogSoft().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
-        _fenetre.getDialogSoft().setTitle(_titre);
+        _fenetre.getDialogSoft().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogSoft().getCardDialog().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogSoft().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogSoft().getAccessFile());
+        _fenetre.getDialogSoft().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogSoft().getCardDialog().getAccessFile());
         _fenetre.getDialogSoft().parametres = _fenetre.getParametresLogiciel();
-        _fenetre.getDialogSoft().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogSoft().getCardDialog().setLocationRelativeTo(_fenetre);
     }
 
     public static SoftParams getParametres(DialogSoft _dialog) {
-        _dialog.setVisible(true);
+        _dialog.getCardDialog().setVisible(true);
         return _dialog.parametres;
     }
 
@@ -146,8 +148,8 @@ public final class DialogSoft extends DialogCards {
         LabelButton bouton_=new LabelButton(messages.getVal(VALIDATE));
         bouton_.addMouseList(new ListenerParameters(this));
         container_.add(bouton_,BorderLayout.SOUTH);
-        setContentPane(container_);
-        pack();
+        getCardDialog().setContentPane(container_);
+        getCardDialog().pack();
     }
 
     /**Enregistre les_ informations_ dans_ une_ variable_ et_ ferme_ la_ boite_ de_ dialogue_*/

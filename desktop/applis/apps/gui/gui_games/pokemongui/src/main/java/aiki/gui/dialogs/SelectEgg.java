@@ -10,6 +10,7 @@ import aiki.gui.components.PaginatorEgg;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -26,8 +27,9 @@ public final class SelectEgg extends SelectDialog {
 
     private StringMap<String> messages;
 
-    public SelectEgg() {
-        setAccessFile(DIALOG_ACCESS);
+    public SelectEgg(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
+        getSelectDial().setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectEgg(WindowAiki _parent, FacadeGame _facade, SelectEgg _dialog) {
@@ -35,15 +37,15 @@ public final class SelectEgg extends SelectDialog {
     }
 
     private void init(WindowAiki _parent, FacadeGame _facade) {
-        setDialogIcon(_parent.getImageFactory(),_parent);
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
-        setTitle(messages.getVal(TITLE));
+        getSelectDial().setDialogIcon(_parent.getImageFactory(),_parent);
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+        getSelectDial().setTitle(messages.getVal(TITLE));
         facade = _facade;
         initOk();
 //        ok = false;
         Panel contentPane_ = Panel.newBorder();
         Panel pag_ = Panel.newPageBox();
-        contentPane_.add(new ScrollPane(new PaginatorEgg(_parent,pag_, this, _facade).getContainer()), BorderLayout.CENTER);
+        contentPane_.add(new ScrollPane(new PaginatorEgg(_parent,pag_, getSelectDial(), _facade).getContainer()), BorderLayout.CENTER);
         Panel buttons_ = Panel.newLineBox();
         LabelButton ok_ = new LabelButton(WindowAiki.OK);
         ok_.addMouseList(new ValidateSelectionEvent(this));
@@ -52,19 +54,19 @@ public final class SelectEgg extends SelectDialog {
         cancel_.addMouseList(new ClosingDialogEvent(this));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, BorderLayout.SOUTH);
-        setContentPane(contentPane_);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        pack();
+        getSelectDial().setContentPane(contentPane_);
+        getSelectDial().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        getSelectDial().pack();
     }
 
     @Override
     public void closeWindow() {
         facade.clearFiltersEgg();
-        super.closeWindow();
+        getSelectDial().closeWindow();
     }
 
     public static void setVisible(SelectEgg _dialog) {
-        _dialog.setVisible(true);
+        _dialog.getSelectDial().setVisible(true);
     }
 
     public static boolean isSelectedIndex(SelectEgg _dialog) {

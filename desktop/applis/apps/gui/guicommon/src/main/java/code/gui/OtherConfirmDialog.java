@@ -1,8 +1,12 @@
 package code.gui;
 
-import code.gui.events.*;
+import code.gui.events.OtherAnswerEvent;
+import code.gui.events.OtherAnswerTextEvent;
+import code.gui.events.OtherClosingDialogEvent;
+import code.gui.events.OtherCrossClosingDialogEvent;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsFrameFactory;
 
 import javax.swing.*;
 
@@ -13,7 +17,7 @@ public final class OtherConfirmDialog {
     public static final int NO_OPTION = JOptionPane.NO_OPTION;
     public static final int CANCEL_OPTION = JOptionPane.CANCEL_OPTION;
     private static final String EMPTY_STRING = "";
-    private final JDialog dialog = new JDialog();
+    private final AbsOtherDialog dialog;
 
     private int answer;
 
@@ -22,9 +26,10 @@ public final class OtherConfirmDialog {
     private String typedText;
     private AbstractImageFactory fact;
 
-    public OtherConfirmDialog(AbstractImageFactory _fact) {
+    public OtherConfirmDialog(AbstractImageFactory _fact, AbsFrameFactory _frame) {
         fact = _fact;
-        dialog.addWindowListener(new WrWindowListener(new OtherCrossClosingDialogEvent(this)));
+        dialog =_frame.newOtherDialog();
+        dialog.addWindowListener(new OtherCrossClosingDialogEvent(this));
     }
 
     public String showTextField(WithListener _frame, String _value, String _message, String _title, String _ok, String _cancel) {
@@ -121,15 +126,15 @@ public final class OtherConfirmDialog {
 
     private void setLocationRelativeTo(WithListener _frame) {
         if (_frame == null) {
-            dialog.setLocationRelativeTo(null);
+            dialog.setLocationRelativeToNull();
             return;
         }
-        if (_frame instanceof OtherDialog) {
-            dialog.setLocationRelativeTo(((OtherDialog)_frame).getComponent());
+        if (_frame instanceof AbsOtherDialog) {
+            dialog.setLocationRelativeTo(((AbsOtherDialog)_frame));
             return;
         }
-        if (_frame instanceof OtherFrame) {
-            dialog.setLocationRelativeTo(((OtherFrame)_frame).getComponent());
+        if (_frame instanceof AbsOtherFrame) {
+            dialog.setLocationRelativeTo(((AbsOtherFrame)_frame));
         }
     }
 
@@ -142,7 +147,7 @@ public final class OtherConfirmDialog {
         button_.addMouseList(new OtherClosingDialogEvent(this));
         buttons_.add(button_);
         content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
+        dialog.setContentPane(content_);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
@@ -158,7 +163,7 @@ public final class OtherConfirmDialog {
         button_.addMouseList(new OtherClosingDialogEvent(this));
         buttons_.add(button_);
         content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
+        dialog.setContentPane(content_);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
@@ -173,7 +178,7 @@ public final class OtherConfirmDialog {
         button_.addMouseList(new OtherAnswerEvent(this, OK_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
+        dialog.setContentPane(content_);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
@@ -188,7 +193,7 @@ public final class OtherConfirmDialog {
         button_.addMouseList(new OtherAnswerEvent(this, OK_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
+        dialog.setContentPane(content_);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
@@ -206,7 +211,7 @@ public final class OtherConfirmDialog {
         button_.addMouseList(new OtherAnswerEvent(this, NO_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
+        dialog.setContentPane(content_);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
@@ -225,7 +230,7 @@ public final class OtherConfirmDialog {
         button_.addMouseList(new OtherAnswerEvent(this, NO_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
+        dialog.setContentPane(content_);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
@@ -246,7 +251,7 @@ public final class OtherConfirmDialog {
         button_.addMouseList(new OtherAnswerEvent(this, CANCEL_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
+        dialog.setContentPane(content_);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
@@ -268,7 +273,7 @@ public final class OtherConfirmDialog {
         button_.addMouseList(new OtherAnswerEvent(this, CANCEL_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
+        dialog.setContentPane(content_);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
@@ -290,7 +295,7 @@ public final class OtherConfirmDialog {
         button_.addMouseList(new OtherAnswerTextEvent(this, NO_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
+        dialog.setContentPane(content_);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
@@ -313,7 +318,7 @@ public final class OtherConfirmDialog {
         button_.addMouseList(new OtherAnswerTextEvent(this, NO_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
-        dialog.setContentPane(content_.getComponent());
+        dialog.setContentPane(content_);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);

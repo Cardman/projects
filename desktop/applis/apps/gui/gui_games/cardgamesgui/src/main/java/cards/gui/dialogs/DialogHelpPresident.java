@@ -5,14 +5,15 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.president.enumerations.CardPresident;
-import code.gui.Dialog;
+import code.gui.AbsDialog;
 import code.gui.Panel;
 import code.gui.TextLabel;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.core.StringUtil;
 
-public final class DialogHelpPresident extends Dialog {
+public final class DialogHelpPresident {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialoghelppresident";
 
     private static final String LEVEL = "level";
@@ -21,20 +22,22 @@ public final class DialogHelpPresident extends Dialog {
     private static final String REVERSED = "reversed";
     private static final String YES = "yes";
     private static final String NO = "no";
+    private final AbsDialog absDialog;
     private StringMap<String> messages = new StringMap<String>();
 
-    public DialogHelpPresident() {
-        setAccessFile(DIALOG_ACCESS);
+    public DialogHelpPresident(AbsFrameFactory _frameFactory) {
+        absDialog = _frameFactory.newDialog();
+        absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
     private void voir() {
-        setResizable(false);
-        setVisible(true);
+        absDialog.setResizable(false);
+        absDialog.setVisible(true);
     }
     public static void setTitleDialog(WindowCards _fenetre, String _title) {
-        _fenetre.getDialogHelpPresident().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
-        _fenetre.getDialogHelpPresident().setLocationRelativeTo(_fenetre);
-        _fenetre.getDialogHelpPresident().setTitle(_title);
+        _fenetre.getDialogHelpPresident().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogHelpPresident().absDialog.setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogHelpPresident().absDialog.setTitle(_title);
         _fenetre.getDialogHelpPresident().initMessageName(_fenetre);
     }
 
@@ -67,14 +70,14 @@ public final class DialogHelpPresident extends Dialog {
         message_ = StringUtil.simpleStringsFormat(message_, value_);
         TextLabel reversed_ = new TextLabel(message_);
         contentPane_.add(reversed_);
-        _dialog.setContentPane(contentPane_);
-        _dialog.pack();
+        _dialog.absDialog.setContentPane(contentPane_);
+        _dialog.absDialog.pack();
         _dialog.voir();
     }
 
     private void initMessageName(WindowCards _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile());
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), absDialog.getAccessFile());
     }
 
 }

@@ -3,13 +3,13 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.OtherDialog;
+import code.gui.AbsOtherDialog;
 import code.gui.WithListener;
 
 public final class DialogStruct extends WindowStruct {
-    private OtherDialog dialog;
+    private AbsOtherDialog dialog;
     private Struct menuBar = NullStruct.NULL_VALUE;
-    public DialogStruct(OtherDialog _frame) {
+    public DialogStruct(AbsOtherDialog _frame) {
         dialog = _frame;
     }
 
@@ -18,7 +18,7 @@ public final class DialogStruct extends WindowStruct {
         return getDialog();
     }
 
-    public OtherDialog getDialog() {
+    public AbsOtherDialog getDialog() {
         return dialog;
     }
 

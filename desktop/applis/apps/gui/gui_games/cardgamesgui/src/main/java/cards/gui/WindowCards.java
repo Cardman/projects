@@ -431,7 +431,6 @@ public final class WindowCards extends NetGroupFrame {
     private static final char LINE_RETURN = '\n';
 
     private BasicClient threadEmission;
-    private StringMap<String> messages = new StringMap<String>();
 
     private final CustList<FrameGeneralHelp> helpFrames = new CustList<FrameGeneralHelp>();
 
@@ -514,25 +513,25 @@ public final class WindowCards extends NetGroupFrame {
     //private final boolean standalone;
     private HelpInitializer helpInitializerTask;
     private AbstractThread helpInitializerThread;
-    private final DialogDisplayingBelote dialogDisplayingBelote = new DialogDisplayingBelote();
-    private final DialogDisplayingTarot dialogDisplayingTarot = new DialogDisplayingTarot();
-    private final DialogDisplayingPresident dialogDisplayingPresident = new DialogDisplayingPresident();
-    private final DialogHelpBelote dialogHelpBelote = new DialogHelpBelote();
-    private final DialogHelpPresident dialogHelpPresident = new DialogHelpPresident();
-    private final DialogHelpTarot dialogHelpTarot = new DialogHelpTarot();
-    private final DialogRulesBelote dialogRulesBelote = new DialogRulesBelote();
-    private final DialogRulesPresident dialogRulesPresident = new DialogRulesPresident();
-    private final DialogRulesTarot dialogRulesTarot = new DialogRulesTarot();
-    private final DialogTricksBelote dialogTricksBelote = new DialogTricksBelote();
-    private final DialogTricksPresident dialogTricksPresident = new DialogTricksPresident();
-    private final DialogTricksTarot dialogTricksTarot = new DialogTricksTarot();
-    private final EditorBelote editorBelote = new EditorBelote();
-    private final EditorPresident editorPresident = new EditorPresident();
-    private final EditorTarot editorTarot = new EditorTarot();
-    private final DialogTeamsPlayers dialogTeamsPlayers = new DialogTeamsPlayers();
-    private final DialogNicknames dialogNicknames = new DialogNicknames();
-    private final DialogSoft dialogSoft = new DialogSoft();
-    private final DialogServerCards dialogServer = new DialogServerCards();
+    private final DialogDisplayingBelote dialogDisplayingBelote;
+    private final DialogDisplayingTarot dialogDisplayingTarot;
+    private final DialogDisplayingPresident dialogDisplayingPresident;
+    private final DialogHelpBelote dialogHelpBelote;
+    private final DialogHelpPresident dialogHelpPresident;
+    private final DialogHelpTarot dialogHelpTarot;
+    private final DialogRulesBelote dialogRulesBelote;
+    private final DialogRulesPresident dialogRulesPresident;
+    private final DialogRulesTarot dialogRulesTarot;
+    private final DialogTricksBelote dialogTricksBelote;
+    private final DialogTricksPresident dialogTricksPresident;
+    private final DialogTricksTarot dialogTricksTarot;
+    private final EditorBelote editorBelote;
+    private final EditorPresident editorPresident;
+    private final EditorTarot editorTarot;
+    private final DialogTeamsPlayers dialogTeamsPlayers;
+    private final DialogNicknames dialogNicknames;
+    private final DialogSoft dialogSoft;
+    private final DialogServerCards dialogServer;
     private final CardFactories cardFactories;
 
     public WindowCards(String _lg, AbstractProgramInfos _list,
@@ -541,6 +540,25 @@ public final class WindowCards extends NetGroupFrame {
                        StringMap<StringMap<PreparedPagesCards>> _tarot,
                        CardFactories _cardFactories) {
         super(_lg, _list);
+        dialogDisplayingBelote = new DialogDisplayingBelote(_list.getFrameFactory());
+        dialogDisplayingTarot = new DialogDisplayingTarot(_list.getFrameFactory());
+        dialogDisplayingPresident = new DialogDisplayingPresident(_list.getFrameFactory());
+        dialogHelpBelote = new DialogHelpBelote(_list.getFrameFactory());
+        dialogHelpPresident = new DialogHelpPresident(_list.getFrameFactory());
+        dialogHelpTarot = new DialogHelpTarot(_list.getFrameFactory());
+        dialogRulesBelote = new DialogRulesBelote(_list.getFrameFactory());
+        dialogRulesPresident = new DialogRulesPresident(_list.getFrameFactory());
+        dialogRulesTarot = new DialogRulesTarot(_list.getFrameFactory());
+        dialogTricksBelote = new DialogTricksBelote(_list.getFrameFactory());
+        dialogTricksPresident = new DialogTricksPresident(_list.getFrameFactory());
+        dialogTricksTarot = new DialogTricksTarot(_list.getFrameFactory());
+        editorBelote = new EditorBelote(_list.getFrameFactory());
+        editorPresident = new EditorPresident(_list.getFrameFactory());
+        editorTarot = new EditorTarot(_list.getFrameFactory());
+        dialogTeamsPlayers = new DialogTeamsPlayers(_list.getFrameFactory());
+        dialogNicknames = new DialogNicknames(_list.getFrameFactory());
+        dialogSoft = new DialogSoft(_list.getFrameFactory());
+        dialogServer = new DialogServerCards(_list.getFrameFactory());
         cardFactories = _cardFactories;
         preparedBelote = _belote;
         preparedPresident = _president;
@@ -1188,7 +1206,7 @@ public final class WindowCards extends NetGroupFrame {
     }
     private void initMessageName() {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile());
+        setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile()));
     }
     public void loadGameBegin(String _file, Object _deal) {
         containerGame = new ContainerGame(this);
@@ -1762,7 +1780,7 @@ public final class WindowCards extends NetGroupFrame {
     }
     public void manageLanguage() {
         if (!canChangeLanguageAll()) {
-            GroupFrame.showDialogError(this);
+            FrameUtil.showDialogError(this, JOptionPane.ERROR_MESSAGE);
             return;
         }
         LanguageDialog.setLanguageDialog(this, getMessages().getVal(CST_LANGUAGE));
@@ -1770,7 +1788,7 @@ public final class WindowCards extends NetGroupFrame {
         if(langue_ == null || langue_.isEmpty()) {
             return;
         }
-        GroupFrame.changeStaticLanguage(langue_, getFrames());
+        FrameUtil.changeStaticLanguage(langue_, getFrames());
         SoftApplicationCore.saveLanguage(LaunchingCards.getTempFolder(getFrames()), langue_,getStreams());
     }
     public void displayingGame(GameEnum _game) {
@@ -1940,10 +1958,6 @@ public final class WindowCards extends NetGroupFrame {
     }
     public void delegateServer() {
         ((ContainerMulti)containerGame).delegateServer();
-    }
-
-    public StringMap<String> getMessages() {
-        return messages;
     }
 
     public BasicClient getThreadEmission() {

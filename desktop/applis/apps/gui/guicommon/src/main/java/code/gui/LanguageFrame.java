@@ -5,13 +5,10 @@ import javax.swing.WindowConstants;
 import code.gui.events.LanguageChoice;
 import code.gui.events.SetterLanguage;
 import code.gui.images.AbstractImage;
-import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-import java.awt.image.BufferedImage;
-
-public class LanguageFrame extends CommonFrame implements SetterLanguage {
+public final class LanguageFrame implements SetterLanguage {
 
     private static final String TITLE = " ";
 
@@ -24,12 +21,13 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
     private SoftApplicationCore soft;
 
     private String dir;
+    private final AbsCommonFrame commonFrame;
 
     LanguageFrame(String _dir, String[] _args, SoftApplicationCore _soft, AbstractImage _icon) {
-        super(Constants.getDefaultLanguage());
+        commonFrame = _soft.getFrames().getFrameFactory().newCommonFrame(Constants.getDefaultLanguage(),_soft.getFrames(), null);
         dir = _dir;
         if (_icon != null) {
-            setIconImage(_icon);
+            commonFrame.setIconImage(_icon);
         }
         init(_args, _soft);
     }
@@ -37,7 +35,7 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
     private void init(String[] _args, SoftApplicationCore _soft) {
         soft = _soft;
         args = _args;
-        setTitle(TITLE);
+        commonFrame.setTitle(TITLE);
         Panel panneau_ = Panel.newGrid(0,1);
         for (String l: Constants.getAvailableLanguages()) {
             RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
@@ -45,19 +43,19 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
             group.add(radio_);
             panneau_.add(radio_);
         }
-        setContentPane(panneau_);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLocationRelativeToNull();
-        setVisible(true);
-        pack();
+        commonFrame.setContentPane(panneau_);
+        commonFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        commonFrame.setLocationRelativeToNull();
+        commonFrame.setVisible(true);
+        commonFrame.pack();
     }
 
     @Override
     public void setLanguage(String _language) {
         langue = _language;
-        dispose();
+        commonFrame.dispose();
         SoftApplicationCore.saveLanguage(dir, _language,soft.getFrames().getStreams());
-        getPane().removeAll();
+        commonFrame.getPane().removeAll();
         StringMap<Object> file_ = soft.getFile(args);
         soft.launch(langue, file_);
     }
@@ -67,14 +65,5 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage {
         return langue;
     }
 
-    @Override
-    public AbstractImage getImageIconFrame() {
-        return null;
-    }
-
-    @Override
-    protected AbstractProgramInfos getFrames() {
-        return soft.getFrames();
-    }
 }
 

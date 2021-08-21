@@ -12,13 +12,14 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.initialize.AbsFrameFactory;
 import code.threads.AbstractThread;
 import code.util.EqList;
 import code.util.*;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class ConsultHosts extends Dialog {
+public final class ConsultHosts {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.consulthosts";
 
     private static final String TITLE = "title";
@@ -30,6 +31,7 @@ public final class ConsultHosts extends Dialog {
     private static final String FREE = "free";
 
     private static final String SPACE = " ";
+    private final AbsDialog absDialog;
 
     private FacadeGame facade;
 
@@ -37,8 +39,10 @@ public final class ConsultHosts extends Dialog {
 
 //    private MainWindow window;
     private WindowAiki window;
-    public ConsultHosts() {
-        setAccessFile(DIALOG_ACCESS);
+
+    public ConsultHosts(AbsFrameFactory _frameFactory) {
+        absDialog = _frameFactory.newDialog();
+        absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setConsultHosts(WindowAiki _frame, FacadeGame _facade) {
@@ -46,12 +50,12 @@ public final class ConsultHosts extends Dialog {
     }
 
     private void init(WindowAiki _frame, FacadeGame _facade) {
-        setDialogIcon(_frame.getImageFactory(),_frame);
+        absDialog.setDialogIcon(_frame.getImageFactory(),_frame);
         window = _frame;
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _frame.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _frame.getLanguageKey(), absDialog.getAccessFile());
         //super(_frame, true);
 //        window = _frame;
-        setTitle(messages.getVal(TITLE));
+        absDialog.setTitle(messages.getVal(TITLE));
         facade = _facade;
         Panel contentPane_ = Panel.newGrid(0,1);
         ShortTreeMap<EqList<Coords>> hostsByPlace_;
@@ -97,10 +101,10 @@ public final class ConsultHosts extends Dialog {
             }
             contentPane_.add(hosting_);
         }
-        setContentPane(contentPane_);
+        absDialog.setContentPane(contentPane_);
         //setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        pack();
-        setVisible(true);
+        absDialog.pack();
+        absDialog.setVisible(true);
     }
 
     public void seeHostedPokemon(boolean _first, Coords _coords) {
@@ -117,6 +121,6 @@ public final class ConsultHosts extends Dialog {
 
     private void showHtmlDialog(RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(this, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(window, this, messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
+        DialogHtmlData.setDialogHtmlData(window, absDialog, messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
     }
 }

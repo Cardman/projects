@@ -8,17 +8,21 @@ import cards.belote.TricksHandsBelote;
 import cards.gui.WindowCards;
 import cards.gui.panels.PanelTricksHandsBelote;
 import code.gui.ScrollPane;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.StringList;
 
 public final class DialogTricksBelote extends DialogCards {
 
+    public DialogTricksBelote(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
+    }
     public static void setDialogTricksBelote(String _titre, WindowCards _fenetre) {
         //super(_titre, _fenetre, true);
-        _fenetre.getDialogTricksBelote().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
-        _fenetre.getDialogTricksBelote().setLocationRelativeTo(_fenetre);
-        _fenetre.getDialogTricksBelote().setTitle(_titre);
-        _fenetre.getDialogTricksBelote().setResizable(true);
-        _fenetre.getDialogTricksBelote().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        _fenetre.getDialogTricksBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogTricksBelote().getCardDialog().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogTricksBelote().getCardDialog().setTitle(_titre);
+        _fenetre.getDialogTricksBelote().getCardDialog().setResizable(true);
+        _fenetre.getDialogTricksBelote().getCardDialog().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public static void init(TricksHandsBelote _tricksHands,
@@ -31,11 +35,11 @@ public final class DialogTricksBelote extends DialogCards {
             byte _numberPlayers, StringList _pseudos,
             DisplayingBelote _displayingBelote, WindowCards _ow) {
         _tricksHands.sortHands(_displayingBelote, _numberPlayers);
-        ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsBelote(this,
+        ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsBelote(getCardDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow).getContainer());
         scroll_.setPreferredSize(new Dimension(600, 600));
-        setContentPane(scroll_);
-        pack();
-        setVisible(true);
+        getCardDialog().setContentPane(scroll_);
+        getCardDialog().pack();
+        getCardDialog().setVisible(true);
     }
 }

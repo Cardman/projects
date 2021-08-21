@@ -10,14 +10,16 @@ import aiki.sml.Resources;
 import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.StringMap;
 
-public final class DialogHtmlData extends Dialog {
+public final class DialogHtmlData {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialoghtmldata";
 
     private static final String TEXT = "0";
 
     private static final String SEARCH_LABEL = "searchLabel";
+    private final AbsDialog absDialog;
 
 //    private Timer timer;
 
@@ -25,8 +27,9 @@ public final class DialogHtmlData extends Dialog {
 
     private StringMap<String> messages;
 
-    public DialogHtmlData() {
-        setAccessFile(DIALOG_ACCESS);
+    public DialogHtmlData(AbsFrameFactory _frameFactory) {
+        absDialog = _frameFactory.newDialog();
+        absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
 //    public static void setDialogHtmlData(JDialog _parent, String _title, SessionEditorPane _session) {
@@ -39,10 +42,10 @@ public final class DialogHtmlData extends Dialog {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(WindowAiki _window, Dialog _parent, String _title, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    public static void setDialogHtmlData(WindowAiki _window, AbsDialog _parent, String _title, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
-        _window.getDialogHtmlData().setDialogIcon(_window.getImageFactory(),_parent);
-        _window.getDialogHtmlData().setTitle(_title);
+        _window.getDialogHtmlData().absDialog.setDialogIcon(_window.getImageFactory(),_parent);
+        _window.getDialogHtmlData().absDialog.setTitle(_title);
         _window.getDialogHtmlData().init(_window, _parent, _session);
         _window.getDialogHtmlData().initSession(_dataBase,_pre,_lg);
     }
@@ -56,27 +59,27 @@ public final class DialogHtmlData extends Dialog {
 //    }
     public static void setDialogHtmlData(WindowAiki _parent, String _title, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
-        _parent.getDialogHtmlData().setDialogIcon(_parent.getImageFactory(),_parent);
-        _parent.getDialogHtmlData().setTitle(_title);
+        _parent.getDialogHtmlData().absDialog.setDialogIcon(_parent.getImageFactory(),_parent);
+        _parent.getDialogHtmlData().absDialog.setTitle(_title);
         _parent.getDialogHtmlData().init(_parent, _parent, _session);
         _parent.getDialogHtmlData().initSession(_dataBase,_pre,_lg);
     }
 
-    private void init(WindowAiki _window, Dialog _parent, RenderedPage _session) {
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
-        setLocationRelativeTo(_parent);
+    private void init(WindowAiki _window, AbsDialog _parent, RenderedPage _session) {
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
+        absDialog.setLocationRelativeTo(_parent);
         initSession(_session);
     }
 
     private void init(WindowAiki _window, WindowAiki _parent, RenderedPage _session) {
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
-        setLocationRelativeTo(_parent);
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
+        absDialog.setLocationRelativeTo(_parent);
         initSession(_session);
     }
 
     private void initSession(RenderedPage _session) {
         session = _session;
-        _session.setFrame(this);
+        _session.setFrame(absDialog);
         Panel panel_ = Panel.newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         TextField field_;
@@ -96,18 +99,18 @@ public final class DialogHtmlData extends Dialog {
         panel_.add(area_);
         panel_.add(field_);
         panel_.add(search_);
-        setContentPane(panel_);
+        absDialog.setContentPane(panel_);
 //        timer = new Timer(200, new Chronometer(area_, _session, 0));
 //        timer.start();
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        pack();
+        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.pack();
     }
 
     public void initSession(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
-        session.setFrame(this);
+        session.setFrame(absDialog);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_dataBase);
         session.initializeOnlyConf(_pre, _lg);
 
-        setVisible(true);
+        absDialog.setVisible(true);
     }
 }

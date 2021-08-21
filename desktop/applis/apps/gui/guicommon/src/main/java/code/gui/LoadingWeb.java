@@ -55,8 +55,8 @@ public final class LoadingWeb implements Runnable {
         }
         dialog.stopAnimation();
         future.cancel(true);
-        dialog.setVisible(false);
-        dialog.getPane().removeAll();
+        dialog.getAbsDialog().setVisible(false);
+        dialog.getAbsDialog().getPane().removeAll();
         dialog = null;
         session = null;
         timer = null;

@@ -8,13 +8,14 @@ import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
+import code.gui.initialize.AbsFrameFactory;
 import code.network.enums.IpType;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class DialogServerAiki extends Dialog implements AbstractDialogServer{
+public final class DialogServerAiki implements AbstractDialogServer, AbsCloseableDialog{
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialogserver";
 
     private static final String TITLE = "title";
@@ -23,6 +24,7 @@ public final class DialogServerAiki extends Dialog implements AbstractDialogServ
     private static final String CREATE_SERVER = "createServer";
     private static final String JOIN_SERVER = "joinServer";
     private static final String CANCEL = "cancel";
+    private final AbsDialog absDialog;
     private TextField ipOrHostName;
     private ComboBox<IpType> ipType;
     private boolean create;
@@ -33,18 +35,19 @@ public final class DialogServerAiki extends Dialog implements AbstractDialogServ
 
     private EnumMap<IpType,String> messagesIpEnum;
 
-    public DialogServerAiki() {
-        setAccessFile(DIALOG_ACCESS);
+    public DialogServerAiki(AbsFrameFactory _frameFactory) {
+        absDialog = _frameFactory.newDialog();
+        absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setDialogServer(WindowAiki _fenetre) {
         _fenetre.getDialogServer().init(_fenetre);
     }
     private void init(WindowAiki _fenetre) {
-        setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         join = false;
         create = false;
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _fenetre.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _fenetre.getLanguageKey(), absDialog.getAccessFile());
 //        messagesIp = FormatHtml.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), IpType.class);
         messagesIpEnum = new EnumMap<IpType,String>();
 //        for (String i: messagesIp.getKeys()) {
@@ -53,9 +56,9 @@ public final class DialogServerAiki extends Dialog implements AbstractDialogServ
         for (IpType i: IpType.values()) {
             messagesIpEnum.put(i, i.toString(_fenetre.getLanguageKey()));
         }
-        setLocationRelativeTo(_fenetre);
-        setResizable(false);
-        setTitle(messages.getVal(TITLE));
+        absDialog.setLocationRelativeTo(_fenetre);
+        absDialog.setResizable(false);
+        absDialog.setTitle(messages.getVal(TITLE));
         ipOrHostName = new TextField();
         Panel pane_ = Panel.newGrid(0, 1);
         Panel panel_ = Panel.newGrid(0, 2);
@@ -81,9 +84,9 @@ public final class DialogServerAiki extends Dialog implements AbstractDialogServ
         button_.addMouseList(new ClosingDialogEvent(this));
         panel_.add(button_);
         pane_.add(panel_);
-        setContentPane(pane_);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        pack();
+        absDialog.setContentPane(pane_);
+        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.pack();
     }
 
     @Override
@@ -100,8 +103,13 @@ public final class DialogServerAiki extends Dialog implements AbstractDialogServ
         closeWindow();
     }
 
+    @Override
+    public void closeWindow() {
+        absDialog.closeWindow();
+    }
+
     public static String getIpOrHostName(DialogServerAiki _dialog) {
-        _dialog.setVisible(true);
+        _dialog.absDialog.setVisible(true);
         return _dialog.ipOrHostName.getText();
     }
 

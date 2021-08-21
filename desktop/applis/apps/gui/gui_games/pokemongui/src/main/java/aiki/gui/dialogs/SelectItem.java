@@ -10,6 +10,7 @@ import aiki.gui.components.PaginatorItem;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -34,8 +35,9 @@ public final class SelectItem extends SelectDialog {
 
     private StringMap<String> messages;
 
-    public SelectItem() {
-        setAccessFile(DIALOG_ACCESS);
+    public SelectItem(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
+        getSelectDial().setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectItem(WindowAiki _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
@@ -43,15 +45,15 @@ public final class SelectItem extends SelectDialog {
     }
 
     private void init(WindowAiki _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
-        setDialogIcon(_parent.getImageFactory(),_parent);
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
-        setTitle(messages.getVal(TITLE));
+        getSelectDial().setDialogIcon(_parent.getImageFactory(),_parent);
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
+        getSelectDial().setTitle(messages.getVal(TITLE));
         facade = _facade;
         initOk();
 //        ok = false;
         Panel contentPane_ = Panel.newBorder();
         Panel pag_ = Panel.newPageBox();
-        contentPane_.add(new ScrollPane(new PaginatorItem(_parent,pag_, this, _facade, !_sell).getContainer()), BorderLayout.CENTER);
+        contentPane_.add(new ScrollPane(new PaginatorItem(_parent,pag_, getSelectDial(), _facade, !_sell).getContainer()), BorderLayout.CENTER);
         Panel buttons_ = Panel.newLineBox();
         if (!_buy) {
             giveCheckBox = new CustCheckBox(messages.getVal(GIVE));
@@ -70,19 +72,19 @@ public final class SelectItem extends SelectDialog {
         cancel_.addMouseList(new ClosingDialogEvent(this));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, BorderLayout.SOUTH);
-        setContentPane(contentPane_);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        pack();
+        getSelectDial().setContentPane(contentPane_);
+        getSelectDial().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        getSelectDial().pack();
     }
 
     @Override
     public void closeWindow() {
         facade.clearFiltersItem();
-        super.closeWindow();
+        getSelectDial().closeWindow();
     }
 
     public static boolean isSelectedIndex(SelectItem _dialog) {
-        _dialog.setVisible(true);
+        _dialog.getSelectDial().setVisible(true);
         return _dialog.facade.getLineItem() != IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 

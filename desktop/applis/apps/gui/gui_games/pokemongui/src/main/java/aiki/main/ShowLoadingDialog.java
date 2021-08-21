@@ -13,6 +13,6 @@ public final class ShowLoadingDialog implements Runnable {
 
     @Override
     public void run() {
-        window.getDialog().setVisible(true);
+        window.getDialog().getAbsDialog().setVisible(true);
     }
 }

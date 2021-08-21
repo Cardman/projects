@@ -9,10 +9,8 @@ import cards.consts.Order;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCards;
-import code.gui.Dialog;
-import code.gui.Panel;
-import code.gui.ScrollPane;
-import code.gui.TextArea;
+import code.gui.*;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -20,7 +18,7 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class DialogHelpBelote extends Dialog {
+public final class DialogHelpBelote {
 
     private static final String EMPTY="";
     private static final String POSSIBLE="P";
@@ -29,15 +27,20 @@ public final class DialogHelpBelote extends Dialog {
     private static final String RETURN_LINE="\n";
     private static final String SPACE=" ";
     private static final String TAB="\t";
+    private final AbsDialog absDialog;
+
+    public DialogHelpBelote(AbsFrameFactory _frameFactory) {
+        absDialog = _frameFactory.newDialog();
+    }
 
     private void voir() {
-        setResizable(false);
-        setVisible(true);
+        absDialog.setResizable(false);
+        absDialog.setVisible(true);
     }
     public static void setTitleDialog(WindowCards _fenetre, String _title) {
-        _fenetre.getDialogHelpBelote().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
-        _fenetre.getDialogHelpBelote().setLocationRelativeTo(_fenetre);
-        _fenetre.getDialogHelpBelote().setTitle(_title);
+        _fenetre.getDialogHelpBelote().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogHelpBelote().absDialog.setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogHelpBelote().absDialog.setTitle(_title);
     }
     public static void setDialogueBelote(EnumMap<Suit, CustList<HandBelote>> _cartesPossibles,
                                          EnumMap<Suit, CustList<HandBelote>> _cartesCertaines,
@@ -117,8 +120,8 @@ public final class DialogHelpBelote extends Dialog {
         ScrollPane ascenseur_=new ScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new Dimension(600,600));
         container_.add(ascenseur_);
-        _dialog.setContentPane(container_);
-        _dialog.pack();
+        _dialog.absDialog.setContentPane(container_);
+        _dialog.absDialog.pack();
         _dialog.voir();
     }
 

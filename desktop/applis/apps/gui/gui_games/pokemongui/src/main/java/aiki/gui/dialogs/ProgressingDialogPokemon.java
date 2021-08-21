@@ -7,6 +7,7 @@ public final class ProgressingDialogPokemon extends ProgressingDialog {
     private WindowAiki mainWindow;
 
     public ProgressingDialogPokemon(WindowAiki _mainWindow) {
+        super(_mainWindow.getFrames().getFrameFactory());
         mainWindow = _mainWindow;
     }
 

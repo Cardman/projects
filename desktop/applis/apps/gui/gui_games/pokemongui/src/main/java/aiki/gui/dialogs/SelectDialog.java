@@ -1,9 +1,20 @@
 package aiki.gui.dialogs;
-import code.gui.Dialog;
+import code.gui.AbsCloseableDialog;
+import code.gui.AbsDialog;
+import code.gui.initialize.AbsFrameFactory;
 
-public abstract class SelectDialog extends Dialog {
+public abstract class SelectDialog implements AbsCloseableDialog {
 
+    private final AbsDialog selectDial;
     private boolean ok;
+
+    protected SelectDialog(AbsFrameFactory _fact) {
+        selectDial = _fact.newDialog();
+    }
+
+    public AbsDialog getSelectDial() {
+        return selectDial;
+    }
 
     public void validateChoice() {
         ok = true;

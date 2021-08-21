@@ -9,6 +9,7 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.*;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -33,17 +34,18 @@ public final class DialogNicknames extends DialogCards {
     private final CustList<TextField> nicknamesTarot = new CustList<TextField>();
     private final CustList<TextField> nicknamesPresident = new CustList<TextField>();
 
-    public DialogNicknames() {
-        setAccessFile(DIALOG_ACCESS);
+    public DialogNicknames(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
+        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogNicknames(String _titre, WindowCards _fenetre) {
-        _fenetre.getDialogNicknames().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
-        _fenetre.getDialogNicknames().setTitle(_titre);
+        _fenetre.getDialogNicknames().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogNicknames().getCardDialog().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogNicknames().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogNicknames().getAccessFile());
+        _fenetre.getDialogNicknames().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogNicknames().getCardDialog().getAccessFile());
         _fenetre.getDialogNicknames().pseudos = _fenetre.getPseudosJoueurs();
         _fenetre.getDialogNicknames().setMain(_fenetre);
-        _fenetre.getDialogNicknames().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogNicknames().getCardDialog().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogNicknames().setDialogue(_fenetre);
     }
 
@@ -106,19 +108,19 @@ public final class DialogNicknames extends DialogCards {
         bouton_.addMouseList(new ListenerNicknames(this));
         sousPanneau_.add(bouton_);
         container_.add(sousPanneau_,BorderLayout.SOUTH);
-        setContentPane(container_);
-        pack();
-        setVisible(true);
+        getCardDialog().setContentPane(container_);
+        getCardDialog().pack();
+        getCardDialog().setVisible(true);
     }
 
     /**Enregistre les_ informations_ dans_ une_ variable_ et_ ferme_ la_ boite_ de_ dialogue_*/
     public void validateNicknames() {
         String lg_ = getMain().getLanguageKey();
         if(unChampVidePresent()) {
-            ConfirmDialog.showMessage(this, messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else if(tabulationPresente()) {
-            ConfirmDialog.showMessage(this, messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else {
             pseudos.setPseudo(nickname.getText());

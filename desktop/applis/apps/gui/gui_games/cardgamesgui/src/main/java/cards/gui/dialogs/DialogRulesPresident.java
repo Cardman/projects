@@ -6,6 +6,7 @@ import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.president.RulesPresident;
 import code.gui.LabelButton;
 import code.gui.Panel;
+import code.gui.initialize.AbsFrameFactory;
 
 public final class DialogRulesPresident extends DialogPresident implements DialogRules {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulespresident";
@@ -13,14 +14,15 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     private static final String VALIDATE = "validate";
     private boolean validated;
 
-    public DialogRulesPresident(){
-        setAccessFile(DIALOG_ACCESS);
+    public DialogRulesPresident(AbsFrameFactory _frameFactory){
+        super(_frameFactory);
+        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesPresident(String _titre, WindowCards _fenetre, RulesPresident _rulesPresident) {
-        _fenetre.getDialogRulesPresident().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
-        _fenetre.getDialogRulesPresident().setTitle(_titre);
+        _fenetre.getDialogRulesPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogRulesPresident().getCardDialog().setTitle(_titre);
         _fenetre.getDialogRulesPresident().setReglesPresident(_rulesPresident);
-        _fenetre.getDialogRulesPresident().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogRulesPresident().getCardDialog().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogRulesPresident().getJt().removeAll();
     }
 
@@ -39,8 +41,8 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         LabelButton bouton_=new LabelButton(getMessages().getVal(VALIDATE));
         bouton_.addMouseList(new ValidateRulesEvent(this));
         container_.add(bouton_,BorderLayout.SOUTH);
-        setContentPane(container_);
-        pack();
+        getCardDialog().setContentPane(container_);
+        getCardDialog().pack();
     }
 
     @Override
@@ -51,7 +53,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     }
 
     public static RulesPresident getRegles(DialogRulesPresident _dialog) {
-        _dialog.setVisible(true);
+        _dialog.getCardDialog().setVisible(true);
         return _dialog.getReglesPresident();
     }
 

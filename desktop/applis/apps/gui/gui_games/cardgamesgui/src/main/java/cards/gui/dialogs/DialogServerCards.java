@@ -11,6 +11,7 @@ import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
+import code.gui.initialize.AbsFrameFactory;
 import code.network.enums.IpType;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -37,8 +38,9 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
 //    private JComboBox<DealingBelote> repBelote;
 //    private JComboBox<DealingTarot> repTarot;
 
-    public DialogServerCards() {
-        setAccessFile(DIALOG_ACCESS);
+    public DialogServerCards(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
+        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setDialogServer(WindowCards _fenetre, GameEnum _game) {
@@ -46,17 +48,17 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
     }
 
     private void initDialogServer(WindowCards _fenetre, GameEnum _game) {
-        setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
         create = false;
         join = false;
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), getAccessFile());
+        messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), getCardDialog().getAccessFile());
         messagesIpEnum = new EnumMap<IpType,String>();
         for (IpType i: IpType.values()) {
             messagesIpEnum.put(i, i.toString(_fenetre.getLanguageKey()));
         }
-        setTitle(messages.getVal(TITLE));
-        setLocationRelativeTo(_fenetre);
+        getCardDialog().setTitle(messages.getVal(TITLE));
+        getCardDialog().setLocationRelativeTo(_fenetre);
         ipOrHostName = new TextField();
         Panel pane_ = Panel.newGrid(0, 1);
         Panel panel_ = Panel.newGrid(0, 2);
@@ -121,9 +123,9 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         button_.addMouseList(new ClosingDialogEvent(this));
         panel_.add(button_);
         pane_.add(panel_);
-        setContentPane(pane_);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        pack();
+        getCardDialog().setContentPane(pane_);
+        getCardDialog().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        getCardDialog().pack();
     }
 
     @Override
@@ -141,7 +143,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
     }
 
     public static String getIpOrHostName(DialogServerCards _dialog) {
-        _dialog.setVisible(true);
+        _dialog.getCardDialog().setVisible(true);
         return _dialog.ipOrHostName.getText();
     }
 

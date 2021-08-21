@@ -33,8 +33,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-import java.awt.event.WindowListener;
-
 public final class GuiAliases {
 
     private static final String TREE_NODE = "TreeNode";
@@ -3041,12 +3039,12 @@ public final class GuiAliases {
             return new Argument();
         }
         if (StringUtil.quickEq(_id,aliasFrame)) {
-            FrameStruct fr_ = new FrameStruct(new OtherFrame());
+            FrameStruct fr_ = new FrameStruct(((LgNamesGui)_cont.getStandards()).getGuiExecutingBlocks().getWindow().getFrames().getFrameFactory().newOtherFrame());
             ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_,false);
             return new Argument(fr_);
         }
         if (StringUtil.quickEq(_id,aliasDialog)) {
-            DialogStruct di_ = new DialogStruct(new OtherDialog());
+            DialogStruct di_ = new DialogStruct(((LgNamesGui)_cont.getStandards()).getGuiExecutingBlocks().getWindow().getFrames().getFrameFactory().newOtherDialog());
             ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_,false);
             return new Argument(di_);
         }
@@ -3170,7 +3168,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            FrameStruct fr_ = new FrameStruct(new OtherFrame());
+            FrameStruct fr_ = new FrameStruct(_guiEx.getWindow().getFrames().getFrameFactory().newOtherFrame());
             ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_,false);
             r_.setResult(fr_);
             return r_;
@@ -3181,7 +3179,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            DialogStruct di_ = new DialogStruct(new OtherDialog());
+            DialogStruct di_ = new DialogStruct(_guiEx.getWindow().getFrames().getFrameFactory().newOtherDialog());
             ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_,false);
             r_.setResult(di_);
             return r_;
@@ -3794,7 +3792,7 @@ public final class GuiAliases {
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasDialog)) {
-            OtherDialog inst_ = ((DialogStruct)_instance).getDialog();
+            AbsOtherDialog inst_ = ((DialogStruct)_instance).getDialog();
             if (StringUtil.quickEq(name_, aliasDialogSetModal)) {
                 inst_.setModal(BooleanStruct.isTrue(_args[0]));
                 res_.setResult(NullStruct.NULL_VALUE);

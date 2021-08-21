@@ -26,7 +26,7 @@ public final class LoadingThread implements Runnable {
         boolean wasLoading_ = window.getLoadFlag().get();
         window.getLoadFlag().set(false);
         if (!wasLoading_) {
-            window.getDialog().setVisible(false);
+            window.getDialog().getAbsDialog().setVisible(false);
             return;
         }
         CustComponent.invokeLater(new AfterLoadingThread(window, fileName));

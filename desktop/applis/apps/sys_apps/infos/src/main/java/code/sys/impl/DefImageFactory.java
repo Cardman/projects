@@ -19,8 +19,12 @@ public final class DefImageFactory implements AbstractImageFactory {
 
     @Override
     public Icon icon(AbstractImage _img) {
+        return icon((DefImage) _img);
+    }
+
+    public static ImageIcon icon(DefImage _img) {
         try {
-            return new ImageIcon(((DefImage)_img).data());
+            return new ImageIcon(_img.data());
         } catch (Exception e) {
             return new ImageIcon();
         }

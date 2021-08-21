@@ -22,6 +22,7 @@ import cards.gui.dialogs.events.ValidateRulesDealEvent;
 import cards.gui.panels.BeloteCardsScrollableList;
 import cards.gui.panels.CardsScrollableList;
 import code.gui.*;
+import code.gui.initialize.AbsFrameFactory;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -70,15 +71,16 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private WindowCards window;
     private boolean setToNullGame;
 
-    public EditorBelote() {
-        setAccessFile(DIALOG_ACCESS);
+    public EditorBelote(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
+        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initEditorBelote(WindowCards _fenetre) {
         //super(GameEnum.BELOTE.toString(),_fenetre,_fenetre.getReglesBelote());
         String lg_ = _fenetre.getLanguageKey();
         _fenetre.getEditorBelote().setMain(_fenetre);
-        _fenetre.getEditorBelote().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
-        _fenetre.getEditorBelote().setTitle(GameEnum.BELOTE.toString(lg_));
+        _fenetre.getEditorBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getEditorBelote().getCardDialog().setTitle(GameEnum.BELOTE.toString(lg_));
         _fenetre.getEditorBelote().setReglesBelote(_fenetre.getReglesBelote());
         _fenetre.getEditorBelote().partie = null;
         _fenetre.getEditorBelote().setToNullGame = true;
@@ -86,7 +88,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         _fenetre.getEditorBelote().nombreCartesSelectionnees = 0;
         _fenetre.getEditorBelote().partieSauvegardee = false;
         _fenetre.getEditorBelote().window = _fenetre;
-        _fenetre.getEditorBelote().setLocationRelativeTo(_fenetre);
+        _fenetre.getEditorBelote().getCardDialog().setLocationRelativeTo(_fenetre);
         _fenetre.getEditorBelote().nickNames = _fenetre.getPseudosJoueurs();
         _fenetre.getEditorBelote().displayingBelote = _fenetre.getDisplayingBelote();
         _fenetre.getEditorBelote().setDialogue(_fenetre);
@@ -132,8 +134,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         bouton_.addMouseList(new ValidateRulesDealEvent(this, _parent));
         panneau_.add(bouton_);
         container_.add(panneau_,BorderLayout.SOUTH);
-        setContentPane(container_);
-        pack();
+        getCardDialog().setContentPane(container_);
+        getCardDialog().pack();
     }
     @Override
     public void validateRulesDeal(WindowCards _parent) {
@@ -144,9 +146,9 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private String validerEgalite() {
         String lg_ = window.getLanguageKey();
         if (window.isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,getCardDialog(), lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         } else {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,getCardDialog(), lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         }
         String fichier_=FileSaveDialog.getStaticSelectedPath(window.getFileSaveDialog());
         if (fichier_ == null) {
@@ -158,12 +160,12 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         return fichier_;
     }
     public static GameBelote getPartie(EditorBelote _dialog) {
-        _dialog.setVisible(true);
+        _dialog.getCardDialog().setVisible(true);
         return _dialog.partie;
     }
 
     private void distribuer(WindowCards _parent) {
-        setTitle(getMessages().getVal(DEALING_CARDS));
+        getCardDialog().setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=Panel.newBorder();
         Panel panneau_=Panel.newLineBox();
         panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
@@ -263,8 +265,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         bouton_.addMouseList(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
         panneau_.add(bouton_);
         c.add(panneau_,BorderLayout.SOUTH);
-        setContentPane(c);
-        pack();
+        getCardDialog().setContentPane(c);
+        getCardDialog().pack();
     }
     @Override
     public void backToRules(WindowCards _parent) {
@@ -324,7 +326,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+        ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
     @Override
@@ -368,7 +370,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+            ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }
 

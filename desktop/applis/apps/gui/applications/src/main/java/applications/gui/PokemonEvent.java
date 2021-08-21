@@ -2,7 +2,7 @@ package applications.gui;
 
 import aiki.main.AikiFactory;
 import aiki.main.LaunchingPokemon;
-import code.gui.GroupFrame;
+import code.gui.FrameUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicInteger;
 
@@ -17,7 +17,7 @@ public final class PokemonEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GroupFrame.tryToReopen(LaunchingPokemon.getMainWindowClass(), _list);
+        return FrameUtil.tryToReopen(LaunchingPokemon.getMainWindowClass(), _list);
     }
 
     @Override

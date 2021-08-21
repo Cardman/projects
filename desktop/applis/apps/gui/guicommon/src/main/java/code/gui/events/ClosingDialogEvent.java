@@ -1,15 +1,12 @@
 package code.gui.events;
 
-import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
-import code.gui.AbsMouseLocation;
-import code.gui.Dialog;
+import code.gui.*;
 
 public class ClosingDialogEvent extends AbsMouseListenerRel {
 
-    private Dialog dialog;
+    private AbsCloseableDialog dialog;
 
-    public ClosingDialogEvent(Dialog _dialog) {
+    public ClosingDialogEvent(AbsCloseableDialog _dialog) {
         dialog = _dialog;
     }
 

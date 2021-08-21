@@ -1,17 +1,15 @@
 package code.gui;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-
-import javax.swing.JLabel;
 
 import code.gui.animations.AnimatedImage;
 import code.gui.document.ProcessingSession;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsFrameFactory;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 
-public final class ProgressingWebDialog extends Dialog implements ProgressDialog {
+public final class ProgressingWebDialog implements ProgressDialog {
 
     private static final int HEIGTH_ANIM = 100;
 
@@ -20,19 +18,35 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
     private static final int TIME = 10;
 
     private static final String PER_CENT = "";
+    private final AbsDialog absDialog;
 
     private PreparedLabel anim;
     private AnimatedImage animation;
 
-    public ProgressingWebDialog() {
-        setModal(false);
+    public ProgressingWebDialog(AbsFrameFactory _frameFactory) {
+        absDialog = _frameFactory.newDialog();
+        absDialog.setModal(false);
+    }
+
+    public AbsDialog getAbsDialog() {
+        return absDialog;
+    }
+
+    @Override
+    public String getTitle() {
+        return absDialog.getTitle();
+    }
+
+    @Override
+    public void setTitle(String _title) {
+        absDialog.setTitle(_title);
     }
 
     public void init(AbstractThreadFactory _fact, ProcessingSession _session, Iconifiable _window, CustList<AbstractImage> _images) {
         if (_window != null) {
-            setDialogIcon(_session.getGene().getImageFactory(),_window);
+            absDialog.setDialogIcon(_session.getGene().getImageFactory(),_window);
         }
-        setLocationRelativeToWindow(_window);
+        absDialog.setLocationRelativeToWindow(_window);
         if (!_images.isEmpty()) {
             anim = PreparedLabel.prep(_session.getGene().getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
@@ -47,9 +61,9 @@ public final class ProgressingWebDialog extends Dialog implements ProgressDialog
 //        anim.setList(_images);
         Panel p_ = Panel.newLineBox();
         p_.add(anim);
-        setContentPane(p_);
-        pack();
-        setVisible(true);
+        absDialog.setContentPane(p_);
+        absDialog.pack();
+        absDialog.setVisible(true);
     }
 
     public void startAnimation(AbstractThreadFactory _fact) {

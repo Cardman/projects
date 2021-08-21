@@ -4,15 +4,21 @@ import javax.swing.WindowConstants;
 
 import code.gui.events.LanguageChoice;
 import code.gui.events.SetterLanguage;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.consts.Constants;
 
 
-public final class LanguageDialog extends Dialog implements SetterLanguage {
+public final class LanguageDialog implements SetterLanguage {
 
     private static final String NO_TITLE = " ";
+    private final AbsDialog absDialog;
 
     private CustButtonGroup groupe = new CustButtonGroup();
     private String langue;
+
+    public LanguageDialog(AbsFrameFactory _frameFactory) {
+        absDialog = _frameFactory.newDialog();
+    }
 
     public static void setLanguageDialog(GroupFrame _owner) {
         initWithoutTitle(_owner);
@@ -27,9 +33,9 @@ public final class LanguageDialog extends Dialog implements SetterLanguage {
     }
 
     private void init(GroupFrame _owner, String _title) {
-        setDialogIcon(_owner.getImageFactory(),_owner);
-        setLocationRelativeTo(_owner);
-        setTitle(_title);
+        absDialog.setDialogIcon(_owner.getImageFactory(),_owner);
+        absDialog.setLocationRelativeTo(_owner);
+        absDialog.setTitle(_title);
         Panel panneau_ = Panel.newGrid(0,1);
         for (String l: Constants.getAvailableLanguages()) {
             RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
@@ -37,15 +43,15 @@ public final class LanguageDialog extends Dialog implements SetterLanguage {
             groupe.add(radio_);
             panneau_.add(radio_);
         }
-        setContentPane(panneau_);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        pack();
+        absDialog.setContentPane(panneau_);
+        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.pack();
     }
 
     @Override
     public void setLanguage(String _language) {
         langue = _language;
-        closeWindow();
+        absDialog.closeWindow();
     }
 
     public static String getStaticLanguage(LanguageDialog _dialog) {
@@ -54,7 +60,7 @@ public final class LanguageDialog extends Dialog implements SetterLanguage {
 
     @Override
     public String getLanguage() {
-        setVisible(true);
+        absDialog.setVisible(true);
         return langue;
     }
 }

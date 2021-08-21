@@ -1,7 +1,7 @@
 package applications.gui;
 
 import code.converterimages.main.LaunchingConverter;
-import code.gui.GroupFrame;
+import code.gui.FrameUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicInteger;
 
@@ -13,7 +13,7 @@ public final class ConverterEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GroupFrame.tryToReopen(LaunchingConverter.getMainWindowClass(), _list);
+        return FrameUtil.tryToReopen(LaunchingConverter.getMainWindowClass(), _list);
     }
 
     @Override

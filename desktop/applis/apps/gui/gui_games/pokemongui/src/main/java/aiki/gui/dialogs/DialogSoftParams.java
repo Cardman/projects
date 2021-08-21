@@ -7,9 +7,10 @@ import aiki.sml.LoadingGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ValidateSoftParams;
 import code.gui.*;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.StringMap;
 
-public final class DialogSoftParams extends Dialog {
+public final class DialogSoftParams {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.softparams";
 
     private static final String TITLE = "title";
@@ -22,6 +23,7 @@ public final class DialogSoftParams extends Dialog {
     private static final String ENABLE_KEY_PAD = "enableKeyPad";
     private static final String SELECT_HOME_PATH = "selectHomePath";
     private static final String SELECT_HOME_PATH_ZIP = "selectHomePathZip";
+    private final AbsDialog absDialog;
 
     private StringMap<String> messages;
 
@@ -45,8 +47,9 @@ public final class DialogSoftParams extends Dialog {
 
     private boolean ok;
 
-    public DialogSoftParams() {
-        setAccessFile(DIALOG_ACCESS);
+    public DialogSoftParams(AbsFrameFactory _frameFactory) {
+        absDialog = _frameFactory.newDialog();
+        absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSoftParams(WindowAiki _window, LoadingGame _loading) {
@@ -54,11 +57,11 @@ public final class DialogSoftParams extends Dialog {
     }
 
     private void init(WindowAiki _window, LoadingGame _loading) {
-        setDialogIcon(_window.getImageFactory(),_window);
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
+        absDialog.setDialogIcon(_window.getImageFactory(),_window);
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
         ok = false;
-        setTitle(messages.getVal(TITLE));
-        setLocationRelativeTo(_window);
+        absDialog.setTitle(messages.getVal(TITLE));
+        absDialog.setLocationRelativeTo(_window);
         Panel panel_ = Panel.newGrid(0,1);
 //        loadLastRom = _loading.isLoadLastRom();
 //        loadLastGame = _loading.isLoadLastGame();
@@ -148,14 +151,14 @@ public final class DialogSoftParams extends Dialog {
         LabelButton ok_ = new LabelButton(WindowAiki.OK);
         ok_.addMouseList(new ValidateSoftParams(this));
         panel_.add(ok_);
-        setContentPane(panel_);
-        pack();
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setContentPane(panel_);
+        absDialog.pack();
+        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public void validateChoices() {
         ok = true;
-        closeWindow();
+        absDialog.closeWindow();
     }
 
     public static boolean isOk(DialogSoftParams _dialog) {
@@ -167,7 +170,7 @@ public final class DialogSoftParams extends Dialog {
     }
 
     private void validateParams(LoadingGame _loading) {
-        setVisible(true);
+        absDialog.setVisible(true);
         if (!ok) {
             return;
         }

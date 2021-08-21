@@ -1,12 +1,12 @@
 package code.gui.events;
 
-import code.gui.Dialog;
+import code.gui.AbsCloseableDialog;
 
 public class CrossClosingDialogEvent extends AbsWindowListenerClosing {
 
-    private Dialog dialog;
+    private AbsCloseableDialog dialog;
 
-    public CrossClosingDialogEvent(Dialog _dialog) {
+    public CrossClosingDialogEvent(AbsCloseableDialog _dialog) {
         dialog = _dialog;
     }
 

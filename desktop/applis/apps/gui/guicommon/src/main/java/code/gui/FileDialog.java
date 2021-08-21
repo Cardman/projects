@@ -1,11 +1,13 @@
 package code.gui;
-import java.awt.BorderLayout;
+import java.awt.*;
 
 import javax.swing.*;
 
 import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
 import code.gui.events.DeployTreeEvent;
+import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsFrameFactory;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
@@ -19,7 +21,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public abstract class FileDialog extends Dialog {
+public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
     private static final String DIALOG_ACCESS = "gui.filedialog";
 
     private static final String FILES_PARAM = "filesParam";
@@ -48,18 +50,60 @@ public abstract class FileDialog extends Dialog {
 
     private GroupFrame superFrame;
     private StringMap<String> messages;
+    private final AbsDialog absDialog;
 
-    protected FileDialog(){
+    protected FileDialog(AbsFrameFactory _frameFact){
+        absDialog = _frameFact.newDialog(this);
     }
-    protected void setFileDialogByFrame(GroupFrame _w,String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
+
+    @Override
+    public String getTitle() {
+        return absDialog.getTitle();
+    }
+
+    @Override
+    public void setTitle(String _title) {
+        absDialog.setTitle(_title);
+    }
+
+    @Override
+    public Point getLocationOnScreen() {
+        return absDialog.getLocationOnScreen();
+    }
+
+    @Override
+    public AbstractImage getImageIconFrame() {
+        return absDialog.getImageIconFrame();
+    }
+
+    public AbsDialog getAbsDialog() {
+        return absDialog;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return absDialog.isVisible();
+    }
+
+    @Override
+    public Ownable getOwner() {
+        return absDialog.getOwner();
+    }
+
+    @Override
+    public void setOwner(Ownable _owner) {
+        absDialog.setOwner(_owner);
+    }
+
+    protected void setFileDialogByFrame(GroupFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
         initByFrame(_w,_language,_currentFolderRoot, true, _extension, _folder, _excludedFolders);
     }
 
     protected void initByFrame(GroupFrame _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
         //super(_w,true);
-        setDialogIcon(_w.getImageFactory(),_w);
-        setModal(true);
-        setLocationRelativeTo(_w);
+        absDialog.setDialogIcon(_w.getImageFactory(),_w);
+        absDialog.setModal(true);
+        absDialog.setLocationRelativeTo(_w);
         extension = _extension;
         addTypingFileName = _addTypingFileName;
         folder = _folder;
@@ -67,15 +111,15 @@ public abstract class FileDialog extends Dialog {
         initDialog(_language, _currentFolderRoot, _excludedFolders);
     }
 
-    protected void setFileDialog(GroupFrame _c,Dialog _w,String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
+    protected void setFileDialog(GroupFrame _c,AbsDialog _w,String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
         initByDialog(_c, _w,_language,_currentFolderRoot, true, _extension, _folder, _excludedFolders);
     }
 
-    protected void initByDialog(GroupFrame _c,Dialog _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
+    protected void initByDialog(GroupFrame _c,AbsDialog _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
         //super(_w,true);
-        setDialogIcon(_c.getImageFactory(),_w);
-        setModal(true);
-        setLocationRelativeTo(_w);
+        absDialog.setDialogIcon(_c.getImageFactory(),_w);
+        absDialog.setModal(true);
+        absDialog.setLocationRelativeTo(_w);
         superFrame = _c;
         extension = _extension;
         addTypingFileName = _addTypingFileName;
@@ -146,7 +190,7 @@ public abstract class FileDialog extends Dialog {
         folderSystem.addTreeSelectionListener(new DeployTreeEvent(this));
         contentPane_.add(fileSelector_, BorderLayout.CENTER);
         contentPane_.add(openSaveFile_, BorderLayout.SOUTH);
-        setContentPane(contentPane_);
+        absDialog.setContentPane(contentPane_);
     }
 
     public void refreshList(CustList<AbstractFile> _filesList) {
@@ -255,9 +299,9 @@ public abstract class FileDialog extends Dialog {
 
     @Override
     public void pack() {
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        super.pack();
-        setVisible(true);
+        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.pack();
+        absDialog.setVisible(true);
     }
 
     protected String getSelectedPath() {
@@ -334,5 +378,9 @@ public abstract class FileDialog extends Dialog {
 
     protected StringList getExcludedFolders() {
         return excludedFolders;
+    }
+
+    public void closeWindow() {
+        getAbsDialog().closeWindow();
     }
 }

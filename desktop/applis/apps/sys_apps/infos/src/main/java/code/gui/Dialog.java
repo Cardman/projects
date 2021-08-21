@@ -1,14 +1,16 @@
 package code.gui;
-import java.awt.*;
-
-import javax.swing.*;
 
 import code.gui.events.CrossClosingDialogEvent;
 import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.sys.impl.DefImage;
+import code.sys.impl.DefImageFactory;
 
-public abstract class Dialog implements ChangeableTitle {
+import javax.swing.*;
+import java.awt.*;
+
+public final class Dialog implements AbsDialog {
 
     private String accessFile;
 
@@ -16,44 +18,46 @@ public abstract class Dialog implements ChangeableTitle {
 
     private Panel contentPane  = Panel.newLineBox();
 
-    private final JDialog dialog = new JDialog();
+    private final JDialog dial = new JDialog();
     private Ownable owner;
-    protected Dialog() {
-        dialog.setModal(true);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        dialog.addWindowListener(new WrWindowListener(new CrossClosingDialogEvent(this)));
+    public Dialog() {
+        dial.setModal(true);
+        dial.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dial.addWindowListener(new WrWindowListener(new CrossClosingDialogEvent(this)));
+    }
+    public Dialog(AbsCloseableDialog _clos) {
+        dial.setModal(true);
+        dial.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dial.addWindowListener(new WrWindowListener(new CrossClosingDialogEvent(_clos)));
     }
 
 
     public void setResizable(boolean _resizable) {
-        dialog.setResizable(_resizable);
+        dial.setResizable(_resizable);
     }
 
     public void setDefaultCloseOperation(int _operation) {
-        dialog.setDefaultCloseOperation(_operation);
+        dial.setDefaultCloseOperation(_operation);
     }
 
-    public void setLocationRelativeTo(CommonFrame _onwer) {
-        dialog.setLocationRelativeTo(_onwer.getFrame());
+    @Override
+    public void setLocationRelativeTo(AbsGroupFrame _onwer) {
+        dial.setLocationRelativeTo(((CommonFrame)_onwer.getCommonFrame()).getFrame());
     }
 
-    public void setLocationRelativeTo(Dialog _onwer) {
-        dialog.setLocationRelativeTo(_onwer.dialog);
+    public void setLocationRelativeTo(AbsDialog _onwer) {
+        dial.setLocationRelativeTo(((Dialog)_onwer).dial);
     }
 
     public void setLocationRelativeToWindow(Iconifiable _i) {
-        if (_i instanceof CommonFrame) {
-            setLocationRelativeTo((CommonFrame) _i);
-        } else if (_i instanceof Dialog) {
-            setLocationRelativeTo((Dialog) _i);
-        }
+        FrameUtil.setLocationRelativeToWin(_i,this);
     }
 
-    protected String getAccessFile() {
+    public String getAccessFile() {
         return accessFile;
     }
 
-    protected void setAccessFile(String _accessFile) {
+    public void setAccessFile(String _accessFile) {
         accessFile = _accessFile;
     }
 
@@ -62,8 +66,8 @@ public abstract class Dialog implements ChangeableTitle {
         contentPane.removeAll();
     }
 
-    protected void setDialogIcon(AbstractImageFactory _fact, Iconifiable _group) {
-        dialog.setIconImage(((ImageIcon)PreparedLabel.buildIcon(_fact,_group.getImageIconFrame())).getImage());
+    public void setDialogIcon(AbstractImageFactory _fact, Iconifiable _group) {
+        dial.setIconImage(DefImageFactory.icon((DefImage)_group.getImageIconFrame()).getImage());
         imageIconFrame = _group.getImageIconFrame();
     }
 
@@ -73,7 +77,7 @@ public abstract class Dialog implements ChangeableTitle {
     }
 
     public void setContentPane(Panel _contentPane) {
-        dialog.setContentPane(_contentPane.getComponent());
+        dial.setContentPane(_contentPane.getComponent());
         contentPane = _contentPane;
     }
 
@@ -85,27 +89,27 @@ public abstract class Dialog implements ChangeableTitle {
     public Panel getPane() {
         return contentPane;
     }
-    protected void setModal(boolean _modal) {
-        dialog.setModal(_modal);
+    public void setModal(boolean _modal) {
+        dial.setModal(_modal);
     }
     @Override
     public boolean isVisible() {
-        return dialog.isVisible();
+        return dial.isVisible();
     }
     @Override
     public void pack() {
-        dialog.pack();
+        dial.pack();
     }
     @Override
     public String getTitle() {
-        return dialog.getTitle();
+        return dial.getTitle();
     }
     @Override
     public void setTitle(String _str) {
-        dialog.setTitle(_str);
+        dial.setTitle(_str);
     }
     public void setVisible(boolean _b) {
-        dialog.setVisible(_b);
+        dial.setVisible(_b);
     }
 
     @Override
@@ -119,6 +123,6 @@ public abstract class Dialog implements ChangeableTitle {
     }
 
     public Point getLocationOnScreen() {
-        return dialog.getLocationOnScreen();
+        return dial.getLocationOnScreen();
     }
 }

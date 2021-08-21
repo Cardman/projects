@@ -1,6 +1,6 @@
 package code.player.gui;
 
-import code.gui.GroupFrame;
+import code.gui.FrameUtil;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 
@@ -16,6 +16,6 @@ class SetLanguage implements AbsActionListener {
 
     @Override
     public void action() {
-        GroupFrame.changeStaticLanguage(language, list);
+        FrameUtil.changeStaticLanguage(language, list);
     }
 }

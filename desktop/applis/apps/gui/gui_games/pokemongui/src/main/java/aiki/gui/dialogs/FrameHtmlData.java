@@ -35,7 +35,7 @@ public final class FrameHtmlData extends ChildFrame {
         setDialogIcon(_parent);
         setLocationRelativeTo(_parent);
         setTitle(_title);
-        dialog = new ProgressingWebDialog();
+        dialog = new ProgressingWebDialog(_parent.getFrames().getFrameFactory());
         setFocusableWindowState(true);
         session = _session;
         session.setFrame(this);

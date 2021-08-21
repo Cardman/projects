@@ -2,7 +2,7 @@ package code.gui.initialize;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
-import code.gui.GroupFrame;
+import code.gui.AbsGroupFrame;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
@@ -17,7 +17,8 @@ import code.util.StringMap;
 public interface AbstractProgramInfos {
     String getHomePath();
     String getTmpUserFolder();
-    CustList<GroupFrame> getFrames();
+    CustList<AbsGroupFrame> getFrames();
+    AbsFrameFactory getFrameFactory();
     StringMap<AbstractAtomicInteger> getCounts();
     AbstractGenerator getGenerator();
     AbstractThreadFactory getThreadFactory();

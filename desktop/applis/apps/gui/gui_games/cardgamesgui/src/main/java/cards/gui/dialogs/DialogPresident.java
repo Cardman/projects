@@ -11,6 +11,7 @@ import cards.gui.dialogs.events.ListenerStacks;
 import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import code.gui.*;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.*;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
@@ -54,13 +55,14 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     private Spinner nbJoueurs;
     private Spinner nbStacks;
 
-    protected DialogPresident() {
+    protected DialogPresident(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
     }
 
     public abstract void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window);
 
     protected void initMessageName(WindowCards _parent) {
-        setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile()));
+        setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getCardDialog().getAccessFile()));
     }
 
     protected void initJt(Spinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {

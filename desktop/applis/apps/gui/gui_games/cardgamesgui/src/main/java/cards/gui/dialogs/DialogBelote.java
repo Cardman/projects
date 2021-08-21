@@ -10,6 +10,7 @@ import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import code.gui.*;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.*;
 import code.util.ints.Listable;
 
@@ -44,7 +45,8 @@ public abstract class DialogBelote extends DialogCards {
     private ComboBoxEnumCards<BeloteTrumpPartner> listChoiceTwo;
     private CustCheckBox classic;
 
-    protected DialogBelote() {
+    protected DialogBelote(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
     }
 //    public DialogBelote(String _titre, MainWindow _fenetre, RulesBelote _rulesBelote) {
 //        super(_titre, _fenetre, true);
@@ -152,7 +154,7 @@ public abstract class DialogBelote extends DialogCards {
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
     public abstract void setDialogue(WindowCards _parent);
     protected void initMessageName(WindowCards _parent) {
-        setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile()));
+        setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getCardDialog().getAccessFile()));
     }
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/
     protected void validateRules() {

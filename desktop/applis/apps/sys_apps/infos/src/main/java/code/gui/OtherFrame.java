@@ -3,14 +3,13 @@ package code.gui;
 import code.gui.events.AbsWindowListener;
 import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
 import code.util.IdMap;
 
 import javax.swing.*;
 import java.awt.*;
 
-public final class OtherFrame implements ChangeableTitle,WithListener {
+public final class OtherFrame implements AbsOtherFrame,ChangeableTitle,WithListener {
 
     private AbstractImage imageIconFrame;
 
@@ -45,11 +44,6 @@ public final class OtherFrame implements ChangeableTitle,WithListener {
         return mainFrame;
     }
 
-    public void setImageIconFrame(AbstractImageFactory _fact, AbstractImage _imageIconFrame) {
-        imageIconFrame = _imageIconFrame;
-        setIconImage(_fact,imageIconFrame);
-    }
-
     @Override
     public AbstractImage getImageIconFrame() {
         return imageIconFrame;
@@ -64,10 +58,6 @@ public final class OtherFrame implements ChangeableTitle,WithListener {
     }
     public void revalidateFrame() {
         PackingWindowAfter.packg(this);
-    }
-
-    void setIconImage(AbstractImageFactory _fact, AbstractImage _group) {
-        frame.setIconImage(((ImageIcon)PreparedLabel.buildIcon(_fact,_group)).getImage());
     }
 
     @Override
@@ -112,13 +102,13 @@ public final class OtherFrame implements ChangeableTitle,WithListener {
     }
 
     @Override
-    public void setLocationRelativeTo(OtherDialog _c) {
-        frame.setLocationRelativeTo(_c.getComponent());
+    public void setLocationRelativeTo(AbsOtherDialog _c) {
+        frame.setLocationRelativeTo(((OtherDialog)_c).getComponent());
     }
 
     @Override
-    public void setLocationRelativeTo(OtherFrame _c) {
-        frame.setLocationRelativeTo(_c.getComponent());
+    public void setLocationRelativeTo(AbsOtherFrame _c) {
+        frame.setLocationRelativeTo(((OtherFrame)_c).getComponent());
     }
 
     @Override

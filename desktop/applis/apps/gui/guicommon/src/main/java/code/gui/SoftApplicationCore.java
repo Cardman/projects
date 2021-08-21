@@ -135,11 +135,11 @@ public abstract class SoftApplicationCore {
         StreamTextFile.saveTextFile(StringUtil.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), document_.export(),_str);
     }
 
-    public static void setLocation(CommonFrame _frame, TopLeftFrame _topLeft) {
+    public static void setLocation(AbsCommonFrame _frame, TopLeftFrame _topLeft) {
         setLocation(_frame, _topLeft.getWidth(), _topLeft.getHeight());
     }
 
-    private static void setLocation(CommonFrame _frame, int _x, int _y) {
+    private static void setLocation(AbsCommonFrame _frame, int _x, int _y) {
         int x_ = _x;
         int y_ = _y;
         IntPoint dims_ = getScreenSize();

@@ -17,7 +17,7 @@ public final class AfterLoadingThread implements Runnable {
 
     @Override
     public void run() {
-        window.getDialog().setVisible(false);
+        window.getDialog().getAbsDialog().setVisible(false);
         window.afterLoading();
         window.showSuccessfulMessageDialogThenLoadHelp(fileName);
     }

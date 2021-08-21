@@ -143,13 +143,13 @@ public final class WindowApps extends GroupFrame {
         if (canChangeLanguageAll()) {
             setLanguageKey(_language);
             SoftApplicationCore.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language,getStreams());
-            for (GroupFrame g: getFrames().getFrames()) {
+            for (AbsGroupFrame g: getFrames().getFrames()) {
                 g.changeLanguage(_language);
             }
             selectLangagueButton(_language);
         } else {
             selectLangagueButton(getLanguageKey());
-            GroupFrame.showDialogError(this);
+            FrameUtil.showDialogError(this, JOptionPane.ERROR_MESSAGE);
         }
     }
 

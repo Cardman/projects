@@ -8,6 +8,7 @@ import code.gui.events.SearchingEvent;
 import code.gui.events.StopSearchingEvent;
 import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
+import code.gui.initialize.AbsFrameFactory;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
@@ -50,10 +51,11 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private TextLabel searchedFiles = new TextLabel("");
 
     private TextLabel foundFiles = new TextLabel("");
-    private CommonFrame frame;
+    private AbsCommonFrame frame;
 
-    public FileOpenDialog(AbstractAtomicBoolean _keepSearching,AbstractAtomicBoolean _showNewResults){
-        setAccessFile(DIALOG_ACCESS);
+    public FileOpenDialog(AbstractAtomicBoolean _keepSearching, AbstractAtomicBoolean _showNewResults, AbsFrameFactory _frameFact){
+        super(_frameFact);
+        getAbsDialog().setAccessFile(DIALOG_ACCESS);
         keepSearching = _keepSearching;
         showNewResults = _showNewResults;
     }
@@ -61,14 +63,14 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         _w.getFileOpenDialog().dialog = _w.getConfirmDialog();
         _w.getFileOpenDialog().setFileDialogByFrame(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
 //        DIALOG.initFileOpenDialog(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
-        _w.getFileOpenDialog().initFileOpenDialog(_w);
+        _w.getFileOpenDialog().initFileOpenDialog(_w.getCommonFrame());
     }
 
 //    private void initFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
 //    }
-    private void initFileOpenDialog(CommonFrame _c) {
+    private void initFileOpenDialog(AbsCommonFrame _c) {
         frame = _c;
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _c.getLanguageKey(), getAccessFile());
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _c.getLanguageKey(), getAbsDialog().getAccessFile());
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         getFileName().addActionListener(new SubmitKeyEvent(this));
@@ -99,7 +101,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         searchingPanel.add(searchedFiles);
         foundFiles = new TextLabel(StringUtil.simpleNumberFormat(messages.getVal(RESULT_COUNT), 0));
         searchingPanel.add(foundFiles);
-        getPane().add(searchingPanel, BorderLayout.NORTH);
+        getAbsDialog().getPane().add(searchingPanel, BorderLayout.NORTH);
         pack();
     }
 
@@ -195,7 +197,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         if (selectedPath_ != null) {
             selectedPath_ = StringUtil.replaceBackSlash(selectedPath_);
             if (!getSuperFrame().getFileCoreStream().newFile(selectedPath_).exists()) {
-                ConfirmDialog.showMessage(this, StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE, dialog);
+                ConfirmDialog.showMessage(getAbsDialog(), StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE, dialog);
                 selectedPath_ = null;
                 setSelectedPath(selectedPath_);
                 setSelectedAbsolutePath(selectedPath_);
@@ -208,7 +210,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         if (getFileTable().getSelectedRowCount() == 1) {
             selectedPath_ = getFileModel().getSelectedFilePath(getFileTable().getSelectedRow());
             if (!getSuperFrame().getFileCoreStream().newFile(selectedPath_).exists()) {
-                ConfirmDialog.showMessage(this, StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE, dialog);
+                ConfirmDialog.showMessage(getAbsDialog(), StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE, dialog);
                 selectedPath_ = null;
                 setSelectedPath(selectedPath_);
                 setSelectedAbsolutePath(selectedPath_);
@@ -219,7 +221,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
             return;
         }
         if (fileName_.isEmpty()) {
-            ConfirmDialog.showMessage(this, messages.getVal(ERROR_TYPING), messages.getVal(ERROR_TITLE),lg_, JOptionPane.ERROR_MESSAGE, dialog);
+            ConfirmDialog.showMessage(getAbsDialog(), messages.getVal(ERROR_TYPING), messages.getVal(ERROR_TITLE),lg_, JOptionPane.ERROR_MESSAGE, dialog);
             return;
         }
         if (!StreamFolderFile.isAbsolute(extFileName_, getSuperFrame().getFileCoreStream())) {
@@ -228,7 +230,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
             selectedPath_ = extFileName_;
         }
         if (!getSuperFrame().getFileCoreStream().newFile(selectedPath_).exists()) {
-            ConfirmDialog.showMessage(this, StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE, dialog);
+            ConfirmDialog.showMessage(getAbsDialog(), StringUtil.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE, dialog);
             selectedPath_ = null;
             setSelectedPath(selectedPath_);
             return;
@@ -242,7 +244,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         foundFiles.setText(StringUtil.simpleNumberFormat(messages.getVal(RESULT_COUNT), _f));
     }
 
-    @Override
+//    @Override
     public void closeWindow() {
 //        if (thread != null) {
 //            while (thread.isAlive()) {

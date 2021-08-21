@@ -18,6 +18,7 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
 import code.gui.*;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.*;
 import code.util.ints.Listable;
 
@@ -60,7 +61,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private Spinner nbJoueurs;
     private EnumMap<Handfuls,Integer> poigneesAutorisees = new EnumMap<Handfuls,Integer>();
 
-    protected DialogTarot() {
+    protected DialogTarot(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
     }
 //    public DialogTarot(String _titre, MainWindow _fenetre, RulesTarot _rules) {
 //        super(_titre, _fenetre, true);
@@ -243,7 +245,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     }
 
     protected void initMessageName(WindowCards _parent) {
-        setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getAccessFile()));
+        setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getCardDialog().getAccessFile()));
     }
 
     /**Met en place le contenu de la boite de dialogue

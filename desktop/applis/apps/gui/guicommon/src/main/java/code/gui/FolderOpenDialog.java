@@ -3,6 +3,7 @@
 package code.gui;
 import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.SubmitMouseEvent;
+import code.gui.initialize.AbsFrameFactory;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
@@ -20,8 +21,9 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
 
     private StringMap<String> messages;
 
-    public FolderOpenDialog() {
-        setAccessFile(DIALOG_ACCESS);
+    public FolderOpenDialog(AbsFrameFactory _frameFact) {
+        super(_frameFact);
+        getAbsDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void setFolderOpenDialog(GroupFrame _w, String _language,
             boolean _currentFolderRoot) {
@@ -34,7 +36,7 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
     */
     private void initFolderOpenDialog(GroupFrame _w, String _language,
             boolean _currentFolderRoot) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _w.getLanguageKey(), getAccessFile());
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _w.getLanguageKey(), getAbsDialog().getAccessFile());
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         initByFrame(_w, _language, _currentFolderRoot, false, EMPTY_STRING, EMPTY_STRING,"jre");
@@ -55,7 +57,7 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
         if (!isVisible()) {
             return;
         }
-        closeWindow();
+        getAbsDialog().closeWindow();
     }
 
     @Override

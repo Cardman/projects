@@ -3,6 +3,8 @@ package code.sys.impl;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
+import code.gui.AbsGroupFrame;
+import code.gui.DefFrameFactory;
 import code.gui.GroupFrame;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -44,7 +46,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
 
 //    private static final String RELATIVE_VIRTUAL_STORE = "AppData/Local/VirtualStore/";
 
-    private final CustList<GroupFrame> frames = new CustList<GroupFrame>();
+    private final CustList<AbsGroupFrame> frames = new CustList<AbsGroupFrame>();
     private final StringMap<AbstractAtomicInteger> counts = new StringMap<AbstractAtomicInteger>();
     private final AbstractGenerator generator;
     private final String tmpUserFolder;
@@ -59,10 +61,12 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final TechStreams streams;
     private final AbstractInterceptor interceptor;
     private final AbstractSocketFactory socketFactory;
+    private final AbsFrameFactory frameFactory;
 
     public ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
         threadFactory = new DefaultThreadFactory();
         fileCoreStream = new DefaultFileCoreStream();
+        frameFactory = new DefFrameFactory();
         streams = new TechStreams(new DefBinFact(new DefBinFactory()),new DefTextFact(new DefTextFactory()),new DefZipFact(new DefZipFactory()));
         interceptor = new DefInterceptor();
         socketFactory = new DefSocketFactory();
@@ -165,6 +169,11 @@ public final class ProgramInfos implements AbstractProgramInfos {
 //        return realTmpUserFolder_;
     }
 
+    @Override
+    public AbsFrameFactory getFrameFactory() {
+        return frameFactory;
+    }
+
     public String getHomePath() {
         return homePath;
     }
@@ -173,7 +182,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
         return tmpUserFolder;
     }
 
-    public CustList<GroupFrame> getFrames() {
+    public CustList<AbsGroupFrame> getFrames() {
         return frames;
     }
 

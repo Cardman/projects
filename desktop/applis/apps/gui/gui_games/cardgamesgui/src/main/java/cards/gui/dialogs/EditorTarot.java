@@ -22,6 +22,7 @@ import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
+import code.gui.initialize.AbsFrameFactory;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -70,14 +71,15 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
     private DisplayingTarot displayingTarot = new DisplayingTarot();
     private WindowCards window;
-    public EditorTarot() {
-        setAccessFile(DIALOG_ACCESS);
+    public EditorTarot(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
+        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initEditorTarot(WindowCards _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
         _fenetre.getEditorTarot().setMain(_fenetre);
-        _fenetre.getEditorTarot().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
-        _fenetre.getEditorTarot().setTitle(GameEnum.TAROT.toString(lg_));
+        _fenetre.getEditorTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getEditorTarot().getCardDialog().setTitle(GameEnum.TAROT.toString(lg_));
         _fenetre.getEditorTarot().setReglesTarot(_fenetre.getReglesTarot());
         _fenetre.getEditorTarot().partie = null;
         _fenetre.getEditorTarot().setToNullGame = true;
@@ -85,7 +87,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         _fenetre.getEditorTarot().nombreCartesSelectionnees = 0;
         _fenetre.getEditorTarot().partieSauvegardee = false;
         _fenetre.getEditorTarot().window = _fenetre;
-        _fenetre.getEditorTarot().setLocationRelativeTo(_fenetre);
+        _fenetre.getEditorTarot().getCardDialog().setLocationRelativeTo(_fenetre);
         _fenetre.getEditorTarot().nickNames = _fenetre.getPseudosJoueurs();
         _fenetre.getEditorTarot().displayingTarot = _fenetre.getDisplayingTarot();
         _fenetre.getEditorTarot().setDialogue(true, 0, _fenetre);
@@ -132,8 +134,8 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         bouton_.addMouseList(new ValidateRulesDealEvent(this, window));
         panneau_.add(bouton_);
         container_.add(panneau_,BorderLayout.SOUTH);
-        setContentPane(container_);
-        pack();
+        getCardDialog().setContentPane(container_);
+        getCardDialog().pack();
     }
     @Override
     public void validateRulesDeal(WindowCards _parent) {
@@ -143,7 +145,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     }
     private void distribuer(WindowCards _parent) {
 
-        setTitle(getMessages().getVal(DEALING_CARDS));
+        getCardDialog().setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=Panel.newBorder();
         Panel panneau_;
 //        byte nbJ_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();
@@ -246,8 +248,8 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         bouton_.addMouseList(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
         panneau_.add(bouton_);
         c.add(panneau_,BorderLayout.SOUTH);
-        setContentPane(c);
-        pack();
+        getCardDialog().setContentPane(c);
+        getCardDialog().pack();
 
     }
     @Override
@@ -261,7 +263,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+        ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
     @Override
@@ -304,9 +306,9 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private String validerEgalite() {
         String lg_ = window.getLanguageKey();
         if (window.isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,getCardDialog(), lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         } else {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,getCardDialog(), lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         }
         String fichier_=FileSaveDialog.getStaticSelectedPath(window.getFileSaveDialog());
         if (fichier_ == null) {
@@ -361,14 +363,14 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+            ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }
 
 
     }
     public static GameTarot getPartie(EditorTarot _dialog) {
-        _dialog.setVisible(true);
+        _dialog.getCardDialog().setVisible(true);
         return _dialog.partie;
     }
 

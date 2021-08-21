@@ -12,15 +12,14 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsOtherFrame;
 import code.gui.OtherConfirmDialog;
-import code.gui.OtherFrame;
 import code.gui.TextLabel;
 import code.gui.events.AbsWindowListener;
 import code.util.CustList;
 import code.util.StringList;
 
 import javax.swing.*;
-import java.awt.event.WindowListener;
 
 public final class GuiExecutingBlocks {
     private TextLabel textLabel;
@@ -71,11 +70,11 @@ public final class GuiExecutingBlocks {
         mainArgs = _mainArgs;
         window = _window;
         textLabel = new TextLabel("");
-        confirm = new OtherConfirmDialog(_window.getImageFactory());
+        confirm = new OtherConfirmDialog(_window.getImageFactory(),_window.getFrames().getFrameFactory());
     }
     private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
         eventClose = new DefaultClosingMainWindow(this, _context);
-        OtherFrame fr_ = new OtherFrame();
+        AbsOtherFrame fr_ = window.getFrames().getFrameFactory().newOtherFrame();
         fr_.setMainFrame(true);
         fr_.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame = new FrameStruct(fr_);

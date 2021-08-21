@@ -135,7 +135,7 @@ public class LaunchingApplications extends SoftApplicationCore {
     private static void launchWindow(String _language, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, GuiFactroy _guiFact) {
         TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream(), _list.getStreams());
         WindowApps w_ = getWindow(_language, _list, _cardFactories, _aikiFactory, _guiFact);
-        setLocation(w_, topLeft_);
+        setLocation(w_.getCommonFrame(), topLeft_);
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
         return getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);

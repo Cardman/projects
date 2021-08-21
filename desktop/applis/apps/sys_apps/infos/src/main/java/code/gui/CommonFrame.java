@@ -1,17 +1,19 @@
 package code.gui;
+
 import code.gui.events.AbsWindowListener;
 import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sys.impl.DefImage;
+import code.sys.impl.DefImageFactory;
 import code.util.CustList;
 import code.util.IdMap;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 
-import javax.swing.*;
-
-public abstract class CommonFrame implements ChangeableTitle {
+public final class CommonFrame implements AbsCommonFrame {
 
     private String accessFile;
 
@@ -22,14 +24,30 @@ public abstract class CommonFrame implements ChangeableTitle {
     private MenuBar menuBar;
     private String languageKey;
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
-    protected CommonFrame(String _languageKey) {
+    private final AbstractProgramInfos frames;
+    private AbstractImage imageIconFrame;
+    public CommonFrame(String _languageKey, AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
         languageKey = _languageKey;
+        frames = _frames;
+        imageIconFrame = _imageIconFrame;
     }
-    protected abstract AbstractProgramInfos getFrames();
+
+    @Override
+    public AbstractImage getImageIconFrame() {
+        return imageIconFrame;
+    }
+
+    public void setImageIconFrame(AbstractImage _imageIconFrame) {
+        imageIconFrame = _imageIconFrame;
+    }
+
+    public AbstractProgramInfos getFrames(){
+        return frames;
+    }
     public String getLanguageKey() {
         return languageKey;
     }
-    protected void setLanguageKey(String _language) {
+    public void setLanguageKey(String _language) {
         languageKey = _language;
     }
     public void dispose() {
@@ -46,10 +64,6 @@ public abstract class CommonFrame implements ChangeableTitle {
 
     public void setLocation(int _x, int _y) {
         frame.setLocation(_x, _y);
-    }
-
-    public void setLocation(Point _p) {
-        frame.setLocation(_p);
     }
 
     public int getWidth() {
@@ -95,18 +109,18 @@ public abstract class CommonFrame implements ChangeableTitle {
         frame.setDefaultCloseOperation(_operation);
     }
 
-    protected void setIconImage(AbstractImage _image) {
-        frame.setIconImage(((ImageIcon)PreparedLabel.buildIcon(getFrames().getImageFactory(),_image)).getImage());
+    public void setIconImage(AbstractImage _image) {
+        frame.setIconImage(DefImageFactory.icon((DefImage) _image).getImage());
     }
 
-    protected String getAccessFile() {
+    public String getAccessFile() {
         return accessFile;
     }
 
-    protected void setAccessFile(String _accessFile) {
+    public void setAccessFile(String _accessFile) {
         accessFile = _accessFile;
     }
-    
+
     public void setContentPane(Panel _contentPane) {
         frame.setContentPane(_contentPane.getComponent());
         contentPane = _contentPane;
@@ -122,7 +136,7 @@ public abstract class CommonFrame implements ChangeableTitle {
         return contentPane;
     }
 
-    protected MenuBar getJMenuBar() {
+    public MenuBar getJMenuBar() {
         return menuBar;
     }
     public void setJMenuBar(MenuBar _menu) {
@@ -150,8 +164,9 @@ public abstract class CommonFrame implements ChangeableTitle {
         frame.setLocationRelativeTo(_c.getComponent());
     }
 
-    public void setLocationRelativeTo(CommonFrame _c) {
-        frame.setLocationRelativeTo(_c.frame);
+    @Override
+    public void setLocationRelativeTo(AbsGroupFrame _c) {
+        frame.setLocationRelativeTo(((CommonFrame)_c.getCommonFrame()).frame);
     }
 
     public void setLocationRelativeToNull() {

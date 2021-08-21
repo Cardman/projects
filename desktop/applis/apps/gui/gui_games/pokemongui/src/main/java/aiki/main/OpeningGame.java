@@ -30,8 +30,8 @@ public final class OpeningGame implements Runnable {
         }
         //Freeing resources
         window.getDialog().stopAnimation();
-        window.getDialog().setVisible(false);
-        window.getDialog().getPane().removeAll();
+        window.getDialog().getAbsDialog().setVisible(false);
+        window.getDialog().getAbsDialog().getPane().removeAll();
         window.getDialog().stopTimer();
         window = null;
     }

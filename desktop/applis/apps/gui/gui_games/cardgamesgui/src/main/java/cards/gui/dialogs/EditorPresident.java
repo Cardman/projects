@@ -23,6 +23,7 @@ import cards.president.GamePresident;
 import cards.president.HandPresident;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.*;
+import code.gui.initialize.AbsFrameFactory;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -69,15 +70,16 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private WindowCards window;
     private boolean setToNullGame;
 
-    public EditorPresident() {
-        setAccessFile(DIALOG_ACCESS);
+    public EditorPresident(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
+        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
 
     public static void initEditorPresident(WindowCards _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
         _fenetre.getEditorPresident().setMain(_fenetre);
-        _fenetre.getEditorPresident().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
-        _fenetre.getEditorPresident().setTitle(GameEnum.PRESIDENT.toString(lg_));
+        _fenetre.getEditorPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getEditorPresident().getCardDialog().setTitle(GameEnum.PRESIDENT.toString(lg_));
         _fenetre.getEditorPresident().setReglesPresident(_fenetre.getReglesPresident());
         _fenetre.getEditorPresident().partie = null;
         _fenetre.getEditorPresident().setToNullGame = true;
@@ -85,7 +87,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         _fenetre.getEditorPresident().nombreCartesSelectionnees = 0;
         _fenetre.getEditorPresident().partieSauvegardee = false;
         _fenetre.getEditorPresident().window = _fenetre;
-        _fenetre.getEditorPresident().setLocationRelativeTo(_fenetre);
+        _fenetre.getEditorPresident().getCardDialog().setLocationRelativeTo(_fenetre);
         _fenetre.getEditorPresident().nickNames = _fenetre.getPseudosJoueurs();
         _fenetre.getEditorPresident().displayingPresident = _fenetre.getDisplayingPresident();
         _fenetre.getEditorPresident().setDialogue(true, 0, _fenetre);
@@ -125,8 +127,8 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         bouton_.addMouseList(new ValidateRulesDealEvent(this, window));
         panneau_.add(bouton_);
         container_.add(panneau_,BorderLayout.SOUTH);
-        setContentPane(container_);
-        pack();
+        getCardDialog().setContentPane(container_);
+        getCardDialog().pack();
     }
 
     @Override
@@ -137,7 +139,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     private void distribuer(WindowCards _parent) {
-        setTitle(getMessages().getVal(DEALING_CARDS));
+        getCardDialog().setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=Panel.newBorder();
         Panel panneau_=Panel.newLineBox();
         byte nbCartesPJ_;
@@ -247,8 +249,8 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         bouton_.addMouseList(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
         panneau_.add(bouton_);
         c.add(panneau_,BorderLayout.SOUTH);
-        setContentPane(c);
-        pack();
+        getCardDialog().setContentPane(c);
+        getCardDialog().pack();
 
     }
 
@@ -264,7 +266,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+        ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
 
@@ -298,9 +300,9 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private String validerEgalite() {
         String lg_ = window.getLanguageKey();
         if (window.isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,getCardDialog(), lg_, true, FileConst.GAME_EXT, window.getFrames().getHomePath(), window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         } else {
-            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,getCardDialog(), lg_, true, FileConst.GAME_EXT, EMPTY_STRING, window.getFrames().getHomePath(), window, FileConst.EXCLUDED);
         }
         String fichier_=FileSaveDialog.getStaticSelectedPath(window.getFileSaveDialog());
         if (fichier_ == null) {
@@ -341,12 +343,12 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+            ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
         }
     }
 
     public static GamePresident getPartie(EditorPresident _dialog) {
-        _dialog.setVisible(true);
+        _dialog.getCardDialog().setVisible(true);
         return _dialog.partie;
     }
 

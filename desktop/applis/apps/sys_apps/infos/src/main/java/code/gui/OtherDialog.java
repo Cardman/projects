@@ -3,18 +3,18 @@ package code.gui;
 import code.gui.events.AbsWindowListener;
 import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
 import code.util.IdMap;
 
 import javax.swing.*;
 import java.awt.*;
 
-public final class OtherDialog implements ChangeableTitle,WithListener {
+public final class OtherDialog implements AbsOtherDialog,ChangeableTitle,WithListener {
     private final JDialog dialog = new JDialog();
     private Ownable owner;
     private AbstractImage image;
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
+    private Panel contentPane;
 
     @Override
     public String getTitle() {
@@ -35,17 +35,9 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
         return dialog;
     }
 
-    void setIconImage(AbstractImageFactory _fact, AbstractImage _group) {
-        dialog.setIconImage(((ImageIcon)PreparedLabel.buildIcon(_fact,_group)).getImage());
-    }
     @Override
     public AbstractImage getImageIconFrame() {
         return image;
-    }
-
-    public void setImage(AbstractImageFactory _fact, AbstractImage _image) {
-        image = _image;
-        setIconImage(_fact,_image);
     }
 
     @Override
@@ -54,13 +46,13 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
     }
 
     @Override
-    public void setLocationRelativeTo(OtherFrame _c) {
-        dialog.setLocationRelativeTo(_c.getComponent());
+    public void setLocationRelativeTo(AbsOtherFrame _c) {
+        dialog.setLocationRelativeTo(((OtherFrame)_c).getComponent());
     }
 
     @Override
-    public void setLocationRelativeTo(OtherDialog _c) {
-        dialog.setLocationRelativeTo(_c.getComponent());
+    public void setLocationRelativeTo(AbsOtherDialog _c) {
+        dialog.setLocationRelativeTo(((OtherDialog)_c).getComponent());
     }
 
     @Override
@@ -108,7 +100,14 @@ public final class OtherDialog implements ChangeableTitle,WithListener {
 
     public void setContentPane(Panel _contentPane) {
         dialog.setContentPane(_contentPane.getComponent());
+        contentPane = _contentPane;
     }
+
+    @Override
+    public Panel getContentPane() {
+        return contentPane;
+    }
+
     @Override
     public CustList<AbsWindowListener> getWindowListeners() {
         return mapWindow.getKeys();

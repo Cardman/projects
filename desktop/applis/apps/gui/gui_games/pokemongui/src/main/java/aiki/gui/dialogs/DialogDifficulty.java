@@ -11,14 +11,16 @@ import aiki.gui.WindowAiki;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.StringMap;
 
-public final class DialogDifficulty extends Dialog {
+public final class DialogDifficulty implements AbsCloseableDialog {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialogdifficulty";
 
     private static final String TEXT = "0";
 
     private static final String SEARCH_LABEL = "searchLabel";
+    private final AbsDialog absDialog;
 
     private WindowAiki window;
 
@@ -28,8 +30,9 @@ public final class DialogDifficulty extends Dialog {
 
     private FacadeGame facade;
 
-    public DialogDifficulty() {
-        setAccessFile(DIALOG_ACCESS);
+    public DialogDifficulty(AbsFrameFactory _frameFactory) {
+        absDialog = _frameFactory.newDialog(this);
+        absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setDialogDifficulty(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
@@ -37,17 +40,17 @@ public final class DialogDifficulty extends Dialog {
     }
 
     private void init(WindowAiki _window, String _title, FacadeGame _facade, PreparedRenderedPages _pre) {
-        setDialogIcon(_window.getImageFactory(),_window);
+        absDialog.setDialogIcon(_window.getImageFactory(),_window);
         facade = _facade;
         window = _window;
         //super(_window, true);
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), getAccessFile());
-        setModal(true);
-        setTitle(_title);
-        setLocationRelativeTo(_window);
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
+        absDialog.setModal(true);
+        absDialog.setTitle(_title);
+        absDialog.setLocationRelativeTo(_window);
         ScrollPane scrollSession_ = new ScrollPane();
         session = new RenderedPage(scrollSession_, window.getFrames());
-        session.setFrame(this);
+        session.setFrame(absDialog);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(facade);
         session.initializeOnlyConf(_pre, _facade.getLanguage());
         Panel panel_ = Panel.newPageBox();
@@ -70,17 +73,16 @@ public final class DialogDifficulty extends Dialog {
         panel_.add(area_);
         panel_.add(field_);
         panel_.add(search_);
-        setContentPane(panel_);
+        absDialog.setContentPane(panel_);
 //        timer = new Timer(200, new Chronometer(area_, session_, 0));
 //        timer.start();
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        pack();
-        setVisible(true);
+        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.pack();
+        absDialog.setVisible(true);
     }
 
-    @Override
     public void closeWindow() {
-        super.closeWindow();
+        absDialog.closeWindow();
 //        session.clearSession();
         facade.initIv();
         CustComponent.invokeLater(new AfterSettingDifficutyThread(window, facade));

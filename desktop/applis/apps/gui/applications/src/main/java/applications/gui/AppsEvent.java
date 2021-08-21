@@ -2,7 +2,7 @@ package applications.gui;
 
 import code.expressionlanguage.guicompos.GuiFactroy;
 import code.expressionlanguage.guicompos.LaunchingFull;
-import code.gui.GroupFrame;
+import code.gui.FrameUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicInteger;
 
@@ -17,7 +17,7 @@ public final class AppsEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return GroupFrame.tryToReopen(LaunchingFull.getMainWindowClass(), _list);
+        return FrameUtil.tryToReopen(LaunchingFull.getMainWindowClass(), _list);
     }
 
     @Override

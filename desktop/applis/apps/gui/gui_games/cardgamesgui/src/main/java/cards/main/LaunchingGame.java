@@ -56,7 +56,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot(built_);
         WindowCards window_ = new WindowCards(language, list, belote_,president_,tarot_,cardFactories);
 
-        SoftApplicationCore.setLocation(window_, topLeft);
+        SoftApplicationCore.setLocation(window_.getCommonFrame(), topLeft);
         window_.pack();
         window_.setVisible(true);
         HelpInitializer helpInitializerTask_ = new HelpInitializer();

@@ -24,6 +24,6 @@ public class HealedMoveEvent extends AbsMouseListenerRel {
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
         facade.healMove(key);
-        dialog.closeWindow();
+        dialog.getAbsDialog().closeWindow();
     }
 }

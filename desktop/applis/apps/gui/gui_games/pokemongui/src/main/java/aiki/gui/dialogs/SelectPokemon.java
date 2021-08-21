@@ -12,6 +12,7 @@ import aiki.map.pokemon.UsablePokemon;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingDialogEvent;
+import code.gui.initialize.AbsFrameFactory;
 import code.threads.AbstractThread;
 import code.util.StringMap;
 
@@ -37,8 +38,9 @@ public final class SelectPokemon extends SelectDialog {
     private StringMap<String> messages;
     private WindowAiki window;
 
-    public SelectPokemon() {
-        setAccessFile(DIALOG_ACCESS);
+    public SelectPokemon(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
+        getSelectDial().setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectPokemon(WindowAiki _parent, FacadeGame _facade, boolean _storage, SelectPokemon _dialog) {
@@ -47,18 +49,18 @@ public final class SelectPokemon extends SelectDialog {
 
     private void init(WindowAiki _parent, FacadeGame _facade, boolean _storage) {
         //super(_parent, true);
-        setDialogIcon(_parent.getImageFactory(),_parent);
+        getSelectDial().setDialogIcon(_parent.getImageFactory(),_parent);
         window = _parent;
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getSelectDial().getAccessFile());
 //        window = _parent;
-        setTitle(messages.getVal(TITLE));
+        getSelectDial().setTitle(messages.getVal(TITLE));
         facade = _facade;
         storage = _storage;
         initOk();
 //        ok = false;
         Panel contentPane_ = Panel.newBorder();
         Panel pag_ = Panel.newPageBox();
-        contentPane_.add(new ScrollPane(new PaginatorPokemon(_parent,pag_, this, _facade).getContainer()), BorderLayout.CENTER);
+        contentPane_.add(new ScrollPane(new PaginatorPokemon(_parent,pag_, getSelectDial(), _facade).getContainer()), BorderLayout.CENTER);
         Panel buttons_ = Panel.newLineBox();
         LabelButton detail_ = new LabelButton(messages.getVal(DETAIL));
         detail_.addMouseList(new SeePkDetailEvent(this));
@@ -70,9 +72,9 @@ public final class SelectPokemon extends SelectDialog {
         cancel_.addMouseList(new ClosingDialogEvent(this));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, BorderLayout.SOUTH);
-        setContentPane(contentPane_);
+        getSelectDial().setContentPane(contentPane_);
         //setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        pack();
+        getSelectDial().pack();
     }
 
     public void seePkDetail() {
@@ -101,7 +103,7 @@ public final class SelectPokemon extends SelectDialog {
     @Override
     public void closeWindow() {
         facade.clearFiltersFirstBox();
-        super.closeWindow();
+        getSelectDial().closeWindow();
     }
 
     public static boolean isSelectedIndex(SelectPokemon _dialog) {
@@ -119,11 +121,11 @@ public final class SelectPokemon extends SelectDialog {
 
     private void showHtmlDialog(RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(window, this, messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
+        DialogHtmlData.setDialogHtmlData(window, getSelectDial(), messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
     }
 
     public static void setVisible(SelectPokemon _dialog) {
-        _dialog.setVisible(true);
+        _dialog.getSelectDial().setVisible(true);
     }
 
 }

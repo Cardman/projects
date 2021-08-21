@@ -3,13 +3,13 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.OtherFrame;
+import code.gui.AbsOtherFrame;
 import code.gui.WithListener;
 
 public final class FrameStruct extends WindowStruct {
-    private OtherFrame commonFrame;
+    private AbsOtherFrame commonFrame;
     private Struct menuBar = NullStruct.NULL_VALUE;
-    public FrameStruct(OtherFrame _frame) {
+    public FrameStruct(AbsOtherFrame _frame) {
         commonFrame = _frame;
     }
 
@@ -41,7 +41,7 @@ public final class FrameStruct extends WindowStruct {
         }
     }
 
-    public OtherFrame getCommonFrame() {
+    public AbsOtherFrame getCommonFrame() {
         return commonFrame;
     }
 

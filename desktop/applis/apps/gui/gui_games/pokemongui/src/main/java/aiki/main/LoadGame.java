@@ -26,8 +26,8 @@ public final class LoadGame implements Runnable {
             setProgress(perCent.getPercent());
         }
         frame.getDialog().stopAnimation();
-        frame.getDialog().setVisible(false);
-        frame.getDialog().getPane().removeAll();
+        frame.getDialog().getAbsDialog().setVisible(false);
+        frame.getDialog().getAbsDialog().getPane().removeAll();
         frame.getDialog().stopTimer();
     }
 

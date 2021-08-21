@@ -8,15 +8,16 @@ import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.components.walk.HealedMoveEvent;
-import code.gui.Dialog;
+import code.gui.AbsDialog;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.events.ClosingDialogEvent;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class SelectHealedMove extends Dialog {
+public final class SelectHealedMove {
     private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selecthealedmove";
 
     private static final String TITLE = "title";
@@ -24,6 +25,7 @@ public final class SelectHealedMove extends Dialog {
     private static final String CANCEL = "cancel";
 
     private static final String SPACE = " ";
+    private final AbsDialog absDialog;
 
     private FacadeGame facade;
 
@@ -31,8 +33,9 @@ public final class SelectHealedMove extends Dialog {
 
     private StringMap<String> messages;
 
-    public SelectHealedMove() {
-        setAccessFile(DIALOG_ACCESS);
+    public SelectHealedMove(AbsFrameFactory _frameFactory) {
+        absDialog = _frameFactory.newDialog();
+        absDialog.setAccessFile(DIALOG_ACCESS);
     }
 
     public static void setSelectHealedMove(WindowAiki _parent, FacadeGame _facade) {
@@ -40,9 +43,9 @@ public final class SelectHealedMove extends Dialog {
     }
 
     private void init(WindowAiki _parent, FacadeGame _facade) {
-        setDialogIcon(_parent.getImageFactory(),_parent);
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
-        setTitle(messages.getVal(TITLE));
+        absDialog.setDialogIcon(_parent.getImageFactory(),_parent);
+        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), absDialog.getAccessFile());
+        absDialog.setTitle(messages.getVal(TITLE));
         facade = _facade;
         Panel contentPane_ = Panel.newBorder();
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
@@ -68,12 +71,16 @@ public final class SelectHealedMove extends Dialog {
         //contentPane_.add(new JScrollPane(new PaginatorHealingItem(this, _facade)), BorderLayout.CENTER);
         Panel buttons_ = Panel.newLineBox();
         LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL));
-        cancel_.addMouseList(new ClosingDialogEvent(this));
+        cancel_.addMouseList(new ClosingDialogEvent(absDialog));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, BorderLayout.SOUTH);
-        setContentPane(contentPane_);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        pack();
-        setVisible(true);
+        absDialog.setContentPane(contentPane_);
+        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.pack();
+        absDialog.setVisible(true);
+    }
+
+    public AbsDialog getAbsDialog() {
+        return absDialog;
     }
 }

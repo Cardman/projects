@@ -4,6 +4,7 @@ import cards.gui.WindowCards;
 import cards.network.common.select.TeamsPlayers;
 import code.gui.Panel;
 import code.gui.TextLabel;
+import code.gui.initialize.AbsFrameFactory;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -16,15 +17,16 @@ public final class DialogTeamsPlayers extends DialogCards {
     private static final String TITLE = "title";
     private StringMap<String> messages;
 
-    public DialogTeamsPlayers() {
-        setAccessFile(DIALOG_ACCESS);
+    public DialogTeamsPlayers(AbsFrameFactory _frameFactory) {
+        super(_frameFactory);
+        getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogTeamsPlayers(WindowCards _fenetre) {
-        _fenetre.getDialogTeamsPlayers().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
+        _fenetre.getDialogTeamsPlayers().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        _fenetre.getDialogTeamsPlayers().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogTeamsPlayers().getAccessFile());
-        _fenetre.getDialogTeamsPlayers().setTitle(_fenetre.getDialogTeamsPlayers().messages.getVal(TITLE));
-        _fenetre.getDialogTeamsPlayers().setLocationRelativeTo(_fenetre);
+        _fenetre.getDialogTeamsPlayers().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogTeamsPlayers().getCardDialog().getAccessFile());
+        _fenetre.getDialogTeamsPlayers().getCardDialog().setTitle(_fenetre.getDialogTeamsPlayers().messages.getVal(TITLE));
+        _fenetre.getDialogTeamsPlayers().getCardDialog().setLocationRelativeTo(_fenetre);
     }
 
     public static void setDialogTeamsPlayers(StringList _pseudos, TeamsPlayers _teamsPlayers, DialogTeamsPlayers _dialog) {
@@ -46,8 +48,8 @@ public final class DialogTeamsPlayers extends DialogCards {
             panel_.add(team_);
             i_++;
         }
-        setContentPane(panel_);
-        pack();
-        setVisible(true);
+        getCardDialog().setContentPane(panel_);
+        getCardDialog().pack();
+        getCardDialog().setVisible(true);
     }
 }

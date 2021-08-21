@@ -1,7 +1,5 @@
 package code.gui;
 
-import javax.swing.*;
-
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.events.AbsWindowListener;
@@ -10,79 +8,236 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
-import code.scripts.messages.gui.MessGuiGr;
-import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFileCoreStream;
 import code.stream.core.TechStreams;
 import code.threads.AbstractThreadFactory;
+import code.util.CustList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
-public abstract class GroupFrame extends CommonFrame {
-    private static final String ACCESS = "gui.groupframe";
+import java.awt.Point;
 
-    private static final String TITLE = "title";
+public abstract class GroupFrame implements AbsGroupFrame {
 
-    private static final String MESSAGE = "message";
-
+    private final AbsCommonFrame commonFrame;
     private StringMap<String> messages;
-
-    private AbstractImage imageIconFrame;
 
     private boolean opened;
 
-    private final AbstractProgramInfos frames;
-    private final FileOpenDialog fileOpenDialog;
-    private final FileSaveDialog fileSaveDialog;
-    private final FolderOpenDialog folderOpenDialog;
-    private final ConfirmDialog confirmDialog;
-    private final LanguageDialog languageDialog;
+    private FileOpenDialog fileOpenDialog;
+    private FileSaveDialog fileSaveDialog;
+    private FolderOpenDialog folderOpenDialog;
+    private ConfirmDialog confirmDialog;
+    private LanguageDialog languageDialog;
+
     protected GroupFrame(String _lg, AbstractProgramInfos _list) {
-        super(_lg);
-        frames = _list;
-        frames.getFrames().add(this);
-        if (frames.getFrames().size() == 1) {
-            fileOpenDialog = new FileOpenDialog(_list.getThreadFactory().newAtomicBoolean(),_list.getThreadFactory().newAtomicBoolean());
-            fileSaveDialog = new FileSaveDialog();
-            folderOpenDialog = new FolderOpenDialog();
-            confirmDialog = new ConfirmDialog(_list);
-            languageDialog = new LanguageDialog();
-            frames.getFrames().first().messages = group(_lg);
-        } else {
-            fileOpenDialog = frames.getFrames().first().fileOpenDialog;
-            fileSaveDialog = frames.getFrames().first().fileSaveDialog;
-            folderOpenDialog = frames.getFrames().first().folderOpenDialog;
-            confirmDialog = frames.getFrames().first().confirmDialog;
-            languageDialog = frames.getFrames().first().languageDialog;
-        }
+        commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
+        choose(_lg, _list);
     }
 
-    public static boolean tryToReopen(String _applicationName, AbstractProgramInfos _list) {
-        for (GroupFrame g: _list.getFrames()) {
-            if (StringUtil.quickEq(g.getApplicationName(), _applicationName)) {
-                g.pack();
-                g.setVisible(true);
-                return true;
-            }
-        }
-        return false;
+    private void choose(String _lg, AbstractProgramInfos _list) {
+        FrameUtil.choose(_lg, _list, this);
+    }
+
+    public final void init(AbstractProgramInfos _list) {
+        fileOpenDialog = new FileOpenDialog(_list.getThreadFactory().newAtomicBoolean(), _list.getThreadFactory().newAtomicBoolean(), _list.getFrameFactory());
+        fileSaveDialog = new FileSaveDialog(_list.getFrameFactory());
+        folderOpenDialog = new FolderOpenDialog(_list.getFrameFactory());
+        confirmDialog = new ConfirmDialog(_list);
+        languageDialog = new LanguageDialog(_list.getFrameFactory());
+    }
+
+    public final void setByFirst(AbsGroupFrame _first) {
+        fileOpenDialog = _first.getFileOpenDialog();
+        fileSaveDialog = _first.getFileSaveDialog();
+        folderOpenDialog = _first.getFolderOpenDialog();
+        confirmDialog = _first.getConfirmDialog();
+        languageDialog = _first.getLanguageDialog();
     }
 
     public void setImageIconFrame(AbstractImage _imageIconFrame) {
-        imageIconFrame = _imageIconFrame;
-        setIconImage(imageIconFrame);
+        commonFrame.setImageIconFrame(_imageIconFrame);
+        setIconImage(_imageIconFrame);
+    }
+
+    //@Override
+    public AbstractProgramInfos getFrames() {
+        return commonFrame.getFrames();
+    }
+
+    //@Override
+    public String getLanguageKey() {
+        return commonFrame.getLanguageKey();
+    }
+
+    //@Override
+    public void setLanguageKey(String _language) {
+        commonFrame.setLanguageKey(_language);
     }
 
     @Override
     public AbstractImage getImageIconFrame() {
-        return imageIconFrame;
+        return commonFrame.getImageIconFrame();
+    }
+
+    //@Override
+    public void setAccessFile(String _accessFile) {
+        commonFrame.setAccessFile(_accessFile);
+    }
+
+    //@Override
+    public int getWidth() {
+        return commonFrame.getWidth();
+    }
+
+    //@Override
+    public void setFocusableWindowState(boolean _focusableWindowState) {
+        commonFrame.setFocusableWindowState(_focusableWindowState);
+    }
+
+    //@Override
+    public void setContentPane(Panel _contentPane) {
+        commonFrame.setContentPane(_contentPane);
+    }
+
+    //@Override
+    public void setContentPane(ScrollPane _contentPane) {
+        commonFrame.setContentPane(_contentPane);
+    }
+
+    //@Override
+    public void setDefaultCloseOperation(int _operation) {
+        commonFrame.setDefaultCloseOperation(_operation);
+    }
+
+    //@Override
+    public void setFocusable(boolean _focusable) {
+        commonFrame.setFocusable(_focusable);
+    }
+
+    //@Override
+    public void setIconImage(AbstractImage _image) {
+        commonFrame.setIconImage(_image);
+    }
+
+    //@Override
+    public void setJMenuBar(MenuBar _menu) {
+        commonFrame.setJMenuBar(_menu);
+    }
+
+    //@Override
+    public void setLocation(int _x, int _y) {
+        commonFrame.setLocation(_x, _y);
+    }
+
+    //@Override
+    public void setLocationRelativeTo(AbsGroupFrame _c) {
+        commonFrame.setLocationRelativeTo(_c);
+    }
+
+    //@Override
+    public void setLocationRelativeTo(CustComponent _c) {
+        commonFrame.setLocationRelativeTo(_c);
+    }
+
+    //@Override
+    public void setLocationRelativeToNull() {
+        commonFrame.setLocationRelativeToNull();
+    }
+
+    @Override
+    public void setOwner(Ownable _owner) {
+        commonFrame.setOwner(_owner);
+    }
+
+    @Override
+    public void setTitle(String _title) {
+        commonFrame.setTitle(_title);
+    }
+
+    //@Override
+    public CustList<AbsWindowListener> getWindowListeners() {
+        return commonFrame.getWindowListeners();
+    }
+
+    //@Override
+    public Panel getPane() {
+        return commonFrame.getPane();
+    }
+
+    //@Override
+    public Point getLocation() {
+        return commonFrame.getLocation();
+    }
+
+    //@Override
+    public MenuBar getJMenuBar() {
+        return commonFrame.getJMenuBar();
+    }
+
+    //@Override
+    public int getHeight() {
+        return commonFrame.getHeight();
+    }
+
+    //@Override
+    public String getAccessFile() {
+        return commonFrame.getAccessFile();
+    }
+
+    @Override
+    public Ownable getOwner() {
+        return commonFrame.getOwner();
+    }
+
+    @Override
+    public Point getLocationOnScreen() {
+        return commonFrame.getLocationOnScreen();
+    }
+
+    @Override
+    public String getTitle() {
+        return commonFrame.getTitle();
+    }
+
+    @Override
+    public boolean isVisible() {
+        return commonFrame.isVisible();
+    }
+
+    //@Override
+    public void removeWindowListener(AbsWindowListener _l) {
+        commonFrame.removeWindowListener(_l);
+    }
+
+    //@Override
+    public void addWindowListener(AbsWindowListener _l) {
+        commonFrame.addWindowListener(_l);
+    }
+
+    //@Override
+    public void dispatchExit() {
+        commonFrame.dispatchExit();
+    }
+
+    //@Override
+    public void requestFocus() {
+        commonFrame.requestFocus();
+    }
+
+    @Override
+    public void pack() {
+        commonFrame.pack();
+    }
+
+    public AbsCommonFrame getCommonFrame() {
+        return commonFrame;
     }
 
     public abstract void quit();
 
     public abstract String getApplicationName();
 
-    @Override
+    //@Override
     public void dispose() {
         basicDispose();
     }
@@ -109,45 +264,37 @@ public abstract class GroupFrame extends CommonFrame {
 //            }
 //        }
 //        if(index_ == CustList.SIZE_EMPTY) {}
-        if(!frames.getFrames().first().opened) {
-            exit();
-        }
+        FrameUtil.tryExit(this);
         getFrames().getCounts().getVal(getApplicationName()).decrementAndGet();
     }
 
-    protected void exit() {
+    public void exit() {
         nativeExit();
     }
 
-    protected void nativeExit() {
-        for (AbsWindowListener l: getWindowListeners()) {
-            removeWindowListener(l);
-        }
+    public void nativeExit() {
+        FrameUtil.removeAllListeners(this);
         dispatchExit();
     }
 
-    @Override
+    public boolean isOpened() {
+        return opened;
+    }
+
+    //@Override
     public void setVisible(boolean _b) {
         opened = _b;
-        super.setVisible(_b);
+        commonFrame.setVisible(_b);
     }
 
     public abstract boolean canChangeLanguage();
 
-    protected static void showDialogError(GroupFrame _group) {
-        StringMap<String> messages_ = _group.getFrames().getFrames().first().messages;
-        ConfirmDialog.showMessage(_group, messages_.getVal(MESSAGE), messages_.getVal(TITLE), _group.getFrames().getFrames().first().getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+    public StringMap<String> getMessages() {
+        return messages;
     }
 
-    public static void changeStaticLanguage(String _language, AbstractProgramInfos _list) {
-        _list.getFrames().first().messages = group(_language);
-        _list.getFrames().first().changeLanguage(_language);
-    }
-
-    private static StringMap<String> group(String _language) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _language, ACCESS);
-        String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
-        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+    public void setMessages(StringMap<String> _messages) {
+        this.messages = _messages;
     }
 
     protected boolean canChangeLanguageAll() {
@@ -165,38 +312,34 @@ public abstract class GroupFrame extends CommonFrame {
     public abstract void changeLanguage(String _language);
 
     public AbstractGenerator getGenerator() {
-        return frames.getGenerator();
+        return getFrames().getGenerator();
     }
     public void revalidateFrame() {
         PackingWindowAfter.pack(this);
     }
 
     public AbstractImageFactory getImageFactory(){
-        return frames.getImageFactory();
+        return getFrames().getImageFactory();
     }
     public AbsCompoFactory getCompoFactory() {
-        return frames.getCompoFactory();
+        return getFrames().getCompoFactory();
     }
     public AbstractThreadFactory getThreadFactory() {
-        return frames.getThreadFactory();
+        return getFrames().getThreadFactory();
     }
     public AbstractInterceptor getInterceptor() {
-        return frames.getInterceptor();
+        return getFrames().getInterceptor();
     }
     public TechStreams getStreams() {
-        return frames.getStreams();
+        return getFrames().getStreams();
     }
 
     public AbstractFileCoreStream getFileCoreStream() {
-        return frames.getFileCoreStream();
+        return getFrames().getFileCoreStream();
     }
 
     public AbstractNameValidating getValidator() {
-        return frames.getValidator();
-    }
-
-    public AbstractProgramInfos getFrames() {
-        return frames;
+        return getFrames().getValidator();
     }
 
     public FileOpenDialog getFileOpenDialog() {

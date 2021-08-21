@@ -4,11 +4,12 @@ import java.awt.Dimension;
 
 import code.gui.animations.AnimatedImage;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsFrameFactory;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 import code.util.CustList;
 
-public abstract class ProgressingDialog extends Dialog implements ProgressDialog {
+public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDialog {
 
     private static final int HEIGTH_ANIM = 100;
 
@@ -19,6 +20,7 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
     private static final String PER_CENT = "0";
 
     private static final int DELTA = 100;
+    private final AbsDialog absDialog;
 
     private PreparedLabel anim;
 
@@ -34,11 +36,30 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
     private AnimatedImage animation;
     private GroupFrame window;
 
+    public ProgressingDialog(AbsFrameFactory _frameFactory) {
+        absDialog = _frameFactory.newDialog(this);
+
+    }
+
+    public AbsDialog getAbsDialog() {
+        return absDialog;
+    }
+
+    @Override
+    public void setTitle(String _title) {
+        absDialog.setTitle(_title);
+    }
+
+    @Override
+    public String getTitle() {
+        return absDialog.getTitle();
+    }
+
     public void init(GroupFrame _window, CustList<AbstractImage> _images, boolean _setVisibility) {
-        setDialogIcon(_window.getImageFactory(),_window);
+        absDialog.setDialogIcon(_window.getImageFactory(),_window);
         window = _window;
         perCent = PER_CENT;
-        setLocationRelativeTo(_window);
+        absDialog.setLocationRelativeTo(_window);
         Panel contentPane_ = Panel.newPageBox();
         Panel label_ = Panel.newLineBox();
         if (!_images.isEmpty()) {
@@ -57,8 +78,8 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
         bar = new ProgressBar();
         bar.setValue(0);
         contentPane_.add(bar);
-        setContentPane(contentPane_);
-        pack();
+        absDialog.setContentPane(contentPane_);
+        absDialog.pack();
         timer = _window.getThreadFactory().newScheduledExecutorService();
         future = timer.scheduleAtFixedRate(new TaskPaintingLabel(this),0,DELTA);
 //        TaskPaintingLabel task_ = new TaskPaintingLabel(this);
@@ -66,14 +87,14 @@ public abstract class ProgressingDialog extends Dialog implements ProgressDialog
 //        timer.setDelay(DELTA);
 //        timer.start();
         if (_setVisibility) {
-            setVisible(true);
+            absDialog.setVisible(true);
         }
     }
 
     @Override
     public void closeWindow() {
-        super.closeWindow();
-        getPane().removeAll();
+        absDialog.closeWindow();
+        absDialog.getPane().removeAll();
         stopTimer();
     }
 

@@ -77,7 +77,7 @@ public final class CreateMainWindowAiki implements Runnable {
         window_.setPreparedPkNetTask(pkNet_);
         window_.setPreparedDiffTask(diff_);
         window_.setPreparedProgTask(prog_);
-        SoftApplicationCore.setLocation(window_, topLeft);
+        SoftApplicationCore.setLocation(window_.getCommonFrame(), topLeft);
         window_.pack();
         window_.setVisible(true);
         if (!withParam.isEmpty()) {

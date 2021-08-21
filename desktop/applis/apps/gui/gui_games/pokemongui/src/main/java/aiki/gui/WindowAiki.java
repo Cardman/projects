@@ -245,22 +245,34 @@ public final class WindowAiki extends NetGroupFrame {
 //    private final boolean standalone;
 
     private final NetAiki net = new NetAiki();
-    private final SelectEgg selectEgg = new SelectEgg();
-    private final SelectPokemon selectPokemon = new SelectPokemon();
-    private final SelectHealedMove selectHealedMove = new SelectHealedMove();
-    private final SelectHealingItem selectHealingItem = new SelectHealingItem();
-    private final SelectItem selectItem = new SelectItem();
-    private final SelectTm selectTm = new SelectTm();
-    private final ConsultHosts consultHosts = new ConsultHosts();
-    private final DialogDifficulty dialogDifficulty = new DialogDifficulty();
-    private final DialogGameProgess dialogGameProgess = new DialogGameProgess();
-    private final DialogHtmlData dialogHtmlData = new DialogHtmlData();
-    private final DialogSoftParams softParams = new DialogSoftParams();
-    private final DialogServerAiki dialogServer = new DialogServerAiki();
+    private final SelectEgg selectEgg;
+    private final SelectPokemon selectPokemon;
+    private final SelectHealedMove selectHealedMove;
+    private final SelectHealingItem selectHealingItem;
+    private final SelectItem selectItem;
+    private final SelectTm selectTm;
+    private final ConsultHosts consultHosts;
+    private final DialogDifficulty dialogDifficulty;
+    private final DialogGameProgess dialogGameProgess;
+    private final DialogHtmlData dialogHtmlData;
+    private final DialogSoftParams softParams;
+    private final DialogServerAiki dialogServer;
     private final AikiFactory aikiFactory;
 
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
         super(_lg, _list);
+        selectEgg = new SelectEgg(_list.getFrameFactory());
+        selectPokemon = new SelectPokemon(_list.getFrameFactory());
+        selectHealedMove = new SelectHealedMove(_list.getFrameFactory());
+        selectHealingItem = new SelectHealingItem(_list.getFrameFactory());
+        selectItem = new SelectItem(_list.getFrameFactory());
+        selectTm = new SelectTm(_list.getFrameFactory());
+        consultHosts = new ConsultHosts(_list.getFrameFactory());
+        dialogDifficulty = new DialogDifficulty(_list.getFrameFactory());
+        dialogGameProgess = new DialogGameProgess(_list.getFrameFactory());
+        dialogHtmlData = new DialogHtmlData(_list.getFrameFactory());
+        softParams = new DialogSoftParams(_list.getFrameFactory());
+        dialogServer = new DialogServerAiki(_list.getFrameFactory());
         loadFlag = new LoadFlagImpl(_list.getThreadFactory().newAtomicBoolean());
         aikiFactory = _aikiFactory;
         setAccessFile(DIALOG_ACCESS);
@@ -916,7 +928,7 @@ public final class WindowAiki extends NetGroupFrame {
 
     public void manageLanguage() {
         if (!canChangeLanguageAll()) {
-            GroupFrame.showDialogError(this);
+            FrameUtil.showDialogError(this, JOptionPane.ERROR_MESSAGE);
             return;
         }
         LanguageDialog.setLanguageDialog(this, messages.getVal(CST_LANGUAGE));
@@ -924,7 +936,7 @@ public final class WindowAiki extends NetGroupFrame {
         if(langue_ == null || langue_.isEmpty()) {
             return;
         }
-        GroupFrame.changeStaticLanguage(langue_, getFrames());
+        FrameUtil.changeStaticLanguage(langue_, getFrames());
         SoftApplicationCore.saveLanguage(LaunchingPokemon.getTempFolder(getFrames()), langue_,getStreams());
     }
 
