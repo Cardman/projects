@@ -1,7 +1,6 @@
 package aiki.gui.components.walk;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.map.pokemon.Egg;

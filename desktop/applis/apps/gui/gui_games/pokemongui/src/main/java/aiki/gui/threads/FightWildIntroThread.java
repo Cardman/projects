@@ -1,5 +1,4 @@
 package aiki.gui.threads;
-import java.awt.image.BufferedImage;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;

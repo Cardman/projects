@@ -1,7 +1,6 @@
 package code.gui.document;
 
 import java.awt.Cursor;
-import java.awt.image.BufferedImage;
 
 import code.formathtml.render.MetaSimpleImage;
 import code.gui.PreparedLabel;

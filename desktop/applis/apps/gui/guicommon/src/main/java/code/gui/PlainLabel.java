@@ -1,8 +1,6 @@
 package code.gui;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public final class PlainLabel extends CustComponent {
 

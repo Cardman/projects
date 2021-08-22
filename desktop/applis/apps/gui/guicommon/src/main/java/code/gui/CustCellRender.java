@@ -4,8 +4,6 @@ import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
 
-import java.awt.image.BufferedImage;
-
 public abstract class CustCellRender<T> {
     private CustList<T> list = new CustList<T>();
     protected abstract AbstractImageFactory getImageFactory();

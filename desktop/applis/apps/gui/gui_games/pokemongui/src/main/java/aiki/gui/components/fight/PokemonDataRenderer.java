@@ -1,7 +1,6 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;

@@ -1,9 +1,6 @@
 package code.gui;
 
-import code.gui.images.AbstractImage;
-
 import javax.swing.*;
-import java.awt.image.BufferedImage;
 
 public final class TextLabel extends CustComponent {
 

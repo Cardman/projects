@@ -1,5 +1,4 @@
 package aiki.main;
-import java.awt.image.BufferedImage;
 
 import aiki.db.DataBase;
 import code.gui.images.AbstractImage;

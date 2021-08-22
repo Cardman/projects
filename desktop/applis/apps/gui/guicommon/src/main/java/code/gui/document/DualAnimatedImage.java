@@ -1,10 +1,8 @@
 package code.gui.document;
 
 import java.awt.Cursor;
-import java.awt.image.BufferedImage;
 
 import code.formathtml.render.MetaAnimatedImage;
-import code.gui.CustComponent;
 import code.gui.PreparedLabel;
 import code.gui.images.AbstractImage;
 import code.threads.ThreadUtil;

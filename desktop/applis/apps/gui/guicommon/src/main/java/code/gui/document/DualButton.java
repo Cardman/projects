@@ -2,13 +2,10 @@ package code.gui.document;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.image.BufferedImage;
 
 import code.formathtml.render.MetaButton;
 import code.gui.CustComponent;
-import code.gui.LabelButtonUtil;
 import code.gui.PlainButton;
-import code.gui.PreparedLabel;
 
 public final class DualButton extends DualInput {
 

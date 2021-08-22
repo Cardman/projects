@@ -1,7 +1,6 @@
 package code.gui;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;

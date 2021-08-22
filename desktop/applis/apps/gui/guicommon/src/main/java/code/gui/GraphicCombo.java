@@ -1,7 +1,6 @@
 package code.gui;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 

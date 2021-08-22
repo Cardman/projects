@@ -1,8 +1,6 @@
 package code.gui;
 import code.gui.images.AbstractImage;
 
-import java.awt.image.BufferedImage;
-
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
 public final class LoadLanguage implements Runnable {

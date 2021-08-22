@@ -8,8 +8,6 @@ import code.util.core.IndexConstants;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 public final class ImageStruct extends WithoutParentIdStruct implements Struct {
     private final AbstractImage image;
