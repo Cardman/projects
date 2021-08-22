@@ -8,8 +8,6 @@ import code.gui.CustComponent;
 import code.gui.Spinner;
 import code.gui.events.AbsChangeListener;
 
-import javax.swing.event.ChangeListener;
-
 public final class SpinnerStruct extends InputStruct {
     private Spinner spinner;
 

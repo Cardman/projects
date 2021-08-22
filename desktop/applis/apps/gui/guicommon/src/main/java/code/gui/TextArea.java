@@ -1,7 +1,6 @@
 package code.gui;
 
 import javax.swing.*;
-import javax.swing.event.CaretListener;
 import javax.swing.text.*;
 import java.awt.*;
 
@@ -91,7 +90,7 @@ public final class TextArea extends CustComponent {
         return textArea.getScrollableTracksViewportWidth();
     }
 
-    public void addCaretListener(CaretListener _listener) {
+    /*public void addCaretListener(CaretListener _listener) {
         textArea.addCaretListener(_listener);
     }
 
@@ -101,7 +100,7 @@ public final class TextArea extends CustComponent {
 
     public CaretListener[] getCaretListeners() {
         return textArea.getCaretListeners();
-    }
+    }*/
 
     public Document getDocument() {
         return textArea.getDocument();

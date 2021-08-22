@@ -2,7 +2,6 @@ package code.gui;
 
 import code.gui.events.AbsKeyListenerRel;
 
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public final class MultSelectKeyEltList extends AbsKeyListenerRel implements IndexableListener {

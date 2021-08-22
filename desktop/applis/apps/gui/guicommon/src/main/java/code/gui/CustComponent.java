@@ -1,8 +1,6 @@
 package code.gui;
 
 import java.awt.*;
-import java.awt.event.ComponentListener;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
 
 import javax.swing.*;
@@ -233,20 +231,10 @@ public abstract class CustComponent {
         return getComponent().getToolTipText();
     }
 
-    public void removeFocusListener(FocusListener _auto) {
-        getComponent().removeFocusListener(_auto);
-    }
-    public void addFocusListener(FocusListener _auto) {
-        getComponent().addFocusListener(_auto);
-    }
-
     public Point getLocationOnScreen() {
         return getComponent().getLocationOnScreen();
     }
 
-    public void addComponentListener(ComponentListener _compo) {
-        getComponent().addComponentListener(_compo);
-    }
     public void validate() {
         getComponent().validate();
     }

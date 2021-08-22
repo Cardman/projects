@@ -4,7 +4,6 @@ import code.gui.events.AbsChangeListener;
 import code.gui.events.WrChangeListener;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
 
 public final class Spinner extends CustComponent {
 

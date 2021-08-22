@@ -8,8 +8,6 @@ import code.gui.CustComponent;
 import code.gui.Slider;
 import code.gui.events.AbsChangeListener;
 
-import javax.swing.event.ChangeListener;
-
 public final class SliderStruct extends InputStruct {
     private Slider slider;
     protected SliderStruct(String _className) {

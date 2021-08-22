@@ -9,11 +9,9 @@ import code.util.core.StringUtil;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.Point;
-import java.awt.event.MouseListener;
 
 public final class TableGui extends CustComponent {
     private JTable table;

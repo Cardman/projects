@@ -7,8 +7,6 @@ import code.gui.CustComponent;
 import code.gui.RadioButton;
 import code.gui.events.AbsChangeListener;
 
-import javax.swing.event.ChangeListener;
-
 public final class RadioButtonStruct extends InputStruct {
     private RadioButton radioButton;
     protected RadioButtonStruct(String _className) {

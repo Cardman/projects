@@ -8,8 +8,6 @@ import code.gui.TableGui;
 import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
 
-import javax.swing.event.ListSelectionListener;
-
 public final class TableStruct extends CustComponentStruct {
     private TableGui table;
     protected TableStruct(String _className, Struct _array) {

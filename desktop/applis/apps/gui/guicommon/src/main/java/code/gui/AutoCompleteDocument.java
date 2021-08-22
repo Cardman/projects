@@ -1,17 +1,15 @@
 package code.gui;
 
+import code.gui.events.AbsAutoCompleteListener;
 import code.gui.events.AbsKeyListener;
+import code.gui.events.WrAutoCompleteListener;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 
-public final class AutoCompleteDocument implements FocusListener, DocumentListener, AbsKeyListener {
+public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsKeyListener {
 
     private boolean wholeString = true;
 
@@ -35,10 +33,15 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
         init();
     }
 
-    private void init() {
-        textField.addFocusListener(this);
-        textField.getDocument().addDocumentListener(this);
+    public void init() {
+        addAutoComplete(this);
         textField.addKeyListener(this);
+    }
+
+    public void addAutoComplete(AbsAutoCompleteListener _auto) {
+        WrAutoCompleteListener wr_ = new WrAutoCompleteListener(_auto);
+        textField.getComponent().addFocusListener(wr_);
+        textField.getDocument().addDocumentListener(wr_);
     }
 
     /**
@@ -64,7 +67,7 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
     }
 
     @Override
-    public void focusGained(FocusEvent _e) {
+    public void focusGained() {
         if (skip()) {
             return;
         }
@@ -74,12 +77,12 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
     /**
      * Closes autocomplete popup.
      */
-    void hideAutocompletePopup(){
+    public void hideAutocompletePopup(){
         popup.setVisible(false);
     }
 
     @Override
-    public void focusLost(FocusEvent _e) {
+    public void focusLost() {
         if (skip()) {
             return;
         }
@@ -114,17 +117,17 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
         }
     }
     @Override
-    public void insertUpdate(DocumentEvent _e){
+    public void insertUpdate(){
         documentChangedEvent();
     }
 
     @Override
-    public void removeUpdate(DocumentEvent _e){
+    public void removeUpdate(){
         documentChangedEvent();
     }
 
     @Override
-    public void changedUpdate(DocumentEvent _e) {
+    public void changedUpdate() {
         documentChangedEvent();
     }
 
@@ -181,7 +184,7 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
         dictionary.addAllElts(_dictionary);
     }
 
-    private boolean skip() {
+    public boolean skip() {
         return !wholeString;
     }
 

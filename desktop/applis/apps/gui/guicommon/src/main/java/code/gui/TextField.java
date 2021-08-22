@@ -6,7 +6,6 @@ import code.gui.events.WrActionListener;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.text.Document;
-import java.awt.Cursor;
 
 public final class TextField extends CustComponent {
 
