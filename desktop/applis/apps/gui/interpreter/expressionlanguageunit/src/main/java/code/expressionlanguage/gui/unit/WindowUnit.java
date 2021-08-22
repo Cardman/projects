@@ -191,7 +191,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
             return;
         }
         String txt_ = _mainWindow.getTxtConf();
-        RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(_mainWindow,getFileCoreStream()),
+        RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
                 _mainWindow.getInfos());
         running = r_;
         AbstractThread th_ = getThreadFactory().newThread(r_);
@@ -224,7 +224,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         if (!_mainWindow.ok(_fichier)) {
             return;
         }
-        RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(_mainWindow,getFileCoreStream()),
+        RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
                 _mainWindow.getInfos());
         running = r_;
         AbstractThread th_ = getThreadFactory().newThread(r_);
@@ -240,7 +240,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = getValidator();
         return new FileInfos(buildLogger(validator_),
-                buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected(),new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(),new TechInfos(getThreadFactory(),getStreams()));
+                buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected(),new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory());
     }
 
     @Override

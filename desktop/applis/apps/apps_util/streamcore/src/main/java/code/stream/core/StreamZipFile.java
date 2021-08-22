@@ -10,8 +10,8 @@ public final class StreamZipFile {
     private StreamZipFile() {
     }
 
-    public static ReadFiles getZippedFiles(UniformingString _app, byte[] _bytes,TechStreams _zip) {
-        StringMap<ContentTime> zip_ = _zip.getZipFact().zippedBinaryFiles(_bytes);
+    public static ReadFiles getZippedFiles(UniformingString _app, byte[] _bytes, AbstractZipFact _zipFact) {
+        StringMap<ContentTime> zip_ = _zipFact.zippedBinaryFiles(_bytes);
         StringMap<String> zipFiles_ = new StringMap<String>();
         if (zip_ == null) {
             return new ReadFiles(zipFiles_, OutputType.NOTHING);
@@ -30,10 +30,10 @@ public final class StreamZipFile {
         return new ReadFiles(zipFiles_, OutputType.ZIP);
     }
 
-    public static ReadBinFiles getZippedBinFiles(byte[] _bytes, TechStreams _zip) {
+    public static ReadBinFiles getZippedBinFiles(byte[] _bytes, AbstractZipFact _zipFact) {
         StringMap<ContentTime> zipFiles_ = new StringMap<ContentTime>();
         StringMap<ContentTime> zipFolders_ = new StringMap<ContentTime>();
-        StringMap<ContentTime> zip_ = _zip.getZipFact().zippedBinaryFiles(_bytes);
+        StringMap<ContentTime> zip_ = _zipFact.zippedBinaryFiles(_bytes);
         if (zip_ == null) {
             return new ReadBinFiles(zipFiles_,zipFolders_, OutputType.NOTHING);
         }

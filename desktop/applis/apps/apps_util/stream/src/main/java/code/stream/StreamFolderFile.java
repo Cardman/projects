@@ -74,7 +74,7 @@ public final class StreamFolderFile {
             return new ReadFiles(zipFiles_, OutputType.FOLDER);
         }
         byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder,_fact,_zip);
-        return StreamZipFile.getZippedFiles(_app, bytes_,_zip);
+        return StreamZipFile.getZippedFiles(_app, bytes_, _zip.getZipFact());
     }
 
     public static ReadBinFiles getBinFiles(String _archiveOrFolder,AbstractFileCoreStream _fact, TechStreams _zip) {
@@ -100,7 +100,7 @@ public final class StreamFolderFile {
             return new ReadBinFiles(zipFiles_,zipFolders_, OutputType.FOLDER);
         }
         byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder,_fact,_zip);
-        return StreamZipFile.getZippedBinFiles(bytes_,_zip);
+        return StreamZipFile.getZippedBinFiles(bytes_, _zip.getZipFact());
     }
 
 }

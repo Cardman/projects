@@ -3,7 +3,6 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.core.AbstractZipFact;
-import code.stream.core.TechStreams;
 import code.threads.AbstractThreadFactory;
 import code.util.core.DefaultUniformingString;
 
@@ -12,19 +11,21 @@ public final class FileInfos {
     private final AbstractFileSystem fileSystem;
     private final AbstractReporter reporter;
     private final AbstractGenerator generator;
-    private final TechInfos threadFactory;
+    private final AbstractZipFact zipFact;
+    private final AbstractThreadFactory threadFactory;
 
-    public FileInfos(AbstractLogger _logger, AbstractFileSystem _fileSystem, AbstractReporter _reporter, AbstractGenerator _generator, TechInfos _threadFactory) {
+    public FileInfos(AbstractLogger _logger, AbstractFileSystem _fileSystem, AbstractReporter _reporter, AbstractGenerator _generator, AbstractZipFact _zipFact, AbstractThreadFactory _threadFactory) {
         this.logger = _logger;
         this.fileSystem = _fileSystem;
         this.reporter = _reporter;
         this.generator = _generator;
+        zipFact = _zipFact;
         threadFactory = _threadFactory;
     }
 
-    public static FileInfos buildMemoryFromFile(AbstractGenerator _generator, AbstractNameValidating _nameValidating, AbstractIssuer _issuer, TechInfos _threadFactory, MemInputFiles _mem) {
+    public static FileInfos buildMemoryFromFile(AbstractGenerator _generator, AbstractNameValidating _nameValidating, AbstractIssuer _issuer, MemInputFiles _mem, AbstractZipFact _zipFact, AbstractThreadFactory _threadFactory) {
         DefaultUniformingString uniformingString_ = new DefaultUniformingString();
-        return new FileInfos(new MemoryLogger(_nameValidating,_issuer,_threadFactory.getThreadFactory()),new MemoryFileSystem(uniformingString_,_nameValidating,_threadFactory.getThreadFactory()),new MemoryReporter(_mem.getConf(), _mem.getSrc(), _mem.getFiles(), _nameValidating, uniformingString_,_threadFactory),_generator,_threadFactory);
+        return new FileInfos(new MemoryLogger(_nameValidating,_issuer, _threadFactory),new MemoryFileSystem(uniformingString_,_nameValidating, _threadFactory),new MemoryReporter(_mem.getConf(), _mem.getSrc(), _mem.getFiles(), _nameValidating, uniformingString_, _zipFact, _threadFactory),_generator, _zipFact, _threadFactory);
     }
 
     public AbstractLogger getLogger() {
@@ -44,14 +45,11 @@ public final class FileInfos {
     }
 
     public AbstractThreadFactory getThreadFactory() {
-        return threadFactory.getThreadFactory();
+        return threadFactory;
     }
 
-    public TechStreams getTechStreams() {
-        return threadFactory.getTechStreams();
-    }
     public AbstractZipFact getZipFact() {
-        return threadFactory.getZipFact();
+        return zipFact;
     }
 
 }

@@ -2,10 +2,7 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.stream.core.ContentTime;
-import code.stream.core.ReadBinFiles;
-import code.stream.core.ReadFiles;
-import code.stream.core.StreamZipFile;
+import code.stream.core.*;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThreadFactory;
 import code.threads.FileStruct;
@@ -24,15 +21,17 @@ public final class MemoryReporter implements AbstractReporter {
     private final byte[] files;
     private final AbstractNameValidating nameValidating;
     private final UniformingString uniformingString;
-    private StringMap<ContentTime> reports = new StringMap<ContentTime>();
-    private final TechInfos threadFactory;
+    private final AbstractZipFact zipFact;
+    private final AbstractThreadFactory threadFactory;
+    private final StringMap<ContentTime> reports = new StringMap<ContentTime>();
 
-    public MemoryReporter(byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString, TechInfos _threadFactory) {
+    public MemoryReporter(byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString, AbstractZipFact _zipFact, AbstractThreadFactory _threadFactory) {
         conf = _conf;
         this.src = _src;
         this.files = _files;
         nameValidating = _nameValidating;
         uniformingString = _uniformingString;
+        zipFact = _zipFact;
         threadFactory = _threadFactory;
     }
 
@@ -102,42 +101,42 @@ public final class MemoryReporter implements AbstractReporter {
 
     @Override
     public ReadBinFiles getBinFiles(String _archiveOrFolder) {
-        return StreamZipFile.getZippedBinFiles(files,threadFactory.getTechStreams());
+        return StreamZipFile.getZippedBinFiles(files, zipFact);
     }
 
     @Override
     public ReadFiles getFiles(String _archiveOrFolder) {
-        return StreamZipFile.getZippedFiles(uniformingString,src,threadFactory.getTechStreams());
+        return StreamZipFile.getZippedFiles(uniformingString,src, zipFact);
     }
 
     @Override
     public void coverFile(ExecutingOptions _ex, String _fileName, String _content) {
         String coversFolder_ = _ex.getCoverFolder();
-        reports.addEntry(coversFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),threadFactory.getThreadFactory().millis()));
+        reports.addEntry(coversFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content), threadFactory.millis()));
     }
 
     @Override
     public void errorFile(ExecutingOptions _ex, String _fileName, String _content) {
         String errorsFolder_ = _ex.getErrorsFolder();
-        reports.addEntry(errorsFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content),threadFactory.getThreadFactory().millis()));
+        reports.addEntry(errorsFolder_+"/"+_fileName,new ContentTime(StringUtil.encode(_content), threadFactory.millis()));
     }
 
     @Override
     public byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
-        StringMap<ContentTime> out_ = exportErr(_log,threadFactory.getThreadFactory());
+        StringMap<ContentTime> out_ = exportErr(_log, threadFactory);
         out_.addAllEntries(reports);
         if (!out_.isEmpty()) {
-            return threadFactory.getZipFact().zipBinFiles(out_);
+            return zipFact.zipBinFiles(out_);
         }
         return null;
     }
 
     @Override
     public byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys,AbstractLogger _log) {
-        StringMap<ContentTime> out_ = exportSysLoggs(_ex, _sys, _log,threadFactory.getThreadFactory());
+        StringMap<ContentTime> out_ = exportSysLoggs(_ex, _sys, _log, threadFactory);
         out_.addAllEntries(reports);
         if (!out_.isEmpty()) {
-            return threadFactory.getZipFact().zipBinFiles(out_);
+            return zipFact.zipBinFiles(out_);
         }
         return null;
     }

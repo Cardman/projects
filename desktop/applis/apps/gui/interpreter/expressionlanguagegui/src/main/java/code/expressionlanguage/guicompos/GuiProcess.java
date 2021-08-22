@@ -28,7 +28,6 @@ import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.core.OutputType;
 import code.stream.core.ReadFiles;
-import code.threads.AbstractThread;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -89,7 +88,7 @@ public final class GuiProcess implements Runnable {
             mainArgs_.add(0, _conf);
         }
         AbstractNameValidating validator_ = _window.getValidator();
-        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null, _window.getFileCoreStream(), _window.getStreams()), new DefaultFileSystem(app_, validator_, _window.getFileCoreStream(), _window.getStreams()), new DefaultReporter(validator_, app_, false, new TechInfos(_window.getThreadFactory(), _window.getStreams()), _window.getFileCoreStream()), _window.getGenerator(), new TechInfos(_window.getThreadFactory(), _window.getStreams()));
+        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null, _window.getFileCoreStream(), _window.getStreams()), new DefaultFileSystem(app_, validator_, _window.getFileCoreStream(), _window.getStreams()), new DefaultReporter(validator_, app_, false, new TechInfos(_window.getThreadFactory(), _window.getStreams()), _window.getFileCoreStream()), _window.getGenerator(), _window.getStreams().getZipFact(), _window.getThreadFactory());
 
         StringMap<String> list_ = RunningTest.tryGetSrc(archive_, exec_, fileInfos_, result_);
         if (list_ == null) {
