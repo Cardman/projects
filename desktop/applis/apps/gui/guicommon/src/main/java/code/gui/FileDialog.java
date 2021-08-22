@@ -1,7 +1,9 @@
 package code.gui;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Point;
 
-import javax.swing.*;
+import javax.swing.JSplitPane;
+import javax.swing.WindowConstants;
 
 import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;

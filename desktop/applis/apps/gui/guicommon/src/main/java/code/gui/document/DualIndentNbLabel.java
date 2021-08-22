@@ -2,11 +2,8 @@ package code.gui.document;
 
 import java.awt.Dimension;
 
-import javax.swing.JLabel;
-
 import code.formathtml.render.MetaIndentNbLabel;
 import code.gui.PreparedLabel;
-import code.gui.TextLabel;
 
 public final class DualIndentNbLabel extends DualLabel {
 

@@ -7,9 +7,7 @@ import code.gui.WithListener;
 import code.gui.events.AbsWindowListener;
 import code.util.CustList;
 
-import java.awt.event.WindowListener;
-
-public abstract class WindowStruct extends WithoutParentIdStruct implements Struct {
+public abstract class WindowStruct extends WithoutParentIdStruct {
 
     public void addWindowListener(AbsWindowListener _l) {
         getAbstractWindow().addWindowListener(_l);
