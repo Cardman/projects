@@ -2,7 +2,7 @@ package aiki.gui.listeners;
 
 import aiki.gui.components.walk.ScenePanel;
 import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
+import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerRel;
 
@@ -18,7 +18,7 @@ public class LearntMoveEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         scene.learntMove(move);
     }
 }

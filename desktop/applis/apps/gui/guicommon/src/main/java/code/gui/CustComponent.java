@@ -15,6 +15,7 @@ import code.util.IdMap;
 public abstract class CustComponent {
 
     private CustComponent parent;
+    private final IdMap<AbsKeyListener, WrKeyListener> mapKey = new IdMap<AbsKeyListener, WrKeyListener>();
     private final IdMap<AbsMouseListener, WrMouseListener> mapMouse = new IdMap<AbsMouseListener, WrMouseListener>();
     private final IdMap<AbsMouseMotionListener, WrMouseMotionListener> mapMouseMotion = new IdMap<AbsMouseMotionListener, WrMouseMotionListener>();
     private final IdMap<AbsMouseWheelListener, WrMouseWheelListener> mapMouseWheel = new IdMap<AbsMouseWheelListener, WrMouseWheelListener>();
@@ -51,6 +52,11 @@ public abstract class CustComponent {
     public void addKeyListener(KeyListener _l) {
         getComponent().addKeyListener(_l);
     }
+    public void addKeyListener(AbsKeyListener _l) {
+        WrKeyListener wr_ = new WrKeyListener(_l);
+        getComponent().addKeyListener(wr_);
+        mapKey.addEntry(_l,wr_);
+    }
     public void removeMouseListener(AbsMouseListener _mouseListener) {
         WrMouseListener wr_ = mapMouse.getVal(_mouseListener);
         getComponent().removeMouseListener(wr_);
@@ -71,6 +77,11 @@ public abstract class CustComponent {
     public void removeKeyListener(KeyListener _l) {
         getComponent().removeKeyListener(_l);
     }
+    public void removeKeyListener(AbsKeyListener _l) {
+        WrKeyListener wr_ = mapKey.getVal(_l);
+        getComponent().removeKeyListener(wr_);
+        mapKey.removeKey(_l);
+    }
 
     public CustList<AbsMouseListener> getMouseListeners() {
         return mapMouse.getKeys();
@@ -84,8 +95,8 @@ public abstract class CustComponent {
         return mapMouseWheel.getKeys();
     }
 
-    public KeyListener[] getKeyListeners() {
-        return getComponent().getKeyListeners();
+    public CustList<AbsKeyListener> getKeyListeners() {
+        return mapKey.getKeys();
     }
 
     public void requestFocus() {

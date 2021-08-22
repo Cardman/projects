@@ -11,7 +11,7 @@ public final class Popup extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         grInt.popup();
     }
 }

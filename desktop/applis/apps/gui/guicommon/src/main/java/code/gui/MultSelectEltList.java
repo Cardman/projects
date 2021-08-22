@@ -18,7 +18,7 @@ public final class MultSelectEltList extends AbsMouseListenerRel implements Inde
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         boolean sel_ = _buttons.isLeftMouseButton();
         if (!_keyState.isShiftDown()) {
             boolean selected_ = painter.selectOneAmongIntervalPaint(grList, sel_, index);

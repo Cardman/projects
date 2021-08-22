@@ -2,8 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
-
-import java.awt.event.KeyEvent;
+import code.gui.AbsCtrlKeyState;
 
 public final class KeyEventStruct extends WithoutParentIdStruct implements Struct {
     private String className;
@@ -15,14 +14,14 @@ public final class KeyEventStruct extends WithoutParentIdStruct implements Struc
     public KeyEventStruct(String _className) {
         className = _className;
     }
-    public KeyEventStruct(KeyEvent _action, String _className, char _keyChar) {
+    public KeyEventStruct(AbsCtrlKeyState _action, String _className, char _keyChar) {
         ctrl = _action.isControlDown();
         alt = _action.isAltDown();
         shift = _action.isShiftDown();
         className = _className;
         keyChar = _keyChar;
     }
-    public KeyEventStruct(KeyEvent _action, String _className, char _keyChar, int _keyCode) {
+    public KeyEventStruct(AbsCtrlKeyState _action, String _className, char _keyChar, int _keyCode) {
         ctrl = _action.isControlDown();
         alt = _action.isAltDown();
         shift = _action.isShiftDown();

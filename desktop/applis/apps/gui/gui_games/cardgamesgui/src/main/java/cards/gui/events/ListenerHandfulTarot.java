@@ -5,7 +5,7 @@ import cards.gui.WindowCards;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
+import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.RadioButton;
 import code.util.CustList;
@@ -31,7 +31,7 @@ public class ListenerHandfulTarot extends AbsListenerHandfulTarot {
     }
 
     @Override
-    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseEntered(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         if (!radio.isEnabled()) {
             return;
         }

@@ -1,6 +1,6 @@
 package code.gui;
 
-import code.gui.initialize.AbstractGraphicStringListGenerator;
+import code.gui.events.AbsKeyListener;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -10,9 +10,8 @@ import javax.swing.event.DocumentListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-public final class AutoCompleteDocument implements FocusListener, DocumentListener, KeyListener {
+public final class AutoCompleteDocument implements FocusListener, DocumentListener, AbsKeyListener {
 
     private boolean wholeString = true;
 
@@ -88,29 +87,28 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
     }
 
     @Override
-    public void keyPressed(KeyEvent _e) {
+    public void keyPressed(AbsCtrlKeyState _e, char _keyChar, int _keyCode) {
         if (skip()) {
             return;
         }
-        int keyCode_ = _e.getKeyCode();
-        if (keyCode_ == KeyEvent.VK_UP) {
+        if (_keyCode == KeyEvent.VK_UP) {
             int index_ = list.getSelectedIndex();
             if (index_ > 0) {
                 list.clearAllRange();
                 list.setSelectedIndice(index_ - 1);
             }
-        } else if (keyCode_ == KeyEvent.VK_DOWN) {
+        } else if (_keyCode == KeyEvent.VK_DOWN) {
             int index_ = list.getSelectedIndex();
             if (index_ != -1 && list.getList().size() > index_ + 1) {
                 list.clearAllRange();
                 list.setSelectedIndice(index_ + 1);
             }
-        } else if (keyCode_ == KeyEvent.VK_ENTER) {
+        } else if (_keyCode == KeyEvent.VK_ENTER) {
             String text_ = list.getSelectedValue();
             textField.setText(text_);
             textField.setCaretPosition(text_.length());
         } else {
-            if (keyCode_ == KeyEvent.VK_ESCAPE) {
+            if (_keyCode == KeyEvent.VK_ESCAPE) {
                 hideAutocompletePopup();
             }
         }
@@ -131,12 +129,12 @@ public final class AutoCompleteDocument implements FocusListener, DocumentListen
     }
 
     @Override
-    public void keyTyped(KeyEvent _e ){
+    public void keyTyped(AbsCtrlKeyState _keyState, char _keyChar) {
         // Do nothing
     }
 
     @Override
-    public void keyReleased(KeyEvent _e ){
+    public void keyReleased(AbsCtrlKeyState _keyState, char _keyChar, int _keyCode) {
         // Do nothing
     }
     private void documentChangedEvent() {

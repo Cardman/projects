@@ -3,7 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
 import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
+import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 
 public class MouseEventStruct extends WithoutParentIdStruct implements Struct {
@@ -18,7 +18,7 @@ public class MouseEventStruct extends WithoutParentIdStruct implements Struct {
     private boolean right;
     private int clicks;
     private String className;
-    public MouseEventStruct(String _className, AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public MouseEventStruct(String _className, AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         first = _location.getXcoord();
         second = _location.getYcoord();
         ctrl = _keyState.isControlDown();

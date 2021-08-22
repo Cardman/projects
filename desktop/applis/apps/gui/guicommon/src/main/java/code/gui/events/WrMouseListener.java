@@ -1,7 +1,7 @@
 package code.gui.events;
 
 import code.gui.DefMouseButtons;
-import code.gui.DefMouseKeyState;
+import code.gui.DefCtrlKeyState;
 import code.gui.DefMouseLocation;
 
 import java.awt.event.MouseEvent;
@@ -16,26 +16,26 @@ public final class WrMouseListener implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent _e) {
-        mouseListener.mouseClicked(new DefMouseLocation(_e),new DefMouseKeyState(_e),new DefMouseButtons(_e));
+        mouseListener.mouseClicked(new DefMouseLocation(_e),new DefCtrlKeyState(_e),new DefMouseButtons(_e));
     }
 
     @Override
     public void mousePressed(MouseEvent _e) {
-        mouseListener.mousePressed(new DefMouseLocation(_e),new DefMouseKeyState(_e),new DefMouseButtons(_e));
+        mouseListener.mousePressed(new DefMouseLocation(_e),new DefCtrlKeyState(_e),new DefMouseButtons(_e));
     }
 
     @Override
     public void mouseReleased(MouseEvent _e) {
-        mouseListener.mouseReleased(new DefMouseLocation(_e),new DefMouseKeyState(_e),new DefMouseButtons(_e));
+        mouseListener.mouseReleased(new DefMouseLocation(_e),new DefCtrlKeyState(_e),new DefMouseButtons(_e));
     }
 
     @Override
     public void mouseEntered(MouseEvent _e) {
-        mouseListener.mouseEntered(new DefMouseLocation(_e),new DefMouseKeyState(_e),new DefMouseButtons(_e));
+        mouseListener.mouseEntered(new DefMouseLocation(_e),new DefCtrlKeyState(_e),new DefMouseButtons(_e));
     }
 
     @Override
     public void mouseExited(MouseEvent _e) {
-        mouseListener.mouseExited(new DefMouseLocation(_e),new DefMouseKeyState(_e),new DefMouseButtons(_e));
+        mouseListener.mouseExited(new DefMouseLocation(_e),new DefCtrlKeyState(_e),new DefMouseButtons(_e));
     }
 }

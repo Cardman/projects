@@ -1,13 +1,13 @@
 package code.gui;
 
-import java.awt.event.MouseEvent;
+import java.awt.event.InputEvent;
 
-public final class DefMouseKeyState implements AbsMouseKeyState {
+public final class DefCtrlKeyState implements AbsCtrlKeyState {
     private final boolean controlDown;
     private final boolean altDown;
     private final boolean shiftDown;
 
-    public DefMouseKeyState(MouseEvent _action) {
+    public DefCtrlKeyState(InputEvent _action) {
         controlDown = _action.isControlDown();
         altDown = _action.isAltDown();
         shiftDown = _action.isShiftDown();

@@ -18,12 +18,14 @@ import code.gui.*;
 import code.gui.events.*;
 import code.util.CustList;
 
-import javax.swing.event.*;
-import java.awt.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
         AbsActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
-        KeyListener,ChangeListener,AbsShortListTree,ListSelectionListener,
+        AbsKeyListener,ChangeListener,AbsShortListTree,ListSelectionListener,
         AbsMouseMotionListener, AbsMouseWheelListener{
 
     private final String className;
@@ -114,7 +116,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void mouseClicked(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         GuiContextEl r_ = newCtx();
@@ -123,7 +125,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseEntered(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         GuiContextEl r_ = newCtx();
@@ -132,7 +134,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void mouseExited(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseExited(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         GuiContextEl r_ = newCtx();
@@ -141,7 +143,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void mousePressed(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mousePressed(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         GuiContextEl r_ = newCtx();
@@ -150,7 +152,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         GuiContextEl r_ = newCtx();
@@ -159,7 +161,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void mouseDragged(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseDragged(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         GuiContextEl r_ = newCtx();
@@ -168,7 +170,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void mouseMoved(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseMoved(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasMouseEvent();
         MouseEventStruct a_ = new MouseEventStruct(actEv_, _location, _keyState, _buttons);
         GuiContextEl r_ = newCtx();
@@ -177,7 +179,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void mouseWheelMoved(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons, AbsMouseWheel _wheel) {
+    public void mouseWheelMoved(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons, AbsMouseWheel _wheel) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasWheelEvent();
         MouseWheelEventStruct a_ = new MouseWheelEventStruct(actEv_, _location, _keyState, _buttons, _wheel);
         GuiContextEl r_ = newCtx();
@@ -256,27 +258,27 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void keyPressed(KeyEvent _e) {
+    public void keyPressed(AbsCtrlKeyState _keyState, char _keyChar, int _keyCode) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasKeyEvent();
-        KeyEventStruct a_ = new KeyEventStruct(_e,actEv_,_e.getKeyChar(),_e.getKeyCode());
+        KeyEventStruct a_ = new KeyEventStruct(_keyState,actEv_,_keyChar,_keyCode);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyPressed(),args_);
     }
 
     @Override
-    public void keyTyped(KeyEvent _e) {
+    public void keyTyped(AbsCtrlKeyState _keyState, char _keyChar) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasKeyEvent();
-        KeyEventStruct a_ = new KeyEventStruct(_e,actEv_,_e.getKeyChar());
+        KeyEventStruct a_ = new KeyEventStruct(_keyState,actEv_,_keyChar);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyTyped(),args_);
     }
 
     @Override
-    public void keyReleased(KeyEvent _e) {
+    public void keyReleased(AbsCtrlKeyState _keyState, char _keyChar, int _keyCode) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasKeyEvent();
-        KeyEventStruct a_ = new KeyEventStruct(_e,actEv_,_e.getKeyChar(),_e.getKeyCode());
+        KeyEventStruct a_ = new KeyEventStruct(_keyState,actEv_,_keyChar,_keyCode);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getKeyReleased(),args_);

@@ -3,7 +3,7 @@ package aiki.gui.components.walk.events;
 import aiki.facade.enums.StorageActions;
 import aiki.gui.components.walk.ScenePanel;
 import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
+import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerRel;
 
@@ -19,7 +19,7 @@ public class GearStorageEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         scene.gearStorage(action);
     }
 }

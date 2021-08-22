@@ -11,7 +11,7 @@ public class ClosingDialogEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         dialog.closeWindow();
     }
 }

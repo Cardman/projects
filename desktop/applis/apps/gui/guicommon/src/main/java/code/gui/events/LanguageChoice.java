@@ -1,6 +1,6 @@
 package code.gui.events;
 import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
+import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 
 public class LanguageChoice extends AbsMouseListenerRel {
@@ -15,7 +15,7 @@ public class LanguageChoice extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         window.setLanguage(locale);
     }
 

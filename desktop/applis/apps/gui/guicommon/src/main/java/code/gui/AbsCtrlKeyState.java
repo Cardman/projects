@@ -1,6 +1,6 @@
 package code.gui;
 
-public interface AbsMouseKeyState {
+public interface AbsCtrlKeyState {
     boolean isControlDown();
     boolean isAltDown();
     boolean isShiftDown();

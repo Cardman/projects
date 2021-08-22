@@ -14,11 +14,11 @@ public final class WrMouseMotionListener implements MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent _e) {
-        mouseMotionListener.mouseDragged(new DefMouseLocation(_e),new DefMouseKeyState(_e),new DefMouseButtons(_e));
+        mouseMotionListener.mouseDragged(new DefMouseLocation(_e),new DefCtrlKeyState(_e),new DefMouseButtons(_e));
     }
 
     @Override
     public void mouseMoved(MouseEvent _e) {
-        mouseMotionListener.mouseMoved(new DefMouseLocation(_e),new DefMouseKeyState(_e),new DefMouseButtons(_e));
+        mouseMotionListener.mouseMoved(new DefMouseLocation(_e),new DefCtrlKeyState(_e),new DefMouseButtons(_e));
     }
 }

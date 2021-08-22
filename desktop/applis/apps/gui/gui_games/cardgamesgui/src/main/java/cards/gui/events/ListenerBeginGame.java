@@ -13,7 +13,7 @@ public class ListenerBeginGame extends AbsMouseListenerRel {
         window = _window;
     }
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         window.beginGame(jeuBouton);
     }
 }

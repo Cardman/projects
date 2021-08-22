@@ -27,7 +27,7 @@ public final class FindEvent extends AbsMouseListenerRel {
         finding = new FindNextElement(_document);
     }
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         if (page.isProcessing()) {
             return;
         }

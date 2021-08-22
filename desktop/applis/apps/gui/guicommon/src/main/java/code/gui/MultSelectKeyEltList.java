@@ -1,9 +1,11 @@
 package code.gui;
 
+import code.gui.events.AbsKeyListenerRel;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public final class MultSelectKeyEltList extends KeyAdapter implements IndexableListener {
+public final class MultSelectKeyEltList extends AbsKeyListenerRel implements IndexableListener {
 
     private final AbsGraphicListDefBase grList;
 
@@ -19,11 +21,11 @@ public final class MultSelectKeyEltList extends KeyAdapter implements IndexableL
     }
 
     @Override
-    public void keyReleased(KeyEvent _e) {
+    public void keyReleased(AbsCtrlKeyState _e, char _keyChar, int _keyCode) {
         if (!_e.isControlDown()) {
             return;
         }
-        if (_e.getKeyCode() != KeyEvent.VK_A) {
+        if (_keyCode != KeyEvent.VK_A) {
             return;
         }
         boolean sel_ = !_e.isShiftDown();

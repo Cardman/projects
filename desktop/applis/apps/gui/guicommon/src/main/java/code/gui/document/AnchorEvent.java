@@ -3,7 +3,7 @@ package code.gui.document;
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
+import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerRel;
 import code.sml.Element;
@@ -25,7 +25,7 @@ public final class AnchorEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         for (DualAnimatedImage d: page.getAnims()) {
             d.getImageThread().setAnimated(false);
         }

@@ -5,13 +5,13 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.structs.*;
 import code.gui.CustComponent;
+import code.gui.events.AbsKeyListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
 import code.util.CustList;
 
 import java.awt.*;
-import java.awt.event.KeyListener;
 
 public abstract class CustComponentStruct extends WithoutParentIdStruct implements Struct {
 
@@ -183,8 +183,8 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         }
     }
     public void addKeyListener(Struct _l) {
-        if (_l instanceof KeyListener) {
-            getVisibleComponent().addKeyListener((KeyListener)_l);
+        if (_l instanceof AbsKeyListener) {
+            getVisibleComponent().addKeyListener((AbsKeyListener)_l);
         }
 
     }
@@ -202,8 +202,8 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         }
     }
     public void removeKeyListener(Struct _l) {
-        if (_l instanceof KeyListener) {
-            getVisibleComponent().removeKeyListener((KeyListener)_l);
+        if (_l instanceof AbsKeyListener) {
+            getVisibleComponent().removeKeyListener((AbsKeyListener)_l);
         }
 
     }
@@ -240,12 +240,12 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     }
     public ArrayStruct getKeyListeners(ContextEl _ctx) {
         String aliasKeyListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasKeyListener();
-        KeyListener[] keyListeners_ = getVisibleComponent().getKeyListeners();
-        ArrayStruct arr_ = new ArrayStruct(keyListeners_.length, StringExpUtil.getPrettyArrayType(aliasKeyListener_));
-        int lenBase_ = keyListeners_.length;
+        CustList<AbsKeyListener> keyListeners_ = getVisibleComponent().getKeyListeners();
+        ArrayStruct arr_ = new ArrayStruct(keyListeners_.size(), StringExpUtil.getPrettyArrayType(aliasKeyListener_));
+        int lenBase_ = keyListeners_.size();
         for (int i = 0; i < lenBase_; i++) {
-            if (keyListeners_[i] instanceof Struct) {
-                arr_.set(i,(Struct)keyListeners_[i]);
+            if (keyListeners_.get(i) instanceof Struct) {
+                arr_.set(i,(Struct)keyListeners_.get(i));
             }
         }
         return arr_;

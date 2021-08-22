@@ -3,7 +3,7 @@ package cards.gui.events;
 import cards.belote.BidBeloteSuit;
 import cards.gui.containers.ContainerBelote;
 import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
+import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerRel;
 
@@ -19,7 +19,7 @@ public class SelectSuitEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         container.setBid(suit);
     }
 }

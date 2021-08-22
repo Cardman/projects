@@ -3,7 +3,7 @@ package aiki.gui.components.walk.events;
 import aiki.gui.WindowAiki;
 import aiki.network.stream.QuitAiki;
 import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
+import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerRel;
 
@@ -16,7 +16,7 @@ public class ExitTradeEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         QuitAiki quit_ = new QuitAiki();
         quit_.setClosing(false);
         quit_.setPlace(window.getIndexInGame());

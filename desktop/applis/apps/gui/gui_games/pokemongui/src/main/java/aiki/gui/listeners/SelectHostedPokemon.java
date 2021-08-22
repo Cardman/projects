@@ -3,7 +3,7 @@ package aiki.gui.listeners;
 import aiki.gui.dialogs.ConsultHosts;
 import aiki.util.Coords;
 import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
+import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerRel;
 
@@ -23,7 +23,7 @@ public class SelectHostedPokemon extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         consult.seeHostedPokemon(first, coords);
     }
 }

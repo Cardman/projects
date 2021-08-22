@@ -3,7 +3,7 @@ package cards.gui.events;
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
 import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
+import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListener;
 
@@ -33,7 +33,7 @@ public abstract class AbstractListenerCard implements AbsMouseListener {
         return container.getParametres().getJeuCarteClic();
     }
     @Override
-    public void mouseEntered(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseEntered(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         if (!canListen()) {
             return;
         }
@@ -46,7 +46,7 @@ public abstract class AbstractListenerCard implements AbsMouseListener {
     }
 
     @Override
-    public void mouseExited(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseExited(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         if (!canListen()) {
             return;
         }
@@ -62,7 +62,7 @@ public abstract class AbstractListenerCard implements AbsMouseListener {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         if (!canListen()) {
             return;
         }
@@ -73,7 +73,7 @@ public abstract class AbstractListenerCard implements AbsMouseListener {
     }
 
     @Override
-    public void mousePressed(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mousePressed(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         if (!canListen()) {
             return;
         }
@@ -83,7 +83,7 @@ public abstract class AbstractListenerCard implements AbsMouseListener {
     }
 
     @Override
-    public void mouseClicked(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         //
     }
 }

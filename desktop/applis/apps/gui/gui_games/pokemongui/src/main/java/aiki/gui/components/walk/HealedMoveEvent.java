@@ -3,7 +3,7 @@ package aiki.gui.components.walk;
 import aiki.facade.FacadeGame;
 import aiki.gui.dialogs.SelectHealedMove;
 import code.gui.AbsMouseButtons;
-import code.gui.AbsMouseKeyState;
+import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerRel;
 
@@ -22,7 +22,7 @@ public class HealedMoveEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsMouseKeyState _keyState, AbsMouseButtons _buttons) {
+    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         facade.healMove(key);
         dialog.getAbsDialog().closeWindow();
     }

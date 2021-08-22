@@ -1,7 +1,7 @@
 package code.gui.events;
 
 import code.gui.DefMouseButtons;
-import code.gui.DefMouseKeyState;
+import code.gui.DefCtrlKeyState;
 import code.gui.DefMouseLocation;
 import code.gui.DefMouseWheel;
 
@@ -17,6 +17,6 @@ public final class WrMouseWheelListener implements MouseWheelListener {
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent _e) {
-        wheelListener.mouseWheelMoved(new DefMouseLocation(_e),new DefMouseKeyState(_e),new DefMouseButtons(_e),new DefMouseWheel(_e));
+        wheelListener.mouseWheelMoved(new DefMouseLocation(_e),new DefCtrlKeyState(_e),new DefMouseButtons(_e),new DefMouseWheel(_e));
     }
 }
