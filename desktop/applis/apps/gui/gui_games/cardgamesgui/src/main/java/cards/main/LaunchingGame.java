@@ -59,11 +59,10 @@ public final class LaunchingGame implements Runnable {
         SoftApplicationCore.setLocation(window_.getCommonFrame(), topLeft);
         window_.pack();
         window_.setVisible(true);
-        HelpInitializer helpInitializerTask_ = new HelpInitializer();
+        HelpInitializer helpInitializerTask_ = new HelpInitializer(window_.getGeneralHelp());
         AbstractThread helpInitializerThread_ = window_.getThreadFactory().newThread(helpInitializerTask_);
         helpInitializerThread_.start();
         window_.setHelpInitializerTask(helpInitializerTask_);
-        window_.setHelpInitializerThread(helpInitializerThread_);
 
         if (!args.isEmpty()) {
             window_.loadGameBegin(args.getKeys().first(), args.values().first());

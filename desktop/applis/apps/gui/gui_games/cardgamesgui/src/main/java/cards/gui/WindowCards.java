@@ -136,7 +136,6 @@ import code.scripts.messages.gui.MessGuiCardsGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.threads.AbstractThread;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -512,7 +511,6 @@ public final class WindowCards extends NetGroupFrame {
     private final StringMap<StringMap<PreparedPagesCards>> preparedTarot;
     //private final boolean standalone;
     private HelpInitializer helpInitializerTask;
-    private AbstractThread helpInitializerThread;
     private final DialogDisplayingBelote dialogDisplayingBelote;
     private final DialogDisplayingTarot dialogDisplayingTarot;
     private final DialogDisplayingPresident dialogDisplayingPresident;
@@ -1816,6 +1814,7 @@ public final class WindowCards extends NetGroupFrame {
         help=new Menu(getMessages().getVal(CST_HELP));
         /* Aide/Aide generale Explication du fonctionnement du logiciel et des regles utilisables*/
         generalHelp=new MenuItem(getMessages().getVal(CST_GENERAL_HELP));
+        generalHelp.setEnabledMenu(false);
         generalHelp.addActionListener(new DisplayHelpEvent(this));
         generalHelp.setAccelerator(KeyStroke.getKeyStroke(F_THREE));
         help.addMenuItem(generalHelp);
@@ -1832,9 +1831,9 @@ public final class WindowCards extends NetGroupFrame {
             }
             return;
         }
-        if (helpInitializerThread == null || helpInitializerThread.isAlive() || helpInitializerTask == null) {
-            return;
-        }
+//        if (helpInitializerThread == null || helpInitializerThread.isAlive() || helpInitializerTask == null) {
+//            return;
+//        }
         FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(CST_GENERAL_HELP),this);
         aide_.initialize(this);
         helpFrames.add(aide_);
@@ -2203,14 +2202,6 @@ public final class WindowCards extends NetGroupFrame {
 
     public void setHelpInitializerTask(HelpInitializer _helpInitializerTask) {
         this.helpInitializerTask = _helpInitializerTask;
-    }
-
-    public AbstractThread getHelpInitializerThread() {
-        return helpInitializerThread;
-    }
-
-    public void setHelpInitializerThread(AbstractThread _helpInitializerThread) {
-        this.helpInitializerThread = _helpInitializerThread;
     }
 
     public DialogDisplayingBelote getDialogDisplayingBelote() {

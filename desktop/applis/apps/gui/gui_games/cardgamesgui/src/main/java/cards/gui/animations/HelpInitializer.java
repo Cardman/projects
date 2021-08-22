@@ -3,6 +3,7 @@ package cards.gui.animations;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
+import code.gui.MenuItem;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.confs.HelpScriptPages;
 import code.scripts.pages.cards.CardsInit;
@@ -27,6 +28,10 @@ public final class HelpInitializer implements Runnable {
     private static final String TEXTE = "texte";
 
     private final StringMap<ObjectMap<HelpIndexes,ElementHelp>> trees = new StringMap<ObjectMap<HelpIndexes, ElementHelp>>();
+    private final MenuItem generalHelp;
+    public HelpInitializer(MenuItem _generalHelp) {
+        generalHelp = _generalHelp;
+    }
     @Override
     public void run() {
         StringMap<Document> docs_ = HelpScriptPages.docs();
@@ -100,6 +105,7 @@ public final class HelpInitializer implements Runnable {
             }
             trees.addEntry(l,tree_);
         }
+        generalHelp.setEnabledMenu(true);
     }
 
     public StringMap<ObjectMap<HelpIndexes, ElementHelp>> getTrees() {
