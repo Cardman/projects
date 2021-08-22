@@ -5,6 +5,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.RadioButton;
+import code.gui.events.AbsChangeListener;
 
 import javax.swing.event.ChangeListener;
 
@@ -33,8 +34,8 @@ public final class RadioButtonStruct extends InputStruct {
     }
 
     public void addChangeListener(Struct _l) {
-        if (_l instanceof ChangeListener) {
-            radioButton.addChangeListener((ChangeListener) _l);
+        if (_l instanceof AbsChangeListener) {
+            radioButton.addChangeListener((AbsChangeListener) _l);
         }
     }
 

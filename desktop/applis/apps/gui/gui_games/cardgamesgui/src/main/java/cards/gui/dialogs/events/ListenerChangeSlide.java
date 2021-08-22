@@ -1,13 +1,12 @@
 package cards.gui.dialogs.events;
 import javax.swing.JLabel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import code.gui.Slider;
+import code.gui.events.AbsChangeListener;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public class ListenerChangeSlide implements ChangeListener {
+public class ListenerChangeSlide implements AbsChangeListener {
 
 //    private byte numero;
     private String key;
@@ -24,7 +23,7 @@ public class ListenerChangeSlide implements ChangeListener {
         sentence = _sentence;
     }
     @Override
-    public void stateChanged(ChangeEvent _e) {
+    public void stateChanged() {
 //        JSlider slide_=(JSlider)((JPanel)dialog.getContentPane().getComponent(0)).getComponent(2*numero+1);
 //        JLabel etiquette_=(JLabel)((JPanel)dialog.getContentPane().getComponent(0)).getComponent(2*numero);
         int min_=slide.getMinimum();

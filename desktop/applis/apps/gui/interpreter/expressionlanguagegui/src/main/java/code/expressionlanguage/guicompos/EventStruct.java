@@ -18,14 +18,9 @@ import code.gui.*;
 import code.gui.events.*;
 import code.util.CustList;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
         AbsActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
-        AbsKeyListener,ChangeListener,AbsShortListTree,ListSelectionListener,
+        AbsKeyListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
         AbsMouseMotionListener, AbsMouseWheelListener{
 
     private final String className;
@@ -285,7 +280,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void stateChanged(ChangeEvent _e) {
+    public void stateChanged() {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getChangeListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getStateChanged(),args_);
@@ -301,9 +296,9 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent _e) {
+    public void valueChanged(int _first, int _last) {
         GuiContextEl r_ = newCtx();
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_first)),new Argument(new IntStruct(_last)));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTableListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTableValueTableChanged(),args_);
     }
 

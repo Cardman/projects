@@ -1,7 +1,9 @@
 package code.gui;
 
+import code.gui.events.AbsChangeListener;
+import code.gui.events.WrChangeListener;
+
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
 
 public final class Slider extends CustComponent {
     private JSlider slider;
@@ -22,12 +24,8 @@ public final class Slider extends CustComponent {
         slider = new JSlider(_o,_min,_max,_v);
     }
 
-    public void addChangeListener(ChangeListener _l) {
-        slider.addChangeListener(_l);
-    }
-
-    public void removeChangeListener(ChangeListener _l) {
-        slider.removeChangeListener(_l);
+    public void addChangeListener(AbsChangeListener _l) {
+        slider.addChangeListener(new WrChangeListener(_l));
     }
 
     public int getValue() {

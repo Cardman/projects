@@ -1,10 +1,9 @@
 package aiki.gui.components.listeners;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import aiki.gui.components.Paginator;
+import code.gui.events.AbsChangeListener;
 
-public class ChangedNbResultsEvent implements ChangeListener {
+public class ChangedNbResultsEvent implements AbsChangeListener {
 
     private Paginator paginator;
 
@@ -13,7 +12,7 @@ public class ChangedNbResultsEvent implements ChangeListener {
     }
 
     @Override
-    public void stateChanged(ChangeEvent _e) {
+    public void stateChanged() {
         paginator.changeNbResults();
     }
 

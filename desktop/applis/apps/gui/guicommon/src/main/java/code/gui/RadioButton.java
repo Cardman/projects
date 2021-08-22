@@ -1,11 +1,12 @@
 package code.gui;
 
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsChangeListener;
 import code.gui.events.WrActionListener;
+import code.gui.events.WrChangeListener;
 import code.util.IdMap;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
 
 public final class RadioButton extends CustComponent {
     private JRadioButton radioButton;
@@ -37,8 +38,8 @@ public final class RadioButton extends CustComponent {
         radioButton.setSelected(_b);
     }
 
-    public void addChangeListener(ChangeListener _l) {
-        radioButton.addChangeListener(_l);
+    public void addChangeListener(AbsChangeListener _l) {
+        radioButton.addChangeListener(new WrChangeListener(_l));
     }
 
     @Override

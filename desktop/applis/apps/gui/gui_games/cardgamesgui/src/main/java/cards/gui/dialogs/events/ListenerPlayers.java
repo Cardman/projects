@@ -1,11 +1,10 @@
 package cards.gui.dialogs.events;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import cards.gui.WindowCards;
 import cards.gui.dialogs.DialogVaryingPlayerNumber;
+import code.gui.events.AbsChangeListener;
 
-public class ListenerPlayers implements ChangeListener {
+public class ListenerPlayers implements AbsChangeListener {
 
     private DialogVaryingPlayerNumber dialog;
     private WindowCards window;
@@ -16,7 +15,7 @@ public class ListenerPlayers implements ChangeListener {
     }
 
     @Override
-    public void stateChanged(ChangeEvent _e) {
+    public void stateChanged() {
         dialog.validateNbPlayers(window);
     }
 }

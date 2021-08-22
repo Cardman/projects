@@ -1,10 +1,9 @@
 package cards.gui.dialogs.events;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import cards.gui.dialogs.DialogPresident;
+import code.gui.events.AbsChangeListener;
 
-public class ListenerStacks implements ChangeListener {
+public class ListenerStacks implements AbsChangeListener {
 
     private DialogPresident dialog;
 
@@ -13,7 +12,7 @@ public class ListenerStacks implements ChangeListener {
     }
 
     @Override
-    public void stateChanged(ChangeEvent _e) {
+    public void stateChanged() {
         dialog.validateStacks();
     }
 }

@@ -1,10 +1,8 @@
 package code.gui.events;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import code.gui.FileDialog;
 
-public class ClickRowEvent implements ListSelectionListener {
+public class ClickRowEvent implements AbsListSelectionListener {
 
     private FileDialog dialog;
 
@@ -13,7 +11,7 @@ public class ClickRowEvent implements ListSelectionListener {
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent _e) {
+    public void valueChanged(int _first, int _last) {
         dialog.clickRow();
     }
 }

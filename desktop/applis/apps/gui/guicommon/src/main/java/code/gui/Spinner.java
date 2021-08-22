@@ -1,5 +1,8 @@
 package code.gui;
 
+import code.gui.events.AbsChangeListener;
+import code.gui.events.WrChangeListener;
+
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 
@@ -29,16 +32,8 @@ public final class Spinner extends CustComponent {
         return (Integer) spinner.getValue();
     }
 
-    public void addChangeListener(ChangeListener _listener) {
-        spinner.addChangeListener(_listener);
-    }
-
-    public void removeChangeListener(ChangeListener _listener) {
-        spinner.removeChangeListener(_listener);
-    }
-
-    public ChangeListener[] getChangeListeners() {
-        return spinner.getChangeListeners();
+    public void addChangeListener(AbsChangeListener _listener) {
+        spinner.addChangeListener(new WrChangeListener(_listener));
     }
 
     public boolean isEnabled() {

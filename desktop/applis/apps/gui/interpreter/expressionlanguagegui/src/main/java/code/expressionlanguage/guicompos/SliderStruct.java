@@ -6,6 +6,7 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.Slider;
+import code.gui.events.AbsChangeListener;
 
 import javax.swing.event.ChangeListener;
 
@@ -33,13 +34,9 @@ public final class SliderStruct extends InputStruct {
     }
 
     public void addChangeListener(Struct _l) {
-        if (_l instanceof ChangeListener) {
-            slider.addChangeListener((ChangeListener) _l);
+        if (_l instanceof AbsChangeListener) {
+            slider.addChangeListener((AbsChangeListener) _l);
         }
-    }
-
-    public void removeChangeListener(ChangeListener _l) {
-        slider.removeChangeListener(_l);
     }
 
     public Struct getValue() {

@@ -1,6 +1,8 @@
 package code.gui;
 
+import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
+import code.gui.events.WrListSelectionListener;
 import code.gui.events.WrMouseListener;
 import code.util.core.StringUtil;
 
@@ -124,7 +126,8 @@ public final class TableGui extends CustComponent {
         getTableHeader().addMouseListener(new WrMouseListener(_list));
     }
 
-    public void addListSelectionListener(ListSelectionListener _select) {
-        getSelectionModel().addListSelectionListener(_select);
+    public void addListSelectionListener(AbsListSelectionListener _select) {
+        getSelectionModel().addListSelectionListener(new WrListSelectionListener(_select));
     }
+
 }

@@ -6,6 +6,7 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.CustComponent;
 import code.gui.Spinner;
+import code.gui.events.AbsChangeListener;
 
 import javax.swing.event.ChangeListener;
 
@@ -28,8 +29,8 @@ public final class SpinnerStruct extends InputStruct {
     }
 
     public void addChangeListener(Struct _l) {
-        if (_l instanceof ChangeListener) {
-            spinner.addChangeListener((ChangeListener) _l);
+        if (_l instanceof AbsChangeListener) {
+            spinner.addChangeListener((AbsChangeListener) _l);
         }
     }
 

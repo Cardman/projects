@@ -14,14 +14,9 @@ import code.gui.*;
 import code.gui.events.*;
 import code.util.CustList;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 public final class EventFunctionalInstance extends AbstractFunctionalInstanceImpl implements
         AbsActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
-        AbsKeyListener,ChangeListener,AbsShortListTree,ListSelectionListener,
+        AbsKeyListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
         AbsMouseMotionListener, AbsMouseWheelListener,FieldableStruct {
 
     private final CustList<ClassFieldStruct> fields;
@@ -171,13 +166,13 @@ public final class EventFunctionalInstance extends AbstractFunctionalInstanceImp
     }
 
     @Override
-    public void stateChanged(ChangeEvent _e) {
+    public void stateChanged() {
         RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), new CustList<Argument>());
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent _e) {
-        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
+    public void valueChanged(int _first, int _last) {
+        CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_first)),new Argument(new IntStruct(_last)));
         RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }
 

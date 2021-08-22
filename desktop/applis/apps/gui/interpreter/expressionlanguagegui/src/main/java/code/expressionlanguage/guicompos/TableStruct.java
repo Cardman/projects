@@ -5,6 +5,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.*;
 import code.gui.CustComponent;
 import code.gui.TableGui;
+import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
 
 import javax.swing.event.ListSelectionListener;
@@ -139,8 +140,8 @@ public final class TableStruct extends CustComponentStruct {
     }
 
     public void addListSelectionListener(Struct _select) {
-        if (_select instanceof ListSelectionListener) {
-            table.addListSelectionListener((ListSelectionListener) _select);
+        if (_select instanceof AbsListSelectionListener) {
+            table.addListSelectionListener((AbsListSelectionListener) _select);
         }
     }
     @Override
