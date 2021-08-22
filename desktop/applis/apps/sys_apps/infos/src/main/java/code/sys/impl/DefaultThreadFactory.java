@@ -27,6 +27,11 @@ public final class DefaultThreadFactory implements AbstractThreadFactory {
     }
 
     @Override
+    public void yieldThread() {
+        Thread.yield();
+    }
+
+    @Override
     public boolean sleep(long _time) {
         return DefaultThread.simpleSleep(_time);
     }

@@ -1,13 +1,14 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractThread;
 
-public final class ThreadStruct extends WithoutParentIdStruct implements Struct {
+public final class ThreadStruct extends WithoutParentIdStruct {
 
+    public static final int MAX_PRIORITY = 10;
+    public static final int MIN_PRIORITY = 1;
     private final AbstractThread thread;
 
     private final AbstractAtomicBoolean ended;
@@ -36,11 +37,10 @@ public final class ThreadStruct extends WithoutParentIdStruct implements Struct 
         return true;
     }
     public boolean setPriority(int _prio) {
-        if (_prio > Thread.MAX_PRIORITY || _prio < Thread.MIN_PRIORITY) {
+        if (_prio > MAX_PRIORITY || _prio < MIN_PRIORITY) {
             return false;
         }
-        thread.setPriority(_prio);
-        return true;
+        return thread.setPriority(_prio);
     }
 
     @Override

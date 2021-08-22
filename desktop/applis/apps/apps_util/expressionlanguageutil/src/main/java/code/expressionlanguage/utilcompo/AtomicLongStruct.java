@@ -4,8 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.threads.AbstractAtomicLong;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 public final class AtomicLongStruct extends WithoutParentIdStruct {
 
     private final AbstractAtomicLong instance;

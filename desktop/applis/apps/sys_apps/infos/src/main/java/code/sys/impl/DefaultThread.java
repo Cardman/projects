@@ -47,8 +47,13 @@ final class DefaultThread implements AbstractThread {
     }
 
     @Override
-    public void setPriority(int _prio) {
-        thread.setPriority(_prio);
+    public boolean setPriority(int _prio) {
+        try {
+            thread.setPriority(_prio);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

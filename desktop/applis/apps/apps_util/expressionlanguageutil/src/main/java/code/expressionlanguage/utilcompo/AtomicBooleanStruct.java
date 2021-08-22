@@ -4,8 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.threads.AbstractAtomicBoolean;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public final class AtomicBooleanStruct extends WithoutParentIdStruct {
 
     private final AbstractAtomicBoolean instance;

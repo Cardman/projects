@@ -1,8 +1,5 @@
 package code.gui.animations;
 
-import java.awt.image.BufferedImage;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import code.gui.PreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;

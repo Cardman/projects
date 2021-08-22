@@ -88,25 +88,21 @@ public class PanelBattle {
     }
 
     public void paintSelection(AbstractImageFactory _fact) {
+        int w_ = selecting.getWidth();
+        int h_ = selecting.getHeight();
+        AbstractImage img_ = _fact.newImageArgb(w_, h_);
         if (paintSelection) {
-            int w_ = selecting.getWidth();
-            int h_ = selecting.getHeight();
-            AbstractImage img_ = _fact.newImageArgb(w_, h_);
-//            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
+            //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
             img_.setFont(selecting.getFont());
             Rect r_ = facade.getSelection();
             img_.setColor(Color.BLUE);
             img_.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(),(int) r_.getWidth().ll(), (int)r_.getHeight().ll());
-            selecting.setIcon(_fact,img_);
         } else {
-            int w_ = selecting.getWidth();
-            int h_ = selecting.getHeight();
-            AbstractImage img_ = _fact.newImageArgb(w_, h_);
-//            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
+            //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
             img_.setColor(new Color(255,255,255,0));
             img_.fillRect(0, 0, w_, h_);
-            selecting.setIcon(_fact,img_);
         }
+        selecting.setIcon(_fact,img_);
     }
 
     public UnitSoldier getSoldierLabel(UnitMapKey _key) {

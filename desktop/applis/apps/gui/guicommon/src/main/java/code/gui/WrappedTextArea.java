@@ -5,7 +5,7 @@ import javax.swing.JTextArea;
 
 import code.util.core.StringUtil;
 
-public class WrappedTextArea extends CustComponent {
+public final class WrappedTextArea extends CustComponent {
 
     private JTextArea textArea;
 

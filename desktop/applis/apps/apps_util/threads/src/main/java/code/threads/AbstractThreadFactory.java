@@ -5,6 +5,7 @@ public interface AbstractThreadFactory {
     AbstractDateFactory getDateFactory();
     long nanos();
     long millis();
+    void yieldThread();
     boolean sleep(long _time);
     void newStartedThread(Runnable _runnable);
     AbstractThread newThread(Runnable _runnable);

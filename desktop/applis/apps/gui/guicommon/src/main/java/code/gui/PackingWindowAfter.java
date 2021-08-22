@@ -9,16 +9,6 @@ public final class PackingWindowAfter implements Runnable {
     private PackingWindowAfter() {
     }
 
-    public static void pack(Packable _frame, boolean _createThread) {
-        if (_createThread) {
-            PackingWindowAfter p_;
-            p_ = new PackingWindowAfter();
-            p_.frame = _frame;
-            CustComponent.newThread(p_).start();
-        } else {
-            packg(_frame);
-        }
-    }
     public static void packg(Packable _frame) {
         CustComponent.invokeLater(new PackThread(_frame));
     }

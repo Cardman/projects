@@ -4,8 +4,6 @@ import code.threads.AbstractAtomicBoolean;
 import code.util.StringList;
 import code.util.StringMap;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public final class ExecutingOptions {
 
     private String baseFiles="";

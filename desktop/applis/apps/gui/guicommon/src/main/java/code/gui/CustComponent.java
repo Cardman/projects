@@ -30,9 +30,6 @@ public abstract class CustComponent {
     public void setAutoscrolls(boolean _autoscrolls) {
         getComponent().setAutoscrolls(_autoscrolls);
     }
-    public static Thread newThread(Runnable _r) {
-        return new Thread(_r);
-    }
 
     public void addMouseListener(AbsMouseListener _mouseListener) {
         WrMouseListener wr_ = new WrMouseListener(_mouseListener);

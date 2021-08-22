@@ -155,9 +155,7 @@ public final class GuiProcess implements Runnable {
         if (!isVisible()) {
             context.getGuiInit().launchHooks(context, StackCall.newInstance(InitPhase.NOTHING,context));
             window.setNullCurrent();
-            AbstractThread th_ = window.getThreadFactory().newThread(new CoveringCodeTask(context, executingOptions,window.getFileCoreStream(),window.getStreams()));
-            th_.start();
-            th_.join();
+            new CoveringCodeTask(context, executingOptions,window.getFileCoreStream(),window.getStreams()).run();
         }
     }
 

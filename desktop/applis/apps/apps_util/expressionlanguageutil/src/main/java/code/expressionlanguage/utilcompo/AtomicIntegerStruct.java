@@ -4,8 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.threads.AbstractAtomicInteger;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public final class AtomicIntegerStruct extends WithoutParentIdStruct {
 
     private final AbstractAtomicInteger instance;

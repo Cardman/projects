@@ -2284,7 +2284,7 @@ public final class CustAliases {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                Thread.yield();
+                getInfos().getThreadFactory().yieldThread();
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

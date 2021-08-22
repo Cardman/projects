@@ -3,7 +3,7 @@ import java.awt.Color;
 
 import code.gui.LabelButton;
 
-public class LabelPoints extends LabelButton {
+public final class LabelPoints extends LabelButton {
 
     private boolean selected;
 

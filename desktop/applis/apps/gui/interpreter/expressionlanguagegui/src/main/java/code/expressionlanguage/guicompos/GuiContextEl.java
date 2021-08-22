@@ -3,7 +3,6 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
-import code.threads.AbstractThread;
 
 public final class GuiContextEl extends RunnableContextEl {
 
@@ -32,10 +31,7 @@ public final class GuiContextEl extends RunnableContextEl {
         interrupt();
         getGuiInit().launchHooks(this, _stackCall);
         _guiExecutingBlocks.getWindow().setNullCurrent();
-        AbstractThread th_ = _guiExecutingBlocks.getWindow().getThreadFactory().newThread(new CoveringCodeTask(this, getExecutingOptions(),_guiExecutingBlocks.getWindow().getFileCoreStream(),_guiExecutingBlocks.getWindow().getStreams()));
-        th_.start();
-        th_.join();
-
+        new CoveringCodeTask(this, getExecutingOptions(),_guiExecutingBlocks.getWindow().getFileCoreStream(),_guiExecutingBlocks.getWindow().getStreams()).run();
     }
     public GuiInitializer getGuiInit() {
         return (GuiInitializer)getInit();
