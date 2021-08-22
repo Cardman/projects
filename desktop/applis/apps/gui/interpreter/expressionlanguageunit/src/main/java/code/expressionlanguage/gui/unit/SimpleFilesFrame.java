@@ -19,6 +19,7 @@ import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.threads.AbstractThread;
+import code.threads.AbstractThreadFactory;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -231,6 +232,10 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
                 validator_,unitIssuer, new MemInputFiles(confFile, src, files), parent.getStreams().getZipFact(), parent.getThreadFactory());
     }
 
+    @Override
+    public AbstractThreadFactory getThreadFactory() {
+        return parent.getThreadFactory();
+    }
 
     public void showProgress(ContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved) {
         commonExecution.showProgress(_ctx, _infos, _doneTests, _method, _count, _evolved);

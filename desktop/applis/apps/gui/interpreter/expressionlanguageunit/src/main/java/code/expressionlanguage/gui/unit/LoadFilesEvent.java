@@ -11,6 +11,6 @@ public final class LoadFilesEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        filesFrame.getInfos().getThreadFactory().newStartedThread(new LoadFiles(filesFrame));
+        filesFrame.getThreadFactory().newStartedThread(new LoadFiles(filesFrame));
     }
 }

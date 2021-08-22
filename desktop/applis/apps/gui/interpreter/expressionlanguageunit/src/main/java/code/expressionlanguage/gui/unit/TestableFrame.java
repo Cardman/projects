@@ -6,6 +6,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
+import code.threads.AbstractThreadFactory;
 
 public interface TestableFrame {
     boolean ok(String _file);
@@ -15,4 +16,6 @@ public interface TestableFrame {
     void finish(Struct _infos, LgNamesWithNewAliases _evolved);
     void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved);
     FileInfos getInfos();
+
+    AbstractThreadFactory getThreadFactory();
 }
