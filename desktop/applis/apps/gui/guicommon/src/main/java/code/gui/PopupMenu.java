@@ -5,7 +5,7 @@ import javax.swing.*;
 public final class PopupMenu extends CustComponent {
     private JPopupMenu popupMenu = new JPopupMenu();
     @Override
-    protected JComponent getComponent() {
+    protected JComponent getNatComponent() {
         return popupMenu;
     }
 
@@ -14,14 +14,14 @@ public final class PopupMenu extends CustComponent {
     }
 
     public void show(CustComponent _panel, int _i, int _height) {
-        popupMenu.show(_panel.getComponent(),_i,_height);
+        popupMenu.show(_panel.getNatComponent(),_i,_height);
     }
 
     public void show(int _i, int _height) {
         popupMenu.show(null,_i,_height);
     }
     public void add(CustComponent _global) {
-        popupMenu.add(_global.getComponent());
+        popupMenu.add(_global.getNatComponent());
     }
     public void add(Menu _global) {
         popupMenu.add(_global.getMenu());
@@ -33,7 +33,7 @@ public final class PopupMenu extends CustComponent {
         popupMenu.add(_global.getMenu());
     }
     public void remove(CustComponent _global) {
-        popupMenu.remove(_global.getComponent());
+        popupMenu.remove(_global.getNatComponent());
     }
     public void remove(Menu _global) {
         popupMenu.remove(_global.getMenu());

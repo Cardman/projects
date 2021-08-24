@@ -77,13 +77,13 @@ public final class TextField extends CustComponent {
     }
 
     public void add(PopupMenu _popup) {
-        textField.add(_popup.getComponent());
+        textField.add(_popup.getNatComponent());
         textField.setComponentPopupMenu(_popup.getPopupMenu());
     }
 
 
     @Override
-    protected JComponent getComponent() {
+    protected JComponent getNatComponent() {
         return textField;
     }
 

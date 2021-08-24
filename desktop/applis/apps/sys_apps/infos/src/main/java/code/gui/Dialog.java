@@ -77,7 +77,7 @@ public final class Dialog implements AbsDialog {
     }
 
     public void setContentPane(Panel _contentPane) {
-        dial.setContentPane(_contentPane.getComponent());
+        dial.setContentPane(_contentPane.getNatComponent());
         contentPane = _contentPane;
     }
 

@@ -264,8 +264,8 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
     }
 
     @Override
-    protected JComponent getComponent() {
-        return getPanel().getComponent();
+    protected JComponent getNatComponent() {
+        return getPanel().getNatComponent();
     }
 
     @Override

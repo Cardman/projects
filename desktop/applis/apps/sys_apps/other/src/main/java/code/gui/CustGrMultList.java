@@ -129,8 +129,8 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
     }
 
     @Override
-    protected JComponent getComponent() {
-        return compo.getComponent();
+    protected JComponent getNatComponent() {
+        return compo.getNatComponent();
     }
 
     public CustComponent self() {

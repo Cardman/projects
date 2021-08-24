@@ -46,7 +46,7 @@ public final class PlainButton extends CustComponent {
     }
 
     @Override
-    protected JComponent getComponent() {
+    protected JComponent getNatComponent() {
         return button;
     }
 }

@@ -29,7 +29,7 @@ public final class TabbedPane extends CustComponent {
         }
         _component.setParent(this);
         getChildren().add(_component);
-        component.add(_title, _component.getComponent());
+        component.add(_title, _component.getNatComponent());
     }
 
     public void setTab(int _index,CustComponent _component) {
@@ -42,7 +42,7 @@ public final class TabbedPane extends CustComponent {
         getChildren().get(_index).setParent(null);
         _component.setParent(this);
         getChildren().set(_index,_component);
-        component.setTabComponentAt(_index, _component.getComponent());
+        component.setTabComponentAt(_index, _component.getNatComponent());
     }
     public String getTitle(int _index) {
         if (!getChildren().isValidIndex(_index)) {
@@ -95,7 +95,7 @@ public final class TabbedPane extends CustComponent {
         i_ = 0;
         for (CustComponent c: rem_) {
             getChildren().add(c);
-            component.addTab(remTitles_.get(i_),c.getComponent());
+            component.addTab(remTitles_.get(i_),c.getNatComponent());
             i_++;
         }
         return index_;
@@ -105,7 +105,7 @@ public final class TabbedPane extends CustComponent {
     }
 
     @Override
-    protected JComponent getComponent() {
+    protected JComponent getNatComponent() {
         return component;
     }
 

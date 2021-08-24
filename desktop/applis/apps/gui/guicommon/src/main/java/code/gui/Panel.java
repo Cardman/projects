@@ -74,7 +74,7 @@ public final class Panel extends CustComponent {
         }
         _comp.setParent(this);
         getChildren().add(_comp);
-        panel.add(_comp.getComponent());
+        panel.add(_comp.getNatComponent());
     }
 
     public void add(CustComponent _comp, int _index) {
@@ -83,7 +83,7 @@ public final class Panel extends CustComponent {
         }
         _comp.setParent(this);
         getChildren().add(_index,_comp);
-        panel.add(_comp.getComponent(), _index);
+        panel.add(_comp.getNatComponent(), _index);
     }
 
     public void add(CustComponent _comp, String _constraints) {
@@ -92,7 +92,7 @@ public final class Panel extends CustComponent {
         }
         _comp.setParent(this);
         getChildren().add(_comp);
-        panel.add(_comp.getComponent(), _constraints);
+        panel.add(_comp.getNatComponent(), _constraints);
     }
 
     public void remove(int _index) {
@@ -118,7 +118,7 @@ public final class Panel extends CustComponent {
         panel.removeAll();
         for (CustComponent c: rem_) {
             getChildren().add(c);
-            panel.add(c.getComponent());
+            panel.add(c.getNatComponent());
         }
         return index_;
     }
@@ -159,7 +159,7 @@ public final class Panel extends CustComponent {
     }
 
     @Override
-    protected JComponent getComponent() {
+    protected JComponent getNatComponent() {
         return panel;
     }
 

@@ -60,7 +60,7 @@ public final class Slider extends CustComponent {
         slider.setOrientation(_orientation);
     }
     @Override
-    protected JComponent getComponent() {
+    protected JComponent getNatComponent() {
         return slider;
     }
 

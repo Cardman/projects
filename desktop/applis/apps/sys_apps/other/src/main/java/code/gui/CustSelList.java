@@ -30,6 +30,6 @@ public final class CustSelList<T> implements ListCellRenderer<T> {
          render.setList(list);
          render.getListCellRendererComponent(label,_index,_isSelected,_cellHasFocus);
          render.paintComponent(label);
-         return label.getComponent();
+         return label.getNatComponent();
      }
 }

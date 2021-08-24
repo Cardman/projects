@@ -135,7 +135,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     }
 
     @Override
-    protected JComponent getComponent() {
+    protected JComponent getNatComponent() {
         return combo;
     }
 

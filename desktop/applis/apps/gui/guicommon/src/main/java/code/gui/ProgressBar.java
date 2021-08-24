@@ -42,7 +42,7 @@ public final class ProgressBar extends CustComponent {
     }
 
     @Override
-    protected JComponent getComponent() {
+    protected JComponent getNatComponent() {
         return progressBar;
     }
 }

@@ -8,7 +8,7 @@ public final class SplitPane extends CustComponent {
     private final JSplitPane component;
 
     public SplitPane(int _orientation, CustComponent _left, CustComponent _right) {
-        component = new JSplitPane(_orientation,_left.getComponent(),_right.getComponent());
+        component = new JSplitPane(_orientation,_left.getNatComponent(),_right.getNatComponent());
         _left.setParent(this);
         getChildren().add(_left);
         _right.setParent(this);
@@ -16,7 +16,7 @@ public final class SplitPane extends CustComponent {
     }
 
     @Override
-    protected JComponent getComponent() {
+    protected JComponent getNatComponent() {
         return component;
     }
 
@@ -26,7 +26,7 @@ public final class SplitPane extends CustComponent {
         }
         getChildren().first().setParent(null);
         _scroll.setParent(this);
-        component.setLeftComponent(_scroll.getComponent());
+        component.setLeftComponent(_scroll.getNatComponent());
         getChildren().set(0, _scroll);
     }
 
@@ -36,7 +36,7 @@ public final class SplitPane extends CustComponent {
         }
         getChildren().last().setParent(null);
         _scroll.setParent(this);
-        component.setRightComponent(_scroll.getComponent());
+        component.setRightComponent(_scroll.getNatComponent());
         getChildren().set(1, _scroll);
     }
 

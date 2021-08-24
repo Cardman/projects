@@ -9,7 +9,7 @@ public abstract class SelectDialog implements AbsCloseableDialog {
     private boolean ok;
 
     protected SelectDialog(AbsFrameFactory _fact) {
-        selectDial = _fact.newDialog();
+        selectDial = _fact.newDialog(this);
     }
 
     public AbsDialog getSelectDial() {

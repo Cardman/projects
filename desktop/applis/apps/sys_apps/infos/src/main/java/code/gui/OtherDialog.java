@@ -42,7 +42,7 @@ public final class OtherDialog implements AbsOtherDialog,ChangeableTitle,WithLis
 
     @Override
     public void setLocationRelativeTo(CustComponent _c) {
-        dialog.setLocationRelativeTo(_c.getComponent());
+        dialog.setLocationRelativeTo(_c.getNatComponent());
     }
 
     @Override
@@ -99,7 +99,7 @@ public final class OtherDialog implements AbsOtherDialog,ChangeableTitle,WithLis
     }
 
     public void setContentPane(Panel _contentPane) {
-        dialog.setContentPane(_contentPane.getComponent());
+        dialog.setContentPane(_contentPane.getNatComponent());
         contentPane = _contentPane;
     }
 

@@ -122,7 +122,7 @@ public final class CommonFrame implements AbsCommonFrame {
     }
 
     public void setContentPane(Panel _contentPane) {
-        frame.setContentPane(_contentPane.getComponent());
+        frame.setContentPane(_contentPane.getNatComponent());
         contentPane = _contentPane;
     }
 
@@ -161,7 +161,7 @@ public final class CommonFrame implements AbsCommonFrame {
     }
 
     public void setLocationRelativeTo(CustComponent _c) {
-        frame.setLocationRelativeTo(_c.getComponent());
+        frame.setLocationRelativeTo(_c.getNatComponent());
     }
 
     @Override

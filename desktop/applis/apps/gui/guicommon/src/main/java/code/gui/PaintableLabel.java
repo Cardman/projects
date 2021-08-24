@@ -62,11 +62,8 @@ public abstract class PaintableLabel extends CustComponent {
     }
 
     @Override
-    protected JComponent getComponent() {
+    protected JComponent getNatComponent() {
         return label;
     }
 
-    JLabel getLabel() {
-        return label;
-    }
 }

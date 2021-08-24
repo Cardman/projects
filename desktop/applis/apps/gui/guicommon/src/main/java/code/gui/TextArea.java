@@ -307,7 +307,7 @@ public final class TextArea extends CustComponent {
     }
 
     @Override
-    protected JComponent getComponent() {
+    protected JComponent getNatComponent() {
         return textArea;
     }
 

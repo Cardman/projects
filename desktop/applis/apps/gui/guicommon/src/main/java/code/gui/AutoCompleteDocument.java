@@ -40,7 +40,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
 
     public void addAutoComplete(AbsAutoCompleteListener _auto) {
         WrAutoCompleteListener wr_ = new WrAutoCompleteListener(_auto);
-        textField.getComponent().addFocusListener(wr_);
+        textField.getNatComponent().addFocusListener(wr_);
         textField.getDocument().addDocumentListener(wr_);
     }
 

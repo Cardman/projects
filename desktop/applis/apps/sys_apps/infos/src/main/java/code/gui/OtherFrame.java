@@ -93,12 +93,12 @@ public final class OtherFrame implements AbsOtherFrame,ChangeableTitle,WithListe
     }
     @Override
     public void setContentPane(Panel _p) {
-        frame.setContentPane(_p.getComponent());
+        frame.setContentPane(_p.getNatComponent());
     }
 
     @Override
     public void setLocationRelativeTo(CustComponent _c) {
-        frame.setLocationRelativeTo(_c.getComponent());
+        frame.setLocationRelativeTo(_c.getNatComponent());
     }
 
     @Override

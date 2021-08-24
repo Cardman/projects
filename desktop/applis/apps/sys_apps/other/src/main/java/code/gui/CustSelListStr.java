@@ -40,6 +40,6 @@ public final class CustSelListStr implements ListCellRenderer<Struct> {
                 new Argument(labStruct),
                 new Argument(BooleanStruct.of(_isSelected))
         ), rect_);
-        return label.getComponent();
+        return label.getNatComponent();
     }
 }
