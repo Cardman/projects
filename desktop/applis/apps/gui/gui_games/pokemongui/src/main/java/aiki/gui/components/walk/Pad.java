@@ -3,16 +3,15 @@ package aiki.gui.components.walk;
 import aiki.db.DataBase;
 import aiki.gui.components.labels.KeyPad;
 import aiki.map.enums.Direction;
-import code.gui.PaintableLabel;
 import code.gui.Panel;
 import code.gui.TextLabel;
 
 public class Pad {
 
-    private PaintableLabel up;
-    private PaintableLabel left;
-    private PaintableLabel down;
-    private PaintableLabel right;
+    private KeyPad up;
+    private KeyPad left;
+    private KeyPad down;
+    private KeyPad right;
 
     private Panel container;
 
@@ -47,19 +46,19 @@ public class Pad {
         container.add(down);
     }
 
-    public PaintableLabel getUp() {
+    public KeyPad getUp() {
         return up;
     }
 
-    public PaintableLabel getLeft() {
+    public KeyPad getLeft() {
         return left;
     }
 
-    public PaintableLabel getDown() {
+    public KeyPad getDown() {
         return down;
     }
 
-    public PaintableLabel getRight() {
+    public KeyPad getRight() {
         return right;
     }
 
