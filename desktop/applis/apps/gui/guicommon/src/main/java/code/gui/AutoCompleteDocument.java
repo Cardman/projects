@@ -34,7 +34,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         init();
     }
 
-    public void init() {
+    private void init() {
         textField.addAutoComplete(this);
         textField.addKeyListener(this);
     }
@@ -72,7 +72,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
     /**
      * Closes autocomplete popup.
      */
-    public void hideAutocompletePopup(){
+    void hideAutocompletePopup(){
         popup.setVisible(false);
     }
 
@@ -179,7 +179,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         dictionary.addAllElts(_dictionary);
     }
 
-    public boolean skip() {
+    private boolean skip() {
         return !wholeString;
     }
 
