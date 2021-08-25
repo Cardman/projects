@@ -1,5 +1,4 @@
 package code.gui;
-import javax.swing.JMenuItem;
 
 import code.util.core.IndexConstants;
 
@@ -15,7 +14,7 @@ final class MenuItemUtils {
             if (!_b) {
                 int nbSubMenus_ = mPar_.getItemCount();
                 for (int i = IndexConstants.FIRST_INDEX; i < nbSubMenus_; i++) {
-                    JMenuItem m_ = mPar_.getItem(i);
+                    EnabledMenu m_ = mPar_.getItem(i);
                     if (m_ == null) {
                         continue;
                     }

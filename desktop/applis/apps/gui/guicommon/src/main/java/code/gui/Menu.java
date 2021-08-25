@@ -1,10 +1,12 @@
 package code.gui;
+import code.util.IdList;
+
 import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 
 public final class Menu implements EnabledMenu {
 
     private Menu parentMenu;
+    private final IdList<EnabledMenu> subs = new IdList<EnabledMenu>();
 
     private JMenu menu;
 
@@ -38,27 +40,33 @@ public final class Menu implements EnabledMenu {
     public void addMenuItem(CheckBoxMenuItem _menuItem) {
         _menuItem.setParentMenu(this);
         menu.add(_menuItem.getMenu());
+        subs.add(_menuItem);
     }
     public void addMenuItem(MenuItem _menuItem) {
         _menuItem.setParentMenu(this);
         menu.add(_menuItem.getMenu());
+        subs.add(_menuItem);
     }
     public void addMenuItem(Menu _menuItem) {
         _menuItem.setParentMenu(this);
         menu.add(_menuItem.menu);
+        subs.add(_menuItem);
     }
 
     public void removeMenuItem(CheckBoxMenuItem _menuItem) {
         _menuItem.setParentMenu(null);
         menu.remove(_menuItem.getMenu());
+        subs.removeObj(_menuItem);
     }
     public void removeMenuItem(MenuItem _menuItem) {
         _menuItem.setParentMenu(null);
         menu.remove(_menuItem.getMenu());
+        subs.removeObj(_menuItem);
     }
     public void removeMenuItem(Menu _menuItem) {
         _menuItem.setParentMenu(null);
         menu.remove(_menuItem.menu);
+        subs.removeObj(_menuItem);
     }
     JMenu getMenu() {
         return menu;
@@ -85,8 +93,8 @@ public final class Menu implements EnabledMenu {
         menu.addSeparator();
     }
 
-    JMenuItem getItem(int _i) {
-        return menu.getItem(_i);
+    public EnabledMenu getItem(int _i) {
+        return subs.get(_i);
     }
 
     public int getItemCount() {
