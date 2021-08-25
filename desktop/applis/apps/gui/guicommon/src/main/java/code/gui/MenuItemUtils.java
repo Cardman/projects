@@ -12,7 +12,7 @@ final class MenuItemUtils {
         Menu mPar_ = _subMenu.getParentMenu();
         while (mPar_ != null) {
             if (!_b) {
-                int nbSubMenus_ = mPar_.getItemCount();
+                int nbSubMenus_ = mPar_.getSubCount();
                 for (int i = IndexConstants.FIRST_INDEX; i < nbSubMenus_; i++) {
                     EnabledMenu m_ = mPar_.getItem(i);
                     if (m_ == null) {

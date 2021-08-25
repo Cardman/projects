@@ -8,7 +8,7 @@ public final class Menu implements EnabledMenu {
     private Menu parentMenu;
     private final IdList<EnabledMenu> subs = new IdList<EnabledMenu>();
 
-    private JMenu menu;
+    private final JMenu menu;
 
     public Menu() {
         menu = new JMenu();
@@ -95,6 +95,10 @@ public final class Menu implements EnabledMenu {
 
     public EnabledMenu getItem(int _i) {
         return subs.get(_i);
+    }
+
+    public int getSubCount() {
+        return subs.size();
     }
 
     public int getItemCount() {
