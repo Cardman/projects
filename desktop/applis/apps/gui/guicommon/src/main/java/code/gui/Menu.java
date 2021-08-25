@@ -94,7 +94,7 @@ public final class Menu implements EnabledMenu {
     }
 
     public EnabledMenu getItem(int _i) {
-        return subs.get(_i);
+        return MenuItemUtils.get(subs,_i);
     }
 
     public int getSubCount() {
