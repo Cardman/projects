@@ -72,7 +72,7 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     }
 
     @Override
-    public void add(int _index, PreparedLabel _lab, T _elt) {
+    public void add(int _index, AbsPreparedLabel _lab, T _elt) {
         elts.add(_index, _elt);
         model.add(_index, _elt);
     }
@@ -89,7 +89,7 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     }
 
     @Override
-    public void set(int _index, PreparedLabel _lab, T _elt) {
+    public void set(int _index, AbsPreparedLabel _lab, T _elt) {
         elts.set(_index, _elt);
         model.set(_index, _elt);
     }

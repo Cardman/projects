@@ -26,12 +26,12 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
     }
 
     @Override
-    public void add(int _index, PreparedLabel _lab, String _elt) {
+    public void add(int _index, AbsPreparedLabel _lab, String _elt) {
         compo.add(_index, _lab, _elt);
     }
 
     @Override
-    public void set(int _index, PreparedLabel _lab, String _elt) {
+    public void set(int _index, AbsPreparedLabel _lab, String _elt) {
         compo.set(_index,_lab, _elt);
     }
 

@@ -4,6 +4,7 @@ import java.awt.*;
 
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.Ints;
 import code.util.StringList;
 
@@ -12,14 +13,16 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
     private DefaultCellRender cellRender;
     private final StringList elements;
     private int height = 1;
-    private AbstractImageFactory fact;
-    public GraphicStringList(AbstractImageFactory _fact, StringList _objects) {
-        this(_fact,true, _objects, new Ints());
+    private final AbstractImageFactory fact;
+    private final AbsCompoFactory compoFactory;
+    public GraphicStringList(AbstractImageFactory _fact, AbsCompoFactory _compoFactory, StringList _objects) {
+        this(_fact,_compoFactory,true, _objects, new Ints());
     }
 
-    private GraphicStringList(AbstractImageFactory _fact, boolean _simple, StringList _objects, Ints _selectedIndexes) {
+    private GraphicStringList(AbstractImageFactory _fact, AbsCompoFactory _compoFactory, boolean _simple, StringList _objects, Ints _selectedIndexes) {
         super(_simple, _selectedIndexes, _objects, new DefaultGraphicListPainter(_fact));
         fact = _fact;
+        compoFactory = _compoFactory;
         buildList(_fact);
         elements = _objects;
         setList(elements);
@@ -43,7 +46,7 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
         int len_ = elements.size();
         for (int i = 0; i < len_; i++) {
             AbstractImage buff_ = repaintSelected(i, getSelectedIndexes().containsObj(i));
-            PreparedLabel lab_ = new PreparedLabel(fact,buff_);
+            AbsPreparedLabel lab_ = compoFactory.newPreparedLabel(buff_);
             getListComponents().add(lab_);
             panel_.add(lab_);
         }
@@ -51,7 +54,7 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
 
     void repaintSelect(int _index, boolean _sel) {
         AbstractImage buff_ = repaintSelected(_index, _sel);
-        PreparedLabel lab_ = getListComponents().get(_index);
+        AbsPreparedLabel lab_ = getListComponents().get(_index);
         lab_.setIcon(fact,buff_);
     }
 
@@ -75,7 +78,7 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
     }
 
     @Override
-    protected IndexableListener buildSingleSelect(PreparedLabel _lab, int _index) {
+    protected IndexableListener buildSingleSelect(AbsPreparedLabel _lab, int _index) {
         SimpleSelectCombo i_ = new SimpleSelectCombo(this, _index);
         _lab.addMouseListener(i_);
         return i_;

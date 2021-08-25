@@ -29,7 +29,7 @@ public final class OtherConfirmDialog {
 
     public OtherConfirmDialog(AbstractProgramInfos _infos,AbstractImageFactory _fact, AbsFrameFactory _frame) {
         infos = _infos;
-        dialog =infos.getFrameFactory().newOtherDialog();
+        dialog =_infos.getFrameFactory().newOtherDialog();
         dialog.addWindowListener(new OtherCrossClosingDialogEvent(this));
     }
 
@@ -159,7 +159,7 @@ public final class OtherConfirmDialog {
         Panel content_ = Panel.newGrid(0,1);
         content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
-        buttons_.add(new PreparedLabel(infos.getImageFactory(),_img));
+        buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
         LabelButton button_ = new LabelButton(_language);
         button_.addMouseList(new OtherClosingDialogEvent(this));
         buttons_.add(button_);
@@ -189,7 +189,7 @@ public final class OtherConfirmDialog {
         Panel content_ = Panel.newGrid(0,1);
         content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
-        buttons_.add(new PreparedLabel(infos.getImageFactory(),_img));
+        buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
         LabelButton button_ = new LabelButton(_language);
         button_.addMouseList(new OtherAnswerEvent(this, OK_OPTION));
         buttons_.add(button_);
@@ -224,7 +224,7 @@ public final class OtherConfirmDialog {
         content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
         answer = NO_OPTION;
-        buttons_.add(new PreparedLabel(infos.getImageFactory(),_img));
+        buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
         LabelButton button_ = new LabelButton(_yes);
         button_.addMouseList(new OtherAnswerEvent(this, YES_OPTION));
         buttons_.add(button_);
@@ -264,7 +264,7 @@ public final class OtherConfirmDialog {
         content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
         answer = CANCEL_OPTION;
-        buttons_.add(new PreparedLabel(infos.getImageFactory(),_img));
+        buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
         LabelButton button_ = new LabelButton(_yes);
         button_.addMouseList(new OtherAnswerEvent(this, YES_OPTION));
         buttons_.add(button_);
@@ -306,7 +306,7 @@ public final class OtherConfirmDialog {
     private void initField(AbstractImage _img, String _message, String _value, String _title, String _ok, String _cancel) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new PreparedLabel(infos.getImageFactory(),_img));
+        content_.add(infos.getCompoFactory().newPreparedLabel(_img));
         content_.add(wrapped(_message));
         field = new TextField();
         field.setText(_value);

@@ -1,7 +1,6 @@
 package code.gui;
 
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 import code.gui.events.AnswerEvent;
@@ -111,11 +110,11 @@ public final class ConfirmDialog {
         content_.add(new WrappedLabel(list.getImageFactory(), _message, list.getCompoFactory()));
         Panel buttons_ = Panel.newLineBox();
         if (_option == JOptionPane.INFORMATION_MESSAGE) {
-            buttons_.add(new PreparedLabel(UIManager.getIcon(INFORMATION_ICON)));
+            buttons_.add(list.getCompoFactory().newPreparedLabel(INFORMATION_ICON));
         } else if (_option == JOptionPane.ERROR_MESSAGE) {
-            buttons_.add(new PreparedLabel(UIManager.getIcon(ERROR_ICON)));
+            buttons_.add(list.getCompoFactory().newPreparedLabel(ERROR_ICON));
         } else if (_option == JOptionPane.WARNING_MESSAGE) {
-            buttons_.add(new PreparedLabel(UIManager.getIcon(WARNING_ICON)));
+            buttons_.add(list.getCompoFactory().newPreparedLabel(WARNING_ICON));
         }
         LabelButton button_ = new LabelButton(messages_.getVal(OK));
         button_.addMouseList(new ClosingDialogEvent(absDialog));
@@ -140,11 +139,11 @@ public final class ConfirmDialog {
         content_.add(_message);
         Panel buttons_ = Panel.newLineBox();
         if (_option == JOptionPane.INFORMATION_MESSAGE) {
-            buttons_.add(new PreparedLabel(UIManager.getIcon(INFORMATION_ICON)));
+            buttons_.add(list.getCompoFactory().newPreparedLabel(INFORMATION_ICON));
         } else if (_option == JOptionPane.ERROR_MESSAGE) {
-            buttons_.add(new PreparedLabel(UIManager.getIcon(ERROR_ICON)));
+            buttons_.add(list.getCompoFactory().newPreparedLabel(ERROR_ICON));
         } else if (_option == JOptionPane.WARNING_MESSAGE) {
-            buttons_.add(new PreparedLabel(UIManager.getIcon(WARNING_ICON)));
+            buttons_.add(list.getCompoFactory().newPreparedLabel(WARNING_ICON));
         }
         LabelButton button_ = new LabelButton(messages_.getVal(OK));
         button_.addMouseList(new ClosingDialogEvent(absDialog));
@@ -170,7 +169,7 @@ public final class ConfirmDialog {
         Panel buttons_ = Panel.newLineBox();
         if (_option == JOptionPane.YES_NO_OPTION) {
             answer = JOptionPane.NO_OPTION;
-            buttons_.add(new PreparedLabel(UIManager.getIcon(QUESTION_ICON)));
+            buttons_.add(list.getCompoFactory().newPreparedLabel(QUESTION_ICON));
             LabelButton button_ = new LabelButton(messages_.getVal(YES));
             button_.addMouseList(new AnswerEvent(this, JOptionPane.YES_OPTION));
             buttons_.add(button_);
@@ -179,7 +178,7 @@ public final class ConfirmDialog {
             buttons_.add(button_);
         } else if (_option == JOptionPane.YES_NO_CANCEL_OPTION) {
             answer = JOptionPane.CANCEL_OPTION;
-            buttons_.add(new PreparedLabel(UIManager.getIcon(QUESTION_ICON)));
+            buttons_.add(list.getCompoFactory().newPreparedLabel(QUESTION_ICON));
             LabelButton button_ = new LabelButton(messages_.getVal(YES));
             button_.addMouseList(new AnswerEvent(this, JOptionPane.YES_OPTION));
             buttons_.add(button_);
@@ -205,7 +204,7 @@ public final class ConfirmDialog {
         StringMap<String> messages_ = confirm(_language);
         absDialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new PreparedLabel(UIManager.getIcon(QUESTION_ICON)));
+        content_.add(list.getCompoFactory().newPreparedLabel(QUESTION_ICON));
 //        JLabel message_ = new JLabel(_message);
 //        Font font_ = message_.getFont();
 //        FontMetrics fontMet_ = message_.getFontMetrics(font_);

@@ -1,5 +1,7 @@
 package code.sys.impl;
 
+import code.gui.AbsPreparedLabel;
+import code.gui.PreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 
@@ -19,6 +21,11 @@ public final class DefImage implements AbstractImage {
     public DefImage(BufferedImage _read) {
         image = _read;
         graphics = image.getGraphics();
+    }
+
+    @Override
+    public AbsPreparedLabel newAbsPreparedLabel() {
+        return new PreparedLabel(this,new JLabel());
     }
 
     @Override

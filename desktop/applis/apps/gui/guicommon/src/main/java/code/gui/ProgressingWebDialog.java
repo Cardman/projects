@@ -20,7 +20,7 @@ public final class ProgressingWebDialog implements ProgressDialog {
     private static final String PER_CENT = "";
     private final AbsDialog absDialog;
 
-    private PreparedLabel anim;
+    private AbsPreparedLabel anim;
     private AnimatedImage animation;
 
     public ProgressingWebDialog(AbsFrameFactory _frameFactory) {
@@ -48,11 +48,11 @@ public final class ProgressingWebDialog implements ProgressDialog {
         }
         absDialog.setLocationRelativeToWindow(_window);
         if (!_images.isEmpty()) {
-            anim = PreparedLabel.prep(_session.getGene().getImageFactory());
+            anim = FrameUtil.prep(_session.getGene().getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             animation = new AnimatedImage(_session.getGene().getImageFactory(),_fact,anim, _images, TIME * 10);
         } else {
-            anim = PreparedLabel.prep(_session.getGene().getImageFactory());
+            anim = FrameUtil.prep(_session.getGene().getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim.setOpaque(true);
             anim.setBackground(Color.WHITE);

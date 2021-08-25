@@ -11,7 +11,7 @@ public final class DualComboBox extends DualInput implements IntComboBox {
 
     public DualComboBox(DualContainer _container, MetaComboBox _component,
                         RenderedPage _page) {
-        super(_container, _component, _page.getGene().getGeneComboBox().createCombo(_page.getGene().getImageFactory(),new StringList(_component.getChoicesStrings()), _component.getSelected()), _page);
+        super(_container, _component, _page.getGene().getGeneComboBox().createCombo(_page.getGene().getImageFactory(),new StringList(_component.getChoicesStrings()), _component.getSelected(), _page.getCompoFactory()), _page);
         choicesValues = _component.getChoicesValues();
         updateGraphics(getSelect().getGlobal(),_component);
     }

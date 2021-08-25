@@ -4,17 +4,18 @@ import code.gui.events.AbsMouseListener;
 import code.gui.events.MouseListenerCore;
 import code.gui.events.WrMouseListener;
 import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
+import code.sys.impl.DefImage;
+import code.sys.impl.DefImageFactory;
 
 import javax.swing.*;
 import java.awt.*;
 
-public final class ImgButton extends CustComponent implements AbsEnabled {
+public final class ImgButton extends CustComponent implements AbsImgButton {
 
     private final JButton label;
 
-    public ImgButton(AbstractImageFactory _fact, AbstractImage _imageIcon) {
-        label = new JButton(PreparedLabel.buildIcon(_fact,_imageIcon));
+    public ImgButton(AbstractImage _imageIcon) {
+        label = new JButton(DefImageFactory.icon((DefImage) _imageIcon));
         setLineBorder(Color.BLACK, 1);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }

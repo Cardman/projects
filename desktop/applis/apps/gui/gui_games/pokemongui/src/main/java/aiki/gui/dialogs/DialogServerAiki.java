@@ -67,7 +67,7 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);
         EnumList<IpType> list_ = new EnumList<IpType>(IpType.values());
-        ipType = new ComboBox<IpType>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1));
+        ipType = new ComboBox<IpType>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
         ipType.setWithDefaultValue(false);
         ipType.refresh(list_, messagesIpEnum);
         ipType.setSelectedItem(IpType.HOST_NAME);

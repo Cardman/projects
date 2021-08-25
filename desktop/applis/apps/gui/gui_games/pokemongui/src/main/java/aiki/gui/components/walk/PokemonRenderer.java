@@ -67,7 +67,7 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
 
     @Override
     public void getListCellRendererComponent(
-            PreparedLabel _currentLab,
+            AbsPreparedLabel _currentLab,
             int _index, boolean _selected, boolean _arg4) {
         pokemon = getList().get(_index);
         selected = _selected;

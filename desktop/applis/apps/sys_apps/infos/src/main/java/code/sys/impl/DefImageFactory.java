@@ -17,11 +17,6 @@ public final class DefImageFactory implements AbstractImageFactory {
         return new DefImage(BufferedImage.TYPE_INT_RGB,_w,_h);
     }
 
-    @Override
-    public Icon icon(AbstractImage _img) {
-        return icon((DefImage) _img);
-    }
-
     public static ImageIcon icon(DefImage _img) {
         try {
             return new ImageIcon(_img.data());

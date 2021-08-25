@@ -101,4 +101,8 @@ public final class FrameUtil {
     public static void invokeLater(Runnable _r) {
         SwingUtilities.invokeLater(_r);
     }
+
+    public static AbsPreparedLabel prep(AbstractImageFactory _img) {
+        return _img.newImageArgb(1,1).newAbsPreparedLabel();
+    }
 }

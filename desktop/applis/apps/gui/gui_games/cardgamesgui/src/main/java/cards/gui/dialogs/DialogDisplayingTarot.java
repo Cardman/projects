@@ -80,7 +80,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri
         Panel sousPanneau_=Panel.newGrid(0,3);
-        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
+        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = new EnumList<Suit>(Suit.values());

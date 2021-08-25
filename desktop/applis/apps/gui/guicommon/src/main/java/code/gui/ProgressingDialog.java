@@ -22,7 +22,7 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
     private static final int DELTA = 100;
     private final AbsDialog absDialog;
 
-    private PreparedLabel anim;
+    private AbsPreparedLabel anim;
 
     private ProgressBar bar;
 
@@ -63,11 +63,11 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
         Panel contentPane_ = Panel.newPageBox();
         Panel label_ = Panel.newLineBox();
         if (!_images.isEmpty()) {
-            anim = PreparedLabel.prep(_window.getImageFactory());
+            anim = FrameUtil.prep(_window.getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             animation = new AnimatedImage(_window.getImageFactory(), _window.getThreadFactory(), anim, _images, TIME * 10);
         } else {
-            anim = PreparedLabel.prep(_window.getImageFactory());
+            anim = FrameUtil.prep(_window.getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim.setOpaque(true);
             anim.setBackground(Color.WHITE);

@@ -70,7 +70,7 @@ public final class DialogSoft extends DialogCards {
         if(StringUtil.quickEq(menu, WindowCards.CST_LAUNCHING)) {
             //Lancement du logiciel
             Panel panneau_=Panel.newPageBox();
-            list = new ComboBox<GameEnum>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1));
+            list = new ComboBox<GameEnum>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
             EnumMap<GameEnum,String> mess_;
             EnumList<GameEnum> order_;
             mess_ = new EnumMap<GameEnum,String>();

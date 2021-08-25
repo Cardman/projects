@@ -10,7 +10,7 @@ public final class CustGrListStr extends CustGrList<Struct> implements AbsCustGr
     }
 
     @Override
-    public void setCustCell(Struct _grComp, PreparedLabel _lab, Struct _labStruct, SpecSelectionStruct _cell) {
+    public void setCustCell(Struct _grComp, AbsPreparedLabel _lab, Struct _labStruct, SpecSelectionStruct _cell) {
         CustSelListStr cell_ = new CustSelListStr(_lab, _labStruct, _cell);
         getListView().setCellRenderer(cell_);
     }

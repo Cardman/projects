@@ -3,7 +3,7 @@ package code.gui.document;
 import java.awt.Cursor;
 
 import code.formathtml.render.MetaSimpleImage;
-import code.gui.PreparedLabel;
+import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.sml.Element;
 
@@ -18,7 +18,7 @@ public final class DualSimpleImage extends DualImage {
         image = _component.getImage();
         href = "";
         if (anchor_ != null) {
-            PreparedLabel label_ = getLabel();
+            AbsPreparedLabel label_ = getLabel();
             String prefix_ = getPage().getNavigation().getSession().getPrefix();
             String command_ = new StringBuilder(prefix_).append("command").toString();
             command_ = _component.getAnchor().getAttribute(command_);

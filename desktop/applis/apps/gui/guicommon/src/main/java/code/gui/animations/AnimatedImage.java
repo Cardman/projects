@@ -1,6 +1,6 @@
 package code.gui.animations;
 
-import code.gui.PreparedLabel;
+import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.threads.AbstractAtomicBoolean;
@@ -10,7 +10,7 @@ import code.util.CustList;
 
 public final class AnimatedImage implements Runnable {
 
-    private PreparedLabel label;
+    private AbsPreparedLabel label;
 
     private CustList<AbstractImage> images;
 
@@ -20,7 +20,7 @@ public final class AnimatedImage implements Runnable {
 
     private AbstractThreadFactory fact;
     private AbstractImageFactory img;
-    public AnimatedImage(AbstractImageFactory _img, AbstractThreadFactory _fact, PreparedLabel _label, CustList<AbstractImage> _images,
+    public AnimatedImage(AbstractImageFactory _img, AbstractThreadFactory _fact, AbsPreparedLabel _label, CustList<AbstractImage> _images,
                          int _delay) {
         animated = _fact.newAtomicBoolean(true);
         label = _label;

@@ -35,7 +35,7 @@ public class ItemRenderer extends CustCellRender<String> {
 
     @Override
     public void getListCellRendererComponent(
-            PreparedLabel _currentLab, int _arg2,
+            AbsPreparedLabel _currentLab, int _arg2,
             boolean _selected, boolean _arg4) {
         selected = _selected;
         name = getList().get(_arg2);

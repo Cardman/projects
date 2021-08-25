@@ -31,7 +31,7 @@ public final class GraphicListStruct extends InputStruct {
         if (!(_img instanceof PreparedLabelStruct)) {
             return;
         }
-        PreparedLabel textLabel_ = ((PreparedLabelStruct) _img).getTextLabel();
+        AbsPreparedLabel textLabel_ = ((PreparedLabelStruct) _img).getTextLabel();
         grList.add(_index,textLabel_, _elt);
     }
     public void add(int _index, Struct _elt) {
@@ -48,7 +48,7 @@ public final class GraphicListStruct extends InputStruct {
             return;
         }
         PreparedLabelStruct img_ = (PreparedLabelStruct) _img;
-        PreparedLabel textLabel_ = img_.getTextLabel();
+        AbsPreparedLabel textLabel_ = img_.getTextLabel();
         grList.set(_index, textLabel_,_elt);
     }
     public void set(int _index, Struct _elt) {
@@ -176,7 +176,7 @@ public final class GraphicListStruct extends InputStruct {
                 String aliasImageLabel_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasImageLabel();
                 WindowFull window_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getWindow();
                 PreparedLabelStruct im_ = new PreparedLabelStruct(window_.getImageFactory(),aliasImageLabel_);
-                PreparedLabel lab_ = im_.getTextLabel();
+                AbsPreparedLabel lab_ = im_.getTextLabel();
                 grList.setCustCell(this, lab_, im_,
                         new DefSpecSelectionStruct(_ctx, this)
                 );

@@ -8,11 +8,11 @@ public final class CustSelList<T> implements ListCellRenderer<T> {
 
 	private CustCellRender<T> render;
 	private CustList<T> list = new CustList<>();
-	private PreparedLabel label;
+	private AbsPreparedLabel label;
 
     public void setRender(CustCellRender<T> _render) {
         this.render = _render;
-        label = PreparedLabel.prep(_render.getImageFactory());
+        label = FrameUtil.prep(_render.getImageFactory());
     }
 
 
@@ -30,6 +30,6 @@ public final class CustSelList<T> implements ListCellRenderer<T> {
          render.setList(list);
          render.getListCellRendererComponent(label,_index,_isSelected,_cellHasFocus);
          render.paintComponent(label);
-         return label.getNatComponent();
+         return ((CustComponent) label).getNatComponent();
      }
 }

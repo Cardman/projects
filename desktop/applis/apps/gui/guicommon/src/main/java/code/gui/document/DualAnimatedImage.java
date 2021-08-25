@@ -3,7 +3,7 @@ package code.gui.document;
 import java.awt.Cursor;
 
 import code.formathtml.render.MetaAnimatedImage;
-import code.gui.PreparedLabel;
+import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.threads.ThreadUtil;
 import code.sml.Element;
@@ -27,7 +27,7 @@ public final class DualAnimatedImage extends DualImage {
         Element anchor_ = _component.getAnchor();
         href = "";
         if (anchor_ != null) {
-            PreparedLabel label_ = getLabel();
+            AbsPreparedLabel label_ = getLabel();
             label_.setCursor(Cursor.HAND_CURSOR);
             label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             if (!anchor_.getAttribute("command").isEmpty()) {

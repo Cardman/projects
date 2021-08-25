@@ -1,8 +1,11 @@
 package code.gui.images;
 
+import code.gui.AbsPreparedLabel;
+
 import java.awt.*;
 
 public interface AbstractImage {
+    AbsPreparedLabel newAbsPreparedLabel();
     void translate(int _x, int _y);
     byte[] toBytes();
     int getHeight();

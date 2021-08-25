@@ -1,9 +1,7 @@
 package code.gui.initialize;
 
-import code.gui.AbsMetaLabel;
-import code.gui.AbsPaintableLabel;
-import code.gui.AbsTreeGui;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.*;
+import code.gui.images.AbstractImage;
 
 public interface AbsCompoFactory {
     AbsTreeGui newTreeGui(AbstractMutableTreeNode _node);
@@ -11,4 +9,7 @@ public interface AbsCompoFactory {
     AbstractMutableTreeNode newMutableTreeNode(String _name);
 
     AbsPaintableLabel newAbsPaintableLabel(AbsMetaLabel _absMetaLabel);
+    AbsPreparedLabel newPreparedLabel(AbstractImage _icon);
+    AbsPreparedLabel newPreparedLabel(String _key);
+    AbsImgButton newImgButton(AbstractImage _imageIcon);
 }

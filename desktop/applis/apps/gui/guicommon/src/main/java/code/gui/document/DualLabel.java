@@ -5,9 +5,7 @@ import java.awt.*;
 import code.formathtml.render.MetaLabel;
 import code.formathtml.render.MetaStyle;
 import code.formathtml.render.SegmentPart;
-import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.PreparedLabel;
+import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.util.CustList;
 
@@ -16,12 +14,12 @@ public abstract class DualLabel extends DualLeaf {
     private final CustList<SegmentPart> segments = new CustList<SegmentPart>();
 
     private final String text;
-    private final PreparedLabel label;
+    private final AbsPreparedLabel label;
 
     protected DualLabel(DualContainer _container, MetaLabel _component, RenderedPage _page) {
         super(_container, _component, _page);
         text = _component.getText();
-        label = PreparedLabel.prep(_page.getGene().getImageFactory());
+        label = FrameUtil.prep(_page.getGene().getImageFactory());
         updateGraphics(label,_component);
     }
 
@@ -51,7 +49,7 @@ public abstract class DualLabel extends DualLeaf {
         return getLabel();
     }
 
-    public PreparedLabel getLabel() {
+    public AbsPreparedLabel getLabel() {
         return label;
     }
 

@@ -6,6 +6,7 @@ import javax.swing.JComponent;
 
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
 import code.util.Ints;
 import code.util.core.NumberUtil;
@@ -18,18 +19,18 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
 
     private final Panel panel = Panel.newLineBox();
 
-    private final PreparedLabel currentSelected;
+    private final AbsPreparedLabel currentSelected;
 
-    private final PreparedLabel pseudoButton;
+    private final AbsPreparedLabel pseudoButton;
 
     private final PopupMenu menu = new PopupMenu();
 
     private int selectedIndex = -1;
 
     private boolean enabled = true;
-    private AbstractImageFactory fact;
+    private final AbstractImageFactory fact;
 
-    public GraphicCombo(AbstractImageFactory _fact, GraphicStringList _grList, int _selectedIndex) {
+    public GraphicCombo(AbstractImageFactory _fact,AbsCompoFactory _compoFactory, GraphicStringList _grList, int _selectedIndex) {
         fact = _fact;
         grList = _grList;
         grList.setListener(new ComboSelection(menu, this));
@@ -41,7 +42,7 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
         img_.fillRect(0, 0, s_, s_);
         img_.setColor(Color.BLACK);
         img_.fillPolygon(NumberUtil.wrapIntArray(s_/4,s_*3/4,s_/2), NumberUtil.wrapIntArray(s_/4,s_/4,s_*3/4), 3);
-        pseudoButton = new PreparedLabel(fact,img_);
+        pseudoButton = _compoFactory.newPreparedLabel(img_);
         pseudoButton.setIcon(fact,img_);
         pseudoButton.addMouseListener(new Popup(this));
         int w_ = 5;
@@ -49,7 +50,7 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
         img2_.setFont(font_);
         img2_.setColor(Color.WHITE);
         img2_.fillRect(0, 0, w_, s_);
-        currentSelected = new PreparedLabel(fact,img2_);
+        currentSelected = _compoFactory.newPreparedLabel(img2_);
         currentSelected.setLineBorder(Color.BLACK);
         img_.dispose();
         panel.add(currentSelected);

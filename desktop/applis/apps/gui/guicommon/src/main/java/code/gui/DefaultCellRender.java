@@ -9,7 +9,7 @@ public final class DefaultCellRender extends CustCellRender<String> {
 
     private int maxWidth;
 
-    private PreparedLabel label;
+    private AbsPreparedLabel label;
     private String text;
     private boolean selected;
     private final AbstractImageFactory fact;
@@ -18,7 +18,7 @@ public final class DefaultCellRender extends CustCellRender<String> {
         fact = _fact;
     }
     @Override
-    public void getListCellRendererComponent(PreparedLabel _currentLab,
+    public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
         text = getList().get(_index);
         label = _currentLab;

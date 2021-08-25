@@ -212,7 +212,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         Panel container_=Panel.newPageBox();
         Panel panel_ = Panel.newPageBox();
         panel_.add(new TextLabel(getMessages().getVal(WindowCards.PLACE)));
-        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getImageFactory(),getOwner().getFrames().getGeneComboBox());
+        choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames(),getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
         }

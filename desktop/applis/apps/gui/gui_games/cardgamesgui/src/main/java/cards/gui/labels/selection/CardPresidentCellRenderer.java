@@ -21,7 +21,7 @@ public class CardPresidentCellRenderer extends CustCellRender<CardPresident> {
         window = _window;
     }
     @Override
-    public void getListCellRendererComponent(PreparedLabel _currentLab,
+    public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
         card= getList().get(_index);
         selectionne=_isSelected;

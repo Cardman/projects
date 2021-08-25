@@ -83,7 +83,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
         panneau_=Panel.newGrid(0,4);
-        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1));
+        listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = Suit.couleursOrdinaires();

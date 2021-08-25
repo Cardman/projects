@@ -12,7 +12,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
 
     private final AbsGraphicListPainter graphicListPainter;
     private CustList<T> list;
-    private final CustList<PreparedLabel> listComponents = new CustList<PreparedLabel>();
+    private final CustList<AbsPreparedLabel> listComponents = new CustList<AbsPreparedLabel>();
     private final CustList<IndexableListener> indexableMouse = new CustList<IndexableListener>();
     private final CustList<IndexableListener> indexableKey = new CustList<IndexableListener>();
     private final Ints selectedIndexes;
@@ -83,26 +83,26 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
     }
     public void add(int _index, T _elt) {
         list.add(_index, _elt);
-        PreparedLabel lab_ = PreparedLabel.prep(graphicListPainter.getFact());
+        AbsPreparedLabel lab_ = FrameUtil.prep(graphicListPainter.getFact());
         addLab(_index, lab_);
     }
 
     @Override
-    public void add(int _index, PreparedLabel _lab, T _elt) {
+    public void add(int _index, AbsPreparedLabel _lab, T _elt) {
         list.add(_index, _elt);
         simpleAddLab(_index, _lab);
         addListeners(_index, _lab);
         updateGraphics();
     }
 
-    public void addLab(int _index, PreparedLabel _lab) {
+    public void addLab(int _index, AbsPreparedLabel _lab) {
         simpleAddLab(_index, _lab);
         repaintAdded(_index);
         resetDimensions();
         addListeners(_index, _lab);
     }
 
-    public void addListeners(int _index, PreparedLabel _lab) {
+    public void addListeners(int _index, AbsPreparedLabel _lab) {
         if (!simple) {
             MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, _index, graphicListPainter);
             i_.setSelection(listener);
@@ -121,16 +121,16 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         }
     }
 
-    public void simpleAddLab(int _index, PreparedLabel _lab) {
+    public void simpleAddLab(int _index, AbsPreparedLabel _lab) {
         Panel panel_ = getPanel();
         listComponents.add(_index, _lab);
         panel_.add(_lab, _index);
     }
     public void set(int _index, T _elt) {
-        PreparedLabel lab_ = PreparedLabel.prep(graphicListPainter.getFact());
+        AbsPreparedLabel lab_ = FrameUtil.prep(graphicListPainter.getFact());
         set(_index,lab_,_elt);
     }
-    public void set(int _index, PreparedLabel _lab, T _elt) {
+    public void set(int _index, AbsPreparedLabel _lab, T _elt) {
         if (!list.isValidIndex(_index)) {
             return;
         }
@@ -160,12 +160,12 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         CustCellRender<T> r_ = getRender();
         if (r_ != null) {
             r_.setList(list);
-            PreparedLabel c_ = listComponents.get(_index);
+            AbsPreparedLabel c_ = listComponents.get(_index);
             r_.getListCellRendererComponent(c_, _index, false, false);
             r_.paintComponent(c_);
         }
     }
-    protected IndexableListener buildSingleSelect(PreparedLabel _lab,int _index) {
+    protected IndexableListener buildSingleSelect(AbsPreparedLabel _lab,int _index) {
         SimpleSelectEltList i_ = new SimpleSelectEltList(this, _index, graphicListPainter);
         i_.setSelection(listener);
         _lab.addMouseListener(i_);
@@ -215,14 +215,14 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         repaintAll();
         if (simple) {
             int index_ = 0;
-            for (PreparedLabel c: listComponents) {
+            for (AbsPreparedLabel c: listComponents) {
                 IndexableListener i_ = buildSingleSelect(c,index_);
                 indexableMouse.add(i_);
                 index_++;
             }
         } else {
             int index_ = 0;
-            for (PreparedLabel c: listComponents) {
+            for (AbsPreparedLabel c: listComponents) {
                 MultSelectKeyEltList i_ = new MultSelectKeyEltList(this, index_, graphicListPainter);
                 i_.setSelection(listener);
                 indexableKey.add(i_);
@@ -243,10 +243,10 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         r_.setList(list);
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {
-            PreparedLabel lab_ = PreparedLabel.prep(graphicListPainter.getFact());
+            AbsPreparedLabel lab_ = FrameUtil.prep(graphicListPainter.getFact());
             listComponents.add(lab_);
             panel_.add(lab_);
-            PreparedLabel c_ = listComponents.get(index_);
+            AbsPreparedLabel c_ = listComponents.get(index_);
             r_.getListCellRendererComponent(c_, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
             index_++;
@@ -276,12 +276,12 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
     @Override
     public void updateGraphics() {
         int width_ = 0;
-        for (PreparedLabel c: listComponents) {
+        for (AbsPreparedLabel c: listComponents) {
             width_ = Math.max(width_, c.getWidth());
         }
         int h_ = 0;
         int c_ = 0;
-        for (PreparedLabel c: listComponents) {
+        for (AbsPreparedLabel c: listComponents) {
             h_ = Math.max(h_,c.getHeight());
             c_++;
         }
@@ -315,7 +315,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         r_.setList(list);
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {
-            PreparedLabel c_ = listComponents.get(index_);
+            AbsPreparedLabel c_ = listComponents.get(index_);
             r_.getListCellRendererComponent(c_, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
             index_++;
@@ -332,7 +332,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         int index_ = 0;
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {
-            PreparedLabel c_ = listComponents.get(index_);
+            AbsPreparedLabel c_ = listComponents.get(index_);
             r_.getListCellRendererComponent(c_, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
             index_++;
@@ -349,7 +349,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         int index_ = 0;
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {
-            PreparedLabel c_ = listComponents.get(index_);
+            AbsPreparedLabel c_ = listComponents.get(index_);
             r_.getListCellRendererComponent(c_, index_, selectedIndexes.containsObj(index_), false);
             r_.paintComponent(c_);
             index_++;
@@ -364,7 +364,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         setFirstIndex(_index);
         setLastIndex(_index);
         CustCellRender<T> r_ = getRender();
-        PreparedLabel c_ = getListComponents().get(_index);
+        AbsPreparedLabel c_ = getListComponents().get(_index);
         r_.setList(getList());
         r_.getListCellRendererComponent(c_, _index, _sel, false);
         c_.requestFocus();
@@ -388,7 +388,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         CustList<T> array_ = getList();
         int len_ = array_.size();
         for (int i = 0; i < len_; i++) {
-            PreparedLabel c_ = getListComponents().get(index_);
+            AbsPreparedLabel c_ = getListComponents().get(index_);
             r_.getListCellRendererComponent(c_, index_, _sel, false);
             r_.paintComponent(c_);
             index_++;
@@ -415,7 +415,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         CustCellRender<T> r_ = getRender();
         r_.setList(getList());
         for (int i = min_; i <= max_; i++) {
-            PreparedLabel c_ = getListComponents().get(i);
+            AbsPreparedLabel c_ = getListComponents().get(i);
             r_.getListCellRendererComponent(c_, i, _sel, false);
             r_.paintComponent(c_);
         }
@@ -463,7 +463,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         r_.setList(list);
         int len_ = list.size();
         for (int i = 0; i < len_; i++) {
-            PreparedLabel c_ = listComponents.get(index_);
+            AbsPreparedLabel c_ = listComponents.get(index_);
             r_.getListCellRendererComponent(c_, index_, false, false);
             r_.paintComponent(c_);
             index_++;
@@ -488,7 +488,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         width_ = getBasicMaxWidth(width_);
         int h_ = 0;
         int c_ = 0;
-        for (PreparedLabel c: getListComponents()) {
+        for (AbsPreparedLabel c: getListComponents()) {
             h_ = c.getPreferredSize().height;
             c.setPreferredSize(new Dimension(width_, h_));
             c_++;
@@ -499,7 +499,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
 
     private int getBasicMaxWidth(int _width) {
         int width_ = _width;
-        for (PreparedLabel c: getListComponents()) {
+        for (AbsPreparedLabel c: getListComponents()) {
             width_ = Math.max(width_, c.getPreferredSize().width);
         }
         return width_;
@@ -591,7 +591,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
         return scroll;
     }
 
-    public CustList<PreparedLabel> getListComponents() {
+    public CustList<AbsPreparedLabel> getListComponents() {
         return listComponents;
     }
 

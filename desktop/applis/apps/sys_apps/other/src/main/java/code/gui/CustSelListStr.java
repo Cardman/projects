@@ -10,11 +10,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public final class CustSelListStr implements ListCellRenderer<Struct> {
-    private final PreparedLabel label;
+    private final AbsPreparedLabel label;
     private final Struct labStruct;
     private final SpecSelectionStruct listener;
 
-    public CustSelListStr(PreparedLabel _label,
+    public CustSelListStr(AbsPreparedLabel _label,
                           Struct _labStruct,
                           SpecSelectionStruct _listener) {
         this.label = _label;
@@ -40,6 +40,6 @@ public final class CustSelListStr implements ListCellRenderer<Struct> {
                 new Argument(labStruct),
                 new Argument(BooleanStruct.of(_isSelected))
         ), rect_);
-        return label.getNatComponent();
+        return ((CustComponent) label).getNatComponent();
     }
 }

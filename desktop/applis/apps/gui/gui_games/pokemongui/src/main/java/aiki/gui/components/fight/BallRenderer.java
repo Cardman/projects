@@ -60,7 +60,7 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
     }
 
     @Override
-    public void getListCellRendererComponent(PreparedLabel _currentLab, int _index,
+    public void getListCellRendererComponent(AbsPreparedLabel _currentLab, int _index,
                                              boolean _isSelected, boolean _cellHasFocus) {
         selected = _isSelected;
         ball = getList().get(_index);

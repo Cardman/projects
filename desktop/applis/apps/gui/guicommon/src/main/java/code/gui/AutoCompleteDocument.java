@@ -27,7 +27,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         changeableTitle = _changeableTitle;
         dictionary.addAllElts(_aDictionary);
         popup = new PopupMenu();
-        AbsGraphicList<String> comp_ = _abs.getGeneGraphicList().createStrList(_abs.getImageFactory(),new StringList());
+        AbsGraphicList<String> comp_ = _abs.getGeneGraphicList().createStrList(_abs.getImageFactory(),new StringList(), _abs.getCompoFactory());
         list = comp_;
         popup.add(new ScrollPane(comp_.self()));
         init();

@@ -4,10 +4,10 @@ import code.util.CustList;
 
 public interface AbsGraphicList<T> {
     void add(T _elt);
-    void add(int _index, PreparedLabel _lab, T _elt);
+    void add(int _index, AbsPreparedLabel _lab, T _elt);
     void add(int _index, T _elt);
     void set(int _index, T _elt);
-    void set(int _index, PreparedLabel _lab, T _elt);
+    void set(int _index, AbsPreparedLabel _lab, T _elt);
     void clear();
     void clearSelection();
     void clearRevalidate();

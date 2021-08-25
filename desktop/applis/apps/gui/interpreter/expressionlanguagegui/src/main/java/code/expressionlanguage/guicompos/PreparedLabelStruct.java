@@ -1,22 +1,21 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.structs.Struct;
-import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.PreparedLabel;
+import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class PreparedLabelStruct extends CustComponentStruct {
-    private final PreparedLabel textLabel;
+    private final AbsPreparedLabel textLabel;
 
     protected PreparedLabelStruct(AbstractImageFactory _fact, String _className) {
         super(_className);
-        textLabel = PreparedLabel.prep(_fact);
+        textLabel = FrameUtil.prep(_fact);
     }
-    protected PreparedLabelStruct(AbstractImageFactory _fact, Struct _img,String _className) {
+    protected PreparedLabelStruct(AbstractImageFactory _fact, AbsCompoFactory _comp, Struct _img, String _className) {
         super(_className);
-        textLabel = new PreparedLabel(_fact,builImage(_img));
+        textLabel = _comp.newPreparedLabel(builImage(_img));
     }
     public void setImage(AbstractImageFactory _fact, Struct _text) {
         textLabel.setIcon(_fact,builImage(_text));
@@ -30,7 +29,7 @@ public final class PreparedLabelStruct extends CustComponentStruct {
         return img_;
     }
 
-    public PreparedLabel getTextLabel() {
+    public AbsPreparedLabel getTextLabel() {
         return textLabel;
     }
 

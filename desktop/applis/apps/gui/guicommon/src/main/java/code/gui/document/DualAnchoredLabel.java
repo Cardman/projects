@@ -5,7 +5,7 @@ import java.awt.*;
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaStyle;
 import code.formathtml.render.SegmentPart;
-import code.gui.PreparedLabel;
+import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 
 public final class DualAnchoredLabel extends DualLabel {
@@ -14,7 +14,7 @@ public final class DualAnchoredLabel extends DualLabel {
 
     public DualAnchoredLabel(DualContainer _container, MetaAnchorLabel _component, RenderedPage _page) {
         super(_container, _component, _page);
-        PreparedLabel label_ = getLabel();
+        AbsPreparedLabel label_ = getLabel();
         label_.setCursor(Cursor.HAND_CURSOR);
         label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page, this));
         String prefix_ = getPage().getNavigation().getSession().getPrefix();
@@ -35,7 +35,7 @@ public final class DualAnchoredLabel extends DualLabel {
 
     @Override
     public void paint() {
-        PreparedLabel lab_ = getLabel();
+        AbsPreparedLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
         Font copy_ =  newFont(style_);
         int h_ = lab_.heightFont(copy_);

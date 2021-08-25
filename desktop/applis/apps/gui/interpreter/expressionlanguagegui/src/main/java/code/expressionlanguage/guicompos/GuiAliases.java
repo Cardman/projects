@@ -3298,7 +3298,7 @@ public final class GuiAliases {
             }
             WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
             if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new PreparedLabelStruct(window_.getImageFactory(),_args[0],aliasImageLabel));
+                r_.setResult(new PreparedLabelStruct(window_.getImageFactory(),window_.getCompoFactory(),_args[0],aliasImageLabel));
             } else {
                 r_.setResult(new PreparedLabelStruct(window_.getImageFactory(),aliasImageLabel));
             }
@@ -3409,14 +3409,14 @@ public final class GuiAliases {
             }
             AbstractGraphicComboBoxGenerator geneComboBox_ = _guiEx.getWindow().getFrames().getGeneComboBox();
             if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),new StringList(),-1)));
+                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),new StringList(),-1, _guiEx.getWindow().getCompoFactory())));
                 return r_;
             }
             if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),newList(_args[0]), 0)));
+                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),newList(_args[0]), 0, _guiEx.getWindow().getCompoFactory())));
                 return r_;
             }
-            r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),newList(_args[1]), ((NumberStruct)_args[0]).intStruct())));
+            r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),newList(_args[1]), ((NumberStruct)_args[0]).intStruct(), _guiEx.getWindow().getCompoFactory())));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasButtonGroup)) {

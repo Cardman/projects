@@ -91,7 +91,7 @@ public abstract class Paginator {
 
     public Paginator(WindowAiki _window, String _access, Panel _dest) {
         main = _window;
-        pages = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
+        pages = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
         container = _dest;
         initMessages(_access);
         header = new Header(_window.getCompoFactory());

@@ -22,7 +22,7 @@ public class SuitCellRenderer extends CustCellRender<Suit> {
     }
     /**Donne la facon de presenter une couleur dans une liste avec un symbole et un nom*/
     @Override
-    public void getListCellRendererComponent(PreparedLabel _currentLab,
+    public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
         couleur= getList().get(_index);
         selectionne=_isSelected;

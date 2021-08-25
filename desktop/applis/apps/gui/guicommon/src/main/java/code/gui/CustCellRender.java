@@ -7,12 +7,12 @@ import code.util.CustList;
 public abstract class CustCellRender<T> {
     private CustList<T> list = new CustList<T>();
     protected abstract AbstractImageFactory getImageFactory();
-    public abstract void getListCellRendererComponent(PreparedLabel _currentLab,
+    public abstract void getListCellRendererComponent(AbsPreparedLabel _currentLab,
                                                       int _index, boolean _isSelected, boolean _cellHasFocus);
     public abstract int getHeight();
     public abstract int getWidth();
     public abstract void paintComponent(AbstractImage _g);
-    public void paintComponent(PreparedLabel _component) {
+    public void paintComponent(AbsPreparedLabel _component) {
         AbstractImage buff_ = getImageFactory().newImageRgb(getWidth(),getHeight());
         buff_.setFont(_component.getFont());
         paintComponent(buff_);

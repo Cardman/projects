@@ -29,14 +29,14 @@ public final class WindowApps extends GroupFrame {
 
     private static final String APPLICATIONS = "Applications";
 
-    private final ImgButton buttonPokemon;
+    private final AbsImgButton buttonPokemon;
 
-    private final ImgButton buttonCards;
+    private final AbsImgButton buttonCards;
     private final LabelButton buttonApps;
     private final LabelButton buttonTests;
     private final LabelButton buttonRenders;
     private final LabelButton buttonDemo;
-    private final ImgButton buttonPlayer;
+    private final AbsImgButton buttonPlayer;
     private final LabelButton buttonConverter;
 
     private final CustButtonGroup group = new CustButtonGroup();
@@ -49,14 +49,14 @@ public final class WindowApps extends GroupFrame {
         setTitle(APPLICATIONS);
         Panel panel_ = Panel.newPageBox();
         Panel linePokemon_ = Panel.newLineBox();
-        buttonPokemon = new ImgButton(_list.getImageFactory(),LaunchingPokemon.getIcon(getImageFactory()));
+        buttonPokemon = _list.getCompoFactory().newImgButton(LaunchingPokemon.getIcon(getImageFactory()));
         AbstractAtomicInteger at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPokemon.getMainWindowClass(), at_);
         buttonPokemon.addMouseList(new PokemonEvent(this,at_, _aikiFactory));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         Panel lineCards_ = Panel.newLineBox();
-        buttonCards = new ImgButton(_list.getImageFactory(),LaunchingCards.getIcon(getImageFactory()));
+        buttonCards = _list.getCompoFactory().newImgButton(LaunchingCards.getIcon(getImageFactory()));
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingCards.getMainWindowClass(),at_);
         buttonCards.addMouseList(new CardsEvent(this,at_,_cardFactories));
@@ -84,7 +84,7 @@ public final class WindowApps extends GroupFrame {
         lineDemo_.add(buttonDemo);
         panel_.add(lineDemo_);
         Panel linePlayer_ = Panel.newLineBox();
-        buttonPlayer = new ImgButton(_list.getImageFactory(),LaunchingPlayer.getIcon(getImageFactory()));
+        buttonPlayer = _list.getCompoFactory().newImgButton(LaunchingPlayer.getIcon(getImageFactory()));
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPlayer.getMainWindowClass(),at_);
         buttonPlayer.addMouseList(new PlayerEvent(this,at_));
