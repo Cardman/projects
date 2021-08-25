@@ -54,10 +54,10 @@ public final class Painting implements Runnable {
             ThreadUtil.sleep(window.getThreadFactory(),pause);
             scene.repaintLabel(window.getImageFactory());
             if (facade.isChangeToFightScene()) {
-                FrameUtil.invokeLater(new SetFightPanel(window));
+                FrameUtil.invokeLater(new SetFightPanel(window), window.getFrames());
                 return;
             }
-            FrameUtil.invokeLater(new SetInteractionScene(window));
+            FrameUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
             return;
         }
         scene.setAnimated(true);
@@ -77,7 +77,7 @@ public final class Painting implements Runnable {
                     scene.repaintLabel(window.getImageFactory());
                 }
             }
-            FrameUtil.invokeLater(new SetFightPanel(window));
+            FrameUtil.invokeLater(new SetFightPanel(window), window.getFrames());
             return;
         }
         if (facade.getGame().getNbSteps() == 0) {
@@ -86,7 +86,7 @@ public final class Painting implements Runnable {
             scene.setDelta(0, false);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
             scene.repaintLabel(window.getImageFactory());
-            FrameUtil.invokeLater(new SetInteractionScene(window));
+            FrameUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
             return;
         }
         if (facade.getGame().isPlaceChanged()) {
@@ -95,7 +95,7 @@ public final class Painting implements Runnable {
             scene.load(window.getImageFactory(),facade, false);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
             scene.repaintLabel(window.getImageFactory());
-            FrameUtil.invokeLater(new SetInteractionScene(window));
+            FrameUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
             return;
         }
         facade.changeCamera(dir);
@@ -105,6 +105,6 @@ public final class Painting implements Runnable {
             ThreadUtil.sleep(window.getThreadFactory(),pause);
             scene.repaintLabel(window.getImageFactory());
         }
-        FrameUtil.invokeLater(new SetInteractionScene(window));
+        FrameUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
     }
 }

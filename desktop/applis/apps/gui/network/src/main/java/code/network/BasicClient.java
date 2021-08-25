@@ -28,10 +28,10 @@ public final class BasicClient extends SendReceive {
             }
             if (readObject_ instanceof Exiting) {
                 Exiting ex_ = (Exiting) readObject_;
-                FrameUtil.invokeLater(new Quitting(ex_, getNet(), getSocket()));
+                FrameUtil.invokeLater(new Quitting(ex_, getNet(), getSocket()), getNet().getFrames());
                 return;
             }
-            ThreadInvoker.invokeNow(getNet().getThreadFactory(),new LoopClient(getNet(), readObject_, getSocket()));
+            ThreadInvoker.invokeNow(getNet().getThreadFactory(),new LoopClient(getNet(), readObject_, getSocket()), getNet().getFrames());
         }
     }
 }

@@ -10,6 +10,7 @@ import code.gui.events.AbsKeyListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
 import java.awt.*;
@@ -24,25 +25,25 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     protected CustComponentStruct(String _className) {
         className = _className;
     }
-    public static void invokeLater(RunnableContextEl _run, Struct _r) {
+    public static void invokeLater(RunnableContextEl _run, AbstractProgramInfos _frames, Struct _r) {
         if (_r instanceof Runnable) {
             if (_run.getExecutingOptions().isInvokeDirect()) {
                 _run.getCurrentThreadFactory().newStartedThread((Runnable) _r);
             } else {
-                FrameUtil.invokeLater((Runnable) _r);
+                FrameUtil.invokeLater((Runnable) _r, _frames);
             }
 
         }
     }
-    public static void invokeRunnable(RunnableContextEl _run,Runnable _r) {
-        if (_r != null) {
-            if (_run.getExecutingOptions().isInvokeDirect()) {
-                _run.getCurrentThreadFactory().newStartedThread(_r);
-            } else {
-                FrameUtil.invokeLater(_r);
-            }
-        }
-    }
+//    public static void invokeRunnable(RunnableContextEl _run,Runnable _r) {
+//        if (_r != null) {
+//            if (_run.getExecutingOptions().isInvokeDirect()) {
+//                _run.getCurrentThreadFactory().newStartedThread(_r);
+//            } else {
+//                FrameUtil.invokeLater(_r, null);
+//            }
+//        }
+//    }
 
     @Override
     public String getClassName(ContextEl _contextEl) {

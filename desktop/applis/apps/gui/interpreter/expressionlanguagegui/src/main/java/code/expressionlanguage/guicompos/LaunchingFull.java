@@ -27,7 +27,7 @@ public class LaunchingFull extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowFull(_language,_args, getFrames(), fact));
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowFull(_language,_args, getFrames(), fact), getFrames());
     }
 
 

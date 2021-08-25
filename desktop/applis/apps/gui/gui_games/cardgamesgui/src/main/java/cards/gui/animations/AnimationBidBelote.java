@@ -34,13 +34,13 @@ public final class AnimationBidBelote implements Runnable {
             BidBeloteSuit contrat_=container.getContratUtilisateurBelote();
             partie_.ajouterContrat(contrat_,DealBelote.NUMERO_UTILISATEUR);
             String event_ = StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(container.pseudo()+ContainerGame.INTRODUCTION_PTS+contrat_.toString()+ContainerBelote.RETURN_LINE_CHAR);
         }
         //Activer le menu Partie/Pause
 //        container.getPause().setEnabled(true);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true), container.getOwner().getFrames());
         while (true) {
             if(!partie_.keepBidding()){
                 break;
@@ -55,14 +55,14 @@ public final class AnimationBidBelote implements Runnable {
             partie_.ajouterContrat(contrat_, player_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerBelote.RETURN_LINE_CHAR);
             String event_ = StringUtil.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
 //            container.ajouterTexteDansZone(event_);
             if (partie_.tailleContrats() == partie_.getNombreDeJoueurs()) {
                 partie_.finEncherePremierTour();
             }
             container.pause();
         }
-        FrameUtil.invokeLater(new AfterAnimationBidBelote(container));
+        FrameUtil.invokeLater(new AfterAnimationBidBelote(container), container.getOwner().getFrames());
 //        container.getPanneauBoutonsJeu().removeAll();
 //        if(partie_.keepBidding()) {
 //            container.setCanBid(true);

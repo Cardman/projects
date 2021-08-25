@@ -29,10 +29,12 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
 
     private boolean enabled = true;
     private final AbstractImageFactory fact;
+    private final AbsCompoFactory compoFactory;
 
     public GraphicCombo(AbstractImageFactory _fact,AbsCompoFactory _compoFactory, GraphicStringList _grList, int _selectedIndex) {
         fact = _fact;
         grList = _grList;
+        compoFactory = _compoFactory;
         grList.setListener(new ComboSelection(menu, this));
         menu.add(grList.getGlobal());
         Font font_ = panel.getFont();
@@ -195,7 +197,7 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
     public void selectItem(int _index) {
         int old_ = selectedIndex;
         simpleSelectItem(_index);
-        FrameUtil.invokeLater(new SelectionComboEvent(_index, _index, this, getListener(), old_));
+        FrameUtil.invokeLater(new SelectionComboEvent(_index, _index, this, getListener(), old_), compoFactory);
     }
     public void simpleSelectItem(int _index) {
         if (_index < 0) {

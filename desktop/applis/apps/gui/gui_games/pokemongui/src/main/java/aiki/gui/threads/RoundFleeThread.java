@@ -18,7 +18,7 @@ public final class RoundFleeThread extends RoundThread {
         getFacade().endRoundFightFlee();
         animate();
 //        getBattle().afterRound(true);
-        FrameUtil.invokeLater(new AfterRoundThread(getBattle()));
+        FrameUtil.invokeLater(new AfterRoundThread(getBattle()), getBattle().getFrames());
         //getBattle().afterRound();
     }
 }

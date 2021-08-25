@@ -12,4 +12,5 @@ public interface AbsCompoFactory {
     AbsPreparedLabel newPreparedLabel(AbstractImage _icon);
     AbsPreparedLabel newPreparedLabel(String _key);
     AbsImgButton newImgButton(AbstractImage _imageIcon);
+    void invokeLater(Runnable _r);
 }

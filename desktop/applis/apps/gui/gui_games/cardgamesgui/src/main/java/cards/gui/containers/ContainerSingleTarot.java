@@ -822,21 +822,21 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             EnumList<Miseres> annoncesMiseres_ = partie_.getAnnoncesMiseres(_joueur);
             HandTarot poignee_=partie_.getPoignee(_joueur);
             for(Handfuls annonce_:annoncesPoignees_) {
-                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
+                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)), getOwner().getFrames());
 //                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
             }
             for(Miseres annonce_:annoncesMiseres_) {
-                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)));
+                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(annonce_,lg_),RETURN_LINE)), getOwner().getFrames());
 //                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
             }
             if(!poignee_.estVide()) {
                 TextLabel label_ = getHandfuls().getVal(_joueur);
-                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingText(label_, Games.toString(annoncesPoignees_.first(),lg_)));
+                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingText(label_, Games.toString(annoncesPoignees_.first(),lg_)), getOwner().getFrames());
 //                    getHandfuls().getVal(_joueur).setText(annoncesPoignees_.first().toString());
             }
             poignee_.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
             Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
-            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new HandfulThread(poignee_, panelToSet_, getWindow()));
+            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new HandfulThread(poignee_, panelToSet_, getWindow()), getOwner().getFrames());
 //                panelToSet_.removeAll();
 //                for(CardTarot c:poignee_)
 //                {
@@ -848,7 +848,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
         if(partie_.getCarteAppelee().contient(ct_)) {
             getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, _joueur);
-            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))));
+            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(Role.CALLED_PLAYER,lg_))), getOwner().getFrames());
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+Status.CALLED_PLAYER.toString());
         }
         partie_.ajouterUneCarteDansPliEnCours(_joueur,ct_);

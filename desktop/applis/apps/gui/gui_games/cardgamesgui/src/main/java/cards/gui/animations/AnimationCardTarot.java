@@ -64,7 +64,7 @@ public final class AnimationCardTarot implements Runnable {
             container.jouerTarot(player_,pseudos_.get(player_));
             container.pause();
         }
-        FrameUtil.invokeLater(new AfterAnimationCardTarot(container));
+        FrameUtil.invokeLater(new AfterAnimationCardTarot(container), container.getOwner().getFrames());
 //        if(partie_.keepPlayingCurrentTrick())
 //        {
 //            container.setThreadAnime(false);

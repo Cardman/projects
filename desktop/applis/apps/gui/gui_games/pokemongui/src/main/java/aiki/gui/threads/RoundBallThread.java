@@ -26,7 +26,7 @@ public final class RoundBallThread extends RoundThread {
         }
         getFacade().endRoundFightSuccessBall();
 //        getBattle().afterRound(true);
-        FrameUtil.invokeLater(new AfterRoundThread(getBattle()));
+        FrameUtil.invokeLater(new AfterRoundThread(getBattle()), getBattle().getFrames());
         //getBattle().afterRound();
     }
 }

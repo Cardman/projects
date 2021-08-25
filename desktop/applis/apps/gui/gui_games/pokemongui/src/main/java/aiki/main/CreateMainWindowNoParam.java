@@ -64,6 +64,6 @@ public final class CreateMainWindowNoParam implements Runnable {
         }
         window.getLoadFlag().set(false);
         window.setLoadingConf(load, true);
-        FrameUtil.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
+        FrameUtil.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_), window.getFrames());
     }
 }

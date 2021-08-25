@@ -48,7 +48,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
     @Override
     public void displayLineReturn() {
         String event_ = ContainerGame.RETURN_LINE;
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -60,7 +60,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
     public void actingBid(byte _player) {
         StringList pseudos_=pseudosSimuleeBelote();
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.DECLARE_BID), pseudos_.get(_player)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -70,7 +70,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         String mess_ = container.getMessages().getVal(WindowCards.DEMO_ACTION);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_player), Games.toString(_bid,lg_)),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -79,19 +79,19 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
             return;
         }
         String event_ = StringUtil.concat(Long.toString(_nbBids),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
     public void secRound(byte _nbPlayers) {
         String event_ = StringUtil.concat(Long.toString(_nbPlayers),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
     public void noBid() {
         String event_ = StringUtil.concat(container.getMessages().getVal(WindowCards.NO_BID),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
         container.revalidate();
     }
 
@@ -102,7 +102,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
 
     @Override
     public void prepare() {
-        FrameUtil.invokeLater(new PrepareSimuBelote(this));
+        FrameUtil.invokeLater(new PrepareSimuBelote(this), container.getOwner().getFrames());
     }
     void prepareGui() {
         container.setArretDemo(false);
@@ -175,7 +175,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
     public void beginDemo() {
         String event_;
         event_ = StringUtil.concat(container.getMessages().getVal(WindowCards.BEGIN_DEMO),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -190,12 +190,12 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
 
     @Override
     public void stopDemo() {
-        FrameUtil.invokeLater(new StopDemo(container));
+        FrameUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
     }
 
     @Override
     public void endDeal() {
-        FrameUtil.invokeLater(new EndDealSimuBelote(this));
+        FrameUtil.invokeLater(new EndDealSimuBelote(this), container.getOwner().getFrames());
     }
 
     void endGuiDeal() {
@@ -233,7 +233,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.getMessages().getVal(WindowCards.PLAY_CARD_FIRST);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -241,7 +241,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.getMessages().getVal(WindowCards.PLAY_CARD_THEN);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -251,7 +251,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
             StringList pseudos_=pseudosSimuleeBelote();
             String mess_ = container.getMessages().getVal(WindowCards.DEMO_ACTION);
             String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur),Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_)),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
         }
     }
 
@@ -264,7 +264,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
             String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_joueur),
                     Games.toString(_annonces.getDeclare(),lg_), Games.toString(_annonces.getHand(),lg_)),
                     ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
         }
     }
 
@@ -285,7 +285,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         String mess_ = container.getMessages().getVal(WindowCards.TRICK_WINNER);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_trickWinner)),ContainerGame.RETURN_LINE);
         event_ = StringUtil.concat(event_,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -294,7 +294,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.getMessages().getVal(WindowCards.BONUS_WIN);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, pseudos_.get(_trickWinner), Games.toString(BonusBelote.LAST_TRICK,lg_)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -306,7 +306,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
     @Override
     public void beginPlay() {
         String event_ = StringUtil.concat(container.getMessages().getVal(WindowCards.BEGIN_PLAY_CARDS),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -315,7 +315,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         String event_ = container.getMessages().getVal(WindowCards.TAKE_TOP_CARD);
         String mess_ = container.getMessages().getVal(WindowCards.DEAL_REMAIN_CARDS);
         event_ = StringUtil.concat(event_, StringUtil.simpleStringsFormat(mess_, pseudos_.get(_donneur)),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -323,7 +323,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         StringList pseudos_=pseudosSimuleeBelote();
         String mess_ = container.getMessages().getVal(WindowCards.DEAL_SET_CARDS);
         String event_ = StringUtil.concat(ContainerBelote.TAB, StringUtil.simpleStringsFormat(mess_, Long.toString(_step), Long.toString(_gotCards), pseudos_.get(_p)));
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     private GameBelote partieBeloteSimulee() {
@@ -335,6 +335,6 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         return container.pseudosBelote(partie_.getNombreDeJoueurs());
     }
     private void afficherMainUtilisateurSimuBelote(HandBelote _mainUtilisateur) {
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationRefreshHandBelote(container, _mainUtilisateur));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationRefreshHandBelote(container, _mainUtilisateur), container.getOwner().getFrames());
     }
 }

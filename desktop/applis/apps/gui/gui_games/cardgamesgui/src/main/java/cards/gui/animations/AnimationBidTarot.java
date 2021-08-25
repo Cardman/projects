@@ -34,14 +34,14 @@ public final class AnimationBidTarot implements Runnable {
             BidTarot contrat_=container.getContratUtilisateur();
             partie_.ajouterContrat(contrat_,DealTarot.NUMERO_UTILISATEUR);
             String event_ = StringUtil.concat(pseudos_.get(DealTarot.NUMERO_UTILISATEUR),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(pseudos_.get(DealTarot.NUMERO_UTILISATEUR)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);
         }
         delaiContrat_=container.getParametres().getDelaiAttenteContrats();
         //Activer le menu Partie/Pause
 //        container.getPause().setEnabled(true);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true), container.getOwner().getFrames());
         while (true) {
             if(!partie_.keepBidding()){
                 break;
@@ -55,11 +55,11 @@ public final class AnimationBidTarot implements Runnable {
             BidTarot contrat_=partie_.strategieContrat();
             partie_.ajouterContrat(contrat_,player_);
             String event_ = StringUtil.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);
             container.pause();
         }
-        FrameUtil.invokeLater(new AfterAnimationBidTarot(container));
+        FrameUtil.invokeLater(new AfterAnimationBidTarot(container), container.getOwner().getFrames());
     }
 }

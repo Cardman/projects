@@ -89,17 +89,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         String lg_ = getOwner().getLanguageKey();
         if(partie_.annoncerBeloteRebelote(_joueur,ct_)) {
             partie_.setAnnoncesBeloteRebelote(_joueur,ct_);
-            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_),RETURN_LINE)));
+            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_),RETURN_LINE)), getOwner().getFrames());
 //            ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+DeclaresBeloteRebelote.BELOTE_REBELOTE+RETURN_LINE_CHAR);
         }
         if (partie_.premierTour()) {
             partie_.annoncer(_joueur);
             DeclareHandBelote usDecl_ = partie_.getAnnonce(_joueur);
-            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE)));
+            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE)), getOwner().getFrames());
 //            ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+usDecl_.getAnnonce()+RETURN_LINE_CHAR);
             if(!usDecl_.getHand().estVide()) {
                 TextLabel label_ = getHandfuls().getVal(_joueur);
-                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingText(label_, Games.toString(usDecl_.getDeclare(),lg_)));
+                ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingText(label_, Games.toString(usDecl_.getDeclare(),lg_)), getOwner().getFrames());
 //                getHandfuls().getVal(_joueur).setText(usDecl_.getAnnonce().toString());
             }
             if (partie_.getContrat().getCouleurDominante()) {
@@ -109,7 +109,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             }
 
             Panel panelToSet_ = getDeclaredHandfuls().getVal(_joueur);
-            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new DeclaringThread(panelToSet_, usDecl_, getOwner()));
+            ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new DeclaringThread(panelToSet_, usDecl_, getOwner()), getOwner().getFrames());
 //            panelToSet_.removeAll();
 //            for(CardBelote c: usDecl_.getMain())
 //            {

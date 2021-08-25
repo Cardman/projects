@@ -62,7 +62,7 @@ public abstract class AbstractThreadActions implements Runnable {
             return;
         }
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getNavigation().getSession().getRendKeyWords());
-        FrameUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page));
+        FrameUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page), page.getGene());
     }
 
     protected void finish() {

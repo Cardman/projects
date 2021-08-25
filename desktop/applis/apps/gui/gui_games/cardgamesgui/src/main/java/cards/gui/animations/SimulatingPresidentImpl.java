@@ -44,7 +44,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void displayUserHand(HandPresident _hand) {
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationRefreshHandPresident(container, new HandPresident(_hand)));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SimulationRefreshHandPresident(container, new HandPresident(_hand)), container.getOwner().getFrames());
     }
 
     @Override
@@ -57,7 +57,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         StringList nicknames_=pseudosSimuleePresident();
         String lg_ = container.getOwner().getLanguageKey();
         String event_ = StringUtil.concat(nicknames_.get(_l),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_w),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -65,13 +65,13 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         StringList nicknames_=pseudosSimuleePresident();
         String lg_ = container.getOwner().getLanguageKey();
         String event_ = StringUtil.concat(nicknames_.get(_w),ContainerGame.INTRODUCTION_PTS,Games.toString(_h,lg_),ContainerGame.RETURN_LINE,nicknames_.get(_l),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
     public void displayLineReturn() {
         String event_ = ContainerGame.RETURN_LINE;
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -81,7 +81,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void prepare() {
-        FrameUtil.invokeLater(new PrepareSimuPresident(this));
+        FrameUtil.invokeLater(new PrepareSimuPresident(this), container.getOwner().getFrames());
     }
 
     void prepareGui() {
@@ -151,7 +151,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     public void beginDemo() {
         String event_;
         event_ = StringUtil.concat(container.getMessages().getVal(WindowCards.BEGIN_DEMO),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -166,12 +166,12 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void stopDemo() {
-        FrameUtil.invokeLater(new StopDemo(container));
+        FrameUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
     }
 
     @Override
     public void displaySwitchedUserHand(Bytes _winners, Bytes _loosers, int _noDeal,CustList<HandPresident> _switchedCards) {
-        FrameUtil.invokeLater(new DisplaySwitchedCardsSimuPresident(this,_winners,_loosers,_switchedCards));
+        FrameUtil.invokeLater(new DisplaySwitchedCardsSimuPresident(this,_winners,_loosers,_switchedCards), container.getOwner().getFrames());
     }
 
     void displayGuiSwitchedUserHand(Bytes _winners, Bytes _loosers, CustList<HandPresident> _switchedCards) {
@@ -197,17 +197,17 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void setupDeck() {
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentDeck(container));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentDeck(container), container.getOwner().getFrames());
     }
 
     @Override
     public void gearStatusChange(ByteMap<Playing> _status, byte _starter) {
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentStatus(container, _status, _starter));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentStatus(container, _status, _starter), container.getOwner().getFrames());
     }
 
     @Override
     public void displayPlayedHand(HandPresident _hand) {
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentHand(container, _hand));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentHand(container, _hand), container.getOwner().getFrames());
     }
 
     @Override
@@ -215,7 +215,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         StringList nicknames_=pseudosSimuleePresident();
         String lg_ = container.getOwner().getLanguageKey();
         String event_ = StringUtil.concat(nicknames_.get(_nextPlayer),ContainerGame.INTRODUCTION_PTS,Games.toString(_hand,lg_),ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
@@ -223,12 +223,12 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         StringList nicknames_=pseudosSimuleePresident();
         String mess_ = container.getMessages().getVal(WindowCards.TRICK_WINNER);
         String event_ = StringUtil.concat(StringUtil.simpleStringsFormat(mess_, nicknames_.get(_player)),ContainerGame.RETURN_LINE,ContainerGame.RETURN_LINE);
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
     @Override
     public void endDeal() {
-        FrameUtil.invokeLater(new EndDealSimuPresident(this));
+        FrameUtil.invokeLater(new EndDealSimuPresident(this), container.getOwner().getFrames());
     }
 
     void endGuiDeal() {

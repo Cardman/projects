@@ -20,7 +20,8 @@ import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
 
-import java.awt.*;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 public abstract class SoftApplicationCore {
 

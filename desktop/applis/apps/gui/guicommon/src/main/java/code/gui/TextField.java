@@ -1,11 +1,12 @@
 package code.gui;
 
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsAutoCompleteListener;
 import code.gui.events.WrActionListener;
+import code.gui.events.WrAutoCompleteListener;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
-import javax.swing.text.Document;
 
 public final class TextField extends CustComponent {
 
@@ -24,16 +25,14 @@ public final class TextField extends CustComponent {
         textField = new JTextField(_txt,_nbCols);
     }
 
-    void setDocument(Document _doc) {
-        textField.setDocument(_doc);
-    }
-
     public void addActionListener(AbsActionListener _l) {
         textField.addActionListener(new WrActionListener(_l));
     }
 
-    Document getDocument() {
-        return textField.getDocument();
+    public void addAutoComplete(AbsAutoCompleteListener _auto){
+        WrAutoCompleteListener wr_ = new WrAutoCompleteListener(_auto);
+        textField.addFocusListener(wr_);
+        textField.getDocument().addDocumentListener(wr_);
     }
 
     public void moveCaretPosition(int _pos) {

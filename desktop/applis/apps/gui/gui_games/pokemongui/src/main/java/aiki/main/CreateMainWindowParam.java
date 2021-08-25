@@ -63,7 +63,7 @@ public final class CreateMainWindowParam implements Runnable {
         }
         window.getLoadFlag().set(false);
         window.setLoadingConf(load, false);
-        FrameUtil.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
+        FrameUtil.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_), window.getFrames());
     }
 
     public WindowAiki getWindow() {

@@ -29,7 +29,7 @@ public final class LoadingThread implements Runnable {
             window.getDialog().getAbsDialog().setVisible(false);
             return;
         }
-        FrameUtil.invokeLater(new AfterLoadingThread(window, fileName));
+        FrameUtil.invokeLater(new AfterLoadingThread(window, fileName), window.getFrames());
         window = null;
     }
 }

@@ -21,7 +21,7 @@ public final class OpeningGame implements Runnable {
 
     @Override
     public void run() {
-        ThreadInvoker.invokeNow(window.getThreadFactory(),new ShowOpeningDialog(window));
+        ThreadInvoker.invokeNow(window.getThreadFactory(),new ShowOpeningDialog(window), window.getFrames());
         //Avoid to have a null dialog
         ThreadUtil.sleep(window.getThreadFactory(),WAIT_VIDEO);
         window.getDialog().startAnimation();

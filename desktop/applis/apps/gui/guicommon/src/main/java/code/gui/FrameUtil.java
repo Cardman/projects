@@ -3,13 +3,12 @@ package code.gui;
 import code.gui.events.AbsWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 import code.util.core.StringUtil;
-
-import javax.swing.*;
 
 public final class FrameUtil {
     private static final String ACCESS = "gui.groupframe";
@@ -98,8 +97,11 @@ public final class FrameUtil {
         return _pr;
     }
 
-    public static void invokeLater(Runnable _r) {
-        SwingUtilities.invokeLater(_r);
+    public static void invokeLater(Runnable _r, AbsCompoFactory _compoFactory) {
+        _compoFactory.invokeLater(_r);
+    }
+    public static void invokeLater(Runnable _r, AbstractProgramInfos _compoFactory) {
+        _compoFactory.getCompoFactory().invokeLater(_r);
     }
 
     public static AbsPreparedLabel prep(AbstractImageFactory _img) {

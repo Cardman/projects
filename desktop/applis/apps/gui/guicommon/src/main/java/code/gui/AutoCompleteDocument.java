@@ -2,7 +2,6 @@ package code.gui;
 
 import code.gui.events.AbsAutoCompleteListener;
 import code.gui.events.AbsKeyListener;
-import code.gui.events.WrAutoCompleteListener;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -21,12 +20,14 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
 
     private final TextField textField;
     private final ChangeableTitle changeableTitle;
+    private final AbstractProgramInfos abs;
 
     public AutoCompleteDocument(TextField _field, StringList _aDictionary, ChangeableTitle _changeableTitle, AbstractProgramInfos _abs) {
         textField = _field;
         changeableTitle = _changeableTitle;
         dictionary.addAllElts(_aDictionary);
         popup = new PopupMenu();
+        abs = _abs;
         AbsGraphicList<String> comp_ = _abs.getGeneGraphicList().createStrList(_abs.getImageFactory(),new StringList(), _abs.getCompoFactory());
         list = comp_;
         popup.add(new ScrollPane(comp_.self()));
@@ -34,14 +35,8 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
     }
 
     public void init() {
-        addAutoComplete(this);
+        textField.addAutoComplete(this);
         textField.addKeyListener(this);
-    }
-
-    public void addAutoComplete(AbsAutoCompleteListener _auto) {
-        WrAutoCompleteListener wr_ = new WrAutoCompleteListener(_auto);
-        textField.getNatComponent().addFocusListener(wr_);
-        textField.getDocument().addDocumentListener(wr_);
     }
 
     /**
@@ -71,7 +66,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         if (skip()) {
             return;
         }
-        FrameUtil.invokeLater(new FocusGained(this));
+        FrameUtil.invokeLater(new FocusGained(this), abs);
     }
 
     /**
@@ -86,7 +81,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         if (skip()) {
             return;
         }
-        FrameUtil.invokeLater(new FocusLost(this));
+        FrameUtil.invokeLater(new FocusLost(this), abs);
     }
 
     @Override
@@ -144,7 +139,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         if (skip()) {
             return;
         }
-        FrameUtil.invokeLater(new DocumentChanged(this));
+        FrameUtil.invokeLater(new DocumentChanged(this), abs);
     }
     void documentChanged() {
         // Updating results list

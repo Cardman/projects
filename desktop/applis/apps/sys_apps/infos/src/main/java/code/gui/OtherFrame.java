@@ -56,9 +56,6 @@ public final class OtherFrame implements AbsOtherFrame,ChangeableTitle,WithListe
     public void setFocusable(boolean _focusable) {
         frame.setFocusable(_focusable);
     }
-    public void revalidateFrame() {
-        PackingWindowAfter.packg(this);
-    }
 
     @Override
     public void addWindowListener(AbsWindowListener _l) {

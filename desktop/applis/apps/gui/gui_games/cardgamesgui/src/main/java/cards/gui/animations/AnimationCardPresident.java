@@ -35,7 +35,7 @@ public final class AnimationCardPresident implements Runnable {
 //            }
 //        }
         //Activer le menu Partie/Pause
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true), container.getOwner().getFrames());
 //        container.getPause().setEnabled(true);
         while (true) {
             if (partie_.getProgressingTrick().estVide()) {
@@ -48,7 +48,7 @@ public final class AnimationCardPresident implements Runnable {
                 if (!partie_.keepPlayingCurrentGame()) {
                     break;
                 }
-                ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentDeck(container));
+                ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentDeck(container), container.getOwner().getFrames());
 //                container.tapisPresident().setTalonPresident();
 //                container.tapisPresident().repaintValidate();
             }
@@ -76,6 +76,6 @@ public final class AnimationCardPresident implements Runnable {
 //                Constants.sleep(delaiCarte_);
 //            }
         }
-        FrameUtil.invokeLater(new AfterAnimationCardPresident(container));
+        FrameUtil.invokeLater(new AfterAnimationCardPresident(container), container.getOwner().getFrames());
     }
 }

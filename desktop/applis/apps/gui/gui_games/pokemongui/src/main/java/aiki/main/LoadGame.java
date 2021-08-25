@@ -20,7 +20,7 @@ public final class LoadGame implements Runnable {
 
     @Override
     public void run() {
-        ThreadInvoker.invokeNow(frame.getThreadFactory(),new ShowLoadingDialog(frame));
+        ThreadInvoker.invokeNow(frame.getThreadFactory(),new ShowLoadingDialog(frame), frame.getFrames());
         frame.getDialog().startAnimation();
         while (frame.getLoadFlag().get()) {
             setProgress(perCent.getPercent());

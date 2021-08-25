@@ -3817,7 +3817,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasComponentInvokeLater)) {
-                CustComponentStruct.invokeLater((RunnableContextEl) _cont,_args[0]);
+                CustComponentStruct.invokeLater((RunnableContextEl) _cont, _guiEx.getWindow().getFrames(),_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

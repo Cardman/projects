@@ -36,4 +36,9 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsImgButton newImgButton(AbstractImage _imageIcon) {
         return new ImgButton(_imageIcon);
     }
+
+    @Override
+    public void invokeLater(Runnable _r) {
+        SwingUtilities.invokeLater(_r);
+    }
 }

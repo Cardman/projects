@@ -18,7 +18,7 @@ public final class RoundKoUserThread extends RoundThread {
         getFacade().endRoundFightKoUser();
         animate();
 //        getBattle().afterRound(true);
-        FrameUtil.invokeLater(new AfterRoundThread(getBattle()));
+        FrameUtil.invokeLater(new AfterRoundThread(getBattle()), getBattle().getFrames());
         //getBattle().afterRound();
     }
 }

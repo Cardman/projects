@@ -88,7 +88,7 @@ public final class RenderedPage implements ProcessingSession {
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
     public void initialize(Navigation _nav,MetaDocument _metaDoc) {
         navigation = _nav;
-        FrameUtil.invokeLater(new WindowPage(_metaDoc, scroll, this));
+        FrameUtil.invokeLater(new WindowPage(_metaDoc, scroll, this), getGene());
     }
 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
@@ -162,7 +162,7 @@ public final class RenderedPage implements ProcessingSession {
         processing.set(false);
         Document doc_ = navigation.getDocument();
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,navigation.getSession().getRendKeyWords());
-        FrameUtil.invokeLater(new WindowPage(metadoc_, scroll, this));
+        FrameUtil.invokeLater(new WindowPage(metadoc_, scroll, this), getGene());
     }
     void directScroll(MetaDocument _meta) {
         if (frame != null) {

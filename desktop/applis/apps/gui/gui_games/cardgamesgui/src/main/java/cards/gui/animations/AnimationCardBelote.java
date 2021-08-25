@@ -37,7 +37,7 @@ public final class AnimationCardBelote implements Runnable {
             }
         }
         //Activer le menu Partie/Pause
-        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true));
+        ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true), container.getOwner().getFrames());
 //        container.getPause().setEnabled(true);
         while (true) {
             if (!partie_.keepPlayingCurrentTrick()) {
@@ -67,7 +67,7 @@ public final class AnimationCardBelote implements Runnable {
             container.jouerBelote(player_,pseudos_.get(player_));
             container.pause();
         }
-        FrameUtil.invokeLater(new AfterAnimationCardBelote(container));
+        FrameUtil.invokeLater(new AfterAnimationCardBelote(container), container.getOwner().getFrames());
 //        //Desactiver le menu Partie/Pause
 //        if(partie_.keepPlayingCurrentTrick())
 //        {
