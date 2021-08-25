@@ -41,5 +41,6 @@
 		<sonar.issue.ignore.multicriteria.e7.ruleKey>squid:S00117</sonar.issue.ignore.multicriteria.e7.ruleKey>
 		<sonar.issue.ignore.multicriteria.e7.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e7.resourceKey>
 		<sonar.exclusions>/src/main/java/aiki/sml/imgs/**/*,/src/main/java/aiki/sml/init/**/*,/src/main/java/aiki/sml/trs/**/*,/src/main/java/code/scripts/**/*</sonar.exclusions>
+		<!--sonar.cpd.exclusions>/src/main/java/aiki/sml/imgs/**/*,/src/main/java/aiki/sml/init/**/*,/src/main/java/aiki/sml/trs/**/*,/src/main/java/code/scripts/**/*</sonar.cpd.exclusions-->
 	</properties>
 </project>
