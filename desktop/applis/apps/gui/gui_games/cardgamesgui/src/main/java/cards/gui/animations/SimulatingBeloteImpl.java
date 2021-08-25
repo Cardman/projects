@@ -102,7 +102,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
 
     @Override
     public void prepare() {
-        CustComponent.invokeLater(new PrepareSimuBelote(this));
+        FrameUtil.invokeLater(new PrepareSimuBelote(this));
     }
     void prepareGui() {
         container.setArretDemo(false);
@@ -118,7 +118,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         Panel container_=Panel.newBorder();
         container_.add(new TextLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         StringList pseudos_ = pseudosSimuleeBelote();
-        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingBelote().isClockwise(), pseudos_, 1);
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingBelote().isClockwise(), pseudos_, 1, container.getWindow().getCompoFactory());
         container.getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
         Panel panneau_= Panel.newLineBox();
@@ -129,7 +129,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         container.setEvents(new TextArea(ContainerBelote.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(container.getEvents()));
-        container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),container.getDisplayingBelote().isClockwise(),pseudos_));
+        container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),container.getDisplayingBelote().isClockwise(),pseudos_, container.getWindow().getCompoFactory()));
         panneau2_.add(container.getMiniPanel());
         container.setHandfuls(new ByteMap<TextLabel>());
         container.setDeclaredHandfuls(new ByteMap<Panel>());
@@ -154,7 +154,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
         if (!partie_.getDistribution().derniereMain().estVide()) {
-            container.tapisBelote().setTalonBelote(container.getWindow().getImageFactory(),lg_,partie_.getDistribution().derniereMain());
+            container.tapisBelote().setTalonBelote(container.getWindow(),lg_,partie_.getDistribution().derniereMain());
         }
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock().getComponent());
@@ -165,7 +165,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow().getImageFactory(), lg_,partie_.getDeal().hand())) {
+        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand())) {
             panneau1_.add(c);
         }
         panneau1_.repaintChildren(container.getOwner().getImageFactory());
@@ -190,12 +190,12 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
 
     @Override
     public void stopDemo() {
-        CustComponent.invokeLater(new StopDemo(container));
+        FrameUtil.invokeLater(new StopDemo(container));
     }
 
     @Override
     public void endDeal() {
-        CustComponent.invokeLater(new EndDealSimuBelote(this));
+        FrameUtil.invokeLater(new EndDealSimuBelote(this));
     }
 
     void endGuiDeal() {

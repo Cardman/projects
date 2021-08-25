@@ -5,7 +5,7 @@ import aiki.db.PerCent;
 import aiki.sml.LoadingGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.threads.PerCentIncr;
-import code.gui.CustComponent;
+import code.gui.FrameUtil;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.util.StringMap;
@@ -64,6 +64,6 @@ public final class CreateMainWindowNoParam implements Runnable {
         }
         window.getLoadFlag().set(false);
         window.setLoadingConf(load, true);
-        CustComponent.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
+        FrameUtil.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_));
     }
 }

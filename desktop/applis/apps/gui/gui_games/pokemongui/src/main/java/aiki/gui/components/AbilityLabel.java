@@ -2,11 +2,12 @@ package aiki.gui.components;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.core.StringUtil;
 
-public class AbilityLabel extends PaintableLabel {
+public final class AbilityLabel extends AbsMetaLabel {
 
     private boolean selected;
 
@@ -14,7 +15,8 @@ public class AbilityLabel extends PaintableLabel {
 
     private String text;
 
-    public AbilityLabel(String _text, String _key) {
+    public AbilityLabel(String _text, String _key, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         text =_text;
         setPreferredSize(new Dimension(150, 10));
         key = _key;

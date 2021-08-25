@@ -1,16 +1,18 @@
 package code.minirts;
 
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.minirts.rts.Soldier;
 
 import java.awt.Color;
 
-public class UnitSoldier extends PaintableLabel {
+public final class UnitSoldier extends AbsMetaLabel {
 
     private final Soldier soldier;
 
-    public UnitSoldier(Soldier _soldier) {
+    public UnitSoldier(Soldier _soldier, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         setOpaque(true);
         soldier = _soldier;
     }

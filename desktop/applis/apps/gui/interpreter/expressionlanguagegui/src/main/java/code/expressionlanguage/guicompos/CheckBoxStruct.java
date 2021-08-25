@@ -4,6 +4,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsCustComponent;
 import code.gui.CustCheckBox;
 import code.gui.CustComponent;
 
@@ -61,7 +62,7 @@ public final class CheckBoxStruct extends InputStruct {
     }
 
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return checkBox;
     }
 }

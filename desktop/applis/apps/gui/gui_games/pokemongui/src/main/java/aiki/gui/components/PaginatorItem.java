@@ -421,7 +421,7 @@ public final class PaginatorItem extends Paginator {
         CustList<ItemLabel> list_ = new CustList<ItemLabel>();
         int nb_ = rendered_.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
-            ItemLabel l_ = new ItemLabel(rendered_.get(i));
+            ItemLabel l_ = new ItemLabel(rendered_.get(i), getMain().getCompoFactory());
             l_.setImagesResults(getMain().getImageFactory(), getFacade());
             l_.addMouseListener(new PaginatorEvent(this,i));
             list_.add(l_);

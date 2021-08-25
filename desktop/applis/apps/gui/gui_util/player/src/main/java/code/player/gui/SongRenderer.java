@@ -1,23 +1,21 @@
 package code.player.gui;
 import java.awt.Color;
 
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
-public class SongRenderer extends PaintableLabel {
+public final class SongRenderer extends AbsMetaLabel {
 
     private int noSong;
 
     private StringList songs = new StringList();
 
-    public SongRenderer() {
-    }
-
-    public SongRenderer(StringList _songs) {
-        songs = _songs;
+    public SongRenderer(AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
     }
 
     public void setSongs(StringList _songs) {

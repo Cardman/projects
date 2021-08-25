@@ -2,10 +2,11 @@ package aiki.gui.components.fight;
 import java.awt.Color;
 
 import aiki.game.fight.enums.ActionType;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 
-public class ActionLabel extends PaintableLabel {
+public final class ActionLabel extends AbsMetaLabel {
 
     private String action;
 
@@ -13,7 +14,8 @@ public class ActionLabel extends PaintableLabel {
 
     private boolean selected;
 
-    public ActionLabel(String _action, ActionType _actionEnum) {
+    public ActionLabel(String _action, ActionType _actionEnum, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         action = _action;
         actionEnum = _actionEnum;
         //setPreferredSize(new Dimension(50,10));

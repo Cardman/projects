@@ -97,8 +97,8 @@ public final class OtherFrame implements AbsOtherFrame,ChangeableTitle,WithListe
     }
 
     @Override
-    public void setLocationRelativeTo(CustComponent _c) {
-        frame.setLocationRelativeTo(_c.getNatComponent());
+    public void setLocationRelativeTo(AbsCustComponent _c) {
+        frame.setLocationRelativeTo(((CustComponent)_c).getNatComponent());
     }
 
     @Override

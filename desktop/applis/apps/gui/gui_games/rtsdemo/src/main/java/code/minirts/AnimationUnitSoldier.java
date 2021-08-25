@@ -1,5 +1,6 @@
 package code.minirts;
 
+import code.gui.AbsCustComponent;
 import code.gui.CustCheckBox;
 import code.gui.CustComponent;
 import code.gui.PlainButton;
@@ -48,7 +49,7 @@ public final class AnimationUnitSoldier implements Runnable {
     }
 
     public void addNewSoldier(int _x, int _y, long _next) {
-        battleground.addNewSoldier(window.getImageFactory(), _x, _y,_next);
+        battleground.addNewSoldier(window, _x, _y,_next);
     }
 
     public void setNewLocation(int _x, int _y) {
@@ -98,7 +99,7 @@ public final class AnimationUnitSoldier implements Runnable {
 
     void moving() {
         Facade f_ = battleground.getFacade();
-        CustComponent parent_ = battleground.getContainer().getParent();
+        AbsCustComponent parent_ = battleground.getContainer().getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
         for (UnitMapKey u: f_.getVisibleSoldiers(w_, h_)) {
@@ -114,7 +115,7 @@ public final class AnimationUnitSoldier implements Runnable {
 
     private void repaintBattleground() {
         Facade f_ = battleground.getFacade();
-        CustComponent parent_ = battleground.getContainer().getParent();
+        AbsCustComponent parent_ = battleground.getContainer().getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
         CustPoint curTopLeft_ = f_.getTopLeftPoint();

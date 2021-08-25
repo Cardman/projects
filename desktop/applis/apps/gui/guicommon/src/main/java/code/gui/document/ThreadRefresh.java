@@ -1,10 +1,8 @@
 package code.gui.document;
 
-import code.expressionlanguage.exec.InitPhase;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.render.MetaDocument;
 import code.bean.nat.BeanNatLgNames;
-import code.gui.CustComponent;
+import code.gui.FrameUtil;
 import code.sml.Document;
 
 public final class ThreadRefresh implements Runnable {
@@ -35,7 +33,7 @@ public final class ThreadRefresh implements Runnable {
             return;
         }
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getNavigation().getSession().getRendKeyWords());
-        CustComponent.invokeLater(new WindowPage(metadoc_, page.getScroll(), page));
+        FrameUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page));
     }
 
     private void finish() {

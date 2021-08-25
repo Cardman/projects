@@ -1,16 +1,18 @@
 package code.minirts;
 
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.minirts.rts.RtsDirection;
 
 import java.awt.*;
 
-public class RtsKeyPad extends PaintableLabel {
+public final class RtsKeyPad extends AbsMetaLabel {
 
     private final RtsDirection direction;
 
-    public RtsKeyPad(RtsDirection _direction) {
+    public RtsKeyPad(RtsDirection _direction, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         direction = _direction;
         setPreferredSize(new Dimension(32, 32));
     }

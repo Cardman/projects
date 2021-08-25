@@ -589,7 +589,7 @@ public final class PaginatorMove extends Paginator {
         CustList<TmLabel> list_ = new CustList<TmLabel>();
         int nb_ = rendered_.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
-            TmLabel l_ = new TmLabel(rendered_.get(i), getFacade());
+            TmLabel l_ = new TmLabel(rendered_.get(i), getFacade(), getMain().getCompoFactory());
             l_.addMouseListener(new PaginatorEvent(this,i));
             list_.add(l_);
         }

@@ -95,12 +95,13 @@ public class ContainerTarot extends ContainerGame{
                         StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),_tmpUserFolderSl.getFileCoreStream(), _tmpUserFolderSl.getStreams()));
     }
 
-    public static CustList<GraphicTarotCard> getGraphicCards(AbstractImageFactory _fact, String _lg, Iterable<CardTarot> _hand) {
+    public static CustList<GraphicTarotCard> getGraphicCards(WindowCards _fact, String _lg, Iterable<CardTarot> _hand) {
+        AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         CustList<GraphicTarotCard> list_;
         list_ = new CustList<GraphicTarotCard>();
         boolean entered_ = false;
         for(CardTarot c: _hand) {
-            GraphicTarotCard carte_=new GraphicTarotCard(_fact,_lg, c,SwingConstants.RIGHT,!entered_);
+            GraphicTarotCard carte_=new GraphicTarotCard(imageFactory_,_lg, c,SwingConstants.RIGHT,!entered_, _fact.getCompoFactory());
             carte_.setPreferredSize(entered_);
             list_.add(carte_);
             entered_ = true;

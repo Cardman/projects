@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.PreparedLabel;
 import code.gui.images.AbstractImage;
@@ -34,7 +35,7 @@ public final class PreparedLabelStruct extends CustComponentStruct {
     }
 
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return textLabel;
     }
 

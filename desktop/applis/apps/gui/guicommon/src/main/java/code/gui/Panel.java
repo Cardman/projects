@@ -60,39 +60,59 @@ public final class Panel extends CustComponent {
         return panel.getComponentCount();
     }
 
-    public CustComponent getComponent(int _n) {
+    public AbsCustComponent getComponent(int _n) {
         return getChildren().get(_n);
     }
 
     public void add(Clock _comp) {
-        add(_comp.getComponent());
+        this.add(_comp.getComponent());
     }
 
-    public void add(CustComponent _comp) {
+    public void add(AbsMetaLabel _comp) {
+        add(_comp.getPaintableLabel());
+    }
+    public void add(AbsCustComponent _comp) {
         if (_comp.getParent() != null) {
             return;
         }
+        innerAdd(_comp);
+    }
+
+    public void innerAdd(AbsCustComponent _comp) {
+        _comp.setParent(this);
+        innAdd(_comp);
+    }
+
+    public void add(AbsMetaLabel _comp, int _index) {
+        add(_comp.getPaintableLabel(),_index);
+    }
+    public void add(AbsCustComponent _comp, int _index) {
+        if (_comp.getParent() != null) {
+            return;
+        }
+        innerAdd(_comp, _index);
+    }
+
+    public void innerAdd(AbsCustComponent _comp, int _index) {
+        _comp.setParent(this);
+        getChildren().add(_index, _comp);
+        panel.add(((CustComponent) _comp).getNatComponent(), _index);
+    }
+
+    public void add(AbsMetaLabel _comp, String _constraints) {
+        add(_comp.getPaintableLabel(),_constraints);
+    }
+    public void add(AbsCustComponent _comp, String _constraints) {
+        if (_comp.getParent() != null) {
+            return;
+        }
+        innerAdd(_comp, _constraints);
+    }
+
+    public void innerAdd(AbsCustComponent _comp, String _constraints) {
         _comp.setParent(this);
         getChildren().add(_comp);
-        panel.add(_comp.getNatComponent());
-    }
-
-    public void add(CustComponent _comp, int _index) {
-        if (_comp.getParent() != null) {
-            return;
-        }
-        _comp.setParent(this);
-        getChildren().add(_index,_comp);
-        panel.add(_comp.getNatComponent(), _index);
-    }
-
-    public void add(CustComponent _comp, String _constraints) {
-        if (_comp.getParent() != null) {
-            return;
-        }
-        _comp.setParent(this);
-        getChildren().add(_comp);
-        panel.add(_comp.getNatComponent(), _constraints);
+        panel.add(((CustComponent) _comp).getNatComponent(), _constraints);
     }
 
     public void remove(int _index) {
@@ -101,11 +121,11 @@ public final class Panel extends CustComponent {
         panel.remove(_index);
     }
 
-    public int remove(CustComponent _cust) {
+    public int remove(AbsCustComponent _cust) {
         int i_ = 0;
         int index_ = -1;
-        CustList<CustComponent> rem_ = new CustList<CustComponent>();
-        for (CustComponent c: getChildren()) {
+        CustList<AbsCustComponent> rem_ = new CustList<AbsCustComponent>();
+        for (AbsCustComponent c: getChildren()) {
             if (c == _cust) {
                 c.setParent(null);
                 index_ = i_;
@@ -114,44 +134,59 @@ public final class Panel extends CustComponent {
             }
             i_++;
         }
-        getChildren().clear();
-        panel.removeAll();
-        for (CustComponent c: rem_) {
-            getChildren().add(c);
-            panel.add(c.getNatComponent());
+        innerRemoveAll();
+        for (AbsCustComponent c: rem_) {
+            innAdd(c);
         }
         return index_;
     }
+
+    public void innAdd(AbsCustComponent _c) {
+        getChildren().add(_c);
+        panel.add(((CustComponent) _c).getNatComponent());
+    }
+
     public void removeAll() {
-        for (CustComponent c: getChildren()) {
+        for (AbsCustComponent c: getChildren()) {
             c.setParent(null);
         }
+        innerRemoveAll();
+    }
+
+    public void innerRemoveAll() {
         getChildren().clear();
         panel.removeAll();
     }
 
     public void repaintSecondChildren(AbstractImageFactory _fact) {
-        for (CustComponent c: getChildren()) {
-            if (c instanceof PaintableLabel) {
-                ((PaintableLabel)c).repaintLabel(_fact);
-            } else if (c instanceof Panel) {
-                for (CustComponent d: c.getChildren()) {
-                    if (d instanceof PaintableLabel) {
-                        ((PaintableLabel)d).repaintLabel(_fact);
-                    }
-                }
-                c.validate();
-            }
+        for (AbsCustComponent c: getChildren()) {
+            procCh(_fact, c);
         }
         validate();
     }
-    public void repaintChildren(AbstractImageFactory _fact) {
-        for (CustComponent c: getChildren()) {
-            if (c instanceof PaintableLabel) {
-                ((PaintableLabel)c).repaintLabel(_fact);
+
+    private static void procCh(AbstractImageFactory _fact, AbsCustComponent _c) {
+        if (_c instanceof AbsPaintableLabel) {
+            ((AbsPaintableLabel) _c).repaintLabel(_fact);
+        } else if (_c instanceof Panel) {
+            for (AbsCustComponent d: _c.getChildren()) {
+                proc(_fact, d);
             }
+            _c.validate();
+        }
+    }
+
+    public void repaintChildren(AbstractImageFactory _fact) {
+        for (AbsCustComponent c: getChildren()) {
+            proc(_fact, c);
         }
         validate();
+    }
+
+    private static void proc(AbstractImageFactory _fact, AbsCustComponent _c) {
+        if (_c instanceof AbsPaintableLabel) {
+            ((AbsPaintableLabel) _c).repaintLabel(_fact);
+        }
     }
 
     public void invalidate() {

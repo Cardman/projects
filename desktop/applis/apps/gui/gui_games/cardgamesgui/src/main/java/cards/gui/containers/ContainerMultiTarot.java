@@ -482,7 +482,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         HandTarot atouts_ = _discardedTrumps.getTrumps();
         getPanelDiscardedTrumps().removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(), lg_,atouts_)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow(), lg_,atouts_)) {
             getPanelDiscardedTrumps().add(c);
         }
 //        boolean entered_ = false;
@@ -604,7 +604,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panelToSet_.removeAll();
         _card.getHandful().trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         for(CardTarot c: _card.getHandful()) {
-            MiniTarotCard carte_=new MiniTarotCard(lg_, c);
+            MiniTarotCard carte_=new MiniTarotCard(lg_, c, getOwner().getCompoFactory());
             panelToSet_.add(carte_);
         }
         panelToSet_.validate();
@@ -756,8 +756,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             pseudos_.put(relative_, getPseudoByPlace(p));
         }
         StringList list_ = new StringList(pseudos_.values());
-        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),list_.size(), getDisplayingTarot().isClockwise(), list_));
-        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, nbChoosenPlayers, getDisplayingTarot().isClockwise(), _dog.total());
+        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),list_.size(), getDisplayingTarot().isClockwise(), list_, getOwner().getCompoFactory()));
+        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, nbChoosenPlayers, getDisplayingTarot().isClockwise(), _dog.total(), getOwner().getCompoFactory());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
         setPanelHand(Panel.newLineBox());
@@ -816,7 +816,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau2_.add(sousPanneau_);
 
         container_.add(panneau2_,BorderLayout.EAST);
-        tapisTarot().setTalonTarot(lg_,_dog);
+        tapisTarot().setTalonTarot(lg_,_dog, getOwner().getCompoFactory());
         Panel panel_ = Panel.newPageBox();
         panel_.add(new ScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
@@ -959,7 +959,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void updateCardsInPanelTarotDogMulti(Panel _panel, HandTarot _hand, boolean _inHand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotMultiDog(this, c.getCard(),_inHand,c));
             _panel.add(c);
         }
@@ -980,7 +980,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void updateCardsInPanelTarotCallBeforeDogMulti(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotMultiBeforeDog(this, c.getCard()));
             _panel.add(c);
         }
@@ -1000,7 +1000,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
         for(CardTarot c: _hand) {
-            MiniTarotCard carte_=new MiniTarotCard(lg_, c);
+            MiniTarotCard carte_=new MiniTarotCard(lg_, c, getOwner().getCompoFactory());
 //            carte_.addMouseListener(new EcouteurCarteTarotHandfulMulti(_hand.carte(indice_),_included));
             carte_.addMouseListener(new ListenerCardTarotMultiHandful(this, c,_included));
             _panel.add(carte_);
@@ -1011,7 +1011,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void updateCardsInPanelTarotJeuMulti(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotMultiGame(this, c.getCard()));
             _panel.add(c);
         }

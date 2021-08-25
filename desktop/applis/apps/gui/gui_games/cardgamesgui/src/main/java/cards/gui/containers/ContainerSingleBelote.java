@@ -237,7 +237,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             label_.setToolTipText(Long.toString(p_));
             label_.addMouseList(new SelectPointsEvent(this, p_));
             getPointsButtons().add(label_);
-            getPanneauBoutonsJeuPoints().add(label_);
+            getPanneauBoutonsJeuPoints().add(label_.getButton());
         }
         getPanneauBoutonsJeu().add(getPanneauBoutonsJeuPoints());
         clickedBid = false;
@@ -249,7 +249,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         Panel panelSuits_ = Panel.newLineBox();
         getBidsButtons().clear();
         for (Suit s: Suit.couleursOrdinaires()) {
-            SuitLabel suitLabel_ = new SuitLabel();
+            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
             BidBeloteSuit bid_ = new BidBeloteSuit();
             bid_.setCouleur(s);
             bid_.setEnchere(BidBelote.SUIT);
@@ -267,7 +267,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if (!_partie.getRegles().getEncheresAutorisees().getVal(b)) {
                 continue;
             }
-            SuitLabel suitLabel_ = new SuitLabel();
+            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
             BidBeloteSuit bid_ = new BidBeloteSuit();
             bid_.setEnchere(b);
             suitLabel_.setSuit(bid_, lg_);
@@ -439,7 +439,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         GameBelote partie_=partieBelote();
         StringList pseudos_ = pseudosBelote();
         String lg_ = getOwner().getLanguageKey();
-        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().isClockwise(), pseudos_, 1);
+        CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().isClockwise(), pseudos_, 1, getOwner().getCompoFactory());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
         Panel panneau_;
@@ -451,7 +451,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setEvents(new TextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(getEvents()));
-        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),getDisplayingBelote().isClockwise(),pseudos_));
+        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),getDisplayingBelote().isClockwise(),pseudos_, getOwner().getCompoFactory()));
         panneau2_.add(getMiniPanel());
         setHandfuls(new ByteMap<TextLabel>());
         setDeclaredHandfuls(new ByteMap<Panel>());
@@ -476,7 +476,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
         if (!partie_.getDistribution().derniereMain().estVide()) {
-            tapisBelote().setTalonBelote(getWindow().getImageFactory(),lg_,partie_.getDistribution().derniereMain());
+            tapisBelote().setTalonBelote(getWindow(),lg_,partie_.getDistribution().derniereMain());
         }
         Panel panel_ = Panel.newPageBox();
         panel_.add(new ScrollPane(container_));
@@ -615,7 +615,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 }
                 Panel panelToSet_ = getDeclaredHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
-                for (GraphicBeloteCard c: getGraphicCards(getWindow().getImageFactory(),lg_,usDecl_.getHand())) {
+                for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,usDecl_.getHand())) {
                     panelToSet_.add(c);
                 }
                 panelToSet_.validate();
@@ -731,7 +731,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if(nombreJoueurs_>9) {
                 couleurs_.add(new Color(128,0,255));
             }
-            Graphic graphique_=new Graphic(res_.getScores(),new Longs(res_.getSums()),new CustList<Rate>(),couleurs_);
+            Graphic graphique_=new Graphic(res_.getScores(),new Longs(res_.getSums()),new CustList<Rate>(),couleurs_, getOwner().getCompoFactory());
             Rate derniereMoyenne_=new Rate(res_.getSums().last(),nombreJoueurs_);
             CustList<Rate> scoresCentresMoyenne_=new CustList<Rate>();
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
@@ -753,7 +753,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             panneau_=Panel.newBorder();
             panneau_.add(new TextLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
             panneau_.add(ascenseur_,BorderLayout.CENTER);
-            GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_);
+            GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
             ascenseur_=new ScrollPane(legende_);
             ascenseur_.setPreferredSize(new Dimension(300,100));
@@ -805,7 +805,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     private void updateCardsInPanelBelote(Panel _panel, HandBelote _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicBeloteCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
+        for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardBeloteSingleGame(this,c.getCard()));
             _panel.add(c);
         }

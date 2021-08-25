@@ -5,7 +5,7 @@ import code.util.Ints;
 
 public interface Input {
 
-    CustComponent getGlobal();
+    AbsCustComponent getGlobal();
 
     Ints getSelectedIndexes();
 }

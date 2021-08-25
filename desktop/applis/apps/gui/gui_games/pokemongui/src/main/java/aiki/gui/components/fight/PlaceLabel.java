@@ -1,10 +1,11 @@
 package aiki.gui.components.fight;
 import java.awt.Color;
 
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 
-public class PlaceLabel extends PaintableLabel {
+public final class PlaceLabel extends AbsMetaLabel {
 
     private boolean selected;
 
@@ -12,12 +13,13 @@ public class PlaceLabel extends PaintableLabel {
 
     private String text;
 
-    public PlaceLabel(String _title, byte _number) {
-        this(_number);
+    public PlaceLabel(String _title, byte _number, AbsCompoFactory _compoFactory) {
+        this(_number, _compoFactory);
         text = _title;
     }
 
-    public PlaceLabel(byte _number) {
+    public PlaceLabel(byte _number, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         number = _number;
     }
 

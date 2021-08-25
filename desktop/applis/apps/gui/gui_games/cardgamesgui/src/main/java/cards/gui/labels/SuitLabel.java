@@ -5,12 +5,13 @@ import java.awt.Dimension;
 import cards.belote.BidBeloteSuit;
 import cards.consts.Suit;
 import cards.facade.Games;
+import code.gui.AbsMetaLabel;
 import code.gui.LabelButtonUtil;
-import code.gui.PaintableLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
-public class SuitLabel extends PaintableLabel {
+public final class SuitLabel extends AbsMetaLabel {
 
     private static final String EMPTY_STRING = "";
 
@@ -19,6 +20,10 @@ public class SuitLabel extends PaintableLabel {
     private boolean selected;
 
     private String text;
+
+    public SuitLabel(AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
+    }
 
     public void setSuit(BidBeloteSuit _bid, String _lg) {
         bid = _bid;

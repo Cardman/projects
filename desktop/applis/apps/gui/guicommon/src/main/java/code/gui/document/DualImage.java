@@ -1,6 +1,7 @@
 package code.gui.document;
 
 import code.formathtml.render.MetaImage;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.PreparedLabel;
 
@@ -21,7 +22,7 @@ public abstract class DualImage extends DualLeaf {
     }
 
     @Override
-    public CustComponent getGraphic() {
+    public AbsCustComponent getGraphic() {
         return getLabel();
     }
 

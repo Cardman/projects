@@ -8,11 +8,12 @@ import aiki.util.SortingPokemonPlayer;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.EnumMap;
 import code.util.Ints;
 import code.util.core.StringUtil;
 
-public class PokemonLabel extends SelectableLabel {
+public final class PokemonLabel extends SelectableLabel {
 
     private static final String SPACE = " ";
 
@@ -36,7 +37,8 @@ public class PokemonLabel extends SelectableLabel {
 
     private String gender;
 
-    public PokemonLabel(SortingPokemonPlayer _pokemon) {
+    public PokemonLabel(SortingPokemonPlayer _pokemon, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         pokemon = _pokemon;
     }
 

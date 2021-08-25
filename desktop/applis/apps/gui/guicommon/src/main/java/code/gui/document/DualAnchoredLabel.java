@@ -15,7 +15,7 @@ public final class DualAnchoredLabel extends DualLabel {
     public DualAnchoredLabel(DualContainer _container, MetaAnchorLabel _component, RenderedPage _page) {
         super(_container, _component, _page);
         PreparedLabel label_ = getLabel();
-        label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        label_.setCursor(Cursor.HAND_CURSOR);
         label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page, this));
         String prefix_ = getPage().getNavigation().getSession().getPrefix();
         String command_ = new StringBuilder(prefix_).append("command").toString();

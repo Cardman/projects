@@ -317,7 +317,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosPresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
-        tapis_.initTapisPresident(lg_,pseudos_, partie_.getLastStatus(), Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()));
+        tapis_.initTapisPresident(lg_,pseudos_, partie_.getLastStatus(), Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()), getOwner().getCompoFactory());
         getTapis().setTapisPresident(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
         Panel panneau_;
@@ -603,7 +603,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             if(nombreJoueurs_>9) {
                 couleurs_.add(new Color(128,0,255));
             }
-            Graphic graphique_=new Graphic(getScores(),new Longs(res_.getSums()),new CustList<Rate>(res_.getSigmas()),couleurs_);
+            Graphic graphique_=new Graphic(getScores(),new Longs(res_.getSums()),new CustList<Rate>(res_.getSigmas()),couleurs_, getOwner().getCompoFactory());
             Rate derniereMoyenne_=new Rate(res_.getSums().last(),nombreJoueurs_);
             CustList<Rate> scoresCentresMoyenne_=new CustList<Rate>();
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
@@ -625,7 +625,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             Panel panneau_=Panel.newBorder();
             panneau_.add(new TextLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
             panneau_.add(ascenseur_,BorderLayout.CENTER);
-            GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_);
+            GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
             ascenseur_=new ScrollPane(legende_);
             ascenseur_.setPreferredSize(new Dimension(300,100));
@@ -686,7 +686,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         int iter_ = IndexConstants.FIRST_INDEX;
         byte index_ = IndexConstants.SECOND_INDEX;
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicPresidentCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
+        for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand)) {
             int curStr_ = c.getCard().strength(partiePresident().isReversed());
             if (iter_ > IndexConstants.FIRST_INDEX) {
                 if (curStr_ == str_) {
@@ -708,7 +708,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         _panel.removeAll();
         byte index_ = IndexConstants.FIRST_INDEX;
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicPresidentCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
+        for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand,c));
             _panel.add(c);
             index_++;

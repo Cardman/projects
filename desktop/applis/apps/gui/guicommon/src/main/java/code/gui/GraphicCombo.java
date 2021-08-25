@@ -194,7 +194,7 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
     public void selectItem(int _index) {
         int old_ = selectedIndex;
         simpleSelectItem(_index);
-        CustComponent.invokeLater(new SelectionComboEvent(_index, _index, this, getListener(), old_));
+        FrameUtil.invokeLater(new SelectionComboEvent(_index, _index, this, getListener(), old_));
     }
     public void simpleSelectItem(int _index) {
         if (_index < 0) {
@@ -238,12 +238,12 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
         currentSelected.setIcon(fact,img_);
     }
 
-    public CustComponent getCurrentSelected() {
+    public AbsCustComponent getCurrentSelected() {
         return currentSelected;
     }
 
     @Override
-    public CustComponent getGlobal() {
+    public AbsCustComponent getGlobal() {
         return getPanel();
     }
 
@@ -269,7 +269,7 @@ public final class GraphicCombo extends CustComponent implements GraphicComboGrI
     }
 
     @Override
-    public CustComponent self() {
+    public AbsCustComponent self() {
         return this;
     }
 }

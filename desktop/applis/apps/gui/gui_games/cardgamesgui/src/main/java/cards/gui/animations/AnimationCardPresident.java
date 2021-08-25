@@ -3,7 +3,7 @@ package cards.gui.animations;
 import cards.gui.containers.ContainerSinglePresident;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
-import code.gui.CustComponent;
+import code.gui.FrameUtil;
 import code.gui.ThreadInvoker;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -76,6 +76,6 @@ public final class AnimationCardPresident implements Runnable {
 //                Constants.sleep(delaiCarte_);
 //            }
         }
-        CustComponent.invokeLater(new AfterAnimationCardPresident(container));
+        FrameUtil.invokeLater(new AfterAnimationCardPresident(container));
     }
 }

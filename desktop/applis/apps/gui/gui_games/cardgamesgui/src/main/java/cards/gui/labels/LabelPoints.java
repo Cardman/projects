@@ -2,24 +2,38 @@ package cards.gui.labels;
 import java.awt.Color;
 
 import code.gui.LabelButton;
+import code.gui.events.AbsMouseListener;
 
-public final class LabelPoints extends LabelButton {
-
-    private boolean selected;
+public final class LabelPoints {
 
     private int pts;
 
+    private final LabelButton button;
+
     public LabelPoints(int _pts) {
-        super(Long.toString(_pts), true);
+        button = new LabelButton(Long.toString(_pts));
         pts = _pts;
     }
 
     public void setSelected(int _pts) {
-        selected = pts == _pts;
-        if (selected) {
-            setLineBorder(Color.RED, 1);
+        if (pts == _pts) {
+            button.setLineBorder(Color.RED, 1);
         } else {
-            setLineBorder(Color.BLACK, 1);
+            button.setLineBorder(Color.BLACK, 1);
         }
+    }
+
+    public void addMouseList(AbsMouseListener _l) {
+        button.addMouseList(_l);
+    }
+
+    public void setToolTipText(String _title) {
+        button.setToolTipText(_title);
+    }
+    public void setEnabledLabel(boolean _enabled) {
+        button.setEnabledLabel(_enabled);
+    }
+    public LabelButton getButton() {
+        return button;
     }
 }

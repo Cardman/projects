@@ -135,7 +135,7 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     //@Override
-    public void setLocationRelativeTo(CustComponent _c) {
+    public void setLocationRelativeTo(AbsCustComponent _c) {
         commonFrame.setLocationRelativeTo(_c);
     }
 

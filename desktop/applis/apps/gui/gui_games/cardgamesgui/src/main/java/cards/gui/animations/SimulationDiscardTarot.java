@@ -19,6 +19,6 @@ public final class SimulationDiscardTarot implements Runnable {
     @Override
     public void run() {
         String lg_ = container.getOwner().getLanguageKey();
-        container.tapisTarot().setEcart(lg_,hand);
+        container.tapisTarot().setEcart(lg_,hand, container.getOwner().getCompoFactory());
     }
 }

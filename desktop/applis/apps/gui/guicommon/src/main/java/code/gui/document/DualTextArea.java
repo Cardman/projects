@@ -2,6 +2,7 @@ package code.gui.document;
 
 import code.formathtml.render.IntTextArea;
 import code.formathtml.render.MetaTextArea;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.TextArea;
 
@@ -16,7 +17,7 @@ public final class DualTextArea extends DualInput implements IntTextArea {
     }
 
     @Override
-    public CustComponent getGraphic() {
+    public AbsCustComponent getGraphic() {
         return area;
     }
 

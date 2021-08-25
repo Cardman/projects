@@ -127,7 +127,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             label_.setToolTipText(Long.toString(p_));
             label_.addMouseList(new SelectPointsEvent(this, p_));
             getPointsButtons().add(label_);
-            getPanneauBoutonsJeuPoints().add(label_);
+            getPanneauBoutonsJeuPoints().add(label_.getButton());
         }
         getPanneauBoutonsJeu().add(getPanneauBoutonsJeuPoints());
         setBidOk(new LabelButton(WindowCards.OK));
@@ -137,7 +137,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         Panel panelSuits_ = Panel.newLineBox();
         getBidsButtons().clear();
         for (Suit s: Suit.couleursOrdinaires()) {
-            SuitLabel suitLabel_ = new SuitLabel();
+            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
             BidBeloteSuit bid_ = new BidBeloteSuit();
             bid_.setCouleur(s);
             bid_.setEnchere(BidBelote.SUIT);
@@ -164,7 +164,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             if (!present_) {
                 continue;
             }
-            SuitLabel suitLabel_ = new SuitLabel();
+            SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
             BidBeloteSuit bid_ = new BidBeloteSuit();
             bid_.setEnchere(b);
             suitLabel_.setSuit(bid_, lg_);
@@ -513,7 +513,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             Panel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
             panelToSet_.removeAll();
             for (CardBelote c: _card.getDeclare().getHand()) {
-                MiniBeloteCard carte_ = new MiniBeloteCard(lg_,c);
+                MiniBeloteCard carte_ = new MiniBeloteCard(lg_,c, getOwner().getCompoFactory());
                 panelToSet_.add(carte_);
             }
         }
@@ -533,7 +533,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (!_error.getCards().estVide()) {
             Panel panneau_ = Panel.newLineBox();
             HandBelote cartesBeloteRebelote_ = _error.getCards();
-            for (GraphicBeloteCard c: getGraphicCards(getWindow().getImageFactory(),lg_, cartesBeloteRebelote_)) {
+            for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, cartesBeloteRebelote_)) {
                 panneau_.add(c);
             }
             ConfirmDialog.showComponent(getOwner(), panneau_,
@@ -700,9 +700,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         String lg_ = getOwner().getLanguageKey();
         StringList list_ = new StringList(pseudos_.values());
-        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),nbChoosenPlayers, getDisplayingBelote().isClockwise(), list_));
+        setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),nbChoosenPlayers, getDisplayingBelote().isClockwise(), list_, getOwner().getCompoFactory()));
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, nbChoosenPlayers, getDisplayingBelote().isClockwise(),
-                list_, 1);
+                list_, 1, getOwner().getCompoFactory());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(), BorderLayout.CENTER);
         Panel panneau_;
@@ -739,7 +739,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_, BorderLayout.EAST);
         if (!_cardsOnDeck.estVide()) {
-            tapisBelote().setTalonBelote(getWindow().getImageFactory(),lg_,_cardsOnDeck);
+            tapisBelote().setTalonBelote(getWindow(),lg_,_cardsOnDeck);
         }
         Panel panel_ = Panel.newPageBox();
         panel_.add(new ScrollPane(container_));
@@ -779,7 +779,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private void updateCardsInPanelBeloteMulti(Panel _panel, HandBelote _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicBeloteCard c: getGraphicCards(getWindow().getImageFactory(),lg_, _hand)) {
+        for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, _hand)) {
             c.addMouseListener(new ListenerCardBeloteMultiGame(this,c.getCard()));
             _panel.add(c);
         }

@@ -30,7 +30,7 @@ public final class DualSimpleImage extends DualImage {
                 href = "";
             }
             if (!href.trim().isEmpty()) {
-                label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                label_.setCursor(Cursor.HAND_CURSOR);
                 label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             }
         }

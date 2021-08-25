@@ -1,15 +1,13 @@
 package code.gui;
 import code.gui.events.AbsMouseListener;
+import code.gui.events.MouseListenerCore;
 import code.gui.events.WrMouseListener;
-import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
 
-import java.awt.Color;
 import java.awt.Cursor;
 
 import javax.swing.*;
 
-public class LabelButton extends CustComponent {
+public final class LabelButton extends CustComponent implements AbsEnabled {
 
 //    private static final int MAX_COLOR = 255;
 //    private static final int MID_COLOR = 127;
@@ -25,16 +23,9 @@ public class LabelButton extends CustComponent {
     private String text = "";
 
     public LabelButton(String _text) {
-        this(_text, true);
-    }
-
-    public LabelButton(String _text, boolean _initSize) {
         this();
         text = _text;
         setTextDefaultColors(_text, enabledLabel);
-        if (_initSize) {
-            initSize(_text);
-        }
     }
     public LabelButton() {
         label = new JButton();
@@ -43,12 +34,6 @@ public class LabelButton extends CustComponent {
 //        label.setOpaque(true);
 //        label.setForeground(DEFAULT_FOREGROUND);
 //        label.setBackground(Color.WHITE);
-    }
-
-    public LabelButton(AbstractImageFactory _fact, AbstractImage _imageIcon) {
-        label = new JButton(PreparedLabel.buildIcon(_fact,_imageIcon));
-        setLineBorder(Color.BLACK, 1);
-        label.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     void setTextDefaultColors(String _text,
@@ -88,14 +73,6 @@ public class LabelButton extends CustComponent {
         text = _text;
         setTextDefaultColors(_text, enabledLabel);
 //        initSize(_text);
-    }
-
-    public void initSize(String _text) {
-//        int h_ = heightFont();
-//        int w_ = stringWidth(_text);
-//        w_++;
-//        w_++;
-//        label.setPreferredSize(new Dimension(w_, h_));
     }
 
     public void setVisibleButton(boolean _aFlag) {

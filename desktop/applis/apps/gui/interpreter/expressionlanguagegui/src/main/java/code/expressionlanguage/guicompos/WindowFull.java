@@ -109,7 +109,7 @@ public final class WindowFull extends GroupFrame {
         if (_direct) {
             current.run();
         } else {
-            CustComponent.invokeLater(current);
+            FrameUtil.invokeLater(current);
         }
     }
 

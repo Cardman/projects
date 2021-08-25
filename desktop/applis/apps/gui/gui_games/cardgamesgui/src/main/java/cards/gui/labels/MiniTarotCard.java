@@ -7,18 +7,20 @@ import javax.swing.SwingConstants;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.tarot.enumerations.CardTarot;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
-public class MiniTarotCard extends PaintableLabel {
+public final class MiniTarotCard extends AbsMetaLabel {
 
     static final String DEFAULT="Default";
 
     private CardTarot card;
     private String lg;
 
-    public MiniTarotCard(String _lg, CardTarot _card) {
+    public MiniTarotCard(String _lg, CardTarot _card, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         card = _card;
         lg = _lg;
         setHorizontalAlignment(SwingConstants.RIGHT);

@@ -7,8 +7,9 @@ import aiki.util.SortingEgg;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbsCompoFactory;
 
-public class EggLabel extends SelectableLabel {
+public final class EggLabel extends SelectableLabel {
 
     private int sideLength;
 
@@ -24,7 +25,8 @@ public class EggLabel extends SelectableLabel {
 
     private int xRemainSteps;
 
-    public EggLabel(SortingEgg _egg) {
+    public EggLabel(SortingEgg _egg, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         egg = _egg;
     }
 

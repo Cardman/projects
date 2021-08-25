@@ -3,6 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.RadioButton;
 import code.gui.events.AbsChangeListener;
@@ -69,7 +70,7 @@ public final class RadioButtonStruct extends InputStruct {
     }
 
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return getRadioButton();
     }
 

@@ -5,6 +5,7 @@ import aiki.gui.components.labels.KeyPad;
 import aiki.map.enums.Direction;
 import code.gui.Panel;
 import code.gui.TextLabel;
+import code.gui.initialize.AbsCompoFactory;
 
 public class Pad {
 
@@ -17,32 +18,33 @@ public class Pad {
 
     /**
     Create the panel.
-    */
-    public Pad() {
+     * @param _compoFactory
+     */
+    public Pad(AbsCompoFactory _compoFactory) {
         container = Panel.newGrid(3, 3, 10, 10);
 
         TextLabel lblNewLabel_ = new TextLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabel_);
 
-        up = new KeyPad(Direction.UP);
+        up = new KeyPad(Direction.UP, _compoFactory);
         container.add(up);
 
         TextLabel lblNewLabelSec_ = new TextLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabelSec_);
 
-        left = new KeyPad(Direction.LEFT);
+        left = new KeyPad(Direction.LEFT, _compoFactory);
         container.add(left);
 
         TextLabel lblNewLabelThird_ = new TextLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabelThird_);
 
-        right = new KeyPad(Direction.RIGHT);
+        right = new KeyPad(Direction.RIGHT, _compoFactory);
         container.add(right);
 
         TextLabel lblNewLabelFour_ = new TextLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabelFour_);
 
-        down = new KeyPad(Direction.DOWN);
+        down = new KeyPad(Direction.DOWN, _compoFactory);
         container.add(down);
     }
 

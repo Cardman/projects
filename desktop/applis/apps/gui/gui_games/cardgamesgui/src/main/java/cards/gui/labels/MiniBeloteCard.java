@@ -7,18 +7,20 @@ import javax.swing.SwingConstants;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
-public class MiniBeloteCard extends PaintableLabel {
+public final class MiniBeloteCard extends AbsMetaLabel {
 
     static final String DEFAULT="Default";
 
     private CardBelote card;
     private String lg;
 
-    public MiniBeloteCard(String _lg, CardBelote _card) {
+    public MiniBeloteCard(String _lg, CardBelote _card, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         lg = _lg;
         card = _card;
         setHorizontalAlignment(SwingConstants.RIGHT);

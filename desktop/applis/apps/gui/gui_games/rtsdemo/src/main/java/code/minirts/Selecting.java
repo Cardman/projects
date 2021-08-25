@@ -1,17 +1,19 @@
 package code.minirts;
 
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.minirts.rts.Facade;
 import code.maths.geo.Rect;
 
 import java.awt.Color;
 import java.awt.Dimension;
 
-public class Selecting extends PaintableLabel {
+public final class Selecting extends AbsMetaLabel {
     private final Facade facade;
 
-    public Selecting(Facade _facade) {
+    public Selecting(Facade _facade, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         facade = _facade;
         setSize(new Dimension(2048, 2048));
     }

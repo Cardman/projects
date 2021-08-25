@@ -10,10 +10,10 @@ public final class PackingWindowAfter implements Runnable {
     }
 
     public static void packg(Packable _frame) {
-        CustComponent.invokeLater(new PackThread(_frame));
+        FrameUtil.invokeLater(new PackThread(_frame));
     }
     public static void pack(GroupFrame _frame) {
-        CustComponent.invokeLater(new PackThread(_frame));
+        FrameUtil.invokeLater(new PackThread(_frame));
     }
 
     @Override
@@ -22,6 +22,6 @@ public final class PackingWindowAfter implements Runnable {
     }
 
     private void pack() {
-        CustComponent.invokeLater(new PackThread(frame));
+        FrameUtil.invokeLater(new PackThread(frame));
     }
 }

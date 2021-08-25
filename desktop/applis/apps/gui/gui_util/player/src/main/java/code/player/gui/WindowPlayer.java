@@ -81,7 +81,7 @@ public class WindowPlayer extends GroupFrame implements LineShortListenable {
     private AbsClipStream clipStream;
     private int noSong = -1;
     private final TextArea songs = new TextArea(10, 40);
-    private final SongRenderer songRend = new SongRenderer();
+    private final SongRenderer songRend = new SongRenderer(getCompoFactory());
     private final CustCheckBox random = new CustCheckBox();
     private final LabelButton play = new LabelButton(CST_PLAY);
     private final LabelButton playPrevious = new LabelButton(CST_PREVIOUS);

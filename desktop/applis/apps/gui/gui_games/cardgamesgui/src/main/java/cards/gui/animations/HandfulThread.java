@@ -26,7 +26,7 @@ public final class HandfulThread implements Runnable {
         String lg_ = window.getLanguageKey();
         panelToSet.removeAll();
         for(CardTarot c:poignee) {
-            MiniTarotCard carte_=new MiniTarotCard(lg_,c);
+            MiniTarotCard carte_=new MiniTarotCard(lg_,c, window.getCompoFactory());
             panelToSet.add(carte_);
         }
         panelToSet.validate();

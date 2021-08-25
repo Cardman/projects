@@ -4,6 +4,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsCustComponent;
 import code.gui.events.AbsActionListener;
 import code.gui.CustComponent;
 import code.gui.TextField;
@@ -55,7 +56,7 @@ public final class TextFieldStruct extends InputStruct {
     }
 
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return textField;
     }
 

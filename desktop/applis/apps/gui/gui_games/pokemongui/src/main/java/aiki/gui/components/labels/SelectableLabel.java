@@ -3,16 +3,22 @@ import java.awt.Color;
 import java.awt.Font;
 
 import aiki.gui.components.Paginator;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 
-public class SelectableLabel extends PaintableLabel {
+public abstract class SelectableLabel extends AbsMetaLabel {
 
     protected static final int HEIGTH_CHARS = Paginator.HEIGTH_CHARS;
 
     private boolean selected;
 
-    protected SelectableLabel() {
+    protected SelectableLabel(AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
+        initFont();
+    }
+
+    private void initFont() {
         Font f_ = getFont();
         String name_ = f_.getName();
         int style_ = f_.getStyle();

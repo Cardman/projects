@@ -193,12 +193,12 @@ public final class GraphicListStruct extends InputStruct {
     }
 
     @Override
-    protected CustComponent getVisibleComponent() {
+    protected AbsCustComponent getVisibleComponent() {
         return grList.visible();
     }
 
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return grList.scroll();
     }
 

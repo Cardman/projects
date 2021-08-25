@@ -597,7 +597,7 @@ public final class PaginatorPokemon extends Paginator {
         //Header header_ = new Header();
         int nb_ = rendered_.size();
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
-            PokemonLabel l_ = new PokemonLabel(rendered_.get(i));
+            PokemonLabel l_ = new PokemonLabel(rendered_.get(i), getMain().getCompoFactory());
             l_.setImagesResults(getMain().getImageFactory(), getFacade());
             l_.refresh(getFacade().getTranslatedGendersCurLanguage());
             l_.addMouseListener(new PaginatorEvent(this,i));

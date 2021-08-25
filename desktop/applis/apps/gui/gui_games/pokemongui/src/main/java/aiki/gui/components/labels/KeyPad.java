@@ -3,15 +3,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import aiki.map.enums.Direction;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
-public class KeyPad extends PaintableLabel {
+public final class KeyPad extends AbsMetaLabel {
 
     private Direction direction;
 
-    public KeyPad(Direction _direction) {
+    public KeyPad(Direction _direction, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         direction = _direction;
         setPreferredSize(new Dimension(32, 32));
     }

@@ -4,6 +4,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsCustComponent;
 import code.gui.events.AbsActionListener;
 import code.gui.CustComponent;
 import code.gui.PlainButton;
@@ -50,7 +51,7 @@ public final class PlainButtonStruct extends InputStruct {
         }
     }
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return plainButton;
     }
 }

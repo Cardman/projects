@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.structs.*;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.TextArea;
 
@@ -60,7 +61,7 @@ public final class TextAreaStruct extends InputStruct {
     }
 
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return textArea;
     }
 

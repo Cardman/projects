@@ -100,7 +100,7 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
     }
 
     @Override
-    public CustComponent getGlobal() {
+    public AbsCustComponent getGlobal() {
         return compo.scroll();
     }
 
@@ -133,17 +133,17 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
         return compo.getNatComponent();
     }
 
-    public CustComponent self() {
+    public AbsCustComponent self() {
         return compo.self();
     }
 
     @Override
-    public CustComponent scroll() {
+    public AbsCustComponent scroll() {
         return compo.scroll();
     }
 
     @Override
-    public CustComponent visible() {
+    public AbsCustComponent visible() {
         return compo.visible();
     }
 

@@ -65,7 +65,7 @@ public final class ConfirmDialog {
         _frame.getConfirmDialog().init(_message, _value, _title, _language);
     }
 
-    public static void showComponent(AbsGroupFrame _frame, CustComponent _message, String _title, String _language, int _option) {
+    public static void showComponent(AbsGroupFrame _frame, AbsCustComponent _message, String _title, String _language, int _option) {
 //      ConfirmDialog conf_;
 //      conf_ = new ConfirmDialog(_frame);
         _frame.getConfirmDialog().absDialog.setDialogIcon(_frame.getConfirmDialog().list.getImageFactory(), _frame);
@@ -108,7 +108,7 @@ public final class ConfirmDialog {
 //        int h_ = fontMet_.getHeight();
 //        message_.setPreferredSize(new Dimension(w_,h_));
 //        content_.add(message_);
-        content_.add(new WrappedLabel(list.getImageFactory(), _message));
+        content_.add(new WrappedLabel(list.getImageFactory(), _message, list.getCompoFactory()));
         Panel buttons_ = Panel.newLineBox();
         if (_option == JOptionPane.INFORMATION_MESSAGE) {
             buttons_.add(new PreparedLabel(UIManager.getIcon(INFORMATION_ICON)));
@@ -133,7 +133,7 @@ public final class ConfirmDialog {
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
 
-    private void initComponentSingleButton(CustComponent _message, String _title, String _language, int _option) {
+    private void initComponentSingleButton(AbsCustComponent _message, String _title, String _language, int _option) {
         StringMap<String> messages_ = confirm(_language);
         absDialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
@@ -166,7 +166,7 @@ public final class ConfirmDialog {
 //        int h_ = fontMet_.getHeight();
 //        message_.setPreferredSize(new Dimension(w_,h_));
 //        content_.add(message_);
-        content_.add(new WrappedLabel(list.getImageFactory(), _message));
+        content_.add(new WrappedLabel(list.getImageFactory(), _message, list.getCompoFactory()));
         Panel buttons_ = Panel.newLineBox();
         if (_option == JOptionPane.YES_NO_OPTION) {
             answer = JOptionPane.NO_OPTION;
@@ -213,7 +213,7 @@ public final class ConfirmDialog {
 //        int h_ = fontMet_.getHeight();
 //        message_.setPreferredSize(new Dimension(w_,h_));
 //        content_.add(message_);
-        content_.add(new WrappedLabel(list.getImageFactory(), _message));
+        content_.add(new WrappedLabel(list.getImageFactory(), _message, list.getCompoFactory()));
         field = new TextField();
         field.setText(_value);
         content_.add(field);

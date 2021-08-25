@@ -6,7 +6,7 @@ import cards.belote.GameBelote;
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
-import code.gui.CustComponent;
+import code.gui.FrameUtil;
 import code.gui.ThreadInvoker;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -62,7 +62,7 @@ public final class AnimationBidBelote implements Runnable {
             }
             container.pause();
         }
-        CustComponent.invokeLater(new AfterAnimationBidBelote(container));
+        FrameUtil.invokeLater(new AfterAnimationBidBelote(container));
 //        container.getPanneauBoutonsJeu().removeAll();
 //        if(partie_.keepBidding()) {
 //            container.setCanBid(true);

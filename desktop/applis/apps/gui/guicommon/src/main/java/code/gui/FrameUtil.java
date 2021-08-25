@@ -1,11 +1,15 @@
 package code.gui;
 
 import code.gui.events.AbsWindowListener;
+import code.gui.images.AbstractImage;
+import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
 import code.util.core.StringUtil;
+
+import javax.swing.*;
 
 public final class FrameUtil {
     private static final String ACCESS = "gui.groupframe";
@@ -71,5 +75,30 @@ public final class FrameUtil {
         } else if (_i instanceof AbsDialog) {
             _to.setLocationRelativeTo((AbsDialog) _i);
         }
+    }
+
+    public static void repaint(AbstractImageFactory _fact, AbsPaintableLabel _paintableLabel, AbsMetaLabel _metaLabel) {
+        int w_ = _paintableLabel.getWidth();
+        int h_ = _paintableLabel.getHeight();
+        if (w_ <= 0 || h_ <= 0) {
+            _paintableLabel.setEmptyIcon();
+            return;
+        }
+        AbstractImage img_ = _fact.newImageArgb(w_, h_);
+//        CustGraphics gr_ = img_.getGraphics();
+        img_.setFont(_paintableLabel.getFont());
+        _metaLabel.paintComponent(img_);
+        _paintableLabel.setIcon(_fact,img_);
+    }
+
+    public static int pref(int _dim, int _pr) {
+        if (_dim > 0) {
+            return _dim;
+        }
+        return _pr;
+    }
+
+    public static void invokeLater(Runnable _r) {
+        SwingUtilities.invokeLater(_r);
     }
 }

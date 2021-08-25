@@ -3,6 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.Panel;
 import code.util.CustList;
@@ -119,7 +120,7 @@ public class PanelStruct extends CustComponentStruct {
         panel.validate();
     }
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return panel;
     }
 

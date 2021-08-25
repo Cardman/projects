@@ -12,6 +12,7 @@ import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.gui.*;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.Document;
 import code.threads.AbstractAtomicBoolean;
@@ -24,6 +25,7 @@ import code.util.consts.Constants;
 
 public final class RenderedPage implements ProcessingSession {
 
+    private final AbsCompoFactory compoFactory;
     private DualPanel page;
     private final ScrollPane scroll;
     private Navigation navigation;
@@ -56,6 +58,7 @@ public final class RenderedPage implements ProcessingSession {
     public RenderedPage(ScrollPane _frame, AbstractProgramInfos _gene) {
         scroll = _frame;
         gene = _gene;
+        compoFactory = _gene.getCompoFactory();
         processing = _gene.getThreadFactory().newAtomicBoolean();
     }
 
@@ -85,7 +88,7 @@ public final class RenderedPage implements ProcessingSession {
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
     public void initialize(Navigation _nav,MetaDocument _metaDoc) {
         navigation = _nav;
-        CustComponent.invokeLater(new WindowPage(_metaDoc, scroll, this));
+        FrameUtil.invokeLater(new WindowPage(_metaDoc, scroll, this));
     }
 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
@@ -159,7 +162,7 @@ public final class RenderedPage implements ProcessingSession {
         processing.set(false);
         Document doc_ = navigation.getDocument();
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,navigation.getSession().getRendKeyWords());
-        CustComponent.invokeLater(new WindowPage(metadoc_, scroll, this));
+        FrameUtil.invokeLater(new WindowPage(metadoc_, scroll, this));
     }
     void directScroll(MetaDocument _meta) {
         if (frame != null) {
@@ -260,6 +263,10 @@ public final class RenderedPage implements ProcessingSession {
 
     public AbstractContextCreator getContextCreator() {
         return contextCreator;
+    }
+
+    public AbsCompoFactory getCompoFactory() {
+        return compoFactory;
     }
 
     public AbstractProgramInfos getGene() {

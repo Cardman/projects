@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.structs.*;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.TabbedPane;
 import code.util.CustList;
@@ -132,7 +133,7 @@ public final class TabbedPaneStruct extends CustComponentStruct {
         tabbedPane.removeAll();
     }
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return tabbedPane;
     }
 }

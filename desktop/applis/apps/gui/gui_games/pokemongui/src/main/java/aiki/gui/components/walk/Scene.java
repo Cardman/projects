@@ -6,19 +6,17 @@ import aiki.comparators.ComparatorScreenCoords;
 import aiki.facade.FacadeGame;
 import aiki.map.enums.Direction;
 import aiki.map.util.ScreenCoords;
-import code.gui.AbsMouseButtons;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseLocation;
-import code.gui.PaintableLabel;
+import code.gui.*;
 import code.gui.events.AbsMouseListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 import code.util.TreeMap;
 import code.util.core.IndexConstants;
 
-public class Scene extends PaintableLabel implements AbsMouseListener {
+public final class Scene extends AbsMetaLabel implements AbsMouseListener {
 
     private int sideLength;
 
@@ -42,7 +40,8 @@ public class Scene extends PaintableLabel implements AbsMouseListener {
 
     private boolean animated;
 
-    public Scene() {
+    public Scene(AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         setFocusable(true);
         setBackground(Color.WHITE);
     }

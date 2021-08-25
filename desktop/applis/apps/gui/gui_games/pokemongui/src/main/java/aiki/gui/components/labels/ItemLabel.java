@@ -7,9 +7,10 @@ import aiki.util.SortingItem;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.Ints;
 
-public class ItemLabel extends SelectableLabel {
+public final class ItemLabel extends SelectableLabel {
 
 
     private static final int FIRST_LINE = HEIGTH_CHARS;
@@ -26,7 +27,8 @@ public class ItemLabel extends SelectableLabel {
 
     private AbstractImage miniImageItem;
 
-    public ItemLabel(SortingItem _item) {
+    public ItemLabel(SortingItem _item, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         item = _item;
     }
 

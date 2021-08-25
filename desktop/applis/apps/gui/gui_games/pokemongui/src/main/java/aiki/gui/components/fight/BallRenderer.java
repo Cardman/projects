@@ -36,7 +36,7 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
         facade = _facade;
     }
 
-    public void setMaxWidth(CustComponent _fm,NatStringTreeMap<BallNumberRate> _balls) {
+    public void setMaxWidth(AbsCustComponent _fm,NatStringTreeMap<BallNumberRate> _balls) {
         maxWidthImage = 0;
         maxWidthRate = 0;
         maxWidthNumber = 0;

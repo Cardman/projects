@@ -1,11 +1,12 @@
 package code.minirts;
 
-import code.gui.CustComponent;
+import code.gui.AbsCustComponent;
 import code.gui.Panel;
 import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 import code.maths.geo.CustPoint;
 import code.maths.geo.Rect;
 import code.minirts.events.InteractClick;
@@ -27,13 +28,13 @@ public class PanelBattle {
     private final Panel container = Panel.newAbsolute();
     private final Panel content = Panel.newAbsolute();
 
-    public PanelBattle(Facade _facade) {
+    public PanelBattle(Facade _facade, AbsCompoFactory _compoFactory) {
         facade = _facade;
         content.setOpaque(true);
         content.setBackground(Color.WHITE);
         container.setOpaque(true);
         container.setBackground(Color.WHITE);
-        selecting = new Selecting(_facade);
+        selecting = new Selecting(_facade, _compoFactory);
         container.add(selecting);
         container.add(content);
     }
@@ -46,25 +47,25 @@ public class PanelBattle {
         content.addMouseWheelListener(_l);
     }
 
-    public void addNewSoldier(AbstractImageFactory _fact,int _x, int _y, long _next) {
+    public void addNewSoldier(WindowRts _fact,int _x, int _y, long _next) {
         facade.addNewSoldier(_x, _y,_next);
         if (!facade.isAdded()) {
             return;
         }
         SoldierPattern p_ = facade.getSoldierPattern();
         Soldier s_ = facade.getLastSoldier();
-        UnitSoldier soldierLabel_ = new UnitSoldier(s_);
+        UnitSoldier soldierLabel_ = new UnitSoldier(s_, _fact.getCompoFactory());
         soldierLabel_.setSize(new Dimension(p_.getWidth(), p_.getHeight()));
         content.add(soldierLabel_);
         soldierLabel_.setLocation(_x, _y);
         soldierLabels.put(facade.getLastSoldierKey(),soldierLabel_);
         CustPoint curTopLeft_ = facade.getTopLeftPoint();
-        CustComponent parent_ = container.getParent();
+        AbsCustComponent parent_ = container.getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
         paintSelection = false;
 //        repaint(-curTopLeft_.x, -curTopLeft_.y, w_, h_);
-        repaint(_fact,curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), w_, h_);
+        repaint(_fact.getImageFactory(),curTopLeft_.getXcoords(), curTopLeft_.getYcoords(), w_, h_);
     }
 
     public void repaint(AbstractImageFactory _fact,int _x, int _y, int _width, int _height) {
@@ -146,7 +147,7 @@ public class PanelBattle {
     public void selectOrDeselectMany(AbstractImageFactory _fact) {
         facade.selectOrDeselectMany();
         CustPoint curTopLeft_ = facade.getTopLeftPoint();
-        CustComponent parent_ = container.getParent();
+        AbsCustComponent parent_ = container.getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
 //        paintSelection = false;
@@ -159,7 +160,7 @@ public class PanelBattle {
     }
 
     public void moveCamera(CustPoint _p, AbstractImageFactory _fact, int _x, int _y) {
-        CustComponent parent_ = container.getParent();
+        AbsCustComponent parent_ = container.getParent();
         int w_ = parent_.getWidth();
         int h_ = parent_.getHeight();
         facade.moveCamera(_p.getXcoords()+ _x, _p.getYcoords()+ _y, w_, h_);

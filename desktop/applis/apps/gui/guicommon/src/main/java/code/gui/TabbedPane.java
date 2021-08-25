@@ -23,16 +23,16 @@ public final class TabbedPane extends CustComponent {
         }
         component.setSelectedIndex(_index);
     }
-    public void add(String _title, CustComponent _component) {
+    public void add(String _title, AbsCustComponent _component) {
         if (_component.getParent() != null) {
             return;
         }
         _component.setParent(this);
         getChildren().add(_component);
-        component.add(_title, _component.getNatComponent());
+        component.add(_title, ((CustComponent)_component).getNatComponent());
     }
 
-    public void setTab(int _index,CustComponent _component) {
+    public void setTab(int _index,AbsCustComponent _component) {
         if (!getChildren().isValidIndex(_index)) {
             return;
         }
@@ -42,7 +42,7 @@ public final class TabbedPane extends CustComponent {
         getChildren().get(_index).setParent(null);
         _component.setParent(this);
         getChildren().set(_index,_component);
-        component.setTabComponentAt(_index, _component.getNatComponent());
+        component.setTabComponentAt(_index,((CustComponent) _component).getNatComponent());
     }
     public String getTitle(int _index) {
         if (!getChildren().isValidIndex(_index)) {
@@ -63,10 +63,10 @@ public final class TabbedPane extends CustComponent {
         component.removeTabAt(_index);
     }
 
-    public int index(CustComponent _cust) {
+    public int index(AbsCustComponent _cust) {
         int i_ = 0;
         int index_ = -1;
-        for (CustComponent c: getChildren()) {
+        for (AbsCustComponent c: getChildren()) {
             if (c == _cust) {
                 index_ = i_;
                 break;
@@ -75,12 +75,12 @@ public final class TabbedPane extends CustComponent {
         }
         return index_;
     }
-    public int remove(CustComponent _cust) {
+    public int remove(AbsCustComponent _cust) {
         int i_ = 0;
         int index_ = -1;
-        CustList<CustComponent> rem_ = new CustList<CustComponent>();
+        CustList<AbsCustComponent> rem_ = new CustList<AbsCustComponent>();
         CustList<String> remTitles_ = new CustList<String>();
-        for (CustComponent c: getChildren()) {
+        for (AbsCustComponent c: getChildren()) {
             if (c == _cust) {
                 c.setParent(null);
                 index_ = i_;
@@ -93,14 +93,14 @@ public final class TabbedPane extends CustComponent {
         getChildren().clear();
         component.removeAll();
         i_ = 0;
-        for (CustComponent c: rem_) {
+        for (AbsCustComponent c: rem_) {
             getChildren().add(c);
-            component.addTab(remTitles_.get(i_),c.getNatComponent());
+            component.addTab(remTitles_.get(i_),((CustComponent)c).getNatComponent());
             i_++;
         }
         return index_;
     }
-    public CustComponent getComponent(int _index) {
+    public AbsCustComponent getComponent(int _index) {
         return getChildren().get(_index);
     }
 
@@ -110,7 +110,7 @@ public final class TabbedPane extends CustComponent {
     }
 
     public void removeAll() {
-        for (CustComponent c: getChildren()) {
+        for (AbsCustComponent c: getChildren()) {
             c.setParent(null);
         }
         getChildren().clear();

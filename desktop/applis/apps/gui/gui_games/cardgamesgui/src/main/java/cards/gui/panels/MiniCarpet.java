@@ -5,6 +5,7 @@ import cards.consts.Role;
 import cards.gui.labels.CellPlayer;
 import code.gui.Panel;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
 import code.util.StringList;
 
@@ -19,14 +20,14 @@ public final class MiniCarpet {
     private MiniCarpet() {
     }
 
-    public static MiniCarpet newCarpet(AbstractImageFactory _fact, int _nombreDeJoueurs, boolean _horaire, StringList _pseudos) {
+    public static MiniCarpet newCarpet(AbstractImageFactory _fact, int _nombreDeJoueurs, boolean _horaire, StringList _pseudos, AbsCompoFactory _compoFactory) {
         MiniCarpet m_ = new MiniCarpet();
         m_.horaire=_horaire;
         if(_nombreDeJoueurs==4) {
             m_.container = Panel.newGrid(0,3);
             for(int i=0;i<9;i++) {
                 Panel surPanneau_= Panel.newLineBox();
-                CellPlayer cell_ = new CellPlayer();
+                CellPlayer cell_ = new CellPlayer(_compoFactory);
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i%2==1) {
                     if(i==1) {
@@ -62,7 +63,7 @@ public final class MiniCarpet {
             m_.container = Panel.newGrid(0,4);
             for(int i=0;i<12;i++) {
                 Panel surPanneau_=Panel.newLineBox();
-                CellPlayer cell_ = new CellPlayer();
+                CellPlayer cell_ = new CellPlayer(_compoFactory);
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i==1) {
                     if(m_.horaire) {
@@ -123,7 +124,7 @@ public final class MiniCarpet {
             for(int i=0;i<9;i++) {
                 Panel surPanneau_;
                 surPanneau_= Panel.newLineBox();
-                CellPlayer cell_ = new CellPlayer();
+                CellPlayer cell_ = new CellPlayer(_compoFactory);
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i==0) {
                     if(m_.horaire) {
@@ -156,7 +157,7 @@ public final class MiniCarpet {
             m_.container = Panel.newGrid(0,3);
             for(int i=0;i<9;i++) {
                 Panel surPanneau_=Panel.newLineBox();
-                CellPlayer cell_ = new CellPlayer();
+                CellPlayer cell_ = new CellPlayer(_compoFactory);
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i==0) {
                     surPanneau_= Panel.newLineBox();

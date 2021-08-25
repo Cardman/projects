@@ -55,7 +55,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
             return;
         }
         int height_ = textField.getHeight();
-        CustComponent par_ = textField;
+        AbsCustComponent par_ = textField;
         int x_ = changeableTitle.getLocationOnScreen().x;
         int y_ = changeableTitle.getLocationOnScreen().y+30;
         while (par_ != null) {
@@ -71,7 +71,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         if (skip()) {
             return;
         }
-        CustComponent.invokeLater(new FocusGained(this));
+        FrameUtil.invokeLater(new FocusGained(this));
     }
 
     /**
@@ -86,7 +86,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         if (skip()) {
             return;
         }
-        CustComponent.invokeLater(new FocusLost(this));
+        FrameUtil.invokeLater(new FocusLost(this));
     }
 
     @Override
@@ -144,7 +144,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         if (skip()) {
             return;
         }
-        CustComponent.invokeLater(new DocumentChanged(this));
+        FrameUtil.invokeLater(new DocumentChanged(this));
     }
     void documentChanged() {
         // Updating results list

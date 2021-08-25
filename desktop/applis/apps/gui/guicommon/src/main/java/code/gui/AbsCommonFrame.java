@@ -34,7 +34,7 @@ public interface AbsCommonFrame extends ChangeableTitle {
     MenuBar getJMenuBar();
     void setJMenuBar(MenuBar _menu);
     void setVisible(boolean _b);
-    void setLocationRelativeTo(CustComponent _c);
+    void setLocationRelativeTo(AbsCustComponent _c);
 
     void setLocationRelativeTo(AbsGroupFrame _c);
     void setLocationRelativeToNull();

@@ -11,7 +11,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.render.MetaDocument;
-import code.gui.CustComponent;
+import code.gui.FrameUtil;
 import code.sml.Document;
 
 public abstract class AbstractThreadActions implements Runnable {
@@ -62,7 +62,7 @@ public abstract class AbstractThreadActions implements Runnable {
             return;
         }
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getNavigation().getSession().getRendKeyWords());
-        CustComponent.invokeLater(new WindowPage(metadoc_, page.getScroll(), page));
+        FrameUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page));
     }
 
     protected void finish() {

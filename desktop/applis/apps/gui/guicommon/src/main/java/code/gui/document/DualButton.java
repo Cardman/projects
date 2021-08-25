@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 
 import code.formathtml.render.MetaButton;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.PlainButton;
 
@@ -18,7 +19,7 @@ public final class DualButton extends DualInput {
         label = new PlainButton();
         updateGraphics(label,_component);
         label.setLineBorder(Color.BLACK, 1);
-        label.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        label.setCursor(Cursor.HAND_CURSOR);
         label.addMouseListener(new FormEvent(this, _page));
         value = _component.getValue();
     }
@@ -29,7 +30,7 @@ public final class DualButton extends DualInput {
     }
 
     @Override
-    public CustComponent getGraphic() {
+    public AbsCustComponent getGraphic() {
         return label;
     }
 

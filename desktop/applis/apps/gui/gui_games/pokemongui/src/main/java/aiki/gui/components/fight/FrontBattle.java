@@ -10,7 +10,7 @@ import aiki.game.fight.animations.*;
 import aiki.game.fight.enums.FightState;
 import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.FrameHtmlData;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -20,7 +20,7 @@ import code.util.*;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public class FrontBattle extends PaintableLabel {
+public final class FrontBattle extends AbsMetaLabel {
 
     private static final int NB_IMAGES = 128;
 
@@ -95,6 +95,7 @@ public class FrontBattle extends PaintableLabel {
     private Battle battle;
 
     public FrontBattle(WindowAiki _window, FacadeGame _facade) {
+        super(_window.getCompoFactory());
         facade = _facade;
         battle = new Battle(_window, _facade, this);
     }

@@ -482,12 +482,12 @@ public class Battle extends ChildFrame {
             placesLabels.clear();
             byte mult_ = facade.getFight().getMult();
             for (byte p = IndexConstants.FIRST_INDEX; p < mult_; p++) {
-                PlaceLabel plLabel_ = new PlaceLabel(Long.toString(p), p);
+                PlaceLabel plLabel_ = new PlaceLabel(Long.toString(p), p, window.getCompoFactory());
                 plLabel_.addMouseListener(new SelectPlaceEvent(this, p));
                 panelPlaces.add(plLabel_);
                 placesLabels.add(plLabel_);
             }
-            plLabelBack = new PlaceLabel(Fighter.BACK);
+            plLabelBack = new PlaceLabel(Fighter.BACK, window.getCompoFactory());
             plLabelBack.addMouseListener(new SelectPlaceEvent(this, Fighter.BACK));
             panelPlaces.add(plLabelBack);
             placesLabels.add(plLabelBack);
@@ -1210,7 +1210,7 @@ public class Battle extends ChildFrame {
 //        });
         abilitiesCopy_.sortElts(new ComparatorTrStrings(facade.getTranslatedAbilitiesCurLanguage()));
         for (String a: abilitiesCopy_) {
-            AbilityLabel ab_ = new AbilityLabel(facade.translateAbility(a), a);
+            AbilityLabel ab_ = new AbilityLabel(facade.translateAbility(a), a, window.getCompoFactory());
 //            ab_.setSelected(facade.getAbility());
             ab_.addMouseListener(new AbilityFightEvent(this, a));
             abilityLabels.add(ab_);
@@ -1232,7 +1232,7 @@ public class Battle extends ChildFrame {
         int maxWidth_ = 0;
         for (ActionType a: actions_) {
             String txt_ = map_.getVal(a.name());
-            ActionLabel action_ = new ActionLabel(txt_, a);
+            ActionLabel action_ = new ActionLabel(txt_, a, window.getCompoFactory());
             action_.addMouseListener(new FighterAction(this, a));
             action_.setSelected(a == facade.getFight().getSelectedActionCurFighter());
             actionType.add(action_);
@@ -1290,7 +1290,7 @@ public class Battle extends ChildFrame {
             movesLabels.clear();
             for (String m: moves_.getKeys()) {
                 ChosenMoveInfos info_ = moves_.getVal(m);
-                MoveLabel move_ = new MoveLabel(info_, m, facade);
+                MoveLabel move_ = new MoveLabel(info_, m, facade, window.getCompoFactory());
                 if (info_.isUsable()) {
                     move_.addMouseListener(new MoveEvent(this, info_.getName()));
                 }
@@ -1345,7 +1345,7 @@ public class Battle extends ChildFrame {
             movesLabels.clear();
             for (String m: moves_.getKeys()) {
                 ChosenMoveInfos info_ = moves_.getVal(m);
-                MoveLabel move_ = new MoveLabel(info_, m, facade);
+                MoveLabel move_ = new MoveLabel(info_, m, facade, window.getCompoFactory());
                 move_.setSelected(facade.getFight().getChosenMoveFront());
                 if (info_.isUsable()) {
                     move_.addMouseListener(new MoveEvent(this, info_.getName()));

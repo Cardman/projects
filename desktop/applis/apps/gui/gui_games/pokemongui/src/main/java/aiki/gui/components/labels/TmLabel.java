@@ -7,13 +7,14 @@ import aiki.facade.FacadeGame;
 import aiki.fight.moves.MoveData;
 import aiki.util.SortingMove;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.images.ConverterBufferedImage;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class TmLabel extends SelectableLabel {
+public final class TmLabel extends SelectableLabel {
 
     private static final String SPACE = " ";
 
@@ -53,7 +54,8 @@ public class TmLabel extends SelectableLabel {
 
     private NatStringTreeMap<Color> colorsTypes;
 
-    public TmLabel(SortingMove _move, FacadeGame _facade) {
+    public TmLabel(SortingMove _move, FacadeGame _facade, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         colorsTypes = new NatStringTreeMap<Color>();
         move = _move;
         moveName = _move.getName();

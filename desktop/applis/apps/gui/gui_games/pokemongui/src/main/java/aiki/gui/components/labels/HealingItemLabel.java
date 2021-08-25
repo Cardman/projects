@@ -10,12 +10,13 @@ import aiki.util.SortingHealingItem;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public class HealingItemLabel extends SelectableLabel {
+public final class HealingItemLabel extends SelectableLabel {
 
     private static final String HEALING_ITEM_LABEL = "aiki.gui.components.labels.healingitemlabel";
 
@@ -61,7 +62,8 @@ public class HealingItemLabel extends SelectableLabel {
     /**max pixel number*/
     private int fifthColumn;
 
-    public HealingItemLabel(SortingHealingItem _item) {
+    public HealingItemLabel(SortingHealingItem _item, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         item = _item;
     }
 

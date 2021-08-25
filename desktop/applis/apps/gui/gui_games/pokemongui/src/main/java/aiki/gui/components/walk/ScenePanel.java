@@ -425,7 +425,7 @@ public class ScenePanel {
         boolean wasNull_ = false;
         if (scene == null) {
             wasNull_ = true;
-            scene = new Scene();
+            scene = new Scene(window.getCompoFactory());
             scene.setDimensions(facade);
             scene.addMouseListener(scene);
 
@@ -501,7 +501,7 @@ public class ScenePanel {
         tm = new LabelButton();
         tm.addMouseList(new SelectTmToLearnEvent(this));
         menus_.add(tm);
-        Separator sep_ = new Separator();
+        Separator sep_ = new Separator(window.getCompoFactory());
         menus_.add(sep_);
         seeBoxes = new LabelButton();
         seeBoxes.addMouseList(new ConsultPokemonEvent(window, facade));
@@ -515,18 +515,18 @@ public class ScenePanel {
         game = new LabelButton();
         game.addMouseList(new ShowGameProgressingEvent(window));
         menus_.add(game);
-        sep_ = new Separator();
+        sep_ = new Separator(window.getCompoFactory());
         menus_.add(sep_);
         goBack = new LabelButton();
         goBack.addMouseList(new SetPlacesEvent(this));
         menus_.add(goBack);
-        sep_ = new Separator();
+        sep_ = new Separator(window.getCompoFactory());
         menus_.add(sep_);
         server = new LabelButton();
         server.addMouseList(new ManageNetworkEvent(this));
         menus_.add(server);
         panelMenu.add(menus_);
-        pad = new Pad();
+        pad = new Pad(window.getCompoFactory());
         panelMenu.add(pad.getContainer());
         panelMenu.setVisible(false);
     }
@@ -698,7 +698,7 @@ public class ScenePanel {
 //            panelPlaces_.add(place_);
 //        }
 //        panelOptions.add(panelPlaces_, BorderLayout.CENTER);
-        mapPanel.init(window.getImageFactory(),facade, this);
+        mapPanel.init(window,facade, this);
         Panel box_ =Panel.newPageBox();
         box_.add(new TextLabel(messages.getVal(GO_BACK)));
         chosenCity = new LabelButton();
@@ -877,7 +877,7 @@ public class ScenePanel {
             selectEggBox = new LabelButton(messages.getVal(SELECT_EGG_BOX));
             selectEggBox.addMouseList(new SelectEggBoxEvent(this));
             storage_.add(selectEggBox);
-            Separator sep_ = new Separator();
+            Separator sep_ = new Separator(window.getCompoFactory());
             storage_.add(sep_);
             takeItem = new LabelButton(messages.getVal(TAKE_ITEM));
             takeItem.setEnabledLabel(false);
@@ -899,7 +899,7 @@ public class ScenePanel {
             switchPk.setEnabledLabel(false);
             switchPk.addMouseList(new GearStorageEvent(this, StorageActions.SWITCH_TEAM_BOX));
             storage_.add(switchPk);
-            sep_ = new Separator();
+            sep_ = new Separator(window.getCompoFactory());
             storage_.add(sep_);
             release = new LabelButton(messages.getVal(CST_RELEASE));
             release.setEnabledLabel(false);
@@ -1556,12 +1556,12 @@ public class ScenePanel {
         if (!ab_.isEmpty()) {
             abilities.add(new TextLabel(messages.getVal(SELECT_ABILITY)));
             for (String a: ab_) {
-                AbilityLabel lab_ = new AbilityLabel(facade.translateAbility(a), a);
+                AbilityLabel lab_ = new AbilityLabel(facade.translateAbility(a), a, window.getCompoFactory());
                 lab_.addMouseListener(new AbilityWalkEvent(this, a));
                 abilities.add(lab_);
                 abilityLabels.add(lab_);
             }
-            abilities.add(new Separator());
+            abilities.add(new Separator(window.getCompoFactory()));
         }
         LabelButton ok_ = new LabelButton(messages.getVal(EVOLVE));
         ok_.addMouseList(new EvolvePokemonEvent(this));

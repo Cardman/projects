@@ -4,6 +4,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.Slider;
 import code.gui.events.AbsChangeListener;
@@ -79,7 +80,7 @@ public final class SliderStruct extends InputStruct {
     }
 
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return slider;
     }
 }

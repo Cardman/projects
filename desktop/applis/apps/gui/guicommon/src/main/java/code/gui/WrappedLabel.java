@@ -3,19 +3,18 @@ import java.awt.Dimension;
 
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class WrappedLabel extends PaintableLabel {
+public final class WrappedLabel extends AbsMetaLabel {
 
     private static final char LINE_RETURN = '\n';
     private StringList lines = new StringList();
 
-    public WrappedLabel() {
-    }
-
-    public WrappedLabel(AbstractImageFactory _fact,String _text) {
+    public WrappedLabel(AbstractImageFactory _fact, String _text, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         lines.addAllElts(StringUtil.splitChars(_text, LINE_RETURN));
         setPreferredSize(_fact);
     }

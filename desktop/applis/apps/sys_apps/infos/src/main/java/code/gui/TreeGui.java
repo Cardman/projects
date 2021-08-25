@@ -111,7 +111,7 @@ public final class TreeGui implements AbsTreeGui {
         return new TreePath(model.getPathToRoot(_node));
     }
 
-    public CustComponent getTree() {
+    public AbsCustComponent getTree() {
         return tree;
     }
 

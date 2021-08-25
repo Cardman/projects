@@ -6,10 +6,14 @@ public final class ScrollPane extends CustComponent {
 
     private final JScrollPane component;
 
-    public ScrollPane(CustComponent _center) {
-        component = new JScrollPane(_center.getNatComponent());
+    public ScrollPane(AbsCustComponent _center) {
+        component = new JScrollPane(((CustComponent)_center).getNatComponent());
         _center.setParent(this);
         getChildren().add(_center);
+    }
+
+    public ScrollPane(AbsMetaLabel _center) {
+        this(_center.getPaintableLabel());
     }
     ScrollPane(JScrollPane _scroll) {
         component = _scroll;
@@ -23,8 +27,8 @@ public final class ScrollPane extends CustComponent {
         return component;
     }
 
-    public void setViewportView(CustComponent _graphic) {
-        component.setViewportView(_graphic.getNatComponent());
+    public void setViewportView(AbsCustComponent _graphic) {
+        component.setViewportView(((CustComponent)_graphic).getNatComponent());
         _graphic.setParent(this);
         if (!getChildren().isEmpty()) {
             getChildren().first().setParent(null);

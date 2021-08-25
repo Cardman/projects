@@ -1,0 +1,68 @@
+package code.gui;
+
+import code.gui.events.AbsKeyListener;
+import code.gui.events.AbsMouseListener;
+import code.gui.events.AbsMouseMotionListener;
+import code.gui.events.AbsMouseWheelListener;
+import code.util.CustList;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+
+public interface AbsCustComponent {
+    boolean isAutoscrolls();
+    void setAutoscrolls(boolean _autoscrolls);
+    void addMouseListener(AbsMouseListener _mouseListener);
+    void addMouseMotionListener(AbsMouseMotionListener _mouseListener);
+    void addMouseWheelListener(AbsMouseWheelListener _l);
+    void addKeyListener(AbsKeyListener _l);
+    void removeMouseListener(AbsMouseListener _mouseListener);
+    void removeMouseMotionListener(AbsMouseMotionListener _mouseListener);
+    void removeMouseWheelListener(AbsMouseWheelListener _l);
+    void removeKeyListener(AbsKeyListener _l);
+    CustList<AbsMouseListener> getMouseListeners();
+    CustList<AbsMouseMotionListener> getMouseMotionListeners();
+    CustList<AbsMouseWheelListener> getMouseWheelListeners();
+    CustList<AbsKeyListener> getKeyListeners();
+    void requestFocus();
+    boolean isVisible();
+    void setVisible(boolean _b);
+    int getWidth();
+    int getHeight();
+    int heightFont();
+    int heightFont(Font _font);
+    int stringWidth(String _string);
+    int stringWidth(Font _font,String _string);
+    Font getFont();
+    void setFont(Font _font);
+    AbsCustComponent getParent();
+    CustList<AbsCustComponent> getChildren();
+    void setParent(AbsCustComponent _parent);
+    void setLineBorder(Color _color);
+    void setLineBorder(Color _color, int _thick);
+    void setTitledBorder(String _title);
+    void setLoweredBorder();
+    void setRaisedBorder();
+    void setToolTipText(String _title);
+    void setCursor(int _wCurs, int _hCurs, int[] _pixels);
+    void setCursor(int _nb);
+    Dimension getSize();
+    void setSize(Dimension _dimension);
+    Dimension getPreferredSize();
+    void setPreferredSize(Dimension _dimension);
+    boolean isFocusable();
+    void setFocusable(boolean _focusable);
+    boolean isOpaque();
+    void setOpaque(boolean _b);
+    int getXcoords();
+    int getYcoords();
+    void setLocation(int _x, int _y);
+    void setBackground(Color _color);
+    Color getBackground();
+    void setForeground(Color _color);
+    Color getForeground();
+    String getToolTipText();
+    void validate();
+    void revalidate();
+}

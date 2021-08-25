@@ -85,6 +85,6 @@ public final class DialogDifficulty implements AbsCloseableDialog {
         absDialog.closeWindow();
 //        session.clearSession();
         facade.initIv();
-        CustComponent.invokeLater(new AfterSettingDifficutyThread(window, facade));
+        FrameUtil.invokeLater(new AfterSettingDifficutyThread(window, facade));
     }
 }

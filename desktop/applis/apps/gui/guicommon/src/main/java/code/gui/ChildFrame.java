@@ -92,7 +92,7 @@ public abstract class ChildFrame implements AbsChildFrame {
     }
 
     //@Override
-    public void setLocationRelativeTo(CustComponent _c) {
+    public void setLocationRelativeTo(AbsCustComponent _c) {
         absCommonFrame.setLocationRelativeTo(_c);
     }
 

@@ -22,7 +22,6 @@ import code.util.StringMap;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.MemoryImageSource;
 
 public final class WindowRts extends GroupFrame {
 
@@ -32,7 +31,6 @@ public final class WindowRts extends GroupFrame {
 
     public static final String FOLDER = "rts_imgs";
 
-    private static final String SELECT = "select";
     private final StringMap<String> messagesFiles = MessPlayerGr.ms();
 
 //    private final Cursor currentCursor = Cursor.getDefaultCursor();
@@ -45,7 +43,7 @@ public final class WindowRts extends GroupFrame {
 
     private final Facade facade = new Facade();
 
-    private final PanelBattle battleground = new PanelBattle(facade);
+    private final PanelBattle battleground = new PanelBattle(facade, getCompoFactory());
     private final AbstractAtomicBoolean stopped;
     private final AbstractAtomicBoolean paused;
     private final AbstractAtomicLong count;
@@ -83,10 +81,10 @@ public final class WindowRts extends GroupFrame {
         battlegroundWrapper_.setPreferredSize(new Dimension(256, 256));
         scene_.add(battlegroundWrapper_, BorderLayout.CENTER);
 //        panel_.add(battlegroundWrapper_, BorderLayout.CENTER);
-        RtsKeyPad left_ = new RtsKeyPad(RtsDirection.LEFT);
-        RtsKeyPad right_ = new RtsKeyPad(RtsDirection.RIGHT);
-        RtsKeyPad up_ = new RtsKeyPad(RtsDirection.UP);
-        RtsKeyPad down_ = new RtsKeyPad(RtsDirection.DOWN);
+        RtsKeyPad left_ = new RtsKeyPad(RtsDirection.LEFT, getCompoFactory());
+        RtsKeyPad right_ = new RtsKeyPad(RtsDirection.RIGHT, getCompoFactory());
+        RtsKeyPad up_ = new RtsKeyPad(RtsDirection.UP, getCompoFactory());
+        RtsKeyPad down_ = new RtsKeyPad(RtsDirection.DOWN, getCompoFactory());
         RtsTask task_ = new RtsTask(battleground, this, facade);
         AbstractScheduledExecutorService t_ = getThreadFactory().newScheduledExecutorService();
 //        t_.scheduleAtFixedRate(task_,0,100, TimeUnit.MILLISECONDS);
@@ -140,10 +138,7 @@ public final class WindowRts extends GroupFrame {
     }
 
     private static void setCursor(Panel _battlegroundWrapper, int _wCurs, int _hCurs, int[] _pixels) {
-        Toolkit tool_ = Toolkit.getDefaultToolkit();
-        Image b_ = tool_.createImage(new MemoryImageSource(_wCurs, _hCurs, _pixels, 0, _wCurs));
-        Cursor c_ = tool_.createCustomCursor(b_, new Point(0, 0),SELECT);
-        _battlegroundWrapper.setCursor(c_);
+        _battlegroundWrapper.setCursor(_wCurs, _hCurs, _pixels);
     }
 
     @Override

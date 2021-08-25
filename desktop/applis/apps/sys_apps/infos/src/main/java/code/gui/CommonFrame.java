@@ -160,8 +160,8 @@ public final class CommonFrame implements AbsCommonFrame {
         frame.setVisible(_b);
     }
 
-    public void setLocationRelativeTo(CustComponent _c) {
-        frame.setLocationRelativeTo(_c.getNatComponent());
+    public void setLocationRelativeTo(AbsCustComponent _c) {
+        frame.setLocationRelativeTo(((CustComponent)_c).getNatComponent());
     }
 
     @Override

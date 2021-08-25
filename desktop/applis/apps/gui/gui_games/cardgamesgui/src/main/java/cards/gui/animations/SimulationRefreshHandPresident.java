@@ -25,7 +25,7 @@ public final class SimulationRefreshHandPresident implements Runnable {
         panneau1_.removeAll();
         String lg_ = container.getOwner().getLanguageKey();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(container.getWindow().getImageFactory(),lg_,hand)) {
+        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(container.getWindow(),lg_,hand)) {
             panneau1_.add(c);
         }
         panneau1_.repaintChildren(container.getOwner().getImageFactory());

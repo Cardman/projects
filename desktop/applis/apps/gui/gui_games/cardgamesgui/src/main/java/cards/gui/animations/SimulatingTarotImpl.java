@@ -93,7 +93,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
 
     @Override
     public void prepare() {
-        CustComponent.invokeLater(new PrepareSimuTarot(this));
+        FrameUtil.invokeLater(new PrepareSimuTarot(this));
     }
 
     void prepareGui() {
@@ -110,7 +110,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         Panel container_=Panel.newBorder();
         container_.add(new TextLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         StringList pseudos_ = pseudosSimuleeTarot();
-        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingTarot().isClockwise(), partie_.getDistribution().derniereMain().total());
+        CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingTarot().isClockwise(), partie_.getDistribution().derniereMain().total(), container.getOwner().getCompoFactory());
         container.getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
         container.setPanelHand(Panel.newLineBox());
@@ -125,7 +125,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         container.setEvents(new TextArea(ContainerTarot.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(container.getEvents()));
-        container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),container.getDisplayingTarot().isClockwise(),pseudos_));
+        container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),container.getDisplayingTarot().isClockwise(),pseudos_, container.getWindow().getCompoFactory()));
         panneau2_.add(container.getMiniPanel());
         container.setHandfuls(new ByteMap<TextLabel>());
         container.setDeclaredHandfuls(new ByteMap<Panel>());
@@ -148,7 +148,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
-        container.tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain());
+        container.tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain(), container.getOwner().getCompoFactory());
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock());
         contentPane_.add(container.getWindow().getLastSavedGameDate());
@@ -158,7 +158,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(container.getWindow().getImageFactory(), lg_,partie_.getDeal().hand())) {
+        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand())) {
             panneau1_.add(c);
         }
         panneau1_.repaintChildren(container.getOwner().getImageFactory());
@@ -183,12 +183,12 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
 
     @Override
     public void stopDemo() {
-        CustComponent.invokeLater(new StopDemo(container));
+        FrameUtil.invokeLater(new StopDemo(container));
     }
 
     @Override
     public void endDeal() {
-        CustComponent.invokeLater(new EndDealSimuTarot(this));
+        FrameUtil.invokeLater(new EndDealSimuTarot(this));
     }
 
     void endGuiDeal() {

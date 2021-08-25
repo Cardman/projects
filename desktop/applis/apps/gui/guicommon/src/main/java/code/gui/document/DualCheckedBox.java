@@ -3,6 +3,7 @@ package code.gui.document;
 import code.formathtml.render.IntCheckBox;
 import code.formathtml.render.MetaCheckedBox;
 import code.formathtml.util.BeanLgNames;
+import code.gui.AbsCustComponent;
 import code.gui.CustCheckBox;
 import code.gui.CustComponent;
 
@@ -18,7 +19,7 @@ public final class DualCheckedBox extends DualInput implements IntCheckBox {
     }
 
     @Override
-    public CustComponent getGraphic() {
+    public AbsCustComponent getGraphic() {
         return check;
     }
 

@@ -1,14 +1,17 @@
-package code.gui;
+package code.gui.events;
 
-import code.gui.events.AbsMouseListener;
+import code.gui.AbsCtrlKeyState;
+import code.gui.AbsEnabled;
+import code.gui.AbsMouseButtons;
+import code.gui.AbsMouseLocation;
 
 public final class MouseListenerCore implements AbsMouseListener {
 
     private final AbsMouseListener adapter;
 
-    private final LabelButton button;
+    private final AbsEnabled button;
 
-    public MouseListenerCore(AbsMouseListener _adapter, LabelButton _button) {
+    public MouseListenerCore(AbsMouseListener _adapter, AbsEnabled _button) {
         adapter = _adapter;
         button = _button;
     }

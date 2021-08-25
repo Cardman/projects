@@ -1,6 +1,7 @@
 package code.gui;
 
 import java.awt.*;
+import java.awt.image.MemoryImageSource;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -9,18 +10,16 @@ import code.gui.events.*;
 import code.util.CustList;
 import code.util.IdMap;
 
-public abstract class CustComponent {
+public abstract class CustComponent implements AbsCustComponent {
 
-    private CustComponent parent;
+    private static final String SELECT = "select";
+    private AbsCustComponent parent;
     private final IdMap<AbsKeyListener, WrKeyListener> mapKey = new IdMap<AbsKeyListener, WrKeyListener>();
     private final IdMap<AbsMouseListener, WrMouseListener> mapMouse = new IdMap<AbsMouseListener, WrMouseListener>();
     private final IdMap<AbsMouseMotionListener, WrMouseMotionListener> mapMouseMotion = new IdMap<AbsMouseMotionListener, WrMouseMotionListener>();
     private final IdMap<AbsMouseWheelListener, WrMouseWheelListener> mapMouseWheel = new IdMap<AbsMouseWheelListener, WrMouseWheelListener>();
-    private final CustList<CustComponent> children = new CustList<CustComponent>();
+    private final CustList<AbsCustComponent> children = new CustList<AbsCustComponent>();
     protected abstract JComponent getNatComponent();
-    public static void invokeLater(Runnable _r) {
-        SwingUtilities.invokeLater(_r);
-    }
 
     public boolean isAutoscrolls(){
         return getNatComponent().getAutoscrolls();
@@ -129,13 +128,14 @@ public abstract class CustComponent {
     public void setFont(Font _font) {
         getNatComponent().setFont(_font);
     }
-    public CustComponent getParent() {
+    public AbsCustComponent getParent() {
         return parent;
     }
-    public void setParent(CustComponent _parent) {
+
+    public void setParent(AbsCustComponent _parent) {
         parent = _parent;
     }
-    public CustList<CustComponent> getChildren() {
+    public CustList<AbsCustComponent> getChildren() {
         return children;
     }
 
@@ -163,8 +163,16 @@ public abstract class CustComponent {
         getNatComponent().setToolTipText(_title);
     }
 
-    public void setCursor(Cursor _cursor) {
-        getNatComponent().setCursor(_cursor);
+    @Override
+    public void setCursor(int _wCurs, int _hCurs, int[] _pixels) {
+        Toolkit tool_ = Toolkit.getDefaultToolkit();
+        Image b_ = tool_.createImage(new MemoryImageSource(_wCurs, _hCurs, _pixels, 0, _wCurs));
+        getNatComponent().setCursor(tool_.createCustomCursor(b_, new Point(0, 0),SELECT));
+    }
+
+    @Override
+    public void setCursor(int _nb) {
+        getNatComponent().setCursor(new Cursor(_nb));
     }
 
     public Dimension getSize() {
@@ -224,10 +232,6 @@ public abstract class CustComponent {
 
     public String getToolTipText() {
         return getNatComponent().getToolTipText();
-    }
-
-    public Point getLocationOnScreen() {
-        return getNatComponent().getLocationOnScreen();
     }
 
     public void validate() {

@@ -3,6 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.*;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.TableGui;
 import code.gui.events.AbsListSelectionListener;
@@ -143,7 +144,7 @@ public final class TableStruct extends CustComponentStruct {
         }
     }
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return table;
     }
 }

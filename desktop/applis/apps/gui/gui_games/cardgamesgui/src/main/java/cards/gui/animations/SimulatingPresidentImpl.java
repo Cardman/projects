@@ -81,7 +81,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void prepare() {
-        CustComponent.invokeLater(new PrepareSimuPresident(this));
+        FrameUtil.invokeLater(new PrepareSimuPresident(this));
     }
 
     void prepareGui() {
@@ -101,7 +101,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosSimuleePresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
-        tapis_.initTapisPresident(lg_,pseudos_,partie_.getLastStatus(),Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()));
+        tapis_.initTapisPresident(lg_,pseudos_,partie_.getLastStatus(),Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()), container.getOwner().getCompoFactory());
         container.getTapis().setTapisPresident(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
         Panel panneau_= Panel.newLineBox();
@@ -140,7 +140,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(container.getWindow().getImageFactory(), lg_,h_)) {
+        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(container.getWindow(), lg_,h_)) {
             panneau1_.add(c);
         }
         panneau1_.repaintChildren(container.getOwner().getImageFactory());
@@ -166,12 +166,12 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void stopDemo() {
-        CustComponent.invokeLater(new StopDemo(container));
+        FrameUtil.invokeLater(new StopDemo(container));
     }
 
     @Override
     public void displaySwitchedUserHand(Bytes _winners, Bytes _loosers, int _noDeal,CustList<HandPresident> _switchedCards) {
-        CustComponent.invokeLater(new DisplaySwitchedCardsSimuPresident(this,_winners,_loosers,_switchedCards));
+        FrameUtil.invokeLater(new DisplaySwitchedCardsSimuPresident(this,_winners,_loosers,_switchedCards));
     }
 
     void displayGuiSwitchedUserHand(Bytes _winners, Bytes _loosers, CustList<HandPresident> _switchedCards) {
@@ -228,7 +228,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     @Override
     public void endDeal() {
-        CustComponent.invokeLater(new EndDealSimuPresident(this));
+        FrameUtil.invokeLater(new EndDealSimuPresident(this));
     }
 
     void endGuiDeal() {

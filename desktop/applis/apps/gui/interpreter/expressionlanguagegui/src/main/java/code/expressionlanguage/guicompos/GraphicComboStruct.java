@@ -105,12 +105,12 @@ public final class GraphicComboStruct extends InputStruct {
     }
 
     @Override
-    protected CustComponent getVisibleComponent() {
+    protected AbsCustComponent getVisibleComponent() {
         return graphicCombo.getCurrentSelected();
     }
 
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return graphicCombo.getGlobal();
     }
 }

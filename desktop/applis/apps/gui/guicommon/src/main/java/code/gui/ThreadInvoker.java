@@ -22,6 +22,6 @@ public final class ThreadInvoker implements Runnable {
 
     @Override
     public void run() {
-        CustComponent.invokeLater(thread);
+        FrameUtil.invokeLater(thread);
     }
 }

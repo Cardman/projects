@@ -8,16 +8,17 @@ import javax.swing.SwingConstants;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.FileConst;
 import cards.president.enumerations.CardPresident;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.images.BaseSixtyFourUtil;
 import code.scripts.pages.cards.CardsInit;
 import code.stream.StreamTextFile;
 import code.util.core.StringUtil;
 
-public class GraphicPresidentCard extends PaintableLabel {
+public final class GraphicPresidentCard extends AbsMetaLabel {
     static final String DEFAULT="Default";
 
     private CardPresident card;
@@ -26,8 +27,8 @@ public class GraphicPresidentCard extends PaintableLabel {
     private AbstractImage bufferedImage;
     private String lg;
 
-    public GraphicPresidentCard(AbstractImageFactory _fact, String _lg, CardPresident _pc, int _i, boolean _fullCard) {
-        this(_lg, _i,_fullCard);
+    public GraphicPresidentCard(AbstractImageFactory _fact, String _lg, CardPresident _pc, int _i, boolean _fullCard, AbsCompoFactory _compoFactory) {
+        this(_lg, _i,_fullCard, _compoFactory);
         peindreCarte=true;
         card=_pc;
         int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
@@ -37,7 +38,8 @@ public class GraphicPresidentCard extends PaintableLabel {
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(_fact,file_);
     }
 
-    public GraphicPresidentCard(String _lg, int _i, boolean _fullCard) {
+    public GraphicPresidentCard(String _lg, int _i, boolean _fullCard, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         lg = _lg;
         peindreCarte=false;
         setHorizontalAlignment(_i);

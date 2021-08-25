@@ -7,6 +7,7 @@ import code.gui.events.OtherCrossClosingDialogEvent;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 
 import javax.swing.*;
 
@@ -24,11 +25,11 @@ public final class OtherConfirmDialog {
     private TextField field;
 
     private String typedText;
-    private AbstractImageFactory fact;
+    private AbstractProgramInfos infos;
 
-    public OtherConfirmDialog(AbstractImageFactory _fact, AbsFrameFactory _frame) {
-        fact = _fact;
-        dialog =_frame.newOtherDialog();
+    public OtherConfirmDialog(AbstractProgramInfos _infos,AbstractImageFactory _fact, AbsFrameFactory _frame) {
+        infos = _infos;
+        dialog =infos.getFrameFactory().newOtherDialog();
         dialog.addWindowListener(new OtherCrossClosingDialogEvent(this));
     }
 
@@ -141,7 +142,7 @@ public final class OtherConfirmDialog {
     private void initMessageSingleButton(String _message, String _title, String _language) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new WrappedLabel(fact,_message));
+        content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(_language);
         button_.addMouseList(new OtherClosingDialogEvent(this));
@@ -156,9 +157,9 @@ public final class OtherConfirmDialog {
     private void initMessageSingleButton(AbstractImage _img,String _message, String _title, String _language) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new WrappedLabel(fact,_message));
+        content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
-        buttons_.add(new PreparedLabel(fact,_img));
+        buttons_.add(new PreparedLabel(infos.getImageFactory(),_img));
         LabelButton button_ = new LabelButton(_language);
         button_.addMouseList(new OtherClosingDialogEvent(this));
         buttons_.add(button_);
@@ -172,7 +173,7 @@ public final class OtherConfirmDialog {
     private void initOk(String _message, String _title, String _language) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new WrappedLabel(fact,_message));
+        content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(_language);
         button_.addMouseList(new OtherAnswerEvent(this, OK_OPTION));
@@ -186,9 +187,9 @@ public final class OtherConfirmDialog {
     private void initOk(AbstractImage _img,String _message, String _title, String _language) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new WrappedLabel(fact,_message));
+        content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
-        buttons_.add(new PreparedLabel(fact,_img));
+        buttons_.add(new PreparedLabel(infos.getImageFactory(),_img));
         LabelButton button_ = new LabelButton(_language);
         button_.addMouseList(new OtherAnswerEvent(this, OK_OPTION));
         buttons_.add(button_);
@@ -201,7 +202,7 @@ public final class OtherConfirmDialog {
     private void initYesNo(String _message, String _title, String _yes, String _no) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new WrappedLabel(fact,_message));
+        content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
         answer = NO_OPTION;
         LabelButton button_ = new LabelButton(_yes);
@@ -216,13 +217,14 @@ public final class OtherConfirmDialog {
         dialog.pack();
         dialog.setVisible(true);
     }
+
     private void initYesNo(AbstractImage _img,String _message, String _title, String _yes, String _no) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new WrappedLabel(fact,_message));
+        content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
         answer = NO_OPTION;
-        buttons_.add(new PreparedLabel(fact,_img));
+        buttons_.add(new PreparedLabel(infos.getImageFactory(),_img));
         LabelButton button_ = new LabelButton(_yes);
         button_.addMouseList(new OtherAnswerEvent(this, YES_OPTION));
         buttons_.add(button_);
@@ -238,7 +240,7 @@ public final class OtherConfirmDialog {
     private void init(String _message, String _title, String _yes, String _no, String _cancel) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new WrappedLabel(fact,_message));
+        content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
         answer = CANCEL_OPTION;
         LabelButton button_ = new LabelButton(_yes);
@@ -259,10 +261,10 @@ public final class OtherConfirmDialog {
     private void init(AbstractImage _img,String _message, String _title, String _yes, String _no, String _cancel) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new WrappedLabel(fact,_message));
+        content_.add(wrapped(_message));
         Panel buttons_ = Panel.newLineBox();
         answer = CANCEL_OPTION;
-        buttons_.add(new PreparedLabel(fact,_img));
+        buttons_.add(new PreparedLabel(infos.getImageFactory(),_img));
         LabelButton button_ = new LabelButton(_yes);
         button_.addMouseList(new OtherAnswerEvent(this, YES_OPTION));
         buttons_.add(button_);
@@ -282,7 +284,7 @@ public final class OtherConfirmDialog {
     private void initField(String _message, String _value, String _title, String _ok, String _cancel) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new WrappedLabel(fact,_message));
+        content_.add(wrapped(_message));
         field = new TextField();
         field.setText(_value);
         content_.add(field);
@@ -304,8 +306,8 @@ public final class OtherConfirmDialog {
     private void initField(AbstractImage _img, String _message, String _value, String _title, String _ok, String _cancel) {
         dialog.setTitle(_title);
         Panel content_ = Panel.newGrid(0,1);
-        content_.add(new PreparedLabel(fact,_img));
-        content_.add(new WrappedLabel(fact,_message));
+        content_.add(new PreparedLabel(infos.getImageFactory(),_img));
+        content_.add(wrapped(_message));
         field = new TextField();
         field.setText(_value);
         content_.add(field);
@@ -353,6 +355,10 @@ public final class OtherConfirmDialog {
 
     public String getTypedText() {
         return typedText;
+    }
+
+    private WrappedLabel wrapped(String _message) {
+        return new WrappedLabel(infos.getImageFactory(), _message, infos.getCompoFactory());
     }
 
 }

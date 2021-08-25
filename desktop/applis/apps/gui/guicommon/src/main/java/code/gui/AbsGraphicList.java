@@ -35,7 +35,7 @@ public interface AbsGraphicList<T> {
 
     T last();
 
-    CustComponent self();
-    CustComponent scroll();
-    CustComponent visible();
+    AbsCustComponent self();
+    AbsCustComponent scroll();
+    AbsCustComponent visible();
 }

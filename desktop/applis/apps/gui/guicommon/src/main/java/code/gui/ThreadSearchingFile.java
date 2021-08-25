@@ -54,7 +54,7 @@ public final class ThreadSearchingFile implements Runnable {
                 if (!dialog.isKeepSearching()) {
 //                        CustComponent.invokeLater(new AfterSearchingFile(dialog, cursor, false, results_));
 //                        CustComponent.invokeLater(new AfterSearchingFile(dialog, false, results_, backup_));
-                    CustComponent.invokeLater(new AfterSearchingFile(dialog, backup));
+                    FrameUtil.invokeLater(new AfterSearchingFile(dialog, backup));
                     return false;
                 }
                 processSearch(_next, _fc, f);
@@ -65,7 +65,7 @@ public final class ThreadSearchingFile implements Runnable {
 
     private void processSearch(CustList<AbstractFile> _next, FileCount _fc, AbstractFile _f) {
         _fc.incrSearch();
-        CustComponent.invokeLater(new SettingInformation(dialog, _fc.getSearch(), _fc.getFound()));
+        FrameUtil.invokeLater(new SettingInformation(dialog, _fc.getSearch(), _fc.getFound()));
         if (_f.isDirectory()) {
             if (StringUtil.contains(dialog.getExcludedFolders(), StringUtil.replaceBackSlash(_f.getAbsolutePath()))) {
                 return;
@@ -83,7 +83,7 @@ public final class ThreadSearchingFile implements Runnable {
                 return;
             }
             _fc.incrFound();
-            CustComponent.invokeLater(new SearchingFile(dialog, _f));
+            FrameUtil.invokeLater(new SearchingFile(dialog, _f));
 //                        if (StringList.match(f.getName(), dialog.getTypedString())) {
 //                            if (f.getName().endsWith(dialog.getExtension())) {
 //                                results_.add(f);

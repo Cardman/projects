@@ -94,7 +94,7 @@ public abstract class Paginator {
         pages = new NumComboBox(_window.getImageFactory(),_window.getFrames().getGeneComboBox());
         container = _dest;
         initMessages(_access);
-        header = new Header();
+        header = new Header(_window.getCompoFactory());
         begin = new LabelButton(CST_BEGIN);
         begin.addMouseList(new BeginEvent(this));
         previousDelta = new LabelButton(CST_PREVIOUS_DELTA);

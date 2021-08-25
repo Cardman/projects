@@ -6,7 +6,7 @@ import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
-import code.gui.CustComponent;
+import code.gui.FrameUtil;
 import code.gui.ThreadInvoker;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -60,6 +60,6 @@ public final class AnimationBidTarot implements Runnable {
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);
             container.pause();
         }
-        CustComponent.invokeLater(new AfterAnimationBidTarot(container));
+        FrameUtil.invokeLater(new AfterAnimationBidTarot(container));
     }
 }

@@ -5,6 +5,7 @@ import java.awt.*;
 import code.formathtml.render.MetaLabel;
 import code.formathtml.render.MetaStyle;
 import code.formathtml.render.SegmentPart;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.PreparedLabel;
 import code.gui.images.AbstractImage;
@@ -46,7 +47,7 @@ public abstract class DualLabel extends DualLeaf {
     }
 
     @Override
-    public CustComponent getGraphic() {
+    public AbsCustComponent getGraphic() {
         return getLabel();
     }
 

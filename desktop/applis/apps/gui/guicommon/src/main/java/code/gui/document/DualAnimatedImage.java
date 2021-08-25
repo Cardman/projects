@@ -28,7 +28,7 @@ public final class DualAnimatedImage extends DualImage {
         href = "";
         if (anchor_ != null) {
             PreparedLabel label_ = getLabel();
-            label_.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            label_.setCursor(Cursor.HAND_CURSOR);
             label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             if (!anchor_.getAttribute("command").isEmpty()) {
                 href = anchor_.getAttribute("command");

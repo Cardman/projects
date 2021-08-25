@@ -187,17 +187,17 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
         return custScroll.getNatComponent();
     }
 
-    public CustComponent self() {
+    public AbsCustComponent self() {
         return this;
     }
 
     @Override
-    public CustComponent scroll() {
+    public AbsCustComponent scroll() {
         return custScroll;
     }
 
     @Override
-    public CustComponent visible() {
+    public AbsCustComponent visible() {
         return this;
     }
 

@@ -62,7 +62,7 @@ public class Clock {
         return "HH" + _separator + "mm" + _separator + "ss";
     }
 
-    public CustComponent getComponent() {
+    public AbsCustComponent getComponent() {
         return component;
     }
 }

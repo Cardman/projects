@@ -2,6 +2,7 @@ package code.gui.document;
 
 import code.formathtml.render.IntSpinner;
 import code.formathtml.render.MetaSpinner;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.Spinner;
 import code.util.core.NumberUtil;
@@ -17,7 +18,7 @@ public final class DualSpinner extends DualInput implements IntSpinner {
     }
 
     @Override
-    public CustComponent getGraphic() {
+    public AbsCustComponent getGraphic() {
         return field;
     }
 

@@ -651,17 +651,17 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicList<T>,A
     }
 
     @Override
-    public CustComponent self() {
+    public AbsCustComponent self() {
         return this;
     }
 
     @Override
-    public CustComponent scroll() {
+    public AbsCustComponent scroll() {
         return scroll;
     }
 
     @Override
-    public CustComponent visible() {
+    public AbsCustComponent visible() {
         return panel;
     }
 

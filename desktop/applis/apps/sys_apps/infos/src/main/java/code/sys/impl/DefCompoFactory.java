@@ -1,9 +1,6 @@
 package code.sys.impl;
 
-import code.gui.AbsTreeGui;
-import code.gui.AbstractMutableTreeNode;
-import code.gui.DefMutableTreeNode;
-import code.gui.TreeGui;
+import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class DefCompoFactory implements AbsCompoFactory {
@@ -17,4 +14,8 @@ public final class DefCompoFactory implements AbsCompoFactory {
         return new DefMutableTreeNode(_name);
     }
 
+    @Override
+    public AbsPaintableLabel newAbsPaintableLabel(AbsMetaLabel _absMetaLabel) {
+        return new PaintableLabel(_absMetaLabel);
+    }
 }

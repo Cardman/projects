@@ -3,7 +3,7 @@ package cards.gui.animations;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
-import code.gui.CustComponent;
+import code.gui.FrameUtil;
 import code.threads.ThreadUtil;
 import code.util.StringList;
 
@@ -64,7 +64,7 @@ public final class AnimationCardTarot implements Runnable {
             container.jouerTarot(player_,pseudos_.get(player_));
             container.pause();
         }
-        CustComponent.invokeLater(new AfterAnimationCardTarot(container));
+        FrameUtil.invokeLater(new AfterAnimationCardTarot(container));
 //        if(partie_.keepPlayingCurrentTrick())
 //        {
 //            container.setThreadAnime(false);

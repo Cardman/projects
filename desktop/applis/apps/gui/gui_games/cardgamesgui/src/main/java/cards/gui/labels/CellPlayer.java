@@ -2,14 +2,19 @@ package cards.gui.labels;
 import java.awt.Color;
 
 import cards.consts.Role;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 
-public class CellPlayer extends PaintableLabel {
+public final class CellPlayer extends AbsMetaLabel {
 
     private Role st;
 
     private String textPlayer = "";
+
+    public CellPlayer(AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
+    }
 
     public void setStatus(Role _st) {
         st = _st;

@@ -70,7 +70,7 @@ public final class GuiExecutingBlocks {
         mainArgs = _mainArgs;
         window = _window;
         textLabel = new TextLabel("");
-        confirm = new OtherConfirmDialog(_window.getImageFactory(),_window.getFrames().getFrameFactory());
+        confirm = new OtherConfirmDialog(_window.getFrames(),_window.getImageFactory(),_window.getFrames().getFrameFactory());
     }
     private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
         eventClose = new DefaultClosingMainWindow(this, _context);

@@ -8,16 +8,17 @@ import javax.swing.SwingConstants;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.FileConst;
 import cards.tarot.enumerations.CardTarot;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.images.BaseSixtyFourUtil;
 import code.scripts.pages.cards.CardsInit;
 import code.stream.StreamTextFile;
 import code.util.core.StringUtil;
 
-public class GraphicTarotCard extends PaintableLabel {
+public final class GraphicTarotCard extends AbsMetaLabel {
     static final String DEFAULT="Default";
 
     private CardTarot card;
@@ -27,8 +28,8 @@ public class GraphicTarotCard extends PaintableLabel {
     private AbstractImage bufferedImage;
     private String lg;
 
-    public GraphicTarotCard(AbstractImageFactory _fact,String _lg,CardTarot _pc, int _i, boolean _fullCard) {
-        this(_lg,_i,_fullCard);
+    public GraphicTarotCard(AbstractImageFactory _fact, String _lg, CardTarot _pc, int _i, boolean _fullCard, AbsCompoFactory _compoFactory) {
+        this(_lg,_i,_fullCard, _compoFactory);
         peindreCarte=true;
         card=_pc;
         int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
@@ -38,7 +39,8 @@ public class GraphicTarotCard extends PaintableLabel {
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(_fact,file_);
     }
 
-    public GraphicTarotCard(String _lg,int _i, boolean _fullCard) {
+    public GraphicTarotCard(String _lg, int _i, boolean _fullCard, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         lg = _lg;
         peindreCarte=false;
         setHorizontalAlignment(_i);

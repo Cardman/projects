@@ -2,7 +2,7 @@ package aiki.gui.threads;
 
 import aiki.db.PerCent;
 import aiki.gui.WindowAiki;
-import code.gui.CustComponent;
+import code.gui.FrameUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -29,7 +29,7 @@ public final class LoadingThread implements Runnable {
             window.getDialog().getAbsDialog().setVisible(false);
             return;
         }
-        CustComponent.invokeLater(new AfterLoadingThread(window, fileName));
+        FrameUtil.invokeLater(new AfterLoadingThread(window, fileName));
         window = null;
     }
 }

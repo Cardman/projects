@@ -2,6 +2,7 @@ package code.gui.document;
 
 import code.formathtml.render.IntTextField;
 import code.formathtml.render.MetaTextField;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.TextField;
 
@@ -16,7 +17,7 @@ public final class DualTextField extends DualInput implements IntTextField {
     }
 
     @Override
-    public CustComponent getGraphic() {
+    public AbsCustComponent getGraphic() {
         return field;
     }
 

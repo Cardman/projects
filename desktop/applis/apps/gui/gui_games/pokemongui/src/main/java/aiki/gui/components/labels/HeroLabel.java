@@ -1,19 +1,21 @@
 package aiki.gui.components.labels;
 import java.awt.Color;
 
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbsCompoFactory;
 
-public class HeroLabel extends PaintableLabel {
+public final class HeroLabel extends AbsMetaLabel {
 
     private int[][] image;
 
     private boolean selected;
     private AbstractImageFactory fact;
 
-    public HeroLabel(AbstractImageFactory _fact, int[][] _image) {
+    public HeroLabel(AbstractImageFactory _fact, int[][] _image, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         fact = _fact;
         image = _image;
     }

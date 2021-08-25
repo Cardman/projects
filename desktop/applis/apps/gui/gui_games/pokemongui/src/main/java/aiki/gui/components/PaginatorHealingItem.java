@@ -773,7 +773,7 @@ public final class PaginatorHealingItem extends Paginator {
         int nb_ = rendered_.size();
         String lg_ = getMain().getLanguageKey();
         for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
-            HealingItemLabel l_ = new HealingItemLabel(rendered_.get(i));
+            HealingItemLabel l_ = new HealingItemLabel(rendered_.get(i), getMain().getCompoFactory());
             l_.initMessages(lg_);
             l_.addMouseListener(new PaginatorEvent(this,i));
             int th_ = l_.getThirdColumnWidth();

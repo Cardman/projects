@@ -9,6 +9,7 @@ import code.formathtml.render.BorderEnum;
 import code.formathtml.render.IntComponent;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaStyle;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.Panel;
 import code.util.CustList;
@@ -28,7 +29,7 @@ public abstract class DualComponent implements IntComponent {
         page = _page;
     }
 
-    protected static void updateGraphics(CustComponent _component, MetaComponent _metaComponent) {
+    protected static void updateGraphics(AbsCustComponent _component, MetaComponent _metaComponent) {
         MetaStyle style_ = _metaComponent.getStyle();
         if (style_.getBorder() == BorderEnum.SOLID) {
             _component.setLineBorder(new Color(style_.getBorderColor()), style_.getBorderSize());
@@ -65,7 +66,7 @@ public abstract class DualComponent implements IntComponent {
     }
 
     public int getComponentCount() {
-        CustComponent g_ = getGraphic();
+        AbsCustComponent g_ = getGraphic();
         if (g_ instanceof Panel) {
             return ((Panel)g_).getComponentCount();
         }
@@ -77,11 +78,11 @@ public abstract class DualComponent implements IntComponent {
         return container;
     }
 
-    public CustComponent getParent() {
+    public AbsCustComponent getParent() {
         return getGraphic().getParent();
     }
-    public CustComponent getComponent(int _index) {
-        CustComponent g_ = getGraphic();
+    public AbsCustComponent getComponent(int _index) {
+        AbsCustComponent g_ = getGraphic();
         if (g_ instanceof Panel) {
             return ((Panel)g_).getComponent(_index);
         }
@@ -94,7 +95,7 @@ public abstract class DualComponent implements IntComponent {
             children.last().setNextSibling(_dual);
         }
         children.add(_dual);
-        CustComponent g_ = getGraphic();
+        AbsCustComponent g_ = getGraphic();
         if (g_ instanceof Panel) {
             ((Panel)g_).add(_dual.getGraphic());
         }
@@ -111,7 +112,7 @@ public abstract class DualComponent implements IntComponent {
         return component;
     }
 
-    public abstract CustComponent getGraphic();
+    public abstract AbsCustComponent getGraphic();
 
     public RenderedPage getPage() {
         return page;

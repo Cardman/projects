@@ -7,7 +7,6 @@ import aiki.gui.listeners.SelectFoeTarget;
 import aiki.gui.listeners.SelectPlayerTarget;
 import code.gui.Panel;
 import code.gui.TextLabel;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -33,7 +32,7 @@ public class TargetsPanel {
         i_ = IndexConstants.FIRST_INDEX;
         IdList<BoolVal> chosablePl_ = _facade.getFight().getChosablePlayerTargets();
         for (byte k: teamPl_.getKeys()) {
-            MiniTargetLabel target_ = new MiniTargetLabel();
+            MiniTargetLabel target_ = new MiniTargetLabel(_battle.getWindow().getCompoFactory());
             target_.set(_facade,_battle, teamPl_.getVal(k).getName(), i_);
             boolean match_ = chosablePl_.get(k) == BoolVal.TRUE;
             if (match_) {
@@ -48,7 +47,7 @@ public class TargetsPanel {
         ByteTreeMap<Fighter> teamFoe_ = _facade.getFoeFrontTeam();
         IdList<BoolVal> chosableFoe_ = _facade.getFight().getChosableFoeTargets();
         for (byte k: teamFoe_.getKeys()) {
-            MiniTargetLabel target_ = new MiniTargetLabel();
+            MiniTargetLabel target_ = new MiniTargetLabel(_battle.getWindow().getCompoFactory());
             target_.set(_facade,_battle, teamFoe_.getVal(k).getName(), i_);
             boolean match_ = chosableFoe_.get(k) == BoolVal.TRUE;
             if (match_) {

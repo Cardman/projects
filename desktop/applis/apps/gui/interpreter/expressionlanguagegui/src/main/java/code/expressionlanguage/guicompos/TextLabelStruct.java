@@ -3,6 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.TextLabel;
 
@@ -35,7 +36,7 @@ public final class TextLabelStruct extends CustComponentStruct {
     }
 
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return textLabel;
     }
 }

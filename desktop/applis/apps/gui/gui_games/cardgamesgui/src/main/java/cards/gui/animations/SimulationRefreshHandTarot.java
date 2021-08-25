@@ -25,7 +25,7 @@ public final class SimulationRefreshHandTarot implements Runnable {
         panneau1_.removeAll();
         String lg_ = container.getOwner().getLanguageKey();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(container.getWindow().getImageFactory(),lg_,hand)) {
+        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(container.getWindow(),lg_,hand)) {
             panneau1_.add(c);
         }
         panneau1_.repaintChildren(container.getOwner().getImageFactory());

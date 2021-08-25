@@ -1,5 +1,6 @@
 package code.minirts.events;
 
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.maths.geo.CustPoint;
 import code.minirts.WindowRts;
@@ -28,7 +29,7 @@ public class RtsTask implements Runnable {
         if (window.isDragged()) {
             return;
         }
-        CustComponent par_ = scene.getContainer().getParent();
+        AbsCustComponent par_ = scene.getContainer().getParent();
         CustPoint loc_ = facade.getTopLeftPoint();
 //        rel_.x = -loc_.x;
 //        rel_.y = -loc_.y;

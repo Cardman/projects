@@ -26,7 +26,7 @@ public abstract class AbsComboBox {
         combo.setListener(_listener);
     }
 
-    public CustComponent self() {
+    public AbsCustComponent self() {
         return combo.self();
     }
 

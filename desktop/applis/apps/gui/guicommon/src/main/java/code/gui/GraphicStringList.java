@@ -98,7 +98,7 @@ public final class GraphicStringList extends GraphicList<String> implements Inpu
         getScroll().revalidate();
     }
     @Override
-    public CustComponent getGlobal() {
+    public AbsCustComponent getGlobal() {
         return getScroll();
     }
 

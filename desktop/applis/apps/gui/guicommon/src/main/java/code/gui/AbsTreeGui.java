@@ -13,7 +13,7 @@ public interface AbsTreeGui {
 
     void setRootVisible(boolean _value);
 
-    CustComponent getTree();
+    AbsCustComponent getTree();
 
     void addTreeSelectionListener(AbsShortListTree _sel);
     int removeTreeSelectionListener(AbsShortListTree _sel);

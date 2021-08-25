@@ -3,10 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.AbsShortListTree;
-import code.gui.AbsTreeGui;
-import code.gui.CustComponent;
-import code.gui.MutableTreeNodeUtil;
+import code.gui.*;
 
 public final class TreeStruct extends CustComponentStruct {
     private final AbsTreeGui tree;
@@ -43,7 +40,7 @@ public final class TreeStruct extends CustComponentStruct {
     }
 
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return tree.getTree();
     }
 }

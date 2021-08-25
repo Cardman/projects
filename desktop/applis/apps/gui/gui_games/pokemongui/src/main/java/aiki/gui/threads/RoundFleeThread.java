@@ -2,7 +2,7 @@ package aiki.gui.threads;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.components.fight.Battle;
-import code.gui.CustComponent;
+import code.gui.FrameUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -18,7 +18,7 @@ public final class RoundFleeThread extends RoundThread {
         getFacade().endRoundFightFlee();
         animate();
 //        getBattle().afterRound(true);
-        CustComponent.invokeLater(new AfterRoundThread(getBattle()));
+        FrameUtil.invokeLater(new AfterRoundThread(getBattle()));
         //getBattle().afterRound();
     }
 }

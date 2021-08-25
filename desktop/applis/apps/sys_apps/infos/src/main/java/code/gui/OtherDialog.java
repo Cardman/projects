@@ -41,8 +41,8 @@ public final class OtherDialog implements AbsOtherDialog,ChangeableTitle,WithLis
     }
 
     @Override
-    public void setLocationRelativeTo(CustComponent _c) {
-        dialog.setLocationRelativeTo(_c.getNatComponent());
+    public void setLocationRelativeTo(AbsCustComponent _c) {
+        dialog.setLocationRelativeTo(((CustComponent)_c).getNatComponent());
     }
 
     @Override

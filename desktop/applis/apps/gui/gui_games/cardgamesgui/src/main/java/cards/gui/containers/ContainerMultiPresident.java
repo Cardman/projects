@@ -492,7 +492,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             status_.put(relative(p), _status.getVal(p));
         }
         StringList list_ = new StringList(pseudos_.values());
-        tapis_.initTapisPresident(lg_,list_, status_, _nbMax);
+        tapis_.initTapisPresident(lg_,list_, status_, _nbMax, getOwner().getCompoFactory());
         getTapis().setTapisPresident(tapis_);
         container_.add(tapis_.getContainer(), BorderLayout.CENTER);
         Panel panneau_;
@@ -570,7 +570,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         int iter_ = IndexConstants.FIRST_INDEX;
         byte index_ = IndexConstants.SECOND_INDEX;
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicPresidentCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
+        for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand)) {
             int curStr_ = c.getCard().strength(_reversed);
             if (iter_ > IndexConstants.FIRST_INDEX) {
                 if (curStr_ == str_) {
@@ -592,7 +592,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         _panel.removeAll();
         byte index_ = IndexConstants.FIRST_INDEX;
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicPresidentCard c: getGraphicCards(getWindow().getImageFactory(),lg_,_hand)) {
+        for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand)) {
             c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand,c));
             _panel.add(c);
             index_++;

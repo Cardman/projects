@@ -38,7 +38,7 @@ public final class GraphicStringListMult extends GraphicList<String> implements 
         getScroll().revalidate();
     }
     @Override
-    public CustComponent getGlobal() {
+    public AbsCustComponent getGlobal() {
         return getScroll();
     }
 

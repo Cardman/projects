@@ -11,6 +11,7 @@ import cards.president.enumerations.Playing;
 import code.gui.Panel;
 import code.gui.TextLabel;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -40,7 +41,7 @@ public class CarpetPresident {
     private int number;
     private Panel container;
 
-    public void initTapisPresident(String _lg, StringList _pseudos, ByteMap<Playing> _status,int _nombre) {
+    public void initTapisPresident(String _lg, StringList _pseudos, ByteMap<Playing> _status, int _nombre, AbsCompoFactory _compoFactory) {
         container = Panel.newBorder();
         number = _nombre;
         pseudos = _pseudos;
@@ -50,7 +51,7 @@ public class CarpetPresident {
         listCards.clear();
         boolean entered_ = false;
         for (int c = IndexConstants.FIRST_INDEX; c < number; c++) {
-            GraphicPresidentCard cg_=new GraphicPresidentCard(_lg,SwingConstants.RIGHT,!entered_);
+            GraphicPresidentCard cg_=new GraphicPresidentCard(_lg,SwingConstants.RIGHT,!entered_, _compoFactory);
             cg_.setPreferredSize(GraphicPresidentCard.getDimension(entered_));
             cg_.setVisible(false);
             centerDeck.add(cg_);

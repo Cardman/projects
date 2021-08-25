@@ -4,7 +4,7 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.CustComponent;
+import code.gui.AbsCustComponent;
 import code.gui.PopupMenu;
 import code.util.CustList;
 
@@ -125,7 +125,7 @@ public final class PopupStruct extends CustComponentStruct {
         return new IntStruct(menus.size());
     }
     @Override
-    protected CustComponent getComponent() {
+    protected AbsCustComponent getComponent() {
         return popupMenu;
     }
 }

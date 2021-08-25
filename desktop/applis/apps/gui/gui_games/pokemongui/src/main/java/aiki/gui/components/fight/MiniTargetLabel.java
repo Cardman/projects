@@ -4,11 +4,12 @@ import java.awt.Dimension;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbsCompoFactory;
 
-public class MiniTargetLabel extends PaintableLabel {
+public final class MiniTargetLabel extends AbsMetaLabel {
 
     private AbstractImage image;
 
@@ -17,6 +18,10 @@ public class MiniTargetLabel extends PaintableLabel {
     private boolean selected;
 
     private int index;
+
+    public MiniTargetLabel(AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
+    }
 
     public void set(FacadeGame _facade, Battle _battle, String _name, int _index) {
         index = _index;

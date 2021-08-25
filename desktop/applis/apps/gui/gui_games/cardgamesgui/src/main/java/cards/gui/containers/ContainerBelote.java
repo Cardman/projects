@@ -21,6 +21,7 @@ import cards.main.LaunchingCards;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesBeloteBelote;
 import code.stream.StreamTextFile;
@@ -99,12 +100,14 @@ public class ContainerBelote extends ContainerGame {
         //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+bid_+RETURN_LINE_CHAR);
     }
 
-    public static CustList<GraphicBeloteCard> getGraphicCards(AbstractImageFactory _fact, String _lg, Iterable<CardBelote> _hand) {
+    public static CustList<GraphicBeloteCard> getGraphicCards(WindowCards _fact, String _lg, Iterable<CardBelote> _hand) {
+        AbstractImageFactory imageFactory_ = _fact.getImageFactory();
+        AbsCompoFactory compoFactory_ = _fact.getCompoFactory();
         CustList<GraphicBeloteCard> list_;
         list_ = new CustList<GraphicBeloteCard>();
         boolean entered_ = false;
         for(CardBelote c: _hand) {
-            GraphicBeloteCard carte_=new GraphicBeloteCard(_fact,_lg, c,SwingConstants.RIGHT,!entered_);
+            GraphicBeloteCard carte_=new GraphicBeloteCard(imageFactory_,_lg, c,SwingConstants.RIGHT,!entered_, compoFactory_);
             carte_.setPreferredSize(entered_);
             list_.add(carte_);
             entered_ = true;

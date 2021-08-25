@@ -1,6 +1,7 @@
 package code.gui.document;
 
 import code.formathtml.render.MetaContainer;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.Panel;
 
@@ -17,7 +18,7 @@ public abstract class DualContainer extends DualComponent {
     protected abstract Panel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page);
 
     @Override
-    public CustComponent getGraphic() {
+    public AbsCustComponent getGraphic() {
         return getPanel();
     }
 

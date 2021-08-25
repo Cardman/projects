@@ -112,12 +112,12 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
 		combo.setSelectedIndex(index_);
     }
 
-    public CustComponent getCurrentSelected() {
+    public AbsCustComponent getCurrentSelected() {
         return this;
     }
 
     @Override
-    public CustComponent getGlobal() {
+    public AbsCustComponent getGlobal() {
         return this;
     }
 
@@ -140,7 +140,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     }
 
     @Override
-    public CustComponent self() {
+    public AbsCustComponent self() {
         return this;
     }
 

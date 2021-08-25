@@ -2,6 +2,7 @@ package code.gui.document;
 
 import code.formathtml.render.IntRadioButton;
 import code.formathtml.render.MetaRadioButton;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.Panel;
 import code.gui.RadioButton;
@@ -23,7 +24,7 @@ public final class DualRadionButton extends DualInput implements IntRadioButton 
     }
 
     @Override
-    public CustComponent getGraphic() {
+    public AbsCustComponent getGraphic() {
         return panel;
     }
 

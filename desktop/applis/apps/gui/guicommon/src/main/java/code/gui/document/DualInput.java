@@ -1,6 +1,7 @@
 package code.gui.document;
 
 import code.formathtml.render.MetaInput;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.Input;
 
@@ -29,7 +30,7 @@ public abstract class DualInput extends DualLeaf {
     }
 
     @Override
-    public CustComponent getGraphic() {
+    public AbsCustComponent getGraphic() {
         return select.getGlobal();
     }
 

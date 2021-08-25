@@ -3,16 +3,18 @@ import java.awt.Color;
 import java.awt.Font;
 
 import aiki.gui.components.Paginator;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.images.IntPoint;
 import code.util.CustList;
 
-public class Header extends PaintableLabel {
+public final class Header extends AbsMetaLabel {
 
     private CustList<WordPoint> strings = new CustList<WordPoint>();
 
-    public Header() {
+    public Header(AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         Font f_ = getFont();
         String name_ = f_.getName();
         int style_ = f_.getStyle();

@@ -6,14 +6,15 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.ChosenMoveInfos;
-import code.gui.PaintableLabel;
+import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.images.ConverterBufferedImage;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public class MoveLabel extends PaintableLabel {
+public final class MoveLabel extends AbsMetaLabel {
 
     private static final String SPACE = " ";
 
@@ -29,7 +30,8 @@ public class MoveLabel extends PaintableLabel {
 
     private String text;
 
-    public MoveLabel(ChosenMoveInfos _infos, String _move, FacadeGame _facade) {
+    public MoveLabel(ChosenMoveInfos _infos, String _move, FacadeGame _facade, AbsCompoFactory _compoFactory) {
+        super(_compoFactory);
         colorsTypes = new NatStringTreeMap<Color>();
         move = _move;
         infos = _infos;

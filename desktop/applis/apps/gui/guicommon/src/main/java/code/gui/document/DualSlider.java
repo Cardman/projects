@@ -2,6 +2,7 @@ package code.gui.document;
 
 import code.formathtml.render.IntSlider;
 import code.formathtml.render.MetaSlider;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.Slider;
 import code.util.core.NumberUtil;
@@ -18,7 +19,7 @@ public final class DualSlider extends DualInput implements IntSlider {
     }
 
     @Override
-    public CustComponent getGraphic() {
+    public AbsCustComponent getGraphic() {
         return field;
     }
 

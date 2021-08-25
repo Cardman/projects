@@ -77,7 +77,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         //boolean entered_ = false;
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             sousPanneau3_= Panel.newLineBox();
-            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(window.getImageFactory(), lg_, dealt_.hand(joueur_))) {
+            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(window, lg_, dealt_.hand(joueur_))) {
                 sousPanneau3_.add(c);
             }
 //            entered_ = false;
@@ -96,7 +96,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         cards.add(hands);
         Panel sousPanneau2_=Panel.newGrid(0,1);
         sousPanneau3_= Panel.newLineBox();
-        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(window.getImageFactory(), lg_, dealt_.derniereMain())) {
+        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(window, lg_, dealt_.derniereMain())) {
             sousPanneau3_.add(c);
         }
 //        entered_ = false;
@@ -110,7 +110,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         sousPanneau2_.add(sousPanneau3_);
         if (!tricks_.isEmpty()) {
             sousPanneau3_= Panel.newLineBox();
-            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(window.getImageFactory(), lg_, tricks_.first())) {
+            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(window, lg_, tricks_.first())) {
                 sousPanneau3_.add(c);
             }
 //            entered_ = false;
@@ -168,7 +168,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         DealTarot restoredDeal_ = tricksHands.getDistribution();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             Panel sousPanneau4_= Panel.newLineBox();
-            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(window.getImageFactory(), lg_, restoredDeal_.hand(joueur_))) {
+            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(window, lg_, restoredDeal_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;
@@ -200,7 +200,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
                 indice_++;
             }
             for(CardTarot carte_:tricks_.get(numeroPli_)) {
-                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,SwingConstants.RIGHT,true);
+                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,SwingConstants.RIGHT,true, window.getCompoFactory());
                 carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
                 selectedTrick.add(carteGraphique2_);
                 indice_++;
@@ -237,7 +237,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
                 indice_++;
             }
             for(CardTarot carte_:tricks_.get(indicePli_)) {
-                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,SwingConstants.RIGHT,true);
+                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,SwingConstants.RIGHT,true, window.getCompoFactory());
                 carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
                 tr_.add(carteGraphique2_,indicePli_*(indice_+1)-1);
                 indice_++;
@@ -273,7 +273,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         DealTarot restoredDeal_ = tricksHands.getDistribution();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             Panel sousPanneau4_= Panel.newLineBox();
-            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(window.getImageFactory(), lg_, restoredDeal_.hand(joueur_))) {
+            for (GraphicTarotCard c: ContainerTarot.getGraphicCards(window, lg_, restoredDeal_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;
@@ -306,7 +306,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         }
         for(CardTarot carte_:tricks_.get(numeroPli_)) {
             if(indice2_<=numeroCarte_) {
-                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,SwingConstants.RIGHT,true);
+                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,SwingConstants.RIGHT,true, window.getCompoFactory());
                 carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
                 selectedTrick.add(carteGraphique2_);
                 indice_++;

@@ -4,7 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.structs.*;
-import code.gui.CustComponent;
+import code.gui.AbsCustComponent;
+import code.gui.FrameUtil;
 import code.gui.events.AbsKeyListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseMotionListener;
@@ -28,7 +29,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             if (_run.getExecutingOptions().isInvokeDirect()) {
                 _run.getCurrentThreadFactory().newStartedThread((Runnable) _r);
             } else {
-                CustComponent.invokeLater((Runnable) _r);
+                FrameUtil.invokeLater((Runnable) _r);
             }
 
         }
@@ -38,7 +39,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             if (_run.getExecutingOptions().isInvokeDirect()) {
                 _run.getCurrentThreadFactory().newStartedThread(_r);
             } else {
-                CustComponent.invokeLater(_r);
+                FrameUtil.invokeLater(_r);
             }
         }
     }
@@ -262,10 +263,10 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     public void setVisible(Struct _b) {
         getComponent().setVisible(BooleanStruct.isTrue(_b));
     }
-    protected CustComponent getVisibleComponent() {
+    protected AbsCustComponent getVisibleComponent() {
         return getComponent();
     }
-    protected abstract CustComponent getComponent();
+    protected abstract AbsCustComponent getComponent();
 
     public CustList<CustComponentStruct> getChildren() {
         return children;

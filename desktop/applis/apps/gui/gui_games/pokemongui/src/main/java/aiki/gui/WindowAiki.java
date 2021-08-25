@@ -496,7 +496,7 @@ public final class WindowAiki extends NetGroupFrame {
             ImageHeroKey i_;
             i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
             int[][] imgTxt_ = facade.getData().getFrontHeros().getVal(i_);
-            HeroLabel label_ = new HeroLabel(getImageFactory(),imgTxt_);
+            HeroLabel label_ = new HeroLabel(getImageFactory(),imgTxt_, getCompoFactory());
             label_.setPreferredSize(new Dimension(imgTxt_[0].length, imgTxt_.length));
             label_.addMouseListener(new HeroSelect(this, s));
             herosLabels.put(s, label_);

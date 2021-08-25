@@ -3,6 +3,7 @@ package code.gui.document;
 import code.formathtml.render.MetaCaption;
 import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaTable;
+import code.gui.AbsCustComponent;
 import code.gui.CustComponent;
 import code.gui.Panel;
 import code.util.Ints;
@@ -47,7 +48,7 @@ public final class DualTable extends DualContainer {
             getPanel().add(Panel.newGrid(0,width));
             count_++;
         }
-        CustComponent c_ = getPanel().getComponent(count_ -1);
+        AbsCustComponent c_ = getPanel().getComponent(count_ -1);
         getPage().getRefs().put(_dual.getComponent(), _dual);
         if (!getChildren().isEmpty()) {
             getChildren().last().setNextSibling(_dual);

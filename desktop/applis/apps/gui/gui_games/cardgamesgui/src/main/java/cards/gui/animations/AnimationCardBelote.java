@@ -3,7 +3,7 @@ package cards.gui.animations;
 import cards.belote.DealBelote;
 import cards.belote.GameBelote;
 import cards.gui.containers.ContainerSingleBelote;
-import code.gui.CustComponent;
+import code.gui.FrameUtil;
 import code.gui.ThreadInvoker;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -67,7 +67,7 @@ public final class AnimationCardBelote implements Runnable {
             container.jouerBelote(player_,pseudos_.get(player_));
             container.pause();
         }
-        CustComponent.invokeLater(new AfterAnimationCardBelote(container));
+        FrameUtil.invokeLater(new AfterAnimationCardBelote(container));
 //        //Desactiver le menu Partie/Pause
 //        if(partie_.keepPlayingCurrentTrick())
 //        {
