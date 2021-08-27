@@ -13,4 +13,10 @@ public interface AbsCompoFactory {
     AbsPreparedLabel newPreparedLabel(String _key);
     AbsImgButton newImgButton(AbstractImage _imageIcon);
     void invokeLater(Runnable _r);
+    Panel newAbsolute();
+    Panel newBorder();
+    Panel newGrid(int _row,int _col);
+    Panel newGrid(int _row,int _col, int _h, int _v);
+    Panel newPageBox();
+    Panel newLineBox();
 }

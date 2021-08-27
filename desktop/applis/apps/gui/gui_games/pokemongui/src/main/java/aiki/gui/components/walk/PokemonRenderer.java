@@ -69,7 +69,7 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
     public void getListCellRendererComponent(
             AbsPreparedLabel _currentLab,
             int _index, boolean _selected, boolean _arg4) {
-        pokemon = getList().get(_index);
+        pokemon = get(_index);
         selected = _selected;
         if (pokemon instanceof PokemonPlayer) {
             PokemonPlayer pk_ = (PokemonPlayer) pokemon;

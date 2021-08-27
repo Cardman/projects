@@ -4025,7 +4025,7 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasPanelAbsolute)) {
-                res_.setResult(PanelStruct.newAbsolute(aliasPanel));
+                res_.setResult(PanelStruct.newAbsolute(aliasPanel,_guiEx.getWindow().getCompoFactory()));
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasPanelFlow)) {

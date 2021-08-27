@@ -3,6 +3,7 @@ package code.gui;
 import code.gui.events.AbsAutoCompleteListener;
 import code.gui.events.AbsKeyListener;
 import code.gui.initialize.AbstractProgramInfos;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -102,7 +103,11 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
                 list.setSelectedIndice(index_ + 1);
             }
         } else if (_keyCode == KeyEvent.VK_ENTER) {
-            String text_ = list.getSelectedValue();
+            Ints ind_ = list.getSelectedIndexes();
+            if (ind_.isEmpty()) {
+                return;
+            }
+            String text_ = list.get(ind_.first());
             textField.setText(text_);
             textField.setCaretPosition(text_.length());
         } else {

@@ -1,6 +1,7 @@
 package cards.gui.panels;
 
 import code.gui.TextLabel;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.core.StringUtil;
 
 /** */
@@ -10,6 +11,10 @@ public abstract class CardsScrollableList extends ScrollableList {
     private int nbCartesRestantes;
 
     private int max;
+
+    public CardsScrollableList(AbsCompoFactory _absCompoFactory) {
+        super(_absCompoFactory);
+    }
 
     protected void initText() {
         getRemCards().setText(StringUtil.concatNbs(PLS,getNbCartesRestantes()));

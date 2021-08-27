@@ -141,9 +141,9 @@ public final class OtherConfirmDialog {
 
     private void initMessageSingleButton(String _message, String _title, String _language) {
         dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(wrapped(_message));
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(_language);
         button_.addMouseList(new OtherClosingDialogEvent(this));
         buttons_.add(button_);
@@ -156,9 +156,9 @@ public final class OtherConfirmDialog {
 
     private void initMessageSingleButton(AbstractImage _img,String _message, String _title, String _language) {
         dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(wrapped(_message));
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
         LabelButton button_ = new LabelButton(_language);
         button_.addMouseList(new OtherClosingDialogEvent(this));
@@ -172,9 +172,9 @@ public final class OtherConfirmDialog {
 
     private void initOk(String _message, String _title, String _language) {
         dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(wrapped(_message));
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(_language);
         button_.addMouseList(new OtherAnswerEvent(this, OK_OPTION));
         buttons_.add(button_);
@@ -186,9 +186,9 @@ public final class OtherConfirmDialog {
     }
     private void initOk(AbstractImage _img,String _message, String _title, String _language) {
         dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(wrapped(_message));
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
         LabelButton button_ = new LabelButton(_language);
         button_.addMouseList(new OtherAnswerEvent(this, OK_OPTION));
@@ -201,9 +201,9 @@ public final class OtherConfirmDialog {
     }
     private void initYesNo(String _message, String _title, String _yes, String _no) {
         dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(wrapped(_message));
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         answer = NO_OPTION;
         LabelButton button_ = new LabelButton(_yes);
         button_.addMouseList(new OtherAnswerEvent(this, YES_OPTION));
@@ -220,9 +220,9 @@ public final class OtherConfirmDialog {
 
     private void initYesNo(AbstractImage _img,String _message, String _title, String _yes, String _no) {
         dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(wrapped(_message));
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         answer = NO_OPTION;
         buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
         LabelButton button_ = new LabelButton(_yes);
@@ -239,9 +239,9 @@ public final class OtherConfirmDialog {
     }
     private void init(String _message, String _title, String _yes, String _no, String _cancel) {
         dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(wrapped(_message));
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         answer = CANCEL_OPTION;
         LabelButton button_ = new LabelButton(_yes);
         button_.addMouseList(new OtherAnswerEvent(this, YES_OPTION));
@@ -260,9 +260,9 @@ public final class OtherConfirmDialog {
     }
     private void init(AbstractImage _img,String _message, String _title, String _yes, String _no, String _cancel) {
         dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(wrapped(_message));
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         answer = CANCEL_OPTION;
         buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
         LabelButton button_ = new LabelButton(_yes);
@@ -283,13 +283,13 @@ public final class OtherConfirmDialog {
 
     private void initField(String _message, String _value, String _title, String _ok, String _cancel) {
         dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(wrapped(_message));
         field = new TextField();
         field.setText(_value);
         content_.add(field);
         answer = NO_OPTION;
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(_ok);
         button_.addMouseList(new OtherAnswerTextEvent(this, YES_OPTION));
         buttons_.add(button_);
@@ -305,14 +305,14 @@ public final class OtherConfirmDialog {
 
     private void initField(AbstractImage _img, String _message, String _value, String _title, String _ok, String _cancel) {
         dialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(infos.getCompoFactory().newPreparedLabel(_img));
         content_.add(wrapped(_message));
         field = new TextField();
         field.setText(_value);
         content_.add(field);
         answer = NO_OPTION;
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(_ok);
         button_.addMouseList(new OtherAnswerTextEvent(this, YES_OPTION));
         buttons_.add(button_);

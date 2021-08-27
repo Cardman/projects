@@ -41,4 +41,34 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public void invokeLater(Runnable _r) {
         SwingUtilities.invokeLater(_r);
     }
+
+    @Override
+    public Panel newAbsolute() {
+        return Panel.newAbsolute();
+    }
+
+    @Override
+    public Panel newBorder() {
+        return Panel.newBorder();
+    }
+
+    @Override
+    public Panel newGrid(int _row, int _col) {
+        return Panel.newGrid(_row, _col);
+    }
+
+    @Override
+    public Panel newGrid(int _row, int _col, int _h, int _v) {
+        return Panel.newGrid(_row, _col, _h, _v);
+    }
+
+    @Override
+    public Panel newLineBox() {
+        return Panel.newLineBox();
+    }
+
+    @Override
+    public Panel newPageBox() {
+        return Panel.newPageBox();
+    }
 }

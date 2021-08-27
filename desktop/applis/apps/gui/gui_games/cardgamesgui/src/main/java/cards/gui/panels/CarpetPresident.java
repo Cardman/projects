@@ -8,6 +8,7 @@ import cards.facade.Games;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.gui.TextLabel;
 import code.gui.images.AbstractImageFactory;
@@ -24,10 +25,10 @@ public class CarpetPresident {
 //    private static final String EMPTY="";
 //    private static final char RETURN_LINE_CHAR='\n';
 
-    private Panel playersPanel;
+    private AbsPanel playersPanel;
     private final CustList<TextLabel> labels = new CustList<TextLabel>();
 
-    private Panel centerDeck;
+    private AbsPanel centerDeck;
     private final CustList<GraphicPresidentCard> listCards = new CustList<GraphicPresidentCard>();
 
     private ByteMap<Playing> cards = new ByteMap<Playing>();
@@ -39,7 +40,7 @@ public class CarpetPresident {
 //    private Boolean horaire=false;
     /**max number of cards*/
     private int number;
-    private Panel container;
+    private AbsPanel container;
 
     public void initTapisPresident(String _lg, StringList _pseudos, ByteMap<Playing> _status, int _nombre, AbsCompoFactory _compoFactory) {
         container = Panel.newBorder();
@@ -138,7 +139,7 @@ public class CarpetPresident {
         repaintValidate(_fact);
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

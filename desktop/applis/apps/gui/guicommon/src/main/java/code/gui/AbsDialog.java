@@ -11,9 +11,9 @@ public interface AbsDialog extends ChangeableTitle, AbsCloseableDialog {
     String getAccessFile();
     void setAccessFile(String _accessFile);
     void setDialogIcon(AbstractImageFactory _fact, Iconifiable _group);
-    void setContentPane(Panel _contentPane);
+    void setContentPane(AbsPanel _contentPane);
     void setContentPane(ScrollPane _contentPane);
-    Panel getPane();
+    AbsPanel getPane();
     void setModal(boolean _modal);
     void setVisible(boolean _b);
 }

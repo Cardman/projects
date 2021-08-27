@@ -58,7 +58,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private boolean partieSauvegardee;
     private GameBelote partie;
     private int nombreCartesSelectionnees;
-    private Panel panelsCards;
+    private AbsPanel panelsCards;
     private BeloteCardsScrollableList stack;
     private final CustList<BeloteCardsScrollableList> hands = new CustList<BeloteCardsScrollableList>();
     private BeloteCardsScrollableList remaining;
@@ -123,13 +123,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     @Override
     public void setDialogue(WindowCards _parent) {
         getJt().removeAll();
-        Panel container_=Panel.newBorder();
+        AbsPanel container_=Panel.newBorder();
         initMessageName(_parent);
         //Panneau Distribution
         String lg_ = _parent.getLanguageKey();
         initJt(_parent,new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),lg_);
         container_.add(getJt(),BorderLayout.CENTER);
-        Panel panneau_=Panel.newLineBox();
+        AbsPanel panneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
         bouton_.addMouseList(new ValidateRulesDealEvent(this, _parent));
         panneau_.add(bouton_);
@@ -166,8 +166,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 
     private void distribuer(WindowCards _parent) {
         getCardDialog().setTitle(getMessages().getVal(DEALING_CARDS));
-        Panel c=Panel.newBorder();
-        Panel panneau_=Panel.newLineBox();
+        AbsPanel c=Panel.newBorder();
+        AbsPanel panneau_=Panel.newLineBox();
         panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
@@ -185,7 +185,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         panelsCards=Panel.newLineBox();
         HandBelote pile_=HandBelote.pileBase();
         pile_.trier(displayingBelote.getSuits(), displayingBelote.isDecreasing(), displayingBelote.getOrderBeforeBids());
-        BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(12,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
+        BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(_parent.getCompoFactory(), 12,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
         plc_.initSelectionCarteBelote(_parent);
         plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
         plc_.iniPileBelote(pile_);
@@ -195,7 +195,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        hands.add(plc_);
         int firstCards_ = getReglesBelote().getRepartition().getFirstCards();
         int lastCards_ = getReglesBelote().getRepartition().getRemainingCards();
-        plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,getMessages().getVal(USER_HAND), _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
+        plc_=new BeloteCardsScrollableList(_parent.getCompoFactory(), firstCards_,firstCards_,getMessages().getVal(USER_HAND), _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
         plc_.initSelectionCarteBelote(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
@@ -213,7 +213,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //            }
             String message_ = getMessages().getVal(PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, n);
-            plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,message_, _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
+            plc_=new BeloteCardsScrollableList(_parent.getCompoFactory(), firstCards_,firstCards_,message_, _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
             plc_.initSelectionCarteBelote(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
@@ -221,13 +221,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             hands.add(plc_);
 //            i_++;
         }
-        plc_=new BeloteCardsScrollableList(lastCards_,lastCards_,getMessages().getVal(CST_REMAINING), _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
+        plc_=new BeloteCardsScrollableList(_parent.getCompoFactory(), lastCards_,lastCards_,getMessages().getVal(CST_REMAINING), _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
         plc_.initSelectionCarteBelote(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards.add(plc_.getContainer());
         remaining = plc_;
         panneau_.add(panelsCards,BorderLayout.CENTER);
-        Panel sousPanneau_=Panel.newLineBox();
+        AbsPanel sousPanneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseList(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
@@ -413,7 +413,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         nombreCartesSelectionneesPrecedent = _nombreCartesSelectionneesPrecedent;
     }
     @Override
-    public Panel getPanelsCards() {
+    public AbsPanel getPanelsCards() {
         return panelsCards;
     }
     @Override

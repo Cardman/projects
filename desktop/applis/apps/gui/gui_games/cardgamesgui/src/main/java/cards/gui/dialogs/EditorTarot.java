@@ -57,7 +57,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private static final String EMPTY_STRING = "";
     private boolean partieSauvegardee;
     private GameTarot partie;
-    private Panel panelsCards;
+    private AbsPanel panelsCards;
     private TarotCardsScrollableList stack;
     private final CustList<TarotCardsScrollableList> hands = new CustList<TarotCardsScrollableList>();
     private TarotCardsScrollableList dog;
@@ -124,12 +124,12 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window) {
         getJt().removeAll();
-        Panel container_=Panel.newBorder();
+        AbsPanel container_=Panel.newBorder();
         initMessageName(_window);
         //Panneau Distribution
         initJt(new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
-        Panel panneau_=Panel.newLineBox();
+        AbsPanel panneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
         bouton_.addMouseList(new ValidateRulesDealEvent(this, window));
         panneau_.add(bouton_);
@@ -146,8 +146,8 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private void distribuer(WindowCards _parent) {
 
         getCardDialog().setTitle(getMessages().getVal(DEALING_CARDS));
-        Panel c=Panel.newBorder();
-        Panel panneau_;
+        AbsPanel c=Panel.newBorder();
+        AbsPanel panneau_;
 //        byte nbJ_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();
         byte nbCartesPJ_ = (byte) getReglesTarot().getRepartition().getNombreCartesParJoueur();
         byte nbCartesC_ = (byte) getReglesTarot().getRepartition().getNombreCartesChien();
@@ -168,7 +168,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         panneau_.add(liste.self());
         c.add(panneau_,BorderLayout.NORTH);
         pile_.trier(displayingTarot.getSuits(), displayingTarot.isDecreasing());
-        TarotCardsScrollableList plc_=new TarotCardsScrollableList(nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
+        TarotCardsScrollableList plc_=new TarotCardsScrollableList(_parent.getCompoFactory(),nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
         plc_.initSelectionCarteTarot(_parent);
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         plc_.iniPileTarot(pile_);
@@ -176,7 +176,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         panelsCards=Panel.newLineBox();
         stack = plc_;
         panelsCards.add(plc_.getContainer());
-        plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND), _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
+        plc_=new TarotCardsScrollableList(_parent.getCompoFactory(),nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND), _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
         plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
@@ -193,7 +193,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            }
             String message_ = getMessages().getVal(PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, n);
-            plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,message_, _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
+            plc_=new TarotCardsScrollableList(_parent.getCompoFactory(),nbCartesPJ_,nbCartesPJ_,message_, _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
             plc_.initSelectionCarteTarot(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
@@ -201,7 +201,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             hands.add(plc_);
 //            i_++;
         }
-        plc_=new TarotCardsScrollableList(nbCartesC_,nbCartesC_,getMessages().getVal(REMAINING), _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
+        plc_=new TarotCardsScrollableList(_parent.getCompoFactory(),nbCartesC_,nbCartesC_,getMessages().getVal(REMAINING), _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
         plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
@@ -209,7 +209,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         dog = plc_;
         panneau_=Panel.newBorder();
         panneau_.add(panelsCards,BorderLayout.CENTER);
-        Panel sousPanneau_=Panel.newLineBox();
+        AbsPanel sousPanneau_=Panel.newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseList(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
@@ -412,7 +412,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         nombreCartesSelectionneesPrecedent = _nombreCartesSelectionneesPrecedent;
     }
     @Override
-    public Panel getPanelsCards() {
+    public AbsPanel getPanelsCards() {
         return panelsCards;
     }
     @Override

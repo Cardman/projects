@@ -4,11 +4,11 @@ import code.gui.events.AbsMouseListener;
 
 public final class SimpleSelectCombo implements AbsMouseListener,IndexableListener {
 
-    private final GraphicStringList grList;
+    private final AbsGraphicStringList grList;
 
     private int index;
 
-    public SimpleSelectCombo(GraphicStringList _grList, int _index) {
+    public SimpleSelectCombo(AbsGraphicStringList _grList, int _index) {
         grList = _grList;
         index = _index;
     }

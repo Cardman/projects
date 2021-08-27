@@ -6,11 +6,9 @@ import javax.swing.SwingConstants;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonSelection;
-import code.gui.AbsGraphicList;
-import code.gui.GraphicList;
-import code.gui.Panel;
-import code.gui.TextLabel;
+import code.gui.*;
 import code.gui.images.AbstractImageFactory;
+import code.util.Ints;
 import code.util.TreeMap;
 import code.util.core.IndexConstants;
 
@@ -26,7 +24,7 @@ public class PokemonPanel {
 
     private final String noEvo;
 
-    private final Panel container;
+    private final AbsPanel container;
     public PokemonPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, String _noEvo, AbsGraphicList<String> _liste) {
         liste = _liste;
         facade = _facade;
@@ -74,10 +72,14 @@ public class PokemonPanel {
     }
 
     public String getSelectedEvo() {
-        return liste.getSelectedValue();
+        Ints ind_ = liste.getSelectedIndexes();
+        if (ind_.isEmpty()) {
+            return null;
+        }
+        return liste.get(ind_.first());
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

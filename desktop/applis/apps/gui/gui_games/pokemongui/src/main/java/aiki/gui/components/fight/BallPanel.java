@@ -6,27 +6,25 @@ import javax.swing.SwingConstants;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
-import code.gui.AbsGraphicList;
-import code.gui.GraphicList;
-import code.gui.Panel;
-import code.gui.TextLabel;
+import code.gui.*;
 import code.gui.images.AbstractImageFactory;
+import code.util.Ints;
 import code.util.NatStringTreeMap;
 
-public class BallPanel {
+public final class BallPanel {
 
     private final TextLabel title;
 
-    private final AbsGraphicList<BallNumberRate> liste;
+    private final AbsGraphicList<BallNumberRate> listeBall;
 
     private final FacadeGame facade;
 
     private final BallRenderer renderer;
 
-    private final Panel container;
+    private final AbsPanel container;
 
     public BallPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, AbsGraphicList<BallNumberRate> _liste) {
-        liste = _liste;
+        listeBall = _liste;
         facade = _facade;
         container = Panel.newBorder();
         container.setLoweredBorder();
@@ -34,11 +32,11 @@ public class BallPanel {
         container.add(title, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
-        liste.setVisibleRowCount(_nb);
+        listeBall.setVisibleRowCount(_nb);
         renderer = new BallRenderer(_fact,facade);
-        liste.setRender(renderer);
+        listeBall.setRender(renderer);
         initBalls();
-        container.add(liste.self(),BorderLayout.CENTER);
+        container.add(listeBall.self(),BorderLayout.CENTER);
         container.setPreferredSize(new Dimension(100,32*_nb));
     }
 
@@ -47,19 +45,23 @@ public class BallPanel {
     }
 
     public void initBalls() {
-        liste.clear();
+        listeBall.clear();
         NatStringTreeMap<BallNumberRate> map_ = facade.calculateCatchingRates();
         renderer.setMaxWidth(title,map_);
         for (BallNumberRate b: map_.values()) {
-            liste.add(b);
+            listeBall.add(b);
         }
     }
 
     public BallNumberRate getSelectedBall() {
-        return liste.getSelectedValue();
+        Ints ind_ = listeBall.getSelectedIndexes();
+        if (ind_.isEmpty()) {
+            return null;
+        }
+        return listeBall.get(ind_.first());
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

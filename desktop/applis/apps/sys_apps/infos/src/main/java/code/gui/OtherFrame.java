@@ -89,8 +89,8 @@ public final class OtherFrame implements AbsOtherFrame,ChangeableTitle,WithListe
         frame.setJMenuBar(_menu.getMenuBar());
     }
     @Override
-    public void setContentPane(Panel _p) {
-        frame.setContentPane(_p.getNatComponent());
+    public void setContentPane(AbsPanel _p) {
+        frame.setContentPane(((Panel)_p).getNatComponent());
     }
 
     @Override

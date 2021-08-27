@@ -9,10 +9,7 @@ import aiki.game.fight.Fighter;
 import aiki.gui.listeners.BackFighterSelection;
 import aiki.gui.listeners.FighterSelection;
 import aiki.gui.listeners.FrontFighterSelection;
-import code.gui.AbsGraphicList;
-import code.gui.GraphicList;
-import code.gui.Panel;
-import code.gui.TextLabel;
+import code.gui.*;
 import code.gui.images.AbstractImageFactory;
 import code.util.*;
 
@@ -24,7 +21,7 @@ public class FighterPanel {
 
     private final FacadeGame facade;
 
-    private final Panel container;
+    private final AbsPanel container;
 
     public FighterPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters, AbsGraphicList<Fighter> _liste) {
         liste = _liste;
@@ -95,7 +92,7 @@ public class FighterPanel {
         liste.clearSelection();
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

@@ -68,8 +68,8 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
 
     public void setDialogue(WindowCards _window) {
         initMessageName(_window);
-        Panel container_=Panel.newBorder();
-        Panel panneau_=Panel.newGrid(0,2);
+        AbsPanel container_=Panel.newBorder();
+        AbsPanel panneau_=Panel.newGrid(0,2);
         //Panneau Battre les cartes
         EnumList<Suit> liste_=new EnumList<Suit>();
         panneau_.add(new TextLabel(messages.getVal(WISE)));
@@ -79,7 +79,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri
-        Panel sousPanneau_=Panel.newGrid(0,3);
+        AbsPanel sousPanneau_=Panel.newGrid(0,3);
         listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
@@ -99,7 +99,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
 //            listeChoix.addItem(couleur_);
 //        }
         sousPanneau_.add(listeChoix.self());
-        Panel sousPanneauTwo_=Panel.newGrid(0,1);
+        AbsPanel sousPanneauTwo_=Panel.newGrid(0,1);
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
         bouton_.addMouseList(new AddSuitEvent(this));
         sousPanneauTwo_.add(bouton_);

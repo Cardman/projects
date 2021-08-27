@@ -37,9 +37,9 @@ public abstract class DialogBelote extends DialogCards {
     private ComboBox<MixCardsChoice> listeChoix;
     private CustCheckBox dealAll;
 
-    private Panel bidding;
+    private AbsPanel bidding;
     private final CustList<CustCheckBox> bids = new CustList<CustCheckBox>();
-    private Panel declaresFirstRound;
+    private AbsPanel declaresFirstRound;
     private final CustList<CustCheckBox> declares = new CustList<CustCheckBox>();
     private CustCheckBox underTrumpingFoe;
     private ComboBoxEnumCards<BeloteTrumpPartner> listChoiceTwo;
@@ -56,7 +56,7 @@ public abstract class DialogBelote extends DialogCards {
 
     protected void initJt(WindowCards _window, Spinner _nbGames, String _lg) {
         setNbGames(_nbGames);
-        Panel dealing_=Panel.newGrid(0,2);
+        AbsPanel dealing_=Panel.newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(), new StringList(), -1, _window.getCompoFactory()));
@@ -84,7 +84,7 @@ public abstract class DialogBelote extends DialogCards {
 
         //Panneau Distribution
         getJt().add(getMessages().getVal(DEALING),dealing_);
-        Panel bidding_=Panel.newPageBox();
+        AbsPanel bidding_=Panel.newPageBox();
         //Panneau Annonces autorisees
         bidding_.add(new TextLabel(getMessages().getVal(CST_BIDS)));
         bids.clear();
@@ -115,9 +115,9 @@ public abstract class DialogBelote extends DialogCards {
         bidding_.add(declaresFirstRound);
 
         getJt().add(getMessages().getVal(DECLARING),bidding_);
-        Panel trumping_ = Panel.newGrid(0,1);
+        AbsPanel trumping_ = Panel.newGrid(0,1);
         //Panneau gestion des coupes
-        Panel sousPanneau_=Panel.newGrid(0,2);
+        AbsPanel sousPanneau_=Panel.newGrid(0,2);
         TextLabel trumpingLabel_ = new TextLabel(getMessages().getVal(TRUMPING));
         trumpingLabel_.setToolTipText(getMessages().getVal(TRUMPING_DESCRIPTION));
         sousPanneau_.add(trumpingLabel_);
@@ -142,7 +142,7 @@ public abstract class DialogBelote extends DialogCards {
         trumping_.add(sousPanneau_);
         getJt().add(getMessages().getVal(RULES_TRUMPS),trumping_);
         //Panneau Calcul des scores
-        Panel endOfGame_=Panel.newGrid(0,1);
+        AbsPanel endOfGame_=Panel.newGrid(0,1);
         endOfGame_.add(new TextLabel(getMessages().getVal(SCORING)));
         classic=new CustCheckBox(getMessages().getVal(ALL_POINTS_FOR_DEFENDER_TEAM));
         classic.setSelected(getReglesBelote().getComptePointsClassique());

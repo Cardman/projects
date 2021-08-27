@@ -3,6 +3,7 @@ import cards.gui.containers.ContainerSimuTarot;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
@@ -20,7 +21,7 @@ public final class SimulationRefreshHandTarotDog implements Runnable {
         hand = _hand;
     }
 
-    static void updateCardsInPanelTarotDog(ContainerSimuTarot _s, Panel _panel, HandTarot _hand) {
+    static void updateCardsInPanelTarotDog(ContainerSimuTarot _s, AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = _s.getOwner().getLanguageKey();
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(_s.getWindow(),lg_,_hand)) {

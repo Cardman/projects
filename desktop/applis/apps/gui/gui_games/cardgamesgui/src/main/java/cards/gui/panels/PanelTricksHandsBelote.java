@@ -30,10 +30,10 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     private static final String TRICK ="trick";
     private static final String CARD ="card";
     private final StringMap<String> messages;
-    private final Panel cards;
-    private Panel tricks;
-    private final Panel selectedTrick;
-    private final Panel hands;
+    private final AbsPanel cards;
+    private AbsPanel tricks;
+    private final AbsPanel selectedTrick;
+    private final AbsPanel hands;
     private final NumComboBox trickNumber;
     private final NumComboBox cardNumberTrick;
     private final TricksHandsBelote tricksHands;
@@ -41,7 +41,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     private final byte numberPlayers;
     private final DisplayingBelote displayingBelote;
     private final WindowCards window;
-    private final Panel container;
+    private final AbsPanel container;
 
     public PanelTricksHandsBelote(ChangeableTitle _parent,
             TricksHandsBelote _tricksHands,
@@ -60,7 +60,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
         container = Panel.newBorder();
         cards=Panel.newLineBox();
-        Panel players_ = Panel.newGrid(0,1);
+        AbsPanel players_ = Panel.newGrid(0,1);
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             players_.add(getBlankCard(_pseudos, joueur_));
         }
@@ -74,7 +74,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         selectedTrick = Panel.newGrid(0,1);
         cards.add(selectedTrick);
         hands=Panel.newGrid(0,1);
-        Panel sousPanneau3_;
+        AbsPanel sousPanneau3_;
         //boolean entered_ = false;
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             sousPanneau3_= Panel.newLineBox();
@@ -95,7 +95,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             hands.add(Panel.newLineBox());
         }
         cards.add(hands);
-        Panel sousPanneau2_=Panel.newGrid(0,1);
+        AbsPanel sousPanneau2_=Panel.newGrid(0,1);
         sousPanneau3_= Panel.newLineBox();
         for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.derniereMain())) {
             sousPanneau3_.add(c);
@@ -110,7 +110,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         sousPanneau2_.add(sousPanneau3_);
         cards.add(sousPanneau2_);
         container.add(cards,BorderLayout.CENTER);
-        Panel selectionGameState_=Panel.newLineBox();
+        AbsPanel selectionGameState_=Panel.newLineBox();
         selectionGameState_.add(new TextLabel(messages.getVal(TRICK)));
         int[] numerosPlis_;
         numerosPlis_=new int[tricks_.size()+2];
@@ -151,7 +151,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
         String lg_ = window.getLanguageKey();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
-            Panel sousPanneau4_= Panel.newLineBox();
+            AbsPanel sousPanneau4_= Panel.newLineBox();
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -201,7 +201,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         }
         tricks.removeAll();
         int indexRem_ = cards.remove(tricks);
-        Panel tr_;
+        AbsPanel tr_;
         if(numeroPli_>1) {
             tr_ = Panel.newGrid(0,numeroPli_ - 1);
         } else {
@@ -255,7 +255,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         hands.removeAll();
         String lg_ = window.getLanguageKey();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
-            Panel sousPanneau4_= Panel.newLineBox();
+            AbsPanel sousPanneau4_= Panel.newLineBox();
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window, lg_, dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -310,7 +310,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
 
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

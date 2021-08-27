@@ -20,7 +20,7 @@ public final class DefaultCellRender extends CustCellRender<String> {
     @Override
     public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
-        text = getList().get(_index);
+        text = get(_index);
         label = _currentLab;
         maxWidth = Math.max(maxWidth,label.stringWidth(text));
         selected = _isSelected;

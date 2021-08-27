@@ -46,9 +46,9 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private Spinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
     private ComboBox<MixCardsChoice> listeChoix;
-    private Panel bidding;
+    private AbsPanel bidding;
     private final CustList<CustCheckBox> bids = new CustList<CustCheckBox>();
-    private Panel declaringMiseres;
+    private AbsPanel declaringMiseres;
     private final CustList<CustCheckBox> miseres = new CustList<CustCheckBox>();
     private ComboBoxEnumCards<EndDealTarot> listeChoixTwo;
     private ComboBoxEnumCards<ModeTarot> listeChoixThree;
@@ -57,7 +57,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private ComboBoxEnumCards<Handfuls> listeChoixFive;
 
     private Spinner nbAtoutsPoignee;
-    private Panel players;
+    private AbsPanel players;
     private Spinner nbJoueurs;
     private EnumMap<Handfuls,Integer> poigneesAutorisees = new EnumMap<Handfuls,Integer>();
 
@@ -73,7 +73,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     protected void initJt(Spinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
-        Panel dealing_=Panel.newGrid(0,2);
+        AbsPanel dealing_=Panel.newGrid(0,2);
         //Panneau Battre les cartes
         dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
@@ -96,7 +96,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         //Panneau Distribution
         getJt().add(getMessages().getVal(DEALING),dealing_);
-        Panel declaring_=Panel.newPageBox();
+        AbsPanel declaring_=Panel.newPageBox();
         declaring_.add(new TextLabel(getMessages().getVal(CST_BIDS)));
         bidding=Panel.newLineBox();
         bids.clear();
@@ -110,7 +110,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         declaring_.add(bidding);
         //Panneau Poignees
-        Panel sousPanneau_=Panel.newGrid(3,2);
+        AbsPanel sousPanneau_=Panel.newGrid(3,2);
         sousPanneau_.add(new TextLabel(getMessages().getVal(HANDFUL)));
         listeChoixFive = new ComboBoxEnumCards<Handfuls>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
         for (Handfuls p: Handfuls.getDeclarableHandFuls()) {
@@ -144,7 +144,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getJt().add(getMessages().getVal(DECLARING),declaring_);
 
         //Panneau Chelem
-        Panel bidding_ =Panel.newGrid(0,3);
+        AbsPanel bidding_ =Panel.newGrid(0,3);
 
         //Panneau Regle du demi-point
         sousPanneau_=Panel.newGrid(0,1);

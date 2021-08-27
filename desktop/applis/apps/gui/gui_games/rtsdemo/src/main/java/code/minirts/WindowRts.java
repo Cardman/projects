@@ -1,9 +1,7 @@
 package code.minirts;
 
-import code.gui.CustCheckBox;
-import code.gui.GroupFrame;
+import code.gui.*;
 import code.gui.Panel;
-import code.gui.PlainButton;
 import code.gui.events.QuittingEvent;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -66,14 +64,14 @@ public final class WindowRts extends GroupFrame {
         paused = _list.getThreadFactory().newAtomicBoolean();
         dragged = _list.getThreadFactory().newAtomicBoolean();
         count = _list.getThreadFactory().newAtomicLong();
-        Panel contentPane_ = Panel.newBorder();
-        Panel scene_ = Panel.newBorder();
+        AbsPanel contentPane_ = Panel.newBorder();
+        AbsPanel scene_ = Panel.newBorder();
         InteractClick i_ = new InteractClick(this);
         battleground.addMouseListener(i_);
         battleground.addMouseMotionListener(i_);
         battleground.setSize(new Dimension(2048, 2048));
 //        JPanel panelGame_ = new JPanel(new BorderLayout());
-        Panel battlegroundWrapper_ = Panel.newAbsolute();
+        AbsPanel battlegroundWrapper_ = getCompoFactory().newAbsolute();
         battlegroundWrapper_.add(battleground.getContainer());
         CustPoint cust_ = facade.getTopLeftPoint();
         battleground.setLocation(cust_);
@@ -99,7 +97,7 @@ public final class WindowRts extends GroupFrame {
         contentPane_.add(left_, BorderLayout.WEST);
         contentPane_.add(right_, BorderLayout.EAST);
         animate.addActionListener(new Animate(this));
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         buttons_.add(animate);
         buttons_.add(addSoldier);
         pause.setEnabled(false);
@@ -137,7 +135,7 @@ public final class WindowRts extends GroupFrame {
         threadLau = getThreadFactory().newThread(thread);
     }
 
-    private static void setCursor(Panel _battlegroundWrapper, int _wCurs, int _hCurs, int[] _pixels) {
+    private static void setCursor(AbsPanel _battlegroundWrapper, int _wCurs, int _hCurs, int[] _pixels) {
         _battlegroundWrapper.setCursor(_wCurs, _hCurs, _pixels);
     }
 

@@ -635,7 +635,7 @@ public final class WindowCards extends NetGroupFrame {
         return getMessages().getVal(TOO_MANY);
     }
 
-    private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,Panel _container) {
+    private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,AbsPanel _container) {
         LabelButton bouton_=new LabelButton(_texte);
 //        bouton_.addMouseListener(new EcouteurBoutonPrincipal(_nomJeu));
         bouton_.addMouseList(new ListenerBeginGame(_nomJeu, this));
@@ -1096,7 +1096,7 @@ public final class WindowCards extends NetGroupFrame {
         }
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        Panel container_=Panel.newGrid(0,1);
+        AbsPanel container_=Panel.newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
@@ -1134,7 +1134,7 @@ public final class WindowCards extends NetGroupFrame {
         containerGame.setChangerPileFin(false);
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        Panel container_=Panel.newGrid(0,1);
+        AbsPanel container_=Panel.newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
@@ -1180,7 +1180,7 @@ public final class WindowCards extends NetGroupFrame {
         }
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        Panel pane_ = Panel.newGrid(0,1);
+        AbsPanel pane_ = Panel.newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         welcomeLabel = new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
         pane_.add(welcomeLabel,SwingConstants.CENTER);

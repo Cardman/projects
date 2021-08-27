@@ -47,9 +47,9 @@ public final class DialogHelpBelote {
                                          EnumMap<Suit, HandBelote> _repartitionJouees,
                                          Suit _couleurDemandee, BidBeloteSuit _bid,
                                          StringList _pseudos, String _lg, DialogHelpBelote _dialog) {
-        Panel container_=Panel.newLineBox();
-        Panel panneau2_=Panel.newBorder();
-        Panel panneau3_;
+        AbsPanel container_=Panel.newLineBox();
+        AbsPanel panneau2_=Panel.newBorder();
+        AbsPanel panneau3_;
         TextArea zone_;
         HandBelote tout_ = HandBelote.pileBase();
         //une des couleurs domine

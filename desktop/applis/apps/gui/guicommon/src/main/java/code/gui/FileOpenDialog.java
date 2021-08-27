@@ -37,7 +37,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private static final int NB_COLS = 24;
     private ConfirmDialog dialog;
     private TextField typedString = new TextField(NB_COLS);
-    private final Panel searchingPanel = Panel.newPageBox();
+    private final AbsPanel searchingPanel = Panel.newPageBox();
 
     private StringMap<String> messages;
 
@@ -85,7 +85,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         LabelButton search_ = new LabelButton(messages.getVal(SEARCH));
         search_.addMouseList(new SearchingEvent(this));
         searchingPanel.removeAll();
-        Panel panel_ = Panel.newLineBox();
+        AbsPanel panel_ = Panel.newLineBox();
         panel_.add(label_);
         typedString = new TextField(NB_COLS);
         panel_.add(typedString);

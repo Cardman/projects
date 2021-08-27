@@ -2,6 +2,7 @@ package code.gui.document;
 import code.formathtml.render.IntForm;
 import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaForm;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 
 public final class DualForm extends DualContainer implements IntForm {
@@ -15,7 +16,7 @@ public final class DualForm extends DualContainer implements IntForm {
     }
 
     @Override
-    protected Panel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page) {
+    protected AbsPanel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page) {
         return Panel.newPageBox();
     }
 

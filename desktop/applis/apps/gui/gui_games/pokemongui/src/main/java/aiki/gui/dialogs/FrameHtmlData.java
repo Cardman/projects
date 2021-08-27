@@ -40,7 +40,7 @@ public final class FrameHtmlData extends ChildFrame {
         session = _session;
         session.setFrame(this);
         session.setDialog(dialog);
-        Panel panel_ = Panel.newPageBox();
+        AbsPanel panel_ = Panel.newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         TextField field_;
         search = new LabelButton(messages.getVal(SEARCH_LABEL));

@@ -15,6 +15,7 @@ import aiki.gui.listeners.PokemonSelectionTrading;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.AbsGraphicList;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.gui.TextLabel;
 import code.util.*;
@@ -41,7 +42,7 @@ public class TeamPanel {
 
     private final TextLabel nbRemainPlaces;
 
-    private final Panel container;
+    private final AbsPanel container;
     public TeamPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, AbsGraphicList<UsablePokemon> _liste, PokemonRenderer _renderer) {
         facade = _facade;
         liste = _liste;
@@ -168,7 +169,7 @@ public class TeamPanel {
         liste.setListener(new PokemonSelectionTm(_mainWindow));
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

@@ -107,7 +107,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
 
     private void ajouterBoutonContratTarotMulti(String _texte,BidTarot _action) {
-        Panel panneau_=getPanneauBoutonsJeu();
+        AbsPanel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratTarotMulti(_action));
         bouton_.addMouseList(new ListenerBidTarotMulti(this,_action));
@@ -135,7 +135,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        panneau_.add(bouton_);
 //    }
     private void addButtonTakeDogCardsTarotMulti(String _texte,boolean _apte) {
-        Panel panneau_=getPanneauBoutonsJeu();
+        AbsPanel panneau_=getPanneauBoutonsJeu();
         LabelButton bouton_=new LabelButton(_texte);
         bouton_.addMouseList(new TakeDogEvent(this));
         bouton_.setEnabledLabel(_apte);
@@ -209,8 +209,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getLoad().setEnabledMenu(false);
         nbChoosenPlayers = _players.getNbPlayers();
         rulesTarotMulti = _players.getRulesTarot();
-        Panel container_=Panel.newPageBox();
-        Panel panel_ = Panel.newPageBox();
+        AbsPanel container_=Panel.newPageBox();
+        AbsPanel panel_ = Panel.newPageBox();
         panel_.add(new TextLabel(getMessages().getVal(WindowCards.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames(),getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
@@ -540,7 +540,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setCanExcludeTrumps(true);
         displayTrumpsForHandfulMulti(GameTarotCommonPlaying.atoutsPoignee(playerHand.couleurs()));
         getPanneauBoutonsJeu().removeAll();
-        Panel handFuls_ = Panel.newPageBox();
+        AbsPanel handFuls_ = Panel.newPageBox();
         setInfoCurrentHandful(new TextArea(EMPTY_STRING,1,15));
         ScrollPane scroll_ = new ScrollPane(getInfoCurrentHandful());
         scroll_.setPreferredSize(new Dimension(getEvents().getWidth(),70));
@@ -563,7 +563,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             handFuls_.add(radio_);
         }
         getPanneauBoutonsJeu().add(handFuls_);
-        Panel miseres_ = Panel.newGrid(0,1);
+        AbsPanel miseres_ = Panel.newGrid(0,1);
         for(Miseres po_:_declaration.getAllowedMiseres()) {
             CustCheckBox check_ = new CustCheckBox(Games.toString(po_,lg_));
             check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
@@ -600,7 +600,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if(!_card.getHandful().estVide()) {
             getHandfuls().getVal(relative_).setText(Games.toString(_card.getChoosenHandful(),lg_));
         }
-        Panel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
+        AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
         panelToSet_.removeAll();
         _card.getHandful().trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         for(CardTarot c: _card.getHandful()) {
@@ -743,7 +743,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     private void placerIhmTarotMulti(HandTarot _dog, byte _beginPlace) {
         String lg_ = getOwner().getLanguageKey();
-        Panel container_=Panel.newBorder();
+        AbsPanel container_=Panel.newBorder();
         container_.add(new TextLabel(getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
         byte p_ = 0;
@@ -761,14 +761,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
         setPanelHand(Panel.newLineBox());
-        Panel panneau_=Panel.newLineBox();
+        AbsPanel panneau_=Panel.newLineBox();
         panneau_.add(getPanelHand());
         panneau_.setBackground(Color.BLUE);
         setPanelDiscardedTrumps(Panel.newLineBox());
         getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(getPanelDiscardedTrumps());
         container_.add(panneau_,BorderLayout.SOUTH);
-        Panel panneau2_=Panel.newPageBox();
+        AbsPanel panneau2_=Panel.newPageBox();
         setEvents(new TextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         byte relative_ = relative(_beginPlace);
@@ -789,17 +789,17 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getScrollDeclaringHandful().setVisible(false);
         panneau2_.add(getScrollDeclaringHandful());
         setHandfuls(new ByteMap<TextLabel>());
-        setDeclaredHandfuls(new ByteMap<Panel>());
-        Panel declaredHandfuls_ = Panel.newGrid(0,1);
+        setDeclaredHandfuls(new ByteMap<AbsPanel>());
+        AbsPanel declaredHandfuls_ = Panel.newGrid(0,1);
         for (byte i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
             relative_ = relative(i);
-            Panel declaredHandfulGroup_ = Panel.newLineBox();
+            AbsPanel declaredHandfulGroup_ = Panel.newLineBox();
             TextLabel lab_ = new TextLabel(pseudos_.getVal(relative_));
             declaredHandfulGroup_.add(lab_);
             TextLabel handful_ = new TextLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(relative_, handful_);
-            Panel declaredHandful_ = Panel.newLineBox();
+            AbsPanel declaredHandful_ = Panel.newLineBox();
             declaredHandfulGroup_.add(declaredHandful_);
             getDeclaredHandfuls().put(relative_, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
@@ -811,13 +811,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setScrollCallableCards(new ScrollPane(getPanelCallableCards()));
         getScrollCallableCards().setVisible(false);
         panneau2_.add(getScrollCallableCards());
-        Panel sousPanneau_=Panel.newPageBox();
+        AbsPanel sousPanneau_=Panel.newPageBox();
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
 
         container_.add(panneau2_,BorderLayout.EAST);
         tapisTarot().setTalonTarot(lg_,_dog, getOwner().getCompoFactory());
-        Panel panel_ = Panel.newPageBox();
+        AbsPanel panel_ = Panel.newPageBox();
         panel_.add(new ScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
@@ -878,7 +878,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getDeclaringHandful().setDividerLocation(getDeclaringHandful().getWidth()*9/10);
     }
     private void setChienMulti(HandTarot _main,boolean _ecouteur) {
-        Panel panneau_=tapisTarot().getCenterDeck();
+        AbsPanel panneau_=tapisTarot().getCenterDeck();
         panneau_.removeAll();
         panneau_.validate();
         panneau_.setBackground(new Color(0,125,0));
@@ -898,7 +898,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         /*On place les cartes de l'utilisateur*/
         setCanDiscard(true);
         updateCardsInPanelTarotDogMulti(getPanelHand(), allCards_, true);
-        Panel boutons_=getPanneauBoutonsJeu();
+        AbsPanel boutons_=getPanneauBoutonsJeu();
         boutons_.removeAll();
         getValidateDog().setVisibleButton(true);
         getValidateDog().setEnabledLabel(false);
@@ -956,7 +956,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         pack();
         //PackingWindowAfter.pack(this, true);
     }
-    private void updateCardsInPanelTarotDogMulti(Panel _panel, HandTarot _hand, boolean _inHand) {
+    private void updateCardsInPanelTarotDogMulti(AbsPanel _panel, HandTarot _hand, boolean _inHand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
@@ -977,7 +977,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _panel.repaintChildren(getWindow().getImageFactory());
     }
 
-    private void updateCardsInPanelTarotCallBeforeDogMulti(Panel _panel, HandTarot _hand) {
+    private void updateCardsInPanelTarotCallBeforeDogMulti(AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
@@ -996,7 +996,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _panel.validate();
         _panel.repaintChildren(getWindow().getImageFactory());
     }
-    private void updateCardsInPanelTarotHandfulMulti(Panel _panel, HandTarot _hand, boolean _included) {
+    private void updateCardsInPanelTarotHandfulMulti(AbsPanel _panel, HandTarot _hand, boolean _included) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
         for(CardTarot c: _hand) {
@@ -1008,7 +1008,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _panel.validate();
         _panel.repaintChildren(getWindow().getImageFactory());
     }
-    private void updateCardsInPanelTarotJeuMulti(Panel _panel, HandTarot _hand) {
+    private void updateCardsInPanelTarotJeuMulti(AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
@@ -1060,7 +1060,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
-        Panel container_=Panel.newBorder();
+        AbsPanel container_=Panel.newBorder();
         ScrollPane ascenseur_;
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
@@ -1084,13 +1084,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);
-        Panel panneau_=Panel.newPageBox();
+        AbsPanel panneau_=Panel.newPageBox();
         readyToPlay = false;
         ready = new CustCheckBox(getMessages().getVal(WindowCards.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 
-        Panel panel_ = Panel.newGrid(0,3);
+        AbsPanel panel_ = Panel.newGrid(0,3);
 
         for (int i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
             panel_.add(playersPseudos.get(i));
@@ -1152,7 +1152,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void delegateServer() {
         hasCreatedServer = true;
         if (!Net.isProgressingGame(getOwner().getNet())) {
-            Panel container_ = getPane();
+            AbsPanel container_ = getPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
             buttonRules_.addMouseList(new ChangeRulesEvent(this));
             container_.add(buttonRules_);

@@ -24,7 +24,7 @@ public class SuitCellRenderer extends CustCellRender<Suit> {
     @Override
     public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
-        couleur= getList().get(_index);
+        couleur= get(_index);
         selectionne=_isSelected;
         _currentLab.setPreferredSize(new Dimension(100,10));
     }

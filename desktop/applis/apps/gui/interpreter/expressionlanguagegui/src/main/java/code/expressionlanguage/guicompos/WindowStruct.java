@@ -2,6 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.gui.WithListener;
 import code.gui.events.AbsWindowListener;
@@ -42,7 +43,7 @@ public abstract class WindowStruct extends WithoutParentIdStruct {
         getAbstractWindow().setVisible(_v);
     }
 
-    public void setContentPane(Panel _panel) {
+    public void setContentPane(AbsPanel _panel) {
         getAbstractWindow().setContentPane(_panel);
     }
     public void dispose() {

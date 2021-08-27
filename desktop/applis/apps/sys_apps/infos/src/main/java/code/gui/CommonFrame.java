@@ -15,16 +15,16 @@ import java.awt.event.WindowEvent;
 
 public final class CommonFrame implements AbsCommonFrame {
 
+    private final AbstractProgramInfos frames;
     private String accessFile;
 
-    private Panel contentPane = Panel.newLineBox();
+    private AbsPanel contentPane = Panel.newLineBox();
 
     private Ownable owner;
     private final JFrame frame = new JFrame();
     private MenuBar menuBar;
     private String languageKey;
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
-    private final AbstractProgramInfos frames;
     private AbstractImage imageIconFrame;
     public CommonFrame(String _languageKey, AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
         languageKey = _languageKey;
@@ -121,8 +121,8 @@ public final class CommonFrame implements AbsCommonFrame {
         accessFile = _accessFile;
     }
 
-    public void setContentPane(Panel _contentPane) {
-        frame.setContentPane(_contentPane.getNatComponent());
+    public void setContentPane(AbsPanel _contentPane) {
+        frame.setContentPane(((Panel)_contentPane).getNatComponent());
         contentPane = _contentPane;
     }
 
@@ -132,7 +132,7 @@ public final class CommonFrame implements AbsCommonFrame {
         setContentPane(p_);
     }
 
-    public Panel getPane() {
+    public AbsPanel getPane() {
         return contentPane;
     }
 

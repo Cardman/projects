@@ -3,6 +3,7 @@ package aiki.gui.components.walk;
 import aiki.db.DataBase;
 import aiki.gui.components.labels.KeyPad;
 import aiki.map.enums.Direction;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.gui.TextLabel;
 import code.gui.initialize.AbsCompoFactory;
@@ -14,7 +15,7 @@ public class Pad {
     private KeyPad down;
     private KeyPad right;
 
-    private Panel container;
+    private AbsPanel container;
 
     /**
     Create the panel.
@@ -64,7 +65,7 @@ public class Pad {
         return right;
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

@@ -14,6 +14,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.gui.AbsMouseLocation;
+import code.gui.AbsPanel;
 import code.gui.ConfirmDialog;
 import code.gui.Panel;
 import code.util.EnumList;
@@ -53,7 +54,7 @@ public class ListenerCardTarotSingleGame extends AbstractListenerCardTarot {
                 an_.add(container.getChoosenHandful());
                 partie_.setAnnoncesPoignees(DealTarot.NUMERO_UTILISATEUR,an_);
                 container.getHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR).setText(Games.toString(container.getChoosenHandful(),lg_));
-                Panel panelToSet_ = container.getDeclaredHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR);
+                AbsPanel panelToSet_ = container.getDeclaredHandfuls().getVal(DealTarot.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
                 for(CardTarot c: container.getCurrentIncludedTrumps()) {
                     MiniTarotCard carte_=new MiniTarotCard(lg_, c, container.getOwner().getCompoFactory());

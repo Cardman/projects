@@ -25,7 +25,7 @@ public final class MultSelectEltList extends AbsMouseListenerRel implements Inde
             if (!selected_) {
                 return;
             }
-            GraphicList.selectEvent(index, index, false,selection);
+            FrameUtil.selectEvent(index, index, false,selection);
             painter.afterSelectOneAmongIntervalPaint(grList,sel_,index);
             return;
         }
@@ -33,7 +33,7 @@ public final class MultSelectEltList extends AbsMouseListenerRel implements Inde
         if (interval_ == null) {
             return;
         }
-        GraphicList.selectEvent(interval_.getMin(), interval_.getMax(), false,selection);
+        FrameUtil.selectEvent(interval_.getMin(), interval_.getMax(), false,selection);
     }
 
     @Override

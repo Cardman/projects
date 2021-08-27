@@ -3,6 +3,7 @@ package code.gui;
 import code.gui.images.AbstractImage;
 
 import java.awt.Color;
+import java.awt.Font;
 
 public final class LabelButtonUtil {
 
@@ -30,11 +31,40 @@ public final class LabelButtonUtil {
                                          Color _front, Color _back) {
         int w_ = _fw;
         w_ = Math.max(_w, w_);
-        AbstractImage gr_ = _label;
-        gr_.setColor(_back);
-        gr_.fillRect(0, 0, w_ + 2, _h + 2);
-        gr_.setColor(_front);
-        gr_.drawString(_text, 1, _h);
+        _label.setColor(_back);
+        _label.fillRect(0, 0, w_ + 2, _h + 2);
+        _label.setColor(_front);
+        _label.drawString(_text, 1, _h);
+    }
+
+    public static AbstractImage repaintSelected(int _index, boolean _sel, AbsGraphicStringList _curr) {
+        String elt_ = _curr.getElements().get(_index);
+        AbsPanel panel_ = _curr.getPanel();
+        Font font_ = panel_.getFont();
+        _curr.setHeightList(Math.max(_curr.getHeightList(),panel_.heightFont()));
+        _curr.getCellRender().setMaxWidth(Math.max(_curr.getCellRender().getMaxWidth(),panel_.stringWidth(elt_)));
+        AbstractImage buff_ = _curr.getFact().newImageRgb(_curr.getCellRender().getWidth(),panel_.heightFont());
+//        CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
+        buff_.setFont(font_);
+        int h_ = panel_.heightFont();
+        int w_ = panel_.stringWidth(elt_);
+        if (_sel) {
+            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, Color.WHITE, Color.BLUE);
+        } else {
+            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, Color.BLACK, Color.WHITE);
+        }
+        return buff_;
+    }
+
+    public static void repAll(AbsGraphicStringList _curr) {
+        AbsPanel panel_ =  _curr.getPanel();
+        int len_ =  _curr.getElements().size();
+        for (int i = 0; i < len_; i++) {
+            AbstractImage buff_ = repaintSelected(i,  _curr.getSelectedIndexes().containsObj(i), _curr);
+            AbsPreparedLabel lab_ = _curr.getCompoFactory().newPreparedLabel(buff_);
+            _curr.getListComponents().add(lab_);
+            panel_.add(lab_);
+        }
     }
 //    static BufferedImage paintDefaultLabel(CustComponent _label, String _text, int _w,
 //                                           Color _front, Color _back) {

@@ -47,7 +47,7 @@ public final class WindowPage implements Runnable {
                         cur_.add(new DualPanel((DualContainer) cur_,container_, page));
                     }
                     if (container_.containsOnlyEndLine()) {
-                        Panel c_ = (Panel) cur_.getGraphic();
+                        AbsPanel c_ = (AbsPanel) cur_.getGraphic();
                         int em_ = cur_.getComponent().getStyle().getEmToPixels();
                         cur_.getChildren().last().getGraphic().setPreferredSize(new Dimension(em_, c_.heightFont()));
                     }
@@ -81,7 +81,7 @@ public final class WindowPage implements Runnable {
                 MetaListItem li_ = (MetaListItem) par_;
                 MetaContainer gr_ = li_.getParent();
                 int width_ = ((MetaIndentNbLabel)meta_).getStyle().getEmToPixels();
-                Panel p_ = (Panel) cur_.getGraphic();
+                AbsPanel p_ = (AbsPanel) cur_.getGraphic();
                 if (gr_ instanceof MetaOrderedList) {
                     int len_ = gr_.getChildren().size();
                     for (int i = 0; i < len_; i++) {

@@ -16,7 +16,7 @@ public interface WithListener {
     void setTitle(String _title);
     void setVisible(boolean _v);
 
-    void setContentPane(Panel _p);
+    void setContentPane(AbsPanel _p);
 
     void setLocationRelativeTo(AbsCustComponent _c);
 

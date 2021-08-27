@@ -2,12 +2,13 @@ package code.gui.document;
 
 import code.formathtml.render.MetaContainer;
 import code.gui.AbsCustComponent;
+import code.gui.AbsPanel;
 import code.gui.CustComponent;
 import code.gui.Panel;
 
 public abstract class DualContainer extends DualComponent {
 
-    private Panel panel;
+    private AbsPanel panel;
 
     public DualContainer(DualContainer _container, MetaContainer _component, RenderedPage _page) {
         super(_container, _component, _page);
@@ -15,14 +16,14 @@ public abstract class DualContainer extends DualComponent {
         updateGraphics(getPanel(),_component);
     }
 
-    protected abstract Panel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page);
+    protected abstract AbsPanel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page);
 
     @Override
     public AbsCustComponent getGraphic() {
         return getPanel();
     }
 
-    protected Panel getPanel() {
+    protected AbsPanel getPanel() {
         return panel;
     }
 }

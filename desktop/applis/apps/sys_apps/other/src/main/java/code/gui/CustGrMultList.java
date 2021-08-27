@@ -21,6 +21,7 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
     public void add(String _elt) {
         compo.add(_elt);
     }
+
     public void add(int _index, String _elt) {
         compo.add(_index, _elt);
     }
@@ -31,8 +32,9 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
     }
 
     @Override
-    public void set(int _index, AbsPreparedLabel _lab, String _elt) {
+    public int set(int _index, AbsPreparedLabel _lab, String _elt) {
         compo.set(_index,_lab, _elt);
+        return _index;
     }
 
     @Override
@@ -113,12 +115,9 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
         return compo.getList();
     }
 
-    public String getSelectedValue() {
-        return compo.getSelectedValue();
-    }
-
-    public CustList<String> getSelectedValuesLs() {
-        return compo.getSelectedValuesLs();
+    @Override
+    public int getSelectedValuesLsLen() {
+        return compo.getSelectedValuesLsLen();
     }
     public String get(int _i) {
         return compo.get(_i);

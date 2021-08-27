@@ -41,7 +41,7 @@ public class PokemonDataRenderer extends CustCellRender<String> {
                                              int _index,
                                              boolean _isSelected, boolean _cellHasFocus) {
         selected = _isSelected;
-        String key_ = getList().get(_index);
+        String key_ = get(_index);
         if (!key_.isEmpty()) {
             name = facade.translatePokemon(key_);
             int[][] img_ = facade.getData().getMiniPk().getVal(key_);

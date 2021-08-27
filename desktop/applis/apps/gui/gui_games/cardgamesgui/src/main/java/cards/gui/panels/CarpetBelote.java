@@ -9,6 +9,7 @@ import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.WindowCards;
 import cards.gui.labels.GraphicBeloteCard;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.TextArea;
@@ -23,22 +24,22 @@ public class CarpetBelote {
     private static final String EMPTY="";
     private static final String RETURN_LINE="\n";
 
-    private Panel centerDeck;
+    private AbsPanel centerDeck;
 
     private final IntMap<GraphicBeloteCard> cards = new IntMap<GraphicBeloteCard>();
 
     /**sens de distribution des cartes*/
     private boolean horaire;
-    private Panel container;
+    private AbsPanel container;
 
     public static CarpetBelote initTapisBelote(String _lg, int _nombreDeJoueurs, boolean _horaire, StringList _pseudos, int _nombre, AbsCompoFactory _compoFactory) {
-        Panel container_ = Panel.newGrid(0,3);
+        AbsPanel container_ = Panel.newGrid(0,3);
         CarpetBelote c_ = new CarpetBelote();
         c_.horaire=_horaire;
         c_.container = container_;
         if(_nombreDeJoueurs==4) {
             for (int i = 0; i < 9; i++) {
-                Panel surPanneau_;
+                AbsPanel surPanneau_;
                 surPanneau_= Panel.newLineBox();
                 if (i % 2 == 1) {
 
@@ -73,8 +74,8 @@ public class CarpetBelote {
             }
         } else if(_nombreDeJoueurs==6) {
             for(int i=0;i<12;i++) {
-                Panel surPanneau_=Panel.newLineBox();
-                Panel panneau_=Panel.newBorder();
+                AbsPanel surPanneau_=Panel.newLineBox();
+                AbsPanel panneau_=Panel.newBorder();
                 TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==3) {
@@ -162,9 +163,9 @@ public class CarpetBelote {
             }
         } else if(_nombreDeJoueurs==3) {
             for(int i=0;i<9;i++) {
-                Panel surPanneau_;
+                AbsPanel surPanneau_;
                 surPanneau_= Panel.newLineBox();
-                Panel panneau_=Panel.newBorder();
+                AbsPanel panneau_=Panel.newBorder();
                 TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==0) {
@@ -210,8 +211,8 @@ public class CarpetBelote {
             }
         } else {
             for(int i=0;i<9;i++) {
-                Panel surPanneau_=Panel.newLineBox();
-                Panel panneau_=Panel.newBorder();
+                AbsPanel surPanneau_=Panel.newLineBox();
+                AbsPanel panneau_=Panel.newBorder();
                 TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==0) {
@@ -319,7 +320,7 @@ public class CarpetBelote {
         place_.repaintLabel(_fact);
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

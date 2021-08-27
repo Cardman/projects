@@ -2,16 +2,13 @@ package code.gui.document;
 
 import code.formathtml.render.IntRadioButton;
 import code.formathtml.render.MetaRadioButton;
-import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.Panel;
-import code.gui.RadioButton;
+import code.gui.*;
 
 public final class DualRadionButton extends DualInput implements IntRadioButton {
 
     private final RadioButton radio;
     private String value;
-    private Panel panel;
+    private AbsPanel panel;
 
     public DualRadionButton(DualContainer _container, MetaRadioButton _component,
             RenderedPage _page) {

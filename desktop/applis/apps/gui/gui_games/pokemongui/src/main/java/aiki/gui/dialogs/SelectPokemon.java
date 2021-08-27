@@ -58,10 +58,10 @@ public final class SelectPokemon extends SelectDialog {
         storage = _storage;
         initOk();
 //        ok = false;
-        Panel contentPane_ = Panel.newBorder();
-        Panel pag_ = Panel.newPageBox();
+        AbsPanel contentPane_ = Panel.newBorder();
+        AbsPanel pag_ = Panel.newPageBox();
         contentPane_.add(new ScrollPane(new PaginatorPokemon(_parent,pag_, getSelectDial(), _facade).getContainer()), BorderLayout.CENTER);
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         LabelButton detail_ = new LabelButton(messages.getVal(DETAIL));
         detail_.addMouseList(new SeePkDetailEvent(this));
         buttons_.add(detail_);

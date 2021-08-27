@@ -16,7 +16,7 @@ public final class Dialog implements AbsDialog {
 
     private AbstractImage imageIconFrame;
 
-    private Panel contentPane  = Panel.newLineBox();
+    private AbsPanel contentPane  = Panel.newLineBox();
 
     private final JDialog dial = new JDialog();
     private Ownable owner;
@@ -76,8 +76,8 @@ public final class Dialog implements AbsDialog {
         return imageIconFrame;
     }
 
-    public void setContentPane(Panel _contentPane) {
-        dial.setContentPane(_contentPane.getNatComponent());
+    public void setContentPane(AbsPanel _contentPane) {
+        dial.setContentPane(((Panel)_contentPane).getNatComponent());
         contentPane = _contentPane;
     }
 
@@ -86,7 +86,7 @@ public final class Dialog implements AbsDialog {
         p_.add(_contentPane);
         setContentPane(p_);
     }
-    public Panel getPane() {
+    public AbsPanel getPane() {
         return contentPane;
     }
     public void setModal(boolean _modal) {

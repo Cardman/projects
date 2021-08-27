@@ -14,7 +14,7 @@ public final class OtherDialog implements AbsOtherDialog,ChangeableTitle,WithLis
     private Ownable owner;
     private AbstractImage image;
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
-    private Panel contentPane = Panel.newGrid(0,1);
+    private AbsPanel contentPane = Panel.newGrid(0,1);
 
     @Override
     public String getTitle() {
@@ -98,13 +98,13 @@ public final class OtherDialog implements AbsOtherDialog,ChangeableTitle,WithLis
         mapWindow.removeKey(_l);
     }
 
-    public void setContentPane(Panel _contentPane) {
-        dialog.setContentPane(_contentPane.getNatComponent());
+    public void setContentPane(AbsPanel _contentPane) {
+        dialog.setContentPane(((Panel)_contentPane).getNatComponent());
         contentPane = _contentPane;
     }
 
     @Override
-    public Panel getContentPane() {
+    public AbsPanel getContentPane() {
         return contentPane;
     }
 

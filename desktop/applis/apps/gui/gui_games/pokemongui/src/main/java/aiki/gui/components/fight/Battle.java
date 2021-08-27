@@ -135,7 +135,7 @@ public class Battle extends ChildFrame {
 
 //    private int heightUpper;
 
-    private final Panel lower = Panel.newLineBox();
+    private final AbsPanel lower = getFrames().getCompoFactory().newLineBox();
 
     private final FrontBattle frontBattle;
 
@@ -143,10 +143,10 @@ public class Battle extends ChildFrame {
 
     private PokemonPanel pokemonPanel;
 
-    private Panel movesLearnPanel;
+    private AbsPanel movesLearnPanel;
     private ScrollPane movesLearnPanelScroll;
 
-    private Panel abilitiesLearnPanel;
+    private AbsPanel abilitiesLearnPanel;
 
     private final CustList<AbilityLabel> abilityLabels = new CustList<AbilityLabel>();
 
@@ -154,7 +154,7 @@ public class Battle extends ChildFrame {
 
     private FighterPanel fighterBackPanel;
 
-    private Panel panelPlaces;
+    private AbsPanel panelPlaces;
 
     private final CustList<PlaceLabel> placesLabels = new CustList<PlaceLabel>();
 
@@ -164,23 +164,23 @@ public class Battle extends ChildFrame {
 
     private final CustList<FrameHtmlData> htmlDialogs = new CustList<FrameHtmlData>();
 
-    private Panel actionType;
+    private AbsPanel actionType;
 
     private final CustList<ActionLabel> actionsLabels = new CustList<ActionLabel>();
 
-    private Panel actions;
+    private AbsPanel actions;
 
-    private Panel movesPanel;
+    private AbsPanel movesPanel;
 
     private TextLabel selectedItem;
 
-    private Panel targetsPanel;
+    private AbsPanel targetsPanel;
 
     private TargetsPanel targets;
 
     private final CustList<MoveLabel> movesLabels = new CustList<MoveLabel>();
 
-    private Panel fleeWeb;
+    private AbsPanel fleeWeb;
 
     private LabelButton catchBall;
 
@@ -226,9 +226,9 @@ public class Battle extends ChildFrame {
     private boolean enabledClicked;
 
     private final ScrollPane scroll;
-    private final Panel comments = Panel.newPageBox();
-    private final Panel forms = Panel.newLineBox();
-    private final Panel team = Panel.newPageBox();
+    private final AbsPanel comments = getFrames().getCompoFactory().newPageBox();
+    private final AbsPanel forms = getFrames().getCompoFactory().newLineBox();
+    private final AbsPanel team = getFrames().getCompoFactory().newPageBox();
     public Battle(WindowAiki _window, FacadeGame _facade, FrontBattle _frontBattle) {
         super(_window.getLanguageKey(),_window);
 //        super(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
@@ -409,7 +409,7 @@ public class Battle extends ChildFrame {
 //            grid.setConstraints(forms_, c_);
             lower.add(forms);
             lower.add(fleeWeb);
-            Panel comments_ = initCommentsPanel();
+            AbsPanel comments_ = initCommentsPanel();
 //            LOWER.add(new JScrollPane(commentsRound));
             lower.add(comments_);
 //            actionsBattle.add(new JScrollPane(lower));
@@ -466,7 +466,7 @@ public class Battle extends ChildFrame {
             lower.add(forms);
             lower.add(fleeWeb);
 //            LOWER.add(new JScrollPane(commentsRound));
-            Panel comments_ = initCommentsPanel();
+            AbsPanel comments_ = initCommentsPanel();
             lower.add(comments_);
 //            actionsBattle.add(new JScrollPane(lower));
 //            actionsBattle.setRightComponent(new JScrollPane(lower));
@@ -498,7 +498,7 @@ public class Battle extends ChildFrame {
 //            grid.setConstraints(forms_, c_);
             lower.add(forms);
 //            LOWER.add(new JScrollPane(commentsRound));
-            Panel comments_ = initCommentsPanel();
+            AbsPanel comments_ = initCommentsPanel();
             lower.add(comments_);
             //actionsBattle.add(new JScrollPane(lower));
             fleeWeb.add(webLabel);
@@ -532,7 +532,7 @@ public class Battle extends ChildFrame {
             lower.add(forms);
             lower.add(fleeWeb);
 //            LOWER.add(new JScrollPane(commentsRound));
-            Panel comments_ = initCommentsPanel();
+            AbsPanel comments_ = initCommentsPanel();
             lower.add(comments_);
 //            actionsBattle.add(new JScrollPane(lower));
 //            actionsBattle.setRightComponent(new JScrollPane(lower));
@@ -700,7 +700,7 @@ public class Battle extends ChildFrame {
         }
     }
 
-    private Panel initCommentsPanel() {
+    private AbsPanel initCommentsPanel() {
         comments.removeAll();
         comments.add(errorLabel);
         comments.add(commentsErrorsScroll);
@@ -1340,7 +1340,7 @@ public class Battle extends ChildFrame {
     private void displayMoves() {
         NatStringTreeMap<ChosenMoveInfos> moves_ = facade.getFight().getCurrentFighterMoves();
         if (!moves_.isEmpty()) {
-            Panel movesPanel_ = Panel.newPageBox();
+            AbsPanel movesPanel_ = Panel.newPageBox();
             movesPanel_.add(new TextLabel(messages.getVal(SELECT_MOVE_ROUND)));
             movesLabels.clear();
             for (String m: moves_.getKeys()) {

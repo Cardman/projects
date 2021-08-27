@@ -52,7 +52,7 @@ public final class PaginatorItem extends Paginator {
 
     private final ComboBox<SearchingMode> modeDescription;
 
-    private final Panel results = Panel.newGrid(0,1);
+    private final AbsPanel results = Panel.newGrid(0,1);
 
     private final ComboBox<SelectedBoolean> cmpNameSorting;
 
@@ -72,7 +72,7 @@ public final class PaginatorItem extends Paginator {
 
     private final boolean buy;
 
-    public PaginatorItem(WindowAiki _window, Panel _p, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
+    public PaginatorItem(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
         super(_window, ACCESS_ITEM,_p);
         cmpNamePrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
         cmpNumberPrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
@@ -211,7 +211,7 @@ public final class PaginatorItem extends Paginator {
 //                getFacade().setCmpNumberPriorityItem((Integer)cmpNumberPrio.getSelectedItem());
 //            }
 //        });
-        Panel search_;
+        AbsPanel search_;
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
@@ -226,7 +226,7 @@ public final class PaginatorItem extends Paginator {
         search_.add(minNumber);
         search_.add(maxNumber);
         _p.add(search_);
-        Panel sorting_;
+        AbsPanel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         sorting_.add(cmpNameSorting.self());
@@ -241,7 +241,7 @@ public final class PaginatorItem extends Paginator {
         sorting_.add(cmpNumberSorting.self());
         sorting_.add(cmpNumberPrio.self());
         _p.add(sorting_);
-        Panel top_;
+        AbsPanel top_;
         top_ = Panel.newLineBox();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
@@ -274,7 +274,7 @@ public final class PaginatorItem extends Paginator {
         results.add(getHeader());
         //results.add(new JLabel(getMessages().getVal(ITEM)));
         _p.add(new ScrollPane(results));
-        Panel bottom_ = Panel.newLineBox();
+        AbsPanel bottom_ = Panel.newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageItem());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());

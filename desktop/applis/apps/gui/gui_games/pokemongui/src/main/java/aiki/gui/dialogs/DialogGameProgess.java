@@ -46,7 +46,7 @@ public final class DialogGameProgess {
         session.setFrame(absDialog);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_facade);
         session.initializeOnlyConf(_pre, _facade.getLanguage());
-        Panel panel_ = Panel.newPageBox();
+        AbsPanel panel_ = Panel.newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         TextField field_;
 //        LabelButton search_ = new LabelButton(MainWindow.OK);

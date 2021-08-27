@@ -95,7 +95,7 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     //@Override
-    public void setContentPane(Panel _contentPane) {
+    public void setContentPane(AbsPanel _contentPane) {
         commonFrame.setContentPane(_contentPane);
     }
 
@@ -160,7 +160,7 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     //@Override
-    public Panel getPane() {
+    public AbsPanel getPane() {
         return commonFrame.getPane();
     }
 

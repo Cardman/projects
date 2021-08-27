@@ -66,10 +66,10 @@ public final class DialogSoft extends DialogCards {
     private void setDialogue(String _menu, WindowCards _fenetre) {
         menu = _menu;
         String lg_ = _fenetre.getLanguageKey();
-        Panel container_=Panel.newBorder();
+        AbsPanel container_=Panel.newBorder();
         if(StringUtil.quickEq(menu, WindowCards.CST_LAUNCHING)) {
             //Lancement du logiciel
-            Panel panneau_=Panel.newPageBox();
+            AbsPanel panneau_=Panel.newPageBox();
             list = new ComboBox<GameEnum>(_fenetre.getFrames().getGeneComboBox().createCombo(_fenetre.getImageFactory(),new StringList(), -1, _fenetre.getCompoFactory()));
             EnumMap<GameEnum,String> mess_;
             EnumList<GameEnum> order_;
@@ -89,7 +89,7 @@ public final class DialogSoft extends DialogCards {
             panneau_.add(saveHomeFolder);
             container_.add(panneau_,BorderLayout.CENTER);
         } else if(StringUtil.quickEq(menu, WindowCards.CST_TIMING)) {
-            Panel panneau_=Panel.newGrid(0,1);
+            AbsPanel panneau_=Panel.newGrid(0,1);
             TextLabel label_;
             int valeur_=0;
             int minValeur_=0;
@@ -139,7 +139,7 @@ public final class DialogSoft extends DialogCards {
             panneau_.setPreferredSize(new Dimension(600,400));
             container_.add(panneau_,BorderLayout.CENTER);
         } else {
-            Panel panneau_=Panel.newGrid(0,1);
+            AbsPanel panneau_=Panel.newGrid(0,1);
             clickCard=new CustCheckBox(messages.getVal(CLICK_FOR_PLAYING_CARD));
             clickCard.setSelected(parametres.getJeuCarteClic());
             panneau_.add(clickCard);

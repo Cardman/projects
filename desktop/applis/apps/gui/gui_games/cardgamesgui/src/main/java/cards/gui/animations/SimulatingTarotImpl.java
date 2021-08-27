@@ -106,45 +106,45 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         container.getPause().setEnabledMenu(true);
         String lg_ = container.getOwner().getLanguageKey();
         GameTarot partie_=partieTarotSimulee();
-        Panel contentPane_ = Panel.newPageBox();
-        Panel container_=Panel.newBorder();
+        AbsPanel contentPane_ = Panel.newPageBox();
+        AbsPanel container_=Panel.newBorder();
         container_.add(new TextLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         StringList pseudos_ = pseudosSimuleeTarot();
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingTarot().isClockwise(), partie_.getDistribution().derniereMain().total(), container.getOwner().getCompoFactory());
         container.getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
         container.setPanelHand(Panel.newLineBox());
-        Panel panneau_=Panel.newLineBox();
+        AbsPanel panneau_=Panel.newLineBox();
         panneau_.add(container.getPanelHand());
         container.setPanelDiscardedTrumps(Panel.newLineBox());
         container.getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(container.getPanelDiscardedTrumps());
         panneau_.setBackground(Color.BLUE);
         container_.add(panneau_,BorderLayout.SOUTH);
-        Panel panneau2_=Panel.newPageBox();
+        AbsPanel panneau2_=Panel.newPageBox();
         container.setEvents(new TextArea(ContainerTarot.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(container.getEvents()));
         container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),container.getDisplayingTarot().isClockwise(),pseudos_, container.getWindow().getCompoFactory()));
         panneau2_.add(container.getMiniPanel());
         container.setHandfuls(new ByteMap<TextLabel>());
-        container.setDeclaredHandfuls(new ByteMap<Panel>());
-        Panel declaredHandfuls_ = Panel.newGrid(0,1);
+        container.setDeclaredHandfuls(new ByteMap<AbsPanel>());
+        AbsPanel declaredHandfuls_ = Panel.newGrid(0,1);
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
-            Panel declaredHandfulGroup_ = Panel.newLineBox();
+            AbsPanel declaredHandfulGroup_ = Panel.newLineBox();
             TextLabel lab_ = new TextLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
             TextLabel handful_ = new TextLabel(ContainerGame.EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             container.getHandfuls().put(i, handful_);
-            Panel declaredHandful_ = Panel.newLineBox();
+            AbsPanel declaredHandful_ = Panel.newLineBox();
             declaredHandfulGroup_.add(declaredHandful_);
             container.getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
         panneau2_.add(new ScrollPane(declaredHandfuls_));
-        Panel sousPanneau_=Panel.newGrid(0,1);
+        AbsPanel sousPanneau_=Panel.newGrid(0,1);
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
@@ -155,7 +155,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         container.setContentPane(contentPane_);
         panneau_=container.getPanneauBoutonsJeu();
         panneau_.add(stopButton);
-        Panel panneau1_=container.getPanelHand();
+        AbsPanel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand())) {
@@ -209,7 +209,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         editor_.initialize(stds_);
         scroll_.setPreferredSize(new Dimension(300,300));
 
-        Panel panneau_=Panel.newPageBox();
+        AbsPanel panneau_=Panel.newPageBox();
         panneau_.add(scroll_);
         panneau_.add(stopButton);
         panneau_.add(container.getOwner().getClock());

@@ -57,9 +57,7 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     }
     public CustCellRender<T> getRender() {return inner;}
     public void setRender(CustCellRender<T> _render) {
-		CustSelList<T> r_ = new CustSelList<>();
-		r_.setRender(_render);
-		r_.setList(elts);
+		CustSelList<T> r_ = new CustSelList<>(elts,_render);
 		inner = _render;
 		list.setCellRenderer(r_);
     }
@@ -89,9 +87,10 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
     }
 
     @Override
-    public void set(int _index, AbsPreparedLabel _lab, T _elt) {
+    public int set(int _index, AbsPreparedLabel _lab, T _elt) {
         elts.set(_index, _elt);
         model.set(_index, _elt);
+        return _index;
     }
 
     public void clear() {
@@ -145,15 +144,11 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T> {
         return list.getSelectedIndex();
     }
 
-    public T getSelectedValue() {
-        return list.getSelectedValue();
+    @Override
+    public int getSelectedValuesLsLen() {
+        return list.getSelectedValuesList().size();
     }
 
-    public CustList<T> getSelectedValuesLs() {
-        CustList<T> list_ = new CustList<>();
-        list.getSelectedValuesList().forEach(list_::add);
-        return list_;
-    }
     public T get(int _i) {
         return elts.get(_i);
     }

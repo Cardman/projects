@@ -51,10 +51,10 @@ public final class SelectItem extends SelectDialog {
         facade = _facade;
         initOk();
 //        ok = false;
-        Panel contentPane_ = Panel.newBorder();
-        Panel pag_ = Panel.newPageBox();
+        AbsPanel contentPane_ = Panel.newBorder();
+        AbsPanel pag_ = Panel.newPageBox();
         contentPane_.add(new ScrollPane(new PaginatorItem(_parent,pag_, getSelectDial(), _facade, !_sell).getContainer()), BorderLayout.CENTER);
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         if (!_buy) {
             giveCheckBox = new CustCheckBox(messages.getVal(GIVE));
 //            giveCheckBox.addChangeListener(new ChangeListener() {

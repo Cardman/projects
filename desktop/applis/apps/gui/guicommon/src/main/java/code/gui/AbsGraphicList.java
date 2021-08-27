@@ -1,13 +1,14 @@
 package code.gui;
 
 import code.util.CustList;
+import code.util.Ints;
 
 public interface AbsGraphicList<T> {
     void add(T _elt);
     void add(int _index, AbsPreparedLabel _lab, T _elt);
     void add(int _index, T _elt);
     void set(int _index, T _elt);
-    void set(int _index, AbsPreparedLabel _lab, T _elt);
+    int set(int _index, AbsPreparedLabel _lab, T _elt);
     void clear();
     void clearSelection();
     void clearRevalidate();
@@ -27,9 +28,7 @@ public interface AbsGraphicList<T> {
 
     CustList<T> getList();
 
-    T getSelectedValue();
-
-    CustList<T> getSelectedValuesLs();
+    int getSelectedValuesLsLen();
 
     T get(int _i);
 
@@ -38,4 +37,6 @@ public interface AbsGraphicList<T> {
     AbsCustComponent self();
     AbsCustComponent scroll();
     AbsCustComponent visible();
+
+    Ints getSelectedIndexes();
 }

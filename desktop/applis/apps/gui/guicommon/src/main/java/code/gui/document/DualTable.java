@@ -4,7 +4,7 @@ import code.formathtml.render.MetaCaption;
 import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaTable;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.util.Ints;
 
@@ -30,7 +30,7 @@ public final class DualTable extends DualContainer {
     }
 
     @Override
-    protected Panel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page) {
+    protected AbsPanel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page) {
         return Panel.newPageBox();
     }
 
@@ -54,8 +54,8 @@ public final class DualTable extends DualContainer {
             getChildren().last().setNextSibling(_dual);
         }
         getChildren().add(_dual);
-        if (c_ instanceof Panel) {
-            ((Panel)c_).add(_dual.getGraphic());
+        if (c_ instanceof AbsPanel) {
+            ((AbsPanel)c_).add(_dual.getGraphic());
         }
         if (remNext_ > -1) {
             if (remNext_ != remainders.size() - 1) {

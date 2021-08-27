@@ -75,7 +75,7 @@ public final class PaginatorPokemon extends Paginator {
 
     private final TextField maxPossEvos = new TextField(16);
 
-    private final Panel results = Panel.newGrid(0,1);
+    private final AbsPanel results = Panel.newGrid(0,1);
 
     private final ComboBox<SelectedBoolean> cmpNameSorting;
 
@@ -101,7 +101,7 @@ public final class PaginatorPokemon extends Paginator {
 
     private final NumComboBox cmpPossEvosPrio;
 
-    public PaginatorPokemon(WindowAiki _window, Panel _p, ChangeableTitle _w, FacadeGame _d) {
+    public PaginatorPokemon(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_POKEMON,_p);
         cmpNamePrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
         cmpAbilityPrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
@@ -344,7 +344,7 @@ public final class PaginatorPokemon extends Paginator {
 //                getFacade().setCmpPossEvosPriorityFirstBox((Integer)cmpPossEvosPrio.getSelectedItem());
 //            }
 //        });
-        Panel search_;
+        AbsPanel search_;
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
@@ -371,7 +371,7 @@ public final class PaginatorPokemon extends Paginator {
         search_.add(minPossEvos);
         search_.add(maxPossEvos);
         _p.add(search_);
-        Panel sorting_;
+        AbsPanel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         sorting_.add(cmpNameSorting.self());
@@ -392,7 +392,7 @@ public final class PaginatorPokemon extends Paginator {
         sorting_.add(cmpPossEvosSorting.self());
         sorting_.add(cmpPossEvosPrio.self());
         _p.add(sorting_);
-        Panel top_;
+        AbsPanel top_;
         top_ = Panel.newLineBox();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
@@ -430,7 +430,7 @@ public final class PaginatorPokemon extends Paginator {
         getHeader().setPreferredSize(new Dimension(w_+secondCol_+thirdCol_, HEIGTH_CHARS+HEIGTH_CHARS));
         results.add(getHeader());
         _p.add(new ScrollPane(results));
-        Panel bottom_ = Panel.newLineBox();
+        AbsPanel bottom_ = Panel.newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());

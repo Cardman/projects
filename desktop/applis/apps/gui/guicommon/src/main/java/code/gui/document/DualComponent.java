@@ -2,16 +2,12 @@ package code.gui.document;
 
 import java.awt.Color;
 
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-
 import code.formathtml.render.BorderEnum;
 import code.formathtml.render.IntComponent;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaStyle;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.Panel;
+import code.gui.AbsPanel;
 import code.util.CustList;
 
 public abstract class DualComponent implements IntComponent {
@@ -67,8 +63,8 @@ public abstract class DualComponent implements IntComponent {
 
     public int getComponentCount() {
         AbsCustComponent g_ = getGraphic();
-        if (g_ instanceof Panel) {
-            return ((Panel)g_).getComponentCount();
+        if (g_ instanceof AbsPanel) {
+            return ((AbsPanel)g_).getComponentCount();
         }
         return 0;
     }
@@ -83,8 +79,8 @@ public abstract class DualComponent implements IntComponent {
     }
     public AbsCustComponent getComponent(int _index) {
         AbsCustComponent g_ = getGraphic();
-        if (g_ instanceof Panel) {
-            return ((Panel)g_).getComponent(_index);
+        if (g_ instanceof AbsPanel) {
+            return ((AbsPanel)g_).getComponent(_index);
         }
         return null;
     }
@@ -96,8 +92,8 @@ public abstract class DualComponent implements IntComponent {
         }
         children.add(_dual);
         AbsCustComponent g_ = getGraphic();
-        if (g_ instanceof Panel) {
-            ((Panel)g_).add(_dual.getGraphic());
+        if (g_ instanceof AbsPanel) {
+            ((AbsPanel)g_).add(_dual.getGraphic());
         }
         if (_dual instanceof DualAnimatedImage) {
             page.getAnims().add((DualAnimatedImage) _dual);

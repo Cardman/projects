@@ -103,7 +103,7 @@ public final class PaginatorHealingItem extends Paginator {
 
     private final ComboBox<SearchingMode> modeStatus;
 
-    private final Panel results = Panel.newGrid(0,1);
+    private final AbsPanel results = Panel.newGrid(0,1);
 
     private final ComboBox<SelectedBoolean> cmpNameSorting;
 
@@ -145,7 +145,7 @@ public final class PaginatorHealingItem extends Paginator {
 
     private final NumComboBox cmpNbStatusPrio;
 
-    public PaginatorHealingItem(WindowAiki _window, Panel _p, ChangeableTitle _w, FacadeGame _d) {
+    public PaginatorHealingItem(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_HEALING_ITEM,_p);
         cmpNamePrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
         cmpDescriptionPrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
@@ -490,7 +490,7 @@ public final class PaginatorHealingItem extends Paginator {
 //                getFacade().setCmpNbHealedStatusPriorityHealingItem((Integer)cmpNbStatusPrio.getSelectedItem());
 //            }
 //        });
-        Panel search_;
+        AbsPanel search_;
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
@@ -534,7 +534,7 @@ public final class PaginatorHealingItem extends Paginator {
         search_.add(statis.self());
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         _p.add(search_);
-        Panel sorting_;
+        AbsPanel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         sorting_.add(cmpNameSorting.self());
@@ -567,7 +567,7 @@ public final class PaginatorHealingItem extends Paginator {
         sorting_.add(cmpNbStatusSorting.self());
         sorting_.add(cmpNbStatusPrio.self());
         _p.add(sorting_);
-        Panel top_;
+        AbsPanel top_;
         top_ = Panel.newLineBox();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
@@ -593,7 +593,7 @@ public final class PaginatorHealingItem extends Paginator {
         getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         _p.add(new ScrollPane(results));
-        Panel bottom_ = Panel.newLineBox();
+        AbsPanel bottom_ = Panel.newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageHealingItem());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());

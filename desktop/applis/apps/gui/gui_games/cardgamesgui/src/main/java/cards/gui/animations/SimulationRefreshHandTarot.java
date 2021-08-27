@@ -3,6 +3,7 @@ import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
@@ -21,7 +22,7 @@ public final class SimulationRefreshHandTarot implements Runnable {
 
     @Override
     public void run() {
-        Panel panneau1_=container.getPanelHand();
+        AbsPanel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         String lg_ = container.getOwner().getLanguageKey();
         /*On place les cartes de l'utilisateur*/

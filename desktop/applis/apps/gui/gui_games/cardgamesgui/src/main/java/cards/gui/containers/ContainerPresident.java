@@ -13,6 +13,7 @@ import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.PresidentResoucesAccess;
 import cards.president.sml.DocumentReaderPresidentUtil;
+import code.gui.AbsPanel;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.images.AbstractImageFactory;
@@ -30,8 +31,8 @@ public class ContainerPresident extends ContainerGame {
     public static final String EMPTY="";
     public static final String TAB="\t";
 
-    private Panel panelReceivedCards;
-    private Panel panelGivenCards;
+    private AbsPanel panelReceivedCards;
+    private AbsPanel panelGivenCards;
 
     /**Renvoie tous les scores de toutes les parties non solitaires*/
     private CustList<Longs> scores=new CustList<Longs>();
@@ -117,8 +118,8 @@ public class ContainerPresident extends ContainerGame {
         virtualHand.ajouter(c_);
     }
 
-    protected Panel assemble() {
-        Panel panelCards_ = Panel.newLineBox();
+    protected AbsPanel assemble() {
+        AbsPanel panelCards_ = Panel.newLineBox();
         panelCards_.add(getPanelGivenCards());
         panelCards_.add(getPanelReceivedCards());
         return panelCards_;
@@ -186,19 +187,19 @@ public class ContainerPresident extends ContainerGame {
         givingCardsOk = _givingCardsOk;
     }
 
-    protected Panel getPanelReceivedCards() {
+    protected AbsPanel getPanelReceivedCards() {
         return panelReceivedCards;
     }
 
-    public void setPanelReceivedCards(Panel _panelReceivedCards) {
+    public void setPanelReceivedCards(AbsPanel _panelReceivedCards) {
         panelReceivedCards = _panelReceivedCards;
     }
 
-    protected Panel getPanelGivenCards() {
+    protected AbsPanel getPanelGivenCards() {
         return panelGivenCards;
     }
 
-    public void setPanelGivenCards(Panel _panelGivenCards) {
+    public void setPanelGivenCards(AbsPanel _panelGivenCards) {
         panelGivenCards = _panelGivenCards;
     }
 

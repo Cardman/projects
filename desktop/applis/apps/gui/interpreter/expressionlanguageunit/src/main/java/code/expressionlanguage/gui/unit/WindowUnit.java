@@ -38,12 +38,12 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final MenuItem stop;
     private final CheckBoxMenuItem memory;
 
-    private final Panel contentPane;
-    private final Panel form;
+    private final AbsPanel contentPane;
+    private final AbsPanel form;
     private final PlainLabel content;
     private final TextArea conf;
     private final PlainButton launch;
-    private final Panel progressing;
+    private final AbsPanel progressing;
     private final PlainLabel doneTests;
     private final PlainLabel doneTestsCount;
 

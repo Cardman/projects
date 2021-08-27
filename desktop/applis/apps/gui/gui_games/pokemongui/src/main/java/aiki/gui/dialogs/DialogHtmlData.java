@@ -80,7 +80,7 @@ public final class DialogHtmlData {
     private void initSession(RenderedPage _session) {
         session = _session;
         _session.setFrame(absDialog);
-        Panel panel_ = Panel.newPageBox();
+        AbsPanel panel_ = Panel.newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         TextField field_;
 //        LabelButton search_ = new LabelButton(MainWindow.OK);

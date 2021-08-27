@@ -3,6 +3,7 @@ import java.awt.Dimension;
 
 import cards.consts.Role;
 import cards.gui.labels.CellPlayer;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
@@ -15,7 +16,7 @@ public final class MiniCarpet {
 
     private final IntMap<CellPlayer> cellsPlayers = new IntMap<CellPlayer>();
 
-    private Panel container;
+    private AbsPanel container;
 
     private MiniCarpet() {
     }
@@ -26,7 +27,7 @@ public final class MiniCarpet {
         if(_nombreDeJoueurs==4) {
             m_.container = Panel.newGrid(0,3);
             for(int i=0;i<9;i++) {
-                Panel surPanneau_= Panel.newLineBox();
+                AbsPanel surPanneau_= Panel.newLineBox();
                 CellPlayer cell_ = new CellPlayer(_compoFactory);
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i%2==1) {
@@ -62,7 +63,7 @@ public final class MiniCarpet {
         } else if(_nombreDeJoueurs==6) {
             m_.container = Panel.newGrid(0,4);
             for(int i=0;i<12;i++) {
-                Panel surPanneau_=Panel.newLineBox();
+                AbsPanel surPanneau_=Panel.newLineBox();
                 CellPlayer cell_ = new CellPlayer(_compoFactory);
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i==1) {
@@ -122,7 +123,7 @@ public final class MiniCarpet {
         } else if(_nombreDeJoueurs==3) {
             m_.container = Panel.newGrid(0,3);
             for(int i=0;i<9;i++) {
-                Panel surPanneau_;
+                AbsPanel surPanneau_;
                 surPanneau_= Panel.newLineBox();
                 CellPlayer cell_ = new CellPlayer(_compoFactory);
                 cell_.setPreferredSize(new Dimension(20,10));
@@ -156,7 +157,7 @@ public final class MiniCarpet {
         } else {
             m_.container = Panel.newGrid(0,3);
             for(int i=0;i<9;i++) {
-                Panel surPanneau_=Panel.newLineBox();
+                AbsPanel surPanneau_=Panel.newLineBox();
                 CellPlayer cell_ = new CellPlayer(_compoFactory);
                 cell_.setPreferredSize(new Dimension(20,10));
                 if(i==0) {
@@ -222,7 +223,7 @@ public final class MiniCarpet {
         cellsPlayers.getVal(_player).repaintLabel(_fact);
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

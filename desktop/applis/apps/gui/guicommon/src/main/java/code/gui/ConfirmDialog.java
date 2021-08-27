@@ -99,7 +99,7 @@ public final class ConfirmDialog {
     private void initMessageSingleButton(String _message, String _title, String _language, int _option) {
         StringMap<String> messages_ = confirm(_language);
         absDialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
 //        JLabel message_ = new JLabel(_message);
 //        Font font_ = message_.getFont();
 //        FontMetrics fontMet_ = message_.getFontMetrics(font_);
@@ -108,7 +108,7 @@ public final class ConfirmDialog {
 //        message_.setPreferredSize(new Dimension(w_,h_));
 //        content_.add(message_);
         content_.add(new WrappedLabel(list.getImageFactory(), _message, list.getCompoFactory()));
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         if (_option == JOptionPane.INFORMATION_MESSAGE) {
             buttons_.add(list.getCompoFactory().newPreparedLabel(INFORMATION_ICON));
         } else if (_option == JOptionPane.ERROR_MESSAGE) {
@@ -135,9 +135,9 @@ public final class ConfirmDialog {
     private void initComponentSingleButton(AbsCustComponent _message, String _title, String _language, int _option) {
         StringMap<String> messages_ = confirm(_language);
         absDialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(_message);
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         if (_option == JOptionPane.INFORMATION_MESSAGE) {
             buttons_.add(list.getCompoFactory().newPreparedLabel(INFORMATION_ICON));
         } else if (_option == JOptionPane.ERROR_MESSAGE) {
@@ -157,7 +157,7 @@ public final class ConfirmDialog {
     private void init(String _message, String _title, String _language, int _option) {
         StringMap<String> messages_ = confirm(_language);
         absDialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
 //        JLabel message_ = new JLabel(_message);
 //        Font font_ = message_.getFont();
 //        FontMetrics fontMet_ = message_.getFontMetrics(font_);
@@ -166,7 +166,7 @@ public final class ConfirmDialog {
 //        message_.setPreferredSize(new Dimension(w_,h_));
 //        content_.add(message_);
         content_.add(new WrappedLabel(list.getImageFactory(), _message, list.getCompoFactory()));
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         if (_option == JOptionPane.YES_NO_OPTION) {
             answer = JOptionPane.NO_OPTION;
             buttons_.add(list.getCompoFactory().newPreparedLabel(QUESTION_ICON));
@@ -203,7 +203,7 @@ public final class ConfirmDialog {
     private void init(String _message, String _value, String _title, String _language) {
         StringMap<String> messages_ = confirm(_language);
         absDialog.setTitle(_title);
-        Panel content_ = Panel.newGrid(0,1);
+        AbsPanel content_ = Panel.newGrid(0,1);
         content_.add(list.getCompoFactory().newPreparedLabel(QUESTION_ICON));
 //        JLabel message_ = new JLabel(_message);
 //        Font font_ = message_.getFont();
@@ -217,7 +217,7 @@ public final class ConfirmDialog {
         field.setText(_value);
         content_.add(field);
         answer = JOptionPane.NO_OPTION;
-        Panel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = Panel.newLineBox();
         LabelButton button_ = new LabelButton(messages_.getVal(OK));
         button_.addMouseList(new AnswerTextEvent(this, JOptionPane.YES_OPTION));
         buttons_.add(button_);

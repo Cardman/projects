@@ -44,7 +44,7 @@ public final class PaginatorEgg extends Paginator {
 
     private final TextField maxSteps = new TextField(16);
 
-    private final Panel results = Panel.newGrid(0,1);
+    private final AbsPanel results = Panel.newGrid(0,1);
 
     private final ComboBox<SelectedBoolean> cmpNameSorting;
 
@@ -54,7 +54,7 @@ public final class PaginatorEgg extends Paginator {
 
     private final NumComboBox cmpStepsPrio;
 
-    public PaginatorEgg(WindowAiki _window, Panel _p, ChangeableTitle _w, FacadeGame _d) {
+    public PaginatorEgg(WindowAiki _window, AbsPanel _p, ChangeableTitle _w, FacadeGame _d) {
         super(_window, ACCESS_EGG,_p);
         cmpNamePrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
         cmpStepsPrio = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
@@ -134,7 +134,7 @@ public final class PaginatorEgg extends Paginator {
 //                getFacade().setCmpStepsPriorityEgg((Integer)cmpStepsPrio.getSelectedItem());
 //            }
 //        });
-        Panel search_;
+        AbsPanel search_;
         search_ = Panel.newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
@@ -143,7 +143,7 @@ public final class PaginatorEgg extends Paginator {
         search_.add(minSteps);
         search_.add(maxSteps);
         _p.add(search_);
-        Panel sorting_;
+        AbsPanel sorting_;
         sorting_ = Panel.newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         sorting_.add(cmpNameSorting.self());
@@ -152,7 +152,7 @@ public final class PaginatorEgg extends Paginator {
         sorting_.add(cmpStepsSorting.self());
         sorting_.add(cmpStepsPrio.self());
         _p.add(sorting_);
-        Panel top_;
+        AbsPanel top_;
         top_ = Panel.newLineBox();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
@@ -173,7 +173,7 @@ public final class PaginatorEgg extends Paginator {
         getHeader().setPreferredSize(new Dimension(getHeader().width(h_.toString()), HEIGTH_CHARS));
         results.add(getHeader());
         _p.add(new ScrollPane(results));
-        Panel bottom_ = Panel.newLineBox();
+        AbsPanel bottom_ = Panel.newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageEgg());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());

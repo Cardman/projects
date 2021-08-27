@@ -18,6 +18,7 @@ import cards.gui.labels.LabelPoints;
 import cards.gui.labels.SuitLabel;
 import cards.gui.panels.CarpetBelote;
 import cards.main.LaunchingCards;
+import code.gui.AbsPanel;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.images.AbstractImageFactory;
@@ -36,7 +37,7 @@ public class ContainerBelote extends ContainerGame {
     public static final String EMPTY="";
     public static final String TAB="\t";
 
-    private Panel panneauBoutonsJeuPoints;
+    private AbsPanel panneauBoutonsJeuPoints;
 
     /**Renvoie tous les scores de toutes les parties non solitaires*/
     private CustList<Longs> scores=new CustList<Longs>();
@@ -184,10 +185,10 @@ public class ContainerBelote extends ContainerGame {
     protected void setBidType(BidBelote _bidType) {
         bidType = _bidType;
     }
-    protected Panel getPanneauBoutonsJeuPoints() {
+    protected AbsPanel getPanneauBoutonsJeuPoints() {
         return panneauBoutonsJeuPoints;
     }
-    protected void setPanneauBoutonsJeuPoints(Panel _panneauBoutonsJeuPoints) {
+    protected void setPanneauBoutonsJeuPoints(AbsPanel _panneauBoutonsJeuPoints) {
         panneauBoutonsJeuPoints = _panneauBoutonsJeuPoints;
     }
     public boolean isCanPlay() {

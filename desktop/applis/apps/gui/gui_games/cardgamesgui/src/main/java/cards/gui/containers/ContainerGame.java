@@ -39,9 +39,9 @@ public class ContainerGame implements Containable {
     static final String SPACE = " ";
 
     private static final char LINE_RETURN = '\n';
-    private Panel actionsHistory;
-    private Panel panneauBoutonsJeu;
-    private Panel panelHand;
+    private AbsPanel actionsHistory;
+    private AbsPanel panneauBoutonsJeu;
+    private AbsPanel panelHand;
     private WindowCards window;
     /**Parametres d'informations sur
     des pseudonymes*/
@@ -68,7 +68,7 @@ public class ContainerGame implements Containable {
     private DisplayingPresident displayingPresident;
     private DisplayingTarot displayingTarot;
     private ByteMap<TextLabel> handfuls = new ByteMap<TextLabel>();
-    private ByteMap<Panel> declaredHandfuls = new ByteMap<Panel>();
+    private ByteMap<AbsPanel> declaredHandfuls = new ByteMap<AbsPanel>();
     private Carpet tapis = new Carpet();
     private boolean changerPileFin;
     public ContainerGame(WindowCards _window) {
@@ -151,10 +151,10 @@ public class ContainerGame implements Containable {
     public final WindowCards getOwner() {
         return getWindow();
     }
-    protected Panel getPane() {
+    protected AbsPanel getPane() {
         return getWindow().getPane();
     }
-    public void setContentPane(Panel _container) {
+    public void setContentPane(AbsPanel _container) {
         getWindow().setContentPane(_container);
     }
     public void saveCurrentGame(String _file) {
@@ -237,10 +237,10 @@ public class ContainerGame implements Containable {
     public void setCarteSortie(boolean _carteSortie) {
         carteSortie = _carteSortie;
     }
-    public ByteMap<Panel> getDeclaredHandfuls() {
+    public ByteMap<AbsPanel> getDeclaredHandfuls() {
         return declaredHandfuls;
     }
-    public void setDeclaredHandfuls(ByteMap<Panel> _declaredHandfuls) {
+    public void setDeclaredHandfuls(ByteMap<AbsPanel> _declaredHandfuls) {
         declaredHandfuls = _declaredHandfuls;
     }
     public StringMap<String> getMessages() {
@@ -276,7 +276,7 @@ public class ContainerGame implements Containable {
     public void setChangerPileFin(boolean _changerPileFin) {
         changerPileFin = _changerPileFin;
     }
-    public Panel getMiniPanel() {
+    public AbsPanel getMiniPanel() {
         return mini.getContainer();
     }
     public MiniCarpet getMini() {
@@ -339,25 +339,25 @@ public class ContainerGame implements Containable {
     protected void setReglesTarot(RulesTarot _reglesTarot) {
         reglesTarot = _reglesTarot;
     }
-    public Panel getPanelHand() {
+    public AbsPanel getPanelHand() {
         return panelHand;
     }
-    public void setPanelHand(Panel _panelHand) {
+    public void setPanelHand(AbsPanel _panelHand) {
         panelHand = _panelHand;
     }
 
-    public Panel getActionsHistory() {
+    public AbsPanel getActionsHistory() {
         return actionsHistory;
     }
 
-    public void setActionsHistory(Panel _actionsHistory) {
+    public void setActionsHistory(AbsPanel _actionsHistory) {
         actionsHistory = _actionsHistory;
     }
 
-    public Panel getPanneauBoutonsJeu() {
+    public AbsPanel getPanneauBoutonsJeu() {
         return panneauBoutonsJeu;
     }
-    public void setPanneauBoutonsJeu(Panel _panneauBoutonsJeu) {
+    public void setPanneauBoutonsJeu(AbsPanel _panneauBoutonsJeu) {
         panneauBoutonsJeu = _panneauBoutonsJeu;
     }
     public WindowCards getWindow() {

@@ -55,7 +55,7 @@ public abstract class Paginator {
 
     private ChangeableTitle window;
 
-    private final Panel container;
+    private final AbsPanel container;
 
     private FacadeGame facade;
 
@@ -89,7 +89,7 @@ public abstract class Paginator {
 
     private final WindowAiki main;
 
-    public Paginator(WindowAiki _window, String _access, Panel _dest) {
+    public Paginator(WindowAiki _window, String _access, AbsPanel _dest) {
         main = _window;
         pages = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
         container = _dest;
@@ -281,7 +281,7 @@ public abstract class Paginator {
         return resultsLabels;
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

@@ -52,7 +52,7 @@ public abstract class ChildFrame implements AbsChildFrame {
     }
 
     //@Override
-    public void setContentPane(Panel _contentPane) {
+    public void setContentPane(AbsPanel _contentPane) {
         absCommonFrame.setContentPane(_contentPane);
     }
 
@@ -132,7 +132,7 @@ public abstract class ChildFrame implements AbsChildFrame {
     }
 
     //@Override
-    public Panel getPane() {
+    public AbsPanel getPane() {
         return absCommonFrame.getPane();
     }
 

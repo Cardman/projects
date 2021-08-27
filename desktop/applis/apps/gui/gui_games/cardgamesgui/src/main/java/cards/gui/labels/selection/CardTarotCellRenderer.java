@@ -28,7 +28,7 @@ public class CardTarotCellRenderer extends CustCellRender<CardTarot>{
     @Override
     public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
-        card= getList().get(_index);
+        card= get(_index);
         selectionne=_isSelected;
         _currentLab.setPreferredSize(new Dimension(50,10));
     }

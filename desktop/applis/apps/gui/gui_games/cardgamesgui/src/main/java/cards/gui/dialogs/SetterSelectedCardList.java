@@ -2,6 +2,7 @@ package cards.gui.dialogs;
 
 import cards.gui.WindowCards;
 import cards.gui.panels.CardsScrollableList;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.gui.TextLabel;
 import code.util.CustList;
@@ -12,7 +13,7 @@ public interface SetterSelectedCardList {
     void setNombreCartesSelectionnees(int _nombreCartesSelectionnees);
     int getNombreCartesSelectionneesPrecedent();
     void setNombreCartesSelectionneesPrecedent(int _nombreCartesSelectionneesPrecedent);
-    Panel getPanelsCards();
+    AbsPanel getPanelsCards();
     TextLabel getLabelSelectCards();
     CustList<CardsScrollableList> getHands(boolean _addStack);
     void validateRulesDeal(WindowCards _parent);

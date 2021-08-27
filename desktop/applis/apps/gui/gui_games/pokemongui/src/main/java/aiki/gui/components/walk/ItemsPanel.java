@@ -5,10 +5,7 @@ import java.awt.Dimension;
 import javax.swing.SwingConstants;
 
 import aiki.facade.FacadeGame;
-import code.gui.AbsGraphicList;
-import code.gui.GraphicList;
-import code.gui.Panel;
-import code.gui.TextLabel;
+import code.gui.*;
 import code.gui.images.AbstractImageFactory;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -26,7 +23,7 @@ public class ItemsPanel {
 
     private final FacadeGame facade;
 
-    private final Panel container;
+    private final AbsPanel container;
 
     public ItemsPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, AbsGraphicList<String> _liste) {
         liste = _liste;
@@ -76,7 +73,7 @@ public class ItemsPanel {
         liste.clearSelection();
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

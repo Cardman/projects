@@ -60,8 +60,8 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         getCardDialog().setTitle(messages.getVal(TITLE));
         getCardDialog().setLocationRelativeTo(_fenetre);
         ipOrHostName = new TextField();
-        Panel pane_ = Panel.newGrid(0, 1);
-        Panel panel_ = Panel.newGrid(0, 2);
+        AbsPanel pane_ = Panel.newGrid(0, 1);
+        AbsPanel panel_ = Panel.newGrid(0, 2);
         if (_game == GameEnum.TAROT) {
             EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
             int minJoueurs_=repValides_.get(0).getNombreJoueurs();

@@ -44,7 +44,7 @@ public final class WindowConverter extends GroupFrame {
     public WindowConverter(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setTitle(CONVERT_IMAGE);
-        Panel content_ = Panel.newPageBox();
+        AbsPanel content_ = _list.getCompoFactory().newPageBox();
         readImages = new CustCheckBox(READ_IMAGES);
         readImages.setSelected(true);
         content_.add(readImages);

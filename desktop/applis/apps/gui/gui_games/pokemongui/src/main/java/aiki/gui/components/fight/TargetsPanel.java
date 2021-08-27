@@ -5,6 +5,7 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
 import aiki.gui.listeners.SelectFoeTarget;
 import aiki.gui.listeners.SelectPlayerTarget;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.gui.TextLabel;
 import code.util.CustList;
@@ -18,7 +19,7 @@ public class TargetsPanel {
 
     private CustList<MiniTargetLabel> playerTargets = new CustList<MiniTargetLabel>();
 
-    private Panel container = Panel.newLineBox();
+    private AbsPanel container = Panel.newLineBox();
 
     public void setTargets(FacadeGame _facade, Battle _battle) {
         byte mult_ = _facade.getFight().getMult();
@@ -228,7 +229,7 @@ public class TargetsPanel {
         }
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

@@ -32,7 +32,7 @@ public class TmRenderer extends CustCellRender<String> {
             AbsPreparedLabel _currentLab, int _arg2,
             boolean _selected, boolean _arg4) {
         selected = _selected;
-        name = getList().get(_arg2);
+        name = get(_arg2);
 //        short tm_ = facade.getData().getTm().getKeys(name).first();
         short tm_ = facade.getData().getTmByMove(name).first();
         price = facade.getData().getTmPrice().getVal(tm_);

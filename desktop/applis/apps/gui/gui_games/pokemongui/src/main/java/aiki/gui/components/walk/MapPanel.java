@@ -7,6 +7,7 @@ import aiki.gui.components.labels.TileLabel;
 import aiki.gui.listeners.TileListener;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
@@ -15,7 +16,7 @@ import code.util.TreeMap;
 
 public class MapPanel {
 
-    private Panel container;
+    private AbsPanel container;
 
     public void init(WindowAiki _fact, FacadeGame _facade, ScenePanel _scene) {
         AbsCompoFactory compoFactory_ = _fact.getCompoFactory();
@@ -41,7 +42,7 @@ public class MapPanel {
         container.setPreferredSize(new Dimension(_facade.getMapWidth()*sideLength_, _facade.getMapHeight()*sideLength_));
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

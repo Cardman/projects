@@ -6,21 +6,18 @@ import java.awt.Component;
 
 public final class CustSelList<T> implements ListCellRenderer<T> {
 
-	private CustCellRender<T> render;
-	private CustList<T> list = new CustList<>();
-	private AbsPreparedLabel label;
+	private final CustCellRender<T> render;
+	private final CustList<T> list;
+	private final AbsPreparedLabel label;
 
-    public void setRender(CustCellRender<T> _render) {
+    public CustSelList(CustList<T> _elts, CustCellRender<T> _render) {
+        list = _elts;
         this.render = _render;
         label = FrameUtil.prep(_render.getImageFactory());
     }
 
 
-    public void setList(CustList<T> _list) {
-        this.list = _list;
-    }
-
-	public Component getListCellRendererComponent(
+    public Component getListCellRendererComponent(
        JList<? extends T> _ls,
        T _value,
        int _index,               

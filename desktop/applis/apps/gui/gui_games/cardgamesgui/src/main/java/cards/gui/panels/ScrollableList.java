@@ -1,14 +1,17 @@
 package cards.gui.panels;
 
-import code.gui.Panel;
+import code.gui.AbsPanel;
+import code.gui.initialize.AbsCompoFactory;
+
 /** */
 abstract class ScrollableList {
-    private Panel container = Panel.newBorder();
-    ScrollableList() {
+    private final AbsPanel container;
+    ScrollableList(AbsCompoFactory _absCompoFactory) {
+        container = _absCompoFactory.newBorder();
         container.setLoweredBorder();
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 }

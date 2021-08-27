@@ -178,7 +178,7 @@ public final class WindowAiki extends NetGroupFrame {
 
     private MenuItem difficulty;
 
-    private final Panel mainPanel;
+    private final AbsPanel mainPanel;
 
     private final CustList<FrameHtmlData> htmlDialogs = new CustList<FrameHtmlData>();
 
@@ -189,7 +189,7 @@ public final class WindowAiki extends NetGroupFrame {
 
     private final FacadeGame facade;
 
-    private Panel beginGame;
+    private AbsPanel beginGame;
 
     private final EnumMap<Sex,HeroLabel> herosLabels = new EnumMap<Sex,HeroLabel>();
 
@@ -491,7 +491,7 @@ public final class WindowAiki extends NetGroupFrame {
             beginGame = Panel.newPageBox();
         }
         beginGame.removeAll();
-        Panel heros_ = Panel.newLineBox();
+        AbsPanel heros_ = Panel.newLineBox();
         for (Sex s: Sex.values()) {
             ImageHeroKey i_;
             i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
@@ -503,7 +503,7 @@ public final class WindowAiki extends NetGroupFrame {
             heros_.add(label_);
         }
         beginGame.add(heros_);
-        Panel nickname_ = Panel.newLineBox();
+        AbsPanel nickname_ = Panel.newLineBox();
         nickname_.add(new TextLabel(messages.getVal(CST_NICKNAME)));
         if (nickname == null) {
             nickname = new TextField(16);

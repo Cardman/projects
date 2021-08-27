@@ -1,6 +1,7 @@
 package code.minirts;
 
 import code.gui.AbsCustComponent;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
@@ -25,11 +26,13 @@ public class PanelBattle {
     private boolean paintSelection;
 
     private final Selecting selecting;
-    private final Panel container = Panel.newAbsolute();
-    private final Panel content = Panel.newAbsolute();
+    private final AbsPanel container;
+    private final AbsPanel content;
 
     public PanelBattle(Facade _facade, AbsCompoFactory _compoFactory) {
         facade = _facade;
+        container = _compoFactory.newAbsolute();
+        content = _compoFactory.newAbsolute();
         content.setOpaque(true);
         content.setBackground(Color.WHITE);
         container.setOpaque(true);
@@ -187,7 +190,7 @@ public class PanelBattle {
         content.addMouseListener(_i);
     }
 
-    public Panel getContainer() {
+    public AbsPanel getContainer() {
         return container;
     }
 

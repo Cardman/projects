@@ -2,7 +2,6 @@ package code.sys.impl;
 
 import code.gui.GraphicCombo;
 import code.gui.GraphicComboGrInt;
-import code.gui.GraphicStringList;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractGraphicComboBoxGenerator;

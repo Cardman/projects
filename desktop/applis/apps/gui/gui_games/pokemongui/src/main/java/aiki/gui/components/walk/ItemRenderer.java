@@ -38,7 +38,7 @@ public class ItemRenderer extends CustCellRender<String> {
             AbsPreparedLabel _currentLab, int _arg2,
             boolean _selected, boolean _arg4) {
         selected = _selected;
-        name = getList().get(_arg2);
+        name = get(_arg2);
         displayName = facade.translateItem(name);
         price = facade.getData().getItem(name).getPrice();
         int[][] img_ = facade.getData().getMiniItems().getVal(name);

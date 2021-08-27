@@ -93,7 +93,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         AbstractMutableTreeNode root_ = _w.getCompoFactory().newMutableTreeNode(
                 racineBis.nom());
         boolean wasNull_ = editor == null;
-        Panel container_;
+        AbsPanel container_;
         if (wasNull_) {
             container_ = Panel.newPageBox();
         } else {

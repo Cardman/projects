@@ -53,7 +53,7 @@ public final class WindowRenders extends GroupFrame {
         menu.addMenuItem(open);
         getJMenuBar().add(menu);
         setTitle("Local sites");
-        Panel pane_ = Panel.newPageBox();
+        AbsPanel pane_ = Panel.newPageBox();
         lgCode = new TextField(20);
         pane_.add(lgCode);
         path = new TextField(20);

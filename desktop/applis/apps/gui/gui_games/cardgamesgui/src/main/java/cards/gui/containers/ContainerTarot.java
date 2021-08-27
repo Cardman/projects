@@ -49,16 +49,16 @@ public class ContainerTarot extends ContainerGame{
     private boolean canPlay;
     private boolean discardCall;
     /**Carte survol&eacute;e par la souris*/
-    private Panel panelDiscardedTrumps;
+    private AbsPanel panelDiscardedTrumps;
     private HandTarot currentIncludedTrumps = new HandTarot();
     private HandTarot currentExcludedTrumps = new HandTarot();
     private ScrollPane scrollDeclaringHandful;
     private SplitPane declaringHandful;
-    private Panel includedTrumpsForHandful;
-    private Panel excludedTrumpsForHandful;
+    private AbsPanel includedTrumpsForHandful;
+    private AbsPanel excludedTrumpsForHandful;
     private EnumMap<Miseres,Boolean> selectedMiseres = new EnumMap<Miseres,Boolean>();
     private ScrollPane scrollCallableCards;
-    private Panel panelCallableCards;
+    private AbsPanel panelCallableCards;
     private Handfuls choosenHandful = Handfuls.NO;
     private CardTarot carteSurvoleeTarot;
     private TextArea infoCurrentHandful;
@@ -121,10 +121,10 @@ public class ContainerTarot extends ContainerGame{
     public void validateDog() {
         //
     }
-    public Panel getPanelDiscardedTrumps() {
+    public AbsPanel getPanelDiscardedTrumps() {
         return panelDiscardedTrumps;
     }
-    public void setPanelDiscardedTrumps(Panel _panelDiscardedTrumps) {
+    public void setPanelDiscardedTrumps(AbsPanel _panelDiscardedTrumps) {
         panelDiscardedTrumps = _panelDiscardedTrumps;
     }
     public boolean isCanDiscard() {
@@ -182,16 +182,16 @@ public class ContainerTarot extends ContainerGame{
     protected void setScrollDeclaringHandful(ScrollPane _scrollDeclaringHandful) {
         scrollDeclaringHandful = _scrollDeclaringHandful;
     }
-    protected Panel getIncludedTrumpsForHandful() {
+    protected AbsPanel getIncludedTrumpsForHandful() {
         return includedTrumpsForHandful;
     }
-    protected void setIncludedTrumpsForHandful(Panel _includedTrumpsForHandful) {
+    protected void setIncludedTrumpsForHandful(AbsPanel _includedTrumpsForHandful) {
         includedTrumpsForHandful = _includedTrumpsForHandful;
     }
-    protected Panel getExcludedTrumpsForHandful() {
+    protected AbsPanel getExcludedTrumpsForHandful() {
         return excludedTrumpsForHandful;
     }
-    protected void setExcludedTrumpsForHandful(Panel _excludedTrumpsForHandful) {
+    protected void setExcludedTrumpsForHandful(AbsPanel _excludedTrumpsForHandful) {
         excludedTrumpsForHandful = _excludedTrumpsForHandful;
     }
     protected SplitPane getDeclaringHandful() {
@@ -224,10 +224,10 @@ public class ContainerTarot extends ContainerGame{
     protected void setPartieAleatoireJouee(boolean _partieAleatoireJouee) {
         partieAleatoireJouee = _partieAleatoireJouee;
     }
-    protected Panel getPanelCallableCards() {
+    protected AbsPanel getPanelCallableCards() {
         return panelCallableCards;
     }
-    protected void setPanelCallableCards(Panel _panelCallableCards) {
+    protected void setPanelCallableCards(AbsPanel _panelCallableCards) {
         panelCallableCards = _panelCallableCards;
     }
     protected boolean isPartieSauvegardee() {

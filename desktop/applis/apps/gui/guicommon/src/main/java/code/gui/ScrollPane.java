@@ -30,20 +30,15 @@ public final class ScrollPane extends CustComponent {
     public void setViewportView(AbsCustComponent _graphic) {
         component.setViewportView(((CustComponent)_graphic).getNatComponent());
         _graphic.setParent(this);
-        if (!getChildren().isEmpty()) {
-            getChildren().first().setParent(null);
-            getChildren().clear();
-        }
+        FrameUtil.removeChild(this);
         getChildren().add(_graphic);
     }
 
     public void setNullViewportView() {
         component.setViewportView(null);
-        if (!getChildren().isEmpty()) {
-            getChildren().first().setParent(null);
-            getChildren().clear();
-        }
+        FrameUtil.removeChild(this);
     }
+
     public int getHorizontalValue() {
         return component.getHorizontalScrollBar().getValue();
     }

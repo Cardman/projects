@@ -4,17 +4,19 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
+import code.gui.AbsPanel;
 import code.gui.CustComponent;
 import code.gui.Panel;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 
 public class PanelStruct extends CustComponentStruct {
-    private Panel panel;
+    private AbsPanel panel;
     private PanelStruct(String _className) {
         super(_className);
         panel = Panel.newLineBox();
     }
-    PanelStruct(String _className,Panel _panel) {
+    PanelStruct(String _className,AbsPanel _panel) {
         super(_className);
         panel = _panel;
     }
@@ -23,8 +25,8 @@ public class PanelStruct extends CustComponentStruct {
         return new PanelStruct(_className);
     }
 
-    public static PanelStruct newAbsolute(String _className) {
-        return new PanelStruct(_className,Panel.newAbsolute());
+    public static PanelStruct newAbsolute(String _className, AbsCompoFactory _compoFactory) {
+        return new PanelStruct(_className,_compoFactory.newAbsolute());
     }
 
     public static PanelStruct newGrid(String _className,int _row,int _col) {
@@ -124,7 +126,7 @@ public class PanelStruct extends CustComponentStruct {
         return panel;
     }
 
-    public Panel getPanel() {
+    public AbsPanel getPanel() {
         return panel;
     }
 }

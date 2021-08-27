@@ -1,9 +1,8 @@
 package code.gui.document;
 
-import java.awt.GridLayout;
-
 import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaImageMap;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 
 
@@ -14,9 +13,8 @@ public final class DualImageMap extends DualContainer {
     }
 
     @Override
-    protected Panel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page) {
+    protected AbsPanel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page) {
         int width_ = ((MetaImageMap)_component).getWidth();
-        Panel p_ = Panel.newGrid(0,width_);
-        return p_;
+        return Panel.newGrid(0,width_);
     }
 }

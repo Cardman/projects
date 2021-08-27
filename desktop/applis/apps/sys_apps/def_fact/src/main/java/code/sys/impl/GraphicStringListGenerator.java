@@ -2,8 +2,6 @@ package code.sys.impl;
 
 import code.gui.AbsGraphicList;
 import code.gui.AbsInputGraphicList;
-import code.gui.GraphicStringList;
-import code.gui.GraphicStringListMult;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractGraphicStringListGenerator;

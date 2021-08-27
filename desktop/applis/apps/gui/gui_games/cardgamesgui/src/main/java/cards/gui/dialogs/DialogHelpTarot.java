@@ -40,9 +40,9 @@ public final class DialogHelpTarot {
     public static void setDialogueTarot(EnumMap<Suit, CustList<HandTarot>> _cartesPossibles,
                                         EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, HandTarot> _repartitionJouees,
                                         StringList _pseudos, String _lg, DialogHelpTarot _dialog) {
-        Panel container_=Panel.newLineBox();
-        Panel panneau2_=Panel.newBorder();
-        Panel panneau3_;
+        AbsPanel container_=Panel.newLineBox();
+        AbsPanel panneau2_=Panel.newBorder();
+        AbsPanel panneau3_;
         TextArea zone_;
         HandTarot tout_ = HandTarot.pileBase();
         EnumList<Suit> suits_ = new EnumList<Suit>(Suit.values());

@@ -6,6 +6,7 @@ import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.president.enumerations.CardPresident;
 import code.gui.AbsDialog;
+import code.gui.AbsPanel;
 import code.gui.Panel;
 import code.gui.TextLabel;
 import code.gui.initialize.AbsFrameFactory;
@@ -43,8 +44,8 @@ public final class DialogHelpPresident {
 
     public static void setDialoguePresident(TreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks, String _lg, DialogHelpPresident _dialog) {
         int count_ = Suit.couleursOrdinaires().size() * _nbStacks;
-        Panel contentPane_ = Panel.newPageBox();
-        Panel panelCards_ = Panel.newGrid(0, 3);
+        AbsPanel contentPane_ = Panel.newPageBox();
+        AbsPanel panelCards_ = Panel.newGrid(0, 3);
         panelCards_.add(new TextLabel(_dialog.messages.getVal(LEVEL)));
         panelCards_.add(new TextLabel(_dialog.messages.getVal(NB_PLAYED)));
         panelCards_.add(new TextLabel(_dialog.messages.getVal(NB_REM)));

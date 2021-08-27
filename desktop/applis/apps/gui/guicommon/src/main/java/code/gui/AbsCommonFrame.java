@@ -28,9 +28,9 @@ public interface AbsCommonFrame extends ChangeableTitle {
     void setIconImage(AbstractImage _image);
     String getAccessFile();
     void setAccessFile(String _accessFile);
-    void setContentPane(Panel _contentPane);
+    void setContentPane(AbsPanel _contentPane);
     void setContentPane(ScrollPane _contentPane);
-    Panel getPane();
+    AbsPanel getPane();
     MenuBar getJMenuBar();
     void setJMenuBar(MenuBar _menu);
     void setVisible(boolean _b);

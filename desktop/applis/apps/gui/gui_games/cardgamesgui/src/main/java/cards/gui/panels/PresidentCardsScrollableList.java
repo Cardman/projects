@@ -11,6 +11,7 @@ import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import code.gui.AbsGraphicList;
 import code.gui.TextLabel;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.EnumList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -22,7 +23,8 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
     private final AbsGraphicList<CardPresident> liste;
     private final TextLabel remCards;
 
-    public PresidentCardsScrollableList(int _nb, int _pmax, String _titre, AbsGraphicList<CardPresident> _liste) {
+    public PresidentCardsScrollableList(AbsCompoFactory _compoFactory, int _nb, int _pmax, String _titre, AbsGraphicList<CardPresident> _liste) {
+        super(_compoFactory);
         liste = _liste;
         setMax(_pmax);
         TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
@@ -109,8 +111,8 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
             return new HandPresident();
         }
         HandPresident main_=new HandPresident();
-        for (CardPresident c: liste.getSelectedValuesLs()) {
-            main_.ajouter(c);
+        for (int i: liste.getSelectedIndexes()) {
+            main_.ajouter(liste.get(i));
         }
         return main_;
     }
@@ -120,7 +122,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
     /**Retourne le nombre de cartes selectionnees*/
     @Override
     public int nombreCartesSelectionnees() {
-        return liste.getSelectedValuesLs().size();
+        return liste.getSelectedValuesLsLen();
     }
     public AbsGraphicList<CardPresident> getListe() {
         return liste;

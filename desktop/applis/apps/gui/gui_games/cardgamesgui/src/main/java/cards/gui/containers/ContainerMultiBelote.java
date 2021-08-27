@@ -133,8 +133,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setBidOk(new LabelButton(WindowCards.OK));
         getBidOk().setEnabledLabel(false);
         getBidOk().addMouseList(new BidEvent(this));
-        Panel panel_ = Panel.newPageBox();
-        Panel panelSuits_ = Panel.newLineBox();
+        AbsPanel panel_ = Panel.newPageBox();
+        AbsPanel panelSuits_ = Panel.newLineBox();
         getBidsButtons().clear();
         for (Suit s: Suit.couleursOrdinaires()) {
             SuitLabel suitLabel_ = new SuitLabel(getOwner().getCompoFactory());
@@ -149,7 +149,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             panelSuits_.add(suitLabel_);
         }
         panel_.add(panelSuits_);
-        Panel panelBids_ = Panel.newLineBox();
+        AbsPanel panelBids_ = Panel.newLineBox();
         for (BidBelote b: BidBelote.getNonZeroBids()) {
             if (b.getCouleurDominante()) {
                 continue;
@@ -174,7 +174,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             getBidsButtons().add(suitLabel_);
         }
         panel_.add(panelBids_);
-        Panel panelOk_ = Panel.newLineBox();
+        AbsPanel panelOk_ = Panel.newLineBox();
         LabelButton buttonSuit_ = new LabelButton(Games.toString(BidBelote.FOLD,lg_));
         buttonSuit_.addMouseList(new FoldEvent(this));
         panelOk_.add(buttonSuit_);
@@ -218,7 +218,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     private void ajouterBoutonContratBeloteMulti(String _texte,
             BidBeloteSuit _action) {
-        Panel panneau_ = getPanneauBoutonsJeu();
+        AbsPanel panneau_ = getPanneauBoutonsJeu();
         LabelButton bouton_ = new LabelButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratBeloteMulti(_action));
         bouton_.addMouseList(new ListenerBidBeloteMulti(this,_action));
@@ -233,8 +233,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getLoad().setEnabledMenu(false);
         rulesBeloteMulti = _players.getRulesBelote();
         nbChoosenPlayers = _players.getNbPlayers();
-        Panel container_ = Panel.newPageBox();
-        Panel panel_ = Panel.newGrid(0, 2);
+        AbsPanel container_ = Panel.newPageBox();
+        AbsPanel panel_ = Panel.newGrid(0, 2);
         panel_.add(new TextLabel(getMessages().getVal(WindowCards.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames(),getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
@@ -445,7 +445,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         String lg_ = getOwner().getLanguageKey();
         annonceBeloteRebelote = false;
         if (_declaration.isPossibleBeloteRebelote()) {
-            Panel panneau_ = getPanneauBoutonsJeu();
+            AbsPanel panneau_ = getPanneauBoutonsJeu();
             CustCheckBox caseCoche_ = new CustCheckBox(
                     Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_));
             caseCoche_.setEnabled(_declaration.isAllowedBeloteRebelote());
@@ -461,7 +461,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         DeclareHandBelote annonceMain_ = _declaration.getDeclaration();
         if (annonceMain_.getDeclare() != DeclaresBelote.UNDEFINED) {
             annonceBelote = false;
-            Panel panneau_ = getPanneauBoutonsJeu();
+            AbsPanel panneau_ = getPanneauBoutonsJeu();
             CustCheckBox caseCoche_ = new CustCheckBox(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),
                     INTRODUCTION_PTS, Games.toString(annonceMain_.getHand(),lg_)));
             caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
@@ -510,7 +510,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
                 getHandfuls().getVal(relative_).setText(
                         Games.toString(_card.getDeclare().getDeclare(),lg_));
             }
-            Panel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
+            AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
             panelToSet_.removeAll();
             for (CardBelote c: _card.getDeclare().getHand()) {
                 MiniBeloteCard carte_ = new MiniBeloteCard(lg_,c, getOwner().getCompoFactory());
@@ -531,7 +531,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setCanPlay(true);
         String lg_ = getOwner().getLanguageKey();
         if (!_error.getCards().estVide()) {
-            Panel panneau_ = Panel.newLineBox();
+            AbsPanel panneau_ = Panel.newLineBox();
             HandBelote cartesBeloteRebelote_ = _error.getCards();
             for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, cartesBeloteRebelote_)) {
                 panneau_.add(c);
@@ -685,7 +685,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     private void placerIhmBeloteMulti(HandBelote _cardsOnDeck, byte _beginPlace) {
-        Panel container_ = Panel.newBorder();
+        AbsPanel container_ = Panel.newBorder();
         container_.add(new TextLabel(getMessages().getVal(WindowCards.HELP_GO_MENU),
                 SwingConstants.CENTER), BorderLayout.NORTH);
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
@@ -705,12 +705,12 @@ public class ContainerMultiBelote extends ContainerBelote implements
                 list_, 1, getOwner().getCompoFactory());
         getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(), BorderLayout.CENTER);
-        Panel panneau_;
+        AbsPanel panneau_;
         panneau_= Panel.newLineBox();
         panneau_.setBackground(Color.BLUE);
         setPanelHand(panneau_);
         container_.add(panneau_, BorderLayout.SOUTH);
-        Panel panneau2_ = Panel.newPageBox();
+        AbsPanel panneau2_ = Panel.newPageBox();
         setEvents(new TextArea(EMPTY, 8, 30));
         byte relative_ = relative(_beginPlace);
         getEvents().append(StringUtil.concat(getMessages().getVal(WindowCards.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
@@ -718,30 +718,30 @@ public class ContainerMultiBelote extends ContainerBelote implements
         panneau2_.add(new ScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
         setHandfuls(new ByteMap<TextLabel>());
-        setDeclaredHandfuls(new ByteMap<Panel>());
-        Panel declaredHandfuls_ = Panel.newGrid(0, 1);
+        setDeclaredHandfuls(new ByteMap<AbsPanel>());
+        AbsPanel declaredHandfuls_ = Panel.newGrid(0, 1);
         for (byte i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
-            Panel declaredHandfulGroup_ = Panel.newLineBox();
+            AbsPanel declaredHandfulGroup_ = Panel.newLineBox();
             TextLabel lab_ = new TextLabel(pseudos_.getVal(i));
             declaredHandfulGroup_.add(lab_);
             TextLabel handful_ = new TextLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(i, handful_);
-            Panel declaredHandful_ = Panel.newLineBox();
+            AbsPanel declaredHandful_ = Panel.newLineBox();
             declaredHandfulGroup_.add(declaredHandful_);
             getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
         ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
-        Panel sousPanneau_ = Panel.newGrid(0, 1);
+        AbsPanel sousPanneau_ = Panel.newGrid(0, 1);
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_, BorderLayout.EAST);
         if (!_cardsOnDeck.estVide()) {
             tapisBelote().setTalonBelote(getWindow(),lg_,_cardsOnDeck);
         }
-        Panel panel_ = Panel.newPageBox();
+        AbsPanel panel_ = Panel.newPageBox();
         panel_.add(new ScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
@@ -776,7 +776,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         return iter_;
     }
 
-    private void updateCardsInPanelBeloteMulti(Panel _panel, HandBelote _hand) {
+    private void updateCardsInPanelBeloteMulti(AbsPanel _panel, HandBelote _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
         for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, _hand)) {
@@ -821,7 +821,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
-        Panel container_=Panel.newBorder();
+        AbsPanel container_=Panel.newBorder();
 
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
@@ -847,13 +847,13 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);
-        Panel panneau_=Panel.newPageBox();
+        AbsPanel panneau_=Panel.newPageBox();
         readyToPlay = false;
         ready = new CustCheckBox(getMessages().getVal(WindowCards.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 
-        Panel panel_ = Panel.newGrid(0,3);
+        AbsPanel panel_ = Panel.newGrid(0,3);
 
         for (int i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
             panel_.add(playersPseudos.get(i));
@@ -914,7 +914,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     public void delegateServer() {
         hasCreatedServer = true;
         if (!Net.isProgressingGame(getOwner().getNet())) {
-            Panel container_ = getPane();
+            AbsPanel container_ = getPane();
             LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
             buttonRules_.addMouseList(new ChangeRulesEvent(this));
             container_.add(buttonRules_);

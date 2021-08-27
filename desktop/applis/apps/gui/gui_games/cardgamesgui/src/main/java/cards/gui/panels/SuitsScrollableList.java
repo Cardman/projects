@@ -22,6 +22,7 @@ public class SuitsScrollableList extends ScrollableList {
 //    private EnumList<Suit> suits;
     private final AbsGraphicList<Suit> liste;
     public SuitsScrollableList(EnumList<Suit> _couleurs, int _nb, WindowCards _window, AbsGraphicList<Suit> _liste) {
+        super(_window.getCompoFactory());
         String lg_ = _window.getLanguageKey();
         messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
         TextLabel titrePanneau_ = new TextLabel(messages.getVal(SUITS), SwingConstants.CENTER);
@@ -85,8 +86,8 @@ public class SuitsScrollableList extends ScrollableList {
             return new EnumList<Suit>();
         }
         EnumList<Suit> valeurs_=new EnumList<Suit>();
-        for (Suit s: liste.getSelectedValuesLs()) {
-            valeurs_.add(s);
+        for (int i: liste.getSelectedIndexes()) {
+            valeurs_.add(liste.get(i));
         }
         //Appelee 2 fois
         return valeurs_;

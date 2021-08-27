@@ -32,7 +32,7 @@ public final class MultSelectKeyEltList extends AbsKeyListenerRel implements Ind
         if (interval_ == null) {
             return;
         }
-        GraphicList.selectEvent(interval_.getMin(),  interval_.getMax(), false, selection);
+        FrameUtil.selectEvent(interval_.getMin(),  interval_.getMax(), false, selection);
     }
 
     @Override

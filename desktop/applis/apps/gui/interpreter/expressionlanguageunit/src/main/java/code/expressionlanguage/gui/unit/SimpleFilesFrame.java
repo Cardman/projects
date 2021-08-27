@@ -34,9 +34,9 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private final MenuItem open;
     private final MenuItem stop;
 
-    private final Panel contentPane;
-    private final Panel form;
-    private final Panel subForm;
+    private final AbsPanel contentPane;
+    private final AbsPanel form;
+    private final AbsPanel subForm;
     private final TextField folderField;
     private final TextField srcField;
     private final TextField filesField;
@@ -44,7 +44,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private final TextArea conf;
     private final PlainButton launch;
     private final PlainButton launchByFile;
-    private final Panel progressing;
+    private final AbsPanel progressing;
     private final PlainLabel doneTests;
     private final PlainLabel doneTestsCount;
 
@@ -93,7 +93,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         ScrollPane scr_ = new ScrollPane(conf);
         scr_.setPreferredSize(new Dimension(256,96));
         form.add(scr_);
-        Panel formButtons_ = Panel.newGrid(0,2);
+        AbsPanel formButtons_ = Panel.newGrid(0,2);
         launch = new PlainButton(messages.getVal("launch"));
         launch.addActionListener(new ListenerLaunchTests(_parent, this));
         formButtons_.add(launch);

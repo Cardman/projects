@@ -95,8 +95,8 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         GamePresident partie_ = partiePresidentSimulee();
         RulesPresident rules_ = partie_.getRegles();
         String lg_ = container.getOwner().getLanguageKey();
-        Panel contentPane_ = Panel.newPageBox();
-        Panel container_=Panel.newBorder();
+        AbsPanel contentPane_ = Panel.newPageBox();
+        AbsPanel container_=Panel.newBorder();
         container_.add(new TextLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosSimuleePresident();
@@ -104,23 +104,23 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         tapis_.initTapisPresident(lg_,pseudos_,partie_.getLastStatus(),Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()), container.getOwner().getCompoFactory());
         container.getTapis().setTapisPresident(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
-        Panel panneau_= Panel.newLineBox();
+        AbsPanel panneau_= Panel.newLineBox();
         panneau_.setBackground(Color.BLUE);
         container.setPanelHand(panneau_);
         container_.add(panneau_,BorderLayout.SOUTH);
-        Panel panneau2_=Panel.newPageBox();
+        AbsPanel panneau2_=Panel.newPageBox();
         container.setEvents(new TextArea(ContainerPresident.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(container.getEvents()));
         container.setHandfuls(new ByteMap<TextLabel>());
-        container.setDeclaredHandfuls(new ByteMap<Panel>());
-        Panel sousPanneau_=Panel.newGrid(0,1);
-        Panel panelCards_ = Panel.newLineBox();
-        Panel panelDiscard_ = Panel.newLineBox();
+        container.setDeclaredHandfuls(new ByteMap<AbsPanel>());
+        AbsPanel sousPanneau_=Panel.newGrid(0,1);
+        AbsPanel panelCards_ = Panel.newLineBox();
+        AbsPanel panelDiscard_ = Panel.newLineBox();
         panelDiscard_.setBackground(Color.BLUE);
         panelCards_.add(panelDiscard_);
         container.setPanelGivenCards(panelDiscard_);
-        Panel panelRec_ = Panel.newLineBox();
+        AbsPanel panelRec_ = Panel.newLineBox();
         panelRec_.setBackground(Color.BLUE);
         panelCards_.add(panelRec_);
         container.setPanelReceivedCards(panelRec_);
@@ -137,7 +137,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         panneau_.add(stopButton);
         HandPresident notSorted_ = partie_.getDeal().hand();
         HandPresident h_ = partie_.mainUtilisateurTriee(notSorted_, container.getDisplayingPresident());
-        Panel panneau1_=container.getPanelHand();
+        AbsPanel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
         for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(container.getWindow(), lg_,h_)) {
@@ -233,7 +233,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
 
     void endGuiDeal() {
         String lg_ = container.getOwner().getLanguageKey();
-        Panel panneau_=Panel.newPageBox();
+        AbsPanel panneau_=Panel.newPageBox();
         ResultsPresident res_ = new ResultsPresident();
         GamePresident currentGame_=partiePresidentSimulee();
         res_.setGame(currentGame_);

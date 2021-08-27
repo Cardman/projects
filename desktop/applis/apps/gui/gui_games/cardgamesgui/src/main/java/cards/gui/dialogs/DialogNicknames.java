@@ -58,9 +58,9 @@ public final class DialogNicknames extends DialogCards {
     public void setDialogue(WindowCards _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
         getJt().removeAll();
-        Panel container_=Panel.newBorder();
+        AbsPanel container_=Panel.newBorder();
         //Panneau pseudos des joueurs belote
-        Panel sousPanneau_=Panel.newGrid(0,1);
+        AbsPanel sousPanneau_=Panel.newGrid(0,1);
         int i_=0;
         for (String p:pseudos.getPseudosBelote()) {
             TextField pseudo_=new TextField(30);

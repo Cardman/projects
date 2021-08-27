@@ -11,6 +11,7 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.AbsGraphicList;
 import code.gui.TextLabel;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.EnumList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -22,7 +23,8 @@ public class TarotCardsScrollableList extends CardsScrollableList {
     private final AbsGraphicList<CardTarot> liste;
     private final TextLabel remCards;
 
-    public TarotCardsScrollableList(int _nb, int _pmax, String _titre, AbsGraphicList<CardTarot> _liste) {
+    public TarotCardsScrollableList(AbsCompoFactory _compoFactory, int _nb, int _pmax, String _titre, AbsGraphicList<CardTarot> _liste) {
+        super(_compoFactory);
         liste = _liste;
         setMax(_pmax);
         TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
@@ -108,8 +110,8 @@ public class TarotCardsScrollableList extends CardsScrollableList {
             return new HandTarot();
         }
         HandTarot main_=new HandTarot();
-        for (CardTarot c: liste.getSelectedValuesLs()) {
-            main_.ajouter(c);
+        for (int i: liste.getSelectedIndexes()) {
+            main_.ajouter(liste.get(i));
         }
         return main_;
     }
@@ -119,7 +121,7 @@ public class TarotCardsScrollableList extends CardsScrollableList {
     /**Retourne le nombre de cartes selectionnees*/
     @Override
     public int nombreCartesSelectionnees() {
-        return liste.getSelectedValuesLs().size();
+        return liste.getSelectedValuesLsLen();
     }
     public AbsGraphicList<CardTarot> getListe() {
         return liste;

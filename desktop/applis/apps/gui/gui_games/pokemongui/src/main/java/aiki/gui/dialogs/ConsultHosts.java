@@ -57,7 +57,7 @@ public final class ConsultHosts {
 //        window = _frame;
         absDialog.setTitle(messages.getVal(TITLE));
         facade = _facade;
-        Panel contentPane_ = Panel.newGrid(0,1);
+        AbsPanel contentPane_ = Panel.newGrid(0,1);
         ShortTreeMap<EqList<Coords>> hostsByPlace_;
         hostsByPlace_ = new ShortTreeMap<EqList<Coords>>();
         for (Coords c: facade.getMap().getHostPokemons()) {
@@ -69,11 +69,11 @@ public final class ConsultHosts {
         }
         for (short p: hostsByPlace_.getKeys()) {
             Place pl_ = facade.getMap().getPlace(p);
-            Panel hosting_ = Panel.newGrid(0,1);
+            AbsPanel hosting_ = Panel.newGrid(0,1);
             TextLabel place_ = new TextLabel(pl_.getName());
             hosting_.add(place_);
             for (Coords c: hostsByPlace_.getVal(p)) {
-                Panel hostingLoc_ = Panel.newGrid(0,1);
+                AbsPanel hostingLoc_ = Panel.newGrid(0,1);
                 HostPokemonDuo host_ = facade.getGame().getHostedPk().getVal(c);
                 String rem_ = messages.getVal(STEPS);
                 if (host_.isFree()) {
