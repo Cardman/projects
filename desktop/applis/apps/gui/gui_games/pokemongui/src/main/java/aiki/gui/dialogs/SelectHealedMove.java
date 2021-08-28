@@ -1,5 +1,5 @@
 package aiki.gui.dialogs;
-import java.awt.BorderLayout;
+
 
 import javax.swing.WindowConstants;
 
@@ -11,6 +11,7 @@ import aiki.gui.components.walk.HealedMoveEvent;
 import code.gui.AbsDialog;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
+import code.gui.GuiConstants;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -69,14 +70,14 @@ public final class SelectHealedMove {
             check_.addActionListener(new HealedMoveEvent(this,facade, m));
             movesLearnt.add(check_);
         }
-        contentPane_.add(movesLearnt, BorderLayout.CENTER);
+        contentPane_.add(movesLearnt, GuiConstants.BORDER_LAYOUT_CENTER);
         //window.healMove(move);
         //contentPane_.add(new JScrollPane(new PaginatorHealingItem(this, _facade)), BorderLayout.CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         AbsPlainButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
         cancel_.addActionListener(new ClosingDialogEvent(absDialog));
         buttons_.add(cancel_);
-        contentPane_.add(buttons_, BorderLayout.SOUTH);
+        contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         absDialog.setContentPane(contentPane_);
         absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();

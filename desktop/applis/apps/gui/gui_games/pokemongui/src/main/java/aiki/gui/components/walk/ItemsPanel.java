@@ -1,5 +1,5 @@
 package aiki.gui.components.walk;
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
@@ -30,15 +30,15 @@ public class ItemsPanel {
         amount = _fact.getCompoFactory().newPlainLabel("");
         container.setLoweredBorder();
         AbsPlainLabel titrePanneau_ = _fact.getCompoFactory().newPlainLabel(_titre);
-        container.add(titrePanneau_, BorderLayout.NORTH);
+        container.add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
         liste.setRender(new ItemRenderer(_fact.getImageFactory(),facade));
         initItems();
         int side_ = facade.getMap().getSideLength();
-        container.add(liste.self(),BorderLayout.CENTER);
-        container.add(amount, BorderLayout.SOUTH);
+        container.add(liste.self(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container.add(amount, GuiConstants.BORDER_LAYOUT_SOUTH);
         container.setPreferredSize(new Dimension(100,2*side_*_nb));
     }
 

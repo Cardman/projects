@@ -1,5 +1,5 @@
 package cards.gui.panels;
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 
 import cards.consts.Suit;
@@ -9,6 +9,7 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.AbsGraphicList;
 import code.gui.AbsPlainLabel;
+import code.gui.GuiConstants;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.EnumList;
 import code.util.core.IndexConstants;
@@ -26,14 +27,14 @@ public class TarotCardsScrollableList extends CardsScrollableList {
         liste = _liste;
         setMax(_pmax);
         AbsPlainLabel titrePanneau_ = _compoFactory.newPlainLabel(_titre);
-        getContainer().add(titrePanneau_, BorderLayout.NORTH);
+        getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
-        getContainer().add(liste.self(),BorderLayout.CENTER);
+        getContainer().add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
         remCards = _compoFactory.newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
-        getContainer().add(remCards, BorderLayout.SOUTH);
+        getContainer().add(remCards, GuiConstants.BORDER_LAYOUT_SOUTH);
         getContainer().setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
     public void initSelectionCarteTarot(WindowCards _window) {

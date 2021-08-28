@@ -1,5 +1,5 @@
 package aiki.gui.dialogs;
-import java.awt.BorderLayout;
+
 
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
@@ -63,7 +63,7 @@ public final class SelectPokemon extends SelectDialog {
 //        ok = false;
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
-        contentPane_.add(compo.newAbsScrollPane(new PaginatorPokemon(_parent,pag_, getSelectDial(), _facade).getContainer()), BorderLayout.CENTER);
+        contentPane_.add(compo.newAbsScrollPane(new PaginatorPokemon(_parent,pag_, getSelectDial(), _facade).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         AbsPlainButton detail_ = _parent.getCompoFactory().newPlainButton(messages.getVal(DETAIL));
         detail_.addActionListener(new SeePkDetailEvent(this));
@@ -74,7 +74,7 @@ public final class SelectPokemon extends SelectDialog {
         AbsPlainButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
         cancel_.addActionListener(new ClosingDialogEvent(this));
         buttons_.add(cancel_);
-        contentPane_.add(buttons_, BorderLayout.SOUTH);
+        contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
         //setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         getSelectDial().pack();

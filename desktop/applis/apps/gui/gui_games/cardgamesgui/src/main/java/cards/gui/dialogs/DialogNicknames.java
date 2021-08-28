@@ -1,5 +1,5 @@
 package cards.gui.dialogs;
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 
 
@@ -97,7 +97,7 @@ public final class DialogNicknames extends DialogCards {
             i_++;
         }
         getJt().add(GameEnum.TAROT.toString(lg_),sousPanneau_);
-        container_.add(getJt(),BorderLayout.CENTER);
+        container_.add(getJt(),GuiConstants.BORDER_LAYOUT_CENTER);
         //Panneau pseudo du joueur
         sousPanneau_=_fenetre.getCompoFactory().newPageBox();
         sousPanneau_.add(getCompoFactory().newPlainLabel(messages.getVal(CST_NICKNAME)));
@@ -107,7 +107,7 @@ public final class DialogNicknames extends DialogCards {
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
         bouton_.addActionListener(new ListenerNicknames(this));
         sousPanneau_.add(bouton_);
-        container_.add(sousPanneau_,BorderLayout.SOUTH);
+        container_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         getCardDialog().setContentPane(container_);
         getCardDialog().pack();
         getCardDialog().setVisible(true);

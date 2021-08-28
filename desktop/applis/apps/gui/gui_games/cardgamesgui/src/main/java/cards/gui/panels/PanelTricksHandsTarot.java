@@ -1,5 +1,5 @@
 package cards.gui.panels;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Font;
 
@@ -124,7 +124,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             sousPanneau2_.add(sousPanneau3_);
         }
         cards.add(sousPanneau2_);
-        container.add(cards,BorderLayout.CENTER);
+        container.add(cards,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel selectionGameState_=window.getCompoFactory().newLineBox();
         selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages.getVal(TRICK)));
         int[] numerosPlis_;
@@ -144,7 +144,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         cardNumberTrick=new NumComboBox(window.getFrames(),window.getFrames().getGeneComboBox(), numerosJoueurs_);
         cardNumberTrick.setListener(new ListenerCards(this));
         selectionGameState_.add(cardNumberTrick.self());
-        container.add(selectionGameState_,BorderLayout.SOUTH);
+        container.add(selectionGameState_,GuiConstants.BORDER_LAYOUT_SOUTH);
     }
 
     private AbsPlainLabel getBlankCard(StringList _nicknames, byte _player) {

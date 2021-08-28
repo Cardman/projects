@@ -24,7 +24,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -96,17 +96,17 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         String lg_ = container.getOwner().getLanguageKey();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
-        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),BorderLayout.NORTH);
+        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosSimuleePresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
         tapis_.initTapisPresident(lg_,pseudos_,partie_.getLastStatus(),Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()), container.getOwner().getCompoFactory());
         container.getTapis().setTapisPresident(tapis_);
-        container_.add(tapis_.getContainer(),BorderLayout.CENTER);
+        container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
         panneau_.setBackground(Color.BLUE);
         container.setPanelHand(panneau_);
-        container_.add(panneau_,BorderLayout.SOUTH);
+        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
         container.setEvents(container.getOwner().getCompoFactory().newTextArea(ContainerPresident.EMPTY,8, 30));
         container.getEvents().setEditable(false);
@@ -127,7 +127,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(sousPanneau_));
         container.setActionsHistory(panneau2_);
-        container_.add(panneau2_,BorderLayout.EAST);
+        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock());
         contentPane_.add(container.getWindow().getLastSavedGameDate());

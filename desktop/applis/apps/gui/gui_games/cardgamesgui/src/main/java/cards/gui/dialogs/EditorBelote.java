@@ -1,5 +1,5 @@
 package cards.gui.dialogs;
-import java.awt.BorderLayout;
+
 
 
 
@@ -128,12 +128,12 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         //Panneau Distribution
         String lg_ = _parent.getLanguageKey();
         initJt(_parent,getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),lg_);
-        container_.add(getJt(),BorderLayout.CENTER);
+        container_.add(getJt(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(NEXT));
         bouton_.addActionListener(new ValidateRulesDealEvent(this, _parent));
         panneau_.add(bouton_);
-        container_.add(panneau_,BorderLayout.SOUTH);
+        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         getCardDialog().setContentPane(container_);
         getCardDialog().pack();
     }
@@ -180,7 +180,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         }
         liste.addItem(getMessages().getVal(RANDOM));
         panneau_.add(liste.self());
-        c.add(panneau_,BorderLayout.NORTH);
+        c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
         panneau_=_parent.getCompoFactory().newBorder();
         panelsCards=_parent.getCompoFactory().newLineBox();
         HandBelote pile_=HandBelote.pileBase();
@@ -226,7 +226,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards.add(plc_.getContainer());
         remaining = plc_;
-        panneau_.add(panelsCards,BorderLayout.CENTER);
+        panneau_.add(panelsCards,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel sousPanneau_=_parent.getCompoFactory().newLineBox();
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addActionListener(new MoveCardsEvent(this));
@@ -246,8 +246,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         sousPanneau_.add(listeTwo.self());
         labelSelectCards = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
-        panneau_.add(sousPanneau_,BorderLayout.SOUTH);
-        c.add(panneau_,BorderLayout.CENTER);
+        panneau_.add(sousPanneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
+        c.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         panneau_=_parent.getCompoFactory().newLineBox();
         bouton_=getCompoFactory().newPlainButton(getMessages().getVal(BACK));
         bouton_.addActionListener(new BackToRulesEvent(this, _parent));
@@ -264,7 +264,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         bouton_=getCompoFactory().newPlainButton(getMessages().getVal(SAVE_THEN_CLOSE));
         bouton_.addActionListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
         panneau_.add(bouton_);
-        c.add(panneau_,BorderLayout.SOUTH);
+        c.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         getCardDialog().setContentPane(c);
         getCardDialog().pack();
     }

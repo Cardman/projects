@@ -1,5 +1,5 @@
 package aiki.gui.components.fight;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -1367,11 +1367,11 @@ public class Battle extends ChildFrame {
             if (chosablePlayer_.indexesOfObj(BoolVal.TRUE).size() + chosableFoe_.indexesOfObj(BoolVal.TRUE).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
                 AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TARGET));
-                targetsPanel.add(header_, BorderLayout.NORTH);
+                targetsPanel.add(header_, GuiConstants.BORDER_LAYOUT_NORTH);
             } else {
                 targets.getContainer().removeAll();
             }
-            targetsPanel.add(targets.getContainer(), BorderLayout.CENTER);
+            targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             actions.add(targetsPanel);
         }
     }
@@ -1397,12 +1397,12 @@ public class Battle extends ChildFrame {
             if (foeTargets_.indexesOfObj(BoolVal.TRUE).size() + plTargets_.indexesOfObj(BoolVal.TRUE).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
                 AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TARGET));
-                targetsPanel.add(header_, BorderLayout.NORTH);
+                targetsPanel.add(header_, GuiConstants.BORDER_LAYOUT_NORTH);
             } else {
                 window.setSavedGame(false);
                 targets.getContainer().removeAll();
             }
-            targetsPanel.add(targets.getContainer(), BorderLayout.CENTER);
+            targetsPanel.add(targets.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
             if (wasNull_) {
                 actions.add(targetsPanel);
             }

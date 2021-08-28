@@ -1,5 +1,5 @@
 package cards.gui.dialogs;
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 
 import cards.consts.Suit;
@@ -9,7 +9,6 @@ import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.EnumList;
@@ -113,7 +112,7 @@ public final class DialogHelpTarot {
 //            }
             panneau3_.add(zone_);
         }
-        panneau2_.add(panneau3_,BorderLayout.CENTER);
+        panneau2_.add(panneau3_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsScrollPane ascenseur_=compo.newAbsScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new Dimension(600,600));
         container_.add(ascenseur_);

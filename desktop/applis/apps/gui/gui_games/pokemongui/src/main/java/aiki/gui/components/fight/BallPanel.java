@@ -1,5 +1,5 @@
 package aiki.gui.components.fight;
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
@@ -27,14 +27,14 @@ public final class BallPanel {
         container = _fact.getCompoFactory().newBorder();
         container.setLoweredBorder();
         title = _fact.getCompoFactory().newPlainLabel(_titre);
-        container.add(title, BorderLayout.NORTH);
+        container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         listeBall.setVisibleRowCount(_nb);
         renderer = new BallRenderer(_fact.getImageFactory(),facade);
         listeBall.setRender(renderer);
         initBalls();
-        container.add(listeBall.self(),BorderLayout.CENTER);
+        container.add(listeBall.self(),GuiConstants.BORDER_LAYOUT_CENTER);
         container.setPreferredSize(new Dimension(100,32*_nb));
     }
 

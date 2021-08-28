@@ -1,5 +1,5 @@
 package cards.gui.dialogs;
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 
 import cards.facade.SoftParams;
@@ -87,7 +87,7 @@ public final class DialogSoft extends DialogCards {
             panneau_.add(list.self());
             saveHomeFolder = getCompoFactory().newCustCheckBox(messages.getVal(SELECT_HOME_PATH));
             panneau_.add(saveHomeFolder);
-            container_.add(panneau_,BorderLayout.CENTER);
+            container_.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         } else if(StringUtil.quickEq(menu, WindowCards.CST_TIMING)) {
             AbsPanel panneau_=_fenetre.getCompoFactory().newGrid(0,1);
             AbsPlainLabel label_;
@@ -137,17 +137,17 @@ public final class DialogSoft extends DialogCards {
             waitTrickClick.setSelected(parametres.getAttentePlisClic());
             panneau_.add(waitTrickClick);
             panneau_.setPreferredSize(new Dimension(600,400));
-            container_.add(panneau_,BorderLayout.CENTER);
+            container_.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         } else {
             AbsPanel panneau_=_fenetre.getCompoFactory().newGrid(0,1);
             clickCard=getCompoFactory().newCustCheckBox(messages.getVal(CLICK_FOR_PLAYING_CARD));
             clickCard.setSelected(parametres.getJeuCarteClic());
             panneau_.add(clickCard);
-            container_.add(panneau_,BorderLayout.CENTER);
+            container_.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         }
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
         bouton_.addActionListener(new ListenerParameters(this));
-        container_.add(bouton_,BorderLayout.SOUTH);
+        container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
         getCardDialog().setContentPane(container_);
         getCardDialog().pack();
     }

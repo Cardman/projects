@@ -1,5 +1,5 @@
 package aiki.gui.components.walk;
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
@@ -15,6 +15,7 @@ import aiki.map.pokemon.UsablePokemon;
 import code.gui.AbsGraphicList;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
+import code.gui.GuiConstants;
 import code.util.*;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -46,7 +47,7 @@ public class TeamPanel {
         container = _renderer.getFact().getCompoFactory().newBorder();
         container.setLoweredBorder();
         AbsPlainLabel titrePanneau_ = _renderer.getFact().getCompoFactory().newPlainLabel(_titre);
-        container.add(titrePanneau_, BorderLayout.NORTH);
+        container.add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
@@ -54,10 +55,10 @@ public class TeamPanel {
         liste.setRender(renderer);
         initFighters(_team,_mess);
         int side_ = facade.getMap().getSideLength();
-        container.add(liste.self(),BorderLayout.CENTER);
+        container.add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
         nbRemainPlaces = _renderer.getFact().getCompoFactory().newPlainLabel("");
         translate(_mess);
-        container.add(nbRemainPlaces,BorderLayout.SOUTH);
+        container.add(nbRemainPlaces,GuiConstants.BORDER_LAYOUT_SOUTH);
         container.setPreferredSize(new Dimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
     }
 

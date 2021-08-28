@@ -1,5 +1,5 @@
 package cards.gui.dialogs;
-import java.awt.BorderLayout;
+
 
 
 import javax.swing.WindowConstants;
@@ -117,10 +117,10 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         liste_.clear();
         sousPanneau_.add(orderedSuits.getContainer());
         getJt().add(messages.getVal(SORTING),sousPanneau_);
-        container_.add(getJt(),BorderLayout.CENTER);
+        container_.add(getJt(),GuiConstants.BORDER_LAYOUT_CENTER);
         bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
         bouton_.addActionListener(new ValidateDisplayingEvent(this));
-        container_.add(bouton_,BorderLayout.SOUTH);
+        container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
         getCardDialog().setContentPane(container_);
         getCardDialog().pack();
     }

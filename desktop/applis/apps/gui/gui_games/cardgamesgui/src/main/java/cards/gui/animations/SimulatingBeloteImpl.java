@@ -26,7 +26,7 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -114,15 +114,15 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         String lg_ = container.getOwner().getLanguageKey();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
-        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),BorderLayout.NORTH);
+        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
         StringList pseudos_ = pseudosSimuleeBelote();
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingBelote().isClockwise(), pseudos_, 1, container.getWindow().getCompoFactory());
         container.getTapis().setTapisBelote(tapis_);
-        container_.add(tapis_.getContainer(),BorderLayout.CENTER);
+        container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
         panneau_.setBackground(Color.BLUE);
         container.setPanelHand(panneau_);
-        container_.add(panneau_,BorderLayout.SOUTH);
+        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
         container.setEvents(container.getOwner().getCompoFactory().newTextArea(ContainerBelote.EMPTY,8, 30));
         container.getEvents().setEditable(false);
@@ -150,7 +150,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         AbsPanel sousPanneau_=container.getOwner().getCompoFactory().newGrid(0,1);
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
-        container_.add(panneau2_,BorderLayout.EAST);
+        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
         if (!partie_.getDistribution().derniereMain().estVide()) {
             container.tapisBelote().setTalonBelote(container.getWindow(),lg_,partie_.getDistribution().derniereMain());
         }

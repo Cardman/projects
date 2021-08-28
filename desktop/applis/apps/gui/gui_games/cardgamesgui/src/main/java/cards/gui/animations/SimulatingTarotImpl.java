@@ -24,7 +24,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 import java.awt.Color;
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 
 public final class SimulatingTarotImpl implements SimulatingTarot {
@@ -106,11 +106,11 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         GameTarot partie_=partieTarotSimulee();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
-        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),BorderLayout.NORTH);
+        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
         StringList pseudos_ = pseudosSimuleeTarot();
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingTarot().isClockwise(), partie_.getDistribution().derniereMain().total(), container.getOwner().getCompoFactory());
         container.getTapis().setTapisTarot(tapis_);
-        container_.add(tapis_.getContainer(),BorderLayout.CENTER);
+        container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         container.setPanelHand(container.getOwner().getCompoFactory().newLineBox());
         AbsPanel panneau_=container.getOwner().getCompoFactory().newLineBox();
         panneau_.add(container.getPanelHand());
@@ -118,7 +118,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         container.getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(container.getPanelDiscardedTrumps());
         panneau_.setBackground(Color.BLUE);
-        container_.add(panneau_,BorderLayout.SOUTH);
+        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
         container.setEvents(container.getOwner().getCompoFactory().newTextArea(ContainerTarot.EMPTY,8, 30));
         container.getEvents().setEditable(false);
@@ -145,7 +145,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         AbsPanel sousPanneau_=container.getOwner().getCompoFactory().newGrid(0,1);
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
-        container_.add(panneau2_,BorderLayout.EAST);
+        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
         container.tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain(), container.getOwner().getCompoFactory());
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock());

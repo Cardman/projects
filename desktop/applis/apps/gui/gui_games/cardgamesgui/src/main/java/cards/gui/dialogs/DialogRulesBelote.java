@@ -1,11 +1,12 @@
 package cards.gui.dialogs;
-import java.awt.BorderLayout;
+
 
 import cards.belote.RulesBelote;
 import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
+import code.gui.GuiConstants;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class DialogRulesBelote extends DialogBelote implements DialogRules {
@@ -36,10 +37,10 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
         String lg_ = _parent.getLanguageKey();
         initJt(_parent,null,lg_);
 
-        container_.add(getJt(),BorderLayout.CENTER);
+        container_.add(getJt(), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE));
         bouton_.addActionListener(new ValidateRulesEvent(this));
-        container_.add(bouton_,BorderLayout.SOUTH);
+        container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
         getCardDialog().setContentPane(container_);
         getCardDialog().pack();
     }

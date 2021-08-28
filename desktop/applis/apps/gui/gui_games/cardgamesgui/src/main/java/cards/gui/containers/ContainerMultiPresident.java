@@ -1,5 +1,5 @@
 package cards.gui.containers;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -472,7 +472,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     private void placerIhmPresidentMulti(ByteMap<Playing> _status, int _nbMax) {
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)), BorderLayout.NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
         String lg_ = getOwner().getLanguageKey();
         CarpetPresident tapis_ = new CarpetPresident();
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
@@ -492,12 +492,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
         StringList list_ = new StringList(pseudos_.values());
         tapis_.initTapisPresident(lg_,list_, status_, _nbMax, getOwner().getCompoFactory());
         getTapis().setTapisPresident(tapis_);
-        container_.add(tapis_.getContainer(), BorderLayout.CENTER);
+        container_.add(tapis_.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_;
         panneau_= getOwner().getCompoFactory().newLineBox();
         panneau_.setBackground(Color.BLUE);
         setPanelHand(panneau_);
-        container_.add(panneau_, BorderLayout.SOUTH);
+        container_.add(panneau_, GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
         setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
@@ -526,7 +526,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getNoPlay().setVisible(false);
         panneau2_.add(getNoPlay());
         setActionsHistory(panneau2_);
-        container_.add(panneau2_,BorderLayout.EAST);
+        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
@@ -645,7 +645,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         editor_.initialize(stds_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
-        container_.add(onglets_,BorderLayout.CENTER);
+        container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;
         ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowCards.READY));
@@ -667,7 +667,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
-        container_.add(panneau_,BorderLayout.SOUTH);
+        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
 
         setContentPane(container_);
         pack();

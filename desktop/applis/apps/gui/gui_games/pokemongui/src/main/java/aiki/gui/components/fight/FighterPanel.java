@@ -1,5 +1,5 @@
 package aiki.gui.components.fight;
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
@@ -27,13 +27,13 @@ public class FighterPanel {
         container = _fact.getCompoFactory().newBorder();
         container.setLoweredBorder();
         title = _fact.getCompoFactory().newPlainLabel(_titre);
-        container.add(title, BorderLayout.NORTH);
+        container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
         liste.setRender(new FighterRenderer(_fact.getImageFactory(),facade));
         initFighters(_fighters);
-        container.add(liste.self(), BorderLayout.CENTER);
+        container.add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
         container.setPreferredSize(new Dimension(150,64*_nb));
     }
 

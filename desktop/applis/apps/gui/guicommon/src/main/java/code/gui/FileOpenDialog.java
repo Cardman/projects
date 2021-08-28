@@ -1,5 +1,5 @@
 package code.gui;
-import java.awt.BorderLayout;
+
 
 
 
@@ -97,7 +97,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         searchingPanel.add(searchedFiles);
         foundFiles = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(RESULT_COUNT), 0));
         searchingPanel.add(foundFiles);
-        getAbsDialog().getPane().add(searchingPanel, BorderLayout.NORTH);
+        getAbsDialog().getPane().add(searchingPanel, GuiConstants.BORDER_LAYOUT_NORTH);
         pack();
     }
 

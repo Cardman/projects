@@ -1,5 +1,5 @@
 package code.gui;
-import java.awt.BorderLayout;
+
 import java.awt.Point;
 
 import javax.swing.WindowConstants;
@@ -175,7 +175,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         buttons = compoFactory.newLineBox();
         openSaveFile_.add(buttons);
         AbsPanel contentPane_ = compoFactory.newBorder();
-        contentPane_.add(openSaveFile_, BorderLayout.SOUTH);
+        contentPane_.add(openSaveFile_, GuiConstants.BORDER_LAYOUT_SOUTH);
         if (currentFolderRoot) {
             AbstractMutableTreeNode default_ = superFrame.getCompoFactory().newMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
             FileListInfo files_ = superFrame.getFileCoreStream().newFile(currentFolder).listAbsolute(superFrame.getFileCoreStream());
@@ -194,8 +194,8 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         }
         AbsSplitPane fileSelector_ = getSuperFrame().getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,compoFactory.newAbsScrollPane(folderSystem.getTree()),compoFactory.newAbsScrollPane(fileTable));
         folderSystem.addTreeSelectionListener(new DeployTreeEvent(this));
-        contentPane_.add(fileSelector_, BorderLayout.CENTER);
-        contentPane_.add(openSaveFile_, BorderLayout.SOUTH);
+        contentPane_.add(fileSelector_, GuiConstants.BORDER_LAYOUT_CENTER);
+        contentPane_.add(openSaveFile_, GuiConstants.BORDER_LAYOUT_SOUTH);
         absDialog.setContentPane(contentPane_);
     }
 

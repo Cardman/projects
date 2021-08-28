@@ -17,6 +17,15 @@ public final class GuiConstants {
     public static final int YES_OPTION = JOptionPane.YES_OPTION;
     public static final int CANCEL_OPTION = JOptionPane.CANCEL_OPTION;
     public static final int OK_OPTION = JOptionPane.OK_OPTION;
+    public static final String BORDER_LAYOUT_CENTER = BorderLayout.CENTER;
+    public static final String BORDER_LAYOUT_SOUTH = BorderLayout.SOUTH;
+    public static final String BORDER_LAYOUT_EAST = BorderLayout.EAST;
+    public static final String BORDER_LAYOUT_NORTH = BorderLayout.NORTH;
+    public static final String BORDER_LAYOUT_WEST = BorderLayout.WEST;
+    public static final String BORDER_LAYOUT_BEFORE_FIRST_LINE = BorderLayout.BEFORE_FIRST_LINE;
+    public static final String BORDER_LAYOUT_AFTER_LAST_LINE = BorderLayout.AFTER_LAST_LINE;
+    public static final String BORDER_LAYOUT_BEFORE_LINE_BEGINS = BorderLayout.BEFORE_LINE_BEGINS;
+    public static final String BORDER_LAYOUT_AFTER_LINE_ENDS = BorderLayout.AFTER_LINE_ENDS;
 
     private GuiConstants() {
     }

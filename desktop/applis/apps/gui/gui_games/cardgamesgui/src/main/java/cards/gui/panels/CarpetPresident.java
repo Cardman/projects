@@ -1,5 +1,5 @@
 package cards.gui.panels;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 
 import javax.swing.SwingConstants;
@@ -10,6 +10,7 @@ import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
@@ -59,7 +60,7 @@ public class CarpetPresident {
             entered_ = true;
         }
         centerDeck.setBackground(new Color(0, 125, 0));
-        container.add(centerDeck, BorderLayout.CENTER);
+        container.add(centerDeck, GuiConstants.BORDER_LAYOUT_CENTER);
         playersPanel = _compoFactory.newPageBox();
         for (String n: pseudos) {
             AbsPlainLabel l_ = _compoFactory.newPlainLabel(n);
@@ -67,7 +68,7 @@ public class CarpetPresident {
             labels.add(l_);
             playersPanel.add(l_);
         }
-        container.add(playersPanel, BorderLayout.WEST);
+        container.add(playersPanel, GuiConstants.BORDER_LAYOUT_WEST);
     }
 
 //    public void retirerCartes() {

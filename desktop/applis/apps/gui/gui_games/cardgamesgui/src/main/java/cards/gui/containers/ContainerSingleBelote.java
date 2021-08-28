@@ -1,5 +1,5 @@
 package cards.gui.containers;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -434,18 +434,18 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     private void placerIhmBelote() {
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),BorderLayout.NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);
         GameBelote partie_=partieBelote();
         StringList pseudos_ = pseudosBelote();
         String lg_ = getOwner().getLanguageKey();
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), getDisplayingBelote().isClockwise(), pseudos_, 1, getOwner().getCompoFactory());
         getTapis().setTapisBelote(tapis_);
-        container_.add(tapis_.getContainer(),BorderLayout.CENTER);
+        container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_;
         panneau_= getOwner().getCompoFactory().newLineBox();
         panneau_.setBackground(Color.BLUE);
         setPanelHand(panneau_);
-        container_.add(panneau_,BorderLayout.SOUTH);
+        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
         setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
@@ -473,7 +473,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         AbsPanel sousPanneau_=getOwner().getCompoFactory().newPageBox();
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
-        container_.add(panneau2_,BorderLayout.EAST);
+        container_.add(panneau2_,GuiConstants.BORDER_LAYOUT_EAST);
         if (!partie_.getDistribution().derniereMain().estVide()) {
             tapisBelote().setTalonBelote(getWindow(),lg_,partie_.getDistribution().derniereMain());
         }
@@ -750,13 +750,13 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             graphique_.setLocation(0,(600-dimy_)/2);
             ascenseur_.setPreferredSize(new Dimension(300,200));
             panneau_=getOwner().getCompoFactory().newBorder();
-            panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),BorderLayout.NORTH);
-            panneau_.add(ascenseur_,BorderLayout.CENTER);
+            panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),GuiConstants.BORDER_LAYOUT_NORTH);
+            panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
             ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(legende_);
             ascenseur_.setPreferredSize(new Dimension(300,100));
-            panneau_.add(ascenseur_,BorderLayout.SOUTH);
+            panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_SOUTH);
             onglets_.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
         }
         GameBelote game_ = partieBelote();
@@ -771,7 +771,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_, tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(),ow_).getContainer());
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.HANDS_TRICKS),ascenseur_);
-        container_.add(onglets_,BorderLayout.CENTER);
+        container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         panneau_=getOwner().getCompoFactory().newPageBox();
         AbsPanel buttons_ = getOwner().getCompoFactory().newLineBox();
         GameType type_;
@@ -789,7 +789,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panneau_.add(buttons_);
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
-        container_.add(panneau_,BorderLayout.SOUTH);
+        container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
 //        if(type_!=GameType.EDIT) {
 //            partie_.setNombre();
 //        }

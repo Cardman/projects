@@ -1,11 +1,12 @@
 package cards.gui.dialogs;
-import java.awt.BorderLayout;
+
 
 import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.president.RulesPresident;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
+import code.gui.GuiConstants;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class DialogRulesPresident extends DialogPresident implements DialogRules {
@@ -37,10 +38,10 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         initMessageName(_window);
         initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window);
 
-        container_.add(getJt(),BorderLayout.CENTER);
+        container_.add(getJt(), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE));
         bouton_.addActionListener(new ValidateRulesEvent(this));
-        container_.add(bouton_,BorderLayout.SOUTH);
+        container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
         getCardDialog().setContentPane(container_);
         getCardDialog().pack();
     }

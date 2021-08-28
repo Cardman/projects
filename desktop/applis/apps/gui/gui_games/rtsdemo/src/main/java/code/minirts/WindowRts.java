@@ -18,7 +18,7 @@ import code.threads.AbstractThread;
 import code.util.StringMap;
 
 import javax.swing.WindowConstants;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -78,7 +78,7 @@ public final class WindowRts extends GroupFrame {
         battleground.setLocation(cust_);
 //        battleground.setLocation(facade.getTopLeftPoint());
         battlegroundWrapper_.setPreferredSize(new Dimension(256, 256));
-        scene_.add(battlegroundWrapper_, BorderLayout.CENTER);
+        scene_.add(battlegroundWrapper_, GuiConstants.BORDER_LAYOUT_CENTER);
 //        panel_.add(battlegroundWrapper_, BorderLayout.CENTER);
         RtsKeyPad left_ = new RtsKeyPad(RtsDirection.LEFT, getCompoFactory());
         RtsKeyPad right_ = new RtsKeyPad(RtsDirection.RIGHT, getCompoFactory());
@@ -93,10 +93,10 @@ public final class WindowRts extends GroupFrame {
         down_.addMouseListener(new RtsMouseTask(RtsDirection.DOWN, task_, t_));
         left_.addMouseListener(new RtsMouseTask(RtsDirection.LEFT, task_, t_));
         right_.addMouseListener(new RtsMouseTask(RtsDirection.RIGHT, task_, t_));
-        contentPane_.add(up_, BorderLayout.NORTH);
-        contentPane_.add(down_, BorderLayout.SOUTH);
-        contentPane_.add(left_, BorderLayout.WEST);
-        contentPane_.add(right_, BorderLayout.EAST);
+        contentPane_.add(up_, GuiConstants.BORDER_LAYOUT_NORTH);
+        contentPane_.add(down_, GuiConstants.BORDER_LAYOUT_SOUTH);
+        contentPane_.add(left_, GuiConstants.BORDER_LAYOUT_WEST);
+        contentPane_.add(right_, GuiConstants.BORDER_LAYOUT_EAST);
         animate.addActionListener(new Animate(this));
         AbsPanel buttons_ = getCompoFactory().newLineBox();
         buttons_.add(animate);
@@ -122,8 +122,8 @@ public final class WindowRts extends GroupFrame {
             }
         }
         setCursor(battlegroundWrapper_, wCurs_, hCurs_, pixels_);
-        scene_.add(buttons_, BorderLayout.SOUTH);
-        contentPane_.add(scene_, BorderLayout.CENTER);
+        scene_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
+        contentPane_.add(scene_, GuiConstants.BORDER_LAYOUT_CENTER);
         battlegroundWrapper_.repaintSecondChildren(getImageFactory());
         battleground.getContainer().repaintSecondChildren(getImageFactory());
         contentPane_.repaintSecondChildren(getImageFactory());

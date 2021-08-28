@@ -1,5 +1,5 @@
 package code.gui;
-import java.awt.BorderLayout;
+
 
 
 
@@ -84,7 +84,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
             searchingPanel.add(label_);
             searchingPanel.add(typedString);
             searchingPanel.add(search_);
-            getAbsDialog().getPane().add(searchingPanel, BorderLayout.NORTH);
+            getAbsDialog().getPane().add(searchingPanel, GuiConstants.BORDER_LAYOUT_NORTH);
         }
         pack();
     }

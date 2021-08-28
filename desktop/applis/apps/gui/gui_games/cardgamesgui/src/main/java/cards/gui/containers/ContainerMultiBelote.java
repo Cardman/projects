@@ -1,5 +1,4 @@
 package cards.gui.containers;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -685,7 +684,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     private void placerIhmBeloteMulti(HandBelote _cardsOnDeck, byte _beginPlace) {
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
-        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)), BorderLayout.NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
         for (String s : pseudosBelote((byte) nbChoosenPlayers)) {
@@ -702,12 +701,12 @@ public class ContainerMultiBelote extends ContainerBelote implements
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, nbChoosenPlayers, getDisplayingBelote().isClockwise(),
                 list_, 1, getOwner().getCompoFactory());
         getTapis().setTapisBelote(tapis_);
-        container_.add(tapis_.getContainer(), BorderLayout.CENTER);
+        container_.add(tapis_.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_;
         panneau_= getOwner().getCompoFactory().newLineBox();
         panneau_.setBackground(Color.BLUE);
         setPanelHand(panneau_);
-        container_.add(panneau_, BorderLayout.SOUTH);
+        container_.add(panneau_, GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_ = getOwner().getCompoFactory().newPageBox();
         setEvents(getOwner().getCompoFactory().newTextArea(EMPTY, 8, 30));
         byte relative_ = relative(_beginPlace);
@@ -735,7 +734,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         AbsPanel sousPanneau_ = getOwner().getCompoFactory().newGrid(0, 1);
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
-        container_.add(panneau2_, BorderLayout.EAST);
+        container_.add(panneau2_, GuiConstants.BORDER_LAYOUT_EAST);
         if (!_cardsOnDeck.estVide()) {
             tapisBelote().setTalonBelote(getWindow(),lg_,_cardsOnDeck);
         }
@@ -844,7 +843,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         editor_.initialize(sTwo_);
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),ascenseur_);
-        container_.add(onglets_,BorderLayout.CENTER);
+        container_.add(onglets_, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;
         ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowCards.READY));
@@ -866,7 +865,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         panneau_.add(getWindow().getClock());
         panneau_.add(getWindow().getLastSavedGameDate());
-        container_.add(panneau_,BorderLayout.SOUTH);
+        container_.add(panneau_, GuiConstants.BORDER_LAYOUT_SOUTH);
 
         setContentPane(container_);
         pack();

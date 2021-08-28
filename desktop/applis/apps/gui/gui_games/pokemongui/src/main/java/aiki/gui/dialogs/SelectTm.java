@@ -1,5 +1,5 @@
 package aiki.gui.dialogs;
-import java.awt.BorderLayout;
+
 
 import javax.swing.WindowConstants;
 
@@ -48,7 +48,7 @@ public final class SelectTm extends SelectDialog {
         initOk();
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
-        contentPane_.add(compo.newAbsScrollPane(new PaginatorMove(_parent,pag_, getSelectDial(), _facade, _buy).getContainer()), BorderLayout.CENTER);
+        contentPane_.add(compo.newAbsScrollPane(new PaginatorMove(_parent,pag_, getSelectDial(), _facade, _buy).getContainer()), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         AbsPlainButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
         ok_.addActionListener(new ValidateSelectionEvent(this));
@@ -56,7 +56,7 @@ public final class SelectTm extends SelectDialog {
         AbsPlainButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
         cancel_.addActionListener(new ClosingDialogEvent(this));
         buttons_.add(cancel_);
-        contentPane_.add(buttons_, BorderLayout.SOUTH);
+        contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
         getSelectDial().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         getSelectDial().pack();
