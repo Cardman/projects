@@ -4,9 +4,10 @@ import aiki.gui.dialogs.DialogSoftParams;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class ValidateSoftParams extends AbsMouseListenerRel {
+public class ValidateSoftParams implements AbsActionListener {
 
     private final DialogSoftParams dialog;
 
@@ -15,7 +16,7 @@ public class ValidateSoftParams extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.validateChoices();
     }
 }

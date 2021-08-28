@@ -54,10 +54,10 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
             container.ajouterTexteDansZone(StringUtil.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,Games.toString(getCarteVerif(),lg_),ContainerGame.RETURN_LINE));
             container.getPanneauBoutonsJeu().removeAll();
             if(partie_.getContrat()!=BidTarot.SLAM) {
-                container.getValidateDog().setEnabledLabel(true);
+                container.getValidateDog().setEnabled(true);
                 container.getPanneauBoutonsJeu().add(container.getValidateDog());
-                container.getSlamButton().setEnabledLabel(true);
-                container.getSlamButton().setVisibleButton(true);
+                container.getSlamButton().setEnabled(true);
+                container.getSlamButton().setVisible(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
                 container.pack();
             } else {
@@ -76,8 +76,8 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
             partie_.gererChienInconnu();
             container.getPanneauBoutonsJeu().removeAll();
             if(partie_.getContrat()!=BidTarot.SLAM) {
-                container.getSlamButton().setEnabledLabel(true);
-                container.getSlamButton().setVisibleButton(true);
+                container.getSlamButton().setEnabled(true);
+                container.getSlamButton().setVisible(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
                 container.addButtonNextTrickTarot(container.getMessages().getVal(WindowCards.GO_CARD_GAME), true);
                 container.pack();

@@ -310,7 +310,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     TrickTarot ecart_=partie_.getPliEnCours();
                     getConsulting().setEnabledMenu(ecart_.estVide());
                     setChien(ecart_.getCartes(),true);
-                    getValidateDog().setEnabledLabel(ecart_.total()==partie_.getDistribution().derniereMain().total());
+                    getValidateDog().setEnabled(ecart_.total()==partie_.getDistribution().derniereMain().total());
                     getPanneauBoutonsJeu().add(getValidateDog());
                     //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), ecart_.total()==partie_.getDistribution().derniereMain().total());
                     afficherMainUtilisateurTarotChien();
@@ -337,12 +337,12 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                         TrickTarot ecart_=partie_.getPliEnCours();
                         setChien(ecart_.getCartes(),true);
                         //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), ecart_.total()==partie_.getDistribution().derniereMain().total());
-                        getValidateDog().setEnabledLabel(ecart_.total()==partie_.getDistribution().derniereMain().total());
+                        getValidateDog().setEnabled(ecart_.total()==partie_.getDistribution().derniereMain().total());
                         getPanneauBoutonsJeu().add(getValidateDog());
                         if (ecart_.total()==partie_.getDistribution().derniereMain().total()) {
 //                            ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-                            getSlamButton().setEnabledLabel(true);
-                            getSlamButton().setVisibleButton(true);
+                            getSlamButton().setEnabled(true);
+                            getSlamButton().setVisible(true);
                             getPanneauBoutonsJeu().add(getSlamButton());
                         }
                         afficherMainUtilisateurTarotChien();
@@ -350,7 +350,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                         tapisTarot().retirerCartes();
                         getPanneauBoutonsJeu().removeAll();
                         if (partie_.getRegles().getDiscardAfterCall()) {
-                            getValidateDog().setEnabledLabel(false);
+                            getValidateDog().setEnabled(false);
                             getPanneauBoutonsJeu().add(getValidateDog());
                             //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
                         } else {
@@ -410,8 +410,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     if (partie_.getContrat()!=BidTarot.SLAM) {
 //                        ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
                         getConsulting().setEnabledMenu(true);
-                        getSlamButton().setEnabledLabel(true);
-                        getSlamButton().setVisibleButton(true);
+                        getSlamButton().setEnabled(true);
+                        getSlamButton().setVisible(true);
                         getPanneauBoutonsJeu().add(getSlamButton());
                     }
                     addButtonNextTrickTarot(getMessages().getVal(WindowCards.GO_CARD_GAME), true);
@@ -427,8 +427,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                     if (partie_.getContrat()!=BidTarot.SLAM) {
 //                        ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
                         getConsulting().setEnabledMenu(true);
-                        getSlamButton().setEnabledLabel(true);
-                        getSlamButton().setVisibleButton(true);
+                        getSlamButton().setEnabled(true);
+                        getSlamButton().setVisible(true);
                         getPanneauBoutonsJeu().add(getSlamButton());
                     }
                     addButtonNextTrickTarot(getMessages().getVal(WindowCards.GO_CARD_GAME), true);
@@ -488,21 +488,21 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
     public void ajouterBoutonContratTarot(String _texte,BidTarot _action,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        LabelButton bouton_=new LabelButton(_texte);
+        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
 //        bouton_.addActionListener(new EcouteurBoutonContratTarot(_action));
-        bouton_.addMouseList(new ListenerBidTarotSingle(this,_action));
-        bouton_.setEnabledLabel(_apte);
+        bouton_.addActionListener(new ListenerBidTarotSingle(this,_action));
+        bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void initSlamButtonTarot() {
         String lg_ = getOwner().getLanguageKey();
-        LabelButton bouton_=new LabelButton(Games.toString(BidTarot.SLAM,lg_));
-        bouton_.addMouseList(new SlamEvent(this));
+        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(Games.toString(BidTarot.SLAM,lg_));
+        bouton_.addActionListener(new SlamEvent(this));
         setSlamButton(bouton_);
     }
 //    public void ajouterBoutonJeuChelemTarot(String _texte,boolean _apte) {
 //        JPanel panneau_=getPanneauBoutonsJeu();
-//        LabelButton bouton_=new LabelButton(_texte);
+//        LabelButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
 //        bouton_.addMouseListener(new MouseAdapter() {
 //            @Override
 //            public void mouseReleased(MouseEvent _e) {
@@ -514,21 +514,21 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //    }
     public void addButtonSeeDogTarot(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseList(new SeeDogEvent(this));
-        bouton_.setEnabledLabel(_apte);
+        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        bouton_.addActionListener(new SeeDogEvent(this));
+        bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonTakeDogCardsTarot(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseList(new TakeDogEvent(this));
-        bouton_.setEnabledLabel(_apte);
+        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        bouton_.addActionListener(new TakeDogEvent(this));
+        bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void initButtonValidateDogTarot() {
-        LabelButton bouton_=new LabelButton(getMessages().getVal(WindowCards.GO_CARD_GAME));
-        bouton_.addMouseList(new ValidateDogEvent(this));
+        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowCards.GO_CARD_GAME));
+        bouton_.addActionListener(new ValidateDogEvent(this));
         setValidateDog(bouton_);
     }
     @Override
@@ -565,7 +565,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
 //    public void addButtonValidateDogTarot(String _texte,boolean _apte) {
 //        JPanel panneau_=getPanneauBoutonsJeu();
-//        LabelButton bouton_=new LabelButton(_texte);
+//        LabelButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
 //        bouton_.addMouseListener(new MouseAdapter() {
 //
 //            @Override
@@ -606,36 +606,36 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //    }
     public void addButtonEndDealTarot(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseList(new EndDealEvent(this));
-        bouton_.setEnabledLabel(_apte);
+        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        bouton_.addActionListener(new EndDealEvent(this));
+        bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     public void addButtonNextTrickTarot(String _texte,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
-        LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseList(new NextTrickEvent(this));
-        bouton_.setEnabledLabel(_apte);
+        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        bouton_.addActionListener(new NextTrickEvent(this));
+        bouton_.setEnabled(_apte);
         panneau_.add(bouton_);
     }
     private void addButtonKeepPlayingDealTarot(AbsPanel _panneau,String _texte) {
-        LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseList(new KeepPlayingRandomEvent(this));
+        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        bouton_.addActionListener(new KeepPlayingRandomEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonKeepPlayingEditedDealTarot(AbsPanel _panneau,String _texte) {
-        LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseList(new KeepPlayingEditedEvent(this));
+        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        bouton_.addActionListener(new KeepPlayingEditedEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonStopPlayingTarot(AbsPanel _panneau,String _texte) {
-        LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseList(new StopPlayingEvent(this));
+        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        bouton_.addActionListener(new StopPlayingEvent(this));
         _panneau.add(bouton_);
     }
     private void addButtonReplayDealTarot(AbsPanel _panneau,String _texte) {
-        LabelButton bouton_=new LabelButton(_texte);
-        bouton_.addMouseList(new ReplayEvent(this));
+        AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
+        bouton_.addActionListener(new ReplayEvent(this));
         _panneau.add(bouton_);
     }
     private void setChien(HandTarot _main,boolean _ecouteur) {
@@ -1173,9 +1173,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         afficherMainUtilisateurTarotChien();
         getPanneauBoutonsJeu().removeAll();
         if (partie_.getRegles().getDiscardAfterCall()) {
-            getValidateDog().setEnabledLabel(false);
+            getValidateDog().setEnabled(false);
             getPanneauBoutonsJeu().add(getValidateDog());
-            getSlamButton().setVisibleButton(false);
+            getSlamButton().setVisible(false);
             getPanneauBoutonsJeu().add(getSlamButton());
             //addButtonValidateDogTarot(getMessages().getVal(MainWindow.GO_CARD_GAME), false);
         } else {
@@ -1193,11 +1193,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            JPanel boutons_=getPanneauBoutonsJeu();
 //            LabelButton valide_=(LabelButton)boutons_.getComponent(0);
             boolean chienFait_ = partie_.getPliEnCours().total()==partie_.getDistribution().derniereMain().total();
-            getValidateDog().setEnabledLabel(chienFait_);
+            getValidateDog().setEnabled(chienFait_);
             if(chienFait_) {
                 //ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-                getSlamButton().setEnabledLabel(true);
-                getSlamButton().setVisibleButton(true);
+                getSlamButton().setEnabled(true);
+                getSlamButton().setVisible(true);
             }
             //boutons_.validate();
         }
@@ -1213,11 +1213,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (partie_.getRegles().getDiscardAfterCall()) {
 //            JPanel boutons_=getPanneauBoutonsJeu();
 //            LabelButton valide_=(LabelButton)boutons_.getComponent(0);
-            getValidateDog().setEnabledLabel(partie_.getPliEnCours().total()==partie_.getDistribution().derniereMain().total());
-//            if(boutons_.getComponentCount()==2) {
+            getValidateDog().setEnabled(partie_.getPliEnCours().total()==partie_.getDistribution().derniereMain().total());
+            //            if(boutons_.getComponentCount()==2) {
 //                boutons_.remove(1);
 //            }
-            getSlamButton().setVisibleButton(false);
+            getSlamButton().setVisible(false);
         }
         pack();
     }

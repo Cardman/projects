@@ -5,7 +5,7 @@ import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.AbstractDialogServer;
 
-public class JoinServerEvent extends AbsMouseListenerRel {
+public class JoinServerEvent implements AbsActionListener {
 
     private AbstractDialogServer dialog;
 
@@ -14,7 +14,7 @@ public class JoinServerEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.joinServerChoice();
     }
 }

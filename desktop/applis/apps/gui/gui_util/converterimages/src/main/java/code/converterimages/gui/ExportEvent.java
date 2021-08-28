@@ -2,9 +2,10 @@ package code.converterimages.gui;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public final class ExportEvent extends AbsMouseListenerRel {
+public final class ExportEvent implements AbsActionListener {
 
     private WindowConverter window;
 
@@ -13,7 +14,7 @@ public final class ExportEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         window.export();
     }
 }

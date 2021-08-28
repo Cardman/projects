@@ -6,9 +6,10 @@ import cards.tarot.enumerations.BidTarot;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class ListenerBidTarotSingle extends AbsMouseListenerRel {
+public class ListenerBidTarotSingle implements AbsActionListener {
 
     private ContainerSingleTarot container;
     private BidTarot enchere;
@@ -20,7 +21,7 @@ public class ListenerBidTarotSingle extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         if (clicked) {
             return;
         }

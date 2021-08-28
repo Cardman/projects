@@ -83,8 +83,8 @@ public final class AfterAnimationBidTarot implements Runnable {
             partie_.gererChienInconnu();
             if(partie_.getPreneur()==DealTarot.NUMERO_UTILISATEUR&&partie_.getContrat()!=BidTarot.SLAM) {
 //                container.ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
-                container.getSlamButton().setEnabledLabel(true);
-                container.getSlamButton().setVisibleButton(true);
+                container.getSlamButton().setEnabled(true);
+                container.getSlamButton().setVisible(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
             } else {
                 if (partie_.getPreneur()!=DealTarot.NUMERO_UTILISATEUR) {

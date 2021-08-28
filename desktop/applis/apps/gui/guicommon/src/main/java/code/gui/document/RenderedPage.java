@@ -51,7 +51,7 @@ public final class RenderedPage implements ProcessingSession {
 
     private final CustList<DualAnimatedImage> anims = new CustList<DualAnimatedImage>();
 
-    private LabelButton find;
+    private AbsPlainButton find;
     private AbsTextField field;
     private final AbstractProgramInfos gene;
 
@@ -240,7 +240,7 @@ public final class RenderedPage implements ProcessingSession {
         return anims;
     }
 
-    public void setSearchText(LabelButton _search) {
+    public void setSearchText(AbsPlainButton _search) {
         find = _search;
     }
 
@@ -250,7 +250,7 @@ public final class RenderedPage implements ProcessingSession {
 
     public void addFinder() {
         finding = new FindEvent(field, this);
-        find.addMouseList(finding);
+        find.addActionListener(finding);
     }
 
     public ContextEl getContext() {

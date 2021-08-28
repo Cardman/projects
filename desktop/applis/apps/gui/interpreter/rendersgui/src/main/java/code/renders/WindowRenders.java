@@ -61,7 +61,7 @@ public final class WindowRenders extends GroupFrame {
         session.setLanguage(_lg);
         session.setFrame(this);
         AbsTextField field_;
-        LabelButton search_ = new LabelButton("search");
+        AbsPlainButton search_ = getCompoFactory().newPlainButton("search");
         field_ = getCompoFactory().newTextField(20);
         session.setSearchText(search_);
         session.setField(field_);

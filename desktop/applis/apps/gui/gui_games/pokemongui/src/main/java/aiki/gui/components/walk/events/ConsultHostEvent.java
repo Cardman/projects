@@ -6,9 +6,10 @@ import aiki.gui.dialogs.ConsultHosts;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class ConsultHostEvent extends AbsMouseListenerRel {
+public class ConsultHostEvent implements AbsActionListener {
 
     private WindowAiki window;
 
@@ -20,7 +21,7 @@ public class ConsultHostEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         ConsultHosts.setConsultHosts(window, facade);
     }
 }

@@ -4,9 +4,10 @@ import cards.gui.WindowCards;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class ChooseModeEvent extends AbsMouseListenerRel {
+public class ChooseModeEvent implements AbsActionListener {
 
     private WindowCards window;
 
@@ -18,7 +19,7 @@ public class ChooseModeEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         window.setSingle(single);
         if (single) {
             window.menuSoloGames();

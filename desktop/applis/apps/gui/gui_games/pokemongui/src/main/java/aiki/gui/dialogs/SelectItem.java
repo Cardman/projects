@@ -11,7 +11,6 @@ import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbsCompoFactory;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -69,11 +68,11 @@ public final class SelectItem extends SelectDialog {
 //            });
             buttons_.add(giveCheckBox);
         }
-        LabelButton ok_ = new LabelButton(WindowAiki.OK);
-        ok_.addMouseList(new ValidateSelectionEvent(this));
+        AbsPlainButton ok_ = _parent.getCompoFactory().newPlainButton(WindowAiki.OK);
+        ok_.addActionListener(new ValidateSelectionEvent(this));
         buttons_.add(ok_);
-        LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL));
-        cancel_.addMouseList(new ClosingDialogEvent(this));
+        AbsPlainButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
+        cancel_.addActionListener(new ClosingDialogEvent(this));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, BorderLayout.SOUTH);
         getSelectDial().setContentPane(contentPane_);

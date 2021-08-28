@@ -7,7 +7,6 @@ import aiki.sml.LoadingGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ValidateSoftParams;
 import code.gui.*;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
@@ -149,8 +148,8 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(selectHomePathZip);
-        LabelButton ok_ = new LabelButton(WindowAiki.OK);
-        ok_.addMouseList(new ValidateSoftParams(this));
+        AbsPlainButton ok_ = _window.getCompoFactory().newPlainButton(WindowAiki.OK);
+        ok_.addActionListener(new ValidateSoftParams(this));
         panel_.add(ok_);
         absDialog.setContentPane(panel_);
         absDialog.pack();

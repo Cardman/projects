@@ -13,7 +13,6 @@ import cards.gui.dialogs.events.ValidateDisplayingEvent;
 import cards.gui.panels.SuitsScrollableList;
 import cards.tarot.DisplayingTarot;
 import code.gui.*;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -101,11 +100,11 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
 //        }
         sousPanneau_.add(listeChoix.self());
         AbsPanel sousPanneauTwo_=_window.getCompoFactory().newGrid(0,1);
-        LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
-        bouton_.addMouseList(new AddSuitEvent(this));
+        AbsPlainButton bouton_=getCompoFactory().newPlainButton(messages.getVal(ADD_SUIT));
+        bouton_.addActionListener(new AddSuitEvent(this));
         sousPanneauTwo_.add(bouton_);
-        bouton_=new LabelButton(messages.getVal(REMOVE_SUIT));
-        bouton_.addMouseList(new RemoveSuitEvent(this, _window));
+        bouton_=getCompoFactory().newPlainButton(messages.getVal(REMOVE_SUIT));
+        bouton_.addActionListener(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
         sortByDecreasing=getCompoFactory().newCustCheckBox(messages.getVal(SORT_DECREASING));
         sortByDecreasing.setSelected(displayingTarot.isDecreasing());
@@ -119,8 +118,8 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         sousPanneau_.add(orderedSuits.getContainer());
         getJt().add(messages.getVal(SORTING),sousPanneau_);
         container_.add(getJt(),BorderLayout.CENTER);
-        bouton_=new LabelButton(messages.getVal(VALIDATE));
-        bouton_.addMouseList(new ValidateDisplayingEvent(this));
+        bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
+        bouton_.addActionListener(new ValidateDisplayingEvent(this));
         container_.add(bouton_,BorderLayout.SOUTH);
         getCardDialog().setContentPane(container_);
         getCardDialog().pack();

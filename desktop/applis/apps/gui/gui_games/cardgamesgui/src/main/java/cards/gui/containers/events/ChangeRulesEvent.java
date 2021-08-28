@@ -4,9 +4,10 @@ import cards.gui.containers.ContainerMulti;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class ChangeRulesEvent extends AbsMouseListenerRel {
+public class ChangeRulesEvent implements AbsActionListener {
 
     private ContainerMulti container;
 
@@ -15,7 +16,7 @@ public class ChangeRulesEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         container.changeRules();
     }
 }

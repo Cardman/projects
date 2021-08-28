@@ -5,8 +5,7 @@ import cards.belote.RulesBelote;
 import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import code.gui.AbsPanel;
-import code.gui.LabelButton;
-import code.gui.initialize.AbsFrameFactory;
+import code.gui.AbsPlainButton;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class DialogRulesBelote extends DialogBelote implements DialogRules {
@@ -38,8 +37,8 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
         initJt(_parent,null,lg_);
 
         container_.add(getJt(),BorderLayout.CENTER);
-        LabelButton bouton_=new LabelButton(getMessages().getVal(VALIDATE));
-        bouton_.addMouseList(new ValidateRulesEvent(this));
+        AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE));
+        bouton_.addActionListener(new ValidateRulesEvent(this));
         container_.add(bouton_,BorderLayout.SOUTH);
         getCardDialog().setContentPane(container_);
         getCardDialog().pack();

@@ -4,9 +4,10 @@ import cards.gui.containers.ContainerSingle;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class ReplayEvent extends AbsMouseListenerRel {
+public class ReplayEvent implements AbsActionListener {
 
     private ContainerSingle container;
 
@@ -15,7 +16,7 @@ public class ReplayEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         container.replay();
     }
 }

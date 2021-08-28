@@ -182,17 +182,17 @@ public class Battle extends ChildFrame {
 
     private AbsPanel fleeWeb;
 
-    private LabelButton catchBall;
+    private AbsPlainButton catchBall;
 
-    private LabelButton validateActions;
+    private AbsPlainButton validateActions;
 
-    private LabelButton flee;
+    private AbsPlainButton flee;
 
     private TextLabel webLabel;
 
-    private LabelButton web;
+    private AbsPlainButton web;
 
-    private LabelButton cancelCatch;
+    private AbsPlainButton cancelCatch;
 
     private PlaceLabel plLabelBack;
 
@@ -202,7 +202,7 @@ public class Battle extends ChildFrame {
 
     private final TextLabel nickname = new TextLabel("");
 
-    private LabelButton nicknameLabel;
+    private AbsPlainButton nicknameLabel;
 
     private String typedNickname = DataBase.EMPTY_STRING;
 
@@ -285,39 +285,39 @@ public class Battle extends ChildFrame {
             webLabel.setText(messages.getVal(FIGHT_DATA_MESSAGE));
         }
         if (web != null) {
-            web.setTextAndSize(messages.getVal(DATA_FIGHT));
+            web.setText(messages.getVal(DATA_FIGHT));
         }
         if (catchBall != null) {
-            catchBall.setTextAndSize(messages.getVal(CATCH_PK));
+            catchBall.setText(messages.getVal(CATCH_PK));
         }
         if (flee != null) {
             if (facade.isWildFight()) {
                 Rate r_ = facade.calculateFleeingRate();
-                flee.setTextAndSize(StringUtil.simpleStringsFormat(messages.getVal(CST_FLEE), r_.toNumberString(), r_.percent().toNumberString()));
+                flee.setText(StringUtil.simpleStringsFormat(messages.getVal(CST_FLEE), r_.toNumberString(), r_.percent().toNumberString()));
             }
         }
         if (validateActions != null && facade.isExistingFight()) {
             if (facade.getFight().getState() != FightState.SURNOM) {
                 if (facade.getFight().getState() != FightState.CAPTURE_KO) {
                     if (facade.getFight().getState() == FightState.ATTAQUES) {
-                        validateActions.setTextAndSize(messages.getVal(GO_TO_ROUND));
+                        validateActions.setText(messages.getVal(GO_TO_ROUND));
                     } else if (facade.getFight().getState() == FightState.SWITCH_APRES_ATTAQUE) {
-                        validateActions.setTextAndSize(messages.getVal(GO_TO_ROUND));
+                        validateActions.setText(messages.getVal(GO_TO_ROUND));
                     } else if (facade.getFight().getState() == FightState.APPRENDRE_EVOLUER) {
-                        validateActions.setTextAndSize(messages.getVal(VALIDATE_EVOS));
+                        validateActions.setText(messages.getVal(VALIDATE_EVOS));
                     } else if (facade.getFight().getState() == FightState.SWITCH_PROPOSE) {
-                        validateActions.setTextAndSize(messages.getVal(VALIDATE_SWITCH));
+                        validateActions.setText(messages.getVal(VALIDATE_SWITCH));
                     } else {
-                        validateActions.setTextAndSize(messages.getVal(GO_TO_ROUND));
+                        validateActions.setText(messages.getVal(GO_TO_ROUND));
                     }
                 }
             }
         }
         if (nicknameLabel != null) {
-            nicknameLabel.setTextAndSize(messages.getVal(NICKNAME_CST));
+            nicknameLabel.setText(messages.getVal(NICKNAME_CST));
         }
         if (cancelCatch != null) {
-            cancelCatch.setTextAndSize(messages.getVal(CANCEL_CATCH));
+            cancelCatch.setText(messages.getVal(CANCEL_CATCH));
         }
         if (plLabelBack != null) {
             plLabelBack.setText(messages.getVal(GO_BACK));
@@ -371,8 +371,8 @@ public class Battle extends ChildFrame {
 //        c_.gridwidth = GridBagConstraints.REMAINDER;
 //        grid.setConstraints(fleeWeb, c_);
         if (!facade.getFight().getFightType().isExisting()) {
-            validateActions = new LabelButton(WindowAiki.OK);
-            validateActions.addMouseList(new EndFightEvent(this));
+            validateActions = window.getCompoFactory().newPlainButton(WindowAiki.OK);
+            validateActions.addActionListener(new EndFightEvent(this));
             //fleeWeb.add(validateActions);
             //upper.add(fleeWeb);
             //Panel forms_ = new Panel();
@@ -386,8 +386,8 @@ public class Battle extends ChildFrame {
             fleeWeb.add(web);
             addBalls();
             addCatching();
-            validateActions = new LabelButton();
-            validateActions.addMouseList(new RoundAllThrowersEvent(this));
+            validateActions = window.getCompoFactory().newPlainButton();
+            validateActions.addActionListener(new RoundAllThrowersEvent(this));
             fleeWeb.add(validateActions);
             addFlee();
 //            UPPER.add(fleeWeb);
@@ -415,30 +415,30 @@ public class Battle extends ChildFrame {
 //            actionsBattle.add(new JScrollPane(lower));
 //            actionsBattle.setRightComponent(new JScrollPane(lower));
         } else if (facade.getFight().getState() == FightState.SURNOM) {
-            //nicknameLabel = new LabelButton();
+            //nicknameLabel = window.getCompoFactory().newPlainButton();
             fleeWeb.add(webLabel);
             fleeWeb.add(web);
             fleeWeb.add(nicknameLabel);
             fleeWeb.add(nickname);
-            LabelButton ok_ = new LabelButton(WindowAiki.OK);
-            ok_.addMouseList(new ValidateCaughtPokemonNicknameEvent(this));
+            AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
+            ok_.addActionListener(new ValidateCaughtPokemonNicknameEvent(this));
             fleeWeb.add(ok_);
 //            UPPER.add(fleeWeb);
             lower.add(fleeWeb);
 //            actionsBattle.add(new JScrollPane(lower));
 //            actionsBattle.setRightComponent(new JScrollPane(lower));
         } else if (facade.getFight().getState() == FightState.CAPTURE_KO) {
-            //nicknameLabel = new LabelButton();
+            //nicknameLabel = window.getCompoFactory().newPlainButton();
             fleeWeb.add(webLabel);
             fleeWeb.add(web);
             fleeWeb.add(nicknameLabel);
             fleeWeb.add(nickname);
             addBalls();
-            LabelButton ok_ = new LabelButton(WindowAiki.OK);
-            ok_.addMouseList(new CatchKoPokemonEvent(this));
+            AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
+            ok_.addActionListener(new CatchKoPokemonEvent(this));
             fleeWeb.add(ok_);
-            cancelCatch = new LabelButton();
-            cancelCatch.addMouseList(new CancelCatchKoPokemonEvent(this));
+            cancelCatch = window.getCompoFactory().newPlainButton();
+            cancelCatch.addActionListener(new CancelCatchKoPokemonEvent(this));
             fleeWeb.add(cancelCatch);
 //            fleeWeb.add(new JScrollPane(commentsErrors));
 //            UPPER.add(fleeWeb);
@@ -448,8 +448,8 @@ public class Battle extends ChildFrame {
         } else if (facade.getFight().getState() == FightState.APPRENDRE_EVOLUER) {
             fleeWeb.add(webLabel);
             fleeWeb.add(web);
-            validateActions = new LabelButton();
-            validateActions.addMouseList(new LearnAndEvolveEvent(this));
+            validateActions = window.getCompoFactory().newPlainButton();
+            validateActions.addActionListener(new LearnAndEvolveEvent(this));
             fleeWeb.add(validateActions);
 //            UPPER.add(fleeWeb);
             forms.removeAll();
@@ -503,8 +503,8 @@ public class Battle extends ChildFrame {
             //actionsBattle.add(new JScrollPane(lower));
             fleeWeb.add(webLabel);
             fleeWeb.add(web);
-            validateActions = new LabelButton();
-            validateActions.addMouseList(new SendSubstitutesEvent(this));
+            validateActions = window.getCompoFactory().newPlainButton();
+            validateActions.addActionListener(new SendSubstitutesEvent(this));
             fleeWeb.add(validateActions);
             addFlee();
 //            UPPER.add(fleeWeb);
@@ -513,8 +513,8 @@ public class Battle extends ChildFrame {
         } else if (facade.getFight().getState() == FightState.SWITCH_APRES_ATTAQUE) {
             fleeWeb.add(webLabel);
             fleeWeb.add(web);
-            validateActions = new LabelButton();
-            validateActions.addMouseList(new RoundAllThrowersEvent(this));
+            validateActions = window.getCompoFactory().newPlainButton();
+            validateActions.addActionListener(new RoundAllThrowersEvent(this));
             fleeWeb.add(validateActions);
             addFlee();
 //            UPPER.add(fleeWeb);
@@ -539,8 +539,8 @@ public class Battle extends ChildFrame {
         } else {
             fleeWeb.add(webLabel);
             fleeWeb.add(web);
-            validateActions = new LabelButton();
-            validateActions.addMouseList(new RoundWhileKoPlayerEvent(this));
+            validateActions = window.getCompoFactory().newPlainButton();
+            validateActions.addActionListener(new RoundWhileKoPlayerEvent(this));
             fleeWeb.add(validateActions);
 //            UPPER.add(fleeWeb);
             lower.add(fleeWeb);
@@ -841,19 +841,19 @@ public class Battle extends ChildFrame {
             roundLabel = new TextLabel("");
         }
         if (flee == null) {
-            flee = new LabelButton();
-            flee.addMouseList(new FleeEvent(this));
+            flee = window.getCompoFactory().newPlainButton();
+            flee.addActionListener(new FleeEvent(this));
         }
         if (web == null) {
-            web = new LabelButton();
-            web.addMouseList(new ShowFightDataEvent(this));
+            web = window.getCompoFactory().newPlainButton();
+            web.addActionListener(new ShowFightDataEvent(this));
         }
         if (webLabel == null) {
             webLabel = new TextLabel("");
         }
         if (nicknameLabel == null) {
-            nicknameLabel = new LabelButton();
-            nicknameLabel.addMouseList(new NicknameEvent(this));
+            nicknameLabel = window.getCompoFactory().newPlainButton();
+            nicknameLabel.addActionListener(new NicknameEvent(this));
         }
         if (fleeWeb == null) {
             fleeWeb = window.getCompoFactory().newPageBox();
@@ -898,8 +898,8 @@ public class Battle extends ChildFrame {
             ballPanel = new BallPanel(window.getFrames(), 5, DataBase.EMPTY_STRING, facade, window.getAikiFactory().getGeneBallNumberRate().create(window.getImageFactory(),true));
         }
         if (catchBall == null) {
-            catchBall = new LabelButton();
-            catchBall.addMouseList(new CatchNotKoPokemonEvent(this));
+            catchBall = window.getCompoFactory().newPlainButton();
+            catchBall.addActionListener(new CatchNotKoPokemonEvent(this));
         }
     }
 
@@ -1269,8 +1269,8 @@ public class Battle extends ChildFrame {
         actions.removeAll();
         actions.add(actionType);
         selectedItem = new TextLabel(messages.getVal(NO_ITEM));
-        LabelButton button_ = new LabelButton(messages.getVal(SELECT_ITEM));
-        button_.addMouseList(new SelectHealingItemEvent(this));
+        AbsPlainButton button_ = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_ITEM));
+        button_.addActionListener(new SelectHealingItemEvent(this));
         String str_ = facade.getFight().getChosenHealingMove();
         if (!str_.isEmpty()) {
             String mess_ = StringUtil.simpleStringsFormat(messages.getVal(SELECTED_ITEM), str_);

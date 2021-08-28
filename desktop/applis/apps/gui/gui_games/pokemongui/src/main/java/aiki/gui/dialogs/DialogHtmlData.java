@@ -85,7 +85,7 @@ public final class DialogHtmlData {
         TextLabel area_ = new TextLabel(TEXT);
         AbsTextField field_;
 //        LabelButton search_ = new LabelButton(MainWindow.OK);
-        LabelButton search_ = new LabelButton(messages.getVal(SEARCH_LABEL));
+        AbsPlainButton search_ = _session.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = _session.getCompoFactory().newTextField(20);
 //        _session.setLabel(area_);
         _session.setSearchText(search_);

@@ -4,9 +4,10 @@ import cards.gui.WindowCards;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class BackToMainMenuEvent extends AbsMouseListenerRel {
+public class BackToMainMenuEvent implements AbsActionListener {
 
     private WindowCards window;
 
@@ -15,7 +16,7 @@ public class BackToMainMenuEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         window.menuPrincipal();
         window.pack();
     }

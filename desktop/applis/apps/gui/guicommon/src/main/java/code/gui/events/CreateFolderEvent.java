@@ -5,7 +5,7 @@ import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.FileSaveDialog;
 
-public class CreateFolderEvent extends AbsMouseListenerRel {
+public class CreateFolderEvent implements AbsActionListener {
 
     private FileSaveDialog dialog;
 
@@ -14,7 +14,7 @@ public class CreateFolderEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.createFolder();
     }
 }

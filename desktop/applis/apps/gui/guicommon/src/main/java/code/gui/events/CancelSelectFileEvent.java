@@ -5,7 +5,7 @@ import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.FileDialog;
 
-public class CancelSelectFileEvent extends AbsMouseListenerRel {
+public class CancelSelectFileEvent implements AbsActionListener {
 
     private FileDialog dialog;
 
@@ -14,7 +14,7 @@ public class CancelSelectFileEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         if (!dialog.isVisible()) {
             return;
         }

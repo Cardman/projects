@@ -5,9 +5,10 @@ import cards.gui.dialogs.SetterSelectedCardList;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class BackToRulesEvent extends AbsMouseListenerRel {
+public class BackToRulesEvent implements AbsActionListener {
 
     private SetterSelectedCardList dialog;
     private WindowCards window;
@@ -18,7 +19,7 @@ public class BackToRulesEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.backToRules(window);
     }
 }

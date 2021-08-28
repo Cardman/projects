@@ -24,7 +24,7 @@ public final class FrameHtmlData extends ChildFrame {
 
     private StringMap<String> messages;
 
-    private final LabelButton search;
+    private final AbsPlainButton search;
 
     private final ProgressingWebDialog dialog;
 
@@ -43,7 +43,7 @@ public final class FrameHtmlData extends ChildFrame {
         AbsPanel panel_ = _parent.getCompoFactory().newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         AbsTextField field_;
-        search = new LabelButton(messages.getVal(SEARCH_LABEL));
+        search = _parent.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = _parent.getCompoFactory().newTextField(20);
         session.setSearchText(search);
         session.setField(field_);
@@ -79,7 +79,7 @@ public final class FrameHtmlData extends ChildFrame {
         String key_ = _window.getLanguageKey();
         setLanguageKey(key_);
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, key_, DIALOG_ACCESS);
-        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
+        search.setText(messages.getVal(SEARCH_LABEL));
         session.setLanguage(key_);
         session.refresh();
     }

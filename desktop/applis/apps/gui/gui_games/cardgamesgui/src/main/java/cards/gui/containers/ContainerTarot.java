@@ -62,8 +62,8 @@ public class ContainerTarot extends ContainerGame{
     private Handfuls choosenHandful = Handfuls.NO;
     private CardTarot carteSurvoleeTarot;
     private AbsTextArea infoCurrentHandful;
-    private LabelButton validateDog;
-    private LabelButton slamButton;
+    private AbsPlainButton validateDog;
+    private AbsPlainButton slamButton;
 
 
     ContainerTarot(WindowCards _window) {
@@ -277,16 +277,16 @@ public class ContainerTarot extends ContainerGame{
     public void setInfoCurrentHandful(AbsTextArea _infoCurrentHandful) {
         infoCurrentHandful = _infoCurrentHandful;
     }
-    public LabelButton getValidateDog() {
+    public AbsPlainButton getValidateDog() {
         return validateDog;
     }
-    protected void setValidateDog(LabelButton _validateDog) {
+    protected void setValidateDog(AbsPlainButton _validateDog) {
         validateDog = _validateDog;
     }
-    public LabelButton getSlamButton() {
+    public AbsPlainButton getSlamButton() {
         return slamButton;
     }
-    protected void setSlamButton(LabelButton _slamButton) {
+    protected void setSlamButton(AbsPlainButton _slamButton) {
         slamButton = _slamButton;
     }
     public String readResource() {

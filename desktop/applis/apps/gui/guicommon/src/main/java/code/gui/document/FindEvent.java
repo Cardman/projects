@@ -5,11 +5,12 @@ import code.formathtml.render.MetaDocument;
 import code.formathtml.render.MetaSearchableLabel;
 import code.formathtml.render.SegmentPart;
 import code.gui.*;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 import code.util.CustList;
 import code.util.EntryCust;
 
-public final class FindEvent extends AbsMouseListenerRel {
+public final class FindEvent implements AbsActionListener {
 
     private RenderedPage page;
 
@@ -27,7 +28,7 @@ public final class FindEvent extends AbsMouseListenerRel {
         finding = new FindNextElement(_document);
     }
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         if (page.isProcessing()) {
             return;
         }

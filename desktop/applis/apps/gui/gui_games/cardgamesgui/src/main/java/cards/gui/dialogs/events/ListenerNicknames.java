@@ -4,10 +4,11 @@ import cards.gui.dialogs.DialogNicknames;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
 /**Classe d'ecouteur speciale a ce type de boite de dialogue*/
-public class ListenerNicknames extends AbsMouseListenerRel {
+public class ListenerNicknames implements AbsActionListener {
 
     private DialogNicknames dialog;
 
@@ -16,7 +17,7 @@ public class ListenerNicknames extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.validateNicknames();
     }
 }

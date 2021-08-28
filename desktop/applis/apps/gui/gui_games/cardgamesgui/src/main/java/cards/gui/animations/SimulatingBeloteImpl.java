@@ -35,10 +35,10 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
     private final ContainerSimuBelote container;
     private final Games partieSimulee;
     private final DisplayingBelote displayingBelote;
-    private final LabelButton stopButton;
+    private final AbsPlainButton stopButton;
 
     public SimulatingBeloteImpl(ContainerSimuBelote _container, Games _partieSimulee,
-                               DisplayingBelote _displayingBelote, LabelButton _stopButton) {
+                               DisplayingBelote _displayingBelote, AbsPlainButton _stopButton) {
         container = _container;
         partieSimulee = _partieSimulee;
         displayingBelote = _displayingBelote;

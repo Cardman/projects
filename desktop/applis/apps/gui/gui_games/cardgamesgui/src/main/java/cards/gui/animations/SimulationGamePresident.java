@@ -7,7 +7,7 @@ import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.dialogs.FileConst;
 import cards.president.*;
-import code.gui.LabelButton;
+import code.gui.AbsPlainButton;
 import code.util.*;
 
 /**Thread safe class*/
@@ -28,8 +28,8 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
         GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Bytes());
         partieSimulee.jouerPresident(gp_);
 //        partieSimulee.sauvegarderPartieEnCours("demos/deal10.cdgame");
-        LabelButton stopButton_ = new LabelButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
-        stopButton_.addMouseList(new StopEvent(this));
+        AbsPlainButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
+        stopButton_.addActionListener(new StopEvent(this));
         DisplayingPresident dis_ = container.getDisplayingPresident();
         simulatingPresident = new SimulatingPresidentImpl(container,partieSimulee,dis_, stopButton_);
     }

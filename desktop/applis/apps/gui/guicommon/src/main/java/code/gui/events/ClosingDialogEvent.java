@@ -2,7 +2,7 @@ package code.gui.events;
 
 import code.gui.*;
 
-public class ClosingDialogEvent extends AbsMouseListenerRel {
+public class ClosingDialogEvent implements AbsActionListener {
 
     private AbsCloseableDialog dialog;
 
@@ -11,7 +11,7 @@ public class ClosingDialogEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.closeWindow();
     }
 }

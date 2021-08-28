@@ -5,7 +5,7 @@ import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.OtherConfirmDialog;
 
-public class OtherAnswerTextEvent extends AbsMouseListenerRel {
+public class OtherAnswerTextEvent implements AbsActionListener {
 
     private OtherConfirmDialog dialog;
 
@@ -17,7 +17,7 @@ public class OtherAnswerTextEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.closeWindowText(answer);
     }
 }

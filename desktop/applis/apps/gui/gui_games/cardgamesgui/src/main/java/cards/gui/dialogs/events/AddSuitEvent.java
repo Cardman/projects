@@ -4,9 +4,10 @@ import cards.gui.dialogs.DialogDisplaying;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class AddSuitEvent extends AbsMouseListenerRel {
+public class AddSuitEvent implements AbsActionListener {
 
     private DialogDisplaying dialog;
 
@@ -15,7 +16,7 @@ public class AddSuitEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.addSuit();
     }
 }

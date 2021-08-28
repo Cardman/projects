@@ -2,9 +2,10 @@ package code.player.gui;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class NextSong extends AbsMouseListenerRel {
+public class NextSong implements AbsActionListener {
 
     private WindowPlayer window;
 
@@ -13,7 +14,7 @@ public class NextSong extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         window.nextSong();
     }
 

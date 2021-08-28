@@ -239,25 +239,25 @@ public class ScenePanel {
 
     private TextLabel useKeyPad;
 
-    private LabelButton team;
+    private AbsPlainButton team;
 
-    private LabelButton items;
+    private AbsPlainButton items;
 
-    private LabelButton tm;
+    private AbsPlainButton tm;
 
-    private LabelButton fish;
+    private AbsPlainButton fish;
 
-    private LabelButton seeBoxes;
+    private AbsPlainButton seeBoxes;
 
-    private LabelButton seeEggs;
+    private AbsPlainButton seeEggs;
 
-    private LabelButton host;
+    private AbsPlainButton host;
 
-    private LabelButton game;
+    private AbsPlainButton game;
 
-    private LabelButton goBack;
+    private AbsPlainButton goBack;
 
-    private LabelButton server;
+    private AbsPlainButton server;
 
     private AbsPanel movesLearnt;
 
@@ -276,21 +276,21 @@ public class ScenePanel {
 
     private AbsCustCheckBox buy;
 
-    private LabelButton selectPkBox;
+    private AbsPlainButton selectPkBox;
 
-    private LabelButton selectEggBox;
+    private AbsPlainButton selectEggBox;
 
-    private LabelButton takeItem;
+    private AbsPlainButton takeItem;
 
-    private LabelButton store;
+    private AbsPlainButton store;
 
-    private LabelButton release;
+    private AbsPlainButton release;
 
-    private LabelButton withdraw;
+    private AbsPlainButton withdraw;
 
-    private LabelButton withdrawEgg;
+    private AbsPlainButton withdrawEgg;
 
-    private LabelButton switchPk;
+    private AbsPlainButton switchPk;
 
     private TextLabel selectedForSwitch;
 
@@ -308,7 +308,7 @@ public class ScenePanel {
 
     private AbsPanel interaction;
 
-    private LabelButton buttonInteract;
+    private AbsPlainButton buttonInteract;
 
     private Pad pad;
 
@@ -316,13 +316,13 @@ public class ScenePanel {
 
     private AbsCustCheckBox switchUsable;
 
-    private LabelButton takeItemTeam;
+    private AbsPlainButton takeItemTeam;
 
-    private LabelButton detailPk;
+    private AbsPlainButton detailPk;
 
-    private LabelButton healPk;
+    private AbsPlainButton healPk;
 
-    private LabelButton nicknamePk;
+    private AbsPlainButton nicknamePk;
 
     private boolean enabledClick = true;
 
@@ -336,7 +336,7 @@ public class ScenePanel {
 
     private final MapPanel mapPanel;
 
-    private LabelButton chosenCity;
+    private AbsPlainButton chosenCity;
 
     private final AbstractAtomicBoolean paintingScene;
 
@@ -388,21 +388,21 @@ public class ScenePanel {
     public void setMessages() {
         endGame.setText(facade.getEndGameMessage());
         useKeyPad.setText(messages.getVal(CLICK_SCENE));
-        team.setTextAndSize(messages.getVal(CST_TEAM));
-        items.setTextAndSize(messages.getVal(CST_ITEMS));
-        tm.setTextAndSize(messages.getVal(CST_TM));
-//        difficulty.setText(messages.getVal(DIFFICULTY));
+        team.setText(messages.getVal(CST_TEAM));
+        items.setText(messages.getVal(CST_ITEMS));
+        tm.setText(messages.getVal(CST_TM));
+        //        difficulty.setText(messages.getVal(DIFFICULTY));
         if (fish != null) {
-            fish.setTextAndSize(messages.getVal(CST_FISH));
+            fish.setText(messages.getVal(CST_FISH));
         }
-        seeBoxes.setTextAndSize(messages.getVal(SEE_POKEMON));
-        seeEggs.setTextAndSize(messages.getVal(SEE_EGG));
-        host.setTextAndSize(messages.getVal(SEE_HOSTED));
-        game.setTextAndSize(messages.getVal(SEE_GAME));
-        goBack.setTextAndSize(messages.getVal(GO_BACK_MENU));
-        server.setTextAndSize(messages.getVal(CST_SERVER));
+        seeBoxes.setText(messages.getVal(SEE_POKEMON));
+        seeEggs.setText(messages.getVal(SEE_EGG));
+        host.setText(messages.getVal(SEE_HOSTED));
+        game.setText(messages.getVal(SEE_GAME));
+        goBack.setText(messages.getVal(GO_BACK_MENU));
+        server.setText(messages.getVal(CST_SERVER));
         if (interaction != null) {
-            buttonInteract.setTextAndSize(messages.getVal(INTERACT));
+            buttonInteract.setText(messages.getVal(INTERACT));
         }
         if (teamPan != null) {
             teamPan.translate(messagesTeamPanel);
@@ -470,7 +470,7 @@ public class ScenePanel {
             enableIfPossibleFishing();
         }
         sceneInteract.add(interaction, BorderLayout.SOUTH);
-        buttonInteract.setEnabledLabel(facade.getInterfaceType() != InterfaceType.RIEN);
+        buttonInteract.setEnabled(facade.getInterfaceType() != InterfaceType.RIEN);
         if (wasNull_) {
             component.add(sceneInteract, IndexConstants.FIRST_INDEX);
             sceneInteract.repaintSecondChildren(window.getImageFactory());
@@ -496,38 +496,38 @@ public class ScenePanel {
         menus_.add(endGame);
         useKeyPad = new TextLabel("");
         menus_.add(useKeyPad);
-        team = new LabelButton();
-        team.addMouseList(new ManageTeamEvent(this));
+        team = window.getCompoFactory().newPlainButton();
+        team.addActionListener(new ManageTeamEvent(this));
         menus_.add(team);
-        items = new LabelButton();
-        items.addMouseList(new SelectItemForPokemonEvent(this));
+        items = window.getCompoFactory().newPlainButton();
+        items.addActionListener(new SelectItemForPokemonEvent(this));
         menus_.add(items);
-        tm = new LabelButton();
-        tm.addMouseList(new SelectTmToLearnEvent(this));
+        tm = window.getCompoFactory().newPlainButton();
+        tm.addActionListener(new SelectTmToLearnEvent(this));
         menus_.add(tm);
         Separator sep_ = new Separator(window.getCompoFactory());
         menus_.add(sep_);
-        seeBoxes = new LabelButton();
-        seeBoxes.addMouseList(new ConsultPokemonEvent(window, facade));
+        seeBoxes = window.getCompoFactory().newPlainButton();
+        seeBoxes.addActionListener(new ConsultPokemonEvent(window, facade));
         menus_.add(seeBoxes);
-        seeEggs = new LabelButton();
-        seeEggs.addMouseList(new ConsultEggEvent(window, facade));
+        seeEggs = window.getCompoFactory().newPlainButton();
+        seeEggs.addActionListener(new ConsultEggEvent(window, facade));
         menus_.add(seeEggs);
-        host = new LabelButton();
-        host.addMouseList(new ConsultHostEvent(window, facade));
+        host = window.getCompoFactory().newPlainButton();
+        host.addActionListener(new ConsultHostEvent(window, facade));
         menus_.add(host);
-        game = new LabelButton();
-        game.addMouseList(new ShowGameProgressingEvent(window));
+        game = window.getCompoFactory().newPlainButton();
+        game.addActionListener(new ShowGameProgressingEvent(window));
         menus_.add(game);
         sep_ = new Separator(window.getCompoFactory());
         menus_.add(sep_);
-        goBack = new LabelButton();
-        goBack.addMouseList(new SetPlacesEvent(this));
+        goBack = window.getCompoFactory().newPlainButton();
+        goBack.addActionListener(new SetPlacesEvent(this));
         menus_.add(goBack);
         sep_ = new Separator(window.getCompoFactory());
         menus_.add(sep_);
-        server = new LabelButton();
-        server.addMouseList(new ManageNetworkEvent(this));
+        server = window.getCompoFactory().newPlainButton();
+        server.addActionListener(new ManageNetworkEvent(this));
         menus_.add(server);
         panelMenu.add(menus_);
         pad = new Pad(window.getCompoFactory());
@@ -696,7 +696,7 @@ public class ScenePanel {
 //        panelPlaces_.setLayout(new GridLayout(0, 1));
 //        panelPlaces_.add(new JLabel(messages.getVal(GO_BACK)));
 //        for (int i = CustList.FIRST_INDEX; i < facade.getPlaces().size(); i++) {
-//            LabelButton place_ = new LabelButton(facade.getPlaces().get(i));
+//            LabelButton place_ = window.getCompoFactory().newPlainButton(facade.getPlaces().get(i));
 //            place_.setEnabled(facade.isEnablePlace(i));
 //            place_.addMouseListener(new SelectPlaceGoBackEvent(this, i));
 //            panelPlaces_.add(place_);
@@ -705,7 +705,7 @@ public class ScenePanel {
         mapPanel.init(window,facade, this);
         AbsPanel box_ =compoFactory.newPageBox();
         box_.add(new TextLabel(messages.getVal(GO_BACK)));
-        chosenCity = new LabelButton();
+        chosenCity = window.getCompoFactory().newPlainButton();
         chosenCity.setBackground(box_.getBackground());
         chosenCity.setForeground(box_.getForeground());
         box_.add(chosenCity);
@@ -714,8 +714,8 @@ public class ScenePanel {
         line_.add(mapPanel.getContainer());
         line_.add(new TextLabel(DataBase.EMPTY_STRING));
         box_.add(line_);
-        LabelButton ok_ = new LabelButton(WindowAiki.OK);
-        ok_.addMouseList(new ChoosePlaceEvent(this));
+        AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
+        ok_.addActionListener(new ChoosePlaceEvent(this));
         box_.add(ok_);
         panelOptions.add(box_, BorderLayout.CENTER);
         //panelOptions
@@ -736,7 +736,7 @@ public class ScenePanel {
 
     public void choosePlace(int _x, int _y) {
         facade.setMiniMapCoords(_x, _y);
-        chosenCity.setTextAndSize(facade.getChosenCity());
+        chosenCity.setText(facade.getChosenCity());
         window.pack();
     }
 
@@ -751,12 +751,12 @@ public class ScenePanel {
         disableFishing();
         panelNetWork = compoFactory.newPageBox();
         panelOptions.add(panelNetWork, BorderLayout.CENTER);
-        LabelButton exit_ = new LabelButton(messages.getVal(EXIT));
-        exit_.addMouseList(new ExitTradeEvent(window));
+        AbsPlainButton exit_ = window.getCompoFactory().newPlainButton(messages.getVal(EXIT));
+        exit_.addActionListener(new ExitTradeEvent(window));
         if (window.getIndexInGame() == IndexConstants.FIRST_INDEX) {
             AbsPanel panel_ = compoFactory.newLineBox();
-            LabelButton trade_ = new LabelButton(messages.getVal(TRADE));
-            trade_.addMouseList(new ValidateTradingEvent(window));
+            AbsPlainButton trade_ = window.getCompoFactory().newPlainButton(messages.getVal(TRADE));
+            trade_.addActionListener(new ValidateTradingEvent(window));
             panel_.add(trade_);
             panel_.add(exit_);
             panelOptions.add(panel_, BorderLayout.SOUTH);
@@ -824,9 +824,9 @@ public class ScenePanel {
         placeName.setText(facade.getCurrentPlace());
         initInteraction();
         if (facade.getInterfaceType() != InterfaceType.RIEN) {
-            buttonInteract.setEnabledLabel(true);
+            buttonInteract.setEnabled(true);
         } else if (interaction != null) {
-            buttonInteract.setEnabledLabel(false);
+            buttonInteract.setEnabled(false);
         }
         setTextArea(StringUtil.join(facade.getGame().getCommentGame().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
         setPaintingScene(false);
@@ -837,16 +837,16 @@ public class ScenePanel {
             return;
         }
         interaction = compoFactory.newLineBox();
-        buttonInteract = new LabelButton(messages.getVal(INTERACT));
-        buttonInteract.addMouseList(new InteractSceneEvent(this));
+        buttonInteract = window.getCompoFactory().newPlainButton(messages.getVal(INTERACT));
+        buttonInteract.addActionListener(new InteractSceneEvent(this));
         interaction.add(buttonInteract);
-        fish = new LabelButton(messages.getVal(CST_FISH));
-        fish.addMouseList(new FishingEvent(this));
+        fish = window.getCompoFactory().newPlainButton(messages.getVal(CST_FISH));
+        fish.addActionListener(new FishingEvent(this));
         interaction.add(fish);
     }
 
     public void interactScene() {
-        if (!buttonInteract.isEnabledLabel()) {
+        if (!buttonInteract.isEnabled()) {
             return;
         }
         if (!facade.isEnabledMovingHero()) {
@@ -875,39 +875,39 @@ public class ScenePanel {
         if (facade.getInterfaceType() == InterfaceType.ECH_BOITE) {
             selectedForSwitch = new TextLabel("");
             AbsPanel storage_ = compoFactory.newGrid(0, 1);
-            selectPkBox = new LabelButton(messages.getVal(SELECT_PK_BOX));
-            selectPkBox.addMouseList(new SelectPokemonBoxEvent(this));
+            selectPkBox = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_PK_BOX));
+            selectPkBox.addActionListener(new SelectPokemonBoxEvent(this));
             storage_.add(selectPkBox);
-            selectEggBox = new LabelButton(messages.getVal(SELECT_EGG_BOX));
-            selectEggBox.addMouseList(new SelectEggBoxEvent(this));
+            selectEggBox = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_EGG_BOX));
+            selectEggBox.addActionListener(new SelectEggBoxEvent(this));
             storage_.add(selectEggBox);
             Separator sep_ = new Separator(window.getCompoFactory());
             storage_.add(sep_);
-            takeItem = new LabelButton(messages.getVal(TAKE_ITEM));
-            takeItem.setEnabledLabel(false);
-            takeItem.addMouseList(new GearStorageEvent(this, StorageActions.TAKE_ITEM_BOX));
+            takeItem = window.getCompoFactory().newPlainButton(messages.getVal(TAKE_ITEM));
+            takeItem.setEnabled(false);
+            takeItem.addActionListener(new GearStorageEvent(this, StorageActions.TAKE_ITEM_BOX));
             storage_.add(takeItem);
-            store = new LabelButton(messages.getVal(CST_STORE));
-            store.setEnabledLabel(false);
-            store.addMouseList(new GearStorageEvent(this, StorageActions.STORE));
+            store = window.getCompoFactory().newPlainButton(messages.getVal(CST_STORE));
+            store.setEnabled(false);
+            store.addActionListener(new GearStorageEvent(this, StorageActions.STORE));
             storage_.add(store);
-            withdraw = new LabelButton(messages.getVal(WITHDRAW_PK));
-            withdraw.setEnabledLabel(false);
-            withdraw.addMouseList(new GearStorageEvent(this, StorageActions.WIDRAW_PK));
+            withdraw = window.getCompoFactory().newPlainButton(messages.getVal(WITHDRAW_PK));
+            withdraw.setEnabled(false);
+            withdraw.addActionListener(new GearStorageEvent(this, StorageActions.WIDRAW_PK));
             storage_.add(withdraw);
-            withdrawEgg = new LabelButton(messages.getVal(WITHDRAW_EGG));
-            withdrawEgg.setEnabledLabel(false);
-            withdrawEgg.addMouseList(new GearStorageEvent(this, StorageActions.WIDRAW_EGG));
+            withdrawEgg = window.getCompoFactory().newPlainButton(messages.getVal(WITHDRAW_EGG));
+            withdrawEgg.setEnabled(false);
+            withdrawEgg.addActionListener(new GearStorageEvent(this, StorageActions.WIDRAW_EGG));
             storage_.add(withdrawEgg);
-            switchPk = new LabelButton(messages.getVal(SWITCH_PK_EGG));
-            switchPk.setEnabledLabel(false);
-            switchPk.addMouseList(new GearStorageEvent(this, StorageActions.SWITCH_TEAM_BOX));
+            switchPk = window.getCompoFactory().newPlainButton(messages.getVal(SWITCH_PK_EGG));
+            switchPk.setEnabled(false);
+            switchPk.addActionListener(new GearStorageEvent(this, StorageActions.SWITCH_TEAM_BOX));
             storage_.add(switchPk);
             sep_ = new Separator(window.getCompoFactory());
             storage_.add(sep_);
-            release = new LabelButton(messages.getVal(CST_RELEASE));
-            release.setEnabledLabel(false);
-            release.addMouseList(new GearStorageEvent(this, StorageActions.RELEASE));
+            release = window.getCompoFactory().newPlainButton(messages.getVal(CST_RELEASE));
+            release.setEnabled(false);
+            release.addActionListener(new GearStorageEvent(this, StorageActions.RELEASE));
             storage_.add(release);
             storage_.add(selectedForSwitch);
             AbsPanel set_ = compoFactory.newLineBox();
@@ -932,15 +932,15 @@ public class ScenePanel {
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS_CT) {
             tmPanel = new TmPanel(window.getFrames(),5, messages.getVal(TM_TITLE), facade, window.getAikiFactory().getGeneTmPanel().create(window.getImageFactory(),true));
             AbsPanel set_ = compoFactory.newPageBox();
-            LabelButton selectItem_ = new LabelButton(messages.getVal(TM_SELECT));
-            selectItem_.addMouseList(new AddTmEvent(this));
+            AbsPlainButton selectItem_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_SELECT));
+            selectItem_.addActionListener(new AddTmEvent(this));
             set_.add(selectItem_);
-            LabelButton removeItem_ = new LabelButton(messages.getVal(TM_REMOVE));
-            removeItem_.addMouseList(new RemoveTmEvent(this));
+            AbsPlainButton removeItem_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_REMOVE));
+            removeItem_.addActionListener(new RemoveTmEvent(this));
             set_.add(removeItem_);
             set_.add(tmPanel.getContainer());
-            LabelButton changeInv_ = new LabelButton(messages.getVal(TM_BUY));
-            changeInv_.addMouseList(new BuyTmEvent(this));
+            AbsPlainButton changeInv_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_BUY));
+            changeInv_.addActionListener(new BuyTmEvent(this));
             set_.add(changeInv_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
@@ -952,18 +952,18 @@ public class ScenePanel {
             buy.addActionListener(new BuyOrSellEvent(this));
             set_.add(buy);
             itemsPan = new ItemsPanel(window.getFrames(), 2, messages.getVal(ITEM_TITLE), facade, window.getAikiFactory().getGeneItPanel().create(window.getImageFactory(),true));
-            LabelButton selectItem_ = new LabelButton(messages.getVal(ITEM_SELECT));
-            selectItem_.addMouseList(new SelectItemForListEvent(this));
+            AbsPlainButton selectItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_SELECT));
+            selectItem_.addActionListener(new SelectItemForListEvent(this));
             set_.add(selectItem_);
-            LabelButton addItem_ = new LabelButton(messages.getVal(ITEM_ADD));
-            addItem_.addMouseList(new ChangeItemListEvent(this, true));
+            AbsPlainButton addItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_ADD));
+            addItem_.addActionListener(new ChangeItemListEvent(this, true));
             set_.add(addItem_);
-            LabelButton removeItem_ = new LabelButton(messages.getVal(ITEM_REMOVE));
-            removeItem_.addMouseList(new ChangeItemListEvent(this, false));
+            AbsPlainButton removeItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_REMOVE));
+            removeItem_.addActionListener(new ChangeItemListEvent(this, false));
             set_.add(removeItem_);
             set_.add(itemsPan.getContainer());
-            LabelButton changeInv_ = new LabelButton(messages.getVal(ITEM_BUY_SELL));
-            changeInv_.addMouseList(new BuyItemsEvent(this));
+            AbsPlainButton changeInv_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_BUY_SELL));
+            changeInv_.addActionListener(new BuyItemsEvent(this));
             set_.add(changeInv_);
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
@@ -981,15 +981,15 @@ public class ScenePanel {
             AbsPanel form_ = compoFactory.newPageBox();
             int nbRemSteps_ = facade.getRemaingingSteps();
             String buttonText_= StringUtil.simpleNumberFormat(messages.getVal(GET_EGG), nbRemSteps_);
-            LabelButton receiveEgg_ = new LabelButton(buttonText_);
-            receiveEgg_.addMouseList(new ReceiveFromHostEvent(this, true));
+            AbsPlainButton receiveEgg_ = window.getCompoFactory().newPlainButton(buttonText_);
+            receiveEgg_.addActionListener(new ReceiveFromHostEvent(this, true));
             form_.add(receiveEgg_);
             buttonText_= StringUtil.simpleNumberFormat(messages.getVal(GET_EGG_PARENT), nbRemSteps_);
-            LabelButton receiveParents_ = new LabelButton(buttonText_);
-            receiveParents_.addMouseList(new ReceiveFromHostEvent(this, false));
+            AbsPlainButton receiveParents_ = window.getCompoFactory().newPlainButton(buttonText_);
+            receiveParents_.addActionListener(new ReceiveFromHostEvent(this, false));
             form_.add(receiveParents_);
-            LabelButton hostPk_ = new LabelButton(messages.getVal(HOST_PK));
-            hostPk_.addMouseList(new HostPokemonEvent(this));
+            AbsPlainButton hostPk_ = window.getCompoFactory().newPlainButton(messages.getVal(HOST_PK));
+            hostPk_.addActionListener(new HostPokemonEvent(this));
             form_.add(hostPk_);
             set_.add(form_);
             panelOptions.add(set_, BorderLayout.CENTER);
@@ -1017,7 +1017,7 @@ public class ScenePanel {
         if (fish == null) {
             return;
         }
-        fish.setEnabledLabel(false);
+        fish.setEnabled(false);
     }
 
 //    private StringList getMessagesStorage() {
@@ -1180,14 +1180,14 @@ public class ScenePanel {
     }
 
     private void setEnablingStoring() {
-        selectPkBox.setEnabledLabel(true);
-        selectEggBox.setEnabledLabel(true);
-        takeItem.setEnabledLabel(facade.canTakeItemFromStorage());
-        store.setEnabledLabel(facade.isSelectedPkTeamStorage());
+        selectPkBox.setEnabled(true);
+        selectEggBox.setEnabled(true);
+        takeItem.setEnabled(facade.canTakeItemFromStorage());
+        store.setEnabled(facade.isSelectedPkTeamStorage());
         //cancelSelect.setEnabledLabel(true);
-        withdraw.setEnabledLabel(facade.getSelectedPokemonFirstBox() != null);
-        withdrawEgg.setEnabledLabel(facade.getSelectedEggBox() != null);
-//        boolean selectedBox_ = false;
+        withdraw.setEnabled(facade.getSelectedPokemonFirstBox() != null);
+        withdrawEgg.setEnabled(facade.getSelectedEggBox() != null);
+        //        boolean selectedBox_ = false;
 //        if (facade.getSelectedPokemonFirstBox() != null) {
 //            selectedBox_ = true;
 //        }
@@ -1195,8 +1195,8 @@ public class ScenePanel {
 //            selectedBox_ = true;
 //        }
 //        switchPk.setEnabledLabel(selectedBox_ && facade.isSelectedPkTeamStorage());
-        switchPk.setEnabledLabel(facade.isSwitchable());
-        release.setEnabledLabel(facade.isReleasable());
+        switchPk.setEnabled(facade.isSwitchable());
+        release.setEnabled(facade.isReleasable());
     }
 
 //    private void cancelChosenTeamPokemon() {
@@ -1261,21 +1261,21 @@ public class ScenePanel {
 //            }
 //        });
         teamMenu_.add(switchUsable);
-        takeItemTeam = new LabelButton(messages.getVal(TAKE_ITEM_TEAM));
-        takeItemTeam.setEnabledLabel(false);
-        takeItemTeam.addMouseList(new TakeItemFromTeamEvent(this));
+        takeItemTeam = window.getCompoFactory().newPlainButton(messages.getVal(TAKE_ITEM_TEAM));
+        takeItemTeam.setEnabled(false);
+        takeItemTeam.addActionListener(new TakeItemFromTeamEvent(this));
         teamMenu_.add(takeItemTeam);
-        detailPk = new LabelButton(messages.getVal(DETAIL_TEAM));
-        detailPk.setEnabledLabel(false);
-        detailPk.addMouseList(new SeePokemonDetailEvent(this));
+        detailPk = window.getCompoFactory().newPlainButton(messages.getVal(DETAIL_TEAM));
+        detailPk.setEnabled(false);
+        detailPk.addActionListener(new SeePokemonDetailEvent(this));
         teamMenu_.add(detailPk);
-        healPk = new LabelButton(messages.getVal(HEAL_PK));
-        healPk.setEnabledLabel(false);
-        healPk.addMouseList(new HealPokemonEvent(this));
+        healPk = window.getCompoFactory().newPlainButton(messages.getVal(HEAL_PK));
+        healPk.setEnabled(false);
+        healPk.addActionListener(new HealPokemonEvent(this));
         teamMenu_.add(healPk);
-        nicknamePk = new LabelButton(messages.getVal(NICKNAME));
-        nicknamePk.setEnabledLabel(false);
-        nicknamePk.addMouseList(new ChangeNicknameEvent(this));
+        nicknamePk = window.getCompoFactory().newPlainButton(messages.getVal(NICKNAME));
+        nicknamePk.setEnabled(false);
+        nicknamePk.addActionListener(new ChangeNicknameEvent(this));
         teamMenu_.add(nicknamePk);
         set_.add(teamPan.getContainer());
         set_.add(teamMenu_);
@@ -1288,7 +1288,7 @@ public class ScenePanel {
         setTextArea(StringUtil.join(facade.getComment().getMessages(), RETURN_LINE), JOptionPane.INFORMATION_MESSAGE);
         refreshTeam();
         //disable the button after taking
-        takeItemTeam.setEnabledLabel(false);
+        takeItemTeam.setEnabled(false);
         window.pack();
     }
 
@@ -1374,11 +1374,11 @@ public class ScenePanel {
             check_.setSelected(false);
             movesLearnt.add(check_.getComponent());
         }
-        LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL_MT));
-        cancel_.addMouseList(new CancelMtEvent(this));
+        AbsPlainButton cancel_ = window.getCompoFactory().newPlainButton(messages.getVal(CANCEL_MT));
+        cancel_.addActionListener(new CancelMtEvent(this));
         movesLearnt.add(cancel_);
-        LabelButton ok_ = new LabelButton(messages.getVal(VALIDATE_MT));
-        ok_.addMouseList(new ValidateMtEvent(this));
+        AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(messages.getVal(VALIDATE_MT));
+        ok_.addActionListener(new ValidateMtEvent(this));
         movesLearnt.add(ok_);
         window.pack();
     }
@@ -1433,23 +1433,23 @@ public class ScenePanel {
         }
         facade.setChosenTeamPokemon((short) teamPan.getSelectedIndex());
         if (detailPk != null) {
-            detailPk.setEnabledLabel(facade.isSelectedTeamPokemon());
+            detailPk.setEnabled(facade.isSelectedTeamPokemon());
         }
         if (takeItemTeam != null) {
 //            takeItemTeam.setEnabledLabel(facade.isSelectedTeamPokemon());
-            takeItemTeam.setEnabledLabel(facade.isSelectedTeamPokemonItem());
+            takeItemTeam.setEnabled(facade.isSelectedTeamPokemonItem());
         }
         if (healPk != null) {
-            healPk.setEnabledLabel(facade.isSelectedTeamPokemon());
+            healPk.setEnabled(facade.isSelectedTeamPokemon());
         }
         if (nicknamePk != null) {
-            nicknamePk.setEnabledLabel(facade.isSelectedTeamPokemon());
+            nicknamePk.setEnabled(facade.isSelectedTeamPokemon());
         }
     }
 
     private void addExit() {
-        LabelButton exit_ = new LabelButton(messages.getVal(EXIT));
-        exit_.addMouseList(new ExitInteractionEvent(this));
+        AbsPlainButton exit_ = window.getCompoFactory().newPlainButton(messages.getVal(EXIT));
+        exit_.addActionListener(new ExitInteractionEvent(this));
         panelOptions.add(exit_, BorderLayout.SOUTH);
     }
 
@@ -1473,7 +1473,7 @@ public class ScenePanel {
         if (fish == null) {
             return;
         }
-        fish.setEnabledLabel(facade.isFishArea());
+        fish.setEnabled(facade.isFishArea());
     }
 
     private void showHtmlDialog(WindowAiki _parent, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
@@ -1571,8 +1571,8 @@ public class ScenePanel {
             }
             abilities.add(new Separator(window.getCompoFactory()));
         }
-        LabelButton ok_ = new LabelButton(messages.getVal(EVOLVE));
-        ok_.addMouseList(new EvolvePokemonEvent(this));
+        AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(messages.getVal(EVOLVE));
+        ok_.addActionListener(new EvolvePokemonEvent(this));
         abilities.add(ok_);
     }
 
@@ -1604,8 +1604,8 @@ public class ScenePanel {
         keys_.sortElts(new TrMovesComparator(facade.getData()));
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            LabelButton check_ = new LabelButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
-            check_.addMouseList(new HealMoveEvent(this, m));
+            AbsPlainButton check_ = window.getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
+            check_.addActionListener(new HealMoveEvent(this, m));
             check_.setBackground(Color.WHITE);
             movesLearnt.add(check_);
         }
@@ -1627,8 +1627,8 @@ public class ScenePanel {
         keys_.sortElts(new TrMovesComparator(facade.getData()));
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            LabelButton check_ = new LabelButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
-            check_.addMouseList(new BoostMoveEvent(this, m));
+            AbsPlainButton check_ = window.getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
+            check_.addActionListener(new BoostMoveEvent(this, m));
             check_.setBackground(Color.WHITE);
             movesLearnt.add(check_);
         }
@@ -1692,8 +1692,8 @@ public class ScenePanel {
         keys_.sortElts(new TrMovesComparator(facade.getData()));
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            LabelButton check_ = new LabelButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
-            check_.addMouseList(new LearntMoveEvent(this, m));
+            AbsPlainButton check_ = window.getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
+            check_.addActionListener(new LearntMoveEvent(this, m));
             check_.setBackground(Color.WHITE);
             movesLearnt.add(check_);
         }
@@ -1760,17 +1760,27 @@ public class ScenePanel {
 
     public void setPaintingScene(boolean _paintingScene) {
         paintingScene.set(_paintingScene);
-        team.setEnabledLabel(!_paintingScene);
-        items.setEnabledLabel(!_paintingScene);
-        tm.setEnabledLabel(!_paintingScene);
-//        difficulty.setEnabledLabel(!_paintingScene);
-        fish.setEnabledLabel(!_paintingScene && facade.isFishArea());
-        seeBoxes.setEnabledLabel(!_paintingScene);
-        seeEggs.setEnabledLabel(!_paintingScene);
-        host.setEnabledLabel(!_paintingScene);
-        game.setEnabledLabel(!_paintingScene);
-        goBack.setEnabledLabel(!_paintingScene);
-        server.setEnabledLabel(!_paintingScene);
+        boolean _enabled9 = !_paintingScene;
+        team.setEnabled(_enabled9);
+        boolean _enabled8 = !_paintingScene;
+        items.setEnabled(_enabled8);
+        boolean _enabled7 = !_paintingScene;
+        tm.setEnabled(_enabled7);
+        //        difficulty.setEnabledLabel(!_paintingScene);
+        boolean _enabled6 = !_paintingScene && facade.isFishArea();
+        fish.setEnabled(_enabled6);
+        boolean _enabled5 = !_paintingScene;
+        seeBoxes.setEnabled(_enabled5);
+        boolean _enabled4 = !_paintingScene;
+        seeEggs.setEnabled(_enabled4);
+        boolean _enabled3 = !_paintingScene;
+        host.setEnabled(_enabled3);
+        boolean _enabled2 = !_paintingScene;
+        game.setEnabled(_enabled2);
+        boolean _enabled1 = !_paintingScene;
+        goBack.setEnabled(_enabled1);
+        boolean _enabled = !_paintingScene;
+        server.setEnabled(_enabled);
         panelMenu.repaintSecondChildren(window.getImageFactory());
     }
     public AbsPanel getComponent() {

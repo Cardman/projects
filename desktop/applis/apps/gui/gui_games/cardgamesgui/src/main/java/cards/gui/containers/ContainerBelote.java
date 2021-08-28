@@ -19,7 +19,7 @@ import cards.gui.labels.SuitLabel;
 import cards.gui.panels.CarpetBelote;
 import cards.main.LaunchingCards;
 import code.gui.AbsPanel;
-import code.gui.LabelButton;
+import code.gui.AbsPlainButton;
 
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
@@ -60,7 +60,7 @@ public class ContainerBelote extends ContainerGame {
     private final CustList<SuitLabel> bidsButtons = new CustList<SuitLabel>();
     private Suit suit = Suit.UNDEFINED;
     private BidBelote bidType = BidBelote.FOLD;
-    private LabelButton bidOk;
+    private AbsPlainButton bidOk;
     private CardBelote carteSurvoleeBelote;
     ContainerBelote(WindowCards _window) {
         super(_window);
@@ -78,9 +78,9 @@ public class ContainerBelote extends ContainerGame {
             l.setSelected(_points);
         }
         if (getBidType().getCouleurDominante()) {
-            getBidOk().setEnabledLabel(true);
+            getBidOk().setEnabled(true);
         } else {
-            getBidOk().setEnabledLabel(getBidType().jouerDonne());
+            getBidOk().setEnabled(getBidType().jouerDonne());
         }
         //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+getPts()+RETURN_LINE_CHAR);
     }
@@ -97,7 +97,7 @@ public class ContainerBelote extends ContainerGame {
         for (SuitLabel l: bidsButtons) {
             l.repaintLabel(getWindow().getImageFactory());
         }
-        getBidOk().setEnabledLabel(getPts() > 0);
+        getBidOk().setEnabled(getPts() > 0);
         //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+bid_+RETURN_LINE_CHAR);
     }
 
@@ -167,10 +167,10 @@ public class ContainerBelote extends ContainerGame {
     protected void setScores(CustList<Longs> _scores) {
         scores = _scores;
     }
-    protected LabelButton getBidOk() {
+    protected AbsPlainButton getBidOk() {
         return bidOk;
     }
-    protected void setBidOk(LabelButton _bidOk) {
+    protected void setBidOk(AbsPlainButton _bidOk) {
         bidOk = _bidOk;
     }
     protected int getPts() {

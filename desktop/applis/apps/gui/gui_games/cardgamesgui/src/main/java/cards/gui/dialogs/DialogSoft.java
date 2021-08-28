@@ -8,7 +8,6 @@ import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -146,8 +145,8 @@ public final class DialogSoft extends DialogCards {
             panneau_.add(clickCard);
             container_.add(panneau_,BorderLayout.CENTER);
         }
-        LabelButton bouton_=new LabelButton(messages.getVal(VALIDATE));
-        bouton_.addMouseList(new ListenerParameters(this));
+        AbsPlainButton bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
+        bouton_.addActionListener(new ListenerParameters(this));
         container_.add(bouton_,BorderLayout.SOUTH);
         getCardDialog().setContentPane(container_);
         getCardDialog().pack();

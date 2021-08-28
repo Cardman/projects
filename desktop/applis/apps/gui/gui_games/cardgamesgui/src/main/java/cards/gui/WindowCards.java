@@ -501,8 +501,8 @@ public final class WindowCards extends NetGroupFrame {
     //labels at main menu
 
     private TextLabel welcomeLabel;
-    private LabelButton singleModeButton;
-    private LabelButton multiModeButton;
+    private AbsPlainButton singleModeButton;
+    private AbsPlainButton multiModeButton;
     private TextLabel goHelpMenu;
     private final Net net = new Net();
 
@@ -636,9 +636,9 @@ public final class WindowCards extends NetGroupFrame {
     }
 
     private void ajouterBoutonPrincipal(String _texte,GameEnum _nomJeu,AbsPanel _container) {
-        LabelButton bouton_=new LabelButton(_texte);
+        AbsPlainButton bouton_=getCompoFactory().newPlainButton(_texte);
 //        bouton_.addMouseListener(new EcouteurBoutonPrincipal(_nomJeu));
-        bouton_.addMouseList(new ListenerBeginGame(_nomJeu, this));
+        bouton_.addActionListener(new ListenerBeginGame(_nomJeu, this));
         _container.add(bouton_);
     }
     public void clearHelpDialogs() {
@@ -1104,8 +1104,8 @@ public final class WindowCards extends NetGroupFrame {
         for (GameEnum jeu2_:GameEnum.values()) {
             ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_,container_);
         }
-        LabelButton button_ = new LabelButton(getMessages().getVal(CST_MAIN_MENU));
-        button_.addMouseList(new BackToMainMenuEvent(this));
+        AbsPlainButton button_ = getCompoFactory().newPlainButton(getMessages().getVal(CST_MAIN_MENU));
+        button_.addActionListener(new BackToMainMenuEvent(this));
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
@@ -1142,8 +1142,8 @@ public final class WindowCards extends NetGroupFrame {
         for (GameEnum jeu2_:GameEnum.values()) {
             ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_,container_);
         }
-        LabelButton button_ = new LabelButton(getMessages().getVal(CST_MAIN_MENU));
-        button_.addMouseList(new BackToMainMenuEvent(this));
+        AbsPlainButton button_ = getCompoFactory().newPlainButton(getMessages().getVal(CST_MAIN_MENU));
+        button_.addActionListener(new BackToMainMenuEvent(this));
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
@@ -1185,11 +1185,11 @@ public final class WindowCards extends NetGroupFrame {
         welcomeLabel = new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
         pane_.add(welcomeLabel,SwingConstants.CENTER);
         /*Cree les boutons de jeu*/
-        singleModeButton = new LabelButton(getMessages().getVal(CST_SINGLE_MODE));
-        singleModeButton.addMouseList(new ChooseModeEvent(this, true));
+        singleModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_SINGLE_MODE));
+        singleModeButton.addActionListener(new ChooseModeEvent(this, true));
         pane_.add(singleModeButton);
-        multiModeButton = new LabelButton(getMessages().getVal(CST_MULTI_MODE));
-        multiModeButton.addMouseList(new ChooseModeEvent(this, false));
+        multiModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_MULTI_MODE));
+        multiModeButton.addActionListener(new ChooseModeEvent(this, false));
         pane_.add(multiModeButton);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
@@ -2030,10 +2030,10 @@ public final class WindowCards extends NetGroupFrame {
             welcomeLabel.setText(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
         }
         if (singleModeButton != null) {
-            singleModeButton.setTextAndSize(getMessages().getVal(CST_SINGLE_MODE));
+            singleModeButton.setText(getMessages().getVal(CST_SINGLE_MODE));
         }
         if (multiModeButton != null) {
-            multiModeButton.setTextAndSize(getMessages().getVal(CST_MULTI_MODE));
+            multiModeButton.setText(getMessages().getVal(CST_MULTI_MODE));
         }
         if (goHelpMenu != null) {
             goHelpMenu.setText(getMessages().getVal(CST_GO_HELP_MENU));

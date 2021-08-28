@@ -53,7 +53,7 @@ public final class FrameGeneralHelp extends ChildFrame {
     private AbsTextField field;
 
     private AbsSplitPane separateur;
-    private LabelButton search;
+    private AbsPlainButton search;
 
     public FrameGeneralHelp(String _titre, WindowCards _fenetre) {
         super(_fenetre.getLanguageKey(),_fenetre);
@@ -132,7 +132,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         editor.initialize(racineBis.getElementLocal().getNavigation(),racineBis.getElementLocal().getMetaDocument());
         if (field == null) {
             field = _w.getCompoFactory().newTextField(20);
-            search = new LabelButton(messages.getVal(SEARCH_LABEL));
+            search = _w.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
             editor.setSearchText(search);
             editor.setField(field);
             editor.addFinder();

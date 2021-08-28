@@ -5,7 +5,7 @@ import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.SingleFileSelection;
 
-public class SubmitMouseEvent extends AbsMouseListenerRel {
+public class SubmitMouseEvent implements AbsActionListener {
 
     private SingleFileSelection dialog;
 
@@ -14,7 +14,7 @@ public class SubmitMouseEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.submitIfVisible();
     }
 }

@@ -57,8 +57,8 @@ public final class DialogDifficulty implements AbsCloseableDialog {
         AbsPanel panel_ = window.getCompoFactory().newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         AbsTextField field_;
-//        LabelButton search_ = new LabelButton(MainWindow.OK);
-        LabelButton search_ = new LabelButton(messages.getVal(SEARCH_LABEL));
+//        LabelButton search_ = window.getCompoFactory().newPlainButton(MainWindow.OK);
+        AbsPlainButton search_ = window.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = window.getCompoFactory().newTextField(20);
 //        session.setLabel(area_);
         session.setSearchText(search_);

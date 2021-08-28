@@ -50,8 +50,8 @@ public final class DialogGameProgess {
         AbsPanel panel_ = _window.getCompoFactory().newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         AbsTextField field_;
-//        LabelButton search_ = new LabelButton(MainWindow.OK);
-        LabelButton search_ = new LabelButton(messages.getVal(SEARCH_LABEL));
+//        LabelButton search_ = _window.getCompoFactory().newPlainButton(MainWindow.OK);
+        AbsPlainButton search_ = _window.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = _window.getCompoFactory().newTextField(20);
 //        session.setLabel(area_);
         session.setSearchText(search_);

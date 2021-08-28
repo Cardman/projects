@@ -3,11 +3,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JOptionPane;
 
-import code.gui.events.CancelSelectFileEvent;
-import code.gui.events.CreateFolderEvent;
-import code.gui.events.SubmitKeyEvent;
-import code.gui.events.SubmitMouseEvent;
-import code.gui.initialize.AbsFrameFactory;
+import code.gui.events.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -73,18 +69,18 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         getFileName().addActionListener(new SubmitKeyEvent(this));
-        LabelButton action_ = new LabelButton(messages.getVal(SAVE));
-        action_.addMouseList(new SubmitMouseEvent(this));
+        AbsPlainButton action_ = getCompoFactory().newPlainButton(messages.getVal(SAVE));
+        action_.addActionListener(new SubmitMouseEvent(this));
         getButtons().add(action_);
-        action_ = new LabelButton(messages.getVal(CANCEL));
-        action_.addMouseList(new CancelSelectFileEvent(this));
+        action_ = getCompoFactory().newPlainButton(messages.getVal(CANCEL));
+        action_.addActionListener(new CancelSelectFileEvent(this));
         getButtons().add(action_);
         if (StringUtil.quickEq(getFolder(), _homePath)) {
             searchingPanel.removeAll();
             TextLabel label_;
             label_ = new TextLabel(messages.getVal(FOLDER_NAME));
-            LabelButton search_ = new LabelButton(CREATE);
-            search_.addMouseList(new CreateFolderEvent(this));
+            AbsPlainButton search_ = getCompoFactory().newPlainButton(CREATE);
+            search_.addActionListener(new CreateFolderEvent(this));
             searchingPanel.add(label_);
             searchingPanel.add(typedString);
             searchingPanel.add(search_);

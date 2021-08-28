@@ -5,7 +5,7 @@ import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.FileOpenDialog;
 
-public class SearchingEvent extends AbsMouseListenerRel {
+public class SearchingEvent implements AbsActionListener {
 
     private FileOpenDialog dialog;
 
@@ -14,7 +14,7 @@ public class SearchingEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.searchFile();
     }
 }

@@ -569,12 +569,12 @@ public final class PaginatorHealingItem extends Paginator {
         _p.add(sorting_);
         AbsPanel top_;
         top_ = getMain().getCompoFactory().newLineBox();
-        LabelButton button_;
-        button_ = new LabelButton(getMessages().getVal(SEARCH));
-        button_.addMouseList(new SearchEvent(this));
+        AbsPlainButton button_;
+        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(SEARCH));
+        button_.addActionListener(new SearchEvent(this));
         top_.add(button_);
-        button_ = new LabelButton(getMessages().getVal(NEW_SEARCH));
-        button_.addMouseList(new NewSearchEvent(this));
+        button_ = _window.getCompoFactory().newPlainButton(getMessages().getVal(NEW_SEARCH));
+        button_.addActionListener(new NewSearchEvent(this));
         top_.add(button_);
         _p.add(top_);
 //        results.setLayout(new BoxLayout(results, BoxLayout.PAGE_AXIS));
@@ -811,7 +811,7 @@ public final class PaginatorHealingItem extends Paginator {
         for (int i = IndexConstants.FIRST_INDEX; i < nbPages_; i++) {
             getPages().addItem(i);
         }
-        getEnd().setTextAndSize(Long.toString(nbPages_ - 1L));
+        getEnd().setText(Long.toString(nbPages_ - 1L));
         setAdding(false);
     }
     private void changeNav() {

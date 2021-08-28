@@ -18,7 +18,6 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
 import code.gui.*;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.ints.Listable;
@@ -127,8 +126,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
         nbAtoutsPoignee = getCompoFactory().newSpinner(valeur_,0,nbCartesJoueur_,1);
         sousPanneau_.add(nbAtoutsPoignee);
-        LabelButton boutonPoignees_ = new LabelButton(getMessages().getVal(VALIDATE_HANDFUL));
-        boutonPoignees_.addMouseList(new ListenerHandful(this));
+        AbsPlainButton boutonPoignees_ = getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE_HANDFUL));
+        boutonPoignees_.addActionListener(new ListenerHandful(this));
         sousPanneau_.add(boutonPoignees_);
         declaring_.add(sousPanneau_);
         //Panneau Miseres

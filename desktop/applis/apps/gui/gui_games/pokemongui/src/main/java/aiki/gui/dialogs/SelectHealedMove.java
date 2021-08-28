@@ -10,10 +10,9 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.walk.HealedMoveEvent;
 import code.gui.AbsDialog;
 import code.gui.AbsPanel;
-import code.gui.LabelButton;
+import code.gui.AbsPlainButton;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbsCompoFactory;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.StringMap;
@@ -66,16 +65,16 @@ public final class SelectHealedMove {
         movesLearnt.removeAll();
         for (String m: keys_) {
             String tr_ = facade.translateMove(m);
-            LabelButton check_ = new LabelButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
-            check_.addMouseList(new HealedMoveEvent(this,facade, m));
+            AbsPlainButton check_ = _parent.getCompoFactory().newPlainButton(StringUtil.concat(tr_,SPACE,Long.toString(moves_.getVal(m))));
+            check_.addActionListener(new HealedMoveEvent(this,facade, m));
             movesLearnt.add(check_);
         }
         contentPane_.add(movesLearnt, BorderLayout.CENTER);
         //window.healMove(move);
         //contentPane_.add(new JScrollPane(new PaginatorHealingItem(this, _facade)), BorderLayout.CENTER);
         AbsPanel buttons_ = compo.newLineBox();
-        LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL));
-        cancel_.addMouseList(new ClosingDialogEvent(absDialog));
+        AbsPlainButton cancel_ = _parent.getCompoFactory().newPlainButton(messages.getVal(CANCEL));
+        cancel_.addActionListener(new ClosingDialogEvent(absDialog));
         buttons_.add(cancel_);
         contentPane_.add(buttons_, BorderLayout.SOUTH);
         absDialog.setContentPane(contentPane_);

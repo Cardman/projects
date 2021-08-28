@@ -4,9 +4,10 @@ import cards.gui.dialogs.SetterSelectedCardList;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class MoveCardsEvent extends AbsMouseListenerRel {
+public class MoveCardsEvent implements AbsActionListener {
 
     private SetterSelectedCardList dialog;
 
@@ -15,7 +16,7 @@ public class MoveCardsEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.deplacerCartes();
     }
 }

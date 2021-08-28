@@ -54,11 +54,11 @@ public final class WindowConverter extends GroupFrame {
         pathExport = getCompoFactory().newTextField(50);
         pathExport.setText(EMPTY_STRING);
         content_.add(pathExport);
-        LabelButton read_ = new LabelButton(READ);
-        read_.addMouseList(new ReadEvent(this));
+        AbsPlainButton read_ = getCompoFactory().newPlainButton(READ);
+        read_.addActionListener(new ReadEvent(this));
         content_.add(read_);
-        LabelButton ok_ = new LabelButton(OK);
-        ok_.addMouseList(new ExportEvent(this));
+        AbsPlainButton ok_ = getCompoFactory().newPlainButton(OK);
+        ok_.addActionListener(new ExportEvent(this));
         content_.add(ok_);
         setContentPane(content_);
         pack();

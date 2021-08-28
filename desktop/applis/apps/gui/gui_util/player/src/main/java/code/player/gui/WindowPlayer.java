@@ -83,10 +83,10 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final AbsTextArea songs = getCompoFactory().newTextArea(10, 40);
     private final SongRenderer songRend = new SongRenderer(getCompoFactory());
     private final AbsCustCheckBox random = getCompoFactory().newCustCheckBox();
-    private final LabelButton play = new LabelButton(CST_PLAY);
-    private final LabelButton playPrevious = new LabelButton(CST_PREVIOUS);
-    private final LabelButton playNext = new LabelButton(CST_NEXT);
-    private final LabelButton stop = new LabelButton(CST_STOP);
+    private final AbsPlainButton play = getCompoFactory().newPlainButton(CST_PLAY);
+    private final AbsPlainButton playPrevious = getCompoFactory().newPlainButton(CST_PREVIOUS);
+    private final AbsPlainButton playNext = getCompoFactory().newPlainButton(CST_NEXT);
+    private final AbsPlainButton stop = getCompoFactory().newPlainButton(CST_STOP);
     private final TextLabel currentNoSong = new TextLabel(EMPTY);
     private final TextLabel currentSong = new TextLabel(EMPTY);
     private final AbsScrollPane scroll;
@@ -116,13 +116,13 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         AbsPanel actions_ = getCompoFactory().newLineBox();
 //        playPrevious.setTextAndSize(PREVIOUS);
 //        playPrevious.repaint();
-        playPrevious.addMouseList(new PreviousSong(this));
+        playPrevious.addActionListener(new PreviousSong(this));
         actions_.add(playPrevious);
-        play.addMouseList(new ReadSong(this));
+        play.addActionListener(new ReadSong(this));
         actions_.add(play);
-        playNext.addMouseList(new NextSong(this));
+        playNext.addActionListener(new NextSong(this));
         actions_.add(playNext);
-        stop.addMouseList(new StopSong(this));
+        stop.addActionListener(new StopSong(this));
         actions_.add(stop);
         pane_.add(actions_);
         scroll = getCompoFactory().newAbsScrollPane(songRend);
@@ -315,7 +315,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
             pack();
             clipStream.start();
             clipStream.addLineListener(this);
-            play.setTextAndSize(CST_PAUSE);
+            play.setText(CST_PAUSE);
             currentNoSong.setText((noSong+1)+"/"+songsList.size());
             currentSong.setText(songsList.get(noSong));
             String strBegin_ = getStringTime(0);
@@ -497,11 +497,11 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         String ev_ = toLowerCase(_type);
         if (StringUtil.quickEq(ev_, CST_START)) {
             //LineEvent.Type.START
-            play.setTextAndSize(CST_PAUSE);
+            play.setText(CST_PAUSE);
         } else if (StringUtil.quickEq(ev_, CST_STOP_EVT)) {
             //LineEvent.Type.STOP
             //The end of a song pass here
-            play.setTextAndSize(CST_PLAY);
+            play.setText(CST_PLAY);
             if (!pausing) {
                 next = true;
                 playSong = true;
@@ -511,7 +511,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
             }
         } else if (StringUtil.quickEq(ev_, CST_CLOSE)) {
             //LineEvent.Type.CLOSE
-            play.setTextAndSize(CST_PLAY);
+            play.setText(CST_PLAY);
             clipStream = null;
             pausing = false;
             if (!playSong) {

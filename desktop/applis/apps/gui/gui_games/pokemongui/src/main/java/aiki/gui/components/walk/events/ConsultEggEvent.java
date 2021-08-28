@@ -6,9 +6,10 @@ import aiki.gui.dialogs.SelectEgg;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class ConsultEggEvent extends AbsMouseListenerRel {
+public class ConsultEggEvent implements AbsActionListener {
 
     private WindowAiki window;
 
@@ -20,7 +21,7 @@ public class ConsultEggEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         int lineBack_ = facade.getLineEgg();
         SelectEgg.setSelectEgg(window, facade, window.getSelectEgg());
         SelectEgg.setVisible(window.getSelectEgg());

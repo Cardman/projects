@@ -4,9 +4,10 @@ import aiki.gui.components.Paginator;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public abstract class NavigationEvent extends AbsMouseListenerRel {
+public abstract class NavigationEvent implements AbsActionListener {
 
     private Paginator paginator;
 
@@ -15,7 +16,7 @@ public abstract class NavigationEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         process();
     }
 

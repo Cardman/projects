@@ -4,9 +4,10 @@ import cards.gui.dialogs.DialogTarot;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class ListenerHandful extends AbsMouseListenerRel {
+public class ListenerHandful implements AbsActionListener {
 
     private DialogTarot dialog;
 
@@ -15,7 +16,7 @@ public class ListenerHandful extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.validateHandfulTrumps();
     }
 }

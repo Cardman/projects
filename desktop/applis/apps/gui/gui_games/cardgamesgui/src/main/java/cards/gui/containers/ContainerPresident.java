@@ -14,7 +14,7 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.PresidentResoucesAccess;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.AbsPanel;
-import code.gui.LabelButton;
+import code.gui.AbsPlainButton;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesPresidentPresident;
@@ -47,8 +47,8 @@ public class ContainerPresident extends ContainerGame {
     private boolean canDiscard;
     private boolean canPlay;
 
-    private LabelButton noPlay;
-    private LabelButton givingCardsOk;
+    private AbsPlainButton noPlay;
+    private AbsPlainButton givingCardsOk;
 
     private CardPresident carteSurvoleePresident;
 
@@ -170,19 +170,19 @@ public class ContainerPresident extends ContainerGame {
         scores = _scores;
     }
 
-    protected LabelButton getNoPlay() {
+    protected AbsPlainButton getNoPlay() {
         return noPlay;
     }
 
-    protected void setNoPlay(LabelButton _noPlay) {
+    protected void setNoPlay(AbsPlainButton _noPlay) {
         noPlay = _noPlay;
     }
 
-    protected LabelButton getGivingCardsOk() {
+    protected AbsPlainButton getGivingCardsOk() {
         return givingCardsOk;
     }
 
-    protected void setGivingCardsOk(LabelButton _givingCardsOk) {
+    protected void setGivingCardsOk(AbsPlainButton _givingCardsOk) {
         givingCardsOk = _givingCardsOk;
     }
 

@@ -12,7 +12,6 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import code.gui.*;
 import code.gui.document.RenderedPage;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractThread;
 import code.util.EqList;
@@ -90,13 +89,13 @@ public final class ConsultHosts {
                 String gender_;
                 pk_ = host_.getFirstPokemon();
                 gender_ = facade.translateGenders(pk_.getGender());
-                LabelButton first_ = new LabelButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
-                first_.addMouseList(new SelectHostedPokemon(this, true, c));
+                AbsPlainButton first_ = _frame.getCompoFactory().newPlainButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
+                first_.addActionListener(new SelectHostedPokemon(this, true, c));
                 hostingLoc_.add(first_);
                 pk_ = host_.getSecondPokemon();
                 gender_ = facade.translateGenders(pk_.getGender());
-                LabelButton second_ = new LabelButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
-                second_.addMouseList(new SelectHostedPokemon(this, false, c));
+                AbsPlainButton second_ = _frame.getCompoFactory().newPlainButton(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACE,gender_));
+                second_.addActionListener(new SelectHostedPokemon(this, false, c));
                 hostingLoc_.add(second_);
                 hosting_.add(hostingLoc_);
             }

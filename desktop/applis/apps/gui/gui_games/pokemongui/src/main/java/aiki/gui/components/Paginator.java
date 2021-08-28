@@ -75,17 +75,17 @@ public abstract class Paginator {
 
     private final CustList<SelectableLabel> resultsLabels = new CustList<SelectableLabel>();
 
-    private final LabelButton begin;
+    private final AbsPlainButton begin;
 
-    private final LabelButton previousDelta;
+    private final AbsPlainButton previousDelta;
 
-    private final LabelButton previous;
+    private final AbsPlainButton previous;
 
-    private final LabelButton next;
+    private final AbsPlainButton next;
 
-    private final LabelButton nextDelta;
+    private final AbsPlainButton nextDelta;
 
-    private final LabelButton end;
+    private final AbsPlainButton end;
 
     private final WindowAiki main;
 
@@ -97,18 +97,18 @@ public abstract class Paginator {
         container = _dest;
         initMessages(_access);
         header = new Header(_window.getCompoFactory());
-        begin = new LabelButton(CST_BEGIN);
-        begin.addMouseList(new BeginEvent(this));
-        previousDelta = new LabelButton(CST_PREVIOUS_DELTA);
-        previousDelta.addMouseList(new PreviousDeltaEvent(this));
-        previous = new LabelButton(CST_PREVIOUS);
-        previous.addMouseList(new PreviousEvent(this));
-        next = new LabelButton(CST_NEXT);
-        next.addMouseList(new NextEvent(this));
-        nextDelta = new LabelButton(CST_NEXT_DELTA);
-        nextDelta.addMouseList(new NextDeltaEvent(this));
-        end = new LabelButton(messages.getVal(CST_END));
-        end.addMouseList(new EndEvent(this));
+        begin = _window.getCompoFactory().newPlainButton(CST_BEGIN);
+        begin.addActionListener(new BeginEvent(this));
+        previousDelta = _window.getCompoFactory().newPlainButton(CST_PREVIOUS_DELTA);
+        previousDelta.addActionListener(new PreviousDeltaEvent(this));
+        previous = _window.getCompoFactory().newPlainButton(CST_PREVIOUS);
+        previous.addActionListener(new PreviousEvent(this));
+        next = _window.getCompoFactory().newPlainButton(CST_NEXT);
+        next.addActionListener(new NextEvent(this));
+        nextDelta = _window.getCompoFactory().newPlainButton(CST_NEXT_DELTA);
+        nextDelta.addActionListener(new NextDeltaEvent(this));
+        end = _window.getCompoFactory().newPlainButton(messages.getVal(CST_END));
+        end.addActionListener(new EndEvent(this));
     }
 
     public WindowAiki getMain() {
@@ -196,12 +196,12 @@ public abstract class Paginator {
     public abstract void changeDeltaPage();
 
     protected void changeNav(boolean _enabledPrevious, boolean _enabledNext, int _nbPages, int _noPage) {
-        previous.setEnabledLabel(_enabledPrevious);
-        next.setEnabledLabel(_enabledNext);
-        previousDelta.setEnabledLabel(_nbPages > IndexConstants.FIRST_INDEX);
-        nextDelta.setEnabledLabel(_nbPages > IndexConstants.FIRST_INDEX);
-        begin.setEnabledLabel(_nbPages > IndexConstants.FIRST_INDEX);
-        end.setEnabledLabel(_nbPages > IndexConstants.FIRST_INDEX);
+        previous.setEnabled(_enabledPrevious);
+        next.setEnabled(_enabledNext);
+        previousDelta.setEnabled(_nbPages > IndexConstants.FIRST_INDEX);
+        nextDelta.setEnabled(_nbPages > IndexConstants.FIRST_INDEX);
+        begin.setEnabled(_nbPages > IndexConstants.FIRST_INDEX);
+        end.setEnabled(_nbPages > IndexConstants.FIRST_INDEX);
         adding = true;
         pages.selectItem(_noPage);
         adding = false;
@@ -255,27 +255,27 @@ public abstract class Paginator {
         return pages;
     }
 
-    protected LabelButton getBegin() {
+    protected AbsPlainButton getBegin() {
         return begin;
     }
 
-    protected LabelButton getPreviousDelta() {
+    protected AbsPlainButton getPreviousDelta() {
         return previousDelta;
     }
 
-    protected LabelButton getPrevious() {
+    protected AbsPlainButton getPrevious() {
         return previous;
     }
 
-    protected LabelButton getNext() {
+    protected AbsPlainButton getNext() {
         return next;
     }
 
-    protected LabelButton getNextDelta() {
+    protected AbsPlainButton getNextDelta() {
         return nextDelta;
     }
 
-    protected LabelButton getEnd() {
+    protected AbsPlainButton getEnd() {
         return end;
     }
 

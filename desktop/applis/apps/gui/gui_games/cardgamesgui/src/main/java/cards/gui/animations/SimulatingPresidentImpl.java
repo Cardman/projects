@@ -31,9 +31,9 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     private final ContainerSimuPresident container;
     private final Games partieSimulee;
     private final DisplayingPresident displayingPresident;
-    private final LabelButton stopButton;
+    private final AbsPlainButton stopButton;
 
-    public SimulatingPresidentImpl(ContainerSimuPresident _container, Games _partieSimulee, DisplayingPresident _displayingPresident, LabelButton _stopButton) {
+    public SimulatingPresidentImpl(ContainerSimuPresident _container, Games _partieSimulee, DisplayingPresident _displayingPresident, AbsPlainButton _stopButton) {
         container = _container;
         partieSimulee = _partieSimulee;
         displayingPresident = _displayingPresident;

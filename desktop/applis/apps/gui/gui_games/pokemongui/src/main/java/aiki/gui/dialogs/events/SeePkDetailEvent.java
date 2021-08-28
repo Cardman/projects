@@ -4,9 +4,10 @@ import aiki.gui.dialogs.SelectPokemon;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class SeePkDetailEvent extends AbsMouseListenerRel {
+public class SeePkDetailEvent implements AbsActionListener {
 
     private SelectPokemon dialog;
 
@@ -15,7 +16,7 @@ public class SeePkDetailEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         dialog.seePkDetail();
     }
 }

@@ -154,11 +154,11 @@ public class ContainerMultiPresident extends ContainerPresident implements
             playersReady.get(i).setSelected(_players.getReadyPlayers().getVal(i));
         }
         if (hasCreatedServer) {
-            LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
-            buttonRules_.addMouseList(new ChangeRulesEvent(this));
+            AbsPlainButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowCards.SELECT_RULES));
+            buttonRules_.addActionListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
-            LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
-            button_.addMouseList(new PlayFirstDealEvent(this));
+            AbsPlainButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
+            button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
         }
         container_.add(getWindow().getClock());
@@ -246,10 +246,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void canDiscardPresident(AllowDiscarding _allow) {
         setCanDiscard(true);
         nbCardsDiscard = _allow.getReceivedCards().total();
-        setGivingCardsOk(new LabelButton(WindowCards.OK));
-        getGivingCardsOk().setEnabledLabel(false);
-        getGivingCardsOk().addMouseList(new GiveCardsEvent(this));
-//        getPanneauBoutonsJeu().add(getGivingCardsOk());
+        setGivingCardsOk(getOwner().getCompoFactory().newPlainButton(WindowCards.OK));
+        getGivingCardsOk().setEnabled(false);
+        getGivingCardsOk().addActionListener(new GiveCardsEvent(this));
+        //        getPanneauBoutonsJeu().add(getGivingCardsOk());
         getActionsHistory().add(getGivingCardsOk());
         getReceivedCards().supprimerCartes();
         getReceivedCards().ajouterCartes(_allow.getReceivedCards());
@@ -267,7 +267,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         super.discard(_index);
         updateCardsInPanelPresidentDiscard(getPanelHand(), getVirtualHand(), true);
         updateCardsInPanelPresidentDiscard(getPanelGivenCards(), getGivenCards(), false);
-        getGivingCardsOk().setEnabledLabel(nbCardsDiscard == getGivenCards().total());
+        getGivingCardsOk().setEnabled(nbCardsDiscard == getGivenCards().total());
         pack();
     }
 
@@ -276,7 +276,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         super.cancelDiscard(_index);
         updateCardsInPanelPresidentDiscard(getPanelHand(), getVirtualHand(), true);
         updateCardsInPanelPresidentDiscard(getPanelGivenCards(), getGivenCards(), false);
-        getGivingCardsOk().setEnabledLabel(false);
+        getGivingCardsOk().setEnabled(false);
         pack();
     }
 
@@ -284,12 +284,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
     public void discard() {
         //The deal is now ready
         setCanDiscard(false);
-        getGivingCardsOk().setVisibleButton(false);
+        getGivingCardsOk().setVisible(false);
         setCanPlay(false);
         playerHandPresident.supprimerCartes(getGivenCards());
         playerHandPresident.sortCards(getDisplayingPresident().isDecreasing(), false);
         updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, false);
-        getNoPlay().setVisibleButton(true);
+        getNoPlay().setVisible(true);
         pack();
         String lg_ = getOwner().getLanguageKey();
         DiscardedCards dis_ = new DiscardedCards();
@@ -309,7 +309,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getGivenCards().supprimerCartes();
         getGivenCards().ajouterCartes(_readObject.getGiven());
         updateCardsInPanelPresidentGiven();
-        getNoPlay().setVisibleButton(true);
+        getNoPlay().setVisible(true);
         pack();
         String lg_ = getOwner().getLanguageKey();
         PlayerActionGame r_ = new PlayerActionGame(PlayerActionGameType.REFHESHED_HAND_PRESIDENT);
@@ -326,13 +326,13 @@ public class ContainerMultiPresident extends ContainerPresident implements
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().add(assemble());
         if (_readObject.getStatus() == Playing.HAS_TO_EQUAL) {
-            getNoPlay().setTextAndSize(getMessages().getVal(WindowCards.NO_PLAY_NOW));
+            getNoPlay().setText(getMessages().getVal(WindowCards.NO_PLAY_NOW));
         } else {
-            getNoPlay().setTextAndSize(getMessages().getVal(WindowCards.PASS_TRICK));
+            getNoPlay().setText(getMessages().getVal(WindowCards.PASS_TRICK));
         }
-        getNoPlay().setEnabledLabel(_readObject.isEnabledPass());
-        getNoPlay().setVisibleButton(true);
-//        getPanneauBoutonsJeu().add(getNoPlay());
+        getNoPlay().setEnabled(_readObject.isEnabledPass());
+        getNoPlay().setVisible(true);
+        //        getPanneauBoutonsJeu().add(getNoPlay());
         getPanneauBoutonsJeu().validate();
         getOwner().getTricksHands().setEnabledMenu(true);
         getOwner().getTeams().setEnabledMenu(true);
@@ -521,11 +521,11 @@ public class ContainerMultiPresident extends ContainerPresident implements
         panelCards_.add(panelRec_);
         setPanelReceivedCards(panelRec_);
         sousPanneau_.add(panelCards_);
-        setNoPlay(new LabelButton(EMPTY));
-        getNoPlay().addMouseList(new NoPlayPresidentEvent(this));
+        setNoPlay(getOwner().getCompoFactory().newPlainButton(EMPTY));
+        getNoPlay().addActionListener(new NoPlayPresidentEvent(this));
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(sousPanneau_));
-        getNoPlay().setVisibleButton(false);
+        getNoPlay().setVisible(false);
         panneau2_.add(getNoPlay());
         setActionsHistory(panneau2_);
         container_.add(panneau2_,BorderLayout.EAST);
@@ -663,8 +663,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         panneau_.add(panel_);
         if (hasCreatedServer) {
-            LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
-            button_.addMouseList(new PlayNextDealEvent(this));
+            AbsPlainButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
+            button_.addActionListener(new PlayNextDealEvent(this));
             panneau_.add(button_);
         }
         panneau_.add(getWindow().getClock());
@@ -717,11 +717,11 @@ public class ContainerMultiPresident extends ContainerPresident implements
         hasCreatedServer = true;
         if (!Net.isProgressingGame(getOwner().getNet())) {
             AbsPanel container_ = getPane();
-            LabelButton buttonRules_ = new LabelButton(getMessages().getVal(WindowCards.SELECT_RULES));
-            buttonRules_.addMouseList(new ChangeRulesEvent(this));
+            AbsPlainButton buttonRules_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowCards.SELECT_RULES));
+            buttonRules_.addActionListener(new ChangeRulesEvent(this));
             container_.add(buttonRules_);
-            LabelButton button_ = new LabelButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
-            button_.addMouseList(new PlayFirstDealEvent(this));
+            AbsPlainButton button_ = getOwner().getCompoFactory().newPlainButton(getMessages().getVal(WindowCards.PLAY_PRESIDENT));
+            button_.addActionListener(new PlayFirstDealEvent(this));
             container_.add(button_);
             pack();
             //PackingWindowAfter.pack(this, true);

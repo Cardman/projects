@@ -6,9 +6,10 @@ import cards.network.belote.actions.BiddingBelote;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class ListenerBidBeloteMulti extends AbsMouseListenerRel {
+public class ListenerBidBeloteMulti implements AbsActionListener {
 
     private ContainerMultiBelote container;
     private BidBeloteSuit texte = new BidBeloteSuit();
@@ -21,7 +22,7 @@ public class ListenerBidBeloteMulti extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         if (!container.isCanBid()) {
             return;
         }

@@ -9,7 +9,6 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.*;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringList;
@@ -105,8 +104,8 @@ public final class DialogNicknames extends DialogCards {
         nickname=getCompoFactory().newTextField(30);
         nickname.setText(pseudos.getPseudo());
         sousPanneau_.add(nickname);
-        LabelButton bouton_=new LabelButton(messages.getVal(VALIDATE));
-        bouton_.addMouseList(new ListenerNicknames(this));
+        AbsPlainButton bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
+        bouton_.addActionListener(new ListenerNicknames(this));
         sousPanneau_.add(bouton_);
         container_.add(sousPanneau_,BorderLayout.SOUTH);
         getCardDialog().setContentPane(container_);

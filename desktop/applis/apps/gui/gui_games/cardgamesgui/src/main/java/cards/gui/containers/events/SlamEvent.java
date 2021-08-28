@@ -4,9 +4,10 @@ import cards.gui.containers.ContainerTarot;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class SlamEvent extends AbsMouseListenerRel {
+public class SlamEvent implements AbsActionListener {
 
     private ContainerTarot container;
 
@@ -15,7 +16,7 @@ public class SlamEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         container.annonceTarotChelem();
     }
 }

@@ -32,10 +32,10 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     private final ContainerSimuTarot container;
     private final Games partieSimulee;
     private final DisplayingTarot displayingTarot;
-    private final LabelButton stopButton;
+    private final AbsPlainButton stopButton;
 
     public SimulatingTarotImpl(ContainerSimuTarot _container, Games _partieSimulee,
-                               DisplayingTarot _displayingTarot, LabelButton _stopButton) {
+                               DisplayingTarot _displayingTarot, AbsPlainButton _stopButton) {
         container = _container;
         partieSimulee = _partieSimulee;
         displayingTarot = _displayingTarot;

@@ -4,9 +4,10 @@ import aiki.gui.components.fight.Battle;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class CatchKoPokemonEvent extends AbsMouseListenerRel {
+public class CatchKoPokemonEvent implements AbsActionListener {
 
     private Battle battle;
 
@@ -15,7 +16,7 @@ public class CatchKoPokemonEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         battle.catchKoPokemon();
     }
 }

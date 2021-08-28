@@ -3,11 +3,12 @@ package applications.gui;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicInteger;
 
-public abstract class AbstractEvent extends AbsMouseListenerRel {
+public abstract class AbstractEvent implements AbsActionListener {
     private WindowApps window;
     private AbstractAtomicInteger lock;
     AbstractEvent(WindowApps _window, AbstractAtomicInteger _lock) {
@@ -16,7 +17,7 @@ public abstract class AbstractEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         if (getLock().get() > 0) {
             return;
         }

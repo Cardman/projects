@@ -6,9 +6,10 @@ import cards.gui.WindowCards;
 import cards.gui.dialogs.SetterSelectedCardList;
 import cards.gui.dialogs.enums.SaveDealMode;
 import code.gui.*;
+import code.gui.events.AbsActionListener;
 import code.gui.events.AbsMouseListenerRel;
 
-public class SavingDealEvent extends AbsMouseListenerRel {
+public class SavingDealEvent implements AbsActionListener {
 
     private SetterSelectedCardList dialog;
 
@@ -22,7 +23,7 @@ public class SavingDealEvent extends AbsMouseListenerRel {
     }
 
     @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+    public void action() {
         if (mode == SaveDealMode.SAVE_WITHOUT_CLOSING) {
             /*Si on veut sauvegarder une partie et on veut en creer une autre*/
             if(!dialog.isPartieSauvegardee()) {
