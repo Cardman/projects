@@ -4,8 +4,6 @@ import code.expressionlanguage.Argument;
 import code.gui.images.MetaDimension;
 import code.util.CustList;
 
-import java.awt.Rectangle;
-
 public interface SpecSelectionStruct {
     Argument execute(CustList<Argument> _args, MetaDimension _rect);
 }

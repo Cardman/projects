@@ -43,7 +43,7 @@ public final class MoveLabel extends AbsMetaLabel {
         for (String t: infos.getTypes()) {
             String type_ = _facade.translateType(t);
             String rgb_ = _facade.getData().getTypesColors().getVal(t);
-            int c_ = ConverterBufferedImage.getIntColor(rgb_, DataBase.SEPARATOR_RGB);
+            int c_ = GuiConstants.newColor(ConverterBufferedImage.getIntColor(rgb_, DataBase.SEPARATOR_RGB));
             colorsTypes.put(type_, c_);
             types_.add(type_);
         }
