@@ -2,8 +2,6 @@ package cards.gui.panels;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.SwingConstants;
-
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
@@ -11,7 +9,7 @@ import cards.consts.Suit;
 import cards.gui.WindowCards;
 import cards.gui.labels.selection.CardBeloteCellRenderer;
 import code.gui.AbsGraphicList;
-import code.gui.TextLabel;
+import code.gui.AbsPlainLabel;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.EnumList;
 import code.util.core.IndexConstants;
@@ -23,20 +21,20 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
     private Order ordre;
     private boolean decroissant;
     private final AbsGraphicList<CardBelote> liste;
-    private final TextLabel remCards;
+    private final AbsPlainLabel remCards;
 
     public BeloteCardsScrollableList(AbsCompoFactory _compo, int _nb, int _pmax, String _titre, AbsGraphicList<CardBelote> _liste) {
         super(_compo);
         liste = _liste;
         setMax(_pmax);
-        TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
+        AbsPlainLabel titrePanneau_ = _compo.newPlainLabel(_titre);
         getContainer().add(titrePanneau_, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
         getContainer().add(liste.self(),BorderLayout.CENTER);
-        remCards = new TextLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()), SwingConstants.CENTER);
+        remCards = _compo.newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
         getContainer().add(remCards, BorderLayout.SOUTH);
         getContainer().setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
@@ -131,7 +129,7 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
         return liste;
     }
     @Override
-    protected TextLabel getRemCards() {
+    protected AbsPlainLabel getRemCards() {
         return remCards;
     }
 }

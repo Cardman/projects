@@ -4,7 +4,7 @@ import cards.gui.WindowCards;
 import cards.gui.panels.CardsScrollableList;
 import code.gui.AbsPanel;
 
-import code.gui.TextLabel;
+import code.gui.AbsPlainLabel;
 import code.util.CustList;
 
 public interface SetterSelectedCardList {
@@ -14,7 +14,7 @@ public interface SetterSelectedCardList {
     int getNombreCartesSelectionneesPrecedent();
     void setNombreCartesSelectionneesPrecedent(int _nombreCartesSelectionneesPrecedent);
     AbsPanel getPanelsCards();
-    TextLabel getLabelSelectCards();
+    AbsPlainLabel getLabelSelectCards();
     CustList<CardsScrollableList> getHands(boolean _addStack);
     void validateRulesDeal(WindowCards _parent);
     void backToRules(WindowCards _parent);

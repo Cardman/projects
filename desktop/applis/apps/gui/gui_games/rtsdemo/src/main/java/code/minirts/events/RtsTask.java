@@ -1,7 +1,7 @@
 package code.minirts.events;
 
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
+
 import code.maths.geo.CustPoint;
 import code.minirts.WindowRts;
 import code.minirts.PanelBattle;

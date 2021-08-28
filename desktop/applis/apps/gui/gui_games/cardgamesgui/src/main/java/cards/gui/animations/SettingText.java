@@ -1,13 +1,13 @@
 package cards.gui.animations;
-import code.gui.TextLabel;
+import code.gui.AbsPlainLabel;
 
 public final class SettingText implements Runnable {
 
-    private TextLabel label;
+    private AbsPlainLabel label;
 
     private String text;
 
-    public SettingText(TextLabel _label, String _text) {
+    public SettingText(AbsPlainLabel _label, String _text) {
         label = _label;
         text = _text;
     }

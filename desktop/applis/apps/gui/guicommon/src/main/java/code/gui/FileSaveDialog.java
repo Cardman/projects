@@ -77,8 +77,8 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         getButtons().add(action_);
         if (StringUtil.quickEq(getFolder(), _homePath)) {
             searchingPanel.removeAll();
-            TextLabel label_;
-            label_ = new TextLabel(messages.getVal(FOLDER_NAME));
+            AbsPlainLabel label_;
+            label_ = getCompoFactory().newPlainLabel(messages.getVal(FOLDER_NAME));
             AbsPlainButton search_ = getCompoFactory().newPlainButton(CREATE);
             search_.addActionListener(new CreateFolderEvent(this));
             searchingPanel.add(label_);

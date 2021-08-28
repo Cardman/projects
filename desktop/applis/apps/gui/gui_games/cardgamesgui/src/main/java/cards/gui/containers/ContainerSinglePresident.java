@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
 import cards.consts.Suit;
@@ -312,7 +311,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     private void placerIhmPresident() {
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         String lg_ = getOwner().getLanguageKey();
-        container_.add(new TextLabel(getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),BorderLayout.NORTH);
         GamePresident partie_=partiePresident();
         RulesPresident rules_ = partie_.getRegles();
         CarpetPresident tapis_=new CarpetPresident();
@@ -330,7 +329,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
-        setHandfuls(new ByteMap<TextLabel>());
+        setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
 //        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
 //        int nbPlayers_ = partie_.getNombreDeJoueurs();
@@ -624,7 +623,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             graphique_.setLocation(0,(600-dimy_)/2);
             ascenseur_.setPreferredSize(new Dimension(300,200));
             AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
-            panneau_.add(new TextLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
+            panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),BorderLayout.NORTH);
             panneau_.add(ascenseur_,BorderLayout.CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
@@ -717,7 +716,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if (!_inHand) {
             int rec_ = getReceivedCards().total();
             while (index_ < rec_) {
-                TextLabel l_ = new TextLabel("");
+                AbsPlainLabel l_ = getOwner().getCompoFactory().newPlainLabel("");
                 if (index_ > IndexConstants.FIRST_INDEX) {
                     l_.setPreferredSize(GraphicPresidentCard.getDimension(true));
                 } else {

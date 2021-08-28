@@ -2,8 +2,6 @@ package aiki.gui.components.walk;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.SwingConstants;
-
 import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonHostEvent;
 import aiki.gui.listeners.PokemonSelectionItems;
@@ -16,7 +14,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.AbsGraphicList;
 import code.gui.AbsPanel;
-import code.gui.TextLabel;
+import code.gui.AbsPlainLabel;
 import code.util.*;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -39,7 +37,7 @@ public class TeamPanel {
 
     private final FacadeGame facade;
 
-    private final TextLabel nbRemainPlaces;
+    private final AbsPlainLabel nbRemainPlaces;
 
     private final AbsPanel container;
     public TeamPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, AbsGraphicList<UsablePokemon> _liste, PokemonRenderer _renderer) {
@@ -47,7 +45,7 @@ public class TeamPanel {
         liste = _liste;
         container = _renderer.getFact().getCompoFactory().newBorder();
         container.setLoweredBorder();
-        TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
+        AbsPlainLabel titrePanneau_ = _renderer.getFact().getCompoFactory().newPlainLabel(_titre);
         container.add(titrePanneau_, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
@@ -57,7 +55,7 @@ public class TeamPanel {
         initFighters(_team,_mess);
         int side_ = facade.getMap().getSideLength();
         container.add(liste.self(),BorderLayout.CENTER);
-        nbRemainPlaces = new TextLabel("");
+        nbRemainPlaces = _renderer.getFact().getCompoFactory().newPlainLabel("");
         translate(_mess);
         container.add(nbRemainPlaces,BorderLayout.SOUTH);
         container.setPreferredSize(new Dimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));

@@ -75,13 +75,13 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
                 }
             }
             nbPlayers = getCompoFactory().newSpinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
-            panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
+            panel_.add(getCompoFactory().newPlainLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else if (_game == GameEnum.PRESIDENT) {
             int minJoueurs_ = RulesPresident.getNbMinPlayers();
             int maxJoueurs_ = RulesPresident.getNbMaxPlayers();
             nbPlayers = getCompoFactory().newSpinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
-            panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
+            panel_.add(getCompoFactory().newPlainLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else {
             EnumList<DealingBelote> repValides_ = new EnumList<DealingBelote>(DealingBelote.getRepartitionsValides());
@@ -96,10 +96,10 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
                 }
             }
             nbPlayers = getCompoFactory().newSpinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
-            panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
+            panel_.add(getCompoFactory().newPlainLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         }
-        TextLabel ipServer_ = new TextLabel(messages.getVal(IP_SERVER));
+        AbsPlainLabel ipServer_ = getCompoFactory().newPlainLabel(messages.getVal(IP_SERVER));
         ipServer_.setToolTipText(messages.getVal(IP_SERVER_TOOL_TIP));
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);

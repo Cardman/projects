@@ -2,12 +2,9 @@ package aiki.gui.components.fight;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.SwingConstants;
-
 import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonSelection;
 import code.gui.*;
-import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.Ints;
 import code.util.TreeMap;
@@ -15,7 +12,7 @@ import code.util.core.IndexConstants;
 
 public class PokemonPanel {
 
-    private final TextLabel title;
+    private final AbsPlainLabel title;
 
     private final PokemonDataRenderer renderer;
 
@@ -31,7 +28,7 @@ public class PokemonPanel {
         facade = _facade;
         container = _fact.getCompoFactory().newBorder();
         container.setLoweredBorder();
-        title = new TextLabel(_titre, SwingConstants.CENTER);
+        title = _fact.getCompoFactory().newPlainLabel(_titre);
         container.add(title, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer

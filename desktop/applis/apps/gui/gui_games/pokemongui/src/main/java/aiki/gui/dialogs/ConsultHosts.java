@@ -70,20 +70,20 @@ public final class ConsultHosts {
         for (short p: hostsByPlace_.getKeys()) {
             Place pl_ = facade.getMap().getPlace(p);
             AbsPanel hosting_ = window.getCompoFactory().newGrid(0,1);
-            TextLabel place_ = new TextLabel(pl_.getName());
+            AbsPlainLabel place_ = window.getCompoFactory().newPlainLabel(pl_.getName());
             hosting_.add(place_);
             for (Coords c: hostsByPlace_.getVal(p)) {
                 AbsPanel hostingLoc_ = window.getCompoFactory().newGrid(0,1);
                 HostPokemonDuo host_ = facade.getGame().getHostedPk().getVal(c);
                 String rem_ = messages.getVal(STEPS);
                 if (host_.isFree()) {
-                    hostingLoc_.add(new TextLabel(messages.getVal(FREE)));
+                    hostingLoc_.add(window.getCompoFactory().newPlainLabel(messages.getVal(FREE)));
                     hostingLoc_.setBackground(Color.WHITE);
                     hosting_.add(hostingLoc_);
                     continue;
                 }
                 hostingLoc_.setBackground(Color.YELLOW);
-                TextLabel steps_ = new TextLabel(StringUtil.simpleNumberFormat(rem_, Math.max(facade.getRemaingingSteps(c), 0)));
+                AbsPlainLabel steps_ = window.getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(rem_, Math.max(facade.getRemaingingSteps(c), 0)));
                 hostingLoc_.add(steps_);
                 PokemonPlayer pk_;
                 String gender_;

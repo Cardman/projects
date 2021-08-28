@@ -65,7 +65,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosBelote()) {
             AbsTextField pseudo_= getCompoFactory().newTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(new TextLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesBelote.add(pseudo_);
             i_++;
@@ -77,7 +77,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosPresident()) {
             AbsTextField pseudo_=getCompoFactory().newTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(new TextLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesPresident.add(pseudo_);
             i_++;
@@ -91,7 +91,7 @@ public final class DialogNicknames extends DialogCards {
         for (String p:pseudos.getPseudosTarot()) {
             AbsTextField pseudo_=getCompoFactory().newTextField(30);
             pseudo_.setText(p);
-            sousPanneau_.add(new TextLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
+            sousPanneau_.add(getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
             nicknamesTarot.add(pseudo_);
             i_++;
@@ -100,7 +100,7 @@ public final class DialogNicknames extends DialogCards {
         container_.add(getJt(),BorderLayout.CENTER);
         //Panneau pseudo du joueur
         sousPanneau_=_fenetre.getCompoFactory().newPageBox();
-        sousPanneau_.add(new TextLabel(messages.getVal(CST_NICKNAME)));
+        sousPanneau_.add(getCompoFactory().newPlainLabel(messages.getVal(CST_NICKNAME)));
         nickname=getCompoFactory().newTextField(30);
         nickname.setText(pseudos.getPseudo());
         sousPanneau_.add(nickname);

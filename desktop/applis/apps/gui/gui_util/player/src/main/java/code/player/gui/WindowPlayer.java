@@ -77,7 +77,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private StringMap<String> messages = new StringMap<String>();
 
     private AbstractScheduledExecutorService timer;
-    private final TextLabel songsLabel = new TextLabel("");
+    private final AbsPlainLabel songsLabel = getCompoFactory().newPlainLabel("");
     private AbsClipStream clipStream;
     private int noSong = -1;
     private final AbsTextArea songs = getCompoFactory().newTextArea(10, 40);
@@ -87,10 +87,10 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final AbsPlainButton playPrevious = getCompoFactory().newPlainButton(CST_PREVIOUS);
     private final AbsPlainButton playNext = getCompoFactory().newPlainButton(CST_NEXT);
     private final AbsPlainButton stop = getCompoFactory().newPlainButton(CST_STOP);
-    private final TextLabel currentNoSong = new TextLabel(EMPTY);
-    private final TextLabel currentSong = new TextLabel(EMPTY);
+    private final AbsPlainLabel currentNoSong = getCompoFactory().newPlainLabel(EMPTY);
+    private final AbsPlainLabel currentSong = getCompoFactory().newPlainLabel(EMPTY);
     private final AbsScrollPane scroll;
-    private final TextLabel elapsedTime = new TextLabel(EMPTY);
+    private final AbsPlainLabel elapsedTime = getCompoFactory().newPlainLabel(EMPTY);
     private boolean pausing;
     private boolean next;
     private boolean playSong;

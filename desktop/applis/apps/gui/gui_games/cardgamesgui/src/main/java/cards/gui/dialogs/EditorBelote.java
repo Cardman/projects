@@ -62,7 +62,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private BeloteCardsScrollableList stack;
     private final CustList<BeloteCardsScrollableList> hands = new CustList<BeloteCardsScrollableList>();
     private BeloteCardsScrollableList remaining;
-    private TextLabel labelSelectCards;
+    private AbsPlainLabel labelSelectCards;
     private int nombreCartesSelectionneesPrecedent;
     private StringComboBox liste;
     private Nicknames nickNames;
@@ -168,7 +168,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         getCardDialog().setTitle(getMessages().getVal(DEALING_CARDS));
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
-        panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
+        panneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
         int nbPlayers_ = getReglesBelote().getRepartition().getNombreJoueurs();
@@ -244,7 +244,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         }
         listeTwo.addItem(getMessages().getVal(CST_REMAINING));
         sousPanneau_.add(listeTwo.self());
-        labelSelectCards = new TextLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
+        labelSelectCards = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
@@ -417,7 +417,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         return panelsCards;
     }
     @Override
-    public TextLabel getLabelSelectCards() {
+    public AbsPlainLabel getLabelSelectCards() {
         return labelSelectCards;
     }
 

@@ -61,7 +61,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private AbsPanel panelsCards;
     private PresidentCardsScrollableList stack;
     private final CustList<PresidentCardsScrollableList> hands = new CustList<PresidentCardsScrollableList>();
-    private TextLabel labelSelectCards;
+    private AbsPlainLabel labelSelectCards;
     private int nombreCartesSelectionneesPrecedent;
     private StringComboBox liste;
     private Nicknames nickNames;
@@ -160,7 +160,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //        for (int i = List.FIRST_INDEX; i < nbStacks_; i++) {
 //            pile_.ajouterCartes(HandPresident.pileBase());
 //        }
-        panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
+        panneau_.add(getCompoFactory().newPlainLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
         for(String n: nickNames.getPseudosPresident()) {
@@ -227,7 +227,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             listeTwo.addItem(message_);
         }
         sousPanneau_.add(listeTwo.self());
-        labelSelectCards = new TextLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
+        labelSelectCards = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(getMessages().getVal(SELECTED_CARDS),nombreCartesSelectionnees));
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
@@ -404,7 +404,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public TextLabel getLabelSelectCards() {
+    public AbsPlainLabel getLabelSelectCards() {
         return labelSelectCards;
     }
 

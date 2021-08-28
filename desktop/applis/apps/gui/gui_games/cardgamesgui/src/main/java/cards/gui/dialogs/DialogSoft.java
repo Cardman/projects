@@ -90,7 +90,7 @@ public final class DialogSoft extends DialogCards {
             container_.add(panneau_,BorderLayout.CENTER);
         } else if(StringUtil.quickEq(menu, WindowCards.CST_TIMING)) {
             AbsPanel panneau_=_fenetre.getCompoFactory().newGrid(0,1);
-            TextLabel label_;
+            AbsPlainLabel label_;
             int valeur_=0;
             int minValeur_=0;
             int maxValeur_=0;
@@ -102,7 +102,7 @@ public final class DialogSoft extends DialogCards {
             String sentence_ = messages.getVal(WAITING_SENTENCE);
             String prefix_ = messages.getVal(WAITING_BIDDING);
             String values_ = StringUtil.simpleNumberFormat(messages.getVal(WAITING_VALUES), minValeur_, maxValeur_, valeur_);
-            label_ = new TextLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
+            label_ = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
             delayWaitBids=getCompoFactory().newAbsSlider(minValeur_,maxValeur_);
             delayWaitBids.setValue(valeur_);
@@ -114,7 +114,7 @@ public final class DialogSoft extends DialogCards {
             maxValeur_=2000;
             prefix_ = messages.getVal(WAITING_PLAYED_CARD);
             values_ = StringUtil.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
-            label_ = new TextLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
+            label_ = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
             delayWaitCards=getCompoFactory().newAbsSlider(minValeur_,maxValeur_);
             delayWaitCards.setValue(valeur_);
@@ -126,7 +126,7 @@ public final class DialogSoft extends DialogCards {
             maxValeur_=3000;
             prefix_ = messages.getVal(WAITING_TRICK);
             values_ = StringUtil.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
-            label_ = new TextLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
+            label_ = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
             delayWaitTricks=getCompoFactory().newAbsSlider(minValeur_,maxValeur_);
             delayWaitTricks.setValue(valeur_);

@@ -44,9 +44,9 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 
     private final AbstractAtomicBoolean showNewResults;
 
-    private TextLabel searchedFiles = new TextLabel("");
+    private AbsPlainLabel searchedFiles = getCompoFactory().newPlainLabel("");
 
-    private TextLabel foundFiles = new TextLabel("");
+    private AbsPlainLabel foundFiles = getCompoFactory().newPlainLabel("");
     private AbsCommonFrame frame;
 
     public FileOpenDialog(AbstractAtomicBoolean _keepSearching, AbstractAtomicBoolean _showNewResults, AbstractProgramInfos _frameFact){
@@ -76,8 +76,8 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         action_ = getCompoFactory().newPlainButton(messages.getVal(CANCEL));
         action_.addActionListener(new CancelSelectFileEvent(this));
         getButtons().add(action_);
-        TextLabel label_;
-        label_ = new TextLabel(messages.getVal(TYPE_TEXT));
+        AbsPlainLabel label_;
+        label_ = getCompoFactory().newPlainLabel(messages.getVal(TYPE_TEXT));
         AbsPlainButton search_ = getCompoFactory().newPlainButton(messages.getVal(SEARCH));
         search_.addActionListener(new SearchingEvent(this));
         searchingPanel.removeAll();
@@ -93,9 +93,9 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         AbsPlainButton cancelSearching_ = getCompoFactory().newPlainButton(messages.getVal(CANCEL_SEARCHING));
         cancelSearching_.addActionListener(new StopSearchingEvent(this, false));
         searchingPanel.add(cancelSearching_);
-        searchedFiles = new TextLabel(StringUtil.simpleNumberFormat(messages.getVal(FILE_COUNT), 0));
+        searchedFiles = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(FILE_COUNT), 0));
         searchingPanel.add(searchedFiles);
-        foundFiles = new TextLabel(StringUtil.simpleNumberFormat(messages.getVal(RESULT_COUNT), 0));
+        foundFiles = getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(messages.getVal(RESULT_COUNT), 0));
         searchingPanel.add(foundFiles);
         getAbsDialog().getPane().add(searchingPanel, BorderLayout.NORTH);
         pack();

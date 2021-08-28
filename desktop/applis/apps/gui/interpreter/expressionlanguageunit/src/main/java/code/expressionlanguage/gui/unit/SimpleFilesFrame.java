@@ -101,7 +101,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         form.add(formButtons_);
         subForm = parent.getCompoFactory().newGrid(0,2);
         folderField = parent.getCompoFactory().newTextField();
-        subForm.add(new TextLabel(messages.getVal("folder")));
+        subForm.add(parent.getCompoFactory().newPlainLabel(messages.getVal("folder")));
         subForm.add(folderField);
         srcField = parent.getCompoFactory().newTextField();
         AbsPlainButton srcButton_ = parent.getCompoFactory().newPlainButton(messages.getVal("src"));

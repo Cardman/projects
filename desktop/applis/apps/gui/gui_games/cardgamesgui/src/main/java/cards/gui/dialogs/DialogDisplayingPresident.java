@@ -73,7 +73,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         AbsPanel panneau_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
         EnumList<Suit> liste_=new EnumList<Suit>();
-        panneau_.add(new TextLabel(messages.getVal(WISE)));
+        panneau_.add(getCompoFactory().newPlainLabel(messages.getVal(WISE)));
         //Panneau Distribution
         checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
         checkClockwise.setSelected(displayingPresident.isClockwise());
@@ -114,7 +114,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         panneau_.add(orderedSuits.getContainer());
         //Panneau Tri avant enchere (Atout)
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,1);
-        sousPanneau_.add(new TextLabel(messages.getVal(NB_DEALS_DEMO)));
+        sousPanneau_.add(getCompoFactory().newPlainLabel(messages.getVal(NB_DEALS_DEMO)));
         //Panneau Distribution
         nbDealsDemo = getCompoFactory().newSpinner(displayingPresident.getNbDeals(),FileConst.MIN_DEALS,FileConst.MAX_DEALS,1);
         sousPanneau_.add(nbDealsDemo);

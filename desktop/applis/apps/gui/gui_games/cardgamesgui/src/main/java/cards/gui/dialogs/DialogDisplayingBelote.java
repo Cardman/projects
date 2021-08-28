@@ -75,7 +75,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         AbsPanel panneau_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
         EnumList<Suit> liste_=new EnumList<Suit>();
-        panneau_.add(new TextLabel(messages.getVal(WISE)));
+        panneau_.add(getCompoFactory().newPlainLabel(messages.getVal(WISE)));
         //Panneau Distribution
         checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
         checkClockwise.setSelected(displayingBelote.isClockwise());
@@ -115,7 +115,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         panneau_.add(orderedSuits.getContainer());
         //Panneau Tri avant enchere (Atout)
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,1);
-        sousPanneau_.add(new TextLabel(messages.getVal(SORTING_BEFORE_PLAYING_CARDS)));
+        sousPanneau_.add(getCompoFactory().newPlainLabel(messages.getVal(SORTING_BEFORE_PLAYING_CARDS)));
         sortByTrump=getCompoFactory().newCustCheckBox(messages.getVal(SORTING_TRUMP));
         sortByTrump.setSelected(displayingBelote.getOrderBeforeBids()==Order.TRUMP);
         sousPanneau_.add(sortByTrump);

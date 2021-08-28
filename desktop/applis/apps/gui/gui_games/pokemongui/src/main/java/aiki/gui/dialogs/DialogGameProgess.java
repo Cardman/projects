@@ -48,7 +48,7 @@ public final class DialogGameProgess {
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_facade);
         session.initializeOnlyConf(_pre, _facade.getLanguage());
         AbsPanel panel_ = _window.getCompoFactory().newPageBox();
-        TextLabel area_ = new TextLabel(TEXT);
+        AbsPlainLabel area_ = _window.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;
 //        LabelButton search_ = _window.getCompoFactory().newPlainButton(MainWindow.OK);
         AbsPlainButton search_ = _window.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));

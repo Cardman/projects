@@ -23,7 +23,6 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-import javax.swing.*;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -107,7 +106,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         GameTarot partie_=partieTarotSimulee();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
-        container_.add(new TextLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
+        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),BorderLayout.NORTH);
         StringList pseudos_ = pseudosSimuleeTarot();
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingTarot().isClockwise(), partie_.getDistribution().derniereMain().total(), container.getOwner().getCompoFactory());
         container.getTapis().setTapisTarot(tapis_);
@@ -126,15 +125,15 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
         container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),container.getDisplayingTarot().isClockwise(),pseudos_, container.getWindow().getCompoFactory()));
         panneau2_.add(container.getMiniPanel());
-        container.setHandfuls(new ByteMap<TextLabel>());
+        container.setHandfuls(new ByteMap<AbsPlainLabel>());
         container.setDeclaredHandfuls(new ByteMap<AbsPanel>());
         AbsPanel declaredHandfuls_ = container.getOwner().getCompoFactory().newGrid(0,1);
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
             AbsPanel declaredHandfulGroup_ = container.getOwner().getCompoFactory().newLineBox();
-            TextLabel lab_ = new TextLabel(pseudos_.get(i));
+            AbsPlainLabel lab_ = container.getOwner().getCompoFactory().newPlainLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
-            TextLabel handful_ = new TextLabel(ContainerGame.EMPTY_STRING);
+            AbsPlainLabel handful_ = container.getOwner().getCompoFactory().newPlainLabel(ContainerGame.EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             container.getHandfuls().put(i, handful_);
             AbsPanel declaredHandful_ = container.getOwner().getCompoFactory().newLineBox();

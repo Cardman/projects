@@ -6,7 +6,6 @@ import aiki.game.fight.Fighter;
 import aiki.gui.listeners.SelectFoeTarget;
 import aiki.gui.listeners.SelectPlayerTarget;
 import code.gui.AbsPanel;
-import code.gui.TextLabel;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 import code.util.*;
@@ -101,136 +100,136 @@ public class TargetsPanel {
     private void placeLabels(byte _mult) {
         if (_mult == 1) {
             container = compoFactory.newGrid(0, 2);
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
                 container.add(foeTargets.get(IndexConstants.FIRST_INDEX));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
                 container.add(playerTargets.get(IndexConstants.FIRST_INDEX));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
         } else if (_mult == 2) {
             container = compoFactory.newGrid(0, 4);
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
                 container.add(foeTargets.get(IndexConstants.FIRST_INDEX));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX + 1)) {
                 container.add(foeTargets.get(IndexConstants.FIRST_INDEX + 1));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
                 container.add(playerTargets.get(IndexConstants.FIRST_INDEX));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX + 1)) {
                 container.add(playerTargets.get(IndexConstants.FIRST_INDEX + 1));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
         } else if (_mult == 3) {
             container = compoFactory.newGrid(0, 4);
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
                 container.add(foeTargets.get(IndexConstants.FIRST_INDEX));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX+1)) {
                 container.add(foeTargets.get(IndexConstants.FIRST_INDEX+1));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX+2)) {
                 container.add(foeTargets.get(IndexConstants.FIRST_INDEX+2));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
                 container.add(playerTargets.get(IndexConstants.FIRST_INDEX));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX+1)) {
                 container.add(playerTargets.get(IndexConstants.FIRST_INDEX+1));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX+2)) {
                 container.add(playerTargets.get(IndexConstants.FIRST_INDEX+2));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
         } else {
             container = compoFactory.newGrid(0, 4);
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
                 container.add(foeTargets.get(IndexConstants.FIRST_INDEX));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX+1)) {
                 container.add(foeTargets.get(IndexConstants.FIRST_INDEX+1));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX+2)) {
                 container.add(foeTargets.get(IndexConstants.FIRST_INDEX+2));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX+3)) {
                 container.add(foeTargets.get(IndexConstants.FIRST_INDEX+3));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
                 container.add(playerTargets.get(IndexConstants.FIRST_INDEX));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX+1)) {
                 container.add(playerTargets.get(IndexConstants.FIRST_INDEX+1));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX+2)) {
                 container.add(playerTargets.get(IndexConstants.FIRST_INDEX+2));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX+3)) {
                 container.add(playerTargets.get(IndexConstants.FIRST_INDEX+3));
             } else {
-                container.add(new TextLabel(DataBase.EMPTY_STRING));
+                container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
-            container.add(new TextLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
+            container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
         }
     }
 

@@ -172,7 +172,7 @@ public class Battle extends ChildFrame {
 
     private AbsPanel movesPanel;
 
-    private TextLabel selectedItem;
+    private AbsPlainLabel selectedItem;
 
     private AbsPanel targetsPanel;
 
@@ -188,7 +188,7 @@ public class Battle extends ChildFrame {
 
     private AbsPlainButton flee;
 
-    private TextLabel webLabel;
+    private AbsPlainLabel webLabel;
 
     private AbsPlainButton web;
 
@@ -200,18 +200,18 @@ public class Battle extends ChildFrame {
 
     private boolean enableClick = true;
 
-    private final TextLabel nickname = new TextLabel("");
+    private final AbsPlainLabel nickname;
 
     private AbsPlainButton nicknameLabel;
 
     private String typedNickname = DataBase.EMPTY_STRING;
 
-    private TextLabel errorLabel;
+    private AbsPlainLabel errorLabel;
 
     private AbsWrappedTextArea commentsErrors;
     private AbsScrollPane commentsErrorsScroll;
 
-    private TextLabel roundLabel;
+    private AbsPlainLabel roundLabel;
 
     private AbsWrappedTextArea commentsRound;
     private AbsScrollPane commentsRoundScroll;
@@ -238,6 +238,7 @@ public class Battle extends ChildFrame {
         scroll = getFrames().getCompoFactory().newAbsScrollPane(lower);
         setContentPane(scroll);
         window = _window;
+        nickname = _window.getCompoFactory().newPlainLabel("");
         setDialogIcon(_window);
         setLocationRelativeTo(_window);
         frontBattle = _frontBattle;
@@ -835,10 +836,10 @@ public class Battle extends ChildFrame {
 
     private void initializeComponents() {
         if (errorLabel == null) {
-            errorLabel = new TextLabel("");
+            errorLabel = window.getCompoFactory().newPlainLabel("");
         }
         if (roundLabel == null) {
-            roundLabel = new TextLabel("");
+            roundLabel = window.getCompoFactory().newPlainLabel("");
         }
         if (flee == null) {
             flee = window.getCompoFactory().newPlainButton();
@@ -849,7 +850,7 @@ public class Battle extends ChildFrame {
             web.addActionListener(new ShowFightDataEvent(this));
         }
         if (webLabel == null) {
-            webLabel = new TextLabel("");
+            webLabel = window.getCompoFactory().newPlainLabel("");
         }
         if (nicknameLabel == null) {
             nicknameLabel = window.getCompoFactory().newPlainButton();
@@ -1160,7 +1161,7 @@ public class Battle extends ChildFrame {
         NatStringTreeMap<Boolean> retMoves_ = facade.getMoves();
         moves_.putAllMap(retMoves_);
         movesLearnPanel.removeAll();
-        movesLearnPanel.add(new TextLabel(messages.getVal(SELECT_MT)));
+        movesLearnPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
         for (String m: moves_.getKeys()) {
             boolean learnt_ = moves_.getVal(m);
             if (!learnt_) {
@@ -1197,7 +1198,7 @@ public class Battle extends ChildFrame {
 //        }
         abilitiesLearnPanel.removeAll();
         abilityLabels.clear();
-        abilitiesLearnPanel.add(new TextLabel(messages.getVal(SELECT_ABILITY)));
+        abilitiesLearnPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_ABILITY)));
         StringList abilities_ = facade.getAbilities();
         StringList abilitiesCopy_ = new StringList(abilities_);
 //        abilitiesCopy_.sort(new Comparator<String>() {
@@ -1223,7 +1224,7 @@ public class Battle extends ChildFrame {
 
     private void displayActionsBeforeRound() {
         actionType.removeAll();
-        actionType.add(new TextLabel(messages.getVal(SELECT_ACTION)));
+        actionType.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_ACTION)));
         actionsLabels.clear();
         EnumList<ActionType> actions_ = facade.getFight().getPossibleActionsCurFighter();
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(Resources.MESSAGES_FOLDER, window.getLanguageKey(), ACTION_TYPE);
@@ -1268,7 +1269,7 @@ public class Battle extends ChildFrame {
     private void displayMovesToBeHealed() {
         actions.removeAll();
         actions.add(actionType);
-        selectedItem = new TextLabel(messages.getVal(NO_ITEM));
+        selectedItem = window.getCompoFactory().newPlainLabel(messages.getVal(NO_ITEM));
         AbsPlainButton button_ = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_ITEM));
         button_.addActionListener(new SelectHealingItemEvent(this));
         String str_ = facade.getFight().getChosenHealingMove();
@@ -1286,7 +1287,7 @@ public class Battle extends ChildFrame {
             } else {
                 movesPanel.removeAll();
             }
-            movesPanel.add(new TextLabel(messages.getVal(SELECT_MOVE_HEAL)));
+            movesPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MOVE_HEAL)));
             movesLabels.clear();
             for (String m: moves_.getKeys()) {
                 ChosenMoveInfos info_ = moves_.getVal(m);
@@ -1341,7 +1342,7 @@ public class Battle extends ChildFrame {
         NatStringTreeMap<ChosenMoveInfos> moves_ = facade.getFight().getCurrentFighterMoves();
         if (!moves_.isEmpty()) {
             AbsPanel movesPanel_ = window.getCompoFactory().newPageBox();
-            movesPanel_.add(new TextLabel(messages.getVal(SELECT_MOVE_ROUND)));
+            movesPanel_.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MOVE_ROUND)));
             movesLabels.clear();
             for (String m: moves_.getKeys()) {
                 ChosenMoveInfos info_ = moves_.getVal(m);
@@ -1365,7 +1366,7 @@ public class Battle extends ChildFrame {
             IdList<BoolVal> chosableFoe_ = facade.getFight().getChosableFoeTargets();
             if (chosablePlayer_.indexesOfObj(BoolVal.TRUE).size() + chosableFoe_.indexesOfObj(BoolVal.TRUE).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
-                TextLabel header_ = new TextLabel(messages.getVal(SELECT_TARGET));
+                AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, BorderLayout.NORTH);
             } else {
                 targets.getContainer().removeAll();
@@ -1395,7 +1396,7 @@ public class Battle extends ChildFrame {
             IdList<BoolVal> plTargets_ = facade.getFight().getChosablePlayerTargets();
             if (foeTargets_.indexesOfObj(BoolVal.TRUE).size() + plTargets_.indexesOfObj(BoolVal.TRUE).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
-                TextLabel header_ = new TextLabel(messages.getVal(SELECT_TARGET));
+                AbsPlainLabel header_ = window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, BorderLayout.NORTH);
             } else {
                 window.setSavedGame(false);

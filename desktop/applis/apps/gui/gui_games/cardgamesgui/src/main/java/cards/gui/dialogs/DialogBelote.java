@@ -59,7 +59,7 @@ public abstract class DialogBelote extends DialogCards {
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
-        dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
+        dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(), new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
@@ -77,9 +77,9 @@ public abstract class DialogBelote extends DialogCards {
         dealAll = getCompoFactory().newCustCheckBox(getMessages().getVal(DEALING_MODE));
         dealAll.setSelected(getReglesBelote().dealAll());
         dealing_.add(dealAll);
-        dealing_.add(new TextLabel(""));
+        dealing_.add(getCompoFactory().newPlainLabel(""));
         if (getNbGames() != null) {
-            dealing_.add(new TextLabel(getMessages().getVal(NUMBER_DEALS)));
+            dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_DEALS)));
             dealing_.add(getNbGames());
         }
 
@@ -87,7 +87,7 @@ public abstract class DialogBelote extends DialogCards {
         getJt().add(getMessages().getVal(DEALING),dealing_);
         AbsPanel bidding_=_window.getCompoFactory().newPageBox();
         //Panneau Annonces autorisees
-        bidding_.add(new TextLabel(getMessages().getVal(CST_BIDS)));
+        bidding_.add(getCompoFactory().newPlainLabel(getMessages().getVal(CST_BIDS)));
         bids.clear();
         bidding=_window.getCompoFactory().newGrid(1,0);
         for (BidBelote enchere_:BidBelote.values()) {
@@ -101,7 +101,7 @@ public abstract class DialogBelote extends DialogCards {
 
         bidding_.add(bidding);
 
-        bidding_.add(new TextLabel(getMessages().getVal(ALLOWED_DECLARING)));
+        bidding_.add(getCompoFactory().newPlainLabel(getMessages().getVal(ALLOWED_DECLARING)));
         declaresFirstRound=_window.getCompoFactory().newGrid(0,3);
         declares.clear();
         int indice_ = 0;
@@ -119,7 +119,7 @@ public abstract class DialogBelote extends DialogCards {
         AbsPanel trumping_ = _window.getCompoFactory().newGrid(0,1);
         //Panneau gestion des coupes
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,2);
-        TextLabel trumpingLabel_ = new TextLabel(getMessages().getVal(TRUMPING));
+        AbsPlainLabel trumpingLabel_ = getCompoFactory().newPlainLabel(getMessages().getVal(TRUMPING));
         trumpingLabel_.setToolTipText(getMessages().getVal(TRUMPING_DESCRIPTION));
         sousPanneau_.add(trumpingLabel_);
         listChoiceTwo=new ComboBoxEnumCards<BeloteTrumpPartner>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
@@ -144,7 +144,7 @@ public abstract class DialogBelote extends DialogCards {
         getJt().add(getMessages().getVal(RULES_TRUMPS),trumping_);
         //Panneau Calcul des scores
         AbsPanel endOfGame_=_window.getCompoFactory().newGrid(0,1);
-        endOfGame_.add(new TextLabel(getMessages().getVal(SCORING)));
+        endOfGame_.add(getCompoFactory().newPlainLabel(getMessages().getVal(SCORING)));
         classic=getCompoFactory().newCustCheckBox(getMessages().getVal(ALL_POINTS_FOR_DEFENDER_TEAM));
         classic.setSelected(getReglesBelote().getComptePointsClassique());
         endOfGame_.add(classic);

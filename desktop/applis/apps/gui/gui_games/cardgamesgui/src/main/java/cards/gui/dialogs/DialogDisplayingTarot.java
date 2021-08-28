@@ -72,7 +72,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         AbsPanel panneau_=_window.getCompoFactory().newGrid(0,2);
         //Panneau Battre les cartes
         EnumList<Suit> liste_=new EnumList<Suit>();
-        panneau_.add(new TextLabel(messages.getVal(WISE)));
+        panneau_.add(getCompoFactory().newPlainLabel(messages.getVal(WISE)));
         //Panneau Distribution
         checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
         checkClockwise.setSelected(displayingTarot.isClockwise());

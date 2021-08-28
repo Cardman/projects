@@ -41,7 +41,7 @@ public final class FrameHtmlData extends ChildFrame {
         session.setFrame(this);
         session.setDialog(dialog);
         AbsPanel panel_ = _parent.getCompoFactory().newPageBox();
-        TextLabel area_ = new TextLabel(TEXT);
+        AbsPlainLabel area_ = _parent.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;
         search = _parent.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = _parent.getCompoFactory().newTextField(20);

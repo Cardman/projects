@@ -199,13 +199,13 @@ public final class WindowAiki extends NetGroupFrame {
 
     private final Clock time;
 
-    private final TextLabel lastSavedGameDate;
+    private final AbsPlainLabel lastSavedGameDate;
 
     private String dateLastSaved = DataBase.EMPTY_STRING;
 
-    private final TextLabel helpInfo;
+    private final AbsPlainLabel helpInfo;
 
-    private final TextLabel availableHelps;
+    private final AbsPlainLabel availableHelps;
 
     private boolean inBattle;
 
@@ -300,11 +300,11 @@ public final class WindowAiki extends NetGroupFrame {
         mainPanel.add(scenePanel.getComponent());
         time = new Clock(_list);
         mainPanel.add(time);
-        lastSavedGameDate = new TextLabel("");
+        lastSavedGameDate = getCompoFactory().newPlainLabel("");
         mainPanel.add(lastSavedGameDate);
-        helpInfo = new TextLabel("");
+        helpInfo = getCompoFactory().newPlainLabel("");
         mainPanel.add(helpInfo);
-        availableHelps = new TextLabel("");
+        availableHelps = getCompoFactory().newPlainLabel("");
         mainPanel.add(availableHelps);
         setContentPane(mainPanel);
         //setVisible(true);
@@ -504,7 +504,7 @@ public final class WindowAiki extends NetGroupFrame {
         }
         beginGame.add(heros_);
         AbsPanel nickname_ = getCompoFactory().newLineBox();
-        nickname_.add(new TextLabel(messages.getVal(CST_NICKNAME)));
+        nickname_.add(getCompoFactory().newPlainLabel(messages.getVal(CST_NICKNAME)));
         if (nickname == null) {
             nickname = getCompoFactory().newTextField(16);
         }

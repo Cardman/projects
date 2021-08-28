@@ -5,7 +5,6 @@ import java.awt.Dimension;
 
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
-import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
 import cards.consts.Hypothesis;
@@ -104,7 +103,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     }
     private void placerIhmTarot() {
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        container_.add(new TextLabel(getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),BorderLayout.NORTH);
         GameTarot partie_=partieTarot();
         StringList pseudos_ = pseudosTarot();
         String lg_ = getOwner().getLanguageKey();
@@ -139,15 +138,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getScrollDeclaringHandful().setPreferredSize(new Dimension(250,60));
         getScrollDeclaringHandful().setVisible(false);
         panneau2_.add(getScrollDeclaringHandful());
-        setHandfuls(new ByteMap<TextLabel>());
+        setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
         AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newGrid(0,1);
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
             AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
-            TextLabel lab_ = new TextLabel(pseudos_.get(i));
+            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
-            TextLabel handful_ = new TextLabel(EMPTY_STRING);
+            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(i, handful_);
             AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
@@ -830,7 +829,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                    ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+annonce_+RETURN_LINE_CHAR);
             }
             if(!poignee_.estVide()) {
-                TextLabel label_ = getHandfuls().getVal(_joueur);
+                AbsPlainLabel label_ = getHandfuls().getVal(_joueur);
                 ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingText(label_, Games.toString(annoncesPoignees_.first(),lg_)), getOwner().getFrames());
 //                    getHandfuls().getVal(_joueur).setText(annoncesPoignees_.first().toString());
             }
@@ -1008,7 +1007,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             graphique_.setLocation(0,(600-dimy_)/2);
             locScroll_.setPreferredSize(new Dimension(300,200));
             AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
-            panneau_.add(new TextLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
+            panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),BorderLayout.NORTH);
             panneau_.add(locScroll_,BorderLayout.CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));

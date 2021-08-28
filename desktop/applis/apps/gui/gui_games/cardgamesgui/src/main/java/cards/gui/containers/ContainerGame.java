@@ -67,7 +67,7 @@ public class ContainerGame implements Containable {
     private DisplayingBelote displayingBelote;
     private DisplayingPresident displayingPresident;
     private DisplayingTarot displayingTarot;
-    private ByteMap<TextLabel> handfuls = new ByteMap<TextLabel>();
+    private ByteMap<AbsPlainLabel> handfuls = new ByteMap<AbsPlainLabel>();
     private ByteMap<AbsPanel> declaredHandfuls = new ByteMap<AbsPanel>();
     private Carpet tapis = new Carpet();
     private boolean changerPileFin;
@@ -264,10 +264,10 @@ public class ContainerGame implements Containable {
     protected void setTapis(Carpet _tapis) {
         tapis = _tapis;
     }
-    public ByteMap<TextLabel> getHandfuls() {
+    public ByteMap<AbsPlainLabel> getHandfuls() {
         return handfuls;
     }
-    public void setHandfuls(ByteMap<TextLabel> _handfuls) {
+    public void setHandfuls(ByteMap<AbsPlainLabel> _handfuls) {
         handfuls = _handfuls;
     }
     protected boolean isChangerPileFin() {

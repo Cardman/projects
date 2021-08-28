@@ -100,7 +100,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         launch = getCompoFactory().newPlainButton(unitMessages.getVal("launch"));
         launch.addActionListener(new ListenerLaunchTests(this, this));
         form.add(launch);
-        form.add(new TextLabel(""));
+        form.add(getCompoFactory().newPlainLabel(""));
         contentPane.add(form);
         progressing = getCompoFactory().newPageBox();
         doneTests = getCompoFactory().newPlainLabel(unitMessages.getVal("tests"));

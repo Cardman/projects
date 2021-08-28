@@ -57,7 +57,7 @@ public final class WindowFull extends GroupFrame {
         launch = getCompoFactory().newPlainButton(messages.getVal("launch"));
         launch.addActionListener(new ListenerLaunchApp(this));
         form.add(launch);
-        form.add(new TextLabel(""));
+        form.add(getCompoFactory().newPlainLabel(""));
         contentPane.add(form);
         setContentPane(contentPane);
         pack();

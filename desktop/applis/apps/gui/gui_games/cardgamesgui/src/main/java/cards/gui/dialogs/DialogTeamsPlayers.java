@@ -4,9 +4,8 @@ import cards.gui.WindowCards;
 import cards.network.common.select.TeamsPlayers;
 import code.gui.AbsPanel;
 
-import code.gui.TextLabel;
+import code.gui.AbsPlainLabel;
 import code.gui.initialize.AbsCompoFactory;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.StringList;
@@ -45,7 +44,7 @@ public final class DialogTeamsPlayers extends DialogCards {
             AbsPanel team_ = _compo.newGrid(0,1);
             team_.setTitledBorder(stringTeamLoc_);
             for (byte p:t) {
-                TextLabel player_ = new TextLabel(_pseudos.get(p));
+                AbsPlainLabel player_ = getCompoFactory().newPlainLabel(_pseudos.get(p));
                 team_.add(player_);
             }
             panel_.add(team_);

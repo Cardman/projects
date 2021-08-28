@@ -8,9 +8,8 @@ import cards.president.enumerations.CardPresident;
 import code.gui.AbsDialog;
 import code.gui.AbsPanel;
 
-import code.gui.TextLabel;
+import code.gui.AbsPlainLabel;
 import code.gui.initialize.AbsCompoFactory;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -50,19 +49,19 @@ public final class DialogHelpPresident {
         int count_ = Suit.couleursOrdinaires().size() * _nbStacks;
         AbsPanel contentPane_ = compo.newPageBox();
         AbsPanel panelCards_ = compo.newGrid(0, 3);
-        panelCards_.add(new TextLabel(messages.getVal(LEVEL)));
-        panelCards_.add(new TextLabel(messages.getVal(NB_PLAYED)));
-        panelCards_.add(new TextLabel(messages.getVal(NB_REM)));
+        panelCards_.add(compo.newPlainLabel(messages.getVal(LEVEL)));
+        panelCards_.add(compo.newPlainLabel(messages.getVal(NB_PLAYED)));
+        panelCards_.add(compo.newPlainLabel(messages.getVal(NB_REM)));
         for (CardPresident c: _playedCards.getKeys()) {
             CardChar char_ = c.getNomFigure();
             if (char_ == CardChar.UNDEFINED) {
-                panelCards_.add(new TextLabel(Long.toString(c.valeur())));
+                panelCards_.add(compo.newPlainLabel(Long.toString(c.valeur())));
             } else {
-                panelCards_.add(new TextLabel(Games.toString(char_,_lg)));
+                panelCards_.add(compo.newPlainLabel(Games.toString(char_,_lg)));
             }
             long pl_ = _playedCards.getVal(c);
-            panelCards_.add(new TextLabel(Long.toString(pl_)));
-            panelCards_.add(new TextLabel(Long.toString(count_ - pl_)));
+            panelCards_.add(compo.newPlainLabel(Long.toString(pl_)));
+            panelCards_.add(compo.newPlainLabel(Long.toString(count_ - pl_)));
         }
         contentPane_.add(panelCards_);
         String message_ = messages.getVal(REVERSED);
@@ -73,7 +72,7 @@ public final class DialogHelpPresident {
             value_ = messages.getVal(NO);
         }
         message_ = StringUtil.simpleStringsFormat(message_, value_);
-        TextLabel reversed_ = new TextLabel(message_);
+        AbsPlainLabel reversed_ = compo.newPlainLabel(message_);
         contentPane_.add(reversed_);
         absDialog.setContentPane(contentPane_);
         absDialog.pack();

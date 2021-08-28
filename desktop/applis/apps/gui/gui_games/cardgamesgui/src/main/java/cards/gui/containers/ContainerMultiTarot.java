@@ -5,7 +5,6 @@ import java.awt.Dimension;
 
 import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
-import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
 import cards.consts.Role;
@@ -82,8 +81,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private DealingTarot repTarot;
     private boolean hasCreatedServer;
     private boolean readyToPlay;
-    private final CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
-    private final CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
+    private final CustList<AbsPlainLabel> playersPseudos = new CustList<AbsPlainLabel>();
+    private final CustList<AbsPlainLabel> playersPlaces = new CustList<AbsPlainLabel>();
     private final CustList<AbsCustCheckBox> playersReady = new CustList<AbsCustCheckBox>();
     private RenderedPage editor;
     private IntTreeMap<Byte> playersPlacesForGame = new IntTreeMap<Byte>();
@@ -91,7 +90,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private RulesTarot rulesTarotMulti=new RulesTarot();
 
     private EnumMap<Handfuls,Integer> requiredTrumps = new EnumMap<Handfuls,Integer>();
-    private final TextLabel canPlayLabel = new TextLabel("");
+    private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
 
     public ContainerMultiTarot(WindowCards _window, boolean _hasCreatedServer, int _nbPlayers) {
         super(_window);
@@ -211,7 +210,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         rulesTarotMulti = _players.getRulesTarot();
         AbsPanel container_=getOwner().getCompoFactory().newPageBox();
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
-        panel_.add(new TextLabel(getMessages().getVal(WindowCards.PLACE)));
+        panel_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames(),getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
@@ -227,10 +226,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panel_ = getOwner().getCompoFactory().newGrid(0,3);
         playersPseudos.clear();
         for (int i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
-            TextLabel pseudo_ = new TextLabel("");
+            AbsPlainLabel pseudo_ = getOwner().getCompoFactory().newPlainLabel("");
             playersPseudos.add(pseudo_);
             panel_.add(pseudo_);
-            TextLabel place_ = new TextLabel("");
+            AbsPlainLabel place_ = getOwner().getCompoFactory().newPlainLabel("");
             playersPlaces.add(place_);
             panel_.add(place_);
             AbsCustCheckBox ready_ = getOwner().getCompoFactory().newCustCheckBox();
@@ -744,7 +743,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void placerIhmTarotMulti(HandTarot _dog, byte _beginPlace) {
         String lg_ = getOwner().getLanguageKey();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        container_.add(new TextLabel(getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),BorderLayout.NORTH);
         ByteTreeMap<String> pseudos_ = new ByteTreeMap<String>();
         byte p_ = 0;
         for (String s: pseudosTarot((byte) nbChoosenPlayers)) {
@@ -788,15 +787,15 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getScrollDeclaringHandful().setPreferredSize(new Dimension(250,60));
         getScrollDeclaringHandful().setVisible(false);
         panneau2_.add(getScrollDeclaringHandful());
-        setHandfuls(new ByteMap<TextLabel>());
+        setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
         AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newGrid(0,1);
         for (byte i = IndexConstants.FIRST_INDEX; i<nbChoosenPlayers; i++) {
             relative_ = relative(i);
             AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
-            TextLabel lab_ = new TextLabel(pseudos_.getVal(relative_));
+            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.getVal(relative_));
             declaredHandfulGroup_.add(lab_);
-            TextLabel handful_ = new TextLabel(EMPTY_STRING);
+            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(relative_, handful_);
             AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();

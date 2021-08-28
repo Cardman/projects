@@ -9,7 +9,7 @@ import cards.gui.labels.GraphicPresidentCard;
 import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
 import code.gui.AbsPanel;
-import code.gui.TextLabel;
+import code.gui.AbsPlainLabel;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
@@ -25,7 +25,7 @@ public class CarpetPresident {
 //    private static final char RETURN_LINE_CHAR='\n';
 
     private AbsPanel playersPanel;
-    private final CustList<TextLabel> labels = new CustList<TextLabel>();
+    private final CustList<AbsPlainLabel> labels = new CustList<AbsPlainLabel>();
 
     private AbsPanel centerDeck;
     private final CustList<GraphicPresidentCard> listCards = new CustList<GraphicPresidentCard>();
@@ -62,7 +62,7 @@ public class CarpetPresident {
         container.add(centerDeck, BorderLayout.CENTER);
         playersPanel = _compoFactory.newPageBox();
         for (String n: pseudos) {
-            TextLabel l_ = new TextLabel(n);
+            AbsPlainLabel l_ = _compoFactory.newPlainLabel(n);
             l_.setOpaque(true);
             labels.add(l_);
             playersPanel.add(l_);
@@ -127,7 +127,7 @@ public class CarpetPresident {
     public void setStatus(AbstractImageFactory _fact,String _lg, ByteMap<Playing> _status, byte _nextPlayer) {
         cards.putAllMap(_status);
         for (byte p: cards.getKeys()) {
-            TextLabel l_ = labels.get(p);
+            AbsPlainLabel l_ = labels.get(p);
             if (p == _nextPlayer) {
                 l_.setBackground(Color.YELLOW);
             } else {

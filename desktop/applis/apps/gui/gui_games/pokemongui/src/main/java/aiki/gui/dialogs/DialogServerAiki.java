@@ -62,7 +62,7 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
         ipOrHostName = _fenetre.getCompoFactory().newTextField();
         AbsPanel pane_ = _fenetre.getCompoFactory().newGrid(0, 1);
         AbsPanel panel_ = _fenetre.getCompoFactory().newGrid(0, 2);
-        TextLabel ipServer_ = new TextLabel(messages.getVal(IP_SERVER));
+        AbsPlainLabel ipServer_ = _fenetre.getCompoFactory().newPlainLabel(messages.getVal(IP_SERVER));
         ipServer_.setToolTipText(messages.getVal(IP_SERVER_TOOL_TIP));
         panel_.add(ipServer_);
         panel_.add(ipOrHostName);

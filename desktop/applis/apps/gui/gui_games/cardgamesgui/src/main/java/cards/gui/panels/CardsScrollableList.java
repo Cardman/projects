@@ -1,6 +1,6 @@
 package cards.gui.panels;
 
-import code.gui.TextLabel;
+import code.gui.AbsPlainLabel;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.StringUtil;
 
@@ -27,7 +27,7 @@ public abstract class CardsScrollableList extends ScrollableList {
     public int getMax() {
         return max;
     }
-    protected abstract TextLabel getRemCards();
+    protected abstract AbsPlainLabel getRemCards();
     public abstract int nombreCartesSelectionnees();
     protected int getNbCartesRestantes() {
         return nbCartesRestantes;

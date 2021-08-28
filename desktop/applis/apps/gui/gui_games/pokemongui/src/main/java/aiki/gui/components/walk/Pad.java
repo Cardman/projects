@@ -4,7 +4,7 @@ import aiki.db.DataBase;
 import aiki.gui.components.labels.KeyPad;
 import aiki.map.enums.Direction;
 import code.gui.AbsPanel;
-import code.gui.TextLabel;
+import code.gui.AbsPlainLabel;
 import code.gui.initialize.AbsCompoFactory;
 
 public class Pad {
@@ -23,25 +23,25 @@ public class Pad {
     public Pad(AbsCompoFactory _compoFactory) {
         container = _compoFactory.newGrid(3, 3, 10, 10);
 
-        TextLabel lblNewLabel_ = new TextLabel(DataBase.EMPTY_STRING);
+        AbsPlainLabel lblNewLabel_ = _compoFactory.newPlainLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabel_);
 
         up = new KeyPad(Direction.UP, _compoFactory);
         container.add(up);
 
-        TextLabel lblNewLabelSec_ = new TextLabel(DataBase.EMPTY_STRING);
+        AbsPlainLabel lblNewLabelSec_ = _compoFactory.newPlainLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabelSec_);
 
         left = new KeyPad(Direction.LEFT, _compoFactory);
         container.add(left);
 
-        TextLabel lblNewLabelThird_ = new TextLabel(DataBase.EMPTY_STRING);
+        AbsPlainLabel lblNewLabelThird_ = _compoFactory.newPlainLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabelThird_);
 
         right = new KeyPad(Direction.RIGHT, _compoFactory);
         container.add(right);
 
-        TextLabel lblNewLabelFour_ = new TextLabel(DataBase.EMPTY_STRING);
+        AbsPlainLabel lblNewLabelFour_ = _compoFactory.newPlainLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabelFour_);
 
         down = new KeyPad(Direction.DOWN, _compoFactory);

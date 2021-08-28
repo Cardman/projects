@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 
 import cards.belote.BidBeloteSuit;
 import cards.belote.DealBelote;
@@ -91,15 +90,15 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
     private boolean hasCreatedServer;
     private boolean readyToPlay;
-    private final CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
-    private final CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
+    private final CustList<AbsPlainLabel> playersPseudos = new CustList<AbsPlainLabel>();
+    private final CustList<AbsPlainLabel> playersPlaces = new CustList<AbsPlainLabel>();
     private final CustList<AbsCustCheckBox> playersReady = new CustList<AbsCustCheckBox>();
     private RenderedPage editor;
     private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private HandBelote playerHandBelote = new HandBelote();
     private BidBeloteSuit bidMax = new BidBeloteSuit();
-    private final TextLabel canPlayLabel = new TextLabel("");
+    private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
 
     public ContainerMultiBelote(WindowCards _window, boolean _hasCreatedServer) {
         super(_window);
@@ -235,7 +234,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         nbChoosenPlayers = _players.getNbPlayers();
         AbsPanel container_ = getOwner().getCompoFactory().newPageBox();
         AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0, 2);
-        panel_.add(new TextLabel(getMessages().getVal(WindowCards.PLACE)));
+        panel_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames(),getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
@@ -253,10 +252,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
         panel_ = getOwner().getCompoFactory().newGrid(0, 3);
         playersPseudos.clear();
         for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
-            TextLabel pseudo_ = new TextLabel("");
+            AbsPlainLabel pseudo_ = getOwner().getCompoFactory().newPlainLabel("");
             playersPseudos.add(pseudo_);
             panel_.add(pseudo_);
-            TextLabel place_ = new TextLabel("");
+            AbsPlainLabel place_ = getOwner().getCompoFactory().newPlainLabel("");
             playersPlaces.add(place_);
             panel_.add(place_);
             AbsCustCheckBox ready_ = getOwner().getCompoFactory().newCustCheckBox();
@@ -686,8 +685,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     private void placerIhmBeloteMulti(HandBelote _cardsOnDeck, byte _beginPlace) {
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
-        container_.add(new TextLabel(getMessages().getVal(WindowCards.HELP_GO_MENU),
-                SwingConstants.CENTER), BorderLayout.NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)), BorderLayout.NORTH);
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
         byte p_ = 0;
         for (String s : pseudosBelote((byte) nbChoosenPlayers)) {
@@ -717,14 +715,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getEvents().setEditable(false);
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
-        setHandfuls(new ByteMap<TextLabel>());
+        setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
         AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newGrid(0, 1);
         for (byte i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
-            TextLabel lab_ = new TextLabel(pseudos_.getVal(i));
+            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.getVal(i));
             declaredHandfulGroup_.add(lab_);
-            TextLabel handful_ = new TextLabel(EMPTY_STRING);
+            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(i, handful_);
             AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();

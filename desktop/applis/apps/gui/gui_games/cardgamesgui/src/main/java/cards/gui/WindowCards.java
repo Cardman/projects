@@ -436,7 +436,7 @@ public final class WindowCards extends NetGroupFrame {
     private ContainerGame containerGame;
     private final Clock clock;
 
-    private final TextLabel lastSavedGameDate;
+    private final AbsPlainLabel lastSavedGameDate;
 
     private String dateLastSaved = EMPTY_STRING;
 
@@ -500,10 +500,10 @@ public final class WindowCards extends NetGroupFrame {
 
     //labels at main menu
 
-    private TextLabel welcomeLabel;
+    private AbsPlainLabel welcomeLabel;
     private AbsPlainButton singleModeButton;
     private AbsPlainButton multiModeButton;
-    private TextLabel goHelpMenu;
+    private AbsPlainLabel goHelpMenu;
     private final Net net = new Net();
 
     private final StringMap<StringMap<PreparedPagesCards>> preparedBelote;
@@ -568,7 +568,7 @@ public final class WindowCards extends NetGroupFrame {
         setFocusableWindowState(true);
         setImageIconFrame(LaunchingCards.getIcon(getImageFactory()));
         clock = new Clock(_list);
-        lastSavedGameDate = new TextLabel("");
+        lastSavedGameDate = getCompoFactory().newPlainLabel("");
         reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE),getFileCoreStream(),getStreams()));
         if (!reglesBelote.isValidRules()) {
             reglesBelote = new RulesBelote();
@@ -682,7 +682,7 @@ public final class WindowCards extends NetGroupFrame {
     public Clock getClock() {
         return clock;
     }
-    public TextLabel getLastSavedGameDate() {
+    public AbsPlainLabel getLastSavedGameDate() {
         return lastSavedGameDate;
     }
 
@@ -1098,7 +1098,7 @@ public final class WindowCards extends NetGroupFrame {
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
         AbsPanel container_=getCompoFactory().newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        container_.add(new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()),SwingConstants.CENTER));
+        container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo())));
         /*Cree les boutons de jeu*/
         String lg_ = getLanguageKey();
         for (GameEnum jeu2_:GameEnum.values()) {
@@ -1109,7 +1109,7 @@ public final class WindowCards extends NetGroupFrame {
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
-            goHelpMenu = new TextLabel(getMessages().getVal(CST_GO_HELP_MENU),SwingConstants.CENTER);
+            goHelpMenu = getCompoFactory().newPlainLabel(getMessages().getVal(CST_GO_HELP_MENU));
         }
         container_.add(goHelpMenu);
         getLoad().setEnabledMenu(false);
@@ -1136,7 +1136,7 @@ public final class WindowCards extends NetGroupFrame {
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
         AbsPanel container_=getCompoFactory().newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        container_.add(new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()),SwingConstants.CENTER));
+        container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo())));
         /*Cree les boutons de jeu*/
         String lg_ = getLanguageKey();
         for (GameEnum jeu2_:GameEnum.values()) {
@@ -1147,7 +1147,7 @@ public final class WindowCards extends NetGroupFrame {
         container_.add(button_);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
-            goHelpMenu = new TextLabel(getMessages().getVal(CST_GO_HELP_MENU),SwingConstants.CENTER);
+            goHelpMenu = getCompoFactory().newPlainLabel(getMessages().getVal(CST_GO_HELP_MENU));
         }
         container_.add(goHelpMenu);
         getSave().setEnabledMenu(false);
@@ -1182,7 +1182,7 @@ public final class WindowCards extends NetGroupFrame {
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
         AbsPanel pane_ = getCompoFactory().newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
-        welcomeLabel = new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
+        welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
         pane_.add(welcomeLabel,SwingConstants.CENTER);
         /*Cree les boutons de jeu*/
         singleModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_SINGLE_MODE));
@@ -1193,7 +1193,7 @@ public final class WindowCards extends NetGroupFrame {
         pane_.add(multiModeButton);
         //Ajout d'une etiquette pour indiquer ou aller pour avoir de l'aide
         if (goHelpMenu == null) {
-            goHelpMenu = new TextLabel(getMessages().getVal(CST_GO_HELP_MENU),SwingConstants.CENTER);
+            goHelpMenu = getCompoFactory().newPlainLabel(getMessages().getVal(CST_GO_HELP_MENU));
         }
         pane_.add(goHelpMenu);
         pane_.add(clock);

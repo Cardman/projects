@@ -55,7 +55,7 @@ public final class DialogDifficulty implements AbsCloseableDialog {
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(facade);
         session.initializeOnlyConf(_pre, _facade.getLanguage());
         AbsPanel panel_ = window.getCompoFactory().newPageBox();
-        TextLabel area_ = new TextLabel(TEXT);
+        AbsPlainLabel area_ = window.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;
 //        LabelButton search_ = window.getCompoFactory().newPlainButton(MainWindow.OK);
         AbsPlainButton search_ = window.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));

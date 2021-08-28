@@ -169,7 +169,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         auto = new AutoCompleteDocument(fileName,new StringList(), this,superFrame.getFrames());
         if (addTypingFileName) {
             AbsPanel fieldFile_ = compoFactory.newLineBox();
-            fieldFile_.add(new TextLabel(messages.getVal(NAME)));
+            fieldFile_.add(compoFactory.newPlainLabel(messages.getVal(NAME)));
             fieldFile_.add(fileName);
             openSaveFile_.add(fieldFile_);
         }

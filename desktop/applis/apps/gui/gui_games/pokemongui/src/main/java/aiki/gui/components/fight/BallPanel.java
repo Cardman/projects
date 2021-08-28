@@ -2,8 +2,6 @@ package aiki.gui.components.fight;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.SwingConstants;
-
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import code.gui.*;
@@ -13,7 +11,7 @@ import code.util.NatStringTreeMap;
 
 public final class BallPanel {
 
-    private final TextLabel title;
+    private final AbsPlainLabel title;
 
     private final AbsGraphicList<BallNumberRate> listeBall;
 
@@ -28,7 +26,7 @@ public final class BallPanel {
         facade = _facade;
         container = _fact.getCompoFactory().newBorder();
         container.setLoweredBorder();
-        title = new TextLabel(_titre, SwingConstants.CENTER);
+        title = _fact.getCompoFactory().newPlainLabel(_titre);
         container.add(title, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer

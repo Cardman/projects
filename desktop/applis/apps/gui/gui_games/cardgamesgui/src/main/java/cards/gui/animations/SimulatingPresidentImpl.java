@@ -24,7 +24,6 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-import javax.swing.*;
 import java.awt.*;
 
 public final class SimulatingPresidentImpl implements SimulatingPresident {
@@ -95,7 +94,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         String lg_ = container.getOwner().getLanguageKey();
         AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
         AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
-        container_.add(new TextLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
+        container_.add(container.getOwner().getCompoFactory().newPlainLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU)),BorderLayout.NORTH);
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosSimuleePresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
@@ -110,7 +109,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         container.setEvents(container.getOwner().getCompoFactory().newTextArea(ContainerPresident.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
-        container.setHandfuls(new ByteMap<TextLabel>());
+        container.setHandfuls(new ByteMap<AbsPlainLabel>());
         container.setDeclaredHandfuls(new ByteMap<AbsPanel>());
         AbsPanel sousPanneau_=container.getOwner().getCompoFactory().newGrid(0,1);
         AbsPanel panelCards_ = container.getOwner().getCompoFactory().newLineBox();

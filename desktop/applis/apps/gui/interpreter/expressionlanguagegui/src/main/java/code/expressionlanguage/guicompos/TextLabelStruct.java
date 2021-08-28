@@ -4,18 +4,18 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.TextLabel;
+import code.gui.AbsPlainLabel;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class TextLabelStruct extends CustComponentStruct {
-    private TextLabel textLabel;
-    protected TextLabelStruct(String _className) {
+    private AbsPlainLabel textLabel;
+    protected TextLabelStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
-        textLabel = new TextLabel("");
+        textLabel = _compo.newPlainLabel("");
     }
-    protected TextLabelStruct(Struct _txt,String _className) {
+    protected TextLabelStruct(Struct _txt,String _className, AbsCompoFactory _compo) {
         super(_className);
-        textLabel = new TextLabel("");
+        textLabel = _compo.newPlainLabel("");
         setText(_txt);
     }
 

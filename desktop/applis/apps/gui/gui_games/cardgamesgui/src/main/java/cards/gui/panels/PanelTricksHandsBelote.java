@@ -111,7 +111,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         cards.add(sousPanneau2_);
         container.add(cards,BorderLayout.CENTER);
         AbsPanel selectionGameState_=window.getCompoFactory().newLineBox();
-        selectionGameState_.add(new TextLabel(messages.getVal(TRICK)));
+        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages.getVal(TRICK)));
         int[] numerosPlis_;
         numerosPlis_=new int[tricks_.size()+2];
         int nbTricksNumbers_ = numerosPlis_.length;
@@ -121,7 +121,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         trickNumber=new NumComboBox(window.getFrames(),window.getFrames().getGeneComboBox(), numerosPlis_);
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber.self());
-        selectionGameState_.add(new TextLabel(messages.getVal(CARD)));
+        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages.getVal(CARD)));
         int[] numerosJoueurs_=new int[_numberPlayers];
         for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<_numberPlayers; indiceJoueur_++) {
             numerosJoueurs_[indiceJoueur_]=indiceJoueur_+1;
@@ -132,9 +132,8 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         container.add(selectionGameState_,BorderLayout.SOUTH);
     }
 
-    private static TextLabel getBlankCard(StringList _nicknames, byte _player) {
-        TextLabel etiquette2_=new TextLabel(_nicknames.get(_player));
-        etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+    private AbsPlainLabel getBlankCard(StringList _nicknames, byte _player) {
+        AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(_nicknames.get(_player));
         etiquette2_.setOpaque(true);
         etiquette2_.setBackground(Color.WHITE);
         etiquette2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -175,8 +174,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             byte entameur_=tricks_.get(numeroPli_-1).getEntameur();
             byte indice_=0;
             while(indice_<entameur_) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
@@ -190,8 +188,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 indice_++;
             }
             while(indice_<2*numberPlayers-1) {
-                TextLabel etiquette2_=new TextLabel(Long.toString((long)indice_-numberPlayers));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString((long)indice_-numberPlayers));
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
@@ -212,8 +209,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             byte entameur_=tricks_.get(indicePli_-1).getEntameur();
             byte indice_=0;
             while(indice_<entameur_) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
@@ -227,8 +223,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 indice_++;
             }
             while(indice_<numberPlayers*2-1) {
-                TextLabel etiquette2_=new TextLabel(Long.toString((long)indice_-numberPlayers));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString((long)indice_-numberPlayers));
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
@@ -278,8 +273,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         byte indice_=0;
         byte indice2_=0;
         while(indice_<entameur_) {
-            TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
-            etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+            AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
             etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
             etiquette2_.setOpaque(true);
             etiquette2_.setBackground(Color.WHITE);
@@ -298,8 +292,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             }
         }
         while(indice_<2*numberPlayers-1) {
-            TextLabel etiquette2_=new TextLabel(Long.toString((long)indice_-numberPlayers));
-            etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+            AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString((long)indice_-numberPlayers));
             etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
             etiquette2_.setOpaque(true);
             etiquette2_.setBackground(Color.WHITE);

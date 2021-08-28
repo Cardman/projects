@@ -1,14 +1,12 @@
 package cards.gui.panels;
 import java.awt.BorderLayout;
 
-import javax.swing.SwingConstants;
-
 import cards.consts.Suit;
 import cards.gui.WindowCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.selection.SuitCellRenderer;
 import code.gui.AbsGraphicList;
-import code.gui.TextLabel;
+import code.gui.AbsPlainLabel;
 import code.util.EnumList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -25,7 +23,7 @@ public class SuitsScrollableList extends ScrollableList {
         super(_window.getCompoFactory());
         String lg_ = _window.getLanguageKey();
         messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
-        TextLabel titrePanneau_ = new TextLabel(messages.getVal(SUITS), SwingConstants.CENTER);
+        AbsPlainLabel titrePanneau_ = _window.getCompoFactory().newPlainLabel(messages.getVal(SUITS));
         getContainer().add(titrePanneau_, BorderLayout.NORTH);
 //        suits = _couleurs;
         liste= _liste;

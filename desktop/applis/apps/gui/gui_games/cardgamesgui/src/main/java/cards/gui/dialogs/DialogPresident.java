@@ -45,7 +45,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     private ComboBox<MixCardsChoice> listeChoix;
 
     private ComboBoxEnumCards<EqualtyPlaying> equality;
-    private TextLabel stopAllPlayedCards;
+    private AbsPlainLabel stopAllPlayedCards;
     private AbsCustCheckBox canPass;
     private AbsCustCheckBox possibleReversing;
 
@@ -71,7 +71,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
-        dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
+        dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         Listable<MixCardsChoice> mix_;
         mix_ = new EnumList<MixCardsChoice>(MixCardsChoice.values());
@@ -87,7 +87,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         listeChoix.setSelectedItem(getReglesPresident().getMixedCards());
         dealing_.add(listeChoix.self());
         if (getNbGames() != null) {
-            dealing_.add(new TextLabel(getMessages().getVal(NUMBER_DEALS)));
+            dealing_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_DEALS)));
             dealing_.add(getNbGames());
         }
 
@@ -95,7 +95,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         getJt().add(getMessages().getVal(DEALING),dealing_);
 
         AbsPanel rules_=_window.getCompoFactory().newGrid(0,2);
-        rules_.add(new TextLabel(getMessages().getVal(CST_EQUALITY)));
+        rules_.add(getCompoFactory().newPlainLabel(getMessages().getVal(CST_EQUALITY)));
         equality = new ComboBoxEnumCards<EqualtyPlaying>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
         EqualtyPlaying curThree_ = getReglesPresident().getEqualty();
         int index_ = 0;
@@ -112,19 +112,19 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         }
         equality.setListener(new ListenerEqualityPlaying(this));
         rules_.add(equality.self());
-        rules_.add(new TextLabel(""));
-        stopAllPlayedCards = new TextLabel("");
+        rules_.add(getCompoFactory().newPlainLabel(""));
+        stopAllPlayedCards = getCompoFactory().newPlainLabel("");
         if (getReglesPresident().getEqualty() == EqualtyPlaying.SKIP_DIFF_NEXT_STOP) {
             stopAllPlayedCards.setText(getMessages().getVal(STOP_ALL_PLAYED_CARDS));
         } else {
             stopAllPlayedCards.setText(EMPTY);
         }
         rules_.add(stopAllPlayedCards);
-        rules_.add(new TextLabel(""));
+        rules_.add(getCompoFactory().newPlainLabel(""));
         canPass = getCompoFactory().newCustCheckBox(getMessages().getVal(CAN_PASS));
         canPass.setSelected(!getReglesPresident().isHasToPlay());
         rules_.add(canPass);
-        rules_.add(new TextLabel(""));
+        rules_.add(getCompoFactory().newPlainLabel(""));
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= getReglesPresident().getNbStacks();
         String message_ = StringUtil.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
@@ -146,8 +146,8 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         getJt().add(getMessages().getVal(END_DEAL),endDeal_);
 
         AbsPanel players_ = _window.getCompoFactory().newGrid(2,0);
-        players_.add(new TextLabel(getMessages().getVal(NUMBER_PLAYERS)));
-        players_.add(new TextLabel(getMessages().getVal(NUMBER_STACKS)));
+        players_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_PLAYERS)));
+        players_.add(getCompoFactory().newPlainLabel(getMessages().getVal(NUMBER_STACKS)));
 
         int minJoueurs_ = RulesPresident.getNbMinPlayers();
         int maxJoueurs_ = RulesPresident.getNbMaxPlayers();

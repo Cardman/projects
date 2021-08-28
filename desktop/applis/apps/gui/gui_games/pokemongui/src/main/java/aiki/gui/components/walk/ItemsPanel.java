@@ -2,11 +2,8 @@ package aiki.gui.components.walk;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.SwingConstants;
-
 import aiki.facade.FacadeGame;
 import code.gui.*;
-import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -20,7 +17,7 @@ public class ItemsPanel {
 
     private final StringList items = new StringList();
 
-    private final TextLabel amount = new TextLabel("");
+    private final AbsPlainLabel amount;
 
     private final FacadeGame facade;
 
@@ -30,8 +27,9 @@ public class ItemsPanel {
         liste = _liste;
         facade = _facade;
         container = _fact.getCompoFactory().newBorder();
+        amount = _fact.getCompoFactory().newPlainLabel("");
         container.setLoweredBorder();
-        TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
+        AbsPlainLabel titrePanneau_ = _fact.getCompoFactory().newPlainLabel(_titre);
         container.add(titrePanneau_, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer

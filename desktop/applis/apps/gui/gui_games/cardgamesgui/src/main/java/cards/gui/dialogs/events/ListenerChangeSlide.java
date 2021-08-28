@@ -1,7 +1,7 @@
 package cards.gui.dialogs.events;
 
+import code.gui.AbsPlainLabel;
 import code.gui.AbsSlider;
-import code.gui.TextLabel;
 import code.gui.events.AbsChangeListener;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -13,9 +13,9 @@ public class ListenerChangeSlide implements AbsChangeListener {
     private StringMap<String> messages;
 //    private DialogSoft dialog;
     private AbsSlider slide;
-    private TextLabel etiquette;
+    private AbsPlainLabel etiquette;
     private String sentence;
-    public ListenerChangeSlide(TextLabel _etiquette,String _key, StringMap<String> _messages, String _sentence) {
+    public ListenerChangeSlide(AbsPlainLabel _etiquette,String _key, StringMap<String> _messages, String _sentence) {
 //        numero=_pnumero;
         etiquette = _etiquette;
         messages = _messages;

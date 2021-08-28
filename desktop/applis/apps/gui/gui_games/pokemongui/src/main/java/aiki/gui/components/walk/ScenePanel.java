@@ -235,9 +235,9 @@ public class ScenePanel {
 
     private AbsPanel panelMenu;
 
-    private final TextLabel endGame = new TextLabel("");
+    private final AbsPlainLabel endGame;
 
-    private TextLabel useKeyPad;
+    private AbsPlainLabel useKeyPad;
 
     private AbsPlainButton team;
 
@@ -292,7 +292,7 @@ public class ScenePanel {
 
     private AbsPlainButton switchPk;
 
-    private TextLabel selectedForSwitch;
+    private AbsPlainLabel selectedForSwitch;
 
     private final FacadeGame facade;
 
@@ -300,7 +300,7 @@ public class ScenePanel {
 
     private AbsPanel sceneInteract;
 
-    private TextLabel placeName;
+    private AbsPlainLabel placeName;
 
     private Scene scene;
 
@@ -312,7 +312,7 @@ public class ScenePanel {
 
     private Pad pad;
 
-    private final TextLabel time;
+    private final AbsPlainLabel time;
 
     private AbsCustCheckBox switchUsable;
 
@@ -344,6 +344,7 @@ public class ScenePanel {
 
     public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
+        endGame = compoFactory.newPlainLabel("");
         component = compoFactory.newLineBox();
         paintingScene = _window.getThreadFactory().newAtomicBoolean();
         facade = _facade;
@@ -354,7 +355,7 @@ public class ScenePanel {
         panelOptions = compoFactory.newBorder();
         panelHoriz_.add(panelOptions);
         component.add(panelHoriz_);
-        time = new TextLabel("");
+        time = window.getCompoFactory().newPlainLabel("");
         component.add(time);
         //gamePanel = new GamePanel(facade);
         mapPanel = new MapPanel();
@@ -460,7 +461,7 @@ public class ScenePanel {
             sceneInteract.removeAll();
         }
         if (placeName == null) {
-            placeName = new TextLabel("");
+            placeName = window.getCompoFactory().newPlainLabel("");
         }
         placeName.setText(facade.getCurrentPlace());
         sceneInteract.add(placeName, BorderLayout.NORTH);
@@ -494,7 +495,7 @@ public class ScenePanel {
         endGame.setBackground(Color.YELLOW);
         AbsPanel menus_ = compoFactory.newGrid(0,1);
         menus_.add(endGame);
-        useKeyPad = new TextLabel("");
+        useKeyPad = window.getCompoFactory().newPlainLabel("");
         menus_.add(useKeyPad);
         team = window.getCompoFactory().newPlainButton();
         team.addActionListener(new ManageTeamEvent(this));
@@ -704,7 +705,7 @@ public class ScenePanel {
 //        panelOptions.add(panelPlaces_, BorderLayout.CENTER);
         mapPanel.init(window,facade, this);
         AbsPanel box_ =compoFactory.newPageBox();
-        box_.add(new TextLabel(messages.getVal(GO_BACK)));
+        box_.add(window.getCompoFactory().newPlainLabel(messages.getVal(GO_BACK)));
         chosenCity = window.getCompoFactory().newPlainButton();
         chosenCity.setBackground(box_.getBackground());
         chosenCity.setForeground(box_.getForeground());
@@ -712,7 +713,7 @@ public class ScenePanel {
         AbsPanel line_ = compoFactory.newLineBox();
         //avoid vertical spaces between tiles in map
         line_.add(mapPanel.getContainer());
-        line_.add(new TextLabel(DataBase.EMPTY_STRING));
+        line_.add(window.getCompoFactory().newPlainLabel(DataBase.EMPTY_STRING));
         box_.add(line_);
         AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
         ok_.addActionListener(new ChoosePlaceEvent(this));
@@ -774,7 +775,7 @@ public class ScenePanel {
         teamPan.addListenerTrading(this);
         panelNetWork.add(teamPan.getContainer());
         AbsPanel group_ = compoFactory.newBorder();
-        group_.add(new TextLabel(messages.getVal(RECEIVED_POKEMON)), BorderLayout.NORTH);
+        group_.add(window.getCompoFactory().newPlainLabel(messages.getVal(RECEIVED_POKEMON)), BorderLayout.NORTH);
         AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
         receivedPk = new RenderedPage(scrollSession_, window.getFrames());
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
@@ -873,7 +874,7 @@ public class ScenePanel {
     private void showOptions() {
         panelOptions.removeAll();
         if (facade.getInterfaceType() == InterfaceType.ECH_BOITE) {
-            selectedForSwitch = new TextLabel("");
+            selectedForSwitch = window.getCompoFactory().newPlainLabel("");
             AbsPanel storage_ = compoFactory.newGrid(0, 1);
             selectPkBox = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_PK_BOX));
             selectPkBox.addActionListener(new SelectPokemonBoxEvent(this));
@@ -1356,7 +1357,7 @@ public class ScenePanel {
         }
         facade.choosePokemonForMoveTutors((short) teamPan.getSelectedIndex());
         movesLearnt.removeAll();
-        movesLearnt.add(new TextLabel(messages.getVal(SELECT_MT)));
+        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
         StringList selectedMoves_ = facade.getSelectedMoves();
         for (String m: selectedMoves_) {
             String tr_ = facade.translateMove(m);
@@ -1522,7 +1523,7 @@ public class ScenePanel {
 
     private void setMovesAbilities() {
         movesLearnt.removeAll();
-        movesLearnt.add(new TextLabel(messages.getVal(SELECT_MT)));
+        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MT)));
 //        Map<String,Boolean> selected_ = facade.getPlayer().getMovesToBeKeptEvo();
 //        StringList kept_ = new StringList(selected_.getKeys(true));
         StringList kept_ = facade.getKeptMovesToEvo();
@@ -1562,7 +1563,7 @@ public class ScenePanel {
         abilities.removeAll();
         abilityLabels.clear();
         if (!ab_.isEmpty()) {
-            abilities.add(new TextLabel(messages.getVal(SELECT_ABILITY)));
+            abilities.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_ABILITY)));
             for (String a: ab_) {
                 AbilityLabel lab_ = new AbilityLabel(facade.translateAbility(a), a, window.getCompoFactory());
                 lab_.addMouseListener(new AbilityWalkEvent(this, a));
@@ -1590,7 +1591,7 @@ public class ScenePanel {
 
     private void setHealedMoves() {
         movesLearnt.removeAll();
-        movesLearnt.add(new TextLabel(messages.getVal(SELECT_HEAL_MOVE)));
+        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_HEAL_MOVE)));
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -1613,7 +1614,7 @@ public class ScenePanel {
 
     private void setBoostedMoves() {
         movesLearnt.removeAll();
-        movesLearnt.add(new TextLabel(messages.getVal(SELECT_BOOST_MOVE)));
+        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_BOOST_MOVE)));
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -1678,7 +1679,7 @@ public class ScenePanel {
             return;
         }
         movesLearnt.removeAll();
-        movesLearnt.add(new TextLabel(messages.getVal(SELECT_TM)));
+        movesLearnt.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_TM)));
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {

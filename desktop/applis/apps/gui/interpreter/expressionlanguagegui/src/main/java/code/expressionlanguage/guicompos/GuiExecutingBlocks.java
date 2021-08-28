@@ -13,8 +13,8 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsOtherFrame;
+import code.gui.AbsPlainLabel;
 import code.gui.OtherConfirmDialog;
-import code.gui.TextLabel;
 import code.gui.events.AbsWindowListener;
 import code.util.CustList;
 import code.util.StringList;
@@ -22,7 +22,7 @@ import code.util.StringList;
 import javax.swing.*;
 
 public final class GuiExecutingBlocks {
-    private TextLabel textLabel;
+    private AbsPlainLabel textLabel;
     private FrameStruct frame;
     private StringList mainArgs;
     private OtherConfirmDialog confirm;
@@ -69,7 +69,7 @@ public final class GuiExecutingBlocks {
     public void initApplicationParts(StringList _mainArgs, WindowFull _window) {
         mainArgs = _mainArgs;
         window = _window;
-        textLabel = new TextLabel("");
+        textLabel = _window.getCompoFactory().newPlainLabel("");
         confirm = new OtherConfirmDialog(_window.getFrames(),_window.getImageFactory(),_window.getFrames().getFrameFactory());
     }
     private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {

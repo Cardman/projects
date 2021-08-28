@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 
 import cards.belote.*;
 import cards.belote.beans.BeloteStandards;
@@ -98,7 +97,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new AddTextEvents(this, StringUtil.concat(_pseudo,INTRODUCTION_PTS,Games.toString(usDecl_.getDeclare(),lg_),RETURN_LINE)), getOwner().getFrames());
 //            ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+usDecl_.getAnnonce()+RETURN_LINE_CHAR);
             if(!usDecl_.getHand().estVide()) {
-                TextLabel label_ = getHandfuls().getVal(_joueur);
+                AbsPlainLabel label_ = getHandfuls().getVal(_joueur);
                 ThreadInvoker.invokeNow(getOwner().getThreadFactory(),new SettingText(label_, Games.toString(usDecl_.getDeclare(),lg_)), getOwner().getFrames());
 //                getHandfuls().getVal(_joueur).setText(usDecl_.getAnnonce().toString());
             }
@@ -435,7 +434,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     private void placerIhmBelote() {
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        container_.add(new TextLabel(getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),BorderLayout.NORTH);
         GameBelote partie_=partieBelote();
         StringList pseudos_ = pseudosBelote();
         String lg_ = getOwner().getLanguageKey();
@@ -453,15 +452,15 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),getDisplayingBelote().isClockwise(),pseudos_, getOwner().getCompoFactory()));
         panneau2_.add(getMiniPanel());
-        setHandfuls(new ByteMap<TextLabel>());
+        setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
         AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newGrid(0,1);
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
             AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
-            TextLabel lab_ = new TextLabel(pseudos_.get(i));
+            AbsPlainLabel lab_ = getOwner().getCompoFactory().newPlainLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
-            TextLabel handful_ = new TextLabel(EMPTY_STRING);
+            AbsPlainLabel handful_ = getOwner().getCompoFactory().newPlainLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(i, handful_);
             AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
@@ -751,7 +750,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             graphique_.setLocation(0,(600-dimy_)/2);
             ascenseur_.setPreferredSize(new Dimension(300,200));
             panneau_=getOwner().getCompoFactory().newBorder();
-            panneau_.add(new TextLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
+            panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),BorderLayout.NORTH);
             panneau_.add(ascenseur_,BorderLayout.CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));

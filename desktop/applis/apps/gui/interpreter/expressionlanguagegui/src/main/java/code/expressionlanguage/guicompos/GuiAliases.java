@@ -3069,7 +3069,8 @@ public final class GuiAliases {
             return new Argument(new PlainButtonStruct(aliasButton,window_.getCompoFactory()));
         }
         if (StringUtil.quickEq(_id,aliasTextLabel)) {
-            return new Argument(new TextLabelStruct(aliasTextLabel));
+            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
+            return new Argument(new TextLabelStruct(aliasTextLabel,window_.getCompoFactory()));
         }
         if (StringUtil.quickEq(_id,aliasImageLabel)) {
             WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
@@ -3289,9 +3290,9 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new TextLabelStruct(_args[0],aliasTextLabel));
+                r_.setResult(new TextLabelStruct(_args[0],aliasTextLabel,_guiEx.getWindow().getCompoFactory()));
             } else {
-                r_.setResult(new TextLabelStruct(aliasTextLabel));
+                r_.setResult(new TextLabelStruct(aliasTextLabel,_guiEx.getWindow().getCompoFactory()));
             }
             return r_;
         }

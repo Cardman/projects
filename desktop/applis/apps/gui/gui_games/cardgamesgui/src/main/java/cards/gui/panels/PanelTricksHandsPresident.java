@@ -3,8 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.SwingConstants;
-
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.dialogs.FileConst;
@@ -113,7 +111,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         cards.add(sousPanneau2_);
         container.add(cards,BorderLayout.CENTER);
         AbsPanel selectionGameState_=window.getCompoFactory().newLineBox();
-        selectionGameState_.add(new TextLabel(messages.getVal(TRICK)));
+        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages.getVal(TRICK)));
 //        Integer[] numerosPlis_;
 //        numerosPlis_=new Integer[tricks_.size()+2];
         int nbTricks_ = tricksHands.getFilledTricksCount();
@@ -137,7 +135,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         trickNumber.refresh(map_);
         trickNumber.setListener(new ListenerTricks(this));
         selectionGameState_.add(trickNumber.self());
-        selectionGameState_.add(new TextLabel(messages.getVal(CARD)));
+        selectionGameState_.add(window.getCompoFactory().newPlainLabel(messages.getVal(CARD)));
 //        if (nbTricks_ == CustList.SIZE_EMPTY) {
 //            int nbCards_ = game.getProgressingTrick().total();
 //            Integer[] numerosJoueurs_=new Integer[nbCards_+1];
@@ -163,9 +161,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         container.add(selectionGameState_,BorderLayout.SOUTH);
     }
 
-    private static TextLabel getBlankCard(StringList _nicknames, byte _player) {
-        TextLabel etiquette2_=new TextLabel(_nicknames.get(_player));
-        etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+    private AbsPlainLabel getBlankCard(StringList _nicknames, byte _player) {
+        AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(_nicknames.get(_player));
         etiquette2_.setOpaque(true);
         etiquette2_.setBackground(Color.WHITE);
         etiquette2_.setPreferredSize(GraphicPresidentCard.getMaxDimension());
@@ -194,8 +191,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             byte col_ = 0;
             byte row_ = 0;
             while(indice_<entameur_) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
@@ -210,7 +206,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                     cards_.add(c);
                 }
                 if (h_.estVide()) {
-                    TextLabel etiquette2_=new TextLabel(SPACE);
+                    AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                     etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
                     etiquette2_.setOpaque(true);
                     etiquette2_.setForeground(Color.WHITE);
@@ -227,8 +223,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             }
 //            indice_=0;
             while(row_ + 1 <numberPlayers) {
-                TextLabel etiquette2_=new TextLabel(SPACE);
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setForeground(Color.WHITE);
                 etiquette2_.setBackground(Color.WHITE);
@@ -290,8 +285,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             byte col_ = 0;
             byte row_ = 0;
             while(indice_<entameur_) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
@@ -305,7 +299,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                     cards_.add(c);
                 }
                 if (h_.estVide()) {
-                    TextLabel etiquette2_=new TextLabel(SPACE);
+                    AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                     etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
                     etiquette2_.setOpaque(true);
                     etiquette2_.setForeground(Color.WHITE);
@@ -320,8 +314,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                 }
             }
             while(row_ + 1 <numberPlayers) {
-                TextLabel etiquette2_=new TextLabel(SPACE);
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setForeground(Color.WHITE);
                 etiquette2_.setBackground(Color.WHITE);
@@ -375,8 +368,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             byte col_ = 0;
             byte row_ = 0;
             while(indice_<entameur_) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
@@ -392,7 +384,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                         cards_.add(c);
                     }
                     if (h_.estVide()) {
-                        TextLabel etiquette2_=new TextLabel(SPACE);
+                        AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                         etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
                         etiquette2_.setOpaque(true);
                         etiquette2_.setForeground(Color.WHITE);
@@ -411,8 +403,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                 }
             }
             while(row_ + 1 <numberPlayers) {
-                TextLabel etiquette2_=new TextLabel(SPACE);
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setForeground(Color.WHITE);
                 etiquette2_.setBackground(Color.WHITE);
@@ -473,8 +464,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             byte col_ = 0;
             byte row_ = 0;
             while(indice_<entameur_) {
-                TextLabel etiquette2_=new TextLabel(Long.toString(indice_));
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(new Font(DEFAULT,Font.BOLD,50));
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
@@ -489,7 +479,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                         cards_.add(c);
                     }
                     if (h_.estVide()) {
-                        TextLabel etiquette2_=new TextLabel(SPACE);
+                        AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                         etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
                         etiquette2_.setOpaque(true);
                         etiquette2_.setForeground(Color.WHITE);
@@ -508,8 +498,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                 }
             }
             while(row_ + 1 <numberPlayers) {
-                TextLabel etiquette2_=new TextLabel(SPACE);
-                etiquette2_.setHorizontalAlignment(SwingConstants.CENTER);
+                AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setForeground(Color.WHITE);
                 etiquette2_.setBackground(Color.WHITE);

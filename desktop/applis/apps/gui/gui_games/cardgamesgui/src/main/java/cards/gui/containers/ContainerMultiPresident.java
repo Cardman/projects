@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 
 import cards.consts.GameType;
 import cards.facade.Games;
@@ -69,14 +68,14 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
     private boolean hasCreatedServer;
     private boolean readyToPlay;
-    private final CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
-    private final CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
+    private final CustList<AbsPlainLabel> playersPseudos = new CustList<AbsPlainLabel>();
+    private final CustList<AbsPlainLabel> playersPlaces = new CustList<AbsPlainLabel>();
     private final CustList<AbsCustCheckBox> playersReady = new CustList<AbsCustCheckBox>();
     private RenderedPage editor;
     private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
     private HandPresident playerHandPresident = new HandPresident();
-    private final TextLabel canPlayLabel = new TextLabel("");
+    private final AbsPlainLabel canPlayLabel = getOwner().getCompoFactory().newPlainLabel("");
     private int nbCardsDiscard;
 
     public ContainerMultiPresident(WindowCards _window, boolean _hasCreatedServer, int _nbPlayers) {
@@ -100,7 +99,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         nbChoosenPlayers = _players.getNbPlayers();
         AbsPanel container_ = getOwner().getCompoFactory().newPageBox();
         AbsPanel panel_ = getOwner().getCompoFactory().newGrid(0, 2);
-        panel_.add(new TextLabel(getMessages().getVal(WindowCards.PLACE)));
+        panel_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.PLACE)));
         choiceOfPlaceForPlayingGame = new NumComboBox(getOwner().getFrames(),getOwner().getFrames().getGeneComboBox());
         for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
             choiceOfPlaceForPlayingGame.addItem(i);
@@ -117,10 +116,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         panel_ = getOwner().getCompoFactory().newGrid(0, 3);
         playersPseudos.clear();
         for (int i = IndexConstants.FIRST_INDEX; i < nbChoosenPlayers; i++) {
-            TextLabel pseudo_ = new TextLabel("");
+            AbsPlainLabel pseudo_ = getOwner().getCompoFactory().newPlainLabel("");
             playersPseudos.add(pseudo_);
             panel_.add(pseudo_);
-            TextLabel place_ = new TextLabel("");
+            AbsPlainLabel place_ = getOwner().getCompoFactory().newPlainLabel("");
             playersPlaces.add(place_);
             panel_.add(place_);
             AbsCustCheckBox ready_ = getOwner().getCompoFactory().newCustCheckBox();
@@ -473,8 +472,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     private void placerIhmPresidentMulti(ByteMap<Playing> _status, int _nbMax) {
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
-        container_.add(new TextLabel(getMessages().getVal(WindowCards.HELP_GO_MENU),
-                SwingConstants.CENTER), BorderLayout.NORTH);
+        container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)), BorderLayout.NORTH);
         String lg_ = getOwner().getLanguageKey();
         CarpetPresident tapis_ = new CarpetPresident();
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
@@ -504,7 +502,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
-        setHandfuls(new ByteMap<TextLabel>());
+        setHandfuls(new ByteMap<AbsPlainLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
 //        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
 //        int nbPlayers_ = partie_.getNombreDeJoueurs();
@@ -600,7 +598,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         if (!_inHand) {
             int rec_ = getReceivedCards().total();
             while (index_ < rec_) {
-                TextLabel l_ = new TextLabel("");
+                AbsPlainLabel l_ = getOwner().getCompoFactory().newPlainLabel("");
                 if (index_ > IndexConstants.FIRST_INDEX) {
                     l_.setPreferredSize(GraphicPresidentCard.getDimension(true));
                 } else {
