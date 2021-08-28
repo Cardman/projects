@@ -1,7 +1,7 @@
 package aiki.gui.dialogs;
 
 
-import javax.swing.WindowConstants;
+
 
 import aiki.comparators.TrMovesComparator;
 import aiki.sml.Resources;
@@ -79,7 +79,7 @@ public final class SelectHealedMove {
         buttons_.add(cancel_);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         absDialog.setContentPane(contentPane_);
-        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
         absDialog.setVisible(true);
     }

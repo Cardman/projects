@@ -1,6 +1,6 @@
 package aiki.gui.dialogs;
 
-import javax.swing.WindowConstants;
+
 
 import aiki.sml.Resources;
 import aiki.sml.LoadingGame;
@@ -153,7 +153,7 @@ public final class DialogSoftParams {
         panel_.add(ok_);
         absDialog.setContentPane(panel_);
         absDialog.pack();
-        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public void validateChoices() {

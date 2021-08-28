@@ -2,8 +2,8 @@ package cards.gui;
 
 
 
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
+
+
 
 import cards.belote.CheckerGameBeloteWithRules;
 import cards.belote.DisplayingBelote;
@@ -621,7 +621,7 @@ public final class WindowCards extends NetGroupFrame {
             change.setEnabledMenu(true);
             containerGame.modify();
         }
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
     }
     public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
@@ -1181,7 +1181,7 @@ public final class WindowCards extends NetGroupFrame {
         AbsPanel pane_ = getCompoFactory().newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         welcomeLabel = getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
-        pane_.add(welcomeLabel,SwingConstants.CENTER);
+        pane_.add(welcomeLabel, GuiConstants.CENTER);
         /*Cree les boutons de jeu*/
         singleModeButton = getCompoFactory().newPlainButton(getMessages().getVal(CST_SINGLE_MODE));
         singleModeButton.addActionListener(new ChooseModeEvent(this, true));

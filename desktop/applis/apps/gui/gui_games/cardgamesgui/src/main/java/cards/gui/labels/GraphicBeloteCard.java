@@ -3,7 +3,7 @@ package cards.gui.labels;
 
 
 
-import javax.swing.SwingConstants;
+
 
 import cards.belote.enumerations.CardBelote;
 import cards.facade.enumerations.GameEnum;
@@ -45,7 +45,7 @@ public final class GraphicBeloteCard extends AbsMetaLabel {
         super(_compoFactory);
         lg = _lg;
         setHorizontalAlignment(_i);
-        setVerticalAlignment(SwingConstants.TOP);
+        setVerticalAlignment(GuiConstants.TOP);
         fullCard=_fullCard;
         peindreCarte = false;
     }

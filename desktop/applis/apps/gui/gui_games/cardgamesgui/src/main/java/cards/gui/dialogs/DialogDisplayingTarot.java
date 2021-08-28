@@ -2,7 +2,7 @@ package cards.gui.dialogs;
 
 
 
-import javax.swing.WindowConstants;
+
 
 import cards.consts.Suit;
 import cards.facade.Games;
@@ -53,7 +53,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         _fenetre.getDialogDisplayingTarot().getCardDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingTarot().displayingTarot = _fenetre.getDisplayingTarot();
         _fenetre.getDialogDisplayingTarot().getCardDialog().setLocationRelativeTo(_fenetre);
-        _fenetre.getDialogDisplayingTarot().getCardDialog().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        _fenetre.getDialogDisplayingTarot().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         _fenetre.getDialogDisplayingTarot().setDialogue(_fenetre);
     }
 

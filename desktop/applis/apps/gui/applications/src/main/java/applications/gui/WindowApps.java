@@ -24,7 +24,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 
-import javax.swing.WindowConstants;
+
 
 
 
@@ -118,7 +118,7 @@ public final class WindowApps extends GroupFrame {
 //        }
         panel_.setPreferredSize(new MetaDimension(256, 192));
         setContentPane(panel_);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
         setVisible(true);
         pack();

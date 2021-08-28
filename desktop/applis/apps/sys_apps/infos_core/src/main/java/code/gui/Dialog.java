@@ -23,12 +23,12 @@ public final class Dialog implements AbsDialog {
     private Ownable owner;
     public Dialog() {
         dial.setModal(true);
-        dial.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dial.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dial.addWindowListener(new WrWindowListener(new CrossClosingDialogEvent(this)));
     }
     public Dialog(AbsCloseableDialog _clos) {
         dial.setModal(true);
-        dial.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dial.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dial.addWindowListener(new WrWindowListener(new CrossClosingDialogEvent(_clos)));
     }
 

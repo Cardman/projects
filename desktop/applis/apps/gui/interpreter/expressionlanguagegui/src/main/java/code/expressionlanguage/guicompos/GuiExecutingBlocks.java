@@ -14,13 +14,11 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsOtherFrame;
 import code.gui.AbsPlainLabel;
+import code.gui.GuiConstants;
 import code.gui.OtherConfirmDialog;
 import code.gui.events.AbsWindowListener;
-import code.gui.images.MetaFont;
 import code.util.CustList;
 import code.util.StringList;
-
-import javax.swing.WindowConstants;
 
 public final class GuiExecutingBlocks {
     private AbsPlainLabel textLabel;
@@ -77,7 +75,7 @@ public final class GuiExecutingBlocks {
         eventClose = new DefaultClosingMainWindow(this, _context);
         AbsOtherFrame fr_ = window.getFrames().getFrameFactory().newOtherFrame();
         fr_.setMainFrame(true);
-        fr_.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        fr_.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         frame = new FrameStruct(fr_);
         _guiInit.getWindows().add(frame,false);
         frame.getAbstractWindow().addWindowListener(eventClose);
@@ -500,7 +498,7 @@ public final class GuiExecutingBlocks {
         if (_event instanceof AbsWindowListener) {
             _frame.removeWindowListener(eventClose);
             _frame.addWindowListener((AbsWindowListener)_event);
-            _frame.getAbstractWindow().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            _frame.getAbstractWindow().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         }
     }
 
@@ -517,9 +515,9 @@ public final class GuiExecutingBlocks {
                 if (_inst == frame) {
                     _inst.removeWindowListener(eventClose);
                     _inst.addWindowListener(eventClose);
-                    _inst.getAbstractWindow().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                    _inst.getAbstractWindow().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
                 } else {
-                    _inst.getAbstractWindow().setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+                    _inst.getAbstractWindow().setDefaultCloseOperation(GuiConstants.HIDE_ON_CLOSE);
                 }
             }
         }

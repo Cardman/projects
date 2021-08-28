@@ -6,9 +6,6 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 
-
-import javax.swing.WindowConstants;
-
 public final class OtherConfirmDialog {
 
     public static final int OK_OPTION = GuiConstants.OK_OPTION;
@@ -147,7 +144,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -163,7 +160,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -178,7 +175,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -193,7 +190,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -211,7 +208,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -231,7 +228,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -252,7 +249,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -274,7 +271,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -296,7 +293,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -319,7 +316,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }

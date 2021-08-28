@@ -2,7 +2,7 @@ package code.player.gui;
 
 
 
-import javax.swing.WindowConstants;
+
 
 import code.gui.*;
 import code.gui.events.QuittingEvent;
@@ -144,7 +144,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         setContentPane(pane_);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
     }
 

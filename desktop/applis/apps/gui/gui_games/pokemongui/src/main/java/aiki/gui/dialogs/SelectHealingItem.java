@@ -1,7 +1,7 @@
 package aiki.gui.dialogs;
 
 
-import javax.swing.WindowConstants;
+
 
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
@@ -58,7 +58,7 @@ public final class SelectHealingItem extends SelectDialog {
         buttons_.add(cancel_);
         contentPane_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         getSelectDial().setContentPane(contentPane_);
-        getSelectDial().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        getSelectDial().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         getSelectDial().pack();
     }
 

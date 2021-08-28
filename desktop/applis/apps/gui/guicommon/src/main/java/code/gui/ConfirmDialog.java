@@ -1,6 +1,6 @@
 package code.gui;
 
-import javax.swing.WindowConstants;
+
 
 import code.gui.events.AnswerEvent;
 import code.gui.events.AnswerTextEvent;
@@ -120,7 +120,7 @@ public final class ConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         absDialog.setContentPane(content_);
-        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
         absDialog.setVisible(true);
     }
@@ -149,7 +149,7 @@ public final class ConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         absDialog.setContentPane(content_);
-        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
         absDialog.setVisible(true);
     }
@@ -194,7 +194,7 @@ public final class ConfirmDialog {
         }
         content_.add(buttons_);
         absDialog.setContentPane(content_);
-        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
         absDialog.setVisible(true);
     }
@@ -225,7 +225,7 @@ public final class ConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         absDialog.setContentPane(content_);
-        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
         absDialog.setVisible(true);
     }

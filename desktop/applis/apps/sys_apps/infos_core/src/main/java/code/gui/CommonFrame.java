@@ -109,7 +109,7 @@ public final class CommonFrame implements AbsCommonFrame {
         return mapWindow.getKeys();
     }
     public void dispatchExit() {
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
     public void setDefaultCloseOperation(int _operation) {

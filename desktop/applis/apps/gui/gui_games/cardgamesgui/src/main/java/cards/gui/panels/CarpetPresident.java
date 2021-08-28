@@ -2,7 +2,7 @@ package cards.gui.panels;
 
 
 
-import javax.swing.SwingConstants;
+
 
 import cards.facade.Games;
 import cards.gui.labels.GraphicPresidentCard;
@@ -52,7 +52,7 @@ public class CarpetPresident {
         listCards.clear();
         boolean entered_ = false;
         for (int c = IndexConstants.FIRST_INDEX; c < number; c++) {
-            GraphicPresidentCard cg_=new GraphicPresidentCard(_lg,SwingConstants.RIGHT,!entered_, _compoFactory);
+            GraphicPresidentCard cg_=new GraphicPresidentCard(_lg,GuiConstants.RIGHT,!entered_, _compoFactory);
             cg_.setPreferredSize(GraphicPresidentCard.getDimension(entered_));
             cg_.setVisible(false);
             centerDeck.add(cg_);

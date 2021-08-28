@@ -3,7 +3,7 @@ package cards.gui.panels;
 
 
 
-import javax.swing.SwingConstants;
+
 
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerTarot;
@@ -198,7 +198,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
                 indice_++;
             }
             for(CardTarot carte_:tricks_.get(numeroPli_)) {
-                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,SwingConstants.RIGHT,true, window.getCompoFactory());
+                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
                 carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
                 selectedTrick.add(carteGraphique2_);
                 indice_++;
@@ -233,7 +233,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
                 indice_++;
             }
             for(CardTarot carte_:tricks_.get(indicePli_)) {
-                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,SwingConstants.RIGHT,true, window.getCompoFactory());
+                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
                 carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
                 tr_.add(carteGraphique2_,indicePli_*(indice_+1)-1);
                 indice_++;
@@ -300,7 +300,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         }
         for(CardTarot carte_:tricks_.get(numeroPli_)) {
             if(indice2_<=numeroCarte_) {
-                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,SwingConstants.RIGHT,true, window.getCompoFactory());
+                GraphicTarotCard carteGraphique2_=new GraphicTarotCard(window.getImageFactory(), lg_, carte_,GuiConstants.RIGHT,true, window.getCompoFactory());
                 carteGraphique2_.setPreferredSize(GraphicTarotCard.getMaxDimension());
                 selectedTrick.add(carteGraphique2_);
                 indice_++;

@@ -1,6 +1,6 @@
 package code.gui;
 
-import javax.swing.WindowConstants;
+
 
 import code.gui.events.LanguageChoice;
 import code.gui.events.SetterLanguage;
@@ -45,7 +45,7 @@ public final class LanguageDialog implements SetterLanguage {
             panneau_.add(radio_);
         }
         absDialog.setContentPane(panneau_);
-        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
     }
 

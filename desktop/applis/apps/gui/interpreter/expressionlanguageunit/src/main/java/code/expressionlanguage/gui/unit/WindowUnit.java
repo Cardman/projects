@@ -25,7 +25,7 @@ import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
 import code.util.ints.UniformingString;
 
-import javax.swing.WindowConstants;
+
 
 
 public final class WindowUnit extends GroupFrame implements TestableFrame {
@@ -133,7 +133,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         setContentPane(contentPane);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
         filesFrame = new SimpleFilesFrame(this,getTitle());
         commonExecution = new CommonExecution(unitMessages,doneTestsCount,currentMethod,resultsTable,results,progressBar);

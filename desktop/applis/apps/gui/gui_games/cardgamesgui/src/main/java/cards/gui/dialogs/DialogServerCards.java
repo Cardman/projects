@@ -1,6 +1,6 @@
 package cards.gui.dialogs;
 
-import javax.swing.WindowConstants;
+
 
 import cards.belote.enumerations.DealingBelote;
 import cards.facade.enumerations.GameEnum;
@@ -124,7 +124,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         panel_.add(button_);
         pane_.add(panel_);
         getCardDialog().setContentPane(pane_);
-        getCardDialog().setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        getCardDialog().setDefaultCloseOperation(GuiConstants.DISPOSE_ON_CLOSE);
         getCardDialog().pack();
     }
 

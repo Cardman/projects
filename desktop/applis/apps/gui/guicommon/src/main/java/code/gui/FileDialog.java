@@ -2,7 +2,7 @@ package code.gui;
 
 
 
-import javax.swing.WindowConstants;
+
 
 import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
@@ -306,7 +306,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
 
     @Override
     public void pack() {
-        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
         absDialog.setVisible(true);
     }

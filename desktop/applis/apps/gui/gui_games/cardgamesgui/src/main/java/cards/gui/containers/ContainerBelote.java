@@ -1,6 +1,6 @@
 package cards.gui.containers;
 
-import javax.swing.SwingConstants;
+
 
 import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
@@ -21,6 +21,7 @@ import cards.main.LaunchingCards;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
 
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -108,7 +109,7 @@ public class ContainerBelote extends ContainerGame {
         list_ = new CustList<GraphicBeloteCard>();
         boolean entered_ = false;
         for(CardBelote c: _hand) {
-            GraphicBeloteCard carte_=new GraphicBeloteCard(imageFactory_,_lg, c,SwingConstants.RIGHT,!entered_, compoFactory_);
+            GraphicBeloteCard carte_=new GraphicBeloteCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, compoFactory_);
             carte_.setPreferredSize(entered_);
             list_.add(carte_);
             entered_ = true;

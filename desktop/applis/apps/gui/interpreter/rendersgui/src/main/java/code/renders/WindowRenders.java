@@ -31,7 +31,7 @@ import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
-import javax.swing.WindowConstants;
+
 
 
 public final class WindowRenders extends GroupFrame {
@@ -76,7 +76,7 @@ public final class WindowRenders extends GroupFrame {
         setContentPane(pane_);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
     }
 

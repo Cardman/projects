@@ -1,7 +1,7 @@
 package cards.gui.dialogs;
 
 
-import javax.swing.WindowConstants;
+
 
 import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerClickTree;
@@ -61,7 +61,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         setDialogIcon(_fenetre);
         setTitle(_titre);
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new ClosingChildFrameEvent(this));
         //window = _fenetre;
     }

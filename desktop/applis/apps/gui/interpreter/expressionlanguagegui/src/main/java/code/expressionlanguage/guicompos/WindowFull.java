@@ -14,7 +14,7 @@ import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
 
-import javax.swing.WindowConstants;
+
 
 
 public final class WindowFull extends GroupFrame {
@@ -61,7 +61,7 @@ public final class WindowFull extends GroupFrame {
         setContentPane(contentPane);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
     }
     public void selectFile() {

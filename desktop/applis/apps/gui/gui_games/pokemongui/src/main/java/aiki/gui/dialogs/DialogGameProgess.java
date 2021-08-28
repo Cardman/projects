@@ -1,7 +1,7 @@
 package aiki.gui.dialogs;
 
 
-import javax.swing.WindowConstants;
+
 
 import aiki.beans.PokemonStandards;
 import aiki.gui.threads.PreparedRenderedPages;
@@ -69,7 +69,7 @@ public final class DialogGameProgess {
         panel_.add(field_);
         panel_.add(search_);
         absDialog.setContentPane(panel_);
-        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
         absDialog.setVisible(true);
     }

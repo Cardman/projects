@@ -1,7 +1,7 @@
 package cards.gui.dialogs;
 
 
-import javax.swing.WindowConstants;
+
 
 import cards.belote.DisplayingBelote;
 import cards.belote.TricksHandsBelote;
@@ -9,6 +9,7 @@ import cards.gui.WindowCards;
 import cards.gui.panels.PanelTricksHandsBelote;
 import code.gui.AbsScrollPane;
 
+import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -25,7 +26,7 @@ public final class DialogTricksBelote extends DialogCards {
         _fenetre.getDialogTricksBelote().getCardDialog().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogTricksBelote().getCardDialog().setTitle(_titre);
         _fenetre.getDialogTricksBelote().getCardDialog().setResizable(true);
-        _fenetre.getDialogTricksBelote().getCardDialog().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        _fenetre.getDialogTricksBelote().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public static void init(TricksHandsBelote _tricksHands,

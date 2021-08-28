@@ -2,7 +2,7 @@ package cards.gui.labels;
 
 
 
-import javax.swing.SwingConstants;
+
 
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
@@ -25,8 +25,8 @@ public final class MiniBeloteCard extends AbsMetaLabel {
         super(_compoFactory);
         lg = _lg;
         card = _card;
-        setHorizontalAlignment(SwingConstants.RIGHT);
-        setVerticalAlignment(SwingConstants.TOP);
+        setHorizontalAlignment(GuiConstants.RIGHT);
+        setVerticalAlignment(GuiConstants.TOP);
         setPreferredSize(new MetaDimension(20, 40));
     }
 

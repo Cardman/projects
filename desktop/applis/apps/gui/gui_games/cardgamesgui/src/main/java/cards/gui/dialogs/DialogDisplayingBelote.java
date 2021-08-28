@@ -2,7 +2,7 @@ package cards.gui.dialogs;
 
 
 
-import javax.swing.WindowConstants;
+
 
 import cards.belote.DisplayingBelote;
 import cards.consts.Order;
@@ -56,7 +56,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         _fenetre.getDialogDisplayingBelote().getCardDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingBelote().displayingBelote = _fenetre.getDisplayingBelote();
         _fenetre.getDialogDisplayingBelote().getCardDialog().setLocationRelativeTo(_fenetre);
-        _fenetre.getDialogDisplayingBelote().getCardDialog().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        _fenetre.getDialogDisplayingBelote().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         _fenetre.getDialogDisplayingBelote().setDialogue(_fenetre);
     }
 

@@ -1,6 +1,6 @@
 package code.gui;
 
-import javax.swing.WindowConstants;
+
 
 import code.gui.events.LanguageChoice;
 import code.gui.events.SetterLanguage;
@@ -44,7 +44,7 @@ public final class LanguageFrame implements SetterLanguage {
             panneau_.add(radio_);
         }
         commonFrame.setContentPane(panneau_);
-        commonFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        commonFrame.setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         commonFrame.setLocationRelativeToNull();
         commonFrame.setVisible(true);
         commonFrame.pack();

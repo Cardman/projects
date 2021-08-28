@@ -3,7 +3,7 @@ package cards.gui.labels;
 
 
 
-import javax.swing.SwingConstants;
+
 
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.FileConst;
@@ -45,7 +45,7 @@ public final class GraphicPresidentCard extends AbsMetaLabel {
         lg = _lg;
         peindreCarte=false;
         setHorizontalAlignment(_i);
-        setVerticalAlignment(SwingConstants.TOP);
+        setVerticalAlignment(GuiConstants.TOP);
         fullCard=_fullCard;
     }
 

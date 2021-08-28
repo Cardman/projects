@@ -2,7 +2,7 @@ package cards.gui.labels;
 
 
 
-import javax.swing.SwingConstants;
+
 
 import cards.consts.Suit;
 import cards.facade.Games;
@@ -25,8 +25,8 @@ public final class MiniTarotCard extends AbsMetaLabel {
         super(_compoFactory);
         card = _card;
         lg = _lg;
-        setHorizontalAlignment(SwingConstants.RIGHT);
-        setVerticalAlignment(SwingConstants.TOP);
+        setHorizontalAlignment(GuiConstants.RIGHT);
+        setVerticalAlignment(GuiConstants.TOP);
         setPreferredSize(new MetaDimension(20, 40));
     }
 

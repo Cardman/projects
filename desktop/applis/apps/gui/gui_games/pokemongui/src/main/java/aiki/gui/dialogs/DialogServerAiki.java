@@ -1,6 +1,6 @@
 package aiki.gui.dialogs;
 
-import javax.swing.WindowConstants;
+
 
 import aiki.sml.Resources;
 import aiki.gui.WindowAiki;
@@ -85,7 +85,7 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
         panel_.add(button_);
         pane_.add(panel_);
         absDialog.setContentPane(pane_);
-        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
     }
 

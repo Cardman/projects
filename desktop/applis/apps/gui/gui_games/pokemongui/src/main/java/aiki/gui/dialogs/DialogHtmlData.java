@@ -1,7 +1,7 @@
 package aiki.gui.dialogs;
 
 
-import javax.swing.WindowConstants;
+
 
 import aiki.beans.PokemonStandards;
 import aiki.facade.FacadeGame;
@@ -104,7 +104,7 @@ public final class DialogHtmlData {
         absDialog.setContentPane(panel_);
 //        timer = new Timer(200, new Chronometer(area_, _session, 0));
 //        timer.start();
-        absDialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
     }
 

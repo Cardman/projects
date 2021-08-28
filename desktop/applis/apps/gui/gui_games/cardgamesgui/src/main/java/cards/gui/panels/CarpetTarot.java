@@ -1,8 +1,6 @@
 package cards.gui.panels;
 
 
-import javax.swing.SwingConstants;
-
 import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -33,7 +31,7 @@ public class CarpetTarot {
                 surPanneau_= _compoFactory.newLineBox();
                 if (i % 2 == 1) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (i == 1) {
@@ -68,7 +66,7 @@ public class CarpetTarot {
                 AbsPanel surPanneau_ = _compoFactory.newLineBox();
                 if (i == 1) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (c_.horaire) {
@@ -79,7 +77,7 @@ public class CarpetTarot {
                     surPanneau_.add(carte_);
                 } else if (i == 2) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     c_.cards.put(3, carte_);
@@ -94,7 +92,7 @@ public class CarpetTarot {
                 AbsPanel surPanneau_ = _compoFactory.newLineBox();
                 if (i == 6) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (c_.horaire) {
@@ -105,7 +103,7 @@ public class CarpetTarot {
                     surPanneau_.add(carte_);
                 } else if (i == 4) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (c_.horaire) {
@@ -128,7 +126,7 @@ public class CarpetTarot {
                 AbsPanel surPanneau_ = _compoFactory.newLineBox();
                 if (i == 10) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (c_.horaire) {
@@ -139,7 +137,7 @@ public class CarpetTarot {
                     surPanneau_.add(carte_);
                 } else if (i == 9) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     c_.cards.put(0, carte_);
@@ -156,7 +154,7 @@ public class CarpetTarot {
                 surPanneau_= _compoFactory.newLineBox();
                 if (i == 0) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (c_.horaire) {
@@ -167,7 +165,7 @@ public class CarpetTarot {
                     surPanneau_.add(carte_);
                 } else if (i == 2) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (c_.horaire) {
@@ -178,7 +176,7 @@ public class CarpetTarot {
                     surPanneau_.add(carte_);
                 } else if (i == 7) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     c_.cards.put(0, carte_);
@@ -196,7 +194,7 @@ public class CarpetTarot {
                 AbsPanel surPanneau_ = _compoFactory.newLineBox();
                 if (i == 0) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (c_.horaire) {
@@ -207,7 +205,7 @@ public class CarpetTarot {
                     surPanneau_.add(carte_);
                 } else if (i == 2) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (c_.horaire) {
@@ -218,7 +216,7 @@ public class CarpetTarot {
                     surPanneau_.add(carte_);
                 } else if (i == 3) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (c_.horaire) {
@@ -229,7 +227,7 @@ public class CarpetTarot {
                     surPanneau_.add(carte_);
                 } else if (i == 5) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     if (c_.horaire) {
@@ -240,7 +238,7 @@ public class CarpetTarot {
                     surPanneau_.add(carte_);
                 } else if (i == 7) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
-                            SwingConstants.RIGHT, true, _compoFactory);
+                            GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     c_.cards.put(0, carte_);
@@ -280,7 +278,7 @@ public class CarpetTarot {
         int nbCards_ = _m.total();
         for (byte b = IndexConstants.FIRST_INDEX; b < nbCards_; b++) {
             GraphicTarotCard cg_ = new GraphicTarotCard(_lg,
-                    SwingConstants.RIGHT, !entered_, _compoFactory);
+                    GuiConstants.RIGHT, !entered_, _compoFactory);
             cg_.setPreferredSize(entered_);
             centerDeck.add(cg_);
             entered_ = true;

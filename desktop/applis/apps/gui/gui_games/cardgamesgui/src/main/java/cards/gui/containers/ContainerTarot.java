@@ -1,6 +1,6 @@
 package cards.gui.containers;
 
-import javax.swing.SwingConstants;
+
 
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
@@ -101,7 +101,7 @@ public class ContainerTarot extends ContainerGame{
         list_ = new CustList<GraphicTarotCard>();
         boolean entered_ = false;
         for(CardTarot c: _hand) {
-            GraphicTarotCard carte_=new GraphicTarotCard(imageFactory_,_lg, c,SwingConstants.RIGHT,!entered_, _fact.getCompoFactory());
+            GraphicTarotCard carte_=new GraphicTarotCard(imageFactory_,_lg, c,GuiConstants.RIGHT,!entered_, _fact.getCompoFactory());
             carte_.setPreferredSize(entered_);
             list_.add(carte_);
             entered_ = true;

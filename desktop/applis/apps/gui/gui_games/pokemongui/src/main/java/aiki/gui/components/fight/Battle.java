@@ -4,7 +4,7 @@ package aiki.gui.components.fight;
 
 
 
-import javax.swing.WindowConstants;
+
 
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
@@ -252,7 +252,7 @@ public class Battle extends ChildFrame {
 //        setLayout(grid);
         //add(new JScrollPane(actionsBattle));
         addWindowListener(new ClosingChildFrameEvent(this));
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 
     @Override

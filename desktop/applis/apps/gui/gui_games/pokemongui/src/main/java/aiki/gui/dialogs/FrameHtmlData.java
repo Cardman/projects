@@ -1,7 +1,7 @@
 package aiki.gui.dialogs;
 
 
-import javax.swing.WindowConstants;
+
 
 import aiki.beans.PokemonStandards;
 import aiki.facade.FacadeGame;
@@ -57,7 +57,7 @@ public final class FrameHtmlData extends ChildFrame {
         panel_.add(search);
         setContentPane(panel_);
         addWindowListener(new ClosingChildFrameEvent(this));
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         pack();
     }
 

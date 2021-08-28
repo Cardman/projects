@@ -2,7 +2,7 @@ package cards.gui.dialogs;
 
 
 
-import javax.swing.WindowConstants;
+
 
 import cards.consts.Suit;
 import cards.facade.Games;
@@ -55,7 +55,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         _fenetre.getDialogDisplayingPresident().getCardDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingPresident().displayingPresident = _fenetre.getDisplayingPresident();
         _fenetre.getDialogDisplayingPresident().getCardDialog().setLocationRelativeTo(_fenetre);
-        _fenetre.getDialogDisplayingPresident().getCardDialog().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        _fenetre.getDialogDisplayingPresident().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         _fenetre.getDialogDisplayingPresident().setDialogue(_fenetre);
     }
 

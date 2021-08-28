@@ -1,7 +1,7 @@
 package cards.gui.dialogs;
 
 
-import javax.swing.WindowConstants;
+
 
 import cards.gui.WindowCards;
 import cards.gui.panels.PanelTricksHandsPresident;
@@ -9,6 +9,7 @@ import cards.president.DisplayingPresident;
 import cards.president.TricksHandsPresident;
 import code.gui.AbsScrollPane;
 
+import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -25,7 +26,7 @@ public final class DialogTricksPresident extends DialogCards {
         _fenetre.getDialogTricksPresident().getCardDialog().setLocationRelativeTo(_fenetre);
         _fenetre.getDialogTricksPresident().getCardDialog().setTitle(_titre);
         _fenetre.getDialogTricksPresident().getCardDialog().setResizable(true);
-        _fenetre.getDialogTricksPresident().getCardDialog().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        _fenetre.getDialogTricksPresident().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public static void init(TricksHandsPresident _tricksHands,

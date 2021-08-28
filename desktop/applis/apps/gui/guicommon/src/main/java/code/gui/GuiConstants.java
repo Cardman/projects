@@ -78,6 +78,13 @@ public final class GuiConstants {
     public static final int ORANGE = (int) (256*256*256*255L+256*256*255L+256*200L);
     public static final int MAGENTA = (int) (256*256*256*255L+256*256*255L+255L);
     public static final int CYAN = (int) (256*256*256*255L+256*255L+255L);
+    public static final int DO_NOTHING_ON_CLOSE = WindowConstants.DO_NOTHING_ON_CLOSE;
+    public static final int HIDE_ON_CLOSE = WindowConstants.HIDE_ON_CLOSE;
+    public static final int EXIT_ON_CLOSE = WindowConstants.EXIT_ON_CLOSE;
+    public static final int DISPOSE_ON_CLOSE = WindowConstants.DISPOSE_ON_CLOSE;
+    public static final int CENTER = SwingConstants.CENTER;
+    public static final int RIGHT = SwingConstants.RIGHT;
+    public static final int TOP = SwingConstants.TOP;
 
     private GuiConstants() {
     }
@@ -97,15 +104,15 @@ public final class GuiConstants {
     }
 
     public static boolean isHorizProgress(int _orientation) {
-        return _orientation == JProgressBar.HORIZONTAL;
+        return _orientation == SwingConstants.HORIZONTAL;
     }
 
     public static int getHoriz(boolean _bool) {
         int value_;
         if (_bool) {
-            value_ = JProgressBar.HORIZONTAL;
+            value_ = SwingConstants.HORIZONTAL;
         } else {
-            value_ = JProgressBar.VERTICAL;
+            value_ = SwingConstants.VERTICAL;
         }
         return value_;
     }

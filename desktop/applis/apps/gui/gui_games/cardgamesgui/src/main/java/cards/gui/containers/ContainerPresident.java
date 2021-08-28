@@ -1,6 +1,6 @@
 package cards.gui.containers;
 
-import javax.swing.SwingConstants;
+
 
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
@@ -15,6 +15,7 @@ import cards.president.enumerations.PresidentResoucesAccess;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesPresidentPresident;
@@ -80,7 +81,7 @@ public class ContainerPresident extends ContainerGame {
         list_ = new CustList<GraphicPresidentCard>();
         boolean entered_ = false;
         for(CardPresident c: _hand) {
-            GraphicPresidentCard carte_=new GraphicPresidentCard(imageFactory_,_lg, c,SwingConstants.RIGHT,!entered_, _fact.getCompoFactory());
+            GraphicPresidentCard carte_=new GraphicPresidentCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, _fact.getCompoFactory());
             carte_.setPreferredSize(entered_);
             list_.add(carte_);
             entered_ = true;

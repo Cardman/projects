@@ -1,6 +1,6 @@
 package code.converterimages.gui;
 
-import javax.swing.WindowConstants;
+
 
 import code.converterimages.main.LaunchingConverter;
 import code.gui.*;
@@ -63,7 +63,7 @@ public final class WindowConverter extends GroupFrame {
         setContentPane(content_);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
     }
 

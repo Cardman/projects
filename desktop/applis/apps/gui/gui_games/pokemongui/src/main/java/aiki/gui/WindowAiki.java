@@ -3,7 +3,7 @@ package aiki.gui;
 
 
 
-import javax.swing.WindowConstants;
+
 
 import aiki.db.DataBase;
 import aiki.db.ImageHeroKey;
@@ -307,7 +307,7 @@ public final class WindowAiki extends NetGroupFrame {
         mainPanel.add(availableHelps);
         setContentPane(mainPanel);
         //setVisible(true);
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
         facade.setData(new DataBase(_list.getGenerator()));
         initMessages();
