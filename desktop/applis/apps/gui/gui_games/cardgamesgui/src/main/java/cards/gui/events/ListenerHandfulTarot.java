@@ -4,10 +4,7 @@ import cards.facade.Games;
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
-import code.gui.AbsMouseButtons;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseLocation;
-import code.gui.RadioButton;
+import code.gui.*;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -15,14 +12,14 @@ public class ListenerHandfulTarot extends AbsListenerHandfulTarot {
 
     private int requiredTrumps;
 
-    private RadioButton radio;
+    private AbsRadioButton radio;
 
     private ContainerTarot container;
 
     private Handfuls handful;
-    private CustList<RadioButton> list;
-    public ListenerHandfulTarot(int _requiredTrumps, RadioButton _radio,
-            ContainerTarot _container, Handfuls _handful, CustList<RadioButton> _list) {
+    private CustList<AbsRadioButton> list;
+    public ListenerHandfulTarot(int _requiredTrumps, AbsRadioButton _radio,
+            ContainerTarot _container, Handfuls _handful, CustList<AbsRadioButton> _list) {
         requiredTrumps = _requiredTrumps;
         radio = _radio;
         container = _container;
@@ -35,7 +32,7 @@ public class ListenerHandfulTarot extends AbsListenerHandfulTarot {
         if (!radio.isEnabled()) {
             return;
         }
-        for (RadioButton r: list) {
+        for (AbsRadioButton r: list) {
             r.setSelected(false);
         }
         String lg_ = container.getOwner().getLanguageKey();

@@ -35,7 +35,7 @@ public final class WindowConverter extends GroupFrame {
 
     private static final String CONVERT_IMAGE = "convert image";
 
-    private final CustCheckBox readImages;
+    private final AbsCustCheckBox readImages;
 
     private final AbsTextField path;
 
@@ -45,7 +45,7 @@ public final class WindowConverter extends GroupFrame {
         super(_lg, _list);
         setTitle(CONVERT_IMAGE);
         AbsPanel content_ = _list.getCompoFactory().newPageBox();
-        readImages = new CustCheckBox(READ_IMAGES);
+        readImages = getCompoFactory().newCustCheckBox(READ_IMAGES);
         readImages.setSelected(true);
         content_.add(readImages);
         path = getCompoFactory().newTextField(50);

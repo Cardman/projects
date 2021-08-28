@@ -37,9 +37,9 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     private static final String WISE = "wise";
     private StringMap<String> messages = new StringMap<String>();
     private DisplayingPresident displayingPresident = new DisplayingPresident();
-    private CustCheckBox checkClockwise;
+    private AbsCustCheckBox checkClockwise;
     private SuitsScrollableList orderedSuits;
-    private CustCheckBox sortByDecreasing;
+    private AbsCustCheckBox sortByDecreasing;
     private AbsSpinner nbDealsDemo;
     private ComboBox<Suit> listeChoix;
 
@@ -76,7 +76,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         EnumList<Suit> liste_=new EnumList<Suit>();
         panneau_.add(new TextLabel(messages.getVal(WISE)));
         //Panneau Distribution
-        checkClockwise=new CustCheckBox(messages.getVal(CLOCK_WISE));
+        checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
         checkClockwise.setSelected(displayingPresident.isClockwise());
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
@@ -103,7 +103,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         bouton_=new LabelButton(messages.getVal(REMOVE_SUIT));
         bouton_.addMouseList(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
-        sortByDecreasing=new CustCheckBox(messages.getVal(SORT_DECREASING));
+        sortByDecreasing=getCompoFactory().newCustCheckBox(messages.getVal(SORT_DECREASING));
         sortByDecreasing.setSelected(displayingPresident.isDecreasing());
         sousPanneauTwo_.add(sortByDecreasing);
         panneau_.add(sousPanneauTwo_);

@@ -4,30 +4,30 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.RadioButton;
+import code.gui.AbsRadioButton;
 import code.gui.events.AbsChangeListener;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class RadioButtonStruct extends InputStruct {
-    private RadioButton radioButton;
-    protected RadioButtonStruct(String _className) {
+    private final AbsRadioButton radioButton;
+    protected RadioButtonStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
-        radioButton = new RadioButton();
+        radioButton = _compo.newRadioButton();
     }
-    protected RadioButtonStruct(String _className,Struct _text) {
+    protected RadioButtonStruct(String _className,Struct _text, AbsCompoFactory _compo) {
         super(_className);
         if (_text instanceof StringStruct) {
-            radioButton = new RadioButton(((StringStruct)_text).getInstance());
+            radioButton = _compo.newRadioButton(((StringStruct)_text).getInstance());
         } else {
-            radioButton = new RadioButton(null);
+            radioButton = _compo.newRadioButton(null);
         }
     }
-    protected RadioButtonStruct(String _className, Struct _text, Struct _s) {
+    protected RadioButtonStruct(String _className, Struct _text, Struct _s, AbsCompoFactory _compo) {
         super(_className);
         if (_text instanceof StringStruct) {
-            radioButton = new RadioButton(((StringStruct)_text).getInstance(),BooleanStruct.isTrue(_s));
+            radioButton = _compo.newRadioButton(((StringStruct)_text).getInstance(),BooleanStruct.isTrue(_s));
         } else {
-            radioButton = new RadioButton(null,BooleanStruct.isTrue(_s));
+            radioButton = _compo.newRadioButton(null,BooleanStruct.isTrue(_s));
         }
 
     }
@@ -74,7 +74,7 @@ public final class RadioButtonStruct extends InputStruct {
         return getRadioButton();
     }
 
-    public RadioButton getRadioButton() {
+    public AbsRadioButton getRadioButton() {
         return radioButton;
     }
 }

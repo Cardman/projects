@@ -7,10 +7,10 @@ import code.util.IdMap;
 
 import javax.swing.*;
 
-public final class CustCheckBox extends CustComponent {
+public final class CustCheckBox extends CustComponent implements AbsCustCheckBox {
 
     private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
-    private JCheckBox checkBox;
+    private final JCheckBox checkBox;
     public CustCheckBox() {
         checkBox = new JCheckBox();
     }

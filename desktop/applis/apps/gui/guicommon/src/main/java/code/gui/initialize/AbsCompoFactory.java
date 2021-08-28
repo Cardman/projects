@@ -44,4 +44,16 @@ public interface AbsCompoFactory {
     AbsTextField newTextField(int _c);
     AbsTextField newTextField(String _txt);
     AbsTextField newTextField(String _txt,int _c);
+    AbsCustCheckBox newCustCheckBox();
+    AbsCustCheckBox newCustCheckBox(String _t);
+    AbsCustCheckBox newCustCheckBox(String _t,boolean _s);
+    AbsPlainButton newPlainButton();
+    AbsPlainButton newPlainButton(String _t);
+
+    AbsRadioButton newRadioButton();
+
+    AbsRadioButton newRadioButton(String _value);
+
+    AbsRadioButton newRadioButton(String _value, boolean _sel);
+    AbsPlainLabel newPlainLabel(String _value);
 }

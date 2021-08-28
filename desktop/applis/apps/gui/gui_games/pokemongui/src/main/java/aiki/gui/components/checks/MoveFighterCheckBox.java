@@ -6,7 +6,7 @@ public final class MoveFighterCheckBox extends CheckBox {
     private Battle battle;
 
     public MoveFighterCheckBox(String _key, String _text, boolean _selected,Battle _battle) {
-        super(_key, _text, _selected);
+        super(_key, _text, _selected, _battle.getWindow().getCompoFactory());
         battle = _battle;
     }
 

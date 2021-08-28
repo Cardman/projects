@@ -1,16 +1,17 @@
 package aiki.gui.components.checks;
 import java.awt.Color;
 
-
-import code.gui.CustCheckBox;
+import code.gui.AbsCustCheckBox;
+import code.gui.initialize.AbsCompoFactory;
 
 public abstract class CheckBox {
 
-    private CustCheckBox component = new CustCheckBox();
+    private final AbsCustCheckBox component;
 
-    private String key;
+    private final String key;
 
-    public CheckBox(String _key, String _text, boolean _selected) {
+    public CheckBox(String _key, String _text, boolean _selected, AbsCompoFactory _window) {
+        component = _window.newCustCheckBox();
         key = _key;
         component.setText(_text);
         component.setSelected(_selected);
@@ -25,7 +26,7 @@ public abstract class CheckBox {
         component.setBackground(_bg);
     }
 
-    public CustCheckBox getComponent() {
+    public AbsCustCheckBox getComponent() {
         return component;
     }
 

@@ -274,7 +274,7 @@ public class ScenePanel {
 
     private TmPanel tmPanel;
 
-    private CustCheckBox buy;
+    private AbsCustCheckBox buy;
 
     private LabelButton selectPkBox;
 
@@ -314,7 +314,7 @@ public class ScenePanel {
 
     private final TextLabel time;
 
-    private CustCheckBox switchUsable;
+    private AbsCustCheckBox switchUsable;
 
     private LabelButton takeItemTeam;
 
@@ -332,7 +332,7 @@ public class ScenePanel {
 
     private boolean enabledReady;
 
-    private CustCheckBox readyCheck;
+    private AbsCustCheckBox readyCheck;
 
     private final MapPanel mapPanel;
 
@@ -786,7 +786,7 @@ public class ScenePanel {
         group_.add(scrollSession_, BorderLayout.CENTER);
         panelNetWork.add(group_);
         enabledReady = false;
-        readyCheck = new CustCheckBox(messages.getVal(READY));
+        readyCheck = window.getCompoFactory().newCustCheckBox(messages.getVal(READY));
         readyCheck.setEnabled(enabledReady);
         readyCheck.addActionListener(new ReadyEventAiki(window, readyCheck));
         panelNetWork.add(readyCheck);
@@ -947,7 +947,7 @@ public class ScenePanel {
             disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS) {
             AbsPanel set_ = compoFactory.newPageBox();
-            buy = new CustCheckBox(messages.getVal(ITEM_BUY));
+            buy = window.getCompoFactory().newCustCheckBox(messages.getVal(ITEM_BUY));
             buy.setSelected(true);
             buy.addActionListener(new BuyOrSellEvent(this));
             set_.add(buy);
@@ -1252,7 +1252,7 @@ public class ScenePanel {
     private void addButtonsTeam() {
         AbsPanel set_ = compoFactory.newLineBox();
         AbsPanel teamMenu_ = compoFactory.newPageBox();
-        switchUsable = new CustCheckBox(messages.getVal(SWITCH_PK_TEAM));
+        switchUsable = window.getCompoFactory().newCustCheckBox(messages.getVal(SWITCH_PK_TEAM));
 //        enabledSwitchTeam = false;
 //        switchUsable.addChangeListener(new ChangeListener() {
 //            @Override
@@ -1775,5 +1775,9 @@ public class ScenePanel {
     }
     public AbsPanel getComponent() {
         return component;
+    }
+
+    public WindowAiki getWindow() {
+        return window;
     }
 }

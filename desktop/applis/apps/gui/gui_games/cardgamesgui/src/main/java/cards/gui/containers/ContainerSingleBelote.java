@@ -372,7 +372,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         if(!partie_.cartesBeloteRebelote().estVide()) {
             annonceBeloteRebelote = false;
             AbsPanel panneau_ =getPanneauBoutonsJeu();
-            CustCheckBox caseCoche_ = new CustCheckBox(Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_));
+            AbsCustCheckBox caseCoche_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_));
             caseCoche_.setEnabled(partie_.autoriseBeloteRebelote());
             caseCoche_.addActionListener(new ChangeBeloteRebeloteEvent(this));
             panneau_.add(caseCoche_);
@@ -382,7 +382,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             if(annonceMain_.getDeclare() != DeclaresBelote.UNDEFINED) {
                 annonceBelote = false;
                 AbsPanel panneau_ =getPanneauBoutonsJeu();
-                CustCheckBox caseCoche_ = new CustCheckBox(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),INTRODUCTION_PTS,Games.toString(annonceMain_.getHand(),lg_)));
+                AbsCustCheckBox caseCoche_ = getOwner().getCompoFactory().newCustCheckBox(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),INTRODUCTION_PTS,Games.toString(annonceMain_.getHand(),lg_)));
                 caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
                 panneau_.add(caseCoche_);
             }

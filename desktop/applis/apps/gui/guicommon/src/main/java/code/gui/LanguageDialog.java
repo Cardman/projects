@@ -39,7 +39,7 @@ public final class LanguageDialog implements SetterLanguage {
         absDialog.setTitle(_title);
         AbsPanel panneau_ = _owner.getCompoFactory().newGrid(0,1);
         for (String l: Constants.getAvailableLanguages()) {
-            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
+            AbsRadioButton radio_ = _owner.getCompoFactory().newRadioButton(Constants.getDisplayLanguage(l));
             radio_.addMouseListener(new LanguageChoice(l, this));
             groupe.add(radio_);
             panneau_.add(radio_);

@@ -63,7 +63,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private RulesPresident rulesPresidentMulti = new RulesPresident();
     private NumComboBox choiceOfPlaceForPlayingGame;
-    private CustCheckBox ready;
+    private AbsCustCheckBox ready;
 
 //    private DealingPresident repPresident;
     private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -71,7 +71,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private boolean readyToPlay;
     private final CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
     private final CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
-    private final CustList<CustCheckBox> playersReady = new CustList<CustCheckBox>();
+    private final CustList<AbsCustCheckBox> playersReady = new CustList<AbsCustCheckBox>();
     private RenderedPage editor;
     private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
@@ -110,7 +110,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         indexInGame = choiceOfPlaceForPlayingGame.getCurrent().byteValue();
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
         panel_.add(choiceOfPlaceForPlayingGame.self());
-        ready = new CustCheckBox(getMessages().getVal(WindowCards.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowCards.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         container_.add(panel_);
@@ -123,7 +123,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             TextLabel place_ = new TextLabel("");
             playersPlaces.add(place_);
             panel_.add(place_);
-            CustCheckBox ready_ = new CustCheckBox();
+            AbsCustCheckBox ready_ = getOwner().getCompoFactory().newCustCheckBox();
             ready_.setEnabled(false);
             playersReady.add(ready_);
             panel_.add(ready_);
@@ -650,7 +650,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         container_.add(onglets_,BorderLayout.CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;
-        ready = new CustCheckBox(getMessages().getVal(WindowCards.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowCards.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 

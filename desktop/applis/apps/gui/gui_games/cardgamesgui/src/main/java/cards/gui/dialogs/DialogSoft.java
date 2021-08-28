@@ -35,13 +35,13 @@ public final class DialogSoft extends DialogCards {
     private StringMap<String> messages;
     private SoftParams parametres=new SoftParams();
     private ComboBox<GameEnum> list;
-    private CustCheckBox saveHomeFolder;
+    private AbsCustCheckBox saveHomeFolder;
     private String menu;
-    private CustCheckBox waitTrickClick;
+    private AbsCustCheckBox waitTrickClick;
     private AbsSlider delayWaitTricks;
     private AbsSlider delayWaitCards;
     private AbsSlider delayWaitBids;
-    private CustCheckBox clickCard;
+    private AbsCustCheckBox clickCard;
 
     public DialogSoft(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
@@ -86,7 +86,7 @@ public final class DialogSoft extends DialogCards {
 //            liste=new JComboBox<>(new Object[]{messages.getVal(LAUNCHING),GameEnum.BELOTE,GameEnum.PRESIDENT,GameEnum.TAROT});
 //            panneau_.add(liste);
             panneau_.add(list.self());
-            saveHomeFolder = new CustCheckBox(messages.getVal(SELECT_HOME_PATH));
+            saveHomeFolder = getCompoFactory().newCustCheckBox(messages.getVal(SELECT_HOME_PATH));
             panneau_.add(saveHomeFolder);
             container_.add(panneau_,BorderLayout.CENTER);
         } else if(StringUtil.quickEq(menu, WindowCards.CST_TIMING)) {
@@ -134,14 +134,14 @@ public final class DialogSoft extends DialogCards {
             delayWaitTricks.addChangeListener(new ListenerChangeSlide(label_,WAITING_TRICK, messages, sentence_));
             panneau_.add(delayWaitTricks);
 //            indiceInfo_++;
-            waitTrickClick =new CustCheckBox(messages.getVal(CLICK_FOR_PLAYING_TRICK));
+            waitTrickClick =getCompoFactory().newCustCheckBox(messages.getVal(CLICK_FOR_PLAYING_TRICK));
             waitTrickClick.setSelected(parametres.getAttentePlisClic());
             panneau_.add(waitTrickClick);
             panneau_.setPreferredSize(new Dimension(600,400));
             container_.add(panneau_,BorderLayout.CENTER);
         } else {
             AbsPanel panneau_=_fenetre.getCompoFactory().newGrid(0,1);
-            clickCard=new CustCheckBox(messages.getVal(CLICK_FOR_PLAYING_CARD));
+            clickCard=getCompoFactory().newCustCheckBox(messages.getVal(CLICK_FOR_PLAYING_CARD));
             clickCard.setSelected(parametres.getJeuCarteClic());
             panneau_.add(clickCard);
             container_.add(panneau_,BorderLayout.CENTER);

@@ -85,7 +85,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private boolean annonceBelote;
     private boolean annonceBeloteRebelote;
     private NumComboBox choiceOfPlaceForPlayingGame;
-    private CustCheckBox ready;
+    private AbsCustCheckBox ready;
 
     private DealingBelote repBelote;
     private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -93,7 +93,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private boolean readyToPlay;
     private final CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
     private final CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
-    private final CustList<CustCheckBox> playersReady = new CustList<CustCheckBox>();
+    private final CustList<AbsCustCheckBox> playersReady = new CustList<AbsCustCheckBox>();
     private RenderedPage editor;
     private IntTreeMap< Byte> playersPlacesForGame = new IntTreeMap< Byte>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
@@ -246,7 +246,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
                 .getCurrent().byteValue();
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
         panel_.add(choiceOfPlaceForPlayingGame.self());
-        ready = new CustCheckBox(getMessages().getVal(WindowCards.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowCards.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         container_.add(panel_);
@@ -259,7 +259,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             TextLabel place_ = new TextLabel("");
             playersPlaces.add(place_);
             panel_.add(place_);
-            CustCheckBox ready_ = new CustCheckBox();
+            AbsCustCheckBox ready_ = getOwner().getCompoFactory().newCustCheckBox();
             ready_.setEnabled(false);
             playersReady.add(ready_);
             panel_.add(ready_);
@@ -446,7 +446,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         annonceBeloteRebelote = false;
         if (_declaration.isPossibleBeloteRebelote()) {
             AbsPanel panneau_ = getPanneauBoutonsJeu();
-            CustCheckBox caseCoche_ = new CustCheckBox(
+            AbsCustCheckBox caseCoche_ = getOwner().getCompoFactory().newCustCheckBox(
                     Games.toString(DeclaresBeloteRebelote.BELOTE_REBELOTE,lg_));
             caseCoche_.setEnabled(_declaration.isAllowedBeloteRebelote());
             caseCoche_.addActionListener(new ChangeBeloteRebeloteEvent(this));
@@ -462,7 +462,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (annonceMain_.getDeclare() != DeclaresBelote.UNDEFINED) {
             annonceBelote = false;
             AbsPanel panneau_ = getPanneauBoutonsJeu();
-            CustCheckBox caseCoche_ = new CustCheckBox(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),
+            AbsCustCheckBox caseCoche_ = getOwner().getCompoFactory().newCustCheckBox(StringUtil.concat(Games.toString(annonceMain_.getDeclare(),lg_),
                     INTRODUCTION_PTS, Games.toString(annonceMain_.getHand(),lg_)));
             caseCoche_.addActionListener(new ChangeBeloteDeclareEvent(this));
             panneau_.add(caseCoche_);
@@ -849,7 +849,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         container_.add(onglets_,BorderLayout.CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;
-        ready = new CustCheckBox(getMessages().getVal(WindowCards.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowCards.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 

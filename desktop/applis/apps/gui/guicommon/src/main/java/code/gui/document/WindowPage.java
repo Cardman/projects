@@ -109,7 +109,7 @@ public final class WindowPage implements Runnable {
                 MetaRadioButton radio_ = (MetaRadioButton) meta_;
                 DualRadionButton dual_ = new DualRadionButton((DualContainer) cur_,radio_, page);
                 cur_.add(dual_);
-                RadioButton radioButton_ = dual_.getRadio();
+                AbsRadioButton radioButton_ = dual_.getRadio();
                 if (!radiosGroup_.isEmpty()) {
                     String value_ = dual_.getValue();
                     ObjectMap<FormInputCoords,CustButtonGroup> grs_ = radiosGroup_.last();

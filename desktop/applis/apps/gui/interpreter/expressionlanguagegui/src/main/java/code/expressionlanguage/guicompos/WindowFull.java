@@ -24,9 +24,9 @@ public final class WindowFull extends GroupFrame {
 
     private final AbsPanel contentPane;
     private final AbsPanel form;
-    private final PlainLabel content;
+    private final AbsPlainLabel content;
     private final AbsTextArea conf;
-    private final PlainButton launch;
+    private final AbsPlainButton launch;
 
     private final StringMap<String> messages;
     private GuiProcess current;
@@ -48,13 +48,13 @@ public final class WindowFull extends GroupFrame {
         getJMenuBar().add(menu);
         contentPane = getCompoFactory().newPageBox();
         form = getCompoFactory().newGrid(0,2);
-        content = new PlainLabel(messages.getVal("configuration"));
+        content = getCompoFactory().newPlainLabel(messages.getVal("configuration"));
         form.add(content);
         conf = getCompoFactory().newTextArea(64,64);
         AbsScrollPane scr_ = getCompoFactory().newAbsScrollPane(conf);
         scr_.setPreferredSize(new Dimension(256,96));
         form.add(scr_);
-        launch = new PlainButton(messages.getVal("launch"));
+        launch = getCompoFactory().newPlainButton(messages.getVal("launch"));
         launch.addActionListener(new ListenerLaunchApp(this));
         form.add(launch);
         form.add(new TextLabel(""));

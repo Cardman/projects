@@ -1,9 +1,6 @@
 package code.minirts;
 
-import code.gui.AbsCustComponent;
-import code.gui.CustCheckBox;
-import code.gui.CustComponent;
-import code.gui.PlainButton;
+import code.gui.*;
 import code.maths.geo.CustPoint;
 import code.minirts.rts.Facade;
 import code.minirts.rts.Soldier;
@@ -20,14 +17,14 @@ public final class AnimationUnitSoldier implements Runnable {
 
     private WindowRts window;
 
-    private CustCheckBox pause;
+    private AbsCustCheckBox pause;
     private AbstractAtomicBoolean paused;
 
-    private PlainButton stop;
+    private AbsPlainButton stop;
     private AbstractAtomicBoolean stopped;
-    private PlainButton animate;
+    private AbsPlainButton animate;
 
-    public AnimationUnitSoldier(PlainButton _animate, CustCheckBox _pause, PlainButton _stop, PanelBattle _conteneur, WindowRts _window) {
+    public AnimationUnitSoldier(AbsPlainButton _animate, AbsCustCheckBox _pause, AbsPlainButton _stop, PanelBattle _conteneur, WindowRts _window) {
         window = _window;
         animate = _animate;
         pause = _pause;

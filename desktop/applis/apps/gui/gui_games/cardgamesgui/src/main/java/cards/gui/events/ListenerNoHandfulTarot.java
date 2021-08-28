@@ -3,20 +3,17 @@ package cards.gui.events;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
-import code.gui.AbsMouseButtons;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseLocation;
-import code.gui.RadioButton;
+import code.gui.*;
 import code.util.CustList;
 
 public class ListenerNoHandfulTarot extends AbsListenerHandfulTarot {
 
     private ContainerTarot container;
-    private RadioButton radio;
+    private AbsRadioButton radio;
     private Handfuls handful;
-    private CustList<RadioButton> list;
+    private CustList<AbsRadioButton> list;
 
-    public ListenerNoHandfulTarot(ContainerTarot _container,RadioButton _radio, Handfuls _handful, CustList<RadioButton> _list) {
+    public ListenerNoHandfulTarot(ContainerTarot _container,AbsRadioButton _radio, Handfuls _handful, CustList<AbsRadioButton> _list) {
         container = _container;
         radio = _radio;
         handful = _handful;
@@ -25,7 +22,7 @@ public class ListenerNoHandfulTarot extends AbsListenerHandfulTarot {
 
     @Override
     public void mouseEntered(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        for (RadioButton r: list) {
+        for (AbsRadioButton r: list) {
             r.setSelected(false);
         }
         container.getInfoCurrentHandful().setText(ContainerGame.EMPTY_STRING);

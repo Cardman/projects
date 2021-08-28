@@ -32,11 +32,11 @@ public final class WindowRts extends GroupFrame {
 
 //    private final Cursor currentCursor = Cursor.getDefaultCursor();
 
-    private final PlainButton animate = new PlainButton("Animate");
+    private final AbsPlainButton animate = getCompoFactory().newPlainButton("Animate");
 
-    private final CustCheckBox pause = new CustCheckBox("Pause");
+    private final AbsCustCheckBox pause = getCompoFactory().newCustCheckBox("Pause");
 
-    private final PlainButton stop = new PlainButton("Stop");
+    private final AbsPlainButton stop = getCompoFactory().newPlainButton("Stop");
 
     private final Facade facade = new Facade();
 
@@ -47,7 +47,7 @@ public final class WindowRts extends GroupFrame {
     private AnimationUnitSoldier thread;
     private AbstractThread threadLau;
 
-    private final CustCheckBox addSoldier = new CustCheckBox("Add soldier");
+    private final AbsCustCheckBox addSoldier = getCompoFactory().newCustCheckBox("Add soldier");
 
     private final AbstractAtomicBoolean dragged;
 

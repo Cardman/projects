@@ -176,4 +176,49 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsTextField newTextField(String _txt, int _c) {
         return new TextField(_txt,_c);
     }
+
+    @Override
+    public AbsCustCheckBox newCustCheckBox() {
+        return new CustCheckBox();
+    }
+
+    @Override
+    public AbsCustCheckBox newCustCheckBox(String _t) {
+        return new CustCheckBox(_t);
+    }
+
+    @Override
+    public AbsCustCheckBox newCustCheckBox(String _t, boolean _s) {
+        return new CustCheckBox(_t, _s);
+    }
+
+    @Override
+    public AbsPlainButton newPlainButton() {
+        return new PlainButton();
+    }
+
+    @Override
+    public AbsPlainButton newPlainButton(String _t) {
+        return new PlainButton(_t);
+    }
+
+    @Override
+    public AbsRadioButton newRadioButton() {
+        return new RadioButton();
+    }
+
+    @Override
+    public AbsRadioButton newRadioButton(String _value) {
+        return new RadioButton(_value);
+    }
+
+    @Override
+    public AbsRadioButton newRadioButton(String _value, boolean _sel) {
+        return new RadioButton(_value,_sel);
+    }
+
+    @Override
+    public AbsPlainLabel newPlainLabel(String _value) {
+        return new PlainLabel(_value);
+    }
 }

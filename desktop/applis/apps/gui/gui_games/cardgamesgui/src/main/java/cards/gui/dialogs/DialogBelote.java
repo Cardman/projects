@@ -36,15 +36,15 @@ public abstract class DialogBelote extends DialogCards {
     private StringMap<String> messages = new StringMap<String>();
     private final EnumMap<DeclaresBelote,Integer> indicesAnnoncesValides = new EnumMap<DeclaresBelote,Integer>();
     private ComboBox<MixCardsChoice> listeChoix;
-    private CustCheckBox dealAll;
+    private AbsCustCheckBox dealAll;
 
     private AbsPanel bidding;
-    private final CustList<CustCheckBox> bids = new CustList<CustCheckBox>();
+    private final CustList<AbsCustCheckBox> bids = new CustList<AbsCustCheckBox>();
     private AbsPanel declaresFirstRound;
-    private final CustList<CustCheckBox> declares = new CustList<CustCheckBox>();
-    private CustCheckBox underTrumpingFoe;
+    private final CustList<AbsCustCheckBox> declares = new CustList<AbsCustCheckBox>();
+    private AbsCustCheckBox underTrumpingFoe;
     private ComboBoxEnumCards<BeloteTrumpPartner> listChoiceTwo;
-    private CustCheckBox classic;
+    private AbsCustCheckBox classic;
 
     protected DialogBelote(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
@@ -74,7 +74,7 @@ public abstract class DialogBelote extends DialogCards {
 //        }
         listeChoix.setSelectedItem(getReglesBelote().getCartesBattues());
         dealing_.add(listeChoix.self());
-        dealAll = new CustCheckBox(getMessages().getVal(DEALING_MODE));
+        dealAll = getCompoFactory().newCustCheckBox(getMessages().getVal(DEALING_MODE));
         dealAll.setSelected(getReglesBelote().dealAll());
         dealing_.add(dealAll);
         dealing_.add(new TextLabel(""));
@@ -91,7 +91,7 @@ public abstract class DialogBelote extends DialogCards {
         bids.clear();
         bidding=_window.getCompoFactory().newGrid(1,0);
         for (BidBelote enchere_:BidBelote.values()) {
-            CustCheckBox caseCroix_=new CustCheckBox(Games.toString(enchere_,_lg));
+            AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,_lg));
             caseCroix_.setSelected(getReglesBelote().getEncheresAutorisees().getVal(enchere_));
             caseCroix_.setEnabled(!enchere_.getToujoursPossibleAnnoncer());
             bidding.add(caseCroix_);
@@ -107,7 +107,7 @@ public abstract class DialogBelote extends DialogCards {
         int indice_ = 0;
         for (DeclaresBelote enchere_:DeclaresBelote.annoncesValides()) {
             indicesAnnoncesValides.put(enchere_, indice_);
-            CustCheckBox caseCroix_=new CustCheckBox(Games.toString(enchere_,_lg));
+            AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,_lg));
             caseCroix_.setSelected(getReglesBelote().getAnnoncesAutorisees().getVal(enchere_));
             declaresFirstRound.add(caseCroix_);
             declares.add(caseCroix_);
@@ -137,7 +137,7 @@ public abstract class DialogBelote extends DialogCards {
             listChoiceTwo.selectItem(i_);
         }
         sousPanneau_.add(listChoiceTwo.self());
-        underTrumpingFoe=new CustCheckBox(getMessages().getVal(UNDER_TRUMPING_FOE));
+        underTrumpingFoe=getCompoFactory().newCustCheckBox(getMessages().getVal(UNDER_TRUMPING_FOE));
         underTrumpingFoe.setSelected(getReglesBelote().getSousCoupeAdv());
         sousPanneau_.add(underTrumpingFoe);
         trumping_.add(sousPanneau_);
@@ -145,7 +145,7 @@ public abstract class DialogBelote extends DialogCards {
         //Panneau Calcul des scores
         AbsPanel endOfGame_=_window.getCompoFactory().newGrid(0,1);
         endOfGame_.add(new TextLabel(getMessages().getVal(SCORING)));
-        classic=new CustCheckBox(getMessages().getVal(ALL_POINTS_FOR_DEFENDER_TEAM));
+        classic=getCompoFactory().newCustCheckBox(getMessages().getVal(ALL_POINTS_FOR_DEFENDER_TEAM));
         classic.setSelected(getReglesBelote().getComptePointsClassique());
         endOfGame_.add(classic);
         getJt().add(getMessages().getVal(END_DEAL),endOfGame_);
@@ -165,14 +165,14 @@ public abstract class DialogBelote extends DialogCards {
         getReglesBelote().setCartesBattues(listeChoix.getCurrent());
         EnumMap<BidBelote,Boolean> contrats_ = new EnumMap<BidBelote,Boolean>();
         for (BidBelote enchere_: BidBelote.values()) {
-            CustCheckBox jcb_= bids.get(enchere_.ordinal());
+            AbsCustCheckBox jcb_= bids.get(enchere_.ordinal());
             contrats_.put(enchere_, jcb_.isSelected());
         }
         getReglesBelote().setEncheresAutorisees(contrats_);
 
         EnumMap<DeclaresBelote,Boolean> annonces_ = new EnumMap<DeclaresBelote,Boolean>();
         for (DeclaresBelote enchere_: indicesAnnoncesValides.getKeys()) {
-            CustCheckBox jcb_= declares.get(indicesAnnoncesValides.getVal(enchere_));
+            AbsCustCheckBox jcb_= declares.get(indicesAnnoncesValides.getVal(enchere_));
             annonces_.put(enchere_, jcb_.isSelected());
         }
         getReglesBelote().setAnnoncesAutorisees(annonces_);

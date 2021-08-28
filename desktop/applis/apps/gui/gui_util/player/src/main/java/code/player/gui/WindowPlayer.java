@@ -82,7 +82,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private int noSong = -1;
     private final AbsTextArea songs = getCompoFactory().newTextArea(10, 40);
     private final SongRenderer songRend = new SongRenderer(getCompoFactory());
-    private final CustCheckBox random = new CustCheckBox();
+    private final AbsCustCheckBox random = getCompoFactory().newCustCheckBox();
     private final LabelButton play = new LabelButton(CST_PLAY);
     private final LabelButton playPrevious = new LabelButton(CST_PREVIOUS);
     private final LabelButton playNext = new LabelButton(CST_NEXT);
@@ -100,7 +100,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
 
     private final CustButtonGroup group = new CustButtonGroup();
 
-    private final CustList<RadioButton> radios = new CustList<RadioButton>();
+    private final CustList<AbsRadioButton> radios = new CustList<AbsRadioButton>();
 
     public WindowPlayer(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);

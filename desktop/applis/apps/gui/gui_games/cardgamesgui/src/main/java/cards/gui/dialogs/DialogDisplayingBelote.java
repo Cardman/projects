@@ -39,10 +39,10 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     private static final String WISE = "wise";
     private StringMap<String> messages = new StringMap<String>();
     private DisplayingBelote displayingBelote = new DisplayingBelote();
-    private CustCheckBox checkClockwise;
+    private AbsCustCheckBox checkClockwise;
     private SuitsScrollableList orderedSuits;
-    private CustCheckBox sortByDecreasing;
-    private CustCheckBox sortByTrump;
+    private AbsCustCheckBox sortByDecreasing;
+    private AbsCustCheckBox sortByTrump;
     private ComboBox<Suit> listeChoix;
 
     public DialogDisplayingBelote(AbstractProgramInfos _frameFactory) {
@@ -78,7 +78,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         EnumList<Suit> liste_=new EnumList<Suit>();
         panneau_.add(new TextLabel(messages.getVal(WISE)));
         //Panneau Distribution
-        checkClockwise=new CustCheckBox(messages.getVal(CLOCK_WISE));
+        checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
         checkClockwise.setSelected(displayingBelote.isClockwise());
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
@@ -104,7 +104,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         bouton_=new LabelButton(messages.getVal(REMOVE_SUIT));
         bouton_.addMouseList(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
-        sortByDecreasing=new CustCheckBox(messages.getVal(SORT_DECREASING));
+        sortByDecreasing=getCompoFactory().newCustCheckBox(messages.getVal(SORT_DECREASING));
         sortByDecreasing.setSelected(displayingBelote.isDecreasing());
         sousPanneauTwo_.add(sortByDecreasing);
         panneau_.add(sousPanneauTwo_);
@@ -117,7 +117,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         //Panneau Tri avant enchere (Atout)
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,1);
         sousPanneau_.add(new TextLabel(messages.getVal(SORTING_BEFORE_PLAYING_CARDS)));
-        sortByTrump=new CustCheckBox(messages.getVal(SORTING_TRUMP));
+        sortByTrump=getCompoFactory().newCustCheckBox(messages.getVal(SORTING_TRUMP));
         sortByTrump.setSelected(displayingBelote.getOrderBeforeBids()==Order.TRUMP);
         sousPanneau_.add(sortByTrump);
         panneau_.add(sousPanneau_);

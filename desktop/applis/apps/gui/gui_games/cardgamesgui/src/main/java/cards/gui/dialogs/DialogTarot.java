@@ -48,12 +48,12 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private StringMap<String> messages = new StringMap<String>();
     private ComboBox<MixCardsChoice> listeChoix;
     private AbsPanel bidding;
-    private final CustList<CustCheckBox> bids = new CustList<CustCheckBox>();
+    private final CustList<AbsCustCheckBox> bids = new CustList<AbsCustCheckBox>();
     private AbsPanel declaringMiseres;
-    private final CustList<CustCheckBox> miseres = new CustList<CustCheckBox>();
+    private final CustList<AbsCustCheckBox> miseres = new CustList<AbsCustCheckBox>();
     private ComboBoxEnumCards<EndDealTarot> listeChoixTwo;
     private ComboBoxEnumCards<ModeTarot> listeChoixThree;
-    private CustCheckBox discardAfterCall;
+    private AbsCustCheckBox discardAfterCall;
     private ComboBoxEnumCards<DealingTarot> listeChoixFour;
     private ComboBoxEnumCards<Handfuls> listeChoixFive;
 
@@ -102,7 +102,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         bidding=_window.getCompoFactory().newLineBox();
         bids.clear();
         for (BidTarot enchere_:BidTarot.values()) {
-            CustCheckBox caseCroix_=new CustCheckBox(Games.toString(enchere_,lg_));
+            AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(enchere_,lg_));
             caseCroix_.setSelected(getReglesTarot().getContrats().getVal(enchere_));
             caseCroix_.setEnabled(
                     enchere_.getPossibiliteAnnonce()!=AllowedBiddingTarot.ALWAYS);
@@ -136,7 +136,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         miseres.clear();
         declaringMiseres.add(new TextLabel(getMessages().getVal(ALLOWED_MISERES)));
         for (Miseres annonce_:Miseres.values()) {
-            CustCheckBox caseCroix_=new CustCheckBox(Games.toString(annonce_,lg_));
+            AbsCustCheckBox caseCroix_=getCompoFactory().newCustCheckBox(Games.toString(annonce_,lg_));
             caseCroix_.setSelected(getReglesTarot().getMiseres().containsObj(annonce_));
             declaringMiseres.add(caseCroix_);
             miseres.add(caseCroix_);
@@ -186,7 +186,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         sousPanneau_.add(listeChoixThree.self());
         bidding_.add(sousPanneau_);
-        discardAfterCall = new CustCheckBox(getMessages().getVal(DISCARDING));
+        discardAfterCall = getCompoFactory().newCustCheckBox(getMessages().getVal(DISCARDING));
         discardAfterCall.setSelected(getReglesTarot().getDiscardAfterCall());
         bidding_.add(discardAfterCall);
         getJt().add(getMessages().getVal(RULES),bidding_);
@@ -325,7 +325,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getReglesTarot().setPoigneesAutorisees(poigneesAutorisees);
         EnumList<Miseres> miseres_=new EnumList<Miseres>();
         for (Miseres misere_: Miseres.values()) {
-            CustCheckBox jcb_= miseres.get(misere_.ordinal());
+            AbsCustCheckBox jcb_= miseres.get(misere_.ordinal());
             if(jcb_.isSelected()) {
                 miseres_.add(misere_);
             }
@@ -333,7 +333,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getReglesTarot().setMiseres(miseres_);
         EnumMap<BidTarot,Boolean> contrats_ = new EnumMap<BidTarot,Boolean>();
         for (BidTarot enchere_: BidTarot.values()) {
-            CustCheckBox jcb_= bids.get(enchere_.ordinal());
+            AbsCustCheckBox jcb_= bids.get(enchere_.ordinal());
             contrats_.put(enchere_, jcb_.isSelected());
         }
         getReglesTarot().setContrats(contrats_);

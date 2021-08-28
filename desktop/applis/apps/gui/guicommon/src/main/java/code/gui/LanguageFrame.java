@@ -38,7 +38,7 @@ public final class LanguageFrame implements SetterLanguage {
         commonFrame.setTitle(TITLE);
         AbsPanel panneau_ = _soft.getFrames().getCompoFactory().newGrid(0,1);
         for (String l: Constants.getAvailableLanguages()) {
-            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
+            AbsRadioButton radio_ = _soft.getFrames().getCompoFactory().newRadioButton(Constants.getDisplayLanguage(l));
             radio_.addMouseListener(new LanguageChoice(l, this));
             group.add(radio_);
             panneau_.add(radio_);

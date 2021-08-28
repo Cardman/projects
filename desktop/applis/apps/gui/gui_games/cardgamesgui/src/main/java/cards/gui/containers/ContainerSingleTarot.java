@@ -667,9 +667,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(getInfoCurrentHandful());
             scroll_.setPreferredSize(new Dimension(getEvents().getWidth(),70));
             handFuls_.add(scroll_);
-            CustList<RadioButton> list_ = new CustList<RadioButton>();
+            CustList<AbsRadioButton> list_ = new CustList<AbsRadioButton>();
             for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
-                RadioButton radio_ = new RadioButton(Games.toString(h,lg_));
+                AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
                 list_.add(radio_);
                 radio_.addMouseListener(new ListenerNoHandfulTarot(this, radio_, h,list_));
                 handFuls_.add(radio_);
@@ -678,7 +678,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 if (!regles_.poigneeAutorisee(h)) {
                     continue;
                 }
-                RadioButton radio_ = new RadioButton(Games.toString(h,lg_));
+                AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
                 list_.add(radio_);
                 radio_.setEnabled(poignees_.containsObj(h));
                 radio_.addMouseListener(new ListenerHandfulTarot(regles_.getPoigneesAutorisees().getVal(h), radio_, this, h,list_));
@@ -687,7 +687,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             panneau_.add(handFuls_);
             AbsPanel miseresPanel_ = getOwner().getCompoFactory().newGrid(0,1);
             for(Miseres po_:regles_.getMiseres()) {
-                CustCheckBox check_ = new CustCheckBox(Games.toString(po_,lg_));
+                AbsCustCheckBox check_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(po_,lg_));
                 //check_.addChangeListener(new ListenerMiseres(check_,po_));
                 check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
                 getSelectedMiseres().put(po_, false);

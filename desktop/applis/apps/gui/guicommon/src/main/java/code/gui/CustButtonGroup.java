@@ -7,18 +7,18 @@ import code.util.core.StringUtil;
 
 public final class CustButtonGroup {
 
-    private CustList<RadioButton> group = new CustList<RadioButton>();
+    private CustList<AbsRadioButton> group = new CustList<AbsRadioButton>();
     private StringList values = new StringList();
 
-    private RadioButton selected;
+    private AbsRadioButton selected;
 
-    public void add(RadioButton _b) {
+    public void add(AbsRadioButton _b) {
         if (_b.getButtonGroup() != null) {
             return;
         }
         _b.setButtonGroup(this);
         if (_b.isSelected()) {
-            for (RadioButton c: group) {
+            for (AbsRadioButton c: group) {
                 c.setSelected(false);
             }
             selected = _b;
@@ -27,18 +27,18 @@ public final class CustButtonGroup {
         _b.addActionListener(new ChangeRadioEvent(this,_b));
     }
 
-    public void add(RadioButton _b, String _value) {
+    public void add(AbsRadioButton _b, String _value) {
         if (_b.getButtonGroup() != null) {
             return;
         }
         _b.setButtonGroup(this);
         if (_b.isSelected()) {
-            for (RadioButton c: group) {
+            for (AbsRadioButton c: group) {
                 c.setSelected(false);
             }
             int len_ = group.size();
             for (int i = 0; i < len_; i++) {
-                RadioButton r_ = group.get(i);
+                AbsRadioButton r_ = group.get(i);
                 String v_ = values.get(i);
                 if (StringUtil.quickEq(v_, _value)) {
                     r_.setSelected(true);
@@ -50,7 +50,7 @@ public final class CustButtonGroup {
         values.add(_value);
         _b.addActionListener(new ChangeRadioEvent(this,_b,_value));
     }
-    public CustList<RadioButton> getGroup() {
+    public CustList<AbsRadioButton> getGroup() {
         return group;
     }
 
@@ -58,12 +58,12 @@ public final class CustButtonGroup {
         return values;
     }
 
-    public RadioButton getSelected() {
+    public AbsRadioButton getSelected() {
         return selected;
     }
 
     public void clearSelection() {
-        for (RadioButton c: group) {
+        for (AbsRadioButton c: group) {
             c.setSelected(false);
         }
     }

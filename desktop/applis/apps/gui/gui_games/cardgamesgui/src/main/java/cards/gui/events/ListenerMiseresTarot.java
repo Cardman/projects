@@ -2,15 +2,15 @@ package cards.gui.events;
 
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Miseres;
+import code.gui.AbsCustCheckBox;
 import code.gui.events.AbsActionListener;
-import code.gui.CustCheckBox;
 
 public class ListenerMiseresTarot implements AbsActionListener {
 
     private ContainerTarot container;
-    private CustCheckBox check;
+    private AbsCustCheckBox check;
     private Miseres miseres;
-    public ListenerMiseresTarot(ContainerTarot _container, CustCheckBox _check, Miseres _m) {
+    public ListenerMiseresTarot(ContainerTarot _container, AbsCustCheckBox _check, Miseres _m) {
         container = _container;
         check = _check;
         miseres = _m;

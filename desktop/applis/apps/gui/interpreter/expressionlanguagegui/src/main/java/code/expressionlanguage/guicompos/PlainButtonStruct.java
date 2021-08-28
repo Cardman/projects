@@ -5,19 +5,19 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
+import code.gui.AbsPlainButton;
 import code.gui.events.AbsActionListener;
-import code.gui.CustComponent;
-import code.gui.PlainButton;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class PlainButtonStruct extends InputStruct {
-    private PlainButton plainButton;
-    public PlainButtonStruct(String _className) {
+    private AbsPlainButton plainButton;
+    public PlainButtonStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
-        plainButton = new PlainButton();
+        plainButton = _compo.newPlainButton();
     }
-    public PlainButtonStruct(Struct _txt,String _className) {
+    public PlainButtonStruct(Struct _txt,String _className, AbsCompoFactory _compo) {
         super(_className);
-        plainButton = new PlainButton();
+        plainButton = _compo.newPlainButton();
         setText(_txt);
     }
 

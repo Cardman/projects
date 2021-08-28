@@ -5,18 +5,17 @@ import java.awt.Cursor;
 
 import code.formathtml.render.MetaButton;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.PlainButton;
+import code.gui.AbsPlainButton;
 
 public final class DualButton extends DualInput {
 
     private final String value;
-    private final PlainButton label;
+    private final AbsPlainButton label;
 
     public DualButton(DualContainer _container, MetaButton _component,
             RenderedPage _page) {
         super(_container, _component, _page);
-        label = new PlainButton();
+        label = _page.getCompoFactory().newPlainButton();
         updateGraphics(label,_component);
         label.setLineBorder(Color.BLACK, 1);
         label.setCursor(Cursor.HAND_CURSOR);

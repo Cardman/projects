@@ -40,7 +40,7 @@ public final class WindowApps extends GroupFrame {
 
     private final CustButtonGroup group = new CustButtonGroup();
 
-    private final CustList<RadioButton> radios = new CustList<RadioButton>();
+    private final CustList<AbsRadioButton> radios = new CustList<AbsRadioButton>();
 
     public WindowApps(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, GuiFactroy _guiFact) {
         super(_lg, _list);
@@ -153,10 +153,10 @@ public final class WindowApps extends GroupFrame {
     }
 
     private void selectLangagueButton(String _language) {
-        for (RadioButton r: radios) {
+        for (AbsRadioButton r: radios) {
             r.setSelected(false);
         }
-        for (RadioButton r: radios) {
+        for (AbsRadioButton r: radios) {
             r.setSelected(StringUtil.quickEq(r.getText(), Constants.getDisplayLanguage(_language)));
         }
         pack();

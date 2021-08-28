@@ -62,7 +62,7 @@ public final class PaginatorHealingItem extends Paginator {
     private final AbsTextField status;
     private final AutoCompleteDocument statusAuto;
 
-    private final CustCheckBox relativeHpCheck;
+    private final AbsCustCheckBox relativeHpCheck;
 
 //    private ComboBox<SelectedBoolean> relativeHp;
 
@@ -174,7 +174,7 @@ public final class PaginatorHealingItem extends Paginator {
         modeStatus = new ComboBox<SearchingMode>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, getMain().getCompoFactory()));
         modeStatus.setWithDefaultValue(false);
         modeStatus.refresh(order, getMessagesSearchMode());
-        relativeHpCheck = new CustCheckBox();
+        relativeHpCheck = getMain().getCompoFactory().newCustCheckBox();
         relativeHpCheck.setText(getMessages().getVal(RELATIVE_HP));
 //        relativeHp = new ComboBox<SelectedBoolean>();
 //        relativeHp.setWithDefaultValue(false);

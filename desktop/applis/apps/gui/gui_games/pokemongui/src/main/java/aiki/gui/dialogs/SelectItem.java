@@ -33,7 +33,7 @@ public final class SelectItem extends SelectDialog {
 
 //    private boolean give;
 
-    private CustCheckBox giveCheckBox;
+    private AbsCustCheckBox giveCheckBox;
 
     private StringMap<String> messages;
     private final AbsCompoFactory compo;
@@ -60,7 +60,7 @@ public final class SelectItem extends SelectDialog {
         contentPane_.add(compo.newAbsScrollPane(new PaginatorItem(_parent,pag_, getSelectDial(), _facade, !_sell).getContainer()), BorderLayout.CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         if (!_buy) {
-            giveCheckBox = new CustCheckBox(messages.getVal(GIVE));
+            giveCheckBox = _parent.getCompoFactory().newCustCheckBox(messages.getVal(GIVE));
 //            giveCheckBox.addChangeListener(new ChangeListener() {
 //                @Override
 //                public void stateChanged(ChangeEvent _arg0) {

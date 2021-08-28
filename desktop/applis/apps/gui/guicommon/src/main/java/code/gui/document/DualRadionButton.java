@@ -6,7 +6,7 @@ import code.gui.*;
 
 public final class DualRadionButton extends DualInput implements IntRadioButton {
 
-    private final RadioButton radio;
+    private final AbsRadioButton radio;
     private String value;
     private AbsPanel panel;
 
@@ -14,7 +14,7 @@ public final class DualRadionButton extends DualInput implements IntRadioButton 
             RenderedPage _page) {
         super(_container, _component, _page);
         value = _component.getValue();
-        radio = new RadioButton("", _component.isChecked());
+        radio = _page.getCompoFactory().newRadioButton("", _component.isChecked());
         panel = _page.getCompoFactory().newLineBox();
         updateGraphics(radio,_component);
         panel.add(radio);
@@ -25,7 +25,7 @@ public final class DualRadionButton extends DualInput implements IntRadioButton 
         return panel;
     }
 
-    public RadioButton getRadio() {
+    public AbsRadioButton getRadio() {
         return radio;
     }
 

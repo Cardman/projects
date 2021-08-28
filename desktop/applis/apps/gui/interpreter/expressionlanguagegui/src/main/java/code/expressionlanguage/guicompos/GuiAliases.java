@@ -3065,7 +3065,8 @@ public final class GuiAliases {
             return new Argument(PanelBorderStruct.newBorder(aliasPanelBorder, window_.getCompoFactory()));
         }
         if (StringUtil.quickEq(_id,aliasButton)) {
-            return new Argument(new PlainButtonStruct(aliasButton));
+            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
+            return new Argument(new PlainButtonStruct(aliasButton,window_.getCompoFactory()));
         }
         if (StringUtil.quickEq(_id,aliasTextLabel)) {
             return new Argument(new TextLabelStruct(aliasTextLabel));
@@ -3275,9 +3276,9 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new PlainButtonStruct(_args[0],aliasButton));
+                r_.setResult(new PlainButtonStruct(_args[0],aliasButton,_guiEx.getWindow().getCompoFactory()));
             } else {
-                r_.setResult(new PlainButtonStruct(aliasButton));
+                r_.setResult(new PlainButtonStruct(aliasButton,_guiEx.getWindow().getCompoFactory()));
             }
             return r_;
         }
@@ -3439,14 +3440,14 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new RadioButtonStruct(aliasRadio));
+                r_.setResult(new RadioButtonStruct(aliasRadio,_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
             if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new RadioButtonStruct(aliasRadio,_args[0]));
+                r_.setResult(new RadioButtonStruct(aliasRadio,_args[0],_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
-            r_.setResult(new RadioButtonStruct(aliasRadio,_args[0],_args[1]));
+            r_.setResult(new RadioButtonStruct(aliasRadio,_args[0],_args[1],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasCheckBox)) {
@@ -3456,14 +3457,14 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new CheckBoxStruct(aliasCheckBox));
+                r_.setResult(new CheckBoxStruct(aliasCheckBox, _guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
             if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new CheckBoxStruct(aliasCheckBox,_args[0]));
+                r_.setResult(new CheckBoxStruct(aliasCheckBox,_args[0], _guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
-            r_.setResult(new CheckBoxStruct(aliasCheckBox,_args[0],_args[1]));
+            r_.setResult(new CheckBoxStruct(aliasCheckBox,_args[0],_args[1], _guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasPopupMenu)) {

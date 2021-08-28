@@ -37,9 +37,9 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     private static final String WISE = "wise";
     private StringMap<String> messages = new StringMap<String>();
     private DisplayingTarot displayingTarot;
-    private CustCheckBox checkClockwise;
+    private AbsCustCheckBox checkClockwise;
     private SuitsScrollableList orderedSuits;
-    private CustCheckBox sortByDecreasing;
+    private AbsCustCheckBox sortByDecreasing;
     private ComboBox<Suit> listeChoix;
 
     public DialogDisplayingTarot(AbstractProgramInfos _frameFactory) {
@@ -75,7 +75,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         EnumList<Suit> liste_=new EnumList<Suit>();
         panneau_.add(new TextLabel(messages.getVal(WISE)));
         //Panneau Distribution
-        checkClockwise=new CustCheckBox(messages.getVal(CLOCK_WISE));
+        checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
         checkClockwise.setSelected(displayingTarot.isClockwise());
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
@@ -107,7 +107,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         bouton_=new LabelButton(messages.getVal(REMOVE_SUIT));
         bouton_.addMouseList(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
-        sortByDecreasing=new CustCheckBox(messages.getVal(SORT_DECREASING));
+        sortByDecreasing=getCompoFactory().newCustCheckBox(messages.getVal(SORT_DECREASING));
         sortByDecreasing.setSelected(displayingTarot.isDecreasing());
         sousPanneauTwo_.add(sortByDecreasing);
         sousPanneau_.add(sousPanneauTwo_);

@@ -6,7 +6,7 @@ import code.util.IdMap;
 
 import javax.swing.*;
 
-public final class PlainButton extends CustComponent {
+public final class PlainButton extends CustComponent implements AbsPlainButton {
     private JButton button;
     private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
     public PlainButton() {

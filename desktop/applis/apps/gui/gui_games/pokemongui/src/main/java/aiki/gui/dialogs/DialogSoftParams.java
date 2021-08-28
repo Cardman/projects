@@ -28,23 +28,23 @@ public final class DialogSoftParams {
 
     private StringMap<String> messages;
 
-    private CustCheckBox loadLastRom;
+    private AbsCustCheckBox loadLastRom;
 
-    private CustCheckBox loadLastGame;
+    private AbsCustCheckBox loadLastGame;
 
-    private CustCheckBox saveGameAtExit;
+    private AbsCustCheckBox saveGameAtExit;
 
-    private CustCheckBox enableAnimation;
+    private AbsCustCheckBox enableAnimation;
 
-    private CustCheckBox enableMovingHerosAnimation;
+    private AbsCustCheckBox enableMovingHerosAnimation;
 
-    private CustCheckBox clickButtonsPad;
+    private AbsCustCheckBox clickButtonsPad;
 
-    private CustCheckBox enabledKeyPad;
+    private AbsCustCheckBox enabledKeyPad;
 
-    private CustCheckBox selectHomePath;
+    private AbsCustCheckBox selectHomePath;
 
-    private CustCheckBox selectHomePathZip;
+    private AbsCustCheckBox selectHomePathZip;
 
     private boolean ok;
 
@@ -73,7 +73,7 @@ public final class DialogSoftParams {
 //        selectHomePath = _loading.isSaveHomeFolder();
 //        selectHomePathZip = _loading.isLoadHomeFolder();
 //        JCheckBox check_;
-        loadLastRom = new CustCheckBox(messages.getVal(ZIP_LOAD));
+        loadLastRom = _window.getCompoFactory().newCustCheckBox(messages.getVal(ZIP_LOAD));
         loadLastRom.setSelected(_loading.isLoadLastRom());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -82,7 +82,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(loadLastRom);
-        loadLastGame = new CustCheckBox(messages.getVal(GAME_LOAD));
+        loadLastGame = _window.getCompoFactory().newCustCheckBox(messages.getVal(GAME_LOAD));
         loadLastGame.setSelected(_loading.isLoadLastGame());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -91,7 +91,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(loadLastGame);
-        enableAnimation = new CustCheckBox(messages.getVal(ANIMATION));
+        enableAnimation = _window.getCompoFactory().newCustCheckBox(messages.getVal(ANIMATION));
         enableAnimation.setSelected(_loading.isEnableAnimation());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -101,10 +101,10 @@ public final class DialogSoftParams {
 //        });
         panel_.add(enableAnimation);
         panel_.add(loadLastGame);
-        enableMovingHerosAnimation = new CustCheckBox(messages.getVal(ANIMATION_MOVING));
+        enableMovingHerosAnimation = _window.getCompoFactory().newCustCheckBox(messages.getVal(ANIMATION_MOVING));
         enableMovingHerosAnimation.setSelected(_loading.isEnableMovingHerosAnimation());
         panel_.add(enableMovingHerosAnimation);
-        clickButtonsPad = new CustCheckBox(messages.getVal(CLICK_PAD));
+        clickButtonsPad = _window.getCompoFactory().newCustCheckBox(messages.getVal(CLICK_PAD));
         clickButtonsPad.setSelected(_loading.isClickButtonsPad());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -113,7 +113,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(clickButtonsPad);
-        enabledKeyPad = new CustCheckBox(messages.getVal(ENABLE_KEY_PAD));
+        enabledKeyPad = _window.getCompoFactory().newCustCheckBox(messages.getVal(ENABLE_KEY_PAD));
         enabledKeyPad.setSelected(_loading.isEnabledKeyPad());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -122,7 +122,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(enabledKeyPad);
-        saveGameAtExit = new CustCheckBox(messages.getVal(SAVE_EXIT));
+        saveGameAtExit = _window.getCompoFactory().newCustCheckBox(messages.getVal(SAVE_EXIT));
         saveGameAtExit.setSelected(_loading.isSaveGameAtExit());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -131,7 +131,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(saveGameAtExit);
-        selectHomePath = new CustCheckBox(messages.getVal(SELECT_HOME_PATH));
+        selectHomePath = _window.getCompoFactory().newCustCheckBox(messages.getVal(SELECT_HOME_PATH));
         selectHomePath.setSelected(_loading.isSaveHomeFolder());
 //        check_.addItemListener(new ItemListener() {
 //            @Override
@@ -140,7 +140,7 @@ public final class DialogSoftParams {
 //            }
 //        });
         panel_.add(selectHomePath);
-        selectHomePathZip = new CustCheckBox(messages.getVal(SELECT_HOME_PATH_ZIP));
+        selectHomePathZip = _window.getCompoFactory().newCustCheckBox(messages.getVal(SELECT_HOME_PATH_ZIP));
         selectHomePathZip.setSelected(_loading.isLoadHomeFolder());
 //        check_.addItemListener(new ItemListener() {
 //            @Override

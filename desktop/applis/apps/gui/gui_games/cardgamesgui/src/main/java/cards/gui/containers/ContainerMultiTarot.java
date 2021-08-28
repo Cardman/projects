@@ -77,14 +77,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private HandTarot takerCardsDog = new HandTarot();
     private int nbChoosenPlayers = IndexConstants.INDEX_NOT_FOUND_ELT;
     private NumComboBox choiceOfPlaceForPlayingGame;
-    private CustCheckBox ready;
+    private AbsCustCheckBox ready;
 
     private DealingTarot repTarot;
     private boolean hasCreatedServer;
     private boolean readyToPlay;
     private final CustList<TextLabel> playersPseudos = new CustList<TextLabel>();
     private final CustList<TextLabel> playersPlaces = new CustList<TextLabel>();
-    private final CustList<CustCheckBox> playersReady = new CustList<CustCheckBox>();
+    private final CustList<AbsCustCheckBox> playersReady = new CustList<AbsCustCheckBox>();
     private RenderedPage editor;
     private IntTreeMap<Byte> playersPlacesForGame = new IntTreeMap<Byte>();
     private IntMap<String> playersPseudosForGame = new IntMap<String>();
@@ -220,7 +220,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         indexInGame = choiceOfPlaceForPlayingGame.getCurrent().byteValue();
         choiceOfPlaceForPlayingGame.setListener(new ChangePlaceEvent(this));
         panel_.add(choiceOfPlaceForPlayingGame.self());
-        ready = new CustCheckBox(getMessages().getVal(WindowCards.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowCards.READY));
         ready.addActionListener(new ReadyEvent(this));
         panel_.add(ready);
         container_.add(panel_);
@@ -233,7 +233,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             TextLabel place_ = new TextLabel("");
             playersPlaces.add(place_);
             panel_.add(place_);
-            CustCheckBox ready_ = new CustCheckBox();
+            AbsCustCheckBox ready_ = getOwner().getCompoFactory().newCustCheckBox();
             ready_.setEnabled(false);
             playersReady.add(ready_);
             panel_.add(ready_);
@@ -547,15 +547,15 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         handFuls_.add(scroll_);
         setChoosenHandful(Handfuls.NO);
         setSelectedMiseres(new EnumMap<Miseres,Boolean>());
-        CustList<RadioButton> list_ = new CustList<RadioButton>();
+        CustList<AbsRadioButton> list_ = new CustList<AbsRadioButton>();
         for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
-            RadioButton radio_ = new RadioButton(Games.toString(h,lg_));
+            AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
             list_.add(radio_);
             radio_.addMouseListener(new ListenerNoHandfulTarot(this, radio_, h,list_));
             handFuls_.add(radio_);
         }
         for (Handfuls h: _declaration.getAllowedHandfuls()) {
-            RadioButton radio_ = new RadioButton(Games.toString(h,lg_));
+            AbsRadioButton radio_ = getOwner().getCompoFactory().newRadioButton(Games.toString(h,lg_));
             list_.add(radio_);
             int diff_ = getCurrentIncludedTrumps().total()-requiredTrumps.getVal(h);
             radio_.setEnabled(diff_ >= 0);
@@ -565,7 +565,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().add(handFuls_);
         AbsPanel miseres_ = getOwner().getCompoFactory().newGrid(0,1);
         for(Miseres po_:_declaration.getAllowedMiseres()) {
-            CustCheckBox check_ = new CustCheckBox(Games.toString(po_,lg_));
+            AbsCustCheckBox check_ = getOwner().getCompoFactory().newCustCheckBox(Games.toString(po_,lg_));
             check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
             getSelectedMiseres().put(po_, false);
             miseres_.add(check_);
@@ -1086,7 +1086,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         container_.add(onglets_,BorderLayout.CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;
-        ready = new CustCheckBox(getMessages().getVal(WindowCards.READY));
+        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowCards.READY));
         ready.addActionListener(new ReadyEvent(this));
         panneau_.add(ready);
 

@@ -46,12 +46,12 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
 
     private ComboBoxEnumCards<EqualtyPlaying> equality;
     private TextLabel stopAllPlayedCards;
-    private CustCheckBox canPass;
-    private CustCheckBox possibleReversing;
+    private AbsCustCheckBox canPass;
+    private AbsCustCheckBox possibleReversing;
 
-    private CustCheckBox looseFinishBestCards;
-    private CustCheckBox switchCards;
-    private CustCheckBox looserStartsFirst;
+    private AbsCustCheckBox looseFinishBestCards;
+    private AbsCustCheckBox switchCards;
+    private AbsCustCheckBox looserStartsFirst;
 
     private AbsSpinner nbJoueurs;
     private AbsSpinner nbStacks;
@@ -121,26 +121,26 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         }
         rules_.add(stopAllPlayedCards);
         rules_.add(new TextLabel(""));
-        canPass = new CustCheckBox(getMessages().getVal(CAN_PASS));
+        canPass = getCompoFactory().newCustCheckBox(getMessages().getVal(CAN_PASS));
         canPass.setSelected(!getReglesPresident().isHasToPlay());
         rules_.add(canPass);
         rules_.add(new TextLabel(""));
         int nbSuits_ = Suit.couleursOrdinaires().size();
         nbSuits_ *= getReglesPresident().getNbStacks();
         String message_ = StringUtil.simpleNumberFormat(getMessages().getVal(POSSIBLE_REVERSING), nbSuits_);
-        possibleReversing = new CustCheckBox(message_);
+        possibleReversing = getCompoFactory().newCustCheckBox(message_);
         possibleReversing.setSelected(getReglesPresident().isPossibleReversing());
         rules_.add(possibleReversing);
         getJt().add(getMessages().getVal(RULES),rules_);
 
         AbsPanel endDeal_ = _window.getCompoFactory().newPageBox();
-        looseFinishBestCards = new CustCheckBox(getMessages().getVal(LOOSE_FINISH_BEST_CARDS));
+        looseFinishBestCards = getCompoFactory().newCustCheckBox(getMessages().getVal(LOOSE_FINISH_BEST_CARDS));
         looseFinishBestCards.setSelected(getReglesPresident().isLoosingIfFinishByBestCards());
         endDeal_.add(looseFinishBestCards);
-        switchCards = new CustCheckBox(getMessages().getVal(SWITCH_CARDS));
+        switchCards = getCompoFactory().newCustCheckBox(getMessages().getVal(SWITCH_CARDS));
         switchCards.setSelected(getReglesPresident().isSwitchCards());
         endDeal_.add(switchCards);
-        looserStartsFirst = new CustCheckBox(getMessages().getVal(LOOSER_STARTS_FIRST));
+        looserStartsFirst = getCompoFactory().newCustCheckBox(getMessages().getVal(LOOSER_STARTS_FIRST));
         looserStartsFirst.setSelected(getReglesPresident().isLooserStartsFirst());
         endDeal_.add(looserStartsFirst);
         getJt().add(getMessages().getVal(END_DEAL),endDeal_);
