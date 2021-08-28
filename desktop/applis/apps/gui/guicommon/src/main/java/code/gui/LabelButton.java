@@ -7,7 +7,7 @@ import java.awt.Cursor;
 
 import javax.swing.*;
 
-public final class LabelButton extends CustComponent implements AbsEnabled {
+public final class LabelButton extends CustComponent implements AbsLabelButton {
 
 //    private static final int MAX_COLOR = 255;
 //    private static final int MID_COLOR = 127;
@@ -36,7 +36,7 @@ public final class LabelButton extends CustComponent implements AbsEnabled {
 //        label.setBackground(Color.WHITE);
     }
 
-    void setTextDefaultColors(String _text,
+    public void setTextDefaultColors(String _text,
                               boolean _enabled) {
 //        BufferedImage img_ = LabelButtonUtil.paintButton(this, _text, _enabled);
 //        label.setIcon(new ImageIcon(img_));
@@ -53,20 +53,19 @@ public final class LabelButton extends CustComponent implements AbsEnabled {
     }
 
     public void setEnabledLabel(boolean _enabled) {
-        if (!_enabled) {
-            label.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        } else {
-            label.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        }
+        int value_ = GuiConstants.cursor(_enabled);
+        label.setCursor(new Cursor(value_));
         enabledLabel = _enabled;
 //        if (_enabled) {
 //            label.setForeground(DEFAULT_FOREGROUND);
 //        } else {
 //            label.setForeground(DISABLED);
 //        }
-        if (!text.isEmpty()) {
-            setTextDefaultColors(text, enabledLabel);
-        }
+        FrameUtil.trySetText(this);
+    }
+
+    public String getText() {
+        return text;
     }
 
     public void setTextAndSize(String _text) {

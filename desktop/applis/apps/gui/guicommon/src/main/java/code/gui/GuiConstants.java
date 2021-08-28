@@ -1,6 +1,7 @@
 package code.gui;
 
 import javax.swing.*;
+import java.awt.*;
 
 public final class GuiConstants {
 
@@ -43,6 +44,16 @@ public final class GuiConstants {
             value_ = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
         } else {
             value_ = ListSelectionModel.SINGLE_SELECTION;
+        }
+        return value_;
+    }
+
+    public static int cursor(boolean _enabled) {
+        int value_;
+        if (!_enabled) {
+            value_ = Cursor.DEFAULT_CURSOR;
+        } else {
+            value_ = Cursor.HAND_CURSOR;
         }
         return value_;
     }

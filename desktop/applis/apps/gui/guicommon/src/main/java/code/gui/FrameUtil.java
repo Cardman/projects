@@ -736,4 +736,10 @@ public final class FrameUtil {
         }
         _curr.forceReplaceRange(_str, _start, _end);
     }
+
+    public static void trySetText(AbsLabelButton _curr) {
+        if (!_curr.getText().isEmpty()) {
+            _curr.setTextDefaultColors(_curr.getText(), _curr.isEnabledLabel());
+        }
+    }
 }
