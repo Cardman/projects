@@ -3,10 +3,6 @@ package aiki.gui.components.walk;
 
 import java.awt.Dimension;
 
-import javax.swing.BoxLayout;
-
-import javax.swing.JPanel;
-
 import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
@@ -781,8 +777,6 @@ public class ScenePanel {
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFrame(window);
 //        receivedPk.prepare();
-        JPanel panel_ = new JPanel();
-        panel_.setLayout(new BoxLayout(panel_, BoxLayout.PAGE_AXIS));
         scrollSession_.setPreferredSize(new Dimension(400, 300));
         group_.add(scrollSession_, GuiConstants.BORDER_LAYOUT_CENTER);
         panelNetWork.add(group_);
