@@ -2,14 +2,10 @@ package code.gui;
 
 import javax.swing.*;
 
-public final class PopupMenu extends CustComponent {
-    private JPopupMenu popupMenu = new JPopupMenu();
+public final class PopupMenu extends CustComponent implements AbsPopupMenu {
+    private final JPopupMenu popupMenu = new JPopupMenu();
     @Override
     protected JComponent getNatComponent() {
-        return popupMenu;
-    }
-
-    JPopupMenu getPopupMenu() {
         return popupMenu;
     }
 

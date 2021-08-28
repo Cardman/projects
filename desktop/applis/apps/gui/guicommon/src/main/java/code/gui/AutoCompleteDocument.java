@@ -15,7 +15,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
 
     private final StringList dictionary = new StringList();
 
-    private final PopupMenu popup;
+    private final AbsPopupMenu popup;
 
     private final AbsGraphicList<String> list;
 
@@ -27,7 +27,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         textField = _field;
         changeableTitle = _changeableTitle;
         dictionary.addAllElts(_aDictionary);
-        popup = new PopupMenu();
+        popup = _abs.getCompoFactory().newAbsPopupMenu();
         abs = _abs;
         AbsGraphicList<String> comp_ = _abs.getGeneGraphicList().createStrList(_abs.getImageFactory(),new StringList(), _abs.getCompoFactory());
         list = comp_;

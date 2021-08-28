@@ -7,6 +7,7 @@ import cards.gui.dialogs.events.ValidateRulesEvent;
 import code.gui.AbsPanel;
 import code.gui.LabelButton;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 
 public final class DialogRulesBelote extends DialogBelote implements DialogRules {
 
@@ -14,7 +15,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     private static final String VALIDATE = "validate";
     private boolean validated;
 
-    public DialogRulesBelote(AbsFrameFactory _frameFactory){
+    public DialogRulesBelote(AbstractProgramInfos _frameFactory){
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }

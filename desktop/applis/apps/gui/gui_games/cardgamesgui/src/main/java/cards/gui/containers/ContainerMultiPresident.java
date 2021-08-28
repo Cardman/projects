@@ -636,7 +636,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
 
-        TabbedPane onglets_=new TabbedPane();
+        AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         String lg_ = getOwner().getLanguageKey();
         setScores(_res.getScores());
 

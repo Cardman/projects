@@ -10,11 +10,12 @@ import cards.president.TricksHandsPresident;
 import code.gui.AbsScrollPane;
 
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 
 public final class DialogTricksPresident extends DialogCards {
 
-    public DialogTricksPresident(AbsFrameFactory _frameFactory) {
+    public DialogTricksPresident(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
     }
     public static void setDialogTricksPresident(String _titre, WindowCards _fenetre) {

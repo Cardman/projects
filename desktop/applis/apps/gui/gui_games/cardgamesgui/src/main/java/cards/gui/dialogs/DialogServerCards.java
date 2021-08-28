@@ -12,6 +12,7 @@ import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.network.enums.IpType;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -38,7 +39,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
 //    private JComboBox<DealingBelote> repBelote;
 //    private JComboBox<DealingTarot> repTarot;
 
-    public DialogServerCards(AbsFrameFactory _frameFactory) {
+    public DialogServerCards(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }

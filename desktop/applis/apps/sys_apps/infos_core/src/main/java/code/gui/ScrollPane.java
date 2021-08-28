@@ -30,13 +30,13 @@ public final class ScrollPane extends CustComponent implements AbsScrollPane {
     public void setViewportView(AbsCustComponent _graphic) {
         component.setViewportView(((CustComponent)_graphic).getNatComponent());
         _graphic.setParent(this);
-        FrameUtil.removeChild(this);
+        FrameUtil.removeChild(getChildren());
         getChildren().add(_graphic);
     }
 
     public void setNullViewportView() {
         component.setViewportView(null);
-        FrameUtil.removeChild(this);
+        FrameUtil.removeChild(getChildren());
     }
 
     public int getHorizontalValue() {

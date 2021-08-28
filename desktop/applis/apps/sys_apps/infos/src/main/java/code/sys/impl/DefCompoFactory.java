@@ -86,4 +86,19 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsScrollPane newAbsScrollPane(AbsCustComponent _center) {
         return new ScrollPane(_center);
     }
+
+    @Override
+    public AbsTabbedPane newAbsTabbedPane() {
+        return new TabbedPane();
+    }
+
+    @Override
+    public AbsSplitPane newAbsSplitPane(int _split, AbsCustComponent _left, AbsCustComponent _right) {
+        return new SplitPane(_split,_left,_right);
+    }
+
+    @Override
+    public AbsPopupMenu newAbsPopupMenu() {
+        return new PopupMenu();
+    }
 }

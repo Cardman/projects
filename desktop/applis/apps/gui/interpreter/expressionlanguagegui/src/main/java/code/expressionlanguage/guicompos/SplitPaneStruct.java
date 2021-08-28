@@ -6,16 +6,16 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.SplitPane;
+import code.gui.AbsSplitPane;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class SplitPaneStruct extends CustComponentStruct {
-    private SplitPane splitPane;
+    private final AbsSplitPane splitPane;
     private Struct left;
     private Struct right;
-    protected SplitPaneStruct(String _className, Struct _orient, Struct _left, Struct _right) {
+    protected SplitPaneStruct(String _className, Struct _orient, Struct _left, Struct _right, AbsCompoFactory _compoFactory) {
         super(_className);
-        splitPane = new SplitPane(((NumberStruct)_orient).intStruct(),((CustComponentStruct)_left).getComponent(),((CustComponentStruct)_right).getComponent());
+        splitPane = _compoFactory.newAbsSplitPane(((NumberStruct)_orient).intStruct(),((CustComponentStruct)_left).getComponent(),((CustComponentStruct)_right).getComponent());
         left = _left;
         right = _right;
     }

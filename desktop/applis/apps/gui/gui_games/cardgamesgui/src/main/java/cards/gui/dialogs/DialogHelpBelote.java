@@ -12,6 +12,7 @@ import cards.gui.WindowCards;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -31,9 +32,9 @@ public final class DialogHelpBelote {
     private final AbsDialog absDialog;
     private final AbsCompoFactory compo;
 
-    public DialogHelpBelote(AbsFrameFactory _frameFactory, AbsCompoFactory _compo) {
-        absDialog = _frameFactory.newDialog();
-        compo = _compo;
+    public DialogHelpBelote(AbstractProgramInfos _fact) {
+        absDialog = _fact.getFrameFactory().newDialog();
+        compo = _fact.getCompoFactory();
     }
 
     private void voir() {

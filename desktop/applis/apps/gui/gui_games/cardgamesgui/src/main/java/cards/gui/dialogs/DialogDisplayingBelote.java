@@ -15,6 +15,7 @@ import cards.gui.dialogs.events.ValidateDisplayingEvent;
 import cards.gui.panels.SuitsScrollableList;
 import code.gui.*;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -44,7 +45,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     private CustCheckBox sortByTrump;
     private ComboBox<Suit> listeChoix;
 
-    public DialogDisplayingBelote(AbsFrameFactory _frameFactory) {
+    public DialogDisplayingBelote(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }

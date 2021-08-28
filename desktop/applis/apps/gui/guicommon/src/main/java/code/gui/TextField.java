@@ -75,11 +75,6 @@ public final class TextField extends CustComponent {
         return textField.getY();
     }
 
-    public void add(PopupMenu _popup) {
-        textField.add(_popup.getNatComponent());
-        textField.setComponentPopupMenu(_popup.getPopupMenu());
-    }
-
 
     @Override
     protected JComponent getNatComponent() {

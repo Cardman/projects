@@ -11,6 +11,7 @@ import code.gui.AbsPanel;
 import code.gui.TextLabel;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.core.StringUtil;
@@ -28,10 +29,10 @@ public final class DialogHelpPresident {
     private final AbsCompoFactory compo;
     private StringMap<String> messages = new StringMap<String>();
 
-    public DialogHelpPresident(AbsFrameFactory _frameFactory, AbsCompoFactory _compo) {
-        absDialog = _frameFactory.newDialog();
+    public DialogHelpPresident(AbstractProgramInfos _fact) {
+        absDialog = _fact.getFrameFactory().newDialog();
         absDialog.setAccessFile(DIALOG_ACCESS);
-        compo = _compo;
+        compo = _fact.getCompoFactory();
     }
 
     private void voir() {

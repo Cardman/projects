@@ -5,15 +5,17 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
-import code.gui.PopupMenu;
+import code.gui.AbsPopupMenu;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 
 public final class PopupStruct extends CustComponentStruct {
-    private final PopupMenu popupMenu = new PopupMenu();
+    private final AbsPopupMenu popupMenu;
     private final CustList<CustComponentStruct> compo = new CustList<CustComponentStruct>();
     private final CustList<AbsMenuStruct> menus = new CustList<AbsMenuStruct>();
-    protected PopupStruct(String _className) {
+    protected PopupStruct(String _className, AbsCompoFactory _compoFactory) {
         super(_className);
+        popupMenu = _compoFactory.newAbsPopupMenu();
     }
 
     public void show(Struct _panel, Struct _i, Struct _height) {

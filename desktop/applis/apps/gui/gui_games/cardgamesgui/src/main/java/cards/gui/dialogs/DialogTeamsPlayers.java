@@ -7,6 +7,7 @@ import code.gui.AbsPanel;
 import code.gui.TextLabel;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -19,7 +20,7 @@ public final class DialogTeamsPlayers extends DialogCards {
     private static final String TITLE = "title";
     private StringMap<String> messages;
 
-    public DialogTeamsPlayers(AbsFrameFactory _frameFactory) {
+    public DialogTeamsPlayers(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }

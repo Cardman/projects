@@ -14,6 +14,7 @@ import cards.gui.panels.SuitsScrollableList;
 import cards.tarot.DisplayingTarot;
 import code.gui.*;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -41,7 +42,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     private CustCheckBox sortByDecreasing;
     private ComboBox<Suit> listeChoix;
 
-    public DialogDisplayingTarot(AbsFrameFactory _frameFactory) {
+    public DialogDisplayingTarot(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }

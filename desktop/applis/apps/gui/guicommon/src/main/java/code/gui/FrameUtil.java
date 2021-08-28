@@ -611,10 +611,62 @@ public final class FrameUtil {
         _panel.innerAdd(_comp);
     }
 
-    public static void removeChild(AbsCustComponent _scrollPane) {
-        if (!_scrollPane.getChildren().isEmpty()) {
-            _scrollPane.getChildren().first().setParent(null);
-            _scrollPane.getChildren().clear();
+    public static void removeChild(CustList<AbsCustComponent> _children) {
+        if (!_children.isEmpty()) {
+            _children.first().setParent(null);
+            _children.clear();
         }
+    }
+
+    public static void selectedIndex(int _index, AbsTabbedPane _tabbedPane) {
+        if (!_tabbedPane.getChildren().isValidIndex(_index)) {
+            return;
+        }
+        _tabbedPane.selectIndex(_index);
+    }
+
+    public static void added(String _title, AbsCustComponent _component, AbsTabbedPane _tabbedPane) {
+        if (_component.getParent() != null) {
+            return;
+        }
+        _tabbedPane.addIntTab(_title, _component);
+    }
+
+    public static void setTab(int _index, AbsCustComponent _component, AbsTabbedPane _curr) {
+        if (!_curr.getChildren().isValidIndex(_index)) {
+            return;
+        }
+        if (_component.getParent() != null) {
+            return;
+        }
+        _curr.setTabComponentAt(_index, _component);
+    }
+
+    public static String title(int _index, AbsTabbedPane _curr) {
+        if (!_curr.getChildren().isValidIndex(_index)) {
+            return "";
+        }
+        return _curr.getTitleAt(_index);
+    }
+
+    public static void title(int _index, String _title, AbsTabbedPane _curr) {
+        if (!_curr.getChildren().isValidIndex(_index)) {
+            return;
+        }
+        _curr.setTitleAt(_index, _title);
+    }
+
+    public static void left(AbsCustComponent _scroll, AbsSplitPane _curr) {
+        if (_scroll.getParent() != null) {
+            return;
+        }
+        _curr.innerLeft(_scroll);
+    }
+
+    public static void right(AbsCustComponent _scroll, AbsSplitPane _curr) {
+        if (_scroll.getParent() != null) {
+            return;
+        }
+        _curr.innerRight(_scroll);
     }
 }

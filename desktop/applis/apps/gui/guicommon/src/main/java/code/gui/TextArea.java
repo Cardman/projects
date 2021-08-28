@@ -7,7 +7,7 @@ import java.awt.*;
 public final class TextArea extends CustComponent {
 
     private JTextArea textArea;
-    private PopupMenu popupMenu;
+
     public TextArea() {
         textArea = new JTextArea();
     }
@@ -224,15 +224,6 @@ public final class TextArea extends CustComponent {
 
     public boolean getInheritsPopupMenu() {
         return textArea.getInheritsPopupMenu();
-    }
-
-    public void setComponentPopupMenu(PopupMenu _popup) {
-        textArea.setComponentPopupMenu(_popup.getPopupMenu());
-        popupMenu = _popup;
-    }
-
-    public PopupMenu getComponentPopupMenu() {
-        return popupMenu;
     }
 
     public boolean isPaintingTile() {

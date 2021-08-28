@@ -10,11 +10,12 @@ import cards.gui.panels.PanelTricksHandsBelote;
 import code.gui.AbsScrollPane;
 
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 
 public final class DialogTricksBelote extends DialogCards {
 
-    public DialogTricksBelote(AbsFrameFactory _frameFactory) {
+    public DialogTricksBelote(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
     }
     public static void setDialogTricksBelote(String _titre, WindowCards _fenetre) {

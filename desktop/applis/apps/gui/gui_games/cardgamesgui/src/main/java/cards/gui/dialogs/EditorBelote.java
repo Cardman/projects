@@ -23,6 +23,7 @@ import cards.gui.panels.BeloteCardsScrollableList;
 import cards.gui.panels.CardsScrollableList;
 import code.gui.*;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -71,7 +72,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     private WindowCards window;
     private boolean setToNullGame;
 
-    public EditorBelote(AbsFrameFactory _frameFactory) {
+    public EditorBelote(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }

@@ -11,6 +11,7 @@ import cards.gui.WindowCards;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import code.gui.*;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.ints.Listable;
 
@@ -45,7 +46,7 @@ public abstract class DialogBelote extends DialogCards {
     private ComboBoxEnumCards<BeloteTrumpPartner> listChoiceTwo;
     private CustCheckBox classic;
 
-    protected DialogBelote(AbsFrameFactory _frameFactory) {
+    protected DialogBelote(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
     }
 //    public DialogBelote(String _titre, MainWindow _fenetre, RulesBelote _rulesBelote) {

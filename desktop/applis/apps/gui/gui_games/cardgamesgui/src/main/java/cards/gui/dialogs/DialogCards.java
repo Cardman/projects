@@ -2,19 +2,20 @@ package cards.gui.dialogs;
 import cards.gui.WindowCards;
 import code.gui.AbsCloseableDialog;
 import code.gui.AbsDialog;
-import code.gui.TabbedPane;
-import code.gui.initialize.AbsFrameFactory;
+import code.gui.AbsTabbedPane;
+import code.gui.initialize.AbstractProgramInfos;
 
 /**
     */
 
 abstract class DialogCards implements AbsCloseableDialog {
 
-    private TabbedPane jt=new TabbedPane();
+    private final AbsTabbedPane jt;
     private WindowCards main;
     private final AbsDialog cardDialog;
-    protected DialogCards(AbsFrameFactory _frameFactory) {
-        cardDialog = _frameFactory.newDialog(this);
+    protected DialogCards(AbstractProgramInfos _frameFactory) {
+        cardDialog = _frameFactory.getFrameFactory().newDialog(this);
+        jt = _frameFactory.getCompoFactory().newAbsTabbedPane();
     }
 
     public AbsDialog getCardDialog() {
@@ -32,7 +33,7 @@ abstract class DialogCards implements AbsCloseableDialog {
         cardDialog.closeWindow();
         cardDialog.getPane().removeAll();
     }
-    TabbedPane getJt() {
+    AbsTabbedPane getJt() {
         return jt;
     }
 }

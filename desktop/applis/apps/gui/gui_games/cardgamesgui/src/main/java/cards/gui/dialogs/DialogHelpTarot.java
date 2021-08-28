@@ -10,6 +10,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -29,9 +30,9 @@ public final class DialogHelpTarot {
     private final AbsDialog absDialog;
     private final AbsCompoFactory compo;
 
-    public DialogHelpTarot(AbsFrameFactory _frameFactory, AbsCompoFactory _compo) {
-        absDialog = _frameFactory.newDialog();
-        compo = _compo;
+    public DialogHelpTarot(AbstractProgramInfos _fact) {
+        absDialog = _fact.getFrameFactory().newDialog();
+        compo = _fact.getCompoFactory();
     }
 
     public static void setTitleDialog(WindowCards _fenetre, String _title) {

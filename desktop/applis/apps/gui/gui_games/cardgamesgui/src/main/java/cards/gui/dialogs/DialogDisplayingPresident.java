@@ -13,6 +13,7 @@ import cards.gui.panels.SuitsScrollableList;
 import cards.president.DisplayingPresident;
 import code.gui.*;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringList;
@@ -42,7 +43,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     private Spinner nbDealsDemo;
     private ComboBox<Suit> listeChoix;
 
-    public DialogDisplayingPresident(AbsFrameFactory _frameFactory) {
+    public DialogDisplayingPresident(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }

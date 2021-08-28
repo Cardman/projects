@@ -24,6 +24,7 @@ import cards.president.HandPresident;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.*;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -70,7 +71,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     private WindowCards window;
     private boolean setToNullGame;
 
-    public EditorPresident(AbsFrameFactory _frameFactory) {
+    public EditorPresident(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }

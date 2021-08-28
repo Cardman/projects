@@ -53,7 +53,7 @@ public class ContainerTarot extends ContainerGame{
     private HandTarot currentIncludedTrumps = new HandTarot();
     private HandTarot currentExcludedTrumps = new HandTarot();
     private AbsScrollPane scrollDeclaringHandful;
-    private SplitPane declaringHandful;
+    private AbsSplitPane declaringHandful;
     private AbsPanel includedTrumpsForHandful;
     private AbsPanel excludedTrumpsForHandful;
     private EnumMap<Miseres,Boolean> selectedMiseres = new EnumMap<Miseres,Boolean>();
@@ -194,10 +194,10 @@ public class ContainerTarot extends ContainerGame{
     protected void setExcludedTrumpsForHandful(AbsPanel _excludedTrumpsForHandful) {
         excludedTrumpsForHandful = _excludedTrumpsForHandful;
     }
-    protected SplitPane getDeclaringHandful() {
+    protected AbsSplitPane getDeclaringHandful() {
         return declaringHandful;
     }
-    protected void setDeclaringHandful(SplitPane _declaringHandful) {
+    protected void setDeclaringHandful(AbsSplitPane _declaringHandful) {
         declaringHandful = _declaringHandful;
     }
     protected long getMaxAbsoluScore() {

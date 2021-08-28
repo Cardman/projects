@@ -552,7 +552,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
         StringList pseudos_=new StringList(pseudosPresident());
-        TabbedPane onglets_=new TabbedPane();
+        AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
 
         GamePresident partie_=partiePresident();
         if(partie_.getType()==GameType.RANDOM) {

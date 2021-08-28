@@ -3053,7 +3053,8 @@ public final class GuiAliases {
             return new Argument(PanelStruct.newFlow(aliasPanel, window_.getCompoFactory()));
         }
         if (StringUtil.quickEq(_id,aliasTabbedPane)) {
-            return new Argument(new TabbedPaneStruct(aliasTabbedPane));
+            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
+            return new Argument(new TabbedPaneStruct(aliasTabbedPane, window_.getCompoFactory()));
         }
         if (StringUtil.quickEq(_id,aliasScrollPane)) {
             WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
@@ -3211,7 +3212,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(new TabbedPaneStruct(aliasTabbedPane));
+            r_.setResult(new TabbedPaneStruct(aliasTabbedPane,_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasScrollPane)) {
@@ -3255,7 +3256,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(new SplitPaneStruct(aliasSplitPane,_args[0],_args[1],_args[2]));
+            r_.setResult(new SplitPaneStruct(aliasSplitPane,_args[0],_args[1],_args[2],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasProgBar)) {
@@ -3471,7 +3472,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(new PopupStruct(aliasPopupMenu));
+            r_.setResult(new PopupStruct(aliasPopupMenu,_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasTextField)) {

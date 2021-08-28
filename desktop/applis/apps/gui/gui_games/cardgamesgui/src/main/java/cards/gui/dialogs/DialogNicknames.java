@@ -10,6 +10,7 @@ import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.*;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -34,7 +35,7 @@ public final class DialogNicknames extends DialogCards {
     private final CustList<TextField> nicknamesTarot = new CustList<TextField>();
     private final CustList<TextField> nicknamesPresident = new CustList<TextField>();
 
-    public DialogNicknames(AbsFrameFactory _frameFactory) {
+    public DialogNicknames(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }

@@ -12,6 +12,7 @@ import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import code.gui.*;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
@@ -55,7 +56,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     private Spinner nbJoueurs;
     private Spinner nbStacks;
 
-    protected DialogPresident(AbsFrameFactory _frameFactory) {
+    protected DialogPresident(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
     }
 

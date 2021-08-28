@@ -826,7 +826,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
 
-        TabbedPane onglets_=new TabbedPane();
+        AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         setScores(_res.getScores());
         _res.getRes().setGeneral(readCoreResource());
         _res.getRes().setSpecific(readResource());

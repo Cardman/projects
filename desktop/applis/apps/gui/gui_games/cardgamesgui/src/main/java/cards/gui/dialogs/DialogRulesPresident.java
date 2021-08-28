@@ -7,6 +7,7 @@ import cards.president.RulesPresident;
 import code.gui.AbsPanel;
 import code.gui.LabelButton;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 
 public final class DialogRulesPresident extends DialogPresident implements DialogRules {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulespresident";
@@ -14,7 +15,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     private static final String VALIDATE = "validate";
     private boolean validated;
 
-    public DialogRulesPresident(AbsFrameFactory _frameFactory){
+    public DialogRulesPresident(AbstractProgramInfos _frameFactory){
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }

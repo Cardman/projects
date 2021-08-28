@@ -52,7 +52,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 
     private TextField field;
 
-    private SplitPane separateur;
+    private AbsSplitPane separateur;
     private LabelButton search;
 
     public FrameGeneralHelp(String _titre, WindowCards _fenetre) {
@@ -139,7 +139,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         }
 //        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         if (wasNull_) {
-            separateur = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,
+            separateur = _w.getCompoFactory().newAbsSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                     _w.getCompoFactory().newAbsScrollPane(arbre_.getTree()), editor.getScroll());
             separateur.setPreferredSize(new Dimension(600, 550));
             separateur.setDividerLocation(150);

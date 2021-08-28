@@ -10,11 +10,12 @@ import cards.tarot.TricksHandsTarot;
 import code.gui.AbsScrollPane;
 
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 
 public final class DialogTricksTarot extends DialogCards {
 
-    public DialogTricksTarot(AbsFrameFactory _frameFactory) {
+    public DialogTricksTarot(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
     }
     public static void setDialogTricksTarot(String _titre, WindowCards _fenetre) {

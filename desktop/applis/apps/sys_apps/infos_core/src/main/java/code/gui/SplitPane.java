@@ -3,12 +3,12 @@ package code.gui;
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
 
-public final class SplitPane extends CustComponent {
+public final class SplitPane extends CustComponent implements AbsSplitPane {
 
     private final JSplitPane component;
 
     public SplitPane(int _orientation, AbsCustComponent _left, AbsCustComponent _right) {
-        component = new JSplitPane(_orientation,((CustComponent)_left).getNatComponent(),((CustComponent) _right).getNatComponent());
+        component = new JSplitPane(GuiConstants.toSplitOrientation(_orientation),((CustComponent)_left).getNatComponent(),((CustComponent) _right).getNatComponent());
         _left.setParent(this);
         getChildren().add(_left);
         _right.setParent(this);
@@ -21,22 +21,24 @@ public final class SplitPane extends CustComponent {
     }
 
     public void setLeftComponent(AbsCustComponent _scroll) {
-        if (_scroll.getParent() != null) {
-            return;
-        }
+        FrameUtil.left(_scroll,this);
+    }
+
+    public void innerLeft(AbsCustComponent _scroll) {
         getChildren().first().setParent(null);
         _scroll.setParent(this);
-        component.setLeftComponent(((CustComponent)_scroll).getNatComponent());
+        component.setLeftComponent(((CustComponent) _scroll).getNatComponent());
         getChildren().set(0, _scroll);
     }
 
     public void setRightComponent(AbsCustComponent _scroll) {
-        if (_scroll.getParent() != null) {
-            return;
-        }
+        FrameUtil.right(_scroll,this);
+    }
+
+    public void innerRight(AbsCustComponent _scroll) {
         getChildren().last().setParent(null);
         _scroll.setParent(this);
-        component.setRightComponent(((CustComponent)_scroll).getNatComponent());
+        component.setRightComponent(((CustComponent) _scroll).getNatComponent());
         getChildren().set(1, _scroll);
     }
 

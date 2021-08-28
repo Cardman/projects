@@ -2,14 +2,15 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.structs.*;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.TabbedPane;
+import code.gui.AbsTabbedPane;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 
 public final class TabbedPaneStruct extends CustComponentStruct {
-    private TabbedPane tabbedPane = new TabbedPane();
-    protected TabbedPaneStruct(String _className) {
+    private final AbsTabbedPane tabbedPane;
+    protected TabbedPaneStruct(String _className, AbsCompoFactory _compoFactory) {
         super(_className);
+        tabbedPane = _compoFactory.newAbsTabbedPane();
     }
 
     public IntStruct getComponentCount() {

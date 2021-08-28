@@ -22,4 +22,9 @@ public interface AbsCompoFactory {
     AbsScrollPane newAbsScrollPane();
     AbsScrollPane newAbsScrollPane(AbsCustComponent _center);
     AbsScrollPane newAbsScrollPane(AbsMetaLabel _center);
+    AbsTabbedPane newAbsTabbedPane();
+
+    AbsSplitPane newAbsSplitPane(int _split, AbsCustComponent _left, AbsCustComponent _right);
+
+    AbsPopupMenu newAbsPopupMenu();
 }

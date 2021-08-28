@@ -23,6 +23,7 @@ import cards.tarot.HandTarot;
 import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -71,7 +72,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
     private DisplayingTarot displayingTarot = new DisplayingTarot();
     private WindowCards window;
-    public EditorTarot(AbsFrameFactory _frameFactory) {
+    public EditorTarot(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }

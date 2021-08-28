@@ -781,7 +781,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setExcludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
         AbsScrollPane scrollExc_ = getOwner().getCompoFactory().newAbsScrollPane(getExcludedTrumpsForHandful());
         scrollExc_.setPreferredSize(new Dimension(125,60));
-        setDeclaringHandful(new SplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollInc_,scrollExc_));
+        setDeclaringHandful(getOwner().getCompoFactory().newAbsSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollInc_,scrollExc_));
         getDeclaringHandful().setContinuousLayout(true);
         getDeclaringHandful().setOneTouchExpandable(true);
         setScrollDeclaringHandful(getOwner().getCompoFactory().newAbsScrollPane(getDeclaringHandful()));
@@ -1064,7 +1064,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         AbsScrollPane ascenseur_;
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
-        TabbedPane onglets_=new TabbedPane();
+        AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         String lg_ = getOwner().getLanguageKey();
         setScores(_res.getScores());
         _res.getRes().setGeneral(readCoreResource());

@@ -672,7 +672,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
         StringList pseudos_=new StringList(pseudosBelote());
-        TabbedPane onglets_=new TabbedPane();
+        AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
         GameBelote partie_=partieBelote();
         if(partie_.getType()==GameType.RANDOM) {
             setPartieAleatoireJouee(true);

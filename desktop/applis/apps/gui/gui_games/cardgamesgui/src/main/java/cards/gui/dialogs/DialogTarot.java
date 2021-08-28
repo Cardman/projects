@@ -19,6 +19,7 @@ import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.ModeTarot;
 import code.gui.*;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.ints.Listable;
 
@@ -61,7 +62,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private Spinner nbJoueurs;
     private EnumMap<Handfuls,Integer> poigneesAutorisees = new EnumMap<Handfuls,Integer>();
 
-    protected DialogTarot(AbsFrameFactory _frameFactory) {
+    protected DialogTarot(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
     }
 //    public DialogTarot(String _titre, MainWindow _fenetre, RulesTarot _rules) {

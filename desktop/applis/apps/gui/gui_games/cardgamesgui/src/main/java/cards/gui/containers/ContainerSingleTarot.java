@@ -132,7 +132,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setExcludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
         AbsScrollPane scrollExc_ = getOwner().getCompoFactory().newAbsScrollPane(getExcludedTrumpsForHandful());
         scrollExc_.setPreferredSize(new Dimension(125,60));
-        setDeclaringHandful(new SplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollIncl_,scrollExc_));
+        setDeclaringHandful(getOwner().getCompoFactory().newAbsSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollIncl_,scrollExc_));
         getDeclaringHandful().setContinuousLayout(true);
         getDeclaringHandful().setOneTouchExpandable(true);
         setScrollDeclaringHandful(getOwner().getCompoFactory().newAbsScrollPane(getDeclaringHandful()));
@@ -928,7 +928,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
         StringList pseudos_=new StringList(pseudosTarot());
-        TabbedPane onglets_=new TabbedPane();
+        AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
 
         GameTarot partie_=partieTarot();
         if(partie_.getType()==GameType.RANDOM) {

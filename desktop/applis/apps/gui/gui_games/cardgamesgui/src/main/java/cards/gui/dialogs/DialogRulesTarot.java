@@ -7,6 +7,7 @@ import cards.tarot.RulesTarot;
 import code.gui.AbsPanel;
 import code.gui.LabelButton;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 
 public final class DialogRulesTarot extends DialogTarot implements DialogRules {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulestarot";
@@ -14,7 +15,7 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
     private static final String VALIDATE = "validate";
     private boolean validated;
 
-    public DialogRulesTarot(AbsFrameFactory _frameFactory){
+    public DialogRulesTarot(AbstractProgramInfos _frameFactory){
         super(_frameFactory);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
