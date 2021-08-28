@@ -54,31 +54,31 @@ public final class PaginatorHealingItem extends Paginator {
 
     private static final String NUMBER = "number";
 
-    private final TextField name;
+    private final AbsTextField name;
     private final AutoCompleteDocument nameAuto;
 
-    private final TextField description = new TextField(16);
+    private final AbsTextField description = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField status;
+    private final AbsTextField status;
     private final AutoCompleteDocument statusAuto;
 
     private final CustCheckBox relativeHpCheck;
 
 //    private ComboBox<SelectedBoolean> relativeHp;
 
-    private final TextField minHp = new TextField(16);
+    private final AbsTextField minHp = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxHp = new TextField(16);
+    private final AbsTextField maxHp = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField minHpRate = new TextField(16);
+    private final AbsTextField minHpRate = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxHpRate = new TextField(16);
+    private final AbsTextField maxHpRate = getMain().getCompoFactory().newTextField(16);
 
     private final ComboBox<SelectedBoolean> relativePp;
 
-    private final TextField minPp = new TextField(16);
+    private final AbsTextField minPp = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxPp = new TextField(16);
+    private final AbsTextField maxPp = getMain().getCompoFactory().newTextField(16);
 
     private final ComboBox<SelectedBoolean> healMove;
 
@@ -86,13 +86,13 @@ public final class PaginatorHealingItem extends Paginator {
 
     private final ComboBox<SelectedBoolean> healFromKo;
 
-    private final TextField minPrice = new TextField(16);
+    private final AbsTextField minPrice = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxPrice = new TextField(16);
+    private final AbsTextField maxPrice = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField minNumber = new TextField(16);
+    private final AbsTextField minNumber = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxNumber = new TextField(16);
+    private final AbsTextField maxNumber = getMain().getCompoFactory().newTextField(16);
 
     private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
 
@@ -243,7 +243,7 @@ public final class PaginatorHealingItem extends Paginator {
             String abTr_ = getFacade().translateItem(i);
             it_.add(abTr_);
         }
-        name = new TextField(16);
+        name = getMain().getCompoFactory().newTextField(16);
         nameAuto = new AutoCompleteDocument(name,it_, getWindow(),_window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
@@ -262,7 +262,7 @@ public final class PaginatorHealingItem extends Paginator {
             String stTr_ = getFacade().translateStatus(s);
             st_.add(stTr_);
         }
-        status = new TextField(16);
+        status = getMain().getCompoFactory().newTextField(16);
         statusAuto = new AutoCompleteDocument(status,st_, getWindow(),_window.getFrames());
 //        status.getDocument().addDocumentListener(new DocumentAdaptater() {
 //

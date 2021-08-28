@@ -83,10 +83,10 @@ public final class DialogHtmlData {
         _session.setFrame(absDialog);
         AbsPanel panel_ = _session.getCompoFactory().newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
-        TextField field_;
+        AbsTextField field_;
 //        LabelButton search_ = new LabelButton(MainWindow.OK);
         LabelButton search_ = new LabelButton(messages.getVal(SEARCH_LABEL));
-        field_ = new TextField(20);
+        field_ = _session.getCompoFactory().newTextField(20);
 //        _session.setLabel(area_);
         _session.setSearchText(search_);
         _session.setField(field_);

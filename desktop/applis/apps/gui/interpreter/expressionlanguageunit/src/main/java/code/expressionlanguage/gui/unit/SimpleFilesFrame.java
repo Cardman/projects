@@ -11,7 +11,6 @@ import code.gui.MenuBar;
 import code.gui.MenuItem;
 
 
-import code.gui.TextField;
 import code.gui.events.ClosingChildFrameEvent;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -36,9 +35,9 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private final AbsPanel contentPane;
     private final AbsPanel form;
     private final AbsPanel subForm;
-    private final TextField folderField;
-    private final TextField srcField;
-    private final TextField filesField;
+    private final AbsTextField folderField;
+    private final AbsTextField srcField;
+    private final AbsTextField filesField;
     private final PlainLabel content;
     private final AbsTextArea conf;
     private final PlainButton launch;
@@ -101,15 +100,15 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         formButtons_.add(launchByFile);
         form.add(formButtons_);
         subForm = parent.getCompoFactory().newGrid(0,2);
-        folderField = new TextField();
+        folderField = parent.getCompoFactory().newTextField();
         subForm.add(new TextLabel(messages.getVal("folder")));
         subForm.add(folderField);
-        srcField = new TextField();
+        srcField = parent.getCompoFactory().newTextField();
         PlainButton srcButton_ = new PlainButton(messages.getVal("src"));
         srcButton_.addActionListener(new LoadSrcEvent(this));
         subForm.add(srcButton_);
         subForm.add(srcField);
-        filesField = new TextField();
+        filesField = parent.getCompoFactory().newTextField();
         PlainButton filesButton_ = new PlainButton(messages.getVal("files"));
         filesButton_.addActionListener(new LoadFilesEvent(this));
         subForm.add(filesButton_);
@@ -183,7 +182,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
             files = read_;
         }
     }
-    public byte[] read(TextField _fileField) {
+    public byte[] read(AbsTextField _fileField) {
         AbstractThread th_ = parent.getTh();
         if (th_ != null && th_.isAlive()) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadThread"),_fileField.getText()));

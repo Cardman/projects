@@ -42,27 +42,27 @@ public final class PaginatorMove extends Paginator {
 
     //private static final String MOVE = "move";
 
-    private final TextField name;
+    private final AbsTextField name;
     private final AutoCompleteDocument nameAuto;
 
-    private final TextField types;
+    private final AbsTextField types;
     private final AutoCompleteDocument typesAuto;
 
-    private final TextField minPriority = new TextField(16);
+    private final AbsTextField minPriority = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxPriority = new TextField(16);
+    private final AbsTextField maxPriority = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField minPp = new TextField(16);
+    private final AbsTextField minPp = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxPp = new TextField(16);
+    private final AbsTextField maxPp = getMain().getCompoFactory().newTextField(16);
 
     private final ComboBox<SelectedBoolean> damaging;
 
     private final ComboBox<TargetChoice> targets;
 
-    private final TextField minPrice = new TextField(16);
+    private final AbsTextField minPrice = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxPrice = new TextField(16);
+    private final AbsTextField maxPrice = getMain().getCompoFactory().newTextField(16);
 
 
     private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
@@ -170,7 +170,7 @@ public final class PaginatorMove extends Paginator {
             String mv_ = getFacade().translateMove(p);
             mvs_.add(mv_);
         }
-        name = new TextField(16);
+        name = getMain().getCompoFactory().newTextField(16);
         nameAuto = new AutoCompleteDocument(name,mvs_, getWindow(),_window.getFrames());
         modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
 
@@ -179,7 +179,7 @@ public final class PaginatorMove extends Paginator {
             String mv_ = getFacade().translateType(p);
             ts_.add(mv_);
         }
-        types = new TextField(16);
+        types = getMain().getCompoFactory().newTextField(16);
         typesAuto = new AutoCompleteDocument(types,ts_, getWindow(),_window.getFrames());
         modeTypes.setListener(new ChangedModeEvent(modeTypes, typesAuto));
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {

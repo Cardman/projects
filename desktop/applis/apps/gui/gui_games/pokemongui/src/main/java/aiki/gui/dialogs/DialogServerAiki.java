@@ -26,7 +26,7 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
     private static final String JOIN_SERVER = "joinServer";
     private static final String CANCEL = "cancel";
     private final AbsDialog absDialog;
-    private TextField ipOrHostName;
+    private AbsTextField ipOrHostName;
     private ComboBox<IpType> ipType;
     private boolean create;
     private boolean join;
@@ -60,7 +60,7 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
         absDialog.setLocationRelativeTo(_fenetre);
         absDialog.setResizable(false);
         absDialog.setTitle(messages.getVal(TITLE));
-        ipOrHostName = new TextField();
+        ipOrHostName = _fenetre.getCompoFactory().newTextField();
         AbsPanel pane_ = _fenetre.getCompoFactory().newGrid(0, 1);
         AbsPanel panel_ = _fenetre.getCompoFactory().newGrid(0, 2);
         TextLabel ipServer_ = new TextLabel(messages.getVal(IP_SERVER));

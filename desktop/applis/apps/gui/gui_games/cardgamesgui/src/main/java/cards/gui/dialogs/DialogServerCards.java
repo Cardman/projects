@@ -29,7 +29,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
     private static final String JOIN_SERVER = "joinServer";
     private static final String NUMBER_PLAYERS = "numberPlayers";
     private static final String TITLE = "title";
-    private TextField ipOrHostName;
+    private AbsTextField ipOrHostName;
     private ComboBox<IpType> ipType;
     private boolean create;
     private boolean join;
@@ -60,7 +60,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         }
         getCardDialog().setTitle(messages.getVal(TITLE));
         getCardDialog().setLocationRelativeTo(_fenetre);
-        ipOrHostName = new TextField();
+        ipOrHostName = getCompoFactory().newTextField();
         AbsPanel pane_ = _fenetre.getCompoFactory().newGrid(0, 1);
         AbsPanel panel_ = _fenetre.getCompoFactory().newGrid(0, 2);
         if (_game == GameEnum.TAROT) {

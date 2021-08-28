@@ -37,7 +37,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private static final String ERROR_TYPING = "errorTyping";
     private static final int NB_COLS = 24;
     private ConfirmDialog dialog;
-    private TextField typedString = new TextField(NB_COLS);
+    private AbsTextField typedString = getCompoFactory().newTextField(NB_COLS);
     private final AbsPanel searchingPanel = getCompoFactory().newPageBox();
 
     private StringMap<String> messages;
@@ -88,7 +88,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         searchingPanel.removeAll();
         AbsPanel panel_ = getCompoFactory().newLineBox();
         panel_.add(label_);
-        typedString = new TextField(NB_COLS);
+        typedString = getCompoFactory().newTextField(NB_COLS);
         panel_.add(typedString);
         panel_.add(search_);
         searchingPanel.add(panel_);

@@ -43,7 +43,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     private static final int NB_COLS = 24;
     private ConfirmDialog dialog;
 
-    private final TextField typedString = new TextField(NB_COLS);
+    private final AbsTextField typedString = getCompoFactory().newTextField(NB_COLS);
 
     private final AbsPanel searchingPanel = getCompoFactory().newLineBox();
 

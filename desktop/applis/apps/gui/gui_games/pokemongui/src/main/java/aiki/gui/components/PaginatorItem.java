@@ -31,18 +31,18 @@ public final class PaginatorItem extends Paginator {
 
     private static final String NUMBER = "number";
 
-    private final TextField name;
+    private final AbsTextField name;
     private final AutoCompleteDocument nameAuto;
 
-    private final TextField description = new TextField(16);
+    private final AbsTextField description = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField minPrice = new TextField(16);
+    private final AbsTextField minPrice = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxPrice = new TextField(16);
+    private final AbsTextField maxPrice = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField minNumber = new TextField(16);
+    private final AbsTextField minNumber = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxNumber = new TextField(16);
+    private final AbsTextField maxNumber = getMain().getCompoFactory().newTextField(16);
 
 
     private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
@@ -119,7 +119,7 @@ public final class PaginatorItem extends Paginator {
             String abTr_ = getFacade().translateItem(i);
             it_.add(abTr_);
         }
-        name = new TextField(16);
+        name = getMain().getCompoFactory().newTextField(16);
         nameAuto = new AutoCompleteDocument(name,it_, getWindow(),_window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //

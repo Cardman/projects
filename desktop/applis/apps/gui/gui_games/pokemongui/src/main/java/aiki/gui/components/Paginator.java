@@ -67,7 +67,7 @@ public abstract class Paginator {
 
     private final Header header;
 
-    private final TextField delta = new TextField(4);
+    private final AbsTextField delta;
 
     private final AbsSpinner nbResults;
 
@@ -91,6 +91,7 @@ public abstract class Paginator {
 
     public Paginator(WindowAiki _window, String _access, AbsPanel _dest) {
         main = _window;
+        delta =_window.getCompoFactory().newTextField(4);
         nbResults = _window.getCompoFactory().newSpinner(0,Integer.MIN_VALUE,Integer.MAX_VALUE,1);
         pages = new NumComboBox(_window.getFrames(),_window.getFrames().getGeneComboBox());
         container = _dest;
@@ -242,7 +243,7 @@ public abstract class Paginator {
         return header;
     }
 
-    protected TextField getDelta() {
+    protected AbsTextField getDelta() {
         return delta;
     }
 

@@ -156,4 +156,24 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsTextArea newTextArea(String _txt, int _r, int _c) {
         return new TextArea(_txt, _r, _c);
     }
+
+    @Override
+    public AbsTextField newTextField() {
+        return new TextField();
+    }
+
+    @Override
+    public AbsTextField newTextField(int _c) {
+        return new TextField(_c);
+    }
+
+    @Override
+    public AbsTextField newTextField(String _txt) {
+        return new TextField(_txt);
+    }
+
+    @Override
+    public AbsTextField newTextField(String _txt, int _c) {
+        return new TextField(_txt,_c);
+    }
 }

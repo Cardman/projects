@@ -3,16 +3,15 @@ package code.gui.document;
 import code.formathtml.render.IntTextField;
 import code.formathtml.render.MetaTextField;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.TextField;
+import code.gui.AbsTextField;
 
 public final class DualTextField extends DualInput implements IntTextField {
 
-    private final TextField field;
+    private final AbsTextField field;
 
     public DualTextField(DualContainer _container, MetaTextField _component, RenderedPage _page) {
         super(_container, _component, _page);
-        field = new TextField(_component.getValue(), _component.getCols());
+        field = _page.getCompoFactory().newTextField(_component.getValue(), _component.getCols());
         updateGraphics(field,_component);
     }
 

@@ -103,7 +103,7 @@ public final class WindowApps extends GroupFrame {
         buttonApps.addMouseList(new AppsEvent(this,at_, _guiFact));
         lineApp_.add(buttonApps);
         panel_.add(lineApp_);
-        panel_.add(new Clock(_list.getThreadFactory()));
+        panel_.add(new Clock(_list));
 //        for (String l: Constants.getAvailableLanguages()) {
 //            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
 //            radio_.addActionListener(new SetLanguage(l, getFrames()));

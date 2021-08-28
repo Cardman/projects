@@ -10,7 +10,6 @@ import code.gui.events.ClickRowEvent;
 import code.gui.events.DeployTreeEvent;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -37,7 +36,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
     private static final int NB_COLS = 32;
     private final AbsCompoFactory compoFactory;
     private AbsPanel buttons;
-    private TextField fileName = new TextField(NB_COLS);
+    private AbsTextField fileName;
     private AutoCompleteDocument auto;
     private AbsTreeGui folderSystem;
     private FileTable fileModel;
@@ -59,6 +58,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
 
     protected FileDialog(AbstractProgramInfos _frameFact){
         compoFactory = _frameFact.getCompoFactory();
+        fileName = compoFactory.newTextField(NB_COLS);
         buttons = compoFactory.newLineBox();
         absDialog = _frameFact.getFrameFactory().newDialog(this);
     }
@@ -165,7 +165,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         fileTable.setMultiSelect(false);
         fileTable.addListSelectionListener(new ClickRowEvent(this));
         AbsPanel openSaveFile_ = compoFactory.newPageBox();
-        fileName = new TextField(NB_COLS);
+        fileName = compoFactory.newTextField(NB_COLS);
         auto = new AutoCompleteDocument(fileName,new StringList(), this,superFrame.getFrames());
         if (addTypingFileName) {
             AbsPanel fieldFile_ = compoFactory.newLineBox();
@@ -327,7 +327,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         return buttons;
     }
 
-    protected TextField getFileName() {
+    protected AbsTextField getFileName() {
         return fileName;
     }
 

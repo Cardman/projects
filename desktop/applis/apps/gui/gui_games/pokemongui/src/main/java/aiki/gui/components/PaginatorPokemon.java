@@ -40,18 +40,18 @@ public final class PaginatorPokemon extends Paginator {
 
     private static final String CST_EVOLUTIONS = "evolutions";
 
-    private final TextField name;
+    private final AbsTextField name;
     private final AutoCompleteDocument nameAuto;
 
-    private final TextField ability;
+    private final AbsTextField ability;
     private final AutoCompleteDocument abilityAuto;
 
-    private final TextField item;
+    private final AbsTextField item;
     private final AutoCompleteDocument itemAuto;
 
     private final ComboBox<SelectedBoolean> withItem;
 
-    private final TextField moves;
+    private final AbsTextField moves;
     private final AutoCompleteDocument movesAuto;
 
     private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
@@ -65,15 +65,15 @@ public final class PaginatorPokemon extends Paginator {
 
     private final ComboBox<SearchingMode> modeMoves;
 
-    private final TextField minLevel = new TextField(16);
+    private final AbsTextField minLevel = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxLevel = new TextField(16);
+    private final AbsTextField maxLevel = getMain().getCompoFactory().newTextField(16);
 
     private final ComboBox<Gender> gender;
 
-    private final TextField minPossEvos = new TextField(16);
+    private final AbsTextField minPossEvos = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxPossEvos = new TextField(16);
+    private final AbsTextField maxPossEvos = getMain().getCompoFactory().newTextField(16);
 
     private final AbsPanel results = getMain().getCompoFactory().newGrid(0,1);
 
@@ -171,7 +171,7 @@ public final class PaginatorPokemon extends Paginator {
             String pkTr_ = getFacade().translatePokemon(p);
             pk_.add(pkTr_);
         }
-        name = new TextField(16);
+        name = getMain().getCompoFactory().newTextField(16);
         nameAuto = new AutoCompleteDocument(name,pk_, getWindow(),_window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
@@ -192,7 +192,7 @@ public final class PaginatorPokemon extends Paginator {
             String abTr_ = getFacade().translateAbility(a);
             ab_.add(abTr_);
         }
-        ability = new TextField(16);
+        ability = getMain().getCompoFactory().newTextField(16);
         abilityAuto = new AutoCompleteDocument(ability,ab_, getWindow(),_window.getFrames());
 //        ability.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
@@ -213,7 +213,7 @@ public final class PaginatorPokemon extends Paginator {
             String abTr_ = getFacade().translateItem(i);
             it_.add(abTr_);
         }
-        item = new TextField(16);
+        item = getMain().getCompoFactory().newTextField(16);
         itemAuto = new AutoCompleteDocument(item,it_, getWindow(),_window.getFrames());
 //        item.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
@@ -239,7 +239,7 @@ public final class PaginatorPokemon extends Paginator {
             String mvTr_ = getFacade().translateMove(m);
             mv_.add(mvTr_);
         }
-        moves = new TextField(16);
+        moves = getMain().getCompoFactory().newTextField(16);
         movesAuto = new AutoCompleteDocument(moves,mv_, getWindow(),_window.getFrames());
 //        moves.getDocument().addDocumentListener(new DocumentAdaptater() {
 //

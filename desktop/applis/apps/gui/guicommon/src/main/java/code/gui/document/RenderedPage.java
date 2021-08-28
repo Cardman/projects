@@ -52,7 +52,7 @@ public final class RenderedPage implements ProcessingSession {
     private final CustList<DualAnimatedImage> anims = new CustList<DualAnimatedImage>();
 
     private LabelButton find;
-    private TextField field;
+    private AbsTextField field;
     private final AbstractProgramInfos gene;
 
     public RenderedPage(AbsScrollPane _frame, AbstractProgramInfos _gene) {
@@ -244,7 +244,7 @@ public final class RenderedPage implements ProcessingSession {
         find = _search;
     }
 
-    public void setField(TextField _field) {
+    public void setField(AbsTextField _field) {
         field = _field;
     }
 

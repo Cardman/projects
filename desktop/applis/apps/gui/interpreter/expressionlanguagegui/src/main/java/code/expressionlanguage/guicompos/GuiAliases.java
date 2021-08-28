@@ -3482,18 +3482,18 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new TextFieldStruct(aliasTextField));
+                r_.setResult(new TextFieldStruct(aliasTextField,_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
             if (_method.getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof NumberStruct)) {
-                    r_.setResult(new TextFieldStruct(aliasTextField,_args[0]));
+                    r_.setResult(new TextFieldStruct(aliasTextField,_args[0],_guiEx.getWindow().getCompoFactory()));
                     return r_;
                 }
-                r_.setResult(new TextFieldStruct(aliasTextField,(NumberStruct) _args[0]));
+                r_.setResult(new TextFieldStruct(aliasTextField,(NumberStruct) _args[0],_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
-            r_.setResult(new TextFieldStruct(aliasTextField,_args[0],_args[1]));
+            r_.setResult(new TextFieldStruct(aliasTextField,_args[0],_args[1],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasTextArea)) {

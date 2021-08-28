@@ -15,7 +15,6 @@ import code.gui.MenuBar;
 import code.gui.MenuItem;
 
 
-import code.gui.TextField;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
@@ -39,8 +38,8 @@ import java.awt.event.KeyEvent;
 public final class WindowRenders extends GroupFrame {
     private final Menu menu;
     private final MenuItem open;
-    private final TextField lgCode;
-    private final TextField path;
+    private final AbsTextField lgCode;
+    private final AbsTextField path;
     private final RenderedPage session;
     protected WindowRenders(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -53,17 +52,17 @@ public final class WindowRenders extends GroupFrame {
         getJMenuBar().add(menu);
         setTitle("Local sites");
         AbsPanel pane_ = getCompoFactory().newPageBox();
-        lgCode = new TextField(20);
+        lgCode = getCompoFactory().newTextField(20);
         pane_.add(lgCode);
-        path = new TextField(20);
+        path = getCompoFactory().newTextField(20);
         pane_.add(path);
         session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _list);
         session.initNav();
         session.setLanguage(_lg);
         session.setFrame(this);
-        TextField field_;
+        AbsTextField field_;
         LabelButton search_ = new LabelButton("search");
-        field_ = new TextField(20);
+        field_ = getCompoFactory().newTextField(20);
         session.setSearchText(search_);
         session.setField(field_);
         AbsTextArea t_ = getCompoFactory().newTextArea(8, 32);

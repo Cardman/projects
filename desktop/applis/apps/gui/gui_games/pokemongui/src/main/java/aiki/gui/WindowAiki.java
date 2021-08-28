@@ -193,7 +193,7 @@ public final class WindowAiki extends NetGroupFrame {
 
     private final EnumMap<Sex,HeroLabel> herosLabels = new EnumMap<Sex,HeroLabel>();
 
-    private TextField nickname;
+    private AbsTextField nickname;
 
     private Sex chosenSex;
 
@@ -298,7 +298,7 @@ public final class WindowAiki extends NetGroupFrame {
         battle.setVisibleFrontBattle(false);
         mainPanel.add(battle);
         mainPanel.add(scenePanel.getComponent());
-        time = new Clock(_list.getThreadFactory());
+        time = new Clock(_list);
         mainPanel.add(time);
         lastSavedGameDate = new TextLabel("");
         mainPanel.add(lastSavedGameDate);
@@ -506,7 +506,7 @@ public final class WindowAiki extends NetGroupFrame {
         AbsPanel nickname_ = getCompoFactory().newLineBox();
         nickname_.add(new TextLabel(messages.getVal(CST_NICKNAME)));
         if (nickname == null) {
-            nickname = new TextField(16);
+            nickname = getCompoFactory().newTextField(16);
         }
         nickname_.add(nickname);
         beginGame.add(nickname_);

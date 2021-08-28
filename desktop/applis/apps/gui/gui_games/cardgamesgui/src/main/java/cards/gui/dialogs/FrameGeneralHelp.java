@@ -50,7 +50,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 
     private RenderedPage editor;
 
-    private TextField field;
+    private AbsTextField field;
 
     private AbsSplitPane separateur;
     private LabelButton search;
@@ -131,7 +131,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
         editor.initialize(racineBis.getElementLocal().getNavigation(),racineBis.getElementLocal().getMetaDocument());
         if (field == null) {
-            field = new TextField(20);
+            field = _w.getCompoFactory().newTextField(20);
             search = new LabelButton(messages.getVal(SEARCH_LABEL));
             editor.setSearchText(search);
             editor.setField(field);

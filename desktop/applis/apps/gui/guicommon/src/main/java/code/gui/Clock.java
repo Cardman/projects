@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import code.gui.events.UpdateTimeEvent;
+import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
 import code.threads.AbstractScheduledExecutorService;
@@ -19,15 +20,15 @@ public class Clock {
     private static final int DEFAULT_NB_CHARS = 10;
     private static final int HEIGHT_TIME = 15;
 
-    private final TextField component;
+    private final AbsTextField component;
 
-    public Clock(AbstractThreadFactory _fact) {
-        component = new TextField(DEFAULT_NB_CHARS);
+    public Clock(AbstractProgramInfos _fact) {
+        component = _fact.getCompoFactory().newTextField(DEFAULT_NB_CHARS);
         component.setEditable(false);
         component.setFont(new Font(ARIAL,Font.PLAIN,HEIGHT_TIME));
         component.setForeground(new Color(0,0,255));
-        AbstractScheduledExecutorService timer_ = _fact.newScheduledExecutorService();
-        timer_.scheduleAtFixedRate(new UpdateTimeEvent(_fact,this),0,SECOND_MILLIS);
+        AbstractScheduledExecutorService timer_ = _fact.getThreadFactory().newScheduledExecutorService();
+        timer_.scheduleAtFixedRate(new UpdateTimeEvent(_fact.getThreadFactory(),this),0,SECOND_MILLIS);
 //        timer = new Timer(SECOND_MILLIS, new UpdateTimeEvent(this));
 //        timer.start();
     }

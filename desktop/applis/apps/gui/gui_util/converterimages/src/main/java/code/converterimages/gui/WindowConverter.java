@@ -37,9 +37,9 @@ public final class WindowConverter extends GroupFrame {
 
     private final CustCheckBox readImages;
 
-    private final TextField path;
+    private final AbsTextField path;
 
-    private final TextField pathExport;
+    private final AbsTextField pathExport;
 
     public WindowConverter(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -48,10 +48,10 @@ public final class WindowConverter extends GroupFrame {
         readImages = new CustCheckBox(READ_IMAGES);
         readImages.setSelected(true);
         content_.add(readImages);
-        path = new TextField(50);
+        path = getCompoFactory().newTextField(50);
         //path.setText(Constants.getJarPath());
         content_.add(path);
-        pathExport = new TextField(50);
+        pathExport = getCompoFactory().newTextField(50);
         pathExport.setText(EMPTY_STRING);
         content_.add(pathExport);
         LabelButton read_ = new LabelButton(READ);

@@ -19,11 +19,11 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
 
     private final AbsGraphicList<String> list;
 
-    private final TextField textField;
+    private final AbsTextField textField;
     private final ChangeableTitle changeableTitle;
     private final AbstractProgramInfos abs;
 
-    public AutoCompleteDocument(TextField _field, StringList _aDictionary, ChangeableTitle _changeableTitle, AbstractProgramInfos _abs) {
+    public AutoCompleteDocument(AbsTextField _field, StringList _aDictionary, ChangeableTitle _changeableTitle, AbstractProgramInfos _abs) {
         textField = _field;
         changeableTitle = _changeableTitle;
         dictionary.addAllElts(_aDictionary);

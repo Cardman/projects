@@ -15,11 +15,11 @@ public final class FindEvent extends AbsMouseListenerRel {
 
     private FindNextElement finding;
 
-    private TextField field;
+    private AbsTextField field;
 
     private CustList<DualLabel> labels = new CustList<DualLabel>();
 
-    public FindEvent(TextField _field, RenderedPage _page) {
+    public FindEvent(AbsTextField _field, RenderedPage _page) {
         field = _field;
         page = _page;
     }

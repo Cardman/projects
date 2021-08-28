@@ -8,7 +8,7 @@ import code.gui.events.WrAutoCompleteListener;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-public final class TextField extends CustComponent {
+public final class TextField extends CustComponent implements AbsTextField {
 
     private JTextField textField;
 

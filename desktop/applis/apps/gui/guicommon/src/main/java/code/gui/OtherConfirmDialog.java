@@ -22,7 +22,7 @@ public final class OtherConfirmDialog {
 
     private int answer;
 
-    private TextField field;
+    private AbsTextField field;
 
     private String typedText;
     private final AbstractProgramInfos infos;
@@ -285,7 +285,7 @@ public final class OtherConfirmDialog {
         dialog.setTitle(_title);
         AbsPanel content_ = infos.getCompoFactory().newGrid(0,1);
         content_.add(wrapped(_message));
-        field = new TextField();
+        field = infos.getCompoFactory().newTextField();
         field.setText(_value);
         content_.add(field);
         answer = NO_OPTION;
@@ -308,7 +308,7 @@ public final class OtherConfirmDialog {
         AbsPanel content_ = infos.getCompoFactory().newGrid(0,1);
         content_.add(infos.getCompoFactory().newPreparedLabel(_img));
         content_.add(wrapped(_message));
-        field = new TextField();
+        field = infos.getCompoFactory().newTextField();
         field.setText(_value);
         content_.add(field);
         answer = NO_OPTION;

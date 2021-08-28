@@ -32,7 +32,7 @@ public final class PaginatorEgg extends Paginator {
 
     //private static final String EGG = "egg";
 
-    private final TextField name;
+    private final AbsTextField name;
     private final AutoCompleteDocument nameAuto;
 
     private final EnumList<SearchingMode> order = new EnumList<SearchingMode>();
@@ -40,9 +40,9 @@ public final class PaginatorEgg extends Paginator {
     //private JComboBoxSearchingMode modeFirstName = new JComboBoxSearchingMode();
     private final ComboBox<SearchingMode> modeName;
 
-    private final TextField minSteps = new TextField(16);
+    private final AbsTextField minSteps = getMain().getCompoFactory().newTextField(16);
 
-    private final TextField maxSteps = new TextField(16);
+    private final AbsTextField maxSteps = getMain().getCompoFactory().newTextField(16);
 
     private final AbsPanel results = getMain().getCompoFactory().newGrid(0,1);
 
@@ -86,7 +86,7 @@ public final class PaginatorEgg extends Paginator {
             String pkTr_ = getFacade().translatePokemon(p);
             pk_.add(pkTr_);
         }
-        name = new TextField(16);
+        name = getMain().getCompoFactory().newTextField(16);
         nameAuto = new AutoCompleteDocument(name,pk_, getWindow(),_window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //

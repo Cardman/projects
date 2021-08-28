@@ -30,10 +30,10 @@ public final class DialogNicknames extends DialogCards {
     private static final String FORBIDDEN_TAB = "forbiddenTab";
     private StringMap<String> messages;
     private Nicknames pseudos;
-    private TextField nickname;
-    private final CustList<TextField> nicknamesBelote = new CustList<TextField>();
-    private final CustList<TextField> nicknamesTarot = new CustList<TextField>();
-    private final CustList<TextField> nicknamesPresident = new CustList<TextField>();
+    private AbsTextField nickname;
+    private final CustList<AbsTextField> nicknamesBelote = new CustList<AbsTextField>();
+    private final CustList<AbsTextField> nicknamesTarot = new CustList<AbsTextField>();
+    private final CustList<AbsTextField> nicknamesPresident = new CustList<AbsTextField>();
 
     public DialogNicknames(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
@@ -64,7 +64,7 @@ public final class DialogNicknames extends DialogCards {
         AbsPanel sousPanneau_=_fenetre.getCompoFactory().newGrid(0,1);
         int i_=0;
         for (String p:pseudos.getPseudosBelote()) {
-            TextField pseudo_=new TextField(30);
+            AbsTextField pseudo_= getCompoFactory().newTextField(30);
             pseudo_.setText(p);
             sousPanneau_.add(new TextLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
@@ -76,7 +76,7 @@ public final class DialogNicknames extends DialogCards {
         sousPanneau_=_fenetre.getCompoFactory().newGrid(0,1);
         i_=0;
         for (String p:pseudos.getPseudosPresident()) {
-            TextField pseudo_=new TextField(30);
+            AbsTextField pseudo_=getCompoFactory().newTextField(30);
             pseudo_.setText(p);
             sousPanneau_.add(new TextLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
@@ -90,7 +90,7 @@ public final class DialogNicknames extends DialogCards {
         sousPanneau_=_fenetre.getCompoFactory().newGrid(0,1);
         i_=0;
         for (String p:pseudos.getPseudosTarot()) {
-            TextField pseudo_=new TextField(30);
+            AbsTextField pseudo_=getCompoFactory().newTextField(30);
             pseudo_.setText(p);
             sousPanneau_.add(new TextLabel(StringUtil.simpleNumberFormat(messages.getVal(NICKNAME_PLAYER), i_+1)));
             sousPanneau_.add(pseudo_);
@@ -102,7 +102,7 @@ public final class DialogNicknames extends DialogCards {
         //Panneau pseudo du joueur
         sousPanneau_=_fenetre.getCompoFactory().newPageBox();
         sousPanneau_.add(new TextLabel(messages.getVal(CST_NICKNAME)));
-        nickname=new TextField(30);
+        nickname=getCompoFactory().newTextField(30);
         nickname.setText(pseudos.getPseudo());
         sousPanneau_.add(nickname);
         LabelButton bouton_=new LabelButton(messages.getVal(VALIDATE));

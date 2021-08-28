@@ -40,4 +40,8 @@ public interface AbsCompoFactory {
     AbsTextArea newTextArea(int _r,int _c);
     AbsTextArea newTextArea(String _txt);
     AbsTextArea newTextArea(String _txt,int _r,int _c);
+    AbsTextField newTextField();
+    AbsTextField newTextField(int _c);
+    AbsTextField newTextField(String _txt);
+    AbsTextField newTextField(String _txt,int _c);
 }

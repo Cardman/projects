@@ -28,7 +28,7 @@ public final class ConfirmDialog {
 
     private int answer;
 
-    private TextField field;
+    private AbsTextField field;
 
     private String typedText;
     private final AbstractProgramInfos list;
@@ -213,7 +213,7 @@ public final class ConfirmDialog {
 //        message_.setPreferredSize(new Dimension(w_,h_));
 //        content_.add(message_);
         content_.add(new WrappedLabel(list.getImageFactory(), _message, list.getCompoFactory()));
-        field = new TextField();
+        field = list.getCompoFactory().newTextField();
         field.setText(_value);
         content_.add(field);
         answer = JOptionPane.NO_OPTION;
