@@ -20,9 +20,6 @@ import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
 
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-
 public abstract class SoftApplicationCore {
 
     private static final String LOCALE = "locale";
@@ -143,7 +140,7 @@ public abstract class SoftApplicationCore {
     private static void setLocation(AbsCommonFrame _frame, int _x, int _y) {
         int x_ = _x;
         int y_ = _y;
-        IntPoint dims_ = getScreenSize();
+        IntPoint dims_ = getScreenSize(_frame.getFrames());
         if (x_ + MIN_BORDER > dims_.getXcoords()) {
             x_ = 0;
         }
@@ -159,10 +156,9 @@ public abstract class SoftApplicationCore {
         _frame.setLocation(x_, y_);
     }
 
-    private static IntPoint getScreenSize() {
-        GraphicsDevice gd_ = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        int width_ = gd_.getDisplayMode().getWidth();
-        int height_ = gd_.getDisplayMode().getHeight();
+    private static IntPoint getScreenSize(AbstractProgramInfos _info) {
+        int width_ = _info.getScreenWidth();
+        int height_ = _info.getScreenHeight();
         return new IntPoint(width_, height_);
     }
 

@@ -25,6 +25,7 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.awt.image.RenderedImage;
@@ -274,5 +275,17 @@ public final class ProgramInfos implements AbstractProgramInfos {
     @Override
     public AbstractSocketFactory getSocketFactory() {
         return socketFactory;
+    }
+
+    @Override
+    public int getScreenHeight() {
+        GraphicsDevice gd_ = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        return gd_.getDisplayMode().getHeight();
+    }
+
+    @Override
+    public int getScreenWidth() {
+        GraphicsDevice gd_ = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        return gd_.getDisplayMode().getWidth();
     }
 }

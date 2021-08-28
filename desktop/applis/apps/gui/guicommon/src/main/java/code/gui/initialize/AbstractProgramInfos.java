@@ -36,4 +36,6 @@ public interface AbstractProgramInfos {
     AbstractImage readImg(String _file);
     AbstractSocketFactory getSocketFactory();
     boolean writeImg(String _format, String _file, AbstractImage _img);
+    int getScreenWidth();
+    int getScreenHeight();
 }
