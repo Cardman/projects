@@ -1,6 +1,6 @@
 package aiki.gui.components.labels;
 import java.awt.Color;
-import java.awt.Font;
+
 
 import aiki.gui.components.Paginator;
 import code.gui.AbsMetaLabel;

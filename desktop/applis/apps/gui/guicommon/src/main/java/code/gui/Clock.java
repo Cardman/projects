@@ -1,6 +1,5 @@
 package code.gui;
 import java.awt.Color;
-import java.awt.Font;
 
 import code.gui.events.UpdateTimeEvent;
 import code.gui.initialize.AbstractProgramInfos;
@@ -25,7 +24,7 @@ public class Clock {
     public Clock(AbstractProgramInfos _fact) {
         component = _fact.getCompoFactory().newTextField(DEFAULT_NB_CHARS);
         component.setEditable(false);
-        component.setFont(ARIAL,Font.PLAIN,HEIGHT_TIME);
+        component.setFont(ARIAL,GuiConstants.PLAIN,HEIGHT_TIME);
         component.setForeground(new Color(0,0,255));
         AbstractScheduledExecutorService timer_ = _fact.getThreadFactory().newScheduledExecutorService();
         timer_.scheduleAtFixedRate(new UpdateTimeEvent(_fact.getThreadFactory(),this),0,SECOND_MILLIS);

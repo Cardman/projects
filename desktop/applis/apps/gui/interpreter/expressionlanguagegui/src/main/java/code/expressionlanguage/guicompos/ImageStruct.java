@@ -8,7 +8,7 @@ import code.gui.images.MetaFont;
 import code.util.core.IndexConstants;
 
 import java.awt.Color;
-import java.awt.Font;
+
 
 public final class ImageStruct extends WithoutParentIdStruct implements Struct {
     private final AbstractImage image;

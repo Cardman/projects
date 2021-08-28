@@ -1,7 +1,7 @@
 package cards.gui.labels;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
+
 
 import javax.swing.SwingConstants;
 
@@ -9,6 +9,7 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.FileConst;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -104,7 +105,7 @@ public final class GraphicTarotCard extends AbsMetaLabel {
             _g2.setColor(Color.BLACK);
             _g2.drawRect(0,0,getWidth()-1,getHeight()-1);
             _g2.setColor(Color.BLUE);
-            _g2.setFont(DEFAULT,Font.BOLD,20);
+            _g2.setFont(DEFAULT, GuiConstants.BOLD,20);
             _g2.drawString(GameEnum.TAROT.toString(lg),20,80);
             return;
         }

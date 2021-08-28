@@ -1,7 +1,7 @@
 package cards.gui.panels;
 
 import java.awt.Color;
-import java.awt.Font;
+
 
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerPresident;
@@ -192,7 +192,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             byte row_ = 0;
             while(indice_<entameur_) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
-                etiquette2_.setFont(DEFAULT,Font.BOLD,50);
+                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
                 row_++;
@@ -286,7 +286,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             byte row_ = 0;
             while(indice_<entameur_) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
-                etiquette2_.setFont(DEFAULT,Font.BOLD,50);
+                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
                 row_++;
@@ -369,7 +369,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             byte row_ = 0;
             while(indice_<entameur_) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
-                etiquette2_.setFont(DEFAULT,Font.BOLD,50);
+                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
                 row_++;
@@ -465,7 +465,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             byte row_ = 0;
             while(indice_<entameur_) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
-                etiquette2_.setFont(DEFAULT,Font.BOLD,50);
+                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
                 row_++;

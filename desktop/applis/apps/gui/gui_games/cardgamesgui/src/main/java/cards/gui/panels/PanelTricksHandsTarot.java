@@ -1,7 +1,7 @@
 package cards.gui.panels;
 
 import java.awt.Color;
-import java.awt.Font;
+
 
 import javax.swing.SwingConstants;
 
@@ -191,7 +191,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             byte indice_=0;
             while(indice_<entameur_) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
-                etiquette2_.setFont(DEFAULT,Font.BOLD,50);
+                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
                 selectedTrick.add(etiquette2_);
@@ -205,7 +205,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             }
             while(indice_<2*numberPlayers-1) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString((long)indice_-numberPlayers));
-                etiquette2_.setFont(DEFAULT,Font.BOLD,50);
+                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
                 selectedTrick.add(etiquette2_);
@@ -226,7 +226,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             byte indice_=0;
             while(indice_<entameur_) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
-                etiquette2_.setFont(DEFAULT,Font.BOLD,50);
+                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
                 tr_.add(etiquette2_,indicePli_*(indice_+1)-1);
@@ -240,7 +240,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
             }
             while(indice_<numberPlayers*2-1) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString((long)indice_-numberPlayers));
-                etiquette2_.setFont(DEFAULT,Font.BOLD,50);
+                etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
                 etiquette2_.setBackground(Color.WHITE);
                 tr_.add(etiquette2_,indicePli_*(indice_+1)-1);
@@ -292,7 +292,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         byte indice2_=0;
         while(indice_<entameur_) {
             AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
-            etiquette2_.setFont(DEFAULT,Font.BOLD,50);
+            etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
             etiquette2_.setOpaque(true);
             etiquette2_.setBackground(Color.WHITE);
             selectedTrick.add(etiquette2_);
@@ -311,7 +311,7 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
         }
         while(indice_<2*numberPlayers-1) {
             AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString((long)indice_-numberPlayers));
-            etiquette2_.setFont(DEFAULT,Font.BOLD,50);
+            etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
             etiquette2_.setOpaque(true);
             etiquette2_.setBackground(Color.WHITE);
             selectedTrick.add(etiquette2_);

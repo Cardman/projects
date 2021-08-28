@@ -65,6 +65,9 @@ public final class GuiConstants {
     public static final int VK_LEFT = KeyEvent.VK_LEFT;
     public static final int VK_RIGHT = KeyEvent.VK_RIGHT;
     public static final int VK_ENTER = KeyEvent.VK_ENTER;
+    public static final int BOLD = Font.BOLD;
+    public static final int ITALIC = Font.ITALIC;
+    public static final int PLAIN = Font.PLAIN;
 
     private GuiConstants() {
     }
@@ -111,25 +114,25 @@ public final class GuiConstants {
         int font_;
         if (_bold) {
             if (_italic) {
-                font_ = Font.BOLD + Font.ITALIC;
+                font_ = BOLD + ITALIC;
             } else {
-                font_ = Font.BOLD;
+                font_ = BOLD;
             }
         } else {
             if (_italic) {
-                font_ = Font.ITALIC;
+                font_ = ITALIC;
             } else {
-                font_ = Font.PLAIN;
+                font_ = PLAIN;
             }
         }
         return font_;
     }
 
-    public static boolean italic(int _font) {
-        return _font == Font.BOLD + Font.ITALIC || _font == Font.ITALIC;
+    public static boolean italicFlag(int _font) {
+        return _font == BOLD + ITALIC || _font == ITALIC;
     }
 
-    public static boolean bold(int _font) {
-        return _font == Font.BOLD + Font.ITALIC || _font == Font.BOLD;
+    public static boolean boldFlag(int _font) {
+        return _font == BOLD + ITALIC || _font == BOLD;
     }
 }

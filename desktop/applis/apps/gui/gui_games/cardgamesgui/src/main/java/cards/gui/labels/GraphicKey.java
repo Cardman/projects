@@ -1,10 +1,11 @@
 package cards.gui.labels;
 import java.awt.Color;
-import java.awt.Font;
+
 
 import cards.gui.WindowCards;
 import cards.gui.dialogs.FileConst;
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
@@ -29,7 +30,7 @@ public final class GraphicKey extends AbsMetaLabel {
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(Color.BLACK);
         _g.translate(getWidth()/2,0);
-        _g.setFont(DEFAULT,Font.BOLD,10);
+        _g.setFont(DEFAULT, GuiConstants.BOLD,10);
         for(String pseudo_:pseudos) {
             _g.translate(0,15);
             _g.drawString(pseudo_,0,0);

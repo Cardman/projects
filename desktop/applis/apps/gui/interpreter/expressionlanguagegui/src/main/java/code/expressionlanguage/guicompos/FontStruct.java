@@ -7,8 +7,6 @@ import code.gui.GuiConstants;
 import code.gui.images.MetaFont;
 import code.util.core.StringUtil;
 
-import java.awt.Font;
-
 public final class FontStruct extends WithoutParentStruct implements Struct {
     private final String family;
     private final boolean bold;
@@ -34,8 +32,8 @@ public final class FontStruct extends WithoutParentStruct implements Struct {
     }
     public FontStruct(MetaFont _action) {
         family = _action.getFontFamily();
-        bold = GuiConstants.bold(_action.getFont());
-        italic = GuiConstants.italic(_action.getFont());
+        bold = GuiConstants.boldFlag(_action.getFont());
+        italic = GuiConstants.italicFlag(_action.getFont());
         size = _action.getRealSize();
     }
 
