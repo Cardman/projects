@@ -479,7 +479,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         HandTarot atouts_ = _discardedTrumps.getTrumps();
         getPanelDiscardedTrumps().removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(), lg_,atouts_)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow(), lg_,atouts_.getCards())) {
             getPanelDiscardedTrumps().add(c);
         }
 //        boolean entered_ = false;
@@ -956,7 +956,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void updateCardsInPanelTarotDogMulti(AbsPanel _panel, HandTarot _hand, boolean _inHand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotMultiDog(this, c.getCard(),_inHand,c));
             _panel.add(c);
         }
@@ -977,7 +977,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void updateCardsInPanelTarotCallBeforeDogMulti(AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotMultiBeforeDog(this, c.getCard()));
             _panel.add(c);
         }
@@ -1008,7 +1008,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     private void updateCardsInPanelTarotJeuMulti(AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotMultiGame(this, c.getCard()));
             _panel.add(c);
         }

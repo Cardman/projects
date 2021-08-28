@@ -54,7 +54,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                     HandBelote cartesBeloteRebelote_=partie_.cartesBeloteRebelote();
                     /*On ordonne la poignee d'atouts*/
                     AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
-                    for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow(),lg_,cartesBeloteRebelote_)) {
+                    for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow(),lg_,cartesBeloteRebelote_.getCards())) {
                         panneau_.add(c);
                     }
                     ConfirmDialog.showComponent(container.getOwner(), panneau_, container.getMessages().getVal(WindowCards.HAVE_TO_PLAY), lg_, GuiConstants.ERROR_MESSAGE);

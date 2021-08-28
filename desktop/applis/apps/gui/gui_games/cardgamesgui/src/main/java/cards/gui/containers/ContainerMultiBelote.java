@@ -532,7 +532,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         if (!_error.getCards().estVide()) {
             AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
             HandBelote cartesBeloteRebelote_ = _error.getCards();
-            for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, cartesBeloteRebelote_)) {
+            for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, cartesBeloteRebelote_.getCards())) {
                 panneau_.add(c);
             }
             ConfirmDialog.showComponent(getOwner(), panneau_,
@@ -777,7 +777,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     private void updateCardsInPanelBeloteMulti(AbsPanel _panel, HandBelote _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, _hand)) {
+        for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, _hand.getCards())) {
             c.addMouseListener(new ListenerCardBeloteMultiGame(this,c.getCard()));
             _panel.add(c);
         }

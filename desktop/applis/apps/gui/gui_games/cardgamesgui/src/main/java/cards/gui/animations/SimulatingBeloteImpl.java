@@ -164,7 +164,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         AbsPanel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand())) {
+        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand().getCards())) {
             panneau1_.add(c);
         }
         panneau1_.repaintChildren(container.getOwner().getImageFactory());

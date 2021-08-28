@@ -444,7 +444,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             HandTarot atouts_=partie_.getTricks().first().getCartes().couleur(Suit.TRUMP);
             if(!atouts_.estVide()) {
-                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_)) {
+                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
                     getPanelDiscardedTrumps().add(c);
                 }
 //                boolean entered_ = false;
@@ -540,7 +540,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
             if(!atouts_.estVide()) {
                 getPanelDiscardedTrumps().removeAll();
-                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_)) {
+                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
                     getPanelDiscardedTrumps().add(c);
                 }
 //                boolean entered_ = false;
@@ -758,7 +758,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 partie_.addCurTrick();
                 HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
                 if(!atouts_.estVide()) {
-                    for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_)) {
+                    for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
                         getPanelDiscardedTrumps().add(c);
                     }
 //                    boolean entered_ = false;
@@ -1143,7 +1143,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
             getPanelDiscardedTrumps().removeAll();
             if(!atouts_.estVide()) {
-                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_)) {
+                for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
                     getPanelDiscardedTrumps().add(c);
                 }
 //                boolean entered_ = false;
@@ -1235,7 +1235,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private void updateCardsInPanelTarotDog(AbsPanel _panel, HandTarot _hand, boolean _inHand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotSingleDog(this,c.getCard(),_inHand,c));
             _panel.add(c);
         }
@@ -1255,7 +1255,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private void updateCardsInPanelTarotCallBeforeDog(AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotSingleBeforeDog(this,c.getCard()));
             _panel.add(c);
         }
@@ -1285,7 +1285,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
     private void updateCardsInPanelTarotJeu(AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand)) {
+        for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotSingleGame(this, c.getCard()));
             _panel.add(c);
         }

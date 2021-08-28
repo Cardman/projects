@@ -102,7 +102,7 @@ public class ContainerBelote extends ContainerGame {
         //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+bid_+RETURN_LINE_CHAR);
     }
 
-    public static CustList<GraphicBeloteCard> getGraphicCards(WindowCards _fact, String _lg, Iterable<CardBelote> _hand) {
+    public static CustList<GraphicBeloteCard> getGraphicCards(WindowCards _fact, String _lg, CustList<CardBelote> _hand) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         AbsCompoFactory compoFactory_ = _fact.getCompoFactory();
         CustList<GraphicBeloteCard> list_;

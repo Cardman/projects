@@ -615,7 +615,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 }
                 AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
-                for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,usDecl_.getHand())) {
+                for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,usDecl_.getHand().getCards())) {
                     panelToSet_.add(c);
                 }
                 panelToSet_.validate();
@@ -805,7 +805,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     private void updateCardsInPanelBelote(AbsPanel _panel, HandBelote _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
-        for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,_hand)) {
+        for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardBeloteSingleGame(this,c.getCard()));
             _panel.add(c);
         }

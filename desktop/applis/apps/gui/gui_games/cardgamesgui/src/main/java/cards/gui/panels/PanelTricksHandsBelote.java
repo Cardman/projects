@@ -78,7 +78,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         //boolean entered_ = false;
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             sousPanneau3_= window.getCompoFactory().newLineBox();
-            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.hand(joueur_))) {
+            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards())) {
                 sousPanneau3_.add(c);
             }
 //            entered_ = false;
@@ -97,7 +97,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         cards.add(hands);
         AbsPanel sousPanneau2_=window.getCompoFactory().newGrid(0,1);
         sousPanneau3_= window.getCompoFactory().newLineBox();
-        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.derniereMain())) {
+        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.derniereMain().getCards())) {
             sousPanneau3_.add(c);
         }
 //        entered_ = false;
@@ -151,7 +151,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         String lg_ = window.getLanguageKey();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
-            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.hand(joueur_))) {
+            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards())) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;
@@ -251,7 +251,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         String lg_ = window.getLanguageKey();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
-            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window, lg_, dealt_.hand(joueur_))) {
+            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window, lg_, dealt_.hand(joueur_).getCards())) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;
