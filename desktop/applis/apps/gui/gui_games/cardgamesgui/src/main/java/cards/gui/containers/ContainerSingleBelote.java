@@ -56,6 +56,7 @@ import cards.network.common.select.TeamsPlayers;
 import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
+import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -693,7 +694,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(sOne_);
-        scroll_.setPreferredSize(new Dimension(300,300));
+        scroll_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
         if(partie_.getContrat().jouerDonne()) {
             scroll_=getOwner().getCompoFactory().newAbsScrollPane();
@@ -701,7 +702,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
             ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
             editor_.initialize(sTwo_);
-            scroll_.setPreferredSize(new Dimension(300,300));
+            scroll_.setPreferredSize(new MetaDimension(300,300));
             onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),scroll_);
         }
         if(partie_.getType()==GameType.RANDOM) {
@@ -745,17 +746,17 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             }
             setMaxAbsoluScore(Math.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int) getMaxAbsoluScore();
-            graphique_.setPreferredSize(new Dimension(2000,dimy_));
+            graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
             ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_);
             graphique_.setLocation(0,(600-dimy_)/2);
-            ascenseur_.setPreferredSize(new Dimension(300,200));
+            ascenseur_.setPreferredSize(new MetaDimension(300,200));
             panneau_=getOwner().getCompoFactory().newBorder();
             panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),GuiConstants.BORDER_LAYOUT_NORTH);
             panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
-            legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
+            legende_.setPreferredSize(new MetaDimension(300,15*(nombreJoueurs_+1)));
             ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(legende_);
-            ascenseur_.setPreferredSize(new Dimension(300,100));
+            ascenseur_.setPreferredSize(new MetaDimension(300,100));
             panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_SOUTH);
             onglets_.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
         }
@@ -769,7 +770,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.sortHands(getDisplayingBelote(), game_.getNombreDeJoueurs());
         WindowCards ow_ = getOwner();
         ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_, tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(),ow_).getContainer());
-        ascenseur_.setPreferredSize(new Dimension(300,300));
+        ascenseur_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.HANDS_TRICKS),ascenseur_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         panneau_=getOwner().getCompoFactory().newPageBox();

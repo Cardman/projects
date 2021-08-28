@@ -14,6 +14,7 @@ import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingItem;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.util.*;
 import aiki.facade.enums.SearchingMode;
 import code.util.core.IndexConstants;
@@ -270,7 +271,7 @@ public final class PaginatorItem extends Paginator {
         getHeader().addString(getMessages().getVal(CST_DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
         getHeader().addString(getMessages().getVal(PRICE), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
         getHeader().addString(getMessages().getVal(NUMBER), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
-        getHeader().setPreferredSize(new Dimension((int)widths_.getMaximum(1), Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
+        getHeader().setPreferredSize(new MetaDimension((int)widths_.getMaximum(1), Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         //results.add(new JLabel(getMessages().getVal(ITEM)));
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));

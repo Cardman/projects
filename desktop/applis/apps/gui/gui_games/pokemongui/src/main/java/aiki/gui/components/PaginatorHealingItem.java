@@ -15,6 +15,7 @@ import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingHealingItem;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.StringList;
@@ -590,7 +591,7 @@ public final class PaginatorHealingItem extends Paginator {
         getHeader().addString(getMessages().getVal(CST_DESCRIPTION), side_, Paginator.HEIGTH_CHARS);
         getHeader().addString(StringUtil.concat(getMessages().getVal(NUMBER),SPACES), side_+nameWidth_);
         getHeader().addString(StringUtil.concat(getMessages().getVal(PRICE),SPACES), side_+nameWidth_+numberWidth_);
-        getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
+        getHeader().setPreferredSize(new MetaDimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();

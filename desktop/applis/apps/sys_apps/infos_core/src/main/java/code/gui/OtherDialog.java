@@ -3,6 +3,7 @@ package code.gui;
 import code.gui.events.AbsWindowListener;
 import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaPoint;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -27,8 +28,9 @@ public final class OtherDialog implements AbsOtherDialog,ChangeableTitle,WithLis
     }
 
     @Override
-    public Point getLocationOnScreen() {
-        return dialog.getLocationOnScreen();
+    public MetaPoint getLocationOnScreen() {
+        Point pt_ = dialog.getLocationOnScreen();
+        return new MetaPoint(pt_.x, pt_.y);
     }
 
     Window getComponent() {

@@ -4,11 +4,9 @@ import code.gui.events.AbsKeyListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
+import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.util.CustList;
-
-
-import java.awt.Dimension;
 
 public interface AbsCustComponent {
     boolean isAutoscrolls();
@@ -49,10 +47,9 @@ public interface AbsCustComponent {
     void setToolTipText(String _title);
     void setCursor(int _wCurs, int _hCurs, int[] _pixels);
     void setCursor(int _nb);
-    Dimension getSize();
-    void setSize(Dimension _dimension);
-    Dimension getPreferredSize();
-    void setPreferredSize(Dimension _dimension);
+    void setSize(MetaDimension _dimension);
+    MetaDimension getPreferredSizeValue();
+    void setPreferredSize(MetaDimension _dimension);
     boolean isFocusable();
     void setFocusable(boolean _focusable);
     boolean isOpaque();

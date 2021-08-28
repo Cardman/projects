@@ -48,6 +48,7 @@ import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
+import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -575,7 +576,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(stds_);
-        scroll_.setPreferredSize(new Dimension(300,300));
+        scroll_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
         if(partie_.getType()==GameType.RANDOM) {
             Ints couleurs_=new Ints();
@@ -618,17 +619,17 @@ public class ContainerSinglePresident extends ContainerPresident implements
             }
             setMaxAbsoluScore(Math.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int)getMaxAbsoluScore();
-            graphique_.setPreferredSize(new Dimension(2000,dimy_));
+            graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
             ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_);
             graphique_.setLocation(0,(600-dimy_)/2);
-            ascenseur_.setPreferredSize(new Dimension(300,200));
+            ascenseur_.setPreferredSize(new MetaDimension(300,200));
             AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
             panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),GuiConstants.BORDER_LAYOUT_NORTH);
             panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
-            legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
+            legende_.setPreferredSize(new MetaDimension(300,15*(nombreJoueurs_+1)));
             ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(legende_);
-            ascenseur_.setPreferredSize(new Dimension(300,100));
+            ascenseur_.setPreferredSize(new MetaDimension(300,100));
             panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_SOUTH);
             onglets_.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
         }
@@ -645,7 +646,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 nombreJoueurs_,
                 pseudosPresident(),
                 getDisplayingPresident(),ow_).getContainer());
-        panelCards_.setPreferredSize(new Dimension(300,300));
+        panelCards_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.HANDS_TRICKS),panelCards_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();

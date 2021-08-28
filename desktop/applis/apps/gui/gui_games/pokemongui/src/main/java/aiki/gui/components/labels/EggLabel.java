@@ -8,6 +8,7 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class EggLabel extends SelectableLabel {
@@ -46,7 +47,7 @@ public final class EggLabel extends SelectableLabel {
     public void setNameCoord(int _xName, int _xSteps, int _height) {
         xName = _xName;
         xSteps = _xSteps;
-        setPreferredSize(new Dimension(xName + xSteps + xRemainSteps + sideLength,_height));
+        setPreferredSize(new MetaDimension(xName + xSteps + xRemainSteps + sideLength,_height));
     }
 
     @Override

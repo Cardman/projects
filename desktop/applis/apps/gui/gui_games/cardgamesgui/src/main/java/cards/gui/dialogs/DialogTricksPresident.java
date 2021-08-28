@@ -9,6 +9,7 @@ import cards.president.DisplayingPresident;
 import cards.president.TricksHandsPresident;
 import code.gui.AbsScrollPane;
 
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
@@ -39,7 +40,7 @@ public final class DialogTricksPresident extends DialogCards {
         _tricksHands.sortHands(_displayingPresident, _numberPlayers);
         AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(new PanelTricksHandsPresident(getCardDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window).getContainer());
-        scroll_.setPreferredSize(new Dimension(600, 600));
+        scroll_.setPreferredSize(new MetaDimension(600, 600));
         getCardDialog().setContentPane(scroll_);
         getCardDialog().pack();
         getCardDialog().setVisible(true);

@@ -12,6 +12,7 @@ import cards.gui.dialogs.help.NodeHelp;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
+import code.gui.images.MetaDimension;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringMap;
@@ -140,7 +141,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         if (wasNull_) {
             separateur = _w.getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,
                     _w.getCompoFactory().newAbsScrollPane(arbre_.getTree()), editor.getScroll());
-            separateur.setPreferredSize(new Dimension(600, 550));
+            separateur.setPreferredSize(new MetaDimension(600, 550));
             separateur.setDividerLocation(150);
             container_.add(separateur);
             container_.add(field);

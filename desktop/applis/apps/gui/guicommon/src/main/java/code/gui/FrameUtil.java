@@ -4,6 +4,7 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.events.AbsWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
@@ -338,22 +339,22 @@ public final class FrameUtil {
     public static int getBasicMaxWidth(int _width, AbsGraphicListDefBase _curr) {
         int width_ = _width;
         for (AbsPreparedLabel c: _curr.getListComponents()) {
-            width_ = Math.max(width_, c.getPreferredSize().width);
+            width_ = Math.max(width_, c.getPreferredSizeValue().getWidth());
         }
         return width_;
     }
 
-    public static Dimension dimension(AbsGraphicListCommon _curr) {
+    public static MetaDimension dimension(AbsGraphicListCommon _curr) {
         int width_ = _curr.getMaxWidth();
         width_ = getBasicMaxWidth(width_, _curr);
         int h_ = 0;
         int c_ = 0;
         for (AbsPreparedLabel c: _curr.getListComponents()) {
-            h_ = c.getPreferredSize().height;
-            c.setPreferredSize(new Dimension(width_, h_));
+            h_ = c.getPreferredSizeValue().getHeight();
+            c.setPreferredSize(new MetaDimension(width_, h_));
             c_++;
         }
-        return new Dimension(width_ + 24, (h_ + 2) * Math.min(c_, _curr.getVisibleRowCount()));
+        return new MetaDimension(width_ + 24, (h_ + 2) * Math.min(c_, _curr.getVisibleRowCount()));
     }
 
     public static void paintList(AbsCustCellRender _r, int _len, AbsGraphicListDefBase _curr) {
@@ -469,7 +470,7 @@ public final class FrameUtil {
         }
     }
 
-    public static Dimension updateDim(AbsGraphicListCommon _curr) {
+    public static MetaDimension updateDim(AbsGraphicListCommon _curr) {
         int width_ = 0;
         for (AbsPreparedLabel c: _curr.getListComponents()) {
             width_ = Math.max(width_, c.getWidth());
@@ -480,7 +481,7 @@ public final class FrameUtil {
             h_ = Math.max(h_,c.getHeight());
             c_++;
         }
-        return new Dimension(width_ + 24, (h_ + 2) * Math.min(c_, _curr.getVisibleRowCount()));
+        return new MetaDimension(width_ + 24, (h_ + 2) * Math.min(c_, _curr.getVisibleRowCount()));
     }
 
     public static void addIndexes(int _min, int _max, Ints _selectedIndexes) {

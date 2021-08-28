@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import javax.swing.*;
 
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.util.CustList;
 import code.util.Ints;
 
@@ -255,7 +256,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
 
     @Override
     public void updateGraphics() {
-        Dimension dimension_ = FrameUtil.updateDim(this);
+        MetaDimension dimension_ = FrameUtil.updateDim(this);
         scroll.setPreferredSize(dimension_);
         scroll.revalidate();
     }
@@ -350,7 +351,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
 
     protected void resetDimensions(){
-        Dimension dimension_ = FrameUtil.dimension(this);
+        MetaDimension dimension_ = FrameUtil.dimension(this);
         scroll.setPreferredSize(dimension_);
         scroll.revalidate();
     }

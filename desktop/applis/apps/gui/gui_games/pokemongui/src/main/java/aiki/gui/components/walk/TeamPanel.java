@@ -16,6 +16,7 @@ import code.gui.AbsGraphicList;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
+import code.gui.images.MetaDimension;
 import code.util.*;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -59,7 +60,7 @@ public class TeamPanel {
         nbRemainPlaces = _renderer.getFact().getCompoFactory().newPlainLabel("");
         translate(_mess);
         container.add(nbRemainPlaces,GuiConstants.BORDER_LAYOUT_SOUTH);
-        container.setPreferredSize(new Dimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
+        container.setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));
     }
 
     public void initFighters(ByteTreeMap<UsablePokemon> _fighters, StringMap<String> _mess) {

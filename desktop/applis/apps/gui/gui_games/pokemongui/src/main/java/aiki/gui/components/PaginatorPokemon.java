@@ -16,6 +16,7 @@ import aiki.gui.listeners.PaginatorEvent;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.SortingPokemonPlayer;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.util.*;
 import aiki.facade.enums.SearchingMode;
 import code.util.core.IndexConstants;
@@ -427,7 +428,7 @@ public final class PaginatorPokemon extends Paginator {
         h_ = getMessages().getVal(CST_ITEM);
         getHeader().addString(h_, secondCol_+thirdCol_);
         int w_ = getHeader().width(getMessages().getVal(CST_ITEM));
-        getHeader().setPreferredSize(new Dimension(w_+secondCol_+thirdCol_, HEIGTH_CHARS+HEIGTH_CHARS));
+        getHeader().setPreferredSize(new MetaDimension(w_+secondCol_+thirdCol_, HEIGTH_CHARS+HEIGTH_CHARS));
         results.add(getHeader());
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();

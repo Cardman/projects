@@ -8,6 +8,7 @@ import aiki.gui.listeners.BackFighterSelection;
 import aiki.gui.listeners.FighterSelection;
 import aiki.gui.listeners.FrontFighterSelection;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 
@@ -34,7 +35,7 @@ public class FighterPanel {
         liste.setRender(new FighterRenderer(_fact.getImageFactory(),facade));
         initFighters(_fighters);
         container.add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
-        container.setPreferredSize(new Dimension(150,64*_nb));
+        container.setPreferredSize(new MetaDimension(150,64*_nb));
     }
 
     public void initFighters(ByteTreeMap<Fighter> _fighters) {

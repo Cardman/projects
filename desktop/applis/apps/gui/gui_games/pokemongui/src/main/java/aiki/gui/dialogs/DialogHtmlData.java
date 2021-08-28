@@ -10,6 +10,7 @@ import aiki.sml.Resources;
 import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
@@ -94,7 +95,7 @@ public final class DialogHtmlData {
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
         AbsScrollPane scrollSession_ = _session.getScroll();
-        scrollSession_.setPreferredSize(new Dimension(400, 400));
+        scrollSession_.setPreferredSize(new MetaDimension(400, 400));
 //        group_.add(scrollSession_);
         panel_.add(scrollSession_);
         panel_.add(area_);

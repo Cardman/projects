@@ -2,10 +2,11 @@ package code.gui;
 
 import code.gui.events.AbsWindowListener;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
-import java.awt.Point;
+
 
 public abstract class ChildFrame implements AbsChildFrame {
 
@@ -137,11 +138,6 @@ public abstract class ChildFrame implements AbsChildFrame {
     }
 
     //@Override
-    public Point getLocation() {
-        return absCommonFrame.getLocation();
-    }
-
-    //@Override
     public AbsMenuBar getJMenuBar() {
         return absCommonFrame.getJMenuBar();
     }
@@ -162,7 +158,7 @@ public abstract class ChildFrame implements AbsChildFrame {
     }
 
     //@Override
-    public Point getLocationOnScreen() {
+    public MetaPoint getLocationOnScreen() {
         return absCommonFrame.getLocationOnScreen();
     }
 

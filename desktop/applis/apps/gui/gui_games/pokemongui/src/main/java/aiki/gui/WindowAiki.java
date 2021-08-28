@@ -1,6 +1,6 @@
 package aiki.gui;
 import java.awt.Dimension;
-import java.awt.Point;
+
 
 
 import javax.swing.WindowConstants;
@@ -49,6 +49,8 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuitEvent;
 import code.gui.events.QuittingEvent;
+import code.gui.images.MetaDimension;
+import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.AbstractSocket;
 import code.network.*;
@@ -494,7 +496,7 @@ public final class WindowAiki extends NetGroupFrame {
             i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
             int[][] imgTxt_ = facade.getData().getFrontHeros().getVal(i_);
             HeroLabel label_ = new HeroLabel(getImageFactory(),imgTxt_, getCompoFactory());
-            label_.setPreferredSize(new Dimension(imgTxt_[0].length, imgTxt_.length));
+            label_.setPreferredSize(new MetaDimension(imgTxt_[0].length, imgTxt_.length));
             label_.addMouseListener(new HeroSelect(this, s));
             herosLabels.put(s, label_);
             heros_.add(label_);
@@ -1077,8 +1079,8 @@ public final class WindowAiki extends NetGroupFrame {
         return htmlDialogs.first().isVisible();
     }
     private void ecrireCoordonnees() {
-        Point point_=getLocation();
-        SoftApplicationCore.saveCoords(LaunchingPokemon.getTempFolder(getFrames()),Resources.COORDS, point_.x,point_.y,getStreams());
+        MetaPoint point_=getLocation();
+        SoftApplicationCore.saveCoords(LaunchingPokemon.getTempFolder(getFrames()),Resources.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
     }
 
     public void processLoad(String _fileName, PerCent _p) {

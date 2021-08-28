@@ -5,6 +5,8 @@ import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.events.AbsWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaFont;
+import code.gui.images.MetaPoint;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
@@ -14,7 +16,7 @@ import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringMap;
 
-import java.awt.Point;
+
 
 public abstract class GroupFrame implements AbsGroupFrame {
 
@@ -165,8 +167,8 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     //@Override
-    public Point getLocation() {
-        return commonFrame.getLocation();
+    public MetaPoint getLocation() {
+        return new MetaPoint(commonFrame.getLocationFirst(),commonFrame.getLocationSecond());
     }
 
     //@Override
@@ -190,7 +192,7 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     @Override
-    public Point getLocationOnScreen() {
+    public MetaPoint getLocationOnScreen() {
         return commonFrame.getLocationOnScreen();
     }
 

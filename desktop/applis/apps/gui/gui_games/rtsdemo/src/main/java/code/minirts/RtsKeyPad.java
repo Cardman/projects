@@ -3,6 +3,7 @@ package code.minirts;
 import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.minirts.rts.RtsDirection;
 
@@ -16,7 +17,7 @@ public final class RtsKeyPad extends AbsMetaLabel {
     public RtsKeyPad(RtsDirection _direction, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         direction = _direction;
-        setPreferredSize(new Dimension(32, 32));
+        setPreferredSize(new MetaDimension(32, 32));
     }
 
     @Override

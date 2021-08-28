@@ -11,7 +11,8 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import java.awt.Point;
+import java.awt.*;
+
 
 public final class TableGui extends CustComponent implements AbsTableGui {
     private final JTable table;

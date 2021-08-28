@@ -9,6 +9,7 @@ import cards.gui.WindowCards;
 import cards.gui.panels.PanelTricksHandsBelote;
 import code.gui.AbsScrollPane;
 
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
@@ -39,7 +40,7 @@ public final class DialogTricksBelote extends DialogCards {
         _tricksHands.sortHands(_displayingBelote, _numberPlayers);
         AbsScrollPane scroll_ = _ow.getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(getCardDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow).getContainer());
-        scroll_.setPreferredSize(new Dimension(600, 600));
+        scroll_.setPreferredSize(new MetaDimension(600, 600));
         getCardDialog().setContentPane(scroll_);
         getCardDialog().pack();
         getCardDialog().setVisible(true);

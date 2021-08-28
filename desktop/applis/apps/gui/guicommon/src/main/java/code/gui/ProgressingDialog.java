@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import code.gui.animations.AnimatedImage;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsFrameFactory;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
@@ -64,11 +65,11 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
         AbsPanel label_ = _window.getCompoFactory().newLineBox();
         if (!_images.isEmpty()) {
             anim = FrameUtil.prep(_window.getImageFactory());
-            anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
+            anim.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
             animation = new AnimatedImage(_window.getImageFactory(), _window.getThreadFactory(), anim, _images, TIME * 10);
         } else {
             anim = FrameUtil.prep(_window.getImageFactory());
-            anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
+            anim.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim.setOpaque(true);
             anim.setBackground(GuiConstants.WHITE);
         }

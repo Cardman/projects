@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -39,7 +40,7 @@ public class ItemsPanel {
         int side_ = facade.getMap().getSideLength();
         container.add(liste.self(),GuiConstants.BORDER_LAYOUT_CENTER);
         container.add(amount, GuiConstants.BORDER_LAYOUT_SOUTH);
-        container.setPreferredSize(new Dimension(100,2*side_*_nb));
+        container.setPreferredSize(new MetaDimension(100,2*side_*_nb));
     }
 
     public void initItems() {

@@ -15,6 +15,7 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 import code.maths.LgInt;
 import code.util.CustList;
 import code.util.*;
@@ -445,11 +446,11 @@ public final class FrontBattle extends AbsMetaLabel {
 //            i_++;
 //        }
         if (mult_ == 1) {
-            setPreferredSize(new Dimension(maxWidth * 2, maxHeight * 2));
+            setPreferredSize(new MetaDimension(maxWidth * 2, maxHeight * 2));
         } else if (mult_ == 2) {
-            setPreferredSize(new Dimension(maxWidth * 4, maxHeight * 2));
+            setPreferredSize(new MetaDimension(maxWidth * 4, maxHeight * 2));
         } else {
-            setPreferredSize(new Dimension(maxWidth * 4, maxHeight * 4));
+            setPreferredSize(new MetaDimension(maxWidth * 4, maxHeight * 4));
         }
         //placeLabels(mult_);
     }

@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
 import code.gui.events.*;
+import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.util.CustList;
 import code.util.IdMap;
@@ -223,12 +224,32 @@ public abstract class CustComponent implements AbsCustComponent {
         getNatComponent().setSize(_dimension);
     }
 
+    @Override
+    public MetaDimension getPreferredSizeValue() {
+        Dimension preferredSize_ = getPreferredSize();
+        return new MetaDimension(preferredSize_.width,preferredSize_.height);
+    }
+
     public Dimension getPreferredSize() {
         return getNatComponent().getPreferredSize();
     }
 
     public void setPreferredSize(Dimension _dimension) {
         getNatComponent().setPreferredSize(_dimension);
+    }
+
+    @Override
+    public void setPreferredSize(MetaDimension _dimension) {
+        try {
+            setPreferredSize(new Dimension(_dimension.getWidth(), _dimension.getHeight()));
+        } catch (Exception e) {
+            getNatComponent().setPreferredSize(null);
+        }
+    }
+
+    @Override
+    public void setSize(MetaDimension _dimension) {
+        setSize(new Dimension(_dimension.getWidth(), _dimension.getHeight()));
     }
 
     public boolean isFocusable() {

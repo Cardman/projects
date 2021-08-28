@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import code.formathtml.render.MetaIndentNbLabel;
 import code.gui.AbsPreparedLabel;
+import code.gui.images.MetaDimension;
 
 public final class DualIndentNbLabel extends DualLabel {
 
@@ -11,7 +12,7 @@ public final class DualIndentNbLabel extends DualLabel {
             RenderedPage _page, int _width) {
         super(_container, _component, _page);
         AbsPreparedLabel lab_ = getLabel();
-        lab_.setPreferredSize(new Dimension(_width, _component.getStyle().getEmToPixels()));
+        lab_.setPreferredSize(new MetaDimension(_width, _component.getStyle().getEmToPixels()));
     }
 
     @Override

@@ -18,6 +18,7 @@ import code.gui.*;
 
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
+import code.gui.images.MetaDimension;
 import code.threads.ThreadUtil;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -205,7 +206,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         PreparedAnalyzed stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(stds_);
-        scroll_.setPreferredSize(new Dimension(300,300));
+        scroll_.setPreferredSize(new MetaDimension(300,300));
 
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         panneau_.add(scroll_);

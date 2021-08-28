@@ -14,6 +14,7 @@ import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingEgg;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.StringList;
@@ -170,7 +171,7 @@ public final class PaginatorEgg extends Paginator {
         h_.append(getMessages().getVal(STEPS)).append(SPACES);
         h_.append(getMessages().getVal(REMAIN_STEPS));
         getHeader().addString(h_.toString(), FIRST_PIXEL);
-        getHeader().setPreferredSize(new Dimension(getHeader().width(h_.toString()), HEIGTH_CHARS));
+        getHeader().setPreferredSize(new MetaDimension(getHeader().width(h_.toString()), HEIGTH_CHARS));
         results.add(getHeader());
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();

@@ -5,22 +5,23 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentStruct;
+import code.gui.images.MetaDimension;
 
 import java.awt.Dimension;
 
 public final class DimensionStruct extends WithoutParentStruct implements Struct {
-    private Dimension dimension;
+    private MetaDimension dimension;
 
     public DimensionStruct(int _w,int _h) {
-        dimension = new Dimension(_w,_h);
+        dimension = new MetaDimension(_w,_h);
     }
 
     public DimensionStruct(DimensionStruct _d) {
-        dimension = new Dimension(_d.dimension);
+        dimension = new MetaDimension(_d.dimension);
     }
 
-    protected DimensionStruct(Dimension _d) {
-        dimension = new Dimension(_d);
+    protected DimensionStruct(MetaDimension _d) {
+        dimension = _d;
     }
 
     @Override
@@ -30,14 +31,14 @@ public final class DimensionStruct extends WithoutParentStruct implements Struct
     }
 
     public IntStruct getHeight() {
-        return new IntStruct(dimension.height);
+        return new IntStruct(dimension.getHeight());
     }
 
     public IntStruct getWidth() {
-        return new IntStruct(dimension.width);
+        return new IntStruct(dimension.getWidth());
     }
 
-    public Dimension getDimension() {
+    public MetaDimension getDimension() {
         return dimension;
     }
 
@@ -47,15 +48,15 @@ public final class DimensionStruct extends WithoutParentStruct implements Struct
             return false;
         }
         DimensionStruct other_ = (DimensionStruct) _other;
-        if (dimension.width != other_.dimension.width) {
+        if (dimension.getWidth() != other_.dimension.getWidth()) {
             return false;
         }
-        return dimension.height == other_.dimension.height;
+        return dimension.getHeight() == other_.dimension.getHeight();
     }
     @Override
     public long randCode() {
-        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(dimension.width));
-        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(dimension.height));
+        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(dimension.getWidth()));
+        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(dimension.getHeight()));
         return r_;
     }
 }

@@ -9,6 +9,7 @@ import aiki.game.fight.ChosenMoveInfos;
 import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.ConverterBufferedImage;
 import code.util.NatStringTreeMap;
@@ -48,7 +49,7 @@ public final class MoveLabel extends AbsMetaLabel {
         }
         text = StringUtil.concat(move,SPACE, StringUtil.join(types_, SPACE),SPACE,usesStr_);
         setOpaque(true);
-        setPreferredSize(new Dimension(150, 20));
+        setPreferredSize(new MetaDimension(150, 20));
     }
 
     public void setSelected(String _move) {

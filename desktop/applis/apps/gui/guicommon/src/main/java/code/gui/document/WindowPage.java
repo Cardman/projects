@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import code.formathtml.render.*;
 import code.formathtml.util.FormInputCoords;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.util.CustList;
 import code.util.ObjectMap;
 
@@ -49,7 +50,7 @@ public final class WindowPage implements Runnable {
                     if (container_.containsOnlyEndLine()) {
                         AbsPanel c_ = (AbsPanel) cur_.getGraphic();
                         int em_ = cur_.getComponent().getStyle().getEmToPixels();
-                        cur_.getChildren().last().getGraphic().setPreferredSize(new Dimension(em_, c_.heightFont()));
+                        cur_.getChildren().last().getGraphic().setPreferredSize(new MetaDimension(em_, c_.heightFont()));
                     }
                 }
                 IntComponent firstChild_ = container_.getFirstChildCompo();

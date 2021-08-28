@@ -1,10 +1,9 @@
 package aiki.gui.components;
 
-import java.awt.Dimension;
-
 import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.StringUtil;
 
@@ -19,7 +18,7 @@ public final class AbilityLabel extends AbsMetaLabel {
     public AbilityLabel(String _text, String _key, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         text =_text;
-        setPreferredSize(new Dimension(150, 10));
+        setPreferredSize(new MetaDimension(150, 10));
         key = _key;
     }
 

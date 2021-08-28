@@ -3,6 +3,7 @@ import java.awt.Dimension;
 
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -35,7 +36,7 @@ public final class WrappedLabel extends AbsMetaLabel {
                 w_ = wLine_;
             }
         }
-        setPreferredSize(new Dimension(w_, h_));
+        setPreferredSize(new MetaDimension(w_, h_));
         repaintLabel(_fact);
     }
 

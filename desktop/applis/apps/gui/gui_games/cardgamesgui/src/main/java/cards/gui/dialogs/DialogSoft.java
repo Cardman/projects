@@ -8,6 +8,7 @@ import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -136,7 +137,7 @@ public final class DialogSoft extends DialogCards {
             waitTrickClick =getCompoFactory().newCustCheckBox(messages.getVal(CLICK_FOR_PLAYING_TRICK));
             waitTrickClick.setSelected(parametres.getAttentePlisClic());
             panneau_.add(waitTrickClick);
-            panneau_.setPreferredSize(new Dimension(600,400));
+            panneau_.setPreferredSize(new MetaDimension(600,400));
             container_.add(panneau_,GuiConstants.BORDER_LAYOUT_CENTER);
         } else {
             AbsPanel panneau_=_fenetre.getCompoFactory().newGrid(0,1);

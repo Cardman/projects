@@ -6,6 +6,7 @@ import aiki.facade.FacadeGame;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.maths.LgInt;
 
 public class TmRenderer extends CustCellRender<String> {
@@ -36,7 +37,7 @@ public class TmRenderer extends CustCellRender<String> {
 //        short tm_ = facade.getData().getTm().getKeys(name).first();
         short tm_ = facade.getData().getTmByMove(name).first();
         price = facade.getData().getTmPrice().getVal(tm_);
-        _currentLab.setPreferredSize(new Dimension(150,sideLength));
+        _currentLab.setPreferredSize(new MetaDimension(150,sideLength));
     }
 
     @Override

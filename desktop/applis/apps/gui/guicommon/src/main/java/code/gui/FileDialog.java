@@ -1,6 +1,6 @@
 package code.gui;
 
-import java.awt.Point;
+
 
 import javax.swing.WindowConstants;
 
@@ -8,6 +8,7 @@ import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
 import code.gui.events.DeployTreeEvent;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaPoint;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
@@ -73,7 +74,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
     }
 
     @Override
-    public Point getLocationOnScreen() {
+    public MetaPoint getLocationOnScreen() {
         return absDialog.getLocationOnScreen();
     }
 

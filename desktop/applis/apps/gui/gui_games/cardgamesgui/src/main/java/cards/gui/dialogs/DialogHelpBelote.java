@@ -10,6 +10,7 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
@@ -121,7 +122,7 @@ public final class DialogHelpBelote {
         }
         panneau2_.add(panneau3_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsScrollPane ascenseur_= compo.newAbsScrollPane(panneau2_);
-        ascenseur_.setPreferredSize(new Dimension(600,600));
+        ascenseur_.setPreferredSize(new MetaDimension(600,600));
         container_.add(ascenseur_);
         absDialog.setContentPane(container_);
         absDialog.pack();

@@ -20,6 +20,7 @@ import code.gui.*;
 
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
+import code.gui.images.MetaDimension;
 import code.threads.ThreadUtil;
 import code.util.ByteMap;
 import code.util.StringList;
@@ -213,7 +214,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         PreparedAnalyzed stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(stds_);
-        scroll_.setPreferredSize(new Dimension(300,300));
+        scroll_.setPreferredSize(new MetaDimension(300,300));
         panneau_.add(scroll_);
         panneau_.add(stopButton);
         panneau_.add(container.getOwner().getClock());

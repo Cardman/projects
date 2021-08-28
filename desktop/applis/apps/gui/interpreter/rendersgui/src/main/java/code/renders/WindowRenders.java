@@ -17,6 +17,7 @@ import code.gui.AbsMenuItem;
 
 import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.renders.utilcompo.LgNamesRenderUtils;
 import code.stream.StreamFolderFile;
@@ -67,7 +68,7 @@ public final class WindowRenders extends GroupFrame {
         session.setArea(t_);
         session.addFinder();
         AbsScrollPane scrollSession_ = session.getScroll();
-        scrollSession_.setPreferredSize(new Dimension(400, 400));
+        scrollSession_.setPreferredSize(new MetaDimension(400, 400));
         pane_.add(scrollSession_);
         pane_.add(field_);
         pane_.add(search_);

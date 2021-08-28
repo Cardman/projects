@@ -9,6 +9,7 @@ import code.gui.*;
 
 
 import code.gui.events.ClosingChildFrameEvent;
+import code.gui.images.MetaDimension;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamBinaryFile;
@@ -84,7 +85,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         form.add(content);
         conf = parent.getCompoFactory().newTextArea(64,64);
         AbsScrollPane scr_ = parent.getCompoFactory().newAbsScrollPane(conf);
-        scr_.setPreferredSize(new Dimension(256,96));
+        scr_.setPreferredSize(new MetaDimension(256,96));
         form.add(scr_);
         AbsPanel formButtons_ = parent.getCompoFactory().newGrid(0,2);
         launch = parent.getCompoFactory().newPlainButton(messages.getVal("launch"));
@@ -129,16 +130,16 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         resultsTable = parent.getCompoFactory().newTableGui(cols_);
         results = parent.getCompoFactory().newTextArea(1024,1024);
         AbsScrollPane scrTable_ = parent.getCompoFactory().newAbsScrollPane(resultsTable);
-        scrTable_.setPreferredSize(new Dimension(256,96));
+        scrTable_.setPreferredSize(new MetaDimension(256,96));
         AbsScrollPane scrRes_ = parent.getCompoFactory().newAbsScrollPane(results);
-        scrRes_.setPreferredSize(new Dimension(256,96));
+        scrRes_.setPreferredSize(new MetaDimension(256,96));
         AbsSplitPane splitPane_ = parent.getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,scrTable_,scrRes_);
         splitPane_.setOneTouchExpandable(true);
         progressing.add(splitPane_);
         contentPane.add(progressing);
         errors = parent.getCompoFactory().newTextArea(128,128);
         AbsScrollPane scrErrs_ = parent.getCompoFactory().newAbsScrollPane(errors);
-        scrErrs_.setPreferredSize(new Dimension(512,128));
+        scrErrs_.setPreferredSize(new MetaDimension(512,128));
         unitIssuer = new UnitIssuer(errors);
         contentPane.add(scrErrs_);
         setContentPane(contentPane);

@@ -1,12 +1,14 @@
 package code.gui;
 
-import java.awt.Point;
+import code.gui.images.MetaPoint;
+
+
 
 public interface ChangeableTitle extends Iconifiable {
 
     String getTitle();
 
     void setTitle(String _title);
-    Point getLocationOnScreen();
+    MetaPoint getLocationOnScreen();
 
 }

@@ -11,6 +11,7 @@ import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
+import code.gui.images.MetaDimension;
 import code.util.StringMap;
 
 public final class FrameHtmlData extends ChildFrame {
@@ -49,7 +50,7 @@ public final class FrameHtmlData extends ChildFrame {
         session.setField(field_);
         session.addFinder();
         AbsScrollPane scrollSession_ = session.getScroll();
-        scrollSession_.setPreferredSize(new Dimension(400, 400));
+        scrollSession_.setPreferredSize(new MetaDimension(400, 400));
         panel_.add(scrollSession_);
         panel_.add(area_);
         panel_.add(field_);

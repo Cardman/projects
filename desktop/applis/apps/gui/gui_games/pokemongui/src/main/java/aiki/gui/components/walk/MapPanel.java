@@ -9,6 +9,7 @@ import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
 import code.gui.AbsPanel;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.ConverterBufferedImage;
 import code.util.TreeMap;
@@ -38,7 +39,7 @@ public class MapPanel {
             tile_.addMouseListener(new TileListener(_scene, t.getXcoords(), t.getYcoords()));
             container.add(tile_);
         }
-        container.setPreferredSize(new Dimension(_facade.getMapWidth()*sideLength_, _facade.getMapHeight()*sideLength_));
+        container.setPreferredSize(new MetaDimension(_facade.getMapWidth()*sideLength_, _facade.getMapHeight()*sideLength_));
     }
 
     public AbsPanel getContainer() {

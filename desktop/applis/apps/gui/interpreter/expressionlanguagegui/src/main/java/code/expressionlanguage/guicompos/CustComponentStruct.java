@@ -10,6 +10,7 @@ import code.gui.events.AbsKeyListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
+import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
@@ -300,12 +301,12 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     }
 
     protected Struct getPreferredSize() {
-        return new DimensionStruct(getComponent().getPreferredSize());
+        return new DimensionStruct(getComponent().getPreferredSizeValue());
     }
 
     protected void setPreferredSize(Struct _d) {
         if (!(_d instanceof DimensionStruct)) {
-            setPreferredSize((Dimension)null);
+            setPreferredSize((MetaDimension)null);
             return;
         }
         DimensionStruct d_ = (DimensionStruct)_d;
@@ -319,7 +320,8 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         DimensionStruct d_ = (DimensionStruct)_d;
         getComponent().setSize(d_.getDimension());
     }
-    protected void setPreferredSize(Dimension _d) {
+
+    protected void setPreferredSize(MetaDimension _d) {
         getComponent().setPreferredSize(_d);
     }
 }

@@ -7,6 +7,7 @@ import code.gui.AbsMenuItem;
 
 
 import code.gui.events.QuittingEvent;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessCdmGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -50,7 +51,7 @@ public final class WindowFull extends GroupFrame {
         form.add(content);
         conf = getCompoFactory().newTextArea(64,64);
         AbsScrollPane scr_ = getCompoFactory().newAbsScrollPane(conf);
-        scr_.setPreferredSize(new Dimension(256,96));
+        scr_.setPreferredSize(new MetaDimension(256,96));
         form.add(scr_);
         launch = getCompoFactory().newPlainButton(messages.getVal("launch"));
         launch.addActionListener(new ListenerLaunchApp(this));

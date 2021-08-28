@@ -7,6 +7,7 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 
 public class ItemRenderer extends CustCellRender<String> {
 
@@ -51,7 +52,7 @@ public class ItemRenderer extends CustCellRender<String> {
                 maxWordWidth = w_;
             }
         }
-        _currentLab.setPreferredSize(new Dimension(maxWordWidth+sideLength *2,sideLength));
+        _currentLab.setPreferredSize(new MetaDimension(maxWordWidth+sideLength *2,sideLength));
     }
 
     @Override

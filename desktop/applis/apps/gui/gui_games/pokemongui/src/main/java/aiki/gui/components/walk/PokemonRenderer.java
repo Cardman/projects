@@ -10,6 +10,7 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -101,7 +102,7 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
             miniImagePk = ConverterGraphicBufferedImage.decodeToImage(fact.getImageFactory(),img_);
             remainSteps = (int) (facade.getData().getPokemon(egg_.getName()).getHatchingSteps().ll() - egg_.getSteps());
         }
-        _currentLab.setPreferredSize(new Dimension(coords * 2 + sideLength * 2, sideLength));
+        _currentLab.setPreferredSize(new MetaDimension(coords * 2 + sideLength * 2, sideLength));
     }
 
     public AbstractProgramInfos getFact() {

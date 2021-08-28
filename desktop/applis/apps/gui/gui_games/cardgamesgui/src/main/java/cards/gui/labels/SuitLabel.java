@@ -9,6 +9,7 @@ import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.LabelButtonUtil;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
@@ -34,10 +35,10 @@ public final class SuitLabel extends AbsMetaLabel {
             setForeground(GuiConstants.newColor(0, 0, 127));
             int h_ = heightFont();
             int w_ = stringWidth(getText());
-            setPreferredSize(new Dimension(w_, h_));
+            setPreferredSize(new MetaDimension(w_, h_));
         } else {
             setText(EMPTY_STRING);
-            setPreferredSize(new Dimension(20,20));
+            setPreferredSize(new MetaDimension(20,20));
         }
     }
 

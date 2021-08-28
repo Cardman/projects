@@ -3,6 +3,7 @@ package code.gui;
 import code.gui.events.AbsWindowListener;
 import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaPoint;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -24,8 +25,9 @@ public final class OtherFrame implements AbsOtherFrame,ChangeableTitle,WithListe
     }
 
     @Override
-    public Point getLocationOnScreen() {
-        return frame.getLocationOnScreen();
+    public MetaPoint getLocationOnScreen() {
+        Point pt_ = frame.getLocationOnScreen();
+        return new MetaPoint(pt_.x, pt_.y);
     }
     @Override
     public String getTitle() {

@@ -8,6 +8,7 @@ import aiki.fight.moves.MoveData;
 import aiki.util.SortingMove;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.ConverterBufferedImage;
 import code.util.NatStringTreeMap;
@@ -107,7 +108,7 @@ public final class TmLabel extends SelectableLabel {
     }
 
     public void setPreferredSize(int _width) {
-        setPreferredSize(new Dimension(_width, SECOND_LINE));
+        setPreferredSize(new MetaDimension(_width, SECOND_LINE));
     }
 
     public void setxMoveName(int _xMoveName) {

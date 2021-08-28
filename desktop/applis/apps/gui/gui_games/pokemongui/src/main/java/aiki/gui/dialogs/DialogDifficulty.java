@@ -11,6 +11,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
@@ -66,7 +67,7 @@ public final class DialogDifficulty implements AbsCloseableDialog {
         session.addFinder();
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
-        scrollSession_.setPreferredSize(new Dimension(400, 400));
+        scrollSession_.setPreferredSize(new MetaDimension(400, 400));
 //        group_.add(scrollSession_);
 //        JScrollPane scrollTextArea_ = new JScrollPane(area_);
 //        group_.add(scrollTextArea_);

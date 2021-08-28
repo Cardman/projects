@@ -8,6 +8,7 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 
 public class PokemonDataRenderer extends CustCellRender<String> {
 
@@ -52,7 +53,7 @@ public class PokemonDataRenderer extends CustCellRender<String> {
             pkImage = null;
             height = sideLength;
         }
-        _currentLab.setPreferredSize(new Dimension(100, height));
+        _currentLab.setPreferredSize(new MetaDimension(100, height));
     }
 
     @Override

@@ -50,8 +50,8 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         }
         int height_ = textField.getHeight();
         AbsCustComponent par_ = textField;
-        int x_ = changeableTitle.getLocationOnScreen().x;
-        int y_ = changeableTitle.getLocationOnScreen().y+30;
+        int x_ = changeableTitle.getLocationOnScreen().getXcoord();
+        int y_ = changeableTitle.getLocationOnScreen().getYcoord()+30;
         while (par_ != null) {
             x_ += par_.getXcoords();
             y_ += par_.getYcoords();

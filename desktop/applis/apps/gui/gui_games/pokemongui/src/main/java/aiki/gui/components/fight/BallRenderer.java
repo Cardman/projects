@@ -8,6 +8,7 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
 import code.util.core.StringUtil;
@@ -66,7 +67,7 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
         ball = get(_index);
         int[][] img_ = facade.getData().getMiniItems().getVal(ball.getName());
         ballImage = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
-        _currentLab.setPreferredSize(new Dimension(100, ballImage.getHeight()));
+        _currentLab.setPreferredSize(new MetaDimension(100, ballImage.getHeight()));
     }
 
     @Override

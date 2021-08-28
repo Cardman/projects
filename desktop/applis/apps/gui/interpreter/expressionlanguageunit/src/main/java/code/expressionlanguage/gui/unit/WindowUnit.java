@@ -16,6 +16,7 @@ import code.gui.AbsMenuItem;
 
 
 import code.gui.events.QuittingEvent;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -93,7 +94,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         form.add(content);
         conf = getCompoFactory().newTextArea(64,64);
         AbsScrollPane scr_ = getCompoFactory().newAbsScrollPane(conf);
-        scr_.setPreferredSize(new Dimension(256,96));
+        scr_.setPreferredSize(new MetaDimension(256,96));
         form.add(scr_);
         launch = getCompoFactory().newPlainButton(unitMessages.getVal("launch"));
         launch.addActionListener(new ListenerLaunchTests(this, this));
@@ -119,14 +120,14 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         resultsTable = getCompoFactory().newTableGui(cols_);
         results = getCompoFactory().newTextArea(1024,1024);
         AbsScrollPane scrTable_ = getCompoFactory().newAbsScrollPane(resultsTable);
-        scrTable_.setPreferredSize(new Dimension(256,96));
+        scrTable_.setPreferredSize(new MetaDimension(256,96));
         AbsScrollPane scrRes_ = getCompoFactory().newAbsScrollPane(results);
-        scrRes_.setPreferredSize(new Dimension(256,96));
+        scrRes_.setPreferredSize(new MetaDimension(256,96));
         AbsSplitPane splitPane_ = getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,scrTable_,scrRes_);
         splitPane_.setOneTouchExpandable(true);
         progressing.add(splitPane_);
         contentPane.add(progressing);
-        errorsScroll.setPreferredSize(new Dimension(512,128));
+        errorsScroll.setPreferredSize(new MetaDimension(512,128));
         errorsScroll.setVisible(false);
         contentPane.add(errorsScroll);
         setContentPane(contentPane);

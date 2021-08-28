@@ -5,6 +5,7 @@ import cards.consts.Role;
 import cards.gui.labels.CellPlayer;
 import code.gui.AbsPanel;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
 import code.util.StringList;
@@ -28,7 +29,7 @@ public final class MiniCarpet {
             for(int i=0;i<9;i++) {
                 AbsPanel surPanneau_= _compoFactory.newLineBox();
                 CellPlayer cell_ = new CellPlayer(_compoFactory);
-                cell_.setPreferredSize(new Dimension(20,10));
+                cell_.setPreferredSize(new MetaDimension(20,10));
                 if(i%2==1) {
                     if(i==1) {
                         cell_.setTextPlayer(_pseudos.get(2));
@@ -64,7 +65,7 @@ public final class MiniCarpet {
             for(int i=0;i<12;i++) {
                 AbsPanel surPanneau_=_compoFactory.newLineBox();
                 CellPlayer cell_ = new CellPlayer(_compoFactory);
-                cell_.setPreferredSize(new Dimension(20,10));
+                cell_.setPreferredSize(new MetaDimension(20,10));
                 if(i==1) {
                     if(m_.horaire) {
                         cell_.setTextPlayer(_pseudos.get(2));
@@ -125,7 +126,7 @@ public final class MiniCarpet {
                 AbsPanel surPanneau_;
                 surPanneau_= _compoFactory.newLineBox();
                 CellPlayer cell_ = new CellPlayer(_compoFactory);
-                cell_.setPreferredSize(new Dimension(20,10));
+                cell_.setPreferredSize(new MetaDimension(20,10));
                 if(i==0) {
                     if(m_.horaire) {
                         cell_.setTextPlayer(_pseudos.get(1));
@@ -158,7 +159,7 @@ public final class MiniCarpet {
             for(int i=0;i<9;i++) {
                 AbsPanel surPanneau_=_compoFactory.newLineBox();
                 CellPlayer cell_ = new CellPlayer(_compoFactory);
-                cell_.setPreferredSize(new Dimension(20,10));
+                cell_.setPreferredSize(new MetaDimension(20,10));
                 if(i==0) {
                     surPanneau_= _compoFactory.newLineBox();
                     if(m_.horaire) {

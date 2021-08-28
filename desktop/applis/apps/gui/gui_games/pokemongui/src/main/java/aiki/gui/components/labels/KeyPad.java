@@ -6,6 +6,7 @@ import aiki.map.enums.Direction;
 import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
@@ -16,7 +17,7 @@ public final class KeyPad extends AbsMetaLabel {
     public KeyPad(Direction _direction, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         direction = _direction;
-        setPreferredSize(new Dimension(32, 32));
+        setPreferredSize(new MetaDimension(32, 32));
     }
 
     @Override

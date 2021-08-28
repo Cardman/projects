@@ -5,7 +5,7 @@ import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
-import java.awt.Point;
+
 
 public interface AbsCommonFrame extends ChangeableTitle {
     AbstractProgramInfos getFrames();
@@ -14,7 +14,9 @@ public interface AbsCommonFrame extends ChangeableTitle {
     void setImageIconFrame(AbstractImage _imageIconFrame);
     void dispose();
     void requestFocus();
-    Point getLocation();
+    int getLocationFirst();
+    int getLocationSecond();
+
     void setLocation(int _x, int _y);
     int getWidth();
     int getHeight();

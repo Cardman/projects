@@ -1,8 +1,5 @@
 package aiki.gui.components.walk;
 
-
-import java.awt.Dimension;
-
 import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
@@ -72,6 +69,7 @@ import aiki.network.NetAiki;
 import aiki.network.stream.SentPokemon;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.LgInt;
 import code.network.NetCreate;
@@ -596,7 +594,7 @@ public class ScenePanel {
         set_.add(teamPan.getContainer());
         movesLearnt = compoFactory.newGrid(0,1);
         AbsScrollPane scroll_ = compoFactory.newAbsScrollPane(movesLearnt);
-        scroll_.setPreferredSize(new Dimension(100, 220));
+        scroll_.setPreferredSize(new MetaDimension(100, 220));
         set_.add(scroll_);
         abilities = compoFactory.newGrid(0,1);
         set_.add(abilities);
@@ -642,7 +640,7 @@ public class ScenePanel {
         set_.add(teamPan.getContainer());
         movesLearnt = compoFactory.newGrid(0,1);
         AbsScrollPane scroll_ = compoFactory.newAbsScrollPane(movesLearnt);
-        scroll_.setPreferredSize(new Dimension(100, 220));
+        scroll_.setPreferredSize(new MetaDimension(100, 220));
         set_.add(scroll_);
         abilities = compoFactory.newGrid(0,1);
         set_.add(abilities);
@@ -777,7 +775,7 @@ public class ScenePanel {
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFrame(window);
 //        receivedPk.prepare();
-        scrollSession_.setPreferredSize(new Dimension(400, 300));
+        scrollSession_.setPreferredSize(new MetaDimension(400, 300));
         group_.add(scrollSession_, GuiConstants.BORDER_LAYOUT_CENTER);
         panelNetWork.add(group_);
         enabledReady = false;
@@ -919,7 +917,7 @@ public class ScenePanel {
             set_.add(teamPan.getContainer());
             movesLearnt = compoFactory.newGrid(0,1);
             AbsScrollPane scroll_ = compoFactory.newAbsScrollPane(movesLearnt);
-            scroll_.setPreferredSize(new Dimension(100, 220));
+            scroll_.setPreferredSize(new MetaDimension(100, 220));
             set_.add(scroll_);
             panelOptions.add(set_, GuiConstants.BORDER_LAYOUT_CENTER);
             panelMenu.setVisible(false);

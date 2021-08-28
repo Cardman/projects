@@ -3,6 +3,7 @@ package code.gui;
 import code.gui.events.AbsWindowListener;
 import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sys.impl.DefImage;
 import code.sys.impl.DefImageFactory;
@@ -58,8 +59,14 @@ public final class CommonFrame implements AbsCommonFrame {
         frame.requestFocus();
     }
 
-    public Point getLocation() {
-        return frame.getLocation();
+    @Override
+    public int getLocationFirst() {
+        return frame.getLocation().x;
+    }
+
+    @Override
+    public int getLocationSecond() {
+        return frame.getLocation().y;
     }
 
     public void setLocation(int _x, int _y) {
@@ -196,7 +203,8 @@ public final class CommonFrame implements AbsCommonFrame {
 //        frame.printAll(g_);
 //        return b_;
 //    }
-    public Point getLocationOnScreen() {
-        return frame.getLocationOnScreen();
+    public MetaPoint getLocationOnScreen() {
+        Point pt_ = frame.getLocationOnScreen();
+        return new MetaPoint(pt_.x, pt_.y);
     }
 }

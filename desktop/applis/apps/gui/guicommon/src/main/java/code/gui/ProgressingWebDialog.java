@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import code.gui.animations.AnimatedImage;
 import code.gui.document.ProcessingSession;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractThreadFactory;
@@ -52,11 +53,11 @@ public final class ProgressingWebDialog implements ProgressDialog {
         absDialog.setLocationRelativeToWindow(_window);
         if (!_images.isEmpty()) {
             anim = FrameUtil.prep(_session.getGene().getImageFactory());
-            anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
+            anim.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
             animation = new AnimatedImage(_session.getGene().getImageFactory(),_fact,anim, _images, TIME * 10);
         } else {
             anim = FrameUtil.prep(_session.getGene().getImageFactory());
-            anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
+            anim.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim.setOpaque(true);
             anim.setBackground(GuiConstants.WHITE);
         }

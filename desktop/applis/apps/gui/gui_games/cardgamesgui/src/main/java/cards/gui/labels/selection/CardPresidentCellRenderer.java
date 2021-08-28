@@ -9,6 +9,7 @@ import cards.president.enumerations.CardPresident;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.util.core.NumberUtil;
 
 /**
@@ -25,7 +26,7 @@ public class CardPresidentCellRenderer extends CustCellRender<CardPresident> {
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
         card= get(_index);
         selectionne=_isSelected;
-        _currentLab.setPreferredSize(new Dimension(50,10));
+        _currentLab.setPreferredSize(new MetaDimension(50,10));
     }
 
     @Override

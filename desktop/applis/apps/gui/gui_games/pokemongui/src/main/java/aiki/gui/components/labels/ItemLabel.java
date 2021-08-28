@@ -8,6 +8,7 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.Ints;
 
@@ -46,7 +47,7 @@ public final class ItemLabel extends SelectableLabel {
         widths_.add(stringWidth(item.getItemClass()));
         widths_.add(stringWidth(Long.toString(item.getPrice())));
         widths_.add(stringWidth(item.getNumber().toNumberString()));
-        setPreferredSize(new Dimension((int) widths_.getMaximum(1),h_));
+        setPreferredSize(new MetaDimension((int) widths_.getMaximum(1),h_));
     }
 
     @Override

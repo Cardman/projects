@@ -1,5 +1,5 @@
 package cards.gui;
-import java.awt.Point;
+
 
 
 import javax.swing.SwingConstants;
@@ -124,6 +124,7 @@ import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.events.QuitEvent;
 import code.gui.events.QuittingEvent;
+import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.AbstractSocket;
 import code.network.*;
@@ -786,8 +787,8 @@ public final class WindowCards extends NetGroupFrame {
         StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN),getStreams());
     }
     private void ecrireCoordonnees() {
-        Point point_=getLocation();
-        SoftApplicationCore.saveCoords(LaunchingCards.getTempFolder(getFrames()), FileConst.COORDS, point_.x,point_.y,getStreams());
+        MetaPoint point_=getLocation();
+        SoftApplicationCore.saveCoords(LaunchingCards.getTempFolder(getFrames()), FileConst.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
     }
     public int getNoClient() {
         return ((ContainerMulti)containerGame).getNoClient();

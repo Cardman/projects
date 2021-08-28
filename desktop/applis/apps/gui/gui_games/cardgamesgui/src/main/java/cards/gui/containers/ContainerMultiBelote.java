@@ -66,6 +66,7 @@ import cards.network.threads.Net;
 import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
+import code.gui.images.MetaDimension;
 import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
@@ -142,7 +143,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             suitLabel_.setSuit(bid_, lg_);
 
             suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
-            suitLabel_.setPreferredSize(new Dimension(20,20));
+            suitLabel_.setPreferredSize(new MetaDimension(20,20));
             getBidsButtons().add(suitLabel_);
             panelSuits_.add(suitLabel_);
         }
@@ -272,7 +273,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
         editor.initialize(stds_);
 
-        scroll_.setPreferredSize(new Dimension(300,400));
+        scroll_.setPreferredSize(new MetaDimension(300,400));
         container_.add(scroll_);
 
         playersPlacesForGame = _players.getPlacesPlayers();
@@ -834,14 +835,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
         PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
         editor_.initialize(sOne_);
-        scroll_.setPreferredSize(new Dimension(300,300));
+        scroll_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
         AbsScrollPane ascenseur_=getOwner().getCompoFactory().newAbsScrollPane();
         editor_ = new RenderedPage(ascenseur_, getOwner().getFrames());
         PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
         ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
         editor_.initialize(sTwo_);
-        ascenseur_.setPreferredSize(new Dimension(300,300));
+        ascenseur_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();

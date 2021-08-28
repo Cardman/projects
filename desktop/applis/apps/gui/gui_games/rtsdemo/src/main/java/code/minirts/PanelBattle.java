@@ -7,6 +7,7 @@ import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.geo.CustPoint;
 import code.maths.geo.Rect;
@@ -58,7 +59,7 @@ public class PanelBattle {
         SoldierPattern p_ = facade.getSoldierPattern();
         Soldier s_ = facade.getLastSoldier();
         UnitSoldier soldierLabel_ = new UnitSoldier(s_, _fact.getCompoFactory());
-        soldierLabel_.setSize(new Dimension(p_.getWidth(), p_.getHeight()));
+        soldierLabel_.setSize(new MetaDimension(p_.getWidth(), p_.getHeight()));
         content.add(soldierLabel_);
         soldierLabel_.setLocation(_x, _y);
         soldierLabels.put(facade.getLastSoldierKey(),soldierLabel_);
@@ -194,7 +195,7 @@ public class PanelBattle {
         return container;
     }
 
-    public void setSize(Dimension _dimension) {
+    public void setSize(MetaDimension _dimension) {
         container.setSize(_dimension);
         content.setSize(_dimension);
     }

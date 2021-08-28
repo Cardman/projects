@@ -13,6 +13,7 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.BaseSixtyFourUtil;
 import code.scripts.pages.cards.CardsInit;
@@ -51,20 +52,20 @@ public final class GraphicPresidentCard extends AbsMetaLabel {
     public void setPreferredSize(boolean _small) {
         setPreferredSize(getDimension(_small));
     }
-    public static Dimension getMaxDimension() {
+    public static MetaDimension getMaxDimension() {
         return getDimension(false);
     }
-    public static Dimension getMinDimension() {
+    public static MetaDimension getMinDimension() {
         return getDimension(true);
     }
-    public static Dimension getDimension(boolean _small) {
+    public static MetaDimension getDimension(boolean _small) {
         if (_small) {
-            return new Dimension(25,150);
+            return new MetaDimension(25,150);
         }
-        return new Dimension(100,150);
+        return new MetaDimension(100,150);
     }
-    public static Dimension getDimensionForSeveralCards(int _number) {
-        return new Dimension(100 + 25 * (_number - 1), 150);
+    public static MetaDimension getDimensionForSeveralCards(int _number) {
+        return new MetaDimension(100 + 25 * (_number - 1), 150);
     }
     void setCarte(AbstractImageFactory _fact,String _lg, CardPresident _pc) {
         card=_pc;

@@ -11,6 +11,8 @@ import code.expressionlanguage.guicompos.GuiFactroy;
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.*;
 import code.gui.events.QuittingEvent;
+import code.gui.images.MetaDimension;
+import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 import code.minirts.LaunchingDemo;
 import code.player.main.LaunchingPlayer;
@@ -24,7 +26,7 @@ import code.util.core.StringUtil;
 
 import javax.swing.WindowConstants;
 import java.awt.Dimension;
-import java.awt.Point;
+
 
 public final class WindowApps extends GroupFrame {
 
@@ -114,7 +116,7 @@ public final class WindowApps extends GroupFrame {
 //            panel_.add(radio_);
 //            radios.add(radio_);
 //        }
-        panel_.setPreferredSize(new Dimension(256, 192));
+        panel_.setPreferredSize(new MetaDimension(256, 192));
         setContentPane(panel_);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
@@ -165,9 +167,9 @@ public final class WindowApps extends GroupFrame {
     }
 
     private void writeCoords() {
-        Point point_=getLocation();
-        int x_ = point_.x;
-        int y_ = point_.y;
+        MetaPoint point_=getLocation();
+        int x_ = point_.getXcoord();
+        int y_ = point_.getYcoord();
         SoftApplicationCore.saveCoords(LaunchingApplications.getTempFolder(getFrames()), LaunchingApplications.COORDS, x_, y_,getStreams());
     }
 

@@ -10,6 +10,7 @@ import cards.president.enumerations.CardPresident;
 import code.gui.AbsGraphicList;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.EnumList;
 import code.util.core.IndexConstants;
@@ -35,7 +36,7 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
         getContainer().add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
         remCards = _compoFactory.newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
         getContainer().add(remCards, GuiConstants.BORDER_LAYOUT_SOUTH);
-        getContainer().setPreferredSize(new Dimension(100,10*(_nb+4)));
+        getContainer().setPreferredSize(new MetaDimension(100,10*(_nb+4)));
     }
 
     public void initSelectionCartePresident(WindowCards _window) {

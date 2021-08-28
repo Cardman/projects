@@ -4,6 +4,7 @@ import code.gui.events.CrossClosingDialogEvent;
 import code.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaPoint;
 import code.sys.impl.DefImage;
 import code.sys.impl.DefImageFactory;
 
@@ -122,7 +123,8 @@ public final class Dialog implements AbsDialog {
         owner = _owner;
     }
 
-    public Point getLocationOnScreen() {
-        return dial.getLocationOnScreen();
+    public MetaPoint getLocationOnScreen() {
+        Point pt_ = dial.getLocationOnScreen();
+        return new MetaPoint(pt_.x, pt_.y);
     }
 }

@@ -8,6 +8,7 @@ import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class MiniTargetLabel extends AbsMetaLabel {
@@ -28,7 +29,7 @@ public final class MiniTargetLabel extends AbsMetaLabel {
         index = _index;
         DataBase data_ = _facade.getData();
         image = ConverterGraphicBufferedImage.decodeToImage(_battle.getWindow().getImageFactory(), data_.getMiniPk().getVal(_name));
-        setPreferredSize(new Dimension(image.getWidth(),image.getHeight()));
+        setPreferredSize(new MetaDimension(image.getWidth(),image.getHeight()));
     }
 
     public void setSelected(int _index) {

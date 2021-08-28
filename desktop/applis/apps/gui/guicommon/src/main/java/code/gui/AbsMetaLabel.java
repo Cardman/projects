@@ -4,11 +4,10 @@ import code.gui.events.AbsKeyListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 
-
-import java.awt.Dimension;
 
 public abstract class AbsMetaLabel {
     private final AbsPaintableLabel paintableLabel;
@@ -53,7 +52,7 @@ public abstract class AbsMetaLabel {
         return paintableLabel.stringWidth(_string);
     }
 
-    public void setPreferredSize(Dimension _dim) {
+    public void setPreferredSize(MetaDimension _dim) {
         paintableLabel.setPreferredSize(_dim);
     }
 
@@ -110,7 +109,7 @@ public abstract class AbsMetaLabel {
         paintableLabel.setOpaque(_op);
     }
 
-    public void setSize(Dimension _dimension) {
+    public void setSize(MetaDimension _dimension) {
         paintableLabel.setSize(_dimension);
     }
 

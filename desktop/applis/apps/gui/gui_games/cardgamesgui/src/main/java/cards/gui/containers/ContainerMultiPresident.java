@@ -48,6 +48,7 @@ import cards.president.enumerations.Playing;
 import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
+import code.gui.images.MetaDimension;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -137,7 +138,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
         editor.initialize(stds_);
 
-        scroll_.setPreferredSize(new Dimension(300,400));
+        scroll_.setPreferredSize(new MetaDimension(300,400));
         container_.add(scroll_);
 
         playersPlacesForGame = _players.getPlacesPlayers();
@@ -643,7 +644,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
         editor_.initialize(stds_);
-        scroll_.setPreferredSize(new Dimension(300,300));
+        scroll_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();

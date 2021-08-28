@@ -9,6 +9,7 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.EnumMap;
 import code.util.Ints;
@@ -69,7 +70,7 @@ public final class PokemonLabel extends SelectableLabel {
         if (h_ < SECOND_LINE) {
             h_ = SECOND_LINE;
         }
-        setPreferredSize(new Dimension(thirdColumn + xName + sideLength * 2,h_));
+        setPreferredSize(new MetaDimension(thirdColumn + xName + sideLength * 2,h_));
     }
 
     public int getThirdColumnWidth() {

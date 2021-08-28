@@ -3,6 +3,7 @@ package code.minirts;
 import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.minirts.rts.Facade;
 import code.maths.geo.Rect;
@@ -16,7 +17,7 @@ public final class Selecting extends AbsMetaLabel {
     public Selecting(Facade _facade, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         facade = _facade;
-        setSize(new Dimension(2048, 2048));
+        setSize(new MetaDimension(2048, 2048));
     }
 
     @Override

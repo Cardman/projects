@@ -8,6 +8,7 @@ import cards.gui.WindowCards;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.util.core.NumberUtil;
 
 /**
@@ -26,7 +27,7 @@ public class SuitCellRenderer extends CustCellRender<Suit> {
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
         couleur= get(_index);
         selectionne=_isSelected;
-        _currentLab.setPreferredSize(new Dimension(100,10));
+        _currentLab.setPreferredSize(new MetaDimension(100,10));
     }
     @Override
     public void paintComponent(AbstractImage _g) {

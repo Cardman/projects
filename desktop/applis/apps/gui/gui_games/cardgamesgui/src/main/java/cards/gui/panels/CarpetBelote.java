@@ -15,6 +15,7 @@ import code.gui.AbsTextArea;
 
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
 import code.util.StringList;
@@ -87,7 +88,7 @@ public class CarpetBelote {
                         jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
                     }
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -101,7 +102,7 @@ public class CarpetBelote {
                         jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     }
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -115,7 +116,7 @@ public class CarpetBelote {
                         jta_.append(StringUtil.concat(_pseudos.get(5),RETURN_LINE));
                     }
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -129,7 +130,7 @@ public class CarpetBelote {
                         jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     }
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -139,7 +140,7 @@ public class CarpetBelote {
                     surPanneau_= _compoFactory.newLineBox();
                     jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -149,7 +150,7 @@ public class CarpetBelote {
                     surPanneau_= _compoFactory.newLineBox();
                     jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -176,7 +177,7 @@ public class CarpetBelote {
                         jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     }
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -189,7 +190,7 @@ public class CarpetBelote {
                         jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     }
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -198,7 +199,7 @@ public class CarpetBelote {
                 } else if(i==7) {
                     jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -224,7 +225,7 @@ public class CarpetBelote {
                         jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
                     }
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -238,7 +239,7 @@ public class CarpetBelote {
                         jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     }
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -252,7 +253,7 @@ public class CarpetBelote {
                         jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
                     }
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -266,7 +267,7 @@ public class CarpetBelote {
                         jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     }
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
@@ -276,7 +277,7 @@ public class CarpetBelote {
                     surPanneau_= _compoFactory.newLineBox();
                     jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
                     AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
-                    ascenseur_.setPreferredSize(new Dimension(100,50));
+                    ascenseur_.setPreferredSize(new MetaDimension(100,50));
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());

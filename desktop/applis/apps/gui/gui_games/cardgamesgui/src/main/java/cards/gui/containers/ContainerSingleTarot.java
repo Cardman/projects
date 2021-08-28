@@ -61,6 +61,7 @@ import cards.tarot.sml.DocumentWriterTarotUtil;
 import code.gui.*;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
+import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -126,15 +127,15 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         panneau2_.add(getMiniPanel());
         setIncludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
         AbsScrollPane scrollIncl_ = getOwner().getCompoFactory().newAbsScrollPane(getIncludedTrumpsForHandful());
-        scrollIncl_.setPreferredSize(new Dimension(125,60));
+        scrollIncl_.setPreferredSize(new MetaDimension(125,60));
         setExcludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
         AbsScrollPane scrollExc_ = getOwner().getCompoFactory().newAbsScrollPane(getExcludedTrumpsForHandful());
-        scrollExc_.setPreferredSize(new Dimension(125,60));
+        scrollExc_.setPreferredSize(new MetaDimension(125,60));
         setDeclaringHandful(getOwner().getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,scrollIncl_,scrollExc_));
         getDeclaringHandful().setContinuousLayout(true);
         getDeclaringHandful().setOneTouchExpandable(true);
         setScrollDeclaringHandful(getOwner().getCompoFactory().newAbsScrollPane(getDeclaringHandful()));
-        getScrollDeclaringHandful().setPreferredSize(new Dimension(250,60));
+        getScrollDeclaringHandful().setPreferredSize(new MetaDimension(250,60));
         getScrollDeclaringHandful().setVisible(false);
         panneau2_.add(getScrollDeclaringHandful());
         setHandfuls(new ByteMap<AbsPlainLabel>());
@@ -663,7 +664,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
             setInfoCurrentHandful(getOwner().getCompoFactory().newTextArea(EMPTY_STRING,1,15));
             AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(getInfoCurrentHandful());
-            scroll_.setPreferredSize(new Dimension(getEvents().getWidth(),70));
+            scroll_.setPreferredSize(new MetaDimension(getEvents().getWidth(),70));
             handFuls_.add(scroll_);
             CustList<AbsRadioButton> list_ = new CustList<AbsRadioButton>();
             for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
@@ -951,14 +952,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
         ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(sOne_);
-        scroll_.setPreferredSize(new Dimension(300,300));
+        scroll_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
         ascenseur_=getOwner().getCompoFactory().newAbsScrollPane();
         editor_ = new RenderedPage(ascenseur_, getOwner().getFrames());
         PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT);
         ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(sTwo_);
-        ascenseur_.setPreferredSize(new Dimension(300,300));
+        ascenseur_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),ascenseur_);
         if(partie_.getType()==GameType.RANDOM) {
             Ints couleurs_=new Ints();
@@ -1001,17 +1002,17 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             }
             setMaxAbsoluScore(Math.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int)getMaxAbsoluScore();
-            graphique_.setPreferredSize(new Dimension(2000,dimy_));
+            graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
             AbsScrollPane locScroll_=getOwner().getCompoFactory().newAbsScrollPane(graphique_);
             graphique_.setLocation(0,(600-dimy_)/2);
-            locScroll_.setPreferredSize(new Dimension(300,200));
+            locScroll_.setPreferredSize(new MetaDimension(300,200));
             AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
             panneau_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL)),GuiConstants.BORDER_LAYOUT_NORTH);
             panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
-            legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
+            legende_.setPreferredSize(new MetaDimension(300,15*(nombreJoueurs_+1)));
             locScroll_=getOwner().getCompoFactory().newAbsScrollPane(legende_);
-            locScroll_.setPreferredSize(new Dimension(300,100));
+            locScroll_.setPreferredSize(new MetaDimension(300,100));
             panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_SOUTH);
             onglets_.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
         }
@@ -1026,7 +1027,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 nombreJoueurs_,
                 pseudosTarot(),
                 getDisplayingTarot(),ow_).getContainer());
-        panelCards_.setPreferredSize(new Dimension(300,300));
+        panelCards_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.HANDS_TRICKS),panelCards_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();

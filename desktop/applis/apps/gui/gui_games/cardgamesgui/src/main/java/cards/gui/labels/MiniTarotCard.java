@@ -10,6 +10,7 @@ import cards.tarot.enumerations.CardTarot;
 import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
@@ -26,7 +27,7 @@ public final class MiniTarotCard extends AbsMetaLabel {
         lg = _lg;
         setHorizontalAlignment(SwingConstants.RIGHT);
         setVerticalAlignment(SwingConstants.TOP);
-        setPreferredSize(new Dimension(20, 40));
+        setPreferredSize(new MetaDimension(20, 40));
     }
 
     @Override

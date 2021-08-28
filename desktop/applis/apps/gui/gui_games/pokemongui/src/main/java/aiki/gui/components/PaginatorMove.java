@@ -17,6 +17,7 @@ import aiki.gui.components.listeners.SearchEvent;
 import aiki.gui.listeners.PaginatorEvent;
 import aiki.util.SortingMove;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.util.*;
 import aiki.facade.enums.SearchingMode;
 import aiki.facade.enums.SelectedBoolean;
@@ -403,7 +404,7 @@ public final class PaginatorMove extends Paginator {
         getHeader().addString(StringUtil.concat(SPACE,getMessages().getVal(CST_PP)), nameWidth_ + typesWidth_ + prioWidth_);
         getHeader().addString(StringUtil.concat(SPACE,getMessages().getVal(CST_TARGETS)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_);
         getHeader().addString(StringUtil.concat(SPACE,getMessages().getVal(CST_PRICE)), nameWidth_ + typesWidth_ + prioWidth_ + ppWidth_ + targetWidth_);
-        getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS));
+        getHeader().setPreferredSize(new MetaDimension(width_, Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         //results.add(new JLabel(getMessages().getVal(MOVE)));
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));

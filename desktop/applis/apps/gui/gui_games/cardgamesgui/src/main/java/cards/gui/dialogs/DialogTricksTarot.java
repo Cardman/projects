@@ -9,6 +9,7 @@ import cards.tarot.DisplayingTarot;
 import cards.tarot.TricksHandsTarot;
 import code.gui.AbsScrollPane;
 
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
@@ -35,7 +36,7 @@ public final class DialogTricksTarot extends DialogCards {
         _tricksHands.sortHands(_displayingTarot, _numberPlayers);
         AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(new PanelTricksHandsTarot(getCardDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingTarot,_window).getContainer());
-        scroll_.setPreferredSize(new Dimension(600, 600));
+        scroll_.setPreferredSize(new MetaDimension(600, 600));
         getCardDialog().setContentPane(scroll_);
         getCardDialog().pack();
         getCardDialog().setVisible(true);

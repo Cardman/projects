@@ -23,6 +23,7 @@ import cards.president.GamePresident;
 import cards.president.HandPresident;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.MonteCarloUtil;
 import code.stream.StreamTextFile;
@@ -208,7 +209,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 //            i_++;
         }
         AbsScrollPane scroll_ = _parent.getCompoFactory().newAbsScrollPane(panelsCards);
-        scroll_.setPreferredSize(new Dimension(500, h_));
+        scroll_.setPreferredSize(new MetaDimension(500, h_));
         panneau_=_parent.getCompoFactory().newBorder();
         panneau_.add(scroll_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel sousPanneau_=_parent.getCompoFactory().newLineBox();

@@ -8,6 +8,7 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.core.NumberUtil;
@@ -56,7 +57,7 @@ public class FighterRenderer extends CustCellRender<Fighter> {
         } else {
             enabled = facade.isChosableForLearningAndEvolving((byte) _index);
         }
-        _currentLab.setPreferredSize(new Dimension(150, sideLength));
+        _currentLab.setPreferredSize(new MetaDimension(150, sideLength));
     }
 
     @Override

@@ -9,6 +9,7 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerNicknames;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringList;
@@ -83,7 +84,7 @@ public final class DialogNicknames extends DialogCards {
             i_++;
         }
         AbsScrollPane scroll_ = _fenetre.getCompoFactory().newAbsScrollPane(sousPanneau_);
-        scroll_.setPreferredSize(new Dimension(300, 400));
+        scroll_.setPreferredSize(new MetaDimension(300, 400));
         getJt().add(GameEnum.PRESIDENT.toString(lg_), scroll_);
         //Panneau pseudos des joueurs tarot
         sousPanneau_=_fenetre.getCompoFactory().newGrid(0,1);

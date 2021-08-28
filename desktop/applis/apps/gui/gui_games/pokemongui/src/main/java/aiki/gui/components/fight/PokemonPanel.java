@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonSelection;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.Ints;
 import code.util.TreeMap;
@@ -38,7 +39,7 @@ public class PokemonPanel {
         liste.setRender(renderer);
         initEvos();
         container.add(liste.self(),GuiConstants.BORDER_LAYOUT_CENTER);
-        container.setPreferredSize(new Dimension(100,32*(_nb+1)));
+        container.setPreferredSize(new MetaDimension(100,32*(_nb+1)));
     }
 
     public void setNoEvoMessage(String _message) {

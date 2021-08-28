@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.Ints;
 import code.util.NatStringTreeMap;
@@ -35,7 +36,7 @@ public final class BallPanel {
         listeBall.setRender(renderer);
         initBalls();
         container.add(listeBall.self(),GuiConstants.BORDER_LAYOUT_CENTER);
-        container.setPreferredSize(new Dimension(100,32*_nb));
+        container.setPreferredSize(new MetaDimension(100,32*_nb));
     }
 
     public void setPanelTitle(String _title) {

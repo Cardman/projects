@@ -44,6 +44,7 @@ import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaDimension;
 import code.maths.Rate;
 import code.scripts.messages.aiki.MessPkGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -890,7 +891,7 @@ public class Battle extends ChildFrame {
         if (movesLearnPanel == null) {
             movesLearnPanel = window.getCompoFactory().newPageBox();
             movesLearnPanelScroll = getFrames().getCompoFactory().newAbsScrollPane(movesLearnPanel);
-            movesLearnPanelScroll.setPreferredSize(new Dimension(150,150));
+            movesLearnPanelScroll.setPreferredSize(new MetaDimension(150,150));
         }
         if (abilitiesLearnPanel == null) {
             abilitiesLearnPanel = window.getCompoFactory().newPageBox();
@@ -1241,7 +1242,7 @@ public class Battle extends ChildFrame {
             actionsLabels.add(action_);
         }
         for (ActionLabel a: actionsLabels) {
-            a.setPreferredSize(new Dimension(maxWidth_,10));
+            a.setPreferredSize(new MetaDimension(maxWidth_,10));
         }
         changeAction(facade.getFight().getSelectedActionCurFighter());
     }

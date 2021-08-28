@@ -6,6 +6,7 @@ import javax.swing.WindowConstants;
 
 import code.gui.*;
 import code.gui.events.QuittingEvent;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
 import code.maths.montecarlo.AbstractGenerator;
@@ -126,7 +127,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         actions_.add(stop);
         pane_.add(actions_);
         scroll = getCompoFactory().newAbsScrollPane(songRend);
-        scroll.setPreferredSize(new Dimension(256, 352));
+        scroll.setPreferredSize(new MetaDimension(256, 352));
         pane_.add(scroll);
         pane_.add(currentNoSong);
         pane_.add(currentSong);

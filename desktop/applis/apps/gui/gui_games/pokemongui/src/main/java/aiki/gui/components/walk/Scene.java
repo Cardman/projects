@@ -11,6 +11,7 @@ import code.gui.events.AbsMouseListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 import code.util.TreeMap;
@@ -55,7 +56,7 @@ public final class Scene extends AbsMetaLabel implements AbsMouseListener {
     }
 
     public void setPreferredSize() {
-        setPreferredSize(new Dimension(sideLength*screenWidth, sideLength*screenHeight));
+        setPreferredSize(new MetaDimension(sideLength*screenWidth, sideLength*screenHeight));
     }
 
     public void setAnimated(boolean _animated) {
