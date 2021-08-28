@@ -1,5 +1,5 @@
 package cards.gui.panels;
-import java.awt.Color;
+
 
 import javax.swing.SwingConstants;
 
@@ -7,6 +7,7 @@ import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.AbsPanel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
@@ -57,7 +58,7 @@ public class CarpetTarot {
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
                 }
-                surPanneau_.setBackground(new Color(0, 125, 0));
+                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
                 cont_.add(surPanneau_);
             }
         } else if (_nombreDeJoueurs == 6) {
@@ -84,7 +85,7 @@ public class CarpetTarot {
                     c_.cards.put(3, carte_);
                     surPanneau_.add(carte_);
                 }
-                surPanneau_.setBackground(new Color(0, 125, 0));
+                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
                 sub_.add(surPanneau_);
             }
             cont_.add(sub_);
@@ -118,7 +119,7 @@ public class CarpetTarot {
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
                 }
-                surPanneau_.setBackground(new Color(0, 125, 0));
+                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
                 sub_.add(surPanneau_);
             }
             cont_.add(sub_);
@@ -144,7 +145,7 @@ public class CarpetTarot {
                     c_.cards.put(0, carte_);
                     surPanneau_.add(carte_);
                 }
-                surPanneau_.setBackground(new Color(0, 125, 0));
+                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
                 sub_.add(surPanneau_);
             }
             cont_.add(sub_);
@@ -186,7 +187,7 @@ public class CarpetTarot {
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
                 }
-                surPanneau_.setBackground(new Color(0, 125, 0));
+                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
                 cont_.add(surPanneau_);
             }
         } else {
@@ -249,11 +250,11 @@ public class CarpetTarot {
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
                 }
-                surPanneau_.setBackground(new Color(0, 125, 0));
+                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
                 cont_.add(surPanneau_);
             }
         }
-        cont_.setBackground(new Color(0, 125, 0));
+        cont_.setBackground(GuiConstants.newColor(0, 125, 0));
         c_.container=cont_;
         return c_;
     }
@@ -274,7 +275,7 @@ public class CarpetTarot {
     }
 
     public void setTalonTarot(String _lg, HandTarot _m, AbsCompoFactory _compoFactory) {
-        centerDeck.setBackground(new Color(0, 125, 0));
+        centerDeck.setBackground(GuiConstants.newColor(0, 125, 0));
         boolean entered_ = false;
         int nbCards_ = _m.total();
         for (byte b = IndexConstants.FIRST_INDEX; b < nbCards_; b++) {

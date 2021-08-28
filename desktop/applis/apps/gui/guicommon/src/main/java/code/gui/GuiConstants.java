@@ -68,6 +68,16 @@ public final class GuiConstants {
     public static final int BOLD = Font.BOLD;
     public static final int ITALIC = Font.ITALIC;
     public static final int PLAIN = Font.PLAIN;
+    public static final int WHITE = Integer.MAX_VALUE;
+    public static final int BLACK = (int) (256*256*256*255L);
+    public static final int RED = (int) (256*256*256*255L+256*256*255L);
+    public static final int GREEN = (int) (256*256*256*255L+256*255L);
+    public static final int BLUE = (int) (256*256*256*255L+255L);
+    public static final int YELLOW = (int) (256*256*256*255L+256*256*255L+256*255L);
+    public static final int GRAY = (int) (256*256*256*255L+256*256*128L+256*128L+128L);
+    public static final int ORANGE = (int) (256*256*256*255L+256*256*255L+256*200L);
+    public static final int MAGENTA = (int) (256*256*256*255L+256*256*255L+255L);
+    public static final int CYAN = (int) (256*256*256*255L+256*255L+255L);
 
     private GuiConstants() {
     }
@@ -137,28 +147,36 @@ public final class GuiConstants {
     }
 
     public static int newColor(int _r,int _g, int _b, int _a) {
-        return new Color(range(_r),range(_g),range(_b),range(_a)).getRGB();
+        int av_ = range(_a) * 256 * 256 * 256;
+        int rv_ = range(_r) * 256 * 256;
+        int gv_ = range(_g) * 256;
+        return av_ + rv_ + gv_ + _b;
     }
     public static int newColor(int _r,int _g, int _b) {
-        return new Color(range(_r),range(_g),range(_b)).getRGB();
+        return newColor(_r, _g, _b, 255);
     }
     public static int newColor(int _rgb) {
-        return new Color(_rgb).getRGB();
+        int alphaPart_ = alpha(_rgb);
+        int rgb_ = (int) (_rgb - alphaPart_ *256L*256*256);
+        return (int) (255L*256*256*256+rgb_);
     }
-    public static int red(int _rgb) {
-        return new Color(_rgb).getRed();
+    public static int redPart(int _rgb) {
+        return (_rgb / (256 * 256))%256;
     }
-    public static int green(int _rgb) {
-        return new Color(_rgb).getGreen();
+    public static int greenPart(int _rgb) {
+        return (_rgb / 256)%256;
     }
-    public static int blue(int _rgb) {
-        return new Color(_rgb).getBlue();
+    public static int bluePart(int _rgb) {
+        return _rgb%256;
     }
     public static int alpha(int _rgb) {
-        return new Color(_rgb).getAlpha();
+        return (_rgb / (256 * 256 * 256))%256;
     }
     public static int newColor(int _rgba, boolean _hasAlpha) {
-        return new Color(_rgba,_hasAlpha).getRGB();
+        if (_hasAlpha) {
+            return _rgba;
+        }
+        return newColor(_rgba);
     }
 
     private static int range(int _value) {

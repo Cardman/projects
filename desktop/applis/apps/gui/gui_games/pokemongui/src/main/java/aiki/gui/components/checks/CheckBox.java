@@ -1,5 +1,5 @@
 package aiki.gui.components.checks;
-import java.awt.Color;
+
 
 import code.gui.AbsCustCheckBox;
 import code.gui.initialize.AbsCompoFactory;

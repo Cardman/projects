@@ -7,7 +7,7 @@ import code.gui.events.AbsMouseWheelListener;
 import code.gui.images.MetaFont;
 import code.util.CustList;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 public interface AbsCustComponent {
@@ -61,10 +61,8 @@ public interface AbsCustComponent {
     int getYcoords();
     void setLocation(int _x, int _y);
     void setBackground(int _color);
-    void setBackground(Color _color);
     int getBackgroundValue();
     void setForeground(int _color);
-    void setForeground(Color _color);
     int getForegroundValue();
     String getToolTipText();
     void validate();

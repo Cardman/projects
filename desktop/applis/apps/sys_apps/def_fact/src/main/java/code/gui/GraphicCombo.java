@@ -8,7 +8,7 @@ import code.gui.initialize.AbsCompoFactory;
 import code.util.Ints;
 import code.util.core.NumberUtil;
 
-import java.awt.Color;
+
 
 public final class GraphicCombo extends CustComponent implements AbsGraphicCombo {
 
@@ -38,9 +38,9 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
         menu.add(grList.getGlobal());
         int s_ = panel.heightFont() + 2;
         AbstractImage img_ = _fact.newImageRgb(s_, s_);
-        img_.setColor(Color.WHITE);
+        img_.setColor(GuiConstants.WHITE);
         img_.fillRect(0, 0, s_, s_);
-        img_.setColor(Color.BLACK);
+        img_.setColor(GuiConstants.BLACK);
         img_.fillPolygon(NumberUtil.wrapIntArray(s_/4,s_*3/4,s_/2), NumberUtil.wrapIntArray(s_/4,s_/4,s_*3/4), 3);
         pseudoButton = _compoFactory.newPreparedLabel(img_);
         pseudoButton.setIcon(getFact(),img_);
@@ -48,10 +48,10 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
         int w_ = 5;
         AbstractImage img2_ = _fact.newImageRgb(w_, s_);
         img2_.setFont(panel);
-        img2_.setColor(Color.WHITE);
+        img2_.setColor(GuiConstants.WHITE);
         img2_.fillRect(0, 0, w_, s_);
         currentSelected = _compoFactory.newPreparedLabel(img2_);
-        currentSelected.setLineBorder(Color.BLACK.getRGB());
+        currentSelected.setLineBorder(GuiConstants.BLACK);
         img_.dispose();
         panel.add(currentSelected);
         panel.add(pseudoButton);

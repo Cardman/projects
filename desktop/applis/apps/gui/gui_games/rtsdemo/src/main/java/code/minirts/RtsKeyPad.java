@@ -1,11 +1,12 @@
 package code.minirts;
 
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 import code.minirts.rts.RtsDirection;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 public final class RtsKeyPad extends AbsMetaLabel {
@@ -20,9 +21,9 @@ public final class RtsKeyPad extends AbsMetaLabel {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.YELLOW);
+        _g.setColor(GuiConstants.YELLOW);
         _g.fillRect(0, 0, getWidth(), getHeight());
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         if (direction == RtsDirection.UP) {
             _g.fillPolygon(new int[]{0, getWidth()/2, getWidth()}, new int[]{getHeight()/2, 0, getHeight()/2}, 3);
         } else if (direction == RtsDirection.DOWN) {

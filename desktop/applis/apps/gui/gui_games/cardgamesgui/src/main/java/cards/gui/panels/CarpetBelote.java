@@ -1,6 +1,6 @@
 package cards.gui.panels;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import javax.swing.SwingConstants;
@@ -70,7 +70,7 @@ public class CarpetBelote {
                     surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
                 }
-                surPanneau_.setBackground(new Color(0, 125, 0));
+                surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
                 container_.add(surPanneau_);
             }
         } else if(_nombreDeJoueurs==6) {
@@ -159,7 +159,7 @@ public class CarpetBelote {
                     surPanneau_= _compoFactory.newLineBox();
                     surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
                 }
-                surPanneau_.setBackground(new Color(0,125,0));
+                surPanneau_.setBackground(GuiConstants.newColor(0,125,0));
                 container_.add(surPanneau_);
             }
         } else if(_nombreDeJoueurs==3) {
@@ -207,7 +207,7 @@ public class CarpetBelote {
                 } else if(i==4) {
                     surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
                 }
-                surPanneau_.setBackground(new Color(0,125,0));
+                surPanneau_.setBackground(GuiConstants.newColor(0,125,0));
                 container_.add(surPanneau_);
             }
         } else {
@@ -286,7 +286,7 @@ public class CarpetBelote {
                     surPanneau_= _compoFactory.newLineBox();
                     surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
                 }
-                surPanneau_.setBackground(new Color(0,125,0));
+                surPanneau_.setBackground(GuiConstants.newColor(0,125,0));
                 container_.add(surPanneau_);
             }
         }

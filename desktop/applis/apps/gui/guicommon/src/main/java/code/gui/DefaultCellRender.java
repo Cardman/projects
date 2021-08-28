@@ -3,7 +3,7 @@ package code.gui;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 
-import java.awt.Color;
+
 
 public final class DefaultCellRender extends CustCellRender<String> {
 
@@ -47,9 +47,9 @@ public final class DefaultCellRender extends CustCellRender<String> {
         int h_ = label.heightFont();
         int w_ = label.stringWidth(text);
         if (selected) {
-            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getMaxWidth(), h_, Color.WHITE.getRGB(), Color.BLUE.getRGB());
+            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getMaxWidth(), h_, GuiConstants.WHITE, GuiConstants.BLUE);
         } else {
-            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getMaxWidth(), h_, Color.BLACK.getRGB(), Color.WHITE.getRGB());
+            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getMaxWidth(), h_, GuiConstants.BLACK, GuiConstants.WHITE);
         }
     }
     @Override

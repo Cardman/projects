@@ -1,6 +1,6 @@
 package code.gui.document;
 
-import java.awt.Color;
+
 
 
 import code.formathtml.render.MetaLabel;
@@ -65,16 +65,16 @@ public abstract class DualLabel extends DualLeaf {
         }
         AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(w_, h_);
         img_.setFont(copy_);
-        img_.setColor(new Color(style_.getBgColor()));
+        img_.setColor(GuiConstants.newColor(style_.getBgColor()));
         img_.fillRect(0, 0, w_, h_);
-        img_.setColor(Color.ORANGE);
+        img_.setColor(GuiConstants.ORANGE);
         for (SegmentPart s: segments) {
             int beginIndex_ = s.getBegin();
             int b_ = label.stringWidth(copy_,text.substring(0, beginIndex_));
             int d_ = label.stringWidth(copy_,text.substring(beginIndex_, s.getEnd()));
             img_.fillRect(b_, 0, d_, h_);
         }
-        img_.setColor(new Color(style_.getFgColor()));
+        img_.setColor(GuiConstants.newColor(style_.getFgColor()));
         img_.drawString(text, 0, h_ - 1);
         label.setIcon(getPage().getGene().getImageFactory(), img_);
         img_.dispose();

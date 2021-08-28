@@ -5,7 +5,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 import code.gui.GuiConstants;
 
-import java.awt.Color;
+
 
 public final class ColorStruct extends WithoutParentStruct implements Struct {
 
@@ -51,15 +51,15 @@ public final class ColorStruct extends WithoutParentStruct implements Struct {
     }
 
     public IntStruct getRed() {
-        return new IntStruct(GuiConstants.red(color));
+        return new IntStruct(GuiConstants.redPart(color));
     }
 
     public IntStruct getGreen() {
-        return new IntStruct(GuiConstants.green(color));
+        return new IntStruct(GuiConstants.greenPart(color));
     }
 
     public IntStruct getBlue() {
-        return new IntStruct(GuiConstants.blue(color));
+        return new IntStruct(GuiConstants.bluePart(color));
     }
     public IntStruct getAlpha() {
         return new IntStruct(GuiConstants.alpha(color));

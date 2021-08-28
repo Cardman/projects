@@ -1,5 +1,5 @@
 package aiki.gui.components.walk;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
@@ -114,11 +114,11 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
     }
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.WHITE);
+        _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
         if (pokemon instanceof PokemonPlayer) {
             PokemonPlayer pk_ = (PokemonPlayer) pokemon;
-            _g.setColor(Color.BLACK);
+            _g.setColor(GuiConstants.BLACK);
             int h_ = 10;
             _g.drawImage(miniImagePk, 0, 0);
             _g.drawString(facade.translatePokemon(pk_.getName()), sideLength, h_);
@@ -127,7 +127,7 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
             _g.drawString(gender, coords + sideLength , h_ * 2);
             _g.drawString(remainHp, sideLength, h_ * 3);
             if (ko) {
-                _g.setColor(Color.BLACK);
+                _g.setColor(GuiConstants.BLACK);
                 _g.drawString(CST_KO, coords + sideLength, h_ * 3);
             } else if (!rateRemain.isEmpty()) {
                 int rate_ = NumberUtil.parseInt(intRate.toNumberString());
@@ -135,7 +135,7 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
                 int green_ = 255;
                 green_ = green_ * rate_ / Rate.CENT;
                 red_ = red_ * ((Rate.CENT - rate_) / Rate.CENT);
-                _g.setColor(new Color(red_, green_, 0));
+                _g.setColor(GuiConstants.newColor(red_, green_, 0));
                 _g.drawString(rateRemain, coords + sideLength, h_ * 3);
             }
             if (withItem) {
@@ -144,17 +144,17 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
         } else {
             Egg egg_ = (Egg) pokemon;
             int h_ = 10;
-            _g.setColor(Color.BLACK);
+            _g.setColor(GuiConstants.BLACK);
             _g.drawImage(miniImagePk, 0, 0);
             _g.drawString(facade.translatePokemon(egg_.getName()), sideLength, h_);
             _g.drawString(Long.toString(egg_.getSteps()), coords + sideLength, h_);
             _g.drawString(Long.toString(remainSteps), coords + sideLength * 2, h_);
         }
         if (selected) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);
         } else if (oldSelected) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);
         }
     }

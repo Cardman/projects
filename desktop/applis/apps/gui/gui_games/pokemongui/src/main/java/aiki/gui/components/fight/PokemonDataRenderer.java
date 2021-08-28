@@ -1,5 +1,5 @@
 package aiki.gui.components.fight;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.db.DataBase;
@@ -65,13 +65,13 @@ public class PokemonDataRenderer extends CustCellRender<String> {
             _g.drawImage(pkImage, 0, 0);
             _g.drawString(name, sideLength, getHeight());
         } else {
-            _g.setColor(Color.WHITE);
+            _g.setColor(GuiConstants.WHITE);
             _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
-            _g.setColor(Color.BLACK);
+            _g.setColor(GuiConstants.BLACK);
             _g.drawString(noEvo, 0, getHeight());
         }
         if (selected) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
     }

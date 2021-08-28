@@ -2,6 +2,7 @@ package code.minirts;
 
 import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
+import code.gui.GuiConstants;
 import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
 import code.gui.images.AbstractImage;
@@ -14,7 +15,7 @@ import code.minirts.rts.*;
 import code.util.EntryCust;
 import code.util.ObjectMap;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 public class PanelBattle {
@@ -33,9 +34,9 @@ public class PanelBattle {
         container = _compoFactory.newAbsolute();
         content = _compoFactory.newAbsolute();
         content.setOpaque(true);
-        content.setBackground(Color.WHITE);
+        content.setBackground(GuiConstants.WHITE);
         container.setOpaque(true);
-        container.setBackground(Color.WHITE);
+        container.setBackground(GuiConstants.WHITE);
         selecting = new Selecting(_facade, _compoFactory);
         container.add(selecting);
         container.add(content);
@@ -98,11 +99,11 @@ public class PanelBattle {
             //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
             img_.setFont(selecting);
             Rect r_ = facade.getSelection();
-            img_.setColor(Color.BLUE);
+            img_.setColor(GuiConstants.BLUE);
             img_.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(),(int) r_.getWidth().ll(), (int)r_.getHeight().ll());
         } else {
             //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            img_.setColor(new Color(255,255,255,0));
+            img_.setColor(GuiConstants.newColor(255,255,255,0));
             img_.fillRect(0, 0, w_, h_);
         }
         selecting.setIcon(_fact,img_);

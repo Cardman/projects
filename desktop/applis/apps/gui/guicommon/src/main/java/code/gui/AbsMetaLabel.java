@@ -7,7 +7,7 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 public abstract class AbsMetaLabel {

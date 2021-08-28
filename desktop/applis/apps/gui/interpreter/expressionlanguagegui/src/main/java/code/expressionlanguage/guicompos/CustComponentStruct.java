@@ -14,7 +14,7 @@ import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 public abstract class CustComponentStruct extends WithoutParentIdStruct implements Struct {

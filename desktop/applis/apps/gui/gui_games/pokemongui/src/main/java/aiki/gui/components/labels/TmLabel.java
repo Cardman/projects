@@ -1,5 +1,5 @@
 package aiki.gui.components.labels;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.db.DataBase;
@@ -136,9 +136,9 @@ public final class TmLabel extends SelectableLabel {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.WHITE);
+        _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         _g.drawString(moveName, 0, FIRST_LINE);
         int w_;
         w_ = xMoveName;

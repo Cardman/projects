@@ -1,7 +1,8 @@
 package cards.gui.labels;
-import java.awt.Color;
+
 
 import code.gui.AbsPlainButton;
+import code.gui.GuiConstants;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbsCompoFactory;
 
@@ -18,9 +19,9 @@ public final class LabelPoints {
 
     public void setSelected(int _pts) {
         if (pts == _pts) {
-            button.setLineBorder(Color.RED.getRGB(), 1);
+            button.setLineBorder(GuiConstants.RED, 1);
         } else {
-            button.setLineBorder(Color.BLACK.getRGB(), 1);
+            button.setLineBorder(GuiConstants.BLACK, 1);
         }
     }
 

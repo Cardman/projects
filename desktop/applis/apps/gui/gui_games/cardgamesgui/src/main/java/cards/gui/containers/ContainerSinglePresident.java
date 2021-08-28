@@ -1,6 +1,6 @@
 package cards.gui.containers;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 
@@ -322,7 +322,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_;
         panneau_= getOwner().getCompoFactory().newLineBox();
-        panneau_.setBackground(Color.BLUE);
+        panneau_.setBackground(GuiConstants.BLUE);
         setPanelHand(panneau_);
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
@@ -579,29 +579,29 @@ public class ContainerSinglePresident extends ContainerPresident implements
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
         if(partie_.getType()==GameType.RANDOM) {
             Ints couleurs_=new Ints();
-            couleurs_.add(Color.RED.getRGB());
-            couleurs_.add(Color.GREEN.getRGB());
-            couleurs_.add(Color.BLUE.getRGB());
+            couleurs_.add(GuiConstants.RED);
+            couleurs_.add(GuiConstants.GREEN);
+            couleurs_.add(GuiConstants.BLUE);
             if(nombreJoueurs_>3) {
-                couleurs_.add(Color.YELLOW.getRGB());
+                couleurs_.add(GuiConstants.YELLOW);
             }
             if(nombreJoueurs_>4) {
-                couleurs_.add(Color.MAGENTA.getRGB());
+                couleurs_.add(GuiConstants.MAGENTA);
             }
             if(nombreJoueurs_>5) {
-                couleurs_.add(Color.CYAN.getRGB());
+                couleurs_.add(GuiConstants.CYAN);
             }
             if(nombreJoueurs_>6) {
-                couleurs_.add(Color.ORANGE.getRGB());
+                couleurs_.add(GuiConstants.ORANGE);
             }
             if(nombreJoueurs_>7) {
-                couleurs_.add(new Color(128,64,0).getRGB());
+                couleurs_.add(GuiConstants.newColor(128,64,0));
             }
             if(nombreJoueurs_>8) {
-                couleurs_.add(new Color(128,128,0).getRGB());
+                couleurs_.add(GuiConstants.newColor(128,128,0));
             }
             if(nombreJoueurs_>9) {
-                couleurs_.add(new Color(128,0,255).getRGB());
+                couleurs_.add(GuiConstants.newColor(128,0,255));
             }
             Graphic graphique_=new Graphic(getScores(),new Longs(res_.getSums()),new CustList<Rate>(res_.getSigmas()),couleurs_, getOwner().getCompoFactory());
             Rate derniereMoyenne_=new Rate(res_.getSums().last(),nombreJoueurs_);

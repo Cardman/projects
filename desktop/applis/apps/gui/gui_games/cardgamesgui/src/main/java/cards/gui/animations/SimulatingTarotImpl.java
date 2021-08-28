@@ -23,7 +23,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-import java.awt.Color;
+
 
 import java.awt.Dimension;
 
@@ -117,7 +117,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         container.setPanelDiscardedTrumps(container.getOwner().getCompoFactory().newLineBox());
         container.getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(container.getPanelDiscardedTrumps());
-        panneau_.setBackground(Color.BLUE);
+        panneau_.setBackground(GuiConstants.BLUE);
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
         container.setEvents(container.getOwner().getCompoFactory().newTextArea(ContainerTarot.EMPTY,8, 30));

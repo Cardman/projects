@@ -1,5 +1,5 @@
 package aiki.gui.components.fight;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.db.DataBase;
@@ -11,6 +11,7 @@ import aiki.game.fight.enums.FightState;
 import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.FrameHtmlData;
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -740,14 +741,14 @@ public final class FrontBattle extends AbsMetaLabel {
             }
             image = _fact.newImageArgb(width_, hMax_);
 //            CustGraphics gr_ = image.getGraphics();
-            image.setColor(Color.WHITE);
+            image.setColor(GuiConstants.WHITE);
             image.fillRect(0, 0, width_, hMax_);
             int x_ = 0;
             for (AbstractImage i: types_.values()) {
                 image.drawImage(i, x_, 0);
                 x_ += i.getWidth();
             }
-            image.setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
+            image.setColor(GuiConstants.BLACK);
             image.drawString(damage, 0, hMax_);
         } else if (_animation instanceof AnimationEffectStatistic) {
             AnimationEffectStatistic statis_ = (AnimationEffectStatistic) _animation;
@@ -765,7 +766,7 @@ public final class FrontBattle extends AbsMetaLabel {
                 AbstractImage varStat_ = _fact.newImageArgb(widthVar_, h_ + statSide_);
 //                CustGraphics g_ = varStat_.createGraphics();
                 varStat_.drawImage(t_, 0, 0);
-                varStat_.setColor(Color.BLACK);
+                varStat_.setColor(GuiConstants.BLACK);
                 varStat_.drawString(var_, 0, statSide_ + h_);
                 varStat_.dispose();
                 types_.add(varStat_);
@@ -800,7 +801,7 @@ public final class FrontBattle extends AbsMetaLabel {
                 if (width_ > 0) {
                     image = _fact.newImageArgb(width_, hMax_);
 //                    CustGraphics g_ = image.createGraphics();
-                    image.setColor(Color.WHITE);
+                    image.setColor(GuiConstants.WHITE);
                     image.fillRect(0, 0, width_, hMax_);
                     int x_ = 0;
                     for (AbstractImage i: types_) {
@@ -1152,25 +1153,25 @@ public final class FrontBattle extends AbsMetaLabel {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.WHITE);
+        _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         if (drawImage) {
             if (paintDefaultEffect) {
-                _g.setColor(Color.WHITE);
+                _g.setColor(GuiConstants.WHITE);
                 _g.fillRect(xIni, yIni, 20, 20);
-                _g.setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
+                _g.setColor(GuiConstants.BLACK);
                 _g.drawRect(xIni, yIni, 20, 20);
             } else {
                 _g.drawImage(image, xIni, yIni);
             }
         }
         if (heal) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.fillRect(xIni, yIni + 8, 20, 4);
             _g.fillRect(xIni + 8, yIni, 4, 20);
         }
         if (recoil) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.fillRect(maxWidth/2, maxHeight/2-2, 20, 4);
         }
         if (drawImages) {
@@ -1198,7 +1199,7 @@ public final class FrontBattle extends AbsMetaLabel {
                 _g.drawImage(foeTargets.getVal(k).getImage(), foeTargets.getVal(k).getxPoint(), foeTargets.getVal(k).getyPoint());
             }
             if (drawBlueRect) {
-                _g.setColor(Color.BLUE);
+                _g.setColor(GuiConstants.BLUE);
                 if (playerUser) {
                     TargetLabel tar_ = playerTargets.getVal((byte) groundPlace);
                     _g.drawRect(tar_.getxPoint(), tar_.getyPoint(), tar_.getFinalWidth(), tar_.getFinalHeight());
@@ -1231,15 +1232,15 @@ public final class FrontBattle extends AbsMetaLabel {
                 _g.drawLine(x_, yBottom_, xRight_, y_);
             }*/
             if (!keepAnimation) {
-                _g.setColor(Color.BLACK);
+                _g.setColor(GuiConstants.BLACK);
                 _g.drawString(damage, xEnd, yEnd);
             }
         }
         if (!keepAnimation && wild) {
             if (caught) {
-                _g.setColor(Color.GREEN);
+                _g.setColor(GuiConstants.GREEN);
             } else {
-                _g.setColor(Color.RED);
+                _g.setColor(GuiConstants.RED);
             }
             for (byte k: foeTargets.getKeys()) {
                 _g.drawRect(foeTargets.getVal(k).getxPoint(), foeTargets.getVal(k).getyPoint(), foeTargets.getVal(k).getFinalWidth(), foeTargets.getVal(k).getFinalHeight());

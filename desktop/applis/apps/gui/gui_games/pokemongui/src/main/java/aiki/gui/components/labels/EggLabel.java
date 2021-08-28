@@ -1,9 +1,10 @@
 package aiki.gui.components.labels;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
 import aiki.util.SortingEgg;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -50,9 +51,9 @@ public final class EggLabel extends SelectableLabel {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.WHITE);
+        _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         int h_ = getFontSize();
         _g.drawImage(miniImagePk, 0, 0);
         _g.drawString(egg.getName(), sideLength, h_);

@@ -1,6 +1,6 @@
 package code.gui.document;
 
-import java.awt.Color;
+
 
 
 import code.formathtml.render.MetaAnchorLabel;
@@ -46,16 +46,16 @@ public final class DualAnchoredLabel extends DualLabel {
         int w_ = lab_.stringWidth(copy_,text_);
         AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(w_, h_);
         img_.setFont(copy_);
-        img_.setColor(new Color(style_.getBgColor()));
+        img_.setColor(style_.getBgColor());
         img_.fillRect(0, 0, w_, h_);
-        img_.setColor(Color.ORANGE);
+        img_.setColor(GuiConstants.ORANGE);
         for (SegmentPart s: getSegments()) {
             int beginIndex_ = s.getBegin();
             int b_ = lab_.stringWidth(copy_,text_.substring(0, beginIndex_));
             int d_ = lab_.stringWidth(copy_,text_.substring(beginIndex_, s.getEnd()));
             img_.fillRect(b_, 0, d_, h_);
         }
-        img_.setColor(Color.BLUE);
+        img_.setColor(GuiConstants.BLUE);
         img_.drawString(text_, 0, h_ - 1);
         img_.drawLine(0, h_ - 1, w_, h_ - 1);
         lab_.setIcon(getPage().getGene().getImageFactory(), img_);

@@ -2,7 +2,7 @@ package code.gui;
 
 import code.gui.images.AbstractImage;
 
-import java.awt.Color;
+
 
 public final class LabelButtonUtil {
 
@@ -47,9 +47,9 @@ public final class LabelButtonUtil {
         int h_ = panel_.heightFont();
         int w_ = panel_.stringWidth(elt_);
         if (_sel) {
-            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, Color.WHITE.getRGB(), Color.BLUE.getRGB());
+            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, GuiConstants.WHITE, GuiConstants.BLUE);
         } else {
-            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, Color.BLACK.getRGB(), Color.WHITE.getRGB());
+            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, GuiConstants.BLACK, GuiConstants.WHITE);
         }
         return buff_;
     }

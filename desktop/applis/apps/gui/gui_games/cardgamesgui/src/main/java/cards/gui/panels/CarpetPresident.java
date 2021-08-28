@@ -1,6 +1,6 @@
 package cards.gui.panels;
 
-import java.awt.Color;
+
 
 import javax.swing.SwingConstants;
 
@@ -59,7 +59,7 @@ public class CarpetPresident {
             listCards.add(cg_);
             entered_ = true;
         }
-        centerDeck.setBackground(new Color(0, 125, 0));
+        centerDeck.setBackground(GuiConstants.newColor(0, 125, 0));
         container.add(centerDeck, GuiConstants.BORDER_LAYOUT_CENTER);
         playersPanel = _compoFactory.newPageBox();
         for (String n: pseudos) {
@@ -130,9 +130,9 @@ public class CarpetPresident {
         for (byte p: cards.getKeys()) {
             AbsPlainLabel l_ = labels.get(p);
             if (p == _nextPlayer) {
-                l_.setBackground(Color.YELLOW);
+                l_.setBackground(GuiConstants.YELLOW);
             } else {
-                l_.setBackground(Color.WHITE);
+                l_.setBackground(GuiConstants.WHITE);
             }
             l_.setText(StringUtil.concat(pseudos.get(p),SEPARATOR, Games.toString(cards.getVal(p),_lg)));
         }

@@ -19,7 +19,7 @@ import code.util.StringMap;
 
 import javax.swing.WindowConstants;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 public final class WindowRts extends GroupFrame {
@@ -115,7 +115,7 @@ public final class WindowRts extends GroupFrame {
         int[] pixels_ = new int[wCurs_ * hCurs_];
         for (int j = 0; j < hCurs_; j++) {
             for (int i = 0; i < wCurs_; i++) {
-                if (or_.getRGB(i, j) == Color.WHITE.getRGB()) {
+                if (or_.getRGB(i, j) == GuiConstants.WHITE) {
                     continue;
                 }
                 pixels_[j * wCurs_ + i] = or_.getRGB(i, j);

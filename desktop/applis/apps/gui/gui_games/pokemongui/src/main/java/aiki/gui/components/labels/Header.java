@@ -1,9 +1,10 @@
 package aiki.gui.components.labels;
-import java.awt.Color;
+
 
 
 import aiki.gui.components.Paginator;
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
@@ -40,9 +41,9 @@ public final class Header extends AbsMetaLabel {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.YELLOW);
+        _g.setColor(GuiConstants.YELLOW);
         _g.fillRect(0,0,getWidth(),getHeight());
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         for (WordPoint p: strings) {
             _g.drawString(p.getWord(), p.getPoint().getXcoords(), p.getPoint().getYcoords());
         }

@@ -1,6 +1,6 @@
 package cards.gui.panels;
 
-import java.awt.Color;
+
 
 
 import cards.gui.WindowCards;
@@ -164,7 +164,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
     private AbsPlainLabel getBlankCard(StringList _nicknames, byte _player) {
         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(_nicknames.get(_player));
         etiquette2_.setOpaque(true);
-        etiquette2_.setBackground(Color.WHITE);
+        etiquette2_.setBackground(GuiConstants.WHITE);
         etiquette2_.setPreferredSize(GraphicPresidentCard.getMaxDimension());
         return etiquette2_;
     }
@@ -194,7 +194,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
@@ -209,8 +209,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                     AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                     etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
                     etiquette2_.setOpaque(true);
-                    etiquette2_.setForeground(Color.WHITE);
-                    etiquette2_.setBackground(Color.WHITE);
+                    etiquette2_.setForeground(GuiConstants.WHITE);
+                    etiquette2_.setBackground(GuiConstants.WHITE);
                     cards_.add(etiquette2_);
                 }
 //                indice_++;
@@ -225,8 +225,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             while(row_ + 1 <numberPlayers) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setForeground(Color.WHITE);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setForeground(GuiConstants.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 panels_.put(new CoordsHands(col_, row_), etiquette2_);
                 row_++;
             }
@@ -288,7 +288,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
@@ -302,8 +302,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                     AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                     etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
                     etiquette2_.setOpaque(true);
-                    etiquette2_.setForeground(Color.WHITE);
-                    etiquette2_.setBackground(Color.WHITE);
+                    etiquette2_.setForeground(GuiConstants.WHITE);
+                    etiquette2_.setBackground(GuiConstants.WHITE);
                     cards_.add(etiquette2_);
                 }
                 panels_.put(new CoordsHands(col_, row_), cards_);
@@ -316,8 +316,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             while(row_ + 1 <numberPlayers) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setForeground(Color.WHITE);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setForeground(GuiConstants.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 panels_.put(new CoordsHands(col_, row_), etiquette2_);
                 row_++;
             }
@@ -371,7 +371,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
@@ -387,8 +387,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                         etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
                         etiquette2_.setOpaque(true);
-                        etiquette2_.setForeground(Color.WHITE);
-                        etiquette2_.setBackground(Color.WHITE);
+                        etiquette2_.setForeground(GuiConstants.WHITE);
+                        etiquette2_.setBackground(GuiConstants.WHITE);
                         cards_.add(etiquette2_);
                     }
                     panels_.put(new CoordsHands(col_, row_), cards_);
@@ -405,8 +405,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             while(row_ + 1 <numberPlayers) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setForeground(Color.WHITE);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setForeground(GuiConstants.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 panels_.put(new CoordsHands(col_, row_), etiquette2_);
                 row_++;
             }
@@ -467,7 +467,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 row_++;
                 panels_.put(new CoordsHands(0, indice_), etiquette2_);
                 indice_++;
@@ -482,8 +482,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                         etiquette2_.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(nb_));
                         etiquette2_.setOpaque(true);
-                        etiquette2_.setForeground(Color.WHITE);
-                        etiquette2_.setBackground(Color.WHITE);
+                        etiquette2_.setForeground(GuiConstants.WHITE);
+                        etiquette2_.setBackground(GuiConstants.WHITE);
                         cards_.add(etiquette2_);
                     }
                     panels_.put(new CoordsHands(col_, row_), cards_);
@@ -500,8 +500,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             while(row_ + 1 <numberPlayers) {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setForeground(Color.WHITE);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setForeground(GuiConstants.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 panels_.put(new CoordsHands(col_, row_), etiquette2_);
                 row_++;
             }

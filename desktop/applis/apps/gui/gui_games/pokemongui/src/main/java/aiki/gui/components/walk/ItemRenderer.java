@@ -1,5 +1,5 @@
 package aiki.gui.components.walk;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
@@ -61,12 +61,12 @@ public class ItemRenderer extends CustCellRender<String> {
     @Override
     public void paintComponent(AbstractImage _g) {
         _g.drawImage(miniItem, 0, 0);
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         _g.drawString(displayName, sideLength, getHeight());
         _g.drawString(facade.getChosenItemsForBuyOrSell().getVal(name).toNumberString(), maxWordWidth+sideLength, getHeight());
         _g.drawString(Long.toString(price), maxWordWidth+sideLength * 2, getHeight());
         if (selected) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);
         }
     }

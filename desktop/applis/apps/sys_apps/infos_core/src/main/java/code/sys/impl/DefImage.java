@@ -74,7 +74,6 @@ public final class DefImage implements AbstractImage {
         return colorValue;
     }
 
-    @Override
     public void setColor(Color _color) {
         graphics.setColor(_color);
         colorValue = _color.getRGB();

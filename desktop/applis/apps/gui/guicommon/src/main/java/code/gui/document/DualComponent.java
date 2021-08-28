@@ -1,6 +1,6 @@
 package code.gui.document;
 
-import java.awt.Color;
+
 
 import code.formathtml.render.BorderEnum;
 import code.formathtml.render.IntComponent;
@@ -8,6 +8,7 @@ import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaStyle;
 import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
+import code.gui.GuiConstants;
 import code.util.CustList;
 
 public abstract class DualComponent implements IntComponent {
@@ -28,7 +29,7 @@ public abstract class DualComponent implements IntComponent {
     protected static void updateGraphics(AbsCustComponent _component, MetaComponent _metaComponent) {
         MetaStyle style_ = _metaComponent.getStyle();
         if (style_.getBorder() == BorderEnum.SOLID) {
-            _component.setLineBorder(new Color(style_.getBorderColor()).getRGB(), style_.getBorderSize());
+            _component.setLineBorder(GuiConstants.newColor(style_.getBorderColor()), style_.getBorderSize());
         }
         String title_ = _metaComponent.getTitle();
         if (!title_.isEmpty()) {

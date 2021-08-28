@@ -1,5 +1,5 @@
 package cards.gui.labels;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 
@@ -99,16 +99,16 @@ public final class GraphicPresidentCard extends AbsMetaLabel {
     @Override
     public void paintComponent(AbstractImage _g2) {
         if(!peindreCarte) {
-            _g2.setColor(Color.RED);
+            _g2.setColor(GuiConstants.RED);
             _g2.fillRect(0,0,getWidth()-1,getHeight()-1);
-            _g2.setColor(Color.BLACK);
+            _g2.setColor(GuiConstants.BLACK);
             _g2.drawRect(0,0,getWidth()-1,getHeight()-1);
-            _g2.setColor(Color.BLUE);
+            _g2.setColor(GuiConstants.BLUE);
             _g2.setFont(DEFAULT, GuiConstants.BOLD,20);
             _g2.drawString(GameEnum.PRESIDENT.toString(lg),20,80);
             return;
         }
-        _g2.setColor(Color.WHITE);
+        _g2.setColor(GuiConstants.WHITE);
         _g2.fillRect(0,0,getWidth(),getHeight());
         if(fullCard) {
             //whole card
@@ -116,7 +116,7 @@ public final class GraphicPresidentCard extends AbsMetaLabel {
         } else {
             _g2.drawImage(bufferedImage, -75, 0);
         }
-        _g2.setColor(Color.BLACK);
+        _g2.setColor(GuiConstants.BLACK);
         _g2.drawRect(0,0,getWidth()-1,getHeight()-1);
     }
 }

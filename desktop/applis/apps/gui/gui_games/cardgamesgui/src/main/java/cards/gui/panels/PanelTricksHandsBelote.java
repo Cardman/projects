@@ -1,6 +1,6 @@
 package cards.gui.panels;
 
-import java.awt.Color;
+
 
 
 import javax.swing.SwingConstants;
@@ -135,7 +135,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     private AbsPlainLabel getBlankCard(StringList _nicknames, byte _player) {
         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(_nicknames.get(_player));
         etiquette2_.setOpaque(true);
-        etiquette2_.setBackground(Color.WHITE);
+        etiquette2_.setBackground(GuiConstants.WHITE);
         etiquette2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
         return etiquette2_;
     }
@@ -177,7 +177,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 selectedTrick.add(etiquette2_);
                 indice_++;
             }
@@ -191,7 +191,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString((long)indice_-numberPlayers));
                 etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 selectedTrick.add(etiquette2_);
                 indice_++;
             }
@@ -212,7 +212,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
                 etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 tr_.add(etiquette2_,indicePli_*(indice_+1)-1);
                 indice_++;
             }
@@ -226,7 +226,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
                 AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString((long)indice_-numberPlayers));
                 etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
                 etiquette2_.setOpaque(true);
-                etiquette2_.setBackground(Color.WHITE);
+                etiquette2_.setBackground(GuiConstants.WHITE);
                 tr_.add(etiquette2_,indicePli_*(indice_+1)-1);
                 indice_++;
             }
@@ -276,7 +276,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString(indice_));
             etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
             etiquette2_.setOpaque(true);
-            etiquette2_.setBackground(Color.WHITE);
+            etiquette2_.setBackground(GuiConstants.WHITE);
             selectedTrick.add(etiquette2_);
             indice_++;
         }
@@ -295,7 +295,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(Long.toString((long)indice_-numberPlayers));
             etiquette2_.setFont(DEFAULT,GuiConstants.BOLD,50);
             etiquette2_.setOpaque(true);
-            etiquette2_.setBackground(Color.WHITE);
+            etiquette2_.setBackground(GuiConstants.WHITE);
             selectedTrick.add(etiquette2_);
             indice_++;
         }

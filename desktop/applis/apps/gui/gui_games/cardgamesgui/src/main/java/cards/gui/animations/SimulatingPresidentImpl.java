@@ -25,7 +25,7 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 public final class SimulatingPresidentImpl implements SimulatingPresident {
@@ -104,7 +104,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         container.getTapis().setTapisPresident(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
-        panneau_.setBackground(Color.BLUE);
+        panneau_.setBackground(GuiConstants.BLUE);
         container.setPanelHand(panneau_);
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
@@ -116,11 +116,11 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         AbsPanel sousPanneau_=container.getOwner().getCompoFactory().newGrid(0,1);
         AbsPanel panelCards_ = container.getOwner().getCompoFactory().newLineBox();
         AbsPanel panelDiscard_ = container.getOwner().getCompoFactory().newLineBox();
-        panelDiscard_.setBackground(Color.BLUE);
+        panelDiscard_.setBackground(GuiConstants.BLUE);
         panelCards_.add(panelDiscard_);
         container.setPanelGivenCards(panelDiscard_);
         AbsPanel panelRec_ = container.getOwner().getCompoFactory().newLineBox();
-        panelRec_.setBackground(Color.BLUE);
+        panelRec_.setBackground(GuiConstants.BLUE);
         panelCards_.add(panelRec_);
         container.setPanelReceivedCards(panelRec_);
         sousPanneau_.add(panelCards_);

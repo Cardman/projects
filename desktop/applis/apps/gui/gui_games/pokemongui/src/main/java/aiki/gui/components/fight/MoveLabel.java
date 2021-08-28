@@ -1,5 +1,5 @@
 package aiki.gui.components.fight;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.db.DataBase;
@@ -61,12 +61,12 @@ public final class MoveLabel extends AbsMetaLabel {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.WHITE);
+        _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0, 0, getWidth(), getHeight());
         if (infos.isUsable()) {
-            _g.setColor(Color.BLACK);
+            _g.setColor(GuiConstants.BLACK);
         } else {
-            _g.setColor(Color.GRAY);
+            _g.setColor(GuiConstants.GRAY);
         }
         _g.drawString(text, 0, 10);
         int x_ = 0;
@@ -77,7 +77,7 @@ public final class MoveLabel extends AbsMetaLabel {
             x_ += 20;
         }
         if (selected) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
     }

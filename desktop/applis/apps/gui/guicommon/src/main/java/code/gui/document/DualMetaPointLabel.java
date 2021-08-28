@@ -1,12 +1,13 @@
 package code.gui.document;
 
-import java.awt.Color;
+
 
 
 import code.formathtml.render.MetaPointForm;
 import code.formathtml.render.MetaPointLabel;
 import code.formathtml.render.MetaStyle;
 import code.gui.AbsPreparedLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
 
@@ -29,9 +30,9 @@ public final class DualMetaPointLabel extends DualLabel {
         int w_ = h_;
         AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(w_, h_);
         img_.setFont(copy_);
-        img_.setColor(new Color(style_.getBgColor()));
+        img_.setColor(GuiConstants.newColor(style_.getBgColor()));
         img_.fillRect(0, 0, w_, h_);
-        img_.setColor(new Color(style_.getFgColor()));
+        img_.setColor(GuiConstants.newColor(style_.getFgColor()));
         if (form == MetaPointForm.DISK) {
             img_.fillOval(0, 0, w_, h_);
         } else if (form == MetaPointForm.CIRCLE) {

@@ -13,7 +13,7 @@ import code.util.Ints;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 public final class FrameUtil {
@@ -184,7 +184,7 @@ public final class FrameUtil {
         AbstractImage img_ = _current.getFact().newImageRgb(w_, s_);
 //        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         img_.setFont(_current.getLabel());
-        img_.setColor(Color.WHITE);
+        img_.setColor(GuiConstants.WHITE);
         img_.fillRect(0, 0, w_, s_);
         _current.getLabel().setIcon(_current.getFact(),img_);
     }
@@ -207,9 +207,9 @@ public final class FrameUtil {
         AbstractImage img_ = _curr.getFact().newImageRgb(w_, s_);
 //        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
         img_.setFont(_curr.getLabel());
-        img_.setColor(Color.WHITE);
+        img_.setColor(GuiConstants.WHITE);
         img_.fillRect(0, 0, w_, s_);
-        img_.setColor(Color.BLACK);
+        img_.setColor(GuiConstants.BLACK);
         img_.drawString(selected_, 0, s_ - 1);
         _curr.getLabel().setIcon(_curr.getFact(),img_);
     }
@@ -288,9 +288,9 @@ public final class FrameUtil {
             AbstractImage img_ = _curr.getFact().newImageRgb(w_, s_);
 //            CustGraphics gr_ = new CustGraphics(img_.createGraphics());
             img_.setFont(_curr.getLabel());
-            img_.setColor(Color.WHITE);
+            img_.setColor(GuiConstants.WHITE);
             img_.fillRect(0, 0, w_, s_);
-            img_.setColor(Color.BLACK);
+            img_.setColor(GuiConstants.BLACK);
             img_.drawString(_object, 0, s_ - 1);
             _curr.getLabel().setIcon(_curr.getFact(),img_);
         }

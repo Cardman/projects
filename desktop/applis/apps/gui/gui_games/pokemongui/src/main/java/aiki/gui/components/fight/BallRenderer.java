@@ -1,5 +1,5 @@
 package aiki.gui.components.fight;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
@@ -71,15 +71,15 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.WHITE);
+        _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
         _g.drawImage(ballImage, 0, 0);
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         _g.drawString(ball.getNumber().toNumberString(), maxWidthImage, ballImage.getHeight());
         _g.drawString(ball.getRate().toNumberString(), maxWidthImage +10+ maxWidthNumber, ballImage.getHeight());
         _g.drawString(StringUtil.concat(ball.getPercent(),PERCENT), maxWidthImage +20+ maxWidthNumber+maxWidthRate, ballImage.getHeight());
         if (selected) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
     }

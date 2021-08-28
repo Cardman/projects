@@ -1,5 +1,5 @@
 package code.gui;
-import java.awt.Color;
+
 
 import code.gui.events.UpdateTimeEvent;
 import code.gui.initialize.AbstractProgramInfos;
@@ -15,7 +15,7 @@ public class Clock {
     private static final String SEPARATOR_DATE = "/";
     private static final String SEPARATOR = ":";
     private static final int SECOND_MILLIS = 1000;
-//    private static final Color COLOR = new Color(0,0,255);
+//    private static final Color COLOR = GuiConstants.newColor(0,0,255);
     private static final int DEFAULT_NB_CHARS = 10;
     private static final int HEIGHT_TIME = 15;
 
@@ -25,7 +25,7 @@ public class Clock {
         component = _fact.getCompoFactory().newTextField(DEFAULT_NB_CHARS);
         component.setEditable(false);
         component.setFont(ARIAL,GuiConstants.PLAIN,HEIGHT_TIME);
-        component.setForeground(new Color(0,0,255));
+        component.setForeground(GuiConstants.newColor(0,0,255));
         AbstractScheduledExecutorService timer_ = _fact.getThreadFactory().newScheduledExecutorService();
         timer_.scheduleAtFixedRate(new UpdateTimeEvent(_fact.getThreadFactory(),this),0,SECOND_MILLIS);
 //        timer = new Timer(SECOND_MILLIS, new UpdateTimeEvent(this));

@@ -1,8 +1,9 @@
 package aiki.gui.components.fight;
-import java.awt.Color;
+
 
 import aiki.game.fight.enums.ActionType;
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 
@@ -31,12 +32,12 @@ public final class ActionLabel extends AbsMetaLabel {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.WHITE);
+        _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         _g.drawString(action, 0, getHeight());
         if (selected) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
     }

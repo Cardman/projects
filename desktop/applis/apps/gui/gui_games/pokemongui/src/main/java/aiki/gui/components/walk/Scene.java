@@ -1,5 +1,5 @@
 package aiki.gui.components.walk;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.comparators.ComparatorScreenCoords;
@@ -43,7 +43,7 @@ public final class Scene extends AbsMetaLabel implements AbsMouseListener {
     public Scene(AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         setFocusable(true);
-        setBackground(Color.WHITE.getRGB());
+        setBackground(GuiConstants.WHITE);
     }
 
     public void setDimensions(FacadeGame _facade) {
@@ -204,7 +204,7 @@ public final class Scene extends AbsMetaLabel implements AbsMouseListener {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.WHITE);
+        _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0, 0, sideLength*screenWidth - 1, sideLength*screenHeight - 1);
         int dx_ = 0;
         int dy_ = 0;

@@ -1,5 +1,5 @@
 package code.gui;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import code.gui.animations.AnimatedImage;
@@ -70,7 +70,7 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
             anim = FrameUtil.prep(_window.getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim.setOpaque(true);
-            anim.setBackground(Color.WHITE);
+            anim.setBackground(GuiConstants.WHITE);
         }
 //        anim.setList(_images);
         label_.add(anim);

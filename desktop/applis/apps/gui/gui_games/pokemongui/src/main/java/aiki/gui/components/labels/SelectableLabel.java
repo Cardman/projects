@@ -1,9 +1,10 @@
 package aiki.gui.components.labels;
-import java.awt.Color;
+
 
 
 import aiki.gui.components.Paginator;
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
@@ -33,7 +34,7 @@ public abstract class SelectableLabel extends AbsMetaLabel {
     @Override
     public void paintComponent(AbstractImage _g) {
         if (selected) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);
         }
     }

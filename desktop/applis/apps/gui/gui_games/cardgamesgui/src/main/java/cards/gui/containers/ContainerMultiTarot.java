@@ -1,6 +1,6 @@
 package cards.gui.containers;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import cards.consts.GameType;
@@ -759,7 +759,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setPanelHand(getOwner().getCompoFactory().newLineBox());
         AbsPanel panneau_=getOwner().getCompoFactory().newLineBox();
         panneau_.add(getPanelHand());
-        panneau_.setBackground(Color.BLUE);
+        panneau_.setBackground(GuiConstants.BLUE);
         setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
         getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(getPanelDiscardedTrumps());
@@ -877,7 +877,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         AbsPanel panneau_=tapisTarot().getCenterDeck();
         panneau_.removeAll();
         panneau_.validate();
-        panneau_.setBackground(new Color(0,125,0));
+        panneau_.setBackground(GuiConstants.newColor(0,125,0));
         _main.trier(getDisplayingTarot().getSuits(), getDisplayingTarot().isDecreasing());
         setCanDiscard(_ecouteur);
         updateCardsInPanelTarotDogMulti(tapisTarot().getCenterDeck(), _main, false);

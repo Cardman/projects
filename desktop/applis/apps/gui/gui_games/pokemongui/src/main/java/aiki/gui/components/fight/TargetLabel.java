@@ -1,9 +1,10 @@
 package aiki.gui.components.fight;
-import java.awt.Color;
+
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.LgInt;
@@ -182,7 +183,7 @@ public class TargetLabel {
                 }
                 widthStatis_ += i.getWidth();
             }
-            image.setColor(Color.WHITE);
+            image.setColor(GuiConstants.WHITE);
             image.fillRect(deltaWidth_, 0, widthStatis_, hMax_);
             int x_ = 0;
             for (AbstractImage i: statistics) {
@@ -195,7 +196,7 @@ public class TargetLabel {
             } else {
                 image_ = ConverterGraphicBufferedImage.centerImage(_parent.getBattle().getWindow().getImageFactory(),data_.getMaxiPkFront().getVal(fighterName), widthImage_, heightImage_);
             }
-            image.setColor(Color.BLACK);
+            image.setColor(GuiConstants.BLACK);
             image.drawString(fighterTranslatedName, 0, h_);
             if (!ball.isEmpty()) {
                 AbstractImage img_;
@@ -207,7 +208,7 @@ public class TargetLabel {
             h_ += heightString_;
             image.drawString(Long.toString(level), 0, h_);
             h_ += heightString_;
-            image.setColor(Color.BLUE);
+            image.setColor(GuiConstants.BLUE);
             image.drawString(percentExp.toNumberString(), 0, h_);
             h_ += heightString_;
             int rate_ = NumberUtil.parseInt(percentHp.toNumberString());
@@ -215,11 +216,11 @@ public class TargetLabel {
             int green_ = 255;
             green_ = green_ * rate_ / Rate.CENT;
             red_ = red_ * ((Rate.CENT - rate_) / Rate.CENT);
-            image.setColor(new Color(red_, green_, 0));
+            image.setColor(GuiConstants.newColor(red_, green_, 0));
             image.drawString(StringUtil.concat(percentHp.toNumberString(),PER_CENT), 0, h_);
             image.drawImage(image_, 0, delta_);
             if (ko) {
-                image.setColor(Color.RED);
+                image.setColor(GuiConstants.RED);
                 image.drawLine(0, h_, width_, height_);
                 image.drawLine(0, height_, width_, h_);
             }
@@ -289,7 +290,7 @@ public class TargetLabel {
 //            int green_ = 255;
 //            green_ = green_ * rate_ / Fighter.RATE_CENT;
 //            red_ = red_ * ((Fighter.RATE_CENT - rate_) / Fighter.RATE_CENT);
-//            g_.setColor(new Color(red_, green_, 0));
+//            g_.setColor(GuiConstants.newColor(red_, green_, 0));
 //            g_.drawString(percentHp+PER_CENT, 0, h_);
 //            g_.drawImage(image_, 0, h_, null);
 //            if (ko) {

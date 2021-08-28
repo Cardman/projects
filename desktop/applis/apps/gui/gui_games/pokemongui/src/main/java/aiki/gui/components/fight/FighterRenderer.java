@@ -1,5 +1,5 @@
 package aiki.gui.components.fight;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
@@ -66,18 +66,18 @@ public class FighterRenderer extends CustCellRender<Fighter> {
     @Override
     public void paintComponent(AbstractImage _g) {
         if (!enabled) {
-            _g.setColor(new Color(127, 127, 127));
+            _g.setColor(GuiConstants.newColor(127, 127, 127));
             _g.fillRect(0, 0, getWidth() - 1, getHeight() -1);
         } else {
-            _g.setColor(Color.WHITE);
+            _g.setColor(GuiConstants.WHITE);
             _g.fillRect(0, 0, getWidth() - 1, getHeight() -1);
         }
         _g.drawImage(pkImage, 0, 0);
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         String name_ = fighter.getName();
         _g.drawString(facade.translatePokemon(name_), sideLength, 10);
         if (ko) {
-            _g.setColor(Color.BLACK);
+            _g.setColor(GuiConstants.BLACK);
             _g.drawString(CST_KO, sideLength, getHeight());
         } else {
             int rate_ = NumberUtil.parseInt(intRate.toNumberString());
@@ -85,11 +85,11 @@ public class FighterRenderer extends CustCellRender<Fighter> {
             int green_ = 255;
             green_ = green_ * rate_ / Rate.CENT;
             red_ = red_ * ((Rate.CENT - rate_) / Rate.CENT);
-            _g.setColor(new Color(red_, green_, 0));
+            _g.setColor(GuiConstants.newColor(red_, green_, 0));
             _g.drawString(StringUtil.concat(intRate.toNumberString(),PER_CENT), sideLength, getHeight());
         }
         if (selected) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
     }

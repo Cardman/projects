@@ -1,5 +1,5 @@
 package aiki.gui.dialogs;
-import java.awt.Color;
+
 
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
@@ -78,11 +78,11 @@ public final class ConsultHosts {
                 String rem_ = messages.getVal(STEPS);
                 if (host_.isFree()) {
                     hostingLoc_.add(window.getCompoFactory().newPlainLabel(messages.getVal(FREE)));
-                    hostingLoc_.setBackground(Color.WHITE);
+                    hostingLoc_.setBackground(GuiConstants.WHITE);
                     hosting_.add(hostingLoc_);
                     continue;
                 }
-                hostingLoc_.setBackground(Color.YELLOW);
+                hostingLoc_.setBackground(GuiConstants.YELLOW);
                 AbsPlainLabel steps_ = window.getCompoFactory().newPlainLabel(StringUtil.simpleNumberFormat(rem_, Math.max(facade.getRemaingingSteps(c), 0)));
                 hostingLoc_.add(steps_);
                 PokemonPlayer pk_;

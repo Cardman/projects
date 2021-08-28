@@ -1,11 +1,12 @@
 package cards.gui.labels;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import cards.belote.BidBeloteSuit;
 import cards.consts.Suit;
 import cards.facade.Games;
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.LabelButtonUtil;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
@@ -29,8 +30,8 @@ public final class SuitLabel extends AbsMetaLabel {
         bid = _bid;
         if (!bid.getCouleurDominante()) {
             setText(Games.toString(bid.getEnchere(),_lg));
-            setBackground(Color.WHITE.getRGB());
-            setForeground(new Color(0, 0, 127).getRGB());
+            setBackground(GuiConstants.WHITE);
+            setForeground(GuiConstants.newColor(0, 0, 127));
             int h_ = heightFont();
             int w_ = stringWidth(getText());
             setPreferredSize(new Dimension(w_, h_));
@@ -59,14 +60,14 @@ public final class SuitLabel extends AbsMetaLabel {
             int w_ = stringWidth(text);
             LabelButtonUtil.paintDefaultLabel(_g, text, w_, getWidth(), h_, getForegroundValue(), getBackgroundValue());
         } else {
-            _g.setColor(Color.WHITE);
+            _g.setColor(GuiConstants.WHITE);
             _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
             dessinerGrandSymbole(_g, 0, 0);
         }
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         if (selected) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
     }
@@ -77,27 +78,27 @@ public final class SuitLabel extends AbsMetaLabel {
 
     private void dessinerGrandSymbole(AbstractImage _g,int _x,int _y) {
         if(bid.getCouleur() == Suit.HEART) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.fillOval(_x,_y,10,10);
             _g.fillOval(_x+10,_y,10,10);
             _g.fillRect(_x+5,_y+5,10,10);
-            _g.setColor(Color.WHITE);
+            _g.setColor(GuiConstants.WHITE);
             _g.fillOval(_x,_y+10,10,10);
             _g.fillOval(_x+10,_y+10,10,10);
         } else if(bid.getCouleur() == Suit.SPADE) {
-            _g.setColor(Color.BLACK);
+            _g.setColor(GuiConstants.BLACK);
             _g.fillOval(_x,_y+5,10,10);
             _g.fillOval(_x+10,_y+5,10,10);
             _g.fillPolygon(NumberUtil.wrapIntArray(10+_x,13+_x,10+_x,7+_x), NumberUtil.wrapIntArray(10+_y,20+_y,17+_y,20+_y),4);
             _g.fillRect(_x+5,_y,10,10);
-            _g.setColor(Color.WHITE);
+            _g.setColor(GuiConstants.WHITE);
             _g.fillOval(_x,_y-5,10,10);
             _g.fillOval(_x+10,_y-5,10,10);
         } else if(bid.getCouleur() == Suit.DIAMOND) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.fillPolygon(NumberUtil.wrapIntArray(_x,10+_x,20+_x,10+_x), NumberUtil.wrapIntArray(10+_y,_y,10+_y,20+_y),4);
         } else {
-            _g.setColor(Color.BLACK);
+            _g.setColor(GuiConstants.BLACK);
             _g.fillOval(_x,_y+6,8,8);
             _g.fillOval(_x+12,_y+6,8,8);
             _g.fillOval(_x+6,_y,8,8);

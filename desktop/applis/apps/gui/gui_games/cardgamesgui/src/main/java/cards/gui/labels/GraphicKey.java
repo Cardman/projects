@@ -1,5 +1,5 @@
 package cards.gui.labels;
-import java.awt.Color;
+
 
 
 import cards.gui.WindowCards;
@@ -27,9 +27,9 @@ public final class GraphicKey extends AbsMetaLabel {
     }
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.WHITE);
+        _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         _g.translate(getWidth()/2,0);
         _g.setFont(DEFAULT, GuiConstants.BOLD,10);
         for(String pseudo_:pseudos) {
@@ -45,7 +45,7 @@ public final class GraphicKey extends AbsMetaLabel {
             _g.drawLine(getWidth()/8,0,3*getWidth()/8,0);
         }
         _g.translate(0,15);
-        _g.setColor(Color.GRAY);
+        _g.setColor(GuiConstants.GRAY);
         _g.drawLine(getWidth()/8,0,3*getWidth()/8,0);
     }
 }

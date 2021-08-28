@@ -1,12 +1,13 @@
 package code.minirts;
 
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 import code.minirts.rts.Facade;
 import code.maths.geo.Rect;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 public final class Selecting extends AbsMetaLabel {
@@ -21,7 +22,7 @@ public final class Selecting extends AbsMetaLabel {
     @Override
     public void paintComponent(AbstractImage _g) {
         Rect r_ = facade.getSelection();
-        _g.setColor(Color.BLUE);
+        _g.setColor(GuiConstants.BLUE);
         _g.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(), (int)r_.getWidth().ll(), (int)r_.getHeight().ll());
     }
 }

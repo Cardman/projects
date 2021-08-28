@@ -5,7 +5,7 @@ import code.gui.AbsCustComponent;
 import code.gui.AbsMetaLabel;
 import code.gui.AbsPreparedLabel;
 
-import java.awt.Color;
+
 
 public interface AbstractImage {
     AbsPreparedLabel newAbsPreparedLabel();
@@ -21,7 +21,6 @@ public interface AbstractImage {
 
     void drawImage(AbstractImage _image, int _i, int _j);
 
-    void setColor(Color _color);
     void setColor(int _color);
 
     void fillRect(int _a, int _b, int _width, int _height);

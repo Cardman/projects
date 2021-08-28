@@ -1,5 +1,5 @@
 package cards.gui.containers;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 
@@ -704,7 +704,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         container_.add(tapis_.getContainer(), GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_;
         panneau_= getOwner().getCompoFactory().newLineBox();
-        panneau_.setBackground(Color.BLUE);
+        panneau_.setBackground(GuiConstants.BLUE);
         setPanelHand(panneau_);
         container_.add(panneau_, GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_ = getOwner().getCompoFactory().newPageBox();

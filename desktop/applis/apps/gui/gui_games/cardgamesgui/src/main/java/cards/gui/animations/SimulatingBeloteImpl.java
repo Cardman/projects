@@ -27,7 +27,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 public final class SimulatingBeloteImpl implements SimulatingBelote {
@@ -120,7 +120,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         container.getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
-        panneau_.setBackground(Color.BLUE);
+        panneau_.setBackground(GuiConstants.BLUE);
         container.setPanelHand(panneau_);
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();

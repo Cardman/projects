@@ -1,6 +1,6 @@
 package aiki.gui.components.fight;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 
@@ -1169,7 +1169,7 @@ public class Battle extends ChildFrame {
             }
             String tr_ = facade.translateMove(m);
             MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
-            check_.setBackground(Color.RED.getRGB());
+            check_.setBackground(GuiConstants.RED);
             movesLearnPanel.add(check_.getComponent());
         }
         for (String m: moves_.getKeys()) {
@@ -1179,7 +1179,7 @@ public class Battle extends ChildFrame {
             }
             String tr_ = facade.translateMove(m);
             MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
-            check_.setBackground(Color.WHITE.getRGB());
+            check_.setBackground(GuiConstants.WHITE);
             movesLearnPanel.add(check_.getComponent());
         }
 //        for (String m: moves_.getKeys(true)) {
@@ -1481,7 +1481,7 @@ public class Battle extends ChildFrame {
         }
         commentsErrors = window.getCompoFactory().newWrappedTextArea(6,32);
         commentsErrors.setEditable(false);
-        commentsErrors.setForeground(Color.RED);
+        commentsErrors.setForeground(GuiConstants.RED);
         commentsErrorsScroll = getFrames().getCompoFactory().newAbsScrollPane(commentsErrors);
     }
 

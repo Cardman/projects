@@ -1,7 +1,8 @@
 package cards.gui.labels;
-import java.awt.Color;
+
 
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.Rate;
@@ -28,12 +29,12 @@ public final class Graphic extends AbsMetaLabel {
     @Override
     public void paintComponent(AbstractImage _g) {
         int rapport_=getWidth()/scores.size();
-        _g.setColor(Color.WHITE);
+        _g.setColor(GuiConstants.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.translate(0,getHeight()/2);
         dessinerPointilles(_g,true);
         dessinerPointilles(_g,false);
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         _g.drawLine(0,0,getWidth(),0);
         int nombreJoueurs_=scores.last().size();
         double esperance_;
@@ -49,7 +50,7 @@ public final class Graphic extends AbsMetaLabel {
                 _g.drawLine(rapport_*(partie_+1),(int)(esperance_-scores.get(partie_).get(joueur_)),rapport_*(partie_+2),(int)(esperance2_-scores.get(partie_+1).get(joueur_)));
             }
         }
-        _g.setColor(Color.GRAY);
+        _g.setColor(GuiConstants.GRAY);
         Rate espPlusTroisSigmas_=sigmas.first();
         Rate espMoinsTroisSigmas_=sigmas.first().opposNb();
         _g.drawLine(0,0,rapport_,(int)-espPlusTroisSigmas_.ll());
@@ -64,7 +65,7 @@ public final class Graphic extends AbsMetaLabel {
         }
     }
     private void dessinerPointilles(AbstractImage _g2,boolean _horizontal) {
-        _g2.setColor(Color.BLACK);
+        _g2.setColor(GuiConstants.BLACK);
         int rapport2_=10;
         if(_horizontal) {
             int nombre_=getHeight()/2;

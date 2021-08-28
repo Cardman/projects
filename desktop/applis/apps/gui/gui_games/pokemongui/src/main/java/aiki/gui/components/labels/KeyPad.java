@@ -1,9 +1,10 @@
 package aiki.gui.components.labels;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.map.enums.Direction;
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
@@ -20,9 +21,9 @@ public final class KeyPad extends AbsMetaLabel {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.YELLOW);
+        _g.setColor(GuiConstants.YELLOW);
         _g.fillRect(0, 0, getWidth(), getHeight());
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         if (direction == Direction.UP) {
             _g.fillPolygon(NumberUtil.wrapIntArray(0, getWidth()/2, getWidth()), NumberUtil.wrapIntArray(getHeight()/2, 0, getHeight()/2), 3);
         } else if (direction == Direction.DOWN) {

@@ -1,5 +1,5 @@
 package code.gui;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import code.gui.animations.AnimatedImage;
@@ -58,7 +58,7 @@ public final class ProgressingWebDialog implements ProgressDialog {
             anim = FrameUtil.prep(_session.getGene().getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));
             anim.setOpaque(true);
-            anim.setBackground(Color.WHITE);
+            anim.setBackground(GuiConstants.WHITE);
         }
 //        anim = new AnimatedLabel();
 //        anim.setList(_images);

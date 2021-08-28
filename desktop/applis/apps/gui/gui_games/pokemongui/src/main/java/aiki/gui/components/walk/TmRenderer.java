@@ -1,5 +1,5 @@
 package aiki.gui.components.walk;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import aiki.facade.FacadeGame;
@@ -41,11 +41,11 @@ public class TmRenderer extends CustCellRender<String> {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(Color.BLACK);
+        _g.setColor(GuiConstants.BLACK);
         _g.drawString(facade.translateMove(name), 0, getHeight());
         _g.drawString(price.toNumberString(), 100, getHeight());
         if (selected) {
-            _g.setColor(Color.RED);
+            _g.setColor(GuiConstants.RED);
             _g.drawRect(0,0,getWidth()-1,getHeight()-1);
         }
     }

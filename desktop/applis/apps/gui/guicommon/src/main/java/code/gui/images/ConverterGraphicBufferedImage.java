@@ -1,14 +1,15 @@
 package code.gui.images;
 
-import java.awt.Color;
 
+
+import code.gui.GuiConstants;
 import code.images.IntPoint;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
 public final class ConverterGraphicBufferedImage {
 
-    public static final int WHITE_RGB_INT = 256*256*256-1;
+    public static final int WHITE_RGB_INT = Integer.MAX_VALUE;
 
     private static final int THREE_BYTES = 256 * 256 * 256;
 
@@ -31,10 +32,6 @@ public final class ConverterGraphicBufferedImage {
             }
         }
         return true;
-    }
-
-    private static Color getTransparentWhite() {
-        return new Color(Color.WHITE.getRed(), Color.WHITE.getBlue(), Color.WHITE.getGreen(), 0);
     }
 
     public static AbstractImage centerImage(AbstractImageFactory _fact,int[][] _front, int _side) {
@@ -85,7 +82,7 @@ public final class ConverterGraphicBufferedImage {
         AbstractImage image_ = _fact.newImageArgb(width_, height_);
         for (int i = 0; i < height_; i++) {
             for (int j = 0; j < width_; j++) {
-                image_.setRGB(j, i, new Color(_imageString[i][j]).getRGB());
+                image_.setRGB(j, i, GuiConstants.newColor(_imageString[i][j]));
             }
         }
         return image_;
@@ -95,12 +92,11 @@ public final class ConverterGraphicBufferedImage {
     public static void transparentAllWhite(AbstractImage _buffered) {
         int h_ = _buffered.getHeight();
         int w_ = _buffered.getWidth();
-        int white_ = WHITE_RGB_INT;
-        int transWhite_ = getTransparentWhite().getRGB();
+        int transWhite_ = 256*256*255+256*255+255;
         for (int i = IndexConstants.FIRST_INDEX; i < h_; i++) {
             for (int j = IndexConstants.FIRST_INDEX; j < w_; j++) {
                 int rgb_ = _buffered.getRGB(j, i);
-                if (rgb_ == white_) {
+                if (rgb_ == WHITE_RGB_INT) {
                     _buffered.setRGB(j, i, transWhite_);
                 }
             }
