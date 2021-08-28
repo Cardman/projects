@@ -38,9 +38,9 @@ public final class DialogSoft extends DialogCards {
     private CustCheckBox saveHomeFolder;
     private String menu;
     private CustCheckBox waitTrickClick;
-    private Slider delayWaitTricks;
-    private Slider delayWaitCards;
-    private Slider delayWaitBids;
+    private AbsSlider delayWaitTricks;
+    private AbsSlider delayWaitCards;
+    private AbsSlider delayWaitBids;
     private CustCheckBox clickCard;
 
     public DialogSoft(AbstractProgramInfos _frameFactory) {
@@ -105,9 +105,9 @@ public final class DialogSoft extends DialogCards {
             String values_ = StringUtil.simpleNumberFormat(messages.getVal(WAITING_VALUES), minValeur_, maxValeur_, valeur_);
             label_ = new TextLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
-            delayWaitBids=new Slider(minValeur_,maxValeur_);
+            delayWaitBids=getCompoFactory().newAbsSlider(minValeur_,maxValeur_);
             delayWaitBids.setValue(valeur_);
-            delayWaitBids.addChangeListener(new ListenerChangeSlide(WAITING_BIDDING, messages, sentence_));
+            delayWaitBids.addChangeListener(new ListenerChangeSlide(label_,WAITING_BIDDING, messages, sentence_));
             panneau_.add(delayWaitBids);
 //            indiceInfo_++;
             valeur_=parametres.getDelaiAttenteCartes();
@@ -117,9 +117,9 @@ public final class DialogSoft extends DialogCards {
             values_ = StringUtil.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
             label_ = new TextLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
-            delayWaitCards=new Slider(minValeur_,maxValeur_);
+            delayWaitCards=getCompoFactory().newAbsSlider(minValeur_,maxValeur_);
             delayWaitCards.setValue(valeur_);
-            delayWaitCards.addChangeListener(new ListenerChangeSlide(WAITING_PLAYED_CARD, messages, sentence_));
+            delayWaitCards.addChangeListener(new ListenerChangeSlide(label_,WAITING_PLAYED_CARD, messages, sentence_));
             panneau_.add(delayWaitCards);
 //            indiceInfo_++;
             valeur_=parametres.getDelaiAttentePlis();
@@ -129,9 +129,9 @@ public final class DialogSoft extends DialogCards {
             values_ = StringUtil.simpleNumberFormat(messages.getVal(WAITING_VALUES),minValeur_, maxValeur_, valeur_);
             label_ = new TextLabel(StringUtil.simpleStringsFormat(sentence_, prefix_, values_));
             panneau_.add(label_);
-            delayWaitTricks=new Slider(minValeur_,maxValeur_);
+            delayWaitTricks=getCompoFactory().newAbsSlider(minValeur_,maxValeur_);
             delayWaitTricks.setValue(valeur_);
-            delayWaitTricks.addChangeListener(new ListenerChangeSlide(WAITING_TRICK, messages, sentence_));
+            delayWaitTricks.addChangeListener(new ListenerChangeSlide(label_,WAITING_TRICK, messages, sentence_));
             panneau_.add(delayWaitTricks);
 //            indiceInfo_++;
             waitTrickClick =new CustCheckBox(messages.getVal(CLICK_FOR_PLAYING_TRICK));

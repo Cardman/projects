@@ -1,7 +1,7 @@
 package cards.gui.dialogs.events;
-import javax.swing.JLabel;
 
-import code.gui.Slider;
+import code.gui.AbsSlider;
+import code.gui.TextLabel;
 import code.gui.events.AbsChangeListener;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -12,11 +12,12 @@ public class ListenerChangeSlide implements AbsChangeListener {
     private String key;
     private StringMap<String> messages;
 //    private DialogSoft dialog;
-    private Slider slide;
-    private JLabel etiquette;
+    private AbsSlider slide;
+    private TextLabel etiquette;
     private String sentence;
-    public ListenerChangeSlide(String _key, StringMap<String> _messages, String _sentence) {
+    public ListenerChangeSlide(TextLabel _etiquette,String _key, StringMap<String> _messages, String _sentence) {
 //        numero=_pnumero;
+        etiquette = _etiquette;
         messages = _messages;
         key = _key;
 //        dialog = _dialog;

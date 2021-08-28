@@ -24,7 +24,7 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
 
     private AbsPreparedLabel anim;
 
-    private ProgressBar bar;
+    private AbsProgressBar bar;
 
     private AbstractScheduledExecutorService timer;
     private AbstractFuture future;
@@ -75,7 +75,7 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
 //        anim.setList(_images);
         label_.add(anim);
         contentPane_.add(label_);
-        bar = new ProgressBar();
+        bar = window.getCompoFactory().newAbsProgressBar();
         bar.setValue(0);
         contentPane_.add(bar);
         absDialog.setContentPane(contentPane_);

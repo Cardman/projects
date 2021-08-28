@@ -101,4 +101,34 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsPopupMenu newAbsPopupMenu() {
         return new PopupMenu();
     }
+
+    @Override
+    public AbsSlider newAbsSlider() {
+        return new Slider();
+    }
+
+    @Override
+    public AbsSlider newAbsSlider(int _o) {
+        return new Slider(_o);
+    }
+
+    @Override
+    public AbsSlider newAbsSlider(int _min, int _max) {
+        return new Slider(_min, _max);
+    }
+
+    @Override
+    public AbsSlider newAbsSlider(int _min, int _max, int _v) {
+        return new Slider(_min, _max, _v);
+    }
+
+    @Override
+    public AbsSlider newAbsSlider(int _o, int _min, int _max, int _v) {
+        return new Slider(_o, _min, _max, _v);
+    }
+
+    @Override
+    public AbsProgressBar newAbsProgressBar() {
+        return new ProgressBar();
+    }
 }

@@ -3265,7 +3265,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(new ProgressBarStruct(aliasProgBar));
+            r_.setResult(new ProgressBarStruct(aliasProgBar,_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasButton)) {
@@ -3533,22 +3533,22 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new SliderStruct(aliasSlider));
+                r_.setResult(new SliderStruct(aliasSlider,_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
             if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new SliderStruct(aliasSlider,_args[0]));
+                r_.setResult(new SliderStruct(aliasSlider,_args[0],_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
             if (_method.getParametersTypesLength() == 2) {
-                r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1]));
+                r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
             if (_method.getParametersTypesLength() == 3) {
-                r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_args[2]));
+                r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_args[2],_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
-            r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_args[2],_args[3]));
+            r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_args[2],_args[3],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasMenuBar)) {

@@ -5,14 +5,14 @@ import code.gui.events.WrChangeListener;
 
 import javax.swing.*;
 
-public final class Slider extends CustComponent {
+public final class Slider extends CustComponent implements AbsSlider {
     private JSlider slider;
 
     public Slider() {
         slider = new JSlider();
     }
     public Slider(int _o) {
-        slider = new JSlider(_o);
+        slider = new JSlider(GuiConstants.getOrient(_o));
     }
     public Slider(int _min,int _max) {
         slider = new JSlider(_min,_max);
@@ -21,7 +21,7 @@ public final class Slider extends CustComponent {
         slider = new JSlider(_min,_max,_v);
     }
     public Slider(int _o,int _min,int _max,int _v) {
-        slider = new JSlider(_o,_min,_max,_v);
+        slider = new JSlider(GuiConstants.getOrient(_o),_min,_max,_v);
     }
 
     public void addChangeListener(AbsChangeListener _l) {
@@ -57,7 +57,7 @@ public final class Slider extends CustComponent {
     }
 
     public void setOrientation(int _orientation) {
-        slider.setOrientation(_orientation);
+        slider.setOrientation(GuiConstants.getOrient(_orientation));
     }
     @Override
     protected JComponent getNatComponent() {

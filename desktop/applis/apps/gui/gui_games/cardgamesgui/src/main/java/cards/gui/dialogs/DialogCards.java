@@ -3,6 +3,7 @@ import cards.gui.WindowCards;
 import code.gui.AbsCloseableDialog;
 import code.gui.AbsDialog;
 import code.gui.AbsTabbedPane;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 
 /**
@@ -11,11 +12,18 @@ import code.gui.initialize.AbstractProgramInfos;
 abstract class DialogCards implements AbsCloseableDialog {
 
     private final AbsTabbedPane jt;
+    private final AbsCompoFactory compoFactory;
     private WindowCards main;
     private final AbsDialog cardDialog;
+
     protected DialogCards(AbstractProgramInfos _frameFactory) {
         cardDialog = _frameFactory.getFrameFactory().newDialog(this);
-        jt = _frameFactory.getCompoFactory().newAbsTabbedPane();
+        compoFactory = _frameFactory.getCompoFactory();
+        jt = compoFactory.newAbsTabbedPane();
+    }
+
+    public AbsCompoFactory getCompoFactory() {
+        return compoFactory;
     }
 
     public AbsDialog getCardDialog() {

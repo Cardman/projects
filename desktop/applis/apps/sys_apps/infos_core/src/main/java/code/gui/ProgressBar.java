@@ -2,11 +2,12 @@ package code.gui;
 
 import javax.swing.*;
 
-public final class ProgressBar extends CustComponent {
+public final class ProgressBar extends CustComponent implements AbsProgressBar {
     private JProgressBar progressBar = new JProgressBar();
 
     public boolean isHorizontal() {
-        return progressBar.getOrientation() == JProgressBar.HORIZONTAL;
+        int orientation_ = progressBar.getOrientation();
+        return GuiConstants.isHorizProgress(orientation_);
     }
 
     public int getValue() {
@@ -22,11 +23,8 @@ public final class ProgressBar extends CustComponent {
     }
 
     public void setHorizontal(boolean _bool) {
-        if (_bool) {
-            progressBar.setOrientation(JProgressBar.HORIZONTAL);
-        } else {
-            progressBar.setOrientation(JProgressBar.VERTICAL);
-        }
+        int value_ = GuiConstants.getHoriz(_bool);
+        progressBar.setOrientation(value_);
     }
 
     public void setValue(int _n) {

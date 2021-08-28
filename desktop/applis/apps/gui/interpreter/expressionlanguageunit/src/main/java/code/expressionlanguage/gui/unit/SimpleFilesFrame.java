@@ -51,7 +51,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private final PlainLabel currentMethod;
     private final TableGui resultsTable;
     private final TextArea results;
-    private final ProgressBar progressBar;
+    private final AbsProgressBar progressBar;
     private final StringMap<String> messages;
     private final WindowUnit parent;
     private byte[] confFile;
@@ -125,7 +125,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         progressing.add(method);
         currentMethod = new PlainLabel("");
         progressing.add(currentMethod);
-        progressBar = new ProgressBar();
+        progressBar = parent.getCompoFactory().newAbsProgressBar();
         progressing.add(progressBar);
         String[] cols_ = new String[4];
         cols_[0] =messages.getVal("number");

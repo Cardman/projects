@@ -50,7 +50,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final PlainLabel currentMethod;
     private final TableGui resultsTable;
     private final TextArea results;
-    private final ProgressBar progressBar;
+    private final AbsProgressBar progressBar;
 
     private RunningTest running;
     private AbstractThread th;
@@ -111,7 +111,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         progressing.add(method);
         currentMethod = new PlainLabel("");
         progressing.add(currentMethod);
-        progressBar = new ProgressBar();
+        progressBar = getCompoFactory().newAbsProgressBar();
         progressing.add(progressBar);
         String[] cols_ = new String[4];
         cols_[0] = unitMessages.getVal("number");
