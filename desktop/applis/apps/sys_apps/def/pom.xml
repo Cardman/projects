@@ -14,8 +14,8 @@
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
-			<groupId>infos</groupId>
-			<artifactId>infos</artifactId>
+			<groupId>infos_core</groupId>
+			<artifactId>infos_core</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
