@@ -41,7 +41,7 @@ public final class SongRenderer extends AbsMetaLabel {
         }
         AbstractImage img_ = _fact.newImageArgb(w_, h_);
 //        CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-        img_.setFont(getFont());
+        img_.setFont(this);
         paintComponent(img_);
         setIcon(_fact,img_);
     }

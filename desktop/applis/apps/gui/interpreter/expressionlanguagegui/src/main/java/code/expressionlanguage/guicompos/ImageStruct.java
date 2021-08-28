@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaFont;
 import code.util.core.IndexConstants;
 
 import java.awt.Color;
@@ -84,7 +85,7 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
     }
 
     public Struct getFont() {
-        Font font_ = image.getFont();
+        MetaFont font_ = image.getMetaFont();
         if (font_ == null) {
             return NullStruct.NULL_VALUE;
         }

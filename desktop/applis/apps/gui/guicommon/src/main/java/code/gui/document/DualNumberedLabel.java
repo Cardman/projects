@@ -7,6 +7,7 @@ import code.formathtml.render.MetaNumberedLabel;
 import code.formathtml.render.MetaStyle;
 import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaFont;
 
 public final class DualNumberedLabel extends DualLabel {
 
@@ -23,7 +24,7 @@ public final class DualNumberedLabel extends DualLabel {
     public void paint() {
         AbsPreparedLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
-        Font copy_ =  newFont(style_);
+        MetaFont copy_ =  newFont(style_);
         int h_ = lab_.heightFont(copy_);
         String tr_ = new StringBuilder(number).append("  ").toString();
         int diff_ = lab_.stringWidth(copy_,tr_);

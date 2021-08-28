@@ -53,7 +53,7 @@ public final class EggLabel extends SelectableLabel {
         _g.setColor(Color.WHITE);
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(Color.BLACK);
-        int h_ = getFont().getSize();
+        int h_ = getFontSize();
         _g.drawImage(miniImagePk, 0, 0);
         _g.drawString(egg.getName(), sideLength, h_);
         _g.drawString(Long.toString(egg.getSteps()), xName + sideLength, h_);

@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
 import code.gui.events.*;
+import code.gui.images.MetaFont;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -111,6 +112,11 @@ public abstract class CustComponent implements AbsCustComponent {
         return heightFont(getNatComponent().getFont());
     }
 
+    @Override
+    public int heightFont(MetaFont _font) {
+        return heightFont(new Font(_font.getFontFamily(), _font.getFont(), _font.getRealSize()));
+    }
+
     public int heightFont(Font _font) {
         return getNatComponent().getFontMetrics(_font).getHeight();
     }
@@ -119,15 +125,43 @@ public abstract class CustComponent implements AbsCustComponent {
         return stringWidth(getNatComponent().getFont(),_string);
     }
 
-    public int stringWidth(Font _font,String _string) {
+    @Override
+    public int stringWidth(MetaFont _font, String _string) {
+        return stringWidth(new Font(_font.getFontFamily(), _font.getFont(), _font.getRealSize()),_string);
+    }
+
+    public int stringWidth(Font _font, String _string) {
         return getNatComponent().getFontMetrics(_font).stringWidth(_string);
     }
+
+    @Override
+    public MetaFont getMetaFont() {
+        Font font_ = getFont();
+        return new MetaFont(font_.getFamily(),GuiConstants.fontStyle(font_.isBold(),font_.isItalic()),font_.getSize());
+    }
+
     public Font getFont() {
         return getNatComponent().getFont();
     }
     public void setFont(Font _font) {
         getNatComponent().setFont(_font);
     }
+
+    @Override
+    public void setNullFont() {
+        getNatComponent().setFont(null);
+    }
+
+    @Override
+    public void setFont(MetaFont _font) {
+        setFont(new Font(_font.getFontFamily(), _font.getFont(), _font.getRealSize()));
+    }
+
+    @Override
+    public void setFont(String _name, int _style, int _size) {
+        getNatComponent().setFont(new Font(_name,_style,_size));
+    }
+
     public AbsCustComponent getParent() {
         return parent;
     }

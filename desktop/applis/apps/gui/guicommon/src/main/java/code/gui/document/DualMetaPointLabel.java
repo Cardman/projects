@@ -8,6 +8,7 @@ import code.formathtml.render.MetaPointLabel;
 import code.formathtml.render.MetaStyle;
 import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaFont;
 
 public final class DualMetaPointLabel extends DualLabel {
 
@@ -23,7 +24,7 @@ public final class DualMetaPointLabel extends DualLabel {
     public void paint() {
         AbsPreparedLabel lab_ = getLabel();
         MetaStyle style_ = getComponent().getStyle();
-        Font copy_ =  newFont(style_);
+        MetaFont copy_ =  newFont(style_);
         int h_ = lab_.heightFont(copy_);
         int w_ = h_;
         AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(w_, h_);

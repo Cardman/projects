@@ -103,7 +103,7 @@ public final class GraphicPresidentCard extends AbsMetaLabel {
             _g2.setColor(Color.BLACK);
             _g2.drawRect(0,0,getWidth()-1,getHeight()-1);
             _g2.setColor(Color.BLUE);
-            _g2.setFont(new Font(DEFAULT,Font.BOLD,20));
+            _g2.setFont(DEFAULT,Font.BOLD,20);
             _g2.drawString(GameEnum.PRESIDENT.toString(lg),20,80);
             return;
         }

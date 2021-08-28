@@ -4,11 +4,11 @@ import code.gui.events.AbsKeyListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
+import code.gui.images.MetaFont;
 import code.util.CustList;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 
 public interface AbsCustComponent {
     boolean isAutoscrolls();
@@ -31,11 +31,13 @@ public interface AbsCustComponent {
     int getWidth();
     int getHeight();
     int heightFont();
-    int heightFont(Font _font);
+    int heightFont(MetaFont _font);
     int stringWidth(String _string);
-    int stringWidth(Font _font,String _string);
-    Font getFont();
-    void setFont(Font _font);
+    int stringWidth(MetaFont _font,String _string);
+    MetaFont getMetaFont();
+    void setNullFont();
+    void setFont(MetaFont _font);
+    void setFont(String _name, int _style, int _size);
     AbsCustComponent getParent();
     CustList<AbsCustComponent> getChildren();
     void setParent(AbsCustComponent _parent);

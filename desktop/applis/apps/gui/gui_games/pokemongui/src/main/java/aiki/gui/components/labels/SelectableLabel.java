@@ -5,6 +5,7 @@ import java.awt.Font;
 import aiki.gui.components.Paginator;
 import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 
 public abstract class SelectableLabel extends AbsMetaLabel {
@@ -19,10 +20,10 @@ public abstract class SelectableLabel extends AbsMetaLabel {
     }
 
     private void initFont() {
-        Font f_ = getFont();
-        String name_ = f_.getName();
-        int style_ = f_.getStyle();
-        setFont(new Font(name_, style_, HEIGTH_CHARS));
+        MetaFont f_ = getMetaFont();
+        String name_ = f_.getFontFamily();
+        int style_ = f_.getFont();
+        setFont(name_, style_, HEIGTH_CHARS);
     }
 
     public void setSelected(boolean _selected) {

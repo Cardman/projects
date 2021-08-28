@@ -29,7 +29,7 @@ public final class GraphicKey extends AbsMetaLabel {
         _g.fillRect(0,0,getWidth(),getHeight());
         _g.setColor(Color.BLACK);
         _g.translate(getWidth()/2,0);
-        _g.setFont(new Font(DEFAULT,Font.BOLD,10));
+        _g.setFont(DEFAULT,Font.BOLD,10);
         for(String pseudo_:pseudos) {
             _g.translate(0,15);
             _g.drawString(pseudo_,0,0);

@@ -5,6 +5,7 @@ import java.awt.Font;
 import aiki.gui.components.Paginator;
 import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.IntPoint;
 import code.util.CustList;
@@ -15,10 +16,10 @@ public final class Header extends AbsMetaLabel {
 
     public Header(AbsCompoFactory _compoFactory) {
         super(_compoFactory);
-        Font f_ = getFont();
-        String name_ = f_.getName();
-        int style_ = f_.getStyle();
-        setFont(new Font(name_, style_, Paginator.HEIGTH_CHARS));
+        MetaFont f_ = getMetaFont();
+        String name_ = f_.getFontFamily();
+        int style_ = f_.getFont();
+        setFont(name_, style_, Paginator.HEIGTH_CHARS);
     }
 
     public int width(String _string) {

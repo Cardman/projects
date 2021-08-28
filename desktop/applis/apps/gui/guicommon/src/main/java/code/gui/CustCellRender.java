@@ -10,7 +10,7 @@ public abstract class CustCellRender<T> implements AbsCustCellRender {
     protected abstract AbstractImageFactory getImageFactory();
     public void paintComponent(AbsPreparedLabel _component) {
         AbstractImage buff_ = getImageFactory().newImageRgb(getWidth(),getHeight());
-        buff_.setFont(_component.getFont());
+        buff_.setFont(_component);
         paintComponent(buff_);
         _component.setIcon(getImageFactory(),buff_);
     }

@@ -4,11 +4,11 @@ import code.gui.events.AbsKeyListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 
 public abstract class AbsMetaLabel {
     private final AbsPaintableLabel paintableLabel;
@@ -48,15 +48,11 @@ public abstract class AbsMetaLabel {
     public int heightFont(){
         return paintableLabel.heightFont();
     }
-    public int heightFont(Font _font){
-        return paintableLabel.heightFont(_font);
-    }
+
     public int stringWidth(String _string){
         return paintableLabel.stringWidth(_string);
     }
-    public int stringWidth(Font _font,String _string){
-        return paintableLabel.stringWidth(_font, _string);
-    }
+
     public void setPreferredSize(Dimension _dim) {
         paintableLabel.setPreferredSize(_dim);
     }
@@ -85,8 +81,12 @@ public abstract class AbsMetaLabel {
     public void setToolTipText(String _title) {
         paintableLabel.setToolTipText(_title);
     }
-    public Font getFont() {
-        return paintableLabel.getFont();
+
+    public MetaFont getMetaFont() {
+        return paintableLabel.getMetaFont();
+    }
+    public int getFontSize() {
+        return paintableLabel.getMetaFont().getRealSize();
     }
 
     public void requestFocus(){
@@ -98,8 +98,9 @@ public abstract class AbsMetaLabel {
     public void setVisible(boolean _visible) {
         paintableLabel.setVisible(_visible);
     }
-    public void setFont(Font _font) {
-        paintableLabel.setFont(_font);
+
+    public void setFont(String _name, int _style, int _size) {
+        paintableLabel.setFont(_name, _style, _size);
     }
 
     public void setOpaque(boolean _op) {

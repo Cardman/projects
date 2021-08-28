@@ -1,9 +1,10 @@
 package code.gui.images;
 
+import code.gui.AbsCustComponent;
+import code.gui.AbsMetaLabel;
 import code.gui.AbsPreparedLabel;
 
 import java.awt.Color;
-import java.awt.Font;
 
 public interface AbstractImage {
     AbsPreparedLabel newAbsPreparedLabel();
@@ -35,8 +36,11 @@ public interface AbstractImage {
 
     Color getColor();
 
-    Font getFont();
-    void setFont(Font _font);
+    MetaFont getMetaFont();
+    void setFont(String _name, int _style, int _size);
+    void setFont(MetaFont _font);
+    void setFont(AbsCustComponent _font);
+    void setFont(AbsMetaLabel _font);
 
     void drawPolygon(int[] _w, int[] _y, int _n);
 

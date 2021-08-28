@@ -9,7 +9,6 @@ import code.util.Ints;
 import code.util.core.NumberUtil;
 
 import java.awt.Color;
-import java.awt.Font;
 
 public final class GraphicCombo extends CustComponent implements AbsGraphicCombo {
 
@@ -37,7 +36,6 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
         compoFactory = _compoFactory;
         grList.setListener(new ComboSelection(menu, this));
         menu.add(grList.getGlobal());
-        Font font_ = panel.getFont();
         int s_ = panel.heightFont() + 2;
         AbstractImage img_ = _fact.newImageRgb(s_, s_);
         img_.setColor(Color.WHITE);
@@ -49,7 +47,7 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
         pseudoButton.addMouseListener(new Popup(this));
         int w_ = 5;
         AbstractImage img2_ = _fact.newImageRgb(w_, s_);
-        img2_.setFont(font_);
+        img2_.setFont(panel);
         img2_.setColor(Color.WHITE);
         img2_.fillRect(0, 0, w_, s_);
         currentSelected = _compoFactory.newPreparedLabel(img2_);

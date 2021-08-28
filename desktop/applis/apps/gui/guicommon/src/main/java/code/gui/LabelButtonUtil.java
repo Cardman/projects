@@ -3,7 +3,6 @@ package code.gui;
 import code.gui.images.AbstractImage;
 
 import java.awt.Color;
-import java.awt.Font;
 
 public final class LabelButtonUtil {
 
@@ -40,12 +39,11 @@ public final class LabelButtonUtil {
     public static AbstractImage repaintSelected(int _index, boolean _sel, AbsGraphicStringList _curr) {
         String elt_ = _curr.getElements().get(_index);
         AbsPanel panel_ = _curr.getPanel();
-        Font font_ = panel_.getFont();
         _curr.setHeightList(Math.max(_curr.getHeightList(),panel_.heightFont()));
         _curr.getCellRender().setMaxWidth(Math.max(_curr.getCellRender().getMaxWidth(),panel_.stringWidth(elt_)));
         AbstractImage buff_ = _curr.getFact().newImageRgb(_curr.getCellRender().getWidth(),panel_.heightFont());
 //        CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
-        buff_.setFont(font_);
+        buff_.setFont(panel_);
         int h_ = panel_.heightFont();
         int w_ = panel_.stringWidth(elt_);
         if (_sel) {

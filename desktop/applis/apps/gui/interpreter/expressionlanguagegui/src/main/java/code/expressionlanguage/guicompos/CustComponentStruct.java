@@ -10,6 +10,7 @@ import code.gui.events.AbsKeyListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
@@ -159,11 +160,11 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     }
 
     public FontStruct getFont() {
-        return new FontStruct(getComponent().getFont());
+        return new FontStruct(getComponent().getMetaFont());
     }
     public void setFont(Struct _font) {
         if (!(_font instanceof FontStruct)) {
-            getComponent().setFont(null);
+            getComponent().setNullFont();
         } else {
             getComponent().setFont(((FontStruct)_font).getFont());
         }

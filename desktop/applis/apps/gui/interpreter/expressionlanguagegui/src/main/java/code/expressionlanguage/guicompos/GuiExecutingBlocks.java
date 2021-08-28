@@ -16,6 +16,7 @@ import code.gui.AbsOtherFrame;
 import code.gui.AbsPlainLabel;
 import code.gui.OtherConfirmDialog;
 import code.gui.events.AbsWindowListener;
+import code.gui.images.MetaFont;
 import code.util.CustList;
 import code.util.StringList;
 

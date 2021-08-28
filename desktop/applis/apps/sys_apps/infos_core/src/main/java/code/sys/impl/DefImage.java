@@ -1,9 +1,9 @@
 package code.sys.impl;
 
-import code.gui.AbsPreparedLabel;
-import code.gui.PreparedLabel;
+import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.images.MetaFont;
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,12 +79,41 @@ public final class DefImage implements AbstractImage {
     }
 
     @Override
+    public MetaFont getMetaFont() {
+        try {
+            Font font_ = getFont();
+            return new MetaFont(font_.getFamily(),GuiConstants.fontStyle(font_.isBold(),font_.isItalic()),font_.getSize());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public Font getFont() {
         return graphics.getFont();
     }
+
     @Override
+    public void setFont(MetaFont _font) {
+        setFont(new Font(_font.getFontFamily(), _font.getFont(), _font.getRealSize()));
+    }
+
     public void setFont(Font _font) {
         graphics.setFont(_font);
+    }
+
+    @Override
+    public void setFont(String _name, int _style, int _size) {
+        graphics.setFont(new Font(_name,_style,_size));
+    }
+
+    @Override
+    public void setFont(AbsCustComponent _font) {
+        graphics.setFont(((CustComponent)_font).getFont());
+    }
+
+    @Override
+    public void setFont(AbsMetaLabel _font) {
+        graphics.setFont(((CustComponent)_font.getPaintableLabel()).getFont());
     }
 
     @Override

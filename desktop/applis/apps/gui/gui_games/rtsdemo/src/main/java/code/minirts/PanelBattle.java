@@ -83,7 +83,7 @@ public class PanelBattle {
             }
             AbstractImage img_ = _fact.newImageArgb(w_, h_);
 //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            img_.setFont(u_.getFont());
+            img_.setFont(u_);
             u_.paintComponent(img_);
             u_.setIcon(_fact,img_);
         }
@@ -96,7 +96,7 @@ public class PanelBattle {
         AbstractImage img_ = _fact.newImageArgb(w_, h_);
         if (paintSelection) {
             //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            img_.setFont(selecting.getFont());
+            img_.setFont(selecting);
             Rect r_ = facade.getSelection();
             img_.setColor(Color.BLUE);
             img_.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(),(int) r_.getWidth().ll(), (int)r_.getHeight().ll());

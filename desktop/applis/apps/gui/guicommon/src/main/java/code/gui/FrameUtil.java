@@ -91,7 +91,7 @@ public final class FrameUtil {
         }
         AbstractImage img_ = _fact.newImageArgb(w_, h_);
 //        CustGraphics gr_ = img_.getGraphics();
-        img_.setFont(_paintableLabel.getFont());
+        img_.setFont(_paintableLabel);
         _metaLabel.paintComponent(img_);
         _paintableLabel.setIcon(_fact,img_);
     }
@@ -183,7 +183,7 @@ public final class FrameUtil {
         int w_ = 5;
         AbstractImage img_ = _current.getFact().newImageRgb(w_, s_);
 //        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
-        img_.setFont(_current.getLabel().getFont());
+        img_.setFont(_current.getLabel());
         img_.setColor(Color.WHITE);
         img_.fillRect(0, 0, w_, s_);
         _current.getLabel().setIcon(_current.getFact(),img_);
@@ -206,7 +206,7 @@ public final class FrameUtil {
         int s_ = _curr.getPanel().heightFont() + 2;
         AbstractImage img_ = _curr.getFact().newImageRgb(w_, s_);
 //        CustGraphics gr_ = new CustGraphics(img_.createGraphics());
-        img_.setFont(_curr.getLabel().getFont());
+        img_.setFont(_curr.getLabel());
         img_.setColor(Color.WHITE);
         img_.fillRect(0, 0, w_, s_);
         img_.setColor(Color.BLACK);
@@ -287,7 +287,7 @@ public final class FrameUtil {
             int s_ = _curr.getPanel().heightFont() + 2;
             AbstractImage img_ = _curr.getFact().newImageRgb(w_, s_);
 //            CustGraphics gr_ = new CustGraphics(img_.createGraphics());
-            img_.setFont(_curr.getLabel().getFont());
+            img_.setFont(_curr.getLabel());
             img_.setColor(Color.WHITE);
             img_.fillRect(0, 0, w_, s_);
             img_.setColor(Color.BLACK);

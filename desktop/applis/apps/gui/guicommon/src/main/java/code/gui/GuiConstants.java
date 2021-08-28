@@ -107,4 +107,29 @@ public final class GuiConstants {
         return value_;
     }
 
+    public static int fontStyle(boolean _bold, boolean _italic) {
+        int font_;
+        if (_bold) {
+            if (_italic) {
+                font_ = Font.BOLD + Font.ITALIC;
+            } else {
+                font_ = Font.BOLD;
+            }
+        } else {
+            if (_italic) {
+                font_ = Font.ITALIC;
+            } else {
+                font_ = Font.PLAIN;
+            }
+        }
+        return font_;
+    }
+
+    public static boolean italic(int _font) {
+        return _font == Font.BOLD + Font.ITALIC || _font == Font.ITALIC;
+    }
+
+    public static boolean bold(int _font) {
+        return _font == Font.BOLD + Font.ITALIC || _font == Font.BOLD;
+    }
 }

@@ -8,6 +8,7 @@ import code.formathtml.render.MetaStyle;
 import code.formathtml.render.SegmentPart;
 import code.gui.*;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaFont;
 import code.util.CustList;
 
 public abstract class DualLabel extends DualLeaf {
@@ -56,7 +57,7 @@ public abstract class DualLabel extends DualLeaf {
 
     public void paint() {
         MetaStyle style_ = getComponent().getStyle();
-        Font copy_ = newFont(style_);
+        MetaFont copy_ = newFont(style_);
         int h_ = label.heightFont(copy_);
         int w_ = label.stringWidth(copy_,text);
         if (w_ == 0) {
@@ -82,13 +83,13 @@ public abstract class DualLabel extends DualLeaf {
     public String getText() {
         return text;
     }
-    protected static Font newFont(MetaStyle _style) {
+    protected static MetaFont newFont(MetaStyle _style) {
         String fontFamily_ = _style.getFontFamily();
         int realSize_ = _style.getRealSize();
         return font(fontFamily_, _style.getItalic()+_style.getBold(), realSize_);
     }
 
-    private static Font font(String _fontFamily, int _font, int _realSize) {
-        return new Font(_fontFamily, _font, _realSize);
+    private static MetaFont font(String _fontFamily, int _font, int _realSize) {
+        return new MetaFont(_fontFamily, _font, _realSize);
     }
 }

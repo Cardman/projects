@@ -3,6 +3,8 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
+import code.gui.GuiConstants;
+import code.gui.images.MetaFont;
 import code.util.core.StringUtil;
 
 import java.awt.Font;
@@ -30,24 +32,20 @@ public final class FontStruct extends WithoutParentStruct implements Struct {
         italic = _italic;
         size = _size;
     }
-    public FontStruct(Font _action) {
-        family = _action.getName();
-        bold = _action.isBold();
-        italic = _action.isItalic();
-        size = _action.getSize();
+    public FontStruct(MetaFont _action) {
+        family = _action.getFontFamily();
+        bold = GuiConstants.bold(_action.getFont());
+        italic = GuiConstants.italic(_action.getFont());
+        size = _action.getRealSize();
     }
 
-    private Font newFont() {
-        if (bold) {
-            if (italic) {
-                return new Font(family,Font.BOLD+Font.ITALIC,size);
-            }
-            return new Font(family,Font.BOLD,size);
-        }
-        if (italic) {
-            return new Font(family,Font.ITALIC,size);
-        }
-        return new Font(family,Font.PLAIN,size);
+    private MetaFont newFont() {
+        int font_ = GuiConstants.fontStyle(bold, italic);
+        return meta(font_);
+    }
+
+    private MetaFont meta(int _font) {
+        return new MetaFont(family, _font, size);
     }
 
     private static String getFontFamily(Struct _family) {
@@ -80,7 +78,7 @@ public final class FontStruct extends WithoutParentStruct implements Struct {
         return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasFont();
     }
 
-    public Font getFont() {
+    public MetaFont getFont() {
         return newFont();
     }
 
