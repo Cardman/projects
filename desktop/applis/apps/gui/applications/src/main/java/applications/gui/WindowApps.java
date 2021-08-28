@@ -21,8 +21,10 @@ import code.util.consts.Constants;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-import javax.swing.*;
-import java.awt.*;
+
+import javax.swing.WindowConstants;
+import java.awt.Dimension;
+import java.awt.Point;
 
 public final class WindowApps extends GroupFrame {
 
@@ -148,7 +150,7 @@ public final class WindowApps extends GroupFrame {
             selectLangagueButton(_language);
         } else {
             selectLangagueButton(getLanguageKey());
-            FrameUtil.showDialogError(this, JOptionPane.ERROR_MESSAGE);
+            FrameUtil.showDialogError(this, GuiConstants.ERROR_MESSAGE);
         }
     }
 

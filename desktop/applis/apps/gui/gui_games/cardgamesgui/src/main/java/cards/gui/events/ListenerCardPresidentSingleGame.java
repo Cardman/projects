@@ -1,6 +1,6 @@
 package cards.gui.events;
 
-import javax.swing.JOptionPane;
+
 
 import cards.facade.Games;
 import cards.gui.WindowCards;
@@ -12,6 +12,7 @@ import cards.president.GamePresident;
 import cards.president.enumerations.CardPresident;
 import code.gui.AbsMouseLocation;
 import code.gui.ConfirmDialog;
+import code.gui.GuiConstants;
 import code.util.core.StringUtil;
 
 public class ListenerCardPresidentSingleGame extends
@@ -47,7 +48,7 @@ public class ListenerCardPresidentSingleGame extends
                 mes_.append(Games.autorisePresident(game_,DealPresident.NUMERO_UTILISATEUR, getCarteVerif(), getIndexVerif(), lg_));
                 String finalMessage_ = mes_.toString();
                 String title_ = container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE);
-                ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
             } else {
                 container.setaJoueCarte(true);
                 container.finPliPresident(getCarteVerif(), getIndexVerif());
@@ -55,7 +56,7 @@ public class ListenerCardPresidentSingleGame extends
         }else{
             String finalMessage_ = StringUtil.concat(container.getMessages().getVal(WindowCards.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(WindowCards.TOO_GAME);
-            ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, GuiConstants.ERROR_MESSAGE);
         }
     }
 }

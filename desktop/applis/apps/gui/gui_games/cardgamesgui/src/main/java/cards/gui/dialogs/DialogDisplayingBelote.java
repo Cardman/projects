@@ -1,7 +1,7 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
 
-import javax.swing.JOptionPane;
+
 import javax.swing.WindowConstants;
 
 import cards.belote.DisplayingBelote;
@@ -163,7 +163,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
     @Override
     public void validateDisplaying() {
         if(orderedSuits.nombreDeCouleurs()<4) {
-            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingBelote.setClockwise(checkClockwise.isSelected());

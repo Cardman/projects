@@ -1,7 +1,7 @@
 package code.player.gui;
 import java.awt.Dimension;
 
-import javax.swing.JOptionPane;
+
 import javax.swing.WindowConstants;
 
 import code.gui.*;
@@ -193,7 +193,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 }
             }
             if (!songsList.isValidIndex(noSong)) {
-                ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),GuiConstants.ERROR_MESSAGE);
                 return;
             }
             if (songsList.get(noSong).endsWith(WAV) || songsList.get(noSong).endsWith(TXT)) {
@@ -221,7 +221,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                     }
                 }
                 if (songsList.isEmpty()) {
-                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WAV), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WAV), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),GuiConstants.ERROR_MESSAGE);
                     return;
                 }
                 clipStream = c_;
@@ -230,7 +230,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong),getFileCoreStream(),getStreams());
                 Document doc_ = DocumentBuilder.parseSax(txt_);
                 if (doc_ == null) {
-                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),GuiConstants.ERROR_MESSAGE);
                     return;
                 }
                 ElementList e_ = doc_.getElementsByTagName(CST_MEDIA);
@@ -248,7 +248,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 }
                 songsList.removeAllString(EMPTY);
                 if (songsList.isEmpty()) {
-                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),GuiConstants.ERROR_MESSAGE);
                     return;
                 }
                 ElementList elts_ = doc_.getDocumentElement().getChildElements();
@@ -304,7 +304,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 }
                 clipStream = c_;
                 if (songsList.isEmpty()) {
-                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(this, messages.getVal(CST_CANNOT_READ_MESSAGE_WPL), messages.getVal(CST_CANNOT_READ_TITLE),getLanguageKey(),GuiConstants.ERROR_MESSAGE);
                     return;
                 }
             }

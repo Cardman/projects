@@ -1,5 +1,5 @@
 package aiki.gui.components.fight;
-import java.awt.*;
+import java.awt.Color;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;

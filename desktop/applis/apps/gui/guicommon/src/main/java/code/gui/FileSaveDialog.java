@@ -1,7 +1,7 @@
 package code.gui;
 import java.awt.BorderLayout;
 
-import javax.swing.JOptionPane;
+
 
 import code.gui.events.*;
 import code.gui.initialize.AbstractProgramInfos;
@@ -129,13 +129,13 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         String text_ = getFileName().getText();
         if (text_.trim().isEmpty()) {
             String errorContent_ = messages.getVal(FORBIDDEN_SPACES);
-            ConfirmDialog.showMessage(getAbsDialog(), errorContent_, errorTitle_,lg_, JOptionPane.ERROR_MESSAGE, dialog);
+            ConfirmDialog.showMessage(getAbsDialog(), errorContent_, errorTitle_,lg_, GuiConstants.ERROR_MESSAGE, dialog);
             //JOptionPane.showMessageDialog(this, errorContent_, errorTitle_, JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!frame.getValidator().okPath(text_,'/','\\')) {
             String errorContent_ = messages.getVal(FORBIDDEN_SPECIAL_CHARS);
-            ConfirmDialog.showMessage(getAbsDialog(), errorContent_, errorTitle_, lg_, JOptionPane.ERROR_MESSAGE, dialog);
+            ConfirmDialog.showMessage(getAbsDialog(), errorContent_, errorTitle_, lg_, GuiConstants.ERROR_MESSAGE, dialog);
             return;
         }
         //get selected row first table
@@ -151,9 +151,9 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
                     getAbsDialog(),
                 mes_, messages.getVal(TITLE_CONF),
                 getLang(),
-                JOptionPane.YES_NO_OPTION, dialog);
+                    GuiConstants.YES_NO_OPTION, dialog);
             int answer_ = conf_.getAnswer();
-            if (answer_ == JOptionPane.NO_OPTION) {
+            if (answer_ == GuiConstants.NO_OPTION) {
                 return;
             }
         }

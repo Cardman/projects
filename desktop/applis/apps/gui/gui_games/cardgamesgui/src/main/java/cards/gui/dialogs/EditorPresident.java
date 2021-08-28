@@ -2,7 +2,7 @@ package cards.gui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.*;
+
 
 import cards.consts.GameType;
 import cards.facade.Nicknames;
@@ -266,7 +266,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+        ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
 
@@ -343,7 +343,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+            ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
         }
     }
 

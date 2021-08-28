@@ -6,6 +6,17 @@ import java.awt.*;
 public final class GuiConstants {
 
     public static final String FOLDER_MESSAGES_GUI = "resources_gui/gui/components";
+    public static final int HAND_CURSOR = Cursor.HAND_CURSOR;
+    public static final int HORIZONTAL_SPLIT = JSplitPane.HORIZONTAL_SPLIT;
+    public static final int ERROR_MESSAGE = JOptionPane.ERROR_MESSAGE;
+    public static final int WARNING_MESSAGE = JOptionPane.WARNING_MESSAGE;
+    public static final int INFORMATION_MESSAGE = JOptionPane.INFORMATION_MESSAGE;
+    public static final int YES_NO_OPTION = JOptionPane.YES_NO_OPTION;
+    public static final int YES_NO_CANCEL_OPTION = JOptionPane.YES_NO_CANCEL_OPTION;
+    public static final int NO_OPTION = JOptionPane.NO_OPTION;
+    public static final int YES_OPTION = JOptionPane.YES_OPTION;
+    public static final int CANCEL_OPTION = JOptionPane.CANCEL_OPTION;
+    public static final int OK_OPTION = JOptionPane.OK_OPTION;
 
     private GuiConstants() {
     }
@@ -14,7 +25,7 @@ public final class GuiConstants {
         if (_orientation == JSplitPane.VERTICAL_SPLIT) {
             return _orientation;
         }
-        return JSplitPane.HORIZONTAL_SPLIT;
+        return HORIZONTAL_SPLIT;
     }
 
     public static int getOrient(int _o) {
@@ -53,7 +64,7 @@ public final class GuiConstants {
         if (!_enabled) {
             value_ = Cursor.DEFAULT_CURSOR;
         } else {
-            value_ = Cursor.HAND_CURSOR;
+            value_ = HAND_CURSOR;
         }
         return value_;
     }

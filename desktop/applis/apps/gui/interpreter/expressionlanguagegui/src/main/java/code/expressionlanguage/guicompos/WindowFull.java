@@ -13,8 +13,8 @@ import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamTextFile;
 import code.util.StringMap;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.WindowConstants;
+import java.awt.Dimension;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 

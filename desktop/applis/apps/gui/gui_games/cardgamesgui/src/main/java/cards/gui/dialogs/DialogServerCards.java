@@ -1,6 +1,6 @@
 package cards.gui.dialogs;
 
-import javax.swing.*;
+import javax.swing.WindowConstants;
 
 import cards.belote.enumerations.DealingBelote;
 import cards.facade.enumerations.GameEnum;

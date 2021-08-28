@@ -1,11 +1,13 @@
 package code.gui.document;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaStyle;
 import code.formathtml.render.SegmentPart;
 import code.gui.AbsPreparedLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 
 public final class DualAnchoredLabel extends DualLabel {
@@ -15,7 +17,7 @@ public final class DualAnchoredLabel extends DualLabel {
     public DualAnchoredLabel(DualContainer _container, MetaAnchorLabel _component, RenderedPage _page) {
         super(_container, _component, _page);
         AbsPreparedLabel label_ = getLabel();
-        label_.setCursor(Cursor.HAND_CURSOR);
+        label_.setCursor(GuiConstants.HAND_CURSOR);
         label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page, this));
         String prefix_ = getPage().getNavigation().getSession().getPrefix();
         String command_ = new StringBuilder(prefix_).append("command").toString();

@@ -6,14 +6,15 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 
-import javax.swing.*;
+
+import javax.swing.WindowConstants;
 
 public final class OtherConfirmDialog {
 
-    public static final int OK_OPTION = JOptionPane.OK_OPTION;
-    public static final int YES_OPTION = JOptionPane.YES_OPTION;
-    public static final int NO_OPTION = JOptionPane.NO_OPTION;
-    public static final int CANCEL_OPTION = JOptionPane.CANCEL_OPTION;
+    public static final int OK_OPTION = GuiConstants.OK_OPTION;
+    public static final int YES_OPTION = GuiConstants.YES_OPTION;
+    public static final int NO_OPTION = GuiConstants.NO_OPTION;
+    public static final int CANCEL_OPTION = GuiConstants.CANCEL_OPTION;
     private static final String EMPTY_STRING = "";
     private final AbsOtherDialog dialog;
 

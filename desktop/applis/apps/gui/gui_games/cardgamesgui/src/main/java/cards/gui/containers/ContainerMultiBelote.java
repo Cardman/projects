@@ -3,7 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JOptionPane;
+
 
 import cards.belote.BidBeloteSuit;
 import cards.belote.DealBelote;
@@ -416,7 +416,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
         ConfirmDialog.showMessage(getOwner(), mes_, getMessages().getVal(WindowCards.CANT_BID_TITLE),
-                lg_, JOptionPane.ERROR_MESSAGE);
+                lg_, GuiConstants.ERROR_MESSAGE);
     }
 
     public void displayLastBid(BiddingBelote _bid) {
@@ -537,7 +537,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             }
             ConfirmDialog.showComponent(getOwner(), panneau_,
                     getMessages().getVal(WindowCards.HAVE_TO_PLAY),
-                    lg_, JOptionPane.ERROR_MESSAGE);
+                    lg_, GuiConstants.ERROR_MESSAGE);
 
             return;
         }
@@ -546,7 +546,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ConfirmDialog.showMessage(getOwner(),
                 StringUtil.concat(mes_, RETURN_LINE, mesReason_),
                 getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE),
-                lg_, JOptionPane.ERROR_MESSAGE);
+                lg_, GuiConstants.ERROR_MESSAGE);
     }
 
     public void refreshHand(RefreshHandBelote _cards) {

@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JOptionPane;
+
 import javax.swing.WindowConstants;
 
 import aiki.db.DataBase;
@@ -383,8 +383,8 @@ public final class WindowAiki extends NetGroupFrame {
                 return;
             }
             int choix_=saving();
-            if(choix_!=JOptionPane.CANCEL_OPTION) {
-                if(choix_==JOptionPane.YES_OPTION) {
+            if(choix_!=GuiConstants.CANCEL_OPTION) {
+                if(choix_==GuiConstants.YES_OPTION) {
                     String file_ = fileDialogSave();
                     if (!file_.isEmpty()) {
                         loadingConf.setLastSavedGame(file_);
@@ -791,11 +791,11 @@ public final class WindowAiki extends NetGroupFrame {
         attendre2();
         if (!savedGame && facade.getGame() != null) {
             int choix_=saving();
-            if(choix_==JOptionPane.CANCEL_OPTION) {
+            if(choix_==GuiConstants.CANCEL_OPTION) {
                 return;
             }
             loadingConf.setLastSavedGame(DataBase.EMPTY_STRING);
-            if(choix_==JOptionPane.YES_OPTION) {
+            if(choix_==GuiConstants.YES_OPTION) {
                 String file_ = fileDialogSave();
                 if (!file_.isEmpty()) {
                     loadingConf.setLastSavedGame(file_);
@@ -835,11 +835,11 @@ public final class WindowAiki extends NetGroupFrame {
         attendre2();
         if (!savedGame && facade.getGame() != null) {
             int choix_=saving();
-            if(choix_==JOptionPane.CANCEL_OPTION) {
+            if(choix_==GuiConstants.CANCEL_OPTION) {
                 return;
             }
             loadingConf.setLastSavedGame(DataBase.EMPTY_STRING);
-            if(choix_==JOptionPane.YES_OPTION) {
+            if(choix_==GuiConstants.YES_OPTION) {
                 String file_ = fileDialogSave();
                 if (!file_.isEmpty()) {
                     loadingConf.setLastSavedGame(file_);
@@ -927,7 +927,7 @@ public final class WindowAiki extends NetGroupFrame {
 
     public void manageLanguage() {
         if (!canChangeLanguageAll()) {
-            FrameUtil.showDialogError(this, JOptionPane.ERROR_MESSAGE);
+            FrameUtil.showDialogError(this, GuiConstants.ERROR_MESSAGE);
             return;
         }
         LanguageDialog.setLanguageDialog(this, messages.getVal(CST_LANGUAGE));
@@ -1276,10 +1276,10 @@ public final class WindowAiki extends NetGroupFrame {
         pack();
         if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
             if (_exit.isTooManyPlayers()) {
-                ConfirmDialog.showMessage(this, getTooManyString(), getTooManyString(), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this, getTooManyString(), getTooManyString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(window, MainWindow.getTooManyString(), MainWindow.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
             } else {
-                ConfirmDialog.showMessage(this, getNoTradeString(), getNoTradeString(), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this, getNoTradeString(), getNoTradeString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(window, MainWindow.getNoTradeString(), MainWindow.getNoTradeString(), JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -1292,7 +1292,7 @@ public final class WindowAiki extends NetGroupFrame {
 
     private int confirm(String _message,String _titre) {
         //warning message
-        return ConfirmDialog.getAnswer(this,_message,_titre, getLanguageKey(),JOptionPane.YES_NO_CANCEL_OPTION);
+        return ConfirmDialog.getAnswer(this,_message,_titre, getLanguageKey(),GuiConstants.YES_NO_CANCEL_OPTION);
     }
 
     /**Sauvegarder une partie dans un fichier*/
@@ -1492,12 +1492,12 @@ public final class WindowAiki extends NetGroupFrame {
         if (_fileName.isEmpty()) {
             return false;
         }
-        ConfirmDialog.showMessage(this, _fileName, messages.getVal(ERROR_LOADING), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+        ConfirmDialog.showMessage(this, _fileName, messages.getVal(ERROR_LOADING), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
         return true;
     }
 
     public void showSuccessfulMessageDialogThenLoadHelp(String _fileName) {
-        ConfirmDialog.showMessage(this, _fileName, messages.getVal(SUCCESSFUL_LOADING), getLanguageKey(), JOptionPane.INFORMATION_MESSAGE);
+        ConfirmDialog.showMessage(this, _fileName, messages.getVal(SUCCESSFUL_LOADING), getLanguageKey(), GuiConstants.INFORMATION_MESSAGE);
         availableHelps.setText(messages.getVal(AVAILAIBLE_HELPS));
         helpInfo.setText(messages.getVal(HELP_INFO));
         pack();

@@ -1,9 +1,8 @@
 package code.gui.document;
 
-import java.awt.Cursor;
-
 import code.formathtml.render.MetaAnimatedImage;
 import code.gui.AbsPreparedLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.threads.ThreadUtil;
 import code.sml.Element;
@@ -28,7 +27,7 @@ public final class DualAnimatedImage extends DualImage {
         href = "";
         if (anchor_ != null) {
             AbsPreparedLabel label_ = getLabel();
-            label_.setCursor(Cursor.HAND_CURSOR);
+            label_.setCursor(GuiConstants.HAND_CURSOR);
             label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             if (!anchor_.getAttribute("command").isEmpty()) {
                 href = anchor_.getAttribute("command");

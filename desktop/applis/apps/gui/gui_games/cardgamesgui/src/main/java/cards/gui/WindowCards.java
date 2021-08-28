@@ -3,7 +3,7 @@ import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JOptionPane;
+
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
@@ -711,8 +711,8 @@ public final class WindowCards extends NetGroupFrame {
         de l'execution le fichier de configuration sera recree*/
         if(containerGame.playingSingleGame()&&!partieSauvegardee) {
             int choix_=saving();
-            if(choix_!=JOptionPane.CANCEL_OPTION) {
-                if(choix_==JOptionPane.YES_OPTION) {
+            if(choix_!=GuiConstants.CANCEL_OPTION) {
+                if(choix_==GuiConstants.YES_OPTION) {
                     String file_ = dialogueFichierSauvegarde();
                     if(!file_.isEmpty()) {
                         containerGame.saveCurrentGame(file_);
@@ -1070,7 +1070,7 @@ public final class WindowCards extends NetGroupFrame {
         }
         pack();
         if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
-            ConfirmDialog.showMessage(this, getTooManyString(), getTooManyString(), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, getTooManyString(), getTooManyString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(window, window.getTooManyString(), window.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -1249,8 +1249,8 @@ public final class WindowCards extends NetGroupFrame {
         if(containerGame.playingSingleGame()&&!partieSauvegardee) {
             if(containerGame.isPasse()||!containerGame.isThreadAnime()) {
                 int choix_=saving();
-                if(choix_!=JOptionPane.CANCEL_OPTION) {
-                    if(choix_==JOptionPane.YES_OPTION) {
+                if(choix_!=GuiConstants.CANCEL_OPTION) {
+                    if(choix_==GuiConstants.YES_OPTION) {
                         String fichier_=dialogueFichierSauvegarde();
                         if(!fichier_.isEmpty()) {
                             containerGame.saveCurrentGame(fichier_);
@@ -1349,8 +1349,8 @@ public final class WindowCards extends NetGroupFrame {
         if(containerGame.playingSingleGame()&&!partieSauvegardee) {
             if(containerGame.isPasse()||!containerGame.isThreadAnime()) {
                 int choix_=saving();
-                if(choix_!=JOptionPane.CANCEL_OPTION) {
-                    if(choix_==JOptionPane.YES_OPTION) {
+                if(choix_!=GuiConstants.CANCEL_OPTION) {
+                    if(choix_==GuiConstants.YES_OPTION) {
                         String fichier_=dialogueFichierSauvegarde();
                         if(!fichier_.isEmpty()) {
                             containerGame.saveCurrentGame(fichier_);
@@ -1509,8 +1509,8 @@ public final class WindowCards extends NetGroupFrame {
             if(containerGame.playingSingleGame()&&!partieSauvegardee) {
                 if(containerGame.isPasse()||!containerGame.isThreadAnime()) {
                     int choix_=saving();
-                    if(choix_!=JOptionPane.CANCEL_OPTION) {
-                        if(choix_==JOptionPane.YES_OPTION) {
+                    if(choix_!=GuiConstants.CANCEL_OPTION) {
+                        if(choix_==GuiConstants.YES_OPTION) {
                             String fichier_=dialogueFichierSauvegarde();
                             if(!fichier_.isEmpty()) {
                                 containerGame.saveCurrentGame(fichier_);
@@ -1546,8 +1546,8 @@ public final class WindowCards extends NetGroupFrame {
             if(containerGame.playingSingleGame()&&!partieSauvegardee) {
                 if(containerGame.isPasse()||!containerGame.isThreadAnime()) {
                     int choix_=saving();
-                    if(choix_!=JOptionPane.CANCEL_OPTION) {
-                        if(choix_==JOptionPane.YES_OPTION) {
+                    if(choix_!=GuiConstants.CANCEL_OPTION) {
+                        if(choix_==GuiConstants.YES_OPTION) {
                             String fichier_=dialogueFichierSauvegarde();
                             if(!fichier_.isEmpty()) {
                                 containerGame.saveCurrentGame(fichier_);
@@ -1584,8 +1584,8 @@ public final class WindowCards extends NetGroupFrame {
             if(containerGame.playingSingleGame()&&!partieSauvegardee) {
                 if(containerGame.isPasse()||!containerGame.isThreadAnime()) {
                     int choix_=saving();
-                    if(choix_!=JOptionPane.CANCEL_OPTION) {
-                        if(choix_==JOptionPane.YES_OPTION) {
+                    if(choix_!=GuiConstants.CANCEL_OPTION) {
+                        if(choix_==GuiConstants.YES_OPTION) {
                             String fichier_=dialogueFichierSauvegarde();
                             if(!fichier_.isEmpty()) {
                                 containerGame.saveCurrentGame(fichier_);
@@ -1643,8 +1643,8 @@ public final class WindowCards extends NetGroupFrame {
         de l'execution le fichier de configuration sera recree*/
         if(containerGame.playingSingleGame()&&!partieSauvegardee) {
             int choix_=saving();
-            if(choix_!=JOptionPane.CANCEL_OPTION) {
-                if(choix_==JOptionPane.YES_OPTION) {
+            if(choix_!=GuiConstants.CANCEL_OPTION) {
+                if(choix_==GuiConstants.YES_OPTION) {
                     String fichier_=dialogueFichierSauvegarde();
                     if(!fichier_.isEmpty()) {
                         containerGame.saveCurrentGame(fichier_);
@@ -1780,7 +1780,7 @@ public final class WindowCards extends NetGroupFrame {
     }
     public void manageLanguage() {
         if (!canChangeLanguageAll()) {
-            FrameUtil.showDialogError(this, JOptionPane.ERROR_MESSAGE);
+            FrameUtil.showDialogError(this, GuiConstants.ERROR_MESSAGE);
             return;
         }
         LanguageDialog.setLanguageDialog(this, getMessages().getVal(CST_LANGUAGE));
@@ -1852,7 +1852,7 @@ public final class WindowCards extends NetGroupFrame {
 
     private int confirm(String _message,String _titre) {
         //warning message
-        return ConfirmDialog.getAnswer(this,_message,_titre, getLanguageKey(),JOptionPane.YES_NO_CANCEL_OPTION);
+        return ConfirmDialog.getAnswer(this,_message,_titre, getLanguageKey(),GuiConstants.YES_NO_CANCEL_OPTION);
     }
     /**Sauvegarder une partie dans un fichier*/
     private String dialogueFichierSauvegarde() {
@@ -1896,7 +1896,7 @@ public final class WindowCards extends NetGroupFrame {
         //The issue of quality of game are caught here
         String lg_ = getLanguageKey();
         String mes_ = StringUtil.simpleStringsFormat(getMessages().getVal(CST_FILE_NOT_LOADED), _fichier);
-        ConfirmDialog.showMessage(this,mes_, getMessages().getVal(CST_FILE_NOT_LOADED_TILE),lg_, JOptionPane.ERROR_MESSAGE);
+        ConfirmDialog.showMessage(this,mes_, getMessages().getVal(CST_FILE_NOT_LOADED_TILE),lg_, GuiConstants.ERROR_MESSAGE);
     }
 
     /**On ecoute les boutons du menu principal et des menus jeux*/
@@ -1947,10 +1947,10 @@ public final class WindowCards extends NetGroupFrame {
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
                 String formatted_ = getMessages().getVal(UNKNOWN_HOST);
                 formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
-                ConfirmDialog.showMessage(this, getMessages().getVal(BUG), formatted_, getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this, getMessages().getVal(BUG), formatted_, getLanguageKey(), GuiConstants.ERROR_MESSAGE);
                 return;
             }
-            ConfirmDialog.showMessage(this, getMessages().getVal(BUG), getMessages().getVal(NOT_CONNECTED), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, getMessages().getVal(BUG), getMessages().getVal(NOT_CONNECTED), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
             return;
         }
     }

@@ -6,7 +6,7 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentStruct;
 
-import java.awt.*;
+import java.awt.Dimension;
 
 public final class DimensionStruct extends WithoutParentStruct implements Struct {
     private Dimension dimension;

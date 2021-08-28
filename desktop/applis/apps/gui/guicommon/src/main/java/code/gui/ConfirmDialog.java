@@ -1,6 +1,5 @@
 package code.gui;
 
-import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import code.gui.events.AnswerEvent;
@@ -109,11 +108,11 @@ public final class ConfirmDialog {
 //        content_.add(message_);
         content_.add(new WrappedLabel(list.getImageFactory(), _message, list.getCompoFactory()));
         AbsPanel buttons_ = list.getCompoFactory().newLineBox();
-        if (_option == JOptionPane.INFORMATION_MESSAGE) {
+        if (_option == GuiConstants.INFORMATION_MESSAGE) {
             buttons_.add(list.getCompoFactory().newPreparedLabel(INFORMATION_ICON));
-        } else if (_option == JOptionPane.ERROR_MESSAGE) {
+        } else if (_option == GuiConstants.ERROR_MESSAGE) {
             buttons_.add(list.getCompoFactory().newPreparedLabel(ERROR_ICON));
-        } else if (_option == JOptionPane.WARNING_MESSAGE) {
+        } else if (_option == GuiConstants.WARNING_MESSAGE) {
             buttons_.add(list.getCompoFactory().newPreparedLabel(WARNING_ICON));
         }
         AbsPlainButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(OK));
@@ -138,11 +137,11 @@ public final class ConfirmDialog {
         AbsPanel content_ = list.getCompoFactory().newGrid(0,1);
         content_.add(_message);
         AbsPanel buttons_ = list.getCompoFactory().newLineBox();
-        if (_option == JOptionPane.INFORMATION_MESSAGE) {
+        if (_option == GuiConstants.INFORMATION_MESSAGE) {
             buttons_.add(list.getCompoFactory().newPreparedLabel(INFORMATION_ICON));
-        } else if (_option == JOptionPane.ERROR_MESSAGE) {
+        } else if (_option == GuiConstants.ERROR_MESSAGE) {
             buttons_.add(list.getCompoFactory().newPreparedLabel(ERROR_ICON));
-        } else if (_option == JOptionPane.WARNING_MESSAGE) {
+        } else if (_option == GuiConstants.WARNING_MESSAGE) {
             buttons_.add(list.getCompoFactory().newPreparedLabel(WARNING_ICON));
         }
         AbsPlainButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(OK));
@@ -167,30 +166,30 @@ public final class ConfirmDialog {
 //        content_.add(message_);
         content_.add(new WrappedLabel(list.getImageFactory(), _message, list.getCompoFactory()));
         AbsPanel buttons_ = list.getCompoFactory().newLineBox();
-        if (_option == JOptionPane.YES_NO_OPTION) {
-            answer = JOptionPane.NO_OPTION;
+        if (_option == GuiConstants.YES_NO_OPTION) {
+            answer = GuiConstants.NO_OPTION;
             buttons_.add(list.getCompoFactory().newPreparedLabel(QUESTION_ICON));
             AbsPlainButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(YES));
-            button_.addActionListener(new AnswerEvent(this, JOptionPane.YES_OPTION));
+            button_.addActionListener(new AnswerEvent(this, GuiConstants.YES_OPTION));
             buttons_.add(button_);
             button_ = list.getCompoFactory().newPlainButton(messages_.getVal(NO));
-            button_.addActionListener(new AnswerEvent(this, JOptionPane.NO_OPTION));
+            button_.addActionListener(new AnswerEvent(this, GuiConstants.NO_OPTION));
             buttons_.add(button_);
-        } else if (_option == JOptionPane.YES_NO_CANCEL_OPTION) {
-            answer = JOptionPane.CANCEL_OPTION;
+        } else if (_option == GuiConstants.YES_NO_CANCEL_OPTION) {
+            answer = GuiConstants.CANCEL_OPTION;
             buttons_.add(list.getCompoFactory().newPreparedLabel(QUESTION_ICON));
             AbsPlainButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(YES));
-            button_.addActionListener(new AnswerEvent(this, JOptionPane.YES_OPTION));
+            button_.addActionListener(new AnswerEvent(this, GuiConstants.YES_OPTION));
             buttons_.add(button_);
             button_ = list.getCompoFactory().newPlainButton(messages_.getVal(NO));
-            button_.addActionListener(new AnswerEvent(this, JOptionPane.NO_OPTION));
+            button_.addActionListener(new AnswerEvent(this, GuiConstants.NO_OPTION));
             buttons_.add(button_);
             button_ = list.getCompoFactory().newPlainButton(messages_.getVal(CANCEL));
-            button_.addActionListener(new AnswerEvent(this, JOptionPane.CANCEL_OPTION));
+            button_.addActionListener(new AnswerEvent(this, GuiConstants.CANCEL_OPTION));
             buttons_.add(button_);
         } else {
             AbsPlainButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(OK));
-            button_.addActionListener(new AnswerEvent(this, JOptionPane.OK_OPTION));
+            button_.addActionListener(new AnswerEvent(this, GuiConstants.OK_OPTION));
             buttons_.add(button_);
         }
         content_.add(buttons_);
@@ -216,13 +215,13 @@ public final class ConfirmDialog {
         field = list.getCompoFactory().newTextField();
         field.setText(_value);
         content_.add(field);
-        answer = JOptionPane.NO_OPTION;
+        answer = GuiConstants.NO_OPTION;
         AbsPanel buttons_ = list.getCompoFactory().newLineBox();
         AbsPlainButton button_ = list.getCompoFactory().newPlainButton(messages_.getVal(OK));
-        button_.addActionListener(new AnswerTextEvent(this, JOptionPane.YES_OPTION));
+        button_.addActionListener(new AnswerTextEvent(this, GuiConstants.YES_OPTION));
         buttons_.add(button_);
         button_ = list.getCompoFactory().newPlainButton(messages_.getVal(CANCEL));
-        button_.addActionListener(new AnswerTextEvent(this, JOptionPane.NO_OPTION));
+        button_.addActionListener(new AnswerTextEvent(this, GuiConstants.NO_OPTION));
         buttons_.add(button_);
         content_.add(buttons_);
         absDialog.setContentPane(content_);
@@ -238,7 +237,7 @@ public final class ConfirmDialog {
         } else {
             typedText = EMPTY_STRING;
         }
-        if (answer == JOptionPane.NO_OPTION) {
+        if (answer == GuiConstants.NO_OPTION) {
             typedText = EMPTY_STRING;
         }
         absDialog.closeWindow();

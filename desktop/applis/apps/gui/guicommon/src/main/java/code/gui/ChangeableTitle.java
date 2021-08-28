@@ -1,6 +1,6 @@
 package code.gui;
 
-import java.awt.*;
+import java.awt.Point;
 
 public interface ChangeableTitle extends Iconifiable {
 

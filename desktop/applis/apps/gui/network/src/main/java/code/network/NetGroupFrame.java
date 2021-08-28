@@ -1,5 +1,4 @@
 package code.network;
-import java.io.*;
 
 import code.gui.GroupFrame;
 import code.gui.initialize.AbstractProgramInfos;

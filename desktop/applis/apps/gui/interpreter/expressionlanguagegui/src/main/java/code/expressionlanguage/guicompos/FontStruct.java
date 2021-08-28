@@ -5,7 +5,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 import code.util.core.StringUtil;
 
-import java.awt.*;
+import java.awt.Font;
 
 public final class FontStruct extends WithoutParentStruct implements Struct {
     private final String family;

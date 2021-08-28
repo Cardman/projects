@@ -1,8 +1,9 @@
 package aiki.gui.threads;
-import javax.swing.JOptionPane;
+
 
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
+import code.gui.GuiConstants;
 
 /**Thread safe class*/
 public final class AfterSettingDifficutyThread implements Runnable {
@@ -18,6 +19,6 @@ public final class AfterSettingDifficutyThread implements Runnable {
 
     @Override
     public void run() {
-        window.setTextArea(facade.getGame().getCommentGame().join(), JOptionPane.WARNING_MESSAGE);
+        window.setTextArea(facade.getGame().getCommentGame().join(), GuiConstants.WARNING_MESSAGE);
     }
 }

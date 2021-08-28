@@ -3,9 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JOptionPane;
-import javax.swing.JSplitPane;
-
 import cards.consts.GameType;
 import cards.consts.Role;
 import cards.facade.Games;
@@ -362,7 +359,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
         ConfirmDialog.showMessage(getOwner(),mes_,
                 getMessages().getVal(WindowCards.CANT_BID_TITLE),
-                lg_, JOptionPane.ERROR_MESSAGE);
+                lg_, GuiConstants.ERROR_MESSAGE);
     }
     public void displayLastBid(BiddingTarot _bid) {
         String lg_ = getOwner().getLanguageKey();
@@ -462,7 +459,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        JOptionPane.showMessageDialog(getOwner(),mesCard_+RETURN_LINE_CHAR+mesReason_, getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
         ConfirmDialog.showMessage(getOwner(), StringUtil.concat(mesCard_,RETURN_LINE,mesReason_),
                 getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE),
-                lg_, JOptionPane.ERROR_MESSAGE);
+                lg_, GuiConstants.ERROR_MESSAGE);
     }
     public void displaySlamButton() {
         getPanneauBoutonsJeu().removeAll();
@@ -628,7 +625,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ConfirmDialog.showMessage(getOwner(),
                 StringUtil.concat(mes_, RETURN_LINE, _error.getError()),
                 getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE),
-                lg_, JOptionPane.ERROR_MESSAGE);
+                lg_, GuiConstants.ERROR_MESSAGE);
     }
 
     public void errorPlayingCard(ErrorPlaying _error) {
@@ -639,7 +636,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ConfirmDialog.showMessage(getOwner(),
                 StringUtil.concat(mes_, RETURN_LINE, mesReason_),
                 getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE),
-                lg_, JOptionPane.ERROR_MESSAGE);
+                lg_, GuiConstants.ERROR_MESSAGE);
     }
     public void refreshHand(RefreshHand _card) {
         String lg_ = getOwner().getLanguageKey();
@@ -780,7 +777,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setExcludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
         AbsScrollPane scrollExc_ = getOwner().getCompoFactory().newAbsScrollPane(getExcludedTrumpsForHandful());
         scrollExc_.setPreferredSize(new Dimension(125,60));
-        setDeclaringHandful(getOwner().getCompoFactory().newAbsSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollInc_,scrollExc_));
+        setDeclaringHandful(getOwner().getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,scrollInc_,scrollExc_));
         getDeclaringHandful().setContinuousLayout(true);
         getDeclaringHandful().setOneTouchExpandable(true);
         setScrollDeclaringHandful(getOwner().getCompoFactory().newAbsScrollPane(getDeclaringHandful()));

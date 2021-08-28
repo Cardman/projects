@@ -2,7 +2,7 @@ package cards.gui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.JOptionPane;
+
 
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
@@ -117,10 +117,10 @@ public final class DialogNicknames extends DialogCards {
     public void validateNicknames() {
         String lg_ = getMain().getLanguageKey();
         if(unChampVidePresent()) {
-            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), lg_, GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else if(tabulationPresente()) {
-            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+            ConfirmDialog.showMessage(getCardDialog(), messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), lg_, GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else {
             pseudos.setPseudo(nickname.getText());

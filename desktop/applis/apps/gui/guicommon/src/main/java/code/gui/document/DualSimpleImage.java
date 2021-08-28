@@ -1,9 +1,8 @@
 package code.gui.document;
 
-import java.awt.Cursor;
-
 import code.formathtml.render.MetaSimpleImage;
 import code.gui.AbsPreparedLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.sml.Element;
 
@@ -30,7 +29,7 @@ public final class DualSimpleImage extends DualImage {
                 href = "";
             }
             if (!href.trim().isEmpty()) {
-                label_.setCursor(Cursor.HAND_CURSOR);
+                label_.setCursor(GuiConstants.HAND_CURSOR);
                 label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             }
         }

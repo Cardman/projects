@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 
-import java.awt.*;
+import java.awt.Color;
 
 public final class ColorStruct extends WithoutParentStruct implements Struct {
 

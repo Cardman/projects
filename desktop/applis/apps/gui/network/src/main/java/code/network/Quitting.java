@@ -1,9 +1,9 @@
 package code.network;
-import java.io.Closeable;
 
-import javax.swing.JOptionPane;
+
 
 import code.gui.ConfirmDialog;
+import code.gui.GuiConstants;
 import code.gui.initialize.AbstractSocket;
 import code.scripts.messages.gui.MessGuiNetGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -52,7 +52,7 @@ public final class Quitting implements Runnable {
             String title_ = messages.getVal(USED_PORT_TITLE);
             String message_ = messages.getVal(USED_PORT);
             message_ = StringUtil.simpleNumberFormat(message_, window.getPort());
-            ConfirmDialog.showMessage(window, message_, title_, lg_, JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(window, message_, title_, lg_, GuiConstants.ERROR_MESSAGE);
         }
         window.quitNetwork(bye, socket);
     }

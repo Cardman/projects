@@ -2,7 +2,8 @@ package code.gui.images;
 
 import code.gui.AbsPreparedLabel;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 
 public interface AbstractImage {
     AbsPreparedLabel newAbsPreparedLabel();

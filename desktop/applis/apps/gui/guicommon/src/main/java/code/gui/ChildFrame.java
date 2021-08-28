@@ -5,7 +5,7 @@ import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
-import java.awt.*;
+import java.awt.Point;
 
 public abstract class ChildFrame implements AbsChildFrame {
 

@@ -13,7 +13,7 @@ import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.SpecSelectionStruct;
 import code.util.CustList;
 
-import java.awt.*;
+import java.awt.Rectangle;
 
 public final class DefSpecSelectionStruct implements SpecSelectionStruct {
 

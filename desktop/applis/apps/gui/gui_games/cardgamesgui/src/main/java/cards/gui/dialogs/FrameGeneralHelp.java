@@ -1,7 +1,6 @@
 package cards.gui.dialogs;
 import java.awt.Dimension;
 
-import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
 
 import cards.gui.WindowCards;
@@ -139,7 +138,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         }
 //        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         if (wasNull_) {
-            separateur = _w.getCompoFactory().newAbsSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+            separateur = _w.getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,
                     _w.getCompoFactory().newAbsScrollPane(arbre_.getTree()), editor.getScroll());
             separateur.setPreferredSize(new Dimension(600, 550));
             separateur.setDividerLocation(150);

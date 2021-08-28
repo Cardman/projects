@@ -1,6 +1,6 @@
 package cards.gui.events;
 
-import javax.swing.JOptionPane;
+
 
 import cards.facade.Games;
 import cards.gui.WindowCards;
@@ -12,6 +12,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.ReasonDiscard;
 import code.gui.AbsMouseLocation;
 import code.gui.ConfirmDialog;
+import code.gui.GuiConstants;
 import code.util.core.StringUtil;
 
 public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
@@ -49,7 +50,7 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
                 String mesReason_ = StringUtil.simpleStringsFormat(container.getMessages().getVal(WindowCards.REASON), Games.autoriseMessEcartDe(partie_,reason_,getCarteVerif(),lg_).toString());
                 ConfirmDialog.showMessage(container.getOwner(),
                         StringUtil.concat(mesCard_,ContainerGame.RETURN_LINE,mesReason_),
-                        container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
+                        container.getMessages().getVal(WindowCards.CANT_PLAY_CARD_TITLE), lg_, GuiConstants.ERROR_MESSAGE);
             }
         } else {
             container.retirerUneCarteDuChien(getCarteVerif());

@@ -3,7 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JOptionPane;
+
 
 import cards.belote.*;
 import cards.belote.beans.BeloteStandards;
@@ -863,7 +863,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 } else {
                     mesBid_ = StringUtil.simpleStringsFormat(getMessages().getVal(WindowCards.CONSULT_BELOTE_BID_SUIT), Games.toString(enchereCouleur_.getCouleur(),lg_));
                 }
-                ConfirmDialog.showMessage(getOwner(),mesBid_, getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
+                ConfirmDialog.showMessage(getOwner(),mesBid_, getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
                 //JOptionPane.showMessageDialog(getOwner(),mesBid_,getMessages().getVal(MainWindow.CONSULT_TITLE),JOptionPane.INFORMATION_MESSAGE);
             } else {
                 BidBeloteSuit enchereCouleur_=partie_.strategieContrat();
@@ -884,14 +884,14 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                             Games.toString(enchereCouleur_.getCouleur(),lg_), Long.toString(enchereCouleur_.getPoints()));
                 }
                 ConfirmDialog.showMessage(getOwner(),mesBid_,
-                        getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
+                        getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
             }
         } else {
             String message_ = StringUtil.simpleStringsFormat(
                     getMessages().getVal(WindowCards.CONSULT_BELOTE_PLAYER),
                     Games.toString(partie_.strategieJeuCarteUnique(),lg_));
             ConfirmDialog.showMessage(getOwner(),message_,
-                    getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
+                    getMessages().getVal(WindowCards.CONSULT_TITLE), lg_, GuiConstants.INFORMATION_MESSAGE);
         }
 
     }

@@ -1,6 +1,7 @@
 package code.gui.document;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 
 import code.formathtml.render.MetaLabel;
 import code.formathtml.render.MetaStyle;

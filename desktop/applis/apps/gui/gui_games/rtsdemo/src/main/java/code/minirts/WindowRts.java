@@ -17,8 +17,10 @@ import code.threads.AbstractScheduledExecutorService;
 import code.threads.AbstractThread;
 import code.util.StringMap;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.WindowConstants;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 
 public final class WindowRts extends GroupFrame {
 

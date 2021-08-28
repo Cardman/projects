@@ -19,7 +19,7 @@ import code.gui.events.AbsWindowListener;
 import code.util.CustList;
 import code.util.StringList;
 
-import javax.swing.*;
+import javax.swing.WindowConstants;
 
 public final class GuiExecutingBlocks {
     private AbsPlainLabel textLabel;

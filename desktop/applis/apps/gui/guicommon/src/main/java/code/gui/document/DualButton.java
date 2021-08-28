@@ -1,11 +1,11 @@
 package code.gui.document;
 
 import java.awt.Color;
-import java.awt.Cursor;
 
 import code.formathtml.render.MetaButton;
 import code.gui.AbsCustComponent;
 import code.gui.AbsPlainButton;
+import code.gui.GuiConstants;
 
 public final class DualButton extends DualInput {
 
@@ -18,7 +18,7 @@ public final class DualButton extends DualInput {
         label = _page.getCompoFactory().newPlainButton();
         updateGraphics(label,_component);
         label.setLineBorder(Color.BLACK, 1);
-        label.setCursor(Cursor.HAND_CURSOR);
+        label.setCursor(GuiConstants.HAND_CURSOR);
         label.addMouseListener(new FormEvent(this, _page));
         value = _component.getValue();
     }

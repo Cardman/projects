@@ -1,7 +1,7 @@
 package cards.gui.dialogs;
 import java.awt.BorderLayout;
 
-import javax.swing.*;
+
 
 import cards.belote.DealBelote;
 import cards.belote.DisplayingBelote;
@@ -326,7 +326,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringUtil.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+        ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
     @Override
@@ -370,7 +370,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringUtil.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString((long)max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE, getMain().getConfirmDialog());
+            ConfirmDialog.showMessage(getCardDialog(), mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, GuiConstants.ERROR_MESSAGE, getMain().getConfirmDialog());
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }
 

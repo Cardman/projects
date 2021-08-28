@@ -24,8 +24,8 @@ import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
 import code.util.ints.UniformingString;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.WindowConstants;
+import java.awt.Dimension;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
@@ -124,7 +124,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         scrTable_.setPreferredSize(new Dimension(256,96));
         AbsScrollPane scrRes_ = getCompoFactory().newAbsScrollPane(results);
         scrRes_.setPreferredSize(new Dimension(256,96));
-        AbsSplitPane splitPane_ = getCompoFactory().newAbsSplitPane(JSplitPane.HORIZONTAL_SPLIT,scrTable_,scrRes_);
+        AbsSplitPane splitPane_ = getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,scrTable_,scrRes_);
         splitPane_.setOneTouchExpandable(true);
         progressing.add(splitPane_);
         contentPane.add(progressing);

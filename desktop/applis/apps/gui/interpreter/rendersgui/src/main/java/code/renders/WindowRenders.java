@@ -30,8 +30,8 @@ import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.WindowConstants;
+import java.awt.Dimension;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 

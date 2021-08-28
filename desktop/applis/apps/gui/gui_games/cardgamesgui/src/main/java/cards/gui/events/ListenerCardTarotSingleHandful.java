@@ -1,6 +1,6 @@
 package cards.gui.events;
 
-import javax.swing.JOptionPane;
+
 
 import cards.facade.Games;
 import cards.gui.WindowCards;
@@ -13,6 +13,7 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.AbsMouseLocation;
 import code.gui.ConfirmDialog;
+import code.gui.GuiConstants;
 import code.util.core.StringUtil;
 
 public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
@@ -55,7 +56,7 @@ public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
         }else{
             String finalMessage_ = StringUtil.concat(container.getMessages().getVal(WindowCards.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(WindowCards.TOO_GAME);
-            ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,lg_,JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,lg_, GuiConstants.ERROR_MESSAGE);
         }
     }
 }

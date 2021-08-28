@@ -24,7 +24,9 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 
 public final class SimulatingPresidentImpl implements SimulatingPresident {
     private final ContainerSimuPresident container;

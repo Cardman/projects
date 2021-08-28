@@ -2,7 +2,6 @@ package code.gui;
 import java.awt.BorderLayout;
 import java.awt.Point;
 
-import javax.swing.JSplitPane;
 import javax.swing.WindowConstants;
 
 import code.gui.events.ClickHeaderEvent;
@@ -193,7 +192,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
             folderSystem = superFrame.getCompoFactory().newTreeGui(default_);
             folderSystem.setRootVisible(false);
         }
-        AbsSplitPane fileSelector_ = getSuperFrame().getCompoFactory().newAbsSplitPane(JSplitPane.HORIZONTAL_SPLIT,compoFactory.newAbsScrollPane(folderSystem.getTree()),compoFactory.newAbsScrollPane(fileTable));
+        AbsSplitPane fileSelector_ = getSuperFrame().getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,compoFactory.newAbsScrollPane(folderSystem.getTree()),compoFactory.newAbsScrollPane(fileTable));
         folderSystem.addTreeSelectionListener(new DeployTreeEvent(this));
         contentPane_.add(fileSelector_, BorderLayout.CENTER);
         contentPane_.add(openSaveFile_, BorderLayout.SOUTH);
