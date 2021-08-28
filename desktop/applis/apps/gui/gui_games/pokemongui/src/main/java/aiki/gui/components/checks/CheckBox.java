@@ -22,7 +22,7 @@ public abstract class CheckBox {
         component.setSelected(_b);
     }
 
-    public void setBackground(Color _bg) {
+    public void setBackground(int _bg) {
         component.setBackground(_bg);
     }
 

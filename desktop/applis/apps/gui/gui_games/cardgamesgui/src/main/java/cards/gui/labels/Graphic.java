@@ -6,6 +6,7 @@ import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.Rate;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.Longs;
 import code.util.core.IndexConstants;
 
@@ -16,8 +17,8 @@ public final class Graphic extends AbsMetaLabel {
     private final CustList<Longs> scores;
     private final Longs sommes;
     private final CustList<Rate> sigmas;
-    private final CustList<Color> couleurs;
-    public Graphic(CustList<Longs> _pscores, Longs _psommes, CustList<Rate> _psigmas, CustList<Color> _pcouleurs, AbsCompoFactory _compoFactory) {
+    private final Ints couleurs;
+    public Graphic(CustList<Longs> _pscores, Longs _psommes, CustList<Rate> _psigmas, Ints _pcouleurs, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         scores=_pscores;
         sommes=_psommes;

@@ -20,6 +20,8 @@ public abstract class CustComponent implements AbsCustComponent {
     private final IdMap<AbsMouseMotionListener, WrMouseMotionListener> mapMouseMotion = new IdMap<AbsMouseMotionListener, WrMouseMotionListener>();
     private final IdMap<AbsMouseWheelListener, WrMouseWheelListener> mapMouseWheel = new IdMap<AbsMouseWheelListener, WrMouseWheelListener>();
     private final CustList<AbsCustComponent> children = new CustList<AbsCustComponent>();
+    private int backGroundValue;
+    private int foreGroundValue;
     protected abstract JComponent getNatComponent();
 
     public boolean isAutoscrolls(){
@@ -114,7 +116,7 @@ public abstract class CustComponent implements AbsCustComponent {
 
     @Override
     public int heightFont(MetaFont _font) {
-        return heightFont(new Font(_font.getFontFamily(), _font.getFont(), _font.getRealSize()));
+        return heightFont(ft(_font));
     }
 
     public int heightFont(Font _font) {
@@ -127,7 +129,7 @@ public abstract class CustComponent implements AbsCustComponent {
 
     @Override
     public int stringWidth(MetaFont _font, String _string) {
-        return stringWidth(new Font(_font.getFontFamily(), _font.getFont(), _font.getRealSize()),_string);
+        return stringWidth(ft(_font),_string);
     }
 
     public int stringWidth(Font _font, String _string) {
@@ -154,7 +156,11 @@ public abstract class CustComponent implements AbsCustComponent {
 
     @Override
     public void setFont(MetaFont _font) {
-        setFont(new Font(_font.getFontFamily(), _font.getFont(), _font.getRealSize()));
+        setFont(ft(_font));
+    }
+
+    private static Font ft(MetaFont _font) {
+        return new Font(_font.getFontFamily(), _font.getFont(), _font.getRealSize());
     }
 
     @Override
@@ -252,13 +258,45 @@ public abstract class CustComponent implements AbsCustComponent {
 
     public void setBackground(Color _color) {
         getNatComponent().setBackground(_color);
+        backGroundValue = _color.getRGB();
     }
     public Color getBackground() {
         return getNatComponent().getBackground();
     }
 
+    @Override
+    public void setLineBorder(int _color) {
+        setLineBorder(new Color(_color));
+    }
+
+    @Override
+    public void setLineBorder(int _color, int _thick) {
+        setLineBorder(new Color(_color),_thick);
+    }
+
+    @Override
+    public int getBackgroundValue() {
+        return backGroundValue;
+    }
+
+    @Override
+    public int getForegroundValue() {
+        return foreGroundValue;
+    }
+
+    @Override
+    public void setBackground(int _color) {
+        setBackground(new Color(_color));
+    }
+
+    @Override
+    public void setForeground(int _color) {
+        setForeground(new Color(_color));
+    }
+
     public void setForeground(Color _color) {
         getNatComponent().setForeground(_color);
+        backGroundValue = _color.getRGB();
     }
     public Color getForeground() {
         return getNatComponent().getForeground();

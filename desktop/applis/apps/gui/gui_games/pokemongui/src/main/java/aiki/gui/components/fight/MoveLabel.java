@@ -7,6 +7,7 @@ import aiki.facade.FacadeGame;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.ChosenMoveInfos;
 import code.gui.AbsMetaLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.ConverterBufferedImage;
@@ -26,13 +27,13 @@ public final class MoveLabel extends AbsMetaLabel {
 
     private boolean selected;
 
-    private NatStringTreeMap<Color> colorsTypes;
+    private NatStringTreeMap<Integer> colorsTypes;
 
     private String text;
 
     public MoveLabel(ChosenMoveInfos _infos, String _move, FacadeGame _facade, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
-        colorsTypes = new NatStringTreeMap<Color>();
+        colorsTypes = new NatStringTreeMap<Integer>();
         move = _move;
         infos = _infos;
         UsesOfMove uses_ = infos.getUses();
@@ -41,7 +42,7 @@ public final class MoveLabel extends AbsMetaLabel {
         for (String t: infos.getTypes()) {
             String type_ = _facade.translateType(t);
             String rgb_ = _facade.getData().getTypesColors().getVal(t);
-            Color c_ = new Color(ConverterBufferedImage.getIntColor(rgb_, DataBase.SEPARATOR_RGB));
+            int c_ = ConverterBufferedImage.getIntColor(rgb_, DataBase.SEPARATOR_RGB);
             colorsTypes.put(type_, c_);
             types_.add(type_);
         }

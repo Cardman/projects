@@ -27,7 +27,7 @@ public final class LabelButtonUtil {
 //    }
 
     public static void paintDefaultLabel(AbstractImage _label, String _text, int _w, int _fw, int _h,
-                                         Color _front, Color _back) {
+                                         int _front, int _back) {
         int w_ = _fw;
         w_ = Math.max(_w, w_);
         _label.setColor(_back);
@@ -47,9 +47,9 @@ public final class LabelButtonUtil {
         int h_ = panel_.heightFont();
         int w_ = panel_.stringWidth(elt_);
         if (_sel) {
-            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, Color.WHITE, Color.BLUE);
+            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, Color.WHITE.getRGB(), Color.BLUE.getRGB());
         } else {
-            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, Color.BLACK, Color.WHITE);
+            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, Color.BLACK.getRGB(), Color.WHITE.getRGB());
         }
         return buff_;
     }

@@ -28,7 +28,7 @@ public abstract class DualComponent implements IntComponent {
     protected static void updateGraphics(AbsCustComponent _component, MetaComponent _metaComponent) {
         MetaStyle style_ = _metaComponent.getStyle();
         if (style_.getBorder() == BorderEnum.SOLID) {
-            _component.setLineBorder(new Color(style_.getBorderColor()), style_.getBorderSize());
+            _component.setLineBorder(new Color(style_.getBorderColor()).getRGB(), style_.getBorderSize());
         }
         String title_ = _metaComponent.getTitle();
         if (!title_.isEmpty()) {

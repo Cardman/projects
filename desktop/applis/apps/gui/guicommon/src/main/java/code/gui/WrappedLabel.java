@@ -41,9 +41,9 @@ public final class WrappedLabel extends AbsMetaLabel {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        _g.setColor(getBackground());
+        _g.setColor(getBackgroundValue());
         _g.fillRect(0, 0, getWidth(), getHeight());
-        _g.setColor(getForeground());
+        _g.setColor(getForegroundValue());
         int hLine_ = heightFont();
         int i_ = IndexConstants.FIRST_INDEX;
         for (String l: lines) {

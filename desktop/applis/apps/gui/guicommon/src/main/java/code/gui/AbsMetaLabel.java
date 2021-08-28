@@ -56,18 +56,21 @@ public abstract class AbsMetaLabel {
     public void setPreferredSize(Dimension _dim) {
         paintableLabel.setPreferredSize(_dim);
     }
-    public void setBackground(Color _color) {
+
+    public void setBackground(int _color) {
         paintableLabel.setBackground(_color);
     }
-    public Color getBackground() {
-        return paintableLabel.getBackground();
+
+    public int getBackgroundValue() {
+        return paintableLabel.getBackgroundValue();
     }
 
-    public void setForeground(Color _color) {
+    public void setForeground(int _color) {
         paintableLabel.setForeground(_color);
     }
-    public Color getForeground() {
-        return paintableLabel.getForeground();
+
+    public int getForegroundValue() {
+        return paintableLabel.getForegroundValue();
     }
     public void setLocation(int _x, int _y) {
         paintableLabel.setLocation(_x,_y);

@@ -51,7 +51,7 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
         img2_.setColor(Color.WHITE);
         img2_.fillRect(0, 0, w_, s_);
         currentSelected = _compoFactory.newPreparedLabel(img2_);
-        currentSelected.setLineBorder(Color.BLACK);
+        currentSelected.setLineBorder(Color.BLACK.getRGB());
         img_.dispose();
         panel.add(currentSelected);
         panel.add(pseudoButton);

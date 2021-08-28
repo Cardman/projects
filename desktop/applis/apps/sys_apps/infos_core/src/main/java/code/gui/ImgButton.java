@@ -14,7 +14,7 @@ public final class ImgButton extends CustComponent implements AbsImgButton {
 
     public ImgButton(AbstractImage _imageIcon) {
         label = new JButton(DefImageFactory.icon((DefImage) _imageIcon));
-        setLineBorder(Color.BLACK, 1);
+        setLineBorder(Color.BLACK.getRGB(), 1);
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 

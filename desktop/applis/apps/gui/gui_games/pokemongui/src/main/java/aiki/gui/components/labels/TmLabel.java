@@ -6,6 +6,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.MoveData;
 import aiki.util.SortingMove;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.ConverterBufferedImage;
@@ -52,11 +53,11 @@ public final class TmLabel extends SelectableLabel {
 
 //    private int xPrice;
 
-    private NatStringTreeMap<Color> colorsTypes;
+    private NatStringTreeMap<Integer> colorsTypes;
 
     public TmLabel(SortingMove _move, FacadeGame _facade, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
-        colorsTypes = new NatStringTreeMap<Color>();
+        colorsTypes = new NatStringTreeMap<Integer>();
         move = _move;
         moveName = _move.getName();
         MoveData move_ = _facade.getData().getMove(move.getKeyName());
@@ -64,7 +65,7 @@ public final class TmLabel extends SelectableLabel {
         for (String t: move_.getTypes()) {
             String type_ = _facade.translateType(t);
             String rgb_ = _facade.getData().getTypesColors().getVal(t);
-            Color c_ = new Color(ConverterBufferedImage.getIntColor(rgb_, DataBase.SEPARATOR_RGB));
+            int c_ = ConverterBufferedImage.getIntColor(rgb_, DataBase.SEPARATOR_RGB);
             colorsTypes.put(type_, c_);
             types_.add(type_);
         }

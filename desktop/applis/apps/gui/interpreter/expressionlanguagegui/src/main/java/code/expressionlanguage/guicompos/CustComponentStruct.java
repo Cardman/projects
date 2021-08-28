@@ -138,11 +138,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         getVisibleComponent().setBackground(((ColorStruct)_color).getColor());
     }
     public Struct getBackground() {
-        Color c_ = getVisibleComponent().getBackground();
-        if (c_ == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return new ColorStruct(c_);
+        return new ColorStruct(getVisibleComponent().getBackgroundValue());
     }
 
     public void setForeground(Struct _color) {
@@ -152,11 +148,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         getVisibleComponent().setForeground(((ColorStruct)_color).getColor());
     }
     public Struct getForeground() {
-        Color c_ = getVisibleComponent().getForeground();
-        if (c_ == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return new ColorStruct(c_);
+        return new ColorStruct(getVisibleComponent().getForegroundValue());
     }
 
     public FontStruct getFont() {

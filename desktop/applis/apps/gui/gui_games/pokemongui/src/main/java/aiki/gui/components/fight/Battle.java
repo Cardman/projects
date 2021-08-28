@@ -1169,7 +1169,7 @@ public class Battle extends ChildFrame {
             }
             String tr_ = facade.translateMove(m);
             MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
-            check_.setBackground(Color.RED);
+            check_.setBackground(Color.RED.getRGB());
             movesLearnPanel.add(check_.getComponent());
         }
         for (String m: moves_.getKeys()) {
@@ -1179,7 +1179,7 @@ public class Battle extends ChildFrame {
             }
             String tr_ = facade.translateMove(m);
             MoveFighterCheckBox check_ = new MoveFighterCheckBox(m,tr_,learnt_,this);
-            check_.setBackground(Color.WHITE);
+            check_.setBackground(Color.WHITE.getRGB());
             movesLearnPanel.add(check_.getComponent());
         }
 //        for (String m: moves_.getKeys(true)) {

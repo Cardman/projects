@@ -135,4 +135,34 @@ public final class GuiConstants {
     public static boolean boldFlag(int _font) {
         return _font == BOLD + ITALIC || _font == BOLD;
     }
+
+    public static int newColor(int _r,int _g, int _b, int _a) {
+        return new Color(range(_r),range(_g),range(_b),range(_a)).getRGB();
+    }
+    public static int newColor(int _r,int _g, int _b) {
+        return new Color(range(_r),range(_g),range(_b)).getRGB();
+    }
+    public static int newColor(int _rgb) {
+        return new Color(_rgb).getRGB();
+    }
+    public static int red(int _rgb) {
+        return new Color(_rgb).getRed();
+    }
+    public static int green(int _rgb) {
+        return new Color(_rgb).getGreen();
+    }
+    public static int blue(int _rgb) {
+        return new Color(_rgb).getBlue();
+    }
+    public static int alpha(int _rgb) {
+        return new Color(_rgb).getAlpha();
+    }
+    public static int newColor(int _rgba, boolean _hasAlpha) {
+        return new Color(_rgba,_hasAlpha).getRGB();
+    }
+
+    private static int range(int _value) {
+        return Math.min(Math.max(0, _value),255);
+    }
+
 }

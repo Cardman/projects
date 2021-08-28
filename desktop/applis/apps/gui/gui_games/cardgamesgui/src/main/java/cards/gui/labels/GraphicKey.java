@@ -9,16 +9,17 @@ import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 public final class GraphicKey extends AbsMetaLabel {
     private static final String GRAPHIC_KEY = "cards.gui.labels.graphickey";
     private static final String DEFAULT="Default";
     private static final String DELTA = "delta";
-    private final CustList<Color> couleurs;
+    private final Ints couleurs;
     private final StringList pseudos;
     private final StringMap<String> messages;
-    public GraphicKey(StringList _ppseudos, CustList<Color> _pcouleurs, String _lg, AbsCompoFactory _compoFactory) {
+    public GraphicKey(StringList _ppseudos, Ints _pcouleurs, String _lg, AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         pseudos=_ppseudos;
         couleurs=_pcouleurs;
@@ -38,7 +39,7 @@ public final class GraphicKey extends AbsMetaLabel {
         _g.translate(0,15);
         _g.drawString(messages.getVal(DELTA),0,0);
         _g.translate(-getWidth()/2,-15*(pseudos.size()+1));
-        for(Color couleur_:couleurs) {
+        for(int couleur_:couleurs) {
             _g.translate(0,15);
             _g.setColor(couleur_);
             _g.drawLine(getWidth()/8,0,3*getWidth()/8,0);

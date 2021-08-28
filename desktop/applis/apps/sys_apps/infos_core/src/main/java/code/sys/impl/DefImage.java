@@ -13,6 +13,7 @@ import java.awt.image.DataBufferInt;
 public final class DefImage implements AbstractImage {
     private final BufferedImage image;
     private final Graphics graphics;
+    private int colorValue;
     public DefImage(int _type, int _w, int _h) {
         image = new BufferedImage(_w,_h,_type);
         graphics = image.getGraphics();
@@ -69,13 +70,19 @@ public final class DefImage implements AbstractImage {
     }
 
     @Override
-    public Color getColor() {
-        return graphics.getColor();
+    public int getColorValue() {
+        return colorValue;
     }
 
     @Override
     public void setColor(Color _color) {
         graphics.setColor(_color);
+        colorValue = _color.getRGB();
+    }
+
+    @Override
+    public void setColor(int _color) {
+        setColor(new Color(_color));
     }
 
     @Override

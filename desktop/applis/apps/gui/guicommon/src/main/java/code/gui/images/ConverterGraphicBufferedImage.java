@@ -33,11 +33,7 @@ public final class ConverterGraphicBufferedImage {
         return true;
     }
 
-    public static Color getTransparentBlack() {
-        return new Color(Color.BLACK.getRed(), Color.BLACK.getBlue(), Color.BLACK.getGreen(), 0);
-    }
-
-    public static Color getTransparentWhite() {
+    private static Color getTransparentWhite() {
         return new Color(Color.WHITE.getRed(), Color.WHITE.getBlue(), Color.WHITE.getGreen(), 0);
     }
 

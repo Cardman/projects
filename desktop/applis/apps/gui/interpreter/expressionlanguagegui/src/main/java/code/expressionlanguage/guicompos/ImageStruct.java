@@ -70,11 +70,7 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
     }
 
     public Struct getColor() {
-        Color color_ = image.getColor();
-        if (color_ == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return new ColorStruct(color_);
+        return new ColorStruct(image.getColorValue());
     }
 
     public void setColor(Struct _c) {

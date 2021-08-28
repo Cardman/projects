@@ -29,8 +29,8 @@ public final class SuitLabel extends AbsMetaLabel {
         bid = _bid;
         if (!bid.getCouleurDominante()) {
             setText(Games.toString(bid.getEnchere(),_lg));
-            setBackground(Color.WHITE);
-            setForeground(new Color(0, 0, 127));
+            setBackground(Color.WHITE.getRGB());
+            setForeground(new Color(0, 0, 127).getRGB());
             int h_ = heightFont();
             int w_ = stringWidth(getText());
             setPreferredSize(new Dimension(w_, h_));
@@ -57,7 +57,7 @@ public final class SuitLabel extends AbsMetaLabel {
         if (!getText().isEmpty()) {
             int h_ = heightFont();
             int w_ = stringWidth(text);
-            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getWidth(), h_, getForeground(), getBackground());
+            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getWidth(), h_, getForegroundValue(), getBackgroundValue());
         } else {
             _g.setColor(Color.WHITE);
             _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);

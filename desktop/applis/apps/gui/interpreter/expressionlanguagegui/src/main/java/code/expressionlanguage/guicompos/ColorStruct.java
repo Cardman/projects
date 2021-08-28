@@ -3,27 +3,25 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
+import code.gui.GuiConstants;
 
 import java.awt.Color;
 
 public final class ColorStruct extends WithoutParentStruct implements Struct {
 
     private static final int THREE_BYTES = 256 * 256 * 256;
-    private Color color;
+    private final int color;
     public ColorStruct(int _r,int _g, int _b, int _a) {
-        color = new Color(range(_r),range(_g),range(_b),range(_a));
+        color = GuiConstants.newColor(range(_r),range(_g),range(_b),range(_a));
     }
     public ColorStruct(int _r,int _g, int _b) {
-        color = new Color(range(_r),range(_g),range(_b));
+        color = GuiConstants.newColor(range(_r),range(_g),range(_b));
     }
     public ColorStruct(int _rgb) {
-        color = new Color(_rgb);
+        color = GuiConstants.newColor(_rgb);
     }
     public ColorStruct(int _rgba, boolean _hasAlpha) {
-        color = new Color(_rgba,_hasAlpha);
-    }
-    ColorStruct(Color _color) {
-        color = _color;
+        color = GuiConstants.newColor(_rgba,_hasAlpha);
     }
 
     private static int range(int _value) {
@@ -40,34 +38,34 @@ public final class ColorStruct extends WithoutParentStruct implements Struct {
         if (!(_other instanceof ColorStruct)) {
             return false;
         }
-        return color.getRGB() == ((ColorStruct)_other).color.getRGB();
+        return color == ((ColorStruct)_other).color;
     }
 
     @Override
     public long randCode() {
-        return NumParsers.randCode(color.getRGB());
+        return NumParsers.randCode(color);
     }
 
-    public Color getColor() {
+    public int getColor() {
         return color;
     }
 
     public IntStruct getRed() {
-        return new IntStruct(color.getRed());
+        return new IntStruct(GuiConstants.red(color));
     }
 
     public IntStruct getGreen() {
-        return new IntStruct(color.getGreen());
+        return new IntStruct(GuiConstants.green(color));
     }
 
     public IntStruct getBlue() {
-        return new IntStruct(color.getBlue());
+        return new IntStruct(GuiConstants.blue(color));
     }
     public IntStruct getAlpha() {
-        return new IntStruct(color.getAlpha());
+        return new IntStruct(GuiConstants.alpha(color));
     }
 
     public BooleanStruct isTransparent() {
-        return BooleanStruct.of(color.getRGB() / THREE_BYTES == 0);
+        return BooleanStruct.of(color / THREE_BYTES == 0);
     }
 }

@@ -43,7 +43,7 @@ public final class Scene extends AbsMetaLabel implements AbsMouseListener {
     public Scene(AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         setFocusable(true);
-        setBackground(Color.WHITE);
+        setBackground(Color.WHITE.getRGB());
     }
 
     public void setDimensions(FacadeGame _facade) {

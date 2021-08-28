@@ -41,8 +41,8 @@ public interface AbsCustComponent {
     AbsCustComponent getParent();
     CustList<AbsCustComponent> getChildren();
     void setParent(AbsCustComponent _parent);
-    void setLineBorder(Color _color);
-    void setLineBorder(Color _color, int _thick);
+    void setLineBorder(int _color);
+    void setLineBorder(int _color, int _thick);
     void setTitledBorder(String _title);
     void setLoweredBorder();
     void setRaisedBorder();
@@ -60,10 +60,12 @@ public interface AbsCustComponent {
     int getXcoords();
     int getYcoords();
     void setLocation(int _x, int _y);
+    void setBackground(int _color);
     void setBackground(Color _color);
-    Color getBackground();
+    int getBackgroundValue();
+    void setForeground(int _color);
     void setForeground(Color _color);
-    Color getForeground();
+    int getForegroundValue();
     String getToolTipText();
     void validate();
     void revalidate();

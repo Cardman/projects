@@ -18,9 +18,9 @@ public final class LabelPoints {
 
     public void setSelected(int _pts) {
         if (pts == _pts) {
-            button.setLineBorder(Color.RED, 1);
+            button.setLineBorder(Color.RED.getRGB(), 1);
         } else {
-            button.setLineBorder(Color.BLACK, 1);
+            button.setLineBorder(Color.BLACK.getRGB(), 1);
         }
     }
 

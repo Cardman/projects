@@ -707,8 +707,8 @@ public class ScenePanel {
         AbsPanel box_ =compoFactory.newPageBox();
         box_.add(window.getCompoFactory().newPlainLabel(messages.getVal(GO_BACK)));
         chosenCity = window.getCompoFactory().newPlainButton();
-        chosenCity.setBackground(box_.getBackground());
-        chosenCity.setForeground(box_.getForeground());
+        chosenCity.setBackground(box_.getBackgroundValue());
+        chosenCity.setForeground(box_.getForegroundValue());
         box_.add(chosenCity);
         AbsPanel line_ = compoFactory.newLineBox();
         //avoid vertical spaces between tiles in map
@@ -1362,7 +1362,7 @@ public class ScenePanel {
         for (String m: selectedMoves_) {
             String tr_ = facade.translateMove(m);
             MoveTutorCheckBox check_ = new MoveTutorCheckBox(m,tr_, true,this);
-            check_.setBackground(Color.RED);
+            check_.setBackground(Color.RED.getRGB());
             check_.setSelected(true);
             movesLearnt.add(check_.getComponent());
         }
@@ -1371,7 +1371,7 @@ public class ScenePanel {
         for (String m: unselectedMoves_) {
             String tr_ = facade.translateMove(m);
             MoveTutorCheckBox check_ = new MoveTutorCheckBox(m, StringUtil.concat(tr_,SPACE,Long.toString(chosenMoves_.getVal(m))),false,this);
-            check_.setBackground(Color.WHITE);
+            check_.setBackground(Color.WHITE.getRGB());
             check_.setSelected(false);
             movesLearnt.add(check_.getComponent());
         }
@@ -1539,7 +1539,7 @@ public class ScenePanel {
         for (String m: kept_) {
             String tr_ = facade.translateMove(m);
             MoveEvoCheckBox check_ = new MoveEvoCheckBox(m,tr_,true, this);
-            check_.setBackground(Color.RED);
+            check_.setBackground(Color.RED.getRGB());
             movesLearnt.add(check_.getComponent());
         }
 //        StringList unkept_ = new StringList(selected_.getKeys(false));
@@ -1556,7 +1556,7 @@ public class ScenePanel {
         for (String m: unkept_) {
             String tr_ = facade.translateMove(m);
             MoveEvoCheckBox check_ = new MoveEvoCheckBox(m,tr_,false, this);
-            check_.setBackground(Color.WHITE);
+            check_.setBackground(Color.WHITE.getRGB());
             movesLearnt.add(check_.getComponent());
         }
         StringList ab_ = facade.getPlayer().getNewAbilitiesToBeChosen();

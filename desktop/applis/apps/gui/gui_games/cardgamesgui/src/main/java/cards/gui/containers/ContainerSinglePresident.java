@@ -578,30 +578,30 @@ public class ContainerSinglePresident extends ContainerPresident implements
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
         if(partie_.getType()==GameType.RANDOM) {
-            CustList<Color> couleurs_=new CustList<Color>();
-            couleurs_.add(Color.RED);
-            couleurs_.add(Color.GREEN);
-            couleurs_.add(Color.BLUE);
+            Ints couleurs_=new Ints();
+            couleurs_.add(Color.RED.getRGB());
+            couleurs_.add(Color.GREEN.getRGB());
+            couleurs_.add(Color.BLUE.getRGB());
             if(nombreJoueurs_>3) {
-                couleurs_.add(Color.YELLOW);
+                couleurs_.add(Color.YELLOW.getRGB());
             }
             if(nombreJoueurs_>4) {
-                couleurs_.add(Color.MAGENTA);
+                couleurs_.add(Color.MAGENTA.getRGB());
             }
             if(nombreJoueurs_>5) {
-                couleurs_.add(Color.CYAN);
+                couleurs_.add(Color.CYAN.getRGB());
             }
             if(nombreJoueurs_>6) {
-                couleurs_.add(Color.ORANGE);
+                couleurs_.add(Color.ORANGE.getRGB());
             }
             if(nombreJoueurs_>7) {
-                couleurs_.add(new Color(128,64,0));
+                couleurs_.add(new Color(128,64,0).getRGB());
             }
             if(nombreJoueurs_>8) {
-                couleurs_.add(new Color(128,128,0));
+                couleurs_.add(new Color(128,128,0).getRGB());
             }
             if(nombreJoueurs_>9) {
-                couleurs_.add(new Color(128,0,255));
+                couleurs_.add(new Color(128,0,255).getRGB());
             }
             Graphic graphique_=new Graphic(getScores(),new Longs(res_.getSums()),new CustList<Rate>(res_.getSigmas()),couleurs_, getOwner().getCompoFactory());
             Rate derniereMoyenne_=new Rate(res_.getSums().last(),nombreJoueurs_);
@@ -722,8 +722,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
                 } else {
                     l_.setPreferredSize(GraphicPresidentCard.getDimension(false));
                 }
-                l_.setBackground(_panel.getBackground());
-                l_.setForeground(_panel.getForeground());
+                l_.setBackground(_panel.getBackgroundValue());
+                l_.setForeground(_panel.getForegroundValue());
                 _panel.add(l_);
                 index_++;
             }

@@ -47,9 +47,9 @@ public final class DefaultCellRender extends CustCellRender<String> {
         int h_ = label.heightFont();
         int w_ = label.stringWidth(text);
         if (selected) {
-            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getMaxWidth(), h_, Color.WHITE, Color.BLUE);
+            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getMaxWidth(), h_, Color.WHITE.getRGB(), Color.BLUE.getRGB());
         } else {
-            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getMaxWidth(), h_, Color.BLACK, Color.WHITE);
+            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getMaxWidth(), h_, Color.BLACK.getRGB(), Color.WHITE.getRGB());
         }
     }
     @Override
