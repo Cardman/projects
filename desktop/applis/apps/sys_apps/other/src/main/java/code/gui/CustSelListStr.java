@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.images.MetaDimension;
 import code.util.CustList;
 
 import javax.swing.*;
@@ -31,15 +32,12 @@ public final class CustSelListStr implements ListCellRenderer<Struct> {
             boolean _cellHasFocus) {
         int width_ = Math.max(_list.getWidth(), _list.getFixedCellWidth());
         int height_ = Math.max(_list.getFixedCellHeight(),0);
-        Rectangle rect_ = new Rectangle();
-        rect_.width = width_;
-        rect_.height = height_;
         listener.execute(new CustList<>(
                 new Argument(_value),
                 new Argument(new IntStruct(_index)),
                 new Argument(labStruct),
                 new Argument(BooleanStruct.of(_isSelected))
-        ), rect_);
+        ), new MetaDimension(width_,height_));
         return ((CustComponent) label).getNatComponent();
     }
 }

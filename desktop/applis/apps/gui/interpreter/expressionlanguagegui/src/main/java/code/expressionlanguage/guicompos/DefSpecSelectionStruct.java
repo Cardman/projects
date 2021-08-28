@@ -11,9 +11,8 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.SpecSelectionStruct;
+import code.gui.images.MetaDimension;
 import code.util.CustList;
-
-import java.awt.Rectangle;
 
 public final class DefSpecSelectionStruct implements SpecSelectionStruct {
 
@@ -26,14 +25,14 @@ public final class DefSpecSelectionStruct implements SpecSelectionStruct {
     }
 
     @Override
-    public Argument execute(CustList<Argument> _args, Rectangle _rect) {
+    public Argument execute(CustList<Argument> _args, MetaDimension _rect) {
         CustList<Argument> real_ = new CustList<Argument>(_args);
         real_.remove(2);
         real_.add(0,new Argument(component));
         Struct dest_ = _args.get(2).getStruct();
         if (dest_ instanceof PreparedLabelStruct) {
-            real_.add(1,new Argument(new IntStruct(_rect.width)));
-            real_.add(2,new Argument(new IntStruct(_rect.height)));
+            real_.add(1,new Argument(new IntStruct(_rect.getWidth())));
+            real_.add(2,new Argument(new IntStruct(_rect.getHeight())));
             GuiContextEl r_ = newCtx(executionInfos);
             Argument argument_ = invokePaint(r_, real_);
             WindowFull window_ = ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getWindow();
