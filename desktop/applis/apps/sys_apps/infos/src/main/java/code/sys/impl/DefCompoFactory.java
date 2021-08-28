@@ -71,4 +71,19 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsPanel newPageBox() {
         return Panel.newPageBox();
     }
+
+    @Override
+    public AbsScrollPane newAbsScrollPane() {
+        return new ScrollPane();
+    }
+
+    @Override
+    public AbsScrollPane newAbsScrollPane(AbsMetaLabel _center) {
+        return new ScrollPane(_center);
+    }
+
+    @Override
+    public AbsScrollPane newAbsScrollPane(AbsCustComponent _center) {
+        return new ScrollPane(_center);
+    }
 }

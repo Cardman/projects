@@ -13,7 +13,7 @@ import code.gui.*;
 import code.gui.Menu;
 import code.gui.MenuBar;
 import code.gui.MenuItem;
-import code.gui.ScrollPane;
+
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
@@ -57,7 +57,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final StringMap<String> unitMessages;
     private final UniformingString uniformingString = new DefaultUniformingString();
     private final TextArea errors = new TextArea();
-    private final ScrollPane errorsScroll = new ScrollPane(errors);
+    private final AbsScrollPane errorsScroll = getCompoFactory().newAbsScrollPane(errors);
     private final UnitIssuer unitIssuer = new UnitIssuer(errors);
     private final SimpleFilesFrame filesFrame;
     private final CommonExecution commonExecution;
@@ -94,7 +94,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         content = new PlainLabel(unitMessages.getVal("configuration"));
         form.add(content);
         conf = new TextArea(64,64);
-        ScrollPane scr_ = new ScrollPane(conf);
+        AbsScrollPane scr_ = getCompoFactory().newAbsScrollPane(conf);
         scr_.setPreferredSize(new Dimension(256,96));
         form.add(scr_);
         launch = new PlainButton(unitMessages.getVal("launch"));
@@ -120,9 +120,9 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         cols_[3] = unitMessages.getVal("success");
         resultsTable = new TableGui(cols_);
         results = new TextArea(1024,1024);
-        ScrollPane scrTable_ = new ScrollPane(resultsTable);
+        AbsScrollPane scrTable_ = getCompoFactory().newAbsScrollPane(resultsTable);
         scrTable_.setPreferredSize(new Dimension(256,96));
-        ScrollPane scrRes_ = new ScrollPane(results);
+        AbsScrollPane scrRes_ = getCompoFactory().newAbsScrollPane(results);
         scrRes_.setPreferredSize(new Dimension(256,96));
         SplitPane splitPane_ = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,scrTable_,scrRes_);
         splitPane_.setOneTouchExpandable(true);

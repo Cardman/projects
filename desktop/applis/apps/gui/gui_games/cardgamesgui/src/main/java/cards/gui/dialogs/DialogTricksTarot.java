@@ -7,7 +7,8 @@ import cards.gui.WindowCards;
 import cards.gui.panels.PanelTricksHandsTarot;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.TricksHandsTarot;
-import code.gui.ScrollPane;
+import code.gui.AbsScrollPane;
+
 import code.gui.initialize.AbsFrameFactory;
 import code.util.StringList;
 
@@ -31,7 +32,7 @@ public final class DialogTricksTarot extends DialogCards {
             StringList _pseudos, DisplayingTarot _displayingTarot, WindowCards _window) {
 
         _tricksHands.sortHands(_displayingTarot, _numberPlayers);
-        ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsTarot(getCardDialog(),
+        AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(new PanelTricksHandsTarot(getCardDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingTarot,_window).getContainer());
         scroll_.setPreferredSize(new Dimension(600, 600));
         getCardDialog().setContentPane(scroll_);

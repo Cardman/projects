@@ -406,7 +406,7 @@ public final class PaginatorMove extends Paginator {
         getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         //results.add(new JLabel(getMessages().getVal(MOVE)));
-        _p.add(new ScrollPane(results));
+        _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageMove());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));

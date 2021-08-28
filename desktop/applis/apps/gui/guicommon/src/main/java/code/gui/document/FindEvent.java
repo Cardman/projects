@@ -58,7 +58,7 @@ public final class FindEvent extends AbsMouseListenerRel {
             l_.paint();
             labels.add(l_);
         }
-        ScrollPane sc_ = page.getScroll();
+        AbsScrollPane sc_ = page.getScroll();
         DualComponent r_ = page.getPage();
         int x_ = 0;
         int y_ = 0;

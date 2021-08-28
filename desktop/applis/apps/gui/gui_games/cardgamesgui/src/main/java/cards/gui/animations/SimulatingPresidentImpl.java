@@ -14,7 +14,7 @@ import cards.president.*;
 import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.Playing;
 import code.gui.*;
-import code.gui.ScrollPane;
+
 import code.gui.TextArea;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
@@ -110,7 +110,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
         container.setEvents(new TextArea(ContainerPresident.EMPTY,8, 30));
         container.getEvents().setEditable(false);
-        panneau2_.add(new ScrollPane(container.getEvents()));
+        panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
         container.setHandfuls(new ByteMap<TextLabel>());
         container.setDeclaredHandfuls(new ByteMap<AbsPanel>());
         AbsPanel sousPanneau_=container.getOwner().getCompoFactory().newGrid(0,1);
@@ -125,7 +125,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         container.setPanelReceivedCards(panelRec_);
         sousPanneau_.add(panelCards_);
         container.setPanneauBoutonsJeu(sousPanneau_);
-        panneau2_.add(new ScrollPane(sousPanneau_));
+        panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(sousPanneau_));
         container.setActionsHistory(panneau2_);
         container_.add(panneau2_,BorderLayout.EAST);
         contentPane_.add(container_);
@@ -240,7 +240,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         res_.initialize(new StringList(nicknames_), container.getScores(), currentGame_.getNewRanks());
         res_.setUser(DealPresident.NUMERO_UTILISATEUR);
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
-        ScrollPane scroll_=new ScrollPane();
+        AbsScrollPane scroll_=container.getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, container.getWindow().getFrames());
         PreparedAnalyzed stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);

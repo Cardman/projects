@@ -7,7 +7,8 @@ import cards.gui.WindowCards;
 import cards.gui.panels.PanelTricksHandsPresident;
 import cards.president.DisplayingPresident;
 import cards.president.TricksHandsPresident;
-import code.gui.ScrollPane;
+import code.gui.AbsScrollPane;
+
 import code.gui.initialize.AbsFrameFactory;
 import code.util.StringList;
 
@@ -35,7 +36,7 @@ public final class DialogTricksPresident extends DialogCards {
             byte _numberPlayers, StringList _pseudos,
             DisplayingPresident _displayingPresident, WindowCards _window) {
         _tricksHands.sortHands(_displayingPresident, _numberPlayers);
-        ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsPresident(getCardDialog(),
+        AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(new PanelTricksHandsPresident(getCardDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window).getContainer());
         scroll_.setPreferredSize(new Dimension(600, 600));
         getCardDialog().setContentPane(scroll_);

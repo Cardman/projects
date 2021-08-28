@@ -31,7 +31,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         abs = _abs;
         AbsGraphicList<String> comp_ = _abs.getGeneGraphicList().createStrList(_abs.getImageFactory(),new StringList(), _abs.getCompoFactory());
         list = comp_;
-        popup.add(new ScrollPane(comp_.self()));
+        popup.add(_abs.getCompoFactory().newAbsScrollPane(comp_.self()));
         init();
     }
 

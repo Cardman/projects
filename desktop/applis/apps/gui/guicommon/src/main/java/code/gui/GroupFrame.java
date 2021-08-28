@@ -100,7 +100,7 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     //@Override
-    public void setContentPane(ScrollPane _contentPane) {
+    public void setContentPane(AbsScrollPane _contentPane) {
         commonFrame.setContentPane(_contentPane);
     }
 

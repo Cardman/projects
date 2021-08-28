@@ -7,7 +7,8 @@ import cards.belote.DisplayingBelote;
 import cards.belote.TricksHandsBelote;
 import cards.gui.WindowCards;
 import cards.gui.panels.PanelTricksHandsBelote;
-import code.gui.ScrollPane;
+import code.gui.AbsScrollPane;
+
 import code.gui.initialize.AbsFrameFactory;
 import code.util.StringList;
 
@@ -35,7 +36,7 @@ public final class DialogTricksBelote extends DialogCards {
             byte _numberPlayers, StringList _pseudos,
             DisplayingBelote _displayingBelote, WindowCards _ow) {
         _tricksHands.sortHands(_displayingBelote, _numberPlayers);
-        ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsBelote(getCardDialog(),
+        AbsScrollPane scroll_ = _ow.getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(getCardDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow).getContainer());
         scroll_.setPreferredSize(new Dimension(600, 600));
         getCardDialog().setContentPane(scroll_);

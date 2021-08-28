@@ -10,7 +10,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.gui.WindowCards;
 import cards.gui.labels.GraphicBeloteCard;
 import code.gui.AbsPanel;
-import code.gui.ScrollPane;
+import code.gui.AbsScrollPane;
 import code.gui.TextArea;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
@@ -84,7 +84,7 @@ public class CarpetBelote {
                     } else {
                         jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
                     }
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -98,7 +98,7 @@ public class CarpetBelote {
                     } else {
                         jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     }
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -112,7 +112,7 @@ public class CarpetBelote {
                     } else {
                         jta_.append(StringUtil.concat(_pseudos.get(5),RETURN_LINE));
                     }
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -126,7 +126,7 @@ public class CarpetBelote {
                     } else {
                         jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     }
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -136,7 +136,7 @@ public class CarpetBelote {
                 } else if(i==1) {
                     surPanneau_= _compoFactory.newLineBox();
                     jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -146,7 +146,7 @@ public class CarpetBelote {
                 } else if(i==10) {
                     surPanneau_= _compoFactory.newLineBox();
                     jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -173,7 +173,7 @@ public class CarpetBelote {
                     } else {
                         jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     }
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -186,7 +186,7 @@ public class CarpetBelote {
                     } else {
                         jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     }
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -195,7 +195,7 @@ public class CarpetBelote {
                     surPanneau_.add(panneau_);
                 } else if(i==7) {
                     jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -221,7 +221,7 @@ public class CarpetBelote {
                     } else {
                         jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
                     }
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -235,7 +235,7 @@ public class CarpetBelote {
                     } else {
                         jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     }
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -249,7 +249,7 @@ public class CarpetBelote {
                     } else {
                         jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
                     }
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -263,7 +263,7 @@ public class CarpetBelote {
                     } else {
                         jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     }
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);
@@ -273,7 +273,7 @@ public class CarpetBelote {
                 } else if(i==7) {
                     surPanneau_= _compoFactory.newLineBox();
                     jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
-                    ScrollPane ascenseur_=new ScrollPane(jta_);
+                    AbsScrollPane ascenseur_=_compoFactory.newAbsScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
                     panneau_.add(ascenseur_,BorderLayout.NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,SwingConstants.RIGHT,true, _compoFactory);

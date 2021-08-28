@@ -207,7 +207,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             hands.add(plc_);
 //            i_++;
         }
-        ScrollPane scroll_ = new ScrollPane(panelsCards);
+        AbsScrollPane scroll_ = _parent.getCompoFactory().newAbsScrollPane(panelsCards);
         scroll_.setPreferredSize(new Dimension(500, h_));
         panneau_=_parent.getCompoFactory().newBorder();
         panneau_.add(scroll_,BorderLayout.CENTER);

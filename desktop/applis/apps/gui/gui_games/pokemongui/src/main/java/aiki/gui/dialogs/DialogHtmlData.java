@@ -92,7 +92,7 @@ public final class DialogHtmlData {
         _session.addFinder();
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
-        ScrollPane scrollSession_ = _session.getScroll();
+        AbsScrollPane scrollSession_ = _session.getScroll();
         scrollSession_.setPreferredSize(new Dimension(400, 400));
 //        group_.add(scrollSession_);
         panel_.add(scrollSession_);

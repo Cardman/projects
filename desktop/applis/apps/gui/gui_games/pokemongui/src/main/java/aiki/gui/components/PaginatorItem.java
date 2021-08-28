@@ -273,7 +273,7 @@ public final class PaginatorItem extends Paginator {
         getHeader().setPreferredSize(new Dimension((int)widths_.getMaximum(1), Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader());
         //results.add(new JLabel(getMessages().getVal(ITEM)));
-        _p.add(new ScrollPane(results));
+        _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageItem());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));

@@ -52,12 +52,12 @@ public class ContainerTarot extends ContainerGame{
     private AbsPanel panelDiscardedTrumps;
     private HandTarot currentIncludedTrumps = new HandTarot();
     private HandTarot currentExcludedTrumps = new HandTarot();
-    private ScrollPane scrollDeclaringHandful;
+    private AbsScrollPane scrollDeclaringHandful;
     private SplitPane declaringHandful;
     private AbsPanel includedTrumpsForHandful;
     private AbsPanel excludedTrumpsForHandful;
     private EnumMap<Miseres,Boolean> selectedMiseres = new EnumMap<Miseres,Boolean>();
-    private ScrollPane scrollCallableCards;
+    private AbsScrollPane scrollCallableCards;
     private AbsPanel panelCallableCards;
     private Handfuls choosenHandful = Handfuls.NO;
     private CardTarot carteSurvoleeTarot;
@@ -176,10 +176,10 @@ public class ContainerTarot extends ContainerGame{
         choosenHandful = _choosenHandful;
     }
 
-    public ScrollPane getScrollDeclaringHandful() {
+    public AbsScrollPane getScrollDeclaringHandful() {
         return scrollDeclaringHandful;
     }
-    protected void setScrollDeclaringHandful(ScrollPane _scrollDeclaringHandful) {
+    protected void setScrollDeclaringHandful(AbsScrollPane _scrollDeclaringHandful) {
         scrollDeclaringHandful = _scrollDeclaringHandful;
     }
     protected AbsPanel getIncludedTrumpsForHandful() {
@@ -212,10 +212,10 @@ public class ContainerTarot extends ContainerGame{
     public void setCanPlay(boolean _canPlay) {
         canPlay = _canPlay;
     }
-    protected ScrollPane getScrollCallableCards() {
+    protected AbsScrollPane getScrollCallableCards() {
         return scrollCallableCards;
     }
-    protected void setScrollCallableCards(ScrollPane _scrollCallableCards) {
+    protected void setScrollCallableCards(AbsScrollPane _scrollCallableCards) {
         scrollCallableCards = _scrollCallableCards;
     }
     protected boolean isPartieAleatoireJouee() {

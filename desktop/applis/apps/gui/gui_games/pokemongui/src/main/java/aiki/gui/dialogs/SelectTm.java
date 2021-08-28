@@ -48,7 +48,7 @@ public final class SelectTm extends SelectDialog {
         initOk();
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
-        contentPane_.add(new ScrollPane(new PaginatorMove(_parent,pag_, getSelectDial(), _facade, _buy).getContainer()), BorderLayout.CENTER);
+        contentPane_.add(compo.newAbsScrollPane(new PaginatorMove(_parent,pag_, getSelectDial(), _facade, _buy).getContainer()), BorderLayout.CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         LabelButton ok_ = new LabelButton(WindowAiki.OK);
         ok_.addMouseList(new ValidateSelectionEvent(this));

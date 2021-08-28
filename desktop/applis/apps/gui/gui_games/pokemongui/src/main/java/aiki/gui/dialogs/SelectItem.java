@@ -56,7 +56,7 @@ public final class SelectItem extends SelectDialog {
 //        ok = false;
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
-        contentPane_.add(new ScrollPane(new PaginatorItem(_parent,pag_, getSelectDial(), _facade, !_sell).getContainer()), BorderLayout.CENTER);
+        contentPane_.add(compo.newAbsScrollPane(new PaginatorItem(_parent,pag_, getSelectDial(), _facade, !_sell).getContainer()), BorderLayout.CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         if (!_buy) {
             giveCheckBox = new CustCheckBox(messages.getVal(GIVE));

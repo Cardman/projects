@@ -5,36 +5,36 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.ScrollPane;
+import code.gui.AbsScrollPane;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class ScrollPaneStruct extends CustComponentStruct {
-    private ScrollPane scrollPane;
+    private final AbsScrollPane scrollPane;
     private Struct view = NullStruct.NULL_VALUE;
-    private ScrollPaneStruct(String _className) {
+    private ScrollPaneStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
-        scrollPane = new ScrollPane();
+        scrollPane = _compo.newAbsScrollPane();
     }
-    private ScrollPaneStruct(CustComponentStruct _cust,String _className) {
+    private ScrollPaneStruct(CustComponentStruct _cust,String _className, AbsCompoFactory _compo) {
         super(_className);
         if (_cust.getParentComponent() != NullStruct.NULL_VALUE) {
-            scrollPane = new ScrollPane();
+            scrollPane = _compo.newAbsScrollPane();
             return;
         }
         view = _cust;
-        scrollPane = new ScrollPane(_cust.getComponent());
+        scrollPane = _compo.newAbsScrollPane(_cust.getComponent());
     }
 
-    static ScrollPaneStruct newScroll(String _className) {
-        return new ScrollPaneStruct(_className);
+    static ScrollPaneStruct newScroll(String _className, AbsCompoFactory _compo) {
+        return new ScrollPaneStruct(_className,_compo);
     }
 
-    static ScrollPaneStruct newScroll(Struct _str, String _className) {
+    static ScrollPaneStruct newScroll(Struct _str, String _className, AbsCompoFactory _compo) {
         if (!(_str instanceof CustComponentStruct)) {
-            return new ScrollPaneStruct(_className);
+            return new ScrollPaneStruct(_className,_compo);
         }
         CustComponentStruct c_ = (CustComponentStruct) _str;
-        return new ScrollPaneStruct(c_,_className);
+        return new ScrollPaneStruct(c_,_className,_compo);
     }
     public void setViewportView(Struct _graphic) {
         if (!(_graphic instanceof CustComponentStruct)) {

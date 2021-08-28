@@ -1040,7 +1040,7 @@ public final class WindowAiki extends NetGroupFrame {
 
         //JTextArea area_ = new JTextArea();
         RenderedPage session_;
-        session_ = new RenderedPage(new ScrollPane(), getFrames());
+        session_ = new RenderedPage(getCompoFactory().newAbsScrollPane(), getFrames());
         session_.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames()));
         FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_);
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);

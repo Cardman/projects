@@ -89,7 +89,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final LabelButton stop = new LabelButton(CST_STOP);
     private final TextLabel currentNoSong = new TextLabel(EMPTY);
     private final TextLabel currentSong = new TextLabel(EMPTY);
-    private final ScrollPane scroll;
+    private final AbsScrollPane scroll;
     private final TextLabel elapsedTime = new TextLabel(EMPTY);
     private boolean pausing;
     private boolean next;
@@ -125,7 +125,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         stop.addMouseList(new StopSong(this));
         actions_.add(stop);
         pane_.add(actions_);
-        scroll = new ScrollPane(songRend);
+        scroll = getCompoFactory().newAbsScrollPane(songRend);
         scroll.setPreferredSize(new Dimension(256, 352));
         pane_.add(scroll);
         pane_.add(currentNoSong);

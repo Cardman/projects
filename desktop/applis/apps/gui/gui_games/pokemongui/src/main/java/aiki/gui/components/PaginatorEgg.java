@@ -172,7 +172,7 @@ public final class PaginatorEgg extends Paginator {
         getHeader().addString(h_.toString(), FIRST_PIXEL);
         getHeader().setPreferredSize(new Dimension(getHeader().width(h_.toString()), HEIGTH_CHARS));
         results.add(getHeader());
-        _p.add(new ScrollPane(results));
+        _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageEgg());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));

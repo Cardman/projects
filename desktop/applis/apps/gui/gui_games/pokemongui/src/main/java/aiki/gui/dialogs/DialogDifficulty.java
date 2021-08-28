@@ -48,7 +48,7 @@ public final class DialogDifficulty implements AbsCloseableDialog {
         absDialog.setModal(true);
         absDialog.setTitle(_title);
         absDialog.setLocationRelativeTo(_window);
-        ScrollPane scrollSession_ = new ScrollPane();
+        AbsScrollPane scrollSession_ = _window.getCompoFactory().newAbsScrollPane();
         session = new RenderedPage(scrollSession_, window.getFrames());
         session.setFrame(absDialog);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(facade);

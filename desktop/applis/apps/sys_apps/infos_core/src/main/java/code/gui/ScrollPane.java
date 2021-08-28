@@ -2,7 +2,7 @@ package code.gui;
 
 import javax.swing.*;
 
-public final class ScrollPane extends CustComponent {
+public final class ScrollPane extends CustComponent implements AbsScrollPane {
 
     private final JScrollPane component;
 

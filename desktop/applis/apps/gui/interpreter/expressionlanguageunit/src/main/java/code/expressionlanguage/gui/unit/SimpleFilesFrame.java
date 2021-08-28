@@ -9,7 +9,7 @@ import code.gui.*;
 import code.gui.Menu;
 import code.gui.MenuBar;
 import code.gui.MenuItem;
-import code.gui.ScrollPane;
+
 import code.gui.TextArea;
 import code.gui.TextField;
 import code.gui.events.ClosingChildFrameEvent;
@@ -89,7 +89,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         content = new PlainLabel(messages.getVal("configuration"));
         form.add(content);
         conf = new TextArea(64,64);
-        ScrollPane scr_ = new ScrollPane(conf);
+        AbsScrollPane scr_ = parent.getCompoFactory().newAbsScrollPane(conf);
         scr_.setPreferredSize(new Dimension(256,96));
         form.add(scr_);
         AbsPanel formButtons_ = parent.getCompoFactory().newGrid(0,2);
@@ -134,16 +134,16 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         cols_[3] =messages.getVal("success");
         resultsTable = new TableGui(cols_);
         results = new TextArea(1024,1024);
-        ScrollPane scrTable_ = new ScrollPane(resultsTable);
+        AbsScrollPane scrTable_ = parent.getCompoFactory().newAbsScrollPane(resultsTable);
         scrTable_.setPreferredSize(new Dimension(256,96));
-        ScrollPane scrRes_ = new ScrollPane(results);
+        AbsScrollPane scrRes_ = parent.getCompoFactory().newAbsScrollPane(results);
         scrRes_.setPreferredSize(new Dimension(256,96));
         SplitPane splitPane_ = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,scrTable_,scrRes_);
         splitPane_.setOneTouchExpandable(true);
         progressing.add(splitPane_);
         contentPane.add(progressing);
         errors = new TextArea(128,128);
-        ScrollPane scrErrs_ = new ScrollPane(errors);
+        AbsScrollPane scrErrs_ = parent.getCompoFactory().newAbsScrollPane(errors);
         scrErrs_.setPreferredSize(new Dimension(512,128));
         unitIssuer = new UnitIssuer(errors);
         contentPane.add(scrErrs_);

@@ -592,7 +592,7 @@ public final class PaginatorHealingItem extends Paginator {
         getHeader().addString(StringUtil.concat(getMessages().getVal(PRICE),SPACES), side_+nameWidth_+numberWidth_);
         getHeader().setPreferredSize(new Dimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
         results.add(getHeader());
-        _p.add(new ScrollPane(results));
+        _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageHealingItem());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));

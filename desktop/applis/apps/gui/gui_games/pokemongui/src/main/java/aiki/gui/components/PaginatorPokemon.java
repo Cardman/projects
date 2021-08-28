@@ -429,7 +429,7 @@ public final class PaginatorPokemon extends Paginator {
         int w_ = getHeader().width(getMessages().getVal(CST_ITEM));
         getHeader().setPreferredSize(new Dimension(w_+secondCol_+thirdCol_, HEIGTH_CHARS+HEIGTH_CHARS));
         results.add(getHeader());
-        _p.add(new ScrollPane(results));
+        _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));

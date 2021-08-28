@@ -450,7 +450,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
         setEvents(new TextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
-        panneau2_.add(new ScrollPane(getEvents()));
+        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),getDisplayingBelote().isClockwise(),pseudos_, getOwner().getCompoFactory()));
         panneau2_.add(getMiniPanel());
         setHandfuls(new ByteMap<TextLabel>());
@@ -469,7 +469,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
-        ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
+        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
         AbsPanel sousPanneau_=getOwner().getCompoFactory().newPageBox();
         setPanneauBoutonsJeu(sousPanneau_);
@@ -479,7 +479,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             tapisBelote().setTalonBelote(getWindow(),lg_,partie_.getDistribution().derniereMain());
         }
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
-        panel_.add(new ScrollPane(container_));
+        panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
@@ -660,7 +660,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        ScrollPane ascenseur_;
+        AbsScrollPane ascenseur_;
         AbsPanel panneau_;
         if(isChangerPileFin()) {
             GameBelote partie_=partieBelote();
@@ -689,7 +689,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         res_.getRes().setSpecific(readResource());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
-        ScrollPane scroll_=new ScrollPane();
+        AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
         PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
@@ -697,7 +697,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
         if(partie_.getContrat().jouerDonne()) {
-            scroll_=new ScrollPane();
+            scroll_=getOwner().getCompoFactory().newAbsScrollPane();
             editor_ = new RenderedPage(scroll_, getOwner().getFrames());
             PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
             ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
@@ -747,7 +747,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             setMaxAbsoluScore(Math.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int) getMaxAbsoluScore();
             graphique_.setPreferredSize(new Dimension(2000,dimy_));
-            ascenseur_=new ScrollPane(graphique_);
+            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_);
             graphique_.setLocation(0,(600-dimy_)/2);
             ascenseur_.setPreferredSize(new Dimension(300,200));
             panneau_=getOwner().getCompoFactory().newBorder();
@@ -755,7 +755,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             panneau_.add(ascenseur_,BorderLayout.CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
-            ascenseur_=new ScrollPane(legende_);
+            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(legende_);
             ascenseur_.setPreferredSize(new Dimension(300,100));
             panneau_.add(ascenseur_,BorderLayout.SOUTH);
             onglets_.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
@@ -769,7 +769,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingBelote(), game_.getNombreDeJoueurs());
         WindowCards ow_ = getOwner();
-        ascenseur_=new ScrollPane(new PanelTricksHandsBelote(ow_, tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(),ow_).getContainer());
+        ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_, tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(),ow_).getContainer());
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.HANDS_TRICKS),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);

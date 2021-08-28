@@ -130,7 +130,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         container_.add(panel_);
 
-        ScrollPane scroll_ = new ScrollPane();
+        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane();
         editor = new RenderedPage(scroll_, getOwner().getFrames());
         rulesPresidentMulti.setGeneral(readCoreResource());
         rulesPresidentMulti.setSpecific(readResource());
@@ -503,7 +503,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
         setEvents(new TextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
-        panneau2_.add(new ScrollPane(getEvents()));
+        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         setHandfuls(new ByteMap<TextLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
 //        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
@@ -524,13 +524,13 @@ public class ContainerMultiPresident extends ContainerPresident implements
         setNoPlay(new LabelButton(EMPTY));
         getNoPlay().addMouseList(new NoPlayPresidentEvent(this));
         setPanneauBoutonsJeu(sousPanneau_);
-        panneau2_.add(new ScrollPane(sousPanneau_));
+        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(sousPanneau_));
         getNoPlay().setVisibleButton(false);
         panneau2_.add(getNoPlay());
         setActionsHistory(panneau2_);
         container_.add(panneau2_,BorderLayout.EAST);
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
-        panel_.add(new ScrollPane(container_));
+        panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
         panel_.add(getWindow().getClock());
@@ -640,7 +640,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         setScores(_res.getScores());
 
-        ScrollPane scroll_=new ScrollPane();
+        AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);

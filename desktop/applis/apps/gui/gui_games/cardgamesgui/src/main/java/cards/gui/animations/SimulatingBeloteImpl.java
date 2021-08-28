@@ -17,7 +17,7 @@ import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import code.gui.*;
-import code.gui.ScrollPane;
+
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.threads.ThreadUtil;
@@ -127,7 +127,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
         container.setEvents(new TextArea(ContainerBelote.EMPTY,8, 30));
         container.getEvents().setEditable(false);
-        panneau2_.add(new ScrollPane(container.getEvents()));
+        panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
         container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),container.getDisplayingBelote().isClockwise(),pseudos_, container.getWindow().getCompoFactory()));
         panneau2_.add(container.getMiniPanel());
         container.setHandfuls(new ByteMap<TextLabel>());
@@ -146,7 +146,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
             container.getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
-        ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
+        AbsScrollPane scroll_ = container.getOwner().getCompoFactory().newAbsScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
         AbsPanel sousPanneau_=container.getOwner().getCompoFactory().newGrid(0,1);
         container.setPanneauBoutonsJeu(sousPanneau_);
@@ -207,7 +207,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         res_.setUser(DealBelote.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(nicknames_), container.getScores());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
-        ScrollPane scroll_=new ScrollPane();
+        AbsScrollPane scroll_=container.getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, container.getWindow().getFrames());
         res_.getRes().setGeneral(container.readCoreResource());
         res_.getRes().setSpecific(container.readResource());

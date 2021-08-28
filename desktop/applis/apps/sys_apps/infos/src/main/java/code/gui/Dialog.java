@@ -81,7 +81,7 @@ public final class Dialog implements AbsDialog {
         contentPane = _contentPane;
     }
 
-    public void setContentPane(ScrollPane _contentPane) {
+    public void setContentPane(AbsScrollPane _contentPane) {
         Panel p_ = Panel.newLineBox();
         p_.add(_contentPane);
         setContentPane(p_);

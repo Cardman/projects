@@ -115,7 +115,7 @@ public final class ConsultHosts {
         }
         facade.setHostedPokemon(_first, _coords);
         RenderedPage session_;
-        session_ = new RenderedPage(new ScrollPane(), window.getFrames());
+        session_ = new RenderedPage(window.getFrames().getCompoFactory().newAbsScrollPane(), window.getFrames());
         showHtmlDialog(session_,facade,task_,facade.getLanguage());
     }
 

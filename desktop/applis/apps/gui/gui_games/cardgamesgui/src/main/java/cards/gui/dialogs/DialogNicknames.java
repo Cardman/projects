@@ -82,7 +82,7 @@ public final class DialogNicknames extends DialogCards {
             nicknamesPresident.add(pseudo_);
             i_++;
         }
-        ScrollPane scroll_ = new ScrollPane(sousPanneau_);
+        AbsScrollPane scroll_ = _fenetre.getCompoFactory().newAbsScrollPane(sousPanneau_);
         scroll_.setPreferredSize(new Dimension(300, 400));
         getJt().add(GameEnum.PRESIDENT.toString(lg_), scroll_);
         //Panneau pseudos des joueurs tarot

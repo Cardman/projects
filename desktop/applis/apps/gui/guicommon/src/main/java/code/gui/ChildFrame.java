@@ -57,7 +57,7 @@ public abstract class ChildFrame implements AbsChildFrame {
     }
 
     //@Override
-    public void setContentPane(ScrollPane _contentPane) {
+    public void setContentPane(AbsScrollPane _contentPane) {
         absCommonFrame.setContentPane(_contentPane);
     }
 

@@ -144,7 +144,7 @@ public class Battle extends ChildFrame {
     private PokemonPanel pokemonPanel;
 
     private AbsPanel movesLearnPanel;
-    private ScrollPane movesLearnPanelScroll;
+    private AbsScrollPane movesLearnPanelScroll;
 
     private AbsPanel abilitiesLearnPanel;
 
@@ -209,12 +209,12 @@ public class Battle extends ChildFrame {
     private TextLabel errorLabel;
 
     private WrappedTextArea commentsErrors;
-    private ScrollPane commentsErrorsScroll;
+    private AbsScrollPane commentsErrorsScroll;
 
     private TextLabel roundLabel;
 
     private WrappedTextArea commentsRound;
-    private ScrollPane commentsRoundScroll;
+    private AbsScrollPane commentsRoundScroll;
 
     private boolean enabledChangeLanguage;
 
@@ -225,7 +225,7 @@ public class Battle extends ChildFrame {
 
     private boolean enabledClicked;
 
-    private final ScrollPane scroll;
+    private final AbsScrollPane scroll;
     private final AbsPanel comments = getFrames().getCompoFactory().newPageBox();
     private final AbsPanel forms = getFrames().getCompoFactory().newLineBox();
     private final AbsPanel team = getFrames().getCompoFactory().newPageBox();
@@ -235,7 +235,7 @@ public class Battle extends ChildFrame {
 //        splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        setContentPane(splitter);
         facade = _facade;
-        scroll = new ScrollPane(lower);
+        scroll = getFrames().getCompoFactory().newAbsScrollPane(lower);
         setContentPane(scroll);
         window = _window;
         setDialogIcon(_window);
@@ -888,7 +888,7 @@ public class Battle extends ChildFrame {
         }
         if (movesLearnPanel == null) {
             movesLearnPanel = window.getCompoFactory().newPageBox();
-            movesLearnPanelScroll = new ScrollPane(movesLearnPanel);
+            movesLearnPanelScroll = getFrames().getCompoFactory().newAbsScrollPane(movesLearnPanel);
             movesLearnPanelScroll.setPreferredSize(new Dimension(150,150));
         }
         if (abilitiesLearnPanel == null) {
@@ -1018,7 +1018,7 @@ public class Battle extends ChildFrame {
             return;
         }
         RenderedPage session_;
-        session_ = new RenderedPage(new ScrollPane(), window.getFrames());
+        session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), window.getFrames());
         session_.setProcess(window.getVideoLoading().getVideo(window.getGenerator(),window.getFileCoreStream(),window.getFrames()));
         FrameHtmlData dialog_ = new FrameHtmlData(window, messages.getVal(TITLE), session_);
         dialog_.initSessionLg(facade,fightTask_,facade.getLanguage());
@@ -1471,7 +1471,7 @@ public class Battle extends ChildFrame {
         }
         commentsRound = new WrappedTextArea(10,32);
         commentsRound.setEditable(false);
-        commentsRoundScroll = new ScrollPane(commentsRound);
+        commentsRoundScroll = getFrames().getCompoFactory().newAbsScrollPane(commentsRound);
     }
 
     private void initCommentsErrors() {
@@ -1481,7 +1481,7 @@ public class Battle extends ChildFrame {
         commentsErrors = new WrappedTextArea(6,32);
         commentsErrors.setEditable(false);
         commentsErrors.setForeground(Color.RED);
-        commentsErrorsScroll = new ScrollPane(commentsErrors);
+        commentsErrorsScroll = getFrames().getCompoFactory().newAbsScrollPane(commentsErrors);
     }
 
 //    public void initRoundAnimation() {

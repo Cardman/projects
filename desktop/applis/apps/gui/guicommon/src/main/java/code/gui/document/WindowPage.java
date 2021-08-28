@@ -12,11 +12,11 @@ public final class WindowPage implements Runnable {
 
     private final RenderedPage page;
 
-    private final ScrollPane frame;
+    private final AbsScrollPane frame;
 
     private final MetaDocument meta;
 
-    public WindowPage(MetaDocument _meta, ScrollPane _frame, RenderedPage _page) {
+    public WindowPage(MetaDocument _meta, AbsScrollPane _frame, RenderedPage _page) {
         page = _page;
         meta = _meta;
         frame = _frame;

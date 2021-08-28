@@ -328,7 +328,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
         setEvents(new TextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
-        panneau2_.add(new ScrollPane(getEvents()));
+        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         setHandfuls(new ByteMap<TextLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
 //        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
@@ -347,7 +347,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setNoPlay(new LabelButton(EMPTY));
         getNoPlay().addMouseList(new NoPlayPresidentEvent(this));
         setPanneauBoutonsJeu(sousPanneau_);
-        panneau2_.add(new ScrollPane(sousPanneau_));
+        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(sousPanneau_));
         getNoPlay().setVisibleButton(false);
         panneau2_.add(getNoPlay());
         setActionsHistory(panneau2_);
@@ -355,7 +355,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         tapisPresident().setTalonPresident(getWindow().getImageFactory());
 //        tapisPresident().repaintValidate();
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
-        panel_.add(new ScrollPane(container_));
+        panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
@@ -540,7 +540,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        ScrollPane ascenseur_;
+        AbsScrollPane ascenseur_;
 
         if(isChangerPileFin()) {
             GamePresident partie_=partiePresident();
@@ -570,7 +570,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getScores());
 
-        ScrollPane scroll_=new ScrollPane();
+        AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
         PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
@@ -619,7 +619,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             setMaxAbsoluScore(Math.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int)getMaxAbsoluScore();
             graphique_.setPreferredSize(new Dimension(2000,dimy_));
-            ascenseur_=new ScrollPane(graphique_);
+            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_);
             graphique_.setLocation(0,(600-dimy_)/2);
             ascenseur_.setPreferredSize(new Dimension(300,200));
             AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
@@ -627,7 +627,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             panneau_.add(ascenseur_,BorderLayout.CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
-            ascenseur_=new ScrollPane(legende_);
+            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(legende_);
             ascenseur_.setPreferredSize(new Dimension(300,100));
             panneau_.add(ascenseur_,BorderLayout.SOUTH);
             onglets_.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
@@ -641,7 +641,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingPresident(), game_.getNombreDeJoueurs());
         WindowCards ow_ = getOwner();
-        ScrollPane panelCards_ = new ScrollPane(new PanelTricksHandsPresident(ow_, tricksHands_,
+        AbsScrollPane panelCards_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsPresident(ow_, tricksHands_,
                 nombreJoueurs_,
                 pseudosPresident(),
                 getDisplayingPresident(),ow_).getContainer());

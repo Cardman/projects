@@ -48,7 +48,7 @@ public final class SelectHealingItem extends SelectDialog {
         initOk();
         AbsPanel contentPane_ = compo.newBorder();
         AbsPanel pag_ = compo.newPageBox();
-        contentPane_.add(new ScrollPane(new PaginatorHealingItem(_parent,pag_, getSelectDial(), _facade).getContainer()), BorderLayout.CENTER);
+        contentPane_.add(compo.newAbsScrollPane(new PaginatorHealingItem(_parent,pag_, getSelectDial(), _facade).getContainer()), BorderLayout.CENTER);
         AbsPanel buttons_ = compo.newLineBox();
         LabelButton ok_ = new LabelButton(WindowAiki.OK);
         ok_.addMouseList(new ValidateSelectionEvent(this));

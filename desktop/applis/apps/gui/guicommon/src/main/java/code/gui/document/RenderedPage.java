@@ -27,7 +27,7 @@ public final class RenderedPage implements ProcessingSession {
 
     private final AbsCompoFactory compoFactory;
     private DualPanel page;
-    private final ScrollPane scroll;
+    private final AbsScrollPane scroll;
     private Navigation navigation;
     private final IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
     private FindEvent finding;
@@ -55,7 +55,7 @@ public final class RenderedPage implements ProcessingSession {
     private TextField field;
     private final AbstractProgramInfos gene;
 
-    public RenderedPage(ScrollPane _frame, AbstractProgramInfos _gene) {
+    public RenderedPage(AbsScrollPane _frame, AbstractProgramInfos _gene) {
         scroll = _frame;
         gene = _gene;
         compoFactory = _gene.getCompoFactory();
@@ -213,7 +213,7 @@ public final class RenderedPage implements ProcessingSession {
     public Navigation getNavigation() {
         return navigation;
     }
-    public ScrollPane getScroll() {
+    public AbsScrollPane getScroll() {
         return scroll;
     }
     DualPanel getPage() {

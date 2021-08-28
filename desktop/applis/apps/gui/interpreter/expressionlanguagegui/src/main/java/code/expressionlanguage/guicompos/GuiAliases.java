@@ -3056,7 +3056,8 @@ public final class GuiAliases {
             return new Argument(new TabbedPaneStruct(aliasTabbedPane));
         }
         if (StringUtil.quickEq(_id,aliasScrollPane)) {
-            return new Argument(ScrollPaneStruct.newScroll(aliasScrollPane));
+            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
+            return new Argument(ScrollPaneStruct.newScroll(aliasScrollPane, window_.getCompoFactory()));
         }
         if (StringUtil.quickEq(_id,aliasPanelBorder)) {
             WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
@@ -3220,9 +3221,9 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(ScrollPaneStruct.newScroll(_args[0], aliasScrollPane));
+                r_.setResult(ScrollPaneStruct.newScroll(_args[0], aliasScrollPane,_guiEx.getWindow().getCompoFactory()));
             } else {
-                r_.setResult(ScrollPaneStruct.newScroll(aliasScrollPane));
+                r_.setResult(ScrollPaneStruct.newScroll(aliasScrollPane,_guiEx.getWindow().getCompoFactory()));
             }
             return r_;
         }

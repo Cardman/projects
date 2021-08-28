@@ -113,7 +113,7 @@ public final class DialogHelpTarot {
             panneau3_.add(zone_);
         }
         panneau2_.add(panneau3_,BorderLayout.CENTER);
-        ScrollPane ascenseur_=new ScrollPane(panneau2_);
+        AbsScrollPane ascenseur_=compo.newAbsScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new Dimension(600,600));
         container_.add(ascenseur_);
         absDialog.setContentPane(container_);

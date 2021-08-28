@@ -4,7 +4,7 @@ import code.gui.*;
 import code.gui.Menu;
 import code.gui.MenuBar;
 import code.gui.MenuItem;
-import code.gui.ScrollPane;
+
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
@@ -51,7 +51,7 @@ public final class WindowFull extends GroupFrame {
         content = new PlainLabel(messages.getVal("configuration"));
         form.add(content);
         conf = new TextArea(64,64);
-        ScrollPane scr_ = new ScrollPane(conf);
+        AbsScrollPane scr_ = getCompoFactory().newAbsScrollPane(conf);
         scr_.setPreferredSize(new Dimension(256,96));
         form.add(scr_);
         launch = new PlainButton(messages.getVal("launch"));

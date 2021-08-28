@@ -266,7 +266,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         container_.add(panel_);
 
-        ScrollPane scroll_ = new ScrollPane();
+        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane();
         editor = new RenderedPage(scroll_, getOwner().getFrames());
         rulesBeloteMulti.setGeneral(readCoreResource());
         rulesBeloteMulti.setSpecific(readResource());
@@ -715,7 +715,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         byte relative_ = relative(_beginPlace);
         getEvents().append(StringUtil.concat(getMessages().getVal(WindowCards.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
         getEvents().setEditable(false);
-        panneau2_.add(new ScrollPane(getEvents()));
+        panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         panneau2_.add(getMiniPanel());
         setHandfuls(new ByteMap<TextLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
@@ -732,7 +732,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
-        ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
+        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
         AbsPanel sousPanneau_ = getOwner().getCompoFactory().newGrid(0, 1);
         setPanneauBoutonsJeu(sousPanneau_);
@@ -742,7 +742,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             tapisBelote().setTalonBelote(getWindow(),lg_,_cardsOnDeck);
         }
         AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
-        panel_.add(new ScrollPane(container_));
+        panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
         panel_.add(getWindow().getClock());
@@ -832,14 +832,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
         _res.getRes().setSpecific(readResource());
         String lg_ = getOwner().getLanguageKey();
 
-        ScrollPane scroll_=new ScrollPane();
+        AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
         PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
         editor_.initialize(sOne_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
-        ScrollPane ascenseur_=new ScrollPane();
+        AbsScrollPane ascenseur_=getOwner().getCompoFactory().newAbsScrollPane();
         editor_ = new RenderedPage(ascenseur_, getOwner().getFrames());
         PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
         ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);

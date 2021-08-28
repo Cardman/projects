@@ -598,7 +598,7 @@ public class ScenePanel {
         teamPan.addListener(this);
         set_.add(teamPan.getContainer());
         movesLearnt = compoFactory.newGrid(0,1);
-        ScrollPane scroll_ = new ScrollPane(movesLearnt);
+        AbsScrollPane scroll_ = compoFactory.newAbsScrollPane(movesLearnt);
         scroll_.setPreferredSize(new Dimension(100, 220));
         set_.add(scroll_);
         abilities = compoFactory.newGrid(0,1);
@@ -644,7 +644,7 @@ public class ScenePanel {
         teamPan.addListenerTm(this);
         set_.add(teamPan.getContainer());
         movesLearnt = compoFactory.newGrid(0,1);
-        ScrollPane scroll_ = new ScrollPane(movesLearnt);
+        AbsScrollPane scroll_ = compoFactory.newAbsScrollPane(movesLearnt);
         scroll_.setPreferredSize(new Dimension(100, 220));
         set_.add(scroll_);
         abilities = compoFactory.newGrid(0,1);
@@ -775,7 +775,7 @@ public class ScenePanel {
         panelNetWork.add(teamPan.getContainer());
         AbsPanel group_ = compoFactory.newBorder();
         group_.add(new TextLabel(messages.getVal(RECEIVED_POKEMON)), BorderLayout.NORTH);
-        ScrollPane scrollSession_ = new ScrollPane();
+        AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
         receivedPk = new RenderedPage(scrollSession_, window.getFrames());
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFrame(window);
@@ -923,7 +923,7 @@ public class ScenePanel {
             AbsPanel set_ = compoFactory.newLineBox();
             set_.add(teamPan.getContainer());
             movesLearnt = compoFactory.newGrid(0,1);
-            ScrollPane scroll_ = new ScrollPane(movesLearnt);
+            AbsScrollPane scroll_ = compoFactory.newAbsScrollPane(movesLearnt);
             scroll_.setPreferredSize(new Dimension(100, 220));
             set_.add(scroll_);
             panelOptions.add(set_, BorderLayout.CENTER);
@@ -1306,7 +1306,7 @@ public class ScenePanel {
             return;
         }
         RenderedPage session_;
-        session_ = new RenderedPage(new ScrollPane(), window.getFrames());
+        session_ = new RenderedPage(compoFactory.newAbsScrollPane(), window.getFrames());
         showHtmlDialog(window, session_,facade,task_,facade.getLanguage());
     }
 
@@ -1747,7 +1747,7 @@ public class ScenePanel {
         WrappedTextArea commentsWalking_ = new WrappedTextArea(4, 32);
         commentsWalking_.setEditable(false);
         commentsWalking_.setText(_text);
-        ConfirmDialog.showComponent(window, new ScrollPane(commentsWalking_), messages.getVal(TITLE_COMMENTS), lg_, _messageType);
+        ConfirmDialog.showComponent(window, compoFactory.newAbsScrollPane(commentsWalking_), messages.getVal(TITLE_COMMENTS), lg_, _messageType);
     }
 
     public Scene getScene() {

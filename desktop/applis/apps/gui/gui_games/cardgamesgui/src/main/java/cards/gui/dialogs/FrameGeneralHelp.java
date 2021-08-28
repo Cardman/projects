@@ -124,7 +124,7 @@ public final class FrameGeneralHelp extends ChildFrame {
                     elementLoc_.nom());
         }
         if (wasNull_) {
-            editor = new RenderedPage(new ScrollPane(), _w.getFrames());
+            editor = new RenderedPage(_w.getCompoFactory().newAbsScrollPane(), _w.getFrames());
         }
         AbsTreeGui arbre_ = _w.getCompoFactory().newTreeGui(root_);
         arbre_.setRootVisible(false);
@@ -140,7 +140,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 //        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         if (wasNull_) {
             separateur = new SplitPane(JSplitPane.HORIZONTAL_SPLIT,
-                    new ScrollPane(arbre_.getTree()), editor.getScroll());
+                    _w.getCompoFactory().newAbsScrollPane(arbre_.getTree()), editor.getScroll());
             separateur.setPreferredSize(new Dimension(600, 550));
             separateur.setDividerLocation(150);
             container_.add(separateur);
@@ -148,7 +148,7 @@ public final class FrameGeneralHelp extends ChildFrame {
             container_.add(search);
             setContentPane(container_);
         } else {
-            separateur.setLeftComponent(new ScrollPane(arbre_.getTree()));
+            separateur.setLeftComponent(_w.getCompoFactory().newAbsScrollPane(arbre_.getTree()));
             container_.add(separateur);
             container_.add(field);
             container_.add(search);

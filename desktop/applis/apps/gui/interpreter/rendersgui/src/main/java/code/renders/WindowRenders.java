@@ -13,7 +13,7 @@ import code.gui.*;
 import code.gui.Menu;
 import code.gui.MenuBar;
 import code.gui.MenuItem;
-import code.gui.ScrollPane;
+
 import code.gui.TextArea;
 import code.gui.TextField;
 import code.gui.document.RenderedPage;
@@ -57,7 +57,7 @@ public final class WindowRenders extends GroupFrame {
         pane_.add(lgCode);
         path = new TextField(20);
         pane_.add(path);
-        session = new RenderedPage(new ScrollPane(), _list);
+        session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _list);
         session.initNav();
         session.setLanguage(_lg);
         session.setFrame(this);
@@ -69,12 +69,12 @@ public final class WindowRenders extends GroupFrame {
         TextArea t_ = new TextArea(8,32);
         session.setArea(t_);
         session.addFinder();
-        ScrollPane scrollSession_ = session.getScroll();
+        AbsScrollPane scrollSession_ = session.getScroll();
         scrollSession_.setPreferredSize(new Dimension(400, 400));
         pane_.add(scrollSession_);
         pane_.add(field_);
         pane_.add(search_);
-        pane_.add(new ScrollPane(t_));
+        pane_.add(getCompoFactory().newAbsScrollPane(t_));
         setContentPane(pane_);
         pack();
         setVisible(true);

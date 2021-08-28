@@ -48,7 +48,7 @@ public final class FrameHtmlData extends ChildFrame {
         session.setSearchText(search);
         session.setField(field_);
         session.addFinder();
-        ScrollPane scrollSession_ = session.getScroll();
+        AbsScrollPane scrollSession_ = session.getScroll();
         scrollSession_.setPreferredSize(new Dimension(400, 400));
         panel_.add(scrollSession_);
         panel_.add(area_);
