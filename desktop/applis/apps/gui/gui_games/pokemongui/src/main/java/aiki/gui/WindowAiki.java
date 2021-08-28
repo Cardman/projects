@@ -1,8 +1,6 @@
 package aiki.gui;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 
 
 import javax.swing.WindowConstants;
@@ -692,19 +690,19 @@ public final class WindowAiki extends NetGroupFrame {
         file = getCompoFactory().newMenu();
         zipLoad = getCompoFactory().newMenuItem();
         zipLoad.addActionListener(new LoadZipEvent(this,false));
-        zipLoad.setAccelerator(KeyEvent.VK_M, InputEvent.CTRL_DOWN_MASK);
+        zipLoad.setAccelerator(GuiConstants.VK_M, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(zipLoad);
         folderLoad = getCompoFactory().newMenuItem();
         folderLoad.addActionListener(new LoadZipEvent(this,true));
-        folderLoad.setAccelerator(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK);
+        folderLoad.setAccelerator(GuiConstants.VK_D, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(folderLoad);
         gameLoad = getCompoFactory().newMenuItem();
         gameLoad.addActionListener(new LoadGameEventAiki(this));
-        gameLoad.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
+        gameLoad.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(gameLoad);
         gameSave = getCompoFactory().newMenuItem();
         gameSave.addActionListener(new SaveGameEventAiki(this));
-        gameSave.setAccelerator(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
+        gameSave.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(gameSave);
         file.addSeparator();
         language = getCompoFactory().newMenuItem();
@@ -714,12 +712,12 @@ public final class WindowAiki extends NetGroupFrame {
 //        }
         file.addMenuItem(language);
         params = getCompoFactory().newMenuItem();
-        params.setAccelerator(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK);
+        params.setAccelerator(GuiConstants.VK_L, GuiConstants.CTRL_DOWN_MASK);
         params.addActionListener(new ManageParamsEvent(this));
         file.addMenuItem(params);
         file.addSeparator();
         quit = getCompoFactory().newMenuItem();
-        quit.setAccelerator((char) KeyEvent.VK_ESCAPE);
+        quit.setAccelerator((char) GuiConstants.VK_ESCAPE);
         quit.addActionListener(new QuitEvent(this));
         file.addMenuItem(quit);
         bar_.add(file);
@@ -758,7 +756,7 @@ public final class WindowAiki extends NetGroupFrame {
         dataGame.addMenuItem(dataBattle);
         newGame = getCompoFactory().newMenuItem();
         newGame.addActionListener(new ProponeNewGameEvent(this));
-        newGame.setAccelerator(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK);
+        newGame.setAccelerator(GuiConstants.VK_N, GuiConstants.CTRL_DOWN_MASK);
         dataGame.addMenuItem(newGame);
         difficulty = getCompoFactory().newMenuItem();
         difficulty.setEnabledMenu(false);

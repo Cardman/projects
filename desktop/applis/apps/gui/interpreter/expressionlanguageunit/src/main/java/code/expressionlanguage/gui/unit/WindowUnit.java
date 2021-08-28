@@ -26,8 +26,6 @@ import code.util.ints.UniformingString;
 
 import javax.swing.WindowConstants;
 import java.awt.Dimension;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 
 public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final AbsMenu menu;
@@ -73,7 +71,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         menu = getCompoFactory().newMenu(unitMessages.getVal("file"));
         open = getCompoFactory().newMenuItem(unitMessages.getVal("open"));
         open.addActionListener(new FileOpenEventUnit(this, this));
-        open.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
+        open.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
         logErr = getCompoFactory().newCheckBoxMenuItem(unitMessages.getVal("status"));
         logErr.addActionListener(new LogErrEvent(this));

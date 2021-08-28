@@ -2,6 +2,7 @@ package code.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public final class GuiConstants {
 
@@ -26,6 +27,44 @@ public final class GuiConstants {
     public static final String BORDER_LAYOUT_AFTER_LAST_LINE = BorderLayout.AFTER_LAST_LINE;
     public static final String BORDER_LAYOUT_BEFORE_LINE_BEGINS = BorderLayout.BEFORE_LINE_BEGINS;
     public static final String BORDER_LAYOUT_AFTER_LINE_ENDS = BorderLayout.AFTER_LINE_ENDS;
+    public static final int CTRL_DOWN_MASK = InputEvent.CTRL_DOWN_MASK;
+    public static final int SHIFT_DOWN_MASK = InputEvent.SHIFT_DOWN_MASK;
+    public static final int ALT_DOWN_MASK = InputEvent.ALT_DOWN_MASK;
+    public static final int VK_A = KeyEvent.VK_A;
+    public static final int VK_B = KeyEvent.VK_B;
+    public static final int VK_C = KeyEvent.VK_C;
+    public static final int VK_D = KeyEvent.VK_D;
+    public static final int VK_E = KeyEvent.VK_E;
+    public static final int VK_F = KeyEvent.VK_F;
+    public static final int VK_G = KeyEvent.VK_G;
+    public static final int VK_H = KeyEvent.VK_H;
+    public static final int VK_I = KeyEvent.VK_I;
+    public static final int VK_J = KeyEvent.VK_J;
+    public static final int VK_K = KeyEvent.VK_K;
+    public static final int VK_L = KeyEvent.VK_L;
+    public static final int VK_M = KeyEvent.VK_M;
+    public static final int VK_N = KeyEvent.VK_N;
+    public static final int VK_O = KeyEvent.VK_O;
+    public static final int VK_P = KeyEvent.VK_P;
+    public static final int VK_Q = KeyEvent.VK_Q;
+    public static final int VK_R = KeyEvent.VK_R;
+    public static final int VK_S = KeyEvent.VK_S;
+    public static final int VK_T = KeyEvent.VK_T;
+    public static final int VK_U = KeyEvent.VK_U;
+    public static final int VK_V = KeyEvent.VK_V;
+    public static final int VK_W = KeyEvent.VK_W;
+    public static final int VK_X = KeyEvent.VK_X;
+    public static final int VK_Y = KeyEvent.VK_Y;
+    public static final int VK_Z = KeyEvent.VK_Z;
+    public static final int VK_ESCAPE = KeyEvent.VK_ESCAPE;
+    public static final int VK_F1 = KeyEvent.VK_F1;
+    public static final int VK_F2 = KeyEvent.VK_F2;
+    public static final int VK_F3 = KeyEvent.VK_F3;
+    public static final int VK_UP = KeyEvent.VK_UP;
+    public static final int VK_DOWN = KeyEvent.VK_DOWN;
+    public static final int VK_LEFT = KeyEvent.VK_LEFT;
+    public static final int VK_RIGHT = KeyEvent.VK_RIGHT;
+    public static final int VK_ENTER = KeyEvent.VK_ENTER;
 
     private GuiConstants() {
     }
@@ -68,13 +107,4 @@ public final class GuiConstants {
         return value_;
     }
 
-    public static int cursor(boolean _enabled) {
-        int value_;
-        if (!_enabled) {
-            value_ = Cursor.DEFAULT_CURSOR;
-        } else {
-            value_ = HAND_CURSOR;
-        }
-        return value_;
-    }
 }

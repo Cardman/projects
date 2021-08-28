@@ -1,10 +1,7 @@
 package cards.gui;
 import java.awt.Point;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 
 
-import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
@@ -1216,12 +1213,12 @@ public final class WindowCards extends NetGroupFrame {
         /* Fichier/Charger "accessible n'importe quand"*/
         load=getCompoFactory().newMenuItem(getMessages().getVal(CST_LOAD));
         load.addActionListener(new LoadGameEventCards(this));
-        load.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
+        load.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(load);
         /* Fichier/Sauvegarder "accessible que lorsqu'on joue une partie de cartes"*/
         save=getCompoFactory().newMenuItem(getMessages().getVal(CST_SAVE));
         save.addActionListener(new SaveGameEventCards(this));
-        save.setAccelerator(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
+        save.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(save);
         file.addSeparator();
         /* Fichier/Changer de jeu ACCESSIBLE n'importe quand sauf au menu principal,
@@ -1229,12 +1226,12 @@ public final class WindowCards extends NetGroupFrame {
         change=getCompoFactory().newMenuItem(getMessages().getVal(CST_CHANGE));
         change.setEnabledMenu(false);
         change.addActionListener(new ChangeGameEvent(this));
-        change.setAccelerator(KeyEvent.VK_J, InputEvent.CTRL_DOWN_MASK);
+        change.setAccelerator(GuiConstants.VK_J, GuiConstants.CTRL_DOWN_MASK);
         file.addMenuItem(change);
         file.addSeparator();
         exit=getCompoFactory().newMenuItem(getMessages().getVal(CST_EXIT));
         exit.addActionListener(new QuitEvent(this));
-        exit.setAccelerator((char) KeyEvent.VK_ESCAPE);
+        exit.setAccelerator((char) GuiConstants.VK_ESCAPE);
         file.addMenuItem(exit);
         getJMenuBar().add(file);
     }
@@ -1424,17 +1421,17 @@ public final class WindowCards extends NetGroupFrame {
         demo=getCompoFactory().newMenu(getMessages().getVal(CST_DEMO));
         sousMenu_=getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.BELOTE));
-        sousMenu_.setAccelerator(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK);
+        sousMenu_.setAccelerator(GuiConstants.VK_B, GuiConstants.CTRL_DOWN_MASK + GuiConstants.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.BELOTE, sousSousMenu_);
         sousMenu_=getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.PRESIDENT));
-        sousMenu_.setAccelerator(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK);
+        sousMenu_.setAccelerator(GuiConstants.VK_P, GuiConstants.CTRL_DOWN_MASK + GuiConstants.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.PRESIDENT, sousSousMenu_);
         sousMenu_=getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.TAROT));
-        sousMenu_.setAccelerator(KeyEvent.VK_T, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK);
+        sousMenu_.setAccelerator(GuiConstants.VK_T, GuiConstants.CTRL_DOWN_MASK + GuiConstants.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.TAROT, sousSousMenu_);
         deal.addMenuItem(demo);
@@ -1678,26 +1675,26 @@ public final class WindowCards extends NetGroupFrame {
         parameters=getCompoFactory().newMenu(getMessages().getVal(CST_PARAMETERS));
         AbsMenuItem sousMenu_=getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.BELOTE));
-        sousMenu_.setAccelerator(KeyEvent.VK_B, InputEvent.SHIFT_DOWN_MASK);
+        sousMenu_.setAccelerator(GuiConstants.VK_B, GuiConstants.SHIFT_DOWN_MASK);
         parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.BELOTE, sousMenu_);
         sousMenu_=getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.PRESIDENT));
-        sousMenu_.setAccelerator(KeyEvent.VK_P, InputEvent.SHIFT_DOWN_MASK);
+        sousMenu_.setAccelerator(GuiConstants.VK_P, GuiConstants.SHIFT_DOWN_MASK);
         parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.PRESIDENT, sousMenu_);
         sousMenu_=getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.TAROT));
-        sousMenu_.setAccelerator(KeyEvent.VK_T, InputEvent.SHIFT_DOWN_MASK);
+        sousMenu_.setAccelerator(GuiConstants.VK_T, GuiConstants.SHIFT_DOWN_MASK);
         parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.TAROT, sousMenu_);
         players=getCompoFactory().newMenuItem(getMessages().getVal(CST_PLAYERS));
         players.addActionListener(new ManageNicknameEvent(this));
-        players.setAccelerator(KeyEvent.VK_J, InputEvent.CTRL_DOWN_MASK + InputEvent.ALT_DOWN_MASK);
+        players.setAccelerator(GuiConstants.VK_J, GuiConstants.CTRL_DOWN_MASK + GuiConstants.ALT_DOWN_MASK);
         parameters.addMenuItem(players);
         launching=getCompoFactory().newMenuItem(getMessages().getVal(CST_LAUNCHING));
         launching.addActionListener(new ManageSoftEvent(this, CST_LAUNCHING));
-        launching.setAccelerator(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK);
+        launching.setAccelerator(GuiConstants.VK_L, GuiConstants.CTRL_DOWN_MASK);
         parameters.addMenuItem(launching);
         timing=getCompoFactory().newMenuItem(getMessages().getVal(CST_TIMING));
         timing.addActionListener(new ManageSoftEvent(this, CST_TIMING));

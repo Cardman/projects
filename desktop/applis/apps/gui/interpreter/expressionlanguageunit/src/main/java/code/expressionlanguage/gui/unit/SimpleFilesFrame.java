@@ -20,8 +20,6 @@ import code.util.core.StringUtil;
 
 import javax.swing.WindowConstants;
 import java.awt.Dimension;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 
 public final class SimpleFilesFrame extends ChildFrame implements TestableFrame {
     private static final String DIALOG_ACCESS = "unit.simplefilesframe";
@@ -73,7 +71,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         menu = parent.getCompoFactory().newMenu(messages.getVal("file"));
         open = parent.getCompoFactory().newMenuItem(messages.getVal("open"));
         open.addActionListener(new FileSelectEvent(_parent, this));
-        open.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
+        open.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
         menu.addSeparator();
         stop = parent.getCompoFactory().newMenuItem(messages.getVal("stop"));

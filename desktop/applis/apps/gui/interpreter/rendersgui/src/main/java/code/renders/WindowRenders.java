@@ -32,8 +32,6 @@ import code.util.ints.UniformingString;
 
 import javax.swing.WindowConstants;
 import java.awt.Dimension;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 
 public final class WindowRenders extends GroupFrame {
     private final AbsMenu menu;
@@ -47,7 +45,7 @@ public final class WindowRenders extends GroupFrame {
         menu = getCompoFactory().newMenu("file");
         open = getCompoFactory().newMenuItem("open");
         open.addActionListener(new OpenArchive(this));
-        open.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
+        open.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
         getJMenuBar().add(menu);
         setTitle("Local sites");

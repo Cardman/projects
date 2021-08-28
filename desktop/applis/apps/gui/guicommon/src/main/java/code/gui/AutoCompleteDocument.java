@@ -7,8 +7,6 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-import java.awt.event.KeyEvent;
-
 public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsKeyListener {
 
     private boolean wholeString = true;
@@ -90,19 +88,19 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         if (skip()) {
             return;
         }
-        if (_keyCode == KeyEvent.VK_UP) {
+        if (_keyCode == GuiConstants.VK_UP) {
             int index_ = list.getSelectedIndex();
             if (index_ > 0) {
                 list.clearAllRange();
                 list.setSelectedIndice(index_ - 1);
             }
-        } else if (_keyCode == KeyEvent.VK_DOWN) {
+        } else if (_keyCode == GuiConstants.VK_DOWN) {
             int index_ = list.getSelectedIndex();
             if (index_ != -1 && list.getList().size() > index_ + 1) {
                 list.clearAllRange();
                 list.setSelectedIndice(index_ + 1);
             }
-        } else if (_keyCode == KeyEvent.VK_ENTER) {
+        } else if (_keyCode == GuiConstants.VK_ENTER) {
             Ints ind_ = list.getSelectedIndexes();
             if (ind_.isEmpty()) {
                 return;
@@ -111,7 +109,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
             textField.setText(text_);
             textField.setCaretPosition(text_.length());
         } else {
-            if (_keyCode == KeyEvent.VK_ESCAPE) {
+            if (_keyCode == GuiConstants.VK_ESCAPE) {
                 hideAutocompletePopup();
             }
         }

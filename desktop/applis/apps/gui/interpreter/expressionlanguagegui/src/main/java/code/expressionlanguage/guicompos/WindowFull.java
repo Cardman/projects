@@ -15,8 +15,6 @@ import code.util.StringMap;
 
 import javax.swing.WindowConstants;
 import java.awt.Dimension;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 
 public final class WindowFull extends GroupFrame {
     private final AbsMenu menu;
@@ -43,7 +41,7 @@ public final class WindowFull extends GroupFrame {
         menu = getCompoFactory().newMenu(messages.getVal("file"));
         open = getCompoFactory().newMenuItem(messages.getVal("open"));
         open.addActionListener(new FileOpenEventFull(this));
-        open.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
+        open.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
         getJMenuBar().add(menu);
         contentPane = getCompoFactory().newPageBox();

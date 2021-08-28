@@ -1,5 +1,4 @@
 package aiki.gui.listeners;
-import java.awt.event.KeyEvent;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
@@ -7,6 +6,7 @@ import aiki.gui.components.walk.Scene;
 import aiki.gui.threads.Painting;
 import aiki.map.enums.Direction;
 import code.gui.AbsCtrlKeyState;
+import code.gui.GuiConstants;
 import code.gui.events.AbsKeyListener;
 
 public class KeyPadListener implements AbsKeyListener {
@@ -38,7 +38,7 @@ public class KeyPadListener implements AbsKeyListener {
 //            window.showDataWeb();
 //            return;
 //        }
-        if (_keyCode == KeyEvent.VK_F2) {
+        if (_keyCode == GuiConstants.VK_F2) {
             if (!window.isInBattle()) {
                 return;
             }
@@ -55,13 +55,13 @@ public class KeyPadListener implements AbsKeyListener {
             return;
         }
         Direction dir_;
-        if (_keyCode == KeyEvent.VK_UP) {
+        if (_keyCode == GuiConstants.VK_UP) {
             dir_ = Direction.UP;
-        } else if (_keyCode == KeyEvent.VK_DOWN) {
+        } else if (_keyCode == GuiConstants.VK_DOWN) {
             dir_ = Direction.DOWN;
-        } else if (_keyCode == KeyEvent.VK_LEFT) {
+        } else if (_keyCode == GuiConstants.VK_LEFT) {
             dir_ = Direction.LEFT;
-        } else if (_keyCode == KeyEvent.VK_RIGHT) {
+        } else if (_keyCode == GuiConstants.VK_RIGHT) {
             dir_ = Direction.RIGHT;
         } else {
             return;

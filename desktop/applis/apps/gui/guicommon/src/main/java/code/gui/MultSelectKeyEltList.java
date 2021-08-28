@@ -2,8 +2,6 @@ package code.gui;
 
 import code.gui.events.AbsKeyListenerRel;
 
-import java.awt.event.KeyEvent;
-
 public final class MultSelectKeyEltList extends AbsKeyListenerRel implements IndexableListener {
 
     private final AbsGraphicListDefBase grList;
@@ -24,7 +22,7 @@ public final class MultSelectKeyEltList extends AbsKeyListenerRel implements Ind
         if (!_e.isControlDown()) {
             return;
         }
-        if (_keyCode != KeyEvent.VK_A) {
+        if (_keyCode != GuiConstants.VK_A) {
             return;
         }
         boolean sel_ = !_e.isShiftDown();
