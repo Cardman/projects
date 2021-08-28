@@ -10,9 +10,9 @@ import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
 import code.formathtml.util.BeanCustLgNames;
 import code.gui.*;
-import code.gui.Menu;
-import code.gui.MenuBar;
-import code.gui.MenuItem;
+
+
+import code.gui.AbsMenuItem;
 
 
 import code.gui.document.RenderedPage;
@@ -36,18 +36,18 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public final class WindowRenders extends GroupFrame {
-    private final Menu menu;
-    private final MenuItem open;
+    private final AbsMenu menu;
+    private final AbsMenuItem open;
     private final AbsTextField lgCode;
     private final AbsTextField path;
     private final RenderedPage session;
     protected WindowRenders(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
-        setJMenuBar(new MenuBar());
-        menu = new Menu("file");
-        open = new MenuItem("open");
+        setJMenuBar(getCompoFactory().newMenuBar());
+        menu = getCompoFactory().newMenu("file");
+        open = getCompoFactory().newMenuItem("open");
         open.addActionListener(new OpenArchive(this));
-        open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+        open.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
         getJMenuBar().add(menu);
         setTitle("Local sites");

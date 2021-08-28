@@ -126,7 +126,7 @@ public final class OtherDialog implements AbsOtherDialog,ChangeableTitle,WithLis
         owner = _owner;
     }
 
-    public void setJMenuBar(MenuBar _menuBar) {
-        dialog.setJMenuBar(_menuBar.getMenuBar());
+    public void setJMenuBar(AbsMenuBar _menuBar) {
+        dialog.setJMenuBar(((MenuBar) _menuBar).getMenuBar());
     }
 }

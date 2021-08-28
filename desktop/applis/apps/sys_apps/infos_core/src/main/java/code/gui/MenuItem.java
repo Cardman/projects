@@ -5,10 +5,10 @@ import code.util.IdMap;
 
 import javax.swing.*;
 
-public final class MenuItem implements EnabledMenu {
+public final class MenuItem implements AbsMenuItem {
 
     private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
-    private Menu parentMenu;
+    private AbsMenu parentMenu;
 
     private JMenuItem menu;
 
@@ -37,12 +37,12 @@ public final class MenuItem implements EnabledMenu {
     }
 
     @Override
-    public Menu getParentMenu() {
+    public AbsMenu getParentMenu() {
         return parentMenu;
     }
 
     @Override
-    public void setParentMenu(Menu _parentMenu) {
+    public void setParentMenu(AbsMenu _parentMenu) {
         parentMenu = _parentMenu;
     }
 
@@ -74,7 +74,15 @@ public final class MenuItem implements EnabledMenu {
         return menu.isEnabled();
     }
 
-    public void setAccelerator(KeyStroke _keyStroke) {
-        menu.setAccelerator(_keyStroke);
+    public void setAccelerator(char _a) {
+        menu.setAccelerator(KeyStroke.getKeyStroke(_a));
+    }
+
+    public void setAccelerator(String _a) {
+        menu.setAccelerator(KeyStroke.getKeyStroke(_a));
+    }
+
+    public void setAccelerator(int _a, int _b) {
+        menu.setAccelerator(KeyStroke.getKeyStroke(_a, _b));
     }
 }

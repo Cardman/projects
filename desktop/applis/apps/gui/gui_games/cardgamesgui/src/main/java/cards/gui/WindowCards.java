@@ -459,44 +459,44 @@ public final class WindowCards extends NetGroupFrame {
 
     //file menu
 
-    private Menu file;
-    private MenuItem load;
-    private MenuItem save;
-    private MenuItem change;
-    private MenuItem exit;
+    private AbsMenu file;
+    private AbsMenuItem load;
+    private AbsMenuItem save;
+    private AbsMenuItem change;
+    private AbsMenuItem exit;
 
     //deal menu
 
-    private Menu deal;
-    private MenuItem consulting;
-    private CheckBoxMenuItem pause;
-    private MenuItem helpGame;
-    private MenuItem tricksHands;
-    private MenuItem teams;
-    private Menu edit;
-    private final EnumMap<GameEnum,MenuItem> editGames = new EnumMap<GameEnum,MenuItem>();
-    private Menu demo;
-    private final EnumMap<GameEnum,MenuItem> demoGames = new EnumMap<GameEnum,MenuItem>();
-    private Menu training;
-    private final EnumMap<ChoiceTarot,MenuItem> trainingTarot = new EnumMap<ChoiceTarot,MenuItem>();
-    private MenuItem multiStop;
+    private AbsMenu deal;
+    private AbsMenuItem consulting;
+    private AbsCheckBoxMenuItem pause;
+    private AbsMenuItem helpGame;
+    private AbsMenuItem tricksHands;
+    private AbsMenuItem teams;
+    private AbsMenu edit;
+    private final EnumMap<GameEnum,AbsMenuItem> editGames = new EnumMap<GameEnum,AbsMenuItem>();
+    private AbsMenu demo;
+    private final EnumMap<GameEnum,AbsMenuItem> demoGames = new EnumMap<GameEnum,AbsMenuItem>();
+    private AbsMenu training;
+    private final EnumMap<ChoiceTarot,AbsMenuItem> trainingTarot = new EnumMap<ChoiceTarot,AbsMenuItem>();
+    private AbsMenuItem multiStop;
 
     //parameters menu
 
-    private Menu parameters;
-    private final EnumMap<GameEnum,MenuItem> rulesGames = new EnumMap<GameEnum,MenuItem>();
-    private MenuItem players;
-    private MenuItem launching;
-    private MenuItem timing;
-    private MenuItem interact;
-    private MenuItem language;
-    private Menu displaying;
-    private final EnumMap<GameEnum,MenuItem> displayingGames = new EnumMap<GameEnum,MenuItem>();
+    private AbsMenu parameters;
+    private final EnumMap<GameEnum,AbsMenuItem> rulesGames = new EnumMap<GameEnum,AbsMenuItem>();
+    private AbsMenuItem players;
+    private AbsMenuItem launching;
+    private AbsMenuItem timing;
+    private AbsMenuItem interact;
+    private AbsMenuItem language;
+    private AbsMenu displaying;
+    private final EnumMap<GameEnum,AbsMenuItem> displayingGames = new EnumMap<GameEnum,AbsMenuItem>();
 
     //parameters help
 
-    private Menu help;
-    private MenuItem generalHelp;
+    private AbsMenu help;
+    private AbsMenuItem generalHelp;
 
     //labels at main menu
 
@@ -1091,7 +1091,7 @@ public final class WindowCards extends NetGroupFrame {
         getPause().setEnabledMenu(false);
         getEdit().setEnabledMenu(false);
         getTraining().setEnabledMenu(false);
-        for (MenuItem m: getRulesGames().values()) {
+        for (AbsMenuItem m: getRulesGames().values()) {
             m.setEnabledMenu(false);
         }
         containerGame.finirParties();
@@ -1175,7 +1175,7 @@ public final class WindowCards extends NetGroupFrame {
         getLoad().setEnabledMenu(true);
         getEdit().setEnabledMenu(true);
         getTraining().setEnabledMenu(true);
-        for (MenuItem m: getRulesGames().values()) {
+        for (AbsMenuItem m: getRulesGames().values()) {
             m.setEnabledMenu(true);
         }
         containerGame.finirParties();
@@ -1212,32 +1212,33 @@ public final class WindowCards extends NetGroupFrame {
     }
     private void initFileMenu() {
         /* Fichier */
-        file=new Menu(getMessages().getVal(CST_FILE));
+        file=getCompoFactory().newMenu(getMessages().getVal(CST_FILE));
         /* Fichier/Charger "accessible n'importe quand"*/
-        load=new MenuItem(getMessages().getVal(CST_LOAD));
+        load=getCompoFactory().newMenuItem(getMessages().getVal(CST_LOAD));
         load.addActionListener(new LoadGameEventCards(this));
-        load.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+        load.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
         file.addMenuItem(load);
         /* Fichier/Sauvegarder "accessible que lorsqu'on joue une partie de cartes"*/
-        save=new MenuItem(getMessages().getVal(CST_SAVE));
+        save=getCompoFactory().newMenuItem(getMessages().getVal(CST_SAVE));
         save.addActionListener(new SaveGameEventCards(this));
-        save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
+        save.setAccelerator(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
         file.addMenuItem(save);
         file.addSeparator();
         /* Fichier/Changer de jeu ACCESSIBLE n'importe quand sauf au menu principal,
         on y revient lorsque c'est accessible*/
-        change=new MenuItem(getMessages().getVal(CST_CHANGE));
+        change=getCompoFactory().newMenuItem(getMessages().getVal(CST_CHANGE));
         change.setEnabledMenu(false);
         change.addActionListener(new ChangeGameEvent(this));
-        change.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J,InputEvent.CTRL_DOWN_MASK));
+        change.setAccelerator(KeyEvent.VK_J, InputEvent.CTRL_DOWN_MASK);
         file.addMenuItem(change);
         file.addSeparator();
-        exit=new MenuItem(getMessages().getVal(CST_EXIT));
+        exit=getCompoFactory().newMenuItem(getMessages().getVal(CST_EXIT));
         exit.addActionListener(new QuitEvent(this));
-        exit.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_ESCAPE));
+        exit.setAccelerator((char) KeyEvent.VK_ESCAPE);
         file.addMenuItem(exit);
         getJMenuBar().add(file);
     }
+
     public void loadGame() {
 //        if (!load.isEnabled()) {
 //            return;
@@ -1379,81 +1380,82 @@ public final class WindowCards extends NetGroupFrame {
 
     private void initDealMenu() {
         String lg_ = getLanguageKey();
-        deal=new Menu(getMessages().getVal(CST_DEAL));
+        deal=getCompoFactory().newMenu(getMessages().getVal(CST_DEAL));
         /* Partie/Conseil "accessible uniquement en cours de partie et
         dans les jeux non solitaires"*/
-        MenuItem sousMenu_;
-        consulting=new MenuItem(getMessages().getVal(CST_CONSULTING));
-        consulting.setAccelerator(KeyStroke.getKeyStroke(F_ONE));
+        AbsMenuItem sousMenu_;
+        consulting=getCompoFactory().newMenuItem(getMessages().getVal(CST_CONSULTING));
+        consulting.setAccelerator(F_ONE);
         consulting.addActionListener(new ConsultEvent(this));
         deal.addMenuItem(consulting);
         /* Partie/Pause Permet de mettre le jeu en pause*/
-        pause=new CheckBoxMenuItem(getMessages().getVal(CST_PAUSE));
-        pause.setAccelerator(KeyStroke.getKeyStroke(CST_PAUSE));
+        pause=getCompoFactory().newCheckBoxMenuItem(getMessages().getVal(CST_PAUSE));
+        pause.setAccelerator(CST_PAUSE);
         pause.addActionListener(new PauseEvent(this));
         deal.addMenuItem(pause);
         /* Partie/Pause Permet d avoir de l aide*/
-        helpGame=new MenuItem(getMessages().getVal(HELP_GAME));
-        helpGame.setAccelerator(KeyStroke.getKeyStroke(F_TWO));
+        helpGame=getCompoFactory().newMenuItem(getMessages().getVal(HELP_GAME));
+        helpGame.setAccelerator(F_TWO);
         helpGame.addActionListener(new DisplayHelpGameEvent(this));
         deal.addMenuItem(helpGame);
-        tricksHands=new MenuItem(getMessages().getVal(CST_TRICKS_HANDS));
+        tricksHands=getCompoFactory().newMenuItem(getMessages().getVal(CST_TRICKS_HANDS));
 
         tricksHands.addActionListener(new DisplayTricksHandsEvent(this));
         deal.addMenuItem(tricksHands);
-        teams=new MenuItem(getMessages().getVal(CST_TEAMS));
+        teams=getCompoFactory().newMenuItem(getMessages().getVal(CST_TEAMS));
         teams.addActionListener(new DisplayTeamsEvent(this));
         deal.addMenuItem(teams);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
-        edit=new Menu(getMessages().getVal(CST_EDIT));
-        MenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.toString(lg_));
+        edit=getCompoFactory().newMenu(getMessages().getVal(CST_EDIT));
+        AbsMenuItem sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.BELOTE));
         edit.addMenuItem(sousSousMenu_);
         editGames.put(GameEnum.BELOTE, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.toString(lg_));
+        sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.PRESIDENT));
         edit.addMenuItem(sousSousMenu_);
         editGames.put(GameEnum.PRESIDENT, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.TAROT.toString(lg_));
+        sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.TAROT));
         edit.addMenuItem(sousSousMenu_);
         editGames.put(GameEnum.TAROT, sousSousMenu_);
         deal.addMenuItem(edit);
         /* Partie/Demo "Permet de voir la demostration d une partie"*/
-        demo=new Menu(getMessages().getVal(CST_DEMO));
-        sousMenu_=new MenuItem(GameEnum.BELOTE.toString(lg_));
+        demo=getCompoFactory().newMenu(getMessages().getVal(CST_DEMO));
+        sousMenu_=getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.BELOTE));
-        sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
+        sousMenu_.setAccelerator(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.BELOTE, sousSousMenu_);
-        sousMenu_=new MenuItem(GameEnum.PRESIDENT.toString(lg_));
+        sousMenu_=getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.PRESIDENT));
-        sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
+        sousMenu_.setAccelerator(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.PRESIDENT, sousSousMenu_);
-        sousMenu_=new MenuItem(GameEnum.TAROT.toString(lg_));
+        sousMenu_=getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.TAROT));
-        sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
+        sousMenu_.setAccelerator(KeyEvent.VK_T, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK);
         demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.TAROT, sousSousMenu_);
         deal.addMenuItem(demo);
         /* Partie/Entrainement "accessible n'importe quand pour pouvoir s'entrainer"*/
-        training=new Menu(getMessages().getVal(CST_TRAINING));
+        training=getCompoFactory().newMenu(getMessages().getVal(CST_TRAINING));
         /* Partie/Entrainement au Tarot*/
         //Petitasauver,Petitachasser,Petitaemmeneraubout;
         for (ChoiceTarot ct_:ChoiceTarot.values()) {
 
-            sousMenu_=new MenuItem(Games.toString(ct_,lg_));
+            sousMenu_=getCompoFactory().newMenuItem(Games.toString(ct_,lg_));
             sousMenu_.addActionListener(new ListenerTrainingTarot(this, ct_));
             training.addMenuItem(sousMenu_);
             trainingTarot.put(ct_, sousMenu_);
         }
         deal.addMenuItem(training);
-        multiStop = new MenuItem(getMessages().getVal(CST_MULTI_STOP));
+        multiStop = getCompoFactory().newMenuItem(getMessages().getVal(CST_MULTI_STOP));
         multiStop.addActionListener(new QuitMultiEvent(this));
         deal.addMenuItem(multiStop);
         getJMenuBar().add(deal);
     }
+
     public void consult() {
 //        if (!consulting.isEnabled()) {
 //            return;
@@ -1673,57 +1675,57 @@ public final class WindowCards extends NetGroupFrame {
     private void initParametersMenu() {
         /* Parametres */
         String lg_ = getLanguageKey();
-        parameters=new Menu(getMessages().getVal(CST_PARAMETERS));
-        MenuItem sousMenu_=new MenuItem(GameEnum.BELOTE.toString(lg_));
+        parameters=getCompoFactory().newMenu(getMessages().getVal(CST_PARAMETERS));
+        AbsMenuItem sousMenu_=getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.BELOTE));
-        sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.SHIFT_DOWN_MASK));
+        sousMenu_.setAccelerator(KeyEvent.VK_B, InputEvent.SHIFT_DOWN_MASK);
         parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.BELOTE, sousMenu_);
-        sousMenu_=new MenuItem(GameEnum.PRESIDENT.toString(lg_));
+        sousMenu_=getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.PRESIDENT));
-        sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,InputEvent.SHIFT_DOWN_MASK));
+        sousMenu_.setAccelerator(KeyEvent.VK_P, InputEvent.SHIFT_DOWN_MASK);
         parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.PRESIDENT, sousMenu_);
-        sousMenu_=new MenuItem(GameEnum.TAROT.toString(lg_));
+        sousMenu_=getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.TAROT));
-        sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,InputEvent.SHIFT_DOWN_MASK));
+        sousMenu_.setAccelerator(KeyEvent.VK_T, InputEvent.SHIFT_DOWN_MASK);
         parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.TAROT, sousMenu_);
-        players=new MenuItem(getMessages().getVal(CST_PLAYERS));
+        players=getCompoFactory().newMenuItem(getMessages().getVal(CST_PLAYERS));
         players.addActionListener(new ManageNicknameEvent(this));
-        players.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J,InputEvent.CTRL_DOWN_MASK+InputEvent.ALT_DOWN_MASK));
+        players.setAccelerator(KeyEvent.VK_J, InputEvent.CTRL_DOWN_MASK + InputEvent.ALT_DOWN_MASK);
         parameters.addMenuItem(players);
-        launching=new MenuItem(getMessages().getVal(CST_LAUNCHING));
+        launching=getCompoFactory().newMenuItem(getMessages().getVal(CST_LAUNCHING));
         launching.addActionListener(new ManageSoftEvent(this, CST_LAUNCHING));
-        launching.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,InputEvent.CTRL_DOWN_MASK));
+        launching.setAccelerator(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK);
         parameters.addMenuItem(launching);
-        timing=new MenuItem(getMessages().getVal(CST_TIMING));
+        timing=getCompoFactory().newMenuItem(getMessages().getVal(CST_TIMING));
         timing.addActionListener(new ManageSoftEvent(this, CST_TIMING));
-        timing.setAccelerator(KeyStroke.getKeyStroke(F_FOUR));
+        timing.setAccelerator(F_FOUR);
         parameters.addMenuItem(timing);
-        interact=new MenuItem(getMessages().getVal(CST_INTERACT));
+        interact=getCompoFactory().newMenuItem(getMessages().getVal(CST_INTERACT));
         interact.addActionListener(new ManageSoftEvent(this, CST_INTERACT));
-        interact.setAccelerator(KeyStroke.getKeyStroke(F_FIVE));
+        interact.setAccelerator(F_FIVE);
         parameters.addMenuItem(interact);
-        language=new MenuItem(getMessages().getVal(CST_LANGUAGE));
+        language=getCompoFactory().newMenuItem(getMessages().getVal(CST_LANGUAGE));
         language.addActionListener(new ManageLanguageEventCards(this));
 //        if (Standalone.isStandalone()) {
 //            language.setAccelerator(KeyStroke.getKeyStroke(F_SIX));
 //            parameters.add(language);
 //        }
-        language.setAccelerator(KeyStroke.getKeyStroke(F_SIX));
+        language.setAccelerator(F_SIX);
         parameters.addMenuItem(language);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
-        displaying=new Menu(getMessages().getVal(CST_DISPLAYING));
-        MenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.toString(lg_));
+        displaying=getCompoFactory().newMenu(getMessages().getVal(CST_DISPLAYING));
+        AbsMenuItem sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.BELOTE));
         displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.BELOTE, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.toString(lg_));
+        sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.PRESIDENT));
         displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.PRESIDENT, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.TAROT.toString(lg_));
+        sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.TAROT));
         displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.TAROT, sousSousMenu_);
@@ -1811,12 +1813,12 @@ public final class WindowCards extends NetGroupFrame {
     //private JMenu help;
     private void initHelpMenu() {
         /* Aide */
-        help=new Menu(getMessages().getVal(CST_HELP));
+        help=getCompoFactory().newMenu(getMessages().getVal(CST_HELP));
         /* Aide/Aide generale Explication du fonctionnement du logiciel et des regles utilisables*/
-        generalHelp=new MenuItem(getMessages().getVal(CST_GENERAL_HELP));
+        generalHelp=getCompoFactory().newMenuItem(getMessages().getVal(CST_GENERAL_HELP));
         generalHelp.setEnabledMenu(false);
         generalHelp.addActionListener(new DisplayHelpEvent(this));
-        generalHelp.setAccelerator(KeyStroke.getKeyStroke(F_THREE));
+        generalHelp.setAccelerator(F_THREE);
         help.addMenuItem(generalHelp);
         getJMenuBar().add(help);
 
@@ -1841,7 +1843,7 @@ public final class WindowCards extends NetGroupFrame {
 
     /**Initialise la barre de menus*/
     private void initMenus() {
-        setJMenuBar(new MenuBar());
+        setJMenuBar(getCompoFactory().newMenuBar());
         initFileMenu();
         initDealMenu();
         initParametersMenu();
@@ -2049,119 +2051,119 @@ public final class WindowCards extends NetGroupFrame {
         single = _single;
     }
 
-    public Menu getFile() {
+    public AbsMenu getFile() {
         return file;
     }
 
-    public MenuItem getLoad() {
+    public AbsMenuItem getLoad() {
         return load;
     }
 
-    public MenuItem getSave() {
+    public AbsMenuItem getSave() {
         return save;
     }
 
-    public MenuItem getChange() {
+    public AbsMenuItem getChange() {
         return change;
     }
 
-    public MenuItem getExit() {
+    public AbsMenuItem getExit() {
         return exit;
     }
 
-    public Menu getDeal() {
+    public AbsMenu getDeal() {
         return deal;
     }
 
-    public MenuItem getConsulting() {
+    public AbsMenuItem getConsulting() {
         return consulting;
     }
 
-    public CheckBoxMenuItem getPause() {
+    public AbsCheckBoxMenuItem getPause() {
         return pause;
     }
 
-    public MenuItem getHelpGame() {
+    public AbsMenuItem getHelpGame() {
         return helpGame;
     }
 
-    public MenuItem getTricksHands() {
+    public AbsMenuItem getTricksHands() {
         return tricksHands;
     }
 
-    public MenuItem getTeams() {
+    public AbsMenuItem getTeams() {
         return teams;
     }
 
-    public Menu getEdit() {
+    public AbsMenu getEdit() {
         return edit;
     }
 
-    public EnumMap<GameEnum,MenuItem> getEditGames() {
+    public EnumMap<GameEnum,AbsMenuItem> getEditGames() {
         return editGames;
     }
 
-    public Menu getDemo() {
+    public AbsMenu getDemo() {
         return demo;
     }
 
-    public EnumMap<GameEnum,MenuItem> getDemoGames() {
+    public EnumMap<GameEnum,AbsMenuItem> getDemoGames() {
         return demoGames;
     }
 
-    public Menu getTraining() {
+    public AbsMenu getTraining() {
         return training;
     }
 
-    public EnumMap<ChoiceTarot,MenuItem> getTrainingTarot() {
+    public EnumMap<ChoiceTarot,AbsMenuItem> getTrainingTarot() {
         return trainingTarot;
     }
 
-    public MenuItem getMultiStop() {
+    public AbsMenuItem getMultiStop() {
         return multiStop;
     }
 
-    public Menu getParameters() {
+    public AbsMenu getParameters() {
         return parameters;
     }
 
-    public EnumMap<GameEnum,MenuItem> getRulesGames() {
+    public EnumMap<GameEnum,AbsMenuItem> getRulesGames() {
         return rulesGames;
     }
 
-    public MenuItem getPlayers() {
+    public AbsMenuItem getPlayers() {
         return players;
     }
 
-    public MenuItem getLaunching() {
+    public AbsMenuItem getLaunching() {
         return launching;
     }
 
-    public MenuItem getTiming() {
+    public AbsMenuItem getTiming() {
         return timing;
     }
 
-    public MenuItem getInteract() {
+    public AbsMenuItem getInteract() {
         return interact;
     }
 
-    public MenuItem getLanguage() {
+    public AbsMenuItem getLanguage() {
         return language;
     }
 
-    public Menu getDisplaying() {
+    public AbsMenu getDisplaying() {
         return displaying;
     }
 
-    public EnumMap<GameEnum,MenuItem> getDisplayingGames() {
+    public EnumMap<GameEnum,AbsMenuItem> getDisplayingGames() {
         return displayingGames;
     }
 
-    public Menu getHelp() {
+    public AbsMenu getHelp() {
         return help;
     }
 
-    public MenuItem getGeneralHelp() {
+    public AbsMenuItem getGeneralHelp() {
         return generalHelp;
     }
 

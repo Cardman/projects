@@ -2,14 +2,19 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
-import code.gui.MenuBar;
+import code.gui.AbsMenuBar;
+
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 
 public final class MenuBarStruct extends WithoutParentIdStruct implements Struct {
-    private MenuBar menuBar = new MenuBar();
+    private AbsMenuBar menuBar;
     private CustList<MenuStruct> menus = new CustList<MenuStruct>();
 
-    MenuBar getMenuBar() {
+    public MenuBarStruct(AbsCompoFactory _compo) {
+        menuBar = _compo.newMenuBar();
+    }
+    AbsMenuBar getMenuBar() {
         return menuBar;
     }
 

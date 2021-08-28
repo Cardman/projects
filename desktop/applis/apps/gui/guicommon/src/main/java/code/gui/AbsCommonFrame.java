@@ -31,8 +31,8 @@ public interface AbsCommonFrame extends ChangeableTitle {
     void setContentPane(AbsPanel _contentPane);
     void setContentPane(AbsScrollPane _contentPane);
     AbsPanel getPane();
-    MenuBar getJMenuBar();
-    void setJMenuBar(MenuBar _menu);
+    AbsMenuBar getJMenuBar();
+    void setJMenuBar(AbsMenuBar _menu);
     void setVisible(boolean _b);
     void setLocationRelativeTo(AbsCustComponent _c);
 

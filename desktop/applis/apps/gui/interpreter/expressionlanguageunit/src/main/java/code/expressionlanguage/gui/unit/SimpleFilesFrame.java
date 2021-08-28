@@ -6,9 +6,6 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.*;
-import code.gui.Menu;
-import code.gui.MenuBar;
-import code.gui.MenuItem;
 
 
 import code.gui.events.ClosingChildFrameEvent;
@@ -28,9 +25,9 @@ import java.awt.event.KeyEvent;
 
 public final class SimpleFilesFrame extends ChildFrame implements TestableFrame {
     private static final String DIALOG_ACCESS = "unit.simplefilesframe";
-    private final Menu menu;
-    private final MenuItem open;
-    private final MenuItem stop;
+    private final AbsMenu menu;
+    private final AbsMenuItem open;
+    private final AbsMenuItem stop;
 
     private final AbsPanel contentPane;
     private final AbsPanel form;
@@ -72,14 +69,14 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         setLocationRelativeTo(_parent);
         setTitle(_title);
         setFocusableWindowState(true);
-        setJMenuBar(new MenuBar());
-        menu = new Menu(messages.getVal("file"));
-        open = new MenuItem(messages.getVal("open"));
+        setJMenuBar(parent.getCompoFactory().newMenuBar());
+        menu = parent.getCompoFactory().newMenu(messages.getVal("file"));
+        open = parent.getCompoFactory().newMenuItem(messages.getVal("open"));
         open.addActionListener(new FileSelectEvent(_parent, this));
-        open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+        open.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
         menu.addSeparator();
-        stop = new MenuItem(messages.getVal("stop"));
+        stop = parent.getCompoFactory().newMenuItem(messages.getVal("stop"));
         stop.addActionListener(new StopRunEvent(_parent));
         menu.addMenuItem(stop);
         getJMenuBar().add(menu);

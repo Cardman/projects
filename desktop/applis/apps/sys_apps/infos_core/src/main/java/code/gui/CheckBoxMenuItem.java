@@ -5,9 +5,9 @@ import code.util.IdMap;
 
 import javax.swing.*;
 
-public class CheckBoxMenuItem implements EnabledMenu {
+public class CheckBoxMenuItem implements AbsCheckBoxMenuItem {
 
-    private Menu parentMenu;
+    private AbsMenu parentMenu;
     private JCheckBoxMenuItem menu;
     private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
 
@@ -40,12 +40,12 @@ public class CheckBoxMenuItem implements EnabledMenu {
     }
 
     @Override
-    public Menu getParentMenu() {
+    public AbsMenu getParentMenu() {
         return parentMenu;
     }
 
     @Override
-    public void setParentMenu(Menu _parentMenu) {
+    public void setParentMenu(AbsMenu _parentMenu) {
         parentMenu = _parentMenu;
     }
 
@@ -85,7 +85,15 @@ public class CheckBoxMenuItem implements EnabledMenu {
         mapAction.addEntry(_pauseEvent,wr_);
     }
 
-    public void setAccelerator(KeyStroke _keyStroke) {
-        menu.setAccelerator(_keyStroke);
+    public void setAccelerator(char _a) {
+        menu.setAccelerator(KeyStroke.getKeyStroke(_a));
+    }
+
+    public void setAccelerator(String _a) {
+        menu.setAccelerator(KeyStroke.getKeyStroke(_a));
+    }
+
+    public void setAccelerator(int _a, int _b) {
+        menu.setAccelerator(KeyStroke.getKeyStroke(_a, _b));
     }
 }

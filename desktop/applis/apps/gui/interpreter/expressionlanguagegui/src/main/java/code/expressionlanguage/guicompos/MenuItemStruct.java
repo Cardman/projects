@@ -2,16 +2,17 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsMenuItem;
 import code.gui.EnabledMenu;
-import code.gui.MenuItem;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class MenuItemStruct extends AbsMenuItemStruct {
-    private MenuItem menuItem;
-    MenuItemStruct() {
-        menuItem = new MenuItem();
+    private AbsMenuItem menuItem;
+    MenuItemStruct(AbsCompoFactory _compo) {
+        menuItem = _compo.newMenuItem();
     }
-    MenuItemStruct(Struct _str) {
-        menuItem = new MenuItem(getValue(_str));
+    MenuItemStruct(Struct _str,AbsCompoFactory _compo) {
+        menuItem = _compo.newMenuItem(getValue(_str));
     }
     @Override
     EnabledMenu getMenu() {
@@ -23,7 +24,7 @@ public final class MenuItemStruct extends AbsMenuItemStruct {
         return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasMenuItem();
     }
 
-    public MenuItem getComponent() {
+    public AbsMenuItem getComponent() {
         return menuItem;
     }
 }

@@ -120,7 +120,7 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     //@Override
-    public void setJMenuBar(MenuBar _menu) {
+    public void setJMenuBar(AbsMenuBar _menu) {
         commonFrame.setJMenuBar(_menu);
     }
 
@@ -170,7 +170,7 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     //@Override
-    public MenuBar getJMenuBar() {
+    public AbsMenuBar getJMenuBar() {
         return commonFrame.getJMenuBar();
     }
 

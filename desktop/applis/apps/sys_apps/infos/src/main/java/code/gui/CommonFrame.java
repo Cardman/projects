@@ -22,7 +22,7 @@ public final class CommonFrame implements AbsCommonFrame {
 
     private Ownable owner;
     private final JFrame frame = new JFrame();
-    private MenuBar menuBar;
+    private AbsMenuBar menuBar;
     private String languageKey;
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
     private AbstractImage imageIconFrame;
@@ -136,11 +136,11 @@ public final class CommonFrame implements AbsCommonFrame {
         return contentPane;
     }
 
-    public MenuBar getJMenuBar() {
+    public AbsMenuBar getJMenuBar() {
         return menuBar;
     }
-    public void setJMenuBar(MenuBar _menu) {
-        frame.setJMenuBar(_menu.getMenuBar());
+    public void setJMenuBar(AbsMenuBar _menu) {
+        frame.setJMenuBar(((MenuBar)_menu).getMenuBar());
         menuBar = _menu;
     }
     protected JFrame getFrame() {

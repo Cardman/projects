@@ -373,119 +373,119 @@ public class ContainerGame implements Containable {
         pseudosJoueurs = _pseudosJoueurs;
     }
 
-    public Menu getFile() {
+    public AbsMenu getFile() {
         return window.getFile();
     }
 
-    public MenuItem getLoad() {
+    public AbsMenuItem getLoad() {
         return window.getLoad();
     }
 
-    public MenuItem getSave() {
+    public AbsMenuItem getSave() {
         return window.getSave();
     }
 
-    public MenuItem getChange() {
+    public AbsMenuItem getChange() {
         return window.getChange();
     }
 
-    public MenuItem getExit() {
+    public AbsMenuItem getExit() {
         return window.getExit();
     }
 
-    public Menu getDeal() {
+    public AbsMenu getDeal() {
         return window.getDeal();
     }
 
-    public MenuItem getConsulting() {
+    public AbsMenuItem getConsulting() {
         return window.getConsulting();
     }
 
-    public CheckBoxMenuItem getPause() {
+    public AbsCheckBoxMenuItem getPause() {
         return window.getPause();
     }
 
-    public MenuItem getHelpGame() {
+    public AbsMenuItem getHelpGame() {
         return window.getHelpGame();
     }
 
-    public MenuItem getTricksHands() {
+    public AbsMenuItem getTricksHands() {
         return window.getTricksHands();
     }
 
-    public MenuItem getTeams() {
+    public AbsMenuItem getTeams() {
         return window.getTeams();
     }
 
-    public Menu getEdit() {
+    public AbsMenu getEdit() {
         return window.getEdit();
     }
 
-    public EnumMap<GameEnum,MenuItem> getEditGames() {
+    public EnumMap<GameEnum,AbsMenuItem> getEditGames() {
         return window.getEditGames();
     }
 
-    public Menu getDemo() {
+    public AbsMenu getDemo() {
         return window.getDemo();
     }
 
-    public EnumMap<GameEnum,MenuItem> getDemoGames() {
+    public EnumMap<GameEnum,AbsMenuItem> getDemoGames() {
         return window.getDemoGames();
     }
 
-    public Menu getTraining() {
+    public AbsMenu getTraining() {
         return window.getTraining();
     }
 
-    public EnumMap<ChoiceTarot,MenuItem> getTrainingTarot() {
+    public EnumMap<ChoiceTarot,AbsMenuItem> getTrainingTarot() {
         return window.getTrainingTarot();
     }
 
-    public MenuItem getMultiStop() {
+    public AbsMenuItem getMultiStop() {
         return window.getMultiStop();
     }
 
-    public Menu getParameters() {
+    public AbsMenu getParameters() {
         return window.getParameters();
     }
 
-    public EnumMap<GameEnum,MenuItem> getRulesGames() {
+    public EnumMap<GameEnum,AbsMenuItem> getRulesGames() {
         return window.getRulesGames();
     }
 
-    public MenuItem getPlayers() {
+    public AbsMenuItem getPlayers() {
         return window.getPlayers();
     }
 
-    public MenuItem getLaunching() {
+    public AbsMenuItem getLaunching() {
         return window.getLaunching();
     }
 
-    public MenuItem getTiming() {
+    public AbsMenuItem getTiming() {
         return window.getTiming();
     }
 
-    public MenuItem getInteract() {
+    public AbsMenuItem getInteract() {
         return window.getInteract();
     }
 
-    public MenuItem getLanguage() {
+    public AbsMenuItem getLanguage() {
         return window.getLanguage();
     }
 
-    public Menu getDisplaying() {
+    public AbsMenu getDisplaying() {
         return window.getDisplaying();
     }
 
-    public EnumMap<GameEnum,MenuItem> getDisplayingGames() {
+    public EnumMap<GameEnum,AbsMenuItem> getDisplayingGames() {
         return window.getDisplayingGames();
     }
 
-    public Menu getHelp() {
+    public AbsMenu getHelp() {
         return window.getHelp();
     }
 
-    public MenuItem getGeneralHelp() {
+    public AbsMenuItem getGeneralHelp() {
         return window.getGeneralHelp();
     }
 

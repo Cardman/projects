@@ -58,4 +58,17 @@ public interface AbsCompoFactory {
     AbsPlainLabel newPlainLabel(String _value);
     AbsTableGui newTableGui(String... _cols);
     AbsWrappedTextArea newWrappedTextArea(int _rows, int _columns);
+    AbsMenuBar newMenuBar();
+
+    AbsMenu newMenu();
+
+    AbsMenu newMenu(String _value);
+
+    AbsCheckBoxMenuItem newCheckBoxMenuItem();
+
+    AbsCheckBoxMenuItem newCheckBoxMenuItem(String _value);
+
+    AbsMenuItem newMenuItem();
+
+    AbsMenuItem newMenuItem(String _value);
 }

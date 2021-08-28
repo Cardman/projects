@@ -3,16 +3,17 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.CheckBoxMenuItem;
+import code.gui.AbsCheckBoxMenuItem;
 import code.gui.EnabledMenu;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class MenuItemCheckStruct extends AbsMenuItemStruct {
-    private CheckBoxMenuItem menuItem;
-    MenuItemCheckStruct() {
-        menuItem = new CheckBoxMenuItem();
+    private AbsCheckBoxMenuItem menuItem;
+    MenuItemCheckStruct(AbsCompoFactory _compo) {
+        menuItem = _compo.newCheckBoxMenuItem();
     }
-    MenuItemCheckStruct(Struct _str) {
-        menuItem = new CheckBoxMenuItem(getValue(_str));
+    MenuItemCheckStruct(Struct _str,AbsCompoFactory _compo) {
+        menuItem = _compo.newCheckBoxMenuItem(getValue(_str));
     }
     public Struct isSelected() {
         return BooleanStruct.of(menuItem.isSelected());
@@ -30,7 +31,7 @@ public final class MenuItemCheckStruct extends AbsMenuItemStruct {
         return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasMenuItemCheck();
     }
 
-    public CheckBoxMenuItem getComponent() {
+    public AbsCheckBoxMenuItem getComponent() {
         return menuItem;
     }
 }

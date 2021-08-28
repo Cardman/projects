@@ -10,9 +10,9 @@ import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.*;
-import code.gui.Menu;
-import code.gui.MenuBar;
-import code.gui.MenuItem;
+
+
+import code.gui.AbsMenuItem;
 
 
 import code.gui.events.QuittingEvent;
@@ -30,12 +30,12 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public final class WindowUnit extends GroupFrame implements TestableFrame {
-    private final Menu menu;
-    private final MenuItem open;
-    private final CheckBoxMenuItem logErr;
-    private final MenuItem simpleFrame;
-    private final MenuItem stop;
-    private final CheckBoxMenuItem memory;
+    private final AbsMenu menu;
+    private final AbsMenuItem open;
+    private final AbsCheckBoxMenuItem logErr;
+    private final AbsMenuItem simpleFrame;
+    private final AbsMenuItem stop;
+    private final AbsCheckBoxMenuItem memory;
 
     private final AbsPanel contentPane;
     private final AbsPanel form;
@@ -69,23 +69,23 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         String loadedResourcesMessages_ = MessCdmUnitGr.ms().getVal(fileName_);
         unitMessages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         setTitle(unitMessages.getVal("title"));
-        setJMenuBar(new MenuBar());
-        menu = new Menu(unitMessages.getVal("file"));
-        open = new MenuItem(unitMessages.getVal("open"));
+        setJMenuBar(getCompoFactory().newMenuBar());
+        menu = getCompoFactory().newMenu(unitMessages.getVal("file"));
+        open = getCompoFactory().newMenuItem(unitMessages.getVal("open"));
         open.addActionListener(new FileOpenEventUnit(this, this));
-        open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+        open.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
-        logErr = new CheckBoxMenuItem(unitMessages.getVal("status"));
+        logErr = getCompoFactory().newCheckBoxMenuItem(unitMessages.getVal("status"));
         logErr.addActionListener(new LogErrEvent(this));
         menu.addMenuItem(logErr);
-        memory = new CheckBoxMenuItem(unitMessages.getVal("memory"));
+        memory = getCompoFactory().newCheckBoxMenuItem(unitMessages.getVal("memory"));
         menu.addMenuItem(memory);
         menu.addSeparator();
-        simpleFrame = new MenuItem(unitMessages.getVal("archive"));
+        simpleFrame = getCompoFactory().newMenuItem(unitMessages.getVal("archive"));
         simpleFrame.addActionListener(new SimpleFilesFrameOpen(this));
         menu.addMenuItem(simpleFrame);
         menu.addSeparator();
-        stop = new MenuItem(unitMessages.getVal("stop"));
+        stop = getCompoFactory().newMenuItem(unitMessages.getVal("stop"));
         stop.addActionListener(new StopRunEvent(this));
         menu.addMenuItem(stop);
         getJMenuBar().add(menu);

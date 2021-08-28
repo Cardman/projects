@@ -7,7 +7,7 @@ public interface EnabledMenu {
     void setEnabled(boolean _enabled);
     String getText();
     void setText(String _val);
-    Menu getParentMenu();
+    AbsMenu getParentMenu();
 
-    void setParentMenu(Menu _parentMenu);
+    void setParentMenu(AbsMenu _parentMenu);
 }

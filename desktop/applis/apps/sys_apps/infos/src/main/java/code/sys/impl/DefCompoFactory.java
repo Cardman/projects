@@ -231,4 +231,39 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsWrappedTextArea newWrappedTextArea(int _rows, int _columns) {
         return new WrappedTextArea(_rows, _columns);
     }
+
+    @Override
+    public AbsMenuBar newMenuBar() {
+        return new MenuBar();
+    }
+
+    @Override
+    public AbsMenu newMenu() {
+        return new Menu();
+    }
+
+    @Override
+    public AbsMenu newMenu(String _value) {
+        return new Menu(_value);
+    }
+
+    @Override
+    public AbsCheckBoxMenuItem newCheckBoxMenuItem() {
+        return new CheckBoxMenuItem();
+    }
+
+    @Override
+    public AbsCheckBoxMenuItem newCheckBoxMenuItem(String _value) {
+        return new CheckBoxMenuItem(_value);
+    }
+
+    @Override
+    public AbsMenuItem newMenuItem() {
+        return new MenuItem();
+    }
+
+    @Override
+    public AbsMenuItem newMenuItem(String _value) {
+        return new MenuItem(_value);
+    }
 }

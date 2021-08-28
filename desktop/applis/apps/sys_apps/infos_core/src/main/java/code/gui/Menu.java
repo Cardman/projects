@@ -3,9 +3,9 @@ import code.util.IdList;
 
 import javax.swing.JMenu;
 
-public final class Menu implements EnabledMenu {
+public final class Menu implements AbsMenu {
 
-    private Menu parentMenu;
+    private AbsMenu parentMenu;
     private final IdList<EnabledMenu> subs = new IdList<EnabledMenu>();
 
     private final JMenu menu;
@@ -23,12 +23,12 @@ public final class Menu implements EnabledMenu {
     }
 
     @Override
-    public Menu getParentMenu() {
+    public AbsMenu getParentMenu() {
         return parentMenu;
     }
 
     @Override
-    public void setParentMenu(Menu _parentMenu) {
+    public void setParentMenu(AbsMenu _parentMenu) {
         parentMenu = _parentMenu;
     }
 
@@ -37,35 +37,35 @@ public final class Menu implements EnabledMenu {
         MenuItemUtils.setEnabled(_b, this);
     }
 
-    public void addMenuItem(CheckBoxMenuItem _menuItem) {
+    public void addMenuItem(AbsCheckBoxMenuItem _menuItem) {
         _menuItem.setParentMenu(this);
-        menu.add(_menuItem.getMenu());
+        menu.add(((CheckBoxMenuItem)_menuItem).getMenu());
         subs.add(_menuItem);
     }
-    public void addMenuItem(MenuItem _menuItem) {
+    public void addMenuItem(AbsMenuItem _menuItem) {
         _menuItem.setParentMenu(this);
-        menu.add(_menuItem.getMenu());
+        menu.add(((MenuItem)_menuItem).getMenu());
         subs.add(_menuItem);
     }
-    public void addMenuItem(Menu _menuItem) {
+    public void addMenuItem(AbsMenu _menuItem) {
         _menuItem.setParentMenu(this);
-        menu.add(_menuItem.menu);
+        menu.add(((Menu)_menuItem).menu);
         subs.add(_menuItem);
     }
 
-    public void removeMenuItem(CheckBoxMenuItem _menuItem) {
+    public void removeMenuItem(AbsCheckBoxMenuItem _menuItem) {
         _menuItem.setParentMenu(null);
-        menu.remove(_menuItem.getMenu());
+        menu.remove(((CheckBoxMenuItem)_menuItem).getMenu());
         subs.removeObj(_menuItem);
     }
-    public void removeMenuItem(MenuItem _menuItem) {
+    public void removeMenuItem(AbsMenuItem _menuItem) {
         _menuItem.setParentMenu(null);
-        menu.remove(_menuItem.getMenu());
+        menu.remove(((MenuItem)_menuItem).getMenu());
         subs.removeObj(_menuItem);
     }
-    public void removeMenuItem(Menu _menuItem) {
+    public void removeMenuItem(AbsMenu _menuItem) {
         _menuItem.setParentMenu(null);
-        menu.remove(_menuItem.menu);
+        menu.remove(((Menu)_menuItem).menu);
         subs.removeObj(_menuItem);
     }
     JMenu getMenu() {

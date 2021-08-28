@@ -5,7 +5,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
 import aiki.db.DataBase;
@@ -152,31 +151,31 @@ public final class WindowAiki extends NetGroupFrame {
 
     private LoadingGame loadingConf;
 
-    private Menu file;
+    private AbsMenu file;
 
-    private MenuItem zipLoad;
+    private AbsMenuItem zipLoad;
 
-    private MenuItem folderLoad;
+    private AbsMenuItem folderLoad;
 
-    private MenuItem gameLoad;
+    private AbsMenuItem gameLoad;
 
-    private MenuItem gameSave;
+    private AbsMenuItem gameSave;
 
-    private MenuItem language;
+    private AbsMenuItem language;
 
-    private MenuItem params;
+    private AbsMenuItem params;
 
-    private MenuItem quit;
+    private AbsMenuItem quit;
 
-    private Menu dataGame;
+    private AbsMenu dataGame;
 
-    private MenuItem dataWeb;
+    private AbsMenuItem dataWeb;
 
-    private MenuItem dataBattle;
+    private AbsMenuItem dataBattle;
 
-    private MenuItem newGame;
+    private AbsMenuItem newGame;
 
-    private MenuItem difficulty;
+    private AbsMenuItem difficulty;
 
     private final AbsPanel mainPanel;
 
@@ -689,42 +688,42 @@ public final class WindowAiki extends NetGroupFrame {
 //    }
 
     private void initMenuBar() {
-        MenuBar bar_ = new MenuBar();
-        file = new Menu();
-        zipLoad = new MenuItem();
+        AbsMenuBar bar_ = getCompoFactory().newMenuBar();
+        file = getCompoFactory().newMenu();
+        zipLoad = getCompoFactory().newMenuItem();
         zipLoad.addActionListener(new LoadZipEvent(this,false));
-        zipLoad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.CTRL_DOWN_MASK));
+        zipLoad.setAccelerator(KeyEvent.VK_M, InputEvent.CTRL_DOWN_MASK);
         file.addMenuItem(zipLoad);
-        folderLoad = new MenuItem();
+        folderLoad = getCompoFactory().newMenuItem();
         folderLoad.addActionListener(new LoadZipEvent(this,true));
-        folderLoad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK));
+        folderLoad.setAccelerator(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK);
         file.addMenuItem(folderLoad);
-        gameLoad = new MenuItem();
+        gameLoad = getCompoFactory().newMenuItem();
         gameLoad.addActionListener(new LoadGameEventAiki(this));
-        gameLoad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+        gameLoad.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
         file.addMenuItem(gameLoad);
-        gameSave = new MenuItem();
+        gameSave = getCompoFactory().newMenuItem();
         gameSave.addActionListener(new SaveGameEventAiki(this));
-        gameSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
+        gameSave.setAccelerator(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK);
         file.addMenuItem(gameSave);
         file.addSeparator();
-        language = new MenuItem();
+        language = getCompoFactory().newMenuItem();
         language.addActionListener(new ManageLanguageEventAiki(this));
 //        if (Standalone.isStandalone()) {
 //            file.add(language);
 //        }
         file.addMenuItem(language);
-        params = new MenuItem();
-        params.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK));
+        params = getCompoFactory().newMenuItem();
+        params.setAccelerator(KeyEvent.VK_L, InputEvent.CTRL_DOWN_MASK);
         params.addActionListener(new ManageParamsEvent(this));
         file.addMenuItem(params);
         file.addSeparator();
-        quit = new MenuItem();
-        quit.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_ESCAPE));
+        quit = getCompoFactory().newMenuItem();
+        quit.setAccelerator((char) KeyEvent.VK_ESCAPE);
         quit.addActionListener(new QuitEvent(this));
         file.addMenuItem(quit);
         bar_.add(file);
-        dataGame = new Menu();
+        dataGame = getCompoFactory().newMenu();
 //        dataGame = new JMenuItem();
 //        dataGame.addMouseListener(new MouseAdapter() {
 //
@@ -748,23 +747,23 @@ public final class WindowAiki extends NetGroupFrame {
 //                pack();
 //            }
 //        });
-        dataWeb = new MenuItem();
-        dataWeb.setAccelerator(KeyStroke.getKeyStroke(F_ONE));
+        dataWeb = getCompoFactory().newMenuItem();
+        dataWeb.setAccelerator(F_ONE);
         dataWeb.addActionListener(new ShowDataWebEvent(this));
         dataGame.addMenuItem(dataWeb);
-        dataBattle = new MenuItem();
+        dataBattle = getCompoFactory().newMenuItem();
         dataBattle.setEnabledMenu(false);
-        dataBattle.setAccelerator(KeyStroke.getKeyStroke(F_TWO));
+        dataBattle.setAccelerator(F_TWO);
         dataBattle.addActionListener(new ShowDataFightEvent(this));
         dataGame.addMenuItem(dataBattle);
-        newGame = new MenuItem();
+        newGame = getCompoFactory().newMenuItem();
         newGame.addActionListener(new ProponeNewGameEvent(this));
-        newGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
+        newGame.setAccelerator(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK);
         dataGame.addMenuItem(newGame);
-        difficulty = new MenuItem();
+        difficulty = getCompoFactory().newMenuItem();
         difficulty.setEnabledMenu(false);
         difficulty.addActionListener(new ManageDifficultyEvent(this));
-        difficulty.setAccelerator(KeyStroke.getKeyStroke(F_THREE));
+        difficulty.setAccelerator(F_THREE);
         dataGame.addMenuItem(difficulty);
         bar_.add(dataGame);
         setJMenuBar(bar_);
@@ -1549,19 +1548,19 @@ public final class WindowAiki extends NetGroupFrame {
         return dialog;
     }
 
-    public MenuItem getFolderLoad() {
+    public AbsMenuItem getFolderLoad() {
         return folderLoad;
     }
 
-    public MenuItem getZipLoad() {
+    public AbsMenuItem getZipLoad() {
         return zipLoad;
     }
 
-    public MenuItem getGameLoad() {
+    public AbsMenuItem getGameLoad() {
         return gameLoad;
     }
 
-    public MenuItem getNewGame() {
+    public AbsMenuItem getNewGame() {
         return newGame;
     }
 

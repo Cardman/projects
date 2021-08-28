@@ -85,8 +85,8 @@ public final class OtherFrame implements AbsOtherFrame,ChangeableTitle,WithListe
     public void setVisible(boolean _v) {
         frame.setVisible(_v);
     }
-    public void setJMenuBar(MenuBar _menu) {
-        frame.setJMenuBar(_menu.getMenuBar());
+    public void setJMenuBar(AbsMenuBar _menu) {
+        frame.setJMenuBar(((MenuBar) _menu).getMenuBar());
     }
     @Override
     public void setContentPane(AbsPanel _p) {

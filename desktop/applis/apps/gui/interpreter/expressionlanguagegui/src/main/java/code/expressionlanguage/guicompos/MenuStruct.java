@@ -5,18 +5,20 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.AbsMenu;
 import code.gui.EnabledMenu;
-import code.gui.Menu;
+
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 
 public final class MenuStruct extends AbsMenuStruct {
-    private final Menu menu;
+    private final AbsMenu menu;
     private final CustList<AbsMenuStruct> menus = new CustList<AbsMenuStruct>();
-    MenuStruct() {
-        menu = new Menu();
+    MenuStruct(AbsCompoFactory _compo) {
+        menu = _compo.newMenu();
     }
-    MenuStruct(Struct _str) {
-        menu = new Menu(getValue(_str));
+    MenuStruct(Struct _str,AbsCompoFactory _compo) {
+        menu = _compo.newMenu(getValue(_str));
     }
 
     public void add(Struct _c) {
@@ -81,7 +83,7 @@ public final class MenuStruct extends AbsMenuStruct {
         return getComponent();
     }
 
-    Menu getComponent() {
+    AbsMenu getComponent() {
         return menu;
     }
     @Override

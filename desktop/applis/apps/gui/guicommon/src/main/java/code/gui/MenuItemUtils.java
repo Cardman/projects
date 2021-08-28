@@ -16,7 +16,7 @@ final class MenuItemUtils {
         return null;
     }
     static void setEnabled(boolean _b, EnabledMenu _subMenu) {
-        Menu mPar_ = _subMenu.getParentMenu();
+        AbsMenu mPar_ = _subMenu.getParentMenu();
         while (mPar_ != null) {
             if (!_b) {
                 int nbSubMenus_ = mPar_.getSubCount();

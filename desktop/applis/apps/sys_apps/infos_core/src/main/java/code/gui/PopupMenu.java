@@ -19,25 +19,25 @@ public final class PopupMenu extends CustComponent implements AbsPopupMenu {
     public void add(AbsCustComponent _global) {
         popupMenu.add(((CustComponent)_global).getNatComponent());
     }
-    public void add(Menu _global) {
-        popupMenu.add(_global.getMenu());
+    public void add(AbsMenu _global) {
+        popupMenu.add(((Menu)_global).getMenu());
     }
-    public void add(MenuItem _global) {
-        popupMenu.add(_global.getMenu());
+    public void add(AbsMenuItem _global) {
+        popupMenu.add(((MenuItem)_global).getMenu());
     }
-    public void add(CheckBoxMenuItem _global) {
-        popupMenu.add(_global.getMenu());
+    public void add(AbsCheckBoxMenuItem _global) {
+        popupMenu.add(((CheckBoxMenuItem)_global).getMenu());
     }
     public void remove(AbsCustComponent _global) {
         popupMenu.remove(((CustComponent)_global).getNatComponent());
     }
-    public void remove(Menu _global) {
-        popupMenu.remove(_global.getMenu());
+    public void remove(AbsMenu _global) {
+        popupMenu.remove(((Menu)_global).getMenu());
     }
-    public void remove(MenuItem _global) {
-        popupMenu.remove(_global.getMenu());
+    public void remove(AbsMenuItem _global) {
+        popupMenu.remove(((MenuItem)_global).getMenu());
     }
-    public void remove(CheckBoxMenuItem _global) {
-        popupMenu.remove(_global.getMenu());
+    public void remove(AbsCheckBoxMenuItem _global) {
+        popupMenu.remove(((CheckBoxMenuItem)_global).getMenu());
     }
 }

@@ -1,9 +1,9 @@
 package code.expressionlanguage.guicompos;
 
 import code.gui.*;
-import code.gui.Menu;
-import code.gui.MenuBar;
-import code.gui.MenuItem;
+
+
+import code.gui.AbsMenuItem;
 
 
 import code.gui.events.QuittingEvent;
@@ -19,8 +19,8 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public final class WindowFull extends GroupFrame {
-    private final Menu menu;
-    private final MenuItem open;
+    private final AbsMenu menu;
+    private final AbsMenuItem open;
 
     private final AbsPanel contentPane;
     private final AbsPanel form;
@@ -39,11 +39,11 @@ public final class WindowFull extends GroupFrame {
         String loadedResourcesMessages_ = MessCdmGuiGr.ms().getVal(fileName_);
         messages = ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
         setTitle(messages.getVal("title"));
-        setJMenuBar(new MenuBar());
-        menu = new Menu(messages.getVal("file"));
-        open = new MenuItem(messages.getVal("open"));
+        setJMenuBar(getCompoFactory().newMenuBar());
+        menu = getCompoFactory().newMenu(messages.getVal("file"));
+        open = getCompoFactory().newMenuItem(messages.getVal("open"));
         open.addActionListener(new FileOpenEventFull(this));
-        open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+        open.setAccelerator(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK);
         menu.addMenuItem(open);
         getJMenuBar().add(menu);
         contentPane = getCompoFactory().newPageBox();

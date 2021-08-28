@@ -82,7 +82,7 @@ public abstract class ChildFrame implements AbsChildFrame {
     }
 
     //@Override
-    public void setJMenuBar(MenuBar _menu) {
+    public void setJMenuBar(AbsMenuBar _menu) {
         absCommonFrame.setJMenuBar(_menu);
     }
 
@@ -142,7 +142,7 @@ public abstract class ChildFrame implements AbsChildFrame {
     }
 
     //@Override
-    public MenuBar getJMenuBar() {
+    public AbsMenuBar getJMenuBar() {
         return absCommonFrame.getJMenuBar();
     }
 

@@ -3559,7 +3559,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(new MenuBarStruct());
+            r_.setResult(new MenuBarStruct(_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasMenu)) {
@@ -3569,10 +3569,10 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new MenuStruct());
+                r_.setResult(new MenuStruct(_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
-            r_.setResult(new MenuStruct(_args[0]));
+            r_.setResult(new MenuStruct(_args[0],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasMenuItem)) {
@@ -3582,10 +3582,10 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new MenuItemStruct());
+                r_.setResult(new MenuItemStruct(_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
-            r_.setResult(new MenuItemStruct(_args[0]));
+            r_.setResult(new MenuItemStruct(_args[0],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasMenuItemCheck)) {
@@ -3595,10 +3595,10 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new MenuItemCheckStruct());
+                r_.setResult(new MenuItemCheckStruct(_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
-            r_.setResult(new MenuItemCheckStruct(_args[0]));
+            r_.setResult(new MenuItemCheckStruct(_args[0],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);
