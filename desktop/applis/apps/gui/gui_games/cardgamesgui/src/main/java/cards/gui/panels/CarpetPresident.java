@@ -9,7 +9,6 @@ import cards.gui.labels.GraphicPresidentCard;
 import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 import code.gui.TextLabel;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
@@ -43,11 +42,11 @@ public class CarpetPresident {
     private AbsPanel container;
 
     public void initTapisPresident(String _lg, StringList _pseudos, ByteMap<Playing> _status, int _nombre, AbsCompoFactory _compoFactory) {
-        container = Panel.newBorder();
+        container = _compoFactory.newBorder();
         number = _nombre;
         pseudos = _pseudos;
         cards = new ByteMap<Playing>(_status);
-        centerDeck= Panel.newLineBox();
+        centerDeck= _compoFactory.newLineBox();
         centerDeck.setPreferredSize(GraphicPresidentCard.getDimensionForSeveralCards(_nombre));
         listCards.clear();
         boolean entered_ = false;
@@ -61,7 +60,7 @@ public class CarpetPresident {
         }
         centerDeck.setBackground(new Color(0, 125, 0));
         container.add(centerDeck, BorderLayout.CENTER);
-        playersPanel = Panel.newPageBox();
+        playersPanel = _compoFactory.newPageBox();
         for (String n: pseudos) {
             TextLabel l_ = new TextLabel(n);
             l_.setOpaque(true);

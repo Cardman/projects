@@ -8,6 +8,7 @@ import code.gui.events.CreateFolderEvent;
 import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
@@ -44,12 +45,12 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     private final TextField typedString = new TextField(NB_COLS);
 
-    private final AbsPanel searchingPanel = Panel.newLineBox();
+    private final AbsPanel searchingPanel = getCompoFactory().newLineBox();
 
     private StringMap<String> messages;
     private GroupFrame frame;
 
-    public FileSaveDialog(AbsFrameFactory _frameFact) {
+    public FileSaveDialog(AbstractProgramInfos _frameFact) {
         super(_frameFact);
         getAbsDialog().setAccessFile(DIALOG_ACCESS);
     }

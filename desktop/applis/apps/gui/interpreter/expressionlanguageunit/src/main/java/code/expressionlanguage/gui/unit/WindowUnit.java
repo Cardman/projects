@@ -13,7 +13,6 @@ import code.gui.*;
 import code.gui.Menu;
 import code.gui.MenuBar;
 import code.gui.MenuItem;
-import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
@@ -90,8 +89,8 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         stop.addActionListener(new StopRunEvent(this));
         menu.addMenuItem(stop);
         getJMenuBar().add(menu);
-        contentPane = Panel.newPageBox();
-        form = Panel.newGrid(0,2);
+        contentPane = getCompoFactory().newPageBox();
+        form = getCompoFactory().newGrid(0,2);
         content = new PlainLabel(unitMessages.getVal("configuration"));
         form.add(content);
         conf = new TextArea(64,64);
@@ -103,7 +102,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         form.add(launch);
         form.add(new TextLabel(""));
         contentPane.add(form);
-        progressing = Panel.newPageBox();
+        progressing = getCompoFactory().newPageBox();
         doneTests = new PlainLabel(unitMessages.getVal("tests"));
         progressing.add(doneTests);
         doneTestsCount = new PlainLabel("");

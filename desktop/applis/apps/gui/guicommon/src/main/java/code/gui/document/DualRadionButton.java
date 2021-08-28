@@ -15,7 +15,7 @@ public final class DualRadionButton extends DualInput implements IntRadioButton 
         super(_container, _component, _page);
         value = _component.getValue();
         radio = new RadioButton("", _component.isChecked());
-        panel = Panel.newLineBox();
+        panel = _page.getCompoFactory().newLineBox();
         updateGraphics(radio,_component);
         panel.add(radio);
     }

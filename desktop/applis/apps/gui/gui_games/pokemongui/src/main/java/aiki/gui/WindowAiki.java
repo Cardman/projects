@@ -261,12 +261,12 @@ public final class WindowAiki extends NetGroupFrame {
 
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
         super(_lg, _list);
-        selectEgg = new SelectEgg(_list.getFrameFactory());
-        selectPokemon = new SelectPokemon(_list.getFrameFactory());
-        selectHealedMove = new SelectHealedMove(_list.getFrameFactory());
-        selectHealingItem = new SelectHealingItem(_list.getFrameFactory());
-        selectItem = new SelectItem(_list.getFrameFactory());
-        selectTm = new SelectTm(_list.getFrameFactory());
+        selectEgg = new SelectEgg(_list.getFrameFactory(),_list.getCompoFactory());
+        selectPokemon = new SelectPokemon(_list.getFrameFactory(),_list.getCompoFactory());
+        selectHealedMove = new SelectHealedMove(_list.getFrameFactory(),_list.getCompoFactory());
+        selectHealingItem = new SelectHealingItem(_list.getFrameFactory(),_list.getCompoFactory());
+        selectItem = new SelectItem(_list.getFrameFactory(),_list.getCompoFactory());
+        selectTm = new SelectTm(_list.getFrameFactory(),_list.getCompoFactory());
         consultHosts = new ConsultHosts(_list.getFrameFactory());
         dialogDifficulty = new DialogDifficulty(_list.getFrameFactory());
         dialogGameProgess = new DialogGameProgess(_list.getFrameFactory());
@@ -288,7 +288,7 @@ public final class WindowAiki extends NetGroupFrame {
         facade.setDisplayLanguages(displayLanguages_);
         facade.setSimplyLanguage(_lg);
         setImageIconFrame(LaunchingPokemon.getIcon(getImageFactory()));
-        mainPanel = Panel.newPageBox();
+        mainPanel = getCompoFactory().newPageBox();
         scenePanel = new ScenePanel(this, facade);
         initBattle();
         initMenuBar();
@@ -488,10 +488,10 @@ public final class WindowAiki extends NetGroupFrame {
 
     private void addBeginGame() {
         if (beginGame == null) {
-            beginGame = Panel.newPageBox();
+            beginGame = getCompoFactory().newPageBox();
         }
         beginGame.removeAll();
-        AbsPanel heros_ = Panel.newLineBox();
+        AbsPanel heros_ = getCompoFactory().newLineBox();
         for (Sex s: Sex.values()) {
             ImageHeroKey i_;
             i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
@@ -503,7 +503,7 @@ public final class WindowAiki extends NetGroupFrame {
             heros_.add(label_);
         }
         beginGame.add(heros_);
-        AbsPanel nickname_ = Panel.newLineBox();
+        AbsPanel nickname_ = getCompoFactory().newLineBox();
         nickname_.add(new TextLabel(messages.getVal(CST_NICKNAME)));
         if (nickname == null) {
             nickname = new TextField(16);

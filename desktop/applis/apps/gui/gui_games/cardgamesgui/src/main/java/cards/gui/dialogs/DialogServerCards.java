@@ -60,8 +60,8 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
         getCardDialog().setTitle(messages.getVal(TITLE));
         getCardDialog().setLocationRelativeTo(_fenetre);
         ipOrHostName = new TextField();
-        AbsPanel pane_ = Panel.newGrid(0, 1);
-        AbsPanel panel_ = Panel.newGrid(0, 2);
+        AbsPanel pane_ = _fenetre.getCompoFactory().newGrid(0, 1);
+        AbsPanel panel_ = _fenetre.getCompoFactory().newGrid(0, 2);
         if (_game == GameEnum.TAROT) {
             EnumList<DealingTarot> repValides_ = new EnumList<DealingTarot>(DealingTarot.getRepartitionsValides());
             int minJoueurs_=repValides_.get(0).getNombreJoueurs();
@@ -112,7 +112,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
 //        ipType.setSelectedItem(IpType.HOST_NAME);
         panel_.add(ipType.self());
         pane_.add(panel_);
-        panel_ = Panel.newLineBox();
+        panel_ = _fenetre.getCompoFactory().newLineBox();
         LabelButton button_ = new LabelButton(messages.getVal(CREATE_SERVER));
         button_.addMouseList(new CreateServerEvent(this));
         panel_.add(button_);

@@ -7,6 +7,7 @@ import javax.swing.SwingConstants;
 import aiki.facade.FacadeGame;
 import code.gui.*;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -24,17 +25,17 @@ public class TmPanel {
     private final FacadeGame facade;
 
     private final AbsPanel container;
-    public TmPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, AbsGraphicList<String> _liste) {
+    public TmPanel(AbstractProgramInfos _fact, int _nb, String _titre, FacadeGame _facade, AbsGraphicList<String> _liste) {
         liste = _liste;
         facade = _facade;
-        container = Panel.newBorder();
+        container = _fact.getCompoFactory().newBorder();
         container.setLoweredBorder();
         TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
         container.add(titrePanneau_, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
-        liste.setRender(new TmRenderer(_fact,facade));
+        liste.setRender(new TmRenderer(_fact.getImageFactory(),facade));
         initItems();
         int side_ = facade.getMap().getSideLength();
         container.add(liste.self(),BorderLayout.CENTER);

@@ -5,7 +5,8 @@ import java.awt.Dimension;
 import code.gui.animations.AnimatedImage;
 import code.gui.document.ProcessingSession;
 import code.gui.images.AbstractImage;
-import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 
@@ -19,12 +20,14 @@ public final class ProgressingWebDialog implements ProgressDialog {
 
     private static final String PER_CENT = "";
     private final AbsDialog absDialog;
+    private final AbsCompoFactory compoFactory;
 
     private AbsPreparedLabel anim;
     private AnimatedImage animation;
 
-    public ProgressingWebDialog(AbsFrameFactory _frameFactory) {
-        absDialog = _frameFactory.newDialog();
+    public ProgressingWebDialog(AbstractProgramInfos _frameFactory) {
+        compoFactory = _frameFactory.getCompoFactory();
+        absDialog = _frameFactory.getFrameFactory().newDialog();
         absDialog.setModal(false);
     }
 
@@ -59,7 +62,7 @@ public final class ProgressingWebDialog implements ProgressDialog {
         }
 //        anim = new AnimatedLabel();
 //        anim.setList(_images);
-        AbsPanel p_ = Panel.newLineBox();
+        AbsPanel p_ = compoFactory.newLineBox();
         p_.add(anim);
         absDialog.setContentPane(p_);
         absDialog.pack();

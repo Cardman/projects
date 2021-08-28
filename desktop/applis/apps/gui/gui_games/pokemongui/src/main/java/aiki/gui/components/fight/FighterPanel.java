@@ -11,6 +11,7 @@ import aiki.gui.listeners.FighterSelection;
 import aiki.gui.listeners.FrontFighterSelection;
 import code.gui.*;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 
 public class FighterPanel {
@@ -23,17 +24,17 @@ public class FighterPanel {
 
     private final AbsPanel container;
 
-    public FighterPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters, AbsGraphicList<Fighter> _liste) {
+    public FighterPanel(AbstractProgramInfos _fact, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters, AbsGraphicList<Fighter> _liste) {
         liste = _liste;
         facade = _facade;
-        container = Panel.newBorder();
+        container = _fact.getCompoFactory().newBorder();
         container.setLoweredBorder();
         title = new TextLabel(_titre, SwingConstants.CENTER);
         container.add(title, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
-        liste.setRender(new FighterRenderer(_fact,facade));
+        liste.setRender(new FighterRenderer(_fact.getImageFactory(),facade));
         initFighters(_fighters);
         container.add(liste.self(), BorderLayout.CENTER);
         container.setPreferredSize(new Dimension(150,64*_nb));

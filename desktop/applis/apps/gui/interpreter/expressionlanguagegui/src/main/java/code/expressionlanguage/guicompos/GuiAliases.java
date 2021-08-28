@@ -3049,7 +3049,8 @@ public final class GuiAliases {
             return new Argument(di_);
         }
         if (StringUtil.quickEq(_id,aliasPanel)) {
-            return new Argument(PanelStruct.newFlow(aliasPanel));
+            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
+            return new Argument(PanelStruct.newFlow(aliasPanel, window_.getCompoFactory()));
         }
         if (StringUtil.quickEq(_id,aliasTabbedPane)) {
             return new Argument(new TabbedPaneStruct(aliasTabbedPane));
@@ -3058,7 +3059,8 @@ public final class GuiAliases {
             return new Argument(ScrollPaneStruct.newScroll(aliasScrollPane));
         }
         if (StringUtil.quickEq(_id,aliasPanelBorder)) {
-            return new Argument(PanelBorderStruct.newBorder(aliasPanelBorder));
+            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
+            return new Argument(PanelBorderStruct.newBorder(aliasPanelBorder, window_.getCompoFactory()));
         }
         if (StringUtil.quickEq(_id,aliasButton)) {
             return new Argument(new PlainButtonStruct(aliasButton));
@@ -3190,7 +3192,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(PanelStruct.newFlow(aliasPanel));
+            r_.setResult(PanelStruct.newFlow(aliasPanel, _guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasPanelBorder)) {
@@ -3199,7 +3201,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(PanelBorderStruct.newBorder(aliasPanelBorder));
+            r_.setResult(PanelBorderStruct.newBorder(aliasPanelBorder, _guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasTabbedPane)) {
@@ -4029,15 +4031,15 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasPanelFlow)) {
-                res_.setResult(PanelStruct.newFlow(aliasPanel));
+                res_.setResult(PanelStruct.newFlow(aliasPanel, _guiEx.getWindow().getCompoFactory()));
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasPanelGrid)) {
-                res_.setResult(PanelStruct.newGrid(aliasPanel,((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct()));
+                res_.setResult(PanelStruct.newGrid(aliasPanel,((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(), _guiEx.getWindow().getCompoFactory()));
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasPanelPageBox)) {
-                res_.setResult(PanelStruct.newPageBox(aliasPanel));
+                res_.setResult(PanelStruct.newPageBox(aliasPanel, _guiEx.getWindow().getCompoFactory()));
                 return res_;
             }
             PanelStruct strPan_ = (PanelStruct) _instance;

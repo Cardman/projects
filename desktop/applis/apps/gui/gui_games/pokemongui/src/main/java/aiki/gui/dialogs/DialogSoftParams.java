@@ -62,7 +62,7 @@ public final class DialogSoftParams {
         ok = false;
         absDialog.setTitle(messages.getVal(TITLE));
         absDialog.setLocationRelativeTo(_window);
-        AbsPanel panel_ = Panel.newGrid(0,1);
+        AbsPanel panel_ = _window.getCompoFactory().newGrid(0,1);
 //        loadLastRom = _loading.isLoadLastRom();
 //        loadLastGame = _loading.isLoadLastGame();
 //        saveGameAtExit = _loading.isSaveGameAtExit();

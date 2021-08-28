@@ -13,7 +13,6 @@ import code.gui.*;
 import code.gui.Menu;
 import code.gui.MenuBar;
 import code.gui.MenuItem;
-import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.TextField;
@@ -53,7 +52,7 @@ public final class WindowRenders extends GroupFrame {
         menu.addMenuItem(open);
         getJMenuBar().add(menu);
         setTitle("Local sites");
-        AbsPanel pane_ = Panel.newPageBox();
+        AbsPanel pane_ = getCompoFactory().newPageBox();
         lgCode = new TextField(20);
         pane_.add(lgCode);
         path = new TextField(20);

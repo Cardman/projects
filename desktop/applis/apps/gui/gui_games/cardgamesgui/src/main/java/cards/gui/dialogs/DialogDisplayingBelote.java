@@ -71,8 +71,8 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
 
     public void setDialogue(WindowCards _window) {
         initMessageName(_window);
-        AbsPanel container_=Panel.newBorder();
-        AbsPanel panneau_=Panel.newGrid(0,2);
+        AbsPanel container_=_window.getCompoFactory().newBorder();
+        AbsPanel panneau_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
         EnumList<Suit> liste_=new EnumList<Suit>();
         panneau_.add(new TextLabel(messages.getVal(WISE)));
@@ -82,7 +82,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
-        panneau_=Panel.newGrid(0,4);
+        panneau_=_window.getCompoFactory().newGrid(0,4);
         listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
@@ -96,7 +96,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
 //            listeChoix.addItem(couleur_);
 //        }
         panneau_.add(listeChoix.self());
-        AbsPanel sousPanneauTwo_=Panel.newGrid(0,1);
+        AbsPanel sousPanneauTwo_=_window.getCompoFactory().newGrid(0,1);
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
         bouton_.addMouseList(new AddSuitEvent(this));
         sousPanneauTwo_.add(bouton_);
@@ -114,7 +114,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         liste_.clear();
         panneau_.add(orderedSuits.getContainer());
         //Panneau Tri avant enchere (Atout)
-        AbsPanel sousPanneau_=Panel.newGrid(0,1);
+        AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,1);
         sousPanneau_.add(new TextLabel(messages.getVal(SORTING_BEFORE_PLAYING_CARDS)));
         sortByTrump=new CustCheckBox(messages.getVal(SORTING_TRUMP));
         sortByTrump.setSelected(displayingBelote.getOrderBeforeBids()==Order.TRUMP);

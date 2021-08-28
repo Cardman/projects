@@ -8,6 +8,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonSelection;
 import code.gui.*;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.Ints;
 import code.util.TreeMap;
 import code.util.core.IndexConstants;
@@ -25,10 +26,10 @@ public class PokemonPanel {
     private final String noEvo;
 
     private final AbsPanel container;
-    public PokemonPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, String _noEvo, AbsGraphicList<String> _liste) {
+    public PokemonPanel(AbstractProgramInfos _fact, int _nb, String _titre, FacadeGame _facade, String _noEvo, AbsGraphicList<String> _liste) {
         liste = _liste;
         facade = _facade;
-        container = Panel.newBorder();
+        container = _fact.getCompoFactory().newBorder();
         container.setLoweredBorder();
         title = new TextLabel(_titre, SwingConstants.CENTER);
         container.add(title, BorderLayout.NORTH);
@@ -36,7 +37,7 @@ public class PokemonPanel {
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         noEvo = _noEvo;
-        renderer = new PokemonDataRenderer(_fact,facade, noEvo);
+        renderer = new PokemonDataRenderer(_fact.getImageFactory(),facade, noEvo);
         liste.setRender(renderer);
         initEvos();
         container.add(liste.self(),BorderLayout.CENTER);

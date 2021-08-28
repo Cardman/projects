@@ -6,7 +6,6 @@ import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.president.RulesPresident;
 import code.gui.AbsPanel;
 import code.gui.LabelButton;
-import code.gui.Panel;
 import code.gui.initialize.AbsFrameFactory;
 
 public final class DialogRulesPresident extends DialogPresident implements DialogRules {
@@ -34,7 +33,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window) {
         validated = false;
-        AbsPanel container_=Panel.newBorder();
+        AbsPanel container_=_window.getCompoFactory().newBorder();
         initMessageName(_window);
         initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window);
 

@@ -10,6 +10,7 @@ import aiki.gui.components.PaginatorHealingItem;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -26,10 +27,12 @@ public final class SelectHealingItem extends SelectDialog {
 //    private boolean ok;
 
     private StringMap<String> messages;
+    private final AbsCompoFactory compo;
 
-    public SelectHealingItem(AbsFrameFactory _frameFactory) {
+    public SelectHealingItem(AbsFrameFactory _frameFactory, AbsCompoFactory _compoFactory) {
         super(_frameFactory);
         getSelectDial().setAccessFile(DIALOG_ACCESS);
+        compo= _compoFactory;
     }
 
     public static void setSelectHealingItem(WindowAiki _parent, FacadeGame _facade) {
@@ -43,10 +46,10 @@ public final class SelectHealingItem extends SelectDialog {
         facade = _facade;
 //        ok = false;
         initOk();
-        AbsPanel contentPane_ = Panel.newBorder();
-        AbsPanel pag_ = Panel.newPageBox();
+        AbsPanel contentPane_ = compo.newBorder();
+        AbsPanel pag_ = compo.newPageBox();
         contentPane_.add(new ScrollPane(new PaginatorHealingItem(_parent,pag_, getSelectDial(), _facade).getContainer()), BorderLayout.CENTER);
-        AbsPanel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = compo.newLineBox();
         LabelButton ok_ = new LabelButton(WindowAiki.OK);
         ok_.addMouseList(new ValidateSelectionEvent(this));
         buttons_.add(ok_);

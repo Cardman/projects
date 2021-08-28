@@ -8,14 +8,14 @@
     </parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>def_fact</groupId>
-	<artifactId>def_fact</artifactId>
+	<groupId>infos_core</groupId>
+	<artifactId>infos_core</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
-			<groupId>infos_core</groupId>
-			<artifactId>infos_core</artifactId>
+			<groupId>network</groupId>
+			<artifactId>network</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

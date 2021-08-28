@@ -5,7 +5,6 @@ import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaTable;
 import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 import code.util.Ints;
 
 public final class DualTable extends DualContainer {
@@ -31,7 +30,7 @@ public final class DualTable extends DualContainer {
 
     @Override
     protected AbsPanel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page) {
-        return Panel.newPageBox();
+        return _page.getCompoFactory().newPageBox();
     }
 
     @Override
@@ -39,13 +38,13 @@ public final class DualTable extends DualContainer {
         count++;
         if (_dual.getComponent() instanceof MetaCaption) {
             super.add(_dual);
-            getPanel().add(Panel.newGrid(0,width));
+            getPanel().add(getPage().getCompoFactory().newGrid(0,width));
             return;
         }
         int remNext_ = remainders.indexOf(count-1L);
         int count_ = getPanel().getComponentCount();
         if (count_ == 0) {
-            getPanel().add(Panel.newGrid(0,width));
+            getPanel().add(getPage().getCompoFactory().newGrid(0,width));
             count_++;
         }
         AbsCustComponent c_ = getPanel().getComponent(count_ -1);
@@ -59,7 +58,7 @@ public final class DualTable extends DualContainer {
         }
         if (remNext_ > -1) {
             if (remNext_ != remainders.size() - 1) {
-                getPanel().add(Panel.newGrid(0,width));
+                getPanel().add(getPage().getCompoFactory().newGrid(0,width));
             }
         }
         _dual.postAdd();

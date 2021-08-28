@@ -4,7 +4,7 @@ import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerGame;
 import cards.gui.labels.GraphicBeloteCard;
 import code.gui.AbsPanel;
-import code.gui.Panel;
+
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/

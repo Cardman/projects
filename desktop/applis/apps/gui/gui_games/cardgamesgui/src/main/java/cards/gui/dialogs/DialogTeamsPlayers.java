@@ -3,8 +3,9 @@ package cards.gui.dialogs;
 import cards.gui.WindowCards;
 import cards.network.common.select.TeamsPlayers;
 import code.gui.AbsPanel;
-import code.gui.Panel;
+
 import code.gui.TextLabel;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
 import code.util.*;
 import code.util.StringList;
@@ -30,17 +31,17 @@ public final class DialogTeamsPlayers extends DialogCards {
         _fenetre.getDialogTeamsPlayers().getCardDialog().setLocationRelativeTo(_fenetre);
     }
 
-    public static void setDialogTeamsPlayers(StringList _pseudos, TeamsPlayers _teamsPlayers, DialogTeamsPlayers _dialog) {
-        _dialog.setDialogue(_pseudos, _teamsPlayers);
+    public static void setDialogTeamsPlayers(StringList _pseudos, TeamsPlayers _teamsPlayers, DialogTeamsPlayers _dialog, AbsCompoFactory _compo) {
+        _dialog.setDialogue(_pseudos, _teamsPlayers, _compo);
     }
 
-    public void setDialogue(StringList _pseudos, TeamsPlayers _teamsPlayers) {
-        AbsPanel panel_ = Panel.newGrid(0,1);
+    public void setDialogue(StringList _pseudos, TeamsPlayers _teamsPlayers, AbsCompoFactory _compo) {
+        AbsPanel panel_ = _compo.newGrid(0,1);
         int i_ = 1;
         String stringTeam_ = messages.getVal(TEAM);
         for (Bytes t: _teamsPlayers.getTeams()) {
             String stringTeamLoc_ = StringUtil.simpleNumberFormat(stringTeam_, i_);
-            AbsPanel team_ = Panel.newGrid(0,1);
+            AbsPanel team_ = _compo.newGrid(0,1);
             team_.setTitledBorder(stringTeamLoc_);
             for (byte p:t) {
                 TextLabel player_ = new TextLabel(_pseudos.get(p));

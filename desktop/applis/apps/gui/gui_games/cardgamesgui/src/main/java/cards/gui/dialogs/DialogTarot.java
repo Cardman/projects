@@ -73,7 +73,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     protected void initJt(Spinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
-        AbsPanel dealing_=Panel.newGrid(0,2);
+        AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Panneau Battre les cartes
         dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
@@ -96,9 +96,9 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         //Panneau Distribution
         getJt().add(getMessages().getVal(DEALING),dealing_);
-        AbsPanel declaring_=Panel.newPageBox();
+        AbsPanel declaring_=_window.getCompoFactory().newPageBox();
         declaring_.add(new TextLabel(getMessages().getVal(CST_BIDS)));
-        bidding=Panel.newLineBox();
+        bidding=_window.getCompoFactory().newLineBox();
         bids.clear();
         for (BidTarot enchere_:BidTarot.values()) {
             CustCheckBox caseCroix_=new CustCheckBox(Games.toString(enchere_,lg_));
@@ -110,7 +110,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         declaring_.add(bidding);
         //Panneau Poignees
-        AbsPanel sousPanneau_=Panel.newGrid(3,2);
+        AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(3,2);
         sousPanneau_.add(new TextLabel(getMessages().getVal(HANDFUL)));
         listeChoixFive = new ComboBoxEnumCards<Handfuls>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
         for (Handfuls p: Handfuls.getDeclarableHandFuls()) {
@@ -131,7 +131,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         sousPanneau_.add(boutonPoignees_);
         declaring_.add(sousPanneau_);
         //Panneau Miseres
-        declaringMiseres=Panel.newLineBox();
+        declaringMiseres=_window.getCompoFactory().newLineBox();
         miseres.clear();
         declaringMiseres.add(new TextLabel(getMessages().getVal(ALLOWED_MISERES)));
         for (Miseres annonce_:Miseres.values()) {
@@ -144,10 +144,10 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getJt().add(getMessages().getVal(DECLARING),declaring_);
 
         //Panneau Chelem
-        AbsPanel bidding_ =Panel.newGrid(0,3);
+        AbsPanel bidding_ =_window.getCompoFactory().newGrid(0,3);
 
         //Panneau Regle du demi-point
-        sousPanneau_=Panel.newGrid(0,1);
+        sousPanneau_=_window.getCompoFactory().newGrid(0,1);
         TextLabel endDeal_ = new TextLabel(getMessages().getVal(END_DEAL));
         endDeal_.setToolTipText(getMessages().getVal(END_DEAL_RULE));
         sousPanneau_.add(endDeal_);
@@ -167,7 +167,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         }
         sousPanneau_.add(listeChoixTwo.self());
         bidding_.add(sousPanneau_);
-        sousPanneau_=Panel.newLineBox();
+        sousPanneau_=_window.getCompoFactory().newLineBox();
         sousPanneau_.add(new TextLabel(getMessages().getVal(MODE_GAME)));
         listeChoixThree=new ComboBoxEnumCards<ModeTarot>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
         ModeTarot curTwo_ = getReglesTarot().getMode();
@@ -190,8 +190,8 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         bidding_.add(discardAfterCall);
         getJt().add(getMessages().getVal(RULES),bidding_);
         //Panneau 4-5 joueurs
-        players=Panel.newGrid(2,0);
-        sousPanneau_=Panel.newGrid(2,0);
+        players=_window.getCompoFactory().newGrid(2,0);
+        sousPanneau_=_window.getCompoFactory().newGrid(2,0);
 
         sousPanneau_.add(new TextLabel(getMessages().getVal(NUMBER_PLAYERS)));
         sousPanneau_.add(new TextLabel(getMessages().getVal(REPARTITION_PLAYERS)));

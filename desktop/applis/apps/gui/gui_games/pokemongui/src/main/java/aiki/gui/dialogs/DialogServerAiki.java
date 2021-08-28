@@ -60,8 +60,8 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
         absDialog.setResizable(false);
         absDialog.setTitle(messages.getVal(TITLE));
         ipOrHostName = new TextField();
-        AbsPanel pane_ = Panel.newGrid(0, 1);
-        AbsPanel panel_ = Panel.newGrid(0, 2);
+        AbsPanel pane_ = _fenetre.getCompoFactory().newGrid(0, 1);
+        AbsPanel panel_ = _fenetre.getCompoFactory().newGrid(0, 2);
         TextLabel ipServer_ = new TextLabel(messages.getVal(IP_SERVER));
         ipServer_.setToolTipText(messages.getVal(IP_SERVER_TOOL_TIP));
         panel_.add(ipServer_);
@@ -73,7 +73,7 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
         ipType.setSelectedItem(IpType.HOST_NAME);
         panel_.add(ipType.self());
         pane_.add(panel_);
-        panel_ = Panel.newLineBox();
+        panel_ = _fenetre.getCompoFactory().newLineBox();
         LabelButton button_ = new LabelButton(messages.getVal(CREATE_SERVER));
         button_.addMouseList(new CreateServerEvent(this));
         panel_.add(button_);

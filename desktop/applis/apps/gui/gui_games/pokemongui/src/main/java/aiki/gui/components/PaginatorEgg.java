@@ -44,7 +44,7 @@ public final class PaginatorEgg extends Paginator {
 
     private final TextField maxSteps = new TextField(16);
 
-    private final AbsPanel results = Panel.newGrid(0,1);
+    private final AbsPanel results = getMain().getCompoFactory().newGrid(0,1);
 
     private final ComboBox<SelectedBoolean> cmpNameSorting;
 
@@ -135,7 +135,7 @@ public final class PaginatorEgg extends Paginator {
 //            }
 //        });
         AbsPanel search_;
-        search_ = Panel.newGrid(0,3);
+        search_ = getMain().getCompoFactory().newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
         search_.add(modeName.self());
@@ -144,7 +144,7 @@ public final class PaginatorEgg extends Paginator {
         search_.add(maxSteps);
         _p.add(search_);
         AbsPanel sorting_;
-        sorting_ = Panel.newGrid(0,3);
+        sorting_ = getMain().getCompoFactory().newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         sorting_.add(cmpNameSorting.self());
         sorting_.add(cmpNamePrio.self());
@@ -153,7 +153,7 @@ public final class PaginatorEgg extends Paginator {
         sorting_.add(cmpStepsPrio.self());
         _p.add(sorting_);
         AbsPanel top_;
-        top_ = Panel.newLineBox();
+        top_ = getMain().getCompoFactory().newLineBox();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
         button_.addMouseList(new SearchEvent(this));
@@ -173,7 +173,7 @@ public final class PaginatorEgg extends Paginator {
         getHeader().setPreferredSize(new Dimension(getHeader().width(h_.toString()), HEIGTH_CHARS));
         results.add(getHeader());
         _p.add(new ScrollPane(results));
-        AbsPanel bottom_ = Panel.newLineBox();
+        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageEgg());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());

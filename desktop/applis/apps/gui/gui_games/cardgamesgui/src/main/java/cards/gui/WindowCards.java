@@ -541,9 +541,9 @@ public final class WindowCards extends NetGroupFrame {
         dialogDisplayingBelote = new DialogDisplayingBelote(_list.getFrameFactory());
         dialogDisplayingTarot = new DialogDisplayingTarot(_list.getFrameFactory());
         dialogDisplayingPresident = new DialogDisplayingPresident(_list.getFrameFactory());
-        dialogHelpBelote = new DialogHelpBelote(_list.getFrameFactory());
-        dialogHelpPresident = new DialogHelpPresident(_list.getFrameFactory());
-        dialogHelpTarot = new DialogHelpTarot(_list.getFrameFactory());
+        dialogHelpBelote = new DialogHelpBelote(_list.getFrameFactory(),_list.getCompoFactory());
+        dialogHelpPresident = new DialogHelpPresident(_list.getFrameFactory(),_list.getCompoFactory());
+        dialogHelpTarot = new DialogHelpTarot(_list.getFrameFactory(),_list.getCompoFactory());
         dialogRulesBelote = new DialogRulesBelote(_list.getFrameFactory());
         dialogRulesPresident = new DialogRulesPresident(_list.getFrameFactory());
         dialogRulesTarot = new DialogRulesTarot(_list.getFrameFactory());
@@ -1096,7 +1096,7 @@ public final class WindowCards extends NetGroupFrame {
         }
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        AbsPanel container_=Panel.newGrid(0,1);
+        AbsPanel container_=getCompoFactory().newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
@@ -1134,7 +1134,7 @@ public final class WindowCards extends NetGroupFrame {
         containerGame.setChangerPileFin(false);
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        AbsPanel container_=Panel.newGrid(0,1);
+        AbsPanel container_=getCompoFactory().newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
@@ -1180,7 +1180,7 @@ public final class WindowCards extends NetGroupFrame {
         }
         containerGame.finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
-        AbsPanel pane_ = Panel.newGrid(0,1);
+        AbsPanel pane_ = getCompoFactory().newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         welcomeLabel = new TextLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo()));
         pane_.add(welcomeLabel,SwingConstants.CENTER);

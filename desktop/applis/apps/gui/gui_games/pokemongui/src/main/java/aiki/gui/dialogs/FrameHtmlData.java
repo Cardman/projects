@@ -35,12 +35,12 @@ public final class FrameHtmlData extends ChildFrame {
         setDialogIcon(_parent);
         setLocationRelativeTo(_parent);
         setTitle(_title);
-        dialog = new ProgressingWebDialog(_parent.getFrames().getFrameFactory());
+        dialog = new ProgressingWebDialog(_parent.getFrames());
         setFocusableWindowState(true);
         session = _session;
         session.setFrame(this);
         session.setDialog(dialog);
-        AbsPanel panel_ = Panel.newPageBox();
+        AbsPanel panel_ = _parent.getCompoFactory().newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         TextField field_;
         search = new LabelButton(messages.getVal(SEARCH_LABEL));

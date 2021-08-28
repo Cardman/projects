@@ -3,8 +3,6 @@ package code.gui.document;
 import code.formathtml.render.MetaContainer;
 import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
-import code.gui.CustComponent;
-import code.gui.Panel;
 
 public abstract class DualContainer extends DualComponent {
 

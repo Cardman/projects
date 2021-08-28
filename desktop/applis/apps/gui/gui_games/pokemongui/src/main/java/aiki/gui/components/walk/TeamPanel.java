@@ -16,7 +16,6 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.AbsGraphicList;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 import code.gui.TextLabel;
 import code.util.*;
 import code.util.StringMap;
@@ -46,7 +45,7 @@ public class TeamPanel {
     public TeamPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, AbsGraphicList<UsablePokemon> _liste, PokemonRenderer _renderer) {
         facade = _facade;
         liste = _liste;
-        container = Panel.newBorder();
+        container = _renderer.getFact().getCompoFactory().newBorder();
         container.setLoweredBorder();
         TextLabel titrePanneau_ = new TextLabel(_titre, SwingConstants.CENTER);
         container.add(titrePanneau_, BorderLayout.NORTH);

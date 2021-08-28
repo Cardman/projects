@@ -5,41 +5,39 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
-import code.gui.CustComponent;
-import code.gui.Panel;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 
 public class PanelStruct extends CustComponentStruct {
     private AbsPanel panel;
-    private PanelStruct(String _className) {
+    private PanelStruct(String _className, AbsCompoFactory _compoFactory) {
         super(_className);
-        panel = Panel.newLineBox();
+        panel = _compoFactory.newLineBox();
     }
     PanelStruct(String _className,AbsPanel _panel) {
         super(_className);
         panel = _panel;
     }
 
-    public static PanelStruct newFlow(String _className) {
-        return new PanelStruct(_className);
+    public static PanelStruct newFlow(String _className, AbsCompoFactory _compoFactory) {
+        return new PanelStruct(_className,_compoFactory);
     }
 
     public static PanelStruct newAbsolute(String _className, AbsCompoFactory _compoFactory) {
         return new PanelStruct(_className,_compoFactory.newAbsolute());
     }
 
-    public static PanelStruct newGrid(String _className,int _row,int _col) {
+    public static PanelStruct newGrid(String _className,int _row,int _col, AbsCompoFactory _compoFactory) {
         int r_ = _row;
         int c_ = _col;
         if (r_ == 0 && c_ == 0) {
             c_ = 1;
         }
-        return new PanelStruct(_className,Panel.newGrid(r_,c_));
+        return new PanelStruct(_className,_compoFactory.newGrid(r_,c_));
     }
 
-    public static PanelStruct newPageBox(String _className) {
-        return new PanelStruct(_className,Panel.newPageBox());
+    public static PanelStruct newPageBox(String _className, AbsCompoFactory _compoFactory) {
+        return new PanelStruct(_className,_compoFactory.newPageBox());
     }
 
     public int getComponentCount() {

@@ -6,7 +6,6 @@ import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import code.gui.AbsPanel;
 import code.gui.LabelButton;
-import code.gui.Panel;
 import code.gui.initialize.AbsFrameFactory;
 
 public final class DialogRulesBelote extends DialogBelote implements DialogRules {
@@ -32,7 +31,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     @Override
     public void setDialogue(WindowCards _parent) {
         validated = false;
-        AbsPanel container_=Panel.newBorder();
+        AbsPanel container_=_parent.getCompoFactory().newBorder();
         initMessageName(_parent);
         String lg_ = _parent.getLanguageKey();
         initJt(_parent,null,lg_);

@@ -3,7 +3,6 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 import code.gui.WithListener;
 import code.gui.events.AbsWindowListener;
 import code.util.CustList;

@@ -4,7 +4,7 @@ import cards.gui.containers.ContainerPresident;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.president.HandPresident;
 import code.gui.AbsPanel;
-import code.gui.Panel;
+
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/

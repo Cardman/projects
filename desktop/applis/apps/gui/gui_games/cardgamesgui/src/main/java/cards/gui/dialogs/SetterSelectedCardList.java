@@ -3,7 +3,7 @@ package cards.gui.dialogs;
 import cards.gui.WindowCards;
 import cards.gui.panels.CardsScrollableList;
 import code.gui.AbsPanel;
-import code.gui.Panel;
+
 import code.gui.TextLabel;
 import code.util.CustList;
 

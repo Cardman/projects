@@ -309,7 +309,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
     }
 
     private void placerIhmPresident() {
-        AbsPanel container_=Panel.newBorder();
+        AbsPanel container_=getOwner().getCompoFactory().newBorder();
         String lg_ = getOwner().getLanguageKey();
         container_.add(new TextLabel(getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         GamePresident partie_=partiePresident();
@@ -321,11 +321,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getTapis().setTapisPresident(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
         AbsPanel panneau_;
-        panneau_= Panel.newLineBox();
+        panneau_= getOwner().getCompoFactory().newLineBox();
         panneau_.setBackground(Color.BLUE);
         setPanelHand(panneau_);
         container_.add(panneau_,BorderLayout.SOUTH);
-        AbsPanel panneau2_=Panel.newPageBox();
+        AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
         setEvents(new TextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(getEvents()));
@@ -333,13 +333,13 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
 //        JPanel declaredHandfuls_ = new JPanel(new GridLayout(0,1));
 //        int nbPlayers_ = partie_.getNombreDeJoueurs();
-        AbsPanel sousPanneau_=Panel.newPageBox();
-        AbsPanel panelCards_ = Panel.newLineBox();
-        AbsPanel panelDiscard_ = Panel.newLineBox();
+        AbsPanel sousPanneau_=getOwner().getCompoFactory().newPageBox();
+        AbsPanel panelCards_ = getOwner().getCompoFactory().newLineBox();
+        AbsPanel panelDiscard_ = getOwner().getCompoFactory().newLineBox();
         panelDiscard_.setTitledBorder(getMessages().getVal(WindowCards.GIVEN_CARDS));
         panelCards_.add(panelDiscard_);
         setPanelGivenCards(panelDiscard_);
-        AbsPanel panelRec_ = Panel.newLineBox();
+        AbsPanel panelRec_ = getOwner().getCompoFactory().newLineBox();
         panelRec_.setTitledBorder(getMessages().getVal(WindowCards.RECEIVED_CARDS));
         panelCards_.add(panelRec_);
         setPanelReceivedCards(panelRec_);
@@ -354,7 +354,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         container_.add(panneau2_,BorderLayout.EAST);
         tapisPresident().setTalonPresident(getWindow().getImageFactory());
 //        tapisPresident().repaintValidate();
-        AbsPanel panel_ = Panel.newPageBox();
+        AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(new ScrollPane(container_));
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
@@ -539,7 +539,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
-        AbsPanel container_=Panel.newBorder();
+        AbsPanel container_=getOwner().getCompoFactory().newBorder();
         ScrollPane ascenseur_;
 
         if(isChangerPileFin()) {
@@ -622,7 +622,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             ascenseur_=new ScrollPane(graphique_);
             graphique_.setLocation(0,(600-dimy_)/2);
             ascenseur_.setPreferredSize(new Dimension(300,200));
-            AbsPanel panneau_=Panel.newBorder();
+            AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
             panneau_.add(new TextLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
             panneau_.add(ascenseur_,BorderLayout.CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
@@ -648,8 +648,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         panelCards_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.HANDS_TRICKS),panelCards_);
         container_.add(onglets_,BorderLayout.CENTER);
-        AbsPanel panneau_=Panel.newPageBox();
-        AbsPanel buttons_ = Panel.newLineBox();
+        AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
+        AbsPanel buttons_ = getOwner().getCompoFactory().newLineBox();
         GameType type_;
         long nombreParties_;
         type_=partie_.getType();
@@ -780,7 +780,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         TreeMap<CardPresident, Byte> played_ = g_.getPlayedCardsByStrength();
         boolean reversed_ = g_.isReversed();
         int nbStacks_ = g_.getRegles().getNbStacks();
-        DialogHelpPresident.setDialoguePresident(played_, reversed_, nbStacks_, lg_, getOwner().getDialogHelpPresident());
+        getOwner().getDialogHelpPresident().setDialoguePresident(played_, reversed_, nbStacks_, lg_);
     }
 
     @Override

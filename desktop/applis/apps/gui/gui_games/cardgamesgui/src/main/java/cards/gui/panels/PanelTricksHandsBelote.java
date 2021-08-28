@@ -58,9 +58,9 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         tricksHands = _tricksHands;
         DealBelote dealt_ = tricksHands.getDistribution();
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
-        container = Panel.newBorder();
-        cards=Panel.newLineBox();
-        AbsPanel players_ = Panel.newGrid(0,1);
+        container = window.getCompoFactory().newBorder();
+        cards=window.getCompoFactory().newLineBox();
+        AbsPanel players_ = window.getCompoFactory().newGrid(0,1);
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             players_.add(getBlankCard(_pseudos, joueur_));
         }
@@ -69,15 +69,15 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             players_.add(getBlankCard(_pseudos, joueur_));
         }
         cards.add(players_);
-        tricks = Panel.newGrid(0,1);
+        tricks = window.getCompoFactory().newGrid(0,1);
         cards.add(tricks);
-        selectedTrick = Panel.newGrid(0,1);
+        selectedTrick = window.getCompoFactory().newGrid(0,1);
         cards.add(selectedTrick);
-        hands=Panel.newGrid(0,1);
+        hands=window.getCompoFactory().newGrid(0,1);
         AbsPanel sousPanneau3_;
         //boolean entered_ = false;
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
-            sousPanneau3_= Panel.newLineBox();
+            sousPanneau3_= window.getCompoFactory().newLineBox();
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.hand(joueur_))) {
                 sousPanneau3_.add(c);
             }
@@ -92,11 +92,11 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             hands.add(sousPanneau3_);
         }
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbBots_; joueur_++) {
-            hands.add(Panel.newLineBox());
+            hands.add(window.getCompoFactory().newLineBox());
         }
         cards.add(hands);
-        AbsPanel sousPanneau2_=Panel.newGrid(0,1);
-        sousPanneau3_= Panel.newLineBox();
+        AbsPanel sousPanneau2_=window.getCompoFactory().newGrid(0,1);
+        sousPanneau3_= window.getCompoFactory().newLineBox();
         for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.derniereMain())) {
             sousPanneau3_.add(c);
         }
@@ -110,7 +110,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         sousPanneau2_.add(sousPanneau3_);
         cards.add(sousPanneau2_);
         container.add(cards,BorderLayout.CENTER);
-        AbsPanel selectionGameState_=Panel.newLineBox();
+        AbsPanel selectionGameState_=window.getCompoFactory().newLineBox();
         selectionGameState_.add(new TextLabel(messages.getVal(TRICK)));
         int[] numerosPlis_;
         numerosPlis_=new int[tricks_.size()+2];
@@ -151,7 +151,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
         String lg_ = window.getLanguageKey();
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
-            AbsPanel sousPanneau4_= Panel.newLineBox();
+            AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window,lg_,dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -168,7 +168,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         int nbBots_ = numberPlayers;
         nbBots_--;
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbBots_; joueur_++) {
-            hands.add(Panel.newLineBox());
+            hands.add(window.getCompoFactory().newLineBox());
         }
         selectedTrick.removeAll();
         if(numeroPli_>0) {
@@ -203,9 +203,9 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         int indexRem_ = cards.remove(tricks);
         AbsPanel tr_;
         if(numeroPli_>1) {
-            tr_ = Panel.newGrid(0,numeroPli_ - 1);
+            tr_ = window.getCompoFactory().newGrid(0,numeroPli_ - 1);
         } else {
-            tr_ = Panel.newGrid(0,1);
+            tr_ = window.getCompoFactory().newGrid(0,1);
         }
         tricks = tr_;
         for(byte indicePli_=1;indicePli_<numeroPli_;indicePli_++) {
@@ -255,7 +255,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         hands.removeAll();
         String lg_ = window.getLanguageKey();
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
-            AbsPanel sousPanneau4_= Panel.newLineBox();
+            AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
             for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(window, lg_, dealt_.hand(joueur_))) {
                 sousPanneau4_.add(c);
             }
@@ -271,7 +271,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
         int nbBots_ = numberPlayers;
         nbBots_--;
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nbBots_; joueur_++) {
-            hands.add(Panel.newLineBox());
+            hands.add(window.getCompoFactory().newLineBox());
         }
         selectedTrick.removeAll();
         byte entameur_=tricks_.get(numeroPli_-1).getEntameur();

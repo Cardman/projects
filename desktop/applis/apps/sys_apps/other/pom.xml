@@ -16,8 +16,8 @@
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
-			<groupId>guicommon</groupId>
-			<artifactId>guicommon</artifactId>
+			<groupId>infos_core</groupId>
+			<artifactId>infos_core</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>

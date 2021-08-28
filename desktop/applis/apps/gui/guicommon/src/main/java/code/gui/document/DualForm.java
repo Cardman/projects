@@ -3,7 +3,6 @@ import code.formathtml.render.IntForm;
 import code.formathtml.render.MetaContainer;
 import code.formathtml.render.MetaForm;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 
 public final class DualForm extends DualContainer implements IntForm {
 
@@ -17,7 +16,7 @@ public final class DualForm extends DualContainer implements IntForm {
 
     @Override
     protected AbsPanel newPanel(DualContainer _container, MetaContainer _component, RenderedPage _page) {
-        return Panel.newPageBox();
+        return _page.getCompoFactory().newPageBox();
     }
 
     @Override

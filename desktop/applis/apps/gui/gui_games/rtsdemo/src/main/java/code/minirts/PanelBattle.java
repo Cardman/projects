@@ -2,7 +2,6 @@ package code.minirts;
 
 import code.gui.AbsCustComponent;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
 import code.gui.images.AbstractImage;

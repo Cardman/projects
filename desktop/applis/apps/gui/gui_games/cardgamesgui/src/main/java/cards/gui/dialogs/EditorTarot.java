@@ -124,12 +124,12 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     @Override
     public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window) {
         getJt().removeAll();
-        AbsPanel container_=Panel.newBorder();
+        AbsPanel container_=_window.getCompoFactory().newBorder();
         initMessageName(_window);
         //Panneau Distribution
         initJt(new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
-        AbsPanel panneau_=Panel.newLineBox();
+        AbsPanel panneau_=_window.getCompoFactory().newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
         bouton_.addMouseList(new ValidateRulesDealEvent(this, window));
         panneau_.add(bouton_);
@@ -146,14 +146,14 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     private void distribuer(WindowCards _parent) {
 
         getCardDialog().setTitle(getMessages().getVal(DEALING_CARDS));
-        AbsPanel c=Panel.newBorder();
+        AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_;
 //        byte nbJ_=(byte) getReglesTarot().getRepartition().getNombreJoueurs();
         byte nbCartesPJ_ = (byte) getReglesTarot().getRepartition().getNombreCartesParJoueur();
         byte nbCartesC_ = (byte) getReglesTarot().getRepartition().getNombreCartesChien();
 
         HandTarot pile_=HandTarot.pileBase();
-        panneau_=Panel.newLineBox();
+        panneau_=_parent.getCompoFactory().newLineBox();
         panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
@@ -173,7 +173,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         plc_.iniPileTarot(pile_);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
-        panelsCards=Panel.newLineBox();
+        panelsCards=_parent.getCompoFactory().newLineBox();
         stack = plc_;
         panelsCards.add(plc_.getContainer());
         plc_=new TarotCardsScrollableList(_parent.getCompoFactory(),nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND), _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
@@ -207,9 +207,9 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         panelsCards.add(plc_.getContainer());
         dog = plc_;
-        panneau_=Panel.newBorder();
+        panneau_=_parent.getCompoFactory().newBorder();
         panneau_.add(panelsCards,BorderLayout.CENTER);
-        AbsPanel sousPanneau_=Panel.newLineBox();
+        AbsPanel sousPanneau_=_parent.getCompoFactory().newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseList(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
@@ -231,7 +231,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
 
-        panneau_=Panel.newLineBox();
+        panneau_=_parent.getCompoFactory().newLineBox();
         bouton_=new LabelButton(getMessages().getVal(BACK));
         bouton_.addMouseList(new BackToRulesEvent(this, _parent));
         panneau_.add(bouton_);

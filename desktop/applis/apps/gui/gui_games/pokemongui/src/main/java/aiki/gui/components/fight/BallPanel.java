@@ -7,7 +7,7 @@ import javax.swing.SwingConstants;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import code.gui.*;
-import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.Ints;
 import code.util.NatStringTreeMap;
 
@@ -23,17 +23,17 @@ public final class BallPanel {
 
     private final AbsPanel container;
 
-    public BallPanel(AbstractImageFactory _fact, int _nb, String _titre, FacadeGame _facade, AbsGraphicList<BallNumberRate> _liste) {
+    public BallPanel(AbstractProgramInfos _fact, int _nb, String _titre, FacadeGame _facade, AbsGraphicList<BallNumberRate> _liste) {
         listeBall = _liste;
         facade = _facade;
-        container = Panel.newBorder();
+        container = _fact.getCompoFactory().newBorder();
         container.setLoweredBorder();
         title = new TextLabel(_titre, SwingConstants.CENTER);
         container.add(title, BorderLayout.NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         listeBall.setVisibleRowCount(_nb);
-        renderer = new BallRenderer(_fact,facade);
+        renderer = new BallRenderer(_fact.getImageFactory(),facade);
         listeBall.setRender(renderer);
         initBalls();
         container.add(listeBall.self(),BorderLayout.CENTER);

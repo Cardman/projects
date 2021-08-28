@@ -43,32 +43,32 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public Panel newAbsolute() {
+    public AbsPanel newAbsolute() {
         return Panel.newAbsolute();
     }
 
     @Override
-    public Panel newBorder() {
+    public AbsPanel newBorder() {
         return Panel.newBorder();
     }
 
     @Override
-    public Panel newGrid(int _row, int _col) {
+    public AbsPanel newGrid(int _row, int _col) {
         return Panel.newGrid(_row, _col);
     }
 
     @Override
-    public Panel newGrid(int _row, int _col, int _h, int _v) {
+    public AbsPanel newGrid(int _row, int _col, int _h, int _v) {
         return Panel.newGrid(_row, _col, _h, _v);
     }
 
     @Override
-    public Panel newLineBox() {
+    public AbsPanel newLineBox() {
         return Panel.newLineBox();
     }
 
     @Override
-    public Panel newPageBox() {
+    public AbsPanel newPageBox() {
         return Panel.newPageBox();
     }
 }

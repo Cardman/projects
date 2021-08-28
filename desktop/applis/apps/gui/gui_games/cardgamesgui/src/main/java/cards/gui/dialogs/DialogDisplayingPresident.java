@@ -69,8 +69,8 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
 
     public void setDialogue(WindowCards _window) {
         initMessageName(_window);
-        AbsPanel container_=Panel.newBorder();
-        AbsPanel panneau_=Panel.newGrid(0,2);
+        AbsPanel container_=_window.getCompoFactory().newBorder();
+        AbsPanel panneau_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
         EnumList<Suit> liste_=new EnumList<Suit>();
         panneau_.add(new TextLabel(messages.getVal(WISE)));
@@ -80,7 +80,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         panneau_.add(checkClockwise);
         getJt().add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
-        panneau_=Panel.newGrid(0,4);
+        panneau_=_window.getCompoFactory().newGrid(0,4);
 //        listeChoix=new ComboBoxSuit();
 //        for (Suit couleur_:Suit.couleursOrdinaires()) {
 //            listeChoix.addItem(couleur_);
@@ -95,7 +95,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         }
         listeChoix.refresh(ls_, trSuit_);
         panneau_.add(listeChoix.self());
-        AbsPanel sousPanneauTwo_=Panel.newGrid(0,1);
+        AbsPanel sousPanneauTwo_=_window.getCompoFactory().newGrid(0,1);
         LabelButton bouton_=new LabelButton(messages.getVal(ADD_SUIT));
         bouton_.addMouseList(new AddSuitEvent(this));
         sousPanneauTwo_.add(bouton_);
@@ -113,7 +113,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         liste_.clear();
         panneau_.add(orderedSuits.getContainer());
         //Panneau Tri avant enchere (Atout)
-        AbsPanel sousPanneau_=Panel.newGrid(0,1);
+        AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,1);
         sousPanneau_.add(new TextLabel(messages.getVal(NB_DEALS_DEMO)));
         //Panneau Distribution
         nbDealsDemo = new Spinner(displayingPresident.getNbDeals(),FileConst.MIN_DEALS,FileConst.MAX_DEALS,1);

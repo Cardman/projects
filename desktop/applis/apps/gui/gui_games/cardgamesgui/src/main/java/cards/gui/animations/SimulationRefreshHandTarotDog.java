@@ -4,7 +4,7 @@ import cards.gui.containers.ContainerTarot;
 import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import code.gui.AbsPanel;
-import code.gui.Panel;
+
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/

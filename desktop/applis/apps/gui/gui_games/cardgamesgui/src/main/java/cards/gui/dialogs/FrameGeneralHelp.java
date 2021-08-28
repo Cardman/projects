@@ -95,7 +95,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         boolean wasNull_ = editor == null;
         AbsPanel container_;
         if (wasNull_) {
-            container_ = Panel.newPageBox();
+            container_ = _w.getCompoFactory().newPageBox();
         } else {
             container_ = getPane();
             container_.removeAll();

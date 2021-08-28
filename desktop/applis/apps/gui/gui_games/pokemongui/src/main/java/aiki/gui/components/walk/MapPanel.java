@@ -8,7 +8,6 @@ import aiki.gui.listeners.TileListener;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.ConverterBufferedImage;
@@ -20,7 +19,7 @@ public class MapPanel {
 
     public void init(WindowAiki _fact, FacadeGame _facade, ScenePanel _scene) {
         AbsCompoFactory compoFactory_ = _fact.getCompoFactory();
-        container = Panel.newGrid(_facade.getMapHeight(), _facade.getMapWidth());
+        container = compoFactory_.newGrid(_facade.getMapHeight(), _facade.getMapWidth());
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         TreeMap<MiniMapCoords, int[][]> images_;
         images_ = _facade.getImages();

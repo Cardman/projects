@@ -20,7 +20,7 @@ import cards.gui.panels.CarpetBelote;
 import cards.main.LaunchingCards;
 import code.gui.AbsPanel;
 import code.gui.LabelButton;
-import code.gui.Panel;
+
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;

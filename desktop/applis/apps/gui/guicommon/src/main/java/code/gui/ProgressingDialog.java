@@ -60,8 +60,8 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
         window = _window;
         perCent = PER_CENT;
         absDialog.setLocationRelativeTo(_window);
-        AbsPanel contentPane_ = Panel.newPageBox();
-        AbsPanel label_ = Panel.newLineBox();
+        AbsPanel contentPane_ = _window.getCompoFactory().newPageBox();
+        AbsPanel label_ = _window.getCompoFactory().newLineBox();
         if (!_images.isEmpty()) {
             anim = FrameUtil.prep(_window.getImageFactory());
             anim.setPreferredSize(new Dimension(WIDTH_ANIM, HEIGTH_ANIM));

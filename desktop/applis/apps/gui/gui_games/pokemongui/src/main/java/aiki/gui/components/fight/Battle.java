@@ -856,46 +856,46 @@ public class Battle extends ChildFrame {
             nicknameLabel.addMouseList(new NicknameEvent(this));
         }
         if (fleeWeb == null) {
-            fleeWeb = Panel.newPageBox();
+            fleeWeb = window.getCompoFactory().newPageBox();
         }
         if (actionType == null) {
-            actionType = Panel.newPageBox();
+            actionType = window.getCompoFactory().newPageBox();
         }
         if (panelPlaces == null) {
-            panelPlaces = Panel.newPageBox();
+            panelPlaces = window.getCompoFactory().newPageBox();
         }
         if (actions == null) {
-            actions = Panel.newPageBox();
+            actions = window.getCompoFactory().newPageBox();
         }
         if (targets == null) {
-            targets = new TargetsPanel();
+            targets = new TargetsPanel(window.getCompoFactory());
         }
         if (fighterFrontPanel == null) {
-            fighterFrontPanel = new FighterPanel(window.getImageFactory(), facade.getFight().getMult(), DataBase.EMPTY_STRING, facade, facade.getPlayerFrontTeam(), window.getAikiFactory().getGeneFighter().create(window.getImageFactory(),true));
+            fighterFrontPanel = new FighterPanel(window.getFrames(), facade.getFight().getMult(), DataBase.EMPTY_STRING, facade, facade.getPlayerFrontTeam(), window.getAikiFactory().getGeneFighter().create(window.getImageFactory(),true));
             fighterFrontPanel.addListener(this, true);
         }
         if (fighterBackPanel == null) {
-            fighterBackPanel = new FighterPanel(window.getImageFactory(), 2, DataBase.EMPTY_STRING, facade, facade.getPlayerBackTeam(), window.getAikiFactory().getGeneFighter().create(window.getImageFactory(),true));
+            fighterBackPanel = new FighterPanel(window.getFrames(), 2, DataBase.EMPTY_STRING, facade, facade.getPlayerBackTeam(), window.getAikiFactory().getGeneFighter().create(window.getImageFactory(),true));
             fighterBackPanel.addListener(this, false);
         }
         if (fighterPanel == null) {
-            fighterPanel = new FighterPanel(window.getImageFactory(), 2, DataBase.EMPTY_STRING, facade, facade.getPlayerTeam(), window.getAikiFactory().getGeneFighter().create(window.getImageFactory(),true));
+            fighterPanel = new FighterPanel(window.getFrames(), 2, DataBase.EMPTY_STRING, facade, facade.getPlayerTeam(), window.getAikiFactory().getGeneFighter().create(window.getImageFactory(),true));
             fighterPanel.addListener(this);
         }
         if (pokemonPanel == null) {
-            pokemonPanel = new PokemonPanel(window.getImageFactory(),2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO), window.getAikiFactory().getGenePkPanel().create(window.getImageFactory(),true));
+            pokemonPanel = new PokemonPanel(window.getFrames(),2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO), window.getAikiFactory().getGenePkPanel().create(window.getImageFactory(),true));
             pokemonPanel.addListener(this);
         }
         if (movesLearnPanel == null) {
-            movesLearnPanel = Panel.newPageBox();
+            movesLearnPanel = window.getCompoFactory().newPageBox();
             movesLearnPanelScroll = new ScrollPane(movesLearnPanel);
             movesLearnPanelScroll.setPreferredSize(new Dimension(150,150));
         }
         if (abilitiesLearnPanel == null) {
-            abilitiesLearnPanel = Panel.newPageBox();
+            abilitiesLearnPanel = window.getCompoFactory().newPageBox();
         }
         if (ballPanel == null) {
-            ballPanel = new BallPanel(window.getImageFactory(), 5, DataBase.EMPTY_STRING, facade, window.getAikiFactory().getGeneBallNumberRate().create(window.getImageFactory(),true));
+            ballPanel = new BallPanel(window.getFrames(), 5, DataBase.EMPTY_STRING, facade, window.getAikiFactory().getGeneBallNumberRate().create(window.getImageFactory(),true));
         }
         if (catchBall == null) {
             catchBall = new LabelButton();
@@ -1148,7 +1148,7 @@ public class Battle extends ChildFrame {
     private void initEvos() {
         enableClick = false;
 //        pokemonPanel.initEvos();
-        pokemonPanel = new PokemonPanel(window.getImageFactory(),2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO), window.getAikiFactory().getGenePkPanel().create(window.getImageFactory(), true));
+        pokemonPanel = new PokemonPanel(window.getFrames(),2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO), window.getAikiFactory().getGenePkPanel().create(window.getImageFactory(), true));
         pokemonPanel.addListener(this);
         enableClick = true;
     }
@@ -1282,7 +1282,7 @@ public class Battle extends ChildFrame {
         if (!moves_.isEmpty()) {
             boolean wasNull_ = movesPanel == null;
             if (wasNull_) {
-                movesPanel = Panel.newPageBox();
+                movesPanel = window.getCompoFactory().newPageBox();
             } else {
                 movesPanel.removeAll();
             }
@@ -1340,7 +1340,7 @@ public class Battle extends ChildFrame {
     private void displayMoves() {
         NatStringTreeMap<ChosenMoveInfos> moves_ = facade.getFight().getCurrentFighterMoves();
         if (!moves_.isEmpty()) {
-            AbsPanel movesPanel_ = Panel.newPageBox();
+            AbsPanel movesPanel_ = window.getCompoFactory().newPageBox();
             movesPanel_.add(new TextLabel(messages.getVal(SELECT_MOVE_ROUND)));
             movesLabels.clear();
             for (String m: moves_.getKeys()) {
@@ -1357,7 +1357,7 @@ public class Battle extends ChildFrame {
             actions.add(movesPanel_);
             boolean wasNull_ = targetsPanel == null;
             if (wasNull_) {
-                targetsPanel = Panel.newBorder();
+                targetsPanel = window.getCompoFactory().newBorder();
             } else {
                 targetsPanel.removeAll();
             }
@@ -1387,7 +1387,7 @@ public class Battle extends ChildFrame {
 //            }
             boolean wasNull_ = targetsPanel == null;
             if (wasNull_) {
-                targetsPanel = Panel.newBorder();
+                targetsPanel = window.getCompoFactory().newBorder();
             } else {
                 targetsPanel.removeAll();
             }

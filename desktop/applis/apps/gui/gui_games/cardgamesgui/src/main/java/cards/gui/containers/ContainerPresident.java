@@ -15,7 +15,6 @@ import cards.president.enumerations.PresidentResoucesAccess;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.AbsPanel;
 import code.gui.LabelButton;
-import code.gui.Panel;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.cards.MessagesPresidentPresident;
@@ -119,7 +118,7 @@ public class ContainerPresident extends ContainerGame {
     }
 
     protected AbsPanel assemble() {
-        AbsPanel panelCards_ = Panel.newLineBox();
+        AbsPanel panelCards_ = getOwner().getCompoFactory().newLineBox();
         panelCards_.add(getPanelGivenCards());
         panelCards_.add(getPanelReceivedCards());
         return panelCards_;

@@ -39,11 +39,11 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     public final void init(AbstractProgramInfos _list) {
-        fileOpenDialog = new FileOpenDialog(_list.getThreadFactory().newAtomicBoolean(), _list.getThreadFactory().newAtomicBoolean(), _list.getFrameFactory());
-        fileSaveDialog = new FileSaveDialog(_list.getFrameFactory());
-        folderOpenDialog = new FolderOpenDialog(_list.getFrameFactory());
+        fileOpenDialog = new FileOpenDialog(_list.getThreadFactory().newAtomicBoolean(), _list.getThreadFactory().newAtomicBoolean(), _list);
+        fileSaveDialog = new FileSaveDialog(_list);
+        folderOpenDialog = new FolderOpenDialog(_list);
         confirmDialog = new ConfirmDialog(_list);
-        languageDialog = new LanguageDialog(_list.getFrameFactory());
+        languageDialog = new LanguageDialog(_list);
     }
 
     public final void setByFirst(AbsGroupFrame _first) {

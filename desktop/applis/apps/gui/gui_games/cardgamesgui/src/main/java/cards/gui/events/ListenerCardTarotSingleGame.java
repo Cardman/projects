@@ -16,7 +16,7 @@ import cards.tarot.enumerations.Miseres;
 import code.gui.AbsMouseLocation;
 import code.gui.AbsPanel;
 import code.gui.ConfirmDialog;
-import code.gui.Panel;
+
 import code.util.EnumList;
 import code.util.core.StringUtil;
 

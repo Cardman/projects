@@ -68,7 +68,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     protected void initJt(Spinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
-        AbsPanel dealing_=Panel.newGrid(0,2);
+        AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
         dealing_.add(new TextLabel(getMessages().getVal(MIX_CARDS)));
         listeChoix=new ComboBox<MixCardsChoice>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
@@ -93,7 +93,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         //Panneau Distribution
         getJt().add(getMessages().getVal(DEALING),dealing_);
 
-        AbsPanel rules_=Panel.newGrid(0,2);
+        AbsPanel rules_=_window.getCompoFactory().newGrid(0,2);
         rules_.add(new TextLabel(getMessages().getVal(CST_EQUALITY)));
         equality = new ComboBoxEnumCards<EqualtyPlaying>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _window.getCompoFactory()));
         EqualtyPlaying curThree_ = getReglesPresident().getEqualty();
@@ -132,7 +132,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         rules_.add(possibleReversing);
         getJt().add(getMessages().getVal(RULES),rules_);
 
-        AbsPanel endDeal_ = Panel.newPageBox();
+        AbsPanel endDeal_ = _window.getCompoFactory().newPageBox();
         looseFinishBestCards = new CustCheckBox(getMessages().getVal(LOOSE_FINISH_BEST_CARDS));
         looseFinishBestCards.setSelected(getReglesPresident().isLoosingIfFinishByBestCards());
         endDeal_.add(looseFinishBestCards);
@@ -144,7 +144,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         endDeal_.add(looserStartsFirst);
         getJt().add(getMessages().getVal(END_DEAL),endDeal_);
 
-        AbsPanel players_ = Panel.newGrid(2,0);
+        AbsPanel players_ = _window.getCompoFactory().newGrid(2,0);
         players_.add(new TextLabel(getMessages().getVal(NUMBER_PLAYERS)));
         players_.add(new TextLabel(getMessages().getVal(NUMBER_STACKS)));
 

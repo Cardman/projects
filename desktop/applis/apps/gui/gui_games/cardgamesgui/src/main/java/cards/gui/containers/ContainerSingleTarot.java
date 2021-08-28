@@ -103,7 +103,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         placerIhmTarot();
     }
     private void placerIhmTarot() {
-        AbsPanel container_=Panel.newBorder();
+        AbsPanel container_=getOwner().getCompoFactory().newBorder();
         container_.add(new TextLabel(getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         GameTarot partie_=partieTarot();
         StringList pseudos_ = pseudosTarot();
@@ -111,25 +111,25 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         CarpetTarot tapis_ = CarpetTarot.initTapisTarot(lg_, partie_.getNombreDeJoueurs(), getDisplayingTarot().isClockwise(), partie_.getDistribution().derniereMain().total(), getOwner().getCompoFactory());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
-        setPanelHand(Panel.newLineBox());
-        AbsPanel panneau_=Panel.newLineBox();
+        setPanelHand(getOwner().getCompoFactory().newLineBox());
+        AbsPanel panneau_=getOwner().getCompoFactory().newLineBox();
         panneau_.add(getPanelHand());
-        setPanelDiscardedTrumps(Panel.newLineBox());
+        setPanelDiscardedTrumps(getOwner().getCompoFactory().newLineBox());
         getPanelDiscardedTrumps().setVisible(false);
         panneau_.add(getPanelDiscardedTrumps());
         panneau_.setBackground(Color.BLUE);
         container_.add(panneau_,BorderLayout.SOUTH);
 
-        AbsPanel panneau2_=Panel.newPageBox();
+        AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
         setEvents(new TextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(getEvents()));
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),getDisplayingTarot().isClockwise(),pseudos_, getOwner().getCompoFactory()));
         panneau2_.add(getMiniPanel());
-        setIncludedTrumpsForHandful(Panel.newLineBox());
+        setIncludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
         ScrollPane scrollIncl_ = new ScrollPane(getIncludedTrumpsForHandful());
         scrollIncl_.setPreferredSize(new Dimension(125,60));
-        setExcludedTrumpsForHandful(Panel.newLineBox());
+        setExcludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
         ScrollPane scrollExc_ = new ScrollPane(getExcludedTrumpsForHandful());
         scrollExc_.setPreferredSize(new Dimension(125,60));
         setDeclaringHandful(new SplitPane(JSplitPane.HORIZONTAL_SPLIT,scrollIncl_,scrollExc_));
@@ -141,32 +141,32 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         panneau2_.add(getScrollDeclaringHandful());
         setHandfuls(new ByteMap<TextLabel>());
         setDeclaredHandfuls(new ByteMap<AbsPanel>());
-        AbsPanel declaredHandfuls_ = Panel.newGrid(0,1);
+        AbsPanel declaredHandfuls_ = getOwner().getCompoFactory().newGrid(0,1);
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
-            AbsPanel declaredHandfulGroup_ = Panel.newLineBox();
+            AbsPanel declaredHandfulGroup_ = getOwner().getCompoFactory().newLineBox();
             TextLabel lab_ = new TextLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
             TextLabel handful_ = new TextLabel(EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             getHandfuls().put(i, handful_);
-            AbsPanel declaredHandful_ = Panel.newLineBox();
+            AbsPanel declaredHandful_ = getOwner().getCompoFactory().newLineBox();
             declaredHandfulGroup_.add(declaredHandful_);
             getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
         ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
-        setPanelCallableCards(Panel.newLineBox());
+        setPanelCallableCards(getOwner().getCompoFactory().newLineBox());
         setScrollCallableCards(new ScrollPane(getPanelCallableCards()));
         getScrollCallableCards().setVisible(false);
         panneau2_.add(getScrollCallableCards());
-        AbsPanel sousPanneau_=Panel.newPageBox();
+        AbsPanel sousPanneau_=getOwner().getCompoFactory().newPageBox();
         setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
         tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain(), getOwner().getCompoFactory());
-        AbsPanel panel_ = Panel.newPageBox();
+        AbsPanel panel_ = getOwner().getCompoFactory().newPageBox();
         panel_.add(new ScrollPane(container_));
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
@@ -662,7 +662,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             HandTarot trumps_ = GameTarotCommonPlaying.atoutsPoignee(partie_.getDistribution().hand().couleurs());
             displayTrumpsForHandful(trumps_);
             AbsPanel panneau_=getPanneauBoutonsJeu();
-            AbsPanel handFuls_ = Panel.newPageBox();
+            AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
             setInfoCurrentHandful(new TextArea(EMPTY_STRING,1,15));
             ScrollPane scroll_ = new ScrollPane(getInfoCurrentHandful());
             scroll_.setPreferredSize(new Dimension(getEvents().getWidth(),70));
@@ -685,7 +685,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 handFuls_.add(radio_);
             }
             panneau_.add(handFuls_);
-            AbsPanel miseresPanel_ = Panel.newGrid(0,1);
+            AbsPanel miseresPanel_ = getOwner().getCompoFactory().newGrid(0,1);
             for(Miseres po_:regles_.getMiseres()) {
                 CustCheckBox check_ = new CustCheckBox(Games.toString(po_,lg_));
                 //check_.addChangeListener(new ListenerMiseres(check_,po_));
@@ -915,7 +915,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
-        AbsPanel container_=Panel.newBorder();
+        AbsPanel container_=getOwner().getCompoFactory().newBorder();
         ScrollPane ascenseur_;
 
         if(isChangerPileFin()) {
@@ -1007,7 +1007,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             ScrollPane locScroll_=new ScrollPane(graphique_);
             graphique_.setLocation(0,(600-dimy_)/2);
             locScroll_.setPreferredSize(new Dimension(300,200));
-            AbsPanel panneau_=Panel.newBorder();
+            AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
             panneau_.add(new TextLabel(getMessages().getVal(WindowCards.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
             panneau_.add(locScroll_,BorderLayout.CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
@@ -1031,8 +1031,8 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         panelCards_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.HANDS_TRICKS),panelCards_);
         container_.add(onglets_,BorderLayout.CENTER);
-        AbsPanel panneau_=Panel.newPageBox();
-        AbsPanel buttons_ = Panel.newLineBox();
+        AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
+        AbsPanel buttons_ = getOwner().getCompoFactory().newLineBox();
         GameType type_;
         long nombreParties_;
         type_=partie_.getType();
@@ -1360,7 +1360,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         TeamsPlayers teams_ = new TeamsPlayers();
         teams_.setTeams(game_.getTeamsRelation().teams());
         DialogTeamsPlayers.initDialogTeamsPlayers(getOwner());
-        DialogTeamsPlayers.setDialogTeamsPlayers(pseudosTarot(), teams_, getOwner().getDialogTeamsPlayers());
+        DialogTeamsPlayers.setDialogTeamsPlayers(pseudosTarot(), teams_, getOwner().getDialogTeamsPlayers(), getOwner().getCompoFactory());
     }
     @Override
     public void showTricksHands() {
@@ -1386,7 +1386,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         EnumMap<Hypothesis,EnumMap<Suit,CustList<HandTarot>>> hypotheses_ = doneTrickInfo_.cartesCertaines(cartesPossibles_);
         cartesPossibles_ = hypotheses_.getVal(Hypothesis.POSSIBLE);
         EnumMap<Suit,CustList<HandTarot>> cartesCertaines_= hypotheses_.getVal(Hypothesis.SURE);
-        DialogHelpTarot.setDialogueTarot(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,pseudosTarot(), lg_, getOwner().getDialogHelpTarot());
+        getOwner().getDialogHelpTarot().setDialogueTarot(cartesPossibles_,cartesCertaines_,repartitionCartesJouees_,pseudosTarot(), lg_);
     }
 
     public BidTarot getContratUtilisateur() {

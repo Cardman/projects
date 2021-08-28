@@ -8,6 +8,7 @@ import cards.gui.WindowCards;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
 import code.util.CustList;
 import code.util.EnumList;
@@ -26,9 +27,11 @@ public final class DialogHelpTarot {
     private static final String SPACE=" ";
     private static final String TAB="\t";
     private final AbsDialog absDialog;
+    private final AbsCompoFactory compo;
 
-    public DialogHelpTarot(AbsFrameFactory _frameFactory) {
+    public DialogHelpTarot(AbsFrameFactory _frameFactory, AbsCompoFactory _compo) {
         absDialog = _frameFactory.newDialog();
+        compo = _compo;
     }
 
     public static void setTitleDialog(WindowCards _fenetre, String _title) {
@@ -37,16 +40,16 @@ public final class DialogHelpTarot {
         _fenetre.getDialogHelpTarot().absDialog.setTitle(_title);
     }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
-    public static void setDialogueTarot(EnumMap<Suit, CustList<HandTarot>> _cartesPossibles,
+    public void setDialogueTarot(EnumMap<Suit, CustList<HandTarot>> _cartesPossibles,
                                         EnumMap<Suit, CustList<HandTarot>> _cartesCertaines, EnumMap<Suit, HandTarot> _repartitionJouees,
-                                        StringList _pseudos, String _lg, DialogHelpTarot _dialog) {
-        AbsPanel container_=Panel.newLineBox();
-        AbsPanel panneau2_=Panel.newBorder();
+                                        StringList _pseudos, String _lg) {
+        AbsPanel container_=compo.newLineBox();
+        AbsPanel panneau2_=compo.newBorder();
         AbsPanel panneau3_;
         TextArea zone_;
         HandTarot tout_ = HandTarot.pileBase();
         EnumList<Suit> suits_ = new EnumList<Suit>(Suit.values());
-        panneau3_=Panel.newLineBox();
+        panneau3_=compo.newLineBox();
 //        Suit couleur_;
 //        Suit couleurMemo_=null;
         int nbPlayers_ = _pseudos.size();
@@ -113,9 +116,9 @@ public final class DialogHelpTarot {
         ScrollPane ascenseur_=new ScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new Dimension(600,600));
         container_.add(ascenseur_);
-        _dialog.absDialog.setContentPane(container_);
-        _dialog.absDialog.pack();
-        _dialog.voir();
+        absDialog.setContentPane(container_);
+        absDialog.pack();
+        voir();
     }
     private void voir() {
         absDialog.setResizable(false);

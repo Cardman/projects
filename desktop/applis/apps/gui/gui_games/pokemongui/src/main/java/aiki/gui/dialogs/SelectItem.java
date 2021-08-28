@@ -10,6 +10,7 @@ import aiki.gui.components.PaginatorItem;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -34,10 +35,12 @@ public final class SelectItem extends SelectDialog {
     private CustCheckBox giveCheckBox;
 
     private StringMap<String> messages;
+    private final AbsCompoFactory compo;
 
-    public SelectItem(AbsFrameFactory _frameFactory) {
+    public SelectItem(AbsFrameFactory _frameFactory, AbsCompoFactory _compoFactory) {
         super(_frameFactory);
         getSelectDial().setAccessFile(DIALOG_ACCESS);
+        compo = _compoFactory;
     }
 
     public static void setSelectItem(WindowAiki _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
@@ -51,10 +54,10 @@ public final class SelectItem extends SelectDialog {
         facade = _facade;
         initOk();
 //        ok = false;
-        AbsPanel contentPane_ = Panel.newBorder();
-        AbsPanel pag_ = Panel.newPageBox();
+        AbsPanel contentPane_ = compo.newBorder();
+        AbsPanel pag_ = compo.newPageBox();
         contentPane_.add(new ScrollPane(new PaginatorItem(_parent,pag_, getSelectDial(), _facade, !_sell).getContainer()), BorderLayout.CENTER);
-        AbsPanel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = compo.newLineBox();
         if (!_buy) {
             giveCheckBox = new CustCheckBox(messages.getVal(GIVE));
 //            giveCheckBox.addChangeListener(new ChangeListener() {

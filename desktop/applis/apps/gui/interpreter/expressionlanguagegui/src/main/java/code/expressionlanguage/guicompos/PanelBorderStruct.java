@@ -3,7 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.gui.Panel;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.core.StringUtil;
 
 import java.awt.BorderLayout;
@@ -20,12 +20,12 @@ public final class PanelBorderStruct extends PanelStruct {
     public static final String BEFORE_LINE_BEGINS = "1";
     public static final String AFTER_LINE_ENDS = "7";
 
-    private PanelBorderStruct(String _className) {
-        super(_className,Panel.newBorder());
+    private PanelBorderStruct(String _className, AbsCompoFactory _compo) {
+        super(_className,_compo.newBorder());
     }
 
-    public static PanelStruct newBorder(String _className) {
-        return new PanelBorderStruct(_className);
+    public static PanelStruct newBorder(String _className, AbsCompoFactory _compo) {
+        return new PanelBorderStruct(_className,_compo);
     }
 
     public void add(CustComponentStruct _comp, Struct _constraint) {

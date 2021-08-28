@@ -72,7 +72,7 @@ public final class PaginatorMove extends Paginator {
 
     private final ComboBox<SearchingMode> modeTypes;
 
-    private final AbsPanel results = Panel.newGrid(0,1);
+    private final AbsPanel results = getMain().getCompoFactory().newGrid(0,1);
 
     private final ComboBox<SelectedBoolean> cmpNameSorting;
 
@@ -319,7 +319,7 @@ public final class PaginatorMove extends Paginator {
 //            }
 //        });
         AbsPanel search_;
-        search_ = Panel.newGrid(0,3);
+        search_ = getMain().getCompoFactory().newGrid(0,3);
         search_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         search_.add(name);
         search_.add(modeName.self());
@@ -343,7 +343,7 @@ public final class PaginatorMove extends Paginator {
         search_.add(new TextLabel(DataBase.EMPTY_STRING));
         _p.add(search_);
         AbsPanel sorting_;
-        sorting_ = Panel.newGrid(0,3);
+        sorting_ = getMain().getCompoFactory().newGrid(0,3);
         sorting_.add(new TextLabel(getMessages().getVal(CST_NAME)));
         sorting_.add(cmpNameSorting.self());
         sorting_.add(cmpNamePrio.self());
@@ -364,7 +364,7 @@ public final class PaginatorMove extends Paginator {
         sorting_.add(cmpTargetsPrio.self());
         _p.add(sorting_);
         AbsPanel top_;
-        top_ = Panel.newLineBox();
+        top_ = getMain().getCompoFactory().newLineBox();
         LabelButton button_;
         button_ = new LabelButton(getMessages().getVal(SEARCH));
         button_.addMouseList(new SearchEvent(this));
@@ -407,7 +407,7 @@ public final class PaginatorMove extends Paginator {
         results.add(getHeader());
         //results.add(new JLabel(getMessages().getVal(MOVE)));
         _p.add(new ScrollPane(results));
-        AbsPanel bottom_ = Panel.newLineBox();
+        AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageMove());
         getNbResults().addChangeListener(new ChangedNbResultsEvent(this));
         bottom_.add(getNbResults());

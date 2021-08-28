@@ -7,8 +7,9 @@ import cards.gui.WindowCards;
 import cards.president.enumerations.CardPresident;
 import code.gui.AbsDialog;
 import code.gui.AbsPanel;
-import code.gui.Panel;
+
 import code.gui.TextLabel;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -24,11 +25,13 @@ public final class DialogHelpPresident {
     private static final String YES = "yes";
     private static final String NO = "no";
     private final AbsDialog absDialog;
+    private final AbsCompoFactory compo;
     private StringMap<String> messages = new StringMap<String>();
 
-    public DialogHelpPresident(AbsFrameFactory _frameFactory) {
+    public DialogHelpPresident(AbsFrameFactory _frameFactory, AbsCompoFactory _compo) {
         absDialog = _frameFactory.newDialog();
         absDialog.setAccessFile(DIALOG_ACCESS);
+        compo = _compo;
     }
 
     private void voir() {
@@ -42,13 +45,13 @@ public final class DialogHelpPresident {
         _fenetre.getDialogHelpPresident().initMessageName(_fenetre);
     }
 
-    public static void setDialoguePresident(TreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks, String _lg, DialogHelpPresident _dialog) {
+    public void setDialoguePresident(TreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks, String _lg) {
         int count_ = Suit.couleursOrdinaires().size() * _nbStacks;
-        AbsPanel contentPane_ = Panel.newPageBox();
-        AbsPanel panelCards_ = Panel.newGrid(0, 3);
-        panelCards_.add(new TextLabel(_dialog.messages.getVal(LEVEL)));
-        panelCards_.add(new TextLabel(_dialog.messages.getVal(NB_PLAYED)));
-        panelCards_.add(new TextLabel(_dialog.messages.getVal(NB_REM)));
+        AbsPanel contentPane_ = compo.newPageBox();
+        AbsPanel panelCards_ = compo.newGrid(0, 3);
+        panelCards_.add(new TextLabel(messages.getVal(LEVEL)));
+        panelCards_.add(new TextLabel(messages.getVal(NB_PLAYED)));
+        panelCards_.add(new TextLabel(messages.getVal(NB_REM)));
         for (CardPresident c: _playedCards.getKeys()) {
             CardChar char_ = c.getNomFigure();
             if (char_ == CardChar.UNDEFINED) {
@@ -61,19 +64,19 @@ public final class DialogHelpPresident {
             panelCards_.add(new TextLabel(Long.toString(count_ - pl_)));
         }
         contentPane_.add(panelCards_);
-        String message_ = _dialog.messages.getVal(REVERSED);
+        String message_ = messages.getVal(REVERSED);
         String value_;
         if (_reversed) {
-            value_ = _dialog.messages.getVal(YES);
+            value_ = messages.getVal(YES);
         } else {
-            value_ = _dialog.messages.getVal(NO);
+            value_ = messages.getVal(NO);
         }
         message_ = StringUtil.simpleStringsFormat(message_, value_);
         TextLabel reversed_ = new TextLabel(message_);
         contentPane_.add(reversed_);
-        _dialog.absDialog.setContentPane(contentPane_);
-        _dialog.absDialog.pack();
-        _dialog.voir();
+        absDialog.setContentPane(contentPane_);
+        absDialog.pack();
+        voir();
     }
 
     private void initMessageName(WindowCards _parent) {

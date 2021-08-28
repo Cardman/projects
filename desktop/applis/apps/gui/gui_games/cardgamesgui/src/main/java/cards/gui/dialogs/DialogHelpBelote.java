@@ -10,6 +10,7 @@ import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCards;
 import code.gui.*;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
 import code.util.CustList;
 import code.util.EnumList;
@@ -28,9 +29,11 @@ public final class DialogHelpBelote {
     private static final String SPACE=" ";
     private static final String TAB="\t";
     private final AbsDialog absDialog;
+    private final AbsCompoFactory compo;
 
-    public DialogHelpBelote(AbsFrameFactory _frameFactory) {
+    public DialogHelpBelote(AbsFrameFactory _frameFactory, AbsCompoFactory _compo) {
         absDialog = _frameFactory.newDialog();
+        compo = _compo;
     }
 
     private void voir() {
@@ -42,13 +45,13 @@ public final class DialogHelpBelote {
         _fenetre.getDialogHelpBelote().absDialog.setLocationRelativeTo(_fenetre);
         _fenetre.getDialogHelpBelote().absDialog.setTitle(_title);
     }
-    public static void setDialogueBelote(EnumMap<Suit, CustList<HandBelote>> _cartesPossibles,
+    public void setDialogueBelote(EnumMap<Suit, CustList<HandBelote>> _cartesPossibles,
                                          EnumMap<Suit, CustList<HandBelote>> _cartesCertaines,
                                          EnumMap<Suit, HandBelote> _repartitionJouees,
                                          Suit _couleurDemandee, BidBeloteSuit _bid,
-                                         StringList _pseudos, String _lg, DialogHelpBelote _dialog) {
-        AbsPanel container_=Panel.newLineBox();
-        AbsPanel panneau2_=Panel.newBorder();
+                                         StringList _pseudos, String _lg) {
+        AbsPanel container_=compo.newLineBox();
+        AbsPanel panneau2_=compo.newBorder();
         AbsPanel panneau3_;
         TextArea zone_;
         HandBelote tout_ = HandBelote.pileBase();
@@ -74,7 +77,7 @@ public final class DialogHelpBelote {
             tout_.trier(Suit.couleursOrdinaires(), true, ordre_);
         }
         EnumList<Suit> suits_ = Suit.couleursOrdinaires();
-        panneau3_=Panel.newLineBox();
+        panneau3_=compo.newLineBox();
 //        Suit couleur_;
         int nbBotPlayers_ = _pseudos.size();
         for(int indicePseudo_ = IndexConstants.SECOND_INDEX; indicePseudo_<nbBotPlayers_; indicePseudo_++) {
@@ -120,9 +123,9 @@ public final class DialogHelpBelote {
         ScrollPane ascenseur_=new ScrollPane(panneau2_);
         ascenseur_.setPreferredSize(new Dimension(600,600));
         container_.add(ascenseur_);
-        _dialog.absDialog.setContentPane(container_);
-        _dialog.absDialog.pack();
-        _dialog.voir();
+        absDialog.setContentPane(container_);
+        absDialog.pack();
+        voir();
     }
 
 }

@@ -4,6 +4,7 @@ package code.gui;
 import code.gui.events.CancelSelectFileEvent;
 import code.gui.events.SubmitMouseEvent;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
@@ -21,7 +22,7 @@ public final class FolderOpenDialog extends FileDialog implements SingleFileSele
 
     private StringMap<String> messages;
 
-    public FolderOpenDialog(AbsFrameFactory _frameFact) {
+    public FolderOpenDialog(AbstractProgramInfos _frameFact) {
         super(_frameFact);
         getAbsDialog().setAccessFile(DIALOG_ACCESS);
     }

@@ -9,7 +9,9 @@ import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
 import code.gui.events.DeployTreeEvent;
 import code.gui.images.AbstractImage;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
@@ -33,7 +35,8 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
     private static final String FILES = "files";
 
     private static final int NB_COLS = 32;
-    private AbsPanel buttons = Panel.newLineBox();
+    private final AbsCompoFactory compoFactory;
+    private AbsPanel buttons;
     private TextField fileName = new TextField(NB_COLS);
     private AutoCompleteDocument auto;
     private AbsTreeGui folderSystem;
@@ -54,8 +57,10 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
     private StringMap<String> messages;
     private final AbsDialog absDialog;
 
-    protected FileDialog(AbsFrameFactory _frameFact){
-        absDialog = _frameFact.newDialog(this);
+    protected FileDialog(AbstractProgramInfos _frameFact){
+        compoFactory = _frameFact.getCompoFactory();
+        buttons = compoFactory.newLineBox();
+        absDialog = _frameFact.getFrameFactory().newDialog(this);
     }
 
     @Override
@@ -159,18 +164,18 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         fileTable.addHeaderListener(new ClickHeaderEvent(this));
         fileTable.setMultiSelect(false);
         fileTable.addListSelectionListener(new ClickRowEvent(this));
-        AbsPanel openSaveFile_ = Panel.newPageBox();
+        AbsPanel openSaveFile_ = compoFactory.newPageBox();
         fileName = new TextField(NB_COLS);
         auto = new AutoCompleteDocument(fileName,new StringList(), this,superFrame.getFrames());
         if (addTypingFileName) {
-            AbsPanel fieldFile_ = Panel.newLineBox();
+            AbsPanel fieldFile_ = compoFactory.newLineBox();
             fieldFile_.add(new TextLabel(messages.getVal(NAME)));
             fieldFile_.add(fileName);
             openSaveFile_.add(fieldFile_);
         }
-        buttons = Panel.newLineBox();
+        buttons = compoFactory.newLineBox();
         openSaveFile_.add(buttons);
-        AbsPanel contentPane_ = Panel.newBorder();
+        AbsPanel contentPane_ = compoFactory.newBorder();
         contentPane_.add(openSaveFile_, BorderLayout.SOUTH);
         if (currentFolderRoot) {
             AbstractMutableTreeNode default_ = superFrame.getCompoFactory().newMutableTreeNode(currentFolder.substring(0, currentFolder.length() - 1));
@@ -380,6 +385,10 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
 
     protected StringList getExcludedFolders() {
         return excludedFolders;
+    }
+
+    public AbsCompoFactory getCompoFactory() {
+        return compoFactory;
     }
 
     public void closeWindow() {

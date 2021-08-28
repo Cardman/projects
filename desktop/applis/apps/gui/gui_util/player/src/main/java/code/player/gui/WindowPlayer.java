@@ -27,7 +27,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class WindowPlayer extends GroupFrame implements LineShortListenable {
+public final class WindowPlayer extends GroupFrame implements LineShortListenable {
     private static final String ACCESS = "player.gui.mainwindow";
 
     private static final String CST_START = "start";
@@ -107,13 +107,13 @@ public class WindowPlayer extends GroupFrame implements LineShortListenable {
         initMessages(_lg);
         setTitle(messages.getVal(CST_TITLE_PLAYER));
         setIconImage(LaunchingPlayer.getIcon(_list.getImageFactory()));
-        AbsPanel pane_ = Panel.newPageBox();
+        AbsPanel pane_ = getCompoFactory().newPageBox();
         songsLabel.setText(messages.getVal(CST_SONGS));
         pane_.add(songsLabel);
         pane_.add(songs);
         random.setText(messages.getVal(CST_RANDOM));
         pane_.add(random);
-        AbsPanel actions_ = Panel.newLineBox();
+        AbsPanel actions_ = getCompoFactory().newLineBox();
 //        playPrevious.setTextAndSize(PREVIOUS);
 //        playPrevious.repaint();
         playPrevious.addMouseList(new PreviousSong(this));

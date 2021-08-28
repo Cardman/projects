@@ -5,6 +5,7 @@ import javax.swing.WindowConstants;
 import code.gui.events.LanguageChoice;
 import code.gui.events.SetterLanguage;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.consts.Constants;
 
 
@@ -16,8 +17,8 @@ public final class LanguageDialog implements SetterLanguage {
     private CustButtonGroup groupe = new CustButtonGroup();
     private String langue;
 
-    public LanguageDialog(AbsFrameFactory _frameFactory) {
-        absDialog = _frameFactory.newDialog();
+    public LanguageDialog(AbstractProgramInfos _frameFactory) {
+        absDialog = _frameFactory.getFrameFactory().newDialog();
     }
 
     public static void setLanguageDialog(GroupFrame _owner) {
@@ -36,7 +37,7 @@ public final class LanguageDialog implements SetterLanguage {
         absDialog.setDialogIcon(_owner.getImageFactory(),_owner);
         absDialog.setLocationRelativeTo(_owner);
         absDialog.setTitle(_title);
-        AbsPanel panneau_ = Panel.newGrid(0,1);
+        AbsPanel panneau_ = _owner.getCompoFactory().newGrid(0,1);
         for (String l: Constants.getAvailableLanguages()) {
             RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
             radio_.addMouseListener(new LanguageChoice(l, this));

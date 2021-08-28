@@ -10,7 +10,6 @@ import cards.belote.enumerations.CardBelote;
 import cards.gui.WindowCards;
 import cards.gui.labels.GraphicBeloteCard;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.images.AbstractImageFactory;
@@ -33,14 +32,14 @@ public class CarpetBelote {
     private AbsPanel container;
 
     public static CarpetBelote initTapisBelote(String _lg, int _nombreDeJoueurs, boolean _horaire, StringList _pseudos, int _nombre, AbsCompoFactory _compoFactory) {
-        AbsPanel container_ = Panel.newGrid(0,3);
+        AbsPanel container_ = _compoFactory.newGrid(0,3);
         CarpetBelote c_ = new CarpetBelote();
         c_.horaire=_horaire;
         c_.container = container_;
         if(_nombreDeJoueurs==4) {
             for (int i = 0; i < 9; i++) {
                 AbsPanel surPanneau_;
-                surPanneau_= Panel.newLineBox();
+                surPanneau_= _compoFactory.newLineBox();
                 if (i % 2 == 1) {
 
                     GraphicBeloteCard carte_ = new GraphicBeloteCard(_lg,
@@ -74,12 +73,12 @@ public class CarpetBelote {
             }
         } else if(_nombreDeJoueurs==6) {
             for(int i=0;i<12;i++) {
-                AbsPanel surPanneau_=Panel.newLineBox();
-                AbsPanel panneau_=Panel.newBorder();
+                AbsPanel surPanneau_=_compoFactory.newLineBox();
+                AbsPanel panneau_=_compoFactory.newBorder();
                 TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==3) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     } else {
@@ -93,7 +92,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==5) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
                     } else {
@@ -107,7 +106,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==6) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     } else {
@@ -121,7 +120,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==8) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringUtil.concat(_pseudos.get(5),RETURN_LINE));
                     } else {
@@ -135,7 +134,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==1) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -145,7 +144,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==10) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -155,7 +154,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==4) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
                 }
                 surPanneau_.setBackground(new Color(0,125,0));
@@ -164,8 +163,8 @@ public class CarpetBelote {
         } else if(_nombreDeJoueurs==3) {
             for(int i=0;i<9;i++) {
                 AbsPanel surPanneau_;
-                surPanneau_= Panel.newLineBox();
-                AbsPanel panneau_=Panel.newBorder();
+                surPanneau_= _compoFactory.newLineBox();
+                AbsPanel panneau_=_compoFactory.newBorder();
                 TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==0) {
@@ -211,12 +210,12 @@ public class CarpetBelote {
             }
         } else {
             for(int i=0;i<9;i++) {
-                AbsPanel surPanneau_=Panel.newLineBox();
-                AbsPanel panneau_=Panel.newBorder();
+                AbsPanel surPanneau_=_compoFactory.newLineBox();
+                AbsPanel panneau_=_compoFactory.newBorder();
                 TextArea jta_=new TextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==0) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringUtil.concat(_pseudos.get(2),RETURN_LINE));
                     } else {
@@ -230,7 +229,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==2) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringUtil.concat(_pseudos.get(3),RETURN_LINE));
                     } else {
@@ -244,7 +243,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==3) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringUtil.concat(_pseudos.get(1),RETURN_LINE));
                     } else {
@@ -258,7 +257,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==5) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     if(c_.horaire) {
                         jta_.append(StringUtil.concat(_pseudos.get(4),RETURN_LINE));
                     } else {
@@ -272,7 +271,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==7) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
                     ScrollPane ascenseur_=new ScrollPane(jta_);
                     ascenseur_.setPreferredSize(new Dimension(100,50));
@@ -282,7 +281,7 @@ public class CarpetBelote {
                     panneau_.add(carte_,BorderLayout.CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==4) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
                 }
                 surPanneau_.setBackground(new Color(0,125,0));

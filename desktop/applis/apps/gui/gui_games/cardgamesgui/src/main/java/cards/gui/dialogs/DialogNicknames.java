@@ -58,9 +58,9 @@ public final class DialogNicknames extends DialogCards {
     public void setDialogue(WindowCards _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
         getJt().removeAll();
-        AbsPanel container_=Panel.newBorder();
+        AbsPanel container_=_fenetre.getCompoFactory().newBorder();
         //Panneau pseudos des joueurs belote
-        AbsPanel sousPanneau_=Panel.newGrid(0,1);
+        AbsPanel sousPanneau_=_fenetre.getCompoFactory().newGrid(0,1);
         int i_=0;
         for (String p:pseudos.getPseudosBelote()) {
             TextField pseudo_=new TextField(30);
@@ -72,7 +72,7 @@ public final class DialogNicknames extends DialogCards {
         }
         getJt().add(GameEnum.BELOTE.toString(lg_),sousPanneau_);
         //Panneau pseudos des joueurs president
-        sousPanneau_=Panel.newGrid(0,1);
+        sousPanneau_=_fenetre.getCompoFactory().newGrid(0,1);
         i_=0;
         for (String p:pseudos.getPseudosPresident()) {
             TextField pseudo_=new TextField(30);
@@ -86,7 +86,7 @@ public final class DialogNicknames extends DialogCards {
         scroll_.setPreferredSize(new Dimension(300, 400));
         getJt().add(GameEnum.PRESIDENT.toString(lg_), scroll_);
         //Panneau pseudos des joueurs tarot
-        sousPanneau_=Panel.newGrid(0,1);
+        sousPanneau_=_fenetre.getCompoFactory().newGrid(0,1);
         i_=0;
         for (String p:pseudos.getPseudosTarot()) {
             TextField pseudo_=new TextField(30);
@@ -99,7 +99,7 @@ public final class DialogNicknames extends DialogCards {
         getJt().add(GameEnum.TAROT.toString(lg_),sousPanneau_);
         container_.add(getJt(),BorderLayout.CENTER);
         //Panneau pseudo du joueur
-        sousPanneau_=Panel.newPageBox();
+        sousPanneau_=_fenetre.getCompoFactory().newPageBox();
         sousPanneau_.add(new TextLabel(messages.getVal(CST_NICKNAME)));
         nickname=new TextField(30);
         nickname.setText(pseudos.getPseudo());

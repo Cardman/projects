@@ -4,7 +4,6 @@ import cards.belote.enumerations.CardBelote;
 import cards.gui.WindowCards;
 import cards.gui.labels.MiniBeloteCard;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/

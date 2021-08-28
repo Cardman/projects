@@ -6,8 +6,8 @@ import aiki.game.fight.Fighter;
 import aiki.gui.listeners.SelectFoeTarget;
 import aiki.gui.listeners.SelectPlayerTarget;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 import code.gui.TextLabel;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -19,9 +19,14 @@ public class TargetsPanel {
 
     private CustList<MiniTargetLabel> playerTargets = new CustList<MiniTargetLabel>();
 
-    private AbsPanel container = Panel.newLineBox();
+    private AbsPanel container;
+    private final AbsCompoFactory compoFactory;
 
+    public TargetsPanel(AbsCompoFactory _compoFactory) {
+        compoFactory = _compoFactory;
+    }
     public void setTargets(FacadeGame _facade, Battle _battle) {
+        container = compoFactory.newLineBox();
         byte mult_ = _facade.getFight().getMult();
         foeTargets.clear();
         playerTargets.clear();
@@ -33,7 +38,7 @@ public class TargetsPanel {
         i_ = IndexConstants.FIRST_INDEX;
         IdList<BoolVal> chosablePl_ = _facade.getFight().getChosablePlayerTargets();
         for (byte k: teamPl_.getKeys()) {
-            MiniTargetLabel target_ = new MiniTargetLabel(_battle.getWindow().getCompoFactory());
+            MiniTargetLabel target_ = new MiniTargetLabel(compoFactory);
             target_.set(_facade,_battle, teamPl_.getVal(k).getName(), i_);
             boolean match_ = chosablePl_.get(k) == BoolVal.TRUE;
             if (match_) {
@@ -48,7 +53,7 @@ public class TargetsPanel {
         ByteTreeMap<Fighter> teamFoe_ = _facade.getFoeFrontTeam();
         IdList<BoolVal> chosableFoe_ = _facade.getFight().getChosableFoeTargets();
         for (byte k: teamFoe_.getKeys()) {
-            MiniTargetLabel target_ = new MiniTargetLabel(_battle.getWindow().getCompoFactory());
+            MiniTargetLabel target_ = new MiniTargetLabel(compoFactory);
             target_.set(_facade,_battle, teamFoe_.getVal(k).getName(), i_);
             boolean match_ = chosableFoe_.get(k) == BoolVal.TRUE;
             if (match_) {
@@ -95,7 +100,7 @@ public class TargetsPanel {
 
     private void placeLabels(byte _mult) {
         if (_mult == 1) {
-            container = Panel.newGrid(0, 2);
+            container = compoFactory.newGrid(0, 2);
             container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
                 container.add(foeTargets.get(IndexConstants.FIRST_INDEX));
@@ -109,7 +114,7 @@ public class TargetsPanel {
             }
             container.add(new TextLabel(DataBase.EMPTY_STRING));
         } else if (_mult == 2) {
-            container = Panel.newGrid(0, 4);
+            container = compoFactory.newGrid(0, 4);
             container.add(new TextLabel(DataBase.EMPTY_STRING));
             container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
@@ -135,7 +140,7 @@ public class TargetsPanel {
             container.add(new TextLabel(DataBase.EMPTY_STRING));
             container.add(new TextLabel(DataBase.EMPTY_STRING));
         } else if (_mult == 3) {
-            container = Panel.newGrid(0, 4);
+            container = compoFactory.newGrid(0, 4);
             container.add(new TextLabel(DataBase.EMPTY_STRING));
             container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
@@ -177,7 +182,7 @@ public class TargetsPanel {
             container.add(new TextLabel(DataBase.EMPTY_STRING));
             container.add(new TextLabel(DataBase.EMPTY_STRING));
         } else {
-            container = Panel.newGrid(0, 4);
+            container = compoFactory.newGrid(0, 4);
             container.add(new TextLabel(DataBase.EMPTY_STRING));
             container.add(new TextLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {

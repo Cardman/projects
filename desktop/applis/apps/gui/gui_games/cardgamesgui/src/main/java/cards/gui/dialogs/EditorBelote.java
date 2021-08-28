@@ -123,13 +123,13 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     @Override
     public void setDialogue(WindowCards _parent) {
         getJt().removeAll();
-        AbsPanel container_=Panel.newBorder();
+        AbsPanel container_=_parent.getCompoFactory().newBorder();
         initMessageName(_parent);
         //Panneau Distribution
         String lg_ = _parent.getLanguageKey();
         initJt(_parent,new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),lg_);
         container_.add(getJt(),BorderLayout.CENTER);
-        AbsPanel panneau_=Panel.newLineBox();
+        AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
         bouton_.addMouseList(new ValidateRulesDealEvent(this, _parent));
         panneau_.add(bouton_);
@@ -166,8 +166,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 
     private void distribuer(WindowCards _parent) {
         getCardDialog().setTitle(getMessages().getVal(DEALING_CARDS));
-        AbsPanel c=Panel.newBorder();
-        AbsPanel panneau_=Panel.newLineBox();
+        AbsPanel c=_parent.getCompoFactory().newBorder();
+        AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
         panneau_.add(new TextLabel(getMessages().getVal(DEALER)));
         liste=new StringComboBox(_parent.getFrames().getGeneComboBox().createCombo(_parent.getImageFactory(),new StringList(new IntTreeMap<String>().values()), 0, _parent.getCompoFactory()));
         liste.addItem(nickNames.getPseudo());
@@ -181,8 +181,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         liste.addItem(getMessages().getVal(RANDOM));
         panneau_.add(liste.self());
         c.add(panneau_,BorderLayout.NORTH);
-        panneau_=Panel.newBorder();
-        panelsCards=Panel.newLineBox();
+        panneau_=_parent.getCompoFactory().newBorder();
+        panelsCards=_parent.getCompoFactory().newLineBox();
         HandBelote pile_=HandBelote.pileBase();
         pile_.trier(displayingBelote.getSuits(), displayingBelote.isDecreasing(), displayingBelote.getOrderBeforeBids());
         BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(_parent.getCompoFactory(), 12,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
@@ -227,7 +227,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         panelsCards.add(plc_.getContainer());
         remaining = plc_;
         panneau_.add(panelsCards,BorderLayout.CENTER);
-        AbsPanel sousPanneau_=Panel.newLineBox();
+        AbsPanel sousPanneau_=_parent.getCompoFactory().newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(MOVE_CARDS));
         bouton_.addMouseList(new MoveCardsEvent(this));
         sousPanneau_.add(bouton_);
@@ -248,7 +248,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         sousPanneau_.add(labelSelectCards);
         panneau_.add(sousPanneau_,BorderLayout.SOUTH);
         c.add(panneau_,BorderLayout.CENTER);
-        panneau_=Panel.newLineBox();
+        panneau_=_parent.getCompoFactory().newLineBox();
         bouton_=new LabelButton(getMessages().getVal(BACK));
         bouton_.addMouseList(new BackToRulesEvent(this, _parent));
         panneau_.add(bouton_);

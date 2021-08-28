@@ -17,7 +17,6 @@ import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import code.gui.*;
-import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
@@ -114,18 +113,18 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         container.getPause().setEnabledMenu(true);
         GameBelote partie_=partieBeloteSimulee();
         String lg_ = container.getOwner().getLanguageKey();
-        AbsPanel contentPane_ = Panel.newPageBox();
-        AbsPanel container_=Panel.newBorder();
+        AbsPanel contentPane_ = container.getOwner().getCompoFactory().newPageBox();
+        AbsPanel container_=container.getOwner().getCompoFactory().newBorder();
         container_.add(new TextLabel(container.getMessages().getVal(WindowCards.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         StringList pseudos_ = pseudosSimuleeBelote();
         CarpetBelote tapis_ = CarpetBelote.initTapisBelote(lg_, partie_.getNombreDeJoueurs(), container.getDisplayingBelote().isClockwise(), pseudos_, 1, container.getWindow().getCompoFactory());
         container.getTapis().setTapisBelote(tapis_);
         container_.add(tapis_.getContainer(),BorderLayout.CENTER);
-        AbsPanel panneau_= Panel.newLineBox();
+        AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
         panneau_.setBackground(Color.BLUE);
         container.setPanelHand(panneau_);
         container_.add(panneau_,BorderLayout.SOUTH);
-        AbsPanel panneau2_=Panel.newPageBox();
+        AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
         container.setEvents(new TextArea(ContainerBelote.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(new ScrollPane(container.getEvents()));
@@ -133,23 +132,23 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         panneau2_.add(container.getMiniPanel());
         container.setHandfuls(new ByteMap<TextLabel>());
         container.setDeclaredHandfuls(new ByteMap<AbsPanel>());
-        AbsPanel declaredHandfuls_ = Panel.newGrid(0,1);
+        AbsPanel declaredHandfuls_ = container.getOwner().getCompoFactory().newGrid(0,1);
         int nbPlayers_ = partie_.getNombreDeJoueurs();
         for (byte i = IndexConstants.FIRST_INDEX; i<nbPlayers_; i++) {
-            AbsPanel declaredHandfulGroup_ = Panel.newLineBox();
+            AbsPanel declaredHandfulGroup_ = container.getOwner().getCompoFactory().newLineBox();
             TextLabel lab_ = new TextLabel(pseudos_.get(i));
             declaredHandfulGroup_.add(lab_);
             TextLabel handful_ = new TextLabel(ContainerGame.EMPTY_STRING);
             declaredHandfulGroup_.add(handful_);
             container.getHandfuls().put(i, handful_);
-            AbsPanel declaredHandful_ = Panel.newLineBox();
+            AbsPanel declaredHandful_ = container.getOwner().getCompoFactory().newLineBox();
             declaredHandfulGroup_.add(declaredHandful_);
             container.getDeclaredHandfuls().put(i, declaredHandful_);
             declaredHandfuls_.add(declaredHandfulGroup_);
         }
         ScrollPane scroll_ = new ScrollPane(declaredHandfuls_);
         panneau2_.add(scroll_);
-        AbsPanel sousPanneau_=Panel.newGrid(0,1);
+        AbsPanel sousPanneau_=container.getOwner().getCompoFactory().newGrid(0,1);
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
@@ -200,7 +199,7 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
 
     void endGuiDeal() {
         String lg_ = container.getOwner().getLanguageKey();
-        AbsPanel panneau_=Panel.newPageBox();
+        AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         ResultsBelote res_ = new ResultsBelote();
         GameBelote currentGame_=partieBeloteSimulee();
         res_.setGame(currentGame_);

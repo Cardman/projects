@@ -7,7 +7,6 @@ import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
@@ -27,10 +26,10 @@ public class CarpetTarot {
         AbsPanel cont_;
         c_.horaire = _horaire;
         if (_nombreDeJoueurs == 4) {
-            cont_ = Panel.newGrid(0, 3);
+            cont_ = _compoFactory.newGrid(0, 3);
             for (int i = 0; i < 9; i++) {
                 AbsPanel surPanneau_;
-                surPanneau_= Panel.newLineBox();
+                surPanneau_= _compoFactory.newLineBox();
                 if (i % 2 == 1) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true, _compoFactory);
@@ -62,10 +61,10 @@ public class CarpetTarot {
                 cont_.add(surPanneau_);
             }
         } else if (_nombreDeJoueurs == 6) {
-            cont_ = Panel.newPageBox();
-            AbsPanel sub_ = Panel.newGrid(0,4);
+            cont_ = _compoFactory.newPageBox();
+            AbsPanel sub_ = _compoFactory.newGrid(0,4);
             for (int i = 0; i < 4; i++) {
-                AbsPanel surPanneau_ = Panel.newLineBox();
+                AbsPanel surPanneau_ = _compoFactory.newLineBox();
                 if (i == 1) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true, _compoFactory);
@@ -89,9 +88,9 @@ public class CarpetTarot {
                 sub_.add(surPanneau_);
             }
             cont_.add(sub_);
-            sub_ = Panel.newGrid(0,3);
+            sub_ = _compoFactory.newGrid(0,3);
             for (int i = 4; i < 7; i++) {
-                AbsPanel surPanneau_ = Panel.newLineBox();
+                AbsPanel surPanneau_ = _compoFactory.newLineBox();
                 if (i == 6) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true, _compoFactory);
@@ -115,7 +114,7 @@ public class CarpetTarot {
                     }
                     surPanneau_.add(carte_);
                 } else {
-                    surPanneau_ = Panel.newLineBox();
+                    surPanneau_ = _compoFactory.newLineBox();
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
                 }
@@ -123,9 +122,9 @@ public class CarpetTarot {
                 sub_.add(surPanneau_);
             }
             cont_.add(sub_);
-            sub_ = Panel.newGrid(0,4);
+            sub_ = _compoFactory.newGrid(0,4);
             for (int i = 8; i < 12; i++) {
-                AbsPanel surPanneau_ = Panel.newLineBox();
+                AbsPanel surPanneau_ = _compoFactory.newLineBox();
                 if (i == 10) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true, _compoFactory);
@@ -150,10 +149,10 @@ public class CarpetTarot {
             }
             cont_.add(sub_);
         } else if (_nombreDeJoueurs == 3) {
-            cont_ = Panel.newGrid(0, 3);
+            cont_ = _compoFactory.newGrid(0, 3);
             for (int i = 0; i < 9; i++) {
                 AbsPanel surPanneau_;
-                surPanneau_= Panel.newLineBox();
+                surPanneau_= _compoFactory.newLineBox();
                 if (i == 0) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true, _compoFactory);
@@ -191,9 +190,9 @@ public class CarpetTarot {
                 cont_.add(surPanneau_);
             }
         } else {
-            cont_ = Panel.newGrid(0, 3);
+            cont_ = _compoFactory.newGrid(0, 3);
             for (int i = 0; i < 9; i++) {
-                AbsPanel surPanneau_ = Panel.newLineBox();
+                AbsPanel surPanneau_ = _compoFactory.newLineBox();
                 if (i == 0) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             SwingConstants.RIGHT, true, _compoFactory);
@@ -246,7 +245,7 @@ public class CarpetTarot {
                     c_.cards.put(0, carte_);
                     surPanneau_.add(carte_);
                 } else if (i == 4) {
-                    surPanneau_= Panel.newLineBox();
+                    surPanneau_= _compoFactory.newLineBox();
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
                 }

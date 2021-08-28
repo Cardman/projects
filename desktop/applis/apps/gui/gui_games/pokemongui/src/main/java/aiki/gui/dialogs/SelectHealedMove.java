@@ -11,8 +11,8 @@ import aiki.gui.components.walk.HealedMoveEvent;
 import code.gui.AbsDialog;
 import code.gui.AbsPanel;
 import code.gui.LabelButton;
-import code.gui.Panel;
 import code.gui.events.ClosingDialogEvent;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
 import code.util.StringList;
 import code.util.StringMap;
@@ -30,13 +30,15 @@ public final class SelectHealedMove {
 
     private FacadeGame facade;
 
-    private final AbsPanel movesLearnt = Panel.newPageBox();
-
+    private final AbsPanel movesLearnt;
+    private final AbsCompoFactory compo;
     private StringMap<String> messages;
 
-    public SelectHealedMove(AbsFrameFactory _frameFactory) {
+    public SelectHealedMove(AbsFrameFactory _frameFactory, AbsCompoFactory _compoFactory) {
         absDialog = _frameFactory.newDialog();
         absDialog.setAccessFile(DIALOG_ACCESS);
+        compo = _compoFactory;
+        movesLearnt = compo.newPageBox();
     }
 
     public static void setSelectHealedMove(WindowAiki _parent, FacadeGame _facade) {
@@ -48,7 +50,7 @@ public final class SelectHealedMove {
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), absDialog.getAccessFile());
         absDialog.setTitle(messages.getVal(TITLE));
         facade = _facade;
-        AbsPanel contentPane_ = Panel.newBorder();
+        AbsPanel contentPane_ = compo.newBorder();
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -70,7 +72,7 @@ public final class SelectHealedMove {
         contentPane_.add(movesLearnt, BorderLayout.CENTER);
         //window.healMove(move);
         //contentPane_.add(new JScrollPane(new PaginatorHealingItem(this, _facade)), BorderLayout.CENTER);
-        AbsPanel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = compo.newLineBox();
         LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL));
         cancel_.addMouseList(new ClosingDialogEvent(absDialog));
         buttons_.add(cancel_);

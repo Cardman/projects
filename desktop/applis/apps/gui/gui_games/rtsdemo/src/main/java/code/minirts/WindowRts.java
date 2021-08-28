@@ -1,7 +1,6 @@
 package code.minirts;
 
 import code.gui.*;
-import code.gui.Panel;
 import code.gui.events.QuittingEvent;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -64,8 +63,8 @@ public final class WindowRts extends GroupFrame {
         paused = _list.getThreadFactory().newAtomicBoolean();
         dragged = _list.getThreadFactory().newAtomicBoolean();
         count = _list.getThreadFactory().newAtomicLong();
-        AbsPanel contentPane_ = Panel.newBorder();
-        AbsPanel scene_ = Panel.newBorder();
+        AbsPanel contentPane_ = getCompoFactory().newBorder();
+        AbsPanel scene_ = getCompoFactory().newBorder();
         InteractClick i_ = new InteractClick(this);
         battleground.addMouseListener(i_);
         battleground.addMouseMotionListener(i_);
@@ -97,7 +96,7 @@ public final class WindowRts extends GroupFrame {
         contentPane_.add(left_, BorderLayout.WEST);
         contentPane_.add(right_, BorderLayout.EAST);
         animate.addActionListener(new Animate(this));
-        AbsPanel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = getCompoFactory().newLineBox();
         buttons_.add(animate);
         buttons_.add(addSoldier);
         pause.setEnabled(false);

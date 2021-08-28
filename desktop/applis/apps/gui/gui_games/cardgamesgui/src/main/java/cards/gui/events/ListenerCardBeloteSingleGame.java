@@ -14,7 +14,7 @@ import cards.gui.labels.GraphicBeloteCard;
 import code.gui.AbsMouseLocation;
 import code.gui.AbsPanel;
 import code.gui.ConfirmDialog;
-import code.gui.Panel;
+
 import code.util.core.StringUtil;
 
 public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
@@ -52,7 +52,7 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                     //message d'erreur sur la belote rebelote
                     HandBelote cartesBeloteRebelote_=partie_.cartesBeloteRebelote();
                     /*On ordonne la poignee d'atouts*/
-                    AbsPanel panneau_= Panel.newLineBox();
+                    AbsPanel panneau_= container.getOwner().getCompoFactory().newLineBox();
                     for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(container.getWindow(),lg_,cartesBeloteRebelote_)) {
                         panneau_.add(c);
                     }

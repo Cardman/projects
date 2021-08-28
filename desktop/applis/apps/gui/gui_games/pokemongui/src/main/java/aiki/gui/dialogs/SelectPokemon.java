@@ -12,6 +12,7 @@ import aiki.map.pokemon.UsablePokemon;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingDialogEvent;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
 import code.threads.AbstractThread;
 import code.util.StringMap;
@@ -37,10 +38,12 @@ public final class SelectPokemon extends SelectDialog {
 
     private StringMap<String> messages;
     private WindowAiki window;
+    private final AbsCompoFactory compo;
 
-    public SelectPokemon(AbsFrameFactory _frameFactory) {
+    public SelectPokemon(AbsFrameFactory _frameFactory, AbsCompoFactory _compoFactory) {
         super(_frameFactory);
         getSelectDial().setAccessFile(DIALOG_ACCESS);
+        compo = _compoFactory;
     }
 
     public static void setSelectPokemon(WindowAiki _parent, FacadeGame _facade, boolean _storage, SelectPokemon _dialog) {
@@ -58,10 +61,10 @@ public final class SelectPokemon extends SelectDialog {
         storage = _storage;
         initOk();
 //        ok = false;
-        AbsPanel contentPane_ = Panel.newBorder();
-        AbsPanel pag_ = Panel.newPageBox();
+        AbsPanel contentPane_ = compo.newBorder();
+        AbsPanel pag_ = compo.newPageBox();
         contentPane_.add(new ScrollPane(new PaginatorPokemon(_parent,pag_, getSelectDial(), _facade).getContainer()), BorderLayout.CENTER);
-        AbsPanel buttons_ = Panel.newLineBox();
+        AbsPanel buttons_ = compo.newLineBox();
         LabelButton detail_ = new LabelButton(messages.getVal(DETAIL));
         detail_.addMouseList(new SeePkDetailEvent(this));
         buttons_.add(detail_);

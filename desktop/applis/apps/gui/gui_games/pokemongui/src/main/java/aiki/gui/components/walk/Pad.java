@@ -4,7 +4,6 @@ import aiki.db.DataBase;
 import aiki.gui.components.labels.KeyPad;
 import aiki.map.enums.Direction;
 import code.gui.AbsPanel;
-import code.gui.Panel;
 import code.gui.TextLabel;
 import code.gui.initialize.AbsCompoFactory;
 
@@ -22,7 +21,7 @@ public class Pad {
      * @param _compoFactory
      */
     public Pad(AbsCompoFactory _compoFactory) {
-        container = Panel.newGrid(3, 3, 10, 10);
+        container = _compoFactory.newGrid(3, 3, 10, 10);
 
         TextLabel lblNewLabel_ = new TextLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabel_);

@@ -9,6 +9,7 @@ import code.gui.events.StopSearchingEvent;
 import code.gui.events.SubmitKeyEvent;
 import code.gui.events.SubmitMouseEvent;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
@@ -37,7 +38,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private static final int NB_COLS = 24;
     private ConfirmDialog dialog;
     private TextField typedString = new TextField(NB_COLS);
-    private final AbsPanel searchingPanel = Panel.newPageBox();
+    private final AbsPanel searchingPanel = getCompoFactory().newPageBox();
 
     private StringMap<String> messages;
 
@@ -53,7 +54,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private TextLabel foundFiles = new TextLabel("");
     private AbsCommonFrame frame;
 
-    public FileOpenDialog(AbstractAtomicBoolean _keepSearching, AbstractAtomicBoolean _showNewResults, AbsFrameFactory _frameFact){
+    public FileOpenDialog(AbstractAtomicBoolean _keepSearching, AbstractAtomicBoolean _showNewResults, AbstractProgramInfos _frameFact){
         super(_frameFact);
         getAbsDialog().setAccessFile(DIALOG_ACCESS);
         keepSearching = _keepSearching;
@@ -85,7 +86,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         LabelButton search_ = new LabelButton(messages.getVal(SEARCH));
         search_.addMouseList(new SearchingEvent(this));
         searchingPanel.removeAll();
-        AbsPanel panel_ = Panel.newLineBox();
+        AbsPanel panel_ = getCompoFactory().newLineBox();
         panel_.add(label_);
         typedString = new TextField(NB_COLS);
         panel_.add(typedString);

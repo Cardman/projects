@@ -10,6 +10,7 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
+import code.gui.initialize.AbstractProgramInfos;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.core.NumberUtil;
@@ -52,9 +53,9 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
     private boolean ko;
 
     private int remainSteps;
-    private AbstractImageFactory fact;
+    private AbstractProgramInfos fact;
 
-    public PokemonRenderer(AbstractImageFactory _fact,FacadeGame _facade, boolean _single) {
+    public PokemonRenderer(AbstractProgramInfos _fact, FacadeGame _facade, boolean _single) {
         fact = _fact;
         facade = _facade;
         single = _single;
@@ -74,7 +75,7 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
         if (pokemon instanceof PokemonPlayer) {
             PokemonPlayer pk_ = (PokemonPlayer) pokemon;
             int[][] img_ = facade.getData().getMiniPk().getVal(pk_.getName());
-            miniImagePk = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
+            miniImagePk = ConverterGraphicBufferedImage.decodeToImage(fact.getImageFactory(),img_);
             remainHp = pk_.getRemainingHp().toNumberString();
             intRate = pk_.rateRemainHp(facade.getData());
             rateRemain = StringUtil.concat(intRate.toNumberString(),PER_CENT);
@@ -82,7 +83,7 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
             withItem = !pk_.getItem().isEmpty();
             if (withItem) {
                 img_ = facade.getData().getMiniItems().getVal(pk_.getItem());
-                miniImageItem = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
+                miniImageItem = ConverterGraphicBufferedImage.decodeToImage(fact.getImageFactory(),img_);
             }
             oldSelected = false;
             ko = pk_.isKo();
@@ -97,15 +98,19 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
         } else {
             Egg egg_ = (Egg) pokemon;
             int[][] img_ = facade.getData().getMiniPk().getVal(egg_.getName());
-            miniImagePk = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
+            miniImagePk = ConverterGraphicBufferedImage.decodeToImage(fact.getImageFactory(),img_);
             remainSteps = (int) (facade.getData().getPokemon(egg_.getName()).getHatchingSteps().ll() - egg_.getSteps());
         }
         _currentLab.setPreferredSize(new Dimension(coords * 2 + sideLength * 2, sideLength));
     }
 
+    public AbstractProgramInfos getFact() {
+        return fact;
+    }
+
     @Override
     protected AbstractImageFactory getImageFactory() {
-        return fact;
+        return fact.getImageFactory();
     }
     @Override
     public void paintComponent(AbstractImage _g) {
