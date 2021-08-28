@@ -15,7 +15,7 @@ import code.stream.StreamTextFile;
 import code.util.StringMap;
 
 import javax.swing.WindowConstants;
-import java.awt.Dimension;
+
 
 public final class WindowFull extends GroupFrame {
     private final AbsMenu menu;

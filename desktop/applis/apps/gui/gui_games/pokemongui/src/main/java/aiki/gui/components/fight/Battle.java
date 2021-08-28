@@ -1,7 +1,7 @@
 package aiki.gui.components.fight;
 
 
-import java.awt.Dimension;
+
 
 
 import javax.swing.WindowConstants;

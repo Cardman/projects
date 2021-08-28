@@ -8,7 +8,7 @@ import code.gui.initialize.AbsCompoFactory;
 import code.minirts.rts.RtsDirection;
 
 
-import java.awt.Dimension;
+
 
 public final class RtsKeyPad extends AbsMetaLabel {
 

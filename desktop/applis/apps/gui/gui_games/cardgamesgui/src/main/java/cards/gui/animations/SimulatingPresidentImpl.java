@@ -27,7 +27,7 @@ import code.util.core.StringUtil;
 
 
 
-import java.awt.Dimension;
+
 
 public final class SimulatingPresidentImpl implements SimulatingPresident {
     private final ContainerSimuPresident container;

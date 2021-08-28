@@ -1,5 +1,5 @@
 package code.gui;
-import java.awt.Dimension;
+
 
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;

@@ -1,6 +1,6 @@
 package aiki.gui.components.fight;
 
-import java.awt.Dimension;
+
 
 import aiki.facade.FacadeGame;
 import aiki.gui.listeners.PokemonSelection;

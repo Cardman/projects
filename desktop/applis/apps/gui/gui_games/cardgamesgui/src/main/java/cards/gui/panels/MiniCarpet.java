@@ -1,5 +1,5 @@
 package cards.gui.panels;
-import java.awt.Dimension;
+
 
 import cards.consts.Role;
 import cards.gui.labels.CellPlayer;

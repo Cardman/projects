@@ -25,7 +25,7 @@ import code.util.core.StringUtil;
 
 
 import javax.swing.WindowConstants;
-import java.awt.Dimension;
+
 
 
 public final class WindowApps extends GroupFrame {

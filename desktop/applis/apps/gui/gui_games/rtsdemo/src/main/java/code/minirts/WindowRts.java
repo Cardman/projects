@@ -21,7 +21,7 @@ import code.util.StringMap;
 import javax.swing.WindowConstants;
 
 
-import java.awt.Dimension;
+
 
 public final class WindowRts extends GroupFrame {
 

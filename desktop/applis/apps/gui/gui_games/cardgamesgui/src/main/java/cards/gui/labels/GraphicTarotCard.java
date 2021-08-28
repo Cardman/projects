@@ -1,6 +1,6 @@
 package cards.gui.labels;
 
-import java.awt.Dimension;
+
 
 
 import javax.swing.SwingConstants;

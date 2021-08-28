@@ -20,7 +20,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 import javax.swing.WindowConstants;
-import java.awt.Dimension;
+
 
 public final class SimpleFilesFrame extends ChildFrame implements TestableFrame {
     private static final String DIALOG_ACCESS = "unit.simplefilesframe";

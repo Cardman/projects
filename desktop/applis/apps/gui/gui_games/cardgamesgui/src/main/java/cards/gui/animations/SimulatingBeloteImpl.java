@@ -29,7 +29,7 @@ import code.util.core.StringUtil;
 
 
 
-import java.awt.Dimension;
+
 
 public final class SimulatingBeloteImpl implements SimulatingBelote {
     private final ContainerSimuBelote container;

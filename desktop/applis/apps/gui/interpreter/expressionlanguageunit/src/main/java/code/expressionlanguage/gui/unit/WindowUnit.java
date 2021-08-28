@@ -26,7 +26,7 @@ import code.util.core.DefaultUniformingString;
 import code.util.ints.UniformingString;
 
 import javax.swing.WindowConstants;
-import java.awt.Dimension;
+
 
 public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final AbsMenu menu;

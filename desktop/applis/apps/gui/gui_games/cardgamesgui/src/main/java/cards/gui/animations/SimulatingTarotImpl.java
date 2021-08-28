@@ -26,7 +26,7 @@ import code.util.core.StringUtil;
 
 
 
-import java.awt.Dimension;
+
 
 public final class SimulatingTarotImpl implements SimulatingTarot {
     private final ContainerSimuTarot container;

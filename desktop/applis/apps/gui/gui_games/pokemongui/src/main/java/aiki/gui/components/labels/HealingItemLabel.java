@@ -1,6 +1,6 @@
 package aiki.gui.components.labels;
 
-import java.awt.Dimension;
+
 
 import aiki.gui.WindowAiki;
 import aiki.sml.Resources;

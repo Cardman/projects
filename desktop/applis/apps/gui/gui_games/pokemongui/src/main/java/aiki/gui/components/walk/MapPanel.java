@@ -1,5 +1,5 @@
 package aiki.gui.components.walk;
-import java.awt.Dimension;
+
 
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;

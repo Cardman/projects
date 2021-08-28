@@ -1,7 +1,7 @@
 package cards.gui.containers;
 
 
-import java.awt.Dimension;
+
 
 import cards.consts.GameType;
 import cards.consts.Role;

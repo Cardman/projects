@@ -32,7 +32,7 @@ import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
 import javax.swing.WindowConstants;
-import java.awt.Dimension;
+
 
 public final class WindowRenders extends GroupFrame {
     private final AbsMenu menu;

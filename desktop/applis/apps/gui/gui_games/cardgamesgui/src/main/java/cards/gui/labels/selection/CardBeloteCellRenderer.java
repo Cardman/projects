@@ -1,6 +1,6 @@
 package cards.gui.labels.selection;
 
-import java.awt.Dimension;
+
 
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;

@@ -1,5 +1,5 @@
 package aiki.gui.components;
-import java.awt.Dimension;
+
 
 import aiki.facade.FacadeGame;
 import aiki.facade.PaginationEgg;

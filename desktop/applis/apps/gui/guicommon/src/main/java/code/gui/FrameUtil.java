@@ -15,7 +15,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 
-import java.awt.Dimension;
+
 
 public final class FrameUtil {
     private static final String ACCESS = "gui.groupframe";

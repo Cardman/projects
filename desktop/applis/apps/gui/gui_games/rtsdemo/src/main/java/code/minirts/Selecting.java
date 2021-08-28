@@ -9,7 +9,7 @@ import code.minirts.rts.Facade;
 import code.maths.geo.Rect;
 
 
-import java.awt.Dimension;
+
 
 public final class Selecting extends AbsMetaLabel {
     private final Facade facade;

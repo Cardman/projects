@@ -1,6 +1,6 @@
 package aiki.gui.components.labels;
 
-import java.awt.Dimension;
+
 
 import aiki.facade.FacadeGame;
 import aiki.util.SortingItem;

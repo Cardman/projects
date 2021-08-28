@@ -7,7 +7,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentStruct;
 import code.gui.images.MetaDimension;
 
-import java.awt.Dimension;
+
 
 public final class DimensionStruct extends WithoutParentStruct implements Struct {
     private MetaDimension dimension;

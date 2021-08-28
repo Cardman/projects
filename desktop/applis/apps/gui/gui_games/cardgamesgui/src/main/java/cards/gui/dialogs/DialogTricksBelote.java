@@ -1,5 +1,5 @@
 package cards.gui.dialogs;
-import java.awt.Dimension;
+
 
 import javax.swing.WindowConstants;
 

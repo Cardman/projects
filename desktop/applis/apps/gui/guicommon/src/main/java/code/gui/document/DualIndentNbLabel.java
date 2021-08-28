@@ -1,6 +1,6 @@
 package code.gui.document;
 
-import java.awt.Dimension;
+
 
 import code.formathtml.render.MetaIndentNbLabel;
 import code.gui.AbsPreparedLabel;

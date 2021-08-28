@@ -1,6 +1,6 @@
 package cards.gui.dialogs;
 
-import java.awt.Dimension;
+
 
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;

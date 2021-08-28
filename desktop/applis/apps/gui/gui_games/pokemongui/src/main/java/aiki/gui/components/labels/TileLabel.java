@@ -1,5 +1,5 @@
 package aiki.gui.components.labels;
-import java.awt.Dimension;
+
 
 import code.gui.AbsMetaLabel;
 import code.gui.images.AbstractImage;

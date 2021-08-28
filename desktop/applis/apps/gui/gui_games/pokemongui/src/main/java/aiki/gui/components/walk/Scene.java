@@ -1,6 +1,6 @@
 package aiki.gui.components.walk;
 
-import java.awt.Dimension;
+
 
 import aiki.comparators.ComparatorScreenCoords;
 import aiki.facade.FacadeGame;

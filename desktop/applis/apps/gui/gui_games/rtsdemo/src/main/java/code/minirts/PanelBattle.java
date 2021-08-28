@@ -17,7 +17,7 @@ import code.util.EntryCust;
 import code.util.ObjectMap;
 
 
-import java.awt.Dimension;
+
 
 public class PanelBattle {
 

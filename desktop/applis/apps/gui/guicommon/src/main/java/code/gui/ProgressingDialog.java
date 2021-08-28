@@ -1,6 +1,6 @@
 package code.gui;
 
-import java.awt.Dimension;
+
 
 import code.gui.animations.AnimatedImage;
 import code.gui.images.AbstractImage;

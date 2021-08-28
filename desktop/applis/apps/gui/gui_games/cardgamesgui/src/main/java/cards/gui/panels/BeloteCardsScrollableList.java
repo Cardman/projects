@@ -1,6 +1,6 @@
 package cards.gui.panels;
 
-import java.awt.Dimension;
+
 
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
