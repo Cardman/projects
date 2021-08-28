@@ -5,16 +5,16 @@ import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.Spinner;
+import code.gui.AbsSpinner;
 import code.gui.events.AbsChangeListener;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class SpinnerStruct extends InputStruct {
-    private Spinner spinner;
+    private AbsSpinner spinner;
 
-    protected SpinnerStruct(String _className,Struct _value, Struct _min, Struct _max, Struct _step) {
+    protected SpinnerStruct(String _className, Struct _value, Struct _min, Struct _max, Struct _step, AbsCompoFactory _compoFactory) {
         super(_className);
-        spinner = new Spinner(((NumberStruct)_value).intStruct(),((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct(),((NumberStruct)_step).intStruct());
+        spinner = _compoFactory.newSpinner(((NumberStruct)_value).intStruct(),((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct(),((NumberStruct)_step).intStruct());
     }
 
     @Override

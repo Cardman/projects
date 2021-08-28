@@ -669,4 +669,54 @@ public final class FrameUtil {
         }
         _curr.innerRight(_scroll);
     }
+
+    public static boolean invalidSpinner(int _value, int _min, int _max) {
+        if (_value < _min) {
+            return true;
+        }
+        return _value > _max;
+    }
+
+    public static void initModel(AbsSpinner _curr, int _value, int _min, int _max, int _step) {
+        if (invalidSpinner(_value, _min, _max)) {
+            _curr.defValues();
+        } else {
+            _curr.mod(_value, _min, _max, _step);
+        }
+    }
+
+    public static void rg(AbsSpinner _curr, int _min, int _max) {
+        if (invalidSpinner(_curr.getValue(), _min, _max)) {
+            return;
+        }
+        _curr.range(_min, _max);
+    }
+
+    public static void rgValue(AbsSpinner _curr, int _value, int _min, int _max) {
+        if (invalidSpinner(_value, _min, _max)) {
+            return;
+        }
+        _curr.rangeValue(_value, _min, _max);
+    }
+
+    public static void mn(AbsSpinner _curr, int _min) {
+        if (invalidSpinner(_curr.getValue(), _min, _curr.getMax())) {
+            return;
+        }
+        _curr.min(_min);
+    }
+
+    public static void mx(AbsSpinner _curr, int _max) {
+        if (invalidSpinner(_curr.getValue(), _curr.getMin(), _max)) {
+            return;
+        }
+        _curr.max(_max);
+    }
+
+    public static void vl(AbsSpinner _curr, int _value) {
+        if (invalidSpinner(_value, _curr.getMin(), _curr.getMax())) {
+            return;
+        }
+        _curr.updateModel(_value);
+    }
 }

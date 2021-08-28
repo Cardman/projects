@@ -40,7 +40,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
     private CustCheckBox checkClockwise;
     private SuitsScrollableList orderedSuits;
     private CustCheckBox sortByDecreasing;
-    private Spinner nbDealsDemo;
+    private AbsSpinner nbDealsDemo;
     private ComboBox<Suit> listeChoix;
 
     public DialogDisplayingPresident(AbstractProgramInfos _frameFactory) {
@@ -117,7 +117,7 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,1);
         sousPanneau_.add(new TextLabel(messages.getVal(NB_DEALS_DEMO)));
         //Panneau Distribution
-        nbDealsDemo = new Spinner(displayingPresident.getNbDeals(),FileConst.MIN_DEALS,FileConst.MAX_DEALS,1);
+        nbDealsDemo = getCompoFactory().newSpinner(displayingPresident.getNbDeals(),FileConst.MIN_DEALS,FileConst.MAX_DEALS,1);
         sousPanneau_.add(nbDealsDemo);
         panneau_.add(sousPanneau_);
         getJt().add(messages.getVal(SORTING),panneau_);

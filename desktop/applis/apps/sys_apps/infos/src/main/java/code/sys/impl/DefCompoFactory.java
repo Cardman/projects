@@ -131,4 +131,9 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsProgressBar newAbsProgressBar() {
         return new ProgressBar();
     }
+
+    @Override
+    public AbsSpinner newSpinner(int _a, int _b, int _c, int _d) {
+        return new Spinner(_a,_b,_c,_d);
+    }
 }

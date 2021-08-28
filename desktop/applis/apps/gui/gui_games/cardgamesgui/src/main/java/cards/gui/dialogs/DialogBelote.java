@@ -32,7 +32,7 @@ public abstract class DialogBelote extends DialogCards {
     private static final String TRUMPING_DESCRIPTION = "trumpingDescription";
     private static final String UNDER_TRUMPING_FOE = "underTrumpingFoe";
     private RulesBelote reglesBelote=new RulesBelote();
-    private Spinner nbGames;
+    private AbsSpinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
     private final EnumMap<DeclaresBelote,Integer> indicesAnnoncesValides = new EnumMap<DeclaresBelote,Integer>();
     private ComboBox<MixCardsChoice> listeChoix;
@@ -55,7 +55,7 @@ public abstract class DialogBelote extends DialogCards {
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(WindowCards _window, Spinner _nbGames, String _lg) {
+    protected void initJt(WindowCards _window, AbsSpinner _nbGames, String _lg) {
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
@@ -204,11 +204,11 @@ public abstract class DialogBelote extends DialogCards {
         reglesBelote = _reglesBelote;
     }
 
-    protected Spinner getNbGames() {
+    protected AbsSpinner getNbGames() {
         return nbGames;
     }
 
-    protected void setNbGames(Spinner _nbGames) {
+    protected void setNbGames(AbsSpinner _nbGames) {
         nbGames = _nbGames;
     }
 

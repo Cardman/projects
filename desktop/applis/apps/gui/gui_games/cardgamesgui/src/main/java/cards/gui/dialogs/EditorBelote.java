@@ -128,7 +128,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         initMessageName(_parent);
         //Panneau Distribution
         String lg_ = _parent.getLanguageKey();
-        initJt(_parent,new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),lg_);
+        initJt(_parent,getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),lg_);
         container_.add(getJt(),BorderLayout.CENTER);
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));

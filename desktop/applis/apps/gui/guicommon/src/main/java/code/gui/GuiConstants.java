@@ -36,4 +36,14 @@ public final class GuiConstants {
         }
         return value_;
     }
+
+    public static int getSelectTable(boolean _mult) {
+        int value_;
+        if (_mult) {
+            value_ = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
+        } else {
+            value_ = ListSelectionModel.SINGLE_SELECTION;
+        }
+        return value_;
+    }
 }

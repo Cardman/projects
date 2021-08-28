@@ -1,7 +1,6 @@
 package code.gui;
 
 import javax.swing.*;
-import javax.swing.text.*;
 import java.awt.*;
 
 public final class TextArea extends CustComponent {
@@ -53,6 +52,10 @@ public final class TextArea extends CustComponent {
         if (_pos < 0) {
             return;
         }
+        forceInsert(_str, _pos);
+    }
+
+    public void forceInsert(String _str, int _pos) {
         textArea.insert(_str, _pos);
     }
 
@@ -67,6 +70,10 @@ public final class TextArea extends CustComponent {
         if (_end < _start) {
             return;
         }
+        forceReplaceRange(_str, _start, _end);
+    }
+
+    public void forceReplaceRange(String _str, int _start, int _end) {
         textArea.replaceRange(_str, _start, _end);
     }
 
@@ -101,10 +108,6 @@ public final class TextArea extends CustComponent {
     public CaretListener[] getCaretListeners() {
         return textArea.getCaretListeners();
     }*/
-
-    public Document getDocument() {
-        return textArea.getDocument();
-    }
 
     public void setDragEnabled(boolean _b) {
         textArea.setDragEnabled(_b);
@@ -270,17 +273,6 @@ public final class TextArea extends CustComponent {
         textArea.resetKeyboardActions();
     }
 
-    public void setInputMap(int _condition, InputMap _map) {
-        textArea.setInputMap(_condition, _map);
-    }
-
-    public InputMap getInputMap(int _condition) {
-        return textArea.getInputMap(_condition);
-    }
-
-    public ActionMap getActionMap() {
-        return textArea.getActionMap();
-    }
     public int getBaseline(int _width, int _height) {
         return textArea.getBaseline(_width, _height);
     }

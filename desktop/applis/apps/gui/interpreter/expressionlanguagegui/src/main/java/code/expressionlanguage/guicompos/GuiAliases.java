@@ -3523,7 +3523,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(new SpinnerStruct(aliasSpinner,_args[0],_args[1],_args[2],_args[3]));
+            r_.setResult(new SpinnerStruct(aliasSpinner,_args[0],_args[1],_args[2],_args[3],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasSlider)) {

@@ -33,7 +33,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
     private ComboBox<IpType> ipType;
     private boolean create;
     private boolean join;
-    private Spinner nbPlayers;
+    private AbsSpinner nbPlayers;
     private StringMap<String> messages;
     private EnumMap<IpType,String> messagesIpEnum;
 //    private JComboBox<DealingBelote> repBelote;
@@ -75,13 +75,13 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
                     maxJoueurs_=r.getNombreJoueurs();
                 }
             }
-            nbPlayers = new Spinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
+            nbPlayers = getCompoFactory().newSpinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
             panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else if (_game == GameEnum.PRESIDENT) {
             int minJoueurs_ = RulesPresident.getNbMinPlayers();
             int maxJoueurs_ = RulesPresident.getNbMaxPlayers();
-            nbPlayers = new Spinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
+            nbPlayers = getCompoFactory().newSpinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
             panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         } else {
@@ -96,7 +96,7 @@ public final class DialogServerCards extends DialogCards implements AbstractDial
                     maxJoueurs_=r.getNombreJoueurs();
                 }
             }
-            nbPlayers = new Spinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
+            nbPlayers = getCompoFactory().newSpinner(minJoueurs_,minJoueurs_,maxJoueurs_,1);
             panel_.add(new TextLabel(messages.getVal(NUMBER_PLAYERS)));
             panel_.add(nbPlayers);
         }

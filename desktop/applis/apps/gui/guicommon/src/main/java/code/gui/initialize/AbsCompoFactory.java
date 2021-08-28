@@ -34,4 +34,6 @@ public interface AbsCompoFactory {
     AbsSlider newAbsSlider(int _o,int _min,int _max,int _v);
 
     AbsProgressBar newAbsProgressBar();
+
+    AbsSpinner newSpinner(int _a, int _b, int _c, int _d);
 }

@@ -11,11 +11,6 @@ public final class PlainLabel extends CustComponent {
         label.setText(_text);
     }
 
-    public PlainLabel(String _titre, int _align) {
-        this(_titre);
-        label.setHorizontalAlignment(_align);
-    }
-
     public void setText(String _simpleNumberFormat) {
         label.setText(_simpleNumberFormat);
     }

@@ -94,12 +94,10 @@ public final class TableGui extends CustComponent {
         return table.getSelectionModel().getSelectionMode() == ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
     }
     public void setMultiSelect(boolean _mult) {
-        if (_mult) {
-            table.getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        } else {
-            table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        }
+        int value_ = GuiConstants.getSelectTable(_mult);
+        table.getSelectionModel().setSelectionMode(value_);
     }
+
     private ListSelectionModel getSelectionModel() {
         return table.getSelectionModel();
     }

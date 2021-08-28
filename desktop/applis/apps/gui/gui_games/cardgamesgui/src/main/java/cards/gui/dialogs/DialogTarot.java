@@ -44,7 +44,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private static final String VALIDATE_HANDFUL = "validateHandful";
     private RulesTarot reglesTarot=new RulesTarot();
 
-    private Spinner nbGames;
+    private AbsSpinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
     private ComboBox<MixCardsChoice> listeChoix;
     private AbsPanel bidding;
@@ -57,9 +57,9 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     private ComboBoxEnumCards<DealingTarot> listeChoixFour;
     private ComboBoxEnumCards<Handfuls> listeChoixFive;
 
-    private Spinner nbAtoutsPoignee;
+    private AbsSpinner nbAtoutsPoignee;
     private AbsPanel players;
-    private Spinner nbJoueurs;
+    private AbsSpinner nbJoueurs;
     private EnumMap<Handfuls,Integer> poigneesAutorisees = new EnumMap<Handfuls,Integer>();
 
     protected DialogTarot(AbstractProgramInfos _frameFactory) {
@@ -71,7 +71,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(Spinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {
+    protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
@@ -125,7 +125,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         nbCartesJoueur_ = Math.min(nbCartesJoueur_, nbTrumps_);
         poigneesAutorisees = new EnumMap<Handfuls,Integer>(getReglesTarot().getPoigneesAutorisees());
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
-        nbAtoutsPoignee = new Spinner(valeur_,0,nbCartesJoueur_,1);
+        nbAtoutsPoignee = getCompoFactory().newSpinner(valeur_,0,nbCartesJoueur_,1);
         sousPanneau_.add(nbAtoutsPoignee);
         LabelButton boutonPoignees_ = new LabelButton(getMessages().getVal(VALIDATE_HANDFUL));
         boutonPoignees_.addMouseList(new ListenerHandful(this));
@@ -214,7 +214,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         } else {
             value_ = getReglesTarot().getRepartition().getNombreJoueurs();
         }
-        nbJoueurs=new Spinner(value_,minJoueurs_,maxJoueurs_,1);
+        nbJoueurs=getCompoFactory().newSpinner(value_,minJoueurs_,maxJoueurs_,1);
         if (_enabledChangingNbPlayers) {
             nbJoueurs.addChangeListener(new ListenerPlayers(this, _window));
         } else {
@@ -361,11 +361,11 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         reglesTarot = _reglesTarot;
     }
 
-    protected Spinner getNbGames() {
+    protected AbsSpinner getNbGames() {
         return nbGames;
     }
 
-    protected void setNbGames(Spinner _nbGames) {
+    protected void setNbGames(AbsSpinner _nbGames) {
         nbGames = _nbGames;
     }
 

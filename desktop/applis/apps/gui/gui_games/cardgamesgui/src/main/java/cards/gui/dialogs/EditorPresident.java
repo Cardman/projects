@@ -121,7 +121,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         AbsPanel container_=_window.getCompoFactory().newBorder();
         initMessageName(_window);
         //Panneau Distribution
-        initJt(new Spinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window);
+        initJt(getCompoFactory().newSpinner(FileConst.MIN_DEALS,FileConst.MIN_DEALS,FileConst.MAX_DEALS,1),_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
         AbsPanel panneau_=_window.getCompoFactory().newLineBox();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));

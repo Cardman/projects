@@ -40,7 +40,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     private static final String REPARTITION = "repartition";
 
     private RulesPresident reglesPresident=new RulesPresident();
-    private Spinner nbGames;
+    private AbsSpinner nbGames;
     private StringMap<String> messages = new StringMap<String>();
     private ComboBox<MixCardsChoice> listeChoix;
 
@@ -53,8 +53,8 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     private CustCheckBox switchCards;
     private CustCheckBox looserStartsFirst;
 
-    private Spinner nbJoueurs;
-    private Spinner nbStacks;
+    private AbsSpinner nbJoueurs;
+    private AbsSpinner nbStacks;
 
     protected DialogPresident(AbstractProgramInfos _frameFactory) {
         super(_frameFactory);
@@ -66,7 +66,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getCardDialog().getAccessFile()));
     }
 
-    protected void initJt(Spinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {
+    protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
@@ -157,7 +157,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         } else {
             value_ = getReglesPresident().getNbPlayers();
         }
-        nbJoueurs=new Spinner(value_,minJoueurs_,maxJoueurs_,1);
+        nbJoueurs=getCompoFactory().newSpinner(value_,minJoueurs_,maxJoueurs_,1);
         if (_enabledChangingNbPlayers) {
             nbJoueurs.addChangeListener(new ListenerPlayers(this, _window));
         } else {
@@ -166,7 +166,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         players_.add(nbJoueurs);
         int minStacks_ = getReglesPresident().getNbMinStacks();
         int maxStacks_ = getReglesPresident().getNbMaxStacks();
-        nbStacks=new Spinner(getReglesPresident().getNbStacks(),minStacks_,maxStacks_,1);
+        nbStacks=getCompoFactory().newSpinner(getReglesPresident().getNbStacks(),minStacks_,maxStacks_,1);
         nbStacks.addChangeListener(new ListenerStacks(this));
         players_.add(nbStacks);
         getJt().add(getMessages().getVal(REPARTITION),players_);
@@ -234,11 +234,11 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         reglesPresident = _reglesPresident;
     }
 
-    protected Spinner getNbGames() {
+    protected AbsSpinner getNbGames() {
         return nbGames;
     }
 
-    protected void setNbGames(Spinner _nbGames) {
+    protected void setNbGames(AbsSpinner _nbGames) {
         nbGames = _nbGames;
     }
 }
