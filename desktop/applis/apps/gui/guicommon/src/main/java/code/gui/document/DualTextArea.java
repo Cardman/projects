@@ -3,16 +3,15 @@ package code.gui.document;
 import code.formathtml.render.IntTextArea;
 import code.formathtml.render.MetaTextArea;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.TextArea;
+import code.gui.AbsTextArea;
 
 public final class DualTextArea extends DualInput implements IntTextArea {
 
-    private final TextArea area;
+    private final AbsTextArea area;
 
     public DualTextArea(DualContainer _container, MetaTextArea _component, RenderedPage _page) {
         super(_container, _component, _page);
-        area = new TextArea(_component.getValue(), _component.getRows(), _component.getCols());
+        area = _page.getCompoFactory().newTextArea(_component.getValue(), _component.getRows(), _component.getCols());
         updateGraphics(area,_component);
     }
 

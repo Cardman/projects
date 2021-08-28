@@ -541,7 +541,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         displayTrumpsForHandfulMulti(GameTarotCommonPlaying.atoutsPoignee(playerHand.couleurs()));
         getPanneauBoutonsJeu().removeAll();
         AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
-        setInfoCurrentHandful(new TextArea(EMPTY_STRING,1,15));
+        setInfoCurrentHandful(getOwner().getCompoFactory().newTextArea(EMPTY_STRING,1,15));
         AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(getInfoCurrentHandful());
         scroll_.setPreferredSize(new Dimension(getEvents().getWidth(),70));
         handFuls_.add(scroll_);
@@ -769,7 +769,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau_.add(getPanelDiscardedTrumps());
         container_.add(panneau_,BorderLayout.SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
-        setEvents(new TextArea(EMPTY,8, 30));
+        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         byte relative_ = relative(_beginPlace);
         getEvents().append(StringUtil.concat(getMessages().getVal(WindowCards.PLAYER_HAVING_TO_PLAY),pseudos_.getVal(relative_),RETURN_LINE));

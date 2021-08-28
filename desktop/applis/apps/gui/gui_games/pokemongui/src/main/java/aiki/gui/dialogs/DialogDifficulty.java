@@ -12,6 +12,7 @@ import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public final class DialogDifficulty implements AbsCloseableDialog {
@@ -30,8 +31,8 @@ public final class DialogDifficulty implements AbsCloseableDialog {
 
     private FacadeGame facade;
 
-    public DialogDifficulty(AbsFrameFactory _frameFactory) {
-        absDialog = _frameFactory.newDialog(this);
+    public DialogDifficulty(AbstractProgramInfos _frameFactory) {
+        absDialog = _frameFactory.getFrameFactory().newDialog(this);
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 

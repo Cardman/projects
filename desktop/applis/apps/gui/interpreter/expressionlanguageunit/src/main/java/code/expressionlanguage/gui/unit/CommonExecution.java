@@ -14,11 +14,11 @@ public final class CommonExecution {
 
     private final PlainLabel currentMethod;
     private final TableGui resultsTable;
-    private final TextArea results;
+    private final AbsTextArea results;
     private final AbsProgressBar progressBar;
 
     public CommonExecution(StringMap<String> _messages, PlainLabel _doneTestsCount, PlainLabel _currentMethod,
-                           TableGui _resultsTable, TextArea _results, AbsProgressBar _progressBar) {
+                           TableGui _resultsTable, AbsTextArea _results, AbsProgressBar _progressBar) {
         this.messages = _messages;
         this.doneTestsCount = _doneTestsCount;
         this.currentMethod = _currentMethod;

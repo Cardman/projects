@@ -11,7 +11,8 @@ import cards.gui.WindowCards;
 import cards.gui.labels.GraphicBeloteCard;
 import code.gui.AbsPanel;
 import code.gui.AbsScrollPane;
-import code.gui.TextArea;
+import code.gui.AbsTextArea;
+
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
@@ -75,7 +76,7 @@ public class CarpetBelote {
             for(int i=0;i<12;i++) {
                 AbsPanel surPanneau_=_compoFactory.newLineBox();
                 AbsPanel panneau_=_compoFactory.newBorder();
-                TextArea jta_=new TextArea(EMPTY,3,0);
+                AbsTextArea jta_=_compoFactory.newTextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==3) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -165,7 +166,7 @@ public class CarpetBelote {
                 AbsPanel surPanneau_;
                 surPanneau_= _compoFactory.newLineBox();
                 AbsPanel panneau_=_compoFactory.newBorder();
-                TextArea jta_=new TextArea(EMPTY,3,0);
+                AbsTextArea jta_=_compoFactory.newTextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==0) {
                     if(c_.horaire) {
@@ -212,7 +213,7 @@ public class CarpetBelote {
             for(int i=0;i<9;i++) {
                 AbsPanel surPanneau_=_compoFactory.newLineBox();
                 AbsPanel panneau_=_compoFactory.newBorder();
-                TextArea jta_=new TextArea(EMPTY,3,0);
+                AbsTextArea jta_=_compoFactory.newTextArea(EMPTY,3,0);
                 jta_.setEditable(false);
                 if(i==0) {
                     surPanneau_= _compoFactory.newLineBox();

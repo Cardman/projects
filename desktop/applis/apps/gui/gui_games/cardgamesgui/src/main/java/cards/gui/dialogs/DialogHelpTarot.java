@@ -47,7 +47,7 @@ public final class DialogHelpTarot {
         AbsPanel container_=compo.newLineBox();
         AbsPanel panneau2_=compo.newBorder();
         AbsPanel panneau3_;
-        TextArea zone_;
+        AbsTextArea zone_;
         HandTarot tout_ = HandTarot.pileBase();
         EnumList<Suit> suits_ = new EnumList<Suit>(Suit.values());
         panneau3_=compo.newLineBox();
@@ -57,7 +57,7 @@ public final class DialogHelpTarot {
         nbPlayers_++;
         //Dog hand
         for(int indicePseudo_ = IndexConstants.SECOND_INDEX; indicePseudo_<nbPlayers_; indicePseudo_++) {
-            zone_=new TextArea(EMPTY,84,15);
+            zone_=compo.newTextArea(EMPTY,84,15);
             zone_.setEditable(false);
             if(indicePseudo_<_pseudos.size()) {
                 zone_.append(StringUtil.concat(_pseudos.get(indicePseudo_),RETURN_LINE));

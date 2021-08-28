@@ -3503,18 +3503,18 @@ public final class GuiAliases {
                 return r_;
             }
             if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new TextAreaStruct(aliasTextArea));
+                r_.setResult(new TextAreaStruct(aliasTextArea,_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
             if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new TextAreaStruct(aliasTextArea,_args[0]));
+                r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
             if (_method.getParametersTypesLength() == 2) {
-                r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1]));
+                r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1],_guiEx.getWindow().getCompoFactory()));
                 return r_;
             }
-            r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1],_args[2]));
+            r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1],_args[2],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_, aliasSpinner)) {

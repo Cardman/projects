@@ -2,26 +2,26 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.structs.*;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.TextArea;
+import code.gui.AbsTextArea;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class TextAreaStruct extends InputStruct {
-    private TextArea textArea;
-    protected TextAreaStruct(String _className) {
+    private final AbsTextArea textArea;
+    protected TextAreaStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
-        textArea = new TextArea();
+        textArea = _compo.newTextArea();
     }
-    protected TextAreaStruct(String _className, Struct _txt) {
+    protected TextAreaStruct(String _className, Struct _txt, AbsCompoFactory _compo) {
         super(_className);
-        textArea = new TextArea(getText(_txt));
+        textArea = _compo.newTextArea(getText(_txt));
     }
-    protected TextAreaStruct(String _className, Struct _rows, Struct _cols) {
+    protected TextAreaStruct(String _className, Struct _rows, Struct _cols, AbsCompoFactory _compo) {
         super(_className);
-        textArea = new TextArea(((NumberStruct)_rows).intStruct(),((NumberStruct)_cols).intStruct());
+        textArea = _compo.newTextArea(((NumberStruct)_rows).intStruct(),((NumberStruct)_cols).intStruct());
     }
-    protected TextAreaStruct(String _className, Struct _txt, Struct _rows, Struct _cols) {
+    protected TextAreaStruct(String _className, Struct _txt, Struct _rows, Struct _cols, AbsCompoFactory _compo) {
         super(_className);
-        textArea = new TextArea(getText(_txt),((NumberStruct)_rows).intStruct(),((NumberStruct)_cols).intStruct());
+        textArea = _compo.newTextArea(getText(_txt),((NumberStruct)_rows).intStruct(),((NumberStruct)_cols).intStruct());
     }
 
     public void insert(Struct _str, Struct _pos) {

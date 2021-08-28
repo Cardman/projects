@@ -15,7 +15,6 @@ import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.Playing;
 import code.gui.*;
 
-import code.gui.TextArea;
 import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.threads.ThreadUtil;
@@ -108,7 +107,7 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         container.setPanelHand(panneau_);
         container_.add(panneau_,BorderLayout.SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
-        container.setEvents(new TextArea(ContainerPresident.EMPTY,8, 30));
+        container.setEvents(container.getOwner().getCompoFactory().newTextArea(ContainerPresident.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
         container.setHandfuls(new ByteMap<TextLabel>());

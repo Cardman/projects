@@ -54,7 +54,7 @@ public final class DialogHelpBelote {
         AbsPanel container_=compo.newLineBox();
         AbsPanel panneau2_=compo.newBorder();
         AbsPanel panneau3_;
-        TextArea zone_;
+        AbsTextArea zone_;
         HandBelote tout_ = HandBelote.pileBase();
         //une des couleurs domine
         if(_bid.getCouleur() != Suit.UNDEFINED) {
@@ -82,7 +82,7 @@ public final class DialogHelpBelote {
 //        Suit couleur_;
         int nbBotPlayers_ = _pseudos.size();
         for(int indicePseudo_ = IndexConstants.SECOND_INDEX; indicePseudo_<nbBotPlayers_; indicePseudo_++) {
-            zone_=new TextArea(EMPTY,37,15);
+            zone_=compo.newTextArea(EMPTY,37,15);
             zone_.setEditable(false);
             zone_.append(StringUtil.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
             for (Suit s: suits_) {

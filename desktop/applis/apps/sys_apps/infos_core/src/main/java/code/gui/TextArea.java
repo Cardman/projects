@@ -3,7 +3,7 @@ package code.gui;
 import javax.swing.*;
 import java.awt.*;
 
-public final class TextArea extends CustComponent {
+public final class TextArea extends CustComponent implements AbsTextArea {
 
     private JTextArea textArea;
 
@@ -49,10 +49,7 @@ public final class TextArea extends CustComponent {
     }
 
     public void insert(String _str, int _pos) {
-        if (_pos < 0) {
-            return;
-        }
-        forceInsert(_str, _pos);
+        FrameUtil.ins(this,_str, _pos);
     }
 
     public void forceInsert(String _str, int _pos) {
@@ -64,13 +61,7 @@ public final class TextArea extends CustComponent {
     }
 
     public void replaceRange(String _str, int _start, int _end) {
-        if (_start < 0) {
-            return;
-        }
-        if (_end < _start) {
-            return;
-        }
-        forceReplaceRange(_str, _start, _end);
+        FrameUtil.replRange(this, _str, _start, _end);
     }
 
     public void forceReplaceRange(String _str, int _start, int _end) {

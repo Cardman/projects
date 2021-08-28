@@ -14,7 +14,7 @@ import code.gui.Menu;
 import code.gui.MenuBar;
 import code.gui.MenuItem;
 
-import code.gui.TextArea;
+
 import code.gui.TextField;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuittingEvent;
@@ -66,7 +66,7 @@ public final class WindowRenders extends GroupFrame {
         field_ = new TextField(20);
         session.setSearchText(search_);
         session.setField(field_);
-        TextArea t_ = new TextArea(8,32);
+        AbsTextArea t_ = getCompoFactory().newTextArea(8, 32);
         session.setArea(t_);
         session.addFinder();
         AbsScrollPane scrollSession_ = session.getScroll();

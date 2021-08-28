@@ -14,6 +14,7 @@ import code.gui.LabelButton;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -34,10 +35,10 @@ public final class SelectHealedMove {
     private final AbsCompoFactory compo;
     private StringMap<String> messages;
 
-    public SelectHealedMove(AbsFrameFactory _frameFactory, AbsCompoFactory _compoFactory) {
-        absDialog = _frameFactory.newDialog();
+    public SelectHealedMove(AbstractProgramInfos _infos) {
+        absDialog = _infos.getFrameFactory().newDialog();
         absDialog.setAccessFile(DIALOG_ACCESS);
-        compo = _compoFactory;
+        compo = _infos.getCompoFactory();
         movesLearnt = compo.newPageBox();
     }
 

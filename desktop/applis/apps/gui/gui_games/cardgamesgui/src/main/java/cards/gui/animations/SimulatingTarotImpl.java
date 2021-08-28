@@ -121,7 +121,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         panneau_.setBackground(Color.BLUE);
         container_.add(panneau_,BorderLayout.SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
-        container.setEvents(new TextArea(ContainerTarot.EMPTY,8, 30));
+        container.setEvents(container.getOwner().getCompoFactory().newTextArea(ContainerTarot.EMPTY,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
         container.setMini(MiniCarpet.newCarpet(container.getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),container.getDisplayingTarot().isClockwise(),pseudos_, container.getWindow().getCompoFactory()));

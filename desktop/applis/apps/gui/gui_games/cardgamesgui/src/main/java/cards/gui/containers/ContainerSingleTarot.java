@@ -121,7 +121,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         container_.add(panneau_,BorderLayout.SOUTH);
 
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
-        setEvents(new TextArea(EMPTY,8, 30));
+        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),getDisplayingTarot().isClockwise(),pseudos_, getOwner().getCompoFactory()));
@@ -663,7 +663,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             displayTrumpsForHandful(trumps_);
             AbsPanel panneau_=getPanneauBoutonsJeu();
             AbsPanel handFuls_ = getOwner().getCompoFactory().newPageBox();
-            setInfoCurrentHandful(new TextArea(EMPTY_STRING,1,15));
+            setInfoCurrentHandful(getOwner().getCompoFactory().newTextArea(EMPTY_STRING,1,15));
             AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane(getInfoCurrentHandful());
             scroll_.setPreferredSize(new Dimension(getEvents().getWidth(),70));
             handFuls_.add(scroll_);

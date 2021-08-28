@@ -11,6 +11,7 @@ import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public final class DialogGameProgess {
@@ -25,8 +26,8 @@ public final class DialogGameProgess {
 
     private StringMap<String> messages;
 
-    public DialogGameProgess(AbsFrameFactory _frameFactory) {
-        absDialog = _frameFactory.newDialog();
+    public DialogGameProgess(AbstractProgramInfos _frameFactory) {
+        absDialog = _frameFactory.getFrameFactory().newDialog();
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 

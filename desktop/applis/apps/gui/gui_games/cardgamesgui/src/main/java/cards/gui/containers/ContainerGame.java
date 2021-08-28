@@ -57,7 +57,7 @@ public class ContainerGame implements Containable {
     private boolean threadAnime;
     private boolean aJoueCarte;
     private final AbstractAtomicBoolean pause;
-    private TextArea events;
+    private AbsTextArea events;
     private MiniCarpet mini;
     /**Est vrai si et seulement si le jeu est en pause*/
     private final AbstractAtomicBoolean passe;
@@ -291,10 +291,10 @@ public class ContainerGame implements Containable {
     protected void setParametres(SoftParams _parametres) {
         parametres = _parametres;
     }
-    public TextArea getEvents() {
+    public AbsTextArea getEvents() {
         return events;
     }
-    public void setEvents(TextArea _events) {
+    public void setEvents(AbsTextArea _events) {
         events = _events;
     }
     public boolean isPasse() {

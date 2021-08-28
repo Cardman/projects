@@ -448,7 +448,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setPanelHand(panneau_);
         container_.add(panneau_,BorderLayout.SOUTH);
         AbsPanel panneau2_=getOwner().getCompoFactory().newPageBox();
-        setEvents(new TextArea(EMPTY,8, 30));
+        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY,8, 30));
         getEvents().setEditable(false);
         panneau2_.add(getOwner().getCompoFactory().newAbsScrollPane(getEvents()));
         setMini(MiniCarpet.newCarpet(getWindow().getImageFactory(),partie_.getNombreDeJoueurs(),getDisplayingBelote().isClockwise(),pseudos_, getOwner().getCompoFactory()));

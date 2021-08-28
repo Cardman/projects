@@ -14,7 +14,7 @@ import code.gui.Menu;
 import code.gui.MenuBar;
 import code.gui.MenuItem;
 
-import code.gui.TextArea;
+
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessCdmUnitGr;
@@ -40,7 +40,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final AbsPanel contentPane;
     private final AbsPanel form;
     private final PlainLabel content;
-    private final TextArea conf;
+    private final AbsTextArea conf;
     private final PlainButton launch;
     private final AbsPanel progressing;
     private final PlainLabel doneTests;
@@ -49,14 +49,14 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final PlainLabel method;
     private final PlainLabel currentMethod;
     private final TableGui resultsTable;
-    private final TextArea results;
+    private final AbsTextArea results;
     private final AbsProgressBar progressBar;
 
     private RunningTest running;
     private AbstractThread th;
     private final StringMap<String> unitMessages;
     private final UniformingString uniformingString = new DefaultUniformingString();
-    private final TextArea errors = new TextArea();
+    private final AbsTextArea errors = getCompoFactory().newTextArea();
     private final AbsScrollPane errorsScroll = getCompoFactory().newAbsScrollPane(errors);
     private final UnitIssuer unitIssuer = new UnitIssuer(errors);
     private final SimpleFilesFrame filesFrame;
@@ -93,7 +93,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         form = getCompoFactory().newGrid(0,2);
         content = new PlainLabel(unitMessages.getVal("configuration"));
         form.add(content);
-        conf = new TextArea(64,64);
+        conf = getCompoFactory().newTextArea(64,64);
         AbsScrollPane scr_ = getCompoFactory().newAbsScrollPane(conf);
         scr_.setPreferredSize(new Dimension(256,96));
         form.add(scr_);
@@ -119,7 +119,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         cols_[2] = unitMessages.getVal("params");
         cols_[3] = unitMessages.getVal("success");
         resultsTable = new TableGui(cols_);
-        results = new TextArea(1024,1024);
+        results = getCompoFactory().newTextArea(1024,1024);
         AbsScrollPane scrTable_ = getCompoFactory().newAbsScrollPane(resultsTable);
         scrTable_.setPreferredSize(new Dimension(256,96));
         AbsScrollPane scrRes_ = getCompoFactory().newAbsScrollPane(results);

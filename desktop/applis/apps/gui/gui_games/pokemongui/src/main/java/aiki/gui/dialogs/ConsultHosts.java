@@ -13,6 +13,7 @@ import aiki.util.Coords;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractThread;
 import code.util.EqList;
 import code.util.*;
@@ -40,8 +41,8 @@ public final class ConsultHosts {
 //    private MainWindow window;
     private WindowAiki window;
 
-    public ConsultHosts(AbsFrameFactory _frameFactory) {
-        absDialog = _frameFactory.newDialog();
+    public ConsultHosts(AbstractProgramInfos _frameFactory) {
+        absDialog = _frameFactory.getFrameFactory().newDialog();
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 

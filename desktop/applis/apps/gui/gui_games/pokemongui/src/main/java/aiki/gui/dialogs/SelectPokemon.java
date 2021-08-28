@@ -14,6 +14,7 @@ import code.gui.document.RenderedPage;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractThread;
 import code.util.StringMap;
 
@@ -40,10 +41,10 @@ public final class SelectPokemon extends SelectDialog {
     private WindowAiki window;
     private final AbsCompoFactory compo;
 
-    public SelectPokemon(AbsFrameFactory _frameFactory, AbsCompoFactory _compoFactory) {
-        super(_frameFactory);
+    public SelectPokemon(AbstractProgramInfos _infos) {
+        super(_infos.getFrameFactory());
         getSelectDial().setAccessFile(DIALOG_ACCESS);
-        compo = _compoFactory;
+        compo = _infos.getCompoFactory();
     }
 
     public static void setSelectPokemon(WindowAiki _parent, FacadeGame _facade, boolean _storage, SelectPokemon _dialog) {

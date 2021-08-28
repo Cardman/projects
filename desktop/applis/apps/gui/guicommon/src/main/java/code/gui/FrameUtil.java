@@ -719,4 +719,21 @@ public final class FrameUtil {
         }
         _curr.updateModel(_value);
     }
+
+    public static void ins(AbsTextArea _curr, String _str, int _pos) {
+        if (_pos < 0) {
+            return;
+        }
+        _curr.forceInsert(_str, _pos);
+    }
+
+    public static void replRange(AbsTextArea _curr, String _str, int _start, int _end) {
+        if (_start < 0) {
+            return;
+        }
+        if (_end < _start) {
+            return;
+        }
+        _curr.forceReplaceRange(_str, _start, _end);
+    }
 }

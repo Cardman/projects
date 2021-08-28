@@ -9,6 +9,7 @@ import code.gui.events.ClosingDialogEvent;
 import code.gui.events.CreateServerEvent;
 import code.gui.events.JoinServerEvent;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.network.enums.IpType;
 import code.util.EnumList;
 import code.util.EnumMap;
@@ -35,8 +36,8 @@ public final class DialogServerAiki implements AbstractDialogServer, AbsCloseabl
 
     private EnumMap<IpType,String> messagesIpEnum;
 
-    public DialogServerAiki(AbsFrameFactory _frameFactory) {
-        absDialog = _frameFactory.newDialog();
+    public DialogServerAiki(AbstractProgramInfos _frameFactory) {
+        absDialog = _frameFactory.getFrameFactory().newDialog();
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 

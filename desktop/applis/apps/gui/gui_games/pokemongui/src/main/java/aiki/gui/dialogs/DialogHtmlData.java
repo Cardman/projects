@@ -11,6 +11,7 @@ import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public final class DialogHtmlData {
@@ -27,8 +28,8 @@ public final class DialogHtmlData {
 
     private StringMap<String> messages;
 
-    public DialogHtmlData(AbsFrameFactory _frameFactory) {
-        absDialog = _frameFactory.newDialog();
+    public DialogHtmlData(AbstractProgramInfos _frameFactory) {
+        absDialog = _frameFactory.getFrameFactory().newDialog();
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 

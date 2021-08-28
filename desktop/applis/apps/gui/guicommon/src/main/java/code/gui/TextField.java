@@ -35,10 +35,6 @@ public final class TextField extends CustComponent {
         textField.getDocument().addDocumentListener(wr_);
     }
 
-    public void moveCaretPosition(int _pos) {
-        textField.moveCaretPosition(_pos);
-    }
-
     public void setCaretPosition(int _position) {
         textField.setCaretPosition(_position);
     }
@@ -59,20 +55,8 @@ public final class TextField extends CustComponent {
         textField.select(_selectionStart, _selectionEnd);
     }
 
-    public boolean contains(int _x, int _y) {
-        return textField.contains(_x, _y);
-    }
-
     public void setEnabled(boolean _enabled) {
         textField.setEnabled(_enabled);
-    }
-
-    public int getX() {
-        return textField.getX();
-    }
-
-    public int getY() {
-        return textField.getY();
     }
 
 

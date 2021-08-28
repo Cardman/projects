@@ -10,7 +10,7 @@ import code.gui.Menu;
 import code.gui.MenuBar;
 import code.gui.MenuItem;
 
-import code.gui.TextArea;
+
 import code.gui.TextField;
 import code.gui.events.ClosingChildFrameEvent;
 import code.scripts.messages.gui.MessCdmUnitGr;
@@ -40,7 +40,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private final TextField srcField;
     private final TextField filesField;
     private final PlainLabel content;
-    private final TextArea conf;
+    private final AbsTextArea conf;
     private final PlainButton launch;
     private final PlainButton launchByFile;
     private final AbsPanel progressing;
@@ -50,14 +50,14 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private final PlainLabel method;
     private final PlainLabel currentMethod;
     private final TableGui resultsTable;
-    private final TextArea results;
+    private final AbsTextArea results;
     private final AbsProgressBar progressBar;
     private final StringMap<String> messages;
     private final WindowUnit parent;
     private byte[] confFile;
     private byte[] src;
     private byte[] files;
-    private final TextArea errors;
+    private final AbsTextArea errors;
     private final UnitIssuer unitIssuer;
     private final CommonExecution commonExecution;
     private String filePath = "";
@@ -88,7 +88,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         form = parent.getCompoFactory().newGrid(0,2);
         content = new PlainLabel(messages.getVal("configuration"));
         form.add(content);
-        conf = new TextArea(64,64);
+        conf = parent.getCompoFactory().newTextArea(64,64);
         AbsScrollPane scr_ = parent.getCompoFactory().newAbsScrollPane(conf);
         scr_.setPreferredSize(new Dimension(256,96));
         form.add(scr_);
@@ -133,7 +133,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         cols_[2] =messages.getVal("params");
         cols_[3] =messages.getVal("success");
         resultsTable = new TableGui(cols_);
-        results = new TextArea(1024,1024);
+        results = parent.getCompoFactory().newTextArea(1024,1024);
         AbsScrollPane scrTable_ = parent.getCompoFactory().newAbsScrollPane(resultsTable);
         scrTable_.setPreferredSize(new Dimension(256,96));
         AbsScrollPane scrRes_ = parent.getCompoFactory().newAbsScrollPane(results);
@@ -142,7 +142,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         splitPane_.setOneTouchExpandable(true);
         progressing.add(splitPane_);
         contentPane.add(progressing);
-        errors = new TextArea(128,128);
+        errors = parent.getCompoFactory().newTextArea(128,128);
         AbsScrollPane scrErrs_ = parent.getCompoFactory().newAbsScrollPane(errors);
         scrErrs_.setPreferredSize(new Dimension(512,128));
         unitIssuer = new UnitIssuer(errors);

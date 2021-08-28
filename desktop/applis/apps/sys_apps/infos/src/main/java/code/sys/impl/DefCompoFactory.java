@@ -136,4 +136,24 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsSpinner newSpinner(int _a, int _b, int _c, int _d) {
         return new Spinner(_a,_b,_c,_d);
     }
+
+    @Override
+    public AbsTextArea newTextArea() {
+        return new TextArea();
+    }
+
+    @Override
+    public AbsTextArea newTextArea(int _r, int _c) {
+        return new TextArea(_r, _c);
+    }
+
+    @Override
+    public AbsTextArea newTextArea(String _txt) {
+        return new TextArea(_txt);
+    }
+
+    @Override
+    public AbsTextArea newTextArea(String _txt, int _r, int _c) {
+        return new TextArea(_txt, _r, _c);
+    }
 }

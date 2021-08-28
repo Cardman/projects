@@ -38,7 +38,7 @@ public final class RenderedPage implements ProcessingSession {
 
     private CustList<AbstractImage> process = new CustList<AbstractImage>();
 
-    private TextArea area;
+    private AbsTextArea area;
 
     private ProgressingWebDialog dialog;
 
@@ -190,7 +190,7 @@ public final class RenderedPage implements ProcessingSession {
         }
         finish();
     }
-    public TextArea getArea() {
+    public AbsTextArea getArea() {
         return area;
     }
     @Override
@@ -228,7 +228,7 @@ public final class RenderedPage implements ProcessingSession {
         frame = _frame;
     }
 
-    public void setArea(TextArea _area) {
+    public void setArea(AbsTextArea _area) {
         area = _area;
     }
 

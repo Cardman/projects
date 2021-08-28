@@ -261,18 +261,18 @@ public final class WindowAiki extends NetGroupFrame {
 
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
         super(_lg, _list);
-        selectEgg = new SelectEgg(_list.getFrameFactory(),_list.getCompoFactory());
-        selectPokemon = new SelectPokemon(_list.getFrameFactory(),_list.getCompoFactory());
-        selectHealedMove = new SelectHealedMove(_list.getFrameFactory(),_list.getCompoFactory());
-        selectHealingItem = new SelectHealingItem(_list.getFrameFactory(),_list.getCompoFactory());
-        selectItem = new SelectItem(_list.getFrameFactory(),_list.getCompoFactory());
-        selectTm = new SelectTm(_list.getFrameFactory(),_list.getCompoFactory());
-        consultHosts = new ConsultHosts(_list.getFrameFactory());
-        dialogDifficulty = new DialogDifficulty(_list.getFrameFactory());
-        dialogGameProgess = new DialogGameProgess(_list.getFrameFactory());
-        dialogHtmlData = new DialogHtmlData(_list.getFrameFactory());
-        softParams = new DialogSoftParams(_list.getFrameFactory());
-        dialogServer = new DialogServerAiki(_list.getFrameFactory());
+        selectEgg = new SelectEgg(_list);
+        selectPokemon = new SelectPokemon(_list);
+        selectHealedMove = new SelectHealedMove(_list);
+        selectHealingItem = new SelectHealingItem(_list);
+        selectItem = new SelectItem(_list);
+        selectTm = new SelectTm(_list);
+        consultHosts = new ConsultHosts(_list);
+        dialogDifficulty = new DialogDifficulty(_list);
+        dialogGameProgess = new DialogGameProgess(_list);
+        dialogHtmlData = new DialogHtmlData(_list);
+        softParams = new DialogSoftParams(_list);
+        dialogServer = new DialogServerAiki(_list);
         loadFlag = new LoadFlagImpl(_list.getThreadFactory().newAtomicBoolean());
         aikiFactory = _aikiFactory;
         setAccessFile(DIALOG_ACCESS);

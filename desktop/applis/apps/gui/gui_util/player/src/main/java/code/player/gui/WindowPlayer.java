@@ -80,7 +80,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     private final TextLabel songsLabel = new TextLabel("");
     private AbsClipStream clipStream;
     private int noSong = -1;
-    private final TextArea songs = new TextArea(10, 40);
+    private final AbsTextArea songs = getCompoFactory().newTextArea(10, 40);
     private final SongRenderer songRend = new SongRenderer(getCompoFactory());
     private final CustCheckBox random = new CustCheckBox();
     private final LabelButton play = new LabelButton(CST_PLAY);

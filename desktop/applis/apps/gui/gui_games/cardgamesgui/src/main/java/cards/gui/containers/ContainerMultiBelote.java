@@ -711,7 +711,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         setPanelHand(panneau_);
         container_.add(panneau_, BorderLayout.SOUTH);
         AbsPanel panneau2_ = getOwner().getCompoFactory().newPageBox();
-        setEvents(new TextArea(EMPTY, 8, 30));
+        setEvents(getOwner().getCompoFactory().newTextArea(EMPTY, 8, 30));
         byte relative_ = relative(_beginPlace);
         getEvents().append(StringUtil.concat(getMessages().getVal(WindowCards.PLAYER_HAVING_TO_PLAY), pseudos_.getVal(relative_), RETURN_LINE));
         getEvents().setEditable(false);

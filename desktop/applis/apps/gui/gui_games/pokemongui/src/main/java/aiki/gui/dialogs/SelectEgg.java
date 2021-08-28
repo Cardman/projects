@@ -12,6 +12,7 @@ import code.gui.*;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -29,10 +30,10 @@ public final class SelectEgg extends SelectDialog {
     private StringMap<String> messages;
     private final AbsCompoFactory compo;
 
-    public SelectEgg(AbsFrameFactory _frameFactory, AbsCompoFactory _compoFactory) {
-        super(_frameFactory);
+    public SelectEgg(AbstractProgramInfos _infos) {
+        super(_infos.getFrameFactory());
         getSelectDial().setAccessFile(DIALOG_ACCESS);
-        compo = _compoFactory;
+        compo = _infos.getCompoFactory();
     }
 
     public static void setSelectEgg(WindowAiki _parent, FacadeGame _facade, SelectEgg _dialog) {

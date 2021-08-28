@@ -8,6 +8,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.events.ValidateSoftParams;
 import code.gui.*;
 import code.gui.initialize.AbsFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public final class DialogSoftParams {
@@ -47,8 +48,8 @@ public final class DialogSoftParams {
 
     private boolean ok;
 
-    public DialogSoftParams(AbsFrameFactory _frameFactory) {
-        absDialog = _frameFactory.newDialog();
+    public DialogSoftParams(AbstractProgramInfos _frameFactory) {
+        absDialog = _frameFactory.getFrameFactory().newDialog();
         absDialog.setAccessFile(DIALOG_ACCESS);
     }
 

@@ -61,7 +61,7 @@ public class ContainerTarot extends ContainerGame{
     private AbsPanel panelCallableCards;
     private Handfuls choosenHandful = Handfuls.NO;
     private CardTarot carteSurvoleeTarot;
-    private TextArea infoCurrentHandful;
+    private AbsTextArea infoCurrentHandful;
     private LabelButton validateDog;
     private LabelButton slamButton;
 
@@ -271,10 +271,10 @@ public class ContainerTarot extends ContainerGame{
     public void setCarteSurvoleeTarot(CardTarot _carteSurvoleeTarot) {
         carteSurvoleeTarot = _carteSurvoleeTarot;
     }
-    public TextArea getInfoCurrentHandful() {
+    public AbsTextArea getInfoCurrentHandful() {
         return infoCurrentHandful;
     }
-    public void setInfoCurrentHandful(TextArea _infoCurrentHandful) {
+    public void setInfoCurrentHandful(AbsTextArea _infoCurrentHandful) {
         infoCurrentHandful = _infoCurrentHandful;
     }
     public LabelButton getValidateDog() {
