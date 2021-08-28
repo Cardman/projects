@@ -221,4 +221,14 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsPlainLabel newPlainLabel(String _value) {
         return new PlainLabel(_value);
     }
+
+    @Override
+    public AbsTableGui newTableGui(String... _cols) {
+        return new TableGui(_cols);
+    }
+
+    @Override
+    public AbsWrappedTextArea newWrappedTextArea(int _rows, int _columns) {
+        return new WrappedTextArea(_rows, _columns);
+    }
 }

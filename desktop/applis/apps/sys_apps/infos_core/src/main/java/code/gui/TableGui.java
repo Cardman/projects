@@ -13,10 +13,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.Point;
 
-public final class TableGui extends CustComponent {
-    private JTable table;
+public final class TableGui extends CustComponent implements AbsTableGui {
+    private final JTable table;
 
-    private DefaultTableModel model;
+    private final DefaultTableModel model;
 
     public TableGui(String... _cols) {
         DefaultTableModel d_ = newModel(_cols);

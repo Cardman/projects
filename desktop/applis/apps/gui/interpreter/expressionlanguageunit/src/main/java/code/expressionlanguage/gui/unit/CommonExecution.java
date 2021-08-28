@@ -13,12 +13,12 @@ public final class CommonExecution {
     private final AbsPlainLabel doneTestsCount;
 
     private final AbsPlainLabel currentMethod;
-    private final TableGui resultsTable;
+    private final AbsTableGui resultsTable;
     private final AbsTextArea results;
     private final AbsProgressBar progressBar;
 
     public CommonExecution(StringMap<String> _messages, AbsPlainLabel _doneTestsCount, AbsPlainLabel _currentMethod,
-                           TableGui _resultsTable, AbsTextArea _results, AbsProgressBar _progressBar) {
+                           AbsTableGui _resultsTable, AbsTextArea _results, AbsProgressBar _progressBar) {
         this.messages = _messages;
         this.doneTestsCount = _doneTestsCount;
         this.currentMethod = _currentMethod;

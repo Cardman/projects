@@ -40,7 +40,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
     private AutoCompleteDocument auto;
     private AbsTreeGui folderSystem;
     private FileTable fileModel;
-    private TableGui fileTable;
+    private AbsTableGui fileTable;
     private boolean currentFolderRoot;
     private String selectedPath;
     private String selectedAbsolutePath;
@@ -153,7 +153,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
                 }
             }
         }
-        fileModel = new FileTable(lg_,superFrame.getThreadFactory());
+        fileModel = new FileTable(lg_,superFrame.getThreadFactory(),superFrame.getCompoFactory());
         currentTitle = messages.getVal(FILES);
         if (currentFolderRoot) {
             currentTitle = StringUtil.concat(currentTitle, SPACE, currentFolder);
@@ -339,7 +339,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         return fileModel;
     }
 
-    protected TableGui getFileTable() {
+    protected AbsTableGui getFileTable() {
         return fileTable;
     }
 

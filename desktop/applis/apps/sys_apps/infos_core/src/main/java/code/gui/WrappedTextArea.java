@@ -5,13 +5,9 @@ import javax.swing.JTextArea;
 
 import code.util.core.StringUtil;
 
-public final class WrappedTextArea extends CustComponent {
+public final class WrappedTextArea extends CustComponent implements AbsWrappedTextArea {
 
-    private JTextArea textArea;
-
-    public WrappedTextArea() {
-        textArea = new JTextArea();
-    }
+    private final JTextArea textArea;
 
     public WrappedTextArea(int _rows, int _columns) {
         textArea = new JTextArea(_rows, _columns);

@@ -1744,7 +1744,7 @@ public class ScenePanel {
             return;
         }
         String lg_ = window.getLanguageKey();
-        WrappedTextArea commentsWalking_ = new WrappedTextArea(4, 32);
+        AbsWrappedTextArea commentsWalking_ = window.getCompoFactory().newWrappedTextArea(4, 32);
         commentsWalking_.setEditable(false);
         commentsWalking_.setText(_text);
         ConfirmDialog.showComponent(window, compoFactory.newAbsScrollPane(commentsWalking_), messages.getVal(TITLE_COMMENTS), lg_, _messageType);

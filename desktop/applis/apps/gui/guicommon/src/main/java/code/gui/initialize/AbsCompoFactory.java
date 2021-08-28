@@ -56,4 +56,6 @@ public interface AbsCompoFactory {
 
     AbsRadioButton newRadioButton(String _value, boolean _sel);
     AbsPlainLabel newPlainLabel(String _value);
+    AbsTableGui newTableGui(String... _cols);
+    AbsWrappedTextArea newWrappedTextArea(int _rows, int _columns);
 }

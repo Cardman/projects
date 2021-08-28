@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.initialize.AbsCompoFactory;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
@@ -58,10 +59,10 @@ public final class FileTable {
 
     private boolean increasing;
 
-    private final TableGui table;
+    private final AbsTableGui table;
     private final AbstractThreadFactory threadFactory;
 
-    public FileTable(String _lg, AbstractThreadFactory _threadFactory) {
+    public FileTable(String _lg, AbstractThreadFactory _threadFactory, AbsCompoFactory _compoFactory) {
         threadFactory = _threadFactory;
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _lg, ACCESS);
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
@@ -70,7 +71,7 @@ public final class FileTable {
         for (int i = 0; i < NB_COLS; i++) {
             cols_[i] = getColumnName(i);
         }
-        table = new TableGui(cols_);
+        table = _compoFactory.newTableGui(cols_);
     }
 
     public int getRowCount() {
@@ -215,7 +216,7 @@ public final class FileTable {
         return files.get(_index).getAbsolutePath();
     }
 
-    public TableGui getTable() {
+    public AbsTableGui getTable() {
         return table;
     }
 }

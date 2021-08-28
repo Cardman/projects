@@ -48,7 +48,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
 
     private final AbsPlainLabel method;
     private final AbsPlainLabel currentMethod;
-    private final TableGui resultsTable;
+    private final AbsTableGui resultsTable;
     private final AbsTextArea results;
     private final AbsProgressBar progressBar;
     private final StringMap<String> messages;
@@ -131,7 +131,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         cols_[1] =messages.getVal("method");
         cols_[2] =messages.getVal("params");
         cols_[3] =messages.getVal("success");
-        resultsTable = new TableGui(cols_);
+        resultsTable = parent.getCompoFactory().newTableGui(cols_);
         results = parent.getCompoFactory().newTextArea(1024,1024);
         AbsScrollPane scrTable_ = parent.getCompoFactory().newAbsScrollPane(resultsTable);
         scrTable_.setPreferredSize(new Dimension(256,96));

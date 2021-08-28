@@ -3385,7 +3385,7 @@ public final class GuiAliases {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(new TableStruct(aliasTableGui, _args[0]));
+            r_.setResult(new TableStruct(aliasTableGui, _args[0], _guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasRender)) {

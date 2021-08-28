@@ -4,16 +4,16 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.*;
 import code.gui.AbsCustComponent;
-import code.gui.CustComponent;
-import code.gui.TableGui;
+import code.gui.AbsTableGui;
 import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class TableStruct extends CustComponentStruct {
-    private TableGui table;
-    protected TableStruct(String _className, Struct _array) {
+    private final AbsTableGui table;
+    protected TableStruct(String _className, Struct _array, AbsCompoFactory _compoFactory) {
         super(_className);
-        table = new TableGui(getColNames(_array));
+        table = _compoFactory.newTableGui(getColNames(_array));
     }
 
     private static String[] getColNames(Struct _array) {

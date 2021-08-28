@@ -208,12 +208,12 @@ public class Battle extends ChildFrame {
 
     private TextLabel errorLabel;
 
-    private WrappedTextArea commentsErrors;
+    private AbsWrappedTextArea commentsErrors;
     private AbsScrollPane commentsErrorsScroll;
 
     private TextLabel roundLabel;
 
-    private WrappedTextArea commentsRound;
+    private AbsWrappedTextArea commentsRound;
     private AbsScrollPane commentsRoundScroll;
 
     private boolean enabledChangeLanguage;
@@ -1469,7 +1469,7 @@ public class Battle extends ChildFrame {
         if (commentsRound != null) {
             return;
         }
-        commentsRound = new WrappedTextArea(10,32);
+        commentsRound = window.getCompoFactory().newWrappedTextArea(10,32);
         commentsRound.setEditable(false);
         commentsRoundScroll = getFrames().getCompoFactory().newAbsScrollPane(commentsRound);
     }
@@ -1478,7 +1478,7 @@ public class Battle extends ChildFrame {
         if (commentsErrors != null) {
             return;
         }
-        commentsErrors = new WrappedTextArea(6,32);
+        commentsErrors = window.getCompoFactory().newWrappedTextArea(6,32);
         commentsErrors.setEditable(false);
         commentsErrors.setForeground(Color.RED);
         commentsErrorsScroll = getFrames().getCompoFactory().newAbsScrollPane(commentsErrors);

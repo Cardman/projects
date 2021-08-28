@@ -48,7 +48,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
 
     private final AbsPlainLabel method;
     private final AbsPlainLabel currentMethod;
-    private final TableGui resultsTable;
+    private final AbsTableGui resultsTable;
     private final AbsTextArea results;
     private final AbsProgressBar progressBar;
 
@@ -118,7 +118,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         cols_[1] = unitMessages.getVal("method");
         cols_[2] = unitMessages.getVal("params");
         cols_[3] = unitMessages.getVal("success");
-        resultsTable = new TableGui(cols_);
+        resultsTable = getCompoFactory().newTableGui(cols_);
         results = getCompoFactory().newTextArea(1024,1024);
         AbsScrollPane scrTable_ = getCompoFactory().newAbsScrollPane(resultsTable);
         scrTable_.setPreferredSize(new Dimension(256,96));
