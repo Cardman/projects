@@ -3,6 +3,7 @@ package code.sys.impl;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
+import code.sys.impl.gui.*;
 
 import javax.swing.*;
 

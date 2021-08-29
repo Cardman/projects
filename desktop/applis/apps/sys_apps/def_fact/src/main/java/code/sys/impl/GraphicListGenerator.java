@@ -2,7 +2,6 @@ package code.sys.impl;
 
 import code.gui.AbsGraphicList;
 import code.gui.DefaultGraphicListPainter;
-import code.gui.GraphicList;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractGraphicListGenerator;
 

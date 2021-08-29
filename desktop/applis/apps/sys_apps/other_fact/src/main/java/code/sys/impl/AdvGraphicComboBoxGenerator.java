@@ -1,6 +1,6 @@
 package code.sys.impl;
 
-import code.gui.CustComboBox;
+import code.sys.impl.other.CustComboBox;
 import code.gui.GraphicComboGrInt;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;

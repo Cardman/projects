@@ -4,8 +4,7 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.AbsGroupFrame;
-import code.gui.DefFrameFactory;
-import code.gui.GroupFrame;
+import code.sys.impl.gui.DefFrameFactory;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.*;
@@ -26,8 +25,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
 import java.awt.image.RenderedImage;
 import java.io.*;
 

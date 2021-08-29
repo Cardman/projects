@@ -61,7 +61,7 @@ public class FighterRenderer extends CustCellRender<Fighter> {
     }
 
     @Override
-    protected AbstractImageFactory getImageFactory() {
+    public AbstractImageFactory getImageFactory() {
         return fact;
     }
     @Override

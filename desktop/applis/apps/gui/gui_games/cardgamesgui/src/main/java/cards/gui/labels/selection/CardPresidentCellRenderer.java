@@ -30,7 +30,7 @@ public class CardPresidentCellRenderer extends CustCellRender<CardPresident> {
     }
 
     @Override
-    protected AbstractImageFactory getImageFactory() {
+    public AbstractImageFactory getImageFactory() {
         return window.getImageFactory();
     }
     @Override

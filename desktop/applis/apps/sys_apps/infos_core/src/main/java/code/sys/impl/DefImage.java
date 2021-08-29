@@ -4,6 +4,8 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaFont;
+import code.sys.impl.gui.CustComponent;
+import code.sys.impl.gui.PreparedLabel;
 
 import javax.swing.*;
 import java.awt.*;

@@ -56,7 +56,7 @@ public class ItemRenderer extends CustCellRender<String> {
     }
 
     @Override
-    protected AbstractImageFactory getImageFactory() {
+    public AbstractImageFactory getImageFactory() {
         return fact;
     }
     @Override

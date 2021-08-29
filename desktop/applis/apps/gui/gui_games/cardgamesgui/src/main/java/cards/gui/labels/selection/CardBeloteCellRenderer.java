@@ -30,7 +30,7 @@ public class CardBeloteCellRenderer extends CustCellRender<CardBelote>{
     }
 
     @Override
-    protected AbstractImageFactory getImageFactory() {
+    public AbstractImageFactory getImageFactory() {
         return window.getImageFactory();
     }
     @Override

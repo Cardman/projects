@@ -23,7 +23,7 @@ public class CardTarotCellRenderer extends CustCellRender<CardTarot>{
     }
 
     @Override
-    protected AbstractImageFactory getImageFactory() {
+    public AbstractImageFactory getImageFactory() {
         return window.getImageFactory();
     }
     @Override

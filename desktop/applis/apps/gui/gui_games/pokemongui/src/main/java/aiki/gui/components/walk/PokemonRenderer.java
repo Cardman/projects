@@ -110,7 +110,7 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
     }
 
     @Override
-    protected AbstractImageFactory getImageFactory() {
+    public AbstractImageFactory getImageFactory() {
         return fact.getImageFactory();
     }
     @Override

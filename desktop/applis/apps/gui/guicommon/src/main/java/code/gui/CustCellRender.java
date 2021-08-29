@@ -7,7 +7,7 @@ import code.util.CustList;
 public abstract class CustCellRender<T> implements AbsCustCellRender {
     private CustList<T> list = new CustList<T>();
     private AbsGraphicList<T> listGr;
-    protected abstract AbstractImageFactory getImageFactory();
+    public abstract AbstractImageFactory getImageFactory();
     public void paintComponent(AbsPreparedLabel _component) {
         AbstractImage buff_ = getImageFactory().newImageRgb(getWidth(),getHeight());
         buff_.setFont(_component);

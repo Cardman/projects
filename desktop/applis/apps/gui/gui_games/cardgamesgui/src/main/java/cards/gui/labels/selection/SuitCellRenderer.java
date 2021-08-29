@@ -92,7 +92,7 @@ public class SuitCellRenderer extends CustCellRender<Suit> {
     }
 
     @Override
-    protected AbstractImageFactory getImageFactory() {
+    public AbstractImageFactory getImageFactory() {
         return window.getImageFactory();
     }
     @Override

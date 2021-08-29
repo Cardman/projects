@@ -86,7 +86,7 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
     }
 
     @Override
-    protected AbstractImageFactory getImageFactory() {
+    public AbstractImageFactory getImageFactory() {
         return fact;
     }
 

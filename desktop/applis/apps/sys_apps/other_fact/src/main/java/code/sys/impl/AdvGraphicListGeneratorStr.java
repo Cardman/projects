@@ -2,7 +2,7 @@ package code.sys.impl;
 
 import code.gui.AbsGraphicListPainter;
 import code.gui.AbsGraphicListStr;
-import code.gui.CustGrListStr;
+import code.sys.impl.other.CustGrListStr;
 import code.gui.initialize.AbstractAdvGraphicListGenerator;
 
 public final class AdvGraphicListGeneratorStr  implements AbstractAdvGraphicListGenerator {

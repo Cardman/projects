@@ -1,7 +1,7 @@
 package code.sys.impl;
 
 import code.gui.AbsGraphicList;
-import code.gui.CustGrList;
+import code.sys.impl.other.CustGrList;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractGraphicListGenerator;
 

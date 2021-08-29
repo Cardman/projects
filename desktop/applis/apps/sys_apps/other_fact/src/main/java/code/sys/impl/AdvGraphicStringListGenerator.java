@@ -2,8 +2,8 @@ package code.sys.impl;
 
 import code.gui.AbsGraphicList;
 import code.gui.AbsInputGraphicList;
-import code.gui.CustGrList;
-import code.gui.CustGrMultList;
+import code.sys.impl.other.CustGrList;
+import code.sys.impl.other.CustGrMultList;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractGraphicStringListGenerator;
