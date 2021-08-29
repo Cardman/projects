@@ -14,11 +14,11 @@
 	<modules>
 		<module>random</module>
 		<module>infos_core</module>
-		<module>infos</module>
 		<module>other</module>
 		<module>def_fact</module>
 		<module>other_fact</module>
 		<module>def</module>
 		<module>def_standalones</module>
+		<module>infos</module>
 	</modules>
 </project>
