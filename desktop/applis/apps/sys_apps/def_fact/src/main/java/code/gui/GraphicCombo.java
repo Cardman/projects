@@ -204,7 +204,7 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return ((CustComponent) getPanel()).getNatComponent();
     }
 

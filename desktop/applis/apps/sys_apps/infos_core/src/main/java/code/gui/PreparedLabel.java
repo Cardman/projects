@@ -35,7 +35,7 @@ public final class PreparedLabel extends CustComponent implements AbsPreparedLab
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return label;
     }
 

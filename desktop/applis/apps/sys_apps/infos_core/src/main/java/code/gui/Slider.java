@@ -60,7 +60,7 @@ public final class Slider extends CustComponent implements AbsSlider {
         slider.setOrientation(GuiConstants.getOrient(_orientation));
     }
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return slider;
     }
 

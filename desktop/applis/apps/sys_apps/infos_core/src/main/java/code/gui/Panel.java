@@ -139,7 +139,7 @@ public final class Panel extends CustComponent implements AbsPanel {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return panel;
     }
 

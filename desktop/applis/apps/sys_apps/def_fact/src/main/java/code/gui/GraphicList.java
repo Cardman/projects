@@ -471,7 +471,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return scroll.getNatComponent();
     }
 

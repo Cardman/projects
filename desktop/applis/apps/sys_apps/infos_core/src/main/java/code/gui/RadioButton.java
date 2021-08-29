@@ -43,7 +43,7 @@ public final class RadioButton extends CustComponent implements AbsRadioButton {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return radioButton;
     }
 

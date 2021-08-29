@@ -61,7 +61,7 @@ public final class TextField extends CustComponent implements AbsTextField {
 
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return textField;
     }
 

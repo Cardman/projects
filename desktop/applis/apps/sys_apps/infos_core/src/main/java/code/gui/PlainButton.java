@@ -46,7 +46,7 @@ public final class PlainButton extends CustComponent implements AbsPlainButton {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return button;
     }
 }

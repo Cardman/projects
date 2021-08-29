@@ -16,7 +16,7 @@ public final class SplitPane extends CustComponent implements AbsSplitPane {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return component;
     }
 

@@ -281,7 +281,7 @@ public final class TextArea extends CustComponent implements AbsTextArea {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return textArea;
     }
 

@@ -5,7 +5,7 @@ import javax.swing.*;
 public final class PopupMenu extends CustComponent implements AbsPopupMenu {
     private final JPopupMenu popupMenu = new JPopupMenu();
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return popupMenu;
     }
 

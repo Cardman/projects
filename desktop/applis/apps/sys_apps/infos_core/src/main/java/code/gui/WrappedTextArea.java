@@ -26,7 +26,7 @@ public final class WrappedTextArea extends CustComponent implements AbsWrappedTe
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return textArea;
     }
 }

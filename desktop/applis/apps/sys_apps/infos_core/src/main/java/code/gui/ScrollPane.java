@@ -23,7 +23,7 @@ public final class ScrollPane extends CustComponent implements AbsScrollPane {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return component;
     }
 

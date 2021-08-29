@@ -24,7 +24,7 @@ public final class ImgButton extends CustComponent implements AbsImgButton {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return label;
     }
 }

@@ -67,7 +67,7 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return component;
     }
 

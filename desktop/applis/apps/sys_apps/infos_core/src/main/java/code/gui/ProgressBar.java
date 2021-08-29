@@ -40,7 +40,7 @@ public final class ProgressBar extends CustComponent implements AbsProgressBar {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return progressBar;
     }
 }

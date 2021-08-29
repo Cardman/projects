@@ -49,7 +49,7 @@ public final class Spinner extends CustComponent implements AbsSpinner {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return spinner;
     }
 

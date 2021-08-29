@@ -20,7 +20,7 @@ public final class PlainLabel extends CustComponent implements AbsPlainLabel {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return label;
     }
 }

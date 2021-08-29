@@ -52,7 +52,7 @@ public final class PaintableLabel extends CustComponent implements AbsPaintableL
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return label;
     }
 

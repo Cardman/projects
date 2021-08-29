@@ -109,7 +109,7 @@ public final class CustCheckBox extends CustComponent implements AbsCustCheckBox
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return checkBox;
     }
 }

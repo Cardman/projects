@@ -104,7 +104,7 @@ public final class TableGui extends CustComponent implements AbsTableGui {
     }
 
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return table;
     }
 

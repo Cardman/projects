@@ -12,7 +12,7 @@ public final class TreeComponent extends CustComponent {
         tree = _t;
     }
     @Override
-    protected JComponent getNatComponent() {
+    public JComponent getNatComponent() {
         return tree;
     }
 
