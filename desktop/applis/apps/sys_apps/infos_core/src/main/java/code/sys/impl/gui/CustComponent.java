@@ -333,7 +333,7 @@ public abstract class CustComponent implements AbsCustComponent {
 
     public void setForeground(Color _color) {
         getNatComponent().setForeground(_color);
-        backGroundValue = _color.getRGB();
+        foreGroundValue = _color.getRGB();
     }
     public Color getForeground() {
         return getNatComponent().getForeground();
