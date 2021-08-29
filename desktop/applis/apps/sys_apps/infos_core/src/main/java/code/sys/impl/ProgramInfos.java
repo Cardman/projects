@@ -28,7 +28,7 @@ import java.awt.*;
 import java.awt.image.RenderedImage;
 import java.io.*;
 
-public final class ProgramInfos implements AbstractProgramInfos {
+public abstract class ProgramInfos implements AbstractProgramInfos {
 
     private static final String SEPARATEUR = "/";
 
@@ -61,7 +61,7 @@ public final class ProgramInfos implements AbstractProgramInfos {
     private final AbstractSocketFactory socketFactory;
     private final AbsFrameFactory frameFactory;
 
-    public ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
+    protected ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
         threadFactory = new DefaultThreadFactory();
         fileCoreStream = new DefaultFileCoreStream();
         frameFactory = new DefFrameFactory();
