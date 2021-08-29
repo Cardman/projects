@@ -6,7 +6,7 @@ import code.gui.GuiConstants;
 import javax.swing.*;
 
 public final class ProgressBar extends CustComponent implements AbsProgressBar {
-    private JProgressBar progressBar = new JProgressBar();
+    private final JProgressBar progressBar = new JProgressBar();
 
     public boolean isHorizontal() {
         int orientation_ = progressBar.getOrientation();

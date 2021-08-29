@@ -8,7 +8,7 @@ import code.sys.impl.gui.events.WrChangeListener;
 import javax.swing.*;
 
 public final class Slider extends CustComponent implements AbsSlider {
-    private JSlider slider;
+    private final JSlider slider;
 
     public Slider() {
         slider = new JSlider();

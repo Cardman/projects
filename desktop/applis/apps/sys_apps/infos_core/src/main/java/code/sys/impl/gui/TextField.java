@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 
 public final class TextField extends CustComponent implements AbsTextField {
 
-    private JTextField textField;
+    private final JTextField textField;
 
     public TextField() {
         textField = new JTextField();

@@ -11,7 +11,7 @@ import code.util.IdMap;
 import javax.swing.*;
 
 public final class RadioButton extends CustComponent implements AbsRadioButton {
-    private JRadioButton radioButton;
+    private final JRadioButton radioButton;
     private final IdMap<AbsActionListener, WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
     private CustButtonGroup buttonGroup;
     public RadioButton() {

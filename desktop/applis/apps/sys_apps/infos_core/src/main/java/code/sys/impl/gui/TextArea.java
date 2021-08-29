@@ -8,7 +8,7 @@ import java.awt.*;
 
 public final class TextArea extends CustComponent implements AbsTextArea {
 
-    private JTextArea textArea;
+    private final JTextArea textArea;
 
     public TextArea() {
         textArea = new JTextArea();
