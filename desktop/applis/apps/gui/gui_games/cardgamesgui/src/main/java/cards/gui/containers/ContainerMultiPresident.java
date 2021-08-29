@@ -605,8 +605,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
                 } else {
                     l_.setPreferredSize(GraphicPresidentCard.getDimension(false));
                 }
-                l_.setBackground(_panel.getBackgroundValue());
-                l_.setForeground(_panel.getForegroundValue());
+                l_.setBackground(_panel);
+                l_.setForeground(_panel);
                 _panel.add(l_);
                 index_++;
             }

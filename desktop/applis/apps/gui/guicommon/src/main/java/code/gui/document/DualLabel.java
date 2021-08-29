@@ -39,10 +39,8 @@ public abstract class DualLabel extends DualLeaf {
 
     @Override
     protected void postAdd() {
-        int bGr_ = label.getParent().getBackgroundValue();
-        int fGr_ = label.getParent().getForegroundValue();
-        label.setBackground(bGr_);
-        label.setForeground(fGr_);
+        label.setBackground(label.getParent());
+        label.setForeground(label.getParent());
         paint();
     }
 

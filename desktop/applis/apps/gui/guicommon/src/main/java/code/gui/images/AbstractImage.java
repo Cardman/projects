@@ -1,6 +1,5 @@
 package code.gui.images;
 
-import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
 import code.gui.AbsMetaLabel;
 import code.gui.AbsPreparedLabel;
@@ -21,6 +20,8 @@ public interface AbstractImage {
 
     void drawImage(AbstractImage _image, int _i, int _j);
 
+    void setColorBg(AbsCustComponent _color);
+    void setColorFg(AbsCustComponent _color);
     void setColor(int _color);
 
     void fillRect(int _a, int _b, int _width, int _height);

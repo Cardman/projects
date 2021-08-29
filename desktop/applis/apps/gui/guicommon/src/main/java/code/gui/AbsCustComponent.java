@@ -58,8 +58,10 @@ public interface AbsCustComponent {
     int getYcoords();
     void setLocation(int _x, int _y);
     void setBackground(int _color);
+    void setBackground(AbsCustComponent _other);
     int getBackgroundValue();
     void setForeground(int _color);
+    void setForeground(AbsCustComponent _other);
     int getForegroundValue();
     String getToolTipText();
     void validate();

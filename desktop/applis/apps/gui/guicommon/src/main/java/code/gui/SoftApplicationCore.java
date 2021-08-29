@@ -44,8 +44,11 @@ public abstract class SoftApplicationCore {
         if (lg_.isEmpty()) {
             return;
         }
-        StringMap<Object> files_ = getFile(_args);
-        launch(lg_, files_);
+        launchFile(_args, lg_);
+    }
+
+    void launchFile(String[] _args, String _lg) {
+        launch(_lg, getFile(_args));
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, AbstractImage _icon) {

@@ -80,6 +80,16 @@ public final class DefImage implements AbstractImage {
     }
 
     @Override
+    public void setColorBg(AbsCustComponent _color) {
+        setColor(((CustComponent)_color).getBackground());
+    }
+
+    @Override
+    public void setColorFg(AbsCustComponent _color) {
+        setColor(((CustComponent)_color).getForeground());
+    }
+
+    @Override
     public void setColor(int _color) {
         setColor(new Color(_color));
     }

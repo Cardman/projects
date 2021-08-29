@@ -60,17 +60,10 @@ public abstract class AbsMetaLabel {
         paintableLabel.setBackground(_color);
     }
 
-    public int getBackgroundValue() {
-        return paintableLabel.getBackgroundValue();
-    }
-
     public void setForeground(int _color) {
         paintableLabel.setForeground(_color);
     }
 
-    public int getForegroundValue() {
-        return paintableLabel.getForegroundValue();
-    }
     public void setLocation(int _x, int _y) {
         paintableLabel.setLocation(_x,_y);
     }

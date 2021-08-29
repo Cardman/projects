@@ -59,7 +59,7 @@ public final class SuitLabel extends AbsMetaLabel {
         if (!getText().isEmpty()) {
             int h_ = heightFont();
             int w_ = stringWidth(text);
-            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getWidth(), h_, getForegroundValue(), getBackgroundValue());
+            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getWidth(), h_, GuiConstants.newColor(0, 0, 127), GuiConstants.WHITE);
         } else {
             _g.setColor(GuiConstants.WHITE);
             _g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);

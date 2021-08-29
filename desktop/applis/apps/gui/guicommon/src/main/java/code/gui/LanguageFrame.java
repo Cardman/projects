@@ -56,8 +56,7 @@ public final class LanguageFrame implements SetterLanguage {
         commonFrame.dispose();
         SoftApplicationCore.saveLanguage(dir, _language,soft.getFrames().getStreams());
         commonFrame.getPane().removeAll();
-        StringMap<Object> file_ = soft.getFile(args);
-        soft.launch(langue, file_);
+        soft.launchFile(args,langue);
     }
 
     @Override
