@@ -68,7 +68,7 @@ public final class GuiConstants {
     public static final int BOLD = Font.BOLD;
     public static final int ITALIC = Font.ITALIC;
     public static final int PLAIN = Font.PLAIN;
-    public static final int WHITE = Integer.MAX_VALUE;
+    public static final int WHITE = -1;
     public static final int BLACK = (int) (256*256*256*255L);
     public static final int RED = (int) (256*256*256*255L+256*256*255L);
     public static final int GREEN = (int) (256*256*256*255L+256*255L);
@@ -154,31 +154,40 @@ public final class GuiConstants {
     }
 
     public static int newColor(int _r,int _g, int _b, int _a) {
-        int av_ = range(_a) * 256 * 256 * 256;
-        int rv_ = range(_r) * 256 * 256;
-        int gv_ = range(_g) * 256;
-        return av_ + rv_ + gv_ + _b;
+        long av_ = range(_a) * 256 * 256 * 256;
+        long rv_ = range(_r) * 256 * 256;
+        long gv_ = range(_g) * 256;
+        return (int) (av_ + rv_ + gv_ + _b);
     }
     public static int newColor(int _r,int _g, int _b) {
         return newColor(_r, _g, _b, 255);
     }
     public static int newColor(int _rgb) {
         int alphaPart_ = alpha(_rgb);
-        int rgb_ = (int) (_rgb - alphaPart_ *256L*256*256);
+        long rgb_ = (_rgb - alphaPart_ *256L*256*256);
         return (int) (255L*256*256*256+rgb_);
     }
     public static int redPart(int _rgb) {
-        return (_rgb / (256 * 256))%256;
+        long rgb_ = adj(_rgb);
+        return (int) ((rgb_ / (256 * 256))%256);
     }
     public static int greenPart(int _rgb) {
-        return (_rgb / 256)%256;
+        long rgb_ = adj(_rgb);
+        return (int) ((rgb_ / 256)%256);
     }
     public static int bluePart(int _rgb) {
-        return _rgb%256;
+        long rgb_ = adj(_rgb);
+        return (int) (rgb_%256);
     }
     public static int alpha(int _rgb) {
-        return (_rgb / (256 * 256 * 256))%256;
+        long rgb_ = adj(_rgb);
+        return (int) ((rgb_ / (256 * 256 * 256))%256);
     }
+
+    private static long adj(int _rgb) {
+        return _rgb + 2L*Integer.MAX_VALUE+2L;
+    }
+
     public static int newColor(int _rgba, boolean _hasAlpha) {
         if (_hasAlpha) {
             return _rgba;
@@ -186,7 +195,7 @@ public final class GuiConstants {
         return newColor(_rgba);
     }
 
-    private static int range(int _value) {
+    private static long range(int _value) {
         return Math.min(Math.max(0, _value),255);
     }
 
