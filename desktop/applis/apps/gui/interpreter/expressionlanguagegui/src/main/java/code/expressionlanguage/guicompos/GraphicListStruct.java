@@ -131,15 +131,11 @@ public final class GraphicListStruct extends InputStruct {
     public void removeListener(Struct _listener) {
         if (_listener instanceof ListSelection) {
             grList.removeListener((ListSelection)_listener);
-        } else {
-            grList.removeListener(null);
         }
     }
     public void addListener(Struct _listener) {
         if (_listener instanceof ListSelection) {
             grList.addListener((ListSelection)_listener);
-        } else {
-            grList.addListener(null);
         }
     }
 
