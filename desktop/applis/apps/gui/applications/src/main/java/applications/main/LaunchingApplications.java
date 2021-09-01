@@ -72,7 +72,7 @@ public class LaunchingApplications extends SoftApplicationCore {
             if (file_ == null) {
                 return;
             }
-            if (isContentObjectCasrd(args_.first())) {
+            if (DocumentReaderCardsUnionUtil.isContentObject(file_)) {
                 launchWindow(_language, getFrames(), cardFactories, aikiFactory, guiFactory);
                 LaunchingCards launch_ = new LaunchingCards(getFrames(),cardFactories);
                 launch_.launchWithoutLanguage(_language, _args);
@@ -173,15 +173,4 @@ public class LaunchingApplications extends SoftApplicationCore {
 
     }
 
-    public boolean isContentObjectCasrd(String _fileName) {
-        byte[] bytes_ = StreamBinaryFile.loadFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
-        if (LaunchingConverter.isBinary(bytes_)) {
-            return false;
-        }
-        String file_ = StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
-        if (file_ == null) {
-            return false;
-        }
-        return DocumentReaderCardsUnionUtil.isContentObject(file_);
-    }
 }
