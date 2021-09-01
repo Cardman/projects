@@ -9,8 +9,10 @@ import java.util.Map.Entry;
 
 public final class EntryMapStringStruct extends WithoutParentIdStruct implements Struct {
     private final Entry<String,Struct> entry;
-    EntryMapStringStruct(Entry<String,Struct> _entry) {
+    private final StringMapStruct owner;
+    EntryMapStringStruct(Entry<String,Struct> _entry, StringMapStruct _owner) {
         entry = _entry;
+        owner = _owner;
     }
 
     public StringStruct key() {
@@ -37,6 +39,11 @@ public final class EntryMapStringStruct extends WithoutParentIdStruct implements
         }
         return entry.setValue(_v);
     }
+
+    public StringMapStruct getOwner() {
+        return owner;
+    }
+
     @Override
     public String getClassName(ContextEl _contextEl) {
         return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasEntryStringObject();

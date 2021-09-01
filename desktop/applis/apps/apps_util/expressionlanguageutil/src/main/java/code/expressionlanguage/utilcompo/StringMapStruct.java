@@ -38,7 +38,7 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
         }
         CustList<EntryMapStringStruct> instantKeys_ = new CustList<EntryMapStringStruct>();
         for (Entry<String, Struct> s: elementSet.entrySet()) {
-            instantKeys_.add(new EntryMapStringStruct(s));
+            instantKeys_.add(new EntryMapStringStruct(s,this));
         }
         CustList<String> instantKeysStr_ = new CustList<String>();
         for (EntryMapStringStruct s: instantKeys_) {
@@ -95,7 +95,7 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
     public ArrayStruct toSnapshot(ContextEl _contextEl, StackCall _stackCall) {
         CustList<Struct> instantValues_ = new CustList<Struct>();
         for (Entry<String, Struct> s: elementSet.entrySet()) {
-            instantValues_.add(new EntryMapStringStruct(s));
+            instantValues_.add(new EntryMapStringStruct(s,this));
         }
         String thClass_ = ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasEntryStringObject();
         int len_ = instantValues_.size();

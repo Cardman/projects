@@ -122,6 +122,7 @@ public final class CustAliases {
     private static final String ENTRY_STRING_OBJECT = "EntryStringObject";
     private static final String TABLE_ENTRY_KEY = "TableEntryKey";
     private static final String TABLE_ENTRY_VALUE = "TableEntryValue";
+    private static final String TABLE_ENTRY_OWNER = "TableEntryOwner";
     private static final String ENTRY_BINARY = "EntryBinary";
     private static final String ENTRY_TEXT = "EntryText";
     private static final String ENTRY_NAME = "EntryName";
@@ -306,6 +307,7 @@ public final class CustAliases {
     private String aliasEntryStringObject;
     private String aliasTableEntryKey;
     private String aliasTableEntryValue;
+    private String aliasTableEntryOwner;
     private String aliasEntryBinary;
     private String aliasEntryText;
     private String aliasEntryName;
@@ -679,6 +681,9 @@ public final class CustAliases {
         methods_.add( method_);
         params_ = new StringList(_content.getCoreNames().getAliasObject());
         method_ = new StandardMethod(aliasTableEntryValue, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasEntryStringObject0TableEntryValue0()));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasTableEntryOwner, params_, aliasTableStringObject, false, MethodModifier.FINAL);
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasEntryStringObject, std_);
@@ -1554,6 +1559,7 @@ public final class CustAliases {
         setAliasEntryStringObject(LgNamesContent.get(_util, _cust, ENTRY_STRING_OBJECT));
         setAliasTableEntryKey(LgNamesContent.get(_util, _cust, TABLE_ENTRY_KEY));
         setAliasTableEntryValue(LgNamesContent.get(_util, _cust, TABLE_ENTRY_VALUE));
+        setAliasTableEntryOwner(LgNamesContent.get(_util, _cust, TABLE_ENTRY_OWNER));
         setAliasEntryBinary(LgNamesContent.get(_util, _cust, ENTRY_BINARY));
         setAliasEntryText(LgNamesContent.get(_util, _cust, ENTRY_TEXT));
         setAliasEntryName(LgNamesContent.get(_util, _cust, ENTRY_NAME));
@@ -1865,7 +1871,8 @@ public final class CustAliases {
                 new KeyValueMemberName(TABLE_CONC_PUT_ALL,getAliasTableConcPutAll())));
         m_.addEntry(getAliasEntryStringObject(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(TABLE_ENTRY_KEY,getAliasTableEntryKey()),
-                new KeyValueMemberName(TABLE_ENTRY_VALUE,getAliasTableEntryValue())));
+                new KeyValueMemberName(TABLE_ENTRY_VALUE,getAliasTableEntryValue()),
+                new KeyValueMemberName(TABLE_ENTRY_OWNER,getAliasTableEntryOwner())));
         m_.addEntry(getAliasEntryBinary(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ENTRY_NAME,getAliasEntryName()),
                 new KeyValueMemberName(ENTRY_TIME,getAliasEntryTime()),
@@ -2522,6 +2529,10 @@ public final class CustAliases {
             EntryMapStringStruct inst_ = (EntryMapStringStruct) _instance;
             if (StringUtil.quickEq(name_,aliasTableEntryKey)) {
                 res_.setResult(inst_.key());
+                return res_;
+            }
+            if (StringUtil.quickEq(name_,aliasTableEntryOwner)) {
+                res_.setResult(inst_.getOwner());
                 return res_;
             }
             if (_args.length == 0) {
@@ -3602,6 +3613,14 @@ public final class CustAliases {
 
     public void setAliasTableEntryValue(String _aliasTableEntryValue) {
         this.aliasTableEntryValue = _aliasTableEntryValue;
+    }
+
+    public String getAliasTableEntryOwner() {
+        return aliasTableEntryOwner;
+    }
+
+    public void setAliasTableEntryOwner(String _aliasTableEntryOwner) {
+        this.aliasTableEntryOwner = _aliasTableEntryOwner;
     }
 
     public String getAliasEntryBinary() {
