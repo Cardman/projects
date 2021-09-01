@@ -94,8 +94,10 @@ public final class TableGui extends CustComponent implements AbsTableGui {
     }
 
     public boolean isMultiSelect() {
-        return table.getSelectionModel().getSelectionMode() == ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
+        int selectionMode_ = table.getSelectionModel().getSelectionMode();
+        return GuiConstants.isMultiSelect(selectionMode_);
     }
+
     public void setMultiSelect(boolean _mult) {
         int value_ = GuiConstants.getSelectTable(_mult);
         table.getSelectionModel().setSelectionMode(value_);

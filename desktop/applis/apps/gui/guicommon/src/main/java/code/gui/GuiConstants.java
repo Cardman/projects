@@ -199,4 +199,7 @@ public final class GuiConstants {
         return Math.min(Math.max(0, _value),255);
     }
 
+    public static boolean isMultiSelect(int _selectionMode) {
+        return _selectionMode == ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
+    }
 }
