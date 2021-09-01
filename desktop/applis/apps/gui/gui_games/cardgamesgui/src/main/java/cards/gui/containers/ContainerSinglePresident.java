@@ -262,8 +262,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         } else {
             getNoPlay().setText(getMessages().getVal(WindowCards.PASS_TRICK));
         }
-        boolean _enabled = !g_.getProgressingTrick().estVide();
-        getNoPlay().setEnabled(_enabled);
+        boolean enabled_ = !g_.getProgressingTrick().estVide();
+        getNoPlay().setEnabled(enabled_);
         //        getPanneauBoutonsJeu().add(getNoPlay());
         getPanneauBoutonsJeu().validate();
         getOwner().getTricksHands().setEnabledMenu(true);

@@ -1753,27 +1753,27 @@ public class ScenePanel {
 
     public void setPaintingScene(boolean _paintingScene) {
         paintingScene.set(_paintingScene);
-        boolean _enabled9 = !_paintingScene;
-        team.setEnabled(_enabled9);
-        boolean _enabled8 = !_paintingScene;
-        items.setEnabled(_enabled8);
-        boolean _enabled7 = !_paintingScene;
-        tm.setEnabled(_enabled7);
+        boolean enabled9_ = !_paintingScene;
+        team.setEnabled(enabled9_);
+        boolean enabled8_ = !_paintingScene;
+        items.setEnabled(enabled8_);
+        boolean enabled7_ = !_paintingScene;
+        tm.setEnabled(enabled7_);
         //        difficulty.setEnabledLabel(!_paintingScene);
-        boolean _enabled6 = !_paintingScene && facade.isFishArea();
-        fish.setEnabled(_enabled6);
-        boolean _enabled5 = !_paintingScene;
-        seeBoxes.setEnabled(_enabled5);
-        boolean _enabled4 = !_paintingScene;
-        seeEggs.setEnabled(_enabled4);
-        boolean _enabled3 = !_paintingScene;
-        host.setEnabled(_enabled3);
-        boolean _enabled2 = !_paintingScene;
-        game.setEnabled(_enabled2);
-        boolean _enabled1 = !_paintingScene;
-        goBack.setEnabled(_enabled1);
-        boolean _enabled = !_paintingScene;
-        server.setEnabled(_enabled);
+        boolean enabled6_ = !_paintingScene && facade.isFishArea();
+        fish.setEnabled(enabled6_);
+        boolean enabled5_ = !_paintingScene;
+        seeBoxes.setEnabled(enabled5_);
+        boolean enabled4_ = !_paintingScene;
+        seeEggs.setEnabled(enabled4_);
+        boolean enabled3_ = !_paintingScene;
+        host.setEnabled(enabled3_);
+        boolean enabled2_ = !_paintingScene;
+        game.setEnabled(enabled2_);
+        boolean enabled1_ = !_paintingScene;
+        goBack.setEnabled(enabled1_);
+        boolean enabled_ = !_paintingScene;
+        server.setEnabled(enabled_);
         panelMenu.repaintSecondChildren(window.getImageFactory());
     }
     public AbsPanel getComponent() {
