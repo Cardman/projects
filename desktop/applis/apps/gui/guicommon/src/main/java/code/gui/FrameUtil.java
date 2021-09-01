@@ -11,6 +11,7 @@ import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
 import code.util.Ints;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -749,4 +750,34 @@ public final class FrameUtil {
         _curr.forceReplaceRange(_str, _start, _end);
     }
 
+    public static void feed(AbsGraphicList<String> _gr, StringList _list) {
+        for (String l: _list) {
+            _gr.add(l);
+        }
+    }
+
+    public static void feed(GraphicComboInt _gr, StringList _list) {
+        for (String l: _list) {
+            _gr.addItem(l);
+        }
+    }
+    public static Ints toList(int[] _ints) {
+        Ints ints_ = new Ints();
+        for (int i: _ints) {
+            ints_.add(i);
+        }
+        return ints_;
+    }
+    public static int[] toList(Ints _ints) {
+        int size_ = _ints.size();
+        int[] ints_ = new int[size_];
+        for (int i = 0; i < size_; i++) {
+            set(_ints, ints_, i);
+        }
+        return ints_;
+    }
+
+    private static void set(Ints _ints, int[] _dest, int _i) {
+        _dest[_i] = _ints.get(_i);
+    }
 }

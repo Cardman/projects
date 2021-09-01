@@ -19,7 +19,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     }
 
     public CustComboBox(StringList _list, int _selectedIndex) {
-        _list.list().forEach(this::addItem);
+        FrameUtil.feed(this,_list);
         selectItem(_selectedIndex);
     }
 

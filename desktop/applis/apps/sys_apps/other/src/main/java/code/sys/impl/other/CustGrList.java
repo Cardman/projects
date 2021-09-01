@@ -121,13 +121,11 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T>,Ab
     }
 
     public Ints getSelectedIndexes() {
-		Ints out_ = new Ints();
-        Arrays.stream(list.getSelectedIndices()).forEach(out_::add);
-		return out_;
+		return FrameUtil.toList(list.getSelectedIndices());
     }
 
     public void setSelectedIndexes(Ints _values) {
-        list.setSelectedIndices(_values.list().stream().mapToInt(Integer::intValue).toArray());
+        list.setSelectedIndices(FrameUtil.toList(_values));
     }
 
 

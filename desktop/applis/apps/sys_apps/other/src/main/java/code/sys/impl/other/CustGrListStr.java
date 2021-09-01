@@ -22,7 +22,7 @@ public final class CustGrListStr extends CustGrList<Struct> implements AbsCustGr
     @Override
     public void setDefCell(Struct _grComp, SpecSelectionCtx _create) {
         DefSelListStr cell_ = new DefSelListStr(_create,new DefaultListCellRenderer());
-        getListView().setCellRenderer(cell_::getListCellRendererComponent);
+        getListView().setCellRenderer(cell_);
     }
 
     @Override

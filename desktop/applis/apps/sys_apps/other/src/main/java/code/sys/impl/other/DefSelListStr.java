@@ -6,7 +6,7 @@ import code.gui.SpecSelectionCtx;
 import javax.swing.*;
 import java.awt.*;
 
-public final class DefSelListStr {
+public final class DefSelListStr implements ListCellRenderer<Struct> {
     private final SpecSelectionCtx specSelectionCtx;
     private final DefaultListCellRenderer def;
 
@@ -15,6 +15,7 @@ public final class DefSelListStr {
         def = _def;
     }
 
+    @Override
     public Component getListCellRendererComponent(
             JList<? extends Struct> _list,
             Struct _value,
