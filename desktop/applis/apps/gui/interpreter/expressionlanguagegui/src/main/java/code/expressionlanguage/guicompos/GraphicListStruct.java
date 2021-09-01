@@ -117,13 +117,13 @@ public final class GraphicListStruct extends InputStruct {
         grList.remove(_index);
     }
     public ArrayStruct getListeners(ContextEl _ctx) {
-        ListSelection[] listeners_ = grList.getListeners();
+        CustList<ListSelection> listeners_ = grList.getListeners();
         String aliasListSelection_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasListSelection();
-        int len_ = listeners_.length;
+        int len_ = listeners_.size();
         ArrayStruct out_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(aliasListSelection_));
         for (int i = 0; i < len_; i++) {
-            if (listeners_[i] instanceof Struct) {
-                out_.set(i,(Struct)listeners_[i]);
+            if (listeners_.get(i) instanceof Struct) {
+                out_.set(i,(Struct)listeners_.get(i));
             }
         }
         return out_;

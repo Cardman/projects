@@ -252,11 +252,22 @@ public final class FrameUtil {
         _curr.showMenu();
     }
 
-    public static ListSelection[] listeners(ListSelection _listener) {
-        if (_listener == null) {
-            return new ListSelection[0];
+    public static void removeListeners(AbsGraphicListDef _compo) {
+        for (ListSelection l: _compo.getListeners()) {
+            _compo.removeListener(l);
         }
-        return new ListSelection[]{_listener};
+    }
+
+    public static void removeListeners(GraphicComboInt _compo) {
+        for (ListSelection l: _compo.getListeners()) {
+            _compo.removeListener(l);
+        }
+    }
+    public static CustList<ListSelection> listeners(ListSelection _listener) {
+        if (_listener == null) {
+            return new CustList<ListSelection>();
+        }
+        return new CustList<ListSelection>(_listener);
     }
 
     public static void addList(ListSelection _listener, WithListListener _curr) {

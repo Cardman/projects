@@ -9,6 +9,7 @@ import code.gui.initialize.AbsCompoFactory;
 import code.sys.impl.gui.CustComponent;
 import code.sys.impl.gui.Panel;
 import code.sys.impl.gui.PopupMenu;
+import code.util.CustList;
 import code.util.Ints;
 import code.util.core.NumberUtil;
 
@@ -108,7 +109,7 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
     }
 
     @Override
-    public ListSelection[] getListeners() {
+    public CustList<ListSelection> getListeners() {
         return FrameUtil.listeners(listener);
     }
 

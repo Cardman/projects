@@ -378,7 +378,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
 
     @Override
-    public ListSelection[] getListeners() {
+    public CustList<ListSelection> getListeners() {
         return FrameUtil.listeners(listener);
     }
 

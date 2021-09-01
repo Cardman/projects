@@ -1,6 +1,8 @@
 package code.gui;
 
 
+import code.util.CustList;
+
 public interface GraphicComboInt {
 
     int getSelectedIndex();
@@ -13,7 +15,7 @@ public interface GraphicComboInt {
     void removeAllItems();
     void addItem(String _object);
     void setListener(ListSelection _listener);
-    ListSelection[] getListeners();
+    CustList<ListSelection> getListeners();
     void addListener(ListSelection _listener);
 
     void removeListener(ListSelection _listener);

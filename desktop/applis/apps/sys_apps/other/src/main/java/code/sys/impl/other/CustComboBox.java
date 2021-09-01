@@ -3,23 +3,16 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
 import code.adv.SafeRemoveAdvUtil;
-import code.gui.AbsCustComponent;
-import code.gui.AbstractSelectionListener;
-import code.gui.GraphicComboGrInt;
-import code.gui.ListSelection;
+import code.gui.*;
 import code.sys.impl.gui.CustComponent;
-import code.util.IdList;
-import code.util.StringList;
-import code.util.Ints;
+import code.util.*;
 import code.util.core.StringUtil;
-
-import java.util.Optional;
 
 public final class CustComboBox extends CustComponent implements GraphicComboGrInt {
 
     private final JComboBox<String> combo = new JComboBox<>();
 
-    private final IdList<LocalItemListener> listeners = new IdList<>();
+    private final IdMap<ListSelection,LocalItemListener> listeners = new IdMap<>();
 
     public CustComboBox(StringList _list) {
         this(_list,0);
@@ -55,32 +48,29 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     }
 
     @Override
-    public ListSelection[] getListeners() {
-        return listeners.list().stream().map(AbstractSelectionListener::getListener).toArray(ListSelection[]::new);
+    public CustList<ListSelection> getListeners() {
+        return listeners.getKeys();
     }
 
     @Override
     public void addListener(ListSelection _listener) {
-        Optional.ofNullable(_listener).ifPresent(this::innerAddListener);
+        innerAddListener(_listener);
     }
 
     private void innerAddListener(ListSelection _listener) {
         LocalItemListener listen_ = new LocalItemListener(combo, _listener);
         combo.addItemListener(listen_);
-        listeners.add(listen_);
+        listeners.addEntry(_listener,listen_);
     }
     @Override
     public void removeListener(ListSelection _listener) {
-        ListSelectionWrapper lsw_ = new ListSelectionWrapper(_listener);
-        Optional<LocalItemListener> result_ = listeners.list().stream().filter(lsw_::match).findFirst();
-        result_.ifPresent(this::remove);
+        LocalItemListener val_ = listeners.getVal(_listener);
+        combo.removeItemListener(val_);
+        listeners.removeKey(_listener);
     }
-    private void remove(LocalItemListener _listener) {
-        combo.removeItemListener(_listener);
-        listeners.removeObj(_listener);
-    }
+
     public void setListener(ListSelection _listener) {
-        listeners.list().forEach(combo::removeItemListener);
+        FrameUtil.removeListeners(this);
         listeners.clear();
         innerAddListener(_listener);
     }
