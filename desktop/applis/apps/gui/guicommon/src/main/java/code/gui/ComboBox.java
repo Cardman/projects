@@ -86,7 +86,7 @@ public final class ComboBox<T> extends AbsComboBox {
     }
     public T getCurrent() {
         int index_ = getSelectedIndex();
-        if (index_ < 0) {
+        if (!elements.isValidIndex(index_)) {
             return null;
         }
         return elements.getKey(index_);
