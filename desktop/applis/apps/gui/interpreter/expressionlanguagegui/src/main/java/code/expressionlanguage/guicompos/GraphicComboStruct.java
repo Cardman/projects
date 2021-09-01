@@ -53,7 +53,6 @@ public final class GraphicComboStruct extends InputStruct {
     }
     public void addListener(Struct _arg) {
         if (!(_arg instanceof ListSelection)) {
-            graphicCombo.addListener(null);
             return;
         }
         graphicCombo.addListener((ListSelection) _arg);
@@ -61,7 +60,6 @@ public final class GraphicComboStruct extends InputStruct {
 
     public void removeListener(Struct _arg) {
         if (!(_arg instanceof ListSelection)) {
-            graphicCombo.removeListener(null);
             return;
         }
         graphicCombo.removeListener((ListSelection) _arg);
