@@ -104,6 +104,9 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         return ipHost;
     }
 
+    public static boolean match(byte[] _address, int _size) {
+        return _address != null && _address.length == _size;
+    }
     @Override
     public AbstractLock getLock() {
         return lock;

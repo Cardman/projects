@@ -1,9 +1,8 @@
 package code.sys.impl;
 
 import code.gui.initialize.AbstractAddressList;
+import code.network.NetGroupFrame;
 
-import java.net.Inet4Address;
-import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -32,12 +31,12 @@ public final class DefAddressList implements AbstractAddressList {
 
     @Override
     public boolean isIpFour(int _index) {
-        return addr.get(_index) instanceof Inet4Address;
+        return NetGroupFrame.match(addr.get(_index).getAddress(),4);
     }
 
     @Override
     public boolean isIpSix(int _index) {
-        return addr.get(_index) instanceof Inet6Address;
+        return NetGroupFrame.match(addr.get(_index).getAddress(),16);
     }
 
     @Override
