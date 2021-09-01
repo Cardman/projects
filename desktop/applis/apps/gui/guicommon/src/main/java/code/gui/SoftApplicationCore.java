@@ -48,7 +48,7 @@ public abstract class SoftApplicationCore {
     }
 
     void launchFile(String[] _args, String _lg) {
-        launch(_lg, getFile(_args));
+        launch(_lg, _args);
     }
 
     protected final String prepareLanguage(String _dir, String[] _args, AbstractImage _icon) {
@@ -57,16 +57,6 @@ public abstract class SoftApplicationCore {
             proponeLanguage(_dir, _args, _icon);
         }
         return language_;
-    }
-
-    StringMap<Object> getFile(String[] _args) {
-        StringMap<Object> files_ = new StringMap<Object>();
-        if (_args.length > 0) {
-            String fileName_ = getFrames().getFileCoreStream().newFile(_args[0]).getAbsolutePath();
-            fileName_ = StringUtil.replaceBackSlash(fileName_);
-            files_.put(fileName_, getObject(_args[0]));
-        }
-        return files_;
     }
 
     private LanguageFrame proponeLanguage(String _dir, String[] _args, AbstractImage _icon) {
@@ -167,9 +157,7 @@ public abstract class SoftApplicationCore {
 
 
 
-    public abstract Object getObject(String _fileName);
-
-    protected abstract void launch(String _language, StringMap<Object> _args);
+    protected abstract void launch(String _language, String[] _args);
 
     protected static TopLeftFrame loadCoords(String _folder, String _file,AbstractFileCoreStream _fact, TechStreams _tech) {
 //        return (TopLeftFrame) StreamTextFile.deserialiser(getFolderJarPath()+_file);

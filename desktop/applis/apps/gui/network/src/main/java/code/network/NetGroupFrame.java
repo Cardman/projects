@@ -7,6 +7,7 @@ import code.gui.initialize.AbstractSocket;
 import code.gui.initialize.AbstractSocketFactory;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
+import code.sml.Document;
 import code.threads.AbstractLock;
 import code.threads.LockFactory;
 import code.util.StringList;
@@ -89,8 +90,8 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         return !_socket.println(_str).isEmpty();
     }
 
-    public abstract Object getObject(String _object);
-    public abstract String setObject(Object _object);
+    public abstract Document getDoc(String _object);
+    public abstract Exiting getExiting(Document _doc);
 
     public int getPort() {
         return port;

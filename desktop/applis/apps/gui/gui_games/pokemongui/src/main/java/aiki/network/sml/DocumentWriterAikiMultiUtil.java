@@ -45,59 +45,72 @@ public final class DocumentWriterAikiMultiUtil {
     private static final String TYPE_SENT_POKEMON = "SentPokemon";
 
 
-    public static String setObject(Object _object) {
+    public static String initTrading() {
         Document doc_ = DocumentBuilder.newXmlDocument();
-        if (_object == Ok.INSTANCE) {
-            Element element_ = doc_.createElement(TYPE_OK);
-            doc_.appendChild(element_);
-            return doc_.export();
-        }
-        if (_object == InitTrading.INSTANCE) {
-            Element element_ = doc_.createElement(TYPE_INIT_TRADING);
-            doc_.appendChild(element_);
-            return doc_.export();
-        }
-        if (_object instanceof PokemonPlayer) {
-            doc_.appendChild(DocumentWriterAikiCoreUtil.setPokemonPlayer((PokemonPlayer)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ExchangedData) {
-            doc_.appendChild(setExchangedData((ExchangedData)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ByeAiki) {
-            doc_.appendChild(setBye((ByeAiki)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof CheckCompatibility) {
-            doc_.appendChild(setCheckCompatibility((CheckCompatibility)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof IndexOfArrivingAiki) {
-            doc_.appendChild(setPlayerActionBeforeGame((IndexOfArrivingAiki)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof NetPokemon) {
-            doc_.appendChild(setNetPokemon((NetPokemon)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof NewPlayerAiki) {
-            doc_.appendChild(setPlayerActionBeforeGame((NewPlayerAiki)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof PlayerActionBeforeGameAiki) {
-            doc_.appendChild(setPlayerActionBeforeGame((PlayerActionBeforeGameAiki)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof PlayerActionGameAiki) {
-            doc_.appendChild(setPlayerActionGame((PlayerActionGameAiki)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof SentPokemon) {
-            doc_.appendChild(setSentPokemon((SentPokemon)_object, "", doc_));
-            return doc_.export();
-        }
-        return null;
+        Element element_ = doc_.createElement(TYPE_INIT_TRADING);
+        doc_.appendChild(element_);
+        return doc_.export();
+    }
+
+    public static String ok() {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(TYPE_OK);
+        doc_.appendChild(element_);
+        return doc_.export();
+    }
+
+    public static String sentPokemon(SentPokemon _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setSentPokemon(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String playerActionGameAiki(PlayerActionGameAiki _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setPlayerActionGame(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String playerActionBeforeGameAiki(PlayerActionBeforeGameAiki _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setPlayerActionBeforeGame(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String newPlayerAiki(NewPlayerAiki _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setPlayerActionBeforeGame(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String netPokemon(NetPokemon _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setNetPokemon(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String indexOfArrivingAiki(IndexOfArrivingAiki _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setPlayerActionBeforeGame(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String checkCompatibility(CheckCompatibility _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setCheckCompatibility(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String bye(ByeAiki _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setBye(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String pokemonPlayer(PokemonPlayer _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(DocumentWriterAikiCoreUtil.setPokemonPlayer(_object, "", doc_));
+        return doc_.export();
     }
 
     private static Element setExchangedData(ExchangedData _object, String _fieldName, Document _document) {

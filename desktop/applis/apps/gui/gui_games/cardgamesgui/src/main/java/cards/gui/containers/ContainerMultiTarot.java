@@ -907,7 +907,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().validate();
         pack();
         //PackingWindowAfter.pack(this, true);
-        getOwner().sendObject(TakeCard.INSTANCE);
+        getOwner().sendObjectTakeCard();
     }
     private void addCardDog(CardTarot _ct) {
         takerCardsDog.jouer(_ct);
@@ -1130,7 +1130,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getRegles());
         deal_.initDonne(game_.getRegles(),getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,game_.getRegles()));
-        getOwner().sendObject(PlayGame.INSTANCE);
+        getOwner().sendObjectPlayGame();
     }
 
     @Override
@@ -1192,7 +1192,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         deal_.setRandomDealer(rulesTarotMulti,getOwner().getGenerator());
         deal_.initDonne(rulesTarotMulti,getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerTarot(new GameTarot(GameType.RANDOM,deal_,rulesTarotMulti));
-        getOwner().sendObject(PlayGame.INSTANCE);
+        getOwner().sendObjectPlayGame();
     }
 }
 

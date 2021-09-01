@@ -8,6 +8,7 @@ import aiki.gui.threads.PerCentIncr;
 import code.gui.FrameUtil;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -21,10 +22,10 @@ public final class CreateMainWindowParam implements Runnable {
 
     private String path;
 
-    private StringMap<Object> files;
+    private StringList files;
 
     /**This class thread is independant from EDT*/
-    public CreateMainWindowParam(WindowAiki _window, LoadingGame _load, String _path, StringMap<Object> _files) {
+    public CreateMainWindowParam(WindowAiki _window, LoadingGame _load, String _path, StringList _files) {
         window = _window;
         load = _load;
         path = _path;

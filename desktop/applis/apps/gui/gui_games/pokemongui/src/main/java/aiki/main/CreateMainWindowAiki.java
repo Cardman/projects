@@ -12,6 +12,7 @@ import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
 import code.sml.Document;
 import code.threads.AbstractThread;
+import code.util.StringList;
 import code.util.StringMap;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
@@ -21,7 +22,7 @@ public final class CreateMainWindowAiki implements Runnable {
     private final AbstractProgramInfos list;
     private final LoadingGame load;
 
-    private final StringMap<Object> withParam;
+    private final StringList withParam;
 
     private final String path;
 
@@ -31,7 +32,7 @@ public final class CreateMainWindowAiki implements Runnable {
 
     private final AikiFactory aikiFactory;
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public CreateMainWindowAiki(LoadingGame _load, StringMap<Object> _withParam, String _path, TopLeftFrame _topLeft, String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
+    public CreateMainWindowAiki(LoadingGame _load, StringList _withParam, String _path, TopLeftFrame _topLeft, String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
         load = _load;
         withParam = _withParam;
         path = _path;

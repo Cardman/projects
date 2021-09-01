@@ -1,14 +1,15 @@
 package code.expressionlanguage.gui.unit;
 
 import code.gui.initialize.AbstractProgramInfos;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class CreateMainWindowUnit implements Runnable {
     private final AbstractProgramInfos list;
     private String language;
-    private StringMap<Object> args;
+    private StringList args;
 
-    public CreateMainWindowUnit(String _language, StringMap<Object> _args, AbstractProgramInfos _list) {
+    public CreateMainWindowUnit(String _language, StringList _args, AbstractProgramInfos _list) {
         language = _language;
         args = _args;
         list = _list;
@@ -18,7 +19,7 @@ public final class CreateMainWindowUnit implements Runnable {
     public void run() {
         WindowUnit window_ = new WindowUnit(language, list);
         if (!args.isEmpty()) {
-            window_.launchFileConf(args.firstKey(), window_);
+            window_.launchFileConf(args.first(), window_);
         }
     }
 }

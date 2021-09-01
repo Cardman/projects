@@ -1,6 +1,7 @@
 package code.network;
 import code.gui.initialize.AbstractBufferedReader;
 import code.gui.initialize.AbstractSocket;
+import code.sml.Document;
 import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
@@ -21,7 +22,7 @@ public abstract class BasicServer extends SendReceive implements Locking {
             if (input_ == null) {
                 break;
             }
-            Object readObject_ = getNet().getObject(input_);
+            Document readObject_ = getNet().getDoc(input_);
             if (readObject_ != null) {
                 loopServer(input_, readObject_);
             }
@@ -29,7 +30,7 @@ public abstract class BasicServer extends SendReceive implements Locking {
         getSocket().close();
     }
 
-    public abstract void loopServer(String _input, Object _object);
+    public abstract void loopServer(String _input, Document _object);
 
     @Override
     public AbstractThreadFactory getCurrentThreadFactory() {

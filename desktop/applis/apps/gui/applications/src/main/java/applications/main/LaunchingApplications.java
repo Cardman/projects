@@ -6,12 +6,9 @@ import aiki.main.LaunchingPokemon;
 import aiki.sml.DocumentReaderAikiCoreUtil;
 import aiki.sml.LoadingGame;
 import applications.gui.WindowApps;
-import cards.belote.GameBelote;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.main.CardFactories;
 import cards.main.LaunchingCards;
-import cards.president.GamePresident;
-import cards.tarot.GameTarot;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.expressionlanguage.guicompos.GuiFactroy;
@@ -20,7 +17,6 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
-import code.images.BaseSixtyFourUtil;
 import code.minirts.LaunchingDemo;
 import code.player.SongList;
 import code.player.main.LaunchingPlayer;
@@ -30,7 +26,6 @@ import code.sml.DocumentBuilder;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
-import code.util.StringMap;
 import code.converterimages.main.LaunchingConverter;
 import code.util.core.StringUtil;
 
@@ -60,40 +55,61 @@ public class LaunchingApplications extends SoftApplicationCore {
     }
 
     @Override
-    protected final void launch(String _language, StringMap<Object> _args) {
-        if (!_args.isEmpty()) {
-            Object readObject_ = _args.values().first();
-            boolean isCardGameSave_ = false;
-            if (readObject_ instanceof GameBelote) {
-                isCardGameSave_ = true;
-            } else if (readObject_ instanceof GameTarot) {
-                isCardGameSave_ = true;
-            } else if (readObject_ instanceof GamePresident) {
-                isCardGameSave_ = true;
+    protected final void launch(String _language, String[] _args) {
+        StringList args_ = getFile(_args);
+        if (!args_.isEmpty()) {
+            byte[] bytes_ = StreamBinaryFile.loadFile(args_.first(), getFrames().getFileCoreStream(), getFrames().getStreams());
+            if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_)) {
+                AbstractImage img_ = getFrames().readImg(args_.first());
+                if (img_ != null) {
+                    launchWindow(_language, getFrames(), cardFactories, aikiFactory, guiFactory);
+                    LaunchingConverter launch_ = new LaunchingConverter(getFrames());
+                    launch_.launchWithoutLanguage(_language, _args);
+                    return;
+                }
             }
-            if (isCardGameSave_) {
+            String file_ = StreamTextFile.contentsOfFile(args_.first(), getFrames().getFileCoreStream(), getFrames().getStreams());
+            if (file_ == null) {
+                return;
+            }
+            if (isContentObjectCasrd(args_.first())) {
                 launchWindow(_language, getFrames(), cardFactories, aikiFactory, guiFactory);
                 LaunchingCards launch_ = new LaunchingCards(getFrames(),cardFactories);
                 launch_.launchWithoutLanguage(_language, _args);
-            } else if (readObject_ instanceof LoadingGame || readObject_ instanceof Game) {
+                return;
+            }
+            Game gameOrNull_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_);
+            LoadingGame loadingGameOrNull_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull(file_);
+            if (loadingGameOrNull_ != null || gameOrNull_ != null) {
                 launchWindow(_language, getFrames(), cardFactories, aikiFactory, guiFactory);
                 LaunchingPokemon launch_ = new LaunchingPokemon(getFrames(), aikiFactory);
                 launch_.launchWithoutLanguage(_language, _args);
-            } else if (readObject_ instanceof SongList) {
-                launchWindow(_language, getFrames(), cardFactories, aikiFactory, guiFactory);
-                LaunchingPlayer launch_ = new LaunchingPlayer(getFrames());
-                launch_.launchWithoutLanguage(_language, _args);
-            } else if (readObject_ instanceof Document) {
+                return;
+            }
+            Document doc_ = DocumentBuilder.parseNoTextDocument(file_);
+            if (doc_ != null) {
+                if (StringUtil.quickEq("smil",  doc_.getDocumentElement().getTagName())) {
+                    SongList list_ = new SongList();
+                    list_.addSongs(doc_);
+                    launchWindow(_language, getFrames(), cardFactories, aikiFactory, guiFactory);
+                    LaunchingPlayer launch_ = new LaunchingPlayer(getFrames());
+                    launch_.launchWithoutLanguage(_language, _args);
+                    return;
+                }
                 launchWindow(_language, getFrames(), cardFactories, aikiFactory, guiFactory);
                 LaunchingDemo launch_ = new LaunchingDemo(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
-            } else if (readObject_ instanceof AbstractImage || readObject_ instanceof int[][]) {
+                return;
+            }
+            if (file_.indexOf('\n') < 0) {
                 launchWindow(_language, getFrames(), cardFactories, aikiFactory, guiFactory);
                 LaunchingConverter launch_ = new LaunchingConverter(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
-            } else if (readObject_ instanceof String) {
-                String fileContent_ = (String) readObject_;
-                StringList lines_ = StringUtil.splitStrings(fileContent_, "\n", "\r\n");
+                return;
+            }
+            String readObject_ = StreamTextFile.contentsOfFile(args_.first(), getFrames().getFileCoreStream(), getFrames().getStreams());
+            if (readObject_ != null) {
+                StringList lines_ = StringUtil.splitStrings(readObject_, "\n", "\r\n");
                 StringList linesFiles_ = new StringList();
                 for (String s: lines_) {
                     if (s.trim().isEmpty()) {
@@ -132,6 +148,15 @@ public class LaunchingApplications extends SoftApplicationCore {
         launchWindow(_language, getFrames(), cardFactories, aikiFactory, guiFactory);
     }
 
+    protected StringList getFile(String[] _args) {
+        StringList files_ = new StringList();
+        if (_args.length > 0) {
+            String fileName_ = getFrames().getFileCoreStream().newFile(_args[0]).getAbsolutePath();
+            fileName_ = StringUtil.replaceBackSlash(fileName_);
+            files_.add(fileName_);
+        }
+        return files_;
+    }
     private static void launchWindow(String _language, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, GuiFactroy _guiFact) {
         TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream(), _list.getStreams());
         WindowApps w_ = getWindow(_language, _list, _cardFactories, _aikiFactory, _guiFact);
@@ -147,43 +172,16 @@ public class LaunchingApplications extends SoftApplicationCore {
                 && _bytes[2] == (byte)0x03&& _bytes[3] == (byte)0x04;
 
     }
-    @Override
-    public Object getObject(String _fileName) {
+
+    public boolean isContentObjectCasrd(String _fileName) {
         byte[] bytes_ = StreamBinaryFile.loadFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
-        if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_)) {
-            AbstractImage img_ = getFrames().readImg(_fileName);
-            if (img_ != null) {
-                return img_;
-            }
+        if (LaunchingConverter.isBinary(bytes_)) {
+            return false;
         }
         String file_ = StreamTextFile.contentsOfFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
         if (file_ == null) {
-            return null;
+            return false;
         }
-        Object game_ = DocumentReaderCardsUnionUtil.getContentObject(file_);
-        if (game_ != null) {
-            return game_;
-        }
-        Object o_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_);
-        if (o_ != null) {
-            return o_;
-        }
-        LoadingGame loadingGame_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull(file_);
-        if (loadingGame_ == null) {
-            Document doc_ = DocumentBuilder.parseNoTextDocument(file_);
-            if (doc_ != null) {
-                if (StringUtil.quickEq("smil",  doc_.getDocumentElement().getTagName())) {
-                    SongList list_ = new SongList();
-                    list_.addSongs(doc_);
-                    return list_;
-                }
-                return doc_;
-            }
-            if (file_.indexOf('\n') < 0) {
-                return BaseSixtyFourUtil.getImageByString(file_);
-            }
-            return file_;
-        }
-        return loadingGame_;
+        return DocumentReaderCardsUnionUtil.isContentObject(file_);
     }
 }

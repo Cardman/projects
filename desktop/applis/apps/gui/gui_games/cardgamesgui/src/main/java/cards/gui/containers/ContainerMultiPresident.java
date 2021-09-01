@@ -696,7 +696,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         deal_.donneurSuivant(game_.getDistribution().getDonneur(),game_.getRegles());
         deal_.initDonne(game_.getRegles(),getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerPresident(new GamePresident(GameType.RANDOM,deal_,game_.getRegles(), rk_));
-        getOwner().sendObject(PlayGame.INSTANCE);
+        getOwner().sendObjectPlayGame();
     }
 
     @Override
@@ -766,6 +766,6 @@ public class ContainerMultiPresident extends ContainerPresident implements
         deal_.initDonne(rulesPresidentMulti,getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerPresident(new GamePresident(
                 GameType.RANDOM, deal_, rulesPresidentMulti, new Bytes()));
-        getOwner().sendObject(PlayGame.INSTANCE);
+        getOwner().sendObjectPlayGame();
     }
 }

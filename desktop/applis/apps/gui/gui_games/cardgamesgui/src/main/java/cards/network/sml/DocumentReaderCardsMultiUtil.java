@@ -19,7 +19,6 @@ import cards.network.common.before.NewPlayerCards;
 import cards.network.common.before.PlayerActionBeforeGameCards;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
-import cards.network.common.displaying.Pause;
 import cards.network.common.select.*;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
@@ -42,6 +41,7 @@ import cards.president.ResultsPresident;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import cards.tarot.ResultsTarot;
 import cards.tarot.sml.DocumentReaderTarotUtil;
+import code.network.Exiting;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
@@ -50,6 +50,42 @@ import code.sml.ElementList;
 import code.util.core.StringUtil;
 
 public final class DocumentReaderCardsMultiUtil {
+    public static final String TYPE_RULES_BELOTE = "RulesBelote";
+    public static final String TYPE_RULES_PRESIDENT = "RulesPresident";
+    public static final String TYPE_RULES_TAROT = "RulesTarot";
+    public static final String TYPE_PLAY_GAME = "PlayGame";
+    public static final String TYPE_TAKE_CARD = "TakeCard";
+    public static final String TYPE_DELEGATE_SERVER = "DelegateServer";
+    public static final String TYPE_PLAYERS_NAME_PRESENT = "PlayersNamePresent";
+    public static final String TYPE_PAUSE = "Pause";
+    public static final String TYPE_RESULTS_PRESIDENT = "ResultsPresident";
+    public static final String TYPE_RESULTS_TAROT = "ResultsTarot";
+    public static final String TYPE_RESULTS_BELOTE = "ResultsBelote";
+    public static final String TYPE_DEALT_HAND_TAROT = "DealtHandTarot";
+    public static final String TYPE_ALLOW_BIDDING_BELOTE = "AllowBiddingBelote";
+    public static final String TYPE_ALLOW_PLAYING_BELOTE = "AllowPlayingBelote";
+    public static final String TYPE_ALLOW_DISCARDING = "AllowDiscarding";
+    public static final String TYPE_ALLOW_PLAYING_PRESIDENT = "AllowPlayingPresident";
+    public static final String TYPE_ALLOW_BIDDING_TAROT = "AllowBiddingTarot";
+    public static final String TYPE_ALLOW_PLAYING_TAROT = "AllowPlayingTarot";
+    public static final String TYPE_ERROR_BIDDING_BELOTE = "ErrorBiddingBelote";
+    public static final String TYPE_ERROR_PLAYING_BELOTE = "ErrorPlayingBelote";
+    public static final String TYPE_ERROR_PLAYING_PRESIDENT = "ErrorPlayingPresident";
+    public static final String TYPE_ERROR_BIDDING = "ErrorBidding";
+    public static final String TYPE_ERROR_DISCARDING = "ErrorDiscarding";
+    public static final String TYPE_ERROR_HANDFUL = "ErrorHandful";
+    public static final String TYPE_ERROR_PLAYING = "ErrorPlaying";
+    public static final String TYPE_CALLABLE_CARDS = "CallableCards";
+    public static final String TYPE_DOG = "Dog";
+    public static final String TYPE_DISCARDED_TRUMPS = "DiscardedTrumps";
+    public static final String TYPE_TRICKS_HANDS_PRESIDENT = "TricksHandsPresident";
+    public static final String TYPE_TRICKS_HANDS_TAROT = "TricksHandsTarot";
+    public static final String TYPE_TRICKS_HANDS_BELOTE = "TricksHandsBelote";
+    public static final String TYPE_TEAMS_PLAYERS = "TeamsPlayers";
+    public static final String TYPE_DISPLAY_SLAM_BUTTON = "DisplaySlamButton";
+    public static final String TYPE_RECEIVED_GIVEN_CARDS = "ReceivedGivenCards";
+    public static final String TYPE_DEALT_HAND_PRESIDENT = "DealtHandPresident";
+    public static final String TYPE_DEALT_HAND_BELOTE = "DealtHandBelote";
 
     private static final String ATTR_FIELD = "field";
     private static final char DOT = '.';
@@ -130,310 +166,95 @@ public final class DocumentReaderCardsMultiUtil {
     private static final String FIELD_TAKER_INDEX = "takerIndex";
     private static final String FIELD_TEAMS = "teams";
     private static final String FIELD_TRUMPS = "trumps";
-    private static final String TYPE_RESULTS_BELOTE = "ResultsBelote";
-    private static final String TYPE_TRICKS_HANDS_BELOTE = "TricksHandsBelote";
     private static final String TYPE_BIDDING_BELOTE = "BiddingBelote";
     private static final String TYPE_PLAYING_CARD_BELOTE = "PlayingCardBelote";
     private static final String TYPE_COMPLETED_HAND = "CompletedHand";
-    private static final String TYPE_DEALT_HAND_BELOTE = "DealtHandBelote";
     private static final String TYPE_REFRESH_HAND_BELOTE = "RefreshHandBelote";
-    private static final String TYPE_ERROR_BIDDING_BELOTE = "ErrorBiddingBelote";
-    private static final String TYPE_ERROR_PLAYING_BELOTE = "ErrorPlayingBelote";
     private static final String TYPE_REFRESH_HAND_PLAYING_BELOTE = "RefreshHandPlayingBelote";
     private static final String TYPE_REFRESHING_DONE_BELOTE = "RefreshingDoneBelote";
-    private static final String TYPE_ALLOW_BIDDING_BELOTE = "AllowBiddingBelote";
-    private static final String TYPE_ALLOW_PLAYING_BELOTE = "AllowPlayingBelote";
     private static final String TYPE_BYE = "Bye";
     private static final String TYPE_DEALT = "Dealt";
-    private static final String TYPE_DELEGATE_SERVER = "DelegateServer";
     private static final String TYPE_OK = "Ok";
-    private static final String TYPE_TAKE_CARD = "TakeCard";
-    private static final String TYPE_DISPLAY_SLAM_BUTTON = "DisplaySlamButton";
-    private static final String TYPE_PLAY_GAME = "PlayGame";
-    private static final String TYPE_PAUSE = "Pause";
     private static final String TYPE_QUIT = "Quit";
     private static final String TYPE_CHOOSEN_PLACE = "ChoosenPlace";
     private static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
     private static final String TYPE_NEW_PLAYER = "NewPlayer";
-    private static final String TYPE_PLAYERS_NAME_PRESENT = "PlayersNamePresent";
     private static final String TYPE_READY = "Ready";
     private static final String TYPE_DONE_BIDDING = "DoneBidding";
     private static final String TYPE_DONE_PAUSE = "DonePause";
     private static final String TYPE_DONE_PLAYING = "DonePlaying";
     private static final String TYPE_SELECT_TEAMS = "SelectTeams";
     private static final String TYPE_SELECT_TRICKS_HANDS = "SelectTricksHands";
-    private static final String TYPE_TEAMS_PLAYERS = "TeamsPlayers";
     private static final String TYPE_DISCARDED_CARDS = "DiscardedCards";
     private static final String TYPE_PLAYING_CARD_PRESIDENT = "PlayingCardPresident";
-    private static final String TYPE_DEALT_HAND_PRESIDENT = "DealtHandPresident";
-    private static final String TYPE_RECEIVED_GIVEN_CARDS = "ReceivedGivenCards";
     private static final String TYPE_REFRESHED_HAND_PRESIDENT = "RefreshedHandPresident";
-    private static final String TYPE_ERROR_PLAYING_PRESIDENT = "ErrorPlayingPresident";
     private static final String TYPE_REFRESH_HAND_PLAYING_PRESIDENT = "RefreshHandPlayingPresident";
     private static final String TYPE_REFRESHING_DONE_PRESIDENT = "RefreshingDonePresident";
-    private static final String TYPE_ALLOW_DISCARDING = "AllowDiscarding";
-    private static final String TYPE_ALLOW_PLAYING_PRESIDENT = "AllowPlayingPresident";
-    private static final String TYPE_DOG = "Dog";
     private static final String TYPE_BIDDING_SLAM_AFTER = "BiddingSlamAfter";
     private static final String TYPE_BIDDING_TAROT = "BiddingTarot";
     private static final String TYPE_CALLED_CARDS = "CalledCards";
     private static final String TYPE_DISCARDED_CARD = "DiscardedCard";
-    private static final String TYPE_DISCARDED_TRUMPS = "DiscardedTrumps";
     private static final String TYPE_PLAYING_CARD_TAROT = "PlayingCardTarot";
     private static final String TYPE_VALIDATE_DOG = "ValidateDog";
-    private static final String TYPE_DEALT_HAND_TAROT = "DealtHandTarot";
-    private static final String TYPE_ERROR_BIDDING = "ErrorBidding";
-    private static final String TYPE_ERROR_DISCARDING = "ErrorDiscarding";
-    private static final String TYPE_ERROR_HANDFUL = "ErrorHandful";
-    private static final String TYPE_ERROR_PLAYING = "ErrorPlaying";
     private static final String TYPE_CALLED_CARD_KNOWN = "CalledCardKnown";
     private static final String TYPE_DONE_DISPLAY_SLAM = "DoneDisplaySlam";
     private static final String TYPE_REFRESH_HAND = "RefreshHand";
     private static final String TYPE_REFRESHING_DONE = "RefreshingDone";
     private static final String TYPE_SEEN_DISCARDED_TRUMPS = "SeenDiscardedTrumps";
     private static final String TYPE_SHOW_DOG = "ShowDog";
-    private static final String TYPE_ALLOW_BIDDING_TAROT = "AllowBiddingTarot";
-    private static final String TYPE_ALLOW_PLAYING_TAROT = "AllowPlayingTarot";
-    private static final String TYPE_CALLABLE_CARDS = "CallableCards";
     private static final String TYPE_CALLABLE_CARDS_DISCARD = "CallableCardsDiscard";
-    private static final String TYPE_RESULTS_PRESIDENT = "ResultsPresident";
-    private static final String TYPE_TRICKS_HANDS_PRESIDENT = "TricksHandsPresident";
-    private static final String TYPE_RESULTS_TAROT = "ResultsTarot";
-    private static final String TYPE_TRICKS_HANDS_TAROT = "TricksHandsTarot";
 
-
-    public static Object getObject(String _input) {
+    public static Document getDoc(String _input) {
         Document doc_ = DocumentBuilder.parseSax(_input);
         Element elt_ = doc_.getDocumentElement();
-        String tagName_ = elt_.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringUtil.quickEq(tagName_, TYPE_RESULTS_BELOTE)) {
-            ElementList childElements_ = elt_.getChildElements();
-            ResultsBelote object_ = new ResultsBelote();
-            for (Element c: childElements_) {
-                DocumentReaderBeloteUtil.getResultsBelote(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_TRICKS_HANDS_BELOTE)) {
-            return DocumentReaderBeloteUtil.getTricksHandsBelote(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_BIDDING_BELOTE)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_PLAYING_CARD_BELOTE)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_COMPLETED_HAND)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DEALT_HAND_BELOTE)) {
-            return getDealtHandBelote(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND_BELOTE)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ERROR_BIDDING_BELOTE)) {
-            return getErrorBiddingBelote(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ERROR_PLAYING_BELOTE)) {
-            return getErrorPlayingBelote(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND_PLAYING_BELOTE)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_REFRESHING_DONE_BELOTE)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_BIDDING_BELOTE)) {
-            return getAllowBiddingBelote(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_PLAYING_BELOTE)) {
-            return getAllowPlayingBelote(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_BYE)) {
-            return getBye(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DEALT)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DELEGATE_SERVER)) {
-            return getDelegateServer(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_OK)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_TAKE_CARD)) {
-            return TakeCard.INSTANCE;
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DISPLAY_SLAM_BUTTON)) {
-            return DisplaySlamButton.INSTANCE;
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_PLAY_GAME)) {
-            return PlayGame.INSTANCE;
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_PAUSE)) {
-            return Pause.INSTANCE;
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_QUIT)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_CHOOSEN_PLACE)) {
-            return getPlayerActionBeforeGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_INDEX_OF_ARRIVING)) {
-            return getPlayerActionBeforeGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_NEW_PLAYER)) {
-            return getPlayerActionBeforeGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_PLAYERS_NAME_PRESENT)) {
-            return getPlayersNamePresent(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_READY)) {
-            return getPlayerActionBeforeGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DONE_BIDDING)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DONE_PAUSE)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DONE_PLAYING)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_SELECT_TEAMS)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_SELECT_TRICKS_HANDS)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_TEAMS_PLAYERS)) {
-            return getTeamsPlayers(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DISCARDED_CARDS)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_PLAYING_CARD_PRESIDENT)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DEALT_HAND_PRESIDENT)) {
-            return getDealtHandPresident(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_RECEIVED_GIVEN_CARDS)) {
-            return getReceivedGivenCards(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_REFRESHED_HAND_PRESIDENT)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ERROR_PLAYING_PRESIDENT)) {
-            return getErrorPlayingPresident(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND_PLAYING_PRESIDENT)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_REFRESHING_DONE_PRESIDENT)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_DISCARDING)) {
-            return getAllowDiscarding(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_PLAYING_PRESIDENT)) {
-            return getAllowPlayingPresident(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DOG)) {
-            return getDog(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_BIDDING_SLAM_AFTER)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_BIDDING_TAROT)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_CALLED_CARDS)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DISCARDED_CARD)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DISCARDED_TRUMPS)) {
-            return getDiscardedTrumps(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_PLAYING_CARD_TAROT)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_VALIDATE_DOG)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DEALT_HAND_TAROT)) {
-            return getDealtHandTarot(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ERROR_BIDDING)) {
-            return getErrorBidding(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ERROR_DISCARDING)) {
-            return getErrorDiscarding(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ERROR_HANDFUL)) {
-            return getErrorHandful(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ERROR_PLAYING)) {
-            return getErrorPlaying(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_CALLED_CARD_KNOWN)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_DONE_DISPLAY_SLAM)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_REFRESHING_DONE)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_SEEN_DISCARDED_TRUMPS)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_SHOW_DOG)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_BIDDING_TAROT)) {
-            return getAllowBiddingTarot(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_ALLOW_PLAYING_TAROT)) {
-            return getAllowPlayingTarot(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_CALLABLE_CARDS)) {
-            return getCallableCards(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_CALLABLE_CARDS_DISCARD)) {
-            return getCallableCardsDiscard(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_RESULTS_PRESIDENT)) {
-            ElementList childElements_ = elt_.getChildElements();
-            ResultsPresident object_ = new ResultsPresident();
-            for (Element c: childElements_) {
-                DocumentReaderPresidentUtil.getResultsPresident(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_TRICKS_HANDS_PRESIDENT)) {
-            return DocumentReaderPresidentUtil.getTricksHandsPresident(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_RESULTS_TAROT)) {
-            ElementList childElements_ = elt_.getChildElements();
-            ResultsTarot object_ = new ResultsTarot();
-            for (Element c: childElements_) {
-                DocumentReaderTarotUtil.getResultsTarot(object_,c.getAttribute(ATTR_FIELD),c);
-            }
-            return object_;
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_TRICKS_HANDS_TAROT)) {
-            return DocumentReaderTarotUtil.getTricksHandsTarot(elt_);
+        String tagName_ = tagName(elt_);
+        if (StringUtil.quickEq(tagName_, TYPE_RESULTS_BELOTE) || StringUtil.quickEq(tagName_, TYPE_TRICKS_HANDS_BELOTE) || StringUtil.quickEq(tagName_, TYPE_BIDDING_BELOTE) || StringUtil.quickEq(tagName_, TYPE_PLAYING_CARD_BELOTE) || StringUtil.quickEq(tagName_, TYPE_COMPLETED_HAND) || StringUtil.quickEq(tagName_, TYPE_DEALT_HAND_BELOTE) || StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND_BELOTE) || StringUtil.quickEq(tagName_, TYPE_ERROR_BIDDING_BELOTE) || StringUtil.quickEq(tagName_, TYPE_ERROR_PLAYING_BELOTE) || StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND_PLAYING_BELOTE) || StringUtil.quickEq(tagName_, TYPE_REFRESHING_DONE_BELOTE) || StringUtil.quickEq(tagName_, TYPE_ALLOW_BIDDING_BELOTE) || StringUtil.quickEq(tagName_, TYPE_ALLOW_PLAYING_BELOTE) || StringUtil.quickEq(tagName_, TYPE_BYE) || StringUtil.quickEq(tagName_, TYPE_DEALT) || StringUtil.quickEq(tagName_, TYPE_DELEGATE_SERVER) || StringUtil.quickEq(tagName_, TYPE_OK) || StringUtil.quickEq(tagName_, TYPE_TAKE_CARD) || StringUtil.quickEq(tagName_, TYPE_DISPLAY_SLAM_BUTTON) || StringUtil.quickEq(tagName_, TYPE_PLAY_GAME) || StringUtil.quickEq(tagName_, TYPE_PAUSE) || StringUtil.quickEq(tagName_, TYPE_QUIT) || StringUtil.quickEq(tagName_, TYPE_CHOOSEN_PLACE) || StringUtil.quickEq(tagName_, TYPE_INDEX_OF_ARRIVING) || StringUtil.quickEq(tagName_, TYPE_NEW_PLAYER) || StringUtil.quickEq(tagName_, TYPE_PLAYERS_NAME_PRESENT) || StringUtil.quickEq(tagName_, TYPE_READY) || StringUtil.quickEq(tagName_, TYPE_DONE_BIDDING) || StringUtil.quickEq(tagName_, TYPE_DONE_PAUSE) || StringUtil.quickEq(tagName_, TYPE_DONE_PLAYING) || StringUtil.quickEq(tagName_, TYPE_SELECT_TEAMS) || StringUtil.quickEq(tagName_, TYPE_SELECT_TRICKS_HANDS) || StringUtil.quickEq(tagName_, TYPE_TEAMS_PLAYERS) || StringUtil.quickEq(tagName_, TYPE_DISCARDED_CARDS) || StringUtil.quickEq(tagName_, TYPE_PLAYING_CARD_PRESIDENT) || StringUtil.quickEq(tagName_, TYPE_DEALT_HAND_PRESIDENT) || StringUtil.quickEq(tagName_, TYPE_RECEIVED_GIVEN_CARDS) || StringUtil.quickEq(tagName_, TYPE_REFRESHED_HAND_PRESIDENT) || StringUtil.quickEq(tagName_, TYPE_ERROR_PLAYING_PRESIDENT) || StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND_PLAYING_PRESIDENT) || StringUtil.quickEq(tagName_, TYPE_REFRESHING_DONE_PRESIDENT) || StringUtil.quickEq(tagName_, TYPE_ALLOW_DISCARDING) || StringUtil.quickEq(tagName_, TYPE_ALLOW_PLAYING_PRESIDENT) || StringUtil.quickEq(tagName_, TYPE_DOG) || StringUtil.quickEq(tagName_, TYPE_BIDDING_SLAM_AFTER) || StringUtil.quickEq(tagName_, TYPE_BIDDING_TAROT) || StringUtil.quickEq(tagName_, TYPE_CALLED_CARDS) || StringUtil.quickEq(tagName_, TYPE_DISCARDED_CARD) || StringUtil.quickEq(tagName_, TYPE_DISCARDED_TRUMPS) || StringUtil.quickEq(tagName_, TYPE_PLAYING_CARD_TAROT) || StringUtil.quickEq(tagName_, TYPE_VALIDATE_DOG) || StringUtil.quickEq(tagName_, TYPE_DEALT_HAND_TAROT) || StringUtil.quickEq(tagName_, TYPE_ERROR_BIDDING) || StringUtil.quickEq(tagName_, TYPE_ERROR_DISCARDING) || StringUtil.quickEq(tagName_, TYPE_ERROR_HANDFUL) || StringUtil.quickEq(tagName_, TYPE_ERROR_PLAYING) || StringUtil.quickEq(tagName_, TYPE_CALLED_CARD_KNOWN) || StringUtil.quickEq(tagName_, TYPE_DONE_DISPLAY_SLAM) || StringUtil.quickEq(tagName_, TYPE_REFRESH_HAND) || StringUtil.quickEq(tagName_, TYPE_REFRESHING_DONE) || StringUtil.quickEq(tagName_, TYPE_SEEN_DISCARDED_TRUMPS) || StringUtil.quickEq(tagName_, TYPE_SHOW_DOG) || StringUtil.quickEq(tagName_, TYPE_ALLOW_BIDDING_TAROT) || StringUtil.quickEq(tagName_, TYPE_ALLOW_PLAYING_TAROT) || StringUtil.quickEq(tagName_, TYPE_CALLABLE_CARDS) || StringUtil.quickEq(tagName_, TYPE_CALLABLE_CARDS_DISCARD) || StringUtil.quickEq(tagName_, TYPE_RESULTS_PRESIDENT) || StringUtil.quickEq(tagName_, TYPE_TRICKS_HANDS_PRESIDENT) || StringUtil.quickEq(tagName_, TYPE_RESULTS_TAROT) || StringUtil.quickEq(tagName_, TYPE_TRICKS_HANDS_TAROT)) {
+            return doc_;
         }
         return null;
     }
+    public static Exiting getExiting(Document _input) {
+        Element elt_ = _input.getDocumentElement();
+        String tagName_ = tagName(elt_);
+        if (StringUtil.quickEq(tagName_, TYPE_BYE)) {
+            return getBye(elt_);
+        }
+        return null;
+    }
+
+    public static ResultsBelote resultsBelote(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        ResultsBelote object_ = new ResultsBelote();
+        for (Element c: childElements_) {
+            DocumentReaderBeloteUtil.getResultsBelote(object_,c.getAttribute(ATTR_FIELD),c);
+        }
+        return object_;
+    }
+
+    public static ResultsPresident resultsPresident(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        ResultsPresident object_ = new ResultsPresident();
+        for (Element c: childElements_) {
+            DocumentReaderPresidentUtil.getResultsPresident(object_,c.getAttribute(ATTR_FIELD),c);
+        }
+        return object_;
+    }
+
+    public static ResultsTarot resultsTarot(Element _elt) {
+        ElementList childElements_ = _elt.getChildElements();
+        ResultsTarot object_ = new ResultsTarot();
+        for (Element c: childElements_) {
+            DocumentReaderTarotUtil.getResultsTarot(object_,c.getAttribute(ATTR_FIELD),c);
+        }
+        return object_;
+    }
+
+    public static String tagName(Element _elt) {
+        String tagName_ = _elt.getTagName();
+        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT) + 1);
+        return tagName_;
+    }
+
     private static void getBiddingBelote(BiddingBelote _object, String _fieldName, Element _element) {
         if (StringUtil.quickEq(_fieldName, FIELD_BID_BELOTE)) {
             _object.setBidBelote(DocumentReaderBeloteUtil.getBidBeloteSuit(_element));
@@ -466,7 +287,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static DealtHandBelote getDealtHandBelote(Element _element) {
+    public static DealtHandBelote getDealtHandBelote(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         DealtHandBelote object_ = new DealtHandBelote();
         for (Element c: childElements_) {
@@ -514,7 +335,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static ErrorBiddingBelote getErrorBiddingBelote(Element _element) {
+    public static ErrorBiddingBelote getErrorBiddingBelote(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         ErrorBiddingBelote object_ = new ErrorBiddingBelote();
         for (Element c: childElements_) {
@@ -530,7 +351,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static ErrorPlayingBelote getErrorPlayingBelote(Element _element) {
+    public static ErrorPlayingBelote getErrorPlayingBelote(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         ErrorPlayingBelote object_ = new ErrorPlayingBelote();
         for (Element c: childElements_) {
@@ -594,7 +415,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static AllowBiddingBelote getAllowBiddingBelote(Element _element) {
+    public static AllowBiddingBelote getAllowBiddingBelote(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         AllowBiddingBelote object_ = new AllowBiddingBelote();
         for (Element c: childElements_) {
@@ -614,7 +435,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static AllowPlayingBelote getAllowPlayingBelote(Element _element) {
+    public static AllowPlayingBelote getAllowPlayingBelote(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         AllowPlayingBelote object_ = new AllowPlayingBelote();
         for (Element c: childElements_) {
@@ -674,7 +495,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static DelegateServer getDelegateServer(Element _element) {
+    public static DelegateServer getDelegateServer(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         DelegateServer object_ = new DelegateServer();
         for (Element c: childElements_) {
@@ -694,10 +515,9 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static PlayerActionGame getPlayerActionGame(Element _element) {
+    public static PlayerActionGame getPlayerActionGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();
-        String tagName_ = _element.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
+        String tagName_ = tagName(_element);
         if (StringUtil.quickEq(tagName_,TYPE_BIDDING_BELOTE)) {
             BiddingBelote object_ = new BiddingBelote();
             for (Element c: childElements_) {
@@ -973,10 +793,9 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionBeforeGame(_object, _fieldName, _element);
     }
 
-    private static PlayerActionBeforeGameCards getPlayerActionBeforeGame(Element _element) {
+    public static PlayerActionBeforeGameCards getPlayerActionBeforeGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();
-        String tagName_ = _element.getTagName();
-        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
+        String tagName_ = tagName(_element);
         if (StringUtil.quickEq(tagName_,TYPE_CHOOSEN_PLACE)) {
             ChoosenPlace object_ = new ChoosenPlace();
             for (Element c: childElements_) {
@@ -1015,7 +834,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static PlayersNamePresent getPlayersNamePresent(Element _element) {
+    public static PlayersNamePresent getPlayersNamePresent(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         PlayersNamePresent object_ = new PlayersNamePresent();
         for (Element c: childElements_) {
@@ -1067,7 +886,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionBeforeGame(_object, _fieldName, _element);
     }
 
-    private static TeamsPlayers getTeamsPlayers(Element _element) {
+    public static TeamsPlayers getTeamsPlayers(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         TeamsPlayers object_ = new TeamsPlayers();
         for (Element c: childElements_) {
@@ -1119,7 +938,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static DealtHandPresident getDealtHandPresident(Element _element) {
+    public static DealtHandPresident getDealtHandPresident(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         DealtHandPresident object_ = new DealtHandPresident();
         for (Element c: childElements_) {
@@ -1147,7 +966,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static ReceivedGivenCards getReceivedGivenCards(Element _element) {
+    public static ReceivedGivenCards getReceivedGivenCards(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         ReceivedGivenCards object_ = new ReceivedGivenCards();
         for (Element c: childElements_) {
@@ -1171,7 +990,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static ErrorPlayingPresident getErrorPlayingPresident(Element _element) {
+    public static ErrorPlayingPresident getErrorPlayingPresident(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         ErrorPlayingPresident object_ = new ErrorPlayingPresident();
         for (Element c: childElements_) {
@@ -1255,7 +1074,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static AllowDiscarding getAllowDiscarding(Element _element) {
+    public static AllowDiscarding getAllowDiscarding(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         AllowDiscarding object_ = new AllowDiscarding();
         for (Element c: childElements_) {
@@ -1271,7 +1090,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static AllowPlayingPresident getAllowPlayingPresident(Element _element) {
+    public static AllowPlayingPresident getAllowPlayingPresident(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         AllowPlayingPresident object_ = new AllowPlayingPresident();
         for (Element c: childElements_) {
@@ -1295,7 +1114,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static Dog getDog(Element _element) {
+    public static Dog getDog(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         Dog object_ = new Dog();
         for (Element c: childElements_) {
@@ -1359,7 +1178,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static DiscardedTrumps getDiscardedTrumps(Element _element) {
+    public static DiscardedTrumps getDiscardedTrumps(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         DiscardedTrumps object_ = new DiscardedTrumps();
         for (Element c: childElements_) {
@@ -1411,7 +1230,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static DealtHandTarot getDealtHandTarot(Element _element) {
+    public static DealtHandTarot getDealtHandTarot(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         DealtHandTarot object_ = new DealtHandTarot();
         for (Element c: childElements_) {
@@ -1443,7 +1262,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static ErrorBidding getErrorBidding(Element _element) {
+    public static ErrorBidding getErrorBidding(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         ErrorBidding object_ = new ErrorBidding();
         for (Element c: childElements_) {
@@ -1459,7 +1278,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static ErrorDiscarding getErrorDiscarding(Element _element) {
+    public static ErrorDiscarding getErrorDiscarding(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         ErrorDiscarding object_ = new ErrorDiscarding();
         for (Element c: childElements_) {
@@ -1479,7 +1298,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static ErrorHandful getErrorHandful(Element _element) {
+    public static ErrorHandful getErrorHandful(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         ErrorHandful object_ = new ErrorHandful();
         for (Element c: childElements_) {
@@ -1499,7 +1318,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static ErrorPlaying getErrorPlaying(Element _element) {
+    public static ErrorPlaying getErrorPlaying(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         ErrorPlaying object_ = new ErrorPlaying();
         for (Element c: childElements_) {
@@ -1575,7 +1394,7 @@ public final class DocumentReaderCardsMultiUtil {
         getPlayerActionGame(_object, _fieldName, _element);
     }
 
-    private static AllowBiddingTarot getAllowBiddingTarot(Element _element) {
+    public static AllowBiddingTarot getAllowBiddingTarot(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         AllowBiddingTarot object_ = new AllowBiddingTarot();
         for (Element c: childElements_) {
@@ -1591,7 +1410,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static AllowPlayingTarot getAllowPlayingTarot(Element _element) {
+    public static AllowPlayingTarot getAllowPlayingTarot(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         AllowPlayingTarot object_ = new AllowPlayingTarot();
         for (Element c: childElements_) {
@@ -1623,7 +1442,7 @@ public final class DocumentReaderCardsMultiUtil {
         }
     }
 
-    private static CallableCards getCallableCards(Element _element) {
+    public static CallableCards getCallableCards(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         CallableCards object_ = new CallableCards();
         for (Element c: childElements_) {
@@ -1639,30 +1458,6 @@ public final class DocumentReaderCardsMultiUtil {
         }
         if (StringUtil.quickEq(_fieldName, FIELD_DISCARDING)) {
             _object.setDiscarding(DocumentReaderCoreUtil.getBoolean(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, FIELD_TAKER_INDEX)) {
-            _object.setTakerIndex(DocumentReaderCoreUtil.getByte(_element));
-            return;
-        }
-    }
-
-    private static CallableCardsDiscard getCallableCardsDiscard(Element _element) {
-        ElementList childElements_ = _element.getChildElements();
-        CallableCardsDiscard object_ = new CallableCardsDiscard();
-        for (Element c: childElements_) {
-            getCallableCardsDiscard(object_,c.getAttribute(ATTR_FIELD),c);
-        }
-        return object_;
-    }
-
-    private static void getCallableCardsDiscard(CallableCardsDiscard _object, String _fieldName, Element _element) {
-        if (StringUtil.quickEq(_fieldName, FIELD_CALLABLE_CARDS)) {
-            _object.setCallableCards(DocumentReaderTarotUtil.getHandTarot(_element));
-            return;
-        }
-        if (StringUtil.quickEq(_fieldName, FIELD_DISCARDED)) {
-            _object.setDiscarded(DocumentReaderTarotUtil.getHandTarot(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_TAKER_INDEX)) {

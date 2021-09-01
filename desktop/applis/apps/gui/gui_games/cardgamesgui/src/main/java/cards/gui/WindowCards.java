@@ -8,9 +8,7 @@ package cards.gui;
 import cards.belote.CheckerGameBeloteWithRules;
 import cards.belote.DisplayingBelote;
 import cards.belote.GameBelote;
-import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
-import cards.belote.TricksHandsBelote;
 import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.consts.MixCardsChoice;
@@ -59,65 +57,28 @@ import cards.main.CardFactories;
 import cards.main.LaunchingCards;
 import cards.network.belote.actions.BiddingBelote;
 import cards.network.belote.actions.PlayingCardBelote;
-import cards.network.belote.displaying.DealtHandBelote;
 import cards.network.belote.displaying.RefreshHandBelote;
-import cards.network.belote.displaying.errors.ErrorBiddingBelote;
-import cards.network.belote.displaying.errors.ErrorPlayingBelote;
 import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
-import cards.network.belote.unlock.AllowBiddingBelote;
-import cards.network.belote.unlock.AllowPlayingBelote;
-import cards.network.common.DelegateServer;
-import cards.network.common.PlayerActionGame;
-import cards.network.common.PlayerActionGameType;
-import cards.network.common.Quit;
-import cards.network.common.before.ChoosenPlace;
-import cards.network.common.before.IndexOfArrivingCards;
-import cards.network.common.before.NewPlayerCards;
-import cards.network.common.before.PlayersNamePresent;
-import cards.network.common.before.Ready;
-import cards.network.common.displaying.Pause;
-import cards.network.common.select.TeamsPlayers;
+import cards.network.common.*;
+import cards.network.common.before.*;
 import cards.network.president.actions.PlayingCardPresident;
-import cards.network.president.displaying.DealtHandPresident;
-import cards.network.president.displaying.ReceivedGivenCards;
-import cards.network.president.displaying.errors.ErrorPlayingPresident;
 import cards.network.president.displaying.players.RefreshHandPlayingPresident;
-import cards.network.president.unlock.AllowDiscarding;
-import cards.network.president.unlock.AllowPlayingPresident;
 import cards.network.sml.DocumentReaderCardsMultiUtil;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
-import cards.network.tarot.Dog;
-import cards.network.tarot.actions.BiddingTarot;
-import cards.network.tarot.actions.CalledCards;
-import cards.network.tarot.actions.DiscardedCard;
-import cards.network.tarot.actions.DiscardedTrumps;
-import cards.network.tarot.actions.PlayingCardTarot;
-import cards.network.tarot.displaying.DealtHandTarot;
-import cards.network.tarot.displaying.errors.ErrorBidding;
-import cards.network.tarot.displaying.errors.ErrorDiscarding;
-import cards.network.tarot.displaying.errors.ErrorHandful;
-import cards.network.tarot.displaying.errors.ErrorPlaying;
+import cards.network.tarot.actions.*;
 import cards.network.tarot.displaying.players.RefreshHand;
-import cards.network.tarot.unlock.AllowBiddingTarot;
-import cards.network.tarot.unlock.AllowPlayingTarot;
-import cards.network.tarot.unlock.CallableCards;
-import cards.network.tarot.unlock.DisplaySlamButton;
 import cards.network.threads.Net;
 import cards.network.threads.SendReceiveServerCards;
 import cards.president.CheckerGamePresidentWithRules;
 import cards.president.DisplayingPresident;
 import cards.president.GamePresident;
-import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
-import cards.president.TricksHandsPresident;
 import cards.president.sml.DocumentReaderPresidentUtil;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.CheckerGameTarotWithRules;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.GameTarot;
-import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
-import cards.tarot.TricksHandsTarot;
 import cards.tarot.enumerations.ChoiceTarot;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import cards.tarot.sml.DocumentWriterTarotUtil;
@@ -131,6 +92,9 @@ import code.network.*;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.scripts.messages.gui.MessGuiCardsGr;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
@@ -688,9 +652,26 @@ public final class WindowCards extends NetGroupFrame {
      Method allowing the client to send a serializable object by its socket
      @param _serializable the serializable object to be sent
      */
-    public boolean sendObject(Object _serializable) {
-        String str_ = setObject(_serializable);
-        return trySendString(str_, getSocket());
+    public boolean sendObject(PlayerActionBeforeGameCards _serializable) {
+        return trySendString(DocumentWriterCardsMultiUtil.playerActionBeforeGameCards(_serializable), getSocket());
+    }
+    public boolean sendObjectTakeCard() {
+        return trySendString(DocumentWriterCardsMultiUtil.takeCard(), getSocket());
+    }
+    public boolean sendObjectPlayGame() {
+        return trySendString(DocumentWriterCardsMultiUtil.playGame(), getSocket());
+    }
+    public boolean sendObject(PlayerActionGame _serializable) {
+        return trySendString(DocumentWriterCardsMultiUtil.playerActionGame(_serializable), getSocket());
+    }
+    public boolean sendObject(RulesBelote _serializable) {
+        return trySendString(DocumentWriterBeloteUtil.setRulesBelote(_serializable), getSocket());
+    }
+    public boolean sendObject(RulesPresident _serializable) {
+        return trySendString(DocumentWriterPresidentUtil.setRulesPresident(_serializable), getSocket());
+    }
+    public boolean sendObject(RulesTarot _serializable) {
+        return trySendString(DocumentWriterTarotUtil.setRulesTarot(_serializable), getSocket());
     }
     @Override
     public void quit() {
@@ -808,27 +789,29 @@ public final class WindowCards extends NetGroupFrame {
     }
 
     @Override
-    public void loop(Object _readObject, AbstractSocket _socket) {
-        if (_readObject instanceof DelegateServer) {
-            Net.setGames(((DelegateServer)_readObject).getGames(), getNet());
+    public void loop(Document _readObject, AbstractSocket _socket) {
+        Element elt_ = _readObject.getDocumentElement();
+        String tagName_ = DocumentReaderCardsMultiUtil.tagName(elt_);
+        if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DELEGATE_SERVER,tagName_)) {
+            DelegateServer del_ = DocumentReaderCardsMultiUtil.getDelegateServer(elt_);
+            Net.setGames(del_.getGames(), getNet());
             delegateServer();
             return;
         }
-        if (_readObject instanceof AttemptConnecting) {
-            if (!StringUtil.quickEq(((AttemptConnecting)_readObject).getServerName(),Net.getCards())) {
+        PlayerActionBeforeGameCards playerActionBeforeGame_ = DocumentReaderCardsMultiUtil.getPlayerActionBeforeGame(elt_);
+        if (playerActionBeforeGame_ instanceof IndexOfArrivingCards) {
+            if (!StringUtil.quickEq(((IndexOfArrivingCards) playerActionBeforeGame_).getServerName(),Net.getCards())) {
                 NewPlayerCards p_ = new NewPlayerCards();
                 p_.setAcceptable(false);
                 p_.setArriving(true);
-                p_.setIndex(((AttemptConnecting)_readObject).getIndex());
+                p_.setIndex(playerActionBeforeGame_.getIndex());
                 p_.setPseudo(pseudo());
                 p_.setLanguage(getLanguageKey());
                 Net.sendObject(_socket,p_);
                 return;
             }
-        }
-        ContainerMulti container_ = (ContainerMulti)containerGame;
-        if (_readObject instanceof IndexOfArrivingCards) {
-            container_.setNoClient(((IndexOfArrivingCards)_readObject).getIndex());
+            ContainerMulti container_ = (ContainerMulti)containerGame;
+            container_.setNoClient(playerActionBeforeGame_.getIndex());
             NewPlayerCards p_ = new NewPlayerCards();
             p_.setAcceptable(true);
             p_.setArriving(true);
@@ -838,16 +821,17 @@ public final class WindowCards extends NetGroupFrame {
             Net.sendObject(_socket,p_);
             return;
         }
-        if (_readObject instanceof ChoosenPlace) {
-            container_.updatePlaces((ChoosenPlace) _readObject);
+        ContainerMulti container_ = (ContainerMulti)containerGame;
+        if (playerActionBeforeGame_ instanceof ChoosenPlace) {
+            container_.updatePlaces((ChoosenPlace) playerActionBeforeGame_);
             return;
         }
-        if (_readObject instanceof Ready) {
-            container_.updateReady((Ready) _readObject);
+        if (playerActionBeforeGame_ instanceof Ready) {
+            container_.updateReady((Ready) playerActionBeforeGame_);
             return;
         }
-        if (_readObject instanceof PlayersNamePresent) {
-            PlayersNamePresent infos_ = (PlayersNamePresent) _readObject;
+        if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_PLAYERS_NAME_PRESENT,tagName_)) {
+            PlayersNamePresent infos_ = DocumentReaderCardsMultiUtil.getPlayersNamePresent(elt_);
             if (infos_.isFirst()) {
                 container_.updateFirst(infos_);
             } else {
@@ -855,204 +839,198 @@ public final class WindowCards extends NetGroupFrame {
             }
             return;
         }
-        if (_readObject == Pause.INSTANCE) {
+        if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_PAUSE,tagName_)) {
             container_.pauseBetweenTrick();
             return;
         }
-
         if (containerGame instanceof ContainerMultiTarot) {
             ContainerMultiTarot containerTarot_ = (ContainerMultiTarot) containerGame;
-            if (_readObject instanceof ResultsTarot) {
-                containerTarot_.endGame((ResultsTarot) _readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RESULTS_TAROT,tagName_)) {
+                containerTarot_.endGame(DocumentReaderCardsMultiUtil.resultsTarot(elt_));
                 return;
             }
-            if (_readObject instanceof RulesTarot) {
-                containerTarot_.updateRules((RulesTarot)_readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RULES_TAROT,tagName_)) {
+                containerTarot_.updateRules(DocumentReaderTarotUtil.getRulesTarot(elt_));
                 return;
             }
-            if (_readObject instanceof DealtHandTarot) {
-                DealtHandTarot hand_ = (DealtHandTarot) _readObject;
-                containerTarot_.updateForBeginningGame(hand_);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DEALT_HAND_TAROT,tagName_)) {
+                containerTarot_.updateForBeginningGame(DocumentReaderCardsMultiUtil.getDealtHandTarot(elt_));
                 return;
             }
-            if (_readObject instanceof AllowBiddingTarot) {
-                containerTarot_.canBidTarot((AllowBiddingTarot)_readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_BIDDING_TAROT,tagName_)) {
+                containerTarot_.canBidTarot(DocumentReaderCardsMultiUtil.getAllowBiddingTarot(elt_));
                 return;
             }
-            if (_readObject instanceof ErrorBidding) {
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_BIDDING,tagName_)) {
                 containerTarot_.canBid();
-                containerTarot_.errorForBidding((ErrorBidding) _readObject);
+                containerTarot_.errorForBidding(DocumentReaderCardsMultiUtil.getErrorBidding(elt_));
                 return;
             }
-            if (_readObject instanceof BiddingTarot) {
-                containerTarot_.displayLastBid((BiddingTarot) _readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_HANDFUL,tagName_)) {
+                containerTarot_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorHandful(elt_));
                 return;
             }
-            if (_readObject instanceof CallableCards) {
-                containerTarot_.displayCalling((CallableCards) _readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_PLAYING,tagName_)) {
+                containerTarot_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlaying(elt_));
                 return;
             }
-            if (_readObject instanceof Dog) {
-                containerTarot_.displayDog((Dog)_readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_CALLABLE_CARDS,tagName_)) {
+                containerTarot_.displayCalling(DocumentReaderCardsMultiUtil.getCallableCards(elt_));
                 return;
             }
-            if (_readObject instanceof DiscardedCard) {
-                containerTarot_.updateDiscardingOrCanceling((DiscardedCard)_readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DOG,tagName_)) {
+                containerTarot_.displayDog(DocumentReaderCardsMultiUtil.getDog(elt_));
                 return;
             }
-            if (_readObject instanceof CalledCards) {
-                containerTarot_.displayCalledCard((CalledCards)_readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_DISCARDING,tagName_)) {
+                containerTarot_.errorDiscardingCard(DocumentReaderCardsMultiUtil.getErrorDiscarding(elt_));
                 return;
             }
-            if (_readObject instanceof ErrorDiscarding) {
-                containerTarot_.errorDiscardingCard((ErrorDiscarding) _readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DISCARDED_TRUMPS,tagName_)) {
+                containerTarot_.showDiscardedTrumps(DocumentReaderCardsMultiUtil.getDiscardedTrumps(elt_));
+            }
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_TEAMS_PLAYERS,tagName_)) {
+                containerTarot_.showTeams(DocumentReaderCardsMultiUtil.getTeamsPlayers(elt_));
                 return;
             }
-            if (_readObject == DisplaySlamButton.INSTANCE) {
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_TRICKS_HANDS_TAROT,tagName_)) {
+                containerTarot_.showTricksHands(DocumentReaderTarotUtil.getTricksHandsTarot(elt_));
+                return;
+            }
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_PLAYING_TAROT,tagName_)) {
+                containerTarot_.canPlayTarot(DocumentReaderCardsMultiUtil.getAllowPlayingTarot(elt_));
+                return;
+            }
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DISPLAY_SLAM_BUTTON,tagName_)) {
                 containerTarot_.displaySlamButton();
                 return;
             }
-            if (_readObject instanceof PlayerActionGame) {
-                if (((PlayerActionGame) _readObject).getActionType() == PlayerActionGameType.SLAM) {
-                    containerTarot_.displaySlam((PlayerActionGame) _readObject);
+            PlayerActionGame action_ = DocumentReaderCardsMultiUtil.getPlayerActionGame(elt_);
+            if (action_ instanceof BiddingTarot) {
+                containerTarot_.displayLastBid((BiddingTarot) action_);
+                return;
+            }
+            if (action_ instanceof DiscardedCard) {
+                containerTarot_.updateDiscardingOrCanceling((DiscardedCard) action_);
+                return;
+            }
+            if (action_ instanceof CalledCards) {
+                containerTarot_.displayCalledCard((CalledCards) action_);
+                return;
+            }
+            if (action_ != null) {
+                if (action_.getActionType() == PlayerActionGameType.SLAM) {
+                    containerTarot_.displaySlam(action_);
                     return;
                 }
             }
-            if (_readObject instanceof DiscardedTrumps) {
-                containerTarot_.showDiscardedTrumps((DiscardedTrumps)_readObject);
+            if (action_ instanceof RefreshHand) {
+                containerTarot_.refreshHand((RefreshHand) action_);
                 return;
             }
-            if (_readObject instanceof TeamsPlayers) {
-                containerTarot_.showTeams((TeamsPlayers)_readObject);
+            if (action_ instanceof PlayingCardTarot) {
+                containerTarot_.displayPlayedCard((PlayingCardTarot) action_);
                 return;
             }
-            if (_readObject instanceof TricksHandsTarot) {
-                containerTarot_.showTricksHands((TricksHandsTarot)_readObject);
-                return;
-            }
-            if (_readObject instanceof AllowPlayingTarot) {
-                containerTarot_.canPlayTarot((AllowPlayingTarot)_readObject);
-                return;
-            }
-            if (_readObject instanceof RefreshHand) {
-                containerTarot_.refreshHand((RefreshHand)_readObject);
-                return;
-            }
-            if (_readObject instanceof PlayingCardTarot) {
-                containerTarot_.displayPlayedCard((PlayingCardTarot)_readObject);
-                return;
-            }
-            if (_readObject instanceof ErrorHandful) {
-                containerTarot_.errorPlayingCard((ErrorHandful)_readObject);
-                return;
-            }
-            if (_readObject instanceof ErrorPlaying) {
-                containerTarot_.errorPlayingCard((ErrorPlaying)_readObject);
-                return;
-            }
-
         }
         if (containerGame instanceof ContainerMultiPresident) {
             ContainerMultiPresident containerPresident_ = (ContainerMultiPresident) containerGame;
-            if (_readObject instanceof ResultsPresident) {
-                containerPresident_.endGame((ResultsPresident) _readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RESULTS_PRESIDENT,tagName_)) {
+                containerPresident_.endGame(DocumentReaderCardsMultiUtil.resultsPresident(elt_));
                 return;
             }
-            if (_readObject instanceof RulesPresident) {
-                containerPresident_.updateRules((RulesPresident)_readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RULES_PRESIDENT,tagName_)) {
+                containerPresident_.updateRules(DocumentReaderPresidentUtil.getRulesPresident(elt_));
                 return;
             }
-            if (_readObject instanceof AllowDiscarding) {
-                containerPresident_.canDiscardPresident((AllowDiscarding) _readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_DISCARDING,tagName_)) {
+                containerPresident_.canDiscardPresident(DocumentReaderCardsMultiUtil.getAllowDiscarding(elt_));
                 return;
             }
-            if (_readObject instanceof ReceivedGivenCards) {
-                containerPresident_.refreshLoserHand((ReceivedGivenCards) _readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RECEIVED_GIVEN_CARDS,tagName_)) {
+                containerPresident_.refreshLoserHand(DocumentReaderCardsMultiUtil.getReceivedGivenCards(elt_));
                 return;
             }
-            if (_readObject instanceof AllowPlayingPresident) {
-                containerPresident_.canPlayPresident((AllowPlayingPresident) _readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_PLAYING_PRESIDENT,tagName_)) {
+                containerPresident_.canPlayPresident(DocumentReaderCardsMultiUtil.getAllowPlayingPresident(elt_));
                 return;
             }
-            if (_readObject instanceof DealtHandPresident) {
-                DealtHandPresident hand_ = (DealtHandPresident) _readObject;
-                containerPresident_.updateForBeginningGame(hand_);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DEALT_HAND_PRESIDENT,tagName_)) {
+                containerPresident_.updateForBeginningGame(DocumentReaderCardsMultiUtil.getDealtHandPresident(elt_));
                 return;
             }
-            if (_readObject instanceof RefreshHandPlayingPresident) {
-                containerPresident_.refreshHand((RefreshHandPlayingPresident)_readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_PLAYING_PRESIDENT,tagName_)) {
+                containerPresident_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlayingPresident(elt_));
                 return;
             }
-            if (_readObject instanceof PlayingCardPresident) {
-                containerPresident_.displayPlayedCard((PlayingCardPresident) _readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_TRICKS_HANDS_PRESIDENT,tagName_)) {
+                containerPresident_.showTricksHands(DocumentReaderPresidentUtil.getTricksHandsPresident(elt_));
                 return;
             }
-            if (_readObject instanceof ErrorPlayingPresident) {
-                containerPresident_.errorPlayingCard((ErrorPlayingPresident) _readObject);
+            PlayerActionGame action_ = DocumentReaderCardsMultiUtil.getPlayerActionGame(elt_);
+            if (action_ instanceof RefreshHandPlayingPresident) {
+                containerPresident_.refreshHand((RefreshHandPlayingPresident) action_);
                 return;
             }
-            if (_readObject instanceof TricksHandsPresident) {
-                containerPresident_.showTricksHands((TricksHandsPresident) _readObject);
+            if (action_ instanceof PlayingCardPresident) {
+                containerPresident_.displayPlayedCard((PlayingCardPresident) action_);
                 return;
             }
         }
         if (containerGame instanceof ContainerMultiBelote) {
             ContainerMultiBelote containerBelote_ = (ContainerMultiBelote) containerGame;
-            if (_readObject instanceof ResultsBelote) {
-                containerBelote_.endGame((ResultsBelote) _readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RESULTS_BELOTE,tagName_)) {
+                containerBelote_.endGame(DocumentReaderCardsMultiUtil.resultsBelote(elt_));
+            }
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_RULES_BELOTE,tagName_)) {
+                containerBelote_.updateRules(DocumentReaderBeloteUtil.getRulesBelote(elt_));
                 return;
             }
-            if (_readObject instanceof RulesBelote) {
-                containerBelote_.updateRules((RulesBelote)_readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DEALT_HAND_BELOTE,tagName_)) {
+                containerBelote_.updateForBeginningGame(DocumentReaderCardsMultiUtil.getDealtHandBelote(elt_));
                 return;
             }
-            if (_readObject instanceof DealtHandBelote) {
-                DealtHandBelote hand_ = (DealtHandBelote) _readObject;
-                containerBelote_.updateForBeginningGame(hand_);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_BIDDING_BELOTE,tagName_)) {
+                containerBelote_.canBidBelote(DocumentReaderCardsMultiUtil.getAllowBiddingBelote(elt_));
                 return;
             }
-
-            if (_readObject instanceof AllowBiddingBelote) {
-                containerBelote_.canBidBelote((AllowBiddingBelote)_readObject);
-                return;
-            }
-
-            if (_readObject instanceof ErrorBiddingBelote) {
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_BIDDING_BELOTE,tagName_)) {
                 containerBelote_.canBid();
-                containerBelote_.errorForBidding((ErrorBiddingBelote) _readObject);
+                containerBelote_.errorForBidding(DocumentReaderCardsMultiUtil.getErrorBiddingBelote(elt_));
                 return;
             }
-            if (_readObject instanceof BiddingBelote) {
-                containerBelote_.displayLastBid((BiddingBelote) _readObject);
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ERROR_PLAYING_BELOTE,tagName_)) {
+                containerBelote_.errorPlayingCard(DocumentReaderCardsMultiUtil.getErrorPlayingBelote(elt_));
+                return;
+            }
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_TEAMS_PLAYERS,tagName_)) {
+                containerBelote_.showTeams(DocumentReaderCardsMultiUtil.getTeamsPlayers(elt_));
+                return;
+            }
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_TRICKS_HANDS_BELOTE,tagName_)) {
+                containerBelote_.showTricksHands(DocumentReaderBeloteUtil.getTricksHandsBelote(elt_));
+                return;
+            }
+            if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ALLOW_PLAYING_BELOTE,tagName_)) {
+                containerBelote_.canPlayBelote(DocumentReaderCardsMultiUtil.getAllowPlayingBelote(elt_));
                 return;
             }
 
-            if (_readObject instanceof RefreshHandBelote) {
-                containerBelote_.refreshHand((RefreshHandBelote)_readObject);
+            PlayerActionGame action_ = DocumentReaderCardsMultiUtil.getPlayerActionGame(elt_);
+            if (action_ instanceof BiddingBelote) {
+                containerBelote_.displayLastBid((BiddingBelote) action_);
                 return;
             }
-            if (_readObject instanceof TeamsPlayers) {
-                containerBelote_.showTeams((TeamsPlayers)_readObject);
+            if (action_ instanceof RefreshHandBelote) {
+                containerBelote_.refreshHand((RefreshHandBelote) action_);
                 return;
             }
-            if (_readObject instanceof TricksHandsBelote) {
-                containerBelote_.showTricksHands((TricksHandsBelote)_readObject);
+            if (action_ instanceof RefreshHandPlayingBelote) {
+                containerBelote_.refreshHand((RefreshHandPlayingBelote) action_);
                 return;
             }
-            if (_readObject instanceof AllowPlayingBelote) {
-                containerBelote_.canPlayBelote((AllowPlayingBelote)_readObject);
-                return;
-            }
-            if (_readObject instanceof RefreshHandPlayingBelote) {
-                containerBelote_.refreshHand((RefreshHandPlayingBelote)_readObject);
-                return;
-            }
-            if (_readObject instanceof PlayingCardBelote) {
-                containerBelote_.displayPlayedCard((PlayingCardBelote)_readObject);
-                return;
-            }
-            if (_readObject instanceof ErrorPlayingBelote) {
-                containerBelote_.errorPlayingCard((ErrorPlayingBelote)_readObject);
+            if (action_ instanceof PlayingCardBelote) {
+                containerBelote_.displayPlayedCard((PlayingCardBelote) action_);
                 return;
             }
         }
@@ -1204,9 +1182,9 @@ public final class WindowCards extends NetGroupFrame {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
         setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile()));
     }
-    public void loadGameBegin(String _file, Object _deal) {
+    public void loadGameBegin(String _file) {
         containerGame = new ContainerGame(this);
-        tryToLoadDeal(_file, _deal);
+        tryToLoadDeal(_file);
     }
     private void initFileMenu() {
         /* Fichier */
@@ -1270,52 +1248,61 @@ public final class WindowCards extends NetGroupFrame {
         if (nomFichier_.isEmpty()) {
             return;
         }
-        Object par_ = DocumentReaderCardsUnionUtil.getObject(nomFichier_,getFileCoreStream(),getStreams());
-        tryToLoadDeal(nomFichier_, par_);
+        tryToLoadDeal(nomFichier_);
     }
 
-    private void tryToLoadDeal(String _nomFichier, Object _deal) {
+    private void tryToLoadDeal(String _nomFichier) {
+        String content_ = StreamTextFile.contentsOfFile(_nomFichier, getFileCoreStream(), getStreams());
+        Document doc_ = DocumentBuilder.parseSax(content_);
+        Element elt_ = doc_.getDocumentElement();
+        String tagName_ = elt_.getTagName();
         ContainerGame containerGame_;
-
-        if (_deal instanceof GameBelote) {
-            CheckerGameBeloteWithRules.check((GameBelote) _deal);
-            if (!((GameBelote) _deal).getError().isEmpty()) {
+        if (StringUtil.quickEq(tagName_, "GameBelote")) {
+            GameBelote par_ = DocumentReaderBeloteUtil.getGameBelote(doc_);
+            CheckerGameBeloteWithRules.check(par_);
+            if (!par_.getError().isEmpty()) {
                 erreurDeChargement(_nomFichier);
                 return;
             }
             containerGame_ = new ContainerSingleBelote(this);
-            containerGame_.getPar().jouerBelote((GameBelote) _deal);
+            containerGame_.getPar().jouerBelote(par_);
             containerGame_.load();
             partieSauvegardee=false;
             containerGame = containerGame_;
             change.setEnabledMenu(true);
-        } else if (_deal instanceof GamePresident) {
-            CheckerGamePresidentWithRules.check((GamePresident) _deal);
-            if (!((GamePresident) _deal).getError().isEmpty()) {
+            return;
+        }
+        if (StringUtil.quickEq(tagName_, "GamePresident")) {
+            GamePresident par_ = DocumentReaderPresidentUtil.getGamePresident(doc_);
+            CheckerGamePresidentWithRules.check(par_);
+            if (!par_.getError().isEmpty()) {
                 erreurDeChargement(_nomFichier);
                 return;
             }
             containerGame_ = new ContainerSinglePresident(this);
-            containerGame_.getPar().jouerPresident((GamePresident) _deal);
+            containerGame_.getPar().jouerPresident(par_);
             containerGame_.load();
             partieSauvegardee=false;
             containerGame = containerGame_;
             change.setEnabledMenu(true);
-        } else if (_deal instanceof GameTarot) {
-            CheckerGameTarotWithRules.check((GameTarot) _deal);
-            if (!((GameTarot) _deal).getError().isEmpty()) {
+            return;
+        }
+        if (StringUtil.quickEq(tagName_, "GameTarot")) {
+            GameTarot par_ = DocumentReaderTarotUtil.getGameTarot(doc_);
+            CheckerGameTarotWithRules.check(par_);
+            if (!par_.getError().isEmpty()) {
                 erreurDeChargement(_nomFichier);
                 return;
             }
             containerGame_ = new ContainerSingleTarot(this);
-            containerGame_.getPar().jouerTarot((GameTarot) _deal);
+            containerGame_.getPar().jouerTarot(par_);
             containerGame_.load();
             partieSauvegardee=false;
             containerGame = containerGame_;
             change.setEnabledMenu(true);
-        } else {
-            erreurDeChargement(_nomFichier);
+            return;
         }
+        erreurDeChargement(_nomFichier);
     }
 
     public void saveGame() {
@@ -2171,13 +2158,13 @@ public final class WindowCards extends NetGroupFrame {
     }
 
     @Override
-    public String setObject(Object _object) {
-        return DocumentWriterCardsMultiUtil.setObject(_object);
+    public Document getDoc(String _object) {
+        return DocumentReaderCardsMultiUtil.getDoc(_object);
     }
 
     @Override
-    public Object getObject(String _object) {
-        return DocumentReaderCardsMultiUtil.getObject(_object);
+    public Exiting getExiting(Document _doc) {
+        return DocumentReaderCardsMultiUtil.getExiting(_doc);
     }
 
     public Net getNet() {

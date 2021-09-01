@@ -2,6 +2,7 @@ package aiki.network.sml;
 import aiki.db.ExchangedData;
 import aiki.network.stream.*;
 import aiki.sml.DocumentReaderAikiCoreUtil;
+import code.network.Exiting;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.core.DocumentReaderCoreUtil;
@@ -11,6 +12,13 @@ import code.util.core.StringUtil;
 
 public final class DocumentReaderAikiMultiUtil {
 
+    public static final String TYPE_CHECK_COMPATIBILITY = "CheckCompatibility";
+    public static final String TYPE_SENT_POKEMON = "SentPokemon";
+    public static final String TYPE_OK = "Ok";
+    public static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
+    public static final String TYPE_INIT_TRADING = "InitTrading";
+    public static final String TYPE_NET_POKEMON = "NetPokemon";
+    public static final String TYPE_POKEMON_PLAYER = "PokemonPlayer";
     private static final String ATTR_FIELD = "field";
     private static final char DOT = '.';
     private static final String FIELD_ABILITIES = "abilities";
@@ -36,70 +44,38 @@ public final class DocumentReaderAikiMultiUtil {
     private static final String FIELD_TRADABLE_POKEMON = "tradablePokemon";
     private static final String TYPE_EXCHANGED_DATA = "ExchangedData";
     private static final String TYPE_BYE = "Bye";
-    private static final String TYPE_OK = "Ok";
-    private static final String TYPE_INIT_TRADING = "InitTrading";
-    private static final String TYPE_CHECK_COMPATIBILITY = "CheckCompatibility";
-    private static final String TYPE_INDEX_OF_ARRIVING = "IndexOfArriving";
-    private static final String TYPE_NET_POKEMON = "NetPokemon";
     private static final String TYPE_NEW_PLAYER = "NewPlayer";
     private static final String TYPE_PLAYER_ACTION_BEFORE_GAME = "PlayerActionBeforeGame";
     private static final String TYPE_PLAYER_ACTION_GAME = "PlayerActionGame";
     private static final String TYPE_QUIT = "Quit";
     private static final String TYPE_READY = "Ready";
-    private static final String TYPE_SENT_POKEMON = "SentPokemon";
-    private static final String TYPE_POKEMON_PLAYER = "PokemonPlayer";
 
-    public static Object getObject(String _input) {
+    public static String tagName(Element _elt) {
+        String tagName_ = _elt.getTagName();
+        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT) + 1);
+        return tagName_;
+    }
+    public static Document getDoc(String _input) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_input);
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
-        if (StringUtil.quickEq(tagName_, TYPE_POKEMON_PLAYER)) {
-            return DocumentReaderAikiCoreUtil.getPokemonPlayer(elt_);
+        if (StringUtil.quickEq(tagName_, TYPE_POKEMON_PLAYER) || StringUtil.quickEq(tagName_, TYPE_EXCHANGED_DATA) || StringUtil.quickEq(tagName_, TYPE_OK) || StringUtil.quickEq(tagName_, TYPE_INIT_TRADING) || StringUtil.quickEq(tagName_, TYPE_BYE) || StringUtil.quickEq(tagName_, TYPE_CHECK_COMPATIBILITY) || StringUtil.quickEq(tagName_, TYPE_INDEX_OF_ARRIVING) || StringUtil.quickEq(tagName_, TYPE_NET_POKEMON) || StringUtil.quickEq(tagName_, TYPE_NEW_PLAYER) || StringUtil.quickEq(tagName_, TYPE_PLAYER_ACTION_BEFORE_GAME) || StringUtil.quickEq(tagName_, TYPE_PLAYER_ACTION_GAME) || StringUtil.quickEq(tagName_, TYPE_QUIT) || StringUtil.quickEq(tagName_, TYPE_READY) || StringUtil.quickEq(tagName_, TYPE_SENT_POKEMON)) {
+            return doc_;
         }
-        if (StringUtil.quickEq(tagName_, TYPE_EXCHANGED_DATA)) {
-            return getExchangedData(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_OK)) {
-            return Ok.INSTANCE;
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_INIT_TRADING)) {
-            return InitTrading.INSTANCE;
-        }
+        return null;
+    }
+    public static Exiting getExiting(Document _input) {
+        Element elt_ = _input.getDocumentElement();
+        String tagName_ = elt_.getTagName();
+        tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
         if (StringUtil.quickEq(tagName_, TYPE_BYE)) {
             return getBye(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_CHECK_COMPATIBILITY)) {
-            return getCheckCompatibility(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_INDEX_OF_ARRIVING)) {
-            return getPlayerActionBeforeGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_NET_POKEMON)) {
-            return getNetPokemon(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_NEW_PLAYER)) {
-            return getPlayerActionBeforeGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_PLAYER_ACTION_BEFORE_GAME)) {
-            return getPlayerActionBeforeGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_PLAYER_ACTION_GAME)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_QUIT)) {
-            return getPlayerActionGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_READY)) {
-            return getPlayerActionBeforeGame(elt_);
-        }
-        if (StringUtil.quickEq(tagName_, TYPE_SENT_POKEMON)) {
-            return getSentPokemon(elt_);
         }
         return null;
     }
 
-    private static ExchangedData getExchangedData(Element _element) {
+    public static ExchangedData getExchangedData(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         ExchangedData object_ = new ExchangedData();
         for (Element c: childElements_) {
@@ -131,7 +107,7 @@ public final class DocumentReaderAikiMultiUtil {
         }
     }
 
-    private static ByeAiki getBye(Element _element) {
+    public static ByeAiki getBye(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         ByeAiki object_ = new ByeAiki();
         for (Element c: childElements_) {
@@ -163,7 +139,7 @@ public final class DocumentReaderAikiMultiUtil {
         }
     }
 
-    private static CheckCompatibility getCheckCompatibility(Element _element) {
+    public static CheckCompatibility getCheckCompatibility(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         CheckCompatibility object_ = new CheckCompatibility();
         for (Element c: childElements_) {
@@ -187,7 +163,7 @@ public final class DocumentReaderAikiMultiUtil {
         }
     }
 
-    private static NetPokemon getNetPokemon(Element _element) {
+    public static NetPokemon getNetPokemon(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         NetPokemon object_ = new NetPokemon();
         for (Element c: childElements_) {
@@ -223,7 +199,7 @@ public final class DocumentReaderAikiMultiUtil {
         getPlayerActionBeforeGame(_object, _fieldName, _element);
     }
 
-    private static PlayerActionBeforeGameAiki getPlayerActionBeforeGame(Element _element) {
+    public static PlayerActionBeforeGameAiki getPlayerActionBeforeGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
@@ -258,7 +234,7 @@ public final class DocumentReaderAikiMultiUtil {
         }
     }
 
-    private static PlayerActionGameAiki getPlayerActionGame(Element _element) {
+    public static PlayerActionGameAiki getPlayerActionGame(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         String tagName_ = _element.getTagName();
         tagName_ = tagName_.substring(tagName_.lastIndexOf(DOT)+1);
@@ -303,7 +279,7 @@ public final class DocumentReaderAikiMultiUtil {
         getPlayerActionBeforeGame(_object, _fieldName, _element);
     }
 
-    private static SentPokemon getSentPokemon(Element _element) {
+    public static SentPokemon getSentPokemon(Element _element) {
         ElementList childElements_ = _element.getChildElements();
         SentPokemon object_ = new SentPokemon();
         for (Element c: childElements_) {

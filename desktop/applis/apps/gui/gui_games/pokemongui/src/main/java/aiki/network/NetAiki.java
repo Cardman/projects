@@ -1,7 +1,8 @@
 package aiki.network;
 
+import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
-import aiki.network.stream.CheckCompatibility;
+import aiki.network.stream.*;
 import code.gui.initialize.AbstractSocket;
 import code.network.NetGroupFrame;
 import code.util.*;
@@ -56,8 +57,32 @@ public final class NetAiki {
         return allReady_;
     }
 
-    public static void sendObject(AbstractSocket _socket,Object _serializable) {
-        NetAiki.sendText(_socket,DocumentWriterAikiMultiUtil.setObject(_serializable));
+    public static void sendObjectInitTrading(AbstractSocket _socket) {
+        NetAiki.sendText(_socket,DocumentWriterAikiMultiUtil.initTrading());
+    }
+
+    public static void sendObject(AbstractSocket _socket, NetPokemon _serializable) {
+        NetAiki.sendText(_socket,DocumentWriterAikiMultiUtil.netPokemon(_serializable));
+    }
+
+    public static void sendObject(AbstractSocket _socket, PokemonPlayer _serializable) {
+        NetAiki.sendText(_socket,DocumentWriterAikiMultiUtil.pokemonPlayer(_serializable));
+    }
+
+    public static void sendObject(AbstractSocket _socket, ByeAiki _serializable) {
+        NetAiki.sendText(_socket,DocumentWriterAikiMultiUtil.bye(_serializable));
+    }
+
+    public static void sendObject(AbstractSocket _socket, IndexOfArrivingAiki _serializable) {
+        NetAiki.sendText(_socket,DocumentWriterAikiMultiUtil.indexOfArrivingAiki(_serializable));
+    }
+
+    public static void sendObject(AbstractSocket _socket, NewPlayerAiki _serializable) {
+        NetAiki.sendText(_socket,DocumentWriterAikiMultiUtil.newPlayerAiki(_serializable));
+    }
+
+    public static void sendObject(AbstractSocket _socket, CheckCompatibility _serializable) {
+        NetAiki.sendText(_socket,DocumentWriterAikiMultiUtil.checkCompatibility(_serializable));
     }
 
     /**server

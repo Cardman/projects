@@ -8,6 +8,7 @@ import aiki.gui.threads.PerCentIncr;
 import code.gui.FrameUtil;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -55,7 +56,7 @@ public final class CreateMainWindowNoParam implements Runnable {
         OpeningGame opening_ = new OpeningGame(window,p_);
         window.getThreadFactory().newStartedThread(opening_);
         if (load.loadRomAndGame()) {
-            window.loadRomGame(load, path, new StringMap<Object>(), false,p_);
+            window.loadRomGame(load, path, new StringList(), false,p_);
         } else {
             window.loadOnlyRom(path_,p_);
         }

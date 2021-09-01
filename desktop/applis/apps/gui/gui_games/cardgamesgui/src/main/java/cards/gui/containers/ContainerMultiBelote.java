@@ -893,7 +893,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getNombreDeJoueurs());
         deal_.initDonne(game_.getRegles(),getDisplayingBelote(),getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));
-        getOwner().sendObject(PlayGame.INSTANCE);
+        getOwner().sendObjectPlayGame();
     }
 
     @Override
@@ -962,7 +962,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         deal_.initDonne(rulesBeloteMulti, getDisplayingBelote(),getOwner().getGenerator());
         Net.getGames(getOwner().getNet()).jouerBelote(new GameBelote(
                 GameType.RANDOM, deal_, rulesBeloteMulti));
-        getOwner().sendObject(PlayGame.INSTANCE);
+        getOwner().sendObjectPlayGame();
     }
 }
 

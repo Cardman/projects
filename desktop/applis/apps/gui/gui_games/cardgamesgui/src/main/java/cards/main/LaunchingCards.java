@@ -3,7 +3,6 @@ package cards.main;
 import cards.belote.HandBelote;
 import cards.belote.sml.DocumentWriterBeloteUtil;
 import cards.facade.enumerations.GameEnum;
-import cards.facade.sml.DocumentReaderCardsUnionUtil;
 import cards.gui.dialogs.FileConst;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
@@ -20,7 +19,6 @@ import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -40,7 +38,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
     }
 
     @Override
-    protected void launch(String _language, StringMap<Object> _args) {
+    protected void launch(String _language, String[] _args) {
         StreamFolderFile.makeParent(StringUtil.concat(getTempFolderSl(getFrames()),FileConst.DECK_FOLDER), getFrames().getFileCoreStream());
         AbstractFile f = getFrames().getFileCoreStream().newFile(StringUtil.concat(getTempFolderSl(getFrames()), FileConst.DECK_FOLDER, StreamTextFile.SEPARATEUR, GameEnum.BELOTE.name(), FileConst.DECK_EXT));
         HandBelote mainB_=HandBelote.pileBase();
@@ -70,7 +68,17 @@ public class LaunchingCards extends AdvSoftApplicationCore {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN), getFrames().getStreams());
         }
         TopLeftFrame coordonnees_=loadCoords(getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
-        FrameUtil.invokeLater(new LaunchingGame(_args, _language,coordonnees_, getFrames(),factories), getFrames());
+        FrameUtil.invokeLater(new LaunchingGame(getFile(_args), _language,coordonnees_, getFrames(),factories), getFrames());
+    }
+
+    protected StringList getFile(String[] _args) {
+        StringList files_ = new StringList();
+        if (_args.length > 0) {
+            String fileName_ = getFrames().getFileCoreStream().newFile(_args[0]).getAbsolutePath();
+            fileName_ = StringUtil.replaceBackSlash(fileName_);
+            files_.add(fileName_);
+        }
+        return files_;
     }
 
     protected static void loadLaungage(String[] _args, LaunchingCards _soft) {
@@ -98,8 +106,4 @@ public class LaunchingCards extends AdvSoftApplicationCore {
         return "cards";
     }
 
-    @Override
-    public Object getObject(String _fileName) {
-        return DocumentReaderCardsUnionUtil.getObject(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams());
-    }
 }

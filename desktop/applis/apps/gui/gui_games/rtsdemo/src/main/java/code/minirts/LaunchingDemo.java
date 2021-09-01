@@ -3,7 +3,6 @@ package code.minirts;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
-import code.util.StringMap;
 
 public class LaunchingDemo extends AdvSoftApplicationCore {
 
@@ -18,12 +17,7 @@ public class LaunchingDemo extends AdvSoftApplicationCore {
     }
 
     @Override
-    public Object getObject(String _fileName) {
-        return null;
-    }
-
-    @Override
-    protected void launch(String _language, StringMap<Object> _args) {
+    protected void launch(String _language, String[] _args) {
         ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRts(_language, getFrames()), getFrames());
     }
 

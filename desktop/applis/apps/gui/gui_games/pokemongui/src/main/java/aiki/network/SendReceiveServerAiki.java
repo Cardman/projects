@@ -1,22 +1,18 @@
 package aiki.network;
 
 import aiki.map.pokemon.PokemonPlayer;
-import aiki.network.stream.ByeAiki;
-import aiki.network.stream.CheckCompatibility;
-import aiki.network.stream.InitTrading;
-import aiki.network.stream.NetPokemon;
-import aiki.network.stream.NewPlayerAiki;
-import aiki.network.stream.Ok;
-import aiki.network.stream.QuitAiki;
-import aiki.network.stream.ReadyAiki;
-import aiki.network.stream.SentPokemon;
+import aiki.network.sml.DocumentReaderAikiMultiUtil;
+import aiki.network.stream.*;
 import code.network.AddingPlayer;
 import code.network.BasicServer;
 import code.gui.initialize.AbstractSocket;
 import code.network.NetGroupFrame;
+import code.sml.Document;
+import code.sml.Element;
 import code.threads.AbstractLock;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -34,15 +30,17 @@ public final class SendReceiveServerAiki extends BasicServer {
     }
 
     @Override
-    public void loopServer(String _input, Object _object) {
+    public void loopServer(String _input, Document _object) {
         lock.lock(this);
         loop(_input, _object, instance);
         lock.unlock(this);
     }
 
-    private static void loop(String _input, Object _readObject, NetAiki _instance) {
-        if (_readObject instanceof AddingPlayer) {
-            AddingPlayer newPlayer_ = (AddingPlayer)_readObject;
+    private static void loop(String _input, Document _object, NetAiki _instance) {
+        Element elt_ = _object.getDocumentElement();
+        PlayerActionBeforeGameAiki playerActionBeforeGame_ = DocumentReaderAikiMultiUtil.getPlayerActionBeforeGame(elt_);
+        if (playerActionBeforeGame_ instanceof AddingPlayer) {
+            AddingPlayer newPlayer_ = (AddingPlayer)playerActionBeforeGame_;
             if (!newPlayer_.isAcceptable()) {
                 ByeAiki forcedBye_ = new ByeAiki();
                 forcedBye_.setBusy(true);
@@ -59,8 +57,8 @@ public final class SendReceiveServerAiki extends BasicServer {
                 return;
             }
         }
-        if (_readObject instanceof NewPlayerAiki) {
-            NewPlayerAiki newPlayer_ = (NewPlayerAiki)_readObject;
+        if (playerActionBeforeGame_ instanceof NewPlayerAiki) {
+            NewPlayerAiki newPlayer_ = (NewPlayerAiki)playerActionBeforeGame_;
             if (NetAiki.getNicknames(_instance).size() == NetAiki.NB_PLAYERS) {
                 ByeAiki forcedBye_ = new ByeAiki();
                 forcedBye_.setForced(true);
@@ -76,18 +74,19 @@ public final class SendReceiveServerAiki extends BasicServer {
                 return;
             }
             if (newPlayer_.getIndex() == IndexConstants.SECOND_INDEX) {
-                NetAiki.sendObject(NetAiki.getSockets(_instance).getVal((int) IndexConstants.SECOND_INDEX),InitTrading.INSTANCE);
+                NetAiki.sendObjectInitTrading(NetAiki.getSockets(_instance).getVal((int) IndexConstants.SECOND_INDEX));
                 return;
             }
             if (newPlayer_.getIndex() == IndexConstants.FIRST_INDEX) {
                 //init trading condition
-                NetAiki.sendObject(NetAiki.getSockets(_instance).getVal((int) IndexConstants.FIRST_INDEX),InitTrading.INSTANCE);
+                NetAiki.sendObjectInitTrading(NetAiki.getSockets(_instance).getVal((int) IndexConstants.FIRST_INDEX));
                 return;
             }
             return;
         }
-        if (_readObject instanceof CheckCompatibility) {
-            CheckCompatibility check_ = (CheckCompatibility) _readObject;
+        String tagName_ = DocumentReaderAikiMultiUtil.tagName(elt_);
+        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_CHECK_COMPATIBILITY,tagName_)) {
+            CheckCompatibility check_ = DocumentReaderAikiMultiUtil.getCheckCompatibility(elt_);
             if (check_.getIndex() == IndexConstants.FIRST_INDEX) {
                 NetAiki.getCheckCompatibility(_instance).put((int) IndexConstants.FIRST_INDEX, check_);
                 return;
@@ -119,8 +118,8 @@ public final class SendReceiveServerAiki extends BasicServer {
                 return;
             }
         }
-        if (_readObject instanceof SentPokemon) {
-            SentPokemon sent_ = (SentPokemon) _readObject;
+        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_SENT_POKEMON,tagName_)) {
+            SentPokemon sent_ = DocumentReaderAikiMultiUtil.getSentPokemon(elt_);
             if (sent_.getIndex() == IndexConstants.FIRST_INDEX) {
                 NetAiki.sendObject(NetAiki.getSockets(_instance).getVal((int) IndexConstants.SECOND_INDEX),sent_.getPokemon());
             }
@@ -129,12 +128,12 @@ public final class SendReceiveServerAiki extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof ReadyAiki) {
-            int noClient_ = ((ReadyAiki)_readObject).getIndex();
-            NetAiki.getReadyPlayers(_instance).put(noClient_, ((ReadyAiki)_readObject).isReady());
+        if (playerActionBeforeGame_ instanceof ReadyAiki) {
+            int noClient_ = playerActionBeforeGame_.getIndex();
+            NetAiki.getReadyPlayers(_instance).put(noClient_, ((ReadyAiki)playerActionBeforeGame_).isReady());
             return;
         }
-        if (_readObject == Ok.INSTANCE) {
+        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_OK,tagName_)) {
             if (NetAiki.allReady(_instance)) {
                 for(AbstractSocket so_: NetAiki.getSockets(_instance).values()){
                     NetAiki.sendText(so_,_input);
@@ -145,8 +144,9 @@ public final class SendReceiveServerAiki extends BasicServer {
             }
             return;
         }
-        if (_readObject instanceof QuitAiki) {
-            QuitAiki bye_ = (QuitAiki)_readObject;
+        PlayerActionGameAiki playerActionGame_ = DocumentReaderAikiMultiUtil.getPlayerActionGame(elt_);
+        if (playerActionGame_ instanceof QuitAiki) {
+            QuitAiki bye_ = (QuitAiki)playerActionGame_;
             ByeAiki forcedBye_ = new ByeAiki();
             forcedBye_.setForced(false);
             forcedBye_.setServer(false);

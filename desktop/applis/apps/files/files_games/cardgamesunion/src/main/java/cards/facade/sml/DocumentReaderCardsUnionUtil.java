@@ -41,28 +41,23 @@ public final class DocumentReaderCardsUnionUtil {
     private static final String FIELD_SAVE_HOME_FOLDER = "saveHomeFolder";
     private static final String FIELD_WAIT_TRICK_CLICK = "waitTrickClick";
 
-    public static Object getObject(String _fileName, AbstractFileCoreStream _fact, TechStreams _streams) {
-        String content_ = StreamTextFile.contentsOfFile(_fileName,_fact,_streams);
-        return getContentObject(content_);
-    }
-
-    public static Object getContentObject(String _content) {
+    public static boolean isContentObject(String _content) {
         Document doc_ = DocumentBuilder.parseSax(_content);
         if (doc_ == null) {
-            return null;
+            return false;
         }
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
         if (StringUtil.quickEq(tagName_, "GameBelote")) {
-            return DocumentReaderBeloteUtil.getGameBelote(doc_);
+            return true;
         }
         if (StringUtil.quickEq(tagName_, "GamePresident")) {
-            return DocumentReaderPresidentUtil.getGamePresident(doc_);
+            return true;
         }
         if (StringUtil.quickEq(tagName_, "GameTarot")) {
-            return DocumentReaderTarotUtil.getGameTarot(doc_);
+            return true;
         }
-        return null;
+        return false;
     }
     public static Games getGames(Element _element) {
         ElementList childElements_ = _element.getChildElements();

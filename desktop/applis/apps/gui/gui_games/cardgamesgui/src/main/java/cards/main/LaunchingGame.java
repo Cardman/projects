@@ -24,6 +24,7 @@ import code.scripts.pages.cards.PageCards;
 import code.sml.Document;
 import code.threads.AbstractThread;
 import code.util.EntryCust;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
@@ -32,7 +33,7 @@ Thread safe class*/
 public final class LaunchingGame implements Runnable {
 
     private final AbstractProgramInfos list;
-    private final StringMap<Object> args;
+    private final StringList args;
 
     private final String language;
 
@@ -40,7 +41,7 @@ public final class LaunchingGame implements Runnable {
     private final CardFactories cardFactories;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public LaunchingGame(StringMap<Object> _args, String _language, TopLeftFrame _topLeft, AbstractProgramInfos _list, CardFactories _cardFactories) {
+    public LaunchingGame(StringList _args, String _language, TopLeftFrame _topLeft, AbstractProgramInfos _list, CardFactories _cardFactories) {
         args = _args;
         language = _language;
         topLeft = _topLeft;
@@ -65,7 +66,7 @@ public final class LaunchingGame implements Runnable {
         window_.setHelpInitializerTask(helpInitializerTask_);
 
         if (!args.isEmpty()) {
-            window_.loadGameBegin(args.getKeys().first(), args.values().first());
+            window_.loadGameBegin(args.first());
         }
     }
 

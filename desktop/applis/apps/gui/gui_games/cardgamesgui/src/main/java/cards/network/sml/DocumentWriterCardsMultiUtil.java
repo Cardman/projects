@@ -20,7 +20,6 @@ import cards.network.common.before.NewPlayerCards;
 import cards.network.common.before.PlayerActionBeforeGameCards;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
-import cards.network.common.displaying.Pause;
 import cards.network.common.select.*;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
@@ -139,7 +138,6 @@ public final class DocumentWriterCardsMultiUtil {
     private static final String TYPE_BIDDING_TAROT = "BiddingTarot";
     private static final String TYPE_BYE = "Bye";
     private static final String TYPE_CALLABLE_CARDS = "CallableCards";
-    private static final String TYPE_CALLABLE_CARDS_DISCARD = "CallableCardsDiscard";
     private static final String TYPE_CALLED_CARD_KNOWN = "CalledCardKnown";
     private static final String TYPE_CALLED_CARDS = "CalledCards";
     private static final String TYPE_CHOOSEN_PLACE = "ChoosenPlace";
@@ -198,174 +196,230 @@ public final class DocumentWriterCardsMultiUtil {
     private static final String TYPE_RESULTS_BELOTE = "ResultsBelote";
     private static final String TYPE_RESULTS_PRESIDENT = "ResultsPresident";
     private static final String TYPE_RESULTS_TAROT = "ResultsTarot";
-    public static String setObject(Object _object) {
+
+    public static String takeCard() {
         Document doc_ = DocumentBuilder.newXmlDocument();
-        if (_object == TakeCard.INSTANCE) {
-            Element element_ = doc_.createElement(TYPE_TAKE_CARD);
-            doc_.appendChild(element_);
-            return doc_.export();
-        }
-        if (_object == DisplaySlamButton.INSTANCE) {
-            Element element_ = doc_.createElement(TYPE_DISPLAY_SLAM_BUTTON);
-            doc_.appendChild(element_);
-            return doc_.export();
-        }
-        if (_object == PlayGame.INSTANCE) {
-            Element element_ = doc_.createElement(TYPE_PLAY_GAME);
-            doc_.appendChild(element_);
-            return doc_.export();
-        }
-        if (_object == Pause.INSTANCE) {
-            Element element_ = doc_.createElement(TYPE_PAUSE);
-            doc_.appendChild(element_);
-            return doc_.export();
-        }
-        if (_object instanceof ResultsBelote) {
-            Element element_ = doc_.createElement(TYPE_RESULTS_BELOTE);
-            DocumentWriterBeloteUtil.setResultsBelote((ResultsBelote)_object,element_,doc_);
-            doc_.appendChild(element_);
-            return doc_.export();
-        }
-        if (_object instanceof TricksHandsBelote) {
-            doc_.appendChild(DocumentWriterBeloteUtil.setTricksHandsBelote((TricksHandsBelote)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof DealtHandBelote) {
-            doc_.appendChild(setDealtHandBelote((DealtHandBelote)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ErrorBiddingBelote) {
-            doc_.appendChild(setErrorBiddingBelote((ErrorBiddingBelote)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ErrorPlayingBelote) {
-            doc_.appendChild(setErrorPlayingBelote((ErrorPlayingBelote)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof AllowBiddingBelote) {
-            doc_.appendChild(setAllowBiddingBelote((AllowBiddingBelote)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof AllowPlayingBelote) {
-            doc_.appendChild(setAllowPlayingBelote((AllowPlayingBelote)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ByeCards) {
-            doc_.appendChild(setBye((ByeCards)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof DelegateServer) {
-            doc_.appendChild(setDelegateServer((DelegateServer)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ChoosenPlace) {
-            doc_.appendChild(setPlayerActionBeforeGame((ChoosenPlace)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof IndexOfArrivingCards) {
-            doc_.appendChild(setPlayerActionBeforeGame((IndexOfArrivingCards)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof NewPlayerCards) {
-            doc_.appendChild(setPlayerActionBeforeGame((NewPlayerCards)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof PlayersNamePresent) {
-            doc_.appendChild(setPlayersNamePresent((PlayersNamePresent)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof Ready) {
-            doc_.appendChild(setPlayerActionBeforeGame((Ready)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof DealtHandPresident) {
-            doc_.appendChild(setDealtHandPresident((DealtHandPresident)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ReceivedGivenCards) {
-            doc_.appendChild(setReceivedGivenCards((ReceivedGivenCards)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ErrorPlayingPresident) {
-            doc_.appendChild(setErrorPlayingPresident((ErrorPlayingPresident)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof AllowDiscarding) {
-            doc_.appendChild(setAllowDiscarding((AllowDiscarding)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof AllowPlayingPresident) {
-            doc_.appendChild(setAllowPlayingPresident((AllowPlayingPresident)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof Dog) {
-            doc_.appendChild(setDog((Dog)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof DiscardedTrumps) {
-            doc_.appendChild(setDiscardedTrumps((DiscardedTrumps)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof DealtHandTarot) {
-            doc_.appendChild(setDealtHandTarot((DealtHandTarot)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ErrorBidding) {
-            doc_.appendChild(setErrorBidding((ErrorBidding)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ErrorDiscarding) {
-            doc_.appendChild(setErrorDiscarding((ErrorDiscarding)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ErrorHandful) {
-            doc_.appendChild(setErrorHandful((ErrorHandful)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ErrorPlaying) {
-            doc_.appendChild(setErrorPlaying((ErrorPlaying)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof PlayerActionGame) {
-            doc_.appendChild(setPlayerActionGame((PlayerActionGame)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof AllowBiddingTarot) {
-            doc_.appendChild(setAllowBiddingTarot((AllowBiddingTarot)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof AllowPlayingTarot) {
-            doc_.appendChild(setAllowPlayingTarot((AllowPlayingTarot)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof CallableCards) {
-            doc_.appendChild(setCallableCards((CallableCards)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof CallableCardsDiscard) {
-            doc_.appendChild(setCallableCardsDiscard((CallableCardsDiscard)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ResultsPresident) {
-            Element element_ = doc_.createElement(TYPE_RESULTS_PRESIDENT);
-            DocumentWriterPresidentUtil.setResultsPresident((ResultsPresident)_object,element_,doc_);
-            doc_.appendChild(element_);
-            return doc_.export();
-        }
-        if (_object instanceof TricksHandsPresident) {
-            doc_.appendChild(DocumentWriterPresidentUtil.setTricksHandsPresident((TricksHandsPresident)_object, "", doc_));
-            return doc_.export();
-        }
-        if (_object instanceof ResultsTarot) {
-            Element element_ = doc_.createElement(TYPE_RESULTS_TAROT);
-            DocumentWriterTarotUtil.setResultsTarot((ResultsTarot)_object,element_,doc_);
-            doc_.appendChild(element_);
-            return doc_.export();
-        }
-        if (_object instanceof TricksHandsTarot) {
-            doc_.appendChild(DocumentWriterTarotUtil.setTricksHandsTarot((TricksHandsTarot)_object, "", doc_));
-            return doc_.export();
-        }
+        Element element_ = doc_.createElement(TYPE_TAKE_CARD);
+        doc_.appendChild(element_);
+        return doc_.export();
+    }
+
+    public static String displaySlamButton() {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(TYPE_DISPLAY_SLAM_BUTTON);
+        doc_.appendChild(element_);
+        return doc_.export();
+    }
+
+    public static String playGame() {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(TYPE_PLAY_GAME);
+        doc_.appendChild(element_);
+        return doc_.export();
+    }
+
+    public static String pause() {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(TYPE_PAUSE);
+        doc_.appendChild(element_);
+        return doc_.export();
+    }
+
+    public static String tricksHandsTarot(TricksHandsTarot _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(DocumentWriterTarotUtil.setTricksHandsTarot(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String resultsTarot(ResultsTarot _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(TYPE_RESULTS_TAROT);
+        DocumentWriterTarotUtil.setResultsTarot(_object,element_,doc_);
+        doc_.appendChild(element_);
+        return doc_.export();
+    }
+
+    public static String tricksHandsPresident(TricksHandsPresident _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(DocumentWriterPresidentUtil.setTricksHandsPresident(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String resultsPresident(ResultsPresident _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(TYPE_RESULTS_PRESIDENT);
+        DocumentWriterPresidentUtil.setResultsPresident(_object,element_,doc_);
+        doc_.appendChild(element_);
+        return doc_.export();
+    }
+
+    public static String callableCards(CallableCards _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setCallableCards(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String allowPlayingTarot(AllowPlayingTarot _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setAllowPlayingTarot(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String allowBiddingTarot(AllowBiddingTarot _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setAllowBiddingTarot(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String errorPlaying(ErrorPlaying _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setErrorPlaying(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String errorHandful(ErrorHandful _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setErrorHandful(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String errorDiscarding(ErrorDiscarding _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setErrorDiscarding(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String errorBidding(ErrorBidding _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setErrorBidding(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String dealtHandTarot(DealtHandTarot _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setDealtHandTarot(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String discardedTrumps(DiscardedTrumps _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setDiscardedTrumps(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String dog(Dog _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setDog(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String allowPlayingPresident(AllowPlayingPresident _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setAllowPlayingPresident(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String allowDiscarding(AllowDiscarding _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setAllowDiscarding(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String errorPlayingPresident(ErrorPlayingPresident _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setErrorPlayingPresident(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String receivedGivenCards(ReceivedGivenCards _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setReceivedGivenCards(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String dealtHandPresident(DealtHandPresident _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setDealtHandPresident(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String playersNamePresent(PlayersNamePresent _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setPlayersNamePresent(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String delegateServer(DelegateServer _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setDelegateServer(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String bye(ByeCards _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setBye(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String allowPlayingBelote(AllowPlayingBelote _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setAllowPlayingBelote(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String allowBiddingBelote(AllowBiddingBelote _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setAllowBiddingBelote(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String errorPlayingBelote(ErrorPlayingBelote _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setErrorPlayingBelote(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String errorBiddingBelote(ErrorBiddingBelote _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setErrorBiddingBelote(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String dealtHandBelote(DealtHandBelote _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setDealtHandBelote(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String tricksHandsBelote(TricksHandsBelote _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(DocumentWriterBeloteUtil.setTricksHandsBelote(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String resultsBelote(ResultsBelote _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element element_ = doc_.createElement(TYPE_RESULTS_BELOTE);
+        DocumentWriterBeloteUtil.setResultsBelote(_object,element_,doc_);
+        doc_.appendChild(element_);
+        return doc_.export();
+    }
+
+    public static String playerActionGame(PlayerActionGame _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setPlayerActionGame(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String teamsPlayers(TeamsPlayers _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setTeamsPlayers(_object, "", doc_));
+        return doc_.export();
+    }
+
+    public static String playerActionBeforeGameCards(PlayerActionBeforeGameCards _object) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(setPlayerActionBeforeGame(_object, "", doc_));
         return doc_.export();
     }
 
@@ -1056,19 +1110,6 @@ public final class DocumentWriterCardsMultiUtil {
     private static void setCallableCards(CallableCards _object, Element _element, Document _document) {
         _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getCallableCards(),FIELD_CALLABLE_CARDS,_document));
         _element.appendChild(DocumentWriterCoreUtil.setBoolean(_object.isDiscarding(),FIELD_DISCARDING,_document));
-        _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
-    }
-
-    private static Element setCallableCardsDiscard(CallableCardsDiscard _object, String _fieldName, Document _document) {
-        Element element_ = _document.createElement(TYPE_CALLABLE_CARDS_DISCARD);
-        DocumentWriterCoreUtil.setFieldName(element_, _fieldName);
-        setCallableCardsDiscard(_object,element_,_document);
-        return element_;
-    }
-
-    private static void setCallableCardsDiscard(CallableCardsDiscard _object, Element _element, Document _document) {
-        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getCallableCards(),FIELD_CALLABLE_CARDS,_document));
-        _element.appendChild(DocumentWriterTarotUtil.setHandTarot(_object.getDiscarded(),FIELD_DISCARDED,_document));
         _element.appendChild(DocumentWriterCoreUtil.setByte(_object.getTakerIndex(),FIELD_TAKER_INDEX,_document));
     }
 

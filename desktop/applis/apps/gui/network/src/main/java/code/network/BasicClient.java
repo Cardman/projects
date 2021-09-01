@@ -4,6 +4,7 @@ import code.gui.FrameUtil;
 import code.gui.ThreadInvoker;
 import code.gui.initialize.AbstractBufferedReader;
 import code.gui.initialize.AbstractSocket;
+import code.sml.Document;
 
 /**Thread safe class*/
 public final class BasicClient extends SendReceive {
@@ -22,16 +23,16 @@ public final class BasicClient extends SendReceive {
                 return;
             }
             //on peut traiter les "timeout"
-            Object readObject_ = getNet().getObject(input_);
-            if (readObject_ == null) {
+            Document doc_ = getNet().getDoc(input_);
+            if (doc_ == null) {
                 continue;
             }
-            if (readObject_ instanceof Exiting) {
-                Exiting ex_ = (Exiting) readObject_;
-                FrameUtil.invokeLater(new Quitting(ex_, getNet(), getSocket()), getNet().getFrames());
+            Exiting exiting_ = getNet().getExiting(doc_);
+            if (exiting_ != null) {
+                FrameUtil.invokeLater(new Quitting(exiting_, getNet(), getSocket()), getNet().getFrames());
                 return;
             }
-            ThreadInvoker.invokeNow(getNet().getThreadFactory(),new LoopClient(getNet(), readObject_, getSocket()), getNet().getFrames());
+            ThreadInvoker.invokeNow(getNet().getThreadFactory(),new LoopClient(getNet(),doc_, getSocket()), getNet().getFrames());
         }
     }
 }

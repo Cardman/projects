@@ -12,6 +12,7 @@ import aiki.db.PerCent;
 import aiki.gui.dialogs.*;
 import aiki.gui.threads.*;
 import aiki.main.*;
+import aiki.network.stream.*;
 import aiki.sml.*;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
@@ -37,13 +38,6 @@ import aiki.network.NetAiki;
 import aiki.network.SendReceiveServerAiki;
 import aiki.network.sml.DocumentReaderAikiMultiUtil;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;
-import aiki.network.stream.CheckCompatibility;
-import aiki.network.stream.IndexOfArrivingAiki;
-import aiki.network.stream.InitTrading;
-import aiki.network.stream.NetPokemon;
-import aiki.network.stream.NewPlayerAiki;
-import aiki.network.stream.Ok;
-import aiki.network.stream.QuitAiki;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -55,6 +49,8 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.AbstractSocket;
 import code.network.*;
 import code.scripts.messages.gui.MessGuiPkGr;
+import code.sml.Document;
+import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
 import code.stream.AbstractFileCoreStream;
@@ -321,11 +317,18 @@ public final class WindowAiki extends NetGroupFrame {
 
     /**server and client
      Method allowing the client to send a serializable object by its socket
-     @param _serializable the serializable object to be sent
      */
-    public boolean sendObject(Object _serializable) {
-        String str_ = setObject(_serializable);
-        return trySendString(str_, getSocket());
+    public void sendObjectOk() {
+        trySendString(DocumentWriterAikiMultiUtil.ok(), getSocket());
+    }
+    public void sendObject(QuitAiki _serializable) {
+        trySendString(DocumentWriterAikiMultiUtil.playerActionGameAiki(_serializable), getSocket());
+    }
+    public void sendObject(ReadyAiki _serializable) {
+        trySendString(DocumentWriterAikiMultiUtil.playerActionBeforeGameAiki(_serializable), getSocket());
+    }
+    public void sendObject(SentPokemon _serializable) {
+        trySendString(DocumentWriterAikiMultiUtil.sentPokemon(_serializable), getSocket());
     }
     @Override
     public void quit() {
@@ -566,7 +569,7 @@ public final class WindowAiki extends NetGroupFrame {
     }
 
     /**thread safe method*/
-    public void loadRomGame(LoadingGame _configuration, String _path, StringMap<Object> _files, boolean _param, PerCent _p) {
+    public void loadRomGame(LoadingGame _configuration, String _path, StringList _files, boolean _param, PerCent _p) {
         String path_;
         if (!_configuration.getLastRom().isEmpty()) {
             String lastRom_ = StringUtil.replaceBackSlash(_configuration.getLastRom());
@@ -593,8 +596,13 @@ public final class WindowAiki extends NetGroupFrame {
         }
         facade.initializePaginatorTranslations();
         ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadZip(this), getFrames());
-        if (!_files.isEmpty() && _files.values().first() instanceof Game) {
-            if (!facade.checkAndSetGame((Game) _files.values().first())) {
+        Game g_ = null;
+        if (!_files.isEmpty()){
+            String file_ = StreamTextFile.contentsOfFile(_files.first(), getFrames().getFileCoreStream(), getFrames().getStreams());
+            g_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_);
+        }
+        if (g_ != null) {
+            if (!facade.checkAndSetGame(g_)) {
                 loadFlag.set(false);
                 if (_param) {
                     setLoadingConf(_configuration, false);
@@ -1189,11 +1197,12 @@ public final class WindowAiki extends NetGroupFrame {
         NetAiki.getPlacesPlayers(getNet()).put(NetAiki.getSockets(getNet()).size()-1,(byte)(NetAiki.getSockets(getNet()).size()-1));
         NetAiki.sendObject(_newSocket,index_);
     }
-
     @Override
-    public void loop(Object _readObject, AbstractSocket _socket) {
-        if (_readObject instanceof AttemptConnecting) {
-            if (!StringUtil.quickEq(((AttemptConnecting)_readObject).getServerName(), NetAiki.getPokemon())) {
+    public void loop(Document _readObject, AbstractSocket _socket) {
+        Element elt_ = _readObject.getDocumentElement();
+        PlayerActionBeforeGameAiki playerActionBeforeGame_ = DocumentReaderAikiMultiUtil.getPlayerActionBeforeGame(elt_);
+        if (playerActionBeforeGame_ instanceof IndexOfArrivingAiki) {
+            if (!StringUtil.quickEq(((IndexOfArrivingAiki) playerActionBeforeGame_).getServerName(), NetAiki.getPokemon())) {
                 NewPlayerAiki p_ = new NewPlayerAiki();
                 p_.setAcceptable(false);
                 p_.setArriving(true);
@@ -1203,8 +1212,6 @@ public final class WindowAiki extends NetGroupFrame {
                 NetAiki.sendObject(_socket,p_);
                 return;
             }
-        }
-        if (_readObject instanceof IndexOfArrivingAiki) {
             NewPlayerAiki p_ = new NewPlayerAiki();
             p_.setAcceptable(true);
             p_.setArriving(true);
@@ -1219,7 +1226,8 @@ public final class WindowAiki extends NetGroupFrame {
             NetAiki.sendObject(_socket,p_);
             return;
         }
-        if (_readObject == InitTrading.INSTANCE) {
+        String tagName_ = DocumentReaderAikiMultiUtil.tagName(elt_);
+        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_INIT_TRADING,tagName_)) {
             if (indexInGame == IndexConstants.FIRST_INDEX) {
                 facade.initTrading();
                 CheckCompatibility ch_ = new CheckCompatibility();
@@ -1240,8 +1248,14 @@ public final class WindowAiki extends NetGroupFrame {
             }
             return;
         }
-        if (_readObject instanceof NetPokemon) {
-            NetPokemon net_ = (NetPokemon) _readObject;
+        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_OK,tagName_)) {
+            facade.applyTrading();
+            ByteTreeMap< PokemonPlayer> tree_ = facade.getExchangeData().getTeam(facade.getGame().getPlayer().getTeam());
+            scenePanel.setTradableAfterTrading(tree_);
+            pack();
+        }
+        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_NET_POKEMON,tagName_)) {
+            NetPokemon net_ = DocumentReaderAikiMultiUtil.getNetPokemon(elt_);
             if (indexInGame == IndexConstants.SECOND_INDEX) {
                 scenePanel.setNetworkPanel();
             }
@@ -1249,18 +1263,10 @@ public final class WindowAiki extends NetGroupFrame {
             pack();
             return;
         }
-        if (_readObject instanceof PokemonPlayer) {
-            PokemonPlayer pk_ = (PokemonPlayer) _readObject;
+        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_POKEMON_PLAYER,tagName_)) {
+            PokemonPlayer pk_ = DocumentReaderAikiCoreUtil.getPokemonPlayer(elt_);
             facade.receivePokemonPlayer(pk_);
             scenePanel.seeNetPokemonDetail();
-            return;
-        }
-        if (_readObject == Ok.INSTANCE) {
-            facade.applyTrading();
-            ByteTreeMap< PokemonPlayer> tree_ = facade.getExchangeData().getTeam(facade.getGame().getPlayer().getTeam());
-            scenePanel.setTradableAfterTrading(tree_);
-            pack();
-            return;
         }
     }
 
@@ -1577,13 +1583,13 @@ public final class WindowAiki extends NetGroupFrame {
     }
 
     @Override
-    public String setObject(Object _object) {
-        return DocumentWriterAikiMultiUtil.setObject(_object);
+    public Document getDoc(String _object) {
+        return DocumentReaderAikiMultiUtil.getDoc(_object);
     }
 
     @Override
-    public Object getObject(String _object) {
-        return DocumentReaderAikiMultiUtil.getObject(_object);
+    public Exiting getExiting(Document _doc) {
+        return DocumentReaderAikiMultiUtil.getExiting(_doc);
     }
 
     public LoadFlag getLoadFlag() {
