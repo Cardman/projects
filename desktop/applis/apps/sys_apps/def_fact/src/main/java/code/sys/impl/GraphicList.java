@@ -12,6 +12,7 @@ import code.sys.impl.gui.Panel;
 import code.sys.impl.gui.ScrollPane;
 import code.util.CustList;
 import code.util.Ints;
+import code.util.StringList;
 
 public class GraphicList<T> extends CustComponent implements AbsGraphicListCommon, AbsGraphicList<T> {
 
@@ -22,7 +23,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     private final CustList<IndexableListener> indexableKey = new CustList<IndexableListener>();
     private final Ints selectedIndexes;
 
-    private CustCellRender<T> render;
+    private final CustCellRender<T> render;
 
     private ListSelection listener;
 
@@ -39,30 +40,46 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
 
     private boolean enabled = true;
 
-    public GraphicList(boolean _simple, AbsGraphicListPainter _graphicListPainter) {
-        this(_simple, new Ints(), new CustList<T>(), _graphicListPainter);
-        rebuild();
-    }
-
-    protected GraphicList(boolean _simple, Ints _selectedIndexes, CustList<T> _objects, AbsGraphicListPainter _graphicListPainter) {
-        selectedIndexes = new Ints(_selectedIndexes);
-        list = new CustList<T>(_objects);
+    public GraphicList(boolean _simple, AbsGraphicListPainter _graphicListPainter, CustCellRender<T> _render) {
+        selectedIndexes = new Ints();
+        list = new CustList<T>();
         simple = _simple;
         panel = Panel.newPageBox();
         panel.setAutoscrolls(true);
         scroll = new ScrollPane(panel);
         graphicListPainter = _graphicListPainter;
+        render = init(_render);
+        rebuild();
     }
 
-    protected GraphicList(AbstractImageFactory _fact, boolean _simple, Ints _selectedIndexes, CustList<T> _objects, int _visible) {
+    protected GraphicList(boolean _simple, Ints _selectedIndexes, StringList _ls, CustList<T> _objects, AbsGraphicListPainter _graphicListPainter, CustCellRender<T> _render) {
+        selectedIndexes = new Ints(_selectedIndexes);
+        list = new CustList<T>(_objects);
+        simple = _simple;
+        panel = ((DefaultCellRender)_render).getPanel();
+        ((DefaultCellRender)_render).setMaxWidth(FrameUtil.maxWidth(panel,_ls));
+        panel.setAutoscrolls(true);
+        scroll = new ScrollPane(panel);
+        graphicListPainter = _graphicListPainter;
+        render = init(_render);
+    }
+
+    protected GraphicList(AbstractImageFactory _fact, boolean _simple, Ints _selectedIndexes,StringList _ls,  CustList<T> _objects, int _visible, CustCellRender<T> _render) {
         selectedIndexes = new Ints(_selectedIndexes);
         visibleRowCount = _visible;
         list = new CustList<T>(_objects);
         simple = _simple;
-        panel = Panel.newPageBox();
+        panel = ((DefaultCellRender)_render).getPanel();
+        ((DefaultCellRender)_render).setMaxWidth(FrameUtil.maxWidth(panel,_ls));
         panel.setAutoscrolls(true);
         scroll = new ScrollPane(panel);
         graphicListPainter = new DefaultGraphicListPainter(_fact);
+        render = init(_render);
+    }
+
+    private CustCellRender<T> init(CustCellRender<T> _render) {
+        _render.setCurrent(this);
+        return _render;
     }
 
     protected void setList(CustList<T> _list) {
@@ -135,7 +152,6 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
             panel.remove(_index);
             panel.add(_lab,_index);
             listComponents.set(_index, _lab);
-            repaintAdded(_index);
             FrameUtil.singleMultSel(this,_index, _lab);
             return _index;
         } catch (Exception e) {
@@ -392,11 +408,6 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
 
     public void simpleSetListener(ListSelection _listener) {
         listener = _listener;
-    }
-
-    public void setRender(CustCellRender<T> _render) {
-        render = _render;
-        _render.setCurrent(this);
     }
 
     public CustList<T> getList() {

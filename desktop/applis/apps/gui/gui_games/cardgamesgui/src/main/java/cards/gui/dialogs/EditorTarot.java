@@ -168,16 +168,14 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         panneau_.add(liste.self());
         c.add(panneau_,GuiConstants.BORDER_LAYOUT_NORTH);
         pile_.trier(displayingTarot.getSuits(), displayingTarot.isDecreasing());
-        TarotCardsScrollableList plc_=new TarotCardsScrollableList(_parent.getCompoFactory(),nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
-        plc_.initSelectionCarteTarot(_parent);
+        TarotCardsScrollableList plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK));
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         plc_.iniPileTarot(pile_);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards=_parent.getCompoFactory().newLineBox();
         stack = plc_;
         panelsCards.add(plc_.getContainer());
-        plc_=new TarotCardsScrollableList(_parent.getCompoFactory(),nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND), _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
-        plc_.initSelectionCarteTarot(_parent);
+        plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         panelsCards.add(plc_.getContainer());
@@ -193,16 +191,14 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            }
             String message_ = getMessages().getVal(PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, n);
-            plc_=new TarotCardsScrollableList(_parent.getCompoFactory(),nbCartesPJ_,nbCartesPJ_,message_, _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
-            plc_.initSelectionCarteTarot(_parent);
+            plc_=new TarotCardsScrollableList(_parent, nbCartesPJ_,nbCartesPJ_,message_);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
             panelsCards.add(plc_.getContainer());
             hands.add(plc_);
 //            i_++;
         }
-        plc_=new TarotCardsScrollableList(_parent.getCompoFactory(),nbCartesC_,nbCartesC_,getMessages().getVal(REMAINING), _parent.getCardFactories().getGeneTarot().create(_parent.getImageFactory(),false));
-        plc_.initSelectionCarteTarot(_parent);
+        plc_=new TarotCardsScrollableList(_parent, nbCartesC_,nbCartesC_,getMessages().getVal(REMAINING));
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriTarot(displayingTarot.getSuits(), displayingTarot.isDecreasing());
         panelsCards.add(plc_.getContainer());

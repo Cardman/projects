@@ -16,7 +16,7 @@ public final class GraphicListStruct extends InputStruct {
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         super(_className);
         WindowFull window_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getWindow();
-        grList = window_.getFact().getGraphicListGenerator().create(_simple, new AdvGraphicListPainter(window_.getImageFactory(),_ctx.getExecutionInfos()));
+        grList = window_.getFact().getGraphicListGenerator().create(_simple, new AdvGraphicListPainter(window_.getImageFactory(),_ctx.getExecutionInfos()), new DefSpecSelectionCtx(_ctx.getExecutionInfos()));
         init(_ctx);
     }
 

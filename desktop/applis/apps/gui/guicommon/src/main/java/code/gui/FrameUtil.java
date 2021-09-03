@@ -156,9 +156,13 @@ public final class FrameUtil {
 
     public static int maxWidth(AbsGraphicListCommon _current, CustList<String> _list) {
         AbsPanel panel_ = _current.getPanel();
+        return maxWidth(panel_, _list);
+    }
+
+    public static int maxWidth(AbsPanel _current, CustList<String> _list) {
         int width_ = 4;
         for (String s: _list) {
-            width_ = Math.max(width_, panel_.stringWidth(s));
+            width_ = Math.max(width_, _current.stringWidth(s));
         }
         return width_;
     }
@@ -326,9 +330,7 @@ public final class FrameUtil {
     }
 
     public static AbsCustCellRender fwd(AbsCustCellRender _r) {
-        if (_r != null) {
-            _r.fwd();
-        }
+        _r.fwd();
         return _r;
     }
 
@@ -533,10 +535,6 @@ public final class FrameUtil {
     }
 
     public static void reb(AbsGraphicListCommon _curr) {
-        AbsCustCellRender r_ = _curr.getSimpleRender();
-        if (r_ == null) {
-            return;
-        }
         _curr.rebuildAct();
     }
 
@@ -553,12 +551,10 @@ public final class FrameUtil {
     }
 
     public static void repAdd(int _index, AbsCustCellRender _r, CustList<AbsPreparedLabel> _listComponents) {
-        if (_r != null) {
-            _r.fwd();
-            AbsPreparedLabel c_ = _listComponents.get(_index);
-            _r.getListCellRendererComponent(c_, _index, false, false);
-            _r.paintComponent(c_);
-        }
+        _r.fwd();
+        AbsPreparedLabel c_ = _listComponents.get(_index);
+        _r.getListCellRendererComponent(c_, _index, false, false);
+        _r.paintComponent(c_);
     }
 
     public static void singleMultSel(AbsGraphicListCommon _curr, int _index, AbsPreparedLabel _lab) {
@@ -779,5 +775,15 @@ public final class FrameUtil {
 
     private static void set(Ints _ints, int[] _dest, int _i) {
         _dest[_i] = _ints.get(_i);
+    }
+
+    public static void paintLabel(int _render, AbstractImage _g, AbsPreparedLabel _label, String _text, boolean _selected) {
+        int h_ = _label.heightFont();
+        int w_ = _label.stringWidth(_text);
+        if (_selected) {
+            LabelButtonUtil.paintDefaultLabel(_g, _text, w_, _render, h_, GuiConstants.WHITE, GuiConstants.BLUE);
+        } else {
+            LabelButtonUtil.paintDefaultLabel(_g, _text, w_, _render, h_, GuiConstants.BLACK, GuiConstants.WHITE);
+        }
     }
 }

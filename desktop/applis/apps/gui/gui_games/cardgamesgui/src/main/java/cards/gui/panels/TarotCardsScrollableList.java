@@ -16,31 +16,29 @@ import code.util.EnumList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class TarotCardsScrollableList extends CardsScrollableList {
+public final class TarotCardsScrollableList extends CardsScrollableList {
 
     private EnumList<Suit> couleurs;
     private boolean decroissant;
     private final AbsGraphicList<CardTarot> liste;
     private final AbsPlainLabel remCards;
 
-    public TarotCardsScrollableList(AbsCompoFactory _compoFactory, int _nb, int _pmax, String _titre, AbsGraphicList<CardTarot> _liste) {
-        super(_compoFactory);
-        liste = _liste;
+    public TarotCardsScrollableList(WindowCards _window, int _nb, int _pmax, String _titre) {
+        super(_window.getCompoFactory());
+        liste = _window.getCardFactories().getGeneTarot().create(_window.getImageFactory(),false,new CardTarotCellRenderer(_window));
         setMax(_pmax);
-        AbsPlainLabel titrePanneau_ = _compoFactory.newPlainLabel(_titre);
+        AbsPlainLabel titrePanneau_ = _window.getCompoFactory().newPlainLabel(_titre);
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
         getContainer().add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
-        remCards = _compoFactory.newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
+        remCards = _window.getCompoFactory().newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
         getContainer().add(remCards, GuiConstants.BORDER_LAYOUT_SOUTH);
         getContainer().setPreferredSize(new MetaDimension(100,10*(_nb+4)));
     }
-    public void initSelectionCarteTarot(WindowCards _window) {
-        liste.setRender(new CardTarotCellRenderer(_window));
-    }
+
     public void iniPileTarot(HandTarot _main) {
         ajouterCartesTarot(_main);
         initText();

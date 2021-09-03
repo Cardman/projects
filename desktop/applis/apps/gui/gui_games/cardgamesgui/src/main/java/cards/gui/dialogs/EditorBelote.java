@@ -185,8 +185,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         panelsCards=_parent.getCompoFactory().newLineBox();
         HandBelote pile_=HandBelote.pileBase();
         pile_.trier(displayingBelote.getSuits(), displayingBelote.isDecreasing(), displayingBelote.getOrderBeforeBids());
-        BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(_parent.getCompoFactory(), 12,pile_.total(),getMessages().getVal(DEALING_STACK), _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
-        plc_.initSelectionCarteBelote(_parent);
+        BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(_parent, 12,pile_.total(),getMessages().getVal(DEALING_STACK));
+
         plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
         plc_.iniPileBelote(pile_);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
@@ -195,8 +195,8 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //        hands.add(plc_);
         int firstCards_ = getReglesBelote().getRepartition().getFirstCards();
         int lastCards_ = getReglesBelote().getRepartition().getRemainingCards();
-        plc_=new BeloteCardsScrollableList(_parent.getCompoFactory(), firstCards_,firstCards_,getMessages().getVal(USER_HAND), _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
-        plc_.initSelectionCarteBelote(_parent);
+        plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,getMessages().getVal(USER_HAND));
+
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
         panelsCards.add(plc_.getContainer());
@@ -213,16 +213,16 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //            }
             String message_ = getMessages().getVal(PLAYER_HAND);
             message_ = StringUtil.simpleStringsFormat(message_, n);
-            plc_=new BeloteCardsScrollableList(_parent.getCompoFactory(), firstCards_,firstCards_,message_, _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
-            plc_.initSelectionCarteBelote(_parent);
+            plc_=new BeloteCardsScrollableList(_parent, firstCards_,firstCards_,message_);
+
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriBelote(displayingBelote.getSuits(), displayingBelote.getOrderBeforeBids(), displayingBelote.isDecreasing());
             panelsCards.add(plc_.getContainer());
             hands.add(plc_);
 //            i_++;
         }
-        plc_=new BeloteCardsScrollableList(_parent.getCompoFactory(), lastCards_,lastCards_,getMessages().getVal(CST_REMAINING), _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false));
-        plc_.initSelectionCarteBelote(_parent);
+        plc_=new BeloteCardsScrollableList(_parent, lastCards_,lastCards_,getMessages().getVal(CST_REMAINING));
+
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards.add(plc_.getContainer());
         remaining = plc_;

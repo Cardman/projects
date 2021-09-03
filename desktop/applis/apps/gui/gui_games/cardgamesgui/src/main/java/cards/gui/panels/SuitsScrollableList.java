@@ -14,21 +14,20 @@ import code.util.core.IndexConstants;
 
 /**
  */
-public class SuitsScrollableList extends ScrollableList {
+public final class SuitsScrollableList extends ScrollableList {
     private static final String ACCESS = "cards.gui.panels.suitsscrollablelist";
     private static final String SUITS = "suits";
     private StringMap<String> messages = new StringMap<String>();
 //    private EnumList<Suit> suits;
     private final AbsGraphicList<Suit> liste;
-    public SuitsScrollableList(EnumList<Suit> _couleurs, int _nb, WindowCards _window, AbsGraphicList<Suit> _liste) {
+    public SuitsScrollableList(EnumList<Suit> _couleurs, int _nb, WindowCards _window) {
         super(_window.getCompoFactory());
         String lg_ = _window.getLanguageKey();
         messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
         AbsPlainLabel titrePanneau_ = _window.getCompoFactory().newPlainLabel(messages.getVal(SUITS));
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
 //        suits = _couleurs;
-        liste= _liste;
-        liste.setRender(new SuitCellRenderer(_window));
+        liste= _window.getCardFactories().getGeneSuit().create(_window.getImageFactory(),false,new SuitCellRenderer(_window));
         for (Suit couleur_ : _couleurs) {
             liste.add(couleur_);
         }

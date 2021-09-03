@@ -3,6 +3,7 @@ package aiki.gui.components.walk;
 
 
 import aiki.facade.FacadeGame;
+import aiki.gui.WindowAiki;
 import aiki.gui.listeners.PokemonHostEvent;
 import aiki.gui.listeners.PokemonSelectionItems;
 import aiki.gui.listeners.PokemonSelectionMoveTutor;
@@ -22,7 +23,7 @@ import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class TeamPanel {
+public final class TeamPanel {
     public static final String TEAM_PANEL = "aiki.gui.components.walk.teampanel";
 
     private static final String SPACE = " ";
@@ -42,22 +43,22 @@ public class TeamPanel {
     private final AbsPlainLabel nbRemainPlaces;
 
     private final AbsPanel container;
-    public TeamPanel(int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, AbsGraphicList<UsablePokemon> _liste, PokemonRenderer _renderer) {
+    public TeamPanel(WindowAiki _parent, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, boolean _single) {
         facade = _facade;
-        liste = _liste;
-        container = _renderer.getFact().getCompoFactory().newBorder();
+        PokemonRenderer render_ = new PokemonRenderer(_parent.getFrames(), facade, _single);
+        liste = _parent.getAikiFactory().getGeneUsPkPanel().create(_parent.getImageFactory(), true,render_);
+        container = render_.getFact().getCompoFactory().newBorder();
         container.setLoweredBorder();
-        AbsPlainLabel titrePanneau_ = _renderer.getFact().getCompoFactory().newPlainLabel(_titre);
+        AbsPlainLabel titrePanneau_ = render_.getFact().getCompoFactory().newPlainLabel(_titre);
         container.add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
-        renderer = _renderer;
-        liste.setRender(renderer);
+        renderer = render_;
         initFighters(_team,_mess);
         int side_ = facade.getMap().getSideLength();
         container.add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
-        nbRemainPlaces = _renderer.getFact().getCompoFactory().newPlainLabel("");
+        nbRemainPlaces = render_.getFact().getCompoFactory().newPlainLabel("");
         translate(_mess);
         container.add(nbRemainPlaces,GuiConstants.BORDER_LAYOUT_SOUTH);
         container.setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));

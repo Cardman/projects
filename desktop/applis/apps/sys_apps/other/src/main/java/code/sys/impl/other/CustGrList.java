@@ -8,7 +8,6 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.Ints;
 import javax.swing.*;
-import java.util.Arrays;
 
 public class CustGrList<T> extends CustComponent implements AbsGraphicList<T>,AbsGraphicListDef {
 
@@ -19,10 +18,19 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T>,Ab
 	private final CustList<T> elts = new CustList<>();
 	private final IdMap<ListSelection,LocalListSelectionListener> listeners = new IdMap<>();
 
-    public CustGrList(boolean _simple) {
+    public CustGrList(boolean _simple,CustCellRender<T> _render) {
         setup(BoolIntChoiceUtil.choice(new BoolIntChoiceImpl(_simple),
                 ListSelectionModel.SINGLE_SELECTION,
                 ListSelectionModel.MULTIPLE_INTERVAL_SELECTION));
+        CustSelList<T> custSelList_ = new CustSelList<>(elts,_render);
+        list.setCellRenderer(custSelList_);
+    }
+
+    protected CustGrList(boolean _simple,ListCellRenderer<T> _render) {
+        setup(BoolIntChoiceUtil.choice(new BoolIntChoiceImpl(_simple),
+                ListSelectionModel.SINGLE_SELECTION,
+                ListSelectionModel.MULTIPLE_INTERVAL_SELECTION));
+        list.setCellRenderer(_render);
     }
     private void setup(int _value) {
         list.setSelectionMode(_value);
@@ -47,11 +55,6 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T>,Ab
         LocalListSelectionListener val_ = listeners.getVal(_listener);
         list.removeListSelectionListener(val_);
         listeners.removeKey(_listener);
-    }
-
-    public void setRender(CustCellRender<T> _render) {
-		CustSelList<T> r_ = new CustSelList<>(elts,_render);
-        list.setCellRenderer(r_);
     }
 
     public JList<T> getListView() {

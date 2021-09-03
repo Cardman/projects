@@ -12,7 +12,7 @@ public interface AbsGraphicStringList extends AbsGraphicListCommon,AbsGraphicLis
     AbsCompoFactory getCompoFactory();
     void setHeightList(int _height);
     void repaintSelect(int _index, boolean _sel);
-    DefaultCellRender getCellRender();
+
     StringList getElements();
 
     AbsPanel getPanel();

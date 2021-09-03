@@ -4,8 +4,8 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.*;
 
 public final class GraphicListStr extends GraphicList<Struct> implements AbsGraphicListStr {
-    public GraphicListStr(boolean _simple, AbsGraphicListPainter _graphicListPainter) {
-        super(_simple, _graphicListPainter);
+    public GraphicListStr(boolean _simple, AbsGraphicListPainter _graphicListPainter, SpecSelectionCtx _create) {
+        super(_simple, _graphicListPainter,  new DefaultCellRenderStr(_create,_graphicListPainter.getFact()));
     }
 
     @Override

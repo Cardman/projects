@@ -22,8 +22,6 @@ public interface AbsGraphicList<T> {
     boolean isSelectionEmpty();
     boolean isEmpty();
 
-    void setRender(CustCellRender<T> _render);
-
     CustList<T> getList();
 
     int getSelectedValuesLsLen();

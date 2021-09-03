@@ -17,7 +17,7 @@ import code.util.EnumList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class BeloteCardsScrollableList extends CardsScrollableList {
+public final class BeloteCardsScrollableList extends CardsScrollableList {
 
     private EnumList<Suit> couleurs;
     private Order ordre;
@@ -25,24 +25,20 @@ public class BeloteCardsScrollableList extends CardsScrollableList {
     private final AbsGraphicList<CardBelote> liste;
     private final AbsPlainLabel remCards;
 
-    public BeloteCardsScrollableList(AbsCompoFactory _compo, int _nb, int _pmax, String _titre, AbsGraphicList<CardBelote> _liste) {
-        super(_compo);
-        liste = _liste;
+    public BeloteCardsScrollableList(WindowCards _parent, int _nb, int _pmax, String _titre) {
+        super(_parent.getCompoFactory());
+        liste = _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false,new CardBeloteCellRenderer(_parent));
         setMax(_pmax);
-        AbsPlainLabel titrePanneau_ = _compo.newPlainLabel(_titre);
+        AbsPlainLabel titrePanneau_ = _parent.getCompoFactory().newPlainLabel(_titre);
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
         getContainer().add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
-        remCards = _compo.newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
+        remCards = _parent.getCompoFactory().newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
         getContainer().add(remCards, GuiConstants.BORDER_LAYOUT_SOUTH);
         getContainer().setPreferredSize(new MetaDimension(100,10*(_nb+4)));
-    }
-
-    public void initSelectionCarteBelote(WindowCards _window) {
-        liste.setRender(new CardBeloteCellRenderer(_window));
     }
 
     public void iniPileBelote(HandBelote _main) {

@@ -110,7 +110,7 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         for (Suit chaine_:displayingBelote.getSuits()) {
             liste_.add(chaine_);
         }
-        orderedSuits=new SuitsScrollableList(liste_,4, _window, _window.getCardFactories().getGeneSuit().create(_window.getImageFactory(),false));
+        orderedSuits=new SuitsScrollableList(liste_,4, _window);
         liste_.clear();
         panneau_.add(orderedSuits.getContainer());
         //Panneau Tri avant enchere (Atout)

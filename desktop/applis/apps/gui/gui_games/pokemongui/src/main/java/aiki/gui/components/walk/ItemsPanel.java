@@ -3,6 +3,7 @@ package aiki.gui.components.walk;
 
 
 import aiki.facade.FacadeGame;
+import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
@@ -10,7 +11,7 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class ItemsPanel {
+public final class ItemsPanel {
 
     private static final String SPACE = " ";
 
@@ -24,18 +25,17 @@ public class ItemsPanel {
 
     private final AbsPanel container;
 
-    public ItemsPanel(AbstractProgramInfos _fact, int _nb, String _titre, FacadeGame _facade, AbsGraphicList<String> _liste) {
-        liste = _liste;
+    public ItemsPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
+        liste = _window.getAikiFactory().getGeneItPanel().create(_window.getImageFactory(),true,new ItemRenderer(_window.getFrames().getImageFactory(),_facade));
         facade = _facade;
-        container = _fact.getCompoFactory().newBorder();
-        amount = _fact.getCompoFactory().newPlainLabel("");
+        container = _window.getFrames().getCompoFactory().newBorder();
+        amount = _window.getFrames().getCompoFactory().newPlainLabel("");
         container.setLoweredBorder();
-        AbsPlainLabel titrePanneau_ = _fact.getCompoFactory().newPlainLabel(_titre);
+        AbsPlainLabel titrePanneau_ = _window.getFrames().getCompoFactory().newPlainLabel(_titre);
         container.add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
-        liste.setRender(new ItemRenderer(_fact.getImageFactory(),facade));
         initItems();
         int side_ = facade.getMap().getSideLength();
         container.add(liste.self(),GuiConstants.BORDER_LAYOUT_CENTER);

@@ -9,8 +9,8 @@ import code.gui.SpecSelectionStruct;
 import javax.swing.*;
 
 public final class CustGrListStr extends CustGrList<Struct> implements AbsCustGraphicListStr {
-    public CustGrListStr(boolean _simple) {
-        super(_simple);
+    public CustGrListStr(boolean _simple, SpecSelectionCtx _create) {
+        super(_simple,new DefSelListStr(_create,new DefaultListCellRenderer()));
     }
 
     @Override

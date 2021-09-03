@@ -24,10 +24,6 @@ public abstract class CustCellRender<T> implements AbsCustCellRender {
         setList(listGr.getList());
     }
 
-    public AbsGraphicList<T> getListGr() {
-        return listGr;
-    }
-
     public void setList(CustList<T> _list) {
         this.list = new CustList<T>(_list);
     }

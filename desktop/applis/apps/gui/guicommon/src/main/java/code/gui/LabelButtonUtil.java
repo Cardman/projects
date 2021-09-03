@@ -36,20 +36,20 @@ public final class LabelButtonUtil {
         _label.drawString(_text, 1, _h);
     }
 
-    public static AbstractImage repaintSelected(int _index, boolean _sel, AbsGraphicStringList _curr) {
+    public static AbstractImage repaintSelected(int _index, boolean _sel, AbsGraphicStringList _curr, DefaultCellRender _simpleRender) {
         String elt_ = _curr.getElements().get(_index);
         AbsPanel panel_ = _curr.getPanel();
         _curr.setHeightList(Math.max(_curr.getHeightList(),panel_.heightFont()));
-        _curr.getCellRender().setMaxWidth(Math.max(_curr.getCellRender().getMaxWidth(),panel_.stringWidth(elt_)));
-        AbstractImage buff_ = _curr.getFact().newImageRgb(_curr.getCellRender().getWidth(),panel_.heightFont());
+        _simpleRender.setMaxWidth(Math.max(_simpleRender.getMaxWidth(),panel_.stringWidth(elt_)));
+        AbstractImage buff_ = _curr.getFact().newImageRgb(_simpleRender.getWidth(),panel_.heightFont());
 //        CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
         buff_.setFont(panel_);
         int h_ = panel_.heightFont();
         int w_ = panel_.stringWidth(elt_);
         if (_sel) {
-            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, GuiConstants.WHITE, GuiConstants.BLUE);
+            paintDefaultLabel(buff_, elt_, w_, _simpleRender.getMaxWidth(), h_, GuiConstants.WHITE, GuiConstants.BLUE);
         } else {
-            paintDefaultLabel(buff_, elt_, w_, _curr.getCellRender().getMaxWidth(), h_, GuiConstants.BLACK, GuiConstants.WHITE);
+            paintDefaultLabel(buff_, elt_, w_, _simpleRender.getMaxWidth(), h_, GuiConstants.BLACK, GuiConstants.WHITE);
         }
         return buff_;
     }
@@ -58,7 +58,7 @@ public final class LabelButtonUtil {
         AbsPanel panel_ =  _curr.getPanel();
         int len_ =  _curr.getElements().size();
         for (int i = 0; i < len_; i++) {
-            AbstractImage buff_ = repaintSelected(i,  _curr.getSelectedIndexes().containsObj(i), _curr);
+            AbstractImage buff_ = repaintSelected(i,  _curr.getSelectedIndexes().containsObj(i), _curr, (DefaultCellRender)_curr.getSimpleRender());
             AbsPreparedLabel lab_ = _curr.getCompoFactory().newPreparedLabel(buff_);
             _curr.getListComponents().add(lab_);
             panel_.add(lab_);

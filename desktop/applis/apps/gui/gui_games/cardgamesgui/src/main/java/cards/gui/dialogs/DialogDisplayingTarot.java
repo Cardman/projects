@@ -113,7 +113,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         for (Suit chaine_:displayingTarot.getSuits()) {
             liste_.add(chaine_);
         }
-        orderedSuits=new SuitsScrollableList(liste_,5, _window, _window.getCardFactories().getGeneSuit().create(_window.getImageFactory(),false));
+        orderedSuits=new SuitsScrollableList(liste_,5, _window);
         liste_.clear();
         sousPanneau_.add(orderedSuits.getContainer());
         getJt().add(messages.getVal(SORTING),sousPanneau_);

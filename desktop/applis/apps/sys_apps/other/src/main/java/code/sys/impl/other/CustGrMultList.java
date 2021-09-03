@@ -1,7 +1,9 @@
 package code.sys.impl.other;
 
 import code.gui.*;
+import code.gui.images.AbstractImageFactory;
 import code.sys.impl.gui.CustComponent;
+import code.sys.impl.gui.Panel;
 import code.util.CustList;
 import code.util.Ints;
 
@@ -11,12 +13,8 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
 
     private final CustGrList<String> compo;
 
-    public CustGrMultList(boolean _simple) {
-        compo = new CustGrList<>(_simple);
-    }
-
-    public void setRender(CustCellRender<String> _render) {
-        compo.setRender(_render);
+    public CustGrMultList(boolean _simple, AbstractImageFactory _fact) {
+        compo = new CustGrList<>(_simple, new DefaultCellRender(_fact, Panel.newPageBox()));
     }
 
     public void add(String _elt) {

@@ -16,31 +16,27 @@ import code.util.EnumList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class PresidentCardsScrollableList extends CardsScrollableList {
+public final class PresidentCardsScrollableList extends CardsScrollableList {
 
     private EnumList<Suit> couleurs;
     private boolean decroissant;
     private final AbsGraphicList<CardPresident> liste;
     private final AbsPlainLabel remCards;
 
-    public PresidentCardsScrollableList(AbsCompoFactory _compoFactory, int _nb, int _pmax, String _titre, AbsGraphicList<CardPresident> _liste) {
-        super(_compoFactory);
-        liste = _liste;
+    public PresidentCardsScrollableList(WindowCards _parent, int _nb, int _pmax, String _titre) {
+        super(_parent.getCompoFactory());
+        liste = _parent.getCardFactories().getGenePresident().create(_parent.getImageFactory(),false,new CardPresidentCellRenderer(_parent));
         setMax(_pmax);
-        AbsPlainLabel titrePanneau_ = _compoFactory.newPlainLabel(_titre);
+        AbsPlainLabel titrePanneau_ = _parent.getCompoFactory().newPlainLabel(_titre);
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb);
         setNbCartesRestantes(_pmax);
         getContainer().add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
-        remCards = _compoFactory.newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
+        remCards = _parent.getCompoFactory().newPlainLabel(StringUtil.concatNbs(PLS,getNbCartesRestantes()));
         getContainer().add(remCards, GuiConstants.BORDER_LAYOUT_SOUTH);
         getContainer().setPreferredSize(new MetaDimension(100,10*(_nb+4)));
-    }
-
-    public void initSelectionCartePresident(WindowCards _window) {
-        liste.setRender(new CardPresidentCellRenderer(_window));
     }
 
     public void iniPilePresident(HandPresident _main) {

@@ -6,12 +6,12 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
+import code.sys.impl.gui.Panel;
 import code.util.Ints;
 import code.util.StringList;
 
 public final class GraphicStringList extends GraphicList<String> implements AbsGraphicStringList, Input {
 
-    private final DefaultCellRender cellRender;
     private final StringList elements;
     private int heightList = 1;
     private final AbstractImageFactory fact;
@@ -21,12 +21,9 @@ public final class GraphicStringList extends GraphicList<String> implements AbsG
     }
 
     private GraphicStringList(AbstractImageFactory _fact, AbsCompoFactory _compoFactory, boolean _simple, StringList _objects, Ints _selectedIndexes) {
-        super(_simple, _selectedIndexes, _objects, new DefaultGraphicListPainter(_fact));
+        super(_simple, _selectedIndexes,_objects, _objects, new DefaultGraphicListPainter(_fact), new DefaultCellRender(_fact, Panel.newPageBox()));
         fact = _fact;
         compoFactory = _compoFactory;
-        cellRender = new DefaultCellRender(_fact);
-        cellRender.setMaxWidth(getMaxWidth());
-        setRender(cellRender);
         elements = _objects;
         setList(elements);
         rebuild();
@@ -61,17 +58,13 @@ public final class GraphicStringList extends GraphicList<String> implements AbsG
     }
 
     public void repaintSelect(int _index, boolean _sel) {
-        AbstractImage buff_ = LabelButtonUtil.repaintSelected(_index, _sel, this);
+        AbstractImage buff_ = LabelButtonUtil.repaintSelected(_index, _sel, this, (DefaultCellRender)getSimpleRender());
         AbsPreparedLabel lab_ = getListComponents().get(_index);
         lab_.setIcon(fact,buff_);
     }
 
     public StringList getElements() {
         return elements;
-    }
-
-    public DefaultCellRender getCellRender() {
-        return cellRender;
     }
 
     @Override

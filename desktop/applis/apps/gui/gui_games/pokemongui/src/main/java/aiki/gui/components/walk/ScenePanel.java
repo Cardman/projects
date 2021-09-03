@@ -923,7 +923,7 @@ public class ScenePanel {
             panelMenu.setVisible(false);
             disableFishing();
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS_CT) {
-            tmPanel = new TmPanel(window.getFrames(),5, messages.getVal(TM_TITLE), facade, window.getAikiFactory().getGeneTmPanel().create(window.getImageFactory(),true));
+            tmPanel = new TmPanel(window,5, messages.getVal(TM_TITLE), facade);
             AbsPanel set_ = compoFactory.newPageBox();
             AbsPlainButton selectItem_ = window.getCompoFactory().newPlainButton(messages.getVal(TM_SELECT));
             selectItem_.addActionListener(new AddTmEvent(this));
@@ -944,7 +944,7 @@ public class ScenePanel {
             buy.setSelected(true);
             buy.addActionListener(new BuyOrSellEvent(this));
             set_.add(buy);
-            itemsPan = new ItemsPanel(window.getFrames(), 2, messages.getVal(ITEM_TITLE), facade, window.getAikiFactory().getGeneItPanel().create(window.getImageFactory(),true));
+            itemsPan = new ItemsPanel(window, 2, messages.getVal(ITEM_TITLE), facade);
             AbsPlainButton selectItem_ = window.getCompoFactory().newPlainButton(messages.getVal(ITEM_SELECT));
             selectItem_.addActionListener(new SelectItemForListEvent(this));
             set_.add(selectItem_);
@@ -999,11 +999,7 @@ public class ScenePanel {
     }
 
     private TeamPanel initTeam(ByteTreeMap<UsablePokemon> _team, String _key, boolean _single) {
-        return new TeamPanel(2, messages.getVal(_key), facade, _team, messagesTeamPanel, window.getAikiFactory().getGeneUsPkPanel().create(window.getImageFactory(), true), render(_single));
-    }
-
-    private PokemonRenderer render(boolean _single) {
-        return new PokemonRenderer(window.getFrames(), facade, _single);
+        return new TeamPanel(window,2, messages.getVal(_key), facade, _team, messagesTeamPanel, _single);
     }
 
     private void disableFishing() {

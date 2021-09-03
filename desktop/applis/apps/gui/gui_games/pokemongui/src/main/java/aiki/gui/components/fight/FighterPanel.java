@@ -4,6 +4,7 @@ package aiki.gui.components.fight;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
+import aiki.gui.WindowAiki;
 import aiki.gui.listeners.BackFighterSelection;
 import aiki.gui.listeners.FighterSelection;
 import aiki.gui.listeners.FrontFighterSelection;
@@ -12,7 +13,7 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 
-public class FighterPanel {
+public final class FighterPanel {
 
     private final AbsPlainLabel title;
 
@@ -22,17 +23,16 @@ public class FighterPanel {
 
     private final AbsPanel container;
 
-    public FighterPanel(AbstractProgramInfos _fact, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters, AbsGraphicList<Fighter> _liste) {
-        liste = _liste;
+    public FighterPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters) {
+        liste = _window.getAikiFactory().getGeneFighter().create(_window.getImageFactory(),true,new FighterRenderer(_window.getFrames().getImageFactory(),_facade));
         facade = _facade;
-        container = _fact.getCompoFactory().newBorder();
+        container = _window.getFrames().getCompoFactory().newBorder();
         container.setLoweredBorder();
-        title = _fact.getCompoFactory().newPlainLabel(_titre);
+        title = _window.getFrames().getCompoFactory().newPlainLabel(_titre);
         container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
-        liste.setRender(new FighterRenderer(_fact.getImageFactory(),facade));
         initFighters(_fighters);
         container.add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
         container.setPreferredSize(new MetaDimension(150,64*_nb));

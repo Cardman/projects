@@ -13,10 +13,17 @@ public final class DefaultCellRender extends CustCellRender<String> {
     private String text;
     private boolean selected;
     private final AbstractImageFactory fact;
+    private final AbsPanel panel;
 
-    public DefaultCellRender(AbstractImageFactory _fact) {
+    public DefaultCellRender(AbstractImageFactory _fact, AbsPanel _panel) {
         fact = _fact;
+        panel = _panel;
     }
+
+    public AbsPanel getPanel() {
+        return panel;
+    }
+
     @Override
     public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
@@ -44,14 +51,9 @@ public final class DefaultCellRender extends CustCellRender<String> {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        int h_ = label.heightFont();
-        int w_ = label.stringWidth(text);
-        if (selected) {
-            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getMaxWidth(), h_, GuiConstants.WHITE, GuiConstants.BLUE);
-        } else {
-            LabelButtonUtil.paintDefaultLabel(_g, text, w_, getMaxWidth(), h_, GuiConstants.BLACK, GuiConstants.WHITE);
-        }
+        FrameUtil.paintLabel(getMaxWidth(),_g, label, text, selected);
     }
+
     @Override
     public int getHeight() {
         return label.heightFont();
