@@ -152,9 +152,9 @@ public final class GuiConstants {
     }
 
     public static int newColor(int _r,int _g, int _b, int _a) {
-        long av_ = range(_a) * 256 * 256 * 256;
-        long rv_ = range(_r) * 256 * 256;
-        long gv_ = range(_g) * 256;
+        long av_ = range(_a) * 256 * 256 * 256L;
+        long rv_ = range(_r) * 256 * 256L;
+        long gv_ = range(_g) * 256L;
         return (int) (av_ + rv_ + gv_ + _b);
     }
     public static int newColor(int _r,int _g, int _b) {
