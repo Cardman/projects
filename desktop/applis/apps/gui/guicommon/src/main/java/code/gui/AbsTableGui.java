@@ -35,6 +35,8 @@ public interface AbsTableGui extends AbsCustComponent {
     boolean isMultiSelect();
 
     void setMultiSelect(boolean _value);
+    void setMultiSelect();
+    void setSingleSelect();
 
     boolean isReorderingAllowed();
 

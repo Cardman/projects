@@ -7,6 +7,7 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
 import code.gui.AbsSplitPane;
+import code.gui.GuiConstants;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class SplitPaneStruct extends CustComponentStruct {
@@ -15,7 +16,11 @@ public final class SplitPaneStruct extends CustComponentStruct {
     private Struct right;
     protected SplitPaneStruct(String _className, Struct _orient, Struct _left, Struct _right, AbsCompoFactory _compoFactory) {
         super(_className);
-        splitPane = _compoFactory.newAbsSplitPane(((NumberStruct)_orient).intStruct(),((CustComponentStruct)_left).getComponent(),((CustComponentStruct)_right).getComponent());
+        if (GuiConstants.toSplitOrientation(((NumberStruct)_orient).intStruct()) == GuiConstants.HORIZONTAL_SPLIT) {
+            splitPane = _compoFactory.newHorizontalSplitPane(((CustComponentStruct)_left).getComponent(),((CustComponentStruct)_right).getComponent());
+        } else {
+            splitPane = _compoFactory.newVerticalSplitPane(((CustComponentStruct)_left).getComponent(),((CustComponentStruct)_right).getComponent());
+        }
         left = _left;
         right = _right;
     }

@@ -1,73 +1,69 @@
 package code.gui;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
 public final class GuiConstants {
 
     public static final String FOLDER_MESSAGES_GUI = "resources_gui/gui/components";
-    public static final int HAND_CURSOR = Cursor.HAND_CURSOR;
-    public static final int HORIZONTAL_SPLIT = JSplitPane.HORIZONTAL_SPLIT;
-    public static final int ERROR_MESSAGE = JOptionPane.ERROR_MESSAGE;
-    public static final int WARNING_MESSAGE = JOptionPane.WARNING_MESSAGE;
-    public static final int INFORMATION_MESSAGE = JOptionPane.INFORMATION_MESSAGE;
-    public static final int YES_NO_OPTION = JOptionPane.YES_NO_OPTION;
-    public static final int YES_NO_CANCEL_OPTION = JOptionPane.YES_NO_CANCEL_OPTION;
-    public static final int NO_OPTION = JOptionPane.NO_OPTION;
-    public static final int YES_OPTION = JOptionPane.YES_OPTION;
-    public static final int CANCEL_OPTION = JOptionPane.CANCEL_OPTION;
-    public static final int OK_OPTION = JOptionPane.OK_OPTION;
-    public static final String BORDER_LAYOUT_CENTER = BorderLayout.CENTER;
-    public static final String BORDER_LAYOUT_SOUTH = BorderLayout.SOUTH;
-    public static final String BORDER_LAYOUT_EAST = BorderLayout.EAST;
-    public static final String BORDER_LAYOUT_NORTH = BorderLayout.NORTH;
-    public static final String BORDER_LAYOUT_WEST = BorderLayout.WEST;
-    public static final String BORDER_LAYOUT_BEFORE_FIRST_LINE = BorderLayout.BEFORE_FIRST_LINE;
-    public static final String BORDER_LAYOUT_AFTER_LAST_LINE = BorderLayout.AFTER_LAST_LINE;
-    public static final String BORDER_LAYOUT_BEFORE_LINE_BEGINS = BorderLayout.BEFORE_LINE_BEGINS;
-    public static final String BORDER_LAYOUT_AFTER_LINE_ENDS = BorderLayout.AFTER_LINE_ENDS;
-    public static final int CTRL_DOWN_MASK = InputEvent.CTRL_DOWN_MASK;
-    public static final int SHIFT_DOWN_MASK = InputEvent.SHIFT_DOWN_MASK;
-    public static final int ALT_DOWN_MASK = InputEvent.ALT_DOWN_MASK;
-    public static final int VK_A = KeyEvent.VK_A;
-    public static final int VK_B = KeyEvent.VK_B;
-    public static final int VK_C = KeyEvent.VK_C;
-    public static final int VK_D = KeyEvent.VK_D;
-    public static final int VK_E = KeyEvent.VK_E;
-    public static final int VK_F = KeyEvent.VK_F;
-    public static final int VK_G = KeyEvent.VK_G;
-    public static final int VK_H = KeyEvent.VK_H;
-    public static final int VK_I = KeyEvent.VK_I;
-    public static final int VK_J = KeyEvent.VK_J;
-    public static final int VK_K = KeyEvent.VK_K;
-    public static final int VK_L = KeyEvent.VK_L;
-    public static final int VK_M = KeyEvent.VK_M;
-    public static final int VK_N = KeyEvent.VK_N;
-    public static final int VK_O = KeyEvent.VK_O;
-    public static final int VK_P = KeyEvent.VK_P;
-    public static final int VK_Q = KeyEvent.VK_Q;
-    public static final int VK_R = KeyEvent.VK_R;
-    public static final int VK_S = KeyEvent.VK_S;
-    public static final int VK_T = KeyEvent.VK_T;
-    public static final int VK_U = KeyEvent.VK_U;
-    public static final int VK_V = KeyEvent.VK_V;
-    public static final int VK_W = KeyEvent.VK_W;
-    public static final int VK_X = KeyEvent.VK_X;
-    public static final int VK_Y = KeyEvent.VK_Y;
-    public static final int VK_Z = KeyEvent.VK_Z;
-    public static final int VK_ESCAPE = KeyEvent.VK_ESCAPE;
-    public static final int VK_F1 = KeyEvent.VK_F1;
-    public static final int VK_F2 = KeyEvent.VK_F2;
-    public static final int VK_F3 = KeyEvent.VK_F3;
-    public static final int VK_UP = KeyEvent.VK_UP;
-    public static final int VK_DOWN = KeyEvent.VK_DOWN;
-    public static final int VK_LEFT = KeyEvent.VK_LEFT;
-    public static final int VK_RIGHT = KeyEvent.VK_RIGHT;
-    public static final int VK_ENTER = KeyEvent.VK_ENTER;
-    public static final int BOLD = Font.BOLD;
-    public static final int ITALIC = Font.ITALIC;
-    public static final int PLAIN = Font.PLAIN;
+    public static final int HAND_CURSOR = 12;
+    public static final int HORIZONTAL_SPLIT = 1;
+    public static final int ERROR_MESSAGE = 0;
+    public static final int WARNING_MESSAGE = 2;
+    public static final int INFORMATION_MESSAGE = 1;
+    public static final int YES_NO_OPTION = 0;
+    public static final int YES_NO_CANCEL_OPTION = 1;
+    public static final int NO_OPTION = 1;
+    public static final int YES_OPTION = 0;
+    public static final int CANCEL_OPTION = 2;
+    public static final int OK_OPTION = 0;
+    public static final String BORDER_LAYOUT_CENTER = "Center";
+    public static final String BORDER_LAYOUT_SOUTH = "South";
+    public static final String BORDER_LAYOUT_EAST = "East";
+    public static final String BORDER_LAYOUT_NORTH = "North";
+    public static final String BORDER_LAYOUT_WEST = "West";
+    public static final String BORDER_LAYOUT_BEFORE_FIRST_LINE = "First";
+    public static final String BORDER_LAYOUT_AFTER_LAST_LINE = "Last";
+    public static final String BORDER_LAYOUT_BEFORE_LINE_BEGINS = "Before";
+    public static final String BORDER_LAYOUT_AFTER_LINE_ENDS = "After";
+    public static final int CTRL_DOWN_MASK = 128;
+    public static final int SHIFT_DOWN_MASK = 64;
+    public static final int ALT_DOWN_MASK = 512;
+    public static final int VK_A = 'A';
+    public static final int VK_B = 'B';
+    public static final int VK_C = 'C';
+    public static final int VK_D = 'D';
+    public static final int VK_E = 'E';
+    public static final int VK_F = 'F';
+    public static final int VK_G = 'G';
+    public static final int VK_H = 'H';
+    public static final int VK_I = 'I';
+    public static final int VK_J = 'J';
+    public static final int VK_K = 'K';
+    public static final int VK_L = 'L';
+    public static final int VK_M = 'M';
+    public static final int VK_N = 'N';
+    public static final int VK_O = 'O';
+    public static final int VK_P = 'P';
+    public static final int VK_Q = 'Q';
+    public static final int VK_R = 'R';
+    public static final int VK_S = 'S';
+    public static final int VK_T = 'T';
+    public static final int VK_U = 'U';
+    public static final int VK_V = 'V';
+    public static final int VK_W = 'W';
+    public static final int VK_X = 'X';
+    public static final int VK_Y = 'Y';
+    public static final int VK_Z = 'Z';
+    public static final int VK_ESCAPE = 27;
+    public static final int VK_F1 = 112;
+    public static final int VK_F2 = 113;
+    public static final int VK_F3 = 114;
+    public static final int VK_UP = 38;
+    public static final int VK_DOWN = 40;
+    public static final int VK_LEFT = 37;
+    public static final int VK_RIGHT = 39;
+    public static final int VK_ENTER = 10;
+    public static final int BOLD = 1;
+    public static final int ITALIC = 2;
+    public static final int PLAIN = 0;
     public static final int WHITE = -1;
     public static final int BLACK = (int) (256*256*256*255L);
     public static final int RED = (int) (256*256*256*255L+256*256*255L);
@@ -78,53 +74,55 @@ public final class GuiConstants {
     public static final int ORANGE = (int) (256*256*256*255L+256*256*255L+256*200L);
     public static final int MAGENTA = (int) (256*256*256*255L+256*256*255L+255L);
     public static final int CYAN = (int) (256*256*256*255L+256*255L+255L);
-    public static final int DO_NOTHING_ON_CLOSE = WindowConstants.DO_NOTHING_ON_CLOSE;
-    public static final int HIDE_ON_CLOSE = WindowConstants.HIDE_ON_CLOSE;
-    public static final int EXIT_ON_CLOSE = WindowConstants.EXIT_ON_CLOSE;
-    public static final int DISPOSE_ON_CLOSE = WindowConstants.DISPOSE_ON_CLOSE;
-    public static final int CENTER = SwingConstants.CENTER;
-    public static final int RIGHT = SwingConstants.RIGHT;
-    public static final int TOP = SwingConstants.TOP;
+    public static final int DO_NOTHING_ON_CLOSE = 0;
+    public static final int HIDE_ON_CLOSE = 1;
+    public static final int EXIT_ON_CLOSE = 3;
+    public static final int DISPOSE_ON_CLOSE = 2;
+    public static final int CENTER = 0;
+    public static final int RIGHT = 4;
+    public static final int TOP = 1;
+    public static final int VERTICAL = 1;
+    public static final int HORIZONTAL = 0;
 
     private GuiConstants() {
     }
 
     public static int toSplitOrientation(int _orientation) {
-        if (_orientation == JSplitPane.VERTICAL_SPLIT) {
+        if (_orientation == 0) {
             return _orientation;
         }
         return HORIZONTAL_SPLIT;
     }
 
     public static int getOrient(int _o) {
-        if (_o == SwingConstants.VERTICAL) {
-            return SwingConstants.VERTICAL;
+        if (_o == VERTICAL) {
+            return VERTICAL;
         }
-        return SwingConstants.HORIZONTAL;
+        return HORIZONTAL;
     }
 
-    public static boolean isHorizProgress(int _orientation) {
-        return _orientation == SwingConstants.HORIZONTAL;
-    }
-
-    public static int getHoriz(boolean _bool) {
-        int value_;
-        if (_bool) {
-            value_ = SwingConstants.HORIZONTAL;
+    public static void setOrient(AbsSlider _slider,int _o) {
+        if (getOrient(_o) == HORIZONTAL) {
+            _slider.setHorizontal();
         } else {
-            value_ = SwingConstants.VERTICAL;
+            _slider.setVertical();
         }
-        return value_;
     }
 
-    public static int getSelectTable(boolean _mult) {
-        int value_;
+    public static void setHorizProg(AbsProgressBar _bar, boolean _horiz) {
+        if (_horiz) {
+            _bar.setHorizontal();
+        } else {
+            _bar.setVertical();
+        }
+    }
+
+    public static void setSelectTable(AbsTableGui _table,boolean _mult) {
         if (_mult) {
-            value_ = ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
+            _table.setMultiSelect();
         } else {
-            value_ = ListSelectionModel.SINGLE_SELECTION;
+            _table.setSingleSelect();
         }
-        return value_;
     }
 
     public static int fontStyle(boolean _bold, boolean _italic) {
@@ -199,7 +197,4 @@ public final class GuiConstants {
         return Math.min(Math.max(0, _value),255);
     }
 
-    public static boolean isMultiSelect(int _selectionMode) {
-        return _selectionMode == ListSelectionModel.MULTIPLE_INTERVAL_SELECTION;
-    }
 }

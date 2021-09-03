@@ -133,7 +133,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         scrTable_.setPreferredSize(new MetaDimension(256,96));
         AbsScrollPane scrRes_ = parent.getCompoFactory().newAbsScrollPane(results);
         scrRes_.setPreferredSize(new MetaDimension(256,96));
-        AbsSplitPane splitPane_ = parent.getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,scrTable_,scrRes_);
+        AbsSplitPane splitPane_ = parent.getCompoFactory().newHorizontalSplitPane(scrTable_,scrRes_);
         splitPane_.setOneTouchExpandable(true);
         progressing.add(splitPane_);
         contentPane.add(progressing);

@@ -16,4 +16,6 @@ public interface AbsProgressBar extends AbsCustComponent {
     void setMaximum(int _value);
 
     void setHorizontal(boolean _value);
+    void setHorizontal();
+    void setVertical();
 }

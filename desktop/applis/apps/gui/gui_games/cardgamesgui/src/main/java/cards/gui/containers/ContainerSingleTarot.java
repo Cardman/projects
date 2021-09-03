@@ -131,7 +131,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setExcludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
         AbsScrollPane scrollExc_ = getOwner().getCompoFactory().newAbsScrollPane(getExcludedTrumpsForHandful());
         scrollExc_.setPreferredSize(new MetaDimension(125,60));
-        setDeclaringHandful(getOwner().getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,scrollIncl_,scrollExc_));
+        setDeclaringHandful(getOwner().getCompoFactory().newHorizontalSplitPane(scrollIncl_,scrollExc_));
         getDeclaringHandful().setContinuousLayout(true);
         getDeclaringHandful().setOneTouchExpandable(true);
         setScrollDeclaringHandful(getOwner().getCompoFactory().newAbsScrollPane(getDeclaringHandful()));

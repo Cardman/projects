@@ -193,7 +193,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
             folderSystem = superFrame.getCompoFactory().newTreeGui(default_);
             folderSystem.setRootVisible(false);
         }
-        AbsSplitPane fileSelector_ = getSuperFrame().getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,compoFactory.newAbsScrollPane(folderSystem.getTree()),compoFactory.newAbsScrollPane(fileTable));
+        AbsSplitPane fileSelector_ = getSuperFrame().getCompoFactory().newHorizontalSplitPane(compoFactory.newAbsScrollPane(folderSystem.getTree()),compoFactory.newAbsScrollPane(fileTable));
         folderSystem.addTreeSelectionListener(new DeployTreeEvent(this));
         contentPane_.add(fileSelector_, GuiConstants.BORDER_LAYOUT_CENTER);
         contentPane_.add(openSaveFile_, GuiConstants.BORDER_LAYOUT_SOUTH);

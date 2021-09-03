@@ -14,7 +14,8 @@ public final class Slider extends CustComponent implements AbsSlider {
         slider = new JSlider();
     }
     public Slider(int _o) {
-        slider = new JSlider(GuiConstants.getOrient(_o));
+        slider = new JSlider(SwingConstants.HORIZONTAL);
+        setOrientation(_o);
     }
     public Slider(int _min,int _max) {
         slider = new JSlider(_min,_max);
@@ -23,7 +24,8 @@ public final class Slider extends CustComponent implements AbsSlider {
         slider = new JSlider(_min,_max,_v);
     }
     public Slider(int _o,int _min,int _max,int _v) {
-        slider = new JSlider(GuiConstants.getOrient(_o),_min,_max,_v);
+        slider = new JSlider(SwingConstants.HORIZONTAL,_min,_max,_v);
+        setOrientation(_o);
     }
 
     public void addChangeListener(AbsChangeListener _l) {
@@ -59,8 +61,19 @@ public final class Slider extends CustComponent implements AbsSlider {
     }
 
     public void setOrientation(int _orientation) {
-        slider.setOrientation(GuiConstants.getOrient(_orientation));
+        GuiConstants.setOrient(this,_orientation);
     }
+
+    @Override
+    public void setVertical() {
+        slider.setOrientation(SwingConstants.VERTICAL);
+    }
+
+    @Override
+    public void setHorizontal() {
+        slider.setOrientation(SwingConstants.HORIZONTAL);
+    }
+
     @Override
     public JComponent getNatComponent() {
         return slider;

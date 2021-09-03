@@ -139,7 +139,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         }
 //        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         if (wasNull_) {
-            separateur = _w.getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,
+            separateur = _w.getCompoFactory().newHorizontalSplitPane(
                     _w.getCompoFactory().newAbsScrollPane(arbre_.getTree()), editor.getScroll());
             separateur.setPreferredSize(new MetaDimension(600, 550));
             separateur.setDividerLocation(150);

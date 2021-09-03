@@ -6,11 +6,11 @@ import code.gui.GuiConstants;
 import javax.swing.*;
 
 public final class ProgressBar extends CustComponent implements AbsProgressBar {
+    private boolean horizontal = true;
     private final JProgressBar progressBar = new JProgressBar();
 
     public boolean isHorizontal() {
-        int orientation_ = progressBar.getOrientation();
-        return GuiConstants.isHorizProgress(orientation_);
+        return horizontal;
     }
 
     public int getValue() {
@@ -26,8 +26,18 @@ public final class ProgressBar extends CustComponent implements AbsProgressBar {
     }
 
     public void setHorizontal(boolean _bool) {
-        int value_ = GuiConstants.getHoriz(_bool);
-        progressBar.setOrientation(value_);
+        horizontal = _bool;
+        GuiConstants.setHorizProg(this,_bool);
+    }
+
+    @Override
+    public void setHorizontal() {
+        progressBar.setOrientation(SwingConstants.HORIZONTAL);
+    }
+
+    @Override
+    public void setVertical() {
+        progressBar.setOrientation(SwingConstants.VERTICAL);
     }
 
     public void setValue(int _n) {

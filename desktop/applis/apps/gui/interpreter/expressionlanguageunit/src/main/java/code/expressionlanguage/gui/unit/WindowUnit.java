@@ -123,7 +123,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         scrTable_.setPreferredSize(new MetaDimension(256,96));
         AbsScrollPane scrRes_ = getCompoFactory().newAbsScrollPane(results);
         scrRes_.setPreferredSize(new MetaDimension(256,96));
-        AbsSplitPane splitPane_ = getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,scrTable_,scrRes_);
+        AbsSplitPane splitPane_ = getCompoFactory().newHorizontalSplitPane(scrTable_,scrRes_);
         splitPane_.setOneTouchExpandable(true);
         progressing.add(splitPane_);
         contentPane.add(progressing);

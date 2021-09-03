@@ -94,8 +94,13 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsSplitPane newAbsSplitPane(int _split, AbsCustComponent _left, AbsCustComponent _right) {
-        return new SplitPane(_split,_left,_right);
+    public AbsSplitPane newHorizontalSplitPane(AbsCustComponent _left, AbsCustComponent _right) {
+        return SplitPane.horizontal(_left,_right);
+    }
+
+    @Override
+    public AbsSplitPane newVerticalSplitPane(AbsCustComponent _left, AbsCustComponent _right) {
+        return SplitPane.vertical(_left,_right);
     }
 
     @Override

@@ -3,7 +3,6 @@ package code.sys.impl.gui;
 import code.gui.AbsCustComponent;
 import code.gui.AbsSplitPane;
 import code.gui.FrameUtil;
-import code.gui.GuiConstants;
 
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
@@ -12,8 +11,18 @@ public final class SplitPane extends CustComponent implements AbsSplitPane {
 
     private final JSplitPane component;
 
-    public SplitPane(int _orientation, AbsCustComponent _left, AbsCustComponent _right) {
-        component = new JSplitPane(GuiConstants.toSplitOrientation(_orientation),((CustComponent)_left).getNatComponent(),((CustComponent) _right).getNatComponent());
+    private SplitPane(JSplitPane _component, AbsCustComponent _left, AbsCustComponent _right) {
+        component = _component;
+        procParents(_left, _right);
+    }
+    public static SplitPane vertical(AbsCustComponent _left, AbsCustComponent _right) {
+        return new SplitPane(new JSplitPane(JSplitPane.VERTICAL_SPLIT, ((CustComponent)_left).getNatComponent(), ((CustComponent)_right).getNatComponent()),_left,_right);
+    }
+    public static SplitPane horizontal(AbsCustComponent _left, AbsCustComponent _right) {
+        return new SplitPane(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, ((CustComponent)_left).getNatComponent(), ((CustComponent)_right).getNatComponent()),_left,_right);
+    }
+
+    private void procParents(AbsCustComponent _left, AbsCustComponent _right) {
         _left.setParent(this);
         getChildren().add(_left);
         _right.setParent(this);

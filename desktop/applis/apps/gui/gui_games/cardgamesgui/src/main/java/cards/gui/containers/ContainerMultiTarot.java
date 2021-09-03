@@ -778,7 +778,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setExcludedTrumpsForHandful(getOwner().getCompoFactory().newLineBox());
         AbsScrollPane scrollExc_ = getOwner().getCompoFactory().newAbsScrollPane(getExcludedTrumpsForHandful());
         scrollExc_.setPreferredSize(new MetaDimension(125,60));
-        setDeclaringHandful(getOwner().getCompoFactory().newAbsSplitPane(GuiConstants.HORIZONTAL_SPLIT,scrollInc_,scrollExc_));
+        setDeclaringHandful(getOwner().getCompoFactory().newHorizontalSplitPane(scrollInc_,scrollExc_));
         getDeclaringHandful().setContinuousLayout(true);
         getDeclaringHandful().setOneTouchExpandable(true);
         setScrollDeclaringHandful(getOwner().getCompoFactory().newAbsScrollPane(getDeclaringHandful()));

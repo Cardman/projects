@@ -21,6 +21,8 @@ public final class TableGui extends CustComponent implements AbsTableGui {
 
     private final DefaultTableModel model;
 
+    private boolean multiSelect = true;
+
     public TableGui(String... _cols) {
         DefaultTableModel d_ = newModel(_cols);
         table = new JTable(d_);
@@ -94,13 +96,22 @@ public final class TableGui extends CustComponent implements AbsTableGui {
     }
 
     public boolean isMultiSelect() {
-        int selectionMode_ = table.getSelectionModel().getSelectionMode();
-        return GuiConstants.isMultiSelect(selectionMode_);
+        return multiSelect;
     }
 
     public void setMultiSelect(boolean _mult) {
-        int value_ = GuiConstants.getSelectTable(_mult);
-        table.getSelectionModel().setSelectionMode(value_);
+        multiSelect = _mult;
+        GuiConstants.setSelectTable(this,_mult);
+    }
+
+    @Override
+    public void setMultiSelect() {
+        table.getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+    }
+
+    @Override
+    public void setSingleSelect() {
+        table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     private ListSelectionModel getSelectionModel() {

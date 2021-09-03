@@ -20,7 +20,8 @@ public interface AbsSlider extends AbsCustComponent {
     int getOrientation();
 
     void setOrientation(int _value);
-
+    void setHorizontal();
+    void setVertical();
     boolean isEnabled();
 
     void setEnabled(boolean _value);
