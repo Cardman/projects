@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.gui.images.MetaPoint;
+
 public interface AbsTextArea extends AbsCustComponent {
     void insert(String _text, int _offset);
     void forceInsert(String _str, int _pos);
@@ -34,4 +36,6 @@ public interface AbsTextArea extends AbsCustComponent {
     void selectAll();
 
     void setEditable(boolean _value);
+
+    int viewToModel(MetaPoint _point);
 }

@@ -18,7 +18,6 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T>,Ab
 	private final ScrollPane custScroll = new ScrollPane(scroll);
 	private final CustList<T> elts = new CustList<>();
 	private final IdMap<ListSelection,LocalListSelectionListener> listeners = new IdMap<>();
-	private CustCellRender<T> inner;
 
     public CustGrList(boolean _simple) {
         setup(BoolIntChoiceUtil.choice(new BoolIntChoiceImpl(_simple),
@@ -50,11 +49,9 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T>,Ab
         listeners.removeKey(_listener);
     }
 
-    public CustCellRender<T> getRender() {return inner;}
     public void setRender(CustCellRender<T> _render) {
 		CustSelList<T> r_ = new CustSelList<>(elts,_render);
-		inner = _render;
-		list.setCellRenderer(r_);
+        list.setCellRenderer(r_);
     }
 
     public JList<T> getListView() {

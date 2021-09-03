@@ -163,8 +163,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
 
     protected void repaintAdded(int _index) {
-        AbsCustCellRender r_ = getRender();
-        FrameUtil.repAdd(_index, r_, listComponents);
+        FrameUtil.repAdd(_index, render, listComponents);
     }
 
     protected IndexableListener buildSingleSelect(AbsPreparedLabel _lab,int _index) {
@@ -203,7 +202,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
 
     @Override
     public AbsCustCellRender getSimpleRender() {
-        return getRender();
+        return render;
     }
 
     public void rebuildAct() {
@@ -330,8 +329,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
 
     public AbsCustCellRender setted() {
-        AbsCustCellRender r_ = getRender();
-        return FrameUtil.fwd(r_);
+        return FrameUtil.fwd(render);
     }
 
     public void clearSelection() {
@@ -394,10 +392,6 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
 
     public void simpleSetListener(ListSelection _listener) {
         listener = _listener;
-    }
-
-    public CustCellRender<T> getRender() {
-        return render;
     }
 
     public void setRender(CustCellRender<T> _render) {

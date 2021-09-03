@@ -2,6 +2,7 @@ package code.sys.impl.gui;
 
 import code.gui.AbsTextArea;
 import code.gui.FrameUtil;
+import code.gui.images.MetaPoint;
 
 import javax.swing.*;
 import java.awt.*;
@@ -294,5 +295,10 @@ public final class TextArea extends CustComponent implements AbsTextArea {
 
     public boolean isEnabled() {
         return textArea.isEnabled();
+    }
+
+    @Override
+    public int viewToModel(MetaPoint _point) {
+        return textArea.viewToModel(new Point(_point.getXcoord(), _point.getYcoord()));
     }
 }

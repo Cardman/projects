@@ -15,7 +15,6 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
         compo = new CustGrList<>(_simple);
     }
 
-    public CustCellRender<String> getRender() {return compo.getRender();}
     public void setRender(CustCellRender<String> _render) {
         compo.setRender(_render);
     }

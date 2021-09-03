@@ -4,8 +4,10 @@ import code.gui.AbsCustComponent;
 import code.gui.AbsMetaLabel;
 import code.gui.AbsScrollPane;
 import code.gui.FrameUtil;
+import code.gui.images.MetaRect;
 
 import javax.swing.*;
+import java.awt.*;
 
 public final class ScrollPane extends CustComponent implements AbsScrollPane {
 
@@ -55,5 +57,17 @@ public final class ScrollPane extends CustComponent implements AbsScrollPane {
     }
     public void setVerticalValue(int _value) {
         component.getVerticalScrollBar().setValue(_value);
+    }
+
+    @Override
+    public MetaRect viewRect() {
+        try {
+            Rectangle viewRect_ = component.getViewport().getViewRect();
+            Point location_ = viewRect_.getLocation();
+            return new MetaRect(location_.x,location_.y,viewRect_.width,viewRect_.height);
+        } catch (Exception e) {
+            return new MetaRect(-1,-1,-1,-1);
+        }
+
     }
 }

@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.gui.images.MetaRect;
+
 public interface AbsScrollPane extends AbsCustComponent {
     void setViewportView(AbsCustComponent _graphic);
     void setNullViewportView();
@@ -7,4 +9,5 @@ public interface AbsScrollPane extends AbsCustComponent {
     void setHorizontalValue(int _value);
     int getVerticalValue();
     void setVerticalValue(int _value);
+    MetaRect viewRect();
 }
