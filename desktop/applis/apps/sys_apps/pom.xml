@@ -19,6 +19,7 @@
 		<module>other_fact</module>
 		<module>def</module>
 		<module>def_standalones</module>
+		<module>def_back</module>
 		<module>infos</module>
 	</modules>
 </project>

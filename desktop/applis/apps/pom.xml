@@ -21,6 +21,7 @@
 		<module>sys_apps</module>
 		<module>main</module>
 		<module>other_main</module>
+		<module>young</module>
 	</modules>
 	<build>
 		<plugins>
