@@ -8,8 +8,11 @@ import cards.president.enumerations.CardPresident;
 import cards.tarot.enumerations.CardTarot;
 import code.sys.impl.*;
 
-public class LaunchingCardsSys extends LaunchingCards {
+public final class LaunchingCardsSys extends LaunchingCards {
     public LaunchingCardsSys() {
         super(new DefProgramInfos(),new CardFactories(new GraphicListGenerator<CardBelote>(), new GraphicListGenerator<CardPresident>(), new GraphicListGenerator<CardTarot>(), new GraphicListGenerator<Suit>()));
+    }
+    public static void loadLaungage(String[] _args) {
+        LaunchingCards.loadLaungage(_args,new LaunchingCardsSys());
     }
 }

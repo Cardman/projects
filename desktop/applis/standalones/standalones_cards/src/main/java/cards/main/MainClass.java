@@ -2,10 +2,10 @@ package cards.main;
 
 import code.sys.LaunchingCardsSys;
 
-public final class MainClass extends LaunchingCardsSys {
+public final class MainClass {
 
     public static void main(String[] _args) {
-        loadLaungage(_args, new LaunchingCardsSys());
+        LaunchingCardsSys.loadLaungage(_args);
     }
 
 }

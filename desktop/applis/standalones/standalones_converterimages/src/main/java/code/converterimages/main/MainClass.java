@@ -2,9 +2,9 @@ package code.converterimages.main;
 
 import code.sys.LaunchingConverterSys;
 
-public class MainClass extends LaunchingConverterSys {
+public class MainClass {
 
     public static void main(String[] _args) {
-        loadLaungage(_args, new LaunchingConverterSys());
+        LaunchingConverterSys.loadLaungage(_args);
     }
 }

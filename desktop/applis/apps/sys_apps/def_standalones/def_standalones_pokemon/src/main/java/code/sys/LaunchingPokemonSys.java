@@ -7,8 +7,11 @@ import aiki.main.LaunchingPokemon;
 import aiki.map.pokemon.UsablePokemon;
 import code.sys.impl.*;
 
-public class LaunchingPokemonSys extends LaunchingPokemon {
+public final class LaunchingPokemonSys extends LaunchingPokemon {
     public LaunchingPokemonSys() {
         super(new DefProgramInfos(), new AikiFactory(new GraphicListGenerator<BallNumberRate>(), new GraphicListGenerator<Fighter>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<UsablePokemon>()));
+    }
+    public static void loadLaungage(String[] _args) {
+        LaunchingPokemon.loadLaungage(_args,new LaunchingPokemonSys());
     }
 }

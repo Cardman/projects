@@ -14,9 +14,12 @@ import code.expressionlanguage.guicompos.GuiFactroy;
 import code.expressionlanguage.structs.Struct;
 import code.sys.impl.*;
 
-public class LaunchingApplicationsSys extends LaunchingApplications {
+public final class LaunchingApplicationsSys extends LaunchingApplications {
 
     public LaunchingApplicationsSys() {
         super(new DefProgramInfos(), new CardFactories(new GraphicListGenerator<CardBelote>(), new GraphicListGenerator<CardPresident>(), new GraphicListGenerator<CardTarot>(), new GraphicListGenerator<Suit>()), new AikiFactory(new GraphicListGenerator<BallNumberRate>(), new GraphicListGenerator<Fighter>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<String>(), new GraphicListGenerator<UsablePokemon>()), new GuiFactroy(new GraphicListGeneratorStr()));
+    }
+    public static void loadLaungage(String[] _args) {
+        LaunchingApplications.loadLaungage(_args,new LaunchingApplicationsSys());
     }
 }

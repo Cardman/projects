@@ -2,9 +2,9 @@ package code.expressionlanguage.main.gui;
 
 import code.sys.LaunchingFullSys;
 
-public class MainClass extends LaunchingFullSys {
+public class MainClass {
 
     public static void main(String[] _args) {
-        loadLaungage(_args, new LaunchingFullSys());
+        LaunchingFullSys.loadLaungage(_args);
     }
 }

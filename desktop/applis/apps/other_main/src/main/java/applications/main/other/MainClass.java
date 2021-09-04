@@ -7,9 +7,9 @@ import code.expressionlanguage.guicompos.GuiFactroy;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sys.impl.*;
 
-public final class MainClass extends LaunchingApplicationsSysOther {
+public final class MainClass {
 
     public static void main(String... _args) {
-        loadLaungage(_args, new LaunchingApplicationsSysOther());
+        LaunchingApplicationsSysOther.loadLaungage(_args);
     }
 }

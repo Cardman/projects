@@ -6,8 +6,11 @@ import code.sys.impl.GraphicComboBoxGenerator;
 import code.sys.impl.GraphicStringListGenerator;
 import code.sys.impl.ProgramInfos;
 
-public class LaunchingAppUnitTestsSys extends LaunchingAppUnitTests {
+public final class LaunchingAppUnitTestsSys extends LaunchingAppUnitTests {
     public LaunchingAppUnitTestsSys() {
         super(new DefProgramInfos());
+    }
+    public static void loadLaungage(String[] _args) {
+        LaunchingAppUnitTests.loadLaungage(_args,new LaunchingAppUnitTestsSys());
     }
 }
