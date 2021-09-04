@@ -4,9 +4,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
+import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.MethodMetaInfo;
@@ -51,8 +51,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
             init = true;
         }
         globalOffset(ann_.getDefaultValueOffset());
-        ExpressionLanguage el_ = getCurrentEl(0,ops);
-        Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0, _stack);
+        Argument ret_ = ExecHelperBlocks.tryToCalculate(_context,0, _stack,ops,0, null);
         if (_context.callsOrException(_stack)) {
             return false;
         }

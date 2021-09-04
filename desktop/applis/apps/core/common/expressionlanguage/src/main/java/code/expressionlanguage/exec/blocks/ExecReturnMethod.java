@@ -6,9 +6,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.util.CustList;
-import code.util.core.IndexConstants;
 
 public final class ExecReturnMethod extends ExecAbstractExpressionReturnMethod {
 
@@ -23,8 +21,7 @@ public final class ExecReturnMethod extends ExecAbstractExpressionReturnMethod {
     public void processEl(ContextEl _cont, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.globalOffset(getExpressionOffset());
-        ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
+        Argument arg_ = ExecHelperBlocks.tryToCalculate(_cont,0, _stack,getExp(),0, this);
         if (_cont.callsOrException(_stack)) {
             return;
         }

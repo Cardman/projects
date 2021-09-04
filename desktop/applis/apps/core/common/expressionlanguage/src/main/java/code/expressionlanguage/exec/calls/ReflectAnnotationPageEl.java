@@ -5,10 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotableParamBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
@@ -57,8 +57,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 for (int j = indexAnnotation; j < lenLoc_; j++) {
                     ExecAnnotContent ops_ = annotationsParams.get(i).get(j);
                     globalOffset(ops_.getOffset());
-                    ExpressionLanguage el_ = getCurrentEl(0,ops_.getOperations());
-                    Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0, _stack);
+                    Argument ret_ = ExecHelperBlocks.tryToCalculate(_context,0,_stack,ops_.getOperations(),0,null);
                     if (_context.callsOrException(_stack)) {
                         return false;
                     }
@@ -77,8 +76,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         for (int i = indexAnnotation; i < len_; i++) {
             ExecAnnotContent ops_ = annotations.get(i);
             globalOffset(ops_.getOffset());
-            ExpressionLanguage el_ = getCurrentEl(0,ops_.getOperations());
-            Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0, _stack);
+            Argument ret_ = ExecHelperBlocks.tryToCalculate(_context,0,_stack,ops_.getOperations(),0, null);
             if (_context.callsOrException(_stack)) {
                 return false;
             }

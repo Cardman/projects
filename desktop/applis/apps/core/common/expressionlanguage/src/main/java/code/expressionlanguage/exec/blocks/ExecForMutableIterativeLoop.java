@@ -3,8 +3,6 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class ExecForMutableIterativeLoop extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
@@ -30,11 +28,6 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         this.importedClassName = _importedClassName;
         this.importedClassIndexName = _importedClassIndexName;
         this.variableNames = _variableNames;
-    }
-
-    @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        return ExecHelperBlocks.elFor(_indexProcess, init, exp, step);
     }
 
     @Override

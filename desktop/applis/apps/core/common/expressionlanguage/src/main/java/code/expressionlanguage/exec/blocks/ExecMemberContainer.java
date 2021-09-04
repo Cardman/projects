@@ -2,14 +2,12 @@ package code.expressionlanguage.exec.blocks;
 
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
-import code.util.core.IndexConstants;
 
-public abstract class ExecMemberContainer implements BuildingEl {
+public abstract class ExecMemberContainer {
 
     private CustList<ExecOperationNode> opValue;
 
@@ -22,21 +20,20 @@ public abstract class ExecMemberContainer implements BuildingEl {
         this.trOffset = _trOffset;
     }
 
-    @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        return opValue;
-    }
-
-    public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
+    public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last, ExecBlock _coveredBlock) {
         _last.globalOffset(offset);
-        ExpressionLanguage el_ = _last.getCurrentEl(_cont, this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        ExpressionLanguage.tryToCalculate(_cont,el_, trOffset, _stack);
+        ExecHelperBlocks.tryToCalculate(_cont,0,_stack, opValue, trOffset, _coveredBlock);
         if (_cont.callsOrException(_stack)) {
             return;
         }
         _last.clearCurrentEls();
         ExecHelperBlocks.processMemberBlock(_last);
     }
+
+    public CustList<ExecOperationNode> getOpValue() {
+        return opValue;
+    }
+
     public void setOpValue(CustList<ExecOperationNode> _opValue) {
         this.opValue = _opValue;
     }

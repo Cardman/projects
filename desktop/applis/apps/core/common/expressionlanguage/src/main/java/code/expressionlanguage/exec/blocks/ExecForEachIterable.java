@@ -23,7 +23,7 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
         String className_ = _stack.formatVarType(getImportedClassName());
         Struct struct_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
         ip_.putValueVar(getVariableName(), LocalVariable.newLocalVariable(struct_,className_));
-        iteratorHasNext(_cont, _l, _stack);
+        iteratorHasNext(_cont, _l, _stack, this);
     }
 
     @Override
@@ -38,25 +38,12 @@ public final class ExecForEachIterable extends ExecAbstractForEachLoop {
 
     @Override
     protected ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
-        return iteratorHasNext(_conf, _l, _stack);
+        return iteratorHasNext(_conf, _l, _stack, this);
     }
 
-    @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        if (_indexProcess == 0) {
-            return getOpList();
-        }
-        if (_indexProcess == 1) {
-            return _context.getClasses().getExpsIteratorCust();
-        }
-        if (_indexProcess == 2) {
-            return _context.getClasses().getExpsHasNextCust();
-        }
-        return _context.getClasses().getExpsNextCust();
-    }
-    private ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall) {
+    private static ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, ExecBlock _coveredBlock) {
         String locName_ = _conf.getClasses().getHasNextVarCust();
-        return ExecHelperBlocks.hasNext(_conf, _l, _stackCall, locName_, this);
+        return ExecHelperBlocks.hasNext(_conf, _l, _stackCall, locName_, _conf.getClasses().getExpsHasNextCust(), _coveredBlock);
     }
 
 }

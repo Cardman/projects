@@ -1204,7 +1204,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void setArgumentExp() {
-        ExpressionLanguage ex_ = new ExpressionLanguage(new CustList<ExecOperationNode>());
+        ExpressionLanguage ex_ = new ExpressionLanguage(new CustList<ExecOperationNode>(), null);
         ex_.setArgument(null,null, null);
         assertEq(0,ex_.getIndex());
     }

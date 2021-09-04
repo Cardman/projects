@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.CommonMethodPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.structs.*;
@@ -6546,8 +6547,8 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         lv_.setClassName(_className);
         stackCall_.getLastPage().putValueVar(_var, lv_);
         stackCall_.getLastPage().setGlobalArgumentStruct(fresh_);
-        ExpressionLanguage el_ = new ExpressionLanguage(f_.getElementContent().getEl(cont_,0));
-        Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0, stackCall_);
+        ExpressionLanguage el_ = new ExpressionLanguage(f_.getElementContent().getOpValue(), f_);
+        Argument arg_ = tryToCalculate(cont_, el_, 0, stackCall_);
         assertNull(stackCall_.getCallingState());
         return arg_;
 
@@ -6567,8 +6568,8 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         lv_.setClassName(_className);
         stackCall_.getLastPage().getRefParams().put(_var, new VariableWrapper(lv_));
         stackCall_.getLastPage().setGlobalArgumentStruct(fresh_);
-        ExpressionLanguage el_ = new ExpressionLanguage(f_.getElementContent().getEl(cont_,0));
-        Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0, stackCall_);
+        ExpressionLanguage el_ = new ExpressionLanguage(f_.getElementContent().getOpValue(), f_);
+        Argument arg_ = tryToCalculate(cont_, el_, 0, stackCall_);
         assertNull(stackCall_.getCallingState());
         return arg_;
 
@@ -6589,8 +6590,8 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         lv_.setClassName(_className);
         stackCall_.getLastPage().putValueVar(var_, lv_);
         stackCall_.getLastPage().setGlobalArgumentStruct(fresh_);
-        ExpressionLanguage el_ = new ExpressionLanguage(f_.getElementContent().getEl(cont_, 0));
-        Argument arg_ = ExpressionLanguage.tryToCalculate(cont_, el_, 0, stackCall_);
+        ExpressionLanguage el_ = new ExpressionLanguage(f_.getElementContent().getOpValue(), f_);
+        Argument arg_ = tryToCalculate(cont_, el_, 0, stackCall_);
         assertNull(stackCall_.getCallingState());
         return arg_;
     }
@@ -6599,8 +6600,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ExecRootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
         ExecutingUtil.addPage(_context,new CommonMethodPageEl(new ExecFormattedRootBlock(cl_,"code.formathtml.classes.Apply")), _stackCall);
         ExecFieldBlock f_ = fetchField(cl_);
-        ExpressionLanguage el_ = new ExpressionLanguage(f_.getElementContent().getEl(_context,0));
-        return ExpressionLanguage.tryToCalculate(_context,el_,0, _stackCall);
+        ExpressionLanguage el_ = new ExpressionLanguage(f_.getElementContent().getOpValue(), f_);
+        return tryToCalculate(_context,el_,0, _stackCall);
+    }
+
+    public static Argument tryToCalculate(ContextEl _conf, ExpressionLanguage _right, int _offset, StackCall _stackCall) {
+        ArgumentsPair argumentsPair_ = ExpressionLanguage.tryToCalculatePair(_conf, _right, _offset, _stackCall);
+        return ExpressionLanguage.getNullable(argumentsPair_);
     }
 
     private static ExecFieldBlock fetchField(ExecRootBlock _cl) {

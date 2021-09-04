@@ -22,7 +22,7 @@ public final class FieldInitPageEl extends AbstractInitPageEl {
         //initializing instance fields in the type walk through
         ExecBlock en_ = getBlock();
         if (en_ instanceof ExecFieldBlock) {
-            ((ExecFieldBlock)en_).getElementContent().processEl(_context,_stack,this);
+            ((ExecFieldBlock)en_).getElementContent().processEl(_context,_stack,this, en_);
             return;
         }
         if (en_ instanceof ExecAnnotationMethodBlock) {

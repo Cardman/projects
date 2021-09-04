@@ -37,7 +37,7 @@ public final class StaticInitPageEl extends AbstractInitPageEl {
         //initializing static fields in the type walk through
         ExecBlock en_ = getBlock();
         if (en_ instanceof ExecInfoBlock) {
-            ((ExecInfoBlock)en_).getElementContent().processEl(_context,_stack,this);
+            ((ExecInfoBlock)en_).getElementContent().processEl(_context,_stack,this, en_);
             return;
         }
         block(_stack, processedBlocks);

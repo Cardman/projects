@@ -418,26 +418,27 @@ public final class Coverage {
         }
         FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
         AbstractCoverageResult covTwo_ = fctRes_.getCoversConditions().getVal(_condition);
-        covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
-        if (_exec.getArgument() != null) {
-            covTwo_.fullCover();
-        } else {
-            covTwo_.cover(_value);
-        }
+        covCond(_value, _exec, _stackCall, covTwo_);
     }
+
     public void passConditionsForMutable(ExecBlock _condition, Argument _value, ExecOperationNode _exec, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
         FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
         AbstractCoverageResult covTwo_ = fctRes_.getCoversConditionsForMutable().getVal(_condition);
-        covTwo_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
+        covCond(_value, _exec, _stackCall, covTwo_);
+    }
+
+    private static void covCond(Argument _value, ExecOperationNode _exec, StackCall _stackCall, AbstractCoverageResult _result) {
+        _result.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         if (_exec.getArgument() != null) {
-            covTwo_.fullCover();
+            _result.fullCover();
         } else {
-            covTwo_.cover(_value);
+            _result.cover(_value);
         }
     }
+
     public void passSwitch(ExecBlock _parent, ExecResultCase _child, Argument _value, StackCall _stackCall) {
         if (!isCovering()) {
             return;
@@ -533,7 +534,6 @@ public final class Coverage {
     }
 
     private AbsBk matchBl(RootBlock _rootBlock, AbstractPageEl _lastPage) {
-        ExecBlock en_ = _lastPage.getBlock();
         AbsBk matchBl_;
         if (_lastPage instanceof ReflectAnnotationPageEl) {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)_lastPage;
@@ -557,6 +557,7 @@ public final class Coverage {
             ExecAnnotationMethodBlock annotMeth_ = annotRet_.getAnnotMethod();
             matchBl_ = types.get(_rootBlock.getNumberAll()).getMappingFields().getVal(annotMeth_);
         } else {
+            ExecBlock en_ = _lastPage.getCoveredBlock();
             if (en_ instanceof ExecInfoBlock || en_ instanceof ExecAnnotationMethodBlock) {
                 matchBl_ = types.get(_rootBlock.getNumberAll()).getMappingFields().getVal(en_);
             } else {

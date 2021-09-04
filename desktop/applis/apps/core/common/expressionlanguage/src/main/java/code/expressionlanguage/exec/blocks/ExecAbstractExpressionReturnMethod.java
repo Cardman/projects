@@ -15,11 +15,10 @@ public abstract class ExecAbstractExpressionReturnMethod extends ExecAbstractRet
     public void removeBlockFinally(ContextEl _conf, StackCall _stack) {
         tryReturn(_stack);
     }
-    @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
+
+    public CustList<ExecOperationNode> getExp() {
         return exp.getList();
     }
-
 
     protected int getExpressionOffset() {
         return exp.getOffset();

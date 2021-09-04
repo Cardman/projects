@@ -34,11 +34,6 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
     }
 
     @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        return value.getList();
-    }
-
-    @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
         ExecHelperBlocks.processSwitch(_cont, _stack, label, value, this);
     }

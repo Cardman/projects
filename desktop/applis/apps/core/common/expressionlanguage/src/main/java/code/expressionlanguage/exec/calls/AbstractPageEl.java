@@ -130,18 +130,10 @@ public abstract class AbstractPageEl {
     public abstract void processTagsBase(ContextEl _context, StackCall _stack);
 
 
-    public ExpressionLanguage getCurrentEl(ContextEl _context, BuildingEl _block, int _index, int _indexProcess) {
+    public ExpressionLanguage getCurrentEl(int _index, CustList<ExecOperationNode> _e, ExecBlock _coveredBlock) {
         ExpressionLanguage el_ = getNullableExp(_index);
         if (el_ == null) {
-            el_ = new ExpressionLanguage(_block.getEl(_context, _indexProcess));
-            currentEls.add(el_);
-        }
-        return el_;
-    }
-    public ExpressionLanguage getCurrentEl(int _index, CustList<ExecOperationNode> _e) {
-        ExpressionLanguage el_ = getNullableExp(_index);
-        if (el_ == null) {
-            el_ = new ExpressionLanguage(_e);
+            el_ = new ExpressionLanguage(_e, _coveredBlock);
             currentEls.add(el_);
         }
         return el_;
@@ -234,6 +226,9 @@ public abstract class AbstractPageEl {
 
     public boolean isEmptyEl() {
         return currentEls.isEmpty();
+    }
+    public ExecBlock getCoveredBlock() {
+        return getLastEl().getCoveredBlock();
     }
     private ExpressionLanguage getLastEl() {
         return currentEls.last();

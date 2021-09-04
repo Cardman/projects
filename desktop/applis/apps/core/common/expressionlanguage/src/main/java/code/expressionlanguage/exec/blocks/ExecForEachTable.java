@@ -3,10 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.LoopVariable;
-import code.expressionlanguage.exec.Classes;
-import code.util.CustList;
 import code.util.StringMap;
 
 public final class ExecForEachTable extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
@@ -34,27 +31,6 @@ public final class ExecForEachTable extends ExecBracedBlock implements Stackable
         this.variableNameFirst = _variableNameFirst;
         this.variableNameSecond = _variableNameSecond;
         expression = _expression;
-    }
-
-    @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        if (_indexProcess == 0) {
-            return expression.getList();
-        }
-        Classes cls_ = _context.getClasses();
-        if (_indexProcess == 1) {
-            return cls_.getExpsIteratorTableCust();
-        }
-        if (_indexProcess == 2) {
-            return cls_.getExpsHasNextPairCust();
-        }
-        if (_indexProcess == 3) {
-            return cls_.getExpsNextPairCust();
-        }
-        if (_indexProcess == 4) {
-            return cls_.getExpsFirstCust();
-        }
-        return cls_.getExpsSecondCust();
     }
 
     @Override

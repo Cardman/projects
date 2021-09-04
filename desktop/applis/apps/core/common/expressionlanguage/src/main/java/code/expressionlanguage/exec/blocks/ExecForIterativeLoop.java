@@ -6,14 +6,12 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.StringMap;
 
 public abstract class ExecForIterativeLoop extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
@@ -50,11 +48,6 @@ public abstract class ExecForIterativeLoop extends ExecBracedBlock implements St
         _l.getContent().setFinished(true);
         _conf.getCoverage().passLoop(_loop, new Argument(BooleanStruct.of(false)), _stack);
 
-    }
-
-    @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        return ExecHelperBlocks.elFor(_indexProcess, init, exp, step);
     }
 
     @Override

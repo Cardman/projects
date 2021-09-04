@@ -2,8 +2,6 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.util.CustList;
 
 public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotEmptyEl {
 
@@ -22,11 +20,6 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
 
     public boolean isCallInts() {
         return callInts;
-    }
-
-    @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        return exp.getList();
     }
 
     @Override

@@ -100,10 +100,6 @@ public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements
 
     protected abstract ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stack);
 
-    protected CustList<ExecOperationNode> getOpList() {
-        return expression.getList();
-    }
-
     protected String getVariableName() {
         return variableName;
     }

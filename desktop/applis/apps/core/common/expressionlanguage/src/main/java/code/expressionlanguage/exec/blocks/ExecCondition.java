@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
@@ -15,12 +14,6 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
 
     protected ExecOperationNodeListOff getCondition() {
         return condition;
-    }
-
-    @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context,
-                                    int _indexProcess) {
-        return condition.getList();
     }
 
 }

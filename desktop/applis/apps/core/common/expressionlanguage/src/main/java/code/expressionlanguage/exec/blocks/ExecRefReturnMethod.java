@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -19,8 +18,7 @@ public final class ExecRefReturnMethod extends ExecAbstractExpressionReturnMetho
     public void processEl(ContextEl _cont, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.globalOffset(getExpressionOffset());
-        ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        ArgumentsPair argumentsPair_ = ExpressionLanguage.tryToCalculatePair(_cont, el_, 0, _stack);
+        ArgumentsPair argumentsPair_ = ExecHelperBlocks.tryToCalculatePair(_cont, IndexConstants.FIRST_INDEX, _stack, getExp(), 0, this);
         if (argumentsPair_ == null) {
             return;
         }

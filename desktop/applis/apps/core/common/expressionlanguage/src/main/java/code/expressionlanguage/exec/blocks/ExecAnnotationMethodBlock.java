@@ -11,16 +11,13 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.opers.ExecAnnotationMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.core.IndexConstants;
 
-public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock implements
-        BuildingEl {
+public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
 
     private final int defaultValueOffset;
 
@@ -49,15 +46,9 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         this.opValue = _opValue;
     }
 
-    @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        return getOpValue();
-    }
-
     public void processEl(ContextEl _cont, StackCall _stack, AbstractInitPageEl _last) {
         _last.globalOffset(defaultValueOffset);
-        ExpressionLanguage el_ = _last.getCurrentEl(_cont,this, IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX);
-        Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0, _stack);
+        Argument arg_ = ExecHelperBlocks.tryToCalculate(_cont,0,_stack,getOpValue(),0, this);
         setValue(_cont,arg_, _last.getBlockRootType(), _stack);
         if (_cont.callsOrException(_stack)) {
             return;

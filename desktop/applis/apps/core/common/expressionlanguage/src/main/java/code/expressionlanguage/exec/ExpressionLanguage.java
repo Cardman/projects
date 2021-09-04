@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -19,15 +20,12 @@ public final class ExpressionLanguage {
     private ExecOperationNode currentOper;
     private ArgumentsPair argument;
     private int index;
+    private final ExecBlock coveredBlock;
 
-    public ExpressionLanguage(CustList<ExecOperationNode> _operations) {
+    public ExpressionLanguage(CustList<ExecOperationNode> _operations, ExecBlock _coveredBlock) {
         operations = _operations;
+        coveredBlock = _coveredBlock;
         arguments = buildArguments();
-    }
-
-    public static Argument tryToCalculate(ContextEl _conf, ExpressionLanguage _right, int _offset, StackCall _stackCall) {
-        ArgumentsPair argumentsPair_ = tryToCalculatePair(_conf, _right, _offset, _stackCall);
-        return getNullable(argumentsPair_);
     }
 
     public static ArgumentsPair tryToCalculatePair(ContextEl _conf, ExpressionLanguage _right, int _offset, StackCall _stackCall) {
@@ -97,6 +95,10 @@ public final class ExpressionLanguage {
             arguments_.addEntry(o, a_);
         }
         return arguments_;
+    }
+
+    public ExecBlock getCoveredBlock() {
+        return coveredBlock;
     }
 
     public Argument getArgument() {

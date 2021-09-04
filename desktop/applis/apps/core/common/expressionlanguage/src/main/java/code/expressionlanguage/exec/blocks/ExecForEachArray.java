@@ -44,8 +44,4 @@ public final class ExecForEachArray extends ExecAbstractForEachLoop {
         return ExecHelperBlocks.hasNext(_l);
     }
 
-    @Override
-    public CustList<ExecOperationNode> getEl(ContextEl _context, int _indexProcess) {
-        return getOpList();
-    }
 }
