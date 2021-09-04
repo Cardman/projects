@@ -1,8 +1,11 @@
 package code.expressionlanguage.analyze.errors;
 
+import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.EquallableElUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import org.junit.Test;
@@ -245,5 +248,10 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
         AnalysisMessages.validateMessageContents(def_.allMessages(), page_);
         assertTrue(!page_.isEmptyMessageError());
     }
-
+    @Test
+    public void fail2() {
+        AnalyzedTestContext analyzedTestContext_ = InitializationLgNames.buildStdOneAna(new Options());
+        AnalyzedPageEl page_ = analyzedTestContext_.getAnalyzing();
+        assertTrue(ManageTokens.partVarClass(page_).checkTokenKeyVar(page_.getKeyWords().getKeyWordVar(), page_).isError());
+    }
 }

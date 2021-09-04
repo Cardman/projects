@@ -479,7 +479,7 @@ public final class ClassesUtil {
         if (!(_root instanceof AnonymousTypeBlock)) {
             String className_;
             className_ = _root.getName().trim();
-            TokenErrorMessage resClName_ = ManageTokens.partClass(_page).checkToken(className_, _page);
+            TokenErrorMessage resClName_ = ManageTokens.partClass(_page).checkTokenKeyVar(className_, _page);
             if (resClName_.isError()) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());
@@ -525,7 +525,7 @@ public final class ClassesUtil {
                 tempOff_ += p.length() + 1;
                 continue;
             }
-            TokenErrorMessage res_ = ManageTokens.partVarClass(_page).checkToken(id_, _page);
+            TokenErrorMessage res_ = ManageTokens.partVarClass(_page).checkTokenKeyVar(id_, _page);
             if (res_.isError()) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());

@@ -71,6 +71,12 @@ public final class ManageTokens {
         return new TokenErrorMessage("",false);
     }
 
+    public TokenErrorMessage checkTokenKeyVar(String _id, AnalyzedPageEl _analyzing) {
+        if (StringUtil.quickEq(_analyzing.getKeyWords().getKeyWordVar(),_id)) {
+            return new TokenErrorMessage(FoundErrorInterpret.buildARError(keyWordMessage,_id),true);
+        }
+        return checkToken(_id, _analyzing);
+    }
     public TokenErrorMessage checkToken(String _id, AnalyzedPageEl _analyzing) {
         if (!StringExpUtil.isDollarWord(_id)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(badCharactersMessage,_id),true);
