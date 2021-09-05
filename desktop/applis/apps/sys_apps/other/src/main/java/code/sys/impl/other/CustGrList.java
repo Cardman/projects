@@ -139,7 +139,7 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T>,Ab
 
     @Override
     public int getSelectedValuesLsLen() {
-        return list.getSelectedValuesList().size();
+        return list.getSelectedIndices().length;
     }
 
     public T get(int _i) {
