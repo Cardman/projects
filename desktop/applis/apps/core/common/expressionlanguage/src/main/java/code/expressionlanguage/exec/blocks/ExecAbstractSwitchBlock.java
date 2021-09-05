@@ -20,19 +20,6 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         value = new ExecOperationNodeListOff(_opValue,_valueOffset);
     }
 
-    protected static CustList<ExecBracedBlock> children(ExecBracedBlock _braced, SwitchBlockStack _if) {
-        ExecBlock n_ = _braced.getFirstChild();
-        CustList<ExecBracedBlock> children_;
-        children_ = new CustList<ExecBracedBlock>();
-        while (n_ instanceof ExecBracedBlock) {
-            children_.add((ExecBracedBlock)n_);
-            _if.setExecLastVisitedBlock((ExecBracedBlock) n_);
-            n_ = n_.getNextSibling();
-        }
-        _if.setExecBlock(_braced);
-        return children_;
-    }
-
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
         ExecHelperBlocks.processSwitch(_cont, _stack, label, value, this);

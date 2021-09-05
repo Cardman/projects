@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -12,12 +11,24 @@ import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.core.StringUtil;
 
 public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
 
     public ExecStdSwitchBlock(String _instanceTest, String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
         super(_instanceTest,_label,_valueOffset,_opValue);
+    }
+
+    static CustList<ExecBracedBlock> children(ExecBracedBlock _braced, SwitchBlockStack _if) {
+        ExecBlock n_ = _braced.getFirstChild();
+        CustList<ExecBracedBlock> children_;
+        children_ = new CustList<ExecBracedBlock>();
+        while (n_ instanceof ExecBracedBlock) {
+            children_.add((ExecBracedBlock)n_);
+            _if.setExecLastVisitedBlock((ExecBracedBlock) n_);
+            n_ = n_.getNextSibling();
+        }
+        _if.setExecBlock(_braced);
+        return children_;
     }
 
     @Override
@@ -28,7 +39,7 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
 
     public static ExecResultCase innerProcess(String _instanceTest,ContextEl _cont, StackCall _stack, ExecBracedBlock _braced, SwitchBlockStack _if, Argument _arg) {
         CustList<ExecBracedBlock> children_ = children(_braced,_if);
-        ExecResultCase res_ = ExecStdSwitchBlock.innerProcess(_cont, _stack, children_, _arg);
+        ExecResultCase res_ = innerProcess(_cont, _stack, children_, _arg);
         ExecBracedBlock out_ = ExecResultCase.block(res_);
         if (out_ instanceof ExecAbstractInstanceCaseCondition) {
             String type_;
