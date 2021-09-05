@@ -368,6 +368,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         law_.addEvent("3", new LgInt(1));
         law_.addEvent("2", new LgInt(1));
         law_.addEvent("3", new LgInt(1));
+        law_.events();
         assertEq("2", law_.editNumberSeed(LgInt.zero()));
         assertEq("3", law_.editNumberSeed(LgInt.one()));
         assertEq("2", law_.editNumberSeed(new LgInt(2)));
@@ -385,6 +386,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         law_.addEvent("3", new LgInt(2));
         law_.addEvent("2", new LgInt(3));
         law_.addEvent("3", new LgInt(4));
+        law_.events();
         assertEq("2", law_.editNumberSeed(LgInt.zero()));
         assertEq("3", law_.editNumberSeed(LgInt.one()));
         assertEq("3", law_.editNumberSeed(new LgInt(2)));
@@ -411,6 +413,7 @@ public class MonteCarloTest extends EquallableMathUtil {
     public void editNumber16Test() {
         MonteCarloList<String> law_ = new MonteCarloList<String>();
         law_.addEvent("2", new LgInt(1));
+        law_.events();
         assertEq("2", law_.editNumber(LgInt.one(),new DefaultGenerator()));
     }
 
@@ -419,6 +422,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(new Rate(2), new LgInt(2));
         law_.addQuickEvent(new Rate(2), new LgInt(1));
+        law_.events();
         assertEq(new Rate(2), law_.editNumber(new LgInt(8), new DefaultGenerator()));
     }
 
@@ -427,12 +431,14 @@ public class MonteCarloTest extends EquallableMathUtil {
         MonteCarloBoolean law_ = new MonteCarloBoolean();
         law_.addEvent(true, new LgInt(1));
         law_.addEvent(false, new LgInt(1));
+        law_.events();
         assertEq(true, law_.editNumber(new LgInt(8), new DefaultGenerator()));
     }
     @Test
     public void normalRate1() {
         MonteCarloString law_ = new MonteCarloString();
         law_.addEvent("2", new LgInt(1));
+        law_.events();
         assertTrue(law_.containsEvent("2"));
         assertEq(new Rate(1), law_.normalizedRate("2"));
     }

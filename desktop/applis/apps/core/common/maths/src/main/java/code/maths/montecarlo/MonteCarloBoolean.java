@@ -7,7 +7,7 @@ import code.util.CustList;
 
 public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
 
-    private final AbMonteCarlo<Boolean> law;
+    private final MonteCarloList<Boolean> law;
     private final CustList<EventFreq<Boolean>> events;
 
     public MonteCarloBoolean() {
@@ -63,13 +63,12 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
     public LgInt sum() {
         return law.sum();
     }
-    @Override
-    public void addEvent(Boolean _event, LgInt _probaRelative) {
+
+    public void addEvent(boolean _event, LgInt _probaRelative) {
         law.addEvent(_event, _probaRelative);
     }
 
-    @Override
-    public void addQuickEvent(Boolean _event, LgInt _probaRelative) {
+    public void addQuickEvent(boolean _event, LgInt _probaRelative) {
         law.addQuickEvent(_event, _probaRelative);
     }
 

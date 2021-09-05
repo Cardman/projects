@@ -48,12 +48,11 @@ public final class MonteCarloList<E> extends AbMonteCarlo<E> {
     public int nbEvents() {
         return getEvents().size();
     }
-    @Override
+
     public void addEvent(E _event, LgInt _probaRelative){
         addQuickEvent(_event, _probaRelative);
     }
 
-    @Override
     public void addQuickEvent(E _event, LgInt _probaRelative){
         events.add(new EventFreq<E>(_event, _probaRelative));
     }

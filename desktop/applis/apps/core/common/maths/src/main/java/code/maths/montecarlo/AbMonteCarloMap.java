@@ -76,12 +76,10 @@ public abstract class AbMonteCarloMap<E> extends AbMonteCarlo<E> {
             getLaw().removeKey(e);
         }
     }
-    @Override
     public void addEvent(E _event, LgInt _probaRelative){
         getLaw().put(_event, _probaRelative);
     }
 
-    @Override
     public void addQuickEvent(E _event, LgInt _probaRelative){
         getLaw().addEntry(_event, _probaRelative);
     }

@@ -31,8 +31,7 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         return getEvent(i_);
     }
     public boolean checkEvents() {
-        Listable<E> cles_= events();
-        int len_ = cles_.size();
+        int len_ = nbEvents();
         for (int i = 0; i < len_; i++){
             if (getFreq(i).isZeroOrGt()) {
                 continue;
@@ -54,10 +53,5 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         return sum().isZero();
     }
 
-
-
-    public abstract void addEvent(E _event,LgInt _probaRelative);
-
-    public abstract void addQuickEvent(E _event,LgInt _probaRelative);
 
 }
