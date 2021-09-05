@@ -56,9 +56,9 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
         ExecResultCase found_ = null;
         for (ExecBracedBlock b: filtered_) {
             found_ = tryFind(_cont,_stack, found_, b, _arg, _index);
-        }
-        if (_cont.callsOrException(_stack)){
-            return null;
+            if (_cont.callsOrException(_stack)){
+                return null;
+            }
         }
         return result(_instanceTest, _stack, _arg, def_, found_);
     }
