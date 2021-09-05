@@ -17,7 +17,6 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ReachCaseCondition extends ReachSwitchPartBlock {
@@ -95,6 +94,8 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         if (instance) {
             if (meta.getImportedType().isEmpty()) {
                 meta.getStdValues().add(Argument.createVoid());
+            } else if (root != null) {
+                ReachOperationUtil.tryCalculate(root, _page);
             }
             return;
         }
@@ -271,21 +272,18 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
     }
 
     private void processValues(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        StringList classes_ = previous();
+        CustList<ReachCaseCondition> classes_ = previous();
         boolean reachCatch_ = true;
-        CustList<OperationNode> childrenNodes_;
-        if (root instanceof DeclaringOperation) {
-            childrenNodes_ = ((DeclaringOperation) root).getChildrenNodes();
-        } else {
-            childrenNodes_ = new CustList<OperationNode>(root);
-        }
+        CustList<OperationNode> childrenNodes_ = childrenNodes();
         for (OperationNode o: childrenNodes_) {
             _anEl.setArgMapping(o.getResultClass().getSingleNameOrEmpty());
-            for (String c: classes_) {
-                _anEl.setParamMapping(c);
-                if (_anEl.isCorrectMapping(_page)) {
-                    reachCatch_ = false;
-                    break;
+            for (ReachCaseCondition c: classes_) {
+                if (c.root == null) {
+                    _anEl.setParamMapping(c.importedType);
+                    if (_anEl.isCorrectMapping(_page)) {
+                        reachCatch_ = false;
+                        break;
+                    }
                 }
             }
             if (!reachCatch_) {
@@ -299,13 +297,22 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         }
     }
 
+    private CustList<OperationNode> childrenNodes() {
+        CustList<OperationNode> childrenNodes_;
+        if (root instanceof DeclaringOperation) {
+            childrenNodes_ = ((DeclaringOperation) root).getChildrenNodes();
+        } else {
+            childrenNodes_ = new CustList<OperationNode>(root);
+        }
+        return childrenNodes_;
+    }
+
     private void processInstance(AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        StringList classes_ = previous();
+        CustList<ReachCaseCondition> reachCaseConditions_ = previous();
         _anEl.setArgMapping(importedType);
         boolean reachCatch_ = true;
-        for (String c: classes_) {
-            _anEl.setParamMapping(c);
-            if (_anEl.isCorrectMapping(_page)) {
+        for (ReachCaseCondition c : reachCaseConditions_) {
+            if (ko(_anEl, _page, c)) {
                 reachCatch_ = false;
                 break;
             }
@@ -315,6 +322,14 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         } else {
             _anEl.unreach(this);
         }
+    }
+
+    private boolean ko(AnalyzingEl _anEl, AnalyzedPageEl _page, ReachCaseCondition _other) {
+        if (!StringUtil.quickEq(_other.importedType, importedType)) {
+            _anEl.setParamMapping(_other.importedType);
+            return _anEl.isCorrectMapping(_page);
+        }
+        return _other.root == null;
     }
 
     private boolean nullCase() {
@@ -329,12 +344,12 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         return nullCase_;
     }
 
-    private StringList previous() {
-        StringList classes_ = new StringList();
+    private CustList<ReachCaseCondition> previous() {
+        CustList<ReachCaseCondition> classes_ = new CustList<ReachCaseCondition>();
         ReachBlock b_ = getPreviousSibling();
         while (b_ != null) {
             if (b_ instanceof ReachCaseCondition&&!((ReachCaseCondition)b_).importedType.isEmpty()) {
-                classes_.add(((ReachCaseCondition)b_).importedType);
+                classes_.add((ReachCaseCondition) b_);
             }
             b_ = b_.getPreviousSibling();
         }

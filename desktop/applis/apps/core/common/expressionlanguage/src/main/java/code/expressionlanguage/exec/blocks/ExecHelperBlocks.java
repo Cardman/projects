@@ -737,7 +737,6 @@ public final class ExecHelperBlocks {
         if (_cont.callsOrException(_stack)) {
             return;
         }
-        ip_.clearCurrentEls();
         SwitchBlockStack if_ = new SwitchBlockStack();
         if_.setLabel(_label);
         _bl.processCase(_cont,if_,arg_, _stack);

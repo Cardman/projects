@@ -6071,6 +6071,70 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void report858Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  switch((Object)1){\n");
+        xml_.append("   case int t: new ExTwo(){}.f + 2;\n");
+        xml_.append("    return t;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public int f = 1;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  switch((Object)1){\n" +
+                "   <a title=\"The type int is unexpected.\" class=\"e\">case</a> int <a name=\"m84\">t</a>: new <a title=\"pkg.ExTwo\" href=\"#m156\">ExTwo</a>()<span class=\"t\"><a name=\"m98\">{</a>}</span>.<a title=\"pkg.ExTwo.f\" href=\"#m180\">f</a> + 2;\n" +
+                "    return <a href=\"#m84\">t</a>;\n" +
+                "  }\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m156\">pkg.ExTwo</a> {\n" +
+                " public int <a name=\"m180\">f</a> = 1;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report859Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  switch((Object)1){\n");
+        xml_.append("   case int t;\n");
+        xml_.append("    return t;\n");
+        xml_.append("   case int t: t == 1;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  switch((Object)1){\n" +
+                "   case int <a name=\"m84\">t</a>;\n" +
+                "    return <a href=\"#m84\">t</a>;\n" +
+                "   <a title=\"The code is unreachable in the function static exmeth()\" class=\"e\">case</a> int <a name=\"m113\">t</a>: <a href=\"#m113\">t</a> == 1;\n" +
+                "  }\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void reportSpecTest() {
         StringMap<String> files_ = new StringMap<String>();

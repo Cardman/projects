@@ -16,6 +16,8 @@ import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.linkage.ExportCst;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -42,19 +44,27 @@ public final class CaseCondition extends SwitchPartBlock {
     private String typeEnum = EMPTY_STRING;
 
     private final int valueOffset;
+    private int conditionOffset;
     private EnumBlock enumBlock;
     private final StrTypes offsetsEnum = new StrTypes();
     private final CustList<Argument> stdValues = new CustList<Argument>();
     private final CustList<ClassField> enumValues = new CustList<ClassField>();
 
+    private boolean caseWhen;
+    private int indexTypeVarCase = -1;
     public CaseCondition(OffsetStringInfo _value, int _offset) {
         super(_offset);
         value = _value.getInfo();
         valueOffset = _value.getOffset();
+        conditionOffset = valueOffset;
     }
 
     public int getValueOffset() {
         return valueOffset;
+    }
+
+    public int getConditionOffset() {
+        return conditionOffset;
     }
 
     public String getValue() {
@@ -139,11 +149,20 @@ public final class CaseCondition extends SwitchPartBlock {
             _page.setGlobalOffset(valueOffset);
             _page.zeroOffset();
             String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
-            String varName_ = "";
+            String varName_;
             if (p_.isOk(new CustList<String>(keyWordNew_))) {
                 varName_ = value.substring(declaringType_.length());
+            } else {
+                varName_ = "";
             }
-            String trimVar_ = varName_.trim();
+            String trimPreVar_ = varName_.trim();
+            int sepCond_ = trimPreVar_.indexOf(':');
+            String trimVar_;
+            if (sepCond_ >= 0) {
+                trimVar_ = trimPreVar_.substring(0,sepCond_).trim();
+            } else {
+                trimVar_ = trimPreVar_;
+            }
             if (StringExpUtil.isTypeLeafPart(trimVar_)) {
                 instance = true;
                 partOffsets = ResolvingTypes.resolveCorrectType(declaringType_, _page);
@@ -151,7 +170,40 @@ public final class CaseCondition extends SwitchPartBlock {
                 variableOffset = valueOffset + declaringType_.length();
                 variableOffset += StringUtil.getFirstPrintableCharIndex(varName_);
                 variableName = trimVar_;
+                String afterVarTrim_;
+                if (sepCond_ < 0) {
+                    afterVarTrim_ = "";
+                } else {
+                    String substring_ = trimPreVar_.substring(sepCond_ + 1);
+                    afterVarTrim_ = substring_.trim();
+                    conditionOffset = valueOffset+declaringType_.length() + StringExpUtil.getOffset(varName_)+1+sepCond_+StringExpUtil.getOffset(substring_);
+                }
                 TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
+                if (!res_.isError()) {
+                    AnaLocalVariable lv_ = new AnaLocalVariable();
+                    lv_.setClassName(importedType);
+                    lv_.setRef(variableOffset);
+                    lv_.setConstType(ConstType.FIX_VAR);
+                    _page.getInfosVars().put(variableName, lv_);
+                }
+                if (sepCond_ >= 0) {
+                    _page.setGlobalOffset(conditionOffset);
+                    _page.zeroOffset();
+                    caseWhen = true;
+                    res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, afterVarTrim_, Calculation.staticCalculation(stCtx_), _page));
+                    AnaClassArgumentMatching resultClass_ = res.getRoot().getResultClass();
+                    if (!resultClass_.isBoolType(_page)) {
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
+                        un_.setFileName(getFile().getFileName());
+                        un_.setIndexFile(conditionOffset);
+                        //key word len
+                        un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                                StringUtil.join(resultClass_.getNames(), ExportCst.JOIN_TYPES));
+                        _page.addLocError(un_);
+                        addErrorBlock(un_.getBuiltError());
+                    }
+                    resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+                }
                 if (res_.isError()) {
                     FoundErrorInterpret d_ = new FoundErrorInterpret();
                     d_.setFileName(getFile().getFileName());
@@ -160,13 +212,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     d_.setBuiltError(res_.getMessage());
                     _page.addLocError(d_);
                     nameErrors.add(d_.getBuiltError());
-                    return;
                 }
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(importedType);
-                lv_.setRef(variableOffset);
-                lv_.setConstType(ConstType.FIX_VAR);
-                _page.getInfosVars().put(variableName, lv_);
                 return;
             }
         }
@@ -243,4 +289,15 @@ public final class CaseCondition extends SwitchPartBlock {
         return nullCase;
     }
 
+    public int getIndexTypeVarCase() {
+        return indexTypeVarCase;
+    }
+
+    public void setIndexTypeVarCase(int _indexTypeVarCase) {
+        indexTypeVarCase = _indexTypeVarCase;
+    }
+
+    public boolean isCaseWhen() {
+        return caseWhen;
+    }
 }

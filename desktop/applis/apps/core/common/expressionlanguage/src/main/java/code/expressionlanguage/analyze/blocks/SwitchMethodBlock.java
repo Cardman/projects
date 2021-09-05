@@ -41,6 +41,7 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
 
     private int conditionNb;
 
+    private int caseCount;
     private final MethodAccessKind kind;
     private boolean retRef;
     private String name;
@@ -223,4 +224,11 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
         return rootsList;
     }
 
+    public int getCaseCount() {
+        return caseCount;
+    }
+
+    public void setCaseCount(int _caseCount) {
+        this.caseCount = _caseCount;
+    }
 }

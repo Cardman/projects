@@ -991,11 +991,19 @@ public final class LinkageUtil {
         if (enumBlock_ != null) {
             addEnumRef(_vars, _cond, enumBlock_);
         } else if (!_cond.getImportedType().isEmpty()) {
-            _vars.addParts(export(_cond.getPartOffsets()));
-            String variableName_ = _cond.getVariableName();
-            int variableOffset_ = _cond.getVariableOffset();
-            _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,variableOffset_+ variableName_.trim().length()));
+            if (_vars.getLastStackElt().noVisited()) {
+                _vars.addParts(export(_cond.getPartOffsets()));
+                String variableName_ = _cond.getVariableName();
+                int variableOffset_ = _cond.getVariableOffset();
+                _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
+                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,variableOffset_+ variableName_.trim().length()));
+            }
+            OperationNode root_ = _cond.getRoot();
+            if (root_ != null) {
+                int offsetEndBlock_ = _cond.getValueOffset() + _cond.getValue().length();
+                LinkageStackElementIn in_ = buildLinkageRep(_cond, _cond.getConditionOffset(), offsetEndBlock_, 0, -1);
+                buildNormalReport(_vars, _cov, root_, in_);
+            }
         } else {
             int offsetEndBlock_ = _cond.getValueOffset() + _cond.getValue().length();
             OperationNode root_ = _cond.getRoot();
@@ -1031,16 +1039,22 @@ public final class LinkageUtil {
         if (enumBlock_ != null) {
             addEnumRef(_vars, _cond, enumBlock_);
         } else if (!_cond.getImportedType().isEmpty()) {
-            _vars.addParts(export(_cond.getPartOffsets()));
-            String variableName_ = _cond.getVariableName();
-            int variableOffset_ = _cond.getVariableOffset();
-            StringList errs_ = _cond.getNameErrors();
-            if (!errs_.isEmpty()) {
-                _vars.addPart(new PartOffset(ExportCst.anchorNameErr(variableOffset_,StringUtil.join(errs_,ExportCst.JOIN_ERR)), variableOffset_));
-            } else {
-                _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
+            if (_vars.getLastStackElt().noVisited()) {
+                _vars.addParts(export(_cond.getPartOffsets()));
+                String variableName_ = _cond.getVariableName();
+                int variableOffset_ = _cond.getVariableOffset();
+                StringList errs_ = _cond.getNameErrors();
+                if (!errs_.isEmpty()) {
+                    _vars.addPart(new PartOffset(ExportCst.anchorNameErr(variableOffset_,StringUtil.join(errs_,ExportCst.JOIN_ERR)), variableOffset_));
+                } else {
+                    _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
+                }
+                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
             }
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
+            OperationNode root_ = _cond.getRoot();
+            if (root_ != null) {
+                buildNormalError(_vars, _cond, -1, root_, _cond.getConditionOffset(), 0);
+            }
         } else {
             int off_ = _cond.getValueOffset();
             OperationNode root_ = _cond.getRoot();

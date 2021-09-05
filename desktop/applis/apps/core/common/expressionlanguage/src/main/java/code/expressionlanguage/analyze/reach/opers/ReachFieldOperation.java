@@ -23,6 +23,10 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
         declare = _info instanceof DeclaredFieldOperation;
     }
 
+    public static boolean caseCst(AbsBk _block) {
+        return _block instanceof CaseCondition && !((CaseCondition) _block).isCaseWhen();
+    }
+
     @Override
     public void tryCalculateNode(AnalyzedPageEl _page) {
         ClassField fieldId_ = fieldMetaInfo.getClassField();
@@ -59,7 +63,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
 
     private static void trySetDotParent(ReachOperationNode _oper, Argument _arg, AnalyzedPageEl _page) {
         AbsBk bl_ = _page.getCurrentBlock();
-        if (!(bl_ instanceof CaseCondition)) {
+        if (!caseCst(bl_)) {
             return;
         }
         if (_oper.getInfo().getIndexChild() > 0

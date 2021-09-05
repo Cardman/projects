@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
@@ -33,24 +34,31 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
 
     @Override
     protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
-        ExecResultCase found_ = innerProcess(getInstanceTest(),_cont,_stack,this, _if, _arg);
+        ExecResultCase found_ = innerProcess(getInstanceTest(),_cont,_stack,this, _if, _arg, 1);
         addStack(_cont,_if,_arg,_stack, found_);
     }
 
-    public static ExecResultCase innerProcess(String _instanceTest,ContextEl _cont, StackCall _stack, ExecBracedBlock _braced, SwitchBlockStack _if, Argument _arg) {
+    public static ExecResultCase innerProcess(String _instanceTest, ContextEl _cont, StackCall _stack, ExecBracedBlock _braced, SwitchBlockStack _if, Argument _arg, int _index) {
         CustList<ExecBracedBlock> children_ = children(_braced,_if);
-        return innerProcess(_instanceTest,_cont, _stack, children_, _arg);
+        return innerProcess(_instanceTest,_cont, _stack, children_, _arg, _index);
     }
 
-    private static ExecResultCase innerProcess(String _instanceTest,ContextEl _cont, StackCall _stack, CustList<ExecBracedBlock> _children, Argument _arg) {
+    private static ExecResultCase innerProcess(String _instanceTest, ContextEl _cont, StackCall _stack, CustList<ExecBracedBlock> _children, Argument _arg, int _index) {
         ExecResultCase def_ = null;
-        ExecResultCase found_ = null;
+        CustList<ExecBracedBlock> filtered_ = new CustList<ExecBracedBlock>();
         for (ExecBracedBlock b: _children) {
             if (b instanceof ExecDefaultCondition || b instanceof ExecAbstractInstanceCaseCondition && !((ExecAbstractInstanceCaseCondition) b).isSpecific()) {
                 def_ = new ExecResultCase(b,0);
             } else {
-                found_ = tryFind(_cont,_stack, found_, b, _arg);
+                filtered_.add(b);
             }
+        }
+        ExecResultCase found_ = null;
+        for (ExecBracedBlock b: filtered_) {
+            found_ = tryFind(_cont,_stack, found_, b, _arg, _index);
+        }
+        if (_cont.callsOrException(_stack)){
+            return null;
         }
         return result(_instanceTest, _stack, _arg, def_, found_);
     }
@@ -67,7 +75,7 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
         return _def;
     }
 
-    private static ExecResultCase tryFind(ContextEl _cont, StackCall _stack, ExecResultCase _found, ExecBracedBlock _in, Argument _arg) {
+    private static ExecResultCase tryFind(ContextEl _cont, StackCall _stack, ExecResultCase _found, ExecBracedBlock _in, Argument _arg, int _index) {
         if (_found != null) {
             return _found;
         }
@@ -75,8 +83,7 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
             String type_ = _stack.formatVarType(((ExecAbstractInstanceCaseCondition)_in).getImportedClassName());
             Struct struct_ = _arg.getStruct();
             if (ExecInherits.safeObject(type_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING) {
-                putVar(_stack, (ExecAbstractInstanceCaseCondition) _in, type_, _arg);
-                return new ExecResultCase(_in,0);
+                return procTypeVar(_cont, _stack, _in, _arg, _index, type_);
             }
         }
 //        if (_in instanceof ExecEnumCaseCondition) {
@@ -93,6 +100,27 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
 //            }
 //        }
         return processList(_cont, _in, _arg);
+    }
+
+    private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecBracedBlock _in, Argument _arg, int _index, String _type) {
+        ExecOperationNodeListOff exp_ = ((ExecAbstractInstanceCaseCondition) _in).getExp();
+        CustList<ExecOperationNode> list_ = exp_.getList();
+        if (list_.isEmpty()) {
+            putVar(_stack, (ExecAbstractInstanceCaseCondition) _in, _type, _arg);
+            return new ExecResultCase(_in,0);
+        }
+        int index_ = ((ExecAbstractInstanceCaseCondition) _in).getIndex() + _index;
+        if (index_ >= _stack.getLastPage().sizeEl()) {
+            putVar(_stack, (ExecAbstractInstanceCaseCondition) _in, _type, _arg);
+        }
+        int offset_ = exp_.getOffset();
+        AbstractPageEl lastPage_ = _stack.getLastPage();
+        lastPage_.globalOffset(offset_);
+        Argument visit_ = ExecHelperBlocks.tryToCalculate(_cont, index_, _stack, list_, 0, _in);
+        if (_cont.callsOrException(_stack) || BooleanStruct.isFalse(visit_.getStruct())) {
+            return null;
+        }
+        return new ExecResultCase(_in,0);
     }
 
     private static void putVar(StackCall _stack, ExecAbstractInstanceCaseCondition _in, String _type, Argument _arg) {

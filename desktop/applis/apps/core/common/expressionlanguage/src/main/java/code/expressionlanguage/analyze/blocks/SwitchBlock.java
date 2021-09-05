@@ -34,6 +34,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
     private String err = "";
 
     private int conditionNb;
+    private int caseCount;
 
     public SwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, int _offset) {
         super(_offset);
@@ -185,5 +186,13 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
 
     public void setConditionNb(int _conditionNb) {
         conditionNb = _conditionNb;
+    }
+
+    public int getCaseCount() {
+        return caseCount;
+    }
+
+    public void setCaseCount(int _caseCount) {
+        this.caseCount = _caseCount;
     }
 }

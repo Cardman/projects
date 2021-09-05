@@ -376,16 +376,34 @@ public final class SplitExpressionUtil {
                 String value_ = ((CaseCondition) current_).getValue();
                 ParsedType p_ = new ParsedType();
                 p_.parse(value_);
-                String varName_ = "";
+                String declaringType_ = p_.getInstruction().toString();
+                String varName_;
                 if (p_.isOk(new CustList<String>(keyWordNew_))) {
-                    String declaringType_ = p_.getInstruction().toString();
                     varName_ = value_.substring(declaringType_.length());
+                } else {
+                    varName_ = "";
                 }
-                if (!StringExpUtil.isTypeLeafPart(varName_.trim())) {
+                String trimPreVar_ = varName_.trim();
+                int sepCond_ = trimPreVar_.indexOf(':');
+                String trimVar_;
+                if (sepCond_ >= 0) {
+                    trimVar_ = trimPreVar_.substring(0,sepCond_).trim();
+                } else {
+                    trimVar_ = trimPreVar_;
+                }
+                if (!StringExpUtil.isTypeLeafPart(trimVar_)) {
                     _page.setGlobalOffset(((CaseCondition) current_).getValueOffset());
                     _page.zeroOffset();
                     ResultExpression resultExpression_ = ((CaseCondition) current_).getRes();
                     extractAnon(_page, _int, _method, _type, value_, resultExpression_);
+                } else {
+                    if (sepCond_ >= 0) {
+                        String substring_ = trimPreVar_.substring(sepCond_ + 1);
+                        _page.setGlobalOffset(((CaseCondition) current_).getValueOffset()+declaringType_.length() + StringExpUtil.getOffset(varName_)+1+sepCond_+StringExpUtil.getOffset(substring_));
+                        _page.zeroOffset();
+                        ResultExpression resultExpression_ = ((CaseCondition) current_).getRes();
+                        extractAnon(_page, _int, _method, _type, substring_.trim(), resultExpression_);
+                    }
                 }
             }
             if (current_ instanceof SwitchBlock) {

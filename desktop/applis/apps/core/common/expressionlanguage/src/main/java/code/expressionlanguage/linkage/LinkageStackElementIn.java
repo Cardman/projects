@@ -1,7 +1,7 @@
 package code.expressionlanguage.linkage;
 
 import code.expressionlanguage.analyze.blocks.AbsBk;
-import code.expressionlanguage.analyze.blocks.CaseCondition;
+import code.expressionlanguage.analyze.reach.opers.ReachFieldOperation;
 
 public final class LinkageStackElementIn {
     private final AbsBk block;
@@ -28,8 +28,9 @@ public final class LinkageStackElementIn {
     }
 
     public boolean skipReportElement() {
-        return block instanceof CaseCondition;
+        return ReachFieldOperation.caseCst(block);
     }
+
     public AbsBk getBlock() {
         return block;
     }

@@ -15,7 +15,7 @@ public final class ExecSwitchValueMethod extends ExecAbstractSwitchMethod {
 
     @Override
     public ExecBlock processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
-        ExecResultCase found_ = ExecStdSwitchBlock.innerProcess(getImportedParamType(),_cont,_stack,this, _if, _arg);
-        return cover(_cont,_if,_arg,_stack, found_);
+        ExecResultCase found_ = ExecStdSwitchBlock.innerProcess(getImportedParamType(),_cont,_stack,this, _if, _arg, 0);
+        return cover(this, _cont,_if,_arg,_stack, found_);
     }
 }

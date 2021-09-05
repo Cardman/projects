@@ -877,7 +877,7 @@ public final class ForwardInfos {
             return exec_;
         }
         if (_en instanceof CaseCondition) {
-            ExecBracedBlock exec_ = buildCaseCondition((CaseCondition) _en);
+            ExecBracedBlock exec_ = buildCaseCondition((CaseCondition) _en, _coverage, _forwards);
             SwitchBlock par_ = ((CaseCondition) _en).getSwitchParent();
             if (par_ != null) {
                 _coverage.putBlockOperationsSwitchsPart(par_, (CaseCondition) _en, exec_);
@@ -1111,7 +1111,7 @@ public final class ForwardInfos {
         return exec_;
     }
 
-    private static ExecBracedBlock buildCaseCondition(CaseCondition _en) {
+    private static ExecBracedBlock buildCaseCondition(CaseCondition _en, Coverage _coverage, Forwards _forwards) {
         ExecBracedBlock exec_;
 //        if (((CaseCondition) _en).isBuiltEnum()) {
 //            if (((CaseCondition) _en).isNullCaseEnum()) {
@@ -1121,7 +1121,22 @@ public final class ForwardInfos {
 //            }
 //        } else
         if (!_en.getImportedType().isEmpty()) {
-            exec_ = new ExecAbstractInstanceCaseCondition(_en.getVariableName(), _en.getImportedType(), true);
+            OperationNode root_ = _en.getRoot();
+            if (root_ != null) {
+                SwitchBlock par_ = _en.getSwitchParent();
+                if (par_ != null) {
+                    int caseCount_ = par_.getCaseCount();
+                    _en.setIndexTypeVarCase(caseCount_);
+                    par_.setCaseCount(caseCount_+1);
+                }
+                SwitchMethodBlock met_ = _en.getSwitchMethod();
+                if (met_ != null) {
+                    int caseCount_ = met_.getCaseCount();
+                    _en.setIndexTypeVarCase(caseCount_);
+                    met_.setCaseCount(caseCount_+1);
+                }
+            }
+            exec_ = new ExecAbstractInstanceCaseCondition(_en.getVariableName(), _en.getImportedType(), true, getExecutableNodes(root_,_coverage,_forwards,_en), _en.getConditionOffset(), _en.getIndexTypeVarCase());
 //        } else if (((CaseCondition) _en).isInstance()) {
 //            exec_ = new ExecStdCaseCondition(Argument.createVoid());
 //        } else if (((CaseCondition) _en).getQualif() != null) {
@@ -1142,7 +1157,7 @@ public final class ForwardInfos {
         if (instanceTest_.isEmpty()) {
             exec_ = new ExecDefaultCondition();
         } else {
-            exec_ = new ExecAbstractInstanceCaseCondition(_en.getVariableName(), instanceTest_, false);
+            exec_ = new ExecAbstractInstanceCaseCondition(_en.getVariableName(), instanceTest_, false, new CustList<ExecOperationNode>(), 0, -1);
         }
         return exec_;
     }
