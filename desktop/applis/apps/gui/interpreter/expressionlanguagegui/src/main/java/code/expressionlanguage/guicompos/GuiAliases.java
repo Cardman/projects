@@ -4802,22 +4802,12 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasGrListSetSelectedIndexes)) {
-                inst_.setSelectedIndexes(_args[0]);
-                if (!inst_.isCust()&&_args[0] instanceof ArrayStruct) {
-                    Argument arg_ = new Argument(inst_);
-                    CustList<Argument> args_ = new CustList<Argument>(arg_);
-                    wrapAndCall(_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
-                }
+                inst_.setSelectedIndexes(this, _cont, _guiEx, _stackCall, _args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasGrListClearSelection)) {
-                inst_.clearSelection();
-                if (!inst_.isCust()) {
-                    Argument arg_ = new Argument(inst_);
-                    CustList<Argument> args_ = new CustList<Argument>(arg_);
-                    wrapAndCall(_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
-                }
+                inst_.clearSelection(this, _cont, _guiEx, _stackCall);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4832,16 +4822,8 @@ public final class GuiAliases {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                if (inst_.isCust()) {
-                    inst_.set(((NumberStruct)_args[0]).intStruct(),_args[1]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                Argument arg_ = new Argument(inst_);
-                CustList<Argument> args_ = new CustList<Argument>(arg_);
-                args_.add(new Argument(_args[0]));
-                args_.add(new Argument(_args[1]));
-                wrapAndCall(_cont, args_, _guiEx.getPairPaintSet(), _stackCall);
+                inst_.set(this, _cont, _guiEx, _stackCall, ((NumberStruct)_args[0]).intStruct(),_args[1]);
+                res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (_method.getConstraints().getParametersTypesLength() == 3) {
@@ -4849,16 +4831,8 @@ public final class GuiAliases {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (inst_.isCust()) {
-                inst_.add(((NumberStruct)_args[0]).intStruct(),_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            Argument arg_ = new Argument(inst_);
-            CustList<Argument> args_ = new CustList<Argument>(arg_);
-            args_.add(new Argument(_args[0]));
-            args_.add(new Argument(_args[1]));
-            wrapAndCall(_cont, args_, _guiEx.getPairPaintAdd(), _stackCall);
+            inst_.add(this, _cont, _guiEx, _stackCall, ((NumberStruct)_args[0]).intStruct(),_args[1]);
+            res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasCombo)) {

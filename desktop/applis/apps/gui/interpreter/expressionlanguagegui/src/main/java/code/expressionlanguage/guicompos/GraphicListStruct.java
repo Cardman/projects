@@ -1,7 +1,13 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
 import code.util.CustList;
@@ -34,8 +40,16 @@ public final class GraphicListStruct extends InputStruct {
         AbsPreparedLabel textLabel_ = ((PreparedLabelStruct) _img).getTextLabel();
         grList.add(_index,textLabel_, _elt);
     }
-    public void add(int _index, Struct _elt) {
+    public void add(GuiAliases _aliases,ContextEl _cont, GuiExecutingBlocks _guiEx, StackCall _stackCall,int _index, Struct _elt) {
         grList.add(_index, _elt);
+        if (isCust()) {
+            return;
+        }
+        Argument arg_ = new Argument(this);
+        CustList<Argument> args_ = new CustList<Argument>(arg_);
+        args_.add(new Argument(new IntStruct(_index)));
+        args_.add(new Argument(_elt));
+        wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintAdd(), _stackCall);
     }
     void updateGraphics() {
         grList.updateGraphics();
@@ -51,11 +65,27 @@ public final class GraphicListStruct extends InputStruct {
         AbsPreparedLabel textLabel_ = img_.getTextLabel();
         grList.set(_index, textLabel_,_elt);
     }
-    public void set(int _index, Struct _elt) {
+    public void set(GuiAliases _aliases,ContextEl _cont, GuiExecutingBlocks _guiEx, StackCall _stackCall,int _index, Struct _elt) {
         if (!grList.getList().isValidIndex(_index)) {
+            if (isCust()) {
+                return;
+            }
+            Argument arg_ = new Argument(this);
+            CustList<Argument> args_ = new CustList<Argument>(arg_);
+            args_.add(new Argument(new IntStruct(_index)));
+            args_.add(new Argument(_elt));
+            wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintSet(), _stackCall);
             return;
         }
         grList.set(_index,_elt);
+        if (isCust()) {
+            return;
+        }
+        Argument arg_ = new Argument(this);
+        CustList<Argument> args_ = new CustList<Argument>(arg_);
+        args_.add(new Argument(new IntStruct(_index)));
+        args_.add(new Argument(_elt));
+        wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintSet(), _stackCall);
     }
     public ArrayStruct getListView(ContextEl _ctx) {
         CustList<Struct> list_ = grList.getList();
@@ -72,7 +102,7 @@ public final class GraphicListStruct extends InputStruct {
         return grList.getSelectedIndexes();
     }
 
-    public void setSelectedIndexes(Struct _selectedIndexes) {
+    public void setSelectedIndexes(GuiAliases _aliases,ContextEl _cont, GuiExecutingBlocks _guiEx, StackCall _stackCall,Struct _selectedIndexes) {
         Ints selectedIndexes_ = new Ints();
         if (_selectedIndexes instanceof ArrayStruct) {
             for (Struct s : ((ArrayStruct)_selectedIndexes).list()) {
@@ -80,16 +110,27 @@ public final class GraphicListStruct extends InputStruct {
             }
             grList.setSelectedIndexes(selectedIndexes_);
         }
+        if (!isCust()&&_selectedIndexes instanceof ArrayStruct) {
+            Argument arg_ = new Argument(this);
+            CustList<Argument> args_ = new CustList<Argument>(arg_);
+            wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
+        }
     }
 
-    public void clearSelection() {
+    public void clearSelection(GuiAliases _aliases,ContextEl _cont, GuiExecutingBlocks _guiEx, StackCall _stackCall) {
         if (isCust()) {
             grList.clearSelection();
             return;
         }
         grList.getSelectedIndexes().clear();
+        Argument arg_ = new Argument(this);
+        CustList<Argument> args_ = new CustList<Argument>(arg_);
+        wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
     }
-
+    private static void wrapAndCall(GuiAliases _aliases, ContextEl _cont, CustList<Argument> _args, ExecTypeFunction _pair, StackCall _stackCall) {
+        ArgumentListCall argList_ = new ArgumentListCall(_args);
+        ExecTemplates.wrapAndCall(_pair, new ExecFormattedRootBlock(_pair.getType(), _aliases.getAliasPaint()),Argument.createVoid(), _cont, _stackCall, argList_);
+    }
     public ArrayStruct getSelectedIndexes(ContextEl _ctx) {
         Ints selectedIndexes_ = grList.getSelectedIndexes();
         int len_ = selectedIndexes_.size();

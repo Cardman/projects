@@ -18,7 +18,7 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
         super(_instanceTest,_label,_valueOffset,_opValue);
     }
 
-    static CustList<ExecBracedBlock> children(ExecBracedBlock _braced, SwitchBlockStack _if) {
+    private static CustList<ExecBracedBlock> children(ExecBracedBlock _braced, SwitchBlockStack _if) {
         ExecBlock n_ = _braced.getFirstChild();
         CustList<ExecBracedBlock> children_;
         children_ = new CustList<ExecBracedBlock>();
@@ -39,39 +39,35 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
 
     public static ExecResultCase innerProcess(String _instanceTest,ContextEl _cont, StackCall _stack, ExecBracedBlock _braced, SwitchBlockStack _if, Argument _arg) {
         CustList<ExecBracedBlock> children_ = children(_braced,_if);
-        ExecResultCase res_ = innerProcess(_cont, _stack, children_, _arg);
-        ExecBracedBlock out_ = ExecResultCase.block(res_);
-        if (out_ instanceof ExecAbstractInstanceCaseCondition) {
-            String type_;
-            if (((ExecAbstractInstanceCaseCondition)out_).isSpecific()) {
-                type_ = _stack.formatVarType(((ExecAbstractInstanceCaseCondition) out_ ).getImportedClassName());
-            } else {
-                type_ = _stack.formatVarType(_instanceTest);
-            }
-            Struct struct_ = _arg.getStruct();
-            String var_ = ((ExecAbstractInstanceCaseCondition)out_).getVariableName();
-            AbstractPageEl ip_ = _stack.getLastPage();
-            ip_.putValueVar(var_, LocalVariable.newLocalVariable(struct_,type_));
-        }
-        return res_;
+        return innerProcess(_instanceTest,_cont, _stack, children_, _arg);
     }
 
-    public static ExecResultCase innerProcess(ContextEl _cont, StackCall _stack, CustList<ExecBracedBlock> _children, Argument _arg) {
+    private static ExecResultCase innerProcess(String _instanceTest,ContextEl _cont, StackCall _stack, CustList<ExecBracedBlock> _children, Argument _arg) {
         ExecResultCase def_ = null;
         ExecResultCase found_ = null;
         for (ExecBracedBlock b: _children) {
-            if (!(b instanceof ExecDefaultCondition) && !(b instanceof ExecAbstractInstanceCaseCondition && !((ExecAbstractInstanceCaseCondition)b).isSpecific())) {
-                found_ = tryFind(_cont,_stack,found_,b, _arg);
-            } else {
+            if (b instanceof ExecDefaultCondition || b instanceof ExecAbstractInstanceCaseCondition && !((ExecAbstractInstanceCaseCondition) b).isSpecific()) {
                 def_ = new ExecResultCase(b,0);
+            } else {
+                found_ = tryFind(_cont,_stack, found_, b, _arg);
             }
         }
-        if (found_ != null) {
-            return found_;
-        }
-        return def_;
+        return result(_instanceTest, _stack, _arg, def_, found_);
     }
-    private static ExecResultCase tryFind(ContextEl _cont, StackCall _stack,ExecResultCase _found,ExecBracedBlock _in, Argument _arg) {
+
+    private static ExecResultCase result(String _instanceTest, StackCall _stack, Argument _arg, ExecResultCase _def, ExecResultCase _found) {
+        if (_found != null) {
+            return _found;
+        }
+        ExecBracedBlock block_ = ExecResultCase.block(_def);
+        if (block_ instanceof ExecAbstractInstanceCaseCondition) {
+            String type_ = _stack.formatVarType(_instanceTest);
+            putVar(_stack, (ExecAbstractInstanceCaseCondition) block_, type_, _arg);
+        }
+        return _def;
+    }
+
+    private static ExecResultCase tryFind(ContextEl _cont, StackCall _stack, ExecResultCase _found, ExecBracedBlock _in, Argument _arg) {
         if (_found != null) {
             return _found;
         }
@@ -79,6 +75,7 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
             String type_ = _stack.formatVarType(((ExecAbstractInstanceCaseCondition)_in).getImportedClassName());
             Struct struct_ = _arg.getStruct();
             if (ExecInherits.safeObject(type_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING) {
+                putVar(_stack, (ExecAbstractInstanceCaseCondition) _in, type_, _arg);
                 return new ExecResultCase(_in,0);
             }
         }
@@ -96,6 +93,13 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
 //            }
 //        }
         return processList(_cont, _in, _arg);
+    }
+
+    private static void putVar(StackCall _stack, ExecAbstractInstanceCaseCondition _in, String _type, Argument _arg) {
+        Struct struct_ = _arg.getStruct();
+        String var_ = _in.getVariableName();
+        AbstractPageEl ip_ = _stack.getLastPage();
+        ip_.putValueVar(var_, LocalVariable.newLocalVariable(struct_, _type));
     }
 
     private static ExecResultCase processList(ContextEl _cont, ExecBracedBlock _in, Argument _arg) {
