@@ -137,84 +137,91 @@ public final class CaseCondition extends SwitchPartBlock {
             }
             return;
         }
-        if (instance_) {
-            ParsedType p_ = new ParsedType();
-            p_.parse(value);
-            String declaringType_ = p_.getInstruction().toString();
-            if (StringUtil.quickEq(declaringType_, _page.getKeyWords().getKeyWordNull())) {
-                nullCase = true;
-                instance = true;
-                return;
+        ParsedType p_ = new ParsedType();
+        p_.parse(value);
+        String declaringType_ = p_.getInstruction().toString();
+        if (instance_&&StringUtil.quickEq(declaringType_, _page.getKeyWords().getKeyWordNull())) {
+            nullCase = true;
+            instance = true;
+            return;
+        }
+        _page.setGlobalOffset(valueOffset);
+        _page.zeroOffset();
+        String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
+        String varName_;
+        if (p_.isOk(new CustList<String>(keyWordNew_))) {
+            varName_ = value.substring(declaringType_.length());
+        } else {
+            varName_ = "";
+        }
+        String trimPreVar_ = varName_.trim();
+        int sepCond_ = trimPreVar_.indexOf(':');
+        String trimVar_;
+        if (sepCond_ >= 0) {
+            trimVar_ = trimPreVar_.substring(0,sepCond_).trim();
+        } else {
+            trimVar_ = trimPreVar_;
+        }
+        if (StringExpUtil.isTypeLeafPart(trimVar_)) {
+            if (!instance_) {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(getFile().getFileName());
+                un_.setIndexFile(valueOffset);
+                //key word len
+                un_.buildError(_page.getAnalysisMessages().getCaseTypeVar());
+                _page.addLocError(un_);
+                addErrorBlock(un_.getBuiltError());
             }
-            _page.setGlobalOffset(valueOffset);
-            _page.zeroOffset();
-            String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
-            String varName_;
-            if (p_.isOk(new CustList<String>(keyWordNew_))) {
-                varName_ = value.substring(declaringType_.length());
+            instance = true;
+            partOffsets = ResolvingTypes.resolveCorrectType(declaringType_, _page);
+            importedType = partOffsets.getResult(_page);
+            variableOffset = valueOffset + declaringType_.length();
+            variableOffset += StringUtil.getFirstPrintableCharIndex(varName_);
+            variableName = trimVar_;
+            String afterVarTrim_;
+            if (sepCond_ < 0) {
+                afterVarTrim_ = "";
             } else {
-                varName_ = "";
+                String substring_ = trimPreVar_.substring(sepCond_ + 1);
+                afterVarTrim_ = substring_.trim();
+                conditionOffset = valueOffset+declaringType_.length() + StringExpUtil.getOffset(varName_)+1+sepCond_+StringExpUtil.getOffset(substring_);
             }
-            String trimPreVar_ = varName_.trim();
-            int sepCond_ = trimPreVar_.indexOf(':');
-            String trimVar_;
+            TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
+            if (!res_.isError()) {
+                AnaLocalVariable lv_ = new AnaLocalVariable();
+                lv_.setClassName(importedType);
+                lv_.setRef(variableOffset);
+                lv_.setConstType(ConstType.FIX_VAR);
+                _page.getInfosVars().put(variableName, lv_);
+            }
             if (sepCond_ >= 0) {
-                trimVar_ = trimPreVar_.substring(0,sepCond_).trim();
-            } else {
-                trimVar_ = trimPreVar_;
+                _page.setGlobalOffset(conditionOffset);
+                _page.zeroOffset();
+                caseWhen = true;
+                res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, afterVarTrim_, Calculation.staticCalculation(stCtx_), _page));
+                AnaClassArgumentMatching resultClass_ = res.getRoot().getResultClass();
+                if (!resultClass_.isBoolType(_page)) {
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(conditionOffset);
+                    //key word len
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                            StringUtil.join(resultClass_.getNames(), ExportCst.JOIN_TYPES));
+                    _page.addLocError(un_);
+                    addErrorBlock(un_.getBuiltError());
+                }
+                resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             }
-            if (StringExpUtil.isTypeLeafPart(trimVar_)) {
-                instance = true;
-                partOffsets = ResolvingTypes.resolveCorrectType(declaringType_, _page);
-                importedType = partOffsets.getResult(_page);
-                variableOffset = valueOffset + declaringType_.length();
-                variableOffset += StringUtil.getFirstPrintableCharIndex(varName_);
-                variableName = trimVar_;
-                String afterVarTrim_;
-                if (sepCond_ < 0) {
-                    afterVarTrim_ = "";
-                } else {
-                    String substring_ = trimPreVar_.substring(sepCond_ + 1);
-                    afterVarTrim_ = substring_.trim();
-                    conditionOffset = valueOffset+declaringType_.length() + StringExpUtil.getOffset(varName_)+1+sepCond_+StringExpUtil.getOffset(substring_);
-                }
-                TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
-                if (!res_.isError()) {
-                    AnaLocalVariable lv_ = new AnaLocalVariable();
-                    lv_.setClassName(importedType);
-                    lv_.setRef(variableOffset);
-                    lv_.setConstType(ConstType.FIX_VAR);
-                    _page.getInfosVars().put(variableName, lv_);
-                }
-                if (sepCond_ >= 0) {
-                    _page.setGlobalOffset(conditionOffset);
-                    _page.zeroOffset();
-                    caseWhen = true;
-                    res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, afterVarTrim_, Calculation.staticCalculation(stCtx_), _page));
-                    AnaClassArgumentMatching resultClass_ = res.getRoot().getResultClass();
-                    if (!resultClass_.isBoolType(_page)) {
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(getFile().getFileName());
-                        un_.setIndexFile(conditionOffset);
-                        //key word len
-                        un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                                StringUtil.join(resultClass_.getNames(), ExportCst.JOIN_TYPES));
-                        _page.addLocError(un_);
-                        addErrorBlock(un_.getBuiltError());
-                    }
-                    resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-                }
-                if (res_.isError()) {
-                    FoundErrorInterpret d_ = new FoundErrorInterpret();
-                    d_.setFileName(getFile().getFileName());
-                    d_.setIndexFile(variableOffset);
-                    //variable name
-                    d_.setBuiltError(res_.getMessage());
-                    _page.addLocError(d_);
-                    nameErrors.add(d_.getBuiltError());
-                }
-                return;
+            if (res_.isError()) {
+                FoundErrorInterpret d_ = new FoundErrorInterpret();
+                d_.setFileName(getFile().getFileName());
+                d_.setIndexFile(variableOffset);
+                //variable name
+                d_.setBuiltError(res_.getMessage());
+                _page.addLocError(d_);
+                nameErrors.add(d_.getBuiltError());
             }
+            return;
         }
         _page.setAcceptCommaInstr(true);
         res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));

@@ -6136,6 +6136,31 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report860Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  switch((int)1){\n");
+        xml_.append("   case int t: t == 1;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  switch((int)1){\n" +
+                "   <a title=\"This case block must be constant.\" class=\"e\">case</a> int <a name=\"m81\">t</a>: <a href=\"#m81\">t</a> == 1;\n" +
+                "  }\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportSpecTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

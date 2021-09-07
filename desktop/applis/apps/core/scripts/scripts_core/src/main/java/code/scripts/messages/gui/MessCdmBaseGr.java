@@ -335,6 +335,7 @@ f+="BadParamerizedType=The type {0} is not parameterized correctly.\n";
 f+="UnexpectedTypeBound=The type {0} is unexpected for bound.\n";
 f+="UnexpectedVararg=The three dots are unexpected here.\n";
 f+="UnexpectedLeaf=The key word {0} is unexpected here.\n";
+f+="CaseTypeVar=This case block must be constant.\n";
 f+="EmptyPart=There must be an expression.\n";
 return f;
 }
@@ -1899,6 +1900,7 @@ f+="BadParamerizedType=Le type {0} n''est pas correctement param&eacute;tr&eacut
 f+="UnexpectedTypeBound=Le type {0} est inattendu pour une borne.\n";
 f+="UnexpectedVararg=Les trois points sont inattendu ici.\n";
 f+="UnexpectedLeaf=Le mot cl&eacute; {0} est inattendu ici.\n";
+f+="CaseTypeVar=Ce bloc cas doit &ecirc;tre constant.\n";
 f+="EmptyPart=Il doit y avoir une expression.\n";
 return f;
 }

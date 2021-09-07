@@ -235,6 +235,7 @@ public final class AnalysisMessages {
     private static final String UNEXPECTED_VARARG="UnexpectedVararg";
     private static final String UNEXPECTED_LEAF="UnexpectedLeaf";
     private static final String EMPTY_PART="EmptyPart";
+    private static final String CASE_TYPE_VAR="CaseTypeVar";
     private String emptyWord = "{0} has an empty key word value.";
     private String notWordChar = "{0} contains a character {1} that is not a character of a word.";
     private String digitFirst = "{0} starts with {1} that is digit.";
@@ -467,6 +468,7 @@ public final class AnalysisMessages {
     private String unexpectedTypeBound="The type {0} is unexpected for bound.";
     private String unexpectedVararg="The three dots are unexpected here.";
     private String unexpectedLeaf="The key word {0} is unexpected here.";
+    private String caseTypeVar="This case block must be constant.";
     private String emptyPart="There must be an expression.";
 
     public static void validateMessageContents(StringMap<String> _list, AnalyzedPageEl _page) {
@@ -710,6 +712,7 @@ public final class AnalysisMessages {
         setUnexpectedTypeBound(LgNamesContent.get(_util, _cust, UNEXPECTED_TYPE_BOUND));
         setUnexpectedVararg(LgNamesContent.get(_util, _cust, UNEXPECTED_VARARG));
         setUnexpectedLeaf(LgNamesContent.get(_util, _cust, UNEXPECTED_LEAF));
+        setCaseTypeVar(LgNamesContent.get(_util, _cust, CASE_TYPE_VAR));
         setEmptyPart(LgNamesContent.get(_util, _cust, EMPTY_PART));
     }
     public StringMap<String> allMessages() {
@@ -938,6 +941,7 @@ public final class AnalysisMessages {
         mess_.addEntry(UNEXPECTED_TYPE_BOUND,getUnexpectedTypeBound());
         mess_.addEntry(UNEXPECTED_VARARG,getUnexpectedVararg());
         mess_.addEntry(UNEXPECTED_LEAF,getUnexpectedLeaf());
+        mess_.addEntry(CASE_TYPE_VAR,getCaseTypeVar());
         mess_.addEntry(EMPTY_PART,getEmptyPart());
         return mess_;
     }
@@ -2580,6 +2584,14 @@ public final class AnalysisMessages {
 
     public void setEmptyPart(String _v) {
         emptyPart =_v;
+    }
+
+    public String getCaseTypeVar() {
+        return caseTypeVar;
+    }
+
+    public void setCaseTypeVar(String _v) {
+        this.caseTypeVar = _v;
     }
 
     public String getKeyWordPartClassName() {

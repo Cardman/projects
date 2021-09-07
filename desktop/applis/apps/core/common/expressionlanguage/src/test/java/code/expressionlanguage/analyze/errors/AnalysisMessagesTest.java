@@ -239,6 +239,7 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
         def_.setUnexpectedTypeBound("");
         def_.setUnexpectedVararg("");
         def_.setUnexpectedLeaf("");
+        def_.setCaseTypeVar("");
         def_.setEmptyPart("");
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
