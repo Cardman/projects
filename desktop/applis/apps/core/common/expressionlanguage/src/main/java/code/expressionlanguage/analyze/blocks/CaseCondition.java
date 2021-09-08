@@ -109,20 +109,20 @@ public final class CaseCondition extends SwitchPartBlock {
         }
         String id_ = StringExpUtil.getIdFromAllTypes(type_);
         AnaGeneType g_ = _page.getAnaGeneType(id_);
-        if (g_ instanceof EnumBlock) {
-            EnumBlock e_ = (EnumBlock)g_;
+        if (g_ instanceof EnumBlock && allWordsOrEmpty()) {
+            EnumBlock e_ = (EnumBlock) g_;
             enumBlock = e_;
             typeEnum = id_;
             int sum_ = 0;
-            for (String s: StringUtil.splitChar(value,',')) {
+            for (String s : StringUtil.splitChar(value, ',')) {
                 boolean added_ = false;
                 String trimPart_ = s.trim();
                 int k_ = sum_ + StringExpUtil.getOffset(s);
-                if (StringUtil.quickEq(trimPart_,_page.getKeyWords().getKeyWordNull())) {
+                if (StringUtil.quickEq(trimPart_, _page.getKeyWords().getKeyWordNull())) {
                     offsetsEnum.addEntry(k_, trimPart_);
                     added_ = true;
                 } else {
-                    for (InnerTypeOrElement f: e_.getEnumBlocks()) {
+                    for (InnerTypeOrElement f : e_.getEnumBlocks()) {
                         if (StringUtil.contains(f.getFieldName(), trimPart_)) {
                             offsetsEnum.addEntry(k_, trimPart_);
                             added_ = true;
@@ -230,6 +230,16 @@ public final class CaseCondition extends SwitchPartBlock {
         if (!emp_.isEmpty()) {
             addErrorBlock(emp_);
         }
+    }
+
+    private boolean allWordsOrEmpty() {
+        boolean allWords_ = true;
+        for (String s: StringUtil.splitChar(value,',')) {
+            if (!s.isEmpty()&&!StringExpUtil.isTypeLeafPart(s)) {
+                allWords_ = false;
+            }
+        }
+        return allWords_;
     }
 
     @Override
