@@ -37,7 +37,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>code.renders.main.MainClass</mainClass>
+							<mainClass>code.vm.code.renders.main.MainClass</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -61,7 +61,7 @@
 							<outfile>${project.build.directory}/RendersSites.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<mainClass>code.renders.main.MainClass</mainClass>
+								<mainClass>code.vm.code.renders.main.MainClass</mainClass>
 								<preCp>anything</preCp>
 							</classPath>
 							<jre>

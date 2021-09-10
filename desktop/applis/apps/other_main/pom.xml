@@ -38,7 +38,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>applications.main.other.MainClass</mainClass>
+							<mainClass>code.vm.applications.main.other.MainClass</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -62,7 +62,7 @@
 							<outfile>${project.build.directory}/Applications.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<mainClass>applications.main.other.MainClass</mainClass>
+								<mainClass>code.vm.applications.main.other.MainClass</mainClass>
 								<preCp>anything</preCp>
 							</classPath>
 							<jre>

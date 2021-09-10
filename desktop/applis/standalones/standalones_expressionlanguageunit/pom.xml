@@ -37,7 +37,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>code.expressionlanguage.main.unit.MainClass</mainClass>
+							<mainClass>code.vm.code.expressionlanguage.main.unit.MainClass</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -61,7 +61,7 @@
 							<outfile>${project.build.directory}/UG.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<mainClass>code.expressionlanguage.main.unit.MainClass</mainClass>
+								<mainClass>code.vm.code.expressionlanguage.main.unit.MainClass</mainClass>
 								<preCp>anything</preCp>
 							</classPath>
 							<jre>

@@ -37,7 +37,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>code.player.main.MainClass</mainClass>
+							<mainClass>code.vm.code.player.main.MainClass</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -61,7 +61,7 @@
 							<outfile>${project.build.directory}/Player.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<mainClass>code.player.main.MainClass</mainClass>
+								<mainClass>code.vm.code.player.main.MainClass</mainClass>
 								<preCp>anything</preCp>
 							</classPath>
 							<icon>src/main/resources/resources_player/player.ico</icon>

@@ -37,7 +37,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>aiki.main.MainClass</mainClass>
+							<mainClass>code.vm.aiki.main.MainClass</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -61,7 +61,7 @@
 							<outfile>${project.build.directory}/Pokemon.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<mainClass>aiki.main.MainClass</mainClass>
+								<mainClass>code.vm.aiki.main.MainClass</mainClass>
 								<preCp>anything</preCp>
 							</classPath>
 							<icon>src/main/resources/resources_pk/pokemon.ico</icon>
