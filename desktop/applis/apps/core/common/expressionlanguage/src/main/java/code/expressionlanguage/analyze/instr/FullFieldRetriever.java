@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.FoundVariable;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -35,17 +36,8 @@ public final class FullFieldRetriever implements FieldRetriever {
 
     @Override
     public int processFieldsStaticAccess(boolean _ctorCall, int _begin, String _word, int _to) {
-        AnalyzedPageEl ana_ = context;
-        AnaLocalVariable val_ = ana_.getInfosVars().getVal(_word);
-        if (val_ == null) {
-            String sh_ = StringExpUtil.skipPrefix(_word);
-            AnaLocalVariable loc_ = ana_.getInfosVars().getVal(sh_);
-            int deep_ = StringExpUtil.countPrefix(_word, '#');
-            if (loc_ != null) {
-                deep_--;
-            }
-            val_ = ana_.getCache().getLocalVar(sh_,deep_);
-        }
+        FoundVariable foundVar_ = new FoundVariable(_word, context);
+        AnaLocalVariable val_ = foundVar_.getVal();
         if (val_ != null) {
             ConstType type_;
             type_ = val_.getConstType();

@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.FoundVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
@@ -562,19 +563,9 @@ public abstract class OperationNode {
         if (ct_ == ConstType.LOOP_INDEX) {
             return new FinalVariableOperation(_index, _indexChild, _m, _op);
         }
-        AnaLocalVariable val_ = _page.getInfosVars().getVal(str_);
-        int deep_ = -1;
-        if (val_ == null) {
-            String shortStr_ = StringExpUtil.skipPrefix(str_);
-            AnaLocalVariable loc_ = _page.getInfosVars().getVal(shortStr_);
-            deep_ = StringExpUtil.countPrefix(str_, '#');
-            if (loc_ != null) {
-                deep_--;
-            }
-            AnaCache cache_ = _page.getCache();
-            val_ = cache_.getLocalVar(shortStr_,deep_);
-
-        }
+        FoundVariable foundVar_ = new FoundVariable(str_,_page);
+        AnaLocalVariable val_ = foundVar_.getVal();
+        int deep_ = foundVar_.getDeep();
         if (val_ != null) {
             if (val_.getConstType() == ConstType.REF_PARAM) {
                 val_.setUsed(true);

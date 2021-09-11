@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.analyze.variables.FoundVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
@@ -2466,9 +2467,9 @@ public final class ElResolver {
         }
         int next_ = StringExpUtil.nextPrintChar(indexParRight_+1,_string.length(),_string);
         for (String s: StringUtil.wrapStringArray("+=","-=",
-                "*=","/=","%=",
-                "^=","&=","|=",
-                "||","&&","?",":",
+                "*=","/","%",
+                "^","&","|",
+                "?",":",
                 "<",">",",","->",
                 "!=","=",")","]","}")) {
             if (_string.startsWith(s,next_)) {
