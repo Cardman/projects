@@ -1,8 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
@@ -14,9 +11,7 @@ public final class ExecSwitchInstanceMethod extends ExecAbstractSwitchMethod {
     }
 
     @Override
-    public ExecBlock processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
-        ExecResultCase found_ = ExecInstanceSwitchBlock.innerProcess(this,getImportedParamType(),_cont,_if,_arg,_stack, 0);
-        return cover(this, _cont,_if,_arg,_stack,found_);
+    protected ExecResultCase lastVisMeth(SwitchBlockStack _if, ExecResultCase _res) {
+        return ExecAbstractSwitchBlock.tryLastVisited(_if, _res);
     }
-
 }

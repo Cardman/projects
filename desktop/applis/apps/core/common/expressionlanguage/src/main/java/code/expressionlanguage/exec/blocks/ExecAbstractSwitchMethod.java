@@ -77,7 +77,12 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
         return retRef;
     }
 
-    public abstract ExecBlock processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack);
+    public ExecBlock processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
+        ExecResultCase res_ = ExecAbstractSwitchBlock.innerProcess(getImportedParamType(), _cont, _stack, this, _if, _arg, 0);
+        lastVisMeth(_if, res_);
+        return cover( this, _cont, _if, _arg, _stack, res_);
+    }
+    protected abstract ExecResultCase lastVisMeth(SwitchBlockStack _if, ExecResultCase _res);
     public static ExecBlock cover(ExecBlock _curr,ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack, ExecResultCase _found) {
         if (_cont.callsOrException(_stack)) {
             return _curr;
