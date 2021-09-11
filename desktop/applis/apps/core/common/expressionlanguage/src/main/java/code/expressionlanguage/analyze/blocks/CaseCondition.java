@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.ParsedType;
 import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -49,13 +48,13 @@ public final class CaseCondition extends SwitchPartBlock {
     private final CustList<Argument> stdValues = new CustList<Argument>();
     private final CustList<ClassField> enumValues = new CustList<ClassField>();
 
-    private final boolean caseWhen;
     private int indexTypeVarCase = -1;
-    public CaseCondition(OffsetStringInfo _value, int _offset, boolean _caseWhen, OffsetStringInfo _variable, OffsetStringInfo _condition) {
+    private final String declaringType;
+    public CaseCondition(OffsetStringInfo _value, int _offset, String _declaringType, OffsetStringInfo _variable, OffsetStringInfo _condition) {
         super(_offset);
+        declaringType = _declaringType;
         value = _value.getInfo();
         valueOffset = _value.getOffset();
-        caseWhen = _caseWhen;
         variableName = _variable.getInfo();
         variableOffset = _variable.getOffset();
         condition = _condition.getInfo();
@@ -144,9 +143,6 @@ public final class CaseCondition extends SwitchPartBlock {
             }
             return;
         }
-        ParsedType p_ = new ParsedType();
-        p_.parse(value);
-        String declaringType_ = p_.getInstruction().toString();
         _page.setGlobalOffset(valueOffset);
         _page.zeroOffset();
         if (!variableName.isEmpty()) {
@@ -160,7 +156,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 addErrorBlock(un_.getBuiltError());
             }
             instance = true;
-            partOffsets = ResolvingTypes.resolveCorrectType(declaringType_, _page);
+            partOffsets = ResolvingTypes.resolveCorrectType(declaringType, _page);
             importedType = partOffsets.getResult(_page);
             TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
             if (!res_.isError()) {
@@ -170,7 +166,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 lv_.setConstType(ConstType.FIX_VAR);
                 _page.getInfosVars().put(variableName, lv_);
             }
-            if (caseWhen) {
+            if (!condition.trim().isEmpty()) {
                 _page.setGlobalOffset(conditionOffset);
                 _page.zeroOffset();
                 res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, condition.trim(), Calculation.staticCalculation(stCtx_), _page));
@@ -287,6 +283,6 @@ public final class CaseCondition extends SwitchPartBlock {
     }
 
     public boolean isCaseWhen() {
-        return caseWhen;
+        return !condition.trim().isEmpty();
     }
 }

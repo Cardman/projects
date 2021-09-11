@@ -2043,18 +2043,18 @@ public final class FileResolver {
                 conditionOffset_ = fullValueOffset_;
                 br_ = new CaseCondition(
                         new OffsetStringInfo(fullValueOffset_, exp_.trim()),
-                        _instructionTrimLocation+_offset,false,new OffsetStringInfo(0,""),new OffsetStringInfo(conditionOffset_,""));
+                        _instructionTrimLocation+_offset, "", new OffsetStringInfo(0,""),new OffsetStringInfo(conditionOffset_,""));
             } else if (sepCond_ >= 0) {
                 String substring_ = trimPreVar_.substring(sepCond_ + 1);
                 conditionOffset_ = fullValueOffset_+declaringType_.length() + StringExpUtil.getOffset(varName_)+1+sepCond_+StringExpUtil.getOffset(substring_);
                 br_ = new CaseCondition(
                         new OffsetStringInfo(fullValueOffset_, exp_.trim()),
-                        _instructionTrimLocation+_offset,true,new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,substring_));
+                        _instructionTrimLocation+_offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,substring_));
             } else {
                 conditionOffset_ = fullValueOffset_;
                 br_ = new CaseCondition(
                         new OffsetStringInfo(fullValueOffset_, exp_.trim()),
-                        _instructionTrimLocation+_offset,false,new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,""));
+                        _instructionTrimLocation+_offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,""));
             }
 
             //if next after i starts with brace or not
