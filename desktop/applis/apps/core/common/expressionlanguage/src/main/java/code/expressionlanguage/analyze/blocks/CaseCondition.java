@@ -235,7 +235,8 @@ public final class CaseCondition extends SwitchPartBlock {
     private boolean allWordsOrEmpty() {
         boolean allWords_ = true;
         for (String s: StringUtil.splitChar(value,',')) {
-            if (!s.isEmpty()&&!StringExpUtil.isTypeLeafPart(s)) {
+            String trim_ = s.trim();
+            if (!trim_.isEmpty()&&!StringExpUtil.isTypeLeafPart(trim_)) {
                 allWords_ = false;
             }
         }
