@@ -113,36 +113,6 @@ public final class CaseCondition extends SwitchPartBlock {
             type_ = resSwitch_.getSingleNameOrEmpty();
             instance_ = sw_.isInstance();
         }
-        String id_ = StringExpUtil.getIdFromAllTypes(type_);
-        AnaGeneType g_ = _page.getAnaGeneType(id_);
-        if (g_ instanceof EnumBlock && allWordsOrEmpty()) {
-            EnumBlock e_ = (EnumBlock) g_;
-            enumBlock = e_;
-            typeEnum = id_;
-            int sum_ = 0;
-            for (String s : StringUtil.splitChar(value, ',')) {
-                boolean added_ = false;
-                String trimPart_ = s.trim();
-                int k_ = sum_ + StringExpUtil.getOffset(s);
-                if (StringUtil.quickEq(trimPart_, _page.getKeyWords().getKeyWordNull())) {
-                    offsetsEnum.addEntry(k_, trimPart_);
-                    added_ = true;
-                } else {
-                    for (InnerTypeOrElement f : e_.getEnumBlocks()) {
-                        if (StringUtil.contains(f.getFieldName(), trimPart_)) {
-                            offsetsEnum.addEntry(k_, trimPart_);
-                            added_ = true;
-                            break;
-                        }
-                    }
-                }
-                if (!added_) {
-                    offsetsEnum.addEntry(k_, trimPart_);
-                }
-                sum_ += s.length() + 1;
-            }
-            return;
-        }
         _page.setGlobalOffset(valueOffset);
         _page.zeroOffset();
         if (!variableName.isEmpty()) {
@@ -191,6 +161,36 @@ public final class CaseCondition extends SwitchPartBlock {
                 d_.setBuiltError(res_.getMessage());
                 _page.addLocError(d_);
                 nameErrors.add(d_.getBuiltError());
+            }
+            return;
+        }
+        String id_ = StringExpUtil.getIdFromAllTypes(type_);
+        AnaGeneType g_ = _page.getAnaGeneType(id_);
+        if (g_ instanceof EnumBlock && allWordsOrEmpty()) {
+            EnumBlock e_ = (EnumBlock) g_;
+            enumBlock = e_;
+            typeEnum = id_;
+            int sum_ = 0;
+            for (String s : StringUtil.splitChar(value, ',')) {
+                boolean added_ = false;
+                String trimPart_ = s.trim();
+                int k_ = sum_ + StringExpUtil.getOffset(s);
+                if (StringUtil.quickEq(trimPart_, _page.getKeyWords().getKeyWordNull())) {
+                    offsetsEnum.addEntry(k_, trimPart_);
+                    added_ = true;
+                } else {
+                    for (InnerTypeOrElement f : e_.getEnumBlocks()) {
+                        if (StringUtil.contains(f.getFieldName(), trimPart_)) {
+                            offsetsEnum.addEntry(k_, trimPart_);
+                            added_ = true;
+                            break;
+                        }
+                    }
+                }
+                if (!added_) {
+                    offsetsEnum.addEntry(k_, trimPart_);
+                }
+                sum_ += s.length() + 1;
             }
             return;
         }

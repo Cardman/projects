@@ -2018,11 +2018,9 @@ public final class FileResolver {
                 valueOffest_ += StringUtil.getFirstPrintableCharIndex(exp_);
             }
             String value_ = exp_.trim();
-            ParsedType p_ = new ParsedType();
-            p_.parse(value_);
-            String declaringType_ = p_.getInstruction().toString();
+            String declaringType_ = getDeclaringTypeInstr(value_, _page.getKeyWords());
             String varName_;
-            if (p_.isOk(new CustList<String>(_page.getKeyWords().getKeyWordNew()))) {
+            if (!declaringType_.isEmpty()) {
                 varName_ = value_.substring(declaringType_.length());
             } else {
                 varName_ = "";
