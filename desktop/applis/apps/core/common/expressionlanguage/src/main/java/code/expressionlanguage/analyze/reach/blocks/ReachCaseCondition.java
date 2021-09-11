@@ -92,9 +92,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             instance_ = sw_.isInstance();
         }
         if (instance) {
-            if (meta.getImportedType().isEmpty()) {
-                meta.getStdValues().add(Argument.createVoid());
-            } else if (root != null) {
+            if (root != null) {
                 ReachOperationUtil.tryCalculate(root, _page);
             }
             return;
@@ -255,15 +253,6 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             super.reach(_anEl, _page);
             return;
         }
-        if (meta.isNullCase()) {
-            boolean nullCase_ = nullCase();
-            if (!nullCase_) {
-                _anEl.reach(this);
-            } else {
-                _anEl.unreach(this);
-            }
-            return;
-        }
         if (instance) {
             processInstance(_anEl, _page);
             return;
@@ -276,17 +265,8 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         boolean reachCatch_ = true;
         CustList<OperationNode> childrenNodes_ = childrenNodes();
         for (OperationNode o: childrenNodes_) {
-            _anEl.setArgMapping(o.getResultClass().getSingleNameOrEmpty());
-            for (ReachCaseCondition c: classes_) {
-                if (c.root == null) {
-                    _anEl.setParamMapping(c.importedType);
-                    if (_anEl.isCorrectMapping(_page)) {
-                        reachCatch_ = false;
-                        break;
-                    }
-                }
-            }
-            if (!reachCatch_) {
+            if (!reachCatch(classes_,o,_anEl,_page)) {
+                reachCatch_ = false;
                 break;
             }
         }
@@ -295,6 +275,24 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         } else {
             _anEl.unreach(this);
         }
+    }
+    private static boolean reachCatch(CustList<ReachCaseCondition> _classes, OperationNode _o, AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        String argType_ = _o.getResultClass().getSingleNameOrEmpty();
+        if (argType_.isEmpty()) {
+            return true;
+        }
+        boolean reachCatch_ = true;
+        _anEl.setArgMapping(argType_);
+        for (ReachCaseCondition c: _classes) {
+            if (c.root == null) {
+                _anEl.setParamMapping(c.importedType);
+                if (_anEl.isCorrectMapping(_page)) {
+                    reachCatch_ = false;
+                    break;
+                }
+            }
+        }
+        return reachCatch_;
     }
 
     private CustList<OperationNode> childrenNodes() {
@@ -330,18 +328,6 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
             return _anEl.isCorrectMapping(_page);
         }
         return _other.root == null;
-    }
-
-    private boolean nullCase() {
-        ReachBlock b_ = getPreviousSibling();
-        boolean nullCase_ = false;
-        while (b_ != null) {
-            if (b_ instanceof ReachCaseCondition && ((ReachCaseCondition) b_).meta.isNullCase()) {
-                nullCase_ = true;
-            }
-            b_ = b_.getPreviousSibling();
-        }
-        return nullCase_;
     }
 
     private CustList<ReachCaseCondition> previous() {

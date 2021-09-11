@@ -11610,7 +11610,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
                 "  $switch (<a href=\"#m61\">v</a>){\n" +
                 "   $case $null;\n" +
-                "   <a title=\"The code is unreachable in the function method()\" class=\"e\">$case</a> $null;\n" +
+                "   <a title=\"The $case block with value  is duplicated in the parent $switch block.\" class=\"e\">$case</a> $null;\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +

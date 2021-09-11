@@ -357,7 +357,6 @@ public final class SplitExpressionUtil {
 
     private static void processFunction(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _method, RootBlock _type) {
         AbsBk current_ = _method.getFirstChild();
-        String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
         if (current_ == null) {
             return;
         }
@@ -374,32 +373,15 @@ public final class SplitExpressionUtil {
             }
             if (current_ instanceof CaseCondition) {
                 String value_ = ((CaseCondition) current_).getValue();
-                ParsedType p_ = new ParsedType();
-                p_.parse(value_);
-                String declaringType_ = p_.getInstruction().toString();
-                String varName_;
-                if (p_.isOk(new CustList<String>(keyWordNew_))) {
-                    varName_ = value_.substring(declaringType_.length());
-                } else {
-                    varName_ = "";
-                }
-                String trimPreVar_ = varName_.trim();
-                int sepCond_ = trimPreVar_.indexOf(':');
-                String trimVar_;
-                if (sepCond_ >= 0) {
-                    trimVar_ = trimPreVar_.substring(0,sepCond_).trim();
-                } else {
-                    trimVar_ = trimPreVar_;
-                }
-                if (!StringExpUtil.isTypeLeafPart(trimVar_)) {
+                if (((CaseCondition) current_).getVariableName().isEmpty()) {
                     _page.setGlobalOffset(((CaseCondition) current_).getValueOffset());
                     _page.zeroOffset();
                     ResultExpression resultExpression_ = ((CaseCondition) current_).getRes();
                     extractAnon(_page, _int, _method, _type, value_, resultExpression_);
                 } else {
-                    if (sepCond_ >= 0) {
-                        String substring_ = trimPreVar_.substring(sepCond_ + 1);
-                        _page.setGlobalOffset(((CaseCondition) current_).getValueOffset()+declaringType_.length() + StringExpUtil.getOffset(varName_)+1+sepCond_+StringExpUtil.getOffset(substring_));
+                    if (((CaseCondition) current_).isCaseWhen()) {
+                        String substring_ = ((CaseCondition) current_).getCondition();
+                        _page.setGlobalOffset(((CaseCondition) current_).getConditionOffset());
                         _page.zeroOffset();
                         ResultExpression resultExpression_ = ((CaseCondition) current_).getRes();
                         extractAnon(_page, _int, _method, _type, substring_.trim(), resultExpression_);
