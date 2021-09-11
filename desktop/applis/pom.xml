@@ -68,6 +68,6 @@
 	</build>
 	<modules>
 		<module>apps</module>
-		<module>standalones</module>
+		<module>main</module>
 	</modules>
 </project>

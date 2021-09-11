@@ -2,23 +2,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
 					http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
-       <groupId>apps</groupId>
-        <artifactId>apps</artifactId>
+       <groupId>applis</groupId>
+        <artifactId>applis</artifactId>
         <version>2.0</version>
     </parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>sys_apps</groupId>
-	<artifactId>sys_apps</artifactId>
+	<groupId>main</groupId>
+	<artifactId>main</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>random</module>
-		<module>infos_core</module>
-		<module>other</module>
-		<module>def_fact</module>
-		<module>other_fact</module>
-		<module>def</module>
-		<module>def_standalones</module>
-		<module>def_back</module>
+		<module>infos</module>
+		<module>def_main</module>
+		<module>other_main</module>
+		<module>standalones</module>
+		<module>young</module>
 	</modules>
 </project>

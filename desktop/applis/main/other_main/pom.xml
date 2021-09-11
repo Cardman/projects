@@ -3,17 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-       <groupId>apps</groupId>
-        <artifactId>apps</artifactId>
+       <groupId>main</groupId>
+        <artifactId>main</artifactId>
         <version>2.0</version>
     </parent>
-	<groupId>young</groupId>
-	<artifactId>young</artifactId>
+	<groupId>other_main</groupId>
+	<artifactId>other_main</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdk.version>1.8</jdk.version>
 	</properties>
 	<build>
 		<finalName>Applications</finalName>
@@ -37,7 +38,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>code.vm.applications.main.young.MainClass</mainClass>
+							<mainClass>code.vm.applications.main.other.MainClass</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -61,7 +62,7 @@
 							<outfile>${project.build.directory}/Applications.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<mainClass>code.vm.applications.main.young.MainClass</mainClass>
+								<mainClass>code.vm.applications.main.other.MainClass</mainClass>
 								<preCp>anything</preCp>
 							</classPath>
 							<jre>
@@ -83,8 +84,8 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>def_back</groupId>
-			<artifactId>def_back</artifactId>
+			<groupId>other_fact</groupId>
+			<artifactId>other_fact</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
