@@ -2087,4 +2087,26 @@ public final class ProcessEvolvedSwitchTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrReadOnly(files_));
     }
+    @Test
+    public void calculateArgument4FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO;\n");
+        xml_.append(" $public $static Ex THREE;\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=\"8\";\n");
+        xml_.append("  $return $switch(t){\n");
+        xml_.append("   $case 1;\n");
+        xml_.append("   $case 2;\n");
+        xml_.append("    $return \" int\";\n");
+        xml_.append("   $default d;\n");
+        xml_.append("    $return \" int\";\n");
+        xml_.append("  };\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
 }
