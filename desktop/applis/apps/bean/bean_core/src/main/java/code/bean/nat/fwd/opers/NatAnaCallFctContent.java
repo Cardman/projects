@@ -1,13 +1,13 @@
 package code.bean.nat.fwd.opers;
 
+import code.bean.nat.SpecNatMethod;
 import code.bean.nat.analyze.opers.NatClassMethodIdReturn;
-import code.expressionlanguage.stds.StandardMethod;
 
 public final class NatAnaCallFctContent {
 
     private final String methodName;
 
-    private StandardMethod standardMethod;
+    private SpecNatMethod standardMethod;
     private String foundClass = "";
 
     public NatAnaCallFctContent(String _methodName) {
@@ -27,7 +27,7 @@ public final class NatAnaCallFctContent {
         return foundClass;
     }
 
-    public StandardMethod getStandardMethod() {
+    public SpecNatMethod getStandardMethod() {
         return standardMethod;
     }
 

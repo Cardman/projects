@@ -1,7 +1,12 @@
 package aiki.beans.solution;
-import aiki.beans.*;
+
+import aiki.beans.AikiBeansStd;
+import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
+import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -9,11 +14,8 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -31,18 +33,18 @@ public final class AikiBeansSolutionStd {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        StandardMethod method_;
+        CustList<SpecNatMethod> methods_;
+        SpecNatMethod method_;
         StringList params_;
-        methods_ = new CustList<StandardMethod>();
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_SOLUTION_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        fields_.add(new StandardField(STEPS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        type_ = new SpecialNatClass(TYPE_SOLUTION_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(STEPS, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new StandardMethod(GET_PLACE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_PLACE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add(method_);
-        _std.getStandards().addEntry(TYPE_SOLUTION_BEAN, type_);
+        _std.getStds().addEntry(TYPE_SOLUTION_BEAN, type_);
     }
     public static ResultErrorStd getResultSolutionBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();

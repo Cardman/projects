@@ -1,11 +1,11 @@
 package aiki.beans.items.effects;
+
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
+import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
-import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.bean.nat.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.util.CustList;
 
 public final class AikiBeansItemsEffectsStd {
@@ -19,11 +19,11 @@ public final class AikiBeansItemsEffectsStd {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_ITEM_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        _std.getStandards().addEntry(TYPE_EFFECT_END_ROUND_ITEM_BEAN, type_);
+        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_ITEM_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_ITEM_BEAN, type_);
     }
 }

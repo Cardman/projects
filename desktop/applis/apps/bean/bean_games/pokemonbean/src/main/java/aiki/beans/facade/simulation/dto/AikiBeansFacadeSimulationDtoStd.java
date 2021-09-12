@@ -1,15 +1,15 @@
 package aiki.beans.facade.simulation.dto;
+
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
+import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -39,61 +39,61 @@ public final class AikiBeansFacadeSimulationDtoStd {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EV_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.add(new StandardField(EV,_std.getAliasPrimInteger(),false,false,type_));
-        _std.getStandards().addEntry(TYPE_EV_LINE, type_);
+        type_ = new SpecialNatClass(TYPE_EV_LINE, fields_, methods_, _std.getAliasObject());
+        fields_.add(new StandardField(EV,_std.getAliasPrimInteger(),false,false));
+        _std.getStds().addEntry(TYPE_EV_LINE, type_);
     }
     private static void buildPokemonPlayerDto(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_DTO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
-        _std.getStandards().addEntry(TYPE_POKEMON_PLAYER_DTO, type_);
+        type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_DTO, fields_, methods_, _std.getAliasObject());
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false));
+        _std.getStds().addEntry(TYPE_POKEMON_PLAYER_DTO, type_);
     }
     private static void buildPokemonTrainerDto(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_POKEMON_TRAINER_DTO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
-        _std.getStandards().addEntry(TYPE_POKEMON_TRAINER_DTO, type_);
+        type_ = new SpecialNatClass(TYPE_POKEMON_TRAINER_DTO, fields_, methods_, _std.getAliasObject());
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false));
+        _std.getStds().addEntry(TYPE_POKEMON_TRAINER_DTO, type_);
     }
     private static void buildRadioLineMove(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_RADIO_LINE_MOVE, fields_, constructors_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE, MethodModifier.NORMAL);
-        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
-        _std.getStandards().addEntry(TYPE_RADIO_LINE_MOVE, type_);
+        type_ = new SpecialNatClass(TYPE_RADIO_LINE_MOVE, fields_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE);
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false));
+        _std.getStds().addEntry(TYPE_RADIO_LINE_MOVE, type_);
     }
     private static void buildSelectLineMove(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_SELECT_LINE_MOVE, fields_, constructors_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE, MethodModifier.NORMAL);
-        fields_.add(new StandardField(SELECTED,_std.getAliasPrimBoolean(),false,false,type_));
-        _std.getStandards().addEntry(TYPE_SELECT_LINE_MOVE, type_);
+        type_ = new SpecialNatClass(TYPE_SELECT_LINE_MOVE, fields_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE);
+        fields_.add(new StandardField(SELECTED,_std.getAliasPrimBoolean(),false,false));
+        _std.getStds().addEntry(TYPE_SELECT_LINE_MOVE, type_);
     }
     public static ResultErrorStd getResultEvLine(ContextEl _cont, ClassField _classField, EvLine _inst) {
         ResultErrorStd res_ = new ResultErrorStd();

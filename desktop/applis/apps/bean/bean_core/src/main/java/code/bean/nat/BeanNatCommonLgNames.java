@@ -40,6 +40,8 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     private final StringMap<String> iterables = new StringMap<String>();
     private final StringMap<Validator> validators = new StringMap<Validator>();
 
+    private final StringMap<SpecialNatClass> stds = new StringMap<SpecialNatClass>();
+
     protected BeanNatCommonLgNames() {
         super(new DefaultGenerator());
     }
@@ -104,51 +106,55 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         CustList<StandardField> fields_;
         fields_ = new CustList<StandardField>();
         SpecialNatClass std_;
-        CustList<StandardMethod> methods_;
+        CustList<SpecNatMethod> methods_;
         CustList<StandardConstructor> constructors_;
-        methods_ = new CustList<StandardMethod>();
+        methods_ = new CustList<SpecNatMethod>();
         StringList params_;
-        StandardMethod method_;
+        SpecNatMethod method_;
         constructors_ = new CustList<StandardConstructor>();
-        std_ = new SpecialNatClass(TYPE_BEAN, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        std_ = new SpecialNatClass(TYPE_BEAN, fields_, methods_, getAliasObject());
         params_ = new StringList(getAliasString());
-        method_ = new StandardMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
+        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
         methods_.add(method_);
-        getStandards().addEntry(TYPE_BEAN, std_);
+        stds.addEntry(TYPE_BEAN, std_);
         fields_ = new CustList<StandardField>();
-        methods_ = new CustList<StandardMethod>();
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         SpecialNatClass cl_;
-        cl_ = new SpecialNatClass(TYPE_LIST, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        cl_ = new SpecialNatClass(TYPE_LIST, fields_, methods_, getAliasObject());
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         params_ = new StringList();
-        method_ = new StandardMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
+        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
         methods_.add(method_);
         getIterables().put(TYPE_LIST, getAliasObject());
-        getStandards().addEntry(TYPE_LIST, cl_);
-        methods_ = new CustList<StandardMethod>();
-        cl_ = new SpecialNatClass(TYPE_MAP, fields_, constructors_, methods_, getAliasObject(), MethodModifier.NORMAL);
+        stds.addEntry(TYPE_LIST, cl_);
+        methods_ = new CustList<SpecNatMethod>();
+        cl_ = new SpecialNatClass(TYPE_MAP, fields_, methods_, getAliasObject());
         params_ = new StringList();
-        method_ = new StandardMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
+        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
         methods_.add(method_);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         cl_.getDirectInterfaces().add(TYPE_ENTRIES);
         getIterables().put(TYPE_MAP, getAliasObject());
-        getStandards().addEntry(TYPE_MAP, cl_);
-        methods_ = new CustList<StandardMethod>();
+        stds.addEntry(TYPE_MAP, cl_);
+        methods_ = new CustList<SpecNatMethod>();
         params_ = new StringList();
-        method_ = new StandardMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
+        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
         methods_.add(method_);
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        methods_ = new CustList<StandardMethod>();
-        std_ = new SpecialNatClass(TYPE_ITERATOR, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        getStandards().addEntry(TYPE_ITERATOR, std_);
-        methods_ = new CustList<StandardMethod>();
-        cl_ = new SpecialNatClass(TYPE_VALIDATOR, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
-        getStandards().addEntry(TYPE_VALIDATOR, cl_);
+        methods_ = new CustList<SpecNatMethod>();
+        std_ = new SpecialNatClass(TYPE_ITERATOR, fields_, methods_, getAliasObject());
+        stds.addEntry(TYPE_ITERATOR, std_);
+        methods_ = new CustList<SpecNatMethod>();
+        cl_ = new SpecialNatClass(TYPE_VALIDATOR, fields_, methods_, getAliasObject());
+        stds.addEntry(TYPE_VALIDATOR, cl_);
     }
 
+
+    public StringMap<SpecialNatClass> getStds() {
+        return stds;
+    }
 
     @Override
     public AbstractWrapper newWrapper(LocalVariable _local){
@@ -234,6 +240,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         Options options_ = _context.getOptions();
         Forwards forwards_ = new Forwards(this, null, options_);
         _page.setStandards(getContent());
+        _page.setStds(this);
         //
 
         //        standards_.addEntry(getCoreNames().getAliasObject(), std_);
@@ -241,7 +248,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         buildOther();
         _page.setStandards(getContent());
 
-        RendBlockHelp.setupOverrides(getStandards());
+        RendBlockHelp.setupOverrides(getStds());
         return forwards_;
     }
 //    public void rendRefresh(Navigation _navigation, ContextEl _context, RendStackCall _rendStack) {

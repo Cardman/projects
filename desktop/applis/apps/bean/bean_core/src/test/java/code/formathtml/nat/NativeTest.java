@@ -1946,7 +1946,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         lgNames_.buildBeans();
         lgNames_.buildOther();
         page_.setStandards(lgNames_.getContent());
-        RendBlockHelp.setupOverrides(page_.getStandardsTypes());
+        page_.setStds(lgNames_);
+        RendBlockHelp.setupOverrides(page_.getStds());
         return new NativeAnalyzedTestContext(page_, forwards_, lgNames_);
     }
 

@@ -99,8 +99,9 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         CustList<CommentDelimiters> comments_ = options_.getComments();
         CommentsUtil.checkAndUpdateComments(comments_,new CustList<CommentDelimiters>());
         _page.setStandards(forwards_.getGenerator().getContent());
+        _page.setStds(this);
         build();
-        RendBlockHelp.setupOverrides(_page.getStandardsTypes());
+        RendBlockHelp.setupOverrides(_page.getStds());
         return forwards_;
     }
 

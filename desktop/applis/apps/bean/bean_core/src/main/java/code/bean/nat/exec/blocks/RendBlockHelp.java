@@ -317,21 +317,21 @@ public final class RendBlockHelp {
         _rendStackCall.getFormParts().getAnchorsVars().add(_varNames);
     }
 
-    public static void setupOverrides(StringMap<StandardType> _standardsTypes) {
+    public static void setupOverrides(StringMap<SpecialNatClass> _standardsTypes) {
         buildInherits(_standardsTypes);
     }
 
-    public static void buildInherits(StringMap<StandardType> _standardsTypes){
-        for (EntryCust<String, StandardType> s: _standardsTypes.entryList()) {
+    public static void buildInherits(StringMap<SpecialNatClass> _standardsTypes){
+        for (EntryCust<String, SpecialNatClass> s: _standardsTypes.entryList()) {
             buildInherits((SpecialNatClass) s.getValue(), _standardsTypes);
         }
     }
 
-    private static void buildInherits(SpecialNatClass _type, StringMap<StandardType> _standardsTypes) {
+    private static void buildInherits(SpecialNatClass _type, StringMap<SpecialNatClass> _standardsTypes) {
         feedSupers(_type, _type.getAllSuperTypes(), _standardsTypes);
     }
 
-    private static void feedSupers(SpecialNatClass _type, StringList _types, StringMap<StandardType> _standardsTypes) {
+    private static void feedSupers(SpecialNatClass _type, StringList _types, StringMap<SpecialNatClass> _standardsTypes) {
         StringList currentSuperTypes_ = new StringList(_type.getSuperClass());
         _types.addAllElts(currentSuperTypes_);
         while (true) {

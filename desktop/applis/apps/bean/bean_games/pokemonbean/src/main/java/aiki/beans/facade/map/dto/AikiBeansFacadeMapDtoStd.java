@@ -1,15 +1,16 @@
 package aiki.beans.facade.map.dto;
+
 import aiki.beans.PlaceStruct;
 import aiki.beans.PokemonStandards;
+import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -29,18 +30,18 @@ public final class AikiBeansFacadeMapDtoStd {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList< StandardMethod> methods_;
-        StandardMethod method_;
+        CustList< SpecNatMethod> methods_;
+        SpecNatMethod method_;
         StringList params_;
-        methods_ = new CustList<StandardMethod>();
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_PLACE_INDEX, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
+        type_ = new SpecialNatClass(TYPE_PLACE_INDEX, fields_, methods_, _std.getAliasObject());
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false));
         params_ = new StringList();
-        method_ = new StandardMethod(GET_PLACE,params_,PokemonStandards.TYPE_PLACE, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_PLACE,params_,PokemonStandards.TYPE_PLACE, false, MethodModifier.NORMAL);
         methods_.add(method_);
-        _std.getStandards().addEntry(TYPE_PLACE_INDEX, type_);
+        _std.getStds().addEntry(TYPE_PLACE_INDEX, type_);
     }
     public static ResultErrorStd getResultPlaceIndex(ContextEl _cont, ClassField _classField, PlaceIndex _inst) {
         ResultErrorStd res_ = new ResultErrorStd();

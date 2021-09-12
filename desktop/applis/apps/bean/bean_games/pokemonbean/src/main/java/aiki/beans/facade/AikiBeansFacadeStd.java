@@ -1,10 +1,10 @@
 package aiki.beans.facade;
+
 import aiki.beans.PokemonStandards;
+import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
-import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.bean.nat.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.util.CustList;
 
 public final class AikiBeansFacadeStd {
@@ -18,11 +18,11 @@ public final class AikiBeansFacadeStd {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_FORMATTING, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().addEntry(TYPE_FORMATTING, type_);
+        type_ = new SpecialNatClass(TYPE_FORMATTING, fields_, methods_, _std.getAliasObject());
+        _std.getStds().addEntry(TYPE_FORMATTING, type_);
     }
 }

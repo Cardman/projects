@@ -1,5 +1,6 @@
 package code.bean.nat.analyze.opers;
 
+import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
@@ -8,7 +9,6 @@ import code.expressionlanguage.common.*;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
-import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -109,8 +109,8 @@ public abstract class NatOperationNode {
     private static NatFieldResult getDeclaredCustFieldByContext(String _class,
                                                                 String _name, NatAnalyzedCode _page) {
         CustList<NatFieldResult> ancestors_ = new CustList<NatFieldResult>();
-        CustList<AnaGeneType> typesGroup_= typeLists(_class, _page);
-        for (AnaGeneType t: typesGroup_) {
+        CustList<SpecialNatClass> typesGroup_= typeLists(_class, _page);
+        for (SpecialNatClass t: typesGroup_) {
             fetchFieldsType(ancestors_,
                     t,
                     _name);
@@ -119,18 +119,17 @@ public abstract class NatOperationNode {
     }
 
     private static void fetchFieldsType(CustList<NatFieldResult> _ancestors,
-                                        AnaGeneType _scope, String _scopeField) {
-        if (!(_scope instanceof SpecialNatClass)) {
+                                        SpecialNatClass _scope, String _scopeField) {
+        if (_scope == null) {
             return;
         }
-        for (StandardField f: ((SpecialNatClass) _scope).getFields()) {
+        for (StandardField f: _scope.getFields()) {
             if (StringUtil.quickEq(f.getFieldName(), _scopeField)) {
                 String type_ = f.getImportedClassName();
                 NatFieldResult res_ = new NatFieldResult();
                 String declaringBaseClass_ = getIdFromAllTypes(_scope.getFullName());
                 ClassField classField_ = new ClassField(declaringBaseClass_, _scopeField);
                 res_.getContent().setClassField(classField_);
-                _scope.getFullName();
                 res_.setType(type_);
                 _ancestors.add(res_);
                 return;
@@ -156,31 +155,31 @@ public abstract class NatOperationNode {
 
     private static void fetchParamClassAncMethods(String _fromClasses,
                                                   CustList<NatMethodInfo> _methods, NatAnalyzedCode _page) {
-        CustList<AnaGeneType> typeInfosGroups_ = typeLists(_fromClasses, _page);
-        for (AnaGeneType t: typeInfosGroups_) {
-            if(!(t instanceof SpecialNatClass)) {
+        CustList<SpecialNatClass> typeInfosGroups_ = typeLists(_fromClasses, _page);
+        for (SpecialNatClass t: typeInfosGroups_) {
+            if(t == null) {
                 continue;
             }
-            SpecialNatClass root_ = (SpecialNatClass) t;
-            for (StandardMethod e: root_.getMethods()) {
+            SpecialNatClass root_ = t;
+            for (SpecNatMethod e: root_.getMethods()) {
                 _methods.add(getMethodInfo(e, root_.getFullName(), e.getImportedReturnType()));
             }
         }
     }
 
-    private static CustList<AnaGeneType> typeLists(String _fromClasses, NatAnalyzedCode _page) {
-        CustList<AnaGeneType> typeInfos_ = new CustList<AnaGeneType>();
+    private static CustList<SpecialNatClass> typeLists(String _fromClasses, NatAnalyzedCode _page) {
+        CustList<SpecialNatClass> typeInfos_ = new CustList<SpecialNatClass>();
         String baseCurName_ = getIdFromAllTypes(_fromClasses);
-        StandardType root_ = _page.getStandardsTypes().getVal(baseCurName_);
+        SpecialNatClass root_ = _page.getStds().getVal(baseCurName_);
         typeInfos_.add(root_);
         for (String m : root_.getAllSuperTypes()) {
-            StandardType sup_ = _page.getStandardsTypes().getVal(m);
+            SpecialNatClass sup_ = _page.getStds().getVal(m);
             typeInfos_.add(sup_);
         }
         return typeInfos_;
     }
 
-    private static NatMethodInfo getMethodInfo(StandardMethod _m, String _formattedClass, String _importedReturnType) {
+    private static NatMethodInfo getMethodInfo(SpecNatMethod _m, String _formattedClass, String _importedReturnType) {
         NatMethodInfo mloc_ = new NatMethodInfo();
         mloc_.types(_importedReturnType);
         mloc_.setStandardMethod(_m);

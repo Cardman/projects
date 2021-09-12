@@ -39,6 +39,7 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
 
 
         natCode.setStandards(getContent());
+        natCode.setStds(this);
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (EntryCust<String, Document> s: _docs.entryList()) {
             String link_ = s.getKey();

@@ -1,19 +1,20 @@
 package aiki.beans.facade.dto;
+
 import aiki.beans.PokemonStandards;
+import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -50,88 +51,88 @@ public final class AikiBeansFacadeDtoStd {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_ITEM_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(PRICE,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.add(new StandardField(DESCRIPTION_CLASS,_std.getAliasString(),false,false,type_));
-        _std.getStandards().addEntry(TYPE_ITEM_LINE, type_);
+        type_ = new SpecialNatClass(TYPE_ITEM_LINE, fields_, methods_, _std.getAliasObject());
+        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(PRICE,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(DESCRIPTION_CLASS,_std.getAliasString(),false,false));
+        _std.getStds().addEntry(TYPE_ITEM_LINE, type_);
     }
     private static void buildItemTypeLine(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_ITEM_TYPE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().addEntry(TYPE_ITEM_TYPE_LINE, type_);
+        type_ = new SpecialNatClass(TYPE_ITEM_TYPE_LINE, fields_, methods_, _std.getAliasObject());
+        _std.getStds().addEntry(TYPE_ITEM_TYPE_LINE, type_);
     }
     private static void buildKeptMovesAfterFight(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_KEPT_MOVES_AFTER_FIGHT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().addEntry(TYPE_KEPT_MOVES_AFTER_FIGHT, type_);
+        type_ = new SpecialNatClass(TYPE_KEPT_MOVES_AFTER_FIGHT, fields_, methods_, _std.getAliasObject());
+        _std.getStds().addEntry(TYPE_KEPT_MOVES_AFTER_FIGHT, type_);
     }
     private static void buildMoveLine(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        StandardMethod method_;
+        CustList<SpecNatMethod> methods_;
+        SpecNatMethod method_;
         StringList params_;
-        methods_ = new CustList<StandardMethod>();
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_MOVE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(PP,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.add(new StandardField(CATEGORY,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(PRIORITY,_std.getAliasPrimInteger(),false,false,type_));
+        type_ = new SpecialNatClass(TYPE_MOVE_LINE, fields_, methods_, _std.getAliasObject());
+        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(PP,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(CATEGORY,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(PRIORITY,_std.getAliasPrimInteger(),false,false));
         params_ = new StringList();
-        method_ = new StandardMethod(IS_DAMAGE_MOVE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_DAMAGE_MOVE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(IS_DIRECT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_DIRECT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_TYPES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TYPES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        _std.getStandards().addEntry(TYPE_MOVE_LINE, type_);
+        _std.getStds().addEntry(TYPE_MOVE_LINE, type_);
     }
     private static void buildPokemonLine(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_POKEMON_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
-        fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        fields_.add(new StandardField(EVOLUTIONS,_std.getAliasPrimInteger(),false,false,type_));
-        _std.getStandards().addEntry(TYPE_POKEMON_LINE, type_);
+        type_ = new SpecialNatClass(TYPE_POKEMON_LINE, fields_, methods_, _std.getAliasObject());
+        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false));
+        fields_.add(new StandardField(EVOLUTIONS,_std.getAliasPrimInteger(),false,false));
+        _std.getStds().addEntry(TYPE_POKEMON_LINE, type_);
     }
     private static void buildWeatherTypeLine(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
+        CustList<SpecNatMethod> methods_;
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_WEATHER_TYPE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().addEntry(TYPE_WEATHER_TYPE_LINE, type_);
+        type_ = new SpecialNatClass(TYPE_WEATHER_TYPE_LINE, fields_, methods_, _std.getAliasObject());
+        _std.getStds().addEntry(TYPE_WEATHER_TYPE_LINE, type_);
     }
     public static ResultErrorStd getResultItemLine(ContextEl _cont, ClassField _classField, ItemLine _inst) {
         ResultErrorStd res_ = new ResultErrorStd();

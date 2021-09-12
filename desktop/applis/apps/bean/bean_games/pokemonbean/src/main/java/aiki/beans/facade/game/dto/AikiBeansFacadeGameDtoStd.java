@@ -1,14 +1,15 @@
 package aiki.beans.facade.game.dto;
+
 import aiki.beans.PokemonStandards;
 import aiki.beans.RateStruct;
+import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -31,26 +32,26 @@ public final class AikiBeansFacadeGameDtoStd {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        StandardMethod method_;
+        CustList<SpecNatMethod> methods_;
+        SpecNatMethod method_;
         StringList params_;
-        methods_ = new CustList<StandardMethod>();
+        methods_ = new CustList<SpecNatMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_STATISTIC_INFO_PK_PLAYER, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
+        type_ = new SpecialNatClass(TYPE_STATISTIC_INFO_PK_PLAYER, fields_, methods_, _std.getAliasObject());
         params_ = new StringList();
-        method_ = new StandardMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_EV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_EV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_IV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_IV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_RATE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_RATE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        _std.getStandards().addEntry(TYPE_STATISTIC_INFO_PK_PLAYER, type_);
+        _std.getStds().addEntry(TYPE_STATISTIC_INFO_PK_PLAYER, type_);
     }
     public static ResultErrorStd invokeMethodStatisticInfoPkPlayer(ContextEl _cont, ClassMethodId _method, StatisticInfoPkPlayer _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();

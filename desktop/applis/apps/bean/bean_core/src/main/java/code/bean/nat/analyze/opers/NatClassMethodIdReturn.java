@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.opers;
 
-import code.expressionlanguage.stds.StandardMethod;
+import code.bean.nat.SpecNatMethod;
 
 public final class NatClassMethodIdReturn {
 
@@ -8,7 +8,7 @@ public final class NatClassMethodIdReturn {
 
     private String returnType;
 
-    private StandardMethod standardMethod;
+    private SpecNatMethod standardMethod;
 
     public String getRealClass() {
         return realClass;
@@ -26,11 +26,11 @@ public final class NatClassMethodIdReturn {
         returnType = _returnType;
     }
 
-    public StandardMethod getStandardMethod() {
+    public SpecNatMethod getStandardMethod() {
         return standardMethod;
     }
 
-    public void setStandardMethod(StandardMethod _standardMethod) {
+    public void setStandardMethod(SpecNatMethod _standardMethod) {
         this.standardMethod = _standardMethod;
     }
 }
