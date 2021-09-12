@@ -107,11 +107,9 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         fields_ = new CustList<StandardField>();
         SpecialNatClass std_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
         methods_ = new CustList<SpecNatMethod>();
         StringList params_;
         SpecNatMethod method_;
-        constructors_ = new CustList<StandardConstructor>();
         std_ = new SpecialNatClass(TYPE_BEAN, fields_, methods_, getAliasObject());
         params_ = new StringList(getAliasString());
         method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
@@ -119,7 +117,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         stds.addEntry(TYPE_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_LIST, fields_, methods_, getAliasObject());
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
@@ -141,7 +138,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         params_ = new StringList();
         method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
         methods_.add(method_);
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         std_ = new SpecialNatClass(TYPE_ITERATOR, fields_, methods_, getAliasObject());

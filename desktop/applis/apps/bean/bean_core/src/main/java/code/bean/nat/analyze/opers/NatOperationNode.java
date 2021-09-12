@@ -9,7 +9,6 @@ import code.expressionlanguage.common.*;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
-import code.expressionlanguage.stds.StandardType;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;

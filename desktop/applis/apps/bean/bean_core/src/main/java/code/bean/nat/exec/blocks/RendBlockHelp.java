@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
@@ -323,7 +322,7 @@ public final class RendBlockHelp {
 
     public static void buildInherits(StringMap<SpecialNatClass> _standardsTypes){
         for (EntryCust<String, SpecialNatClass> s: _standardsTypes.entryList()) {
-            buildInherits((SpecialNatClass) s.getValue(), _standardsTypes);
+            buildInherits(s.getValue(), _standardsTypes);
         }
     }
 
@@ -337,7 +336,7 @@ public final class RendBlockHelp {
         while (true) {
             StringList newSuperTypes_ = new StringList();
             for (String c: currentSuperTypes_) {
-                SpecialNatClass st_ = (SpecialNatClass) _standardsTypes.getVal(c);
+                SpecialNatClass st_ = _standardsTypes.getVal(c);
                 if (st_ == null) {
                     continue;
                 }
