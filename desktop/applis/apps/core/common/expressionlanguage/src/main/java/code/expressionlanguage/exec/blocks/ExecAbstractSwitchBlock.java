@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -82,8 +83,21 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         if (_in instanceof ExecAbstractInstanceCaseCondition && !_arg.isNull()) {
             String type_ = _stack.formatVarType(((ExecAbstractInstanceCaseCondition)_in).getImportedClassName());
             Struct struct_ = _arg.getStruct();
+            int sum_ = ((ExecAbstractInstanceCaseCondition) _in).getIndex() + _index;
+            int nbPrevious_ = _stack.getLastPage().sizeEl() - 1;
             if (ExecInherits.safeObject(type_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING) {
-                return procTypeVar(_cont, _stack, (ExecAbstractInstanceCaseCondition) _in, _arg, _index, type_);
+                return procTypeVar(_cont, _stack, (ExecAbstractInstanceCaseCondition) _in, _arg, type_, sum_, nbPrevious_);
+            }
+            ExecOperationNodeListOff exp_ = ((ExecAbstractInstanceCaseCondition) _in).getExp();
+            CustList<ExecOperationNode> list_ = exp_.getList();
+            if (sum_ < nbPrevious_) {
+                return null;
+            }
+            if (!list_.isEmpty()) {
+                ArgumentsPair pair_ = new ArgumentsPair();
+                pair_.setArgument(new Argument(BooleanStruct.of(false)));
+                _stack.getLastPage().getCurrentEl(sum_,list_,_in).setArgument(pair_);
+                return null;
             }
         }
 //        if (_in instanceof ExecEnumCaseCondition) {
@@ -102,25 +116,23 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         return processList(_cont, _in, _arg);
     }
 
-    private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecAbstractInstanceCaseCondition _in, Argument _arg, int _index, String _type) {
+    private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecAbstractInstanceCaseCondition _in, Argument _arg, String _type, int _sum, int _nbPrevious) {
         ExecOperationNodeListOff exp_ = _in.getExp();
         CustList<ExecOperationNode> list_ = exp_.getList();
         if (list_.isEmpty()) {
             putVar(_stack, _in, _type, _arg);
             return new ExecResultCase(_in,0);
         }
-        int index_ = _in.getIndex() + _index;
-        int nbPrevious_ = _stack.getLastPage().sizeEl() - 1;
-        if (index_ < nbPrevious_) {
+        if (_sum < _nbPrevious) {
             return null;
         }
-        if (index_ > nbPrevious_) {
+        if (_sum > _nbPrevious) {
             putVar(_stack, _in, _type, _arg);
         }
         int offset_ = exp_.getOffset();
         AbstractPageEl lastPage_ = _stack.getLastPage();
         lastPage_.globalOffset(offset_);
-        Argument visit_ = ExecHelperBlocks.tryToCalculate(_cont, index_, _stack, list_, 0, _in);
+        Argument visit_ = ExecHelperBlocks.tryToCalculate(_cont, _sum, _stack, list_, 0, _in);
         if (_cont.callsOrException(_stack)) {
             if (!_stack.calls()) {
                 _stack.getLastPage().removeRefVar(_in.getVariableName());
