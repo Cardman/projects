@@ -218,8 +218,8 @@ public abstract class CustComponent implements AbsCustComponent {
     }
 
     @Override
-    public void setCursor(int _nb) {
-        getNatComponent().setCursor(new Cursor(_nb));
+    public void setHandCursor() {
+        getNatComponent().setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     public Dimension getSize() {

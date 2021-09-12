@@ -13,12 +13,12 @@ import code.gui.images.MetaFont;
 
 public final class DualAnchoredLabel extends DualLabel {
 
-    private String href;
+    private final String href;
 
     public DualAnchoredLabel(DualContainer _container, MetaAnchorLabel _component, RenderedPage _page) {
         super(_container, _component, _page);
         AbsPreparedLabel label_ = getLabel();
-        label_.setCursor(GuiConstants.HAND_CURSOR);
+        label_.setHandCursor();
         label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page, this));
         String prefix_ = getPage().getNavigation().getSession().getPrefix();
         String command_ = new StringBuilder(prefix_).append("command").toString();

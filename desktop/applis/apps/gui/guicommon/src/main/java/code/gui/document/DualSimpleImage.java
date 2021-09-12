@@ -9,7 +9,7 @@ import code.sml.Element;
 
 public final class DualSimpleImage extends DualImage {
     private String href;
-    private int[][] image;
+    private final int[][] image;
 
     public DualSimpleImage(DualContainer _container, MetaSimpleImage _component, RenderedPage _page) {
         super(_container, _component, _page);
@@ -29,7 +29,7 @@ public final class DualSimpleImage extends DualImage {
                 href = "";
             }
             if (!href.trim().isEmpty()) {
-                label_.setCursor(GuiConstants.HAND_CURSOR);
+                label_.setHandCursor();
                 label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             }
         }

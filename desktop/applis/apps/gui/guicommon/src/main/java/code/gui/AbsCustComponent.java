@@ -46,7 +46,8 @@ public interface AbsCustComponent {
     void setRaisedBorder();
     void setToolTipText(String _title);
     void setCursor(int _wCurs, int _hCurs, int[] _pixels);
-    void setCursor(int _nb);
+    void setHandCursor();
+
     void setSize(MetaDimension _dimension);
     MetaDimension getPreferredSizeValue();
     void setPreferredSize(MetaDimension _dimension);

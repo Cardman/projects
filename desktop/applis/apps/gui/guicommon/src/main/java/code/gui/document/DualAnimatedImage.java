@@ -16,9 +16,9 @@ public final class DualAnimatedImage extends DualImage {
 
     private int delay;
 
-    private AnimateImage imageThread;
+    private final AnimateImage imageThread;
 
-    private CustList<int[][]> images;
+    private final CustList<int[][]> images;
 
     public DualAnimatedImage(DualContainer _container, MetaAnimatedImage _component, RenderedPage _page) {
         super(_container, _component, _page);
@@ -27,7 +27,7 @@ public final class DualAnimatedImage extends DualImage {
         href = "";
         if (anchor_ != null) {
             AbsPreparedLabel label_ = getLabel();
-            label_.setCursor(GuiConstants.HAND_CURSOR);
+            label_.setHandCursor();
             label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
             if (!anchor_.getAttribute("command").isEmpty()) {
                 href = anchor_.getAttribute("command");

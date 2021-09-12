@@ -18,7 +18,7 @@ public final class DualButton extends DualInput {
         label = _page.getCompoFactory().newPlainButton();
         updateGraphics(label,_component);
         label.setLineBorder(GuiConstants.BLACK, 1);
-        label.setCursor(GuiConstants.HAND_CURSOR);
+        label.setHandCursor();
         label.addMouseListener(new FormEvent(this, _page));
         value = _component.getValue();
     }
