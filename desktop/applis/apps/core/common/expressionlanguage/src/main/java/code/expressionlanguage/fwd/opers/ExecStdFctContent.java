@@ -1,6 +1,7 @@
 package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.stds.StandardMethod;
 
 public final class ExecStdFctContent {
 
@@ -13,12 +14,19 @@ public final class ExecStdFctContent {
     private final String lastType;
 
     private final int naturalVararg;
+    private final StandardMethod standardMethod;
+
     public ExecStdFctContent(AnaCallFctContent _cont, boolean _staticMethod) {
+        standardMethod = _cont.getStandardMethod();
         methodName = _cont.getMethodName();
         classMethodId = _cont.getClassMethodId();
         staticMethod = _staticMethod;
         lastType = _cont.getLastType();
         naturalVararg = _cont.getNaturalVararg();
+    }
+
+    public StandardMethod getStandardMethod() {
+        return standardMethod;
     }
 
     public int getNaturalVararg() {

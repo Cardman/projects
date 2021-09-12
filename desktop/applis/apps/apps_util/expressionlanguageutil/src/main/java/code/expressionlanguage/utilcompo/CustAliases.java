@@ -2117,10 +2117,10 @@ public final class CustAliases {
                                          ClassMethodId _method, ExecutingBlocks _execBlocks, StackCall _stackCall, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String className_ = _method.getClassName();
-        String type_ = _method.getClassName();
-        if (StringUtil.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
-            return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args, _stackCall);
-        }
+//        String type_ = _method.getClassName();
+//        if (StringUtil.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
+//            return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args, _stackCall);
+//        }
         if (StringUtil.quickEq(className_,aliasThreadSet)) {
             String name_ = _method.getConstraints().getName();
             if (StringUtil.quickEq(name_,aliasThreadSetAdd)) {

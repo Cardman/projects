@@ -68,7 +68,9 @@ public abstract class LgNames implements BuildableLgNames {
 
     /**@param  _instance l'instance*/
     public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args, _stack);
+        ResultErrorStd res_ = new ResultErrorStd();
+        res_.setResult(NullStruct.NULL_VALUE);
+        return res_;
     }
 
     public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {

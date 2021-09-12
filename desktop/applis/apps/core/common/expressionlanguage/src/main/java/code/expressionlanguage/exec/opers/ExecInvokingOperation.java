@@ -14,9 +14,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.*;
@@ -121,15 +119,18 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return new ExecOverrideInfo(new ExecFormattedRootBlock(type_),_named);
     }
-    public static Argument callStd(AbstractExiting _exit, ContextEl _cont, String _classNameFound, MethodId _methodId, Argument _previous, ArgumentListCall _firstArgs, StackCall _stackCall) {
+    public static Argument callStd(AbstractExiting _exit, ContextEl _cont, ClassMethodId _classNameFound, Argument _previous, ArgumentListCall _firstArgs, StackCall _stackCall, StandardMethod _stdMeth) {
         CustList<Argument> args_ = _firstArgs.getArguments();
-        ExecTemplates.checkParams(_cont, _classNameFound, _methodId, _previous, args_, _stackCall);
+        ExecTemplates.checkParams(_cont, _classNameFound.getClassName(), _classNameFound.getConstraints(), _previous, args_, _stackCall);
         if (_cont.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
-        String idClassNameFound_ = StringExpUtil.getIdFromAllTypes(_classNameFound);
-
-        ClassMethodId dyn_ = new ClassMethodId(idClassNameFound_, _methodId);
+        StdCaller caller_ = _stdMeth.getCaller();
+        if (caller_ != null) {
+            return caller_.call(_exit,_cont,_previous.getStruct(),_firstArgs,_stackCall).getValue();
+        }
+        String idClassNameFound_ = StringExpUtil.getIdFromAllTypes(_classNameFound.getClassName());
+        ClassMethodId dyn_ = new ClassMethodId(idClassNameFound_, _classNameFound.getConstraints());
         ResultErrorStd res_ = LgNames.invokeMethod(_cont, dyn_, _previous.getStruct(), _exit, _stackCall, Argument.toArgArray(args_));
         return new Argument(res_.getResult());
     }

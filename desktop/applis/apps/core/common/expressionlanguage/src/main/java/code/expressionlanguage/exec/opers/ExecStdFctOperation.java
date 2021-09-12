@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStdFctContent;
@@ -34,8 +33,6 @@ public final class ExecStdFctOperation extends ExecSettableCallFctOperation {
     }
 
     public static Argument prep(ContextEl _conf, StackCall _stack, Argument _previous, CustList<ExecOperationInfo> _infos, ExecStdFctContent _stdFctContent) {
-        MethodId methodId_ = _stdFctContent.getClassMethodId().getConstraints();
-        String classNameFound_ = _stdFctContent.getClassMethodId().getClassName();
         Argument prev_;
         Argument res_ = null;
         if (!_stdFctContent.isStaticMethod()) {
@@ -48,7 +45,7 @@ public final class ExecStdFctOperation extends ExecSettableCallFctOperation {
             prev_ = new Argument();
         }
         if (res_ == null) {
-            res_ = callStd(_conf.getExiting(), _conf, classNameFound_, methodId_, prev_, fectchArgs(_stdFctContent.getLastType(), _stdFctContent.getNaturalVararg(),null, _conf, _stack, _infos), _stack);
+            res_ = callStd(_conf.getExiting(), _conf, _stdFctContent.getClassMethodId(), prev_, fectchArgs(_stdFctContent.getLastType(), _stdFctContent.getNaturalVararg(),null, _conf, _stack, _infos), _stack, _stdFctContent.getStandardMethod());
         }
         return res_;
     }

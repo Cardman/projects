@@ -196,10 +196,10 @@ public final class AliasCore {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasEnums, fields_, constructors_, methods_, aliasObject, StdClassModifier.HYPER_ABSTRACT);
         params_ = new StringList(_lgNames.getContent().getPredefTypes().getAliasEnumType());
-        method_ = new StandardMethod(aliasName, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasEnums0Name0()));
+        method_ = new StandardMethod(aliasName, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasEnums0Name0()),new FctEnumsName());
         methods_.add( method_);
         params_ = new StringList(_lgNames.getContent().getPredefTypes().getAliasEnumType());
-        method_ = new StandardMethod(aliasOrdinal, params_, _lgNames.getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(params.getAliasEnums0Ordinal0()));
+        method_ = new StandardMethod(aliasOrdinal, params_, _lgNames.getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(params.getAliasEnums0Ordinal0()),new FctEnumsOrdinal());
         methods_.add( method_);
         standards_.addEntry(aliasEnums, stdcl_);
         methods_ = new CustList<StandardMethod>();

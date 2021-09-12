@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
@@ -84,6 +85,10 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
 
     MethodMetaInfo getMetaInfo() {
         return metaInfo;
+    }
+
+    StandardMethod getStdCallee() {
+        return metaInfo.getStdCallee();
     }
 
     MethodAccessKind getAccessKind() {

@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -51,6 +52,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         ExecTemplates.trySetArgument(ctx_,new Argument(),new ArgumentsPair(), null);
         new ClassMethodId("",new MethodId(null,"",new StringList())).eq(new ClassMethodId(" ",new MethodId(null,"",new StringList())));
         AnaInherits.getOverridingFullTypeByBases(null,null);
+        String idClassNameFound_ = StringExpUtil.getIdFromAllTypes(ctx_.getStandards().getCoreNames().getAliasEnums());
+        ClassMethodId dyn_ = new ClassMethodId(idClassNameFound_,null);
+        LgNames.invokeMethod(ctx_, dyn_, null, null, null);
+        assertNull(new StandardMethod("",new StringList(),"",false,null,(StdCaller)null).getCaller());
     }
 
     @Test

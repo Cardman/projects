@@ -273,32 +273,32 @@ public final class ApplyCoreMethodUtil {
         return StringUtil.concat(Long.toString(_begin), "<0");
     }
 
-    public static ResultErrorStd getOtherResultBase(ContextEl _cont, ClassMethodId _method, Struct[] _args, StackCall _stackCall) {
-        ResultErrorStd result_ = new ResultErrorStd();
+//    public static ResultErrorStd getOtherResultBase(ContextEl _cont, ClassMethodId _method, Struct[] _args, StackCall _stackCall) {
+//        ResultErrorStd result_ = new ResultErrorStd();
+//
+//        String name_ = _method.getConstraints().getName();
+//        LgNames lgNames_ = _cont.getStandards();
+//        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasName())) {
+//            Struct str_ = _args[0];
+//            if (!(str_ instanceof EnumerableStruct)) {
+//                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
+//            } else {
+//                EnumerableStruct en_ = (EnumerableStruct) str_;
+//                result_.setResult(new StringStruct(en_.getName()));
+//            }
+//        } else {
+//            Struct str_ = _args[0];
+//            if (!(str_ instanceof EnumerableStruct)) {
+//                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
+//            } else {
+//                EnumerableStruct en_ = (EnumerableStruct) str_;
+//                result_.setResult(new IntStruct(en_.getOrdinal()));
+//            }
+//        }
+//        return result_;
+//    }
 
-        String name_ = _method.getConstraints().getName();
-        LgNames lgNames_ = _cont.getStandards();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasName())) {
-            Struct str_ = _args[0];
-            if (!(str_ instanceof EnumerableStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
-            } else {
-                EnumerableStruct en_ = (EnumerableStruct) str_;
-                result_.setResult(new StringStruct(en_.getName()));
-            }
-        } else {
-            Struct str_ = _args[0];
-            if (!(str_ instanceof EnumerableStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
-            } else {
-                EnumerableStruct en_ = (EnumerableStruct) str_;
-                result_.setResult(new IntStruct(en_.getOrdinal()));
-            }
-        }
-        return result_;
-    }
-
-    private static ErrorStruct getNpe(ContextEl _cont, StackCall _stackCall) {
+    public static ErrorStruct getNpe(ContextEl _cont, StackCall _stackCall) {
         return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall);
     }
 
