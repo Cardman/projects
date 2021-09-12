@@ -12,6 +12,7 @@ public final class ConverterGraphicBufferedImage {
     public static final int WHITE_RGB_INT = GuiConstants.WHITE;
 
     private static final int THREE_BYTES = 256 * 256 * 256;
+    private static final int TRANS_WHITE = 256 * 256 * 255 + 256 * 255 + 255;
 
     private ConverterGraphicBufferedImage(){
     }
@@ -92,12 +93,11 @@ public final class ConverterGraphicBufferedImage {
     public static void transparentAllWhite(AbstractImage _buffered) {
         int h_ = _buffered.getHeight();
         int w_ = _buffered.getWidth();
-        int transWhite_ = 256*256*255+256*255+255;
         for (int i = IndexConstants.FIRST_INDEX; i < h_; i++) {
             for (int j = IndexConstants.FIRST_INDEX; j < w_; j++) {
                 int rgb_ = _buffered.getRGB(j, i);
                 if (rgb_ == WHITE_RGB_INT) {
-                    _buffered.setRGB(j, i, transWhite_);
+                    _buffered.setRGB(j, i, TRANS_WHITE);
                 }
             }
         }
