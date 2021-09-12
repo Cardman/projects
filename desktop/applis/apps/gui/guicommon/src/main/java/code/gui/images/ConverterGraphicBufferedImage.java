@@ -9,7 +9,7 @@ import code.util.core.NumberUtil;
 
 public final class ConverterGraphicBufferedImage {
 
-    public static final int WHITE_RGB_INT = Integer.MAX_VALUE;
+    public static final int WHITE_RGB_INT = GuiConstants.WHITE;
 
     private static final int THREE_BYTES = 256 * 256 * 256;
 
