@@ -24,7 +24,7 @@ public final class CustLgNames extends LgNames {
 
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
-        return new SingleContextEl(new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
+        return new SingleContextEl(new CommonExecutionInfos(new ElInterceptorStdCaller(),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
     }
 
 }

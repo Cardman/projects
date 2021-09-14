@@ -45,6 +45,10 @@ public abstract class ContextEl {
         return getExecutionInfos().getClasses();
     }
 
+    public AbstractInterceptorStdCaller getCaller() {
+        return getExecutionInfos().getCaller();
+    }
+
     public Coverage getCoverage() {
         return getExecutionInfos().getCoverage();
     }

@@ -1,10 +1,12 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.LgNames;
 
 public final class CommonExecutionInfos {
 
+    private final AbstractInterceptorStdCaller caller;
     private final int tabWidth;
 
     private final int stackOverFlow;
@@ -16,16 +18,21 @@ public final class CommonExecutionInfos {
     private final AbstractMethodCriteria defCriteria = new DefaultMethodCriteria();
     private final AbstractMethodCriteria staticCriteria = new StaticMethodCriteria();
 
-    public CommonExecutionInfos(int _tabWidth, int _stackOverFlow,
+    public CommonExecutionInfos(AbstractInterceptorStdCaller _caller, CommonExecutionMetricsInfos _metrics,
                                 LgNames _standards, Classes _classes, Coverage _coverage,
                                 DefaultLockingClass _locks, Initializer _initializer) {
-        this.tabWidth = _tabWidth;
-        this.stackOverFlow = _stackOverFlow;
+        this.caller = _caller;
+        this.tabWidth = _metrics.getTabWidth();
+        this.stackOverFlow = _metrics.getStackOverFlow();
         this.standards = _standards;
         this.classes = _classes;
         this.coverage = _coverage;
         this.locks = _locks;
         this.initializer = _initializer;
+    }
+
+    public AbstractInterceptorStdCaller getCaller() {
+        return caller;
     }
 
     public int getTabWidth() {

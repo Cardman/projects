@@ -14,6 +14,6 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
 
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
-        return new TestedContextEl(new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
+        return new TestedContextEl(new CommonExecutionInfos(new TestedRenderInterceptorStdCaller(),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
     }
 }

@@ -229,7 +229,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
 
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
-        return new NativeContextEl(new CommonExecutionInfos(_opt.getTabWidth(),_opt.getStack(),this, _options.getClasses(), _options.getCoverage(),new DefaultLockingClass(),new DefaultInitializer()));
+        return new NativeContextEl(new CommonExecutionInfos(null,new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack()),this, _options.getClasses(), _options.getCoverage(),new DefaultLockingClass(),new DefaultInitializer()));
     }
 
     public Forwards setupNative(NatAnalyzedCode _page, DualConfigurationContext _context) {

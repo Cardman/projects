@@ -127,7 +127,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         StdCaller caller_ = _stdMeth.getCaller();
         if (caller_ != null) {
-            return caller_.call(_exit,_cont,_previous.getStruct(),_firstArgs,_stackCall).getValue();
+            return _cont.getCaller().invoke(caller_,_exit,_cont,_previous.getStruct(),_firstArgs,_stackCall).getValue();
         }
         String idClassNameFound_ = StringExpUtil.getIdFromAllTypes(_classNameFound.getClassName());
         ClassMethodId dyn_ = new ClassMethodId(idClassNameFound_, _classNameFound.getConstraints());
