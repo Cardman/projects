@@ -102,10 +102,8 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         if (_sum < _nbPrevious) {
             return null;
         }
-        if (_sum > _nbPrevious) {
-            if (safe_) {
-                putVar(_stack, _in, _type, _arg);
-            }
+        if (_sum > _nbPrevious && safe_) {
+            putVar(_stack, _in, _type, _arg);
         }
         int offset_ = exp_.getOffset();
         AbstractPageEl lastPage_ = _stack.getLastPage();
