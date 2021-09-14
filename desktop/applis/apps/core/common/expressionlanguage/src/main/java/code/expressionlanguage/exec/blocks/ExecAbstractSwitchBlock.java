@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -82,57 +81,41 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         }
         if (_in instanceof ExecAbstractInstanceCaseCondition && !_arg.isNull()) {
             String type_ = _stack.formatVarType(((ExecAbstractInstanceCaseCondition)_in).getImportedClassName());
-            Struct struct_ = _arg.getStruct();
             int sum_ = ((ExecAbstractInstanceCaseCondition) _in).getIndex() + _index;
             int nbPrevious_ = _stack.getLastPage().sizeEl() - 1;
-            if (ExecInherits.safeObject(type_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING) {
-                return procTypeVar(_cont, _stack, (ExecAbstractInstanceCaseCondition) _in, _arg, type_, sum_, nbPrevious_);
-            }
-            ExecOperationNodeListOff exp_ = ((ExecAbstractInstanceCaseCondition) _in).getExp();
-            CustList<ExecOperationNode> list_ = exp_.getList();
-            if (sum_ < nbPrevious_) {
-                return null;
-            }
-            if (!list_.isEmpty()) {
-                ArgumentsPair pair_ = new ArgumentsPair();
-                pair_.setArgument(new Argument(BooleanStruct.of(false)));
-                _stack.getLastPage().getCurrentEl(sum_,list_,_in).setArgument(pair_);
-                return null;
-            }
+            return procTypeVar(_cont, _stack, (ExecAbstractInstanceCaseCondition) _in, _arg, type_, sum_, nbPrevious_);
         }
-//        if (_in instanceof ExecEnumCaseCondition) {
-//            String name_ = NumParsers.getNameOfEnum(_arg.getStruct());
-//            ExecEnumCaseCondition c_ = (ExecEnumCaseCondition) _in;
-//            if (StringUtil.quickEq(c_.getValue(), name_)) {
-//                return new ExecResultCase(_in,0);
-//            }
-//        }
-//        if (_in instanceof ExecStdCaseCondition) {
-//            ExecStdCaseCondition c_ = (ExecStdCaseCondition) _in;
-//            if (c_.getArg().getStruct().sameReference(_arg.getStruct())) {
-//                return new ExecResultCase(_in,0);
-//            }
-//        }
         return processList(_cont, _in, _arg);
     }
 
     private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecAbstractInstanceCaseCondition _in, Argument _arg, String _type, int _sum, int _nbPrevious) {
         ExecOperationNodeListOff exp_ = _in.getExp();
         CustList<ExecOperationNode> list_ = exp_.getList();
+        boolean safe_ = ExecInherits.safeObject(_type, _arg.getStruct().getClassName(_cont), _cont) == ErrorType.NOTHING;
         if (list_.isEmpty()) {
-            putVar(_stack, _in, _type, _arg);
-            return new ExecResultCase(_in,0);
+            if (safe_) {
+                putVar(_stack, _in, _type, _arg);
+                return new ExecResultCase(_in,0);
+            }
+            return null;
         }
         if (_sum < _nbPrevious) {
             return null;
         }
         if (_sum > _nbPrevious) {
-            putVar(_stack, _in, _type, _arg);
+            if (safe_) {
+                putVar(_stack, _in, _type, _arg);
+            }
         }
         int offset_ = exp_.getOffset();
         AbstractPageEl lastPage_ = _stack.getLastPage();
         lastPage_.globalOffset(offset_);
-        Argument visit_ = ExecHelperBlocks.tryToCalculate(_cont, _sum, _stack, list_, 0, _in);
+        Argument visit_;
+        if (safe_) {
+            visit_ = ExecHelperBlocks.tryToCalculate(_cont, _sum, _stack, list_, 0, _in);
+        } else {
+            visit_ = ExecHelperBlocks.tryToCalculate(_cont, _sum, _stack, _cont.getClasses().getExpsConstFalse(), 0, _in);
+        }
         if (_cont.callsOrException(_stack)) {
             if (!_stack.calls()) {
                 _stack.getLastPage().removeRefVar(_in.getVariableName());
@@ -140,7 +123,9 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
             return null;
         }
         if (BooleanStruct.isFalse(visit_.getStruct())) {
-            _stack.getLastPage().removeRefVar(_in.getVariableName());
+            if (safe_) {
+                _stack.getLastPage().removeRefVar(_in.getVariableName());
+            }
             return null;
         }
         return new ExecResultCase(_in,0);

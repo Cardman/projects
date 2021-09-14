@@ -43,10 +43,6 @@ public final class ExpressionLanguage {
         return _right.argument;
     }
 
-    public void setArgument(ArgumentsPair _argument) {
-        argument = _argument;
-    }
-
     private static void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset, StackCall _stackCall) {
         AbstractPageEl pageEl_ = _stackCall.getLastPage();
         pageEl_.setTranslatedOffset(_offset);
