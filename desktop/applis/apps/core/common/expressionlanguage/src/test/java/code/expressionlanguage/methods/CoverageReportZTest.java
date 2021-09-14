@@ -12007,6 +12007,192 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage675Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO,THREE;\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String t;\n");
+        xml_.append("  t=\"\";\n");
+        xml_.append("  switch((Object)1){\n");
+        xml_.append("   case String w: w == w();\n");
+        xml_.append("    t=w+\" plus\";\n");
+        xml_.append("    break;\n");
+        xml_.append("   case int v: v == v();\n");
+        xml_.append("    t=v+\"plus\";\n");
+        xml_.append("    break;\n");
+        xml_.append("   case ONE;\n");
+        xml_.append("    t=\"1\";\n");
+        xml_.append("  }\n");
+        xml_.append("  return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int v(){\n");
+        xml_.append("  return 1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int w(){\n");
+        xml_.append("  return 2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {\n" +
+                " <span class=\"g\"><a name=\"m22\">ONE</a></span>,<span class=\"g\"><a name=\"m26\">TWO</a></span>,<span class=\"g\"><a name=\"m30\">THREE</a></span>;\n" +
+                " public static String <a name=\"m59\">exmeth</a>(){\n" +
+                "  String <span class=\"f\"><a name=\"m78\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m78\">t</a></span>=<span class=\"f\"><span class=\"s\">\"\"</span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/4\">switch</a></span>(<span class=\"f\">(Object)<span class=\"f\">1</span></span>){\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> String <a name=\"m125\">w</a>: <span class=\"n\"><span class=\"n\"><a href=\"#m125\">w</a> </span>==<span class=\"n\"> <a title=\"pkg.Ex.static w()\" href=\"#m322\">w</a>()</span></span>;\n" +
+                "    <span class=\"n\"><span class=\"n\"><a href=\"#m78\">t</a></span>=<span class=\"n\"><span class=\"n\"><a href=\"#m125\">w</a></span>+<span class=\"n\"><span class=\"s\">\" plus\"</span></span></span></span>;\n" +
+                "    break;\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> int <a name=\"m178\">v</a>: <span class=\"p\"><span class=\"f\"><a href=\"#m178\">v</a> </span><a title=\"true\">==</a><span class=\"f\"> <a title=\"pkg.Ex.static v()\" href=\"#m283\">v</a>()</span></span>;\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m78\">t</a></span>=<span class=\"f\"><span class=\"f\"><a href=\"#m178\">v</a></span>+<span class=\"f\"><span class=\"s\">\"plus\"</span></span></span></span>;\n" +
+                "    break;\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> <a title=\"pkg.Ex.ONE\" href=\"#m22\">ONE</a>;\n" +
+                "    <span class=\"n\"><span class=\"n\"><a href=\"#m78\">t</a></span>=<span class=\"n\"><span class=\"s\">\"1\"</span></span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>+<span class=\"f\"><a href=\"#m78\">t</a></span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m283\">v</a>(){\n" +
+                "  return <span class=\"f\">1</span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m322\">w</a>(){\n" +
+                "  return <span class=\"n\">2</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage676Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO,THREE;\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String t;\n");
+        xml_.append("  t=\"\";\n");
+        xml_.append("  switch((Object)2){\n");
+        xml_.append("   case String w: w == w();\n");
+        xml_.append("    t=w+\" plus\";\n");
+        xml_.append("    break;\n");
+        xml_.append("   case int v: v == v();\n");
+        xml_.append("    t=v+\"plus\";\n");
+        xml_.append("    break;\n");
+        xml_.append("   case ONE;\n");
+        xml_.append("    t=\"1\";\n");
+        xml_.append("  }\n");
+        xml_.append("  return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int v(){\n");
+        xml_.append("  return 1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int w(){\n");
+        xml_.append("  return 2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {\n" +
+                " <span class=\"g\"><a name=\"m22\">ONE</a></span>,<span class=\"g\"><a name=\"m26\">TWO</a></span>,<span class=\"g\"><a name=\"m30\">THREE</a></span>;\n" +
+                " public static String <a name=\"m59\">exmeth</a>(){\n" +
+                "  String <span class=\"f\"><a name=\"m78\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m78\">t</a></span>=<span class=\"f\"><span class=\"s\">\"\"</span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/4\">switch</a></span>(<span class=\"f\">(Object)<span class=\"f\">2</span></span>){\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> String <a name=\"m125\">w</a>: <span class=\"n\"><span class=\"n\"><a href=\"#m125\">w</a> </span>==<span class=\"n\"> <a title=\"pkg.Ex.static w()\" href=\"#m322\">w</a>()</span></span>;\n" +
+                "    <span class=\"n\"><span class=\"n\"><a href=\"#m78\">t</a></span>=<span class=\"n\"><span class=\"n\"><a href=\"#m125\">w</a></span>+<span class=\"n\"><span class=\"s\">\" plus\"</span></span></span></span>;\n" +
+                "    break;\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> int <a name=\"m178\">v</a>: <span class=\"p\"><span class=\"f\"><a href=\"#m178\">v</a> </span><a title=\"false\">==</a><span class=\"f\"> <a title=\"pkg.Ex.static v()\" href=\"#m283\">v</a>()</span></span>;\n" +
+                "    <span class=\"n\"><span class=\"n\"><a href=\"#m78\">t</a></span>=<span class=\"n\"><span class=\"n\"><a href=\"#m178\">v</a></span>+<span class=\"n\"><span class=\"s\">\"plus\"</span></span></span></span>;\n" +
+                "    break;\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> <a title=\"pkg.Ex.ONE\" href=\"#m22\">ONE</a>;\n" +
+                "    <span class=\"n\"><span class=\"n\"><a href=\"#m78\">t</a></span>=<span class=\"n\"><span class=\"s\">\"1\"</span></span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>+<span class=\"f\"><a href=\"#m78\">t</a></span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m283\">v</a>(){\n" +
+                "  return <span class=\"f\">1</span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m322\">w</a>(){\n" +
+                "  return <span class=\"n\">2</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage677Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {\n");
+        xml_.append(" ONE,TWO,THREE;\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  String t;\n");
+        xml_.append("  t=\"\";\n");
+        xml_.append("  switch((Object)1){\n");
+        xml_.append("   case String w: w == w();\n");
+        xml_.append("    t=w+\" plus\";\n");
+        xml_.append("    break;\n");
+        xml_.append("   case Ex w: w == w();\n");
+        xml_.append("    t=w+\" plus\";\n");
+        xml_.append("    break;\n");
+        xml_.append("   case int v: v == v();\n");
+        xml_.append("    t=v+\"plus\";\n");
+        xml_.append("    break;\n");
+        xml_.append("   case ONE;\n");
+        xml_.append("    t=\"1\";\n");
+        xml_.append("  }\n");
+        xml_.append("  return \"\"+t;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int v(){\n");
+        xml_.append("  return 1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int w(){\n");
+        xml_.append("  return 2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEn(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {\n" +
+                " <span class=\"g\"><a name=\"m22\">ONE</a></span>,<span class=\"g\"><a name=\"m26\">TWO</a></span>,<span class=\"g\"><a name=\"m30\">THREE</a></span>;\n" +
+                " public static String <a name=\"m59\">exmeth</a>(){\n" +
+                "  String <span class=\"f\"><a name=\"m78\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m78\">t</a></span>=<span class=\"f\"><span class=\"s\">\"\"</span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/5\">switch</a></span>(<span class=\"f\">(Object)<span class=\"f\">1</span></span>){\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> String <a name=\"m125\">w</a>: <span class=\"n\"><span class=\"n\"><a href=\"#m125\">w</a> </span>==<span class=\"n\"> <a title=\"pkg.Ex.static w()\" href=\"#m374\">w</a>()</span></span>;\n" +
+                "    <span class=\"n\"><span class=\"n\"><a href=\"#m78\">t</a></span>=<span class=\"n\"><span class=\"n\"><a href=\"#m125\">w</a></span>+<span class=\"n\"><span class=\"s\">\" plus\"</span></span></span></span>;\n" +
+                "    break;\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> <a title=\"pkg.Ex\" href=\"#m12\">Ex</a> <a name=\"m177\">w</a>: <span class=\"n\"><span class=\"n\"><a href=\"#m177\">w</a> </span>==<span class=\"n\"> <a title=\"pkg.Ex.static w()\" href=\"#m374\">w</a>()</span></span>;\n" +
+                "    <span class=\"n\"><span class=\"n\"><a href=\"#m78\">t</a></span>=<span class=\"n\"><span class=\"n\"><a href=\"#m177\">w</a></span>+<span class=\"n\"><span class=\"s\">\" plus\"</span></span></span></span>;\n" +
+                "    break;\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> int <a name=\"m230\">v</a>: <span class=\"p\"><span class=\"f\"><a href=\"#m230\">v</a> </span><a title=\"true\">==</a><span class=\"f\"> <a title=\"pkg.Ex.static v()\" href=\"#m335\">v</a>()</span></span>;\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m78\">t</a></span>=<span class=\"f\"><span class=\"f\"><a href=\"#m230\">v</a></span>+<span class=\"f\"><span class=\"s\">\"plus\"</span></span></span></span>;\n" +
+                "    break;\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> <a title=\"pkg.Ex.ONE\" href=\"#m22\">ONE</a>;\n" +
+                "    <span class=\"n\"><span class=\"n\"><a href=\"#m78\">t</a></span>=<span class=\"n\"><span class=\"s\">\"1\"</span></span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>+<span class=\"f\"><a href=\"#m78\">t</a></span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m335\">v</a>(){\n" +
+                "  return <span class=\"f\">1</span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m374\">w</a>(){\n" +
+                "  return <span class=\"n\">2</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
