@@ -17,6 +17,7 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
@@ -1777,25 +1778,25 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTreeNodeNb, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeNodeGetFirstChild, params_,aliasTreeNode, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeGetFirstChild, params_,aliasTreeNode, false, MethodModifier.FINAL, new FctTreeNodeGetFirstChild());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeNodeGetLastChild, params_,aliasTreeNode, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeGetLastChild, params_,aliasTreeNode, false, MethodModifier.FINAL, new FctTreeNodeGetLastChild());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeNodeGetPreviousSibling, params_,aliasTreeNode, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeGetPreviousSibling, params_,aliasTreeNode, false, MethodModifier.FINAL, new FctTreeNodeGetPreviousSibling());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeNodeGetNextSibling, params_,aliasTreeNode, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeGetNextSibling, params_,aliasTreeNode, false, MethodModifier.FINAL, new FctTreeNodeGetNextSibling());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeNodeGetParentNode, params_,aliasTreeNode, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeGetParentNode, params_,aliasTreeNode, false, MethodModifier.FINAL, new FctTreeNodeGetParentNode());
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeNodeIsAncestor, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeIsAncestor0()));
+        method_ = new StandardMethod(aliasTreeNodeIsAncestor, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeIsAncestor0()),new FctTreeNodeIsAncestor());
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeNodeIsDescendant, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeIsDescendant0()));
+        method_ = new StandardMethod(aliasTreeNodeIsDescendant, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeIsDescendant0()),new FctTreeNodeIsDescendant());
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode,aliasTreeNode);
         method_ = new StandardMethod(aliasTreeNodeEq, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeEq0(),guiAliasParameters.getAliasTreeNode0TreeNodeEq1()));
@@ -5293,31 +5294,6 @@ public final class GuiAliases {
             res_.setResult(_inst.getChildCount());
             return res_;
         }
-        if (StringUtil.quickEq(name_, aliasTreeNodeGetFirstChild)) {
-            res_.setResult(_inst.getFirstChild());
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasTreeNodeGetLastChild)) {
-            res_.setResult(_inst.getLastChild());
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasTreeNodeGetNextSibling)) {
-            res_.setResult(_inst.getNextSibling());
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasTreeNodeGetPreviousSibling)) {
-            res_.setResult(_inst.getPreviousSibling());
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasTreeNodeGetParentNode)) {
-            res_.setResult(_inst.getParentNode());
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasTreeNodeIsAncestor)) {
-            res_.setResult(_inst.isAncestorMethod(_args[0]));
-            return res_;
-        }
-        res_.setResult(_inst.isDescendantMethod(_args[0]));
         return res_;
     }
 

@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.reach.opers.util.*;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -17,9 +18,11 @@ import code.util.core.IndexConstants;
 
 public abstract class ReachInvokingOperation extends ReachMethodOperation implements ReachCalculable {
     private final int naturalVararg;
+    private StandardMethod standardMethod;
     private final String lastType;
-    ReachInvokingOperation(AbstractCallFctOperation _meta, OperationNode _info) {
+    ReachInvokingOperation(StandardMethod _standardMethod, AbstractCallFctOperation _meta, OperationNode _info) {
         super(_info);
+        standardMethod = _standardMethod;
         naturalVararg = _meta.getCallFctContent().getNaturalVararg();
         lastType = _meta.getCallFctContent().getLastType();
     }
@@ -31,7 +34,7 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
 
     void resultMethod(AnalyzedPageEl _page, Struct _instance, ClassMethodId _classMethodId) {
         CustList<Argument> firstArgs_ = getArguments();
-        Struct out_ = AnaApplyCoreMethodUtil.invokeAnalyzisStdMethod(_classMethodId, _instance, _page, Argument.toArgArray(firstArgs_));
+        Struct out_ = AnaApplyCoreMethodUtil.invokeAnalyzisStdMethod(standardMethod,_classMethodId, _instance, _page, Argument.toArgArray(firstArgs_));
         if (out_ == null) {
             return;
         }

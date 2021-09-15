@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
-import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;

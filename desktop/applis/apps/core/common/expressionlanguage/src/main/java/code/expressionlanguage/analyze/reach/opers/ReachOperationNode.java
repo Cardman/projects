@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.stds.StandardMethod;
 
 public abstract class ReachOperationNode {
 
@@ -179,11 +180,12 @@ public abstract class ReachOperationNode {
             if (_oper instanceof AbstractCallFctOperation) {
                 AbstractCallFctOperation f_ = (AbstractCallFctOperation) _oper;
                 if (f_.getClassMethodId() != null) {
-                    if (f_.getStandardMethod() != null) {
+                    StandardMethod standardMethod_ = f_.getStandardMethod();
+                    if (standardMethod_ != null) {
                         if (!f_.isStaticMethod()) {
-                            return new ReachInstanceFctStdOperation(f_, _oper);
+                            return new ReachInstanceFctStdOperation(standardMethod_,f_, _oper);
                         }
-                        return new ReachStaticFctStdOperation(f_,_oper);
+                        return new ReachStaticFctStdOperation(standardMethod_,f_,_oper);
                     }
                     if (!f_.isStaticMethod()) {
                         return new ReachIntermStdOperation(_oper, int_);

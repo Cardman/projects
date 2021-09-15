@@ -55,7 +55,6 @@ public final class ClassesTest extends ProcessMethodCommon {
         String idClassNameFound_ = StringExpUtil.getIdFromAllTypes(ctx_.getStandards().getCoreNames().getAliasEnums());
         ClassMethodId dyn_ = new ClassMethodId(idClassNameFound_,null);
         LgNames.invokeMethod(ctx_, dyn_, null, null, null);
-        assertNull(new StandardMethod("",new StringList(),"",false,null,(StdCaller)null).getCaller());
     }
 
     @Test

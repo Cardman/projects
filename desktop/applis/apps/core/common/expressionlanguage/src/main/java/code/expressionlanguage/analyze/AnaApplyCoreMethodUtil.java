@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.stds.AnaStdCaller;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -17,9 +18,13 @@ public final class AnaApplyCoreMethodUtil {
     private AnaApplyCoreMethodUtil() {
     }
 
-    public static Struct invokeAnalyzisStdMethod(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Argument... _args) {
-        Struct result_ = null;
+    public static Struct invokeAnalyzisStdMethod(StandardMethod _std,ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Argument... _args) {
+        StdCaller caller_ = _std.getCaller();
         Struct[] args_ = getObjects(_args);
+        if (caller_ instanceof AnaStdCaller) {
+            return ((AnaStdCaller)caller_).call(_page,_struct,args_);
+        }
+        Struct result_ = null;
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
         String mathType_ = _page.getMathRef().getAliasMath();
@@ -678,16 +683,6 @@ public final class AnaApplyCoreMethodUtil {
                     NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                     return(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
                 }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsNan())) {
-                    float one_;
-                    one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
-                    return (BooleanStruct.of(Float.isNaN(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsInfinite())) {
-                    float one_;
-                    one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
-                    return (BooleanStruct.of(Float.isInfinite(one_)));
-                }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
                     DisplayedStrings dis_ = _page.getDisplayedStrings();
                     NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
@@ -704,14 +699,6 @@ public final class AnaApplyCoreMethodUtil {
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
                 NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 return(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsNan())) {
-                double one_ = NumParsers.asDouble(_struct, _method.getConstraints().getParametersTypesLength(), _args);
-                return (BooleanStruct.of(Double.isNaN(one_)));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsInfinite())) {
-                double one_ = NumParsers.asDouble(_struct, _method.getConstraints().getParametersTypesLength(), _args);
-                return (BooleanStruct.of(Double.isInfinite(one_)));
             }
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
                 DisplayedStrings dis_ = _page.getDisplayedStrings();

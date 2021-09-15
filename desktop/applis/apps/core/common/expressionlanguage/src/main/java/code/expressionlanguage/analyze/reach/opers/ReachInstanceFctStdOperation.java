@@ -4,13 +4,14 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.AbstractCallFctOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
 public final class ReachInstanceFctStdOperation extends ReachStdFctOption implements ReachPossibleIntermediateDotted {
     private Argument previous;
-    ReachInstanceFctStdOperation(AbstractCallFctOperation _meta, OperationNode _info) {
-        super(_meta,_info);
+    ReachInstanceFctStdOperation(StandardMethod _standardMethod, AbstractCallFctOperation _meta, OperationNode _info) {
+        super(_standardMethod, _meta,_info);
     }
 
     @Override

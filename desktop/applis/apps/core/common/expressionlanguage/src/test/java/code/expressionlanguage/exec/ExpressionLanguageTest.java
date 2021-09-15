@@ -3991,6 +3991,12 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl791_Test() {
+        Argument arg_ = directCalculate("((Double)1d).isNan()");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
     public void processEl792Test() {
         Argument arg_ = directCalculate("Double.isNan(1d)");
         assertTrue(arg_.isFalse());
@@ -3999,6 +4005,12 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl793Test() {
         Argument arg_ = directCalculate("((Double)1).isInfinite()");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
+    public void processEl793_Test() {
+        Argument arg_ = directCalculate("((Double)1d).isInfinite()");
         assertTrue(arg_.isFalse());
     }
 

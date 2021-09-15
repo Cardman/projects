@@ -1116,17 +1116,6 @@ public final class NumParsers {
         return NumberUtil.compareLg(_nb1.longStruct(),_nb2.longStruct());
     }
 
-    public static double asDouble(Struct _struct, int _list, Struct[] _args) {
-        double one_;
-        if (_list == 0) {
-            NumberStruct instance_ = convertToNumber(_struct);
-            one_ = instance_.doubleStruct();
-        } else {
-            one_ = convertToNumber(_args[0]).doubleStruct();
-        }
-        return one_;
-    }
-
     public static int getRadix(int _list, Struct[] _args) {
         int radix_ = DEFAULT_RADIX;
         if (_list != 1) {

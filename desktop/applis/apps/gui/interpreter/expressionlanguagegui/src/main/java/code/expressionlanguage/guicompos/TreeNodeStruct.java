@@ -45,10 +45,10 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         }
         treeNode.insert(treeNode_.treeNode,index_);
     }
-    BooleanStruct isAncestorMethod(Struct _node) {
+    public BooleanStruct isAncestorMethod(Struct _node) {
         return BooleanStruct.of(isAncestor(_node));
     }
-    BooleanStruct isDescendantMethod(Struct _node) {
+    public BooleanStruct isDescendantMethod(Struct _node) {
         return BooleanStruct.of(isDescendant(_node));
     }
     private boolean isAncestor(Struct _node) {
@@ -102,17 +102,17 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         ((TreeNodeStruct) par_).removeNode(this);
     }
 
-    Struct getParentNode() {
+    public Struct getParentNode() {
         AbstractMutableTreeNode par_ = treeNode.getParent();
         return nodeOrNull(par_);
     }
 
-    Struct getPreviousSibling() {
+    public Struct getPreviousSibling() {
         AbstractMutableTreeNode prev_ = treeNode.getPreviousSibling();
         return nodeOrNull(prev_);
     }
 
-    Struct getNextSibling() {
+    public Struct getNextSibling() {
         AbstractMutableTreeNode next_ = treeNode.getNextSibling();
         return nodeOrNull(next_);
     }
@@ -127,12 +127,12 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
     IntStruct getChildCount() {
         return new IntStruct(treeNode.getChildCount());
     }
-    Struct getFirstChild() {
+    public Struct getFirstChild() {
         AbstractMutableTreeNode ch_ = treeNode.getChildAt(0);
         return nodeOrNull(ch_);
     }
 
-    Struct getLastChild() {
+    public Struct getLastChild() {
         int count_ = treeNode.getChildCount();
         AbstractMutableTreeNode ch_ = treeNode.getChildAt(count_ - 1);
         return nodeOrNull(ch_);

@@ -390,18 +390,6 @@ public final class AliasNumberType {
                 _res.setResult(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
                 return;
             }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsNan())) {
-                float one_;
-                one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
-                _res.setResult(BooleanStruct.of(Float.isNaN(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsInfinite())) {
-                float one_;
-                one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
-                _res.setResult(BooleanStruct.of(Float.isInfinite(one_)));
-                return;
-            }
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
                 DisplayedStrings dis_ = _cont.getStandards().getDisplayedStrings();
                 NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
@@ -421,16 +409,6 @@ public final class AliasNumberType {
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
             NumberStruct instance_ = NumParsers.convertToNumber(_struct);
             _res.setResult(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsNan())) {
-            double one_ = NumParsers.asDouble(_struct, _method.getConstraints().getParametersTypesLength(), _args);
-            _res.setResult(BooleanStruct.of(Double.isNaN(one_)));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsInfinite())) {
-            double one_ = NumParsers.asDouble(_struct, _method.getConstraints().getParametersTypesLength(), _args);
-            _res.setResult(BooleanStruct.of(Double.isInfinite(one_)));
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToStringMethod())) {
@@ -869,12 +847,6 @@ public final class AliasNumberType {
         numbersConstructors(_lgNames,constructors_, aliasPrimFloat_,new StringList(params.getAliasFloat0Float0()),new StringList(params.getAliasFloat1Float0()));
         numbersValuesMethods(_lgNames,methods_, aliasFloat, aliasParseFloat, aliasPrimFloat_, new StringList(params.getAliasFloat0ToStringMethod0()), new StringList(params.getAliasFloat0ParseFloat0()), new StringList(params.getAliasFloat0CompareTo0()), new StringList(params.getAliasFloat0Compare0(),params.getAliasFloat0Compare1()));
         numbersSafeParsersMethods(_lgNames,methods_, aliasFloat, aliasParseFloatOrNull, new StringList(params.getAliasFloat0ParseFloatOrNull0()));
-        params_ = new StringList(aliasPrimFloat_);
-        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasFloat0IsInfinite0()));
-        methods_.add( method_);
-        params_ = new StringList(aliasPrimFloat_);
-        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasFloat0IsNan0()));
-        methods_.add( method_);
         numbersDotValuesFields(fields_, aliasPrimFloat_);
         standards_.addEntry(aliasFloat, std_);
         constructors_ = new CustList<StandardConstructor>();
@@ -885,16 +857,16 @@ public final class AliasNumberType {
         numbersValuesMethods(_lgNames,methods_, aliasDouble, aliasParseDouble, aliasPrimDouble_, new StringList(params.getAliasDouble0ToStringMethod0()), new StringList(params.getAliasDouble0ParseDouble0()), new StringList(params.getAliasDouble0CompareTo0()), new StringList(params.getAliasDouble0Compare0(),params.getAliasDouble0Compare1()));
         numbersSafeParsersMethods(_lgNames,methods_, aliasDouble, aliasParseDoubleOrNull,new StringList(params.getAliasDouble0ParseDoubleOrNull0()));
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, new FctDoubleIsInfinite0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimDouble_);
-        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasDouble0IsInfinite0()));
+        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasDouble0IsInfinite0()), new FctDoubleIsInfinite1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, new FctDoubleIsNan0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimDouble_);
-        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasDouble0IsNan0()));
+        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasDouble0IsNan0()), new FctDoubleIsNan1());
         methods_.add( method_);
         numbersDotValuesFields(fields_, aliasPrimDouble_);
         standards_.addEntry(aliasDouble, std_);
