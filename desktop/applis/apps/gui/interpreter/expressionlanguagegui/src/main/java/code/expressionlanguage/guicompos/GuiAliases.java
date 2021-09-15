@@ -1751,31 +1751,31 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTreeNode, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeNodeAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeAdd0()));
+        method_ = new StandardMethod(aliasTreeNodeAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeAdd0()), new FctTreeNodeAdd());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeNodeInsert, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeInsert0(),guiAliasParameters.getAliasTreeNode0TreeNodeInsert1()));
+        method_ = new StandardMethod(aliasTreeNodeInsert, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeInsert0(),guiAliasParameters.getAliasTreeNode0TreeNodeInsert1()),new FctTreeNodeInsert());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTreeNodeRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeRemove0()));
+        method_ = new StandardMethod(aliasTreeNodeRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeRemove0()), new FctTreeNodeRemove0());
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeNodeRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode1TreeNodeRemove0()));
+        method_ = new StandardMethod(aliasTreeNodeRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode1TreeNodeRemove0()), new FctTreeNodeRemove1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeNodeRemoveFromParent, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeRemoveFromParent, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTreeNodeRemoveFromParent());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeNodeRemoveAllChildren, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeRemoveAllChildren, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTreeNodeRemoveAllChildren());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTreeNodeSetUserObject, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeSetUserObject0()));
+        method_ = new StandardMethod(aliasTreeNodeSetUserObject, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeSetUserObject0()),new FctTreeNodeSetUserObject());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeNodeGetUserObject, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeGetUserObject, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new FctTreeNodeGetUserObject());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeNodeNb, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeNodeNb, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctTreeNodeNb());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasTreeNodeGetFirstChild, params_,aliasTreeNode, false, MethodModifier.FINAL, new FctTreeNodeGetFirstChild());
@@ -1799,7 +1799,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTreeNodeIsDescendant, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeIsDescendant0()),new FctTreeNodeIsDescendant());
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode,aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeNodeEq, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeEq0(),guiAliasParameters.getAliasTreeNode0TreeNodeEq1()));
+        method_ = new StandardMethod(aliasTreeNodeEq, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeEq0(),guiAliasParameters.getAliasTreeNode0TreeNodeEq1()), new FctTreeNodeEq());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -4590,9 +4590,6 @@ public final class GuiAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringUtil.quickEq(type_, aliasTreeNode)) {
-            return treeNode(_cont, _instance, _method, _args);
-        }
         if (StringUtil.quickEq(type_, aliasTree)) {
             TreeStruct inst_ = (TreeStruct) _instance;
             if (StringUtil.quickEq(name_, aliasTreeAddTreeListener)) {
@@ -5232,69 +5229,6 @@ public final class GuiAliases {
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
-    }
-
-    private ResultErrorStd treeNode(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct[] _args) {
-        String name_ = _method.getConstraints().getName();
-        if (StringUtil.quickEq(name_, aliasTreeNodeEq)) {
-            ResultErrorStd res_ = new ResultErrorStd();
-            res_.setResult(TreeNodeStruct.eq(_args[0],_args[1]));
-            return res_;
-        }
-        TreeNodeStruct inst_ = (TreeNodeStruct)_instance;
-        if (StringUtil.quickEq(name_, aliasTreeNodeAdd)) {
-            ResultErrorStd res_ = new ResultErrorStd();
-            inst_.add(_args[0]);
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasTreeNodeInsert)) {
-            ResultErrorStd res_ = new ResultErrorStd();
-            inst_.insert(_args[0], _args[1]);
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasTreeNodeRemove)) {
-            ResultErrorStd res_ = new ResultErrorStd();
-            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(), _method.getConstraints().getParametersType(0))) {
-                inst_.remove(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            inst_.removeNode(_args[0]);
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        return treeNodeDef(_args, _method, inst_);
-    }
-
-    private ResultErrorStd treeNodeDef(Struct[] _args, ClassMethodId _method, TreeNodeStruct _inst) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String name_ = _method.getConstraints().getName();
-        if (StringUtil.quickEq(name_, aliasTreeNodeRemoveFromParent)) {
-            _inst.removeFromParent();
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasTreeNodeRemoveAllChildren)) {
-            _inst.removeAllChildren();
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasTreeNodeSetUserObject)) {
-            _inst.setUserObject(_args[0]);
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasTreeNodeGetUserObject)) {
-            res_.setResult(_inst.getUserObject());
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasTreeNodeNb)) {
-            res_.setResult(_inst.getChildCount());
-            return res_;
-        }
-        return res_;
     }
 
     protected static void processFailInit(ContextEl _cont, CustAliases _custAliases, StackCall _stackCall) {

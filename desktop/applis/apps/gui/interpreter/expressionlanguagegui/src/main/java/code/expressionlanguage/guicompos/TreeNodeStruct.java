@@ -19,7 +19,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         treeNode = _str;
     }
 
-    void add(Struct _node) {
+    public void add(Struct _node) {
         if (!(_node instanceof TreeNodeStruct)) {
             return;
         }
@@ -30,7 +30,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         treeNode.add(treeNode_.treeNode);
     }
 
-    void insert(Struct _index,Struct _node) {
+    public void insert(Struct _index,Struct _node) {
         int index_ = ((NumberStruct)_index).intStruct();
         if (!(_node instanceof TreeNodeStruct)) {
             return;
@@ -71,10 +71,10 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         }
         return false;
     }
-    void removeAllChildren() {
+    public void removeAllChildren() {
         treeNode.removeAllChildren();
     }
-    void removeNode(Struct _node) {
+    public void removeNode(Struct _node) {
         if (!(_node instanceof TreeNodeStruct)) {
             return;
         }
@@ -84,7 +84,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         }
         treeNode.remove(n_.treeNode);
     }
-    void remove(Struct _index) {
+    public void remove(Struct _index) {
         int index_ = ((NumberStruct)_index).intStruct();
         int count_ = treeNode.getChildCount();
         if (index_ < 0 || index_ >= count_) {
@@ -94,7 +94,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
     }
 
 
-    void removeFromParent() {
+    public void removeFromParent() {
         Struct par_ = getParentNode();
         if (!(par_ instanceof TreeNodeStruct)) {
             return;
@@ -124,7 +124,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         return new TreeNodeStruct(_value);
     }
 
-    IntStruct getChildCount() {
+    public IntStruct getChildCount() {
         return new IntStruct(treeNode.getChildCount());
     }
     public Struct getFirstChild() {
@@ -193,11 +193,11 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         }
         return pars_;
     }
-    StringStruct getUserObject() {
+    public StringStruct getUserObject() {
         return userObject;
     }
 
-    void setUserObject(Struct _struct) {
+    public void setUserObject(Struct _struct) {
         userObject= NumParsers.getString(_struct);
     }
 
@@ -210,7 +210,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         return ((LgNamesGui)_contextEl.getStandards()).getGuiAliases().getAliasTreeNode();
     }
 
-    static BooleanStruct eq(Struct _current, Struct _other) {
+    public static BooleanStruct eq(Struct _current, Struct _other) {
         if (!(_current instanceof TreeNodeStruct)||!(_other instanceof TreeNodeStruct)) {
             return BooleanStruct.of(_current.sameReference(_other));
         }
