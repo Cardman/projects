@@ -20,7 +20,7 @@ public final class DefZipStreamOut implements AbstractZipStreamOut {
         try {
             zipOut.write(_array);
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -30,7 +30,7 @@ public final class DefZipStreamOut implements AbstractZipStreamOut {
         try {
             zipOut.closeEntry();
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -47,7 +47,7 @@ public final class DefZipStreamOut implements AbstractZipStreamOut {
             e_.setTime(_lastModifTime);
             zipOut.putNextEntry(e_);
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
     }

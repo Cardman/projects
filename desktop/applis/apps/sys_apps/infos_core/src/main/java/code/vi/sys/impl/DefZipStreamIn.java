@@ -47,7 +47,7 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
         try {
             zipIn.closeEntry();
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -81,7 +81,7 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
     public int read(byte[] _array, int _off, int _len) {
         try {
             return zipIn.read(_array,_off,_len);
-        } catch (IOException e) {
+        } catch (Exception e) {
             return -2;
         }
     }

@@ -20,7 +20,7 @@ public final class DefTextStreamIn implements AbstractTextStreamIn {
     public static InputStream tryCreateFileInputStream(String _file) {
         try {
             return new FileInputStream(StringUtil.nullToEmpty(_file));
-        } catch (IOException e) {
+        } catch (Exception e) {
             return null;
         }
     }

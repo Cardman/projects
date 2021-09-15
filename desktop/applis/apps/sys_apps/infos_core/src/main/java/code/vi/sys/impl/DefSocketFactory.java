@@ -11,7 +11,7 @@ public final class DefSocketFactory implements AbstractSocketFactory {
     public AbstractSocket newSocket(int _port, String _address) {
         try {
             return new DefSocket(new Socket(_address, _port));
-        } catch (IOException e) {
+        } catch (Exception e) {
             return new DefSocket();
         }
     }

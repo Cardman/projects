@@ -4,7 +4,6 @@ import code.gui.initialize.AbstractAddressList;
 import code.network.NetGroupFrame;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +16,7 @@ public final class DefAddressList implements AbstractAddressList {
             //if no IP address for the host could be found,
             //or if a scope_id was specified for a global IPv6 address.
             addr = Arrays.asList(InetAddress.getAllByName(_host));
-        } catch (UnknownHostException e) {
+        } catch (Exception e) {
             addr = Collections.emptyList();
         }
     }

@@ -12,7 +12,7 @@ public class DefNetworkInterfaceList implements AbstractNetworkInterfaceList {
     public DefNetworkInterfaceList() {
         try {
             list = Collections.list(NetworkInterface.getNetworkInterfaces());
-        } catch (SocketException e) {
+        } catch (Exception e) {
             list = Collections.emptyList();
         }
     }
