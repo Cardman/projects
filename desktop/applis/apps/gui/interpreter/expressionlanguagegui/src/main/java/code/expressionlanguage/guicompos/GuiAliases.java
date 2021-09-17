@@ -2459,16 +2459,16 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMenuBar, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasMenu);
-        method_ = new StandardMethod(aliasMenuBarAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuBar0TabbedPaneAdd0()));
+        method_ = new StandardMethod(aliasMenuBarAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuBar0TabbedPaneAdd0()), new FctMenuBarAdd());
         methods_.add( method_);
         params_ = new StringList(aliasMenu);
-        method_ = new StandardMethod(aliasMenuBarRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuBar0TreeNodeRemove0()));
+        method_ = new StandardMethod(aliasMenuBarRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuBar0TreeNodeRemove0()), new FctMenuBarRemove());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasMenuBarGet, params_, aliasMenu, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuBar0TreeNodeGetUserObject0()));
+        method_ = new StandardMethod(aliasMenuBarGet, params_, aliasMenu, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuBar0TreeNodeGetUserObject0()), new FctMenuBarGet());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMenuBarNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMenuBarNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctMenuBarNb());
         methods_.add( method_);
         _content.getStandards().addEntry(aliasMenuBar, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2508,7 +2508,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasMenuGet, params_, aliasAbsMenu, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenu0TreeNodeGetUserObject0()), new FctMenuGetMenu());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMenuNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctMenuGetMenuCount());
+        method_ = new StandardMethod(aliasMenuNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctMenuNb());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasMenuAddSeparator, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctMenuAddSeparator());
@@ -5139,25 +5139,6 @@ public final class GuiAliases {
             }
             inst_.setOrientation(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasMenuBar)) {
-            MenuBarStruct inst_ = (MenuBarStruct)_instance;
-            if (StringUtil.quickEq(name_, aliasMenuBarAdd)) {
-                inst_.add(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMenuBarRemove)) {
-                inst_.remove(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMenuBarGet)) {
-                res_.setResult(inst_.getMenu(_args[0]));
-                return res_;
-            }
-            res_.setResult(inst_.getMenuCount());
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
