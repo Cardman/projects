@@ -2499,19 +2499,19 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMenu, fields_, constructors_, methods_, aliasAbsMenu, MethodModifier.FINAL);
         params_ = new StringList(aliasAbsMenu);
-        method_ = new StandardMethod(aliasMenuAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenu0TabbedPaneAdd0()));
+        method_ = new StandardMethod(aliasMenuAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenu0TabbedPaneAdd0()), new FctMenuAdd());
         methods_.add( method_);
         params_ = new StringList(aliasAbsMenu);
-        method_ = new StandardMethod(aliasMenuRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenu0TreeNodeRemove0()));
+        method_ = new StandardMethod(aliasMenuRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenu0TreeNodeRemove0()), new FctMenuRemove());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasMenuGet, params_, aliasAbsMenu, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenu0TreeNodeGetUserObject0()));
+        method_ = new StandardMethod(aliasMenuGet, params_, aliasAbsMenu, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenu0TreeNodeGetUserObject0()), new FctMenuGetMenu());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMenuNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMenuNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctMenuGetMenuCount());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMenuAddSeparator, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMenuAddSeparator, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctMenuAddSeparator());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -2525,7 +2525,7 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasAbsMenuItem, fields_, constructors_, methods_, aliasAbsMenu, StdClassModifier.ABSTRACT);
         params_ = new StringList(aliasActionListener);
-        method_ = new StandardMethod(aliasAbsMenuItemAddAction, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenuItem0TabbedPaneAdd0()));
+        method_ = new StandardMethod(aliasAbsMenuItemAddAction, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenuItem0TabbedPaneAdd0()), new FctAbsMenuItemAddActionListener());
         methods_.add( method_);
         _content.getStandards().addEntry(aliasAbsMenuItem, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2544,10 +2544,10 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMenuItemCheck, fields_, constructors_, methods_, aliasAbsMenuItem, MethodModifier.FINAL);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasMenuItemCheckSetSelected, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuItemCheck0RadioSetSelected0()));
+        method_ = new StandardMethod(aliasMenuItemCheckSetSelected, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuItemCheck0RadioSetSelected0()), new FctMenuItemCheckSetSelected());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMenuItemCheckIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMenuItemCheckIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctMenuItemCheckIsSelected());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -5185,46 +5185,6 @@ public final class GuiAliases {
                 return res_;
             }
             inst_.setDeepEnabled(_args[0]);
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasMenu)) {
-            MenuStruct inst_ = (MenuStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasMenuAdd)) {
-                inst_.add(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMenuRemove)) {
-                inst_.remove(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMenuAddSeparator)) {
-                inst_.addSeparator();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMenuGet)) {
-                res_.setResult(inst_.getMenu(_args[0]));
-                return res_;
-            }
-            res_.setResult(inst_.getMenuCount());
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasAbsMenuItem)) {
-            AbsMenuItemStruct inst_ = (AbsMenuItemStruct) _instance;
-            inst_.addActionListener(_args[0]);
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasMenuItemCheck)) {
-            MenuItemCheckStruct inst_ = (MenuItemCheckStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasMenuItemCheckIsSelected)) {
-                res_.setResult(inst_.isSelected());
-                return res_;
-            }
-            inst_.setSelected(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
