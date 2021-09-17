@@ -2476,22 +2476,22 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasAbsMenu, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasAbsMenuGetParent, params_, aliasMenu, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAbsMenuGetParent, params_, aliasMenu, false, MethodModifier.FINAL, new FctAbsMenuGetParentMenu());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasAbsMenuSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0AbsMenuSetText0()));
+        method_ = new StandardMethod(aliasAbsMenuSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0AbsMenuSetText0()), new FctAbsMenuSetText());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasAbsMenuGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAbsMenuGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctAbsMenuGetText());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasAbsMenuSetEnabled, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0InputSetEnabled0()));
+        method_ = new StandardMethod(aliasAbsMenuSetEnabled, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0InputSetEnabled0()), new FctAbsMenuSetEnabled());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasAbsMenuIsEnabled, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasAbsMenuIsEnabled, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctAbsMenuIsEnabled());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasAbsMenuSetDeepEnabled, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0AbsMenuSetDeepEnabled0()));
+        method_ = new StandardMethod(aliasAbsMenuSetDeepEnabled, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasAbsMenu0AbsMenuSetDeepEnabled0()), new FctAbsMenuSetDeepEnabled());
         methods_.add( method_);
         _content.getStandards().addEntry(aliasAbsMenu, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -5158,34 +5158,6 @@ public final class GuiAliases {
                 return res_;
             }
             res_.setResult(inst_.getMenuCount());
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasAbsMenu)) {
-            AbsMenuStruct inst_ = (AbsMenuStruct)_instance;
-            if (StringUtil.quickEq(name_, aliasAbsMenuGetParent)) {
-                res_.setResult(inst_.getParentMenu());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasAbsMenuGetText)) {
-                res_.setResult(inst_.getText());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasAbsMenuSetText)) {
-                inst_.setText(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasAbsMenuIsEnabled)) {
-                res_.setResult(inst_.isEnabled());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasAbsMenuSetEnabled)) {
-                inst_.setEnabled(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            inst_.setDeepEnabled(_args[0]);
-            res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
