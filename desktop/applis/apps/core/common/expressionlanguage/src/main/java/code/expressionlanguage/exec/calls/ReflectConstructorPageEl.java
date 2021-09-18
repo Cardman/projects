@@ -85,7 +85,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         }
         if (metaInfo.getStandardType() != null) {
             ArgumentListCall l_ = new ArgumentListCall(_args);
-            arg_ = ExecInvokingOperation.instancePrepareStd(_context, metaInfo.getStandardConstructor(), mid_, l_, _stack);
+            arg_ = ExecInvokingOperation.instancePrepareStd(_context,metaInfo.getStandardType(), metaInfo.getStandardConstructor(), mid_, l_, _stack);
         }
         return end(_context, _stack, arg_);
     }

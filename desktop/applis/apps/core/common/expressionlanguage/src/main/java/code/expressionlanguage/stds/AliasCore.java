@@ -72,7 +72,7 @@ public final class AliasCore {
         fields_ = new CustList<CstFieldInfo>();
         StandardType std_;
         StandardClass stdcl_;
-        stdcl_ = new StandardClass(aliasObject, fields_, constructors_, methods_, EMPTY_STRING, MethodModifier.NORMAL);
+        stdcl_ = new StandardClass(aliasObject, fields_, constructors_, methods_, EMPTY_STRING, MethodModifier.NORMAL, new FctObj());
         std_ = stdcl_;
         standards_.addEntry(aliasObject, std_);
         methods_ = new CustList<StandardMethod>();

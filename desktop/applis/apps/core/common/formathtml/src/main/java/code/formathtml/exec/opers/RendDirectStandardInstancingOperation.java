@@ -23,7 +23,7 @@ public final class RendDirectStandardInstancingOperation extends RendInvokingOpe
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);
-        Argument argres_ = ExecInvokingOperation.instancePrepareStd(_context, instancingCommonContent.getConstructor(), instancingCommonContent.getConstId(), ExecInvokingOperation.fectchArgs(instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg(), null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), _rendStack.getStackCall());
+        Argument argres_ = ExecInvokingOperation.instancePrepareStd(_context, instancingCommonContent.getStandardType(), instancingCommonContent.getConstructor(), instancingCommonContent.getConstId(), ExecInvokingOperation.fectchArgs(instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg(), null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), _rendStack.getStackCall());
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 }

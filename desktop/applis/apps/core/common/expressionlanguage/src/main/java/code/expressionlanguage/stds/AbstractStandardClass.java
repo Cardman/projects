@@ -20,8 +20,8 @@ public abstract class AbstractStandardClass extends StandardType implements Gene
     protected AbstractStandardClass(String _name,
                                     CustList<StandardConstructor> _constructors,
                                     CustList<StandardMethod> _methods,
-                                    String _superClass, StdClassModifier _modifier) {
-        super(_name, _constructors, _methods);
+                                    String _superClass, StdClassModifier _modifier, StdCaller _caller) {
+        super(_name, _constructors, _methods,_caller);
         superClass = _superClass;
         finalType = false;
         abstractType = true;
@@ -30,8 +30,8 @@ public abstract class AbstractStandardClass extends StandardType implements Gene
     protected AbstractStandardClass(String _name,
                                     CustList<StandardConstructor> _constructors,
                                     CustList<StandardMethod> _methods,
-                                    String _superClass, MethodModifier _modifier) {
-        super(_name, _constructors, _methods);
+                                    String _superClass, MethodModifier _modifier, StdCaller _caller) {
+        super(_name, _constructors, _methods,_caller);
         superClass = _superClass;
         finalType = _modifier == MethodModifier.FINAL;
         abstractType = false;

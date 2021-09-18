@@ -17,15 +17,34 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
 
     private final CustList<StandardConstructor> constructors;
     private final CustList<StandardMethod> methods;
+    private final StdCaller caller;
 
     protected StandardType(String _name,
                            CustList<StandardConstructor> _constructors,
-                           CustList<StandardMethod> _methods) {
+                           CustList<StandardMethod> _methods, StdCaller _caller) {
         name = getNamePart(_name);
         packageName = getPackagePart(_name);
         constructors = _constructors;
         methods = _methods;
+        caller = _caller;
     }
+
+    public static StdCaller caller(StandardType _standardType, StandardConstructor _constructor, StdCaller _stdCaller) {
+        StdCaller stdCaller_;
+        if (_constructor != null) {
+            stdCaller_ = _constructor.getCaller();
+        } else if (_standardType != null) {
+            stdCaller_ = _standardType.getCaller();
+        } else {
+            stdCaller_ = _stdCaller;
+        }
+        return stdCaller_;
+    }
+
+    public StdCaller getCaller() {
+        return caller;
+    }
+
     public static String getNamePart(String _fullName) {
         int indexDot_ = _fullName.lastIndexOf('.');
         return _fullName.substring(indexDot_+1);

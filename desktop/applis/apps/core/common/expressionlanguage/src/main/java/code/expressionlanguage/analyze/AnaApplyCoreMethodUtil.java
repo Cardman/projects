@@ -80,7 +80,7 @@ public final class AnaApplyCoreMethodUtil {
         return calculateNumber(_method, _struct, _page, args_);
     }
 
-    public static Struct newAnalyzisInstanceStd(StandardConstructor _constructor, ConstructorId _method, AnalyzedPageEl _page, Argument... _args) {
+    public static Struct newAnalyzisInstanceStd(StandardType _standardType, StandardConstructor _constructor, ConstructorId _method, AnalyzedPageEl _page, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();
         String booleanType_ = _page.getNbAlias().getAliasBoolean();
@@ -92,11 +92,15 @@ public final class AnaApplyCoreMethodUtil {
         String longType_ = _page.getNbAlias().getAliasLong();
         String floatType_ = _page.getNbAlias().getAliasFloat();
         String doubleType_ = _page.getNbAlias().getAliasDouble();
-        if (_constructor != null) {
-            StdCaller caller_ = _constructor.getCaller();
-            if (caller_ instanceof AnaStdCaller) {
-                return ((AnaStdCaller) caller_).call(_page,NullStruct.NULL_VALUE,args_);
-            }
+        StdCaller stdCaller_ = StandardType.caller(_standardType, _constructor, null);
+        AnaStdCaller anaStdCaller_;
+        if (stdCaller_ instanceof AnaStdCaller) {
+            anaStdCaller_ = (AnaStdCaller)stdCaller_;
+        } else {
+            anaStdCaller_ = null;
+        }
+        if (anaStdCaller_ != null) {
+            return anaStdCaller_.call(_page,NullStruct.NULL_VALUE,args_);
         }
         if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasRange())) {
             return range(args_);

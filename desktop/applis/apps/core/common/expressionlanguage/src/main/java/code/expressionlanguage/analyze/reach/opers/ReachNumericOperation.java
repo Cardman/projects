@@ -21,13 +21,11 @@ public abstract class ReachNumericOperation extends ReachMethodOperation impleme
         CustList<ReachOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
         Argument c_ = chidren_.last().getArgument();
-        Argument r_;
-        r_ = calculateOperAna(a_, op, c_, _page);
+        Argument r_ = calculateOperAna(a_, op, c_, _page);
         if (r_.isNull()) {
             return;
         }
-        a_ = r_;
-        setSimpleArgumentAna(a_);
+        setSimpleArgumentAna(r_);
     }
 
     abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, AnalyzedPageEl _page);

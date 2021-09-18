@@ -2020,10 +2020,6 @@ public final class CustAliases {
                                          ConstructorId _method, StackCall _stackCall, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String name_ = _method.getName();
-        if (StringUtil.quickEq(name_, _cont.getStandards().getContent().getCoreNames().getAliasObject())) {
-            res_.setResult(new SimpleObjectStruct());
-            return res_;
-        }
         if (StringUtil.quickEq(name_,aliasThreadSet)) {
             ThreadSetStruct std_ = new ThreadSetStruct(getInterceptor());
             res_.setResult(std_);
