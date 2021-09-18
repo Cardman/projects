@@ -368,42 +368,6 @@ public final class AliasCharSequenceType {
         _res.setResult(new StringStruct(arg_.getInstance().toString()));
     }
 
-    public static void instantiateStringBuilder(ContextEl _cont, ResultErrorStd _res, ConstructorId _method, StackCall _stackCall, Struct... _args) {
-        LgNames lgNames_ = _cont.getStandards();
-        String intPrimType_ = lgNames_.getContent().getPrimTypes().getAliasPrimInteger();
-        if (_method.getParametersTypesLength() == 0) {
-            newStringBuilderStruct(_res);
-            return;
-        }
-        if (StringUtil.quickEq(_method.getParametersType(0), intPrimType_)) {
-            newStringBuilderStructByNumber(NumParsers.convertToNumber(_args[0]), _res, _cont, _stackCall);
-            return;
-        }
-        newStringBuilderStructByString(_args[0], _res, _cont, _stackCall);
-    }
-
-    private static void newStringBuilderStruct(ResultErrorStd _res) {
-        _res.setResult(new StringBuilderStruct(new StringBuilder()));
-    }
-
-    private static void newStringBuilderStructByString(Struct _arg, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_arg instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        CharSequenceStruct arg_ = NumParsers.getCharSeq(_arg);
-        _res.setResult(new StringBuilderStruct(new StringBuilder(arg_.toStringInstance())));
-    }
-
-    private static void newStringBuilderStructByNumber(NumberStruct _arg, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        int one_ = _arg.intStruct();
-        if (one_ < 0) {
-            _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, Long.toString(one_), _stackCall)));
-            return;
-        }
-        _res.setResult(new StringBuilderStruct(new StringBuilder(one_)));
-    }
-
     private static void calculateStrBuilder(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, StackCall _stackCall, Struct... _args) {
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
@@ -1271,17 +1235,12 @@ public final class AliasCharSequenceType {
         _res.setResult(new StringStruct(StringUtil.simpleStringsFormat(_charSequence.toStringInstance(), seps_)));
     }
 
-    private static ErrorStruct getBadIndex(ContextEl _context, String _message, StackCall _stackCall) {
+    public static ErrorStruct getBadIndex(ContextEl _context, String _message, StackCall _stackCall) {
         return new ErrorStruct(_context, _message, _context.getStandards().getContent().getCoreNames().getAliasBadIndex(), _stackCall);
     }
 
     private static ErrorStruct getNpe(ContextEl _context, StackCall _stackCall) {
         return new ErrorStruct(_context, _context.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall);
-    }
-
-    public static void instantiate(ResultErrorStd _res, Struct... _args) {
-        Replacement rep_ = NumParsers.getReplacement(_args);
-        _res.setResult(new ReplacementStruct(rep_));
     }
 
     public static void calculate(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct) {
@@ -1621,16 +1580,16 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasSame, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasStringBuilder0Same0(),params.getAliasStringBuilder0Same1()));
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_, false);
+        ctor_ = new StandardConstructor(params_, false, new FctStringBuilder0());
         constructors_.add(ctor_);
         params_ = new StringList(aliasStringBuilder);
-        ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasStringBuilder0StringBuilder0()));
+        ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasStringBuilder0StringBuilder0()), new FctStringBuilder2());
         constructors_.add(ctor_);
         params_ = new StringList(aliasPrimInteger_);
-        ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasStringBuilder1StringBuilder0()));
+        ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasStringBuilder1StringBuilder0()), new FctStringBuilder1());
         constructors_.add(ctor_);
         params_ = new StringList(aliasString);
-        ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasStringBuilder2StringBuilder0()));
+        ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasStringBuilder2StringBuilder0()), new FctStringBuilder2());
         constructors_.add(ctor_);
         std_.getDirectInterfaces().add(aliasCharSequence);
         standards_.addEntry(aliasStringBuilder, std_);
@@ -1645,7 +1604,7 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasGetNewString, params_, aliasString, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence,aliasCharSequence);
-        ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasReplacement0Replacement0(),params.getAliasReplacement0Replacement1()));
+        ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasReplacement0Replacement0(),params.getAliasReplacement0Replacement1()),new FctReplacement());
         constructors_.add(ctor_);
         standards_.addEntry(aliasReplacement, std_);
     }

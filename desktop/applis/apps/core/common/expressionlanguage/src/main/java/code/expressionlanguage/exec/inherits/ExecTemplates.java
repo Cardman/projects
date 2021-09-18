@@ -155,11 +155,11 @@ public final class ExecTemplates {
         return madeVarTypes_;
     }
 
-    public static boolean checkObject(String _param, Argument _arg, ContextEl _context, StackCall _stackCall) {
-        Struct str_ = _arg.getStruct();
+    public static Struct checkObject(String _param, Struct _arg, ContextEl _context, StackCall _stackCall) {
         byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_param, _context.getStandards());
-        _arg.setStruct(NumParsers.convertObject(cast_, str_));
-        return checkQuick(_param, _arg.getStruct().getClassName(_context), _context, _stackCall);
+        Struct object_ = NumParsers.convertObject(cast_, _arg);
+        checkQuick(_param, object_.getClassName(_context), _context, _stackCall);
+        return object_;
     }
 
     public static boolean checkQuick(String _param, String _arg, ContextEl _context, StackCall _stackCall) {

@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecTypeCheckContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -26,11 +27,11 @@ public final class RendCastOperation extends RendMethodOperation implements Rend
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _rendStack);
-        Argument objArg_ = new Argument(ExecHelper.getFirstArgument(arguments_).getStruct());
+        Struct str_ = ExecHelper.getFirstArgument(arguments_).getStruct();
         String paramName_ = typeCheckContent.getClassName();
-        ExecCastOperation.wrapFct(paramName_,false, _context, objArg_);
-        ExecTemplates.checkObject(paramName_, objArg_, _context, _rendStack.getStackCall());
-        setSimpleArgument(objArg_, _nodes, _context, _rendStack);
+        Struct objArg_ = ExecCastOperation.wrapFct(paramName_,false, _context, str_);
+        Struct conv_ = ExecTemplates.checkObject(paramName_, objArg_, _context, _rendStack.getStackCall());
+        setSimpleArgument(new Argument(conv_), _nodes, _context, _rendStack);
     }
 
 }

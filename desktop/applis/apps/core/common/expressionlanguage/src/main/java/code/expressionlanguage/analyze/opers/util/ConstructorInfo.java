@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.Ints;
@@ -30,6 +31,7 @@ public final class ConstructorInfo implements Parametrable {
     private final MemberId memberId = new MemberId();
 
     private StandardType standardType;
+    private StandardConstructor constructor;
     private String fileName = "";
     private final CustList<CustList<ClassMethodIdReturn>> implicits = new CustList<CustList<ClassMethodIdReturn>>();
     private StringList parametersNames = new StringList();
@@ -155,6 +157,14 @@ public final class ConstructorInfo implements Parametrable {
 
     public void setStandardType(StandardType _standardType) {
         standardType = _standardType;
+    }
+
+    public StandardConstructor getConstructor() {
+        return constructor;
+    }
+
+    public void setConstructor(StandardConstructor _constructor) {
+        this.constructor = _constructor;
     }
 
     public String getFileName() {

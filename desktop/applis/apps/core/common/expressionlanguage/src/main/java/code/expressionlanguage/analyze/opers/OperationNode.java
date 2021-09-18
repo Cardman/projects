@@ -833,6 +833,7 @@ public abstract class OperationNode {
         ConstructorId ctor_ = _s.getId().copy(StringExpUtil.getIdFromAllTypes(_clCurName));
         ConstructorInfo mloc_ = new ConstructorInfo();
         mloc_.setStandardType(_type);
+        mloc_.setConstructor(_s);
         mloc_.setParametersNames(_s.getParametersNames());
         mloc_.constructorId(_clCurName, ctor_);
         return mloc_;
@@ -892,6 +893,7 @@ public abstract class OperationNode {
         out_.setConstId(_cInfo.getFormatted());
         out_.setFileName(_cInfo.getFileName());
         out_.setStandardType(_cInfo.getStandardType());
+        out_.setConstructor(_cInfo.getConstructor());
         out_.setMemberId(_cInfo.getMemberId());
         return out_;
     }

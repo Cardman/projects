@@ -1,6 +1,5 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.*;
@@ -691,9 +690,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
     }
 
     public Struct tryWrap(ContextEl _cont, Struct _input) {
-        Argument arg_ = new Argument(_input);
-        ExecCastOperation.wrapFct(formatted.getFormatted(),true,_cont,arg_);
-        return arg_.getStruct();
+        return ExecCastOperation.wrapFct(formatted.getFormatted(),true,_cont,_input);
     }
     private StringList getBounds() {
         StringList list_ = new StringList();

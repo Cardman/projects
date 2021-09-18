@@ -6,14 +6,18 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ReachInstancingOperation extends ReachInvokingOperation {
+    private final StandardConstructor constructor;
     private ConstructorId constId;
+
     ReachInstancingOperation(StandardInstancingOperation _meta) {
         super(_meta);
-        constId = _meta.getConstId();
+        constId = _meta.getInstancingCommonContent().getConstId();
+        constructor = _meta.getInstancingCommonContent().getConstructor();
     }
 
     @Override
@@ -22,7 +26,7 @@ public final class ReachInstancingOperation extends ReachInvokingOperation {
             return;
         }
         CustList<Argument> firstArgs_ = getArguments();
-        Struct out_ = AnaApplyCoreMethodUtil.newAnalyzisInstanceStd(constId, _page, Argument.toArgArray(firstArgs_));
+        Struct out_ = AnaApplyCoreMethodUtil.newAnalyzisInstanceStd(constructor,constId, _page, Argument.toArgArray(firstArgs_));
         if (out_ == null) {
             return;
         }

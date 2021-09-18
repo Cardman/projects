@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.LambdaConstructorStruct;
@@ -18,11 +19,13 @@ public final class ExecStdConstructorLambdaOperation extends ExecAbstractLambdaO
 
     private final ConstructorId realId;
     private final StandardType standardType;
+    private final StandardConstructor standardConstructor;
 
-    public ExecStdConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ConstructorId _realId, StandardType _standardType) {
+    public ExecStdConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ConstructorId _realId, StandardType _standardType, StandardConstructor _standardConstructor) {
         super(_opCont, _lamCont);
         realId = _realId;
         standardType = _standardType;
+        standardConstructor = _standardConstructor;
     }
 
     @Override
@@ -31,13 +34,13 @@ public final class ExecStdConstructorLambdaOperation extends ExecAbstractLambdaO
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         ExecFormattedRootBlock ownerType_ = formatVarType(_stack);
         String clArg_ = formatVarTypeRes(_stack);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, ownerType_, realId, clArg_, standardType));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_, ownerType_, realId, clArg_, standardType,standardConstructor));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     public static Struct newLambda(ExecLambdaCommonContent _common, Argument _previous, ExecFormattedRootBlock _ownerType, ConstructorId _realId,
-                                   String _clArg, StandardType _standardType) {
-        ConstructorMetaInfo met_ = new ConstructorMetaInfo(_standardType, _common,_ownerType, _realId);
+                                   String _clArg, StandardType _standardType, StandardConstructor _standardConstructor) {
+        ConstructorMetaInfo met_ = new ConstructorMetaInfo(_standardType, _standardConstructor, _common,_ownerType, _realId);
         return new LambdaConstructorStruct(met_,_previous,_common,_clArg);
     }
 

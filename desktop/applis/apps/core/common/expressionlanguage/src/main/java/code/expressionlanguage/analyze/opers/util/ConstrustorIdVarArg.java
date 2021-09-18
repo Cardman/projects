@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
 
 public final class ConstrustorIdVarArg {
@@ -11,6 +12,7 @@ public final class ConstrustorIdVarArg {
     private ConstructorId constId;
 
     private StandardType standardType;
+    private StandardConstructor constructor;
 
     private boolean varArgToCall;
     private String fileName;
@@ -47,6 +49,14 @@ public final class ConstrustorIdVarArg {
 
     public void setStandardType(StandardType _standardType) {
         standardType = _standardType;
+    }
+
+    public StandardConstructor getConstructor() {
+        return constructor;
+    }
+
+    public void setConstructor(StandardConstructor _constructor) {
+        this.constructor = _constructor;
     }
 
     public boolean isVarArgToCall() {

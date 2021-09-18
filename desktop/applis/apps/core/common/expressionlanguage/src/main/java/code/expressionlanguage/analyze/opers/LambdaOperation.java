@@ -21,6 +21,7 @@ import code.expressionlanguage.fwd.opers.AnaLambdaMethodContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
@@ -54,6 +55,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private InfoErrorDto partOffsetsErrEnd = new InfoErrorDto("");
     private StandardMethod standardMethod;
     private StandardType standardType;
+    private StandardConstructor standardConstructor;
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -1615,6 +1617,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         function = _ctorRes.getPair();
         setupFct();
         standardType = _ctorRes.getStandardType();
+        standardConstructor = _ctorRes.getConstructor();
         lambdaCommonContent.setFileName(_ctorRes.getFileName());
         lambdaMemberNumberContentId = _ctorRes.getMemberId();
     }
@@ -2655,6 +2658,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public StandardType getStandardType() {
         return standardType;
+    }
+
+    public StandardConstructor getStandardConstructor() {
+        return standardConstructor;
     }
 
     public int getRecordType() {

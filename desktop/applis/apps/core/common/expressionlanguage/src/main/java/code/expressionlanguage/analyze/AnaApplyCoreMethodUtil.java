@@ -80,7 +80,7 @@ public final class AnaApplyCoreMethodUtil {
         return calculateNumber(_method, _struct, _page, args_);
     }
 
-    public static Struct newAnalyzisInstanceStd(ConstructorId _method, AnalyzedPageEl _page, Argument... _args) {
+    public static Struct newAnalyzisInstanceStd(StandardConstructor _constructor, ConstructorId _method, AnalyzedPageEl _page, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();
         String booleanType_ = _page.getNbAlias().getAliasBoolean();
@@ -92,9 +92,11 @@ public final class AnaApplyCoreMethodUtil {
         String longType_ = _page.getNbAlias().getAliasLong();
         String floatType_ = _page.getNbAlias().getAliasFloat();
         String doubleType_ = _page.getNbAlias().getAliasDouble();
-        String replType_ = _page.getCharSeq().getAliasReplacement();
-        if (StringUtil.quickEq(type_, replType_)) {
-            return instantiate(args_);
+        if (_constructor != null) {
+            StdCaller caller_ = _constructor.getCaller();
+            if (caller_ instanceof AnaStdCaller) {
+                return ((AnaStdCaller) caller_).call(_page,NullStruct.NULL_VALUE,args_);
+            }
         }
         if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasRange())) {
             return range(args_);
@@ -1301,8 +1303,4 @@ public final class AnaApplyCoreMethodUtil {
 
     }
 
-    private static Struct instantiate(Struct... _args) {
-        Replacement rep_ = NumParsers.getReplacement(_args);
-        return(new ReplacementStruct(rep_));
-    }
 }

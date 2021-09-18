@@ -2058,13 +2058,13 @@ public final class NumParsers {
         return arr_;
     }
 
-    public static Replacement getReplacement(Struct[] _args) {
+    public static Replacement getReplacement(Struct _oldStr, Struct _newStr) {
         Replacement rep_ = new Replacement();
-        if (_args[0] instanceof CharSequenceStruct) {
-            rep_.setOldString(getCharSeq(_args[0]).toStringInstance());
+        if (_oldStr instanceof CharSequenceStruct) {
+            rep_.setOldString(getCharSeq(_oldStr).toStringInstance());
         }
-        if (_args[1] instanceof CharSequenceStruct) {
-            rep_.setNewString(getCharSeq(_args[1]).toStringInstance());
+        if (_newStr instanceof CharSequenceStruct) {
+            rep_.setNewString(getCharSeq(_newStr).toStringInstance());
         }
         return rep_;
     }

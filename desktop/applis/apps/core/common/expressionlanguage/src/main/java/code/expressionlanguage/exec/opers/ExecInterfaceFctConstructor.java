@@ -16,6 +16,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -36,15 +37,15 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         Argument mainArgument_ = Argument.getNullableValue(pair_.getArgument());
         if (getIndexChild() == 1) {
             //init and test
-            Argument lda_ = new Argument(mainArgument_.getStruct());
-            if (!ExecTemplates.checkObject(_conf.getStandards().getContent().getReflect().getAliasFct(), lda_, _conf, _stack)) {
+            Struct lda_ = ExecTemplates.checkObject(_conf.getStandards().getContent().getReflect().getAliasFct(), mainArgument_.getStruct(), _conf, _stack);
+            if (_conf.callsOrException(_stack)) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes, _stack);
                 return;
             }
             String form_ = _stack.formatVarType(className);
-            Argument ref_ = new Argument(lda_.getStruct());
-            ExecCastOperation.wrapFct(form_,true, _conf, ref_);
-            if (!ExecTemplates.checkObject(form_, ref_, _conf, _stack)) {
+            Struct struct_ = ExecCastOperation.wrapFct(form_, true, _conf, lda_);
+            Argument ref_ = new Argument(ExecTemplates.checkObject(form_, struct_, _conf, _stack));
+            if (_conf.callsOrException(_stack)) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes, _stack);
                 return;
             }

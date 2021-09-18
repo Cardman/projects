@@ -18,6 +18,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.opers.AnaInstancingCommonContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -545,17 +546,19 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     protected void result(AnalyzedPageEl _page,String _realClassName, AnaGeneType _g, ConstrustorIdVarArg _ctorRes, NameParametersFilter _name) {
         setConstId(_ctorRes.getRealId());
+        setConstructor(_ctorRes.getConstructor());
         setConstructor(_ctorRes.getPair());
         if (_g instanceof RootBlock) {
             setFormattedType(new AnaFormattedRootBlock((RootBlock) _g, _realClassName));
         }
         setMemberId(_ctorRes.getMemberId());
+        AnaInstancingCommonContent instancingCommonContent_ = getInstancingCommonContent();
         if (_ctorRes.isVarArgToCall()) {
-            int nbParams_ = getConstId().getParametersTypesLength();
+            int nbParams_ = instancingCommonContent_.getConstId().getParametersTypesLength();
             setNaturalVararg(nbParams_ - 1);
-            setLastType(getConstId().getParametersType(nbParams_ - 1));
+            setLastType(instancingCommonContent_.getConstId().getParametersType(nbParams_ - 1));
         }
-        unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), _name.getAll(), _page);
+        unwrapArgsFct(instancingCommonContent_.getConstId(), getNaturalVararg(), getLastType(), _name.getAll(), _page);
     }
 
 
@@ -567,12 +570,12 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         return instancingCommonContent.getMethodName();
     }
 
-    public ConstructorId getConstId() {
-        return instancingCommonContent.getConstId();
-    }
-
     public void setConstId(ConstructorId _constId) {
         instancingCommonContent.setConstId(_constId);
+    }
+
+    public void setConstructor(StandardConstructor _constId) {
+        instancingCommonContent.setConstructor(_constId);
     }
 
     public AnaTypeFct getConstructor() {

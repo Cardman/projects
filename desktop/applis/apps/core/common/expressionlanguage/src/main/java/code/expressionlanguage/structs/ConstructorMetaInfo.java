@@ -24,6 +24,7 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
     private final ExecTypeFunction pair;
     private final ExecFormattedRootBlock formatted;
     private final StandardType standardType;
+    private final StandardConstructor standardConstructor;
     private final GeneType declType;
 
     public ConstructorMetaInfo(){
@@ -35,6 +36,7 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
         pair = new ExecTypeFunction(formatted_,null);
         formatted = formatted_;
         standardType = null;
+        standardConstructor = null;
         declType = null;
     }
     public ConstructorMetaInfo(ExecTypeFunction _pair, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ConstructorId _realId) {
@@ -46,9 +48,10 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
         pair = _pair;
         formatted = _declaringClass;
         standardType = null;
+        standardConstructor = null;
         declType = _pair.getType();
     }
-    public ConstructorMetaInfo(StandardType _standardType, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ConstructorId _realId) {
+    public ConstructorMetaInfo(StandardType _standardType, StandardConstructor _stdCtor, ExecLambdaCommonContent _common, ExecFormattedRootBlock _declaringClass, ConstructorId _realId) {
         super(new SingleRetType(_common.getReturnFieldType()), AccessEnum.PUBLIC,_common.getFileName());
         standardType = _standardType;
         ConstructorId fid_ = tryFormatId(_declaringClass, _realId);
@@ -58,6 +61,7 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
         pair = new ExecTypeFunction(_declaringClass,null);
         formatted = _declaringClass;
         declType = _standardType;
+        standardConstructor = _stdCtor;
     }
     public ConstructorMetaInfo(ExecFormattedRootBlock _formatted, ExecConstructorBlock _ctor, ContextEl _context) {
         super(new SingleRetType(koRetType(_ctor, _context)), ac(_formatted, _ctor),_formatted.getRootBlock().getFile().getFileName());
@@ -75,6 +79,7 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
         pair = new ExecTypeFunction(_formatted,_ctor);
         formatted  = _formatted;
         standardType = null;
+        standardConstructor = null;
         declType = type_;
     }
     public ConstructorMetaInfo(ContextEl _context, StandardType _std, StandardConstructor _ctor, String _declaringClass, ExecFormattedRootBlock _formatted) {
@@ -90,6 +95,7 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
         pair = new ExecTypeFunction(_formatted,null);
         formatted = _formatted;
         declType = _std;
+        standardConstructor = _ctor;
     }
     private static AccessEnum ac(ExecFormattedRootBlock _formatted, ExecConstructorBlock _ctor) {
         ExecRootBlock type_ = _formatted.getRootBlock();
@@ -140,6 +146,10 @@ public final class ConstructorMetaInfo extends AbAnMeStruct implements Annotated
 
     public StandardType getStandardType() {
         return standardType;
+    }
+
+    public StandardConstructor getStandardConstructor() {
+        return standardConstructor;
     }
 
     @Override

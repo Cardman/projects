@@ -198,7 +198,7 @@ public abstract class ReachOperationNode {
         }
         if (_oper instanceof StandardInstancingOperation) {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _oper;
-            if (s_.getConstId() != null) {
+            if (s_.getInstancingCommonContent().getConstId() != null) {
                 return new ReachInstancingOperation((StandardInstancingOperation) _oper);
             }
         }

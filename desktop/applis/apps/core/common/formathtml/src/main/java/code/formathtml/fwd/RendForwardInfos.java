@@ -946,7 +946,7 @@ public final class RendForwardInfos {
             return new RendStdMethodLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, _anaNode.getMethod(), _anaNode.getStandardMethod());
         }
         if (_anaNode.getStandardType() != null) {
-            return new RendStdConstructorLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, _anaNode.getRealId(), _anaNode.getStandardType());
+            return new RendStdConstructorLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, _anaNode.getRealId(), _anaNode.getStandardType(),_anaNode.getStandardConstructor());
         }
         int recordType_ = _anaNode.getRecordType();
         ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(recordType_, _forwards);

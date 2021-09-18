@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
@@ -36,15 +37,15 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         ArgumentsPair pair_ = getArgumentPair(_nodes, main_);
         if (getIndexChild() == 1) {
             //init and test
-            Argument lda_ = new Argument(Argument.getNullableValue(pair_.getArgument()).getStruct());
-            if (!ExecTemplates.checkObject(_context.getStandards().getContent().getReflect().getAliasFct(), lda_, _context, _rendStack.getStackCall())) {
+            Struct lda_ = ExecTemplates.checkObject(_context.getStandards().getContent().getReflect().getAliasFct(), Argument.getNullableValue(pair_.getArgument()).getStruct(), _context, _rendStack.getStackCall());
+            if (_context.callsOrException(_rendStack.getStackCall())) {
                 setSimpleArgument(Argument.createVoid(), _nodes, _context, _rendStack);
                 return;
             }
             String form_ = className;
-            Argument ref_ = new Argument(lda_.getStruct());
-            ExecCastOperation.wrapFct(form_,true, _context, ref_);
-            if (!ExecTemplates.checkObject(form_, ref_, _context, _rendStack.getStackCall())) {
+            Struct struct_ = ExecCastOperation.wrapFct(form_,true, _context, lda_);
+            Argument ref_ = new Argument(ExecTemplates.checkObject(form_, struct_, _context, _rendStack.getStackCall()));
+            if (_context.callsOrException(_rendStack.getStackCall())) {
                 setSimpleArgument(Argument.createVoid(), _nodes, _context, _rendStack);
                 return;
             }

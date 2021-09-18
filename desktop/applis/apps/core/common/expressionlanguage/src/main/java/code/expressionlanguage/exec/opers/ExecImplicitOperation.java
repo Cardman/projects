@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecExplicitCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecImplicitOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
@@ -29,8 +30,7 @@ public final class ExecImplicitOperation extends ExecMethodOperation implements 
     }
 
     public static Argument getArgument(String _paramName, ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
-        Argument objArg_ = new Argument(ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_list.getArgumentWrappers())).getStruct());
-        ExecTemplates.checkObject(_paramName, objArg_, _conf, _stackCall);
-        return objArg_;
+        Struct objArg_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_list.getArgumentWrappers())).getStruct();
+        return new Argument(ExecTemplates.checkObject(_paramName, objArg_, _conf, _stackCall));
     }
 }

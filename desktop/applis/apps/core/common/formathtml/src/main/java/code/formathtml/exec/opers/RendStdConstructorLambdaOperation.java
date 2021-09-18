@@ -8,6 +8,7 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.exec.opers.*;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
@@ -17,11 +18,13 @@ public final class RendStdConstructorLambdaOperation extends RendAbstractLambdaO
 
     private final ConstructorId realId;
     private final StandardType standardType;
+    private final StandardConstructor standardConstructor;
 
-    public RendStdConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ConstructorId _realId, StandardType _standardType) {
+    public RendStdConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ConstructorId _realId, StandardType _standardType, StandardConstructor _standardConstructor) {
         super(_opCont, _lamCont);
         realId = _realId;
         standardType = _standardType;
+        standardConstructor = _standardConstructor;
     }
 
     @Override
@@ -29,7 +32,7 @@ public final class RendStdConstructorLambdaOperation extends RendAbstractLambdaO
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = formatVarTypeRes();
         ExecFormattedRootBlock ownerType_ = getFoundClass();
-        Argument res_ = new Argument(ExecStdConstructorLambdaOperation.newLambda(getLambdaCommonContent(),previous_, ownerType_, realId, clArg_, standardType));
+        Argument res_ = new Argument(ExecStdConstructorLambdaOperation.newLambda(getLambdaCommonContent(),previous_, ownerType_, realId, clArg_, standardType,standardConstructor));
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }
 }
