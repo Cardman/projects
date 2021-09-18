@@ -2423,19 +2423,19 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasKeyEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasKeyEventIsAlt, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasKeyEventIsAlt, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctKeyEventIsAlt());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasKeyEventIsCtrl, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasKeyEventIsCtrl, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctKeyEventIsCtrl());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasKeyEventIsShift, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasKeyEventIsShift, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctKeyEventIsShift());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasKeyEventChar, params_, _content.getPrimTypes().getAliasPrimChar(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasKeyEventChar, params_, _content.getPrimTypes().getAliasPrimChar(), false, MethodModifier.FINAL, new FctKeyEventChar());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasKeyEventCode, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasKeyEventCode, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctKeyEventCode());
         methods_.add( method_);
         params_ = new StringList(
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
@@ -4286,27 +4286,6 @@ public final class GuiAliases {
             WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
             txt_.setImage(window_.getImageFactory(),_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasKeyEvent)) {
-            KeyEventStruct event_ = (KeyEventStruct)_instance;
-            if (StringUtil.quickEq(name_, aliasKeyEventIsAlt)) {
-                res_.setResult(event_.isAlt());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasKeyEventIsCtrl)) {
-                res_.setResult(event_.isCtrl());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasKeyEventIsShift)) {
-                res_.setResult(event_.isShift());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasKeyEventChar)) {
-                res_.setResult(event_.getKeyChar());
-                return res_;
-            }
-            res_.setResult(event_.getKeyCode());
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasInput)) {
