@@ -2369,31 +2369,31 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMouseEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMouseEventIsAlt, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMouseEventIsAlt, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctMouseEventIsAlt());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMouseEventIsCtrl, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMouseEventIsCtrl, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctMouseEventIsCtrl());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMouseEventIsShift, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMouseEventIsShift, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctMouseEventIsShift());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMouseEventIsLeft, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMouseEventIsLeft, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctMouseEventIsLeft());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMouseEventIsMiddle, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMouseEventIsMiddle, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctMouseEventIsMiddle());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMouseEventIsRight, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMouseEventIsRight, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctMouseEventIsRight());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMouseEventGetClicks, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMouseEventGetClicks, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctMouseEventGetClicks());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMouseEventGetFirst, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMouseEventGetFirst, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctMouseEventGetFirst());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMouseEventGetSecond, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMouseEventGetSecond, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctMouseEventGetSecond());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
@@ -2408,7 +2408,7 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasWheelEvent, fields_, constructors_, methods_, aliasMouseEvent, MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasWheelRotatedClicks, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasWheelRotatedClicks, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctWheelRotatedClicks());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
@@ -4286,48 +4286,6 @@ public final class GuiAliases {
             WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
             txt_.setImage(window_.getImageFactory(),_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasMouseEvent)) {
-            MouseEventStruct event_ = (MouseEventStruct)_instance;
-            if (StringUtil.quickEq(name_, aliasMouseEventIsAlt)) {
-                res_.setResult(event_.isAlt());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMouseEventIsCtrl)) {
-                res_.setResult(event_.isCtrl());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMouseEventIsShift)) {
-                res_.setResult(event_.isShift());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMouseEventIsLeft)) {
-                res_.setResult(event_.isLeft());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMouseEventIsMiddle)) {
-                res_.setResult(event_.isMiddle());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMouseEventIsRight)) {
-                res_.setResult(event_.isRight());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMouseEventGetClicks)) {
-                res_.setResult(event_.getClicks());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasMouseEventGetFirst)) {
-                res_.setResult(event_.getFirst());
-                return res_;
-            }
-            res_.setResult(event_.getSecond());
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasWheelEvent)) {
-            MouseWheelEventStruct event_ = (MouseWheelEventStruct)_instance;
-            res_.setResult(event_.getRotated());
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasKeyEvent)) {
