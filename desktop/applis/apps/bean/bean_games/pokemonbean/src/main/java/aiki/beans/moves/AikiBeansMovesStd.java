@@ -141,12 +141,10 @@ public final class AikiBeansMovesStd {
     private static void buildMoveBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_MOVE_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
@@ -356,12 +354,10 @@ public final class AikiBeansMovesStd {
     private static void buildMoveLineBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_MOVE_LINE_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false));
@@ -382,12 +378,10 @@ public final class AikiBeansMovesStd {
     private static void buildMovesBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_MOVES_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(TYPED_NAME,_std.getAliasString(),false,false));

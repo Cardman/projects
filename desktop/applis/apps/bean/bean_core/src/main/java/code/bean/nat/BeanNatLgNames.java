@@ -67,8 +67,6 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
     public abstract ResultErrorStd getOtherResultBean(ContextEl _cont,
                                              ConstructorId _method, Struct... _args);
 
-    public abstract ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
-                                             ClassMethodId _method, Struct... _args);
 
     public abstract ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val);
 

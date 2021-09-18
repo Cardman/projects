@@ -38,10 +38,8 @@ public final class AikiBeansFacadeSimulationDtoStd {
     private static void buildEvLine(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EV_LINE, fields_, methods_, _std.getAliasObject());
         fields_.add(new StandardField(EV,_std.getAliasPrimInteger(),false,false));
@@ -50,10 +48,8 @@ public final class AikiBeansFacadeSimulationDtoStd {
     private static void buildPokemonPlayerDto(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_DTO, fields_, methods_, _std.getAliasObject());
         fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false));
@@ -62,10 +58,8 @@ public final class AikiBeansFacadeSimulationDtoStd {
     private static void buildPokemonTrainerDto(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_POKEMON_TRAINER_DTO, fields_, methods_, _std.getAliasObject());
         fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false));
@@ -74,10 +68,8 @@ public final class AikiBeansFacadeSimulationDtoStd {
     private static void buildRadioLineMove(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_RADIO_LINE_MOVE, fields_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE);
         fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false));
@@ -86,10 +78,8 @@ public final class AikiBeansFacadeSimulationDtoStd {
     private static void buildSelectLineMove(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SELECT_LINE_MOVE, fields_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE);
         fields_.add(new StandardField(SELECTED,_std.getAliasPrimBoolean(),false,false));

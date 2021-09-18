@@ -74,10 +74,8 @@ public final class AikiBeansEffectsStd {
     private static void buildComboDto(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMBO_DTO, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMBO_DTO, type_);
@@ -85,12 +83,10 @@ public final class AikiBeansEffectsStd {
     private static void buildCombosBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMBOS_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(COMBO,_std.getAliasString(),false,false));
@@ -103,12 +99,10 @@ public final class AikiBeansEffectsStd {
     private static void buildEffectComboBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_COMBO_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false));
@@ -133,12 +127,10 @@ public final class AikiBeansEffectsStd {
     private static void buildEffectWhileSendingBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_WHILE_SENDING_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(EFFECT,PokemonStandards.TYPE_EFFECT_WHILE_SENDING,false,false));

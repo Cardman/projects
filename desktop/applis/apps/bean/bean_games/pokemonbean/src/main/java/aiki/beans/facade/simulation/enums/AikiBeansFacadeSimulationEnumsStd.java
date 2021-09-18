@@ -17,10 +17,8 @@ public final class AikiBeansFacadeSimulationEnumsStd {
     private static void buildSimulationSteps(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SIMULATION_STEPS, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_SIMULATION_STEPS, type_);

@@ -105,12 +105,10 @@ public final class AikiBeansGameStd {
     private static void buildDifficultyBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_DIFFICULTY_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
         fields_.add(new StandardField(WIN_POINTS_FIGHT, BeanNatLgNames.TYPE_MAP,false,false));
@@ -142,12 +140,10 @@ public final class AikiBeansGameStd {
     private static void buildGameProgressionBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_GAME_PROGRESSION_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
         fields_.add(new StandardField(FINISHED_GAME,_std.getAliasPrimBoolean(),false,false));
@@ -203,12 +199,10 @@ public final class AikiBeansGameStd {
     private static void buildPokemonPlayerBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
         fields_.add(new StandardField(NAME,_std.getAliasString(),false,false));

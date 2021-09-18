@@ -64,12 +64,10 @@ public final class AikiBeansStatusStd {
     private static void buildStatusBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_STATUS_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
@@ -117,12 +115,10 @@ public final class AikiBeansStatusStd {
     private static void buildStatusSetBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_STATUS_SET_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(TYPED_STATUS,_std.getAliasString(),false,false));

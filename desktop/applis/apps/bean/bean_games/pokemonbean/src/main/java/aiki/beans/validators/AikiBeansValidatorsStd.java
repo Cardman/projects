@@ -24,10 +24,8 @@ public final class AikiBeansValidatorsStd {
     private static void buildPositiveRateValidator(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_POSITIVE_RATE_VALIDATOR, fields_, methods_, BeanNatLgNames.TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_POSITIVE_RATE_VALIDATOR, type_);
@@ -35,10 +33,8 @@ public final class AikiBeansValidatorsStd {
     private static void buildRateValidator(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_RATE_VALIDATOR, fields_, methods_, BeanNatLgNames.TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_RATE_VALIDATOR, type_);
@@ -46,10 +42,8 @@ public final class AikiBeansValidatorsStd {
     private static void buildShortValidator(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SHORT_VALIDATOR, fields_, methods_, BeanNatLgNames.TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_SHORT_VALIDATOR, type_);
@@ -57,10 +51,8 @@ public final class AikiBeansValidatorsStd {
     private static void buildUnselectedRadio(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_UNSELECTED_RADIO, fields_, methods_, BeanNatLgNames.TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_UNSELECTED_RADIO, type_);

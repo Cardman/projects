@@ -63,12 +63,10 @@ public final class AikiBeansMapCharactersStd {
     private static void buildAllyBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ALLY_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(TEAM, BeanNatLgNames.TYPE_LIST,false,false));
@@ -105,12 +103,10 @@ public final class AikiBeansMapCharactersStd {
     private static void buildDealerBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_DEALER_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         params_ = new StringList();
@@ -136,10 +132,8 @@ public final class AikiBeansMapCharactersStd {
     private static void buildDualFightBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_DUAL_FIGHT_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(IMAGE,_std.getAliasString(),false,false));
@@ -154,12 +148,10 @@ public final class AikiBeansMapCharactersStd {
     private static void buildSellerBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SELLER_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         params_ = new StringList();
@@ -185,12 +177,10 @@ public final class AikiBeansMapCharactersStd {
     private static void buildTrainerBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_TRAINER_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(IMAGE,_std.getAliasString(),false,false));
@@ -215,10 +205,8 @@ public final class AikiBeansMapCharactersStd {
     private static void buildTrainerOneFightBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_TRAINER_ONE_FIGHT_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         _std.getStds().addEntry(TYPE_TRAINER_ONE_FIGHT_BEAN, type_);

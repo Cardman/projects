@@ -68,12 +68,10 @@ public final class AikiBeansMapStd {
     private static void buildMapBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_MAP_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(PLACES, BeanNatLgNames.TYPE_LIST,false,false));
@@ -94,12 +92,10 @@ public final class AikiBeansMapStd {
     private static void buildMapLevelBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_MAP_LEVEL_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(POSSIBLE_MULTI_LAYER,_std.getAliasPrimBoolean(),false,false));

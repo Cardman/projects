@@ -52,12 +52,10 @@ public final class AikiBeansFacadeFightStd {
     private static void buildKeyHypothesis(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_KEY_HYPOTHESIS, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(BeanNatLgNames.TYPE_DISPLAYABLE);
@@ -84,12 +82,10 @@ public final class AikiBeansFacadeFightStd {
     private static void buildMultPowerMoves(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_MULT_POWER_MOVES, fields_, methods_, _std.getAliasObject());
         params_ = new StringList();
@@ -103,12 +99,10 @@ public final class AikiBeansFacadeFightStd {
     private static void buildStatisticInfo(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_STATISTIC_INFO, fields_, methods_, _std.getAliasObject());
         params_ = new StringList();
@@ -137,12 +131,10 @@ public final class AikiBeansFacadeFightStd {
     private static void buildSufferedDamageCategory(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SUFFERED_DAMAGE_CATEGORY, fields_, methods_, _std.getAliasObject());
         params_ = new StringList();

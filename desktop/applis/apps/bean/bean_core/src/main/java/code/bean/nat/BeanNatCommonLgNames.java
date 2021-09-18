@@ -65,12 +65,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     protected abstract Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall);
 
     public Struct getOtherResultLoc(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct[] _args) {
-        if (_instance instanceof ArrayStruct) {
-            return(BooleanStruct.of(ExecArrayFieldOperation.getArray(_instance, _cont).getLength()==0));
-        }
-        if (StringUtil.quickEq(_method.getConstraints().getName(), _cont.getStandards().getCharSeq().getAliasIsEmpty())) {
-            return(BooleanStruct.of(NumParsers.getString(_args[0]).getInstance().isEmpty()));
-        }
         return getOtherResultBean(_cont, _instance, _method, _args).getResult();
     }
     public abstract ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
@@ -112,7 +106,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         SpecNatMethod method_;
         std_ = new SpecialNatClass(TYPE_BEAN, fields_, methods_, getAliasObject());
         params_ = new StringList(getAliasString());
-        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
+        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT, new NatStringIsEmpty());
         methods_.add(method_);
         stds.addEntry(TYPE_BEAN, std_);
         fields_ = new CustList<StandardField>();
@@ -134,10 +128,6 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         cl_.getDirectInterfaces().add(TYPE_ENTRIES);
         getIterables().put(TYPE_MAP, getAliasObject());
         stds.addEntry(TYPE_MAP, cl_);
-        methods_ = new CustList<SpecNatMethod>();
-        params_ = new StringList();
-        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
-        methods_.add(method_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         std_ = new SpecialNatClass(TYPE_ITERATOR, fields_, methods_, getAliasObject());

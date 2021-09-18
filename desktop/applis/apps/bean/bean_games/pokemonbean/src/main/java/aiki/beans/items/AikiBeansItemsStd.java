@@ -192,10 +192,8 @@ public final class AikiBeansItemsStd {
     private static void buildBallBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_BALL_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(CATCHING_RATE,_std.getAliasString(),false,false));
@@ -205,12 +203,10 @@ public final class AikiBeansItemsStd {
     private static void buildBerryBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_BERRY_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(HEAL_HP_BY_SUPER_EFF_MOVE,PokemonStandards.TYPE_RATE,false,false));
@@ -253,12 +249,10 @@ public final class AikiBeansItemsStd {
     private static void buildBoostBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_BOOST_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(WIN_PP,PokemonStandards.TYPE_RATE,false,false));
@@ -282,12 +276,10 @@ public final class AikiBeansItemsStd {
     private static void buildEvolvingItemBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EVOLVING_ITEM_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(POKEMON, BeanNatLgNames.TYPE_LIST,false,false));
@@ -302,12 +294,10 @@ public final class AikiBeansItemsStd {
     private static void buildEvolvingStoneBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EVOLVING_STONE_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(POKEMON, BeanNatLgNames.TYPE_LIST,false,false));
@@ -322,12 +312,10 @@ public final class AikiBeansItemsStd {
     private static void buildFossilBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_FOSSIL_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(LEVEL,_std.getAliasPrimInteger(),false,false));
@@ -342,10 +330,8 @@ public final class AikiBeansItemsStd {
     private static void buildHealingHpBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_HEALING_HP_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_HEALING_ITEM_BEAN);
         fields_.add(new StandardField(HP,PokemonStandards.TYPE_RATE,false,false));
@@ -355,12 +341,10 @@ public final class AikiBeansItemsStd {
     private static void buildHealingItemBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_HEALING_ITEM_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(HEALING_ITEM_BEAN,_std.getAliasString(),false,false));
@@ -380,12 +364,10 @@ public final class AikiBeansItemsStd {
     private static void buildHealingPpBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_HEALING_PP_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_HEALING_ITEM_BEAN);
         fields_.add(new StandardField(HEALING_ALL_MOVES_PP,_std.getAliasPrimBoolean(),false,false));
@@ -403,12 +385,10 @@ public final class AikiBeansItemsStd {
     private static void buildHealingStatusBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_HEALING_STATUS_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_HEALING_ITEM_BEAN);
         fields_.add(new StandardField(HEALING_STATUS_BEAN,_std.getAliasString(),false,false));
@@ -426,10 +406,8 @@ public final class AikiBeansItemsStd {
     private static void buildHealingHpStatusBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_HEALING_HP_STATUS_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_HEALING_STATUS_BEAN);
         _std.getStds().addEntry(TYPE_HEALING_HP_STATUS_BEAN, type_);
@@ -437,12 +415,10 @@ public final class AikiBeansItemsStd {
     private static void buildItemBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ITEM_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
@@ -459,12 +435,10 @@ public final class AikiBeansItemsStd {
     private static void buildItemForBattleBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ITEM_FOR_BATTLE_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(END_ROUND,_std.getAliasPrimBoolean(),false,false));
@@ -611,12 +585,10 @@ public final class AikiBeansItemsStd {
     private static void buildItemsBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ITEMS_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(TYPED_NAME,_std.getAliasString(),false,false));
@@ -637,10 +609,8 @@ public final class AikiBeansItemsStd {
     private static void buildRepelBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_REPEL_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(STEPS,_std.getAliasPrimLong(),false,false));
@@ -649,10 +619,8 @@ public final class AikiBeansItemsStd {
     private static void buildSellingItemBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SELLING_ITEM_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         _std.getStds().addEntry(TYPE_SELLING_ITEM_BEAN, type_);

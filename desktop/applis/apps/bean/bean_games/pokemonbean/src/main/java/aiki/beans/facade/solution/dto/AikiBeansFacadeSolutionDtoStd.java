@@ -38,10 +38,8 @@ public final class AikiBeansFacadeSolutionDtoStd {
     private static void buildPlaceTrainerDto(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_PLACE_TRAINER_DTO, fields_, methods_, _std.getAliasObject());
         fields_.add(new StandardField(TRAINER,_std.getAliasString(),false,false));
@@ -51,12 +49,10 @@ public final class AikiBeansFacadeSolutionDtoStd {
     private static void buildStepDto(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_STEP_DTO, fields_, methods_, _std.getAliasObject());
         params_ = new StringList();
@@ -70,10 +66,8 @@ public final class AikiBeansFacadeSolutionDtoStd {
     private static void buildWildPokemonDto(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_WILD_POKEMON_DTO, fields_, methods_, _std.getAliasObject());
         fields_.add(new StandardField(IMAGE,_std.getAliasString(),false,false));

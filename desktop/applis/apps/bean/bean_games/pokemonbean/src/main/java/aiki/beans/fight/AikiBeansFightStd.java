@@ -150,10 +150,8 @@ public final class AikiBeansFightStd {
     private static void buildCommonFightBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMMON_FIGHT_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
         _std.getStds().addEntry(TYPE_COMMON_FIGHT_BEAN, type_);
@@ -161,12 +159,10 @@ public final class AikiBeansFightStd {
     private static void buildFightBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_FIGHT_BEAN, fields_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN);
         fields_.add(new StandardField(MULT,_std.getAliasPrimInteger(),false,false));
@@ -188,12 +184,10 @@ public final class AikiBeansFightStd {
     private static void buildFightCalculationBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_FIGHT_CALCULATION_BEAN, fields_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN);
         fields_.add(new StandardField(SORTED_FIGHTERS, BeanNatLgNames.TYPE_LIST,false,false));
@@ -242,12 +236,10 @@ public final class AikiBeansFightStd {
     private static void buildFighterBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_FIGHTER_BEAN, fields_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN);
         fields_.add(new StandardField(NAME,_std.getAliasString(),false,false));
@@ -353,12 +345,10 @@ public final class AikiBeansFightStd {
     private static void buildTeamBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_TEAM_BEAN, fields_, methods_, AikiBeansFightStd.TYPE_COMMON_FIGHT_BEAN);
         fields_.add(new StandardField(FOE_TEAM,_std.getAliasPrimBoolean(),false,false));

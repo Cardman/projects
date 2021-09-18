@@ -50,10 +50,8 @@ public final class AikiBeansFacadeDtoStd {
     private static void buildItemLine(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ITEM_LINE, fields_, methods_, _std.getAliasObject());
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
@@ -64,10 +62,8 @@ public final class AikiBeansFacadeDtoStd {
     private static void buildItemTypeLine(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ITEM_TYPE_LINE, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_ITEM_TYPE_LINE, type_);
@@ -75,10 +71,8 @@ public final class AikiBeansFacadeDtoStd {
     private static void buildKeptMovesAfterFight(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_KEPT_MOVES_AFTER_FIGHT, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_KEPT_MOVES_AFTER_FIGHT, type_);
@@ -86,12 +80,10 @@ public final class AikiBeansFacadeDtoStd {
     private static void buildMoveLine(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_MOVE_LINE, fields_, methods_, _std.getAliasObject());
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
@@ -112,10 +104,8 @@ public final class AikiBeansFacadeDtoStd {
     private static void buildPokemonLine(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_POKEMON_LINE, fields_, methods_, _std.getAliasObject());
         fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
@@ -126,10 +116,8 @@ public final class AikiBeansFacadeDtoStd {
     private static void buildWeatherTypeLine(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_WEATHER_TYPE_LINE, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_WEATHER_TYPE_LINE, type_);

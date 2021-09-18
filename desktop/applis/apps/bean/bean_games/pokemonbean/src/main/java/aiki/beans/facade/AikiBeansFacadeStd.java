@@ -17,10 +17,8 @@ public final class AikiBeansFacadeStd {
     private static void buildFormatting(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_FORMATTING, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_FORMATTING, type_);

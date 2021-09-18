@@ -99,12 +99,10 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(MOVE,_std.getAliasString(),false,false));
@@ -140,10 +138,8 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundFoeBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_FOE_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
         fields_.add(new StandardField(INFLICTED_RATE_HP_TARGET,PokemonStandards.TYPE_RATE,false,false));
@@ -152,10 +148,8 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundGlobalBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_GLOBAL_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
         fields_.add(new StandardField(DAMAGE_END_ROUND,PokemonStandards.TYPE_RATE,false,false));
@@ -168,12 +162,10 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundIndividualBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_INDIVIDUAL_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
         fields_.add(new StandardField(DELETE_ALL_STATUS,PokemonStandards.TYPE_RATE,false,false));
@@ -205,12 +197,10 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundMultiRelationBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_MULTI_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
         fields_.add(new StandardField(DAMAGE_BY_STATUS, BeanNatLgNames.TYPE_MAP,false,false));
@@ -225,10 +215,8 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundPositionRelationBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_POSITION_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
         fields_.add(new StandardField(HEAL_HP,PokemonStandards.TYPE_RATE,false,false));
@@ -237,12 +225,10 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundPositionTargetBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_POSITION_TARGET_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
         params_ = new StringList();
@@ -259,10 +245,8 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundSingleRelationBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_SINGLE_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
         fields_.add(new StandardField(RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS, BeanNatLgNames.TYPE_MAP,false,false));
@@ -272,10 +256,8 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundSingleStatusBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_SINGLE_STATUS_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_BEAN);
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_SINGLE_STATUS_BEAN, type_);
@@ -283,10 +265,8 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundStatusBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_STATUS_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
         fields_.add(new StandardField(INFLICTED_RATE_HP_TARGET,PokemonStandards.TYPE_RATE,false,false));
@@ -296,10 +276,8 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundStatusRelationBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_STATUS_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_BEAN);
         fields_.add(new StandardField(THIEVED_HP_RATE_TARGET_TO_USER,PokemonStandards.TYPE_RATE,false,false));
@@ -308,10 +286,8 @@ public final class AikiBeansEndroundStd {
     private static void buildEffectEndRoundTeamBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_TEAM_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
         fields_.add(new StandardField(DELETE_ALL_STATUS,PokemonStandards.TYPE_RATE,false,false));
@@ -321,12 +297,10 @@ public final class AikiBeansEndroundStd {
     private static void buildEndRoundBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_END_ROUND_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         params_ = new StringList();

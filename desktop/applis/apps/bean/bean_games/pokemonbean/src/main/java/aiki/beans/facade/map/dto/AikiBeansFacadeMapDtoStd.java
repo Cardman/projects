@@ -29,12 +29,10 @@ public final class AikiBeansFacadeMapDtoStd {
     private static void buildPlaceIndex(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList< SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_PLACE_INDEX, fields_, methods_, _std.getAliasObject());
         fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false));

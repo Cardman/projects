@@ -657,12 +657,10 @@ public final class AikiBeansHelpStd {
     private static void buildFightHelpBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_FIGHT_HELP_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(DEFAULT_BOOST_VALUE,_std.getAliasPrimInteger(),false,false));
@@ -1990,12 +1988,10 @@ public final class AikiBeansHelpStd {
     private static void buildGeneralHelpBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_GENERAL_HELP_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(MAX_LEVEL,_std.getAliasPrimInteger(),false,false));
@@ -2103,12 +2099,10 @@ public final class AikiBeansHelpStd {
     private static void buildLangsBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_LANGS_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(LANGUAGES, BeanNatLgNames.TYPE_LIST,false,false));
@@ -2204,10 +2198,8 @@ public final class AikiBeansHelpStd {
     private static void buildLanguageElementKey(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_LANGUAGE_ELEMENT_KEY, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_LANGUAGE_ELEMENT_KEY, type_);
@@ -2215,10 +2207,8 @@ public final class AikiBeansHelpStd {
     private static void buildLanguageElementStringKey(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_LANGUAGE_ELEMENT_STRING_KEY, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_LANGUAGE_ELEMENT_STRING_KEY, type_);

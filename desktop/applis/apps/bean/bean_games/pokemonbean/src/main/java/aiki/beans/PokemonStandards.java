@@ -275,12 +275,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildActivityOfMove(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ACTIVITY_OF_MOVE, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -298,12 +296,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildMoveTarget(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_MOVE_TARGET, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -318,12 +314,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildTargetCoords(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_TARGET_COORDS, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -335,12 +329,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildUsesOfMove(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_USES_OF_MOVE, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -355,12 +347,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildCopiedMove(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COPIED_MOVE, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -375,12 +365,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildMoveTeamPosition(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_MOVE_TEAM_POSITION, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -392,12 +380,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildAffectedMove(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_AFFECTED_MOVE, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -412,12 +398,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildStacksOfUses(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_STACKS_OF_USES, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -435,12 +419,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildAnticipation(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ANTICIPATION, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -461,12 +443,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildRate(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_RATE, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -484,12 +464,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildTypeDamageBoost(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_TYPE_DAMAGE_BOOST, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -501,12 +479,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildEfficiencyRate(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFICIENCY_RATE, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -521,12 +497,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildBoostHpRate(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_BOOST_HP_RATE, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -541,12 +515,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildPkTrainer(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_PK_TRAINER, fields_, methods_, PokemonStandards.TYPE_POKEMON);
         params_ = new StringList();
@@ -563,12 +535,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildPokemon(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_POKEMON, fields_, methods_, _std.getAliasObject());
         /*params_ = new StringList();
@@ -579,12 +549,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildAreaApparition(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_AREA_APPARITION, fields_, methods_, _std.getAliasObject());
         params_ = new StringList();
@@ -601,12 +569,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildWildPk(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_WILD_PK, fields_, methods_, PokemonStandards.TYPE_POKEMON);
         params_ = new StringList();
@@ -620,12 +586,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildPlace(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_PLACE, fields_, methods_, _std.getAliasObject());
         params_ = new StringList();
@@ -636,12 +600,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildTypesDuo(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_TYPES_DUO, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -656,12 +618,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildCategoryMult(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_CATEGORY_MULT, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -676,12 +636,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildLevelMove(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_LEVEL_MOVE, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -696,12 +654,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildPokemonPlayer(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER, fields_, methods_, PokemonStandards.TYPE_POKEMON);
         params_ = new StringList();
@@ -718,12 +674,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildEffectPartnerStatus(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_PARTNER_STATUS, fields_, methods_, _std.getAliasObject());
         params_ = new StringList();
@@ -740,12 +694,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildTrainerPlaceNames(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_TRAINER_PLACE_NAMES, fields_, methods_, _std.getAliasObject());
         params_ = new StringList();
@@ -759,10 +711,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildLgInt(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_LG_INT, fields_, methods_, _std.getAliasObject());
         type_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
@@ -771,10 +721,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildEffectWhileSending(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_WHILE_SENDING, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_EFFECT_WHILE_SENDING, type_);
@@ -782,10 +730,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildAlly(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ALLY, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_ALLY, type_);
@@ -793,10 +739,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildTempTrainer(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_TEMP_TRAINER, fields_, methods_, PokemonStandards.TYPE_TRAINER_ONE_FIGHT);
         _std.getStds().addEntry(TYPE_TEMP_TRAINER, type_);
@@ -804,10 +748,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildTrainerOneFight(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_TRAINER_ONE_FIGHT, fields_, methods_, PokemonStandards.TYPE_TRAINER);
         _std.getStds().addEntry(TYPE_TRAINER_ONE_FIGHT, type_);
@@ -815,10 +757,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildTrainer(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_TRAINER, fields_, methods_, PokemonStandards.TYPE_PERSON);
         _std.getStds().addEntry(TYPE_TRAINER, type_);
@@ -826,10 +766,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildPerson(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_PERSON, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_PERSON, type_);
@@ -838,10 +776,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildRateValidator(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_RATE_VALIDATOR, fields_, methods_, TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_RATE_VALIDATOR, type_);
@@ -849,10 +785,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildPositiveRateValidator(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_POSITIVE_RATE_VALIDATOR, fields_, methods_, TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_POSITIVE_RATE_VALIDATOR, type_);
@@ -860,10 +794,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildShortValidator(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SHORT_VALIDATOR, fields_, methods_, TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_SHORT_VALIDATOR, type_);
@@ -871,10 +803,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     private static void buildUnselectedRadio(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_UNSELECTED_RADIO, fields_, methods_, TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_UNSELECTED_RADIO, type_);

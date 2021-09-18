@@ -71,10 +71,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorCategoryMult(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_CATEGORY_MULT, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_CATEGORY_MULT, type_);
@@ -82,10 +80,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorDirection(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_DIRECTION, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_DIRECTION, type_);
@@ -93,10 +89,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorLanguageEnvType(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_ENV_TYPE, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_ENV_TYPE, type_);
@@ -104,10 +98,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorLanguageGender(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_GENDER, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_GENDER, type_);
@@ -115,10 +107,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorLanguageSelectedBoolean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_SELECTED_BOOLEAN, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_SELECTED_BOOLEAN, type_);
@@ -126,10 +116,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorLanguageStatisic(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_STATISIC, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_STATISIC, type_);
@@ -137,10 +125,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorLanguageString(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_STRING, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_STRING, type_);
@@ -148,10 +134,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorLanguageTargetChoice(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_TARGET_CHOICE, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_TARGET_CHOICE, type_);
@@ -159,10 +143,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorMiniMapCoords(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_MINI_MAP_COORDS, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_MINI_MAP_COORDS, type_);
@@ -170,10 +152,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorMoves(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_MOVES, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_MOVES, type_);
@@ -181,10 +161,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorMoveTarget(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_MOVE_TARGET, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_MOVE_TARGET, type_);
@@ -192,10 +170,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorMoveTeamPosition(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_MOVE_TEAM_POSITION, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_MOVE_TEAM_POSITION, type_);
@@ -203,10 +179,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorPlaceIndex(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_PLACE_INDEX, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_PLACE_INDEX, type_);
@@ -214,10 +188,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorPlaceNumber(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_PLACE_NUMBER, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_PLACE_NUMBER, type_);
@@ -225,10 +197,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorPoint(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_POINT, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_POINT, type_);
@@ -236,10 +206,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorRadioLineMoves(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_RADIO_LINE_MOVES, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_RADIO_LINE_MOVES, type_);
@@ -247,10 +215,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorStatistic(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC, type_);
@@ -258,10 +224,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorStatisticCategory(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_CATEGORY, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_CATEGORY, type_);
@@ -269,10 +233,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorStatisticInfo(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_INFO, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_INFO, type_);
@@ -280,10 +242,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorStatisticInfoPkPlayer(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_INFO_PK_PLAYER, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_INFO_PK_PLAYER, type_);
@@ -291,10 +251,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorStatisticPokemon(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_POKEMON, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_POKEMON, type_);
@@ -302,10 +260,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorStatisticTr(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_TR, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_TR, type_);
@@ -313,10 +269,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorStatisticType(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_TYPE, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_TYPE, type_);
@@ -324,10 +278,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorStatusStatistic(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_STATUS_STATISTIC, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_STATUS_STATISTIC, type_);
@@ -335,10 +287,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorStringList(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_STRING_LIST, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_STRING_LIST, type_);
@@ -346,10 +296,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorTypesDuo(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_TYPES_DUO, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_TYPES_DUO, type_);
@@ -357,10 +305,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorWeatherType(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_WEATHER_TYPE, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_WEATHER_TYPE, type_);
@@ -368,10 +314,8 @@ public final class AikiBeansFacadeComparatorsStd {
     private static void buildComparatorWildPokemonDto(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMPARATOR_WILD_POKEMON_DTO, fields_, methods_, _std.getAliasObject());
         _std.getStds().addEntry(TYPE_COMPARATOR_WILD_POKEMON_DTO, type_);

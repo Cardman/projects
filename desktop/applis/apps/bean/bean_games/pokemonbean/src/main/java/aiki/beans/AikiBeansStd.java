@@ -35,10 +35,8 @@ public final class AikiBeansStd {
     private static void buildCommonBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMMON_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
         _std.getStds().addEntry(TYPE_COMMON_BEAN, type_);
@@ -46,12 +44,10 @@ public final class AikiBeansStd {
     private static void buildWelcomeBean(PokemonStandards _std) {
         SpecialNatClass type_;
         CustList<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
         CustList<SpecNatMethod> methods_;
         SpecNatMethod method_;
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_WELCOME_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         params_ = new StringList();
