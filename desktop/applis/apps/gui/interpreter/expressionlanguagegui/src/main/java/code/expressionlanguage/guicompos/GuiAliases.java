@@ -2116,10 +2116,10 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasInput, fields_, constructors_, methods_, aliasComponent, StdClassModifier.ABSTRACT);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasInputIsEnabled, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasInputIsEnabled, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctInputIsEnabled());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasInputSetEnabled, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasInput0InputSetEnabled0()));
+        method_ = new StandardMethod(aliasInputSetEnabled, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasInput0InputSetEnabled0()), new FctInputSetEnabled());
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasInput, std_);
@@ -4286,16 +4286,6 @@ public final class GuiAliases {
             WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
             txt_.setImage(window_.getImageFactory(),_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasInput)) {
-            InputStruct in_ = (InputStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasInputSetEnabled)) {
-                in_.setEnabled(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            res_.setResult(in_.isEnabled());
             return res_;
         }
         if (StringUtil.quickEq(type_, aliasProgBar)) {
