@@ -2,6 +2,7 @@ package code.bean.nat.exec.opers;
 
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.NatCaller;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
@@ -36,6 +37,13 @@ public final class NatSettableFieldOperation extends
         Argument result_;
         ClassField fieldId_ = getClassField();
         Struct default_ = previous_.getStruct();
+        NatCaller callerSet_ = settableFieldContent.getField().getCallerGet();
+        if (callerSet_ != null) {
+            result_ = new Argument(callerSet_.re(_context, default_, new Struct[]{}));
+            Argument arg_ = new ArgumentWrapper(result_, null).getValue();
+            setSimpleArgument(arg_, _nodes, _context, _rendStack);
+            return;
+        }
         ResultErrorStd res_ = ((BeanNatCommonLgNames)_advStandards).getOtherResult(_context, fieldId_, default_);
         result_ = new Argument(res_.getResult());
         Argument arg_ = new ArgumentWrapper(result_, null).getValue();
@@ -51,6 +59,10 @@ public final class NatSettableFieldOperation extends
         int off_ = getOff();
         _rendStackCall.setOffset(off_);
         ClassField fieldId_ = getClassField();
+        NatCaller callerSet_ = settableFieldContent.getField().getCallerSet();
+        if (callerSet_ != null) {
+            return new Argument(callerSet_.re(_context,prev_.getStruct(), new Struct[]{_right.getStruct()}));
+        }
         ((BeanNatLgNames)_advStandards).setOtherResult(_context, fieldId_, prev_.getStruct(), _right.getStruct());
         return new ArgumentWrapper(_right, null).getValue();
     }

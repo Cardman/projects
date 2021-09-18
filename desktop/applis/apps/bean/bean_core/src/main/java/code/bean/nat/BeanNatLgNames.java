@@ -6,7 +6,6 @@ import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;

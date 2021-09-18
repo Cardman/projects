@@ -336,7 +336,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         fields_.add(new StandardField(CHOSEN_NUMBER,TYPE_ENUM_NUMBER,false,false));
         fields_.add(new StandardField(FIELD, getAliasString(),false,false));
         fields_.add(new StandardField(NULLABLE_CHECKBOX, getContent().getNbAlias().getAliasBoolean(),false,false));
-        fields_.add(new StandardField(NULLABLE_INT, getContent().getNbAlias().getAliasLong(),false,false));
+        fields_.add(new StandardField(NULLABLE_INT, getContent().getNbAlias().getAliasLong(),false,false, new NaNuIntGet(), new NaNuIntSet()));
         fields_.add(new StandardField(RATE,TYPE_RATE,false,false));
         fields_.add(new StandardField(TYPED_INT, getContent().getPrimTypes().getAliasPrimInteger(),false,false));
         fields_.add(new StandardField(TYPED_SHORT, getContent().getPrimTypes().getAliasPrimShort(),false,false));

@@ -129,6 +129,7 @@ public abstract class NatOperationNode {
                 String declaringBaseClass_ = getIdFromAllTypes(_scope.getFullName());
                 ClassField classField_ = new ClassField(declaringBaseClass_, _scopeField);
                 res_.getContent().setClassField(classField_);
+                res_.getContent().setField(f);
                 res_.setType(type_);
                 _ancestors.add(res_);
                 return;
