@@ -16,6 +16,7 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 
 import code.expressionlanguage.common.ClassField;
 
+import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
@@ -70,30 +71,35 @@ public class DefaultInitializer implements Initializer {
     @Override
     public final void loopCalling(ContextEl _owner, StackCall _stackCall) {
         while (true) {
-            AbstractPageEl p_ = _stackCall.getLastPage();
-            ReadWrite rw_ = p_.getReadWrite();
-            if (rw_ == null) {
-                if (p_ instanceof StaticInitPageEl) {
-                    ((StaticInitPageEl)p_).sucessClass(_owner);
-                }
-                _stackCall.removeLastPage();
-                if (_stackCall.nbPages() == 0) {
-                    return;
-                }
-                AbstractPageEl b_ = _stackCall.getLastPage();
-                tryForward(_owner, p_, b_, _stackCall);
-                rw_ = b_.getReadWrite();
-            }
-            if (_owner.callsOrException(_stackCall)) {
-                rw_ = null;
-            }
-            if (rw_ != null) {
-                _stackCall.getLastPage().processTagsBase(_owner, _stackCall);
-            }
-            if (exitAfterCall(_owner, _stackCall)) {
+            AbstractInterceptorStdCaller caller_ = _owner.getCaller();
+            if (caller_.stop(this,_owner, _stackCall) || caller_.exitAfterCallInt(this,_owner, _stackCall)) {
                 return;
             }
         }
+    }
+
+    public boolean stop(ContextEl _owner, StackCall _stackCall) {
+        AbstractPageEl p_ = _stackCall.getLastPage();
+        ReadWrite rw_ = p_.getReadWrite();
+        if (rw_ == null) {
+            if (p_ instanceof StaticInitPageEl) {
+                ((StaticInitPageEl)p_).sucessClass(_owner);
+            }
+            _stackCall.removeLastPage();
+            if (_stackCall.nbPages() == 0) {
+                return true;
+            }
+            AbstractPageEl b_ = _stackCall.getLastPage();
+            tryForward(_owner, p_, b_, _stackCall);
+            rw_ = b_.getReadWrite();
+        }
+        if (_owner.callsOrException(_stackCall)) {
+            rw_ = null;
+        }
+        if (rw_ != null) {
+            _stackCall.getLastPage().processTagsBase(_owner, _stackCall);
+        }
+        return false;
     }
 
     private static void tryForward(ContextEl _owner, AbstractPageEl _p, AbstractPageEl _b, StackCall _stackCall) {
@@ -108,6 +114,9 @@ public class DefaultInitializer implements Initializer {
         }
     }
 
+    public boolean exitAfterCallInt(ContextEl _owner, StackCall _stack) {
+        return exitAfterCall(_owner, _stack);
+    }
     protected boolean exitAfterCall(ContextEl _owner, StackCall _stack) {
         AbstractPageEl abs_ = ExecutingUtil.processAfterOperation(_owner, _stack);
         if (abs_ != null) {
