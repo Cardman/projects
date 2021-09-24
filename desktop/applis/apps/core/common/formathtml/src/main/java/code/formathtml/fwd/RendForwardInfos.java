@@ -206,7 +206,7 @@ public final class RendForwardInfos {
             return buildSwitch((AnaRendSwitchBlock) _current, _forwards);
         }
         if (_current instanceof AnaRendCaseCondition){
-            return buildCaseCondition((AnaRendCaseCondition) _current);
+            return buildCaseCondition((AnaRendCaseCondition) _current, _forwards);
 //            return new RendCaseCondition(f_.isBuiltEnum(),f_.getImportedClassName(),f_.getVariableName(),f_.getValue(),f_.getArgument());
         }
         if (_current instanceof AnaRendDefaultCondition){
@@ -388,15 +388,15 @@ public final class RendForwardInfos {
     private static RendParentBlock buildDefaultCondition(AnaRendDefaultCondition _current) {
         String instanceTest_ = _current.getImportedClassName();
         if (!instanceTest_.isEmpty()) {
-            return new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getImportedClassName(), false);
+            return new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getImportedClassName(), false, new CustList<RendDynOperationNode>(), 0);
         }
         return new RendDefaultCondition();
     }
 
-    private static RendBlock buildCaseCondition(AnaRendCaseCondition _current) {
+    private static RendBlock buildCaseCondition(AnaRendCaseCondition _current, Forwards _fwd) {
         RendBlock exec_;
         if (!_current.getImportedClassName().isEmpty()) {
-            exec_ = new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getImportedClassName(), true);
+            exec_ = new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getImportedClassName(), true, getExecutableNodes(_current.getRoot(),_fwd), _current.getValueOffset());
         } else {
             exec_ = new RendSwitchValuesCondition(_current.getStdValues(), _current.getEnumValues());
         }

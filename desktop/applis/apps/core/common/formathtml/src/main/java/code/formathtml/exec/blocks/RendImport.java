@@ -92,7 +92,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPage());
-        beforeDisplaying(newBean_,_cont, _stds, _ctx, _rendStack);
+        befDisp(_cont, (BeanCustLgNames) _stds, _ctx, _rendStack, newBean_);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -108,6 +108,12 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         ip_.addBlock(if_);
         if_.setEntered(true);
         _rendStack.addPage(newIp_);
+    }
+
+    private void befDisp(Configuration _cont, BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStack, Struct newBean_) {
+        if (newBean_ != null) {
+            _stds.beforeDisplaying(newBean_, _cont, _ctx, _rendStack);
+        }
     }
 
     public static ImportingPage newImportingPage(Configuration _cont, RendStackCall _rendStack, ImportingPage _ip, String _link, RendDocumentBlock _val, String _beanName) {

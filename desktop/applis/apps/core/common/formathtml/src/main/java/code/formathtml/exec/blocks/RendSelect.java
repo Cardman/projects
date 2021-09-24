@@ -218,7 +218,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     }
     private String processOptionValue(Struct _arg, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (opsConverterField.isEmpty()) {
-            return getStringKey(_arg, _advStandards, _ctx, _rendStackCall);
+            return getStringKey(_arg, _ctx, _rendStackCall);
         }
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
         _rendStackCall.getLastPage().putValueVar(varNameConverterField, new VariableWrapper(locVar_));
@@ -227,11 +227,11 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return EMPTY_STRING;
         }
-        return _advStandards.processString(arg_, _ctx, _rendStackCall);
+        return BeanCustLgNames.processStr(arg_, _ctx, _rendStackCall);
     }
     private String processOptionText(Argument _arg, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (opsConverterFieldValue.isEmpty()) {
-            return _advStandards.processString(_arg, _ctx, _rendStackCall);
+            return BeanCustLgNames.processStr(_arg, _ctx, _rendStackCall);
         }
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg.getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
         _rendStackCall.getLastPage().putValueVar(varNameConverterFieldValue, new VariableWrapper(locVar_));
@@ -240,7 +240,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return EMPTY_STRING;
         }
-        return _advStandards.processString(arg_, _ctx, _rendStackCall);
+        return BeanCustLgNames.processStr(arg_, _ctx, _rendStackCall);
     }
 
     private CustList<Struct> values(Struct _returnedVarValue, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {

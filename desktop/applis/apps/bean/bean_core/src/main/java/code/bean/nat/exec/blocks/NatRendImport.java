@@ -1,6 +1,7 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.AbstractNatImpLgNames;
+import code.bean.nat.BeanNatLgNames;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
@@ -69,7 +70,7 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPage());
-        beforeDisplaying(newBean_,_cont, _stds, _ctx, _rendStack);
+        beforeDisp(newBean_,_cont, (BeanNatLgNames) _stds, _ctx, _rendStack);
         ImportingPage newIp_ = RendImport.newImportingPage(_cont, _rendStack, ip_, link_, val_, beanName_);
         newIp_.setGlobalArgumentStruct(newBean_);
         RendIfStack if_ = new RendIfStack();
@@ -80,5 +81,11 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
         ip_.addBlock(if_);
         if_.setEntered(true);
         _rendStack.addPage(newIp_);
+    }
+    public static void beforeDisp(Struct _arg, Configuration _cont, BeanNatLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+        if (_arg == null) {
+            return;
+        }
+        _advStandards.beforeDisplaying(_arg,_cont, _ctx, _rendStackCall);
     }
 }

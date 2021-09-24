@@ -323,7 +323,7 @@ public final class Navigation {
                 continue;
             }
             Struct newObj_;
-            ResultErrorStd res_ = _advStandards.convert(nCont_, session, _ctx, _rendStackCall);
+            ResultErrorStd res_ = _advStandards.convert(nCont_, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }

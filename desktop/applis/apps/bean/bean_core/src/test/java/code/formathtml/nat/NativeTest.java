@@ -5,6 +5,7 @@ import code.bean.nat.*;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.NatOperationNode;
+import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.opers.NatStdRefVariableOperation;
 import code.bean.nat.exec.variables.VariableWrapperNat;
@@ -66,6 +67,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         PairStruct struct_ = new PairStruct("", NullStruct.NULL_VALUE, NullStruct.NULL_VALUE);
         assertEq("",new VariableWrapperNat(LocalVariable.newLocalVariable(struct_,"")).getClassName(null,null));
         BeanNatLgNames.processString(new Argument(struct_),conf_.getContext());
+        NatRendImport.beforeDisp(null,null,null,null,null);
     }
 ////    @Test
 //    public void process0FailTest() {
@@ -2008,7 +2010,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         putBean(_beanTwo, _key, _conf.getAdv());
     }
 
-    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanNatLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
         return getRes(_conf,_rendDocumentBlock, _stds, _ctx, _rendStackCall);
     }
 
@@ -2021,7 +2023,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         _conf.getAdv().preInitBeans(_conf.getConfiguration());
     }
 
-    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanLgNames _stds, ContextEl _context, RendStackCall _rendStackCall) {
+    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanNatLgNames _stds, ContextEl _context, RendStackCall _rendStackCall) {
         return RendBlock.getRes(_doc, _conf, _stds, _context, _rendStackCall, "page1.html");
     }
 

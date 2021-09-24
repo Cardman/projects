@@ -2056,7 +2056,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
 
     @Override
     public ResultErrorStd getStructToBeValidated(StringList _values,
-                                                 String _className, Configuration _context, ContextEl _ctx, RendStackCall _stack) {
+                                                 String _className, ContextEl _ctx, RendStackCall _stack) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_className, TYPE_RATE)) {
             if (!RateSample.matchesRate(_values.first())) {
@@ -2080,7 +2080,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
 //            res_.setResult(new StdStruct(list_, _className));
 //            return res_;
 //        }
-        return super.getStructToBeValidated(_values,_className,_context, _ctx, _stack);
+        return super.getStructToBeValidated(_values,_className, _ctx, _stack);
     }
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {

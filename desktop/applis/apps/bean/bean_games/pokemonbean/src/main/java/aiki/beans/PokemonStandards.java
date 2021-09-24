@@ -98,7 +98,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
@@ -2370,7 +2369,7 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
         return res_;
     }
     @Override
-    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context, ContextEl _ctx, RendStackCall _stack) {
+    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack) {
         if (StringUtil.quickEq(_className,TYPE_RATE)) {
             ResultErrorStd res_ = new ResultErrorStd();
             String value_;
@@ -2386,7 +2385,7 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
             res_.setResult(new RateStruct(new Rate(value_),TYPE_RATE));
             return res_;
         }
-        return super.getStructToBeValidated(_values,_className,_context, _ctx, _stack);
+        return super.getStructToBeValidated(_values,_className, _ctx, _stack);
     }
 
     public static ResultErrorStd invokeMethodActivityOfMove(ContextEl _cont, ClassMethodId _method, ActivityOfMove _inst, Struct... _args) {

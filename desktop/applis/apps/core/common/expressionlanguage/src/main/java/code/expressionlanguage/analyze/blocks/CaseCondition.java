@@ -166,7 +166,7 @@ public final class CaseCondition extends SwitchPartBlock {
         }
         String id_ = StringExpUtil.getIdFromAllTypes(type_);
         AnaGeneType g_ = _page.getAnaGeneType(id_);
-        if (g_ instanceof EnumBlock && allWordsOrEmpty()) {
+        if (g_ instanceof EnumBlock && allWordsOrEmpty(value)) {
             EnumBlock e_ = (EnumBlock) g_;
             enumBlock = e_;
             typeEnum = id_;
@@ -203,9 +203,9 @@ public final class CaseCondition extends SwitchPartBlock {
         }
     }
 
-    private boolean allWordsOrEmpty() {
+    public static boolean allWordsOrEmpty(String _value) {
         boolean allWords_ = true;
-        for (String s: StringUtil.splitChar(value,',')) {
+        for (String s: StringUtil.splitChar(_value,',')) {
             String trim_ = s.trim();
             if (!trim_.isEmpty()&&!StringExpUtil.isTypeLeafPart(trim_)) {
                 allWords_ = false;

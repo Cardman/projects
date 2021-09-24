@@ -220,7 +220,7 @@ public final class RendBlockHelp {
 //            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
         Argument arg_ = Argument.getNullableValue(pair_.getArgument());
         CustList<Struct> allObj_ = obj_;
-        return RendBlock.prStack(_cont,_write,_f,_advStandards,_rendStackCall,name_,obj_,allObj_,wrap_,objClasses_,stack_,arg_, false);
+        return RendBlock.prStack(_cont,_write,_f, _rendStackCall,name_,new FetchedObjs(obj_,allObj_,wrap_,objClasses_,stack_,arg_, false));
     }
 
     static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {

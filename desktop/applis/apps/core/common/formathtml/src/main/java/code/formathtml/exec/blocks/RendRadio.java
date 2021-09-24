@@ -54,7 +54,7 @@ public final class RendRadio extends RendInput {
         if (res_ == NullStruct.NULL_VALUE) {
             elt_.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
         } else {
-            String strObj_ = getStringKey(res_, _stds, _ctx, _rendStack);
+            String strObj_ = getStringKey(res_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }

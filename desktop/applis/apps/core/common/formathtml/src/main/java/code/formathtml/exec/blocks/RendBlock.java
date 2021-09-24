@@ -61,6 +61,10 @@ public abstract class RendBlock {
         _rendStackCall.addPage(new ImportingPage());
         beforeDisplaying(bean_,_conf, _stds, _ctx, _rendStackCall);
         _rendStackCall.removeLastPage();
+        return res(_rend, _conf, _stds, _ctx, _rendStackCall, _currentUrl, beanName_, bean_);
+    }
+
+    private static String res(RendDocumentBlock _rend, Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, String _currentUrl, String beanName_, Struct bean_) {
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return EMPTY_STRING;
         }
@@ -341,11 +345,11 @@ public abstract class RendBlock {
         _advStandards.beforeDisplaying(_arg,_cont, _ctx, _rendStackCall);
     }
 
-    static String getStringKey(Struct _instance, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack) {
+    static String getStringKey(Struct _instance, ContextEl _ctx, RendStackCall _rendStack) {
         if (_instance instanceof EnumerableStruct) {
             return ((EnumerableStruct) _instance).getName();
         }
-        return _advStandards.processString(new Argument(_instance), _ctx, _rendStack);
+        return BeanCustLgNames.processStr(new Argument(_instance), _ctx, _rendStack);
     }
 
     protected static Argument fetchName(Configuration _cont, Element _read, Element _write, FieldUpdates _f, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
@@ -427,19 +431,19 @@ public abstract class RendBlock {
             }
             allObj_ = obj_;
         }
-        return prStack(_cont, _write, _f, _advStandards, _rendStackCall, name_, obj_, allObj_, wrap_, objClasses_, stack_, arg_, indexer_);
+        return prStack(_cont, _write, _f, _rendStackCall, name_, new FetchedObjs(obj_, allObj_, wrap_, objClasses_, stack_, arg_, indexer_));
     }
 
-    public static Argument prStack(Configuration _cont, Element _write, FieldUpdates _f, BeanLgNames _advStandards, RendStackCall _rendStackCall, String _name, CustList<Struct> _obj, CustList<Struct> _allObj, CustList<AbstractWrapper> _wrap, StringList _objClasses, CustList<LongTreeMap<NodeContainer>> _stack, Argument _arg, boolean _indexer) {
+    public static Argument prStack(Configuration _cont, Element _write, FieldUpdates _f, RendStackCall _rendStackCall, String _name, FetchedObjs _fetch) {
         long found_ = -1;
         CustList<RendDynOperationNode> opsWrite_ = _f.getOpsWrite();
         String idCl_ = _f.getId();
         String varName_ = _f.getVarName();
-        if (_stack.isEmpty()) {
-            return _arg;
+        if (_fetch.getStack().isEmpty()) {
+            return _fetch.getArg();
         }
-        for (EntryCust<Long, NodeContainer> e: _stack.last().entryList()) {
-            if (!e.getValue().eqObj(_allObj)) {
+        for (EntryCust<Long, NodeContainer> e: _fetch.getStack().last().entryList()) {
+            if (!e.getValue().eqObj(_fetch.getAllObj())) {
                 continue;
             }
             if (!StringUtil.quickEq(e.getValue().getIdClass(), idCl_)) {
@@ -448,7 +452,7 @@ public abstract class RendBlock {
             found_ = e.getKey();
             break;
         }
-        Struct currentField_ = _arg.getStruct();
+        Struct currentField_ = _fetch.getArg().getStruct();
         if (found_ == -1) {
             Longs inputs_ = _rendStackCall.getFormParts().getInputs();
             long currentInput_ = inputs_.last();
@@ -457,17 +461,17 @@ public abstract class RendBlock {
             nodeCont_.setIdFieldName(_f.getIdName());
             nodeCont_.setIdClass(idCl_);
             nodeCont_.setTypedStruct(currentField_);
-            nodeCont_.setStruct(_obj);
-            nodeCont_.setAllObject(_allObj);
+            nodeCont_.setStruct(_fetch.getObj());
+            nodeCont_.setAllObject(_fetch.getAllObj());
             StringList strings_ = StringUtil.splitChar(varName_, ',');
             nodeCont_.setVarPrevName(strings_.first());
             nodeCont_.setVarParamName(_f.getVarNames());
             nodeCont_.setVarName(strings_.last());
             nodeCont_.setOpsWrite(opsWrite_);
             nodeCont_.setOpsConvert(_f.getOpsConverter());
-            nodeCont_.setObjectClasses(_objClasses);
-            nodeCont_.setWrappers(_wrap);
-            nodeCont_.setIndexer(_indexer);
+            nodeCont_.setObjectClasses(_fetch.getObjClasses());
+            nodeCont_.setWrappers(_fetch.getWrap());
+            nodeCont_.setIndexer(_fetch.isIndexer());
             nodeCont_.setVarNameConvert(_f.getVarNameConverter());
             nodeCont_.setArrayConverter(_f.isArrayConverter());
             nodeCont_.setBean(_rendStackCall.getLastPage().getGlobalArgument().getStruct());
@@ -476,14 +480,14 @@ public abstract class RendBlock {
             if (id_.isEmpty()) {
                 id_ = _write.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrGroupId()));
             }
-            String class_ = _advStandards.getInputClass(_write, _cont);
+            String class_ = _write.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrClassName()));
             if (class_.isEmpty()) {
                 class_ = _f.getClassName();
             }
             nodeInfos_.setValidator(_write.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrValidator())));
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
-            _stack.last().put(currentInput_, nodeCont_);
+            _fetch.getStack().last().put(currentInput_, nodeCont_);
             _rendStackCall.getFormParts().getIndexes().setNb(currentInput_);
             currentInput_++;
             inputs_.set(inputs_.getLastIndex(),currentInput_);
@@ -493,7 +497,7 @@ public abstract class RendBlock {
         _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(_rendStackCall.getFormParts().getIndexes().getNb()));
 //        attributesNames_.removeAllString(NUMBER_INPUT);
         _write.setAttribute(_cont.getRendKeyWords().getAttrName(), StringUtil.concat(_rendStackCall.getLastPage().getBeanName(),DOT, _name));
-        return _arg;
+        return _fetch.getArg();
     }
 
     protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, String _varNameConv, CustList<RendDynOperationNode> _opsConv, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
@@ -523,7 +527,7 @@ public abstract class RendBlock {
                 if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                     return;
                 }
-                String value_ = _advStandards.processString(o_, _ctx, _rendStackCall);
+                String value_ = BeanCustLgNames.processStr(o_, _ctx, _rendStackCall);
                 if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                     return;
                 }
@@ -540,7 +544,7 @@ public abstract class RendBlock {
                 return;
             }
             Document doc_ = _write.getOwnerDocument();
-            String value_ = _advStandards.processString(o_, _ctx, _rendStackCall);
+            String value_ = BeanCustLgNames.processStr(o_, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
@@ -567,8 +571,8 @@ public abstract class RendBlock {
         return new Argument(o_);
     }
 
-    static String escapeParam(Argument _arg, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _stackCall) {
-        String str_ = _advStandards.processString(_arg, _ctx, _stackCall);
+    static String escapeParam(Argument _arg, ContextEl _ctx, RendStackCall _stackCall) {
+        String str_ = BeanCustLgNames.processStr(_arg, _ctx, _stackCall);
         if (_ctx.callsOrException(_stackCall.getStackCall())) {
             return str_;
         }
@@ -1202,7 +1206,7 @@ public abstract class RendBlock {
         RendBlock n_ = _bl.getFirstChild();
         CustList<RendParentBlock> children_ = children(if_, n_);
         if_.setBlock(_bl);
-        RendParentBlock found_ = tryFind(_ctx, _rendStack, arg_, children_, _bl);
+        RendParentBlock found_ = tryFind(_ctx, _rendStack, _stds, arg_, children_, _bl);
         if (found_== null) {
             if_.setCurrentVisitedBlock(_bl);
         } else {
@@ -1215,7 +1219,7 @@ public abstract class RendBlock {
         ip_.addBlock(if_);
     }
 
-    private static RendParentBlock tryFind(ContextEl _ctx, RendStackCall _rendStack, Argument _arg, CustList<RendParentBlock> _children, RendAbsSwitchBlock _bl) {
+    private static RendParentBlock tryFind(ContextEl _ctx, RendStackCall _rendStack, BeanLgNames _stds,Argument _arg, CustList<RendParentBlock> _children, RendAbsSwitchBlock _bl) {
         RendParentBlock def_ = null;
         CustList<RendParentBlock> filtered_ = new CustList<RendParentBlock>();
         for (RendParentBlock b: _children) {
@@ -1227,7 +1231,7 @@ public abstract class RendBlock {
         }
         RendParentBlock found_ = null;
         for (RendParentBlock b: filtered_) {
-            found_ = tryFind(_ctx,_rendStack, found_, b, _arg);
+            found_ = tryFind(_ctx,_rendStack,_stds, found_, b, _arg);
         }
         if (found_ != null) {
             return found_;
@@ -1255,26 +1259,44 @@ public abstract class RendBlock {
         return children_;
     }
 
-    private static RendParentBlock tryFind(ContextEl _cont, RendStackCall _rendStack, RendParentBlock _found, RendParentBlock _in, Argument _arg) {
+    private static RendParentBlock tryFind(ContextEl _cont, RendStackCall _rendStack, BeanLgNames _stds,RendParentBlock _found, RendParentBlock _in, Argument _arg) {
         if (_found != null) {
             return _found;
         }
         if (_in instanceof RendAbstractInstanceCaseCondition && !_arg.isNull()) {
             String type_ = ((RendAbstractInstanceCaseCondition)_in).getImportedClassName();
-            return procTypeVar(_cont,_rendStack, (RendAbstractInstanceCaseCondition) _in, _arg, type_);
+            return procTypeVar(_cont,_rendStack,_stds, (RendAbstractInstanceCaseCondition) _in, _arg, type_);
         }
         return processList(_cont, _in, _arg);
     }
 
-    private static RendParentBlock procTypeVar(ContextEl _cont, RendStackCall _rendStack, RendAbstractInstanceCaseCondition _in, Argument _arg, String _type) {
+    private static RendParentBlock procTypeVar(ContextEl _cont, RendStackCall _rendStack, BeanLgNames _stds,RendAbstractInstanceCaseCondition _in, Argument _arg, String _type) {
         Struct struct_ = _arg.getStruct();
-        if (ExecInherits.safeObject(_type, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING) {
-            ImportingPage ip_ = _rendStack.getLastPage();
-            String var_ = _in.getVariableName();
-            putVar(struct_, ip_, var_, _in.getImportedClassName());
-            return _in;
+        RendOperationNodeListOff exp_ = _in.getExp();
+        CustList<RendDynOperationNode> list_ = exp_.getList();
+        boolean safe_ = ExecInherits.safeObject(_type, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING;
+        if (list_.isEmpty()) {
+            if (safe_) {
+                ImportingPage ip_ = _rendStack.getLastPage();
+                String var_ = _in.getVariableName();
+                putVar(struct_, ip_, var_, _in.getImportedClassName());
+                return _in;
+            }
+            return null;
         }
-        return null;
+        if (!safe_) {
+            return null;
+        }
+        ImportingPage ip_ = _rendStack.getLastPage();
+        String var_ = _in.getVariableName();
+        putVar(struct_, ip_, var_, _in.getImportedClassName());
+        ip_.setOffset(exp_.getOffset());
+        Argument visit_ = RenderExpUtil.calculateReuse(list_, _stds, _cont, _rendStack);
+        if (_cont.callsOrException(_rendStack.getStackCall())||BooleanStruct.isFalse(visit_.getStruct())) {
+            ip_.removeRefVar(var_);
+            return null;
+        }
+        return _in;
     }
 
     private static void putVar(Struct _struct, ImportingPage _ip, String _var, String _importedClassName) {

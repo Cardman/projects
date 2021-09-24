@@ -8,6 +8,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
 import code.util.*;
@@ -57,9 +58,9 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
             }
             String res_;
             if (escaped.get(i)) {
-                res_ = escapeParam(arg_, _stds, _ctx, _rendStack);
+                res_ = escapeParam(arg_, _ctx, _rendStack);
             } else {
-                res_ = _stds.processString(arg_, _ctx, _rendStack);
+                res_ = BeanCustLgNames.processStr(arg_, _ctx, _rendStack);
             }
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;

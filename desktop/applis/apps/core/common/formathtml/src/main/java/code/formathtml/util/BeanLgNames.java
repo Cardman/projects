@@ -1,21 +1,11 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.DoubleInfo;
-import code.expressionlanguage.common.LongInfo;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.exec.blocks.RendImport;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.exec.opers.RendSettableFieldOperation;
-import code.formathtml.exec.opers.RendStdFctOperation;
 import code.formathtml.structs.Message;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.stds.*;
@@ -23,7 +13,6 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.*;
 import code.maths.montecarlo.AbstractGenerator;
-import code.sml.Element;
 import code.util.*;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -57,10 +46,8 @@ public abstract class BeanLgNames extends LgNames {
     public abstract void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, RendStackCall _rendStack);
 
     public abstract AbstractWrapper newWrapper(LocalVariable _local);
-    public String getInputClass(Element _write, Configuration _conf) {
-        return _write.getAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrClassName()));
-    }
-    public ResultErrorStd convert(NodeContainer _container, Configuration _conf, ContextEl _context, RendStackCall _rendStackCall) {
+
+    public ResultErrorStd convert(NodeContainer _container, ContextEl _context, RendStackCall _rendStackCall) {
         CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
         if (!ops_.isEmpty()) {
             String varNameConvert_ = _container.getVarNameConvert();
@@ -78,7 +65,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         String className_ = _container.getNodeInformation().getInputClass();
         StringList values_ = _container.getValue();
-        return getStructToBeValidated(values_, className_, _conf, _context, _rendStackCall);
+        return getStructToBeValidated(values_, className_, _context, _rendStackCall);
     }
     protected LocalVariable newLocVar(NodeContainer _container) {
         StringList values_ = _container.getValue();
@@ -95,7 +82,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         return LocalVariable.newLocalVariable(NullStruct.NULL_VALUE, getAliasString());
     }
-    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context, ContextEl _ctx, RendStackCall _stack) {
+    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_className, getAliasString())) {
             String v_;

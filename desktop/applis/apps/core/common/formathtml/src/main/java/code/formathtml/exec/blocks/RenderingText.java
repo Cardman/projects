@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -54,7 +55,7 @@ public final class RenderingText {
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return null;
         }
-        String string_ = _advStandards.processString(argument_, _ctx, _rendStackCall);
+        String string_ = BeanCustLgNames.processStr(argument_, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return null;
         }

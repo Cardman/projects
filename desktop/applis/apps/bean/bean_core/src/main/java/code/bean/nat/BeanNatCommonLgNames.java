@@ -86,7 +86,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         StringList v_ = _cont.getValue();
         NodeInformations nInfos_ = _cont.getNodeInformation();
         String className_ = nInfos_.getInputClass();
-        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf, _ctx, _rendStack);
+        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return null;
         }

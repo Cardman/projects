@@ -20,6 +20,7 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.maths.litteralcom.IndexStrPart;
@@ -74,92 +75,110 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         AnaRendSwitchBlock sw_ = (AnaRendSwitchBlock) par_;
         AnaClassArgumentMatching resSwitch_ = sw_.getResult();
         String type_ = resSwitch_.getSingleNameOrEmpty();
-        if (!type_.isEmpty()) {
-            String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            AnaGeneType g_ = _page.getAnaClassBody(id_);
-            if (g_ instanceof EnumBlock) {
-                int sum_ = 0;
-                EnumBlock e_ = (EnumBlock)g_;
-                for (String s: StringUtil.splitChar(value,',')) {
-                    boolean added_ = false;
-                    String trimPart_ = s.trim();
-                    int k_ = sum_ + StringExpUtil.getOffset(s);
-                    if (StringUtil.quickEq(trimPart_,_page.getKeyWords().getKeyWordNull())) {
-                        offsetsEnum.addEntry(k_, trimPart_);
-                        added_ = true;
-                    } else {
-                        for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-                            if (StringUtil.contains(f.getFieldName(), trimPart_)) {
-                                offsetsEnum.addEntry(k_, trimPart_);
-                                added_ = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!added_) {
-                        offsetsEnum.addEntry(k_, trimPart_);
-                    }
-                    sum_ += s.length() + 1;
-                }
-                for (IndexStrPart v: offsetsEnum.getValues()) {
-                    boolean added_ = false;
-                    if (StringUtil.quickEq(v.getPart(),_page.getKeyWords().getKeyWordNull())) {
-                        checkDuplicateListedValue(_anaDoc,_page,Argument.createVoid());
-                        stdValues.add(Argument.createVoid());
-                        added_ = true;
-                    } else {
-                        for (InnerTypeOrElement f: e_.getEnumBlocks()) {
-                            if (StringUtil.contains(f.getFieldName(), v.getPart())) {
-                                ClassField pair_ = new ClassField(f.getImportedClassName(), v.getPart());
-                                checkDuplicateListedEnum(_anaDoc,_page, pair_, StringUtil.concat(pair_.getClassName(), ".", pair_.getFieldName()));
-                                enumValues.add(pair_);
-                                added_ = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!added_) {
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_anaDoc.getFileName());
-                        un_.setIndexFile(valueOffset);
-                        //key word len
-                        un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                                _page.getKeyWords().getKeyWordCase(),
-                                value);
-                        AnalyzingDoc.addError(un_, _anaDoc, _page);
-                        break;
-                    }
-                }
-                return;
-            }
-        }
+        String variableName_ = getVariableName();
         boolean instance_ = sw_.isInstance();
-        if (instance_) {
-            if (StringUtil.quickEq(value, _page.getKeyWords().getKeyWordNull())) {
-                stdValues.add(Argument.createVoid());
-                setImportedClassName("");
-                return;
+        if (!variableName_.isEmpty()) {
+            if (!instance_) {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(_anaDoc.getFileName());
+                un_.setIndexFile(getOffset());
+                //key word len
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
+                        _page.getKeyWords().getKeyWordCase(),
+                        value);
+                AnalyzingDoc.addError(un_, _anaDoc, _page);
             }
-            if (value.trim().isEmpty()) {
-                String variableName_ = getVariableName();
-                _page.setGlobalOffset(classNameOffset);
-                setImportedClassName(ResolvingTypes.resolveCorrectType(className, _page).getResult(_page));
-                TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName_, _page);
-                if (res_.isError()) {
-                    FoundErrorInterpret d_ = new FoundErrorInterpret();
-                    d_.setFileName(_anaDoc.getFileName());
-                    d_.setIndexFile(variableOffset);
-                    //variable name
-                    d_.setBuiltError(res_.getMessage());
-                    AnalyzingDoc.addError(d_, _anaDoc, _page);
-                    return;
-                }
+            _page.setGlobalOffset(classNameOffset);
+            _page.zeroOffset();
+            setImportedClassName(ResolvingTypes.resolveCorrectType(className, _page).getResult(_page));
+            TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName_, _page);
+            if (!res_.isError()) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(getImportedClassName());
                 lv_.setConstType(ConstType.FIX_VAR);
                 _page.getInfosVars().put(variableName_, lv_);
-                return;
             }
+            if (!value.trim().isEmpty()) {
+                _page.setGlobalOffset(valueOffset);
+                _page.zeroOffset();
+                root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page);
+                AnaClassArgumentMatching resultClass_ = root.getResultClass();
+                if (!resultClass_.isBoolType(_page)) {
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFileName(_anaDoc.getFileName());
+                    un_.setIndexFile(valueOffset);
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                            StringUtil.join(resultClass_.getNames(),AND_ERR));
+                    AnalyzingDoc.addError(un_, _anaDoc, _page);
+                }
+                resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+            }
+            if (res_.isError()) {
+                FoundErrorInterpret d_ = new FoundErrorInterpret();
+                d_.setFileName(_anaDoc.getFileName());
+                d_.setIndexFile(variableOffset);
+                //variable name
+                d_.setBuiltError(res_.getMessage());
+                AnalyzingDoc.addError(d_, _anaDoc, _page);
+            }
+            return;
+        }
+        String id_ = StringExpUtil.getIdFromAllTypes(type_);
+        AnaGeneType g_ = _page.getAnaClassBody(id_);
+        if (g_ instanceof EnumBlock && CaseCondition.allWordsOrEmpty(value)) {
+            int sum_ = 0;
+            EnumBlock e_ = (EnumBlock)g_;
+            for (String s: StringUtil.splitChar(value,',')) {
+                boolean added_ = false;
+                String trimPart_ = s.trim();
+                int k_ = sum_ + StringExpUtil.getOffset(s);
+                if (StringUtil.quickEq(trimPart_,_page.getKeyWords().getKeyWordNull())) {
+                    offsetsEnum.addEntry(k_, trimPart_);
+                    added_ = true;
+                } else {
+                    for (InnerTypeOrElement f: e_.getEnumBlocks()) {
+                        if (StringUtil.contains(f.getFieldName(), trimPart_)) {
+                            offsetsEnum.addEntry(k_, trimPart_);
+                            added_ = true;
+                            break;
+                        }
+                    }
+                }
+                if (!added_) {
+                    offsetsEnum.addEntry(k_, trimPart_);
+                }
+                sum_ += s.length() + 1;
+            }
+            for (IndexStrPart v: offsetsEnum.getValues()) {
+                boolean added_ = false;
+                if (StringUtil.quickEq(v.getPart(),_page.getKeyWords().getKeyWordNull())) {
+                    checkDuplicateListedValue(_anaDoc,_page,Argument.createVoid());
+                    stdValues.add(Argument.createVoid());
+                    added_ = true;
+                } else {
+                    for (InnerTypeOrElement f: e_.getEnumBlocks()) {
+                        if (StringUtil.contains(f.getFieldName(), v.getPart())) {
+                            ClassField pair_ = new ClassField(f.getImportedClassName(), v.getPart());
+                            checkDuplicateListedEnum(_anaDoc,_page, pair_, StringUtil.concat(pair_.getClassName(), ".", pair_.getFieldName()));
+                            enumValues.add(pair_);
+                            added_ = true;
+                            break;
+                        }
+                    }
+                }
+                if (!added_) {
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFileName(_anaDoc.getFileName());
+                    un_.setIndexFile(valueOffset);
+                    //key word len
+                    un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
+                            _page.getKeyWords().getKeyWordCase(),
+                            value);
+                    AnalyzingDoc.addError(un_, _anaDoc, _page);
+                    break;
+                }
+            }
+            return;
         }
         processNumValues(_anaDoc,instance_,resSwitch_, _page);
 //        check(_anaDoc, _page, resSwitch_, instance_);
@@ -306,6 +325,10 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         if (!getVariableName().isEmpty()) {
             _ip.getInfosVars().removeKey(getVariableName());
         }
+    }
+
+    public OperationNode getRoot() {
+        return root;
     }
 
     public CustList<Argument> getStdValues() {

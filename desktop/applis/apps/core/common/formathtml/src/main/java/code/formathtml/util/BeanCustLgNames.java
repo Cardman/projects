@@ -944,6 +944,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     @Override
     public String processString(Argument _arg, ContextEl _ctx, RendStackCall _stack) {
+        return processStr(_arg, _ctx, _stack);
+    }
+
+    public static String processStr(Argument _arg, ContextEl _ctx, RendStackCall _stack) {
         Argument arg_ = RendDynOperationNode.processString(_arg, _ctx, _stack);
         if (_ctx.callsOrException(_stack.getStackCall())) {
             return "";
