@@ -20,7 +20,6 @@ import code.formathtml.nat.BeanStruct;
 import code.formathtml.nat.StringMapObjectSample;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
@@ -849,7 +848,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         getStds().addEntry(TYPE_SIMPLE_DATA_BASE, cl_);
     }
     @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
+    public void beforeDisplaying(Struct _arg) {
         ((BeanStruct)_arg).getBean().beforeDisplaying();
     }
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStack) {
@@ -883,7 +882,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
             }
         }
         _rendStack.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
+        return BeanNatCommonLgNames.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
     }
 
     @Override

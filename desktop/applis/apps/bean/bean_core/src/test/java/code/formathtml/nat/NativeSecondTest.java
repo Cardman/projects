@@ -1,6 +1,7 @@
 package code.formathtml.nat;
 
 import code.bean.Bean;
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.DefaultInitialization;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.ContextEl;
@@ -470,7 +471,7 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
     }
 
     private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanLgNames _stds, ContextEl _context, RendStackCall _rendStackCall) {
-        return RendBlock.getRes(_doc, _conf, _stds, _context, _rendStackCall, "page1.html");
+        return BeanNatCommonLgNames.getRes(_doc, _conf, (BeanNatCommonLgNames) _stds, _context, _rendStackCall, "page1.html");
     }
 
     private static Navigation newNavigation(NativeOtherAnalyzedTestConfiguration _conf) {

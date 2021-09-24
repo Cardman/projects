@@ -554,8 +554,20 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return "";
         }
         _rendStack.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
+        return getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
     }
+
+    public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, String _currentUrl) {
+        _rendStackCall.getFormParts().initForms();
+        String beanName_ = _rend.getBeanName();
+        Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
+        _rendStackCall.setMainBean(bean_);
+        _rendStackCall.addPage(new ImportingPage());
+        RendImport.befDisp(_stds,_ctx, _rendStackCall, bean_);
+        _rendStackCall.removeLastPage();
+        return RendBlock.res(_rend, _conf, _stds, _ctx, _rendStackCall, _currentUrl, beanName_, bean_);
+    }
+
     private void processInitBeans(Configuration _conf, String _dest, String _beanName, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStackCall) {
         int s_ = _conf.getBuiltBeans().size();
         for (int i = 0; i < s_; i++) {
@@ -897,8 +909,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return DefaultBeanAliases.getMessageStruct(arg_.getStruct(), beanAliases.getAliasMessage()).getInstance();
     }
 
-    @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
+    public void beforeDisplaying(Struct _arg, ContextEl _ctx, RendStackCall _rendStack) {
         String clName_ = _arg.getClassName(_ctx);
         if (!ExecInherits.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
             return;

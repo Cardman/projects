@@ -15,8 +15,6 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
 import code.util.CustList;
 import code.util.StringList;
@@ -113,7 +111,7 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
 //        return res_;
 //    }
     @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
+    public void beforeDisplaying(Struct _arg) {
         ((BeanStruct)_arg).getBean().beforeDisplaying();
     }
 

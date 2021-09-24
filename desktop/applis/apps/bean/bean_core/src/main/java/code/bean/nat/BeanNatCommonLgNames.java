@@ -1,6 +1,7 @@
 package code.bean.nat;
 
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
+import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.bean.validator.Validator;
@@ -19,6 +20,8 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.util.*;
@@ -46,6 +49,15 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         super(new DefaultGenerator());
     }
 
+    public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanNatCommonLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, String _currentUrl) {
+        _rendStackCall.getFormParts().initForms();
+        String beanName_ = _rend.getBeanName();
+        Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
+        _rendStackCall.setMainBean(bean_);
+        NatRendImport.beforeDisp(bean_, _stds);
+        return RendBlock.res(_rend, _conf, _stds, _ctx, _rendStackCall, _currentUrl, beanName_, bean_);
+    }
+    public abstract void beforeDisplaying(Struct _arg);
     @Override
     public void preInitBeans(Configuration _conf) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {

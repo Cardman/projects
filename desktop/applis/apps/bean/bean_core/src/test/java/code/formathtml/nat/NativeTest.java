@@ -29,7 +29,6 @@ import code.formathtml.sample.BeanTwo;
 import code.formathtml.sample.Composite;
 import code.formathtml.sample.CustBeanLgNames;
 import code.formathtml.sample.MyValidator;
-import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
@@ -67,7 +66,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         PairStruct struct_ = new PairStruct("", NullStruct.NULL_VALUE, NullStruct.NULL_VALUE);
         assertEq("",new VariableWrapperNat(LocalVariable.newLocalVariable(struct_,"")).getClassName(null,null));
         BeanNatLgNames.processString(new Argument(struct_),conf_.getContext());
-        NatRendImport.beforeDisp(null,null,null,null,null);
+        NatRendImport.beforeDisp(null, null);
     }
 ////    @Test
 //    public void process0FailTest() {
@@ -2024,7 +2023,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanNatLgNames _stds, ContextEl _context, RendStackCall _rendStackCall) {
-        return RendBlock.getRes(_doc, _conf, _stds, _context, _rendStackCall, "page1.html");
+        return BeanNatCommonLgNames.getRes(_doc, _conf, _stds, _context, _rendStackCall, "page1.html");
     }
 
     private static Navigation newNavigation(NativeAnalyzedTestConfiguration _conf) {

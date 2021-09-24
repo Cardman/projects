@@ -53,18 +53,7 @@ public abstract class RendBlock {
     RendBlock() {
     }
 
-    public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, String _currentUrl) {
-        _rendStackCall.getFormParts().initForms();
-        String beanName_ = _rend.getBeanName();
-        Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
-        _rendStackCall.setMainBean(bean_);
-        _rendStackCall.addPage(new ImportingPage());
-        beforeDisplaying(bean_,_conf, _stds, _ctx, _rendStackCall);
-        _rendStackCall.removeLastPage();
-        return res(_rend, _conf, _stds, _ctx, _rendStackCall, _currentUrl, beanName_, bean_);
-    }
-
-    private static String res(RendDocumentBlock _rend, Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, String _currentUrl, String beanName_, Struct bean_) {
+    public static String res(RendDocumentBlock _rend, Configuration _conf, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, String _currentUrl, String _beanName, Struct _bean) {
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return EMPTY_STRING;
         }
@@ -73,10 +62,10 @@ public abstract class RendBlock {
         int tabWidth_ = _conf.getTabWidth();
         ip_.setTabWidth(tabWidth_);
         ip_.setReadUrl(_currentUrl);
-        ip_.setBeanName(beanName_);
+        ip_.setBeanName(_beanName);
         ip_.setFile(_rend.getFile());
-        if (bean_ != null) {
-            ip_.setGlobalArgumentStruct(bean_);
+        if (_bean != null) {
+            ip_.setGlobalArgumentStruct(_bean);
         }
         _rendStackCall.addPage(ip_);
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
@@ -337,12 +326,6 @@ public abstract class RendBlock {
         _rendStack.getLastPage().clearInternVars();
         _rendStack.getLastPage().setEnabledOp(true);
         return arg_;
-    }
-    protected static void beforeDisplaying(Struct _arg, Configuration _cont, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
-        if (_arg == null) {
-            return;
-        }
-        _advStandards.beforeDisplaying(_arg,_cont, _ctx, _rendStackCall);
     }
 
     static String getStringKey(Struct _instance, ContextEl _ctx, RendStackCall _rendStack) {

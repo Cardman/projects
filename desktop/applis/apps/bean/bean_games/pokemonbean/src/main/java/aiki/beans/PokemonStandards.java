@@ -102,7 +102,6 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.maths.LgInt;
@@ -810,7 +809,7 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     }
 
     @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
+    public void beforeDisplaying(Struct _arg) {
         ((PokemonBeanStruct) _arg).getBean().beforeDisplaying();
     }
 
@@ -829,7 +828,7 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
             ((WithForms) ((PokemonBeanStruct) bean_).getBean()).setForms(stringMapObject_);
         }
         _rendStack.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
+        return BeanNatCommonLgNames.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
     }
 
     @Override

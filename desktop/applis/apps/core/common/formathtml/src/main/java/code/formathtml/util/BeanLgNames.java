@@ -39,7 +39,6 @@ public abstract class BeanLgNames extends LgNames {
     }
 
 
-    public abstract void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack);
     public abstract String processString(Argument _arg, ContextEl _ctx, RendStackCall _stack);
 
     public abstract void preInitBeans(Configuration _conf);

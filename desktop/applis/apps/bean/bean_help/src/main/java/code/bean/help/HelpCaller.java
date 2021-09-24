@@ -2,9 +2,11 @@ package code.bean.help;
 
 import code.bean.help.analyze.blocks.HelpAnaRendBlockHelp;
 import code.bean.help.fwd.HelpRendForwardInfos;
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.Navigation;
@@ -61,7 +63,10 @@ public final class HelpCaller {
         String dest_ = _navigation.getSession().getFirstUrl();
         RendDocumentBlock rendDocumentBlock_ = _navigation.getSession().getRenders().getVal(dest_);
         _rendStackCall.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_, _navigation.getSession(), null, _ctx, _rendStackCall, dest_);
+        _rendStackCall.getFormParts().initForms();
+        String beanName_ = rendDocumentBlock_.getBeanName();
+        Struct bean_ = _navigation.getSession().getBuiltBeans().getVal(beanName_);
+        return RendBlock.res(rendDocumentBlock_, _navigation.getSession(), null, _ctx, _rendStackCall, dest_,beanName_,bean_);
     }
 
     public static void buildFctInstructions(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {

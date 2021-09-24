@@ -92,7 +92,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPage());
-        befDisp(_cont, (BeanCustLgNames) _stds, _ctx, _rendStack, newBean_);
+        befDisp((BeanCustLgNames) _stds, _ctx, _rendStack, newBean_);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -110,9 +110,9 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         _rendStack.addPage(newIp_);
     }
 
-    private void befDisp(Configuration _cont, BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStack, Struct newBean_) {
-        if (newBean_ != null) {
-            _stds.beforeDisplaying(newBean_, _cont, _ctx, _rendStack);
+    public static void befDisp(BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStack, Struct _newBean) {
+        if (_newBean != null) {
+            _stds.beforeDisplaying(_newBean, _ctx, _rendStack);
         }
     }
 

@@ -115,7 +115,7 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         BeanStruct bean_ = getBeanOrNull(currentBeanName_);
         setStoredForms(bean_, stringMapObject_);
         _rendStack.clearPages();
-        String res_ = RendBlock.getRes(rendDocumentBlock_, _conf, this, _ctx, _rendStack, _dest);
+        String res_ = BeanNatCommonLgNames.getRes(rendDocumentBlock_, _conf, this, _ctx, _rendStack, _dest);
         for (EntryCust<Long, LongTreeMap<NodeContainer>> e: _rendStack.getHtmlPage().getContainers().entryList()) {
             for (EntryCust<Long, NodeContainer> f: e.getValue().entryList()) {
                 if (f.getValue().getUpdated() == NullStruct.NULL_VALUE){

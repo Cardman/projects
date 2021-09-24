@@ -1116,7 +1116,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         Configuration conf_ = _a.getConfiguration();
         BeanCustLgNames stds_ = _a.getAdvStandards();
         _rendStackCall.clearPages();
-        return RendBlock.getRes(conf_.getRendDocumentBlock(), conf_, stds_, _ctx, _rendStackCall, "page1.html");
+        return BeanCustLgNames.getRes(conf_.getRendDocumentBlock(), conf_, stds_, _ctx, _rendStackCall, "page1.html");
     }
 
     protected static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {

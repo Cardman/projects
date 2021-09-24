@@ -18,7 +18,6 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
@@ -101,7 +100,7 @@ public final class PresidentStandards extends BeanNatLgNames {
     }
 
     @Override
-    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, RendStackCall _rendStack) {
+    public void beforeDisplaying(Struct _arg) {
         ((PresidentBeanStruct)_arg).getBean().beforeDisplaying();
     }
 
@@ -110,7 +109,7 @@ public final class PresidentStandards extends BeanNatLgNames {
         _rendStack.addPage(ip_);
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
         _rendStack.clearPages();
-        return RendBlock.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
+        return BeanNatCommonLgNames.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
     }
 
     @Override
