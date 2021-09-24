@@ -2,7 +2,6 @@ package code.bean.help;
 
 import code.bean.help.analyze.blocks.HelpAnaRendBlockHelp;
 import code.bean.help.fwd.HelpRendForwardInfos;
-import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
