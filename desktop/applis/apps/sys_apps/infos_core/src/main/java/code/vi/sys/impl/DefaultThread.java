@@ -8,7 +8,7 @@ final class DefaultThread implements AbstractThread {
     private boolean interrupted;
 
     DefaultThread(Runnable _runnable) {
-        thread = new Thread(_runnable);
+        thread = newThread(_runnable);
     }
 
     DefaultThread() {
@@ -20,9 +20,13 @@ final class DefaultThread implements AbstractThread {
             Thread.sleep(_time);
             return true;
         } catch (Exception e) {
-            Thread.currentThread().interrupt();
+            newThread(null).interrupt();
             return false;
         }
+    }
+
+    private static Thread newThread(Runnable _runnable) {
+        return new Thread(_runnable);
     }
 
     private static ThState join(Thread _thread) {
