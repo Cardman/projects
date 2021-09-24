@@ -80,12 +80,12 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
     public ExecBlock processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
         ExecResultCase res_ = ExecAbstractSwitchBlock.innerProcess(getImportedParamType(), _cont, _stack, this, _if, _arg, 0);
         lastVisMeth(_if, res_);
-        return cover( this, _cont, _if, _arg, _stack, res_);
+        return cover(_cont, _if, _arg, _stack, res_);
     }
     protected abstract ExecResultCase lastVisMeth(SwitchBlockStack _if, ExecResultCase _res);
-    public static ExecBlock cover(ExecBlock _curr,ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack, ExecResultCase _found) {
+    public ExecBlock cover(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack, ExecResultCase _found) {
         if (_cont.callsOrException(_stack)) {
-            return _curr;
+            return this;
         }
         AbstractPageEl page_ = _stack.getLastPage();
         _cont.getCoverage().passSwitchMethod(_found, _arg, _stack);

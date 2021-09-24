@@ -1124,7 +1124,7 @@ public abstract class RendBlock {
             LoopVariable lv_ = new LoopVariable();
             lv_.setIndexClassName(_bl.getImportedClassIndexName());
             ip_.getVars().put(v, lv_);
-            ip_.putValueVar(v, new VariableWrapper(LocalVariable.newLocalVariable(struct_, _bl.getImportedClassName())));
+            putVar(struct_, ip_, v, _bl.getImportedClassName());
         }
         if (!_bl.getInit().getList().isEmpty()) {
             RenderExpUtil.calculateReuse(_bl.getInit().getList(), _stds, _ctx, _rendStack);
@@ -1202,7 +1202,7 @@ public abstract class RendBlock {
         RendBlock n_ = _bl.getFirstChild();
         CustList<RendParentBlock> children_ = children(if_, n_);
         if_.setBlock(_bl);
-        RendParentBlock found_ = tryFind(_ctx, _rendStack, arg_, children_,if_, _bl);
+        RendParentBlock found_ = tryFind(_ctx, _rendStack, arg_, children_, _bl);
         if (found_== null) {
             if_.setCurrentVisitedBlock(_bl);
         } else {
@@ -1215,33 +1215,30 @@ public abstract class RendBlock {
         ip_.addBlock(if_);
     }
 
-    private static RendParentBlock tryFind(ContextEl _ctx, RendStackCall _rendStack, Argument _arg, CustList<RendParentBlock> _children, RendSwitchBlockStack _if, RendAbsSwitchBlock _bl) {
+    private static RendParentBlock tryFind(ContextEl _ctx, RendStackCall _rendStack, Argument _arg, CustList<RendParentBlock> _children, RendAbsSwitchBlock _bl) {
         RendParentBlock def_ = null;
-        RendParentBlock found_ = null;
+        CustList<RendParentBlock> filtered_ = new CustList<RendParentBlock>();
         for (RendParentBlock b: _children) {
             if (!(b instanceof RendDefaultCondition) && !(b instanceof RendAbstractInstanceCaseCondition && !((RendAbstractInstanceCaseCondition)b).isSpecific())) {
-                found_ = tryFind(_ctx,found_, (RendAbstractCaseCondition) b, _arg);
+                filtered_.add(b);
             } else {
                 def_ = b;
             }
         }
-        if (found_ == null) {
-            found_ = def_;
+        RendParentBlock found_ = null;
+        for (RendParentBlock b: filtered_) {
+            found_ = tryFind(_ctx,_rendStack, found_, b, _arg);
         }
-        if (found_ instanceof RendAbstractInstanceCaseCondition) {
+        if (found_ != null) {
+            return found_;
+        }
+        if (def_ instanceof RendAbstractInstanceCaseCondition) {
             ImportingPage ip_ = _rendStack.getLastPage();
-            RendReadWrite rw_ = ip_.getRendReadWrite();
-            String var_ = ((RendAbstractInstanceCaseCondition) found_).getVariableName();
+            String var_ = ((RendAbstractInstanceCaseCondition) def_).getVariableName();
             Struct struct_ = _arg.getStruct();
-            if (((RendAbstractInstanceCaseCondition) found_).isSpecific()) {
-                ip_.putValueVar(var_, new VariableWrapper(LocalVariable.newLocalVariable(struct_, ((RendAbstractInstanceCaseCondition) found_).getImportedClassName())));
-            } else {
-                ip_.putValueVar(var_, new VariableWrapper(LocalVariable.newLocalVariable(struct_, _bl.getInstanceTest())));
-            }
-            rw_.setRead(found_);
-            _if.setCurrentVisitedBlock(found_);
+            putVar(struct_, ip_, var_, _bl.getInstanceTest());
         }
-        return found_;
+        return def_;
     }
 
     private static CustList<RendParentBlock> children(RendSwitchBlockStack _if, RendBlock _n) {
@@ -1258,23 +1255,35 @@ public abstract class RendBlock {
         return children_;
     }
 
-    private static RendParentBlock tryFind(ContextEl _cont, RendParentBlock _found, RendAbstractCaseCondition _in, Argument _arg) {
+    private static RendParentBlock tryFind(ContextEl _cont, RendStackCall _rendStack, RendParentBlock _found, RendParentBlock _in, Argument _arg) {
         if (_found != null) {
             return _found;
         }
         if (_in instanceof RendAbstractInstanceCaseCondition && !_arg.isNull()) {
             String type_ = ((RendAbstractInstanceCaseCondition)_in).getImportedClassName();
-            Struct struct_ = _arg.getStruct();
-            if (ExecInherits.safeObject(type_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING) {
-                return _in;
-            }
+            return procTypeVar(_cont,_rendStack, (RendAbstractInstanceCaseCondition) _in, _arg, type_);
         }
         return processList(_cont, _in, _arg);
     }
 
-    private static RendAbstractCaseCondition processList(ContextEl _cont, RendAbstractCaseCondition _in, Argument _arg) {
-        if (_in instanceof RendSwitchValuesCondition && ((RendSwitchValuesCondition) _in).getList().match(_arg, _cont) >= 0) {
+    private static RendParentBlock procTypeVar(ContextEl _cont, RendStackCall _rendStack, RendAbstractInstanceCaseCondition _in, Argument _arg, String _type) {
+        Struct struct_ = _arg.getStruct();
+        if (ExecInherits.safeObject(_type, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING) {
+            ImportingPage ip_ = _rendStack.getLastPage();
+            String var_ = _in.getVariableName();
+            putVar(struct_, ip_, var_, _in.getImportedClassName());
             return _in;
+        }
+        return null;
+    }
+
+    private static void putVar(Struct _struct, ImportingPage _ip, String _var, String _importedClassName) {
+        _ip.putValueVar(_var, new VariableWrapper(LocalVariable.newLocalVariable(_struct, _importedClassName)));
+    }
+
+    private static RendAbstractCaseCondition processList(ContextEl _cont, RendParentBlock _in, Argument _arg) {
+        if (_in instanceof RendSwitchValuesCondition && ((RendSwitchValuesCondition) _in).getList().match(_arg, _cont) >= 0) {
+            return (RendSwitchValuesCondition)_in;
         }
         return null;
     }
