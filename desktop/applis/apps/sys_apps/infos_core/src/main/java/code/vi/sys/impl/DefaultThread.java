@@ -25,19 +25,19 @@ final class DefaultThread implements AbstractThread {
         }
     }
 
-    private static Thread newThread(Runnable _runnable) {
-        return new Thread(_runnable);
-    }
-
     private static ThState join(Thread _thread) {
-        boolean alive_ = _thread.isAlive();
         try {
+            boolean alive_ = _thread.isAlive();
             _thread.join();
             return ThState.of(alive_);
         } catch (Exception e) {
-            _thread.interrupt();
+            newThread(null).interrupt();
             return ThState.INTERRUPTED;
         }
+    }
+
+    private static Thread newThread(Runnable _runnable) {
+        return new Thread(_runnable);
     }
 
     @Override
