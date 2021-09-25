@@ -2749,19 +2749,19 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasRadio, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasRadioIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRadioIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctRadioIsSelected());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasRadioSetSelected, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0RadioSetSelected0()));
+        method_ = new StandardMethod(aliasRadioSetSelected, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0RadioSetSelected0()), new FctRadioSetSelected());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasRadioGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRadioGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctRadioGetText());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasRadioSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0SetLabelText0()));
+        method_ = new StandardMethod(aliasRadioSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0SetLabelText0()), new FctRadioSetText());
         methods_.add( method_);
         params_ = new StringList(aliasChangeListener);
-        method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0AddChange0()));
+        method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0AddChange0()), new FctRadioAddChange());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -2778,16 +2778,16 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasCheckBox, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasCheckBoxIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCheckBoxIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctCheckBoxIsSelected());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasCheckBoxSetSelected, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCheckBox0RadioSetSelected0()));
+        method_ = new StandardMethod(aliasCheckBoxSetSelected, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCheckBox0RadioSetSelected0()), new FctCheckBoxSetSelected());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasCheckBoxGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCheckBoxGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctCheckBoxGetText());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasCheckBoxSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCheckBox0SetLabelText0()));
+        method_ = new StandardMethod(aliasCheckBoxSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCheckBox0SetLabelText0()), new FctCheckBoxSetText());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -4828,25 +4828,6 @@ public final class GuiAliases {
                 return res_;
             }
             if (StringUtil.quickEq(name_, aliasRadioSetText)) {
-                inst_.setText(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            res_.setResult(inst_.getText());
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasCheckBox)) {
-            CheckBoxStruct inst_ = (CheckBoxStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasCheckBoxSetSelected)) {
-                inst_.setSelected(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasCheckBoxIsSelected)) {
-                res_.setResult(inst_.isSelected());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasCheckBoxSetText)) {
                 inst_.setText(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
