@@ -9,7 +9,6 @@ import code.expressionlanguage.guicompos.TextAreaStruct;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 
 public final class FctTextAreaSelectAll implements StdCaller {
     @Override

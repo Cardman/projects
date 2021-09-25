@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.guicompos.TextAreaStruct;
 import code.expressionlanguage.stds.StdCaller;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
 public final class FctTextAreaGetTabSize implements StdCaller {
