@@ -2927,31 +2927,31 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasSlider, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSliderGetMax, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSliderGetMax, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSliderGetMax());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSliderSetMax, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SpinnerSetMax0()));
+        method_ = new StandardMethod(aliasSliderSetMax, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SpinnerSetMax0()), new FctSliderSetMax());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSliderGetMin, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSliderGetMin, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSliderGetMin());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSliderSetMin, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SpinnerSetMin0()));
+        method_ = new StandardMethod(aliasSliderSetMin, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SpinnerSetMin0()), new FctSliderSetMin());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSliderGetValue, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSliderGetValue, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSliderGetValue());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSliderSetValue, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0TreeNodeSetUserObject0()));
+        method_ = new StandardMethod(aliasSliderSetValue, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0TreeNodeSetUserObject0()), new FctSliderSetValue());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSliderGetOrientation, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSliderGetOrientation, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSliderGetOrientation());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSliderSetOrientation, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SliderSetOrientation0()));
+        method_ = new StandardMethod(aliasSliderSetOrientation, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0SliderSetOrientation0()), new FctSliderSetOrientation());
         methods_.add( method_);
         params_ = new StringList(aliasChangeListener);
-        method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0AddChange0()));
+        method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0AddChange0()), new FctSliderAddChange());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -5023,48 +5023,6 @@ public final class GuiAliases {
                 return res_;
             }
             inst_.setStep(_args[0]);
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasSlider)) {
-            SliderStruct inst_ = (SliderStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasAddChange)) {
-                inst_.addChangeListener(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSliderGetMin)) {
-                res_.setResult(inst_.getMin());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSliderSetMin)) {
-                inst_.setMin(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSliderGetMax)) {
-                res_.setResult(inst_.getMax());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSliderSetMax)) {
-                inst_.setMax(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSliderGetValue)) {
-                res_.setResult(inst_.getValue());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSliderSetValue)) {
-                inst_.setValue(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSliderGetOrientation)) {
-                res_.setResult(inst_.getOrientation());
-                return res_;
-            }
-            inst_.setOrientation(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
