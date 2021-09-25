@@ -2717,31 +2717,31 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasPopupMenu, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasPopupMenuAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0TabbedPaneAdd0()));
+        method_ = new StandardMethod(aliasPopupMenuAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0TabbedPaneAdd0()), new FctPopupMenuAdd());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasPopupMenuGetComp, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuGetComp0()));
+        method_ = new StandardMethod(aliasPopupMenuGetComp, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuGetComp0()), new FctPopupMenuGetComp());
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasPopupMenuRemoveComp, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuRemoveComp0()));
+        method_ = new StandardMethod(aliasPopupMenuRemoveComp, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuRemoveComp0()), new FctPopupMenuRemoveComp());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasPopupMenuNbComp, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasPopupMenuNbComp, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctPopupMenuNbComp());
         methods_.add( method_);
         params_ = new StringList(aliasAbsMenu);
-        method_ = new StandardMethod(aliasPopupMenuAddMenu, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuAddMenu0()));
+        method_ = new StandardMethod(aliasPopupMenuAddMenu, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuAddMenu0()), new FctPopupMenuAddMenu());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasPopupMenuGetMenu, params_, aliasAbsMenu, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuGetMenu0()));
+        method_ = new StandardMethod(aliasPopupMenuGetMenu, params_, aliasAbsMenu, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuGetMenu0()), new FctPopupMenuGetMenu());
         methods_.add( method_);
         params_ = new StringList(aliasAbsMenu);
-        method_ = new StandardMethod(aliasPopupMenuRemoveMenu, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuRemoveMenu0()));
+        method_ = new StandardMethod(aliasPopupMenuRemoveMenu, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuRemoveMenu0()), new FctPopupMenuRemoveMenu());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasPopupMenuNbMenu, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasPopupMenuNbMenu, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctPopupMenuNbMenu());
         methods_.add( method_);
         params_ = new StringList(aliasComponent,_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasPopupMenuShow, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuShow0(),guiAliasParameters.getAliasPopupMenu0PopupMenuShow1(),guiAliasParameters.getAliasPopupMenu0PopupMenuShow2()));
+        method_ = new StandardMethod(aliasPopupMenuShow, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0PopupMenuShow0(),guiAliasParameters.getAliasPopupMenu0PopupMenuShow1(),guiAliasParameters.getAliasPopupMenu0PopupMenuShow2()), new FctPopupMenuShow());
         methods_.add( method_);
         _content.getStandards().addEntry(aliasPopupMenu, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -4852,48 +4852,6 @@ public final class GuiAliases {
                 return res_;
             }
             res_.setResult(inst_.getText());
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasPopupMenu)) {
-            PopupStruct inst_ = (PopupStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasPopupMenuAdd)) {
-                inst_.add(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPopupMenuGetComp)) {
-                res_.setResult(inst_.getCompo(_args[0]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPopupMenuRemoveComp)) {
-                inst_.remove(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPopupMenuNbComp)) {
-                res_.setResult(inst_.getCompoCount());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPopupMenuAddMenu)) {
-                inst_.addMenu(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPopupMenuGetMenu)) {
-                res_.setResult(inst_.getMenu(_args[0]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPopupMenuRemoveMenu)) {
-                inst_.removeMenu(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPopupMenuNbMenu)) {
-                res_.setResult(inst_.getMenuCount());
-                return res_;
-            }
-            inst_.show(_args[0],_args[1],_args[2]);
-            res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);

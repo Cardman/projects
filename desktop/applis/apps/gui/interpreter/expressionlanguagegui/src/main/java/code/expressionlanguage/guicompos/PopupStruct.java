@@ -62,14 +62,14 @@ public final class PopupStruct extends CustComponentStruct {
             popupMenu.remove(((CustComponentStruct)_global).getComponent());
         }
     }
-    Struct getCompo(Struct _index) {
+    public Struct getCompo(Struct _index) {
         int index_ = ((NumberStruct)_index).intStruct();
         if (!compo.isValidIndex(index_)) {
             return NullStruct.NULL_VALUE;
         }
         return compo.get(index_);
     }
-    Struct getCompoCount() {
+    public Struct getCompoCount() {
         return new IntStruct(compo.size());
     }
     public void addMenu(Struct _global) {
@@ -116,14 +116,14 @@ public final class PopupStruct extends CustComponentStruct {
             }
         }
     }
-    Struct getMenu(Struct _index) {
+    public Struct getMenu(Struct _index) {
         int index_ = ((NumberStruct)_index).intStruct();
         if (!menus.isValidIndex(index_)) {
             return NullStruct.NULL_VALUE;
         }
         return menus.get(index_);
     }
-    Struct getMenuCount() {
+    public Struct getMenuCount() {
         return new IntStruct(menus.size());
     }
     @Override
