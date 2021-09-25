@@ -2830,43 +2830,43 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTextArea, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTextAreaGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaGetText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctTextAreaGetText());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTextAreaSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0SetLabelText0()));
+        method_ = new StandardMethod(aliasTextAreaSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0SetLabelText0()), new FctTextAreaSetText());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTextAreaAppend, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TabbedPaneAdd0()));
+        method_ = new StandardMethod(aliasTextAreaAppend, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TabbedPaneAdd0()), new FctTextAreaAppend());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaInsert, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TreeNodeInsert0(),guiAliasParameters.getAliasTextArea0TreeNodeInsert1()));
+        method_ = new StandardMethod(aliasTextAreaInsert, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TreeNodeInsert0(),guiAliasParameters.getAliasTextArea0TreeNodeInsert1()), new FctTextAreaInsert());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTextAreaGetSelectedText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaGetSelectedText, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctTextAreaGetSelectedText());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaSetSelectionStart, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetSelectionStart0()));
+        method_ = new StandardMethod(aliasTextAreaSetSelectionStart, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetSelectionStart0()), new FctTextAreaSetSelectionStart());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaSetSelectionEnd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetSelectionEnd0()));
+        method_ = new StandardMethod(aliasTextAreaSetSelectionEnd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetSelectionEnd0()), new FctTextAreaSetSelectionEnd());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTextAreaGetTabSize, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaGetTabSize, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctTextAreaGetTabSize());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaSetTabSize, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetTabSize0()));
+        method_ = new StandardMethod(aliasTextAreaSetTabSize, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaSetTabSize0()), new FctTextAreaSetTabSize());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaReplaceRange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaReplaceRange0(),guiAliasParameters.getAliasTextArea0TextAreaReplaceRange1(),guiAliasParameters.getAliasTextArea0TextAreaReplaceRange2()));
+        method_ = new StandardMethod(aliasTextAreaReplaceRange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaReplaceRange0(),guiAliasParameters.getAliasTextArea0TextAreaReplaceRange1(),guiAliasParameters.getAliasTextArea0TextAreaReplaceRange2()), new FctTextAreaReplaceRange());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTextAreaReplaceSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaReplaceSelection0()));
+        method_ = new StandardMethod(aliasTextAreaReplaceSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TextAreaReplaceSelection0()), new FctTextAreaReplaceSelection());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTextAreaSelect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TreeGetSelected0(),guiAliasParameters.getAliasTextArea0TreeGetSelected1()));
+        method_ = new StandardMethod(aliasTextAreaSelect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextArea0TreeGetSelected0(),guiAliasParameters.getAliasTextArea0TreeGetSelected1()), new FctTextAreaSelect());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTextAreaSelectAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTextAreaSelectAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTextAreaSelectAll());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -4905,69 +4905,6 @@ public final class GuiAliases {
             }
             if (StringUtil.quickEq(name_, aliasTextFieldAddAction)) {
                 inst_.addActionListener(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            res_.setResult(inst_.getText());
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasTextArea)) {
-            TextAreaStruct inst_ = (TextAreaStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasTextAreaAppend)) {
-                inst_.append(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTextAreaInsert)) {
-                inst_.insert(_args[0],_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTextAreaReplaceRange)) {
-                inst_.replaceRange(_args[0],_args[1],_args[2]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTextAreaReplaceSelection)) {
-                inst_.replaceSelection(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTextAreaSelect)) {
-                inst_.select(_args[0],_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTextAreaSelectAll)) {
-                inst_.selectAll();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTextAreaGetSelectedText)) {
-                res_.setResult(inst_.getSelectedText());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTextAreaSetSelectionStart)) {
-                inst_.setSelectionStart(_args[0]);
-                res_.setResult(inst_.getSelectedText());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTextAreaSetSelectionEnd)) {
-                inst_.setSelectionEnd(_args[0]);
-                res_.setResult(inst_.getSelectedText());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTextAreaSetTabSize)) {
-                inst_.setTabSize(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTextAreaGetTabSize)) {
-                res_.setResult(inst_.getTabSize());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTextAreaSetText)) {
-                inst_.setText(_args[0]);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
