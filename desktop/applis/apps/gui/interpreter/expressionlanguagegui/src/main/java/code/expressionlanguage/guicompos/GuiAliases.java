@@ -4811,30 +4811,6 @@ public final class GuiAliases {
             res_.setResult(inst_.getItemCount());
             return res_;
         }
-        if (StringUtil.quickEq(type_, aliasRadio)) {
-            RadioButtonStruct inst_ = (RadioButtonStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasAddChange)) {
-                inst_.addChangeListener(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasRadioSetSelected)) {
-                inst_.setSelected(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasRadioIsSelected)) {
-                res_.setResult(inst_.isSelected());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasRadioSetText)) {
-                inst_.setText(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            res_.setResult(inst_.getText());
-            return res_;
-        }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
     }
 
