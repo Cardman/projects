@@ -6,15 +6,15 @@ import code.util.CustList;
 import javax.swing.JMenuBar;
 public final class MenuBar implements AbsMenuBar {
 
-    private final JMenuBar menuBar = new JMenuBar();
+    private final JMenuBar meBar = new JMenuBar();
     private final CustList<AbsMenu> menus = new CustList<AbsMenu>();
 
-    JMenuBar getMenuBar() {
-        return menuBar;
+    JMenuBar getMeBar() {
+        return meBar;
     }
 
     public void add(AbsMenu _c) {
-        menuBar.add(((Menu)_c).getMenu());
+        meBar.add(((Menu)_c).getMeCo());
         menus.add(_c);
     }
 
@@ -27,6 +27,6 @@ public final class MenuBar implements AbsMenuBar {
     }
 
     public void remove(AbsMenu _component) {
-        menuBar.remove(((Menu)_component).getMenu());
+        meBar.remove(((Menu)_component).getMeCo());
     }
 }

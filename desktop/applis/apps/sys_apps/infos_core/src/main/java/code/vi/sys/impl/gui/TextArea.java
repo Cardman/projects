@@ -9,47 +9,47 @@ import java.awt.*;
 
 public final class TextArea extends CustComponent implements AbsTextArea {
 
-    private final JTextArea textArea;
+    private final JTextArea area;
 
     public TextArea() {
-        textArea = new JTextArea();
+        area = new JTextArea();
     }
     public TextArea(int _r,int _c) {
-        textArea = new JTextArea(_r,_c);
+        area = new JTextArea(_r,_c);
     }
     public TextArea(String _txt) {
-        textArea = new JTextArea(_txt);
+        area = new JTextArea(_txt);
     }
     public TextArea(String _txt,int _r,int _c) {
-        textArea = new JTextArea(_txt,_r,_c);
+        area = new JTextArea(_txt,_r,_c);
     }
 
     public void setTabSize(int _size) {
-        textArea.setTabSize(_size);
+        area.setTabSize(_size);
     }
 
     public int getTabSize() {
-        return textArea.getTabSize();
+        return area.getTabSize();
     }
 
     public void setLineWrap(boolean _wrap) {
-        textArea.setLineWrap(_wrap);
+        area.setLineWrap(_wrap);
     }
 
     public boolean getLineWrap() {
-        return textArea.getLineWrap();
+        return area.getLineWrap();
     }
 
     public void setWrapStyleWord(boolean _word) {
-        textArea.setWrapStyleWord(_word);
+        area.setWrapStyleWord(_word);
     }
 
     public boolean getWrapStyleWord() {
-        return textArea.getWrapStyleWord();
+        return area.getWrapStyleWord();
     }
 
     public int getLineCount() {
-        return textArea.getLineCount();
+        return area.getLineCount();
     }
 
     public void insert(String _str, int _pos) {
@@ -57,11 +57,11 @@ public final class TextArea extends CustComponent implements AbsTextArea {
     }
 
     public void forceInsert(String _str, int _pos) {
-        textArea.insert(_str, _pos);
+        area.insert(_str, _pos);
     }
 
     public void append(String _str) {
-        textArea.append(_str);
+        area.append(_str);
     }
 
     public void replaceRange(String _str, int _start, int _end) {
@@ -69,27 +69,27 @@ public final class TextArea extends CustComponent implements AbsTextArea {
     }
 
     public void forceReplaceRange(String _str, int _start, int _end) {
-        textArea.replaceRange(_str, _start, _end);
+        area.replaceRange(_str, _start, _end);
     }
 
     public int getRows() {
-        return textArea.getRows();
+        return area.getRows();
     }
 
     public void setRows(int _rows) {
-        textArea.setRows(_rows);
+        area.setRows(_rows);
     }
 
     public int getColumns() {
-        return textArea.getColumns();
+        return area.getColumns();
     }
 
     public void setColumns(int _columns) {
-        textArea.setColumns(_columns);
+        area.setColumns(_columns);
     }
 
     public boolean getScrollableTracksViewportWidth() {
-        return textArea.getScrollableTracksViewportWidth();
+        return area.getScrollableTracksViewportWidth();
     }
 
     /*public void addCaretListener(CaretListener _listener) {
@@ -105,200 +105,200 @@ public final class TextArea extends CustComponent implements AbsTextArea {
     }*/
 
     public void setDragEnabled(boolean _b) {
-        textArea.setDragEnabled(_b);
+        area.setDragEnabled(_b);
     }
 
     public boolean getDragEnabled() {
-        return textArea.getDragEnabled();
+        return area.getDragEnabled();
     }
 
     public Color getCaretColor() {
-        return textArea.getCaretColor();
+        return area.getCaretColor();
     }
 
     public void setCaretColor(Color _c) {
-        textArea.setCaretColor(_c);
+        area.setCaretColor(_c);
     }
 
     public Color getSelectionColor() {
-        return textArea.getSelectionColor();
+        return area.getSelectionColor();
     }
 
     public void setSelectionColor(Color _c) {
-        textArea.setSelectionColor(_c);
+        area.setSelectionColor(_c);
     }
 
     public Color getSelectedTextColor() {
-        return textArea.getSelectedTextColor();
+        return area.getSelectedTextColor();
     }
 
     public void setSelectedTextColor(Color _c) {
-        textArea.setSelectedTextColor(_c);
+        area.setSelectedTextColor(_c);
     }
 
     public Color getDisabledTextColor() {
-        return textArea.getDisabledTextColor();
+        return area.getDisabledTextColor();
     }
 
     public void setDisabledTextColor(Color _c) {
-        textArea.setDisabledTextColor(_c);
+        area.setDisabledTextColor(_c);
     }
 
     public void replaceSelection(String _content) {
-        textArea.replaceSelection(_content);
+        area.replaceSelection(_content);
     }
 
     public void cut() {
-        textArea.cut();
+        area.cut();
     }
 
     public void copy() {
-        textArea.copy();
+        area.copy();
     }
 
     public void paste() {
-        textArea.paste();
+        area.paste();
     }
 
     public void moveCaretPosition(int _pos) {
-        textArea.moveCaretPosition(_pos);
+        area.moveCaretPosition(_pos);
     }
 
     public void setFocusAccelerator(char _aKey) {
-        textArea.setFocusAccelerator(_aKey);
+        area.setFocusAccelerator(_aKey);
     }
 
     public char getFocusAccelerator() {
-        return textArea.getFocusAccelerator();
+        return area.getFocusAccelerator();
     }
 
     public void setCaretPosition(int _position) {
-        textArea.setCaretPosition(_position);
+        area.setCaretPosition(_position);
     }
 
     public void setText(String _t) {
-        textArea.setText(_t);
+        area.setText(_t);
     }
 
     public String getText() {
-        return textArea.getText();
+        return area.getText();
     }
 
     public String getSelectedText() {
-        return textArea.getSelectedText();
+        return area.getSelectedText();
     }
 
     public boolean isEditable() {
-        return textArea.isEditable();
+        return area.isEditable();
     }
 
     public void setEditable(boolean _b) {
-        textArea.setEditable(_b);
+        area.setEditable(_b);
     }
 
     public void setSelectionStart(int _selectionStart) {
-        textArea.setSelectionStart(_selectionStart);
+        area.setSelectionStart(_selectionStart);
     }
 
     public void setSelectionEnd(int _selectionEnd) {
-        textArea.setSelectionEnd(_selectionEnd);
+        area.setSelectionEnd(_selectionEnd);
     }
 
     public void select(int _selectionStart, int _selectionEnd) {
-        textArea.select(_selectionStart, _selectionEnd);
+        area.select(_selectionStart, _selectionEnd);
     }
 
     public void selectAll() {
-        textArea.selectAll();
+        area.selectAll();
     }
 
     public boolean getScrollableTracksViewportHeight() {
-        return textArea.getScrollableTracksViewportHeight();
+        return area.getScrollableTracksViewportHeight();
     }
 
     public void setInheritsPopupMenu(boolean _value) {
-        textArea.setInheritsPopupMenu(_value);
+        area.setInheritsPopupMenu(_value);
     }
 
     public boolean getInheritsPopupMenu() {
-        return textArea.getInheritsPopupMenu();
+        return area.getInheritsPopupMenu();
     }
 
     public boolean isPaintingTile() {
-        return textArea.isPaintingTile();
+        return area.isPaintingTile();
     }
 
     public boolean isPaintingForPrint() {
-        return textArea.isPaintingForPrint();
+        return area.isPaintingForPrint();
     }
 
     public void setRequestFocusEnabled(boolean _requestFocusEnabled) {
-        textArea.setRequestFocusEnabled(_requestFocusEnabled);
+        area.setRequestFocusEnabled(_requestFocusEnabled);
     }
 
     public boolean isRequestFocusEnabled() {
-        return textArea.isRequestFocusEnabled();
+        return area.isRequestFocusEnabled();
     }
 
     public boolean requestFocus(boolean _temporary) {
-        return textArea.requestFocus(_temporary);
+        return area.requestFocus(_temporary);
     }
 
     public boolean requestFocusInWindow() {
-        return textArea.requestFocusInWindow();
+        return area.requestFocusInWindow();
     }
 
     public void grabFocus() {
-        textArea.grabFocus();
+        area.grabFocus();
     }
 
     public void setVerifyInputWhenFocusTarget(boolean _verifyInputWhenFocusTarget) {
-        textArea.setVerifyInputWhenFocusTarget(_verifyInputWhenFocusTarget);
+        area.setVerifyInputWhenFocusTarget(_verifyInputWhenFocusTarget);
     }
 
     public boolean getVerifyInputWhenFocusTarget() {
-        return textArea.getVerifyInputWhenFocusTarget();
+        return area.getVerifyInputWhenFocusTarget();
     }
 
     public boolean contains(int _x, int _y) {
-        return textArea.contains(_x, _y);
+        return area.contains(_x, _y);
     }
 
     public void resetKeyboardActions() {
-        textArea.resetKeyboardActions();
+        area.resetKeyboardActions();
     }
 
     public int getBaseline(int _width, int _height) {
-        return textArea.getBaseline(_width, _height);
+        return area.getBaseline(_width, _height);
     }
 
     public void setEnabled(boolean _enabled) {
-        textArea.setEnabled(_enabled);
+        area.setEnabled(_enabled);
     }
 
     public int getX() {
-        return textArea.getX();
+        return area.getX();
     }
 
     public int getY() {
-        return textArea.getY();
+        return area.getY();
     }
 
     @Override
     public JComponent getNatComponent() {
-        return textArea;
+        return area;
     }
 
     public int getCaretPosition() {
-        return textArea.getCaretPosition();
+        return area.getCaretPosition();
     }
 
     public boolean isEnabled() {
-        return textArea.isEnabled();
+        return area.isEnabled();
     }
 
     @Override
     public int viewToModel(MetaPoint _point) {
-        return textArea.viewToModel(new Point(_point.getXcoord(), _point.getYcoord()));
+        return area.viewToModel(new Point(_point.getXcoord(), _point.getYcoord()));
     }
 }

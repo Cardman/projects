@@ -54,7 +54,7 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
         }
     }
 
-    private boolean tryExit(DefaultInitializer _init, ContextEl _owner, StackCall _stack) {
+    private static boolean tryExit(DefaultInitializer _init, ContextEl _owner, StackCall _stack) {
         try {
             return _init.exitAfterCallInt(_owner, _stack);
         } catch (Exception e) {

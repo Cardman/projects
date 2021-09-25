@@ -27,8 +27,7 @@ public final class DefCustSelList<T> implements ListCellRenderer {
             Object _value,
             int _index,
             boolean _isSelected,
-            boolean _cellHasFocus)
-    {
+            boolean _cellHasFocus) {
         render.setList(list);
         render.getListCellRendererComponent(label,_index,_isSelected,_cellHasFocus);
         render.paintComponent(label);

@@ -25,8 +25,12 @@ public final class DefCustComboBox extends CustComponent implements GraphicCombo
     }
 
     public DefCustComboBox(StringList _list, int _selectedIndex) {
-        FrameUtil.feed(this,_list);
+        feed(_list);
         selectItem(_selectedIndex);
+    }
+
+    private void feed(StringList _list) {
+        FrameUtil.feed(this, _list);
     }
 
     public String getSelectedItem() {

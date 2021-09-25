@@ -2,7 +2,6 @@ package code.vi.sys.impl;
 
 import code.gui.initialize.*;
 
-import java.io.IOException;
 import java.net.Socket;
 
 public final class DefSocketFactory implements AbstractSocketFactory {

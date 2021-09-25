@@ -11,7 +11,7 @@ import code.util.IdMap;
 import javax.swing.*;
 import java.awt.*;
 
-public final class OtherFrame implements AbsOtherFrame, ChangeableTitle, WithListener {
+public final class OtherFrame implements AbsOtherFrame, ChangeableTitle {
 
     private AbstractImage imageIconFrame;
 
@@ -89,7 +89,7 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle, WithLis
         frame.setVisible(_v);
     }
     public void setJMenuBar(AbsMenuBar _menu) {
-        frame.setJMenuBar(((MenuBar) _menu).getMenuBar());
+        frame.setJMenuBar(((MenuBar) _menu).getMeBar());
     }
     @Override
     public void setContentPane(AbsPanel _p) {

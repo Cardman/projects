@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public final class Panel extends CustComponent implements AbsPanel {
 
-    private final JPanel panel;
+    private final JPanel pa;
 
     private Panel(LayoutManager _panel) {
         this(new JPanel(_panel));
@@ -24,7 +24,7 @@ public final class Panel extends CustComponent implements AbsPanel {
     }
 
     private Panel(JPanel _panel) {
-        panel = _panel;
+        pa = _panel;
     }
 
     public static Panel newAbsolute() {
@@ -45,19 +45,19 @@ public final class Panel extends CustComponent implements AbsPanel {
     public static Panel newPageBox() {
         JPanel inner_ = new JPanel();
         Panel panel_ = new Panel(inner_);
-        panel_.panel.setLayout(new BoxLayout(inner_, BoxLayout.PAGE_AXIS));
+        panel_.pa.setLayout(new BoxLayout(inner_, BoxLayout.PAGE_AXIS));
         return panel_;
     }
 
     public static Panel newLineBox() {
         JPanel inner_ = new JPanel();
         Panel panel_ = new Panel(inner_);
-        panel_.panel.setLayout(new BoxLayout(inner_, BoxLayout.LINE_AXIS));
+        panel_.pa.setLayout(new BoxLayout(inner_, BoxLayout.LINE_AXIS));
         return panel_;
     }
 
     public int getComponentCount() {
-        return panel.getComponentCount();
+        return pa.getComponentCount();
     }
 
     public AbsCustComponent getComponent(int _n) {
@@ -90,7 +90,7 @@ public final class Panel extends CustComponent implements AbsPanel {
     public void innerAdd(AbsCustComponent _comp, int _index) {
         _comp.setParent(this);
         getChildren().add(_index, _comp);
-        panel.add(((CustComponent) _comp).getNatComponent(), _index);
+        pa.add(((CustComponent) _comp).getNatComponent(), _index);
     }
 
     public void add(AbsMetaLabel _comp, String _constraints) {
@@ -103,13 +103,13 @@ public final class Panel extends CustComponent implements AbsPanel {
     public void innerAdd(AbsCustComponent _comp, String _constraints) {
         _comp.setParent(this);
         getChildren().add(_comp);
-        panel.add(((CustComponent) _comp).getNatComponent(), _constraints);
+        pa.add(((CustComponent) _comp).getNatComponent(), _constraints);
     }
 
     public void remove(int _index) {
         getChildren().get(_index).setParent(null);
         getChildren().remove(_index);
-        panel.remove(_index);
+        pa.remove(_index);
     }
 
     public int remove(AbsCustComponent _cust) {
@@ -118,7 +118,7 @@ public final class Panel extends CustComponent implements AbsPanel {
 
     public void innAdd(AbsCustComponent _c) {
         getChildren().add(_c);
-        panel.add(((CustComponent) _c).getNatComponent());
+        pa.add(((CustComponent) _c).getNatComponent());
     }
 
     public void removeAll() {
@@ -128,7 +128,7 @@ public final class Panel extends CustComponent implements AbsPanel {
 
     public void innerRemoveAll() {
         getChildren().clear();
-        panel.removeAll();
+        pa.removeAll();
     }
 
     public void repaintSecondChildren(AbstractImageFactory _fact) {
@@ -141,7 +141,7 @@ public final class Panel extends CustComponent implements AbsPanel {
 
     @Override
     public JComponent getNatComponent() {
-        return panel;
+        return pa;
     }
 
 }

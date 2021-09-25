@@ -3,7 +3,6 @@ package code.vi.sys.impl;
 import code.stream.core.AbstractZipStreamOut;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 

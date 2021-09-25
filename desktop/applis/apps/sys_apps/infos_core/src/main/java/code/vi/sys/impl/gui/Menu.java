@@ -9,18 +9,18 @@ public final class Menu implements AbsMenu {
     private AbsMenu parentMenu;
     private final IdList<EnabledMenu> subs = new IdList<EnabledMenu>();
 
-    private final JMenu menu;
+    private final JMenu meCo;
 
     public Menu() {
-        menu = new JMenu();
+        meCo = new JMenu();
     }
 
     public Menu(String _s, boolean _b) {
-        menu = new JMenu(_s, _b);
+        meCo = new JMenu(_s, _b);
     }
 
     public Menu(String _s) {
-        menu = new JMenu(_s);
+        meCo = new JMenu(_s);
     }
 
     @Override
@@ -40,58 +40,58 @@ public final class Menu implements AbsMenu {
 
     public void addMenuItem(AbsCheckBoxMenuItem _menuItem) {
         _menuItem.setParentMenu(this);
-        menu.add(((CheckBoxMenuItem)_menuItem).getMenu());
+        meCo.add(((CheckBoxMenuItem)_menuItem).getMenu());
         subs.add(_menuItem);
     }
     public void addMenuItem(AbsMenuItem _menuItem) {
         _menuItem.setParentMenu(this);
-        menu.add(((MenuItem)_menuItem).getMenu());
+        meCo.add(((MenuItem)_menuItem).getMenu());
         subs.add(_menuItem);
     }
     public void addMenuItem(AbsMenu _menuItem) {
         _menuItem.setParentMenu(this);
-        menu.add(((Menu)_menuItem).menu);
+        meCo.add(((Menu)_menuItem).meCo);
         subs.add(_menuItem);
     }
 
     public void removeMenuItem(AbsCheckBoxMenuItem _menuItem) {
         _menuItem.setParentMenu(null);
-        menu.remove(((CheckBoxMenuItem)_menuItem).getMenu());
+        meCo.remove(((CheckBoxMenuItem)_menuItem).getMenu());
         subs.removeObj(_menuItem);
     }
     public void removeMenuItem(AbsMenuItem _menuItem) {
         _menuItem.setParentMenu(null);
-        menu.remove(((MenuItem)_menuItem).getMenu());
+        meCo.remove(((MenuItem)_menuItem).getMenu());
         subs.removeObj(_menuItem);
     }
     public void removeMenuItem(AbsMenu _menuItem) {
         _menuItem.setParentMenu(null);
-        menu.remove(((Menu)_menuItem).menu);
+        meCo.remove(((Menu)_menuItem).meCo);
         subs.removeObj(_menuItem);
     }
-    JMenu getMenu() {
-        return menu;
+    JMenu getMeCo() {
+        return meCo;
     }
     @Override
     public void setEnabled(boolean _enabled) {
-        menu.setEnabled(_enabled);
+        meCo.setEnabled(_enabled);
     }
 
     @Override
     public String getText() {
-        return menu.getText();
+        return meCo.getText();
     }
 
     public void setText(String _val) {
-        menu.setText(_val);
+        meCo.setText(_val);
     }
 
     public boolean isEnabled() {
-        return menu.isEnabled();
+        return meCo.isEnabled();
     }
 
     public void addSeparator() {
-        menu.addSeparator();
+        meCo.addSeparator();
     }
 
     public EnabledMenu getItem(int _i) {
@@ -103,6 +103,6 @@ public final class Menu implements AbsMenu {
     }
 
     public int getItemCount() {
-        return menu.getItemCount();
+        return meCo.getItemCount();
     }
 }

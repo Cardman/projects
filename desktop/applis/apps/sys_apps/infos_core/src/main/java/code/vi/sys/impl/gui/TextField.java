@@ -11,62 +11,62 @@ import javax.swing.JTextField;
 
 public final class TextField extends CustComponent implements AbsTextField {
 
-    private final JTextField textField;
+    private final JTextField field;
 
     public TextField() {
-        textField = new JTextField();
+        field = new JTextField();
     }
     public TextField(int _nbCols) {
-        textField = new JTextField(_nbCols);
+        field = new JTextField(_nbCols);
     }
     public TextField(String _txt) {
-        textField = new JTextField(_txt);
+        field = new JTextField(_txt);
     }
     public TextField(String _txt,int _nbCols) {
-        textField = new JTextField(_txt,_nbCols);
+        field = new JTextField(_txt,_nbCols);
     }
 
     public void addActionListener(AbsActionListener _l) {
-        textField.addActionListener(new WrActionListener(_l));
+        field.addActionListener(new WrActionListener(_l));
     }
 
     public void addAutoComplete(AbsAutoCompleteListener _auto){
         WrAutoCompleteListener wr_ = new WrAutoCompleteListener(_auto);
-        textField.addFocusListener(wr_);
-        textField.getDocument().addDocumentListener(wr_);
+        field.addFocusListener(wr_);
+        field.getDocument().addDocumentListener(wr_);
     }
 
     public void setCaretPosition(int _position) {
-        textField.setCaretPosition(_position);
+        field.setCaretPosition(_position);
     }
 
     public void setText(String _t) {
-        textField.setText(_t);
+        field.setText(_t);
     }
 
     public String getText() {
-        return textField.getText();
+        return field.getText();
     }
 
     public void setEditable(boolean _b) {
-        textField.setEditable(_b);
+        field.setEditable(_b);
     }
 
     public void select(int _selectionStart, int _selectionEnd) {
-        textField.select(_selectionStart, _selectionEnd);
+        field.select(_selectionStart, _selectionEnd);
     }
 
     public void setEnabled(boolean _enabled) {
-        textField.setEnabled(_enabled);
+        field.setEnabled(_enabled);
     }
 
 
     @Override
     public JComponent getNatComponent() {
-        return textField;
+        return field;
     }
 
     public boolean isEnabled() {
-        return textField.isEnabled();
+        return field.isEnabled();
     }
 }

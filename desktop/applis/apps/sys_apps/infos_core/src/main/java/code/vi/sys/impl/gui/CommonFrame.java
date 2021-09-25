@@ -148,10 +148,10 @@ public final class CommonFrame implements AbsCommonFrame {
         return menuBar;
     }
     public void setJMenuBar(AbsMenuBar _menu) {
-        frame.setJMenuBar(((MenuBar)_menu).getMenuBar());
+        frame.setJMenuBar(((MenuBar)_menu).getMeBar());
         menuBar = _menu;
     }
-    protected JFrame getFrame() {
+    JFrame getFrame() {
         return frame;
     }
     @Override

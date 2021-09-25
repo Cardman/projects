@@ -11,52 +11,52 @@ import code.util.IdMap;
 import javax.swing.*;
 
 public final class RadioButton extends CustComponent implements AbsRadioButton {
-    private final JRadioButton radioButton;
+    private final JRadioButton radio;
     private final IdMap<AbsActionListener, WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
     private CustButtonGroup buttonGroup;
     public RadioButton() {
-        radioButton = new JRadioButton();
+        radio = new JRadioButton();
     }
     public RadioButton(String _text) {
-        radioButton = new JRadioButton(_text);
+        radio = new JRadioButton(_text);
     }
     public RadioButton(String _text,boolean _s) {
-        radioButton = new JRadioButton(_text,_s);
+        radio = new JRadioButton(_text,_s);
     }
 
     public String getText() {
-        return radioButton.getText();
+        return radio.getText();
     }
 
     public void setText(String _text) {
-        radioButton.setText(_text);
+        radio.setText(_text);
     }
 
     public boolean isSelected() {
-        return radioButton.isSelected();
+        return radio.isSelected();
     }
 
     public void setSelected(boolean _b) {
-        radioButton.setSelected(_b);
+        radio.setSelected(_b);
     }
 
     public void addChangeListener(AbsChangeListener _l) {
-        radioButton.addChangeListener(new WrChangeListener(_l));
+        radio.addChangeListener(new WrChangeListener(_l));
     }
 
     @Override
     public JComponent getNatComponent() {
-        return radioButton;
+        return radio;
     }
 
     public void addActionListener(AbsActionListener _list) {
         WrActionListener wr_ = new WrActionListener(_list);
-        radioButton.addActionListener(wr_);
+        radio.addActionListener(wr_);
         mapAction.addEntry(_list,wr_);
     }
 
     public void setEnabled(boolean _b) {
-        radioButton.setEnabled(_b);
+        radio.setEnabled(_b);
     }
 
     public CustButtonGroup getButtonGroup() {
@@ -68,6 +68,6 @@ public final class RadioButton extends CustComponent implements AbsRadioButton {
     }
 
     public boolean isEnabled() {
-        return radioButton.isEnabled();
+        return radio.isEnabled();
     }
 }

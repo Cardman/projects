@@ -11,7 +11,7 @@ import code.util.IdMap;
 import javax.swing.*;
 import java.awt.*;
 
-public final class OtherDialog implements AbsOtherDialog, ChangeableTitle, WithListener {
+public final class OtherDialog implements AbsOtherDialog, ChangeableTitle {
     private final JDialog dialog = new JDialog();
     private Ownable owner;
     private AbstractImage image;
@@ -130,6 +130,6 @@ public final class OtherDialog implements AbsOtherDialog, ChangeableTitle, WithL
     }
 
     public void setJMenuBar(AbsMenuBar _menuBar) {
-        dialog.setJMenuBar(((MenuBar) _menuBar).getMenuBar());
+        dialog.setJMenuBar(((MenuBar) _menuBar).getMeBar());
     }
 }

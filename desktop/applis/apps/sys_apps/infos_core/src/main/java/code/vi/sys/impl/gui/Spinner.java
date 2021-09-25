@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public final class Spinner extends CustComponent implements AbsSpinner {
 
-    private final JSpinner spinner;
+    private final JSpinner sp;
 
     private int min;
     private int max;
@@ -19,8 +19,12 @@ public final class Spinner extends CustComponent implements AbsSpinner {
         min = _min;
         max = _max;
         step = _step;
-        spinner = new JSpinner();
-        FrameUtil.initModel(this,_value, _min, _max, _step);
+        sp = new JSpinner();
+        model(_value, _min, _max, _step);
+    }
+
+    private void model(int _value, int _min, int _max, int _step) {
+        FrameUtil.initModel(this, _value, _min, _max, _step);
     }
 
     public void defValues() {
@@ -31,28 +35,28 @@ public final class Spinner extends CustComponent implements AbsSpinner {
 
     public void mod(int _value, int _min, int _max, int _step) {
         SpinnerNumberModel model_ = new SpinnerNumberModel(_value, _min, _max, _step);
-        spinner.setModel(model_);
+        sp.setModel(model_);
     }
 
     public int getValue() {
-        return (Integer) spinner.getValue();
+        return (Integer) sp.getValue();
     }
 
     public void addChangeListener(AbsChangeListener _listener) {
-        spinner.addChangeListener(new WrChangeListener(_listener));
+        sp.addChangeListener(new WrChangeListener(_listener));
     }
 
     public boolean isEnabled() {
-        return spinner.isEnabled();
+        return sp.isEnabled();
     }
 
     public void setEnabled(boolean _enabled) {
-        spinner.setEnabled(_enabled);
+        sp.setEnabled(_enabled);
     }
 
     @Override
     public JComponent getNatComponent() {
-        return spinner;
+        return sp;
     }
 
     public void setRange(int _min, int _max) {
