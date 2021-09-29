@@ -2662,37 +2662,37 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasCombo, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasComboGetListeners, params_, StringExpUtil.getPrettyArrayType(aliasListSelection), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComboGetListeners, params_, StringExpUtil.getPrettyArrayType(aliasListSelection), false, MethodModifier.FINAL, new FctComboGetListeners());
         methods_.add( method_);
         params_ = new StringList(aliasListSelection);
-        method_ = new StandardMethod(aliasComboAddListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboAddListener0()));
+        method_ = new StandardMethod(aliasComboAddListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboAddListener0()), new FctComboAddListener());
         methods_.add( method_);
         params_ = new StringList(aliasListSelection);
-        method_ = new StandardMethod(aliasComboRemoveListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboRemoveListener0()));
+        method_ = new StandardMethod(aliasComboRemoveListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboRemoveListener0()), new FctComboRemoveListener());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasComboAddItem, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0TabbedPaneAdd0()));
+        method_ = new StandardMethod(aliasComboAddItem, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0TabbedPaneAdd0()), new FctComboAddItem());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasComboSelectItem, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboSelectItem0()));
+        method_ = new StandardMethod(aliasComboSelectItem, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboSelectItem0()), new FctComboSelectItem());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasComboGetItemCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComboGetItemCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctComboGetItemCount());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasComboGetSelectedIndex, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComboGetSelectedIndex, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctComboGetSelectedIndex());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasComboGetSelectedIndexes, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger()), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComboGetSelectedIndexes, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger()), false, MethodModifier.FINAL,new FctComboGetSelectedIndexes());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasComboGetSelectedItem, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComboGetSelectedItem, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctComboGetSelectedItem());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasComboRemoveItem, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboRemoveItem0()));
+        method_ = new StandardMethod(aliasComboRemoveItem, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCombo0ComboRemoveItem0()), new FctComboRemoveItem());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasComboRemoveAllItems, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasComboRemoveAllItems, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctComboRemoveAllItems());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -4758,57 +4758,6 @@ public final class GuiAliases {
             }
             inst_.add(this, _cont, _guiEx, _stackCall, ((NumberStruct)_args[0]).intStruct(),_args[1]);
             res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasCombo)) {
-            GraphicComboStruct inst_ = (GraphicComboStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasComboAddListener)) {
-                inst_.addListener(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasComboRemoveListener)) {
-                inst_.removeListener(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasComboGetListeners)) {
-                res_.setResult(inst_.getListeners(_cont));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasComboGetSelectedIndexes)) {
-                res_.setResult(inst_.getSelectedIndexes(_cont));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasComboGetSelectedIndex)) {
-                res_.setResult(inst_.getSelectedIndex());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasComboGetSelectedItem)) {
-                res_.setResult(inst_.getSelectedItem());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasComboAddItem)) {
-                inst_.addItem(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasComboSelectItem)) {
-                inst_.selectItem((NumberStruct) _args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasComboRemoveItem)) {
-                inst_.removeItem(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasComboRemoveAllItems)) {
-                inst_.removeAllItems();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            res_.setResult(inst_.getItemCount());
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
