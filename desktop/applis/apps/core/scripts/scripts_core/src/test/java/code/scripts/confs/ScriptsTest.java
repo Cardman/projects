@@ -7,6 +7,7 @@ import code.scripts.messages.cards.*;
 import code.scripts.messages.gui.*;
 import code.scripts.pages.aiki.*;
 import code.scripts.pages.cards.*;
+import code.scripts.imgs.cards.*;
 import org.junit.Test;
 
 public final class ScriptsTest extends EquallableScriptsUtil {

@@ -16,7 +16,7 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.images.BaseSixtyFourUtil;
-import code.scripts.pages.cards.CardsInit;
+import code.scripts.imgs.cards.CardsInit;
 import code.stream.StreamTextFile;
 import code.util.core.StringUtil;
 

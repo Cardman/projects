@@ -6,7 +6,7 @@ import cards.gui.dialogs.help.HelpIndexes;
 import code.gui.AbsMenuItem;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.confs.HelpScriptPages;
-import code.scripts.pages.cards.CardsInit;
+import code.scripts.imgs.cards.CardsInit;
 import code.scripts.pages.cards.HelpCards;
 import code.sml.Document;
 import code.sml.Element;
