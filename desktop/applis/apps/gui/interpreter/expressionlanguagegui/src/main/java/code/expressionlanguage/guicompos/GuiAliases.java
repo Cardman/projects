@@ -4763,7 +4763,7 @@ public final class GuiAliases {
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
     }
 
-    protected static void processFailInit(ContextEl _cont, CustAliases _custAliases, StackCall _stackCall) {
+    private static void processFailInit(ContextEl _cont, CustAliases _custAliases, StackCall _stackCall) {
         _custAliases.processFailInit(_cont, _stackCall);
     }
     private void wrapAndCall(ContextEl _cont, CustList<Argument> _args, ExecTypeFunction _pair, StackCall _stackCall) {
@@ -5811,7 +5811,7 @@ public final class GuiAliases {
         ref_.addEntry(SLIDER,getAliasSlider());
         return ref_;
     }
-    protected static String tr(String _var, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {
+    private static String tr(String _var, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {
         CustList<String> allKeysWords_ = _keyWords.allKeyWords().values();
         allKeysWords_.addAllElts(_primitiveTypes.getKeys());
         allKeysWords_.add(_coreNames.getAliasVoid());
