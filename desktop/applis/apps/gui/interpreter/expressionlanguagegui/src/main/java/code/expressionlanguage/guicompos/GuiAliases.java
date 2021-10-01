@@ -1448,7 +1448,7 @@ public final class GuiAliases {
         return propertiesGui.getVal(_file);
     }
 
-    public void buildOther(LgNamesContent _content, CustAliases _cust) {
+    public void buildOther(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
         CustList<CstFieldInfo> fields_;
         StringList params_;
         StandardMethod method_;
@@ -2340,7 +2340,7 @@ public final class GuiAliases {
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasImage0Image0(),guiAliasParameters.getAliasImage0Image1(),guiAliasParameters.getAliasImage0Image2()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasImage, stdcl_);
-        buildInputs(_content);
+        buildInputs(_content,_guiEx);
         buildMenus(_content);
     }
     private void buildEvents(LgNamesContent _content) {
@@ -2558,7 +2558,7 @@ public final class GuiAliases {
         _content.getStandards().addEntry(aliasMenuItemCheck, stdcl_);
 
     }
-    private void buildInputs(LgNamesContent _content) {
+    private void buildInputs(LgNamesContent _content, GuiExecutingBlocks _guiEx) {
         CustList<StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;
         CustList<CstFieldInfo> fields_;
@@ -2599,58 +2599,58 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasGrList, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetRender, params_, aliasRender, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListGetRender, params_, aliasRender, false, MethodModifier.FINAL, new FctGrListGetRender());
         methods_.add( method_);
         params_ = new StringList(aliasRender);
-        method_ = new StandardMethod(aliasGrListSetRender, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetRender0()));
+        method_ = new StandardMethod(aliasGrListSetRender, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetRender0()), new FctGrListSetRender());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetSelections, params_, StringExpUtil.getPrettyArrayType(aliasListSelection), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListGetSelections, params_, StringExpUtil.getPrettyArrayType(aliasListSelection), false, MethodModifier.FINAL, new FctGrListGetSelections());
         methods_.add( method_);
         params_ = new StringList(aliasListSelection);
-        method_ = new StandardMethod(aliasGrListAddSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListAddSelection0()));
+        method_ = new StandardMethod(aliasGrListAddSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListAddSelection0()), new FctGrListAddSelection());
         methods_.add( method_);
         params_ = new StringList(aliasListSelection);
-        method_ = new StandardMethod(aliasGrListRemoveSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListRemoveSelection0()));
+        method_ = new StandardMethod(aliasGrListRemoveSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListRemoveSelection0()), new FctGrListRemoveSelection());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetVisibleRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListGetVisibleRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctGrListGetVisibleRowCount());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGrListSetVisibleRowCount, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetVisibleRowCount0()));
+        method_ = new StandardMethod(aliasGrListSetVisibleRowCount, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetVisibleRowCount0()), new FctGrListSetVisibleRowCount());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0TabbedPaneAdd0(),guiAliasParameters.getAliasGrList0TabbedPaneAdd1()));
+        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0TabbedPaneAdd0(),guiAliasParameters.getAliasGrList0TabbedPaneAdd1()), new FctGrListAdd0(this,_guiEx));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasImageLabel,_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList1TabbedPaneAdd0(),guiAliasParameters.getAliasGrList1TabbedPaneAdd1(),guiAliasParameters.getAliasGrList1TabbedPaneAdd2()));
+        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList1TabbedPaneAdd0(),guiAliasParameters.getAliasGrList1TabbedPaneAdd1(),guiAliasParameters.getAliasGrList1TabbedPaneAdd2()), new FctGrListAdd1());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList1TreeNodeSetUserObject0(),guiAliasParameters.getAliasGrList1TreeNodeSetUserObject1()));
+        method_ = new StandardMethod(aliasGrListSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList1TreeNodeSetUserObject0(),guiAliasParameters.getAliasGrList1TreeNodeSetUserObject1()), new FctGrListSet0(this,_guiEx));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasImageLabel,_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasGrListSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0TreeNodeSetUserObject0(),guiAliasParameters.getAliasGrList0TreeNodeSetUserObject1(),guiAliasParameters.getAliasGrList0TreeNodeSetUserObject2()));
+        method_ = new StandardMethod(aliasGrListSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0TreeNodeSetUserObject0(),guiAliasParameters.getAliasGrList0TreeNodeSetUserObject1(),guiAliasParameters.getAliasGrList0TreeNodeSetUserObject2()), new FctGrListSet1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetListView, params_, StringExpUtil.getPrettyArrayType(_content.getCoreNames().getAliasObject()), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListGetListView, params_, StringExpUtil.getPrettyArrayType(_content.getCoreNames().getAliasObject()), false, MethodModifier.FINAL, new FctGrListGetListView());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetSelectedIndexes, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger()), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListGetSelectedIndexes, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger()), false, MethodModifier.FINAL, new FctGrListGetSelectedIndexes());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGrListSetSelectedIndexes, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetSelectedIndexes0()));
+        method_ = new StandardMethod(aliasGrListSetSelectedIndexes, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetSelectedIndexes0()), new FctGrListSetSelectedIndexes(this,_guiEx));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListClearSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListClearSelection, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctGrListClearSelection(this,_guiEx));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListUpdateGraphics, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListUpdateGraphics, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctGrListUpdateGraphics());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGrListRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0RemoveCompo0()));
+        method_ = new StandardMethod(aliasGrListRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0RemoveCompo0()), new FctGrListRemove());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListClear, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGrListClear, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctGrListClear());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasGrList0GrList0()));
@@ -4672,92 +4672,6 @@ public final class GuiAliases {
                 return res_;
             }
             res_.setResult(image_.getWidth());
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasGrList)) {
-            GraphicListStruct inst_ = (GraphicListStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasGrListAddSelection)) {
-                inst_.addListener(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListRemoveSelection)) {
-                inst_.removeListener(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListGetSelections)) {
-                res_.setResult(inst_.getListeners(_cont));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListSetVisibleRowCount)) {
-                inst_.setVisibleRowCount(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListGetVisibleRowCount)) {
-                res_.setResult(inst_.getVisibleRowCount());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListSetRender)) {
-                inst_.setRender((GuiContextEl) _cont, _args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListGetRender)) {
-                res_.setResult(inst_.getRender());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListGetListView)) {
-                res_.setResult(inst_.getListView(_cont));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListGetSelectedIndexes)) {
-                res_.setResult(inst_.getSelectedIndexes(_cont));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListRemove)){
-                inst_.remove(((NumberStruct)_args[0]).intStruct());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListClear)){
-                inst_.clear();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListSetSelectedIndexes)) {
-                inst_.setSelectedIndexes(this, _cont, _guiEx, _stackCall, _args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListClearSelection)) {
-                inst_.clearSelection(this, _cont, _guiEx, _stackCall);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListUpdateGraphics)) {
-                inst_.updateGraphics();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGrListSet)) {
-                if (_method.getConstraints().getParametersTypesLength() == 3) {
-                    inst_.set(((NumberStruct)_args[0]).intStruct(),_args[1],_args[2]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                inst_.set(this, _cont, _guiEx, _stackCall, ((NumberStruct)_args[0]).intStruct(),_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (_method.getConstraints().getParametersTypesLength() == 3) {
-                inst_.add(((NumberStruct)_args[0]).intStruct(),_args[1],_args[2]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            inst_.add(this, _cont, _guiEx, _stackCall, ((NumberStruct)_args[0]).intStruct(),_args[1]);
-            res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);

@@ -51,7 +51,7 @@ public final class GraphicListStruct extends InputStruct {
         args_.add(new Argument(_elt));
         wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintAdd(), _stackCall);
     }
-    void updateGraphics() {
+    public void updateGraphics() {
         grList.updateGraphics();
     }
     public void set(int _index, Struct _img, Struct _elt) {

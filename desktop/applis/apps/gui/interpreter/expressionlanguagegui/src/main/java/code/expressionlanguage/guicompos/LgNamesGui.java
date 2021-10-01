@@ -39,7 +39,7 @@ public class LgNamesGui extends LgNamesUtils {
 
     public void buildOther() {
         getCustAliases().buildOther(getContent());
-        guiAliases.buildOther(getContent(),getCustAliases());
+        guiAliases.buildOther(getContent(),getCustAliases(),getGuiExecutingBlocks());
     }
 
     public Struct getInnerSimpleResult(ClassField _classField) {
