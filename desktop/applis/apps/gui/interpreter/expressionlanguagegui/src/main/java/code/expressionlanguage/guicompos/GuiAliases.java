@@ -2572,24 +2572,24 @@ public final class GuiAliases {
         stdcl_ = new StandardClass(aliasRender, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         String typeHeight_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",aliasGrList,",",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimBoolean(),",",_content.getPrimTypes().getAliasPrimInteger(),","+_content.getPrimTypes().getAliasPrimInteger()+">");
         params_ = new StringList();
-        method_ = new StandardMethod(aliasRenderGetHeight, params_, typeHeight_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRenderGetHeight, params_, typeHeight_, false, MethodModifier.FINAL, new FctRenderGetHeight());
         methods_.add( method_);
         params_ = new StringList(typeHeight_);
-        method_ = new StandardMethod(aliasRenderSetHeight, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0RenderSetHeight0()));
+        method_ = new StandardMethod(aliasRenderSetHeight, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0RenderSetHeight0()), new FctRenderSetHeight());
         methods_.add( method_);
         String typeWidth_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",aliasGrList,",",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimBoolean(),",",_content.getPrimTypes().getAliasPrimInteger(),","+_content.getPrimTypes().getAliasPrimInteger()+">");
         params_ = new StringList();
-        method_ = new StandardMethod(aliasRenderGetWidth, params_, typeWidth_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRenderGetWidth, params_, typeWidth_, false, MethodModifier.FINAL, new FctRenderGetWidth());
         methods_.add( method_);
         params_ = new StringList(typeWidth_);
-        method_ = new StandardMethod(aliasRenderSetWidth, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0RenderSetWidth0()));
+        method_ = new StandardMethod(aliasRenderSetWidth, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0RenderSetWidth0()), new FctRenderSetWidth());
         methods_.add( method_);
         String typePaint_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",aliasGrList,",",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimBoolean(),",",aliasImage,",?>");
         params_ = new StringList();
-        method_ = new StandardMethod(aliasRenderGetPaint, params_, typePaint_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRenderGetPaint, params_, typePaint_, false, MethodModifier.FINAL, new FctRenderGetPaint());
         methods_.add( method_);
         params_ = new StringList(typePaint_);
-        method_ = new StandardMethod(aliasRenderSetPaint, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0ComponentSetPaint0()));
+        method_ = new StandardMethod(aliasRenderSetPaint, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRender0ComponentSetPaint0()), new FctRenderSetPaint());
         methods_.add( method_);
         _content.getStandards().addEntry(aliasRender, stdcl_);
 
@@ -4644,34 +4644,6 @@ public final class GuiAliases {
                 return res_;
             }
             res_.setResult(inst_.isReorderingAllowed());
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasRender)) {
-            RenderStruct image_ = (RenderStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasRenderSetPaint)) {
-                image_.setPaint(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasRenderSetWidth)) {
-                image_.setWidth(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasRenderSetHeight)) {
-                image_.setHeight(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasRenderGetPaint)) {
-                res_.setResult(image_.getPaint());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasRenderGetHeight)) {
-                res_.setResult(image_.getHeight());
-                return res_;
-            }
-            res_.setResult(image_.getWidth());
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
