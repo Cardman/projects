@@ -36,7 +36,6 @@ private static final short Y1 = (short)1;
 private static final short Y2 = (short)2;
 private static final short Y3 = (short)3;
 private static final short Y4 = (short)4;
-private static final short Y5 = (short)5;
 private static final short P0 = (short)0;
 private static final short P1 = (short)1;
 private static final short P2 = (short)2;

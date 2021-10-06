@@ -481,8 +481,7 @@ m26abilityData_.setImmuStatus(m26stringMapStringList_);
 return m26abilityData_;
 }
 static AbilityData m23(){
-AbilityData m27abilityData_ = Instances.newAbilityData();
-return m27abilityData_;
+return Instances.newAbilityData();
 }
 static AbilityData m24(){
 AbilityData m28abilityData_ = Instances.newAbilityData();
