@@ -90,7 +90,7 @@ m.addEntry("resources_cards/images/TRUMP_8.txt",ImTrump8.en());
 m.addEntry("resources_cards/images/TRUMP_9.txt",ImTrump9.en());
 return m;
 }
-static StringMap<String> fr(){
+private static StringMap<String> fr(){
 StringMap<String> m = new StringMap<String>(new CollCapacity(78));
 m.addEntry("resources_cards/images/CLUB_1.txt",ImClub1.fr());
 m.addEntry("resources_cards/images/CLUB_10.txt",ImClub10.fr());
