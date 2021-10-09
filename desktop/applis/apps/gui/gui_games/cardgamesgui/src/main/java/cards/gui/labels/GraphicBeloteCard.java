@@ -34,7 +34,7 @@ public final class GraphicBeloteCard extends AbsMetaLabel {
         this(_lg,_i,_fullCard, _compoFactory);
         peindreCarte = true;
         card=_pc;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(_lg).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
@@ -73,7 +73,7 @@ public final class GraphicBeloteCard extends AbsMetaLabel {
         card=_pc;
         peinte=false;
         peindreCarte=true;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(CardsInit.ms().getVal(_lg).getVal(StringUtil.concat(FileConst.RESOURCES_IMAGES,
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
 //        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringUtil.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
 //                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));

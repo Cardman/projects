@@ -36,7 +36,7 @@ public final class HelpInitializer implements Runnable {
     public void run() {
         StringMap<Document> docs_ = HelpScriptPages.docs();
         StringMap<Document> built_ = HelpCards.build();
-        StringMap<String> ms_ = CardsInit.ms();
+        StringMap<StringMap<String>> ms_ = CardsInit.ms();
         for (String l:Constants.getAvailableLanguages()) {
             ObjectMap<HelpIndexes,ElementHelp> tree_ = new ObjectMap<HelpIndexes,ElementHelp>();
             Document doc_ = HelpScriptConfPages.infoLg().getVal(l);
@@ -55,7 +55,7 @@ public final class HelpInitializer implements Runnable {
                     element_.getTagName(), FileConst.XML_EXT));
             Document docBase_ = docs_.getVal(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l, StreamTextFile.SEPARATEUR,
                     element_.getTagName(), FileConst.XML_EXT));
-            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(l, docBase_, built_, ms_);
+            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(l, docBase_, built_, ms_.getVal(l));
             prep_.run();
             elementRacine_.setMetaDocument(prep_.getMetaDocument());
             elementRacine_.setNavigation(prep_.getNavigation());
@@ -86,7 +86,7 @@ public final class HelpInitializer implements Runnable {
                                     .parseInt(e2_.getAttribute(
                                             POSITION)));
                             nouveauxCheminsNum_.add(cheminNumCourantBis_);
-                            prep_ = new PreparedRenderPagesCards(l, docGene_, built_, ms_);
+                            prep_ = new PreparedRenderPagesCards(l, docGene_, built_, ms_.getVal(l));
                             prep_.run();
                             noeud_.setMetaDocument(prep_.getMetaDocument());
                             noeud_.setNavigation(prep_.getNavigation());
