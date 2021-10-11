@@ -94,6 +94,8 @@ Text txt24_=tx(_doc,"Si le fichier est accessible en lecture, alors la partie (Q
 ad(elt38_,txt24_);
 Element elt39_=el(_doc,"br");
 ad(elt38_,elt39_);
+ad(elt37_,elt38_);
+ad(elt1_,elt37_);
 Text txt27_=tx(_doc,"Les donnes sont v&#233;rifi&#233;es au niveau des r&#232;gles pour &#233;viter les probl&#232;mes.");
 ad(elt1_,txt27_);
 Element elt42_=el(_doc,"br");

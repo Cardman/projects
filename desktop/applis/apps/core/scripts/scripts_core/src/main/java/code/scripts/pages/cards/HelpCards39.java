@@ -94,6 +94,8 @@ Text txt22_=tx(_doc,"If the file is readable, then the deal (Either a simple dea
 ad(elt35_,txt22_);
 Element elt36_=el(_doc,"br");
 ad(elt35_,elt36_);
+ad(elt34_,elt35_);
+ad(elt1_,elt34_);
 Text txt25_=tx(_doc,"Deals are checked about rules for avoiding bugs.");
 ad(elt1_,txt25_);
 Element elt39_=el(_doc,"br");
