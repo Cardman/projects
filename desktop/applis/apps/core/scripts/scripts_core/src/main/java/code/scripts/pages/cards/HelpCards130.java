@@ -12,7 +12,7 @@ return doc_;
 static void build(Document _doc){
 Element elt0_=el(_doc,"html");
 Element elt1_=el(_doc,"body");
-Text txt0_=tx(_doc,"Editer Raccourci CTRL + E");
+Text txt0_=tx(_doc,"Editer Raccourci CTRL + E:");
 ad(elt1_,txt0_);
 Element elt2_=el(_doc,"br");
 ad(elt1_,elt2_);

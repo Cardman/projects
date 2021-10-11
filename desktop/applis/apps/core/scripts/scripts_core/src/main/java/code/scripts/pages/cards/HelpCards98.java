@@ -108,8 +108,6 @@ Element elt30_=el(_doc,"br");
 ad(elt1_,elt30_);
 Element elt31_=el(_doc,"br");
 ad(elt1_,elt31_);
-Element elt32_=el(_doc,"br");
-ad(elt1_,elt32_);
 Text txt18_=tx(_doc,"Diff&#233;rence d''un joueur = valeur limite pour le joueur - nombre de points marqu&#233;s dans les plis.");
 ad(elt1_,txt18_);
 Element elt33_=el(_doc,"br");

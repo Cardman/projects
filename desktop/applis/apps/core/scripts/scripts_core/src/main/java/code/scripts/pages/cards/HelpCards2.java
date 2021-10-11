@@ -64,8 +64,6 @@ Element elt17_=el(_doc,"br");
 ad(elt14_,elt17_);
 Text txt10_=tx(_doc,"&#160;One''s takes the \"top\" card and bidding is stopped in order to go to play cards.");
 ad(elt14_,txt10_);
-Element elt18_=el(_doc,"br");
-ad(elt14_,elt18_);
 ad(elt11_,elt14_);
 ad(elt1_,elt11_);
 Element elt19_=el(_doc,"br");

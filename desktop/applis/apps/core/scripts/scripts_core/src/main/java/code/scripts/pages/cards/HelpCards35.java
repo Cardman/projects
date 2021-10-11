@@ -12,14 +12,10 @@ return doc_;
 static void build(Document _doc){
 Element elt0_=el(_doc,"html");
 Element elt1_=el(_doc,"body");
-Text txt0_=tx(_doc,"Displaying end of deal is done on the window,");
+Text txt0_=tx(_doc,"Displaying end of deal is done on the window, by a tabbed pane, so no dialog box.");
 ad(elt1_,txt0_);
 Element elt2_=el(_doc,"br");
 ad(elt1_,elt2_);
-Text txt1_=tx(_doc,"by a tabbed pane, so no dialog box.");
-ad(elt1_,txt1_);
-Element elt3_=el(_doc,"br");
-ad(elt1_,elt3_);
 Text txt2_=tx(_doc,"Tabs are the following one:");
 ad(elt1_,txt2_);
 Element elt4_=el(_doc,"br");
