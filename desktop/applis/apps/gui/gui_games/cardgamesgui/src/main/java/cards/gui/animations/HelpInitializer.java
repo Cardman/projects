@@ -44,7 +44,7 @@ public final class HelpInitializer implements Runnable {
             CustList<Node> noeudsActuels_ = new CustList<Node>();
             noeudsActuels_.add(element_);
             StringList cheminsActuels_ = new StringList();
-            cheminsActuels_.add(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l,StreamTextFile.SEPARATEUR,element_.getTagName()));
+            cheminsActuels_.add(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,element_.getTagName()));
             HelpIndexes indices_ = new HelpIndexes();
             indices_.add(NumberUtil.parseInt(element_.getAttribute(POSITION)));
             CustList<HelpIndexes> cheminsNumeriquesActuels_ = new CustList<HelpIndexes>();
@@ -53,7 +53,7 @@ public final class HelpInitializer implements Runnable {
                     .getAttribute(TEXTE));
             elementRacine_.ajouterInfo(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l, StreamTextFile.SEPARATEUR,
                     element_.getTagName(), FileConst.XML_EXT));
-            Document docBase_ = docs_.getVal(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l, StreamTextFile.SEPARATEUR,
+            Document docBase_ = docs_.getVal(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,
                     element_.getTagName(), FileConst.XML_EXT));
             PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(l, docBase_, built_, ms_.getVal(l));
             prep_.run();
