@@ -67,4 +67,10 @@ public interface AbsCustComponent {
     String getToolTipText();
     void validate();
     void revalidate();
+    void top();
+    void bottom();
+    void centerVert();
+    void left();
+    void right();
+    void centerHoriz();
 }

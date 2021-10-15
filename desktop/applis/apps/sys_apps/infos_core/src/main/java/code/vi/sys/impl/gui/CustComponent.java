@@ -351,4 +351,33 @@ public abstract class CustComponent implements AbsCustComponent {
         getNatComponent().revalidate();
     }
 
+    @Override
+    public void top() {
+        getNatComponent().setAlignmentY(Component.TOP_ALIGNMENT);
+    }
+
+    @Override
+    public void bottom() {
+        getNatComponent().setAlignmentY(Component.BOTTOM_ALIGNMENT);
+    }
+
+    @Override
+    public void centerVert() {
+        getNatComponent().setAlignmentY(Component.CENTER_ALIGNMENT);
+    }
+
+    @Override
+    public void left() {
+        getNatComponent().setAlignmentX(Component.LEFT_ALIGNMENT);
+    }
+
+    @Override
+    public void right() {
+        getNatComponent().setAlignmentX(Component.RIGHT_ALIGNMENT);
+    }
+
+    @Override
+    public void centerHoriz() {
+        getNatComponent().setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
 }
