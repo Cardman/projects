@@ -1,86 +1,36 @@
 package code.scripts.pages.cards;
-import code.sml.*;
-import code.util.*;
-import code.util.ints.*;
-final class HelpCards140{
+final class HelpCards140 extends HelpCardsCommon{
 private HelpCards140(){}
-static Document build(){
-FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-build(doc_);
-return doc_;
+static String en(){
+String e="";
+e+=M_69_0+"=You will find all functions of the software.\n";
+e+=M_69_1+"=The software owns a menu bar with five menus.\n";
+e+=M_69_2+"=While the first launch of the software, you can access\n";
+e+=M_69_3+"=the buttons \"Single player mode\" and \"Multi players mode\".\n";
+e+=M_69_4+"=This the default launch.\n";
+e+=M_69_5+"=By having chosen one of the two modes, you then choose the game that you want to play.\n";
+e+=M_69_6+"=Besides, dialog boxes are accessible by certain sub menus.\n";
+e+=M_69_7+"=For playing in \"Multi players mode\", you must choose the number of players then create a server which lets other people play with you.\n";
+e+=M_69_8+"=You have to give your IP address to other players.\n";
+e+=M_69_9+"=In \"Multi players mode\", each person must choose a place before beginning.\n";
+e+=M_69_10+"=Information about net deal is visible only all players (not robots) are in the same team for avoiding cheeting.\n";
+e+=M_69_11+"=Other people can join after the end of the deal.\n";
+return e;
 }
-static void build(Document _doc){
-Element elt0_=el(_doc,"html");
-Element elt1_=el(_doc,"body");
-Text txt0_=tx(_doc,"Vous trouverez toutes les fonctionnalites du logiciel.");
-ad(elt1_,txt0_);
-Element elt2_=el(_doc,"br");
-ad(elt1_,elt2_);
-Text txt1_=tx(_doc,"Le logiciel poss&#232;de une barre de menus avec cinq menus.");
-ad(elt1_,txt1_);
-Element elt3_=el(_doc,"br");
-ad(elt1_,elt3_);
-Text txt2_=tx(_doc,"Lors du premier lancement du logiciel vous avez devant");
-ad(elt1_,txt2_);
-Element elt4_=el(_doc,"br");
-ad(elt1_,elt4_);
-Text txt3_=tx(_doc,"vous les boutons \"Mode solo\" et \"Mode multi joueurs\".");
-ad(elt1_,txt3_);
-Element elt5_=el(_doc,"br");
-ad(elt1_,elt5_);
-Text txt4_=tx(_doc,"C''est le lancement par d&#233;faut.");
-ad(elt1_,txt4_);
-Element elt6_=el(_doc,"br");
-ad(elt1_,elt6_);
-Text txt5_=tx(_doc,"En ayant choisi un des deux modes, vous choisissez en suite le jeu auquel vous voulez jouer.");
-ad(elt1_,txt5_);
-Element elt7_=el(_doc,"br");
-ad(elt1_,elt7_);
-Text txt6_=tx(_doc,"De plus, des bo&#238;tes de dialogues sont accessibles par certains sous menus.");
-ad(elt1_,txt6_);
-Element elt8_=el(_doc,"br");
-ad(elt1_,elt8_);
-Element elt9_=el(_doc,"br");
-ad(elt1_,elt9_);
-Text txt7_=tx(_doc,"Pour jouer en \"Mode multi joueurs\", vous devez choisir le nombre de joueurs puis cr&#233;er un serveur qui va permettre &#224; d''autres personnes de jouer avec vous.");
-ad(elt1_,txt7_);
-Element elt10_=el(_doc,"br");
-ad(elt1_,elt10_);
-Text txt8_=tx(_doc,"Il faudra que vous donniez votre adresse IP aux autres joueurs.");
-ad(elt1_,txt8_);
-Element elt11_=el(_doc,"br");
-ad(elt1_,elt11_);
-Text txt9_=tx(_doc,"En \"Mode multi joueurs\", chaque personne doit choisir sa place avant de commencer.");
-ad(elt1_,txt9_);
-Element elt12_=el(_doc,"br");
-ad(elt1_,elt12_);
-Text txt10_=tx(_doc,"Il n''est possible de voir toutes les informations de la partie en r&#233;seau que si tous les joueurs sont dans la m&#234;me &#233;quipe pour &#233;viter de la tricherie.");
-ad(elt1_,txt10_);
-Element elt13_=el(_doc,"br");
-ad(elt1_,elt13_);
-Text txt11_=tx(_doc,"D''autres personnes peuvent se joindre apr&#232;s la fin de la partie.");
-ad(elt1_,txt11_);
-Element elt14_=el(_doc,"br");
-ad(elt1_,elt14_);
-ad(elt0_,elt1_);
-_doc.appendChild(elt0_);
-}
-static Attr at(String _name,String _value){
-return CoreDocument.createAttribute(_name,_value);
-}
-static void at(Element _elt,CustList<Attr> _ls){
-_elt.setAttributes(new NamedNodeMap(_ls));
-}
-static CustList<Attr> al(int _len){
-return new CustList<Attr>(new CollCapacity(_len));
-}
-static Text tx(Document _doc,String _value){
-return _doc.createEscapedTextNode(_value);
-}
-static Element el(Document _doc,String _value){
-return _doc.createElement(_value);
-}
-static void ad(Element _elt,Node _value){
-_elt.appendChild(_value);
+static String fr(){
+String f="";
+f+=M_69_0+"=Vous trouverez toutes les fonctionnalites du logiciel.\n";
+f+=M_69_1+"=Le logiciel poss&#232;de une barre de menus avec cinq menus.\n";
+f+=M_69_2+"=Lors du premier lancement du logiciel vous avez devant\n";
+f+=M_69_3+"=vous les boutons \"Mode solo\" et \"Mode multi joueurs\".\n";
+f+=M_69_4+"=C''est le lancement par d&#233;faut.\n";
+f+=M_69_5+"=En ayant choisi un des deux modes, vous choisissez en suite le jeu auquel vous voulez jouer.\n";
+f+=M_69_6+"=De plus, des bo&#238;tes de dialogues sont accessibles par certains sous menus.\n";
+f+=M_69_7+"=Pour jouer en \"Mode multi joueurs\", vous devez choisir le nombre de joueurs puis cr&#233;er un serveur qui va permettre &#224; d''autres personnes de jouer avec vous.\n";
+f+=M_69_8+"=Il faudra que vous donniez votre adresse IP aux autres joueurs.\n";
+f+=M_69_9+"=En \"Mode multi joueurs\", chaque personne doit choisir sa place avant de commencer.\n";
+f+=M_69_10+"=Il n''est possible de voir toutes les informations de la partie en r&#233;seau que si tous les joueurs sont dans la m&#234;me &#233;quipe pour &#233;viter de la tricherie.\n";
+f+=M_69_11+"=D''autres personnes peuvent se joindre apr&#232;s la fin de la partie.\n";
+return f;
 }
 }

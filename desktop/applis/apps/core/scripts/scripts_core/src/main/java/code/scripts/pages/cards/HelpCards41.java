@@ -2,7 +2,8 @@ package code.scripts.pages.cards;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class HelpCards41{
+final class HelpCards41 extends HelpCardsCommon{
+
 private HelpCards41(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -10,99 +11,81 @@ build(doc_);
 return doc_;
 }
 static void build(Document _doc){
-Element elt0_=el(_doc,"html");
-Element elt1_=el(_doc,"body");
-Text txt0_=tx(_doc,"Save a deal (raccourci: CTRL + S):");
+Element elt0_=el(_doc,HTML);
+Element elt1_=el(_doc,BODY);
+Element txt0_=tx(_doc,M_41_0);
 ad(elt1_,txt0_);
-Element elt2_=el(_doc,"br");
+Element elt2_=el(_doc,BR);
 ad(elt1_,elt2_);
-Text txt1_=tx(_doc,"The action of the sub menu \"Save a deal\" shows a dialog box.");
+Element txt1_=tx(_doc,M_41_1);
 ad(elt1_,txt1_);
-Element elt3_=el(_doc,"br");
+Element elt3_=el(_doc,BR);
 ad(elt1_,elt3_);
-Text txt2_=tx(_doc,"This sub menu lets save a deal in progress as soon as possible.");
+Element txt2_=tx(_doc,M_41_2);
 ad(elt1_,txt2_);
-Element elt4_=el(_doc,"br");
+Element elt4_=el(_doc,BR);
 ad(elt1_,elt4_);
-Text txt3_=tx(_doc,"The user can play this deal later. Besides, if the user plays a \"TriaCartes\", the user can save the deal in progress.");
+Element txt3_=tx(_doc,M_41_3);
 ad(elt1_,txt3_);
-Element elt5_=el(_doc,"br");
+Element elt5_=el(_doc,BR);
 ad(elt1_,elt5_);
-Text txt5_=tx(_doc,"The dialog box set the relative path of the folder for saving regarding the deal in progress.");
+Element txt5_=tx(_doc,M_41_4);
 ad(elt1_,txt5_);
-Element elt8_=el(_doc,"br");
+Element elt8_=el(_doc,BR);
 ad(elt1_,elt8_);
-Text txt6_=tx(_doc,"Files can be sorted:");
+Element txt6_=tx(_doc,M_41_5);
 ad(elt1_,txt6_);
-Element elt9_=el(_doc,"br");
+Element elt9_=el(_doc,BR);
 ad(elt1_,elt9_);
-Element elt10_=el(_doc,"ol");
-Element elt11_=el(_doc,"li");
-Text txt7_=tx(_doc,"by alphabetic order of name of file.");
+Element elt10_=el(_doc,OL);
+Element elt11_=el(_doc,LI);
+Element txt7_=tx(_doc,M_41_6);
 ad(elt11_,txt7_);
 ad(elt10_,elt11_);
-Element elt12_=el(_doc,"li");
-Text txt8_=tx(_doc,"by order of modification date of file.");
+Element elt12_=el(_doc,LI);
+Element txt8_=tx(_doc,M_41_7);
 ad(elt12_,txt8_);
 ad(elt10_,elt12_);
-Element elt13_=el(_doc,"li");
-Text txt9_=tx(_doc,"by order of size of file.");
+Element elt13_=el(_doc,LI);
+Element txt9_=tx(_doc,M_41_8);
 ad(elt13_,txt9_);
 ad(elt10_,elt13_);
 ad(elt1_,elt10_);
-Element elt14_=el(_doc,"br");
+Element elt14_=el(_doc,BR);
 ad(elt1_,elt14_);
-Text txt10_=tx(_doc,"The user will not have to add the extension of the file after its name.");
+Element txt10_=tx(_doc,M_41_9);
 ad(elt1_,txt10_);
-Element elt15_=el(_doc,"br");
+Element elt15_=el(_doc,BR);
 ad(elt1_,elt15_);
-Element elt16_=el(_doc,"br");
+Element elt16_=el(_doc,BR);
 ad(elt1_,elt16_);
-Text txt11_=tx(_doc,"The user, for saving the deal, after typing a name, will be able to click either the button \"Save\", or press the key \"Enter\".");
+Element txt11_=tx(_doc,M_41_10);
 ad(elt1_,txt11_);
-Element elt17_=el(_doc,"br");
+Element elt17_=el(_doc,BR);
 ad(elt1_,elt17_);
-Text txt13_=tx(_doc,"The button \"Cancel\" lets close the dialog box.");
+Element txt13_=tx(_doc,M_41_11);
 ad(elt1_,txt13_);
-Element elt20_=el(_doc,"br");
+Element elt20_=el(_doc,BR);
 ad(elt1_,elt20_);
-Element elt21_=el(_doc,"br");
+Element elt21_=el(_doc,BR);
 ad(elt1_,elt21_);
-Text txt14_=tx(_doc,"If the user tries to use the characters < > ? \" * / \\ | : ., the line return, the tabulations, then an error message appears.");
+Element txt14_=tx(_doc,M_41_12);
 ad(elt1_,txt14_);
-Element elt22_=el(_doc,"br");
+Element elt22_=el(_doc,BR);
 ad(elt1_,elt22_);
-Element elt23_=el(_doc,"br");
+Element elt23_=el(_doc,BR);
 ad(elt1_,elt23_);
-Text txt15_=tx(_doc,"If the user tries to create a save file containing only spaces (With Windows), then an error message appears.");
+Element txt15_=tx(_doc,M_41_13);
 ad(elt1_,txt15_);
-Element elt24_=el(_doc,"br");
+Element elt24_=el(_doc,BR);
 ad(elt1_,elt24_);
-Element elt25_=el(_doc,"br");
+Element elt25_=el(_doc,BR);
 ad(elt1_,elt25_);
-Text txt16_=tx(_doc,"If the user tries to save a deal in a deal whose name already exists, then a warning message appears.");
+Element txt16_=tx(_doc,M_41_14);
 ad(elt1_,txt16_);
-Element elt26_=el(_doc,"br");
+Element elt26_=el(_doc,BR);
 ad(elt1_,elt26_);
 ad(elt0_,elt1_);
 _doc.appendChild(elt0_);
-}
-static Attr at(String _name,String _value){
-return CoreDocument.createAttribute(_name,_value);
-}
-static void at(Element _elt,CustList<Attr> _ls){
-_elt.setAttributes(new NamedNodeMap(_ls));
-}
-static CustList<Attr> al(int _len){
-return new CustList<Attr>(new CollCapacity(_len));
-}
-static Text tx(Document _doc,String _value){
-return _doc.createEscapedTextNode(_value);
-}
-static Element el(Document _doc,String _value){
-return _doc.createElement(_value);
-}
-static void ad(Element _elt,Node _value){
-_elt.appendChild(_value);
 }
 }

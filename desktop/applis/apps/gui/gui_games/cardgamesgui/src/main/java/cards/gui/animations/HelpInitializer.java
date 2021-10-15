@@ -40,6 +40,7 @@ public final class HelpInitializer implements Runnable {
         StringMap<Configuration> cf_ = HelpScriptPages.cf();
         StringMap<DualConfigurationContext> ct_ = HelpScriptPagesImgs.ct();
         StringMap<Document> built_ = HelpCards.build();
+        StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
         StringMap<StringMap<String>> ms_ = CardsInit.ms();
         for (String l:Constants.getAvailableLanguages()) {
             ObjectMap<HelpIndexes,ElementHelp> tree_ = new ObjectMap<HelpIndexes,ElementHelp>();
@@ -50,7 +51,7 @@ public final class HelpInitializer implements Runnable {
             StringList cheminsActuels_ = new StringList();
             cheminsActuels_.add(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,element_.getTagName()));
             StringList cheminsActuelsLg_ = new StringList();
-            cheminsActuelsLg_.add(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l, StreamTextFile.SEPARATEUR,element_.getTagName()));
+            cheminsActuelsLg_.add(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,element_.getTagName()));
             HelpIndexes indices_ = new HelpIndexes();
             indices_.add(NumberUtil.parseInt(element_.getAttribute(POSITION)));
             CustList<HelpIndexes> cheminsNumeriquesActuels_ = new CustList<HelpIndexes>();
@@ -61,9 +62,12 @@ public final class HelpInitializer implements Runnable {
                     element_.getTagName(), FileConst.XML_EXT));
             String concat_ = StringUtil.concat(FileConst.RESOURCES_HELP, StreamTextFile.SEPARATEUR,
                     element_.getTagName(), FileConst.XML_EXT);
-            String first_ = StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l, StreamTextFile.SEPARATEUR,
+            String first_ = StringUtil.concat(FileConst.RESOURCES_HELP, StreamTextFile.SEPARATEUR,
                     element_.getTagName(), ".html");
-            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(l, built_, ms_.getVal(l), cf_.getVal(concat_), ct_.getVal(concat_), first_);
+            StringMap<String> un_ = new StringMap<String>();
+            un_.addAllEntries(ms_.getVal(l));
+            un_.addAllEntries(builtMs_.getVal(l));
+            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(l, built_, un_, cf_.getVal(concat_), ct_.getVal(concat_), first_);
             prep_.run();
             elementRacine_.setMetaDocument(prep_.getMetaDocument());
             elementRacine_.setNavigation(prep_.getNavigation());
@@ -100,7 +104,7 @@ public final class HelpInitializer implements Runnable {
                             String first2_ = StringUtil.concat(
                                     ch_, StreamTextFile.SEPARATEUR,
                                     e2_.getTagName(), ".html");
-                            prep_ = new PreparedRenderPagesCards(l, built_, ms_.getVal(l), cf_.getVal(concat2_), ct_.getVal(concat2_), first2_);
+                            prep_ = new PreparedRenderPagesCards(l, built_, un_, cf_.getVal(concat2_), ct_.getVal(concat2_), first2_);
                             prep_.run();
                             noeud_.setMetaDocument(prep_.getMetaDocument());
                             noeud_.setNavigation(prep_.getNavigation());

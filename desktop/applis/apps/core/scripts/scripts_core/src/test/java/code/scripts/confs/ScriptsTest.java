@@ -60,6 +60,7 @@ public final class ScriptsTest extends EquallableScriptsUtil {
     public void cards(){
         assertNotNull(PageCards.build());
         assertNotNull(HelpCards.build());
+        assertNotNull(HelpCards.ms());
         assertNotNull(CardsInit.ms());
         assertNotNull(MessagesCommonCommon.ms());
         assertNotNull(MessagesSymbolSymbolCards.ms());
