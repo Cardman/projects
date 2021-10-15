@@ -2,7 +2,6 @@ package cards.gui.animations;
 
 import code.bean.help.HelpCaller;
 import code.bean.help.HelpContextEl;
-import code.bean.nat.NativeConfigurationLoader;
 import code.expressionlanguage.exec.InitPhase;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
@@ -16,28 +15,29 @@ import code.util.consts.Constants;
 public final class PreparedRenderPagesCards {
 
     private final StringMap<String> ms;
+    private final Configuration session;
+    private final String firstUrl;
     private MetaDocument metaDocument;
     private final StringMap<Document> built;
     private final String lg;
-    private final Document document;
     private Navigation navigation;
 
-    public PreparedRenderPagesCards(String _lg, Document _document, StringMap<Document> _built, StringMap<String> _ms) {
+    private final DualConfigurationContext contextConf;
+    public PreparedRenderPagesCards(String _lg, StringMap<Document> _built, StringMap<String> _ms, Configuration _session, DualConfigurationContext _contextConf, String _firstUrl) {
         lg = _lg;
-        document = _document;
         built = _built;
         ms = _ms;
+        session = _session;
+        contextConf = _contextConf;
+        firstUrl = _firstUrl;
     }
 
     public void run() {
         navigation= new Navigation();
-        getNavigation().setSession(new Configuration());
+        getNavigation().setSession(session);
         getNavigation().setLanguage(lg);
         getNavigation().setLanguages(Constants.getAvailableLanguages());
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(null,null);
-        DualConfigurationContext contextConf_ = new DualConfigurationContext();
-        nat_.specificLoadBegin(navigation.getSession(), document,contextConf_);
-        RendStackCall rendStackCall_ = textSt(contextConf_, getNavigation(), realPath(getNavigation()), built.getVal(realPath(getNavigation())), ms);
+        RendStackCall rendStackCall_ = textSt(contextConf, getNavigation(), realPath(getNavigation()), built.getVal(firstUrl), ms);
         Document doc_ = rendStackCall_.getDocument();
         metaDocument = MetaDocument.newInstance(doc_, getNavigation().getSession().getRendKeyWords());
     }

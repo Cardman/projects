@@ -91,7 +91,8 @@ public final class ScriptsTest extends EquallableScriptsUtil {
     @Test
     public void help() {
         assertNotNull(HelpScriptConfPages.infoLg());
-        assertNotNull(HelpScriptPages.docs());
+        assertNotNull(HelpScriptPages.cf());
+        assertNotNull(HelpScriptPagesImgs.ct());
     }
     @Test
     public void global(){

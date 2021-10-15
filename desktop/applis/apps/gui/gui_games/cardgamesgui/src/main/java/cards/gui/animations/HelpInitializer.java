@@ -3,9 +3,12 @@ package cards.gui.animations;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
+import code.formathtml.Configuration;
+import code.formathtml.util.DualConfigurationContext;
 import code.gui.AbsMenuItem;
 import code.scripts.confs.HelpScriptConfPages;
 import code.scripts.confs.HelpScriptPages;
+import code.scripts.confs.HelpScriptPagesImgs;
 import code.scripts.imgs.cards.CardsInit;
 import code.scripts.pages.cards.HelpCards;
 import code.sml.Document;
@@ -34,7 +37,8 @@ public final class HelpInitializer implements Runnable {
     }
     @Override
     public void run() {
-        StringMap<Document> docs_ = HelpScriptPages.docs();
+        StringMap<Configuration> cf_ = HelpScriptPages.cf();
+        StringMap<DualConfigurationContext> ct_ = HelpScriptPagesImgs.ct();
         StringMap<Document> built_ = HelpCards.build();
         StringMap<StringMap<String>> ms_ = CardsInit.ms();
         for (String l:Constants.getAvailableLanguages()) {
@@ -45,6 +49,8 @@ public final class HelpInitializer implements Runnable {
             noeudsActuels_.add(element_);
             StringList cheminsActuels_ = new StringList();
             cheminsActuels_.add(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,element_.getTagName()));
+            StringList cheminsActuelsLg_ = new StringList();
+            cheminsActuelsLg_.add(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l, StreamTextFile.SEPARATEUR,element_.getTagName()));
             HelpIndexes indices_ = new HelpIndexes();
             indices_.add(NumberUtil.parseInt(element_.getAttribute(POSITION)));
             CustList<HelpIndexes> cheminsNumeriquesActuels_ = new CustList<HelpIndexes>();
@@ -53,9 +59,11 @@ public final class HelpInitializer implements Runnable {
                     .getAttribute(TEXTE));
             elementRacine_.ajouterInfo(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l, StreamTextFile.SEPARATEUR,
                     element_.getTagName(), FileConst.XML_EXT));
-            Document docBase_ = docs_.getVal(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,
-                    element_.getTagName(), FileConst.XML_EXT));
-            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(l, docBase_, built_, ms_.getVal(l));
+            String concat_ = StringUtil.concat(FileConst.RESOURCES_HELP, StreamTextFile.SEPARATEUR,
+                    element_.getTagName(), FileConst.XML_EXT);
+            String first_ = StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,l, StreamTextFile.SEPARATEUR,
+                    element_.getTagName(), ".html");
+            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(l, built_, ms_.getVal(l), cf_.getVal(concat_), ct_.getVal(concat_), first_);
             prep_.run();
             elementRacine_.setMetaDocument(prep_.getMetaDocument());
             elementRacine_.setNavigation(prep_.getNavigation());
@@ -63,9 +71,11 @@ public final class HelpInitializer implements Runnable {
             while (true) {
                 CustList<Node> nouveauxElements_ = new CustList<Node>();
                 StringList nouveauxChemins_ = new StringList();
+                StringList nouveauxCheminsLg_ = new StringList();
                 CustList<HelpIndexes> nouveauxCheminsNum_ = new CustList<HelpIndexes>();
                 int j_ = IndexConstants.FIRST_INDEX;
                 for (Node e : noeudsActuels_) {
+                    String ch_ = cheminsActuelsLg_.get(j_);
                     String cheminCourant_ = cheminsActuels_.get(j_);
                     HelpIndexes cheminNumCourant_ = cheminsNumeriquesActuels_
                             .get(j_);
@@ -75,10 +85,11 @@ public final class HelpInitializer implements Runnable {
                                     .getAttribute(TEXTE));
                             nouveauxChemins_.add(StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
                                     e2_.getTagName()));
-                            noeud_.ajouterInfo(StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
-                                    e2_.getTagName(), FileConst.XML_EXT));
-                            Document docGene_ = docs_.getVal(StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
-                                    e2_.getTagName(), FileConst.XML_EXT));
+                            nouveauxCheminsLg_.add(StringUtil.concat(ch_, StreamTextFile.SEPARATEUR,
+                                    e2_.getTagName()));
+                            String concat2_ = StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
+                                    e2_.getTagName(), FileConst.XML_EXT);
+                            noeud_.ajouterInfo(concat2_);
                             nouveauxElements_.add(e2_);
                             HelpIndexes cheminNumCourantBis_ = new HelpIndexes(
                                     cheminNumCourant_);
@@ -86,7 +97,10 @@ public final class HelpInitializer implements Runnable {
                                     .parseInt(e2_.getAttribute(
                                             POSITION)));
                             nouveauxCheminsNum_.add(cheminNumCourantBis_);
-                            prep_ = new PreparedRenderPagesCards(l, docGene_, built_, ms_.getVal(l));
+                            String first2_ = StringUtil.concat(
+                                    ch_, StreamTextFile.SEPARATEUR,
+                                    e2_.getTagName(), ".html");
+                            prep_ = new PreparedRenderPagesCards(l, built_, ms_.getVal(l), cf_.getVal(concat2_), ct_.getVal(concat2_), first2_);
                             prep_.run();
                             noeud_.setMetaDocument(prep_.getMetaDocument());
                             noeud_.setNavigation(prep_.getNavigation());
@@ -101,6 +115,7 @@ public final class HelpInitializer implements Runnable {
                 }
                 noeudsActuels_ = nouveauxElements_;
                 cheminsActuels_ = nouveauxChemins_;
+                cheminsActuelsLg_ = nouveauxCheminsLg_;
                 cheminsNumeriquesActuels_ = nouveauxCheminsNum_;
             }
             trees.addEntry(l,tree_);
