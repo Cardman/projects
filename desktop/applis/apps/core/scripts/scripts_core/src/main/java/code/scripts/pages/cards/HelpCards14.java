@@ -11,7 +11,7 @@ build(doc_);
 return doc_;
 }
 static void build(Document _doc){
-Element elt0_=el(_doc,HTML);
+Element elt00_=el(_doc,HTML);
 Element elt1_=el(_doc,BODY);
 Element elt2_=el(_doc,BR);
 ad(elt1_,elt2_);
@@ -163,7 +163,7 @@ ad(elt6_,elt7_);
 ad(elt1_,elt6_);
 Element elt34_=el(_doc,BR);
 ad(elt1_,elt34_);
-ad(elt0_,elt1_);
-_doc.appendChild(elt0_);
+ad(elt00_,elt1_);
+_doc.appendChild(elt00_);
 }
 }

@@ -11,7 +11,6 @@ import code.formathtml.util.DualConfigurationContext;
 import code.sml.Document;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.core.StringUtil;
 
 public final class PreparedRenderPagesCards {
@@ -27,7 +26,7 @@ public final class PreparedRenderPagesCards {
     private Navigation navigation;
 
     private final DualConfigurationContext contextConf;
-    public PreparedRenderPagesCards(String _lg, StringMap<Document> _built, StringMap<String> _ms, Configuration _session, DualConfigurationContext _contextConf, String _firstUrl) {
+    public PreparedRenderPagesCards(StringMap<Document> _built, StringMap<String> _ms, Configuration _session, DualConfigurationContext _contextConf, String _firstUrl) {
         lg = "";
         built = _built;
         ms = _ms;

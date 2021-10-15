@@ -50,8 +50,6 @@ public final class HelpInitializer implements Runnable {
             noeudsActuels_.add(element_);
             StringList cheminsActuels_ = new StringList();
             cheminsActuels_.add(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,element_.getTagName()));
-            StringList cheminsActuelsLg_ = new StringList();
-            cheminsActuelsLg_.add(StringUtil.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,element_.getTagName()));
             HelpIndexes indices_ = new HelpIndexes();
             indices_.add(NumberUtil.parseInt(element_.getAttribute(POSITION)));
             CustList<HelpIndexes> cheminsNumeriquesActuels_ = new CustList<HelpIndexes>();
@@ -67,7 +65,7 @@ public final class HelpInitializer implements Runnable {
             StringMap<String> un_ = new StringMap<String>();
             un_.addAllEntries(ms_.getVal(l));
             un_.addAllEntries(builtMs_.getVal(l));
-            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(l, built_, un_, cf_.getVal(concat_), ct_.getVal(concat_), first_);
+            PreparedRenderPagesCards prep_ = new PreparedRenderPagesCards(built_, un_, cf_.getVal(concat_), ct_.getVal(concat_), first_);
             prep_.run();
             elementRacine_.setMetaDocument(prep_.getMetaDocument());
             elementRacine_.setNavigation(prep_.getNavigation());
@@ -75,11 +73,9 @@ public final class HelpInitializer implements Runnable {
             while (true) {
                 CustList<Node> nouveauxElements_ = new CustList<Node>();
                 StringList nouveauxChemins_ = new StringList();
-                StringList nouveauxCheminsLg_ = new StringList();
                 CustList<HelpIndexes> nouveauxCheminsNum_ = new CustList<HelpIndexes>();
                 int j_ = IndexConstants.FIRST_INDEX;
                 for (Node e : noeudsActuels_) {
-                    String ch_ = cheminsActuelsLg_.get(j_);
                     String cheminCourant_ = cheminsActuels_.get(j_);
                     HelpIndexes cheminNumCourant_ = cheminsNumeriquesActuels_
                             .get(j_);
@@ -88,8 +84,6 @@ public final class HelpInitializer implements Runnable {
                             ElementHelp noeud_ = new ElementHelp(e2_
                                     .getAttribute(TEXTE));
                             nouveauxChemins_.add(StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
-                                    e2_.getTagName()));
-                            nouveauxCheminsLg_.add(StringUtil.concat(ch_, StreamTextFile.SEPARATEUR,
                                     e2_.getTagName()));
                             String concat2_ = StringUtil.concat(cheminCourant_, StreamTextFile.SEPARATEUR,
                                     e2_.getTagName(), FileConst.XML_EXT);
@@ -102,9 +96,9 @@ public final class HelpInitializer implements Runnable {
                                             POSITION)));
                             nouveauxCheminsNum_.add(cheminNumCourantBis_);
                             String first2_ = StringUtil.concat(
-                                    ch_, StreamTextFile.SEPARATEUR,
+                                    cheminCourant_, StreamTextFile.SEPARATEUR,
                                     e2_.getTagName(), ".html");
-                            prep_ = new PreparedRenderPagesCards(l, built_, un_, cf_.getVal(concat2_), ct_.getVal(concat2_), first2_);
+                            prep_ = new PreparedRenderPagesCards(built_, un_, cf_.getVal(concat2_), ct_.getVal(concat2_), first2_);
                             prep_.run();
                             noeud_.setMetaDocument(prep_.getMetaDocument());
                             noeud_.setNavigation(prep_.getNavigation());
@@ -119,7 +113,6 @@ public final class HelpInitializer implements Runnable {
                 }
                 noeudsActuels_ = nouveauxElements_;
                 cheminsActuels_ = nouveauxChemins_;
-                cheminsActuelsLg_ = nouveauxCheminsLg_;
                 cheminsNumeriquesActuels_ = nouveauxCheminsNum_;
             }
             trees.addEntry(l,tree_);
