@@ -274,20 +274,20 @@ private static final String M_YES="yes";
 private static final char SEP='=';
 private MessTarotPage(){}
 public static StringMap<String> ms(){
-StringMap<String> m = new StringMap<String>();
-m.addEntry("resources_cards/css/tarot.css",css());
-m.addEntry("resources_cards/messages/en/messages_tarot.properties",en());
-m.addEntry("resources_cards/messages/fr/messages_tarot.properties",fr());
-return m;
+StringMap<String> t = new StringMap<String>();
+t.addEntry("resources_cards/css/tarot.css",css());
+t.addEntry("resources_cards/messages/en/messages_tarot.properties",en());
+t.addEntry("resources_cards/messages/fr/messages_tarot.properties",fr());
+return t;
 }
 static String css(){
-String f="h1 {\n";
-f+="\tcolor: #0000FF;\n";
-f+="}\n";
-f+="td,caption{\n";
-f+="\tborder:1px solid black;\n";
-f+="}\n";
-return f;
+String t="h1 {\n";
+t+="\tcolor: #0000FF;\n";
+t+="}\n";
+t+="td,caption{\n";
+t+="\tborder:1px solid black;\n";
+t+="}\n";
+return t;
 }
 static String en(){
 String f=M_WIN+SEP+C_0_2_0;

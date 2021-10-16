@@ -73,17 +73,17 @@ private static final String M_YES="yes";
 private static final char SEP='=';
 private MessPresidentPage(){}
 public static StringMap<String> ms(){
-StringMap<String> m = new StringMap<String>();
-m.addEntry("resources_cards/css/president.css",css());
-m.addEntry("resources_cards/messages/en/messages_president.properties",en());
-m.addEntry("resources_cards/messages/fr/messages_president.properties",fr());
-return m;
+StringMap<String> p = new StringMap<String>();
+p.addEntry("resources_cards/css/president.css",css());
+p.addEntry("resources_cards/messages/en/messages_president.properties",en());
+p.addEntry("resources_cards/messages/fr/messages_president.properties",fr());
+return p;
 }
 static String css(){
-String f="h1 {\n";
-f+="\tcolor: #0000FF;\n";
-f+="}\n";
-return f;
+String p="h1 {\n";
+p+="\tcolor: #0000FF;\n";
+p+="}\n";
+return p;
 }
 static String en(){
 String f=M_WIN+SEP+C_0_1_0;

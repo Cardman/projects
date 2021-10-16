@@ -127,17 +127,17 @@ private static final String M_YES="yes";
 private static final char SEP='=';
 private MessBelotePage(){}
 public static StringMap<String> ms(){
-StringMap<String> m = new StringMap<String>();
-m.addEntry("resources_cards/css/belote.css",css());
-m.addEntry("resources_cards/messages/en/messages_belote.properties",en());
-m.addEntry("resources_cards/messages/fr/messages_belote.properties",fr());
-return m;
+StringMap<String> b = new StringMap<String>();
+b.addEntry("resources_cards/css/belote.css",css());
+b.addEntry("resources_cards/messages/en/messages_belote.properties",en());
+b.addEntry("resources_cards/messages/fr/messages_belote.properties",fr());
+return b;
 }
 static String css(){
-String f="h1 {\n";
-f+="\tcolor: #0000FF;\n";
-f+="}\n";
-return f;
+String b="h1 {\n";
+b+="\tcolor: #0000FF;\n";
+b+="}\n";
+return b;
 }
 static String en(){
 String f=M_WIN+SEP+C_0_0_0;
