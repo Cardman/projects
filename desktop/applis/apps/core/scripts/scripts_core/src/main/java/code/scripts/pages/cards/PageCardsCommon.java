@@ -48,8 +48,8 @@ _elt.setAttributes(new NamedNodeMap(_ls));
 static CustList<Attr> al(int _len){
 return new CustList<Attr>(new CollCapacity(_len));
 }
-static Text tx(Document _doc,String _value){
-return _doc.createEscapedTextNode(_value);
+static Text tx(Document _doc,String _v){
+return _doc.createEscapedTextNode(_v);
 }
 static Element el(Document _doc,String _value){
 return _doc.createElement(_value);
