@@ -2,7 +2,28 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataItemsHealingpp{
+final class PageDataItemsHealingpp extends PageAikiCommon{
+private static final String C_P_124_0="javahtml";
+private static final String C_P_124_1="healingpp";
+private static final String C_P_124_2="msg_item,title";
+private static final String C_P_124_3="displayName";
+private static final String C_P_124_4="web/css/items.css";
+private static final String C_P_124_5="stylesheet";
+private static final String C_P_124_6="text/css";
+private static final String C_P_124_7="{healingItemBean}";
+private static final String C_P_124_8="aiki.beans.items";
+private static final String C_P_124_9="ItemBean";
+private static final String C_P_124_10="$intern.name=name";
+private static final String C_P_124_11="healingAllMovesPp";
+private static final String C_P_124_12="msg_healingpp,full_heal_moves";
+private static final String C_P_124_13="healingMoveFullpp";
+private static final String C_P_124_14="msg_healingpp,full_heal_move";
+private static final String C_P_124_15="limitedPpMove()";
+private static final String C_P_124_16="msg_healingpp,heal_move";
+private static final String C_P_124_17="healedMovePp";
+private static final String C_P_124_18="limitedPpMoves()";
+private static final String C_P_124_19="msg_healingpp,heal_moves";
+private static final String C_P_124_20="healingAllMovesFullpp";
 private PageDataItemsHealingpp(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -10,54 +31,54 @@ build(doc_);
 return doc_;
 }
 static void build(Document _doc){
-Element elt0_=el(_doc,"html");
+Element elt0_=el(_doc,HTML);
 CustList<Attr> attrs0_=al(2);
-attrs0_.add(at("xmlns:c","javahtml"));
-attrs0_.add(at("c:bean","healingpp"));
+attrs0_.add(at(XMLNS_C,C_P_124_0));
+attrs0_.add(at(C_BEAN,C_P_124_1));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"head");
-Element elt2_=el(_doc,"title");
-Element elt3_=el(_doc,"c:message");
+Element elt1_=el(_doc,HEAD);
+Element elt2_=el(_doc,TITLE);
+Element elt3_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("value","msg_item,title"));
+attrs1_.add(at(VALUE,C_P_124_2));
 at(elt3_,attrs1_);
-Element elt4_=el(_doc,"param");
+Element elt4_=el(_doc,PARAM);
 CustList<Attr> attrs2_=al(1);
-attrs2_.add(at("value","displayName"));
+attrs2_.add(at(VALUE,C_P_124_3));
 at(elt4_,attrs2_);
 ad(elt3_,elt4_);
 ad(elt2_,elt3_);
 ad(elt1_,elt2_);
-Element elt5_=el(_doc,"link");
+Element elt5_=el(_doc,LINK);
 CustList<Attr> attrs3_=al(3);
-attrs3_.add(at("href","web/css/items.css"));
-attrs3_.add(at("rel","stylesheet"));
-attrs3_.add(at("type","text/css"));
+attrs3_.add(at(HREF,C_P_124_4));
+attrs3_.add(at(REL,C_P_124_5));
+attrs3_.add(at(TYPE,C_P_124_6));
 at(elt5_,attrs3_);
 ad(elt1_,elt5_);
 ad(elt0_,elt1_);
-Element elt6_=el(_doc,"body");
+Element elt6_=el(_doc,BODY);
 build0(elt6_,_doc);
 build1(elt6_,_doc);
 ad(elt0_,elt6_);
 _doc.appendChild(elt0_);
 }
 static void build0(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:import");
+Element elt0_=el(_doc,C_IMPORT);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("page","{healingItemBean}"));
+attrs0_.add(at(PAGE,C_P_124_7));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"c:package");
+Element elt1_=el(_doc,C_PACKAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("name","aiki.beans.items"));
+attrs1_.add(at(NAME,C_P_124_8));
 at(elt1_,attrs1_);
-Element elt2_=el(_doc,"c:class");
+Element elt2_=el(_doc,C_CLASS);
 CustList<Attr> attrs2_=al(1);
-attrs2_.add(at("name","ItemBean"));
+attrs2_.add(at(NAME,C_P_124_9));
 at(elt2_,attrs2_);
-Element elt3_=el(_doc,"c:field");
+Element elt3_=el(_doc,C_FIELD);
 CustList<Attr> attrs3_=al(1);
-attrs3_.add(at("prepare","$intern.name=name"));
+attrs3_.add(at(PREPARE,C_P_124_10));
 at(elt3_,attrs3_);
 ad(elt2_,elt3_);
 ad(elt1_,elt2_);
@@ -65,75 +86,57 @@ ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
 static void build1(Element _body,Document _doc){
-Element elt0_=el(_doc,"p");
-Element elt1_=el(_doc,"c:if");
+Element elt0_=el(_doc,P);
+Element elt1_=el(_doc,C_IF);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","healingAllMovesPp"));
+attrs0_.add(at(CONDITION,C_P_124_11));
 at(elt1_,attrs0_);
-Element elt2_=el(_doc,"c:message");
+Element elt2_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("value","msg_healingpp,full_heal_moves"));
+attrs1_.add(at(VALUE,C_P_124_12));
 at(elt2_,attrs1_);
 ad(elt1_,elt2_);
 ad(elt0_,elt1_);
-Element elt3_=el(_doc,"c:if");
+Element elt3_=el(_doc,C_IF);
 CustList<Attr> attrs2_=al(1);
-attrs2_.add(at("condition","healingMoveFullpp"));
+attrs2_.add(at(CONDITION,C_P_124_13));
 at(elt3_,attrs2_);
-Element elt4_=el(_doc,"c:message");
+Element elt4_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs3_=al(1);
-attrs3_.add(at("value","msg_healingpp,full_heal_move"));
+attrs3_.add(at(VALUE,C_P_124_14));
 at(elt4_,attrs3_);
 ad(elt3_,elt4_);
 ad(elt0_,elt3_);
-Element elt5_=el(_doc,"c:if");
+Element elt5_=el(_doc,C_IF);
 CustList<Attr> attrs4_=al(1);
-attrs4_.add(at("condition","limitedPpMove()"));
+attrs4_.add(at(CONDITION,C_P_124_15));
 at(elt5_,attrs4_);
-Element elt6_=el(_doc,"c:message");
+Element elt6_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs5_=al(1);
-attrs5_.add(at("value","msg_healingpp,heal_move"));
+attrs5_.add(at(VALUE,C_P_124_16));
 at(elt6_,attrs5_);
-Element elt7_=el(_doc,"param");
+Element elt7_=el(_doc,PARAM);
 CustList<Attr> attrs6_=al(1);
-attrs6_.add(at("value","healedMovePp"));
+attrs6_.add(at(VALUE,C_P_124_17));
 at(elt7_,attrs6_);
 ad(elt6_,elt7_);
 ad(elt5_,elt6_);
 ad(elt0_,elt5_);
-Element elt8_=el(_doc,"c:if");
+Element elt8_=el(_doc,C_IF);
 CustList<Attr> attrs7_=al(1);
-attrs7_.add(at("condition","limitedPpMoves()"));
+attrs7_.add(at(CONDITION,C_P_124_18));
 at(elt8_,attrs7_);
-Element elt9_=el(_doc,"c:message");
+Element elt9_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs8_=al(1);
-attrs8_.add(at("value","msg_healingpp,heal_moves"));
+attrs8_.add(at(VALUE,C_P_124_19));
 at(elt9_,attrs8_);
-Element elt10_=el(_doc,"param");
+Element elt10_=el(_doc,PARAM);
 CustList<Attr> attrs9_=al(1);
-attrs9_.add(at("value","healingAllMovesFullpp"));
+attrs9_.add(at(VALUE,C_P_124_20));
 at(elt10_,attrs9_);
 ad(elt9_,elt10_);
 ad(elt8_,elt9_);
 ad(elt0_,elt8_);
 ad(_body,elt0_);
-}
-static Attr at(String _name,String _value){
-return CoreDocument.createAttribute(_name,_value);
-}
-static void at(Element _elt,CustList<Attr> _ls){
-_elt.setAttributes(new NamedNodeMap(_ls));
-}
-static CustList<Attr> al(int _len){
-return new CustList<Attr>(new CollCapacity(_len));
-}
-static Text tx(Document _doc,String _value){
-return _doc.createEscapedTextNode(_value);
-}
-static Element el(Document _doc,String _value){
-return _doc.createElement(_value);
-}
-static void ad(Element _elt,Node _value){
-_elt.appendChild(_value);
 }
 }

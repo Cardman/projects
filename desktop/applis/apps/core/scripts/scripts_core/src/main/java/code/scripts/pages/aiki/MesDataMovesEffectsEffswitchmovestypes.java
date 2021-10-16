@@ -1,22 +1,41 @@
 package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEffswitchmovestypes{
+private static final String C_P_62_0="The effect changes the types of a move of a target not having acted yet.<br/>\n";
+private static final String C_P_62_10="Ancien type\n";
+private static final String C_P_62_11="Nouveau type\n";
+private static final String C_P_62_1="The types of the move are replaced by the following types:<br/>\n";
+private static final String C_P_62_2="The types of the move are changed in the following way after possible replacement of types:<br/>\n";
+private static final String C_P_62_3="The types of the move are changed in the following way:<br/>\n";
+private static final String C_P_62_4="Old type\n";
+private static final String C_P_62_5="New type\n";
+private static final String C_P_62_6="L''effet change les types d''une attaque d''une cible n''ayant pas encore jou&eacute;.<br/>\n";
+private static final String C_P_62_7="Les types de l''attaque sont remplac&eacute;s par les types suivants:<br/>\n";
+private static final String C_P_62_8="Les types de l''attaque sont convertis de la mani&egrave;re suivante apr&egrave; &eacute;ventuel remplacement de types:<br/>\n";
+private static final String C_P_62_9="Les types de l''attaque sont convertis de la mani&egrave;re suivante:<br/>\n";
+private static final String M_P_CHANGING_TYPE="changing_type";
+private static final String M_P_CHANGING_TYPE_POSSIBLE="changing_type_possible";
+private static final String M_P_EFFECT="effect";
+private static final String M_P_NEW_TYPE="new_type";
+private static final String M_P_OLD_TYPE="old_type";
+private static final String M_P_REPLACING_TYPES="replacing_types";
+private static final char SEP='=';
 private MesDataMovesEffectsEffswitchmovestypes(){}
 static String en(){
-String f="effect=The effect changes the types of a move of a target not having acted yet.<br/>\n";
-f+="replacing_types=The types of the move are replaced by the following types:<br/>\n";
-f+="changing_type_possible=The types of the move are changed in the following way after possible replacement of types:<br/>\n";
-f+="changing_type=The types of the move are changed in the following way:<br/>\n";
-f+="old_type=Old type\n";
-f+="new_type=New type\n";
+String f=M_P_EFFECT+SEP+C_P_62_0;
+f+=M_P_REPLACING_TYPES+SEP+C_P_62_1;
+f+=M_P_CHANGING_TYPE_POSSIBLE+SEP+C_P_62_2;
+f+=M_P_CHANGING_TYPE+SEP+C_P_62_3;
+f+=M_P_OLD_TYPE+SEP+C_P_62_4;
+f+=M_P_NEW_TYPE+SEP+C_P_62_5;
 return f;
 }
 static String fr(){
-String f="effect=L''effet change les types d''une attaque d''une cible n''ayant pas encore jou&eacute;.<br/>\n";
-f+="replacing_types=Les types de l''attaque sont remplac&eacute;s par les types suivants:<br/>\n";
-f+="changing_type_possible=Les types de l''attaque sont convertis de la mani&egrave;re suivante apr&egrave; &eacute;ventuel remplacement de types:<br/>\n";
-f+="changing_type=Les types de l''attaque sont convertis de la mani&egrave;re suivante:<br/>\n";
-f+="old_type=Ancien type\n";
-f+="new_type=Nouveau type\n";
+String f=M_P_EFFECT+SEP+C_P_62_6;
+f+=M_P_REPLACING_TYPES+SEP+C_P_62_7;
+f+=M_P_CHANGING_TYPE_POSSIBLE+SEP+C_P_62_8;
+f+=M_P_CHANGING_TYPE+SEP+C_P_62_9;
+f+=M_P_OLD_TYPE+SEP+C_P_62_10;
+f+=M_P_NEW_TYPE+SEP+C_P_62_11;
 return f;
 }
 }

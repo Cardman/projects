@@ -1,28 +1,56 @@
 package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEffclone{
+private static final String C_P_40_0="The user uses {0} of its hp maximum.<br/>\n";
+private static final String C_P_40_10="Le clone ne peut pas &ecirc;tre soign&eacute;.<br/>\n";
+private static final String C_P_40_11="Le clone subit les d&eacute;g&acirc;ts au lieu de son possesseur sauf pour les d&eacute;g&acirc;ts de fin de tour autres que par les attaques suivantes:.<br/>\n";
+private static final String C_P_40_12="Si le possesseur utilise une des attaques suivantes:<br/>\n";
+private static final String C_P_40_13="alors le clone est transmis vers le pok&eacute;mon entrant et ce dernier subit les d&eacute;g&acirc;ts des attaques suivantes:<br/>\n";
+private static final String C_P_40_14="Les d&eacute;g&acirc;ts d''un pok&eacute;mon clon&eacute; confus vont vers le pok&eacute;mon clon&eacute;.<br/>\n";
+private static final String C_P_40_15="Les d&eacute;g&acirc;ts de recul d''une attaque d''un pok&eacute;mon clon&eacute; vont vers le pok&eacute;mon clon&eacute;.<br/>\n";
+private static final String C_P_40_16="Les attaques se basant sur des pv restants se basent sur les pv restants du pok&eacute;mon clon&eacute;.<br/>\n";
+private static final String C_P_40_17="Si le possesseur du clone tombe KO, alors le clone est d&eacute;truit.<br/>\n";
+private static final String C_P_40_1="The clone cannot be healed.<br/>\n";
+private static final String C_P_40_2="The clone suffers damage instead of its owner except for damage of end of round other by the following moves:<br/>\n";
+private static final String C_P_40_3="If the owner uses one of the following moves:<br/>\n";
+private static final String C_P_40_4="then the clone is forwarded to the sent pokemon and this last one suffers damage of the following moves:<br/>\n";
+private static final String C_P_40_5="Damage against a cloned confused pokemon go to the cloned pokemon.<br/>\n";
+private static final String C_P_40_6="Recoil damage of a move of a cloned pokemon go to the cloned pokemon.<br/>\n";
+private static final String C_P_40_7="The moves based on remaining hp based themselves on remaining hp of the cloned pokemon.<br/>\n";
+private static final String C_P_40_8="If the owner of the clone is knocked out, then the clone is destroyed.<br/>\n";
+private static final String C_P_40_9="Le lanceur utilise {0} de ses pv max.<br/>\n";
+private static final String M_P_EFFECT="effect";
+private static final String M_P_EFFECT_2="effect_2";
+private static final String M_P_EFFECT_3="effect_3";
+private static final String M_P_EFFECT_4="effect_4";
+private static final String M_P_EFFECT_5="effect_5";
+private static final String M_P_EFFECT_6="effect_6";
+private static final String M_P_EFFECT_7="effect_7";
+private static final String M_P_EFFECT_8="effect_8";
+private static final String M_P_EFFECT_9="effect_9";
+private static final char SEP='=';
 private MesDataMovesEffectsEffclone(){}
 static String en(){
-String f="effect=The user uses {0} of its hp maximum.<br/>\n";
-f+="effect_2=The clone cannot be healed.<br/>\n";
-f+="effect_3=The clone suffers damage instead of its owner except for damage of end of round other by the following moves:<br/>\n";
-f+="effect_4=If the owner uses one of the following moves:<br/>\n";
-f+="effect_5=then the clone is forwarded to the sent pokemon and this last one suffers damage of the following moves:<br/>\n";
-f+="effect_6=Damage against a cloned confused pokemon go to the cloned pokemon.<br/>\n";
-f+="effect_7=Recoil damage of a move of a cloned pokemon go to the cloned pokemon.<br/>\n";
-f+="effect_8=The moves based on remaining hp based themselves on remaining hp of the cloned pokemon.<br/>\n";
-f+="effect_9=If the owner of the clone is knocked out, then the clone is destroyed.<br/>\n";
+String f=M_P_EFFECT+SEP+C_P_40_0;
+f+=M_P_EFFECT_2+SEP+C_P_40_1;
+f+=M_P_EFFECT_3+SEP+C_P_40_2;
+f+=M_P_EFFECT_4+SEP+C_P_40_3;
+f+=M_P_EFFECT_5+SEP+C_P_40_4;
+f+=M_P_EFFECT_6+SEP+C_P_40_5;
+f+=M_P_EFFECT_7+SEP+C_P_40_6;
+f+=M_P_EFFECT_8+SEP+C_P_40_7;
+f+=M_P_EFFECT_9+SEP+C_P_40_8;
 return f;
 }
 static String fr(){
-String f="effect=Le lanceur utilise {0} de ses pv max.<br/>\n";
-f+="effect_2=Le clone ne peut pas &ecirc;tre soign&eacute;.<br/>\n";
-f+="effect_3=Le clone subit les d&eacute;g&acirc;ts au lieu de son possesseur sauf pour les d&eacute;g&acirc;ts de fin de tour autres que par les attaques suivantes:.<br/>\n";
-f+="effect_4=Si le possesseur utilise une des attaques suivantes:<br/>\n";
-f+="effect_5=alors le clone est transmis vers le pok&eacute;mon entrant et ce dernier subit les d&eacute;g&acirc;ts des attaques suivantes:<br/>\n";
-f+="effect_6=Les d&eacute;g&acirc;ts d''un pok&eacute;mon clon&eacute; confus vont vers le pok&eacute;mon clon&eacute;.<br/>\n";
-f+="effect_7=Les d&eacute;g&acirc;ts de recul d''une attaque d''un pok&eacute;mon clon&eacute; vont vers le pok&eacute;mon clon&eacute;.<br/>\n";
-f+="effect_8=Les attaques se basant sur des pv restants se basent sur les pv restants du pok&eacute;mon clon&eacute;.<br/>\n";
-f+="effect_9=Si le possesseur du clone tombe KO, alors le clone est d&eacute;truit.<br/>\n";
+String f=M_P_EFFECT+SEP+C_P_40_9;
+f+=M_P_EFFECT_2+SEP+C_P_40_10;
+f+=M_P_EFFECT_3+SEP+C_P_40_11;
+f+=M_P_EFFECT_4+SEP+C_P_40_12;
+f+=M_P_EFFECT_5+SEP+C_P_40_13;
+f+=M_P_EFFECT_6+SEP+C_P_40_14;
+f+=M_P_EFFECT_7+SEP+C_P_40_15;
+f+=M_P_EFFECT_8+SEP+C_P_40_16;
+f+=M_P_EFFECT_9+SEP+C_P_40_17;
 return f;
 }
 }

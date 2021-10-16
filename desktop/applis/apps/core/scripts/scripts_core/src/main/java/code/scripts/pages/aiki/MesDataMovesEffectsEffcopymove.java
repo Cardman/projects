@@ -1,24 +1,46 @@
 package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEffcopymove{
+private static final String C_P_43_0="The effect happens lors d''une copie d''attque de combattant\n";
+private static final String C_P_43_10="Les attaques suivantes ne peuvent pas &ecirc;tre copi&eacute;es:<br/>\n";
+private static final String C_P_43_11="L''attaque copi&eacute;e de la cible vient substituer l''attaque {0} du lanceur et prend {1} pp au d&eacute;part. Si tous les pp de l''attaque copi&eacute;e sont consomm&eacute;s alors le lanceur peut de nouveau utiliser l''attaque {0} avec un pp de moins.<br/>\n";
+private static final String C_P_43_12="L''attaque copi&eacute;e de la cible vient substituer l''attaque {0} du lanceur d&eacute;finitivement sauf si le lanceur est sous l''effet d''une des attaques comme:<br/>\n";
+private static final String C_P_43_13="L''attaque copi&eacute;e de la cible vient substituer l''attaque {0} du lanceur d&eacute;finitivement.<br/>\n";
+private static final String C_P_43_1="The effect does not happen if the target has not used any move; or if the last used move of the target is <a c:command=\"$clickDefaultMove\">{0}</a>.<br/>\n";
+private static final String C_P_43_2="The effect does not happen if the firstly chosen move of the user is <a c:command=\"$clickDefaultMove\">{0}</a>.<br/>\n";
+private static final String C_P_43_3="The following moves cannot be copied:<br/>\n";
+private static final String C_P_43_4="The copied move of the target substitutes the move {0} of the user and has {1} pp at the beginning. If all pp of the copied move are used then the user can again use the move {0} with one pp less.<br/>\n";
+private static final String C_P_43_5="The copied move of the target definitively substitutes the move {0} of the user except if the user is under the effect of one of the moves like:<br/>\n";
+private static final String C_P_43_6="The copied move of the target definitively substitutes the move {0} of the user.<br/>\n";
+private static final String C_P_43_7="L''effet a lieu lors d''une copie d''attque de combattant\n";
+private static final String C_P_43_8="L''effet n''a pas lieu si la cible n''a pas attaqu&eacute; ou si la derni&egrave;re attaque lanc&eacute;e de la cible est <a c:command=\"$clickDefaultMove\">{0}</a>.<br/>\n";
+private static final String C_P_43_9="L''effet n''a pas lieu si l''attaque initialement choisie du lanceur est <a c:command=\"$clickDefaultMove\">{0}</a>.<br/>\n";
+private static final String M_P_COPY_DEF_MOVE="copy_def_move";
+private static final String M_P_COPY_DEF_MOVE_WITHOUT_TRANS="copy_def_move_without_trans";
+private static final String M_P_COPY_TMP_MOVE="copy_tmp_move";
+private static final String M_P_EFFECT="effect";
+private static final String M_P_MOVES_NOT_COPIED="moves_not_copied";
+private static final String M_P_NO_EFFECT="no_effect";
+private static final String M_P_NO_EFFECT_2="no_effect_2";
+private static final char SEP='=';
 private MesDataMovesEffectsEffcopymove(){}
 static String en(){
-String f="effect=The effect happens lors d''une copie d''attque de combattant\n";
-f+="no_effect=The effect does not happen if the target has not used any move; or if the last used move of the target is <a c:command=\"$clickDefaultMove\">{0}</a>.<br/>\n";
-f+="no_effect_2=The effect does not happen if the firstly chosen move of the user is <a c:command=\"$clickDefaultMove\">{0}</a>.<br/>\n";
-f+="moves_not_copied=The following moves cannot be copied:<br/>\n";
-f+="copy_tmp_move=The copied move of the target substitutes the move {0} of the user and has {1} pp at the beginning. If all pp of the copied move are used then the user can again use the move {0} with one pp less.<br/>\n";
-f+="copy_def_move=The copied move of the target definitively substitutes the move {0} of the user except if the user is under the effect of one of the moves like:<br/>\n";
-f+="copy_def_move_without_trans=The copied move of the target definitively substitutes the move {0} of the user.<br/>\n";
+String f=M_P_EFFECT+SEP+C_P_43_0;
+f+=M_P_NO_EFFECT+SEP+C_P_43_1;
+f+=M_P_NO_EFFECT_2+SEP+C_P_43_2;
+f+=M_P_MOVES_NOT_COPIED+SEP+C_P_43_3;
+f+=M_P_COPY_TMP_MOVE+SEP+C_P_43_4;
+f+=M_P_COPY_DEF_MOVE+SEP+C_P_43_5;
+f+=M_P_COPY_DEF_MOVE_WITHOUT_TRANS+SEP+C_P_43_6;
 return f;
 }
 static String fr(){
-String f="effect=L''effet a lieu lors d''une copie d''attque de combattant\n";
-f+="no_effect=L''effet n''a pas lieu si la cible n''a pas attaqu&eacute; ou si la derni&egrave;re attaque lanc&eacute;e de la cible est <a c:command=\"$clickDefaultMove\">{0}</a>.<br/>\n";
-f+="no_effect_2=L''effet n''a pas lieu si l''attaque initialement choisie du lanceur est <a c:command=\"$clickDefaultMove\">{0}</a>.<br/>\n";
-f+="moves_not_copied=Les attaques suivantes ne peuvent pas &ecirc;tre copi&eacute;es:<br/>\n";
-f+="copy_tmp_move=L''attaque copi&eacute;e de la cible vient substituer l''attaque {0} du lanceur et prend {1} pp au d&eacute;part. Si tous les pp de l''attaque copi&eacute;e sont consomm&eacute;s alors le lanceur peut de nouveau utiliser l''attaque {0} avec un pp de moins.<br/>\n";
-f+="copy_def_move=L''attaque copi&eacute;e de la cible vient substituer l''attaque {0} du lanceur d&eacute;finitivement sauf si le lanceur est sous l''effet d''une des attaques comme:<br/>\n";
-f+="copy_def_move_without_trans=L''attaque copi&eacute;e de la cible vient substituer l''attaque {0} du lanceur d&eacute;finitivement.<br/>\n";
+String f=M_P_EFFECT+SEP+C_P_43_7;
+f+=M_P_NO_EFFECT+SEP+C_P_43_8;
+f+=M_P_NO_EFFECT_2+SEP+C_P_43_9;
+f+=M_P_MOVES_NOT_COPIED+SEP+C_P_43_10;
+f+=M_P_COPY_TMP_MOVE+SEP+C_P_43_11;
+f+=M_P_COPY_DEF_MOVE+SEP+C_P_43_12;
+f+=M_P_COPY_DEF_MOVE_WITHOUT_TRANS+SEP+C_P_43_13;
 return f;
 }
 }

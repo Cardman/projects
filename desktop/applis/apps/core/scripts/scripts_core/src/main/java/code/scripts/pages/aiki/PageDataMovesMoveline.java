@@ -2,7 +2,32 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataMovesMoveline{
+final class PageDataMovesMoveline extends PageAikiCommon{
+private static final String C_P_179_0="javahtml";
+private static final String C_P_179_1="move_line";
+private static final String C_P_179_2="web/css/moves.css";
+private static final String C_P_179_3="stylesheet";
+private static final String C_P_179_4="text/css";
+private static final String C_P_179_5="$clickMove({index})";
+private static final String C_P_179_6="";
+private static final String C_P_179_7="{displayName}";
+private static final String C_P_179_8="{pp}";
+private static final String C_P_179_9="types";
+private static final String C_P_179_10="t";
+private static final String C_P_179_11="java.lang.String";
+private static final String C_P_179_12="{t} -";
+private static final String C_P_179_13="{category}";
+private static final String C_P_179_14="moveLine.isDamageMove()";
+private static final String C_P_179_15="msg_moves,damaging";
+private static final String C_P_179_16="msg_moves,status";
+private static final String C_P_179_17="!moveLine.isDamageMove()";
+private static final String C_P_179_18="msg_moves,status_indirect";
+private static final String C_P_179_19="moveLine.isDirect()";
+private static final String C_P_179_20="msg_moves,damaging_direct";
+private static final String C_P_179_21="msg_moves,damaging_indirect";
+private static final String C_P_179_22="{priority}";
+private static final String C_P_179_23="{accuracy}";
+private static final String C_P_179_24="{power}";
 private PageDataMovesMoveline(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -10,134 +35,116 @@ build(doc_);
 return doc_;
 }
 static void build(Document _doc){
-Element elt0_=el(_doc,"html");
+Element elt0_=el(_doc,HTML);
 CustList<Attr> attrs0_=al(2);
-attrs0_.add(at("xmlns:c","javahtml"));
-attrs0_.add(at("c:bean","move_line"));
+attrs0_.add(at(XMLNS_C,C_P_179_0));
+attrs0_.add(at(C_BEAN,C_P_179_1));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"head");
-Element elt2_=el(_doc,"link");
+Element elt1_=el(_doc,HEAD);
+Element elt2_=el(_doc,LINK);
 CustList<Attr> attrs1_=al(3);
-attrs1_.add(at("href","web/css/moves.css"));
-attrs1_.add(at("rel","stylesheet"));
-attrs1_.add(at("type","text/css"));
+attrs1_.add(at(HREF,C_P_179_2));
+attrs1_.add(at(REL,C_P_179_3));
+attrs1_.add(at(TYPE,C_P_179_4));
 at(elt2_,attrs1_);
 ad(elt1_,elt2_);
 ad(elt0_,elt1_);
-Element elt3_=el(_doc,"body");
+Element elt3_=el(_doc,BODY);
 build0(elt3_,_doc);
 ad(elt0_,elt3_);
 _doc.appendChild(elt0_);
 }
 static void build0(Element _body,Document _doc){
-Element elt0_=el(_doc,"tr");
-Element elt1_=el(_doc,"td");
-Element elt2_=el(_doc,"a");
+Element elt0_=el(_doc,TR);
+Element elt1_=el(_doc,TD);
+Element elt2_=el(_doc,A);
 CustList<Attr> attrs0_=al(2);
-attrs0_.add(at("c:command","$clickMove({index})"));
-attrs0_.add(at("href",""));
+attrs0_.add(at(C_COMMAND,C_P_179_5));
+attrs0_.add(at(HREF,C_P_179_6));
 at(elt2_,attrs0_);
-Text txt0_=tx(_doc,"{displayName}");
+Text txt0_=tx(_doc,C_P_179_7);
 ad(elt2_,txt0_);
 ad(elt1_,elt2_);
 ad(elt0_,elt1_);
-Element elt3_=el(_doc,"td");
-Text txt1_=tx(_doc,"{pp}");
+Element elt3_=el(_doc,TD);
+Text txt1_=tx(_doc,C_P_179_8);
 ad(elt3_,txt1_);
 ad(elt0_,elt3_);
-Element elt4_=el(_doc,"td");
-Element elt5_=el(_doc,"c:for");
+Element elt4_=el(_doc,TD);
+Element elt5_=el(_doc,C_FOR);
 CustList<Attr> attrs1_=al(3);
-attrs1_.add(at("list","types"));
-attrs1_.add(at("var","t"));
-attrs1_.add(at("className","java.lang.String"));
+attrs1_.add(at(LIST,C_P_179_9));
+attrs1_.add(at(VAR,C_P_179_10));
+attrs1_.add(at(CLASSNAME,C_P_179_11));
 at(elt5_,attrs1_);
-Text txt2_=tx(_doc,"{t} -");
+Text txt2_=tx(_doc,C_P_179_12);
 ad(elt5_,txt2_);
 ad(elt4_,elt5_);
 ad(elt0_,elt4_);
-Element elt6_=el(_doc,"td");
-Text txt3_=tx(_doc,"{category}");
+Element elt6_=el(_doc,TD);
+Text txt3_=tx(_doc,C_P_179_13);
 ad(elt6_,txt3_);
 ad(elt0_,elt6_);
-Element elt7_=el(_doc,"td");
-Element elt8_=el(_doc,"c:if");
+Element elt7_=el(_doc,TD);
+Element elt8_=el(_doc,C_IF);
 CustList<Attr> attrs2_=al(1);
-attrs2_.add(at("condition","moveLine.isDamageMove()"));
+attrs2_.add(at(CONDITION,C_P_179_14));
 at(elt8_,attrs2_);
-Element elt9_=el(_doc,"c:message");
+Element elt9_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs3_=al(1);
-attrs3_.add(at("value","msg_moves,damaging"));
+attrs3_.add(at(VALUE,C_P_179_15));
 at(elt9_,attrs3_);
 ad(elt8_,elt9_);
 ad(elt7_,elt8_);
-Element elt10_=el(_doc,"c:else");
-Element elt11_=el(_doc,"c:message");
+Element elt10_=el(_doc,C_ELSE);
+Element elt11_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs4_=al(1);
-attrs4_.add(at("value","msg_moves,status"));
+attrs4_.add(at(VALUE,C_P_179_16));
 at(elt11_,attrs4_);
 ad(elt10_,elt11_);
 ad(elt7_,elt10_);
 ad(elt0_,elt7_);
-Element elt12_=el(_doc,"td");
-Element elt13_=el(_doc,"c:if");
+Element elt12_=el(_doc,TD);
+Element elt13_=el(_doc,C_IF);
 CustList<Attr> attrs5_=al(1);
-attrs5_.add(at("condition","!moveLine.isDamageMove()"));
+attrs5_.add(at(CONDITION,C_P_179_17));
 at(elt13_,attrs5_);
-Element elt14_=el(_doc,"c:message");
+Element elt14_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs6_=al(1);
-attrs6_.add(at("value","msg_moves,status_indirect"));
+attrs6_.add(at(VALUE,C_P_179_18));
 at(elt14_,attrs6_);
 ad(elt13_,elt14_);
 ad(elt12_,elt13_);
-Element elt15_=el(_doc,"c:elseif");
+Element elt15_=el(_doc,C_ELSEIF);
 CustList<Attr> attrs7_=al(1);
-attrs7_.add(at("condition","moveLine.isDirect()"));
+attrs7_.add(at(CONDITION,C_P_179_19));
 at(elt15_,attrs7_);
-Element elt16_=el(_doc,"c:message");
+Element elt16_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs8_=al(1);
-attrs8_.add(at("value","msg_moves,damaging_direct"));
+attrs8_.add(at(VALUE,C_P_179_20));
 at(elt16_,attrs8_);
 ad(elt15_,elt16_);
 ad(elt12_,elt15_);
-Element elt17_=el(_doc,"c:else");
-Element elt18_=el(_doc,"c:message");
+Element elt17_=el(_doc,C_ELSE);
+Element elt18_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs9_=al(1);
-attrs9_.add(at("value","msg_moves,damaging_indirect"));
+attrs9_.add(at(VALUE,C_P_179_21));
 at(elt18_,attrs9_);
 ad(elt17_,elt18_);
 ad(elt12_,elt17_);
 ad(elt0_,elt12_);
-Element elt19_=el(_doc,"td");
-Text txt4_=tx(_doc,"{priority}");
+Element elt19_=el(_doc,TD);
+Text txt4_=tx(_doc,C_P_179_22);
 ad(elt19_,txt4_);
 ad(elt0_,elt19_);
-Element elt20_=el(_doc,"td");
-Text txt5_=tx(_doc,"{accuracy}");
+Element elt20_=el(_doc,TD);
+Text txt5_=tx(_doc,C_P_179_23);
 ad(elt20_,txt5_);
 ad(elt0_,elt20_);
-Element elt21_=el(_doc,"td");
-Text txt6_=tx(_doc,"{power}");
+Element elt21_=el(_doc,TD);
+Text txt6_=tx(_doc,C_P_179_24);
 ad(elt21_,txt6_);
 ad(elt0_,elt21_);
 ad(_body,elt0_);
-}
-static Attr at(String _name,String _value){
-return CoreDocument.createAttribute(_name,_value);
-}
-static void at(Element _elt,CustList<Attr> _ls){
-_elt.setAttributes(new NamedNodeMap(_ls));
-}
-static CustList<Attr> al(int _len){
-return new CustList<Attr>(new CollCapacity(_len));
-}
-static Text tx(Document _doc,String _value){
-return _doc.createEscapedTextNode(_value);
-}
-static Element el(Document _doc,String _value){
-return _doc.createElement(_value);
-}
-static void ad(Element _elt,Node _value){
-_elt.appendChild(_value);
 }
 }

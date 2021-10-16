@@ -2,7 +2,45 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataMapElementsLegPk{
+final class PageDataMapElementsLegPk extends PageAikiCommon{
+private static final String C_P_136_0="javahtml";
+private static final String C_P_136_1="leg_pk";
+private static final String C_P_136_2="web/css/pokedex.css";
+private static final String C_P_136_3="stylesheet";
+private static final String C_P_136_4="text/css";
+private static final String C_P_136_5="msg_levelmap,title_leg";
+private static final String C_P_136_6="getName()";
+private static final String C_P_136_7="web/html/index.html";
+private static final String C_P_136_8="";
+private static final String C_P_136_9="msg_pokemon_npc,index";
+private static final String C_P_136_10="web/html/map/map.html";
+private static final String C_P_136_11="";
+private static final String C_P_136_12="msg_pokemon_npc,map";
+private static final String C_P_136_13="web/html/map/level.html";
+private static final String C_P_136_14="";
+private static final String C_P_136_15="msg_pokemon_npc,level";
+private static final String C_P_136_16="{getImage()}";
+private static final String C_P_136_17="msg_pokemon_npc,name";
+private static final String C_P_136_18="$clickName";
+private static final String C_P_136_19="{getName()}";
+private static final String C_P_136_20="msg_pokemon_npc,gender";
+private static final String C_P_136_21="{getGender()}";
+private static final String C_P_136_22="msg_pokemon_npc,level";
+private static final String C_P_136_23="{getLevel()}";
+private static final String C_P_136_24="msg_pokemon_npc,ability";
+private static final String C_P_136_25="$clickAbility";
+private static final String C_P_136_26="{getAbility()}";
+private static final String C_P_136_27="msg_pokemon_npc,item";
+private static final String C_P_136_28="!isEmpty(pokemon.getItem())";
+private static final String C_P_136_29="$clickItem";
+private static final String C_P_136_30="{getItem()}";
+private static final String C_P_136_31="isEmpty(pokemon.getItem())";
+private static final String C_P_136_32="msg_pokemon_npc,item_no";
+private static final String C_P_136_33="msg_pokemon_npc,moves";
+private static final String C_P_136_34="getMovesAtLevel()";
+private static final String C_P_136_35="m";
+private static final String C_P_136_36="$clickMove({([m])})";
+private static final String C_P_136_37="{getMove(([m]))}";
 private PageDataMapElementsLegPk(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -10,33 +48,33 @@ build(doc_);
 return doc_;
 }
 static void build(Document _doc){
-Element elt0_=el(_doc,"html");
+Element elt0_=el(_doc,HTML);
 CustList<Attr> attrs0_=al(2);
-attrs0_.add(at("xmlns:c","javahtml"));
-attrs0_.add(at("c:bean","leg_pk"));
+attrs0_.add(at(XMLNS_C,C_P_136_0));
+attrs0_.add(at(C_BEAN,C_P_136_1));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"head");
-Element elt2_=el(_doc,"link");
+Element elt1_=el(_doc,HEAD);
+Element elt2_=el(_doc,LINK);
 CustList<Attr> attrs1_=al(3);
-attrs1_.add(at("href","web/css/pokedex.css"));
-attrs1_.add(at("rel","stylesheet"));
-attrs1_.add(at("type","text/css"));
+attrs1_.add(at(HREF,C_P_136_2));
+attrs1_.add(at(REL,C_P_136_3));
+attrs1_.add(at(TYPE,C_P_136_4));
 at(elt2_,attrs1_);
 ad(elt1_,elt2_);
-Element elt3_=el(_doc,"title");
-Element elt4_=el(_doc,"c:message");
+Element elt3_=el(_doc,TITLE);
+Element elt4_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs2_=al(1);
-attrs2_.add(at("value","msg_levelmap,title_leg"));
+attrs2_.add(at(VALUE,C_P_136_5));
 at(elt4_,attrs2_);
-Element elt5_=el(_doc,"param");
+Element elt5_=el(_doc,PARAM);
 CustList<Attr> attrs3_=al(1);
-attrs3_.add(at("value","getName()"));
+attrs3_.add(at(VALUE,C_P_136_6));
 at(elt5_,attrs3_);
 ad(elt4_,elt5_);
 ad(elt3_,elt4_);
 ad(elt1_,elt3_);
 ad(elt0_,elt1_);
-Element elt6_=el(_doc,"body");
+Element elt6_=el(_doc,BODY);
 build0(elt6_,_doc);
 build1(elt6_,_doc);
 build2(elt6_,_doc);
@@ -64,190 +102,190 @@ ad(elt0_,elt6_);
 _doc.appendChild(elt0_);
 }
 static void build0(Element _body,Document _doc){
-Element elt0_=el(_doc,"a");
+Element elt0_=el(_doc,A);
 CustList<Attr> attrs0_=al(2);
-attrs0_.add(at("c:command","web/html/index.html"));
-attrs0_.add(at("href",""));
+attrs0_.add(at(C_COMMAND,C_P_136_7));
+attrs0_.add(at(HREF,C_P_136_8));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"c:message");
+Element elt1_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("value","msg_pokemon_npc,index"));
+attrs1_.add(at(VALUE,C_P_136_9));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
 static void build1(Element _body,Document _doc){
-Element elt0_=el(_doc,"br");
+Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
 }
 static void build2(Element _body,Document _doc){
-Element elt0_=el(_doc,"a");
+Element elt0_=el(_doc,A);
 CustList<Attr> attrs0_=al(2);
-attrs0_.add(at("c:command","web/html/map/map.html"));
-attrs0_.add(at("href",""));
+attrs0_.add(at(C_COMMAND,C_P_136_10));
+attrs0_.add(at(HREF,C_P_136_11));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"c:message");
+Element elt1_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("value","msg_pokemon_npc,map"));
+attrs1_.add(at(VALUE,C_P_136_12));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
-Element elt2_=el(_doc,"br");
+Element elt2_=el(_doc,BR);
 ad(_body,elt2_);
 }
 static void build3(Element _body,Document _doc){
-Element elt0_=el(_doc,"br");
+Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
 }
 static void build4(Element _body,Document _doc){
-Element elt0_=el(_doc,"a");
+Element elt0_=el(_doc,A);
 CustList<Attr> attrs0_=al(2);
-attrs0_.add(at("c:command","web/html/map/level.html"));
-attrs0_.add(at("href",""));
+attrs0_.add(at(C_COMMAND,C_P_136_13));
+attrs0_.add(at(HREF,C_P_136_14));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"c:message");
+Element elt1_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("value","msg_pokemon_npc,level"));
+attrs1_.add(at(VALUE,C_P_136_15));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
-Element elt2_=el(_doc,"br");
+Element elt2_=el(_doc,BR);
 ad(_body,elt2_);
 }
 static void build5(Element _body,Document _doc){
-Element elt0_=el(_doc,"br");
+Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
 }
 static void build6(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:img");
+Element elt0_=el(_doc,C_IMG);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("src","{getImage()}"));
+attrs0_.add(at(SRC,C_P_136_16));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
 }
 static void build7(Element _body,Document _doc){
-Element elt0_=el(_doc,"br");
+Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
 }
 static void build8(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:message");
+Element elt0_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("value","msg_pokemon_npc,name"));
+attrs0_.add(at(VALUE,C_P_136_17));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
 }
 static void build9(Element _body,Document _doc){
-Element elt0_=el(_doc,"a");
+Element elt0_=el(_doc,A);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("c:command","$clickName"));
+attrs0_.add(at(C_COMMAND,C_P_136_18));
 at(elt0_,attrs0_);
-Text txt0_=tx(_doc,"{getName()}");
+Text txt0_=tx(_doc,C_P_136_19);
 ad(elt0_,txt0_);
 ad(_body,elt0_);
-Element elt1_=el(_doc,"br");
+Element elt1_=el(_doc,BR);
 ad(_body,elt1_);
 }
 static void build10(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:message");
+Element elt0_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("value","msg_pokemon_npc,gender"));
+attrs0_.add(at(VALUE,C_P_136_20));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
-Text txt0_=tx(_doc,"{getGender()}");
+Text txt0_=tx(_doc,C_P_136_21);
 ad(_body,txt0_);
 }
 static void build11(Element _body,Document _doc){
-Element elt0_=el(_doc,"br");
+Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
 }
 static void build12(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:message");
+Element elt0_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("value","msg_pokemon_npc,level"));
+attrs0_.add(at(VALUE,C_P_136_22));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
-Text txt0_=tx(_doc,"{getLevel()}");
+Text txt0_=tx(_doc,C_P_136_23);
 ad(_body,txt0_);
 }
 static void build13(Element _body,Document _doc){
-Element elt0_=el(_doc,"br");
+Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
 }
 static void build14(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:message");
+Element elt0_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("value","msg_pokemon_npc,ability"));
+attrs0_.add(at(VALUE,C_P_136_24));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
 }
 static void build15(Element _body,Document _doc){
-Element elt0_=el(_doc,"a");
+Element elt0_=el(_doc,A);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("c:command","$clickAbility"));
+attrs0_.add(at(C_COMMAND,C_P_136_25));
 at(elt0_,attrs0_);
-Text txt0_=tx(_doc,"{getAbility()}");
+Text txt0_=tx(_doc,C_P_136_26);
 ad(elt0_,txt0_);
 ad(_body,elt0_);
-Element elt1_=el(_doc,"br");
+Element elt1_=el(_doc,BR);
 ad(_body,elt1_);
 }
 static void build16(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:message");
+Element elt0_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("value","msg_pokemon_npc,item"));
+attrs0_.add(at(VALUE,C_P_136_27));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
 }
 static void build17(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:if");
+Element elt0_=el(_doc,C_IF);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!isEmpty(pokemon.getItem())"));
+attrs0_.add(at(CONDITION,C_P_136_28));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"a");
+Element elt1_=el(_doc,A);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("c:command","$clickItem"));
+attrs1_.add(at(C_COMMAND,C_P_136_29));
 at(elt1_,attrs1_);
-Text txt0_=tx(_doc,"{getItem()}");
+Text txt0_=tx(_doc,C_P_136_30);
 ad(elt1_,txt0_);
 ad(elt0_,elt1_);
-Element elt2_=el(_doc,"br");
+Element elt2_=el(_doc,BR);
 ad(elt0_,elt2_);
 ad(_body,elt0_);
 }
 static void build18(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:if");
+Element elt0_=el(_doc,C_IF);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","isEmpty(pokemon.getItem())"));
+attrs0_.add(at(CONDITION,C_P_136_31));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"c:message");
+Element elt1_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("value","msg_pokemon_npc,item_no"));
+attrs1_.add(at(VALUE,C_P_136_32));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-Element elt2_=el(_doc,"br");
+Element elt2_=el(_doc,BR);
 ad(elt0_,elt2_);
 ad(_body,elt0_);
 }
 static void build19(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:message");
+Element elt0_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("value","msg_pokemon_npc,moves"));
+attrs0_.add(at(VALUE,C_P_136_33));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
 }
 static void build20(Element _body,Document _doc){
-Element elt0_=el(_doc,"ul");
-Element elt1_=el(_doc,"c:for");
+Element elt0_=el(_doc,UL);
+Element elt1_=el(_doc,C_FOR);
 CustList<Attr> attrs0_=al(2);
-attrs0_.add(at("list","getMovesAtLevel()"));
-attrs0_.add(at("var","m"));
+attrs0_.add(at(LIST,C_P_136_34));
+attrs0_.add(at(VAR,C_P_136_35));
 at(elt1_,attrs0_);
-Element elt2_=el(_doc,"li");
-Element elt3_=el(_doc,"a");
+Element elt2_=el(_doc,LI);
+Element elt3_=el(_doc,A);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("c:command","$clickMove({([m])})"));
+attrs1_.add(at(C_COMMAND,C_P_136_36));
 at(elt3_,attrs1_);
-Text txt0_=tx(_doc,"{getMove(([m]))}");
+Text txt0_=tx(_doc,C_P_136_37);
 ad(elt3_,txt0_);
 ad(elt2_,elt3_);
 ad(elt1_,elt2_);
@@ -255,29 +293,11 @@ ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
 static void build21(Element _body,Document _doc){
-Element elt0_=el(_doc,"br");
+Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
 }
 static void build22(Element _body,Document _doc){
-Element elt0_=el(_doc,"br");
+Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
-}
-static Attr at(String _name,String _value){
-return CoreDocument.createAttribute(_name,_value);
-}
-static void at(Element _elt,CustList<Attr> _ls){
-_elt.setAttributes(new NamedNodeMap(_ls));
-}
-static CustList<Attr> al(int _len){
-return new CustList<Attr>(new CollCapacity(_len));
-}
-static Text tx(Document _doc,String _value){
-return _doc.createEscapedTextNode(_value);
-}
-static Element el(Document _doc,String _value){
-return _doc.createElement(_value);
-}
-static void ad(Element _elt,Node _value){
-_elt.appendChild(_value);
 }
 }

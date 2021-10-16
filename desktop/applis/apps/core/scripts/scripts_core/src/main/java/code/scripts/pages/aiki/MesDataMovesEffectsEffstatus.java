@@ -1,30 +1,61 @@
 package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEffstatus{
+private static final String C_P_59_0="This effect adds/deletes a status at least.<br/>\n";
+private static final String C_P_59_10="Cet effet ajoute/supprime au moins un statut.<br/>\n";
+private static final String C_P_59_11="Voici la loi de tirage des statuts &agrave; ajouter &agrave; la cible:<br/>\n";
+private static final String C_P_59_12="Statut\n";
+private static final String C_P_59_13="Conditions suffisantes d''&eacute;chec\n";
+private static final String C_P_59_14="Probabilit&eacute;\n";
+private static final String C_P_59_15="Aucun statut suppl&eacute;mentaire\n";
+private static final String C_P_59_16="Les statuts de la cible supprim&eacute;s sont les suivants:<br/>\n";
+private static final String C_P_59_17="Le lanceur tombe KO. Le rempla&ccedil;ant du lanceur est totalement soign&eacute; (pp, pv, statuts).<br/>\n";
+private static final String C_P_59_18="Les statuts du lanceur sont transf&eacute;r&eacute;s vers la cible qu''elle n''a pas.<br/>\n";
+private static final String C_P_59_19="{0}\n";
+private static final String C_P_59_1="Here is the law of editing status to add to the target:<br/>\n";
+private static final String C_P_59_2="Status\n";
+private static final String C_P_59_3="Sufficient conditions of fail\n";
+private static final String C_P_59_4="Rate\n";
+private static final String C_P_59_5="No added status\n";
+private static final String C_P_59_6="The deleted status of the target are the following one:<br/>\n";
+private static final String C_P_59_7="The user is knocked out. The substitute of the user is full healed (pp, hp, status).<br/>\n";
+private static final String C_P_59_8="The status of the user are forwarded to the target that does not have.<br/>\n";
+private static final String C_P_59_9="{0}\n";
+private static final String M_P_DELETED_STATUS="deleted_status";
+private static final String M_P_EFFECT="effect";
+private static final String M_P_FAIL="fail";
+private static final String M_P_FORMULA="formula";
+private static final String M_P_FORWARD="forward";
+private static final String M_P_KO_USER="ko_user";
+private static final String M_P_LAW_STATUS="law_status";
+private static final String M_P_OTHER_STATUS="other_status";
+private static final String M_P_RATE_EVENT="rate_event";
+private static final String M_P_STATUS="status";
+private static final char SEP='=';
 private MesDataMovesEffectsEffstatus(){}
 static String en(){
-String f="effect=This effect adds/deletes a status at least.<br/>\n";
-f+="law_status=Here is the law of editing status to add to the target:<br/>\n";
-f+="status=Status\n";
-f+="fail=Sufficient conditions of fail\n";
-f+="rate_event=Rate\n";
-f+="other_status=No added status\n";
-f+="deleted_status=The deleted status of the target are the following one:<br/>\n";
-f+="ko_user=The user is knocked out. The substitute of the user is full healed (pp, hp, status).<br/>\n";
-f+="forward=The status of the user are forwarded to the target that does not have.<br/>\n";
-f+="formula={0}\n";
+String f=M_P_EFFECT+SEP+C_P_59_0;
+f+=M_P_LAW_STATUS+SEP+C_P_59_1;
+f+=M_P_STATUS+SEP+C_P_59_2;
+f+=M_P_FAIL+SEP+C_P_59_3;
+f+=M_P_RATE_EVENT+SEP+C_P_59_4;
+f+=M_P_OTHER_STATUS+SEP+C_P_59_5;
+f+=M_P_DELETED_STATUS+SEP+C_P_59_6;
+f+=M_P_KO_USER+SEP+C_P_59_7;
+f+=M_P_FORWARD+SEP+C_P_59_8;
+f+=M_P_FORMULA+SEP+C_P_59_9;
 return f;
 }
 static String fr(){
-String f="effect=Cet effet ajoute/supprime au moins un statut.<br/>\n";
-f+="law_status=Voici la loi de tirage des statuts &agrave; ajouter &agrave; la cible:<br/>\n";
-f+="status=Statut\n";
-f+="fail=Conditions suffisantes d''&eacute;chec\n";
-f+="rate_event=Probabilit&eacute;\n";
-f+="other_status=Aucun statut suppl&eacute;mentaire\n";
-f+="deleted_status=Les statuts de la cible supprim&eacute;s sont les suivants:<br/>\n";
-f+="ko_user=Le lanceur tombe KO. Le rempla&ccedil;ant du lanceur est totalement soign&eacute; (pp, pv, statuts).<br/>\n";
-f+="forward=Les statuts du lanceur sont transf&eacute;r&eacute;s vers la cible qu''elle n''a pas.<br/>\n";
-f+="formula={0}\n";
+String f=M_P_EFFECT+SEP+C_P_59_10;
+f+=M_P_LAW_STATUS+SEP+C_P_59_11;
+f+=M_P_STATUS+SEP+C_P_59_12;
+f+=M_P_FAIL+SEP+C_P_59_13;
+f+=M_P_RATE_EVENT+SEP+C_P_59_14;
+f+=M_P_OTHER_STATUS+SEP+C_P_59_15;
+f+=M_P_DELETED_STATUS+SEP+C_P_59_16;
+f+=M_P_KO_USER+SEP+C_P_59_17;
+f+=M_P_FORWARD+SEP+C_P_59_18;
+f+=M_P_FORMULA+SEP+C_P_59_19;
 return f;
 }
 }

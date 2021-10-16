@@ -2,7 +2,33 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataEndroundGlobal{
+final class PageDataEndroundGlobal extends PageAikiCommon{
+private static final String C_P_104_0="javahtml";
+private static final String C_P_104_1="end_global";
+private static final String C_P_104_2="web/css/abilities.css";
+private static final String C_P_104_3="stylesheet";
+private static final String C_P_104_4="text/css";
+private static final String C_P_104_5="{endRoundHtml}";
+private static final String C_P_104_6="aiki.beans.endround";
+private static final String C_P_104_7="EffectEndRoundBean";
+private static final String C_P_104_8="$intern.index=index";
+private static final String C_P_104_9="!damageEndRound.isZero()";
+private static final String C_P_104_10="msg_effglobal,damage_end_round";
+private static final String C_P_104_11="damageEndRound";
+private static final String C_P_104_12="!healingEndRoundGround.isZero()";
+private static final String C_P_104_13="msg_effglobal,healing_end_round_ground";
+private static final String C_P_104_14="healingEndRoundGround";
+private static final String C_P_104_15="!healingEndRound.isZero()";
+private static final String C_P_104_16="msg_effglobal,healing_end_round";
+private static final String C_P_104_17="healingEndRound";
+private static final String C_P_104_18="puttingKo";
+private static final String C_P_104_19="msg_effglobal,putting_ko";
+private static final String C_P_104_20="!immuneTypes.isEmpty()";
+private static final String C_P_104_21="msg_effglobal,immune_types";
+private static final String C_P_104_22="immuneTypes";
+private static final String C_P_104_23="t";
+private static final String C_P_104_24="java.lang.String";
+private static final String C_P_104_25="{t}";
 private PageDataEndroundGlobal(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -10,42 +36,42 @@ build(doc_);
 return doc_;
 }
 static void build(Document _doc){
-Element elt0_=el(_doc,"html");
+Element elt0_=el(_doc,HTML);
 CustList<Attr> attrs0_=al(2);
-attrs0_.add(at("xmlns:c","javahtml"));
-attrs0_.add(at("c:bean","end_global"));
+attrs0_.add(at(XMLNS_C,C_P_104_0));
+attrs0_.add(at(C_BEAN,C_P_104_1));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"head");
-Element elt2_=el(_doc,"link");
+Element elt1_=el(_doc,HEAD);
+Element elt2_=el(_doc,LINK);
 CustList<Attr> attrs1_=al(3);
-attrs1_.add(at("href","web/css/abilities.css"));
-attrs1_.add(at("rel","stylesheet"));
-attrs1_.add(at("type","text/css"));
+attrs1_.add(at(HREF,C_P_104_2));
+attrs1_.add(at(REL,C_P_104_3));
+attrs1_.add(at(TYPE,C_P_104_4));
 at(elt2_,attrs1_);
 ad(elt1_,elt2_);
 ad(elt0_,elt1_);
-Element elt3_=el(_doc,"body");
+Element elt3_=el(_doc,BODY);
 build0(elt3_,_doc);
 build1(elt3_,_doc);
 ad(elt0_,elt3_);
 _doc.appendChild(elt0_);
 }
 static void build0(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:import");
+Element elt0_=el(_doc,C_IMPORT);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("page","{endRoundHtml}"));
+attrs0_.add(at(PAGE,C_P_104_5));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"c:package");
+Element elt1_=el(_doc,C_PACKAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("name","aiki.beans.endround"));
+attrs1_.add(at(NAME,C_P_104_6));
 at(elt1_,attrs1_);
-Element elt2_=el(_doc,"c:class");
+Element elt2_=el(_doc,C_CLASS);
 CustList<Attr> attrs2_=al(1);
-attrs2_.add(at("name","EffectEndRoundBean"));
+attrs2_.add(at(NAME,C_P_104_7));
 at(elt2_,attrs2_);
-Element elt3_=el(_doc,"c:field");
+Element elt3_=el(_doc,C_FIELD);
 CustList<Attr> attrs3_=al(1);
-attrs3_.add(at("prepare","$intern.index=index"));
+attrs3_.add(at(PREPARE,C_P_104_8));
 at(elt3_,attrs3_);
 ad(elt2_,elt3_);
 ad(elt1_,elt2_);
@@ -53,105 +79,87 @@ ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
 static void build1(Element _body,Document _doc){
-Element elt0_=el(_doc,"p");
-Element elt1_=el(_doc,"c:if");
+Element elt0_=el(_doc,P);
+Element elt1_=el(_doc,C_IF);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!damageEndRound.isZero()"));
+attrs0_.add(at(CONDITION,C_P_104_9));
 at(elt1_,attrs0_);
-Element elt2_=el(_doc,"c:message");
+Element elt2_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("value","msg_effglobal,damage_end_round"));
+attrs1_.add(at(VALUE,C_P_104_10));
 at(elt2_,attrs1_);
-Element elt3_=el(_doc,"param");
+Element elt3_=el(_doc,PARAM);
 CustList<Attr> attrs2_=al(1);
-attrs2_.add(at("value","damageEndRound"));
+attrs2_.add(at(VALUE,C_P_104_11));
 at(elt3_,attrs2_);
 ad(elt2_,elt3_);
 ad(elt1_,elt2_);
 ad(elt0_,elt1_);
-Element elt4_=el(_doc,"c:if");
+Element elt4_=el(_doc,C_IF);
 CustList<Attr> attrs3_=al(1);
-attrs3_.add(at("condition","!healingEndRoundGround.isZero()"));
+attrs3_.add(at(CONDITION,C_P_104_12));
 at(elt4_,attrs3_);
-Element elt5_=el(_doc,"c:message");
+Element elt5_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs4_=al(1);
-attrs4_.add(at("value","msg_effglobal,healing_end_round_ground"));
+attrs4_.add(at(VALUE,C_P_104_13));
 at(elt5_,attrs4_);
-Element elt6_=el(_doc,"param");
+Element elt6_=el(_doc,PARAM);
 CustList<Attr> attrs5_=al(1);
-attrs5_.add(at("value","healingEndRoundGround"));
+attrs5_.add(at(VALUE,C_P_104_14));
 at(elt6_,attrs5_);
 ad(elt5_,elt6_);
 ad(elt4_,elt5_);
 ad(elt0_,elt4_);
-Element elt7_=el(_doc,"c:if");
+Element elt7_=el(_doc,C_IF);
 CustList<Attr> attrs6_=al(1);
-attrs6_.add(at("condition","!healingEndRound.isZero()"));
+attrs6_.add(at(CONDITION,C_P_104_15));
 at(elt7_,attrs6_);
-Element elt8_=el(_doc,"c:message");
+Element elt8_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs7_=al(1);
-attrs7_.add(at("value","msg_effglobal,healing_end_round"));
+attrs7_.add(at(VALUE,C_P_104_16));
 at(elt8_,attrs7_);
-Element elt9_=el(_doc,"param");
+Element elt9_=el(_doc,PARAM);
 CustList<Attr> attrs8_=al(1);
-attrs8_.add(at("value","healingEndRound"));
+attrs8_.add(at(VALUE,C_P_104_17));
 at(elt9_,attrs8_);
 ad(elt8_,elt9_);
 ad(elt7_,elt8_);
 ad(elt0_,elt7_);
-Element elt10_=el(_doc,"c:if");
+Element elt10_=el(_doc,C_IF);
 CustList<Attr> attrs9_=al(1);
-attrs9_.add(at("condition","puttingKo"));
+attrs9_.add(at(CONDITION,C_P_104_18));
 at(elt10_,attrs9_);
-Element elt11_=el(_doc,"c:message");
+Element elt11_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs10_=al(1);
-attrs10_.add(at("value","msg_effglobal,putting_ko"));
+attrs10_.add(at(VALUE,C_P_104_19));
 at(elt11_,attrs10_);
 ad(elt10_,elt11_);
 ad(elt0_,elt10_);
-Element elt12_=el(_doc,"c:if");
+Element elt12_=el(_doc,C_IF);
 CustList<Attr> attrs11_=al(1);
-attrs11_.add(at("condition","!immuneTypes.isEmpty()"));
+attrs11_.add(at(CONDITION,C_P_104_20));
 at(elt12_,attrs11_);
-Element elt13_=el(_doc,"c:message");
+Element elt13_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs12_=al(1);
-attrs12_.add(at("value","msg_effglobal,immune_types"));
+attrs12_.add(at(VALUE,C_P_104_21));
 at(elt13_,attrs12_);
 ad(elt12_,elt13_);
-Element elt14_=el(_doc,"ul");
-Element elt15_=el(_doc,"c:for");
+Element elt14_=el(_doc,UL);
+Element elt15_=el(_doc,C_FOR);
 CustList<Attr> attrs13_=al(3);
-attrs13_.add(at("list","immuneTypes"));
-attrs13_.add(at("var","t"));
-attrs13_.add(at("className","java.lang.String"));
+attrs13_.add(at(LIST,C_P_104_22));
+attrs13_.add(at(VAR,C_P_104_23));
+attrs13_.add(at(CLASSNAME,C_P_104_24));
 at(elt15_,attrs13_);
-Element elt16_=el(_doc,"li");
-Text txt0_=tx(_doc,"{t}");
+Element elt16_=el(_doc,LI);
+Text txt0_=tx(_doc,C_P_104_25);
 ad(elt16_,txt0_);
 ad(elt15_,elt16_);
 ad(elt14_,elt15_);
 ad(elt12_,elt14_);
-Element elt17_=el(_doc,"br");
+Element elt17_=el(_doc,BR);
 ad(elt12_,elt17_);
 ad(elt0_,elt12_);
 ad(_body,elt0_);
-}
-static Attr at(String _name,String _value){
-return CoreDocument.createAttribute(_name,_value);
-}
-static void at(Element _elt,CustList<Attr> _ls){
-_elt.setAttributes(new NamedNodeMap(_ls));
-}
-static CustList<Attr> al(int _len){
-return new CustList<Attr>(new CollCapacity(_len));
-}
-static Text tx(Document _doc,String _value){
-return _doc.createEscapedTextNode(_value);
-}
-static Element el(Document _doc,String _value){
-return _doc.createElement(_value);
-}
-static void ad(Element _elt,Node _value){
-_elt.appendChild(_value);
 }
 }

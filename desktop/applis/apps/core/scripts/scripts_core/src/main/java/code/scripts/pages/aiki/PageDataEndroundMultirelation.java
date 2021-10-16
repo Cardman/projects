@@ -2,7 +2,29 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataEndroundMultirelation{
+final class PageDataEndroundMultirelation extends PageAikiCommon{
+private static final String C_P_106_0="javahtml";
+private static final String C_P_106_1="end_multirelation";
+private static final String C_P_106_2="web/css/abilities.css";
+private static final String C_P_106_3="stylesheet";
+private static final String C_P_106_4="text/css";
+private static final String C_P_106_5="{endRoundHtml}";
+private static final String C_P_106_6="aiki.beans.endround";
+private static final String C_P_106_7="EffectEndRoundBean";
+private static final String C_P_106_8="$intern.index=index";
+private static final String C_P_106_9="!damageByStatus.isEmpty()";
+private static final String C_P_106_10="msg_multirelation,effect";
+private static final String C_P_106_11="msg_multirelation,damage_status_key";
+private static final String C_P_106_12="msg_multirelation,damage_status_rate";
+private static final String C_P_106_13="s";
+private static final String C_P_106_14="damageByStatus";
+private static final String C_P_106_15="r";
+private static final String C_P_106_16="java.lang.Object";
+private static final String C_P_106_17="r";
+private static final String C_P_106_18="$clickDamageStatus({index},{([s])})";
+private static final String C_P_106_19="";
+private static final String C_P_106_20="{getTrDamageStatus(([s]))}";
+private static final String C_P_106_21="{r}";
 private PageDataEndroundMultirelation(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -10,42 +32,42 @@ build(doc_);
 return doc_;
 }
 static void build(Document _doc){
-Element elt0_=el(_doc,"html");
+Element elt0_=el(_doc,HTML);
 CustList<Attr> attrs0_=al(2);
-attrs0_.add(at("xmlns:c","javahtml"));
-attrs0_.add(at("c:bean","end_multirelation"));
+attrs0_.add(at(XMLNS_C,C_P_106_0));
+attrs0_.add(at(C_BEAN,C_P_106_1));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"head");
-Element elt2_=el(_doc,"link");
+Element elt1_=el(_doc,HEAD);
+Element elt2_=el(_doc,LINK);
 CustList<Attr> attrs1_=al(3);
-attrs1_.add(at("href","web/css/abilities.css"));
-attrs1_.add(at("rel","stylesheet"));
-attrs1_.add(at("type","text/css"));
+attrs1_.add(at(HREF,C_P_106_2));
+attrs1_.add(at(REL,C_P_106_3));
+attrs1_.add(at(TYPE,C_P_106_4));
 at(elt2_,attrs1_);
 ad(elt1_,elt2_);
 ad(elt0_,elt1_);
-Element elt3_=el(_doc,"body");
+Element elt3_=el(_doc,BODY);
 build0(elt3_,_doc);
 build1(elt3_,_doc);
 ad(elt0_,elt3_);
 _doc.appendChild(elt0_);
 }
 static void build0(Element _body,Document _doc){
-Element elt0_=el(_doc,"c:import");
+Element elt0_=el(_doc,C_IMPORT);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("page","{endRoundHtml}"));
+attrs0_.add(at(PAGE,C_P_106_5));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"c:package");
+Element elt1_=el(_doc,C_PACKAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("name","aiki.beans.endround"));
+attrs1_.add(at(NAME,C_P_106_6));
 at(elt1_,attrs1_);
-Element elt2_=el(_doc,"c:class");
+Element elt2_=el(_doc,C_CLASS);
 CustList<Attr> attrs2_=al(1);
-attrs2_.add(at("name","EffectEndRoundBean"));
+attrs2_.add(at(NAME,C_P_106_7));
 at(elt2_,attrs2_);
-Element elt3_=el(_doc,"c:field");
+Element elt3_=el(_doc,C_FIELD);
 CustList<Attr> attrs3_=al(1);
-attrs3_.add(at("prepare","$intern.index=index"));
+attrs3_.add(at(PREPARE,C_P_106_8));
 at(elt3_,attrs3_);
 ad(elt2_,elt3_);
 ad(elt1_,elt2_);
@@ -53,84 +75,66 @@ ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
 static void build1(Element _body,Document _doc){
-Element elt0_=el(_doc,"p");
-Element elt1_=el(_doc,"c:if");
+Element elt0_=el(_doc,P);
+Element elt1_=el(_doc,C_IF);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("condition","!damageByStatus.isEmpty()"));
+attrs0_.add(at(CONDITION,C_P_106_9));
 at(elt1_,attrs0_);
-Element elt2_=el(_doc,"c:message");
+Element elt2_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("value","msg_multirelation,effect"));
+attrs1_.add(at(VALUE,C_P_106_10));
 at(elt2_,attrs1_);
 ad(elt1_,elt2_);
-Element elt3_=el(_doc,"table");
-Element elt4_=el(_doc,"thead");
-Element elt5_=el(_doc,"tr");
-Element elt6_=el(_doc,"th");
-Element elt7_=el(_doc,"c:message");
+Element elt3_=el(_doc,TABLE);
+Element elt4_=el(_doc,THEAD);
+Element elt5_=el(_doc,TR);
+Element elt6_=el(_doc,TH);
+Element elt7_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs2_=al(1);
-attrs2_.add(at("value","msg_multirelation,damage_status_key"));
+attrs2_.add(at(VALUE,C_P_106_11));
 at(elt7_,attrs2_);
 ad(elt6_,elt7_);
 ad(elt5_,elt6_);
-Element elt8_=el(_doc,"th");
-Element elt9_=el(_doc,"c:message");
+Element elt8_=el(_doc,TH);
+Element elt9_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs3_=al(1);
-attrs3_.add(at("value","msg_multirelation,damage_status_rate"));
+attrs3_.add(at(VALUE,C_P_106_12));
 at(elt9_,attrs3_);
 ad(elt8_,elt9_);
 ad(elt5_,elt8_);
 ad(elt4_,elt5_);
 ad(elt3_,elt4_);
-Element elt10_=el(_doc,"tbody");
-Element elt11_=el(_doc,"c:for");
+Element elt10_=el(_doc,TBODY);
+Element elt11_=el(_doc,C_FOR);
 CustList<Attr> attrs4_=al(5);
-attrs4_.add(at("key","s"));
-attrs4_.add(at("map","damageByStatus"));
-attrs4_.add(at("value","r"));
-attrs4_.add(at("keyClassName","java.lang.Object"));
-attrs4_.add(at("varClassName","r"));
+attrs4_.add(at(KEY,C_P_106_13));
+attrs4_.add(at(MAP,C_P_106_14));
+attrs4_.add(at(VALUE,C_P_106_15));
+attrs4_.add(at(KEYCLASSNAME,C_P_106_16));
+attrs4_.add(at(VARCLASSNAME,C_P_106_17));
 at(elt11_,attrs4_);
-Element elt12_=el(_doc,"tr");
-Element elt13_=el(_doc,"td");
-Element elt14_=el(_doc,"a");
+Element elt12_=el(_doc,TR);
+Element elt13_=el(_doc,TD);
+Element elt14_=el(_doc,A);
 CustList<Attr> attrs5_=al(2);
-attrs5_.add(at("c:command","$clickDamageStatus({index},{([s])})"));
-attrs5_.add(at("href",""));
+attrs5_.add(at(C_COMMAND,C_P_106_18));
+attrs5_.add(at(HREF,C_P_106_19));
 at(elt14_,attrs5_);
-Text txt0_=tx(_doc,"{getTrDamageStatus(([s]))}");
+Text txt0_=tx(_doc,C_P_106_20);
 ad(elt14_,txt0_);
 ad(elt13_,elt14_);
 ad(elt12_,elt13_);
-Element elt15_=el(_doc,"td");
-Text txt1_=tx(_doc,"{r}");
+Element elt15_=el(_doc,TD);
+Text txt1_=tx(_doc,C_P_106_21);
 ad(elt15_,txt1_);
 ad(elt12_,elt15_);
 ad(elt11_,elt12_);
 ad(elt10_,elt11_);
 ad(elt3_,elt10_);
 ad(elt1_,elt3_);
-Element elt16_=el(_doc,"br");
+Element elt16_=el(_doc,BR);
 ad(elt1_,elt16_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
-}
-static Attr at(String _name,String _value){
-return CoreDocument.createAttribute(_name,_value);
-}
-static void at(Element _elt,CustList<Attr> _ls){
-_elt.setAttributes(new NamedNodeMap(_ls));
-}
-static CustList<Attr> al(int _len){
-return new CustList<Attr>(new CollCapacity(_len));
-}
-static Text tx(Document _doc,String _value){
-return _doc.createEscapedTextNode(_value);
-}
-static Element el(Document _doc,String _value){
-return _doc.createElement(_value);
-}
-static void ad(Element _elt,Node _value){
-_elt.appendChild(_value);
 }
 }

@@ -1,14 +1,21 @@
 package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEffally{
+private static final String C_P_38_0="The effect lets the partner to get bonuses.<br/>\n";
+private static final String C_P_38_1="The move lets the partner to multiply damage that the partner by {0}.<br/>\n";
+private static final String C_P_38_2="L''effet permet au partenaire d''obtenir des bonus.<br/>\n";
+private static final String C_P_38_3="L''attaque permet au partenaire de multiplier les d&eacute;g&acirc;ts qu''il inflige par {0}.<br/>\n";
+private static final String M_P_EFFECT="effect";
+private static final String M_P_MUL_ALLY_DAMAGE="mul_ally_damage";
+private static final char SEP='=';
 private MesDataMovesEffectsEffally(){}
 static String en(){
-String f="effect=The effect lets the partner to get bonuses.<br/>\n";
-f+="mul_ally_damage=The move lets the partner to multiply damage that the partner by {0}.<br/>\n";
+String f=M_P_EFFECT+SEP+C_P_38_0;
+f+=M_P_MUL_ALLY_DAMAGE+SEP+C_P_38_1;
 return f;
 }
 static String fr(){
-String f="effect=L''effet permet au partenaire d''obtenir des bonus.<br/>\n";
-f+="mul_ally_damage=L''attaque permet au partenaire de multiplier les d&eacute;g&acirc;ts qu''il inflige par {0}.<br/>\n";
+String f=M_P_EFFECT+SEP+C_P_38_2;
+f+=M_P_MUL_ALLY_DAMAGE+SEP+C_P_38_3;
 return f;
 }
 }
