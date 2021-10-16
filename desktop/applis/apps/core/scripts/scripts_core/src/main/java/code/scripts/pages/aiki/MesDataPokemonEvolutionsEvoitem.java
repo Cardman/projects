@@ -6,11 +6,9 @@ private static final String M_P_74_ITEM="item";
 private static final char SEP='=';
 private MesDataPokemonEvolutionsEvoitem(){}
 static String en(){
-String f=M_P_74_ITEM+SEP+C_P_74_0;
-return f;
+return M_P_74_ITEM+SEP+C_P_74_0;
 }
 static String fr(){
-String f=M_P_74_ITEM+SEP+C_P_74_1;
-return f;
+return M_P_74_ITEM+SEP+C_P_74_1;
 }
 }

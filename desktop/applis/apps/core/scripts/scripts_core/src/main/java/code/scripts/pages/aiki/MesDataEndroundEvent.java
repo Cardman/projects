@@ -6,11 +6,9 @@ private static final String M_P_4_RANK="rank";
 private static final char SEP='=';
 private MesDataEndroundEvent(){}
 static String en(){
-String f=M_P_4_RANK+SEP+C_P_4_0;
-return f;
+return M_P_4_RANK+SEP+C_P_4_0;
 }
 static String fr(){
-String f=M_P_4_RANK+SEP+C_P_4_1;
-return f;
+return M_P_4_RANK+SEP+C_P_4_1;
 }
 }

@@ -6,11 +6,9 @@ private static final String M_P_64_EFFECT="effect";
 private static final char SEP='=';
 private MesDataMovesEffectsEffswitchposition(){}
 static String en(){
-String f=M_P_64_EFFECT+SEP+C_P_64_0;
-return f;
+return M_P_64_EFFECT+SEP+C_P_64_0;
 }
 static String fr(){
-String f=M_P_64_EFFECT+SEP+C_P_64_1;
-return f;
+return M_P_64_EFFECT+SEP+C_P_64_1;
 }
 }

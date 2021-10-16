@@ -6,11 +6,9 @@ private static final String M_P_30_STEPS="steps";
 private static final char SEP='=';
 private MesDataItemsRepel(){}
 static String en(){
-String f=M_P_30_STEPS+SEP+C_P_30_0;
-return f;
+return M_P_30_STEPS+SEP+C_P_30_0;
 }
 static String fr(){
-String f=M_P_30_STEPS+SEP+C_P_30_1;
-return f;
+return M_P_30_STEPS+SEP+C_P_30_1;
 }
 }

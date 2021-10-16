@@ -6,11 +6,9 @@ private static final String M_P_79_STONE_GENDER="stone_gender";
 private static final char SEP='=';
 private MesDataPokemonEvolutionsEvostonegender(){}
 static String en(){
-String f=M_P_79_STONE_GENDER+SEP+C_P_79_0;
-return f;
+return M_P_79_STONE_GENDER+SEP+C_P_79_0;
 }
 static String fr(){
-String f=M_P_79_STONE_GENDER+SEP+C_P_79_1;
-return f;
+return M_P_79_STONE_GENDER+SEP+C_P_79_1;
 }
 }

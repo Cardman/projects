@@ -6,11 +6,9 @@ private static final String M_P_22_HEAL_HP="heal_hp";
 private static final char SEP='=';
 private MesDataItemsHealinghp(){}
 static String en(){
-String f=M_P_22_HEAL_HP+SEP+C_P_22_0;
-return f;
+return M_P_22_HEAL_HP+SEP+C_P_22_0;
 }
 static String fr(){
-String f=M_P_22_HEAL_HP+SEP+C_P_22_1;
-return f;
+return M_P_22_HEAL_HP+SEP+C_P_22_1;
 }
 }

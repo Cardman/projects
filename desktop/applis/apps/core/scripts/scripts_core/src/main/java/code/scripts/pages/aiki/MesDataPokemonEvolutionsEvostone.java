@@ -6,11 +6,9 @@ private static final String M_P_78_STONE="stone";
 private static final char SEP='=';
 private MesDataPokemonEvolutionsEvostone(){}
 static String en(){
-String f=M_P_78_STONE+SEP+C_P_78_0;
-return f;
+return M_P_78_STONE+SEP+C_P_78_0;
 }
 static String fr(){
-String f=M_P_78_STONE+SEP+C_P_78_1;
-return f;
+return M_P_78_STONE+SEP+C_P_78_1;
 }
 }

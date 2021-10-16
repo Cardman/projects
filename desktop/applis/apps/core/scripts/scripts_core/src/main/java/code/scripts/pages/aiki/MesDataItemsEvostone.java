@@ -6,11 +6,9 @@ private static final String M_P_20_ITEM="item";
 private static final char SEP='=';
 private MesDataItemsEvostone(){}
 static String en(){
-String f=M_P_20_ITEM+SEP+C_P_20_0;
-return f;
+return M_P_20_ITEM+SEP+C_P_20_0;
 }
 static String fr(){
-String f=M_P_20_ITEM+SEP+C_P_20_1;
-return f;
+return M_P_20_ITEM+SEP+C_P_20_1;
 }
 }

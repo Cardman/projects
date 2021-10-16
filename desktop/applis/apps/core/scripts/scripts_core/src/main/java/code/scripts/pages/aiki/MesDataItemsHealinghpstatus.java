@@ -6,11 +6,9 @@ private static final String M_P_23_RATE="rate";
 private static final char SEP='=';
 private MesDataItemsHealinghpstatus(){}
 static String en(){
-String f=M_P_23_RATE+SEP+C_P_23_0;
-return f;
+return M_P_23_RATE+SEP+C_P_23_0;
 }
 static String fr(){
-String f=M_P_23_RATE+SEP+C_P_23_1;
-return f;
+return M_P_23_RATE+SEP+C_P_23_1;
 }
 }

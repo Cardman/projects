@@ -6,11 +6,9 @@ private static final String M_P_80_TEAM="team";
 private static final char SEP='=';
 private MesDataPokemonEvolutionsEvoteam(){}
 static String en(){
-String f=M_P_80_TEAM+SEP+C_P_80_0;
-return f;
+return M_P_80_TEAM+SEP+C_P_80_0;
 }
 static String fr(){
-String f=M_P_80_TEAM+SEP+C_P_80_1;
-return f;
+return M_P_80_TEAM+SEP+C_P_80_1;
 }
 }

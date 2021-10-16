@@ -6,11 +6,9 @@ private static final String M_P_77_MOVE="move";
 private static final char SEP='=';
 private MesDataPokemonEvolutionsEvomove(){}
 static String en(){
-String f=M_P_77_MOVE+SEP+C_P_77_0;
-return f;
+return M_P_77_MOVE+SEP+C_P_77_0;
 }
 static String fr(){
-String f=M_P_77_MOVE+SEP+C_P_77_1;
-return f;
+return M_P_77_MOVE+SEP+C_P_77_1;
 }
 }

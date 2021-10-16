@@ -6,11 +6,9 @@ private static final String M_P_21_FOSSIL="fossil";
 private static final char SEP='=';
 private MesDataItemsFossil(){}
 static String en(){
-String f=M_P_21_FOSSIL+SEP+C_P_21_0;
-return f;
+return M_P_21_FOSSIL+SEP+C_P_21_0;
 }
 static String fr(){
-String f=M_P_21_FOSSIL+SEP+C_P_21_1;
-return f;
+return M_P_21_FOSSIL+SEP+C_P_21_1;
 }
 }
