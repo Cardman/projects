@@ -2,7 +2,27 @@ package code.scripts.pages.cards;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PagePresidentResults{
+final class PagePresidentResults extends PageCardsCommon{
+private static final String C_0="results";
+private static final String C_1="javahtml";
+private static final String C_2="msg,results";
+private static final String C_3="resources_cards/css/president.css";
+private static final String C_4="stylesheet";
+private static final String C_5="text/css";
+private static final String C_6="1";
+private static final String C_7="msg,ranks";
+private static final String C_8="p";
+private static final String C_9="nicknames";
+private static final String C_10="java.lang.String";
+private static final String C_11="{p}";
+private static final String C_12="l";
+private static final String C_13="linesDeal";
+private static final String C_14="cards.president.beans.LineDeal";
+private static final String C_15="{l.number}";
+private static final String C_16="s";
+private static final String C_17="l.scores";
+private static final String C_18="java.lang.Long";
+private static final String C_19="{s}";
 private PagePresidentResults(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -10,82 +30,82 @@ build(doc_);
 return doc_;
 }
 static void build(Document _doc){
-Element elt0_=el(_doc,"html");
+Element elt0_=el(_doc,HTML);
 CustList<Attr> attrs0_=al(2);
-attrs0_.add(at("c:bean","results"));
-attrs0_.add(at("xmlns:c","javahtml"));
+attrs0_.add(at(C_BEAN,C_0));
+attrs0_.add(at(XMLNS_C,C_1));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"head");
-Element elt2_=el(_doc,"title");
-Element elt3_=el(_doc,"c:message");
+Element elt1_=el(_doc,HEAD);
+Element elt2_=el(_doc,TITLE);
+Element elt3_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("value","msg,results"));
+attrs1_.add(at(VALUE,C_2));
 at(elt3_,attrs1_);
 ad(elt2_,elt3_);
 ad(elt1_,elt2_);
-Element elt4_=el(_doc,"link");
+Element elt4_=el(_doc,LINK);
 CustList<Attr> attrs2_=al(3);
-attrs2_.add(at("href","resources_cards/css/president.css"));
-attrs2_.add(at("rel","stylesheet"));
-attrs2_.add(at("type","text/css"));
+attrs2_.add(at(HREF,C_3));
+attrs2_.add(at(REL,C_4));
+attrs2_.add(at(TYPE,C_5));
 at(elt4_,attrs2_);
 ad(elt1_,elt4_);
 ad(elt0_,elt1_);
-Element elt5_=el(_doc,"body");
+Element elt5_=el(_doc,BODY);
 build0(elt5_,_doc);
 build1(elt5_,_doc);
 ad(elt0_,elt5_);
 _doc.appendChild(elt0_);
 }
 static void build0(Element _body,Document _doc){
-Element elt0_=el(_doc,"table");
+Element elt0_=el(_doc,TABLE);
 CustList<Attr> attrs0_=al(1);
-attrs0_.add(at("border","1"));
+attrs0_.add(at(BORDER,C_6));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,"caption");
-Element elt2_=el(_doc,"c:message");
+Element elt1_=el(_doc,CAPTION);
+Element elt2_=el(_doc,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
-attrs1_.add(at("value","msg,ranks"));
+attrs1_.add(at(VALUE,C_7));
 at(elt2_,attrs1_);
 ad(elt1_,elt2_);
 ad(elt0_,elt1_);
-Element elt3_=el(_doc,"thead");
-Element elt4_=el(_doc,"tr");
-Element elt5_=el(_doc,"td");
+Element elt3_=el(_doc,THEAD);
+Element elt4_=el(_doc,TR);
+Element elt5_=el(_doc,TD);
 ad(elt4_,elt5_);
-Element elt6_=el(_doc,"c:for");
+Element elt6_=el(_doc,C_FOR);
 CustList<Attr> attrs2_=al(3);
-attrs2_.add(at("var","p"));
-attrs2_.add(at("list","nicknames"));
-attrs2_.add(at("className","java.lang.String"));
+attrs2_.add(at(VAR,C_8));
+attrs2_.add(at(LIST,C_9));
+attrs2_.add(at(CLASSNAME,C_10));
 at(elt6_,attrs2_);
-Element elt7_=el(_doc,"td");
-Text txt0_=tx(_doc,"{p}");
+Element elt7_=el(_doc,TD);
+Text txt0_=tx(_doc,C_11);
 ad(elt7_,txt0_);
 ad(elt6_,elt7_);
 ad(elt4_,elt6_);
 ad(elt3_,elt4_);
 ad(elt0_,elt3_);
-Element elt8_=el(_doc,"tbody");
-Element elt9_=el(_doc,"c:for");
+Element elt8_=el(_doc,TBODY);
+Element elt9_=el(_doc,C_FOR);
 CustList<Attr> attrs3_=al(3);
-attrs3_.add(at("var","l"));
-attrs3_.add(at("list","linesDeal"));
-attrs3_.add(at("className","cards.president.beans.LineDeal"));
+attrs3_.add(at(VAR,C_12));
+attrs3_.add(at(LIST,C_13));
+attrs3_.add(at(CLASSNAME,C_14));
 at(elt9_,attrs3_);
-Element elt10_=el(_doc,"tr");
-Element elt11_=el(_doc,"td");
-Text txt1_=tx(_doc,"{l.number}");
+Element elt10_=el(_doc,TR);
+Element elt11_=el(_doc,TD);
+Text txt1_=tx(_doc,C_15);
 ad(elt11_,txt1_);
 ad(elt10_,elt11_);
-Element elt12_=el(_doc,"c:for");
+Element elt12_=el(_doc,C_FOR);
 CustList<Attr> attrs4_=al(3);
-attrs4_.add(at("var","s"));
-attrs4_.add(at("list","l.scores"));
-attrs4_.add(at("className","java.lang.Long"));
+attrs4_.add(at(VAR,C_16));
+attrs4_.add(at(LIST,C_17));
+attrs4_.add(at(CLASSNAME,C_18));
 at(elt12_,attrs4_);
-Element elt13_=el(_doc,"td");
-Text txt2_=tx(_doc,"{s}");
+Element elt13_=el(_doc,TD);
+Text txt2_=tx(_doc,C_19);
 ad(elt13_,txt2_);
 ad(elt12_,elt13_);
 ad(elt10_,elt12_);
@@ -95,25 +115,7 @@ ad(elt0_,elt8_);
 ad(_body,elt0_);
 }
 static void build1(Element _body,Document _doc){
-Element elt0_=el(_doc,"br");
+Element elt0_=el(_doc,BR);
 ad(_body,elt0_);
-}
-static Attr at(String _name,String _value){
-return CoreDocument.createAttribute(_name,_value);
-}
-static void at(Element _elt,CustList<Attr> _ls){
-_elt.setAttributes(new NamedNodeMap(_ls));
-}
-static CustList<Attr> al(int _len){
-return new CustList<Attr>(new CollCapacity(_len));
-}
-static Text tx(Document _doc,String _value){
-return _doc.createEscapedTextNode(_value);
-}
-static Element el(Document _doc,String _value){
-return _doc.createElement(_value);
-}
-static void ad(Element _elt,Node _value){
-_elt.appendChild(_value);
 }
 }
