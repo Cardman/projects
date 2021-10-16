@@ -297,7 +297,7 @@ static void build8(Element _body,Document _doc38){
 Element elt0_=el(_doc38,HR);
 ad(_body,elt0_);
 }
-static void build9(Element _body,Document _doc38){
+static void build9(Element _body1,Document _doc38){
 Element elt0_=el(_doc38,C_FOR);
 CustList<Attr> attrs0_=al(3);
 attrs0_.add(at(CLASSNAME,C_P_133_41));
@@ -416,6 +416,6 @@ Element elt26_=el(_doc38,BR);
 ad(elt0_,elt26_);
 Element elt27_=el(_doc38,BR);
 ad(elt0_,elt27_);
-ad(_body,elt0_);
+ad(_body1,elt0_);
 }
 }
