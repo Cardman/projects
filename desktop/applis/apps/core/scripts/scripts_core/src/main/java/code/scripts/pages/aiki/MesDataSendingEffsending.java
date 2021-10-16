@@ -18,39 +18,39 @@ private static final String C_P_84_6="The owner copies the ability of the closes
 private static final String C_P_84_7="Le type of the owner becomes the type of the owned plate, else the type of the owner is the base type (on the associated data).<br/>\n";
 private static final String C_P_84_8="The weight of the owner is multiplied by {0} while its sending.<br/>\n";
 private static final String C_P_84_9="Cet effet a lieu apr&egrave;s les effets des attaques agissant lors de l''entr&eacute;e d''un adversaire sur le terrain.<br/>\n";
-private static final String M_P_COPY_AB="copy_ab";
-private static final String M_P_DISABLE_WEATHER="disable_weather";
-private static final String M_P_DISABLE_WEATHER_2="disable_weather_2";
-private static final String M_P_DISABLE_WEATHER_3="disable_weather_3";
-private static final String M_P_DISABLE_WEATHER_4="disable_weather_4";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_PLATE="plate";
-private static final String M_P_WEATHER="weather";
-private static final String M_P_WEIGHT="weight";
+private static final String M_P_84_COPY_AB="copy_ab";
+private static final String M_P_84_DISABLE_WEATHER="disable_weather";
+private static final String M_P_84_DISABLE_WEATHER_2="disable_weather_2";
+private static final String M_P_84_DISABLE_WEATHER_3="disable_weather_3";
+private static final String M_P_84_DISABLE_WEATHER_4="disable_weather_4";
+private static final String M_P_84_EFFECT="effect";
+private static final String M_P_84_PLATE="plate";
+private static final String M_P_84_WEATHER="weather";
+private static final String M_P_84_WEIGHT="weight";
 private static final char SEP='=';
 private MesDataSendingEffsending(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_84_0;
-f+=M_P_DISABLE_WEATHER+SEP+C_P_84_1;
-f+=M_P_DISABLE_WEATHER_2+SEP+C_P_84_2;
-f+=M_P_DISABLE_WEATHER_3+SEP+C_P_84_3;
-f+=M_P_DISABLE_WEATHER_4+SEP+C_P_84_4;
-f+=M_P_WEATHER+SEP+C_P_84_5;
-f+=M_P_COPY_AB+SEP+C_P_84_6;
-f+=M_P_PLATE+SEP+C_P_84_7;
-f+=M_P_WEIGHT+SEP+C_P_84_8;
+String f=M_P_84_EFFECT+SEP+C_P_84_0;
+f+=M_P_84_DISABLE_WEATHER+SEP+C_P_84_1;
+f+=M_P_84_DISABLE_WEATHER_2+SEP+C_P_84_2;
+f+=M_P_84_DISABLE_WEATHER_3+SEP+C_P_84_3;
+f+=M_P_84_DISABLE_WEATHER_4+SEP+C_P_84_4;
+f+=M_P_84_WEATHER+SEP+C_P_84_5;
+f+=M_P_84_COPY_AB+SEP+C_P_84_6;
+f+=M_P_84_PLATE+SEP+C_P_84_7;
+f+=M_P_84_WEIGHT+SEP+C_P_84_8;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_84_9;
-f+=M_P_DISABLE_WEATHER+SEP+C_P_84_10;
-f+=M_P_DISABLE_WEATHER_2+SEP+C_P_84_11;
-f+=M_P_DISABLE_WEATHER_3+SEP+C_P_84_12;
-f+=M_P_DISABLE_WEATHER_4+SEP+C_P_84_13;
-f+=M_P_WEATHER+SEP+C_P_84_14;
-f+=M_P_COPY_AB+SEP+C_P_84_15;
-f+=M_P_PLATE+SEP+C_P_84_16;
-f+=M_P_WEIGHT+SEP+C_P_84_17;
+String f=M_P_84_EFFECT+SEP+C_P_84_9;
+f+=M_P_84_DISABLE_WEATHER+SEP+C_P_84_10;
+f+=M_P_84_DISABLE_WEATHER_2+SEP+C_P_84_11;
+f+=M_P_84_DISABLE_WEATHER_3+SEP+C_P_84_12;
+f+=M_P_84_DISABLE_WEATHER_4+SEP+C_P_84_13;
+f+=M_P_84_WEATHER+SEP+C_P_84_14;
+f+=M_P_84_COPY_AB+SEP+C_P_84_15;
+f+=M_P_84_PLATE+SEP+C_P_84_16;
+f+=M_P_84_WEIGHT+SEP+C_P_84_17;
 return f;
 }
 }

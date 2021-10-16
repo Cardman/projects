@@ -8,24 +8,24 @@ private static final String C_P_63_4="Cet effet change le point de vue des comba
 private static final String C_P_63_5="Le lanceur de cette attaque attend que sa cible lance une attaque \"saisissable\".<br/>Lorsque le tour de la cible vient, le lanceur de l''attaque {0} vole les effets positifs de l''attaque que la cible a choisie sans pouvoir la lancer.<br/>Le lanceur de cette attaque invoque aussi l''attaque de la cible sans utiliser de pp et la cible ne peut pas lancer son attaque pendant son tour.<br/>\n";
 private static final String C_P_63_6="Tout combattant attaquant le lanceur de cette attaque r&eacute;ussie se retrouve cible de sa propre attaque \"retournable\" et le lanceur de l''attaque {0} devient lanceur de chaque attaque lanc&eacute;e contre lui.<br/>\n";
 private static final String C_P_63_7="Le lanceur de cette attaque subit les d&eacute;g&acirc;ts des attaques &agrave; cible unique au lieu de ses partenaires.<br/>\n";
-private static final String M_P_ATTRACT="attract";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_MIRROR="mirror";
-private static final String M_P_THIEF="thief";
+private static final String M_P_63_ATTRACT="attract";
+private static final String M_P_63_EFFECT="effect";
+private static final String M_P_63_MIRROR="mirror";
+private static final String M_P_63_THIEF="thief";
 private static final char SEP='=';
 private MesDataMovesEffectsEffswitchpointview(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_63_0;
-f+=M_P_THIEF+SEP+C_P_63_1;
-f+=M_P_MIRROR+SEP+C_P_63_2;
-f+=M_P_ATTRACT+SEP+C_P_63_3;
+String f=M_P_63_EFFECT+SEP+C_P_63_0;
+f+=M_P_63_THIEF+SEP+C_P_63_1;
+f+=M_P_63_MIRROR+SEP+C_P_63_2;
+f+=M_P_63_ATTRACT+SEP+C_P_63_3;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_63_4;
-f+=M_P_THIEF+SEP+C_P_63_5;
-f+=M_P_MIRROR+SEP+C_P_63_6;
-f+=M_P_ATTRACT+SEP+C_P_63_7;
+String f=M_P_63_EFFECT+SEP+C_P_63_4;
+f+=M_P_63_THIEF+SEP+C_P_63_5;
+f+=M_P_63_MIRROR+SEP+C_P_63_6;
+f+=M_P_63_ATTRACT+SEP+C_P_63_7;
 return f;
 }
 }

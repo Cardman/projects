@@ -20,42 +20,42 @@ private static final String C_P_59_6="The deleted status of the target are the f
 private static final String C_P_59_7="The user is knocked out. The substitute of the user is full healed (pp, hp, status).<br/>\n";
 private static final String C_P_59_8="The status of the user are forwarded to the target that does not have.<br/>\n";
 private static final String C_P_59_9="{0}\n";
-private static final String M_P_DELETED_STATUS="deleted_status";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_FAIL="fail";
-private static final String M_P_FORMULA="formula";
-private static final String M_P_FORWARD="forward";
-private static final String M_P_KO_USER="ko_user";
-private static final String M_P_LAW_STATUS="law_status";
-private static final String M_P_OTHER_STATUS="other_status";
-private static final String M_P_RATE_EVENT="rate_event";
-private static final String M_P_STATUS="status";
+private static final String M_P_59_DELETED_STATUS="deleted_status";
+private static final String M_P_59_EFFECT="effect";
+private static final String M_P_59_FAIL="fail";
+private static final String M_P_59_FORMULA="formula";
+private static final String M_P_59_FORWARD="forward";
+private static final String M_P_59_KO_USER="ko_user";
+private static final String M_P_59_LAW_STATUS="law_status";
+private static final String M_P_59_OTHER_STATUS="other_status";
+private static final String M_P_59_RATE_EVENT="rate_event";
+private static final String M_P_59_STATUS="status";
 private static final char SEP='=';
 private MesDataMovesEffectsEffstatus(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_59_0;
-f+=M_P_LAW_STATUS+SEP+C_P_59_1;
-f+=M_P_STATUS+SEP+C_P_59_2;
-f+=M_P_FAIL+SEP+C_P_59_3;
-f+=M_P_RATE_EVENT+SEP+C_P_59_4;
-f+=M_P_OTHER_STATUS+SEP+C_P_59_5;
-f+=M_P_DELETED_STATUS+SEP+C_P_59_6;
-f+=M_P_KO_USER+SEP+C_P_59_7;
-f+=M_P_FORWARD+SEP+C_P_59_8;
-f+=M_P_FORMULA+SEP+C_P_59_9;
+String f=M_P_59_EFFECT+SEP+C_P_59_0;
+f+=M_P_59_LAW_STATUS+SEP+C_P_59_1;
+f+=M_P_59_STATUS+SEP+C_P_59_2;
+f+=M_P_59_FAIL+SEP+C_P_59_3;
+f+=M_P_59_RATE_EVENT+SEP+C_P_59_4;
+f+=M_P_59_OTHER_STATUS+SEP+C_P_59_5;
+f+=M_P_59_DELETED_STATUS+SEP+C_P_59_6;
+f+=M_P_59_KO_USER+SEP+C_P_59_7;
+f+=M_P_59_FORWARD+SEP+C_P_59_8;
+f+=M_P_59_FORMULA+SEP+C_P_59_9;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_59_10;
-f+=M_P_LAW_STATUS+SEP+C_P_59_11;
-f+=M_P_STATUS+SEP+C_P_59_12;
-f+=M_P_FAIL+SEP+C_P_59_13;
-f+=M_P_RATE_EVENT+SEP+C_P_59_14;
-f+=M_P_OTHER_STATUS+SEP+C_P_59_15;
-f+=M_P_DELETED_STATUS+SEP+C_P_59_16;
-f+=M_P_KO_USER+SEP+C_P_59_17;
-f+=M_P_FORWARD+SEP+C_P_59_18;
-f+=M_P_FORMULA+SEP+C_P_59_19;
+String f=M_P_59_EFFECT+SEP+C_P_59_10;
+f+=M_P_59_LAW_STATUS+SEP+C_P_59_11;
+f+=M_P_59_STATUS+SEP+C_P_59_12;
+f+=M_P_59_FAIL+SEP+C_P_59_13;
+f+=M_P_59_RATE_EVENT+SEP+C_P_59_14;
+f+=M_P_59_OTHER_STATUS+SEP+C_P_59_15;
+f+=M_P_59_DELETED_STATUS+SEP+C_P_59_16;
+f+=M_P_59_KO_USER+SEP+C_P_59_17;
+f+=M_P_59_FORWARD+SEP+C_P_59_18;
+f+=M_P_59_FORMULA+SEP+C_P_59_19;
 return f;
 }
 }

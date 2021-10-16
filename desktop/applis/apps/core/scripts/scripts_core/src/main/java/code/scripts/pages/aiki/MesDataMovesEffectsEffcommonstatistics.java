@@ -10,27 +10,27 @@ private static final String C_P_41_6="Le lanceur et la cible poss&egrave;de les 
 private static final String C_P_41_7="Element commun pour le lanceur et la cible\n";
 private static final String C_P_41_8="Formule\n";
 private static final String C_P_41_9="{0}\n";
-private static final String M_P_COMMON="common";
-private static final String M_P_COMMON_STAT="common_stat";
-private static final String M_P_COMMON_VALUE="common_value";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_FORMULA="formula";
+private static final String M_P_41_COMMON="common";
+private static final String M_P_41_COMMON_STAT="common_stat";
+private static final String M_P_41_COMMON_VALUE="common_value";
+private static final String M_P_41_EFFECT="effect";
+private static final String M_P_41_FORMULA="formula";
 private static final char SEP='=';
 private MesDataMovesEffectsEffcommonstatistics(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_41_0;
-f+=M_P_COMMON+SEP+C_P_41_1;
-f+=M_P_COMMON_STAT+SEP+C_P_41_2;
-f+=M_P_COMMON_VALUE+SEP+C_P_41_3;
-f+=M_P_FORMULA+SEP+C_P_41_4;
+String f=M_P_41_EFFECT+SEP+C_P_41_0;
+f+=M_P_41_COMMON+SEP+C_P_41_1;
+f+=M_P_41_COMMON_STAT+SEP+C_P_41_2;
+f+=M_P_41_COMMON_VALUE+SEP+C_P_41_3;
+f+=M_P_41_FORMULA+SEP+C_P_41_4;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_41_5;
-f+=M_P_COMMON+SEP+C_P_41_6;
-f+=M_P_COMMON_STAT+SEP+C_P_41_7;
-f+=M_P_COMMON_VALUE+SEP+C_P_41_8;
-f+=M_P_FORMULA+SEP+C_P_41_9;
+String f=M_P_41_EFFECT+SEP+C_P_41_5;
+f+=M_P_41_COMMON+SEP+C_P_41_6;
+f+=M_P_41_COMMON_STAT+SEP+C_P_41_7;
+f+=M_P_41_COMMON_VALUE+SEP+C_P_41_8;
+f+=M_P_41_FORMULA+SEP+C_P_41_9;
 return f;
 }
 }

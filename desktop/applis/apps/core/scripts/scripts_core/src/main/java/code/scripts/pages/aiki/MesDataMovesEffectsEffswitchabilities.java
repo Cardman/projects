@@ -12,30 +12,30 @@ private static final String C_P_60_6="Cet effet change au moins une capacit&eacu
 private static final String C_P_60_7="La cible prend la capacit&eacute; <a c:command=\"$clickAbility({1})\">{0}</a>.<br/>\n";
 private static final String C_P_60_8="La capacit&eacute; de la cible n''a plus d''effet.<br/>\n";
 private static final String C_P_60_9="Le lanceur prend la capacit&eacute; de la cible.<br/>Si la capacit&eacute; de la cible &eacute;tait sans effet, alors la capacit&eacute; du lanceur sera sans effet.<br/>\n";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_GIVE_CONST="give_const";
-private static final String M_P_GIVE_CONST_EMPTY="give_const_empty";
-private static final String M_P_GIVE_TO_TARGET="give_to_target";
-private static final String M_P_GIVE_TO_USER="give_to_user";
-private static final String M_P_SWICTH_ABILITIES="swicth_abilities";
+private static final String M_P_60_EFFECT="effect";
+private static final String M_P_60_GIVE_CONST="give_const";
+private static final String M_P_60_GIVE_CONST_EMPTY="give_const_empty";
+private static final String M_P_60_GIVE_TO_TARGET="give_to_target";
+private static final String M_P_60_GIVE_TO_USER="give_to_user";
+private static final String M_P_60_SWICTH_ABILITIES="swicth_abilities";
 private static final char SEP='=';
 private MesDataMovesEffectsEffswitchabilities(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_60_0;
-f+=M_P_GIVE_CONST+SEP+C_P_60_1;
-f+=M_P_GIVE_CONST_EMPTY+SEP+C_P_60_2;
-f+=M_P_GIVE_TO_USER+SEP+C_P_60_3;
-f+=M_P_GIVE_TO_TARGET+SEP+C_P_60_4;
-f+=M_P_SWICTH_ABILITIES+SEP+C_P_60_5;
+String f=M_P_60_EFFECT+SEP+C_P_60_0;
+f+=M_P_60_GIVE_CONST+SEP+C_P_60_1;
+f+=M_P_60_GIVE_CONST_EMPTY+SEP+C_P_60_2;
+f+=M_P_60_GIVE_TO_USER+SEP+C_P_60_3;
+f+=M_P_60_GIVE_TO_TARGET+SEP+C_P_60_4;
+f+=M_P_60_SWICTH_ABILITIES+SEP+C_P_60_5;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_60_6;
-f+=M_P_GIVE_CONST+SEP+C_P_60_7;
-f+=M_P_GIVE_CONST_EMPTY+SEP+C_P_60_8;
-f+=M_P_GIVE_TO_USER+SEP+C_P_60_9;
-f+=M_P_GIVE_TO_TARGET+SEP+C_P_60_10;
-f+=M_P_SWICTH_ABILITIES+SEP+C_P_60_11;
+String f=M_P_60_EFFECT+SEP+C_P_60_6;
+f+=M_P_60_GIVE_CONST+SEP+C_P_60_7;
+f+=M_P_60_GIVE_CONST_EMPTY+SEP+C_P_60_8;
+f+=M_P_60_GIVE_TO_USER+SEP+C_P_60_9;
+f+=M_P_60_GIVE_TO_TARGET+SEP+C_P_60_10;
+f+=M_P_60_SWICTH_ABILITIES+SEP+C_P_60_11;
 return f;
 }
 }

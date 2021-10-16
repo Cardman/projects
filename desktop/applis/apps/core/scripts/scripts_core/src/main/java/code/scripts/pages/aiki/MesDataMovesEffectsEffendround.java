@@ -6,21 +6,21 @@ private static final String C_P_47_2="The effect is not enabled at the end of ro
 private static final String C_P_47_3="Le rang de l''effet est de {0}.<br/>\n";
 private static final String C_P_47_4="Voir l''effet de fin de tour\n";
 private static final String C_P_47_5="L''effet n''est pas actif en fin de tour si et seulement une des conditions est v&eacute;rifi&eacute;e:<br/>\n";
-private static final String M_P_ENDROUND="endRound";
-private static final String M_P_RANK="rank";
-private static final String M_P_REASONS="reasons";
+private static final String M_P_47_ENDROUND="endRound";
+private static final String M_P_47_RANK="rank";
+private static final String M_P_47_REASONS="reasons";
 private static final char SEP='=';
 private MesDataMovesEffectsEffendround(){}
 static String en(){
-String f=M_P_RANK+SEP+C_P_47_0;
-f+=M_P_ENDROUND+SEP+C_P_47_1;
-f+=M_P_REASONS+SEP+C_P_47_2;
+String f=M_P_47_RANK+SEP+C_P_47_0;
+f+=M_P_47_ENDROUND+SEP+C_P_47_1;
+f+=M_P_47_REASONS+SEP+C_P_47_2;
 return f;
 }
 static String fr(){
-String f=M_P_RANK+SEP+C_P_47_3;
-f+=M_P_ENDROUND+SEP+C_P_47_4;
-f+=M_P_REASONS+SEP+C_P_47_5;
+String f=M_P_47_RANK+SEP+C_P_47_3;
+f+=M_P_47_ENDROUND+SEP+C_P_47_4;
+f+=M_P_47_REASONS+SEP+C_P_47_5;
 return f;
 }
 }

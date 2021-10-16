@@ -14,33 +14,33 @@ private static final String C_P_68_6="Type of the targetted pokemon\n";
 private static final String C_P_68_7="En d&eacute;sactivant certaines immunit&eacute;s de la cible, l''effet permet au lanceur d''utiliser des attaques auxquelles la cible &eacute;tait immunis&eacute;e.<br/>\n";
 private static final String C_P_68_8="La cible peut &ecirc;tre affect&eacute;e par des attaques d''un des types suivants:<br/>\n";
 private static final String C_P_68_9="La cible n''est plus immunis&eacute;es aux attaques d''un des types suivants:<br/>\n";
-private static final String M_P_ATTACK_TARGET_TYPES="attack_target_types";
-private static final String M_P_DISABLE_IMMU_FROM_MOVES="disable_immu_from_moves";
-private static final String M_P_DISABLE_IMMU_TYPES="disable_immu_types";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_TYPES="types";
-private static final String M_P_TYPES_DAMAG="types_damag";
-private static final String M_P_TYPES_PK="types_pk";
+private static final String M_P_68_ATTACK_TARGET_TYPES="attack_target_types";
+private static final String M_P_68_DISABLE_IMMU_FROM_MOVES="disable_immu_from_moves";
+private static final String M_P_68_DISABLE_IMMU_TYPES="disable_immu_types";
+private static final String M_P_68_EFFECT="effect";
+private static final String M_P_68_TYPES="types";
+private static final String M_P_68_TYPES_DAMAG="types_damag";
+private static final String M_P_68_TYPES_PK="types_pk";
 private static final char SEP='=';
 private MesDataMovesEffectsEffunprotectfromtypes(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_68_0;
-f+=M_P_ATTACK_TARGET_TYPES+SEP+C_P_68_1;
-f+=M_P_DISABLE_IMMU_TYPES+SEP+C_P_68_2;
-f+=M_P_DISABLE_IMMU_FROM_MOVES+SEP+C_P_68_3;
-f+=M_P_TYPES+SEP+C_P_68_4;
-f+=M_P_TYPES_DAMAG+SEP+C_P_68_5;
-f+=M_P_TYPES_PK+SEP+C_P_68_6;
+String f=M_P_68_EFFECT+SEP+C_P_68_0;
+f+=M_P_68_ATTACK_TARGET_TYPES+SEP+C_P_68_1;
+f+=M_P_68_DISABLE_IMMU_TYPES+SEP+C_P_68_2;
+f+=M_P_68_DISABLE_IMMU_FROM_MOVES+SEP+C_P_68_3;
+f+=M_P_68_TYPES+SEP+C_P_68_4;
+f+=M_P_68_TYPES_DAMAG+SEP+C_P_68_5;
+f+=M_P_68_TYPES_PK+SEP+C_P_68_6;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_68_7;
-f+=M_P_ATTACK_TARGET_TYPES+SEP+C_P_68_8;
-f+=M_P_DISABLE_IMMU_TYPES+SEP+C_P_68_9;
-f+=M_P_DISABLE_IMMU_FROM_MOVES+SEP+C_P_68_10;
-f+=M_P_TYPES+SEP+C_P_68_11;
-f+=M_P_TYPES_DAMAG+SEP+C_P_68_12;
-f+=M_P_TYPES_PK+SEP+C_P_68_13;
+String f=M_P_68_EFFECT+SEP+C_P_68_7;
+f+=M_P_68_ATTACK_TARGET_TYPES+SEP+C_P_68_8;
+f+=M_P_68_DISABLE_IMMU_TYPES+SEP+C_P_68_9;
+f+=M_P_68_DISABLE_IMMU_FROM_MOVES+SEP+C_P_68_10;
+f+=M_P_68_TYPES+SEP+C_P_68_11;
+f+=M_P_68_TYPES_DAMAG+SEP+C_P_68_12;
+f+=M_P_68_TYPES_PK+SEP+C_P_68_13;
 return f;
 }
 }

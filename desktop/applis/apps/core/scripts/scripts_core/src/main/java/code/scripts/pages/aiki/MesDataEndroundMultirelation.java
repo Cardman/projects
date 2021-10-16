@@ -8,24 +8,24 @@ private static final String C_P_7_4="Cet effect prend en compte toutes les relat
 private static final String C_P_7_5="Voici le taux de pv perdus en fonction des combinaisons des statuts de l''advsersaire du combattant (les combinaisons de statut non affich&eacute;es n''on aucun effet.):<br/>\n";
 private static final String C_P_7_6="Statut poss&eacute;d&eacute;\n";
 private static final String C_P_7_7="Taux de vie perdue par l''advesaire\n";
-private static final String M_P_DAMAGE_STATUS="damage_status";
-private static final String M_P_DAMAGE_STATUS_KEY="damage_status_key";
-private static final String M_P_DAMAGE_STATUS_RATE="damage_status_rate";
-private static final String M_P_EFFECT="effect";
+private static final String M_P_7_DAMAGE_STATUS="damage_status";
+private static final String M_P_7_DAMAGE_STATUS_KEY="damage_status_key";
+private static final String M_P_7_DAMAGE_STATUS_RATE="damage_status_rate";
+private static final String M_P_7_EFFECT="effect";
 private static final char SEP='=';
 private MesDataEndroundMultirelation(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_7_0;
-f+=M_P_DAMAGE_STATUS+SEP+C_P_7_1;
-f+=M_P_DAMAGE_STATUS_KEY+SEP+C_P_7_2;
-f+=M_P_DAMAGE_STATUS_RATE+SEP+C_P_7_3;
+String f=M_P_7_EFFECT+SEP+C_P_7_0;
+f+=M_P_7_DAMAGE_STATUS+SEP+C_P_7_1;
+f+=M_P_7_DAMAGE_STATUS_KEY+SEP+C_P_7_2;
+f+=M_P_7_DAMAGE_STATUS_RATE+SEP+C_P_7_3;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_7_4;
-f+=M_P_DAMAGE_STATUS+SEP+C_P_7_5;
-f+=M_P_DAMAGE_STATUS_KEY+SEP+C_P_7_6;
-f+=M_P_DAMAGE_STATUS_RATE+SEP+C_P_7_7;
+String f=M_P_7_EFFECT+SEP+C_P_7_4;
+f+=M_P_7_DAMAGE_STATUS+SEP+C_P_7_5;
+f+=M_P_7_DAMAGE_STATUS_KEY+SEP+C_P_7_6;
+f+=M_P_7_DAMAGE_STATUS_RATE+SEP+C_P_7_7;
 return f;
 }
 }

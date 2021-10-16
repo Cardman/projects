@@ -12,30 +12,30 @@ private static final String C_P_62_6="L''effet change les types d''une attaque d
 private static final String C_P_62_7="Les types de l''attaque sont remplac&eacute;s par les types suivants:<br/>\n";
 private static final String C_P_62_8="Les types de l''attaque sont convertis de la mani&egrave;re suivante apr&egrave; &eacute;ventuel remplacement de types:<br/>\n";
 private static final String C_P_62_9="Les types de l''attaque sont convertis de la mani&egrave;re suivante:<br/>\n";
-private static final String M_P_CHANGING_TYPE="changing_type";
-private static final String M_P_CHANGING_TYPE_POSSIBLE="changing_type_possible";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_NEW_TYPE="new_type";
-private static final String M_P_OLD_TYPE="old_type";
-private static final String M_P_REPLACING_TYPES="replacing_types";
+private static final String M_P_62_CHANGING_TYPE="changing_type";
+private static final String M_P_62_CHANGING_TYPE_POSSIBLE="changing_type_possible";
+private static final String M_P_62_EFFECT="effect";
+private static final String M_P_62_NEW_TYPE="new_type";
+private static final String M_P_62_OLD_TYPE="old_type";
+private static final String M_P_62_REPLACING_TYPES="replacing_types";
 private static final char SEP='=';
 private MesDataMovesEffectsEffswitchmovestypes(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_62_0;
-f+=M_P_REPLACING_TYPES+SEP+C_P_62_1;
-f+=M_P_CHANGING_TYPE_POSSIBLE+SEP+C_P_62_2;
-f+=M_P_CHANGING_TYPE+SEP+C_P_62_3;
-f+=M_P_OLD_TYPE+SEP+C_P_62_4;
-f+=M_P_NEW_TYPE+SEP+C_P_62_5;
+String f=M_P_62_EFFECT+SEP+C_P_62_0;
+f+=M_P_62_REPLACING_TYPES+SEP+C_P_62_1;
+f+=M_P_62_CHANGING_TYPE_POSSIBLE+SEP+C_P_62_2;
+f+=M_P_62_CHANGING_TYPE+SEP+C_P_62_3;
+f+=M_P_62_OLD_TYPE+SEP+C_P_62_4;
+f+=M_P_62_NEW_TYPE+SEP+C_P_62_5;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_62_6;
-f+=M_P_REPLACING_TYPES+SEP+C_P_62_7;
-f+=M_P_CHANGING_TYPE_POSSIBLE+SEP+C_P_62_8;
-f+=M_P_CHANGING_TYPE+SEP+C_P_62_9;
-f+=M_P_OLD_TYPE+SEP+C_P_62_10;
-f+=M_P_NEW_TYPE+SEP+C_P_62_11;
+String f=M_P_62_EFFECT+SEP+C_P_62_6;
+f+=M_P_62_REPLACING_TYPES+SEP+C_P_62_7;
+f+=M_P_62_CHANGING_TYPE_POSSIBLE+SEP+C_P_62_8;
+f+=M_P_62_CHANGING_TYPE+SEP+C_P_62_9;
+f+=M_P_62_OLD_TYPE+SEP+C_P_62_10;
+f+=M_P_62_NEW_TYPE+SEP+C_P_62_11;
 return f;
 }
 }

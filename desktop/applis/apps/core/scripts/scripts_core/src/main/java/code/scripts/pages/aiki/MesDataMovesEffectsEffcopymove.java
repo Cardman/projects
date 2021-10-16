@@ -14,33 +14,33 @@ private static final String C_P_43_6="The copied move of the target definitively
 private static final String C_P_43_7="L''effet a lieu lors d''une copie d''attque de combattant\n";
 private static final String C_P_43_8="L''effet n''a pas lieu si la cible n''a pas attaqu&eacute; ou si la derni&egrave;re attaque lanc&eacute;e de la cible est <a c:command=\"$clickDefaultMove\">{0}</a>.<br/>\n";
 private static final String C_P_43_9="L''effet n''a pas lieu si l''attaque initialement choisie du lanceur est <a c:command=\"$clickDefaultMove\">{0}</a>.<br/>\n";
-private static final String M_P_COPY_DEF_MOVE="copy_def_move";
-private static final String M_P_COPY_DEF_MOVE_WITHOUT_TRANS="copy_def_move_without_trans";
-private static final String M_P_COPY_TMP_MOVE="copy_tmp_move";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_MOVES_NOT_COPIED="moves_not_copied";
-private static final String M_P_NO_EFFECT="no_effect";
-private static final String M_P_NO_EFFECT_2="no_effect_2";
+private static final String M_P_43_COPY_DEF_MOVE="copy_def_move";
+private static final String M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS="copy_def_move_without_trans";
+private static final String M_P_43_COPY_TMP_MOVE="copy_tmp_move";
+private static final String M_P_43_EFFECT="effect";
+private static final String M_P_43_MOVES_NOT_COPIED="moves_not_copied";
+private static final String M_P_43_NO_EFFECT="no_effect";
+private static final String M_P_43_NO_EFFECT_2="no_effect_2";
 private static final char SEP='=';
 private MesDataMovesEffectsEffcopymove(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_43_0;
-f+=M_P_NO_EFFECT+SEP+C_P_43_1;
-f+=M_P_NO_EFFECT_2+SEP+C_P_43_2;
-f+=M_P_MOVES_NOT_COPIED+SEP+C_P_43_3;
-f+=M_P_COPY_TMP_MOVE+SEP+C_P_43_4;
-f+=M_P_COPY_DEF_MOVE+SEP+C_P_43_5;
-f+=M_P_COPY_DEF_MOVE_WITHOUT_TRANS+SEP+C_P_43_6;
+String f=M_P_43_EFFECT+SEP+C_P_43_0;
+f+=M_P_43_NO_EFFECT+SEP+C_P_43_1;
+f+=M_P_43_NO_EFFECT_2+SEP+C_P_43_2;
+f+=M_P_43_MOVES_NOT_COPIED+SEP+C_P_43_3;
+f+=M_P_43_COPY_TMP_MOVE+SEP+C_P_43_4;
+f+=M_P_43_COPY_DEF_MOVE+SEP+C_P_43_5;
+f+=M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS+SEP+C_P_43_6;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_43_7;
-f+=M_P_NO_EFFECT+SEP+C_P_43_8;
-f+=M_P_NO_EFFECT_2+SEP+C_P_43_9;
-f+=M_P_MOVES_NOT_COPIED+SEP+C_P_43_10;
-f+=M_P_COPY_TMP_MOVE+SEP+C_P_43_11;
-f+=M_P_COPY_DEF_MOVE+SEP+C_P_43_12;
-f+=M_P_COPY_DEF_MOVE_WITHOUT_TRANS+SEP+C_P_43_13;
+String f=M_P_43_EFFECT+SEP+C_P_43_7;
+f+=M_P_43_NO_EFFECT+SEP+C_P_43_8;
+f+=M_P_43_NO_EFFECT_2+SEP+C_P_43_9;
+f+=M_P_43_MOVES_NOT_COPIED+SEP+C_P_43_10;
+f+=M_P_43_COPY_TMP_MOVE+SEP+C_P_43_11;
+f+=M_P_43_COPY_DEF_MOVE+SEP+C_P_43_12;
+f+=M_P_43_COPY_DEF_MOVE_WITHOUT_TRANS+SEP+C_P_43_13;
 return f;
 }
 }

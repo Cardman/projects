@@ -22,45 +22,45 @@ private static final String C_P_44_6="While a pokemon uses a move against the us
 private static final String C_P_44_7="Statistic\n";
 private static final String C_P_44_8="Variation of the statistic\n";
 private static final String C_P_44_9="While a pokemon uses a move against the user of the move {0} with a direct move, the rate of lost life is {1}.<br/>\n";
-private static final String M_P_COUNTER_PROTECT="counter_protect";
-private static final String M_P_DROPPED_STAT="dropped_stat";
-private static final String M_P_DROPPED_STAT_S="dropped_stat_s";
-private static final String M_P_DROPPED_STAT_V="dropped_stat_v";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_FAIL_PROTECT="fail_protect";
-private static final String M_P_FORMULA="formula";
-private static final String M_P_SUFFERING_DIRECT="suffering_direct";
-private static final String M_P_SUFFERING_TYPES="suffering_types";
-private static final String M_P_SUFFERING_TYPES_HP="suffering_types_hp";
-private static final String M_P_SUFFERING_TYPES_T="suffering_types_t";
+private static final String M_P_44_COUNTER_PROTECT="counter_protect";
+private static final String M_P_44_DROPPED_STAT="dropped_stat";
+private static final String M_P_44_DROPPED_STAT_S="dropped_stat_s";
+private static final String M_P_44_DROPPED_STAT_V="dropped_stat_v";
+private static final String M_P_44_EFFECT="effect";
+private static final String M_P_44_FAIL_PROTECT="fail_protect";
+private static final String M_P_44_FORMULA="formula";
+private static final String M_P_44_SUFFERING_DIRECT="suffering_direct";
+private static final String M_P_44_SUFFERING_TYPES="suffering_types";
+private static final String M_P_44_SUFFERING_TYPES_HP="suffering_types_hp";
+private static final String M_P_44_SUFFERING_TYPES_T="suffering_types_t";
 private static final char SEP='=';
 private MesDataMovesEffectsEffcounterattack(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_44_0;
-f+=M_P_FAIL_PROTECT+SEP+C_P_44_1;
-f+=M_P_COUNTER_PROTECT+SEP+C_P_44_2;
-f+=M_P_SUFFERING_TYPES+SEP+C_P_44_3;
-f+=M_P_SUFFERING_TYPES_T+SEP+C_P_44_4;
-f+=M_P_SUFFERING_TYPES_HP+SEP+C_P_44_5;
-f+=M_P_DROPPED_STAT+SEP+C_P_44_6;
-f+=M_P_DROPPED_STAT_S+SEP+C_P_44_7;
-f+=M_P_DROPPED_STAT_V+SEP+C_P_44_8;
-f+=M_P_SUFFERING_DIRECT+SEP+C_P_44_9;
-f+=M_P_FORMULA+SEP+C_P_44_10;
+String f=M_P_44_EFFECT+SEP+C_P_44_0;
+f+=M_P_44_FAIL_PROTECT+SEP+C_P_44_1;
+f+=M_P_44_COUNTER_PROTECT+SEP+C_P_44_2;
+f+=M_P_44_SUFFERING_TYPES+SEP+C_P_44_3;
+f+=M_P_44_SUFFERING_TYPES_T+SEP+C_P_44_4;
+f+=M_P_44_SUFFERING_TYPES_HP+SEP+C_P_44_5;
+f+=M_P_44_DROPPED_STAT+SEP+C_P_44_6;
+f+=M_P_44_DROPPED_STAT_S+SEP+C_P_44_7;
+f+=M_P_44_DROPPED_STAT_V+SEP+C_P_44_8;
+f+=M_P_44_SUFFERING_DIRECT+SEP+C_P_44_9;
+f+=M_P_44_FORMULA+SEP+C_P_44_10;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_44_11;
-f+=M_P_FAIL_PROTECT+SEP+C_P_44_12;
-f+=M_P_COUNTER_PROTECT+SEP+C_P_44_13;
-f+=M_P_SUFFERING_TYPES+SEP+C_P_44_14;
-f+=M_P_SUFFERING_TYPES_T+SEP+C_P_44_15;
-f+=M_P_SUFFERING_TYPES_HP+SEP+C_P_44_16;
-f+=M_P_DROPPED_STAT+SEP+C_P_44_17;
-f+=M_P_DROPPED_STAT_S+SEP+C_P_44_18;
-f+=M_P_DROPPED_STAT_V+SEP+C_P_44_19;
-f+=M_P_SUFFERING_DIRECT+SEP+C_P_44_20;
-f+=M_P_FORMULA+SEP+C_P_44_21;
+String f=M_P_44_EFFECT+SEP+C_P_44_11;
+f+=M_P_44_FAIL_PROTECT+SEP+C_P_44_12;
+f+=M_P_44_COUNTER_PROTECT+SEP+C_P_44_13;
+f+=M_P_44_SUFFERING_TYPES+SEP+C_P_44_14;
+f+=M_P_44_SUFFERING_TYPES_T+SEP+C_P_44_15;
+f+=M_P_44_SUFFERING_TYPES_HP+SEP+C_P_44_16;
+f+=M_P_44_DROPPED_STAT+SEP+C_P_44_17;
+f+=M_P_44_DROPPED_STAT_S+SEP+C_P_44_18;
+f+=M_P_44_DROPPED_STAT_V+SEP+C_P_44_19;
+f+=M_P_44_SUFFERING_DIRECT+SEP+C_P_44_20;
+f+=M_P_44_FORMULA+SEP+C_P_44_21;
 return f;
 }
 }

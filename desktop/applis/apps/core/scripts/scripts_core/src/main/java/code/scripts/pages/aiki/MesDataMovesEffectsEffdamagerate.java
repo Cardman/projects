@@ -6,21 +6,21 @@ private static final String C_P_46_2="The rate of damage points inflicted agains
 private static final String C_P_46_3="Cet effet fait varier les pv du lanceur en fonction des d&eacute;g&acirc;ts inflig&eacute;s &agrave; la cible.<br/>\n";
 private static final String C_P_46_4="Le taux de points de d&eacute;g&acirc;ts inflig&eacute;s &agrave; la cible gagn&eacute;s par le lanceur est de {0}.<br/>\n";
 private static final String C_P_46_5="Le taux de points de d&eacute;g&acirc;ts inflig&eacute;s &agrave; la cible perdus par le lanceur est de {0}.<br/>\n";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_NEG_RATE="neg_rate";
-private static final String M_P_POS_RATE="pos_rate";
+private static final String M_P_46_EFFECT="effect";
+private static final String M_P_46_NEG_RATE="neg_rate";
+private static final String M_P_46_POS_RATE="pos_rate";
 private static final char SEP='=';
 private MesDataMovesEffectsEffdamagerate(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_46_0;
-f+=M_P_POS_RATE+SEP+C_P_46_1;
-f+=M_P_NEG_RATE+SEP+C_P_46_2;
+String f=M_P_46_EFFECT+SEP+C_P_46_0;
+f+=M_P_46_POS_RATE+SEP+C_P_46_1;
+f+=M_P_46_NEG_RATE+SEP+C_P_46_2;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_46_3;
-f+=M_P_POS_RATE+SEP+C_P_46_4;
-f+=M_P_NEG_RATE+SEP+C_P_46_5;
+String f=M_P_46_EFFECT+SEP+C_P_46_3;
+f+=M_P_46_POS_RATE+SEP+C_P_46_4;
+f+=M_P_46_NEG_RATE+SEP+C_P_46_5;
 return f;
 }
 }

@@ -10,27 +10,27 @@ private static final String C_P_48_6="Voici le taux des pv max restaur&eacute;s 
 private static final String C_P_48_7="{0}\n";
 private static final String C_P_48_8="Le lanceur sacrifie {0} de ses pv max.<br/>\n";
 private static final String C_P_48_9="Chaque combattant adverse adjacent &agrave; la cible perd {0} de ses pv max.<br/>\n";
-private static final String M_P_CLOSEST_FOE_DAMAGE_RATE_HP="closest_foe_damage_rate_hp";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_FORMULA="formula";
-private static final String M_P_LEFT_USER_HP="left_user_hp";
-private static final String M_P_RESTORED="restored";
+private static final String M_P_48_CLOSEST_FOE_DAMAGE_RATE_HP="closest_foe_damage_rate_hp";
+private static final String M_P_48_EFFECT="effect";
+private static final String M_P_48_FORMULA="formula";
+private static final String M_P_48_LEFT_USER_HP="left_user_hp";
+private static final String M_P_48_RESTORED="restored";
 private static final char SEP='=';
 private MesDataMovesEffectsEfffullhprate(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_48_0;
-f+=M_P_RESTORED+SEP+C_P_48_1;
-f+=M_P_FORMULA+SEP+C_P_48_2;
-f+=M_P_LEFT_USER_HP+SEP+C_P_48_3;
-f+=M_P_CLOSEST_FOE_DAMAGE_RATE_HP+SEP+C_P_48_4;
+String f=M_P_48_EFFECT+SEP+C_P_48_0;
+f+=M_P_48_RESTORED+SEP+C_P_48_1;
+f+=M_P_48_FORMULA+SEP+C_P_48_2;
+f+=M_P_48_LEFT_USER_HP+SEP+C_P_48_3;
+f+=M_P_48_CLOSEST_FOE_DAMAGE_RATE_HP+SEP+C_P_48_4;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_48_5;
-f+=M_P_RESTORED+SEP+C_P_48_6;
-f+=M_P_FORMULA+SEP+C_P_48_7;
-f+=M_P_LEFT_USER_HP+SEP+C_P_48_8;
-f+=M_P_CLOSEST_FOE_DAMAGE_RATE_HP+SEP+C_P_48_9;
+String f=M_P_48_EFFECT+SEP+C_P_48_5;
+f+=M_P_48_RESTORED+SEP+C_P_48_6;
+f+=M_P_48_FORMULA+SEP+C_P_48_7;
+f+=M_P_48_LEFT_USER_HP+SEP+C_P_48_8;
+f+=M_P_48_CLOSEST_FOE_DAMAGE_RATE_HP+SEP+C_P_48_9;
 return f;
 }
 }

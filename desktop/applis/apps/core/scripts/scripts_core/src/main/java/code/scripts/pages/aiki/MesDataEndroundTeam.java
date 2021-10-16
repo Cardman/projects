@@ -6,21 +6,21 @@ private static final String C_P_13_2="The rate that the status of the partners o
 private static final String C_P_13_3="Cet effet concerne l''&eacute;quipe du lanceur.<br/>\n";
 private static final String C_P_13_4="La probabilit&eacute; que les statuts du combattant soient supprim&eacute;s est de {0}.<br/>\n";
 private static final String C_P_13_5="La probabilit&eacute; que les statuts des partenaires du combattant soient supprim&eacute;s est de {0}.<br/>\n";
-private static final String M_P_EFFECT="effect";
-private static final String M_P_OWNER="owner";
-private static final String M_P_TEAM="team";
+private static final String M_P_13_EFFECT="effect";
+private static final String M_P_13_OWNER="owner";
+private static final String M_P_13_TEAM="team";
 private static final char SEP='=';
 private MesDataEndroundTeam(){}
 static String en(){
-String f=M_P_EFFECT+SEP+C_P_13_0;
-f+=M_P_OWNER+SEP+C_P_13_1;
-f+=M_P_TEAM+SEP+C_P_13_2;
+String f=M_P_13_EFFECT+SEP+C_P_13_0;
+f+=M_P_13_OWNER+SEP+C_P_13_1;
+f+=M_P_13_TEAM+SEP+C_P_13_2;
 return f;
 }
 static String fr(){
-String f=M_P_EFFECT+SEP+C_P_13_3;
-f+=M_P_OWNER+SEP+C_P_13_4;
-f+=M_P_TEAM+SEP+C_P_13_5;
+String f=M_P_13_EFFECT+SEP+C_P_13_3;
+f+=M_P_13_OWNER+SEP+C_P_13_4;
+f+=M_P_13_TEAM+SEP+C_P_13_5;
 return f;
 }
 }

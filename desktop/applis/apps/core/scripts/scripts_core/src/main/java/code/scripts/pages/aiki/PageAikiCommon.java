@@ -90,11 +90,11 @@ _elt.setAttributes(new NamedNodeMap(_ls));
 static CustList<Attr> al(int _len){
 return new CustList<Attr>(new CollCapacity(_len));
 }
-static Text tx(Document _doc,String _valuePk){
-return _doc.createEscapedTextNode(_valuePk);
+static Text tx(Document _doc0,String _valuePk){
+return _doc0.createEscapedTextNode(_valuePk);
 }
-static Element el(Document _doc,String _value){
-return _doc.createElement(_value);
+static Element el(Document _doc0,String _value){
+return _doc0.createElement(_value);
 }
 static void ad(Element _elt,Node _value){
 _elt.appendChild(_value);
