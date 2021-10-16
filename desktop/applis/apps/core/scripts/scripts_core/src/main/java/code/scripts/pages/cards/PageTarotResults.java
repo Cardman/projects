@@ -96,21 +96,21 @@ FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
 build(doc_);
 return doc_;
 }
-static void build(Document _doc){
-Element elt0_=el(_doc,HTML);
+static void build(Document _docTarot){
+Element elt0_=el(_docTarot,HTML);
 CustList<Attr> attrs0_=al(2);
 attrs0_.add(at(C_BEAN,C_3_1_0));
 attrs0_.add(at(XMLNS_C,C_3_1_1));
 at(elt0_,attrs0_);
-Element elt1_=el(_doc,HEAD);
-Element elt2_=el(_doc,TITLE);
-Element elt3_=el(_doc,C_MESSAGE);
+Element elt1_=el(_docTarot,HEAD);
+Element elt2_=el(_docTarot,TITLE);
+Element elt3_=el(_docTarot,C_MESSAGE);
 CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_3_1_2));
 at(elt3_,attrs1_);
 ad(elt2_,elt3_);
 ad(elt1_,elt2_);
-Element elt4_=el(_doc,LINK);
+Element elt4_=el(_docTarot,LINK);
 CustList<Attr> attrs2_=al(3);
 attrs2_.add(at(HREF,C_3_1_3));
 attrs2_.add(at(REL,C_3_1_4));
@@ -118,14 +118,14 @@ attrs2_.add(at(TYPE,C_3_1_5));
 at(elt4_,attrs2_);
 ad(elt1_,elt4_);
 ad(elt0_,elt1_);
-Element elt5_=el(_doc,BODY);
-build0(elt5_,_doc);
-build1(elt5_,_doc);
-build2(elt5_,_doc);
-build3(elt5_,_doc);
-build4(elt5_,_doc);
+Element elt5_=el(_docTarot,BODY);
+build0(elt5_,_docTarot);
+build1(elt5_,_docTarot);
+build2(elt5_,_docTarot);
+build3(elt5_,_docTarot);
+build4(elt5_,_docTarot);
 ad(elt0_,elt5_);
-_doc.appendChild(elt0_);
+_docTarot.appendChild(elt0_);
 }
 static void build0(Element _body,Document _doc){
 Element elt0_=el(_doc,C_IF);
