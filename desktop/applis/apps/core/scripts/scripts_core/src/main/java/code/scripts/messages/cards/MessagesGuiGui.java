@@ -13,11 +13,9 @@ m.addEntry("resources_cards/const_enum/fr/gui.txt",fr());
 return m;
 }
 static String en(){
-String f=LAUNCHING_M_C_WELCOME+SEP+C_P_7_0;
-return f;
+return LAUNCHING_M_C_WELCOME+SEP+C_P_7_0;
 }
 static String fr(){
-String f=LAUNCHING_M_C_WELCOME+SEP+C_P_7_1;
-return f;
+return LAUNCHING_M_C_WELCOME+SEP+C_P_7_1;
 }
 }
