@@ -36,8 +36,8 @@ m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/editortarot.proper
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/editortarot.properties",frCardsGuiDialogsEditortarot());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/dialogs/framegeneralhelp.properties",enCardsGuiDialogsFramegeneralhelp());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/dialogs/framegeneralhelp.properties",frCardsGuiDialogsFramegeneralhelp());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/labels/graphickey.properties",enCardsGuiLabelsGraphickey());
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/labels/graphickey.properties",frCardsGuiLabelsGraphickey());
+m.addEntry("resources_cards/gui/messages/en/cards/gui/labels/graphickey.properties", "delta=+3*sigma and -3*sigma (Maximal difference from average)\n");
+m.addEntry("resources_cards/gui/messages/fr/cards/gui/labels/graphickey.properties", "delta=+3*sigma et -3*sigma (Ecarts maximaux de la moyenne)\n");
 m.addEntry("resources_cards/gui/messages/en/cards/gui/mainwindow.properties",enCardsGuiMainwindow());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/mainwindow.properties",frCardsGuiMainwindow());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/panels/paneltrickshandsbelote.properties",enCardsGuiPanelsPaneltrickshandsbelote());
@@ -46,8 +46,8 @@ m.addEntry("resources_cards/gui/messages/en/cards/gui/panels/paneltrickshandspre
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/panels/paneltrickshandspresident.properties",frCardsGuiPanelsPaneltrickshandspresident());
 m.addEntry("resources_cards/gui/messages/en/cards/gui/panels/paneltrickshandstarot.properties",enCardsGuiPanelsPaneltrickshandstarot());
 m.addEntry("resources_cards/gui/messages/fr/cards/gui/panels/paneltrickshandstarot.properties",frCardsGuiPanelsPaneltrickshandstarot());
-m.addEntry("resources_cards/gui/messages/en/cards/gui/panels/suitsscrollablelist.properties",enCardsGuiPanelsSuitsscrollablelist());
-m.addEntry("resources_cards/gui/messages/fr/cards/gui/panels/suitsscrollablelist.properties",frCardsGuiPanelsSuitsscrollablelist());
+m.addEntry("resources_cards/gui/messages/en/cards/gui/panels/suitsscrollablelist.properties", "suits=Suits\n");
+m.addEntry("resources_cards/gui/messages/fr/cards/gui/panels/suitsscrollablelist.properties", "suits=Couleurs\n");
 return m;
 }
 static String enCardsGuiDialogsDialogdisplayingbelote(){
@@ -66,19 +66,7 @@ f+="errorSuitsTitle=Saving error\n";
 return f;
 }
 static String frCardsGuiDialogsDialogdisplayingbelote(){
-String f="wise=Sens\n";
-f+="clockWise=Jouer dans le sens horaire\n";
-f+="dealing=Distribution\n";
-f+="addSuit=Ajouter la couleur s&eacute;lectionn&eacute;e dans la liste pour le tri =>\n";
-f+="removeSuit=<= Supprimer les couleurs s&eacute;lectionn&eacute;es de la liste\n";
-f+="sortDecreasing=Trier les couleurs par ordre d&eacute;croissant\n";
-f+="sortingTrump=Trier les couleurs par ordre d'atout\n";
-f+="sortingBeforePlayingCards=Tri des couleurs avant de jouer les cartes\n";
-f+="sorting=Tri\n";
-f+="validate=Valider\n";
-f+="errorSuits=Une couleur, au moins, manque pour la sauvegarde des param&egrave;tres\n";
-f+="errorSuitsTitle=Erreur de sauvegarde\n";
-return f;
+return cardsGuiDialogsDialogdisplayingtarot();
 }
 static String enCardsGuiDialogsDialogdisplayingpresident(){
 String f="wise=Wise\n";
@@ -126,6 +114,9 @@ f+="errorSuitsTitle=Saving error\n";
 return f;
 }
 static String frCardsGuiDialogsDialogdisplayingtarot(){
+return cardsGuiDialogsDialogdisplayingtarot();
+}
+private static String cardsGuiDialogsDialogdisplayingtarot() {
 String f="wise=Sens\n";
 f+="clockWise=Jouer dans le sens horaire\n";
 f+="dealing=Distribution\n";
@@ -646,14 +637,6 @@ f+="orderNoTrumps=Ordre des cartes pour une couleur ordinaire\n";
 f+="searchLabel=Chercher le texte saisi.\n";
 return f;
 }
-static String enCardsGuiLabelsGraphickey(){
-String f="delta=+3*sigma and -3*sigma (Maximal difference from average)\n";
-return f;
-}
-static String frCardsGuiLabelsGraphickey(){
-String f="delta=+3*sigma et -3*sigma (Ecarts maximaux de la moyenne)\n";
-return f;
-}
 static String enCardsGuiMainwindow(){
 String f="welcome=Welcome {0}\n";
 f+="goHelpMenu=For using help, go to the menu help or type key F3\n";
@@ -931,41 +914,31 @@ f+="givenCards=Cartes &agrave; donner\n";
 return f;
 }
 static String enCardsGuiPanelsPaneltrickshandsbelote(){
-String f="card=Card\n";
-f+="trick=Trick\n";
-return f;
+return cardsGuiPanelsPaneltrickshandspresident();
 }
 static String frCardsGuiPanelsPaneltrickshandsbelote(){
-String f="card=Carte\n";
-f+="trick=Pli\n";
-return f;
+return cardsGuiPanelsPaneltrickshandstarot();
 }
 static String enCardsGuiPanelsPaneltrickshandspresident(){
+return cardsGuiPanelsPaneltrickshandspresident();
+}
+private static String cardsGuiPanelsPaneltrickshandspresident() {
 String f="card=Card\n";
 f+="trick=Trick\n";
 return f;
 }
 static String frCardsGuiPanelsPaneltrickshandspresident(){
-String f="card=Carte\n";
-f+="trick=Pli\n";
-return f;
+return cardsGuiPanelsPaneltrickshandstarot();
 }
 static String enCardsGuiPanelsPaneltrickshandstarot(){
-String f="card=Card\n";
-f+="trick=Trick\n";
-return f;
+return cardsGuiPanelsPaneltrickshandspresident();
 }
 static String frCardsGuiPanelsPaneltrickshandstarot(){
+return cardsGuiPanelsPaneltrickshandstarot();
+}
+private static String cardsGuiPanelsPaneltrickshandstarot() {
 String f="card=Carte\n";
 f+="trick=Pli\n";
-return f;
-}
-static String enCardsGuiPanelsSuitsscrollablelist(){
-String f="suits=Suits\n";
-return f;
-}
-static String frCardsGuiPanelsSuitsscrollablelist(){
-String f="suits=Couleurs\n";
 return f;
 }
 }

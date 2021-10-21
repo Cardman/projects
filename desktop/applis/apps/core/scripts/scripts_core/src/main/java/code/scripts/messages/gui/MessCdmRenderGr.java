@@ -23,64 +23,7 @@ m.addEntry("resources_renders/aliases/fr/values.properties",resourcesRendersAlia
 return m;
 }
 static String resourcesRendersAliasesEnAttrs(){
-String f="AttrType=type\n";
-f+="AttrMultiple=multiple\n";
-f+="AttrClassName=className\n";
-f+="AttrConvertField=convertField\n";
-f+="AttrValueMessage=valueMessage\n";
-f+="AttrEscapedAmp=escapedamp\n";
-f+="AttrConvertValue=convertValue\n";
-f+="AttrConvertFieldValue=convertFieldValue\n";
-f+="AttrVarClassName=varClassName\n";
-f+="AttrKeepFields=keepfields\n";
-f+="AttrKeyClassName=keyClassName\n";
-f+="AttrIndexClassName=indexClassName\n";
-f+="AttrKey=key\n";
-f+="AttrValue=value\n";
-f+="AttrEq=eq\n";
-f+="AttrInit=init\n";
-f+="AttrList=list\n";
-f+="AttrCondition=condition\n";
-f+="AttrTo=to\n";
-f+="AttrMap=map\n";
-f+="AttrBean=bean\n";
-f+="AttrFrom=from\n";
-f+="AttrChecked=checked\n";
-f+="AttrSelected=selected\n";
-f+="AttrVar=var\n";
-f+="AttrLabel=label\n";
-f+="AttrNf=n-f\n";
-f+="AttrNa=n-a\n";
-f+="AttrAlias=alias\n";
-f+="AttrNi=n-i\n";
-f+="AttrStep=step\n";
-f+="AttrHref=href\n";
-f+="AttrPrepare=prepare\n";
-f+="AttrFor=for\n";
-f+="AttrQuoted=quoted\n";
-f+="AttrId=id\n";
-f+="AttrClass=class\n";
-f+="AttrAction=action\n";
-f+="AttrParam=param\n";
-f+="AttrMessage=message\n";
-f+="AttrCols=cols\n";
-f+="AttrForm=form\n";
-f+="AttrVarValue=varValue\n";
-f+="AttrRows=rows\n";
-f+="AttrCommand=command\n";
-f+="AttrDefault=default\n";
-f+="AttrSrc=src\n";
-f+="AttrEscaped=escaped\n";
-f+="AttrGroupId=groupId\n";
-f+="AttrTitle=title\n";
-f+="AttrValidator=validator\n";
-f+="AttrPage=page\n";
-f+="AttrWidth=width\n";
-f+="AttrDelay=delay\n";
-f+="AttrRel=rel\n";
-f+="AttrName=name\n";
-f+="AttrConvert=convert\n";
-return f;
+return resourcesRendersAliasesAttrs();
 }
 static String resourcesRendersAliasesEnMessagesrender(){
 String f="BadInputName=The name expression must refer a field.\n";
@@ -94,31 +37,13 @@ f+="BadDocument=There is an issue in the document at {0}.\n";
 return f;
 }
 static String resourcesRendersAliasesEnStyleattrs(){
-String f="StyleAttrBackground=background\n";
-f+="StyleAttrColor=color\n";
-f+="StyleAttrBorder=border\n";
-f+="StyleAttrFontFam=font-family\n";
-f+="StyleAttrFontSize=font-size\n";
-return f;
+return resourcesRendersAliasesStyleattrs();
 }
 static String resourcesRendersAliasesEnStyleunits(){
-String f="StyleUnitSolid=solid\n";
-f+="StyleUnitEm=em\n";
-f+="StyleUnitPx=px\n";
-return f;
+return resourcesRendersAliasesStyleunits();
 }
 static String resourcesRendersAliasesEnStylevalues(){
-String f="StyleValueBlue=blue\n";
-f+="StyleValueGrey=grey\n";
-f+="StyleValueGreen=green\n";
-f+="StyleValueBlack=black\n";
-f+="StyleValueMagenta=magenta\n";
-f+="StyleValueYellow=yellow\n";
-f+="StyleValueWhite=white\n";
-f+="StyleValueCyan=cyan\n";
-f+="StyleValueRed=red\n";
-f+="StyleValueRgb=rgb\n";
-return f;
+return resourcesRendersAliasesStylevalues();
 }
 static String resourcesRendersAliasesEnTags(){
 String f="TagFor=for\n";
@@ -254,25 +179,12 @@ f+="Message0SetArgs0=a\n";
 return f;
 }
 static String resourcesRendersAliasesEnValues(){
-String f="ValueRange=range\n";
-f+="ValueText=text\n";
-f+="ValueCheckbox=checkbox\n";
-f+="ValueNumber=number\n";
-f+="ValueRadio=radio\n";
-f+="ValueSubmit=submit\n";
-f+="ValueLiMajLat=I\n";
-f+="ValueLiRect=rect\n";
-f+="ValueStyle=stylesheet\n";
-f+="ValueLiMinLet=a\n";
-f+="ValueLiNb=1\n";
-f+="ValueLiMajLet=A\n";
-f+="ValueLiDisk=disc\n";
-f+="ValueLiMinLat=i\n";
-f+="ValueLiCircle=circle\n";
-f+="ValueLiSquare=square\n";
-return f;
+return resourcesRendersAliasesValues();
 }
 static String resourcesRendersAliasesFrAttrs(){
+return resourcesRendersAliasesAttrs();
+}
+private static String resourcesRendersAliasesAttrs() {
 String f="AttrType=type\n";
 f+="AttrMultiple=multiple\n";
 f+="AttrClassName=className\n";
@@ -344,6 +256,9 @@ f+="BadDocument=Il y a un probl&egrave;me dans le document &agrave; {0}.\n";
 return f;
 }
 static String resourcesRendersAliasesFrStyleattrs(){
+return resourcesRendersAliasesStyleattrs();
+}
+private static String resourcesRendersAliasesStyleattrs() {
 String f="StyleAttrBackground=background\n";
 f+="StyleAttrColor=color\n";
 f+="StyleAttrBorder=border\n";
@@ -352,12 +267,18 @@ f+="StyleAttrFontSize=font-size\n";
 return f;
 }
 static String resourcesRendersAliasesFrStyleunits(){
+return resourcesRendersAliasesStyleunits();
+}
+private static String resourcesRendersAliasesStyleunits() {
 String f="StyleUnitSolid=solid\n";
 f+="StyleUnitEm=em\n";
 f+="StyleUnitPx=px\n";
 return f;
 }
 static String resourcesRendersAliasesFrStylevalues(){
+return resourcesRendersAliasesStylevalues();
+}
+private static String resourcesRendersAliasesStylevalues() {
 String f="StyleValueBlue=blue\n";
 f+="StyleValueGrey=grey\n";
 f+="StyleValueGreen=green\n";
@@ -504,6 +425,9 @@ f+="Message0SetArgs0=a\n";
 return f;
 }
 static String resourcesRendersAliasesFrValues(){
+return resourcesRendersAliasesValues();
+}
+private static String resourcesRendersAliasesValues() {
 String f="ValueRange=range\n";
 f+="ValueText=text\n";
 f+="ValueCheckbox=checkbox\n";

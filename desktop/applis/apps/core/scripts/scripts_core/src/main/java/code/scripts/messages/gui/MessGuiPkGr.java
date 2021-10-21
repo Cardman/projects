@@ -24,20 +24,20 @@ m.addEntry("resources_pk/gui/messages/en/aiki/gui/components/walk/gamepanel.prop
 m.addEntry("resources_pk/gui/messages/fr/aiki/gui/components/walk/gamepanel.properties",frAikiGuiComponentsWalkGamepanel());
 m.addEntry("resources_pk/gui/messages/en/aiki/gui/components/walk/scenepanel.properties",enAikiGuiComponentsWalkScenepanel());
 m.addEntry("resources_pk/gui/messages/fr/aiki/gui/components/walk/scenepanel.properties",frAikiGuiComponentsWalkScenepanel());
-m.addEntry("resources_pk/gui/messages/en/aiki/gui/components/walk/teampanel.properties",enAikiGuiComponentsWalkTeampanel());
-m.addEntry("resources_pk/gui/messages/fr/aiki/gui/components/walk/teampanel.properties",frAikiGuiComponentsWalkTeampanel());
+m.addEntry("resources_pk/gui/messages/en/aiki/gui/components/walk/teampanel.properties", "rooms=Nb remaining rooms: {0}\n");
+m.addEntry("resources_pk/gui/messages/fr/aiki/gui/components/walk/teampanel.properties", "rooms=Nb de places restantes: {0}\n");
 m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/consulthosts.properties",enAikiGuiDialogsConsulthosts());
 m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/consulthosts.properties",frAikiGuiDialogsConsulthosts());
-m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialogdifficulty.properties",enAikiGuiDialogsDialogdifficulty());
-m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialogdifficulty.properties",frAikiGuiDialogsDialogdifficulty());
-m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialoggameprogess.properties",enAikiGuiDialogsDialoggameprogess());
-m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialoggameprogess.properties",frAikiGuiDialogsDialoggameprogess());
-m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialoghtmldata.properties",enAikiGuiDialogsDialoghtmldata());
-m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialoghtmldata.properties",frAikiGuiDialogsDialoghtmldata());
+m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialogdifficulty.properties", "searchLabel=Search the typed text.\n");
+m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialogdifficulty.properties", "searchLabel=Chercher le texte saisi.\n");
+m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialoggameprogess.properties", "searchLabel=Search the typed text.\n");
+m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialoggameprogess.properties", "searchLabel=Chercher le texte saisi.\n");
+m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialoghtmldata.properties", "searchLabel=Search the typed text.\n");
+m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialoghtmldata.properties", "searchLabel=Chercher le texte saisi.\n");
 m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialogserver.properties",enAikiGuiDialogsDialogserver());
 m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialogserver.properties",frAikiGuiDialogsDialogserver());
-m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/framehtmldata.properties",enAikiGuiDialogsFramehtmldata());
-m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/framehtmldata.properties",frAikiGuiDialogsFramehtmldata());
+m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/framehtmldata.properties", "searchLabel=Search the typed text.\n");
+m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/framehtmldata.properties", "searchLabel=Chercher le texte saisi.\n");
 m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/selectegg.properties",enAikiGuiDialogsSelectegg());
 m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/selectegg.properties",frAikiGuiDialogsSelectegg());
 m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/selecthealedmove.properties",enAikiGuiDialogsSelecthealedmove());
@@ -470,14 +470,6 @@ f+="noPossibleLearn=Aucun pokemon dans votre &eacute;quipe ne peut apprendre l''
 f+="noPossibleBuy=Vous ne pouvez pas acheter, c'est actuellement trop cher.\n";
 return f;
 }
-static String enAikiGuiComponentsWalkTeampanel(){
-String f="rooms=Nb remaining rooms: {0}\n";
-return f;
-}
-static String frAikiGuiComponentsWalkTeampanel(){
-String f="rooms=Nb de places restantes: {0}\n";
-return f;
-}
 static String enAikiGuiDialogsConsulthosts(){
 String f="title=Hosting details\n";
 f+="titleDetail=Pokemon detail\n";
@@ -490,30 +482,6 @@ String f="title=D&eacute;tail de la pension\n";
 f+="titleDetail=D&eacute;tail du pokemon\n";
 f+="steps=Pas restants avant une ponte d''oeuf: {0}\n";
 f+="free=Cette pension est libre.\n";
-return f;
-}
-static String enAikiGuiDialogsDialogdifficulty(){
-String f="searchLabel=Search the typed text.\n";
-return f;
-}
-static String frAikiGuiDialogsDialogdifficulty(){
-String f="searchLabel=Chercher le texte saisi.\n";
-return f;
-}
-static String enAikiGuiDialogsDialoggameprogess(){
-String f="searchLabel=Search the typed text.\n";
-return f;
-}
-static String frAikiGuiDialogsDialoggameprogess(){
-String f="searchLabel=Chercher le texte saisi.\n";
-return f;
-}
-static String enAikiGuiDialogsDialoghtmldata(){
-String f="searchLabel=Search the typed text.\n";
-return f;
-}
-static String frAikiGuiDialogsDialoghtmldata(){
-String f="searchLabel=Chercher le texte saisi.\n";
 return f;
 }
 static String enAikiGuiDialogsDialogserver(){
@@ -534,14 +502,6 @@ f+="ipServerToolTip=nom d'h&ocirc;te ou adresse de protocole internet (num&eacut
 f+="createServer=Cr&eacute;er un serveur\n";
 f+="joinServer=Rejoindre un serveur\n";
 f+="cancel=Annuler\n";
-return f;
-}
-static String enAikiGuiDialogsFramehtmldata(){
-String f="searchLabel=Search the typed text.\n";
-return f;
-}
-static String frAikiGuiDialogsFramehtmldata(){
-String f="searchLabel=Chercher le texte saisi.\n";
 return f;
 }
 static String enAikiGuiDialogsSelectegg(){
