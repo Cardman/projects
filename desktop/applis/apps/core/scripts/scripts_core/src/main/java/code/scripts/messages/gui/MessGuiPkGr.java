@@ -1,7 +1,7 @@
 package code.scripts.messages.gui;
 import code.util.*;
 public final class MessGuiPkGr{
-private static final String ADD_MESS_3_0="frontTeam=Your pokemon on the battle\n";
+    private static final String ADD_MESS_3_0="frontTeam=Your pokemon on the battle\n";
 private static final String ADD_MESS_3_100="item=Item\n";
 private static final String ADD_MESS_3_101="number=Number\n";
 private static final String ADD_MESS_3_102="name=Nom\n";
@@ -521,6 +521,8 @@ private static final String ADD_MESS_3_97="statistic=Statistic\n";
 private static final String ADD_MESS_3_98="healKo=Heal from ko\n";
 private static final String ADD_MESS_3_99="price=Price\n";
 private static final String ADD_MESS_3_9="validateEvos=Validate evolutions and moves\n";
+private static final String EN_SEARCH_LABEL = "searchLabel=Search the typed text.\n";
+private static final String FR_SEARCH_LABEL = "searchLabel=Chercher le texte saisi.\n";
 private MessGuiPkGr(){}
 public static StringMap<String> ms(){
 StringMap<String> m = new StringMap<String>();
@@ -548,16 +550,16 @@ m.addEntry("resources_pk/gui/messages/en/aiki/gui/components/walk/teampanel.prop
 m.addEntry("resources_pk/gui/messages/fr/aiki/gui/components/walk/teampanel.properties", "rooms=Nb de places restantes: {0}\n");
 m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/consulthosts.properties",enAikiGuiDialogsConsulthosts());
 m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/consulthosts.properties",frAikiGuiDialogsConsulthosts());
-m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialogdifficulty.properties", "searchLabel=Search the typed text.\n");
-m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialogdifficulty.properties", "searchLabel=Chercher le texte saisi.\n");
-m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialoggameprogess.properties", "searchLabel=Search the typed text.\n");
-m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialoggameprogess.properties", "searchLabel=Chercher le texte saisi.\n");
-m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialoghtmldata.properties", "searchLabel=Search the typed text.\n");
-m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialoghtmldata.properties", "searchLabel=Chercher le texte saisi.\n");
+m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialogdifficulty.properties", EN_SEARCH_LABEL);
+m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialogdifficulty.properties", FR_SEARCH_LABEL);
+m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialoggameprogess.properties", EN_SEARCH_LABEL);
+m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialoggameprogess.properties", FR_SEARCH_LABEL);
+m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialoghtmldata.properties", EN_SEARCH_LABEL);
+m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialoghtmldata.properties", FR_SEARCH_LABEL);
 m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/dialogserver.properties",enAikiGuiDialogsDialogserver());
 m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/dialogserver.properties",frAikiGuiDialogsDialogserver());
-m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/framehtmldata.properties", "searchLabel=Search the typed text.\n");
-m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/framehtmldata.properties", "searchLabel=Chercher le texte saisi.\n");
+m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/framehtmldata.properties", EN_SEARCH_LABEL);
+m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/framehtmldata.properties", FR_SEARCH_LABEL);
 m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/selectegg.properties",enAikiGuiDialogsSelectegg());
 m.addEntry("resources_pk/gui/messages/fr/aiki/gui/dialogs/selectegg.properties",frAikiGuiDialogsSelectegg());
 m.addEntry("resources_pk/gui/messages/en/aiki/gui/dialogs/selecthealedmove.properties",enAikiGuiDialogsSelecthealedmove());
