@@ -36,19 +36,21 @@ public final class PresidentScriptPages {
 //    public static final String KEY = "key";
     public static final String MSG = "msg";
     public static final String PRE_VALUE = "c";
-//    public static final String BEAN = "b";
+    public static final String RES_PRESIDENT = "resources_cards/classes/cards/president/results.html";
+    public static final String RULES_PRESIDENT = "resources_cards/classes/cards/president/rules.html";
+    //    public static final String BEAN = "b";
 
     private PresidentScriptPages(){
     }
     public static void initConfResults(Configuration _configuration){
-        _configuration.setFirstUrl("resources_cards/classes/cards/president/results.html");
+        _configuration.setFirstUrl(RES_PRESIDENT);
         _configuration.setPrefix(PRE_VALUE);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,"results","cards.president.beans.PresidentBean");
         _configuration.setBeansInfos(beans_);
     }
     public static void initConfRules(Configuration _configuration){
-        _configuration.setFirstUrl("resources_cards/classes/cards/president/rules.html");
+        _configuration.setFirstUrl(RULES_PRESIDENT);
         _configuration.setPrefix(PRE_VALUE);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,"rules","cards.president.beans.RulesPresidentBean");

@@ -36,11 +36,14 @@ public final class BeloteScriptPages {
 //    public static final String KEY = "key";
     public static final String MSG = "msg";
     public static final String PRE_VALUE = "c";
-//    public static final String BEAN = "b";
+    public static final String DET_BELOTE = "resources_cards/classes/cards/belote/detailsresults.html";
+    public static final String RES_BELOTE = "resources_cards/classes/cards/belote/results.html";
+    public static final String RULES_BELOTE = "resources_cards/classes/cards/belote/rules.html";
+    //    public static final String BEAN = "b";
 
     private BeloteScriptPages(){}
     public static void initConfDetail(Configuration _configuration){
-        _configuration.setFirstUrl("resources_cards/classes/cards/belote/detailsresults.html");
+        _configuration.setFirstUrl(DET_BELOTE);
         _configuration.setPrefix(PRE_VALUE);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,"details","cards.belote.beans.DetailsResultsBeloteBean");
@@ -48,14 +51,14 @@ public final class BeloteScriptPages {
     }
     public static void initConfResults(Configuration _configuration){
         _configuration.setPrefix(PRE_VALUE);
-        _configuration.setFirstUrl("resources_cards/classes/cards/belote/results.html");
+        _configuration.setFirstUrl(RES_BELOTE);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,"results","cards.belote.beans.ResultsBeloteBean");
         _configuration.setBeansInfos(beans_);
     }
     public static void initConfRules(Configuration _configuration){
         _configuration.setPrefix(PRE_VALUE);
-        _configuration.setFirstUrl("resources_cards/classes/cards/belote/rules.html");
+        _configuration.setFirstUrl(RULES_BELOTE);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,"rules","cards.belote.beans.RulesBeloteBean");
         _configuration.setBeansInfos(beans_);

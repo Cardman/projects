@@ -36,26 +36,29 @@ public final class TarotScriptPages {
 //    public static final String KEY = "key";
     public static final String MSG = "msg";
     public static final String PRE_VALUE = "c";
-//    public static final String BEAN = "b";
+    public static final String DET_TAROT = "resources_cards/classes/cards/tarot/detailsresults.html";
+    public static final String RES_TAROT = "resources_cards/classes/cards/tarot/results.html";
+    public static final String RULES_TAROT = "resources_cards/classes/cards/tarot/rules.html";
+    //    public static final String BEAN = "b";
 
     private TarotScriptPages() {
     }
     public static void initConfDetail(Configuration _configuration){
-        _configuration.setFirstUrl("resources_cards/classes/cards/tarot/detailsresults.html");
+        _configuration.setFirstUrl(DET_TAROT);
         _configuration.setPrefix(PRE_VALUE);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,"details","cards.tarot.beans.DetailsResultsTarotBean");
         _configuration.setBeansInfos(beans_);
     }
     public static void initConfResults(Configuration _configuration){
-        _configuration.setFirstUrl("resources_cards/classes/cards/tarot/results.html");
+        _configuration.setFirstUrl(RES_TAROT);
         _configuration.setPrefix(PRE_VALUE);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,"results","cards.tarot.beans.ResultsTarotBean");
         _configuration.setBeansInfos(beans_);
     }
     public static void initConfRules(Configuration _configuration){
-        _configuration.setFirstUrl("resources_cards/classes/cards/tarot/rules.html");
+        _configuration.setFirstUrl(RULES_TAROT);
         _configuration.setPrefix(PRE_VALUE);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,"rules","cards.tarot.beans.RulesTarotBean");
