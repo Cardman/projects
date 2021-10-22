@@ -16,17 +16,7 @@
 		<module>applis</module>
 	</modules>
 	<properties>
-		<sonar.issue.ignore.multicriteria>e01,e02,e03,e04,e05,e1,e2,e3,e4,e5,e6,e7</sonar.issue.ignore.multicriteria>
-		<sonar.issue.ignore.multicriteria.e01.ruleKey>*</sonar.issue.ignore.multicriteria.e01.ruleKey>
-		<sonar.issue.ignore.multicriteria.e01.resourceKey>/src/main/java/code/scripts/**/*</sonar.issue.ignore.multicriteria.e01.resourceKey>
-		<sonar.issue.ignore.multicriteria.e02.ruleKey>*</sonar.issue.ignore.multicriteria.e02.ruleKey>
-		<sonar.issue.ignore.multicriteria.e02.resourceKey>/src/main/java/aiki/sml/imgs/**/*</sonar.issue.ignore.multicriteria.e02.resourceKey>
-		<sonar.issue.ignore.multicriteria.e03.ruleKey>*</sonar.issue.ignore.multicriteria.e03.ruleKey>
-		<sonar.issue.ignore.multicriteria.e03.resourceKey>/src/main/java/aiki/sml/init/**/*</sonar.issue.ignore.multicriteria.e03.resourceKey>
-		<sonar.issue.ignore.multicriteria.e04.ruleKey>*</sonar.issue.ignore.multicriteria.e04.ruleKey>
-		<sonar.issue.ignore.multicriteria.e04.resourceKey>/src/main/java/aiki/sml/trs/**/*</sonar.issue.ignore.multicriteria.e04.resourceKey>
-		<sonar.issue.ignore.multicriteria.e05.ruleKey>*</sonar.issue.ignore.multicriteria.e05.ruleKey>
-		<sonar.issue.ignore.multicriteria.e05.resourceKey>/src/main/java/code/sys/impl/variant/**/*</sonar.issue.ignore.multicriteria.e05.resourceKey>
+		<sonar.issue.ignore.multicriteria>e1,e2,e3,e4,e5,e6,e7</sonar.issue.ignore.multicriteria>
 		<sonar.issue.ignore.multicriteria.e1.ruleKey>java:S5961</sonar.issue.ignore.multicriteria.e1.ruleKey>
 		<sonar.issue.ignore.multicriteria.e1.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
 		<sonar.issue.ignore.multicriteria.e2.ruleKey>java:S5976</sonar.issue.ignore.multicriteria.e2.ruleKey>
@@ -41,6 +31,5 @@
 		<sonar.issue.ignore.multicriteria.e6.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e6.resourceKey>
 		<sonar.issue.ignore.multicriteria.e7.ruleKey>squid:S00117</sonar.issue.ignore.multicriteria.e7.ruleKey>
 		<sonar.issue.ignore.multicriteria.e7.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e7.resourceKey>
-		<sonar.cpd.exclusions>/applis/apps/core/scripts/scripts_game/src/main/java/aiki/sml/imgs/**/*,/applis/apps/core/scripts/scripts_game/src/main/java/aiki/sml/init/**/*,/applis/apps/core/scripts/scripts_game/src/main/java/aiki/sml/trs/**/*,/applis/apps/core/scripts/scripts_core/src/main/java/code/scripts/**/*,/applis/apps/sys_apps/def_back/src/main/java/code/sys/impl/variant/**/*</sonar.cpd.exclusions>
 	</properties>
 </project>
