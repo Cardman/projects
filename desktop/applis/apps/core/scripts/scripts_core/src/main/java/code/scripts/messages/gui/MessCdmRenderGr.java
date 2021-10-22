@@ -23,7 +23,64 @@ m.addEntry("resources_renders/aliases/fr/values.properties",resourcesRendersAlia
 return m;
 }
 static String resourcesRendersAliasesEnAttrs(){
-return resourcesRendersAliasesAttrs();
+String f="AttrType=type\n";
+f+="AttrMultiple=multiple\n";
+f+="AttrClassName=className\n";
+f+="AttrConvertField=convertField\n";
+f+="AttrValueMessage=valueMessage\n";
+f+="AttrEscapedAmp=escapedamp\n";
+f+="AttrConvertValue=convertValue\n";
+f+="AttrConvertFieldValue=convertFieldValue\n";
+f+="AttrVarClassName=varClassName\n";
+f+="AttrKeepFields=keepfields\n";
+f+="AttrKeyClassName=keyClassName\n";
+f+="AttrIndexClassName=indexClassName\n";
+f+="AttrKey=key\n";
+f+="AttrValue=value\n";
+f+="AttrEq=eq\n";
+f+="AttrInit=init\n";
+f+="AttrList=list\n";
+f+="AttrCondition=condition\n";
+f+="AttrTo=to\n";
+f+="AttrMap=map\n";
+f+="AttrBean=bean\n";
+f+="AttrFrom=from\n";
+f+="AttrChecked=checked\n";
+f+="AttrSelected=selected\n";
+f+="AttrVar=var\n";
+f+="AttrLabel=label\n";
+f+="AttrNf=n-f\n";
+f+="AttrNa=n-a\n";
+f+="AttrAlias=alias\n";
+f+="AttrNi=n-i\n";
+f+="AttrStep=step\n";
+f+="AttrHref=href\n";
+f+="AttrPrepare=prepare\n";
+f+="AttrFor=for\n";
+f+="AttrQuoted=quoted\n";
+f+="AttrId=id\n";
+f+="AttrClass=class\n";
+f+="AttrAction=action\n";
+f+="AttrParam=param\n";
+f+="AttrMessage=message\n";
+f+="AttrCols=cols\n";
+f+="AttrForm=form\n";
+f+="AttrVarValue=varValue\n";
+f+="AttrRows=rows\n";
+f+="AttrCommand=command\n";
+f+="AttrDefault=default\n";
+f+="AttrSrc=src\n";
+f+="AttrEscaped=escaped\n";
+f+="AttrGroupId=groupId\n";
+f+="AttrTitle=title\n";
+f+="AttrValidator=validator\n";
+f+="AttrPage=page\n";
+f+="AttrWidth=width\n";
+f+="AttrDelay=delay\n";
+f+="AttrRel=rel\n";
+f+="AttrName=name\n";
+f+="AttrConvert=convert\n";
+return f;
 }
 static String resourcesRendersAliasesEnMessagesrender(){
 String f="BadInputName=The name expression must refer a field.\n";
@@ -37,13 +94,28 @@ f+="BadDocument=There is an issue in the document at {0}.\n";
 return f;
 }
 static String resourcesRendersAliasesEnStyleattrs(){
-return resourcesRendersAliasesStyleattrs();
+String f="StyleAttrBackground=background\n";
+f+="StyleAttrColor=color\n";
+f+="StyleAttrBorder=border\n";
+f+="StyleAttrFontFam=font-family\n";
+f+="StyleAttrFontSize=font-size\n";
+return f;
 }
 static String resourcesRendersAliasesEnStyleunits(){
 return resourcesRendersAliasesStyleunits();
 }
 static String resourcesRendersAliasesEnStylevalues(){
-return resourcesRendersAliasesStylevalues();
+String f="StyleValueBlue=blue\n";
+f+="StyleValueGrey=grey\n";
+f+="StyleValueGreen=green\n";
+f+="StyleValueBlack=black\n";
+f+="StyleValueMagenta=magenta\n";
+f+="StyleValueYellow=yellow\n";
+f+="StyleValueWhite=white\n";
+f+="StyleValueCyan=cyan\n";
+f+="StyleValueRed=red\n";
+f+="StyleValueRgb=rgb\n";
+return f;
 }
 static String resourcesRendersAliasesEnTags(){
 String f="TagFor=for\n";
@@ -179,68 +251,81 @@ f+="Message0SetArgs0=a\n";
 return f;
 }
 static String resourcesRendersAliasesEnValues(){
-return resourcesRendersAliasesValues();
+String f="ValueRange=range\n";
+f+="ValueText=text\n";
+f+="ValueCheckbox=checkbox\n";
+f+="ValueNumber=number\n";
+f+="ValueRadio=radio\n";
+f+="ValueSubmit=submit\n";
+f+="ValueLiMajLat=I\n";
+f+="ValueLiRect=rect\n";
+f+="ValueStyle=stylesheet\n";
+f+="ValueLiMinLet=a\n";
+f+="ValueLiNb=1\n";
+f+="ValueLiMajLet=A\n";
+f+="ValueLiDisk=disc\n";
+f+="ValueLiMinLat=i\n";
+f+="ValueLiCircle=circle\n";
+f+="ValueLiSquare=square\n";
+return f;
 }
 static String resourcesRendersAliasesFrAttrs(){
-return resourcesRendersAliasesAttrs();
-}
-private static String resourcesRendersAliasesAttrs() {
 String f="AttrType=type\n";
 f+="AttrMultiple=multiple\n";
-f+="AttrClassName=className\n";
-f+="AttrConvertField=convertField\n";
-f+="AttrValueMessage=valueMessage\n";
-f+="AttrEscapedAmp=escapedamp\n";
-f+="AttrConvertValue=convertValue\n";
-f+="AttrConvertFieldValue=convertFieldValue\n";
-f+="AttrVarClassName=varClassName\n";
-f+="AttrKeepFields=keepfields\n";
-f+="AttrKeyClassName=keyClassName\n";
-f+="AttrIndexClassName=indexClassName\n";
-f+="AttrKey=key\n";
-f+="AttrValue=value\n";
-f+="AttrEq=eq\n";
+f+="AttrClassName=nomClasse\n";
+f+="AttrConvertField=convertChamp\n";
+f+="AttrValueMessage=valeurMessage\n";
+f+="AttrEscapedAmp=echapAmp\n";
+f+="AttrConvertValue=convertValeur\n";
+f+="AttrConvertFieldValue=convertChampValeur\n";
+f+="AttrVarClassName=varNomClasse\n";
+f+="AttrKeepFields=consChamps\n";
+f+="AttrKeyClassName=cleNomClasse\n";
+f+="AttrIndexClassName=indiceNomClasse\n";
+f+="AttrKey=cle\n";
+f+="AttrValue=valeur\n";
+f+="AttrEq=eg\n";
 f+="AttrInit=init\n";
 f+="AttrList=list\n";
 f+="AttrCondition=condition\n";
-f+="AttrTo=to\n";
-f+="AttrMap=map\n";
-f+="AttrBean=bean\n";
-f+="AttrFrom=from\n";
-f+="AttrChecked=checked\n";
-f+="AttrSelected=selected\n";
+f+="AttrTo=vers\n";
+f+="AttrMap=table\n";
+f+="AttrBean=haricot\n";
+f+="AttrFrom=depuis\n";
+f+="AttrChecked=coche\n";
+f+="AttrSelected=selection\n";
 f+="AttrVar=var\n";
-f+="AttrLabel=label\n";
+f+="AttrLabel=etiq\n";
 f+="AttrNf=n-f\n";
 f+="AttrNa=n-a\n";
 f+="AttrAlias=alias\n";
 f+="AttrNi=n-i\n";
-f+="AttrStep=step\n";
+f+="AttrStep=pas\n";
 f+="AttrHref=href\n";
 f+="AttrPrepare=prepare\n";
-f+="AttrFor=for\n";
-f+="AttrQuoted=quoted\n";
+f+="AttrFor=pour\n";
+f+="AttrQuoted=cite\n";
 f+="AttrId=id\n";
-f+="AttrClass=class\n";
+f+="AttrClass=classe\n";
 f+="AttrAction=action\n";
 f+="AttrParam=param\n";
 f+="AttrMessage=message\n";
 f+="AttrCols=cols\n";
 f+="AttrForm=form\n";
-f+="AttrVarValue=varValue\n";
-f+="AttrRows=rows\n";
+f+="AttrVarValue=varValeur\n";
+f+="AttrRows=lignes\n";
 f+="AttrCommand=command\n";
-f+="AttrDefault=default\n";
+f+="AttrDefault=autrement\n";
 f+="AttrSrc=src\n";
-f+="AttrEscaped=escaped\n";
+f+="AttrEscaped=echap\n";
 f+="AttrGroupId=groupId\n";
-f+="AttrTitle=title\n";
-f+="AttrValidator=validator\n";
+f+="AttrTitle=titre\n";
+f+="AttrValidator=validateur\n";
 f+="AttrPage=page\n";
-f+="AttrWidth=width\n";
-f+="AttrDelay=delay\n";
+f+="AttrWidth=largeur\n";
+f+="AttrDelay=delai\n";
 f+="AttrRel=rel\n";
-f+="AttrName=name\n";
+f+="AttrName=nom\n";
 f+="AttrConvert=convert\n";
 return f;
 }
@@ -256,14 +341,11 @@ f+="BadDocument=Il y a un probl&egrave;me dans le document &agrave; {0}.\n";
 return f;
 }
 static String resourcesRendersAliasesFrStyleattrs(){
-return resourcesRendersAliasesStyleattrs();
-}
-private static String resourcesRendersAliasesStyleattrs() {
-String f="StyleAttrBackground=background\n";
-f+="StyleAttrColor=color\n";
-f+="StyleAttrBorder=border\n";
-f+="StyleAttrFontFam=font-family\n";
-f+="StyleAttrFontSize=font-size\n";
+String f="StyleAttrBackground=dernierplan\n";
+f+="StyleAttrColor=couleur\n";
+f+="StyleAttrBorder=bordure\n";
+f+="StyleAttrFontFam=police-famille\n";
+f+="StyleAttrFontSize=police-taille\n";
 return f;
 }
 static String resourcesRendersAliasesFrStyleunits(){
@@ -276,19 +358,16 @@ f+="StyleUnitPx=px\n";
 return f;
 }
 static String resourcesRendersAliasesFrStylevalues(){
-return resourcesRendersAliasesStylevalues();
-}
-private static String resourcesRendersAliasesStylevalues() {
-String f="StyleValueBlue=blue\n";
-f+="StyleValueGrey=grey\n";
-f+="StyleValueGreen=green\n";
-f+="StyleValueBlack=black\n";
+String f="StyleValueBlue=bleu\n";
+f+="StyleValueGrey=gris\n";
+f+="StyleValueGreen=vert\n";
+f+="StyleValueBlack=noir\n";
 f+="StyleValueMagenta=magenta\n";
-f+="StyleValueYellow=yellow\n";
-f+="StyleValueWhite=white\n";
+f+="StyleValueYellow=jaune\n";
+f+="StyleValueWhite=blanc\n";
 f+="StyleValueCyan=cyan\n";
-f+="StyleValueRed=red\n";
-f+="StyleValueRgb=rgb\n";
+f+="StyleValueRed=rouge\n";
+f+="StyleValueRgb=rvb\n";
 return f;
 }
 static String resourcesRendersAliasesFrTags(){
@@ -425,25 +504,22 @@ f+="Message0SetArgs0=a\n";
 return f;
 }
 static String resourcesRendersAliasesFrValues(){
-return resourcesRendersAliasesValues();
-}
-private static String resourcesRendersAliasesValues() {
-String f="ValueRange=range\n";
-f+="ValueText=text\n";
-f+="ValueCheckbox=checkbox\n";
-f+="ValueNumber=number\n";
+String f="ValueRange=rang\n";
+f+="ValueText=texte\n";
+f+="ValueCheckbox=coche\n";
+f+="ValueNumber=nombre\n";
 f+="ValueRadio=radio\n";
-f+="ValueSubmit=submit\n";
+f+="ValueSubmit=soumission\n";
 f+="ValueLiMajLat=I\n";
 f+="ValueLiRect=rect\n";
-f+="ValueStyle=stylesheet\n";
+f+="ValueStyle=feuillestyle\n";
 f+="ValueLiMinLet=a\n";
 f+="ValueLiNb=1\n";
 f+="ValueLiMajLet=A\n";
-f+="ValueLiDisk=disc\n";
+f+="ValueLiDisk=disq\n";
 f+="ValueLiMinLat=i\n";
-f+="ValueLiCircle=circle\n";
-f+="ValueLiSquare=square\n";
+f+="ValueLiCircle=cercle\n";
+f+="ValueLiSquare=carre\n";
 return f;
 }
 }
