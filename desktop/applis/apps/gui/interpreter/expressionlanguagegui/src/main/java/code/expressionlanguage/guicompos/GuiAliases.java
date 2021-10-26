@@ -1844,70 +1844,70 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTableGui, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(aliasMouseListener);
-        method_ = new StandardMethod(aliasTableAddHeader, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableAddHeader0()));
+        method_ = new StandardMethod(aliasTableAddHeader, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableAddHeader0()), new FctTableAddHeader());
         methods_.add( method_);
         params_ = new StringList(aliasTableListener);
-        method_ = new StandardMethod(aliasTableAddSelect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableAddSelect0()));
+        method_ = new StandardMethod(aliasTableAddSelect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableAddSelect0()), new FctTableAddSelect());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableIsMultiple, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableIsMultiple, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctTableIsMultiple());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasTableSetMultiple, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetMultiple0()));
+        method_ = new StandardMethod(aliasTableSetMultiple, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetMultiple0()), new FctTableSetMultiple());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableIsReorder, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableIsReorder, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctTableIsReorder());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasTableSetReorder, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetReorder0()));
+        method_ = new StandardMethod(aliasTableSetReorder, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetReorder0()), new FctTableSetReorder());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableGetColumnName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableGetColumnName0()));
+        method_ = new StandardMethod(aliasTableGetColumnName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableGetColumnName0()), new FctTableGetColumnName());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableGetColumnCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableGetColumnCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctTableGetColumnCount());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableGetColumnAtPoint, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableGetColumnAtPoint0(),guiAliasParameters.getAliasTableGui0TableGetColumnAtPoint1()));
+        method_ = new StandardMethod(aliasTableGetColumnAtPoint, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableGetColumnAtPoint0(),guiAliasParameters.getAliasTableGui0TableGetColumnAtPoint1()), new FctTableGetColumnAtPoint());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableGetRowAtPoint, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableGetRowAtPoint0(),guiAliasParameters.getAliasTableGui0TableGetRowAtPoint1()));
+        method_ = new StandardMethod(aliasTableGetRowAtPoint, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableGetRowAtPoint0(),guiAliasParameters.getAliasTableGui0TableGetRowAtPoint1()), new FctTableGetRowAtPoint());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableGetRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableGetRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctTableGetRowCount());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableSetRowCount, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetRowCount0()));
+        method_ = new StandardMethod(aliasTableSetRowCount, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetRowCount0()), new FctTableSetRowCount());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTableSetColumns, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetColumns0()));
+        method_ = new StandardMethod(aliasTableSetColumns, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableSetColumns0()), new FctTableSetColumns());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableGetSelectedRow, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableGetSelectedRow, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctTableGetSelectedRow());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableGetSelectedRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableGetSelectedRowCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctTableGetSelectedRowCount());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableGetSelectedRows, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger()), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableGetSelectedRows, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger()), false, MethodModifier.FINAL, new FctTableGetSelectedRows());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableMoveColumn, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableMoveColumn0(),guiAliasParameters.getAliasTableGui0TableMoveColumn1()));
+        method_ = new StandardMethod(aliasTableMoveColumn, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableMoveColumn0(),guiAliasParameters.getAliasTableGui0TableMoveColumn1()), new FctTableMoveColumn());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableAddInterval, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableAddInterval0(),guiAliasParameters.getAliasTableGui0TableAddInterval1()));
+        method_ = new StandardMethod(aliasTableAddInterval, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableAddInterval0(),guiAliasParameters.getAliasTableGui0TableAddInterval1()), new FctTableAddInterval());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableRemoveInterval, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableRemoveInterval0(),guiAliasParameters.getAliasTableGui0TableRemoveInterval1()));
+        method_ = new StandardMethod(aliasTableRemoveInterval, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TableRemoveInterval0(),guiAliasParameters.getAliasTableGui0TableRemoveInterval1()), new FctTableRemoveInterval());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableApplyChanges, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableApplyChanges, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTableApplyChanges());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableSetValue, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject0(),guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject1(),guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject2()));
+        method_ = new StandardMethod(aliasTableSetValue, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject0(),guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject1(),guiAliasParameters.getAliasTableGui0TreeNodeSetUserObject2()), new FctTableSetValue());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTableGetValue, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TreeNodeGetUserObject0(),guiAliasParameters.getAliasTableGui0TreeNodeGetUserObject1()));
+        method_ = new StandardMethod(aliasTableGetValue, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TreeNodeGetUserObject0(),guiAliasParameters.getAliasTableGui0TreeNodeGetUserObject1()), new FctTableGetValue());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
         ctor_ = new StandardConstructor(params_,true,new StringList(guiAliasParameters.getAliasTableGui0TableGui0()));
@@ -4544,106 +4544,6 @@ public final class GuiAliases {
             }
             inst_.reload();
             res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasTableGui)) {
-            TableStruct inst_ = (TableStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasTableAddSelect)) {
-                inst_.addListSelectionListener(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableAddHeader)) {
-                inst_.addHeaderListener(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableMoveColumn)) {
-                inst_.moveColumn(_args[0],_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableAddInterval)) {
-                inst_.addSelectInterval(_args[0],_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableRemoveInterval)) {
-                inst_.removeSelectInterval(_args[0],_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableApplyChanges)) {
-                inst_.applyChanges();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableGetColumnAtPoint)) {
-                res_.setResult(inst_.columnAtPoint(_args[0],_args[1]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableGetRowAtPoint)) {
-                res_.setResult(inst_.rowAtPoint(_args[0],_args[1]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableGetColumnCount)) {
-                res_.setResult(inst_.getColumnCount());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableGetRowCount)) {
-                res_.setResult(inst_.getRowCount());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableGetColumnName)) {
-                res_.setResult(inst_.getColumnName(_args[0]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableGetSelectedRow)) {
-                res_.setResult(inst_.getSelectedRow());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableGetSelectedRows)) {
-                res_.setResult(inst_.getSelectedRows(_cont));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableGetSelectedRowCount)) {
-                res_.setResult(inst_.getSelectedRowCount());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableGetValue)) {
-                res_.setResult(inst_.getValueAt(_args[0],_args[1]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableSetValue)) {
-                inst_.setValueAt(_args[0],_args[1],_args[2]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableSetColumns)) {
-                inst_.setColumnIdentifiers(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableSetMultiple)) {
-                inst_.setMultiSelect(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableSetReorder)) {
-                inst_.setReorderingAllowed(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableSetRowCount)) {
-                inst_.setRowCount(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTableIsMultiple)) {
-                res_.setResult(inst_.isMultiSelect());
-                return res_;
-            }
-            res_.setResult(inst_.isReorderingAllowed());
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
