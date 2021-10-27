@@ -2207,22 +2207,22 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasFont, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFontGetName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasFontGetName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctFontGetName());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFontGetSize, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasFontGetSize, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctFontGetSize());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFontIsBold, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasFontIsBold, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctFontIsBold());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFontIsItalic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasFontIsItalic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctFontIsItalic());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasFont0FontStringWidth0()));
+        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasFont0FontStringWidth0()), new FctFontStringWidth1(_guiEx));
         methods_.add( method_);
         params_ = new StringList(aliasImage,_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasFont1FontStringWidth0(),guiAliasParameters.getAliasFont1FontStringWidth1()));
+        method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasFont1FontStringWidth0(),guiAliasParameters.getAliasFont1FontStringWidth1()), new FctFontStringWidth0(_guiEx));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -2240,19 +2240,19 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasColor, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasColorAlpha, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasColorAlpha, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctColorAlpha());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasColorBlue, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasColorBlue, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctColorBlue());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasColorRed, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasColorRed, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctColorRed());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasColorGreen, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasColorGreen, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctColorGreen());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasColorIsTransparent, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasColorIsTransparent, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctColorTransparent());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor0Color0()));
@@ -4334,63 +4334,6 @@ public final class GuiAliases {
             PlainButtonStruct pl_ = (PlainButtonStruct) _instance;
             pl_.addActionListener(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasFont)) {
-            if (_method.getConstraints().isStaticMethod()) {
-                Struct first_ = _args[0];
-                if (!(first_ instanceof ImageStruct)) {
-                    res_.setResult(new IntStruct(-1));
-                    return res_;
-                }
-                Struct font_ = ((ImageStruct) first_).getFont();
-                if (!(font_ instanceof FontStruct)) {
-                    res_.setResult(new IntStruct(-1));
-                    return res_;
-                }
-                FontStruct f_ = (FontStruct) font_;
-                res_.setResult(_guiEx.stringWidth(f_, _args[1]));
-                return res_;
-            }
-            FontStruct f_ = (FontStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasFontGetName)) {
-                res_.setResult(f_.getName());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasFontGetSize)) {
-                res_.setResult(f_.getSize());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasFontIsBold)) {
-                res_.setResult(f_.isBold());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasFontIsItalic)) {
-                res_.setResult(f_.isItalic());
-                return res_;
-            }
-            res_.setResult(_guiEx.stringWidth(f_, _args[0]));
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasColor)) {
-            ColorStruct c_ = (ColorStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasColorAlpha)) {
-                res_.setResult(c_.getAlpha());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasColorRed)) {
-                res_.setResult(c_.getRed());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasColorGreen)) {
-                res_.setResult(c_.getGreen());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasColorBlue)) {
-                res_.setResult(c_.getBlue());
-                return res_;
-            }
-            res_.setResult(c_.isTransparent());
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
