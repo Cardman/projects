@@ -1815,22 +1815,22 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTree, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(aliasTreeListener);
-        method_ = new StandardMethod(aliasTreeAddTreeListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeAddTreeListener0()));
+        method_ = new StandardMethod(aliasTreeAddTreeListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeAddTreeListener0()), new FctTreeAddTreeListener());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasTreeSetRootVisible, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeSetRootVisible0()));
+        method_ = new StandardMethod(aliasTreeSetRootVisible, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeSetRootVisible0()), new FctTreeSetRootVisible());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeIsRootVisible, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeIsRootVisible, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctTreeIsRootVisible());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeGetSelected, params_, aliasTreeNode, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeGetSelected, params_, aliasTreeNode, false, MethodModifier.FINAL, new FctTreeGetSelected0());
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
-        method_ = new StandardMethod(aliasTreeGetSelected, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeGetSelected0()));
+        method_ = new StandardMethod(aliasTreeGetSelected, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTree0TreeGetSelected0()), new FctTreeGetSelected1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTreeReload, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTreeReload, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTreeReload());
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTree0Tree0()));
@@ -4514,35 +4514,6 @@ public final class GuiAliases {
                 return res_;
             }
             image_.fillPolygon(_args[0],_args[1]);
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasTree)) {
-            TreeStruct inst_ = (TreeStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasTreeAddTreeListener)) {
-                inst_.addTreeSelectionListener(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeGetSelected)) {
-                if (_method.getConstraints().getParametersTypesLength() == 1) {
-                    inst_.select(_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(inst_.getLastSelectedPathComponent());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeIsRootVisible)) {
-                res_.setResult(inst_.isRootVisible());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTreeSetRootVisible)) {
-                inst_.setRootVisible(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            inst_.reload();
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
