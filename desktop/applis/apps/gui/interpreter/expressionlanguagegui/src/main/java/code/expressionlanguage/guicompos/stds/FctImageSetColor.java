@@ -8,9 +8,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.guicompos.ImageStruct;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 
 public final class FctImageSetColor implements StdCaller {
     @Override

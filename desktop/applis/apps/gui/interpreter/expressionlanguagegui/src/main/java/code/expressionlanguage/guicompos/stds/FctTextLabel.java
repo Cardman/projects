@@ -5,22 +5,27 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.guicompos.ImageStruct;
+import code.expressionlanguage.guicompos.TextLabelStruct;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
+import code.expressionlanguage.utilcompo.CustAliases;
 
-public final class FctImageDrawPolygon implements StdCaller {
+public final class FctTextLabel implements StdCaller {
+    private final CustAliases custAliases;
+
+    public FctTextLabel(CustAliases custAliases) {
+        this.custAliases = custAliases;
+    }
+
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
+        if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
+            custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        ImageStruct image_ = (ImageStruct) _instance;
-        CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        image_.drawPolygon(argumentWrappers_.get(0).getValue().getStruct(),argumentWrappers_.get(1).getValue().getStruct());
+        TextLabelStruct txt_ = (TextLabelStruct) _instance;
+        txt_.setText(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }
