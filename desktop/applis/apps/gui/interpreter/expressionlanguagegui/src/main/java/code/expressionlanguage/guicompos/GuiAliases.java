@@ -2130,7 +2130,7 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasButton, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
         params_ = new StringList(aliasActionListener);
-        method_ = new StandardMethod(aliasAddListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButton0AddListener0()));
+        method_ = new StandardMethod(aliasAddListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButton0AddListener0()), new FctButtonAddAction(_cust));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -2145,28 +2145,28 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasProgBar, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasProgBarMin, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0ProgBarMin0()));
+        method_ = new StandardMethod(aliasProgBarMin, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0ProgBarMin0()), new FctProgBarMin1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasProgBarMin, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasProgBarMin, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctProgBarMin0());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasProgBarValue, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0TreeNodeGetUserObject0()));
+        method_ = new StandardMethod(aliasProgBarValue, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0TreeNodeGetUserObject0()), new FctProgBarValue1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasProgBarValue, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasProgBarValue, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctProgBarValue0());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasProgBarMax, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0ProgBarMax0()));
+        method_ = new StandardMethod(aliasProgBarMax, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0ProgBarMax0()), new FctProgBarMax1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasProgBarMax, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasProgBarMax, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctProgBarMax0());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasProgBarOr, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0ProgBarOr0()));
+        method_ = new StandardMethod(aliasProgBarOr, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0ProgBarOr0()), new FctProgBarHoriz1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasProgBarOr, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasProgBarOr, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctProgBarHoriz0());
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasProgBar, std_);
@@ -4285,54 +4285,6 @@ public final class GuiAliases {
             PreparedLabelStruct txt_ = (PreparedLabelStruct) _instance;
             WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
             txt_.setImage(window_.getImageFactory(),_args[0]);
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasProgBar)) {
-            ProgressBarStruct inst_ = (ProgressBarStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasProgBarMin)) {
-                if (_method.getConstraints().getParametersTypesLength() == 1) {
-                    inst_.setMinimum(_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(inst_.getMinimum());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasProgBarMax)) {
-                if (_method.getConstraints().getParametersTypesLength() == 1) {
-                    inst_.setMaximum(_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(inst_.getMaximum());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasProgBarValue)) {
-                if (_method.getConstraints().getParametersTypesLength() == 1) {
-                    inst_.setValue(_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(inst_.getValue());
-                return res_;
-            }
-            if (_method.getConstraints().getParametersTypesLength() == 1) {
-                inst_.setHorizontal(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            res_.setResult(inst_.isHorizontal());
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasButton)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            PlainButtonStruct pl_ = (PlainButtonStruct) _instance;
-            pl_.addActionListener(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
