@@ -2067,43 +2067,43 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasSplitPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSplitPaneGetLeft, params_,aliasComponent, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneGetLeft, params_,aliasComponent, false, MethodModifier.FINAL, new FctSplitPaneGetLeft());
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasSplitPaneSetLeft, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetLeft0()));
+        method_ = new StandardMethod(aliasSplitPaneSetLeft, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetLeft0()), new FctSplitPaneSetLeft());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSplitPaneGetRight, params_,aliasComponent, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneGetRight, params_,aliasComponent, false, MethodModifier.FINAL, new FctSplitPaneGetRight());
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasSplitPaneSetRight, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetRight0()));
+        method_ = new StandardMethod(aliasSplitPaneSetRight, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetRight0()), new FctSplitPaneSetRight());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSplitPaneGetDividerLocation, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneGetDividerLocation, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSplitPaneGetDividerLocation());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSplitPaneSetDividerLocation, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetDividerLocation0()));
+        method_ = new StandardMethod(aliasSplitPaneSetDividerLocation, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetDividerLocation0()), new FctSplitPaneSetDividerLocation());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSplitPaneGetDividerSize, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneGetDividerSize, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctSplitPaneGetDividerSize());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSplitPaneSetDividerSize, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetDividerSize0()));
+        method_ = new StandardMethod(aliasSplitPaneSetDividerSize, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetDividerSize0()), new FctSplitPaneSetDividerSize());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSplitPaneIsOneTouchExpandable, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneIsOneTouchExpandable, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctSplitPaneIsOneTouchExpandable());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasSplitPaneSetOneTouchExpandable, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetOneTouchExpandable0()));
+        method_ = new StandardMethod(aliasSplitPaneSetOneTouchExpandable, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetOneTouchExpandable0()), new FctSplitPaneSetOneTouchExpandable());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSplitPaneIsContinuousLayout, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneIsContinuousLayout, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctSplitPaneIsContinuousLayout());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasSplitPaneSetContinuousLayout, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetContinuousLayout0()));
+        method_ = new StandardMethod(aliasSplitPaneSetContinuousLayout, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSplitPane0SplitPaneSetContinuousLayout0()), new FctSplitPaneSetContinuousLayout());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSplitPaneValidate, params_,_content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasSplitPaneValidate, params_,_content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctSplitPaneValidate());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasComponent,aliasComponent);
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSplitPane0SplitPane0(),guiAliasParameters.getAliasSplitPane0SplitPane1(),guiAliasParameters.getAliasSplitPane0SplitPane2()));
@@ -4202,66 +4202,6 @@ public final class GuiAliases {
                 return res_;
             }
             strPan_.setViewportView(_args[0]);
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_,aliasSplitPane)) {
-            SplitPaneStruct strPan_ = (SplitPaneStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasScrollPaneValidate)) {
-                strPan_.revalidate();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSplitPaneIsOneTouchExpandable)) {
-                res_.setResult(strPan_.isOneTouchExpandable());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSplitPaneSetOneTouchExpandable)) {
-                strPan_.setOneTouchExpandable(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSplitPaneIsContinuousLayout)) {
-                res_.setResult(strPan_.isContinuousLayout());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSplitPaneSetContinuousLayout)) {
-                strPan_.setContinuousLayout(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSplitPaneGetLeft)) {
-                res_.setResult(strPan_.getLeftComponent());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSplitPaneSetLeft)) {
-                strPan_.setLeftComponent(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSplitPaneGetRight)) {
-                res_.setResult(strPan_.getRightComponent());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSplitPaneSetRight)) {
-                strPan_.setRightComponent(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSplitPaneGetDividerSize)) {
-                res_.setResult(strPan_.getDividerSize());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSplitPaneSetDividerSize)) {
-                strPan_.setDividerSize(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSplitPaneGetDividerLocation)) {
-                res_.setResult(strPan_.getDividerLocation());
-                return res_;
-            }
-            strPan_.setDividerLocation(_args[0]);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
