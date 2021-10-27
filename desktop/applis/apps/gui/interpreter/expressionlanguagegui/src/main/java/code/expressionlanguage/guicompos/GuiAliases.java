@@ -2273,67 +2273,67 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasImage, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasImageIsWithAlpha, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageIsWithAlpha, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctImageIsWithAlpha());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasImageGetHeight, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageGetHeight, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctImageGetHeight());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasImageGetWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageGetWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctImageGetWidth());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageGet, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0TreeNodeGetUserObject0(),guiAliasParameters.getAliasImage0TreeNodeGetUserObject1()));
+        method_ = new StandardMethod(aliasImageGet, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0TreeNodeGetUserObject0(),guiAliasParameters.getAliasImage0TreeNodeGetUserObject1()), new FctImageGet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(), _content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0TreeNodeSetUserObject0(),guiAliasParameters.getAliasImage0TreeNodeSetUserObject1(),guiAliasParameters.getAliasImage0TreeNodeSetUserObject2()));
+        method_ = new StandardMethod(aliasImageSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0TreeNodeSetUserObject0(),guiAliasParameters.getAliasImage0TreeNodeSetUserObject1(),guiAliasParameters.getAliasImage0TreeNodeSetUserObject2()), new FctImageSet());
         methods_.add( method_);
         params_ = new StringList(aliasImage,aliasImage);
-        method_ = new StandardMethod(aliasImageEq, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC, new StringList(guiAliasParameters.getAliasImage0ImageEq0(),guiAliasParameters.getAliasImage0ImageEq1()));
+        method_ = new StandardMethod(aliasImageEq, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC, new StringList(guiAliasParameters.getAliasImage0ImageEq0(),guiAliasParameters.getAliasImage0ImageEq1()), new FctImageEq());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasImageGetColor, params_, aliasColor, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageGetColor, params_, aliasColor, false, MethodModifier.FINAL, new FctImageGetColor());
         methods_.add( method_);
         params_ = new StringList(aliasColor);
-        method_ = new StandardMethod(aliasImageSetColor, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageSetColor0()));
+        method_ = new StandardMethod(aliasImageSetColor, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageSetColor0()), new FctImageSetColor());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasImageGetFont, params_, aliasFont, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageGetFont, params_, aliasFont, false, MethodModifier.FINAL, new FctImageGetFont());
         methods_.add( method_);
         params_ = new StringList(aliasFont);
-        method_ = new StandardMethod(aliasImageSetFont, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0SetFont0()));
+        method_ = new StandardMethod(aliasImageSetFont, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0SetFont0()), new FctImageSetFont());
         methods_.add( method_);
 
         params_ = new StringList(aliasImage,_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageDraw, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDraw0(),guiAliasParameters.getAliasImage0ImageDraw1(),guiAliasParameters.getAliasImage0ImageDraw2()));
+        method_ = new StandardMethod(aliasImageDraw, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDraw0(),guiAliasParameters.getAliasImage0ImageDraw1(),guiAliasParameters.getAliasImage0ImageDraw2()), new FctImageDraw0());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageDraw, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage1ImageDraw0(),guiAliasParameters.getAliasImage1ImageDraw1(),guiAliasParameters.getAliasImage1ImageDraw2()));
+        method_ = new StandardMethod(aliasImageDraw, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage1ImageDraw0(),guiAliasParameters.getAliasImage1ImageDraw1(),guiAliasParameters.getAliasImage1ImageDraw2()), new FctImageDraw1());
         methods_.add( method_);
 
         String arrInt_ = StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimInteger());
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageDrawLine, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawLine0(),guiAliasParameters.getAliasImage0ImageDrawLine1(),guiAliasParameters.getAliasImage0ImageDrawLine2(),guiAliasParameters.getAliasImage0ImageDrawLine3()));
+        method_ = new StandardMethod(aliasImageDrawLine, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawLine0(),guiAliasParameters.getAliasImage0ImageDrawLine1(),guiAliasParameters.getAliasImage0ImageDrawLine2(),guiAliasParameters.getAliasImage0ImageDrawLine3()), new FctImageDrawLine());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageDrawRect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawRect0(),guiAliasParameters.getAliasImage0ImageDrawRect1(),guiAliasParameters.getAliasImage0ImageDrawRect2(),guiAliasParameters.getAliasImage0ImageDrawRect3()));
+        method_ = new StandardMethod(aliasImageDrawRect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawRect0(),guiAliasParameters.getAliasImage0ImageDrawRect1(),guiAliasParameters.getAliasImage0ImageDrawRect2(),guiAliasParameters.getAliasImage0ImageDrawRect3()), new FctImageDrawRect());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageDrawOval, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawOval0(),guiAliasParameters.getAliasImage0ImageDrawOval1(),guiAliasParameters.getAliasImage0ImageDrawOval2(),guiAliasParameters.getAliasImage0ImageDrawOval3()));
+        method_ = new StandardMethod(aliasImageDrawOval, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawOval0(),guiAliasParameters.getAliasImage0ImageDrawOval1(),guiAliasParameters.getAliasImage0ImageDrawOval2(),guiAliasParameters.getAliasImage0ImageDrawOval3()), new FctImageDrawOval());
         methods_.add( method_);
         params_ = new StringList(arrInt_,arrInt_);
-        method_ = new StandardMethod(aliasImageDrawPolygon, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawPolygon0(),guiAliasParameters.getAliasImage0ImageDrawPolygon1()));
+        method_ = new StandardMethod(aliasImageDrawPolygon, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageDrawPolygon0(),guiAliasParameters.getAliasImage0ImageDrawPolygon1()), new FctImageDrawPolygon());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageFillRect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageFillRect0(),guiAliasParameters.getAliasImage0ImageFillRect1(),guiAliasParameters.getAliasImage0ImageFillRect2(),guiAliasParameters.getAliasImage0ImageFillRect3()));
+        method_ = new StandardMethod(aliasImageFillRect, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageFillRect0(),guiAliasParameters.getAliasImage0ImageFillRect1(),guiAliasParameters.getAliasImage0ImageFillRect2(),guiAliasParameters.getAliasImage0ImageFillRect3()), new FctImageFillRect());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasImageFillOval, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageFillOval0(),guiAliasParameters.getAliasImage0ImageFillOval1(),guiAliasParameters.getAliasImage0ImageFillOval2(),guiAliasParameters.getAliasImage0ImageFillOval3()));
+        method_ = new StandardMethod(aliasImageFillOval, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageFillOval0(),guiAliasParameters.getAliasImage0ImageFillOval1(),guiAliasParameters.getAliasImage0ImageFillOval2(),guiAliasParameters.getAliasImage0ImageFillOval3()), new FctImageFillOval());
         methods_.add( method_);
         params_ = new StringList(arrInt_,arrInt_);
-        method_ = new StandardMethod(aliasImageFillPolygon, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageFillPolygon0(),guiAliasParameters.getAliasImage0ImageFillPolygon1()));
+        method_ = new StandardMethod(aliasImageFillPolygon, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImage0ImageFillPolygon0(),guiAliasParameters.getAliasImage0ImageFillPolygon1()), new FctImageFillPolygon());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasImageDispose, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasImageDispose, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctImageDispose());
         methods_.add( method_);
 
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimBoolean());
@@ -4391,130 +4391,6 @@ public final class GuiAliases {
                 return res_;
             }
             res_.setResult(c_.isTransparent());
-            return res_;
-        }
-        if (StringUtil.quickEq(type_,aliasImage)) {
-            if (StringUtil.quickEq(name_, aliasImageEq)) {
-                if (!(_args[0] instanceof ImageStruct)) {
-                    res_.setResult(BooleanStruct.of(_args[1] == NullStruct.NULL_VALUE));
-                    return res_;
-                }
-                if (!(_args[1] instanceof ImageStruct)) {
-                    res_.setResult(BooleanStruct.of(false));
-                    return res_;
-                }
-                ImageStruct first_ = (ImageStruct) _args[0];
-                ImageStruct second_ = (ImageStruct) _args[1];
-                res_.setResult(BooleanStruct.of(ImageStruct.eq(first_.getImage(),second_.getImage())));
-                return res_;
-            }
-            ImageStruct image_ = (ImageStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasImageGetHeight)) {
-                res_.setResult(image_.getHeight());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageGetWidth)) {
-                res_.setResult(image_.getWidth());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageSet)) {
-                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _stackCall.getInitializingTypeInfos().failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                image_.setPixel(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageGet)) {
-                res_.setResult(image_.getPixel(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageIsWithAlpha)) {
-                res_.setResult(image_.isWithAlpha());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageGetColor)) {
-                res_.setResult(image_.getColor());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageSetColor)) {
-                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _stackCall.getInitializingTypeInfos().failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                image_.setColor(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageGetFont)) {
-                res_.setResult(image_.getFont());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageSetFont)) {
-                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _stackCall.getInitializingTypeInfos().failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                image_.setFont(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                _stackCall.getInitializingTypeInfos().failInitEnums();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageDispose)) {
-                image_.dispose();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageDraw)) {
-                if (StringUtil.quickEq(getAliasImage(),_method.getConstraints().getParametersType(0))) {
-                    image_.drawImage(_args[0],((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct());
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                image_.drawString(_args[0],((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageDrawLine)) {
-                image_.drawLine(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageDrawRect)) {
-                image_.drawRect(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageDrawOval)) {
-                image_.drawOval(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageDrawPolygon)) {
-                image_.drawPolygon(_args[0],_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageFillRect)) {
-                image_.fillRect(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasImageFillOval)) {
-                image_.fillOval(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            image_.fillPolygon(_args[0],_args[1]);
-            res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);

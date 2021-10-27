@@ -61,7 +61,7 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
         return new IntStruct(image.getRGB(_x,_y));
     }
 
-    AbstractImage getImage() {
+    public AbstractImage getImage() {
         return image;
     }
 
