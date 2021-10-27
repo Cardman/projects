@@ -1990,40 +1990,40 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTabbedPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(_content.getCharSeq().getAliasString(),aliasComponent);
-        method_ = new StandardMethod(aliasTabbedPaneAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd0(),guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd1()));
+        method_ = new StandardMethod(aliasTabbedPaneAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd0(),guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd1()), new FctTabbedPaneAdd());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTabbedPaneSelIndex, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTabbedPaneSelIndex, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctTabbedPaneSelIndex0());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTabbedPaneSelIndex, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneSelIndex0()));
+        method_ = new StandardMethod(aliasTabbedPaneSelIndex, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneSelIndex0()), new FctTabbedPaneSelIndex1());
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasTabbedPaneIndex, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneIndex0()));
+        method_ = new StandardMethod(aliasTabbedPaneIndex, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneIndex0()), new FctTabbedPaneIndex());
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasTabbedPaneRemove, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TreeNodeRemove0()));
+        method_ = new StandardMethod(aliasTabbedPaneRemove, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TreeNodeRemove0()), new FctTabbedPaneRemove1());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTabbedPaneRemove, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane1TreeNodeRemove0()));
+        method_ = new StandardMethod(aliasTabbedPaneRemove, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane1TreeNodeRemove0()), new FctTabbedPaneRemove0());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasComponent);
-        method_ = new StandardMethod(aliasTabbedPaneSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TreeNodeSetUserObject0(),guiAliasParameters.getAliasTabbedPane0TreeNodeSetUserObject1()));
+        method_ = new StandardMethod(aliasTabbedPaneSet, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TreeNodeSetUserObject0(),guiAliasParameters.getAliasTabbedPane0TreeNodeSetUserObject1()), new FctTabbedPaneSet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTabbedPaneSetTitle, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneSetTitle0(),guiAliasParameters.getAliasTabbedPane0TabbedPaneSetTitle1()));
+        method_ = new StandardMethod(aliasTabbedPaneSetTitle, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneSetTitle0(),guiAliasParameters.getAliasTabbedPane0TabbedPaneSetTitle1()), new FctTabbedPaneSetTitle());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTabbedPaneGet, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TreeNodeGetUserObject0()));
+        method_ = new StandardMethod(aliasTabbedPaneGet, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TreeNodeGetUserObject0()), new FctTabbedPaneGet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasTabbedPaneGetTitle, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneGetTitle0()));
+        method_ = new StandardMethod(aliasTabbedPaneGetTitle, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneGetTitle0()), new FctTabbedPaneGetTitle());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTabbedPaneNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTabbedPaneNb, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctTabbedPaneNb());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasRemoveAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRemoveAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTabbedPaneRemoveAll());
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTabbedPane, std_);
@@ -4100,76 +4100,6 @@ public final class GuiAliases {
             PanelBorderStruct strPan_ = (PanelBorderStruct) _instance;
             strPan_.add((CustComponentStruct)_args[0],_args[1]);
             res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasTabbedPane)) {
-            TabbedPaneStruct strPan_ = (TabbedPaneStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasTabbedPaneNb)) {
-                res_.setResult(strPan_.getComponentCount());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasRemoveAll)) {
-                strPan_.removeAll();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTabbedPaneAdd)) {
-                if (!(_args[1] instanceof CustComponentStruct)) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                strPan_.add(_args[0],(CustComponentStruct)_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTabbedPaneSet)) {
-                if (!(_args[1] instanceof CustComponentStruct)) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                strPan_.setTab(_args[0],(CustComponentStruct)_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTabbedPaneSetTitle)) {
-                strPan_.setTitle(_args[0],_args[1]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTabbedPaneGet)) {
-                res_.setResult(strPan_.getComponent(_args[0]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTabbedPaneGetTitle)) {
-                res_.setResult(strPan_.getTitle(_args[0]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTabbedPaneSelIndex)) {
-                if (_method.getConstraints().getParametersTypesLength() == 1) {
-                    strPan_.setSelectedIndex(_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(strPan_.getSelectedIndex());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasTabbedPaneIndex)) {
-                if (!(_args[0] instanceof CustComponentStruct)) {
-                    res_.setResult(new IntStruct(-1));
-                    return res_;
-                }
-                res_.setResult(strPan_.index((CustComponentStruct)_args[0]));
-                return res_;
-            }
-            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersType(0))) {
-                res_.setResult(strPan_.remove(_args[0]));
-                return res_;
-            }
-            if (!(_args[0] instanceof CustComponentStruct)) {
-                res_.setResult(new IntStruct(-1));
-                return res_;
-            }
-            res_.setResult(strPan_.remove((CustComponentStruct) _args[0]));
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
